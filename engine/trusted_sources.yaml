@@ -1,0 +1,197 @@
+# Trusted Data Sources for Chemical Recommendations
+# 
+# RULE: Every recommended chemical MUST have data from at least 2 sources
+# 
+# Tier 1 = Scientific databases (highest trust)
+# Tier 2 = Verified commercial suppliers
+# Tier 3 = User-generated but cross-validated
+# Tier 4 = Community sources (require corroboration)
+
+data_sources:
+  tier_1_scientific:
+    - name: "The Good Scents Company (TGSC)"
+      url: "http://www.thegoodscentscompany.com"
+      file_path: "tgsc_ingredients_all.csv"
+      provides:
+        - cas_number
+        - molecular_formula
+        - odor_description
+        - regulatory_status
+      reliability: 95
+      notes: "Gold standard for fragrance industry"
+    
+    - name: "PubChem"
+      url: "https://pubchem.ncbi.nlm.nih.gov"
+      api_available: true
+      provides:
+        - cas_number
+        - molecular_structure
+        - molecular_weight
+        - physical_properties
+      reliability: 98
+      notes: "NIH database, highest scientific accuracy"
+    
+    - name: "ChemSpider"
+      url: "http://www.chemspider.com"
+      api_available: true
+      provides:
+        - cas_number
+        - molecular_formula
+        - synonyms
+      reliability: 95
+      notes: "Royal Society of Chemistry"
+  
+  tier_2_suppliers:
+    - name: "PerfumersWorld Catalog"
+      file_path: "perfumersworld_ABC_families/"
+      provides:
+        - price_per_ml
+        - concentration
+        - solvent
+        - availability
+      reliability: 90
+      notes: "Direct supplier data, pricing accurate"
+    
+    - name: "Sigma-Aldrich"
+      url: "https://www.sigmaaldrich.com"
+      provides:
+        - cas_number
+        - purity
+        - price
+        - msds
+      reliability: 95
+      notes: "Chemical supply standard"
+  
+  tier_3_validated:
+    - name: "User Chemical Inventory"
+      file_path: "knowledge/chemical_inventory.md"
+      provides:
+        - owned_materials
+        - usage_experience
+        - quantity
+      reliability: 80
+      notes: "User's confirmed inventory, but verify properties"
+    
+    - name: "Historical Formulations"
+      file_path: "formulations/"
+      provides:
+        - usage_rates
+        - blending_notes
+        - practical_results
+      reliability: 85
+      notes: "User's tested formulas, real-world data"
+    
+    - name: "Science Documents"
+      file_path: "knowledge/science/"
+      provides:
+        - odor_thresholds
+        - vapor_pressure
+        - blending_theory
+      reliability: 90
+      notes: "Curated scientific references"
+  
+  tier_4_community:
+    - name: "Fragrantica"
+      url: "https://www.fragrantica.com"
+      provides:
+        - odor_descriptions
+        - usage_examples
+      reliability: 60
+      notes: "Community-sourced, cross-verify required"
+    
+    - name: "Basenotes"
+      url: "https://basenotes.com"
+      provides:
+        - fragrance_notes
+        - discussions
+      reliability: 60
+      notes: "Perfumer community, anecdotal"
+
+# Verification Requirements by Recommendation Type
+recommendation_requirements:
+  essential_purchase:
+    minimum_sources: 3
+    required_tier_1: true
+    must_have_fields:
+      - odor_description
+      - usage_rate_min
+      - usage_rate_max
+      - price_per_ml
+      - cas_number
+    confidence_threshold: 80
+  
+  optional_purchase:
+    minimum_sources: 2
+    required_tier_1: true
+    must_have_fields:
+      - odor_description
+      - usage_rate_min
+      - price_per_ml
+    confidence_threshold: 70
+  
+  formulation_use:
+    minimum_sources: 2
+    required_tier_1: false  # Can use tier_3 if in user inventory
+    must_have_fields:
+      - odor_description
+      - usage_rate_min
+    confidence_threshold: 60
+  
+  informational_only:
+    minimum_sources: 1
+    required_tier_1: false
+    must_have_fields:
+      - odor_description
+    confidence_threshold: 40
+
+# Data Quality Flags
+quality_flags:
+  cas_mismatch:
+    severity: "CRITICAL"
+    action: "BLOCK_RECOMMENDATION"
+    message: "CAS number does not match chemical name. Verify identity before use."
+  
+  single_source:
+    severity: "HIGH"
+    action: "REQUIRE_VERIFICATION"
+    message: "Data from only one source. Cross-verify before recommending."
+  
+  no_usage_rate:
+    severity: "HIGH"
+    action: "WARN"
+    message: "No usage rate data. Cannot provide safe dosage recommendations."
+  
+  no_price:
+    severity: "MEDIUM"
+    action: "WARN"
+    message: "No pricing data. Cannot assess cost-benefit."
+  
+  community_only:
+    severity: "MEDIUM"
+    action: "REQUIRE_VERIFICATION"
+    message: "Data from community sources only. Verify with scientific source."
+  
+  outdated:
+    severity: "LOW"
+    action: "WARN"
+    message: "Data >2 years old. Re-verify current availability."
+
+# Known Problem Chemicals (DO NOT RECOMMEND)
+flagged_chemicals:
+  orivone:
+    reason: "CAS 33704-61-9 mismatch (actually Cashmeran). No verified iris chemistry data."
+    alternative_action: "Recommend DIY α-Irone 10% IPM instead"
+    blocked: true
+  
+  # Add more as discovered
+
+# Data Update Protocol
+update_protocol:
+  frequency: "monthly"
+  responsible_party: "Knowledge Curator Agent"
+  verification_steps:
+    1: "Check TGSC for new entries"
+    2: "Update PerfumersWorld pricing"
+    3: "Cross-reference user formulations"
+    4: "Audit flagged chemicals"
+    5: "Generate knowledge gaps report"

@@ -1,0 +1,470 @@
+# Intervention Recommendations - Amouage Opus V Iris Accord — Current Inventory Reconstruction
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Alpha Irone + Methyl Ionone Pure
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Methyl Ionone Pure
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + I-IRIS F-TEC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Methyl Ionone Pure + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone Pure + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: I-IRIS F-TEC + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Allyl Ionone (Ketone V)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.8 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Dihydro Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Allyl Ionone (Ketone V) + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Irotyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Dihydro Beta Ionone + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Irotyl + Ultralia
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Irotyl + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Irotyl + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Irotyl + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ultralia + Carrot Seed EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ultralia + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ultralia + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ultralia + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Carrot Seed EO + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Carrot Seed EO + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Carrot Seed EO + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Carrot Seed EO + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Rose Oxide + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rose Oxide + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bacdanol + Vetival
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bacdanol + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Vetival + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Heliotropin Fleuressence + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 0.9 vs 1.4 — pre-mixing improves homogeneity.'}
+- Recommend Orivone
+- ADD Cashmeran (20%) for sillage (axis delta 5.0, total delta 0.8)
+  - Rationale: woody-musky bloom diffuser (20% dil → 0.4% active)
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 42.9
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected soliflore pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Helional for radiance (axis delta 2.9, total delta 1.8)
+  - Rationale: ozonic-green heliotrope, aquatic transparent lift
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.3/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Nympheal for radiance (axis delta 3.8, total delta 2.3)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Neroli EO for radiance (axis delta 1.5, total delta 1.3)
+  - Rationale: luminous floral éclat, top-note radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 0.0% now versus 10% target for the detected soliflore style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Habanolide for sillage (axis delta 4.9, total delta 0.8)
+  - Rationale: macrocyclic musk sillage engine, modern clean
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 42.9
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected soliflore pyramid.
+    - Roudnitska: carries the roles noblesse / refinement, peau / skin intimacy
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- ADD Cashmeran (20%) for sillage (axis delta 5.0, total delta 0.8)
+  - Rationale: woody-musky bloom diffuser (20% dil → 0.4% active)
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 42.9
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected soliflore pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Nympheal for radiance (axis delta 2.5, total delta 1.8)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Helional for radiance (axis delta 1.9, total delta 1.5)
+  - Rationale: ozonic-green heliotrope, aquatic transparent lift
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Allyl Amyl Glycolate for radiance (axis delta 1.1, total delta 1.5)
+  - Rationale: green-pineapple laundry lift at trace
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 0.0% now versus 10% target for the detected soliflore style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.4/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Neroli EO for radiance (axis delta 1.0, total delta 0.8)
+  - Rationale: luminous floral éclat, top-note radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 0.0% now versus 10% target for the detected soliflore style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.4/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- ADD Cashmeran (20%) for sillage (axis delta 5.0, total delta 0.7)
+  - Rationale: woody-musky bloom diffuser (20% dil → 0.4% active)
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 42.9
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected soliflore pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Nympheal for radiance (axis delta 1.3, total delta 1.2)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Helional for radiance (axis delta 1.0, total delta 1.1)
+  - Rationale: ozonic-green heliotrope, aquatic transparent lift
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 53.4% now versus 60% target for the detected soliflore style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Habanolide for sillage (axis delta 5.0, total delta 0.7)
+  - Rationale: macrocyclic musk sillage engine, modern clean
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 42.9
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected soliflore pyramid.
+    - Roudnitska: carries the roles noblesse / refinement, peau / skin intimacy
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Florol for radiance (axis delta 0.6, total delta 0.7)
+  - Rationale: fresh muguet-adjacent transparency, aquatic radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 13.5
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 0.0% now versus 10% target for the detected soliflore style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected soliflore style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

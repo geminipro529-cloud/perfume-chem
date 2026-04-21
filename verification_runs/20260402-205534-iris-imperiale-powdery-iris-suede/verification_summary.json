@@ -1,0 +1,2396 @@
+{
+  "formula": {
+    "number": 1,
+    "name": "Iris Imp\u00e9riale \u2014 Powdery Iris / Suede",
+    "ingredients_pct": {
+      "Bergamot FCF Sicilian": 4.8,
+      "Cardamom FTEC": 3.2,
+      "Aldehyde C11": 2.0,
+      "Alpha Irone": 18.0,
+      "Orivone": 3.2,
+      "Methyl Ionone": 4.8,
+      "Hedione": 8.0,
+      "Suederal": 4.0,
+      "Javanol": 6.0,
+      "Cashmeran": 8.0,
+      "Ambrox Super": 8.0,
+      "Habanolide": 4.0,
+      "Iso E Super": 12.0,
+      "Benzyl Salicylate": 4.0,
+      "Vanillin": 4.0,
+      "Coumarin": 6.0
+    },
+    "dilutions": {
+      "Bergamot FCF Sicilian": 1.0,
+      "Cardamom FTEC": 0.1,
+      "Aldehyde C11": 0.01,
+      "Alpha Irone": 0.1,
+      "Orivone": 1.0,
+      "Methyl Ionone": 1.0,
+      "Hedione": 1.0,
+      "Suederal": 0.1,
+      "Javanol": 1.0,
+      "Cashmeran": 0.2,
+      "Ambrox Super": 0.3,
+      "Habanolide": 1.0,
+      "Iso E Super": 1.0,
+      "Benzyl Salicylate": 1.0,
+      "Vanillin": 0.1,
+      "Coumarin": 0.2
+    },
+    "body": "\n\n**Commercial Reference:** Dior Homme Intense \u00d7 Roja Enigma  \n**Wearing Impression:** A sculptural iris wrapped in buttery suede and warm cashmere. Opens with a flash of bergamot and cardamom spice before revealing a deep orris-violet heart over a bed of sandalwood and clean amber. The kind of fragrance that makes people lean closer.  \n**Concentration:** 25% in ethanol  \n**Luxury Rating:** \u2605\u2605\u2605\u2605\u2605 \u2014 Six luxury differentiators anchored by a generous Alpha Irone dose; Javanol and Ambrox Super provide the skin-scent intimacy of a true Extrait.\n\n| # | Ingredient | Dilution | Amount (\u00b5L) | Amount (mL) |\n|---|-----------|----------|------------|------------|\n| 1 | Bergamot FCF Sicilian | neat | 120 | 0.12 |\n| 2 | Cardamom FTEC | 10% | 80 | 0.08 |\n| 3 | Aldehyde C11 | 1% | 50 | 0.05 |\n| 4 | Alpha Irone | 10% | 450 | 0.45 |\n| 5 | Orivone | neat | 80 | 0.08 |\n| 6 | Methyl Ionone | neat | 120 | 0.12 |\n| 7 | Hedione | neat | 200 | 0.20 |\n| 8 | Suederal | 10% | 100 | 0.10 |\n| 9 | Javanol | neat | 150 | 0.15 |\n| 10 | Cashmeran | 20% | 200 | 0.20 |\n| 11 | Ambrox Super | 30% | 200 | 0.20 |\n| 12 | Habanolide | neat | 100 | 0.10 |\n| 13 | Iso E Super | neat | 300 | 0.30 |\n| 14 | Benzyl Salicylate | neat | 100 | 0.10 |\n| 15 | Vanillin | 10% | 100 | 0.10 |\n| 16 | Coumarin | 20% | 150 | 0.15 |\n| 17 | **Ethanol 96%** | \u2014 | \u2014 | **7.50** |\n| | **TOTAL** | | | **10.00** |\n\n**Concentrate total:** 2.50 mL (25.0%)\n\n---\n\n"
+  },
+  "scores": {
+    "longevity": 83.4,
+    "sillage": 62.7,
+    "balance": 55.7,
+    "synergy": 67.4,
+    "theory": 82.0,
+    "cost": 87.6,
+    "radiance": 59.5,
+    "texture": 80.0,
+    "complexity": 76,
+    "character_balance": 80.1,
+    "arithmetic_total": 71.5,
+    "geometric_total": 70.5,
+    "_radar": {
+      "warmth": 2.67,
+      "sweetness": 1.17,
+      "freshness": 1.74,
+      "powdery": 2.0,
+      "green": 0.26,
+      "animalic": 0.17,
+      "radiance": 3.82,
+      "woody": 3.27,
+      "spicy": 0.04,
+      "floral": 2.08,
+      "smoky": 0.0,
+      "creamy": 2.51
+    },
+    "_style_fingerprint": {
+      "dominant_style": "classical",
+      "primary_candidate": {
+        "style": "classical",
+        "kind": "style",
+        "score": 76.4,
+        "confidence": 0.55,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            20,
+            40,
+            40
+          ],
+          "balance_score": 55.7,
+          "positive_dims": {
+            "freshness": 1.74,
+            "floral": 2.08,
+            "woody": 3.27,
+            "radiance": 3.82
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.17
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      },
+      "style_candidates": [
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 76.4,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 55.7,
+            "positive_dims": {
+              "freshness": 1.74,
+              "floral": 2.08,
+              "woody": 3.27,
+              "radiance": 3.82
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "linear",
+          "kind": "style",
+          "score": 73.1,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "habanolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              33,
+              34,
+              33
+            ],
+            "balance_score": 40.4,
+            "positive_dims": {
+              "radiance": 3.82,
+              "freshness": 1.74,
+              "creamy": 2.51,
+              "woody": 3.27
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17,
+              "green": 0.26
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "skin_scent",
+          "kind": "style",
+          "score": 72.3,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "cashmeran",
+              "habanolide",
+              "iso e super"
+            ],
+            "balance_target": [
+              10,
+              55,
+              35
+            ],
+            "balance_score": 39.0,
+            "positive_dims": {
+              "creamy": 2.51,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "warmth": 2.67
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        }
+      ],
+      "category_candidates": [
+        {
+          "style": "woody",
+          "kind": "category",
+          "score": 73.3,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "iso e super"
+            ],
+            "balance_target": [
+              15,
+              25,
+              60
+            ],
+            "balance_score": 89.3,
+            "positive_dims": {
+              "woody": 3.27,
+              "smoky": 0.0,
+              "warmth": 2.67,
+              "creamy": 2.51
+            },
+            "negative_dims": {
+              "freshness": 1.74,
+              "floral": 2.08
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "amber",
+          "kind": "category",
+          "score": 68.1,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "cashmeran",
+              "vanillin"
+            ],
+            "balance_target": [
+              15,
+              35,
+              50
+            ],
+            "balance_score": 74.0,
+            "positive_dims": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "creamy": 2.51,
+              "smoky": 0.0
+            },
+            "negative_dims": {
+              "freshness": 1.74,
+              "green": 0.26
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 76.4,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 55.7,
+            "positive_dims": {
+              "freshness": 1.74,
+              "floral": 2.08,
+              "woody": 3.27,
+              "radiance": 3.82
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "woody",
+          "kind": "category",
+          "score": 73.3,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "iso e super"
+            ],
+            "balance_target": [
+              15,
+              25,
+              60
+            ],
+            "balance_score": 89.3,
+            "positive_dims": {
+              "woody": 3.27,
+              "smoky": 0.0,
+              "warmth": 2.67,
+              "creamy": 2.51
+            },
+            "negative_dims": {
+              "freshness": 1.74,
+              "floral": 2.08
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "linear",
+          "kind": "style",
+          "score": 73.1,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "habanolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              33,
+              34,
+              33
+            ],
+            "balance_score": 40.4,
+            "positive_dims": {
+              "radiance": 3.82,
+              "freshness": 1.74,
+              "creamy": 2.51,
+              "woody": 3.27
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17,
+              "green": 0.26
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "skin_scent",
+          "kind": "style",
+          "score": 72.3,
+          "confidence": 0.48,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "cashmeran",
+              "habanolide",
+              "iso e super"
+            ],
+            "balance_target": [
+              10,
+              55,
+              35
+            ],
+            "balance_score": 39.0,
+            "positive_dims": {
+              "creamy": 2.51,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "warmth": 2.67
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.17
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        },
+        {
+          "style": "amber",
+          "kind": "category",
+          "score": 68.1,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "cashmeran",
+              "vanillin"
+            ],
+            "balance_target": [
+              15,
+              35,
+              50
+            ],
+            "balance_score": 74.0,
+            "positive_dims": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "creamy": 2.51,
+              "smoky": 0.0
+            },
+            "negative_dims": {
+              "freshness": 1.74,
+              "green": 0.26
+            },
+            "radar": {
+              "warmth": 2.67,
+              "sweetness": 1.17,
+              "freshness": 1.74,
+              "powdery": 2.0,
+              "green": 0.26,
+              "animalic": 0.17,
+              "radiance": 3.82,
+              "woody": 3.27,
+              "spicy": 0.04,
+              "floral": 2.08,
+              "smoky": 0.0,
+              "creamy": 2.51
+            },
+            "note_distribution": {
+              "top": 9.4,
+              "heart": 26.6,
+              "base": 64.1
+            }
+          }
+        }
+      ],
+      "radar": {
+        "warmth": 2.67,
+        "sweetness": 1.17,
+        "freshness": 1.74,
+        "powdery": 2.0,
+        "green": 0.26,
+        "animalic": 0.17,
+        "radiance": 3.82,
+        "woody": 3.27,
+        "spicy": 0.04,
+        "floral": 2.08,
+        "smoky": 0.0,
+        "creamy": 2.51
+      },
+      "note_distribution": {
+        "top": 9.4,
+        "heart": 26.6,
+        "base": 64.1
+      },
+      "ingredient_count": 16,
+      "has_dilution_data": true
+    },
+    "_style_candidates": [
+      {
+        "style": "classical",
+        "kind": "style",
+        "score": 76.4,
+        "confidence": 0.55,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            20,
+            40,
+            40
+          ],
+          "balance_score": 55.7,
+          "positive_dims": {
+            "freshness": 1.74,
+            "floral": 2.08,
+            "woody": 3.27,
+            "radiance": 3.82
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.17
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      },
+      {
+        "style": "woody",
+        "kind": "category",
+        "score": 73.3,
+        "confidence": 0.48,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "iso e super"
+          ],
+          "balance_target": [
+            15,
+            25,
+            60
+          ],
+          "balance_score": 89.3,
+          "positive_dims": {
+            "woody": 3.27,
+            "smoky": 0.0,
+            "warmth": 2.67,
+            "creamy": 2.51
+          },
+          "negative_dims": {
+            "freshness": 1.74,
+            "floral": 2.08
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      },
+      {
+        "style": "linear",
+        "kind": "style",
+        "score": 73.1,
+        "confidence": 0.48,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "habanolide",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            33,
+            34,
+            33
+          ],
+          "balance_score": 40.4,
+          "positive_dims": {
+            "radiance": 3.82,
+            "freshness": 1.74,
+            "creamy": 2.51,
+            "woody": 3.27
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.17,
+            "green": 0.26
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      },
+      {
+        "style": "skin_scent",
+        "kind": "style",
+        "score": 72.3,
+        "confidence": 0.48,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "cashmeran",
+            "habanolide",
+            "iso e super"
+          ],
+          "balance_target": [
+            10,
+            55,
+            35
+          ],
+          "balance_score": 39.0,
+          "positive_dims": {
+            "creamy": 2.51,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "warmth": 2.67
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.17
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      },
+      {
+        "style": "amber",
+        "kind": "category",
+        "score": 68.1,
+        "confidence": 0.45,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "cashmeran",
+            "vanillin"
+          ],
+          "balance_target": [
+            15,
+            35,
+            50
+          ],
+          "balance_score": 74.0,
+          "positive_dims": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "creamy": 2.51,
+            "smoky": 0.0
+          },
+          "negative_dims": {
+            "freshness": 1.74,
+            "green": 0.26
+          },
+          "radar": {
+            "warmth": 2.67,
+            "sweetness": 1.17,
+            "freshness": 1.74,
+            "powdery": 2.0,
+            "green": 0.26,
+            "animalic": 0.17,
+            "radiance": 3.82,
+            "woody": 3.27,
+            "spicy": 0.04,
+            "floral": 2.08,
+            "smoky": 0.0,
+            "creamy": 2.51
+          },
+          "note_distribution": {
+            "top": 9.4,
+            "heart": 26.6,
+            "base": 64.1
+          }
+        }
+      }
+    ],
+    "total": 70.5
+  },
+  "character_radar": {
+    "warmth": 2.67,
+    "sweetness": 1.17,
+    "freshness": 1.74,
+    "powdery": 2.0,
+    "green": 0.26,
+    "animalic": 0.17,
+    "radiance": 3.82,
+    "woody": 3.27,
+    "spicy": 0.04,
+    "floral": 2.08,
+    "smoky": 0.0,
+    "creamy": 2.51
+  },
+  "star_ratings": {
+    "wearability": 6.657,
+    "versatility": 4.898075463637474,
+    "originality": 5.218420094648708,
+    "sophistication": 8.54,
+    "signature_potential": 2.2310520567892245,
+    "mass_appeal": 5.6005,
+    "gender_versatility": 9.519,
+    "age_range": 7.6492,
+    "formula_elegance": 6.7,
+    "value_for_money": 10.0
+  },
+  "star_average": 6.7,
+  "confidence": {
+    "data_confidence": 80.6,
+    "pairing_confidence": 27.5,
+    "prediction_confidence": 5.0,
+    "overall_confidence": 42.0,
+    "confidence_grade": "LOW",
+    "per_material": {
+      "Bergamot FCF Sicilian": 50.0,
+      "Cardamom FTEC": 50.0,
+      "Aldehyde C11": 90.0,
+      "Alpha Irone": 90.0,
+      "Orivone": 90.0,
+      "Methyl Ionone": 90.0,
+      "Hedione": 90.0,
+      "Suederal": 90.0,
+      "Javanol": 40.0,
+      "Cashmeran": 90.0,
+      "Ambrox Super": 80.0,
+      "Habanolide": 90.0,
+      "Iso E Super": 90.0,
+      "Benzyl Salicylate": 80.0,
+      "Vanillin": 90.0,
+      "Coumarin": 90.0
+    }
+  },
+  "recommendations": [
+    {
+      "target_axis": "balance",
+      "baseline_score": 55.7,
+      "action": "ADD",
+      "material": "Linalool",
+      "dose_pct": 2.0,
+      "rationale": "transparent fresh lift for dark/heavy formulas",
+      "new_axis_score": 59.2,
+      "delta": 3.5,
+      "new_composite": 72.8,
+      "composite_delta": 2.3,
+      "mode": "pre_mix",
+      "dose_ul": null,
+      "family": null,
+      "profile": null,
+      "provenance": {
+        "Mode": [
+          "selected because balance is currently weak at 55.7",
+          "formulation-time intervention while proportions are still flexible"
+        ],
+        "Carles": [
+          "top material; Carles treats this band as First impression, sparkle, lift.",
+          "top band is 9.4% now versus 20% target for the detected classical style."
+        ],
+        "Roudnitska": [
+          "carries the eclat / outward radiance role"
+        ],
+        "Jellinek": [
+          "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ],
+        "Style": [
+          "supports the detected classical style fingerprint"
+        ]
+      }
+    },
+    {
+      "target_axis": "balance",
+      "baseline_score": 55.7,
+      "action": "INCREASE",
+      "material": "Hedione",
+      "dose_pct": 1.5,
+      "rationale": "heart-note volume for top-heavy formulas",
+      "new_axis_score": 58.8,
+      "delta": 3.1,
+      "new_composite": 71.4,
+      "composite_delta": 0.9,
+      "mode": "pre_mix",
+      "dose_ul": null,
+      "family": null,
+      "profile": null,
+      "provenance": {
+        "Mode": [
+          "selected because balance is currently weak at 55.7",
+          "formulation-time intervention while proportions are still flexible"
+        ],
+        "Carles": [
+          "heart material; Carles treats this band as Theme, character, identity.",
+          "heart band is 26.6% now versus 40% target for the detected classical style."
+        ],
+        "Roudnitska": [
+          "carries the roles eclat / outward radiance, transparence / airy lift"
+        ],
+        "Jellinek": [
+          "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ],
+        "Style": [
+          "supports the detected classical style fingerprint"
+        ]
+      }
+    },
+    {
+      "target_axis": "radiance",
+      "baseline_score": 59.5,
+      "action": "ADD",
+      "material": "Nympheal",
+      "dose_pct": 1.5,
+      "rationale": "watery transparent floral, diffusive radiance bloom",
+      "new_axis_score": 59.8,
+      "delta": 0.3,
+      "new_composite": 71.3,
+      "composite_delta": 0.8,
+      "mode": "pre_mix",
+      "dose_ul": null,
+      "family": null,
+      "profile": null,
+      "provenance": {
+        "Mode": [
+          "selected because radiance is currently weak at 59.5",
+          "formulation-time intervention while proportions are still flexible"
+        ],
+        "Carles": [
+          "heart material; Carles treats this band as Theme, character, identity.",
+          "heart band is 26.6% now versus 40% target for the detected classical style."
+        ],
+        "Roudnitska": [
+          "carries the eclat / outward radiance role"
+        ],
+        "Jellinek": [
+          "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ],
+        "Style": [
+          "supports the detected classical style fingerprint"
+        ]
+      }
+    },
+    {
+      "target_axis": "balance",
+      "baseline_score": 55.7,
+      "action": "ADD",
+      "material": "Cedrat FCF oil Sicilian",
+      "dose_pct": 1.5,
+      "rationale": "sharp citron top-note for base-heavy mineral accords",
+      "new_axis_score": 58.4,
+      "delta": 2.7,
+      "new_composite": 71.2,
+      "composite_delta": 0.7,
+      "mode": "pre_mix",
+      "dose_ul": null,
+      "family": null,
+      "profile": null,
+      "provenance": {
+        "Mode": [
+          "selected because balance is currently weak at 55.7",
+          "formulation-time intervention while proportions are still flexible"
+        ],
+        "Carles": [
+          "top material; Carles treats this band as First impression, sparkle, lift.",
+          "top band is 9.4% now versus 20% target for the detected classical style."
+        ],
+        "Roudnitska": [
+          "carries the transparence / airy lift role"
+        ],
+        "Jellinek": [
+          "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ],
+        "Style": [
+          "supports the detected classical style fingerprint"
+        ]
+      }
+    },
+    {
+      "target_axis": "sillage",
+      "baseline_score": 62.7,
+      "action": "ADD",
+      "material": "Dimethyl Benzyl Carbinyl Acetate",
+      "dose_pct": 1.5,
+      "rationale": "gardenia-rose cosmetic volume, transparent diffusion",
+      "new_axis_score": 63.3,
+      "delta": 0.6,
+      "new_composite": 71.2,
+      "composite_delta": 0.7,
+      "mode": "pre_mix",
+      "dose_ul": null,
+      "family": null,
+      "profile": null,
+      "provenance": {
+        "Mode": [
+          "selected because sillage is currently weak at 62.7",
+          "formulation-time intervention while proportions are still flexible"
+        ],
+        "Carles": [
+          "heart material; Carles treats this band as Theme, character, identity.",
+          "heart band is 26.6% now versus 40% target for the detected classical style."
+        ],
+        "Roudnitska": [
+          "no explicit canonical role in the current knowledge graph; used here as a practical structural correction"
+        ],
+        "Jellinek": [
+          "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ],
+        "Style": [
+          "supports the detected classical style fingerprint"
+        ]
+      }
+    }
+  ],
+  "recommendation_sections": {
+    "pre_mix": {
+      "title": "Pre-Mix Recommendations",
+      "context": "Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.",
+      "observation_tags": [
+        "pre_mix",
+        "compatibility",
+        "dissolution",
+        "safety"
+      ],
+      "recommendations": [
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Alpha Irone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Orivone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Methyl Ionone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.3 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Javanol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Cashmeran",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Aldehyde C11",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Irone",
+          "material_b": "Methyl Ionone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.5 vs 4.3 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Irone",
+          "material_b": "Cashmeran",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Irone",
+          "material_b": "Habanolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.5 vs 5.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Irone",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.5 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Methyl Ionone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Hedione",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Suederal",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Javanol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Cashmeran",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Habanolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Benzyl Salicylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 3.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Vanillin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Orivone",
+          "material_b": "Coumarin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "H-bonding (donor + acceptor pairing)",
+            "note": "Pre-mixing allows H-bonds to form before dilution."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Methyl Ionone",
+          "material_b": "Cashmeran",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Methyl Ionone",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.3 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Suederal",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Suederal",
+          "material_b": "Javanol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Suederal",
+          "material_b": "Benzyl Salicylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.0 vs 3.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Javanol",
+          "material_b": "Cashmeran",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Javanol",
+          "material_b": "Benzyl Salicylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.5 vs 3.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cashmeran",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Habanolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 5.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Habanolide",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.2 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Vanillin",
+          "material_b": "Coumarin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.2 vs 1.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "blocked_material",
+          "material": "Orivone",
+          "reason": "CAS number mismatch (33704-61-9 = Cashmeran, not iris molecule). No verified odor character or usage data from trusted sources. Trade name without clear chemical identity. DO NOT RECOMMEND."
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Linalool",
+          "dose_pct": 2.0,
+          "rationale": "transparent fresh lift for dark/heavy formulas",
+          "new_axis_score": 59.2,
+          "delta": 3.5,
+          "new_composite": 72.8,
+          "composite_delta": 2.3,
+          "mode": "pre_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "formulation-time intervention while proportions are still flexible"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "INCREASE",
+          "material": "Hedione",
+          "dose_pct": 1.5,
+          "rationale": "heart-note volume for top-heavy formulas",
+          "new_axis_score": 58.8,
+          "delta": 3.1,
+          "new_composite": 71.4,
+          "composite_delta": 0.9,
+          "mode": "pre_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "formulation-time intervention while proportions are still flexible"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the roles eclat / outward radiance, transparence / airy lift"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "radiance",
+          "baseline_score": 59.5,
+          "action": "ADD",
+          "material": "Nympheal",
+          "dose_pct": 1.5,
+          "rationale": "watery transparent floral, diffusive radiance bloom",
+          "new_axis_score": 59.8,
+          "delta": 0.3,
+          "new_composite": 71.3,
+          "composite_delta": 0.8,
+          "mode": "pre_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because radiance is currently weak at 59.5",
+              "formulation-time intervention while proportions are still flexible"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Cedrat FCF oil Sicilian",
+          "dose_pct": 1.5,
+          "rationale": "sharp citron top-note for base-heavy mineral accords",
+          "new_axis_score": 58.4,
+          "delta": 2.7,
+          "new_composite": 71.2,
+          "composite_delta": 0.7,
+          "mode": "pre_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "formulation-time intervention while proportions are still flexible"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the transparence / airy lift role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "sillage",
+          "baseline_score": 62.7,
+          "action": "ADD",
+          "material": "Dimethyl Benzyl Carbinyl Acetate",
+          "dose_pct": 1.5,
+          "rationale": "gardenia-rose cosmetic volume, transparent diffusion",
+          "new_axis_score": 63.3,
+          "delta": 0.6,
+          "new_composite": 71.2,
+          "composite_delta": 0.7,
+          "mode": "pre_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because sillage is currently weak at 62.7",
+              "formulation-time intervention while proportions are still flexible"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "no explicit canonical role in the current knowledge graph; used here as a practical structural correction"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        }
+      ],
+      "template": [
+        "Confirm any must-prebond pairs before combining the concentrate.",
+        "Resolve crystalline or stubborn materials before they reach the bulk batch.",
+        "Record phase-specific notes in observations.csv using observation_tags and intervention_context."
+      ]
+    },
+    "between_mix": {
+      "title": "Between-Mix Recommendations",
+      "context": "Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.",
+      "observation_tags": [
+        "between_mix",
+        "iteration",
+        "adjustment"
+      ],
+      "recommendations": [
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Linalool",
+          "dose_pct": 1.3,
+          "rationale": "transparent fresh lift for dark/heavy formulas",
+          "new_axis_score": 58.1,
+          "delta": 2.4,
+          "new_composite": 72.2,
+          "composite_delta": 1.7,
+          "mode": "between_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "next-batch correction guided by observations and intent tags"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "REBALANCE",
+          "material": "Hedione",
+          "dose_pct": 1.5,
+          "rationale": "heart-note volume for top-heavy formulas",
+          "new_axis_score": 58.8,
+          "delta": 3.1,
+          "new_composite": 71.4,
+          "composite_delta": 0.9,
+          "mode": "between_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "next-batch correction guided by observations and intent tags"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the roles eclat / outward radiance, transparence / airy lift"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "REBALANCE",
+          "material": "Bergamot EO",
+          "dose_pct": 1.0,
+          "rationale": "top-note lift for base-heavy formulas",
+          "new_axis_score": 57.4,
+          "delta": 1.7,
+          "new_composite": 71.0,
+          "composite_delta": 0.5,
+          "mode": "between_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "next-batch correction guided by observations and intent tags"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "radiance",
+          "baseline_score": 59.5,
+          "action": "ADD",
+          "material": "Nympheal",
+          "dose_pct": 1.0,
+          "rationale": "watery transparent floral, diffusive radiance bloom",
+          "new_axis_score": 59.7,
+          "delta": 0.2,
+          "new_composite": 71.0,
+          "composite_delta": 0.5,
+          "mode": "between_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because radiance is currently weak at 59.5",
+              "next-batch correction guided by observations and intent tags"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Cedrat FCF oil Sicilian",
+          "dose_pct": 1.0,
+          "rationale": "sharp citron top-note for base-heavy mineral accords",
+          "new_axis_score": 57.4,
+          "delta": 1.7,
+          "new_composite": 70.9,
+          "composite_delta": 0.4,
+          "mode": "between_mix",
+          "dose_ul": null,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "next-batch correction guided by observations and intent tags"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the transparence / airy lift role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        }
+      ],
+      "template": [
+        "Use this section for candidate changes in the next batch or next additive trial.",
+        "If you apply a correction, mark the observation with between_mix and a short intervention_context note."
+      ]
+    },
+    "post_mix": {
+      "title": "Post-Mix Recommendations",
+      "context": "Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.",
+      "observation_tags": [
+        "post_mix",
+        "wear_test",
+        "maceration"
+      ],
+      "recommendations": [
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Linalool",
+          "dose_pct": 0.7,
+          "rationale": "transparent fresh lift for dark/heavy formulas",
+          "new_axis_score": 57.0,
+          "delta": 1.3,
+          "new_composite": 71.6,
+          "composite_delta": 1.1,
+          "mode": "post_mix",
+          "dose_ul": 210,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "add-only bottle correction with conservative dosing"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Hedione",
+          "dose_pct": 1.0,
+          "rationale": "heart-note volume for top-heavy formulas",
+          "new_axis_score": 57.9,
+          "delta": 2.2,
+          "new_composite": 71.2,
+          "composite_delta": 0.7,
+          "mode": "post_mix",
+          "dose_ul": 300,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "add-only bottle correction with conservative dosing"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the roles eclat / outward radiance, transparence / airy lift"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Bergamot EO",
+          "dose_pct": 0.7,
+          "rationale": "top-note lift for base-heavy formulas",
+          "new_axis_score": 57.0,
+          "delta": 1.3,
+          "new_composite": 70.9,
+          "composite_delta": 0.4,
+          "mode": "post_mix",
+          "dose_ul": 210,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "add-only bottle correction with conservative dosing"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "radiance",
+          "baseline_score": 59.5,
+          "action": "ADD",
+          "material": "Nympheal",
+          "dose_pct": 0.5,
+          "rationale": "watery transparent floral, diffusive radiance bloom",
+          "new_axis_score": 59.6,
+          "delta": 0.1,
+          "new_composite": 70.8,
+          "composite_delta": 0.3,
+          "mode": "post_mix",
+          "dose_ul": 157,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because radiance is currently weak at 59.5",
+              "add-only bottle correction with conservative dosing"
+            ],
+            "Carles": [
+              "heart material; Carles treats this band as Theme, character, identity.",
+              "heart band is 26.6% now versus 40% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the eclat / outward radiance role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "target_axis": "balance",
+          "baseline_score": 55.7,
+          "action": "ADD",
+          "material": "Cedrat FCF oil Sicilian",
+          "dose_pct": 0.5,
+          "rationale": "sharp citron top-note for base-heavy mineral accords",
+          "new_axis_score": 56.6,
+          "delta": 0.9,
+          "new_composite": 70.7,
+          "composite_delta": 0.2,
+          "mode": "post_mix",
+          "dose_ul": 157,
+          "family": null,
+          "profile": null,
+          "provenance": {
+            "Mode": [
+              "selected because balance is currently weak at 55.7",
+              "add-only bottle correction with conservative dosing"
+            ],
+            "Carles": [
+              "top material; Carles treats this band as First impression, sparkle, lift.",
+              "top band is 9.4% now versus 20% target for the detected classical style."
+            ],
+            "Roudnitska": [
+              "carries the transparence / airy lift role"
+            ],
+            "Jellinek": [
+              "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+            ],
+            "Style": [
+              "supports the detected classical style fingerprint"
+            ]
+          }
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Opening read",
+          "text": "Capture the first 15 minutes separately from the later wear-test reads."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Heart read",
+          "text": "Capture the main evolution window and note whether the character shifts after maceration."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Drydown read",
+          "text": "Capture the final drydown, stability, and any off-notes before deciding on a correction."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Next-variant planning",
+          "text": "If a correction is needed, create a new between_mix trial instead of mutating the current bottle."
+        }
+      ],
+      "template": [
+        "Record the opening, heart, and drydown after the mix has settled.",
+        "If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.",
+        "Capture any intervention tags alongside the wear-test notes."
+      ]
+    }
+  },
+  "intervention_phases": [
+    "pre_mix",
+    "between_mix",
+    "post_mix"
+  ],
+  "comparison": {
+    "score_axes": {
+      "geometric_total": 70.5,
+      "arithmetic_total": 71.5,
+      "longevity": 83.4,
+      "sillage": 62.7,
+      "balance": 55.7,
+      "theory": 82.0,
+      "radiance": 59.5,
+      "texture": 80.0,
+      "complexity": 76,
+      "character_balance": 80.1,
+      "synergy": 67.4,
+      "cost": 87.6
+    },
+    "wear_axes": {
+      "opening": null,
+      "heart": null,
+      "drydown": null,
+      "longevity": null,
+      "projection": null,
+      "balance": null,
+      "overall": null
+    },
+    "star_axes": {
+      "wearability": 6.657,
+      "versatility": 4.898075463637474,
+      "originality": 5.218420094648708,
+      "sophistication": 8.54,
+      "signature_potential": 2.2310520567892245,
+      "mass_appeal": 5.6005,
+      "gender_versatility": 9.519,
+      "age_range": 7.6492,
+      "formula_elegance": 6.7,
+      "value_for_money": 10.0
+    },
+    "intervention_axes": {
+      "pre_mix": {
+        "title": "Pre-Mix Recommendations",
+        "context": "Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.",
+        "observation_tags": [
+          "pre_mix",
+          "compatibility",
+          "dissolution",
+          "safety"
+        ]
+      },
+      "between_mix": {
+        "title": "Between-Mix Recommendations",
+        "context": "Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.",
+        "observation_tags": [
+          "between_mix",
+          "iteration",
+          "adjustment"
+        ]
+      },
+      "post_mix": {
+        "title": "Post-Mix Recommendations",
+        "context": "Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.",
+        "observation_tags": [
+          "post_mix",
+          "wear_test",
+          "maceration"
+        ]
+      }
+    }
+  },
+  "prebond_analysis": {
+    "must_prebond": [],
+    "benefits": [
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Alpha Irone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Orivone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Methyl Ionone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.3 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Javanol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Cashmeran",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Aldehyde C11",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Irone",
+        "material_b": "Methyl Ionone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.5 vs 4.3 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Irone",
+        "material_b": "Cashmeran",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Irone",
+        "material_b": "Habanolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.5 vs 5.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Irone",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.5 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Methyl Ionone",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Hedione",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Suederal",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Javanol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Cashmeran",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Habanolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Benzyl Salicylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 3.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Vanillin",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Orivone",
+        "material_b": "Coumarin",
+        "classification": "benefits-from-prebond",
+        "reaction": "H-bonding (donor + acceptor pairing)",
+        "note": "Pre-mixing allows H-bonds to form before dilution."
+      },
+      {
+        "material_a": "Methyl Ionone",
+        "material_b": "Cashmeran",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Methyl Ionone",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.3 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Suederal",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Suederal",
+        "material_b": "Javanol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Suederal",
+        "material_b": "Benzyl Salicylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.0 vs 3.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Javanol",
+        "material_b": "Cashmeran",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Javanol",
+        "material_b": "Benzyl Salicylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.5 vs 3.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cashmeran",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Habanolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 5.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Habanolide",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.2 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Vanillin",
+        "material_b": "Coumarin",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.2 vs 1.4 \u2014 pre-mixing improves homogeneity."
+      }
+    ],
+    "keep_separate": [],
+    "crystalline": []
+  },
+  "blocked_materials": {
+    "Orivone": "CAS number mismatch (33704-61-9 = Cashmeran, not iris molecule). No verified odor character or usage data from trusted sources. Trade name without clear chemical identity. DO NOT RECOMMEND."
+  },
+  "mixing_protocol": {
+    "title": "Iris Imp\u00e9riale \u2014 Powdery Iris / Suede",
+    "total_materials": 16,
+    "total_pct": 100.0,
+    "phases": [
+      {
+        "phase": "base",
+        "instructions": [
+          "Step 1. Add Ambrox Super (8.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 2. Add Iso E Super (12.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 3. Add Javanol (6.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 4. Add Orivone (3.2%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 5. Add Benzyl Salicylate (4.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 6. Add Suederal (4.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 7. Add Coumarin (6.0%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 8. Add Vanillin (4.0%)\n           Base note \u2014 add early for structural foundation.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      },
+      {
+        "phase": "heart",
+        "instructions": [
+          "Step 9. Add Alpha Irone (18.0%)\n           Heart note \u2014 forms the core character.",
+          "Step 10. Add Methyl Ionone (4.8%)\n           Heart note \u2014 forms the core character.",
+          "Step 11. Add Hedione (8.0%)\n           Heart note \u2014 forms the core character.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      },
+      {
+        "phase": "musk",
+        "instructions": [
+          "Step 12. Add Habanolide (4.0%)\n           Musk \u2014 add after structure is set; wraps and smooths.",
+          "Step 13. Add Cashmeran (8.0%)\n           Musk \u2014 add after structure is set; wraps and smooths.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      },
+      {
+        "phase": "top",
+        "instructions": [
+          "Step 14. Add Aldehyde C11 (2.0%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 15. Add Bergamot FCF Sicilian (4.8%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 16. Add Cardamom FTEC (3.2%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      }
+    ],
+    "maceration": "17 days minimum, best at 17-31 days",
+    "warnings": [],
+    "full_text": "\u2550\u2550\u2550 MIXING PROTOCOL: Iris Imp\u00e9riale \u2014 Powdery Iris / Suede \u2550\u2550\u2550\nMaterials: 16 | Total: 100.0%\n\n\u2500\u2500\u2500 PHASE 1: BASE LAYER (foundation) \u2500\u2500\u2500\n  Step 1. Add Ambrox Super (8.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 2. Add Iso E Super (12.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 3. Add Javanol (6.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 4. Add Orivone (3.2%)\n           Base note \u2014 add early for structural foundation.\n  Step 5. Add Benzyl Salicylate (4.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 6. Add Suederal (4.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 7. Add Coumarin (6.0%)\n           Base note \u2014 add early for structural foundation.\n  Step 8. Add Vanillin (4.0%)\n           Base note \u2014 add early for structural foundation.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 PHASE 2: HEART LAYER (character) \u2500\u2500\u2500\n  Step 9. Add Alpha Irone (18.0%)\n           Heart note \u2014 forms the core character.\n  Step 10. Add Methyl Ionone (4.8%)\n           Heart note \u2014 forms the core character.\n  Step 11. Add Hedione (8.0%)\n           Heart note \u2014 forms the core character.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 PHASE 3: MUSKS (smoothing) \u2500\u2500\u2500\n  Step 12. Add Habanolide (4.0%)\n           Musk \u2014 add after structure is set; wraps and smooths.\n  Step 13. Add Cashmeran (8.0%)\n           Musk \u2014 add after structure is set; wraps and smooths.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 PHASE 4: TOP NOTES (sparkle) \u2500\u2500\u2500\n  Step 14. Add Aldehyde C11 (2.0%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 15. Add Bergamot FCF Sicilian (4.8%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 16. Add Cardamom FTEC (3.2%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 MACERATION \u2500\u2500\u2500\n  Seal tightly and store in a cool, dark place.\n  Estimated maturation: 17 days minimum.\n  Check at day 7 for initial impressions.\n  Best results typically at day 17 \u2013 31."
+  }
+}

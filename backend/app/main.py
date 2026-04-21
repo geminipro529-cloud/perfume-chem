@@ -1,0 +1,103 @@
+"""Main FastAPI application"""
+
+import time
+from collections import deque
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
+
+from app.core.config import get_settings
+from app.core.logging import setup_logging, get_logger
+from app.core.tracing import setup_tracing
+from app.api.v1.router import api_router
+
+settings = get_settings()
+logger = get_logger(__name__)
+
+# ── Simple request rate limiter (per-client, sliding window) ──
+_REQUEST_WINDOW = 60   # seconds
+_MAX_REQUESTS = 120    # per window
+_client_requests: dict[str, deque] = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan events"""
+    # Startup
+    setup_logging()
+    logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
+    logger.info(f"Environment: {settings.ENVIRONMENT}")
+    logger.info(f"Debug mode: {settings.DEBUG}")
+    
+    yield
+    
+    # Shutdown
+    logger.info("Shutting down application")
+
+
+# Create FastAPI app
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    description="AI-powered perfume chemistry and formulation API",
+    lifespan=lifespan
+)
+
+# Initialize tracing before middleware so FastAPIInstrumentor wraps all routes
+setup_tracing(app)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=settings.CORS_ALLOW_CREDENTIALS,
+    allow_methods=settings.CORS_ALLOW_METHODS,
+    allow_headers=settings.CORS_ALLOW_HEADERS,
+)
+
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    """Gate 0 — Global request rate limiter (sliding window per client IP)."""
+    client_ip = request.client.host if request.client else "unknown"
+    now = time.time()
+
+    window = _client_requests.setdefault(client_ip, deque())
+    # Expire old entries
+    cutoff = now - _REQUEST_WINDOW
+    while window and window[0] < cutoff:
+        window.popleft()
+
+    if len(window) >= _MAX_REQUESTS:
+        return JSONResponse(
+            status_code=429,
+            content={"detail": f"Rate limit exceeded. Max {_MAX_REQUESTS} requests per {_REQUEST_WINDOW}s."},
+        )
+
+    window.append(now)
+    response = await call_next(request)
+    return response
+
+
+# Include routers
+app.include_router(api_router, prefix=settings.API_V1_PREFIX)
+
+
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {
+        "name": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "status": "running"
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "version": settings.APP_VERSION
+    }

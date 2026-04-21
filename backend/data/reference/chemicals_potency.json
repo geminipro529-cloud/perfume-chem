@@ -1,0 +1,501 @@
+{
+  "chemicals": {
+    "Iso E Super": {
+      "min_percent": 10.0,
+      "max_percent": 50.0,
+      "typical_percent": 25.0,
+      "category": "base",
+      "note": "base",
+      "potency": "low",
+      "function": "The Velvet Filter",
+      "notes": "Woody, cozy, blurring effect. Can be used liberally as foundation."
+    },
+    "Galaxolide": {
+      "min_percent": 10.0,
+      "max_percent": 30.0,
+      "typical_percent": 20.0,
+      "category": "base",
+      "note": "base",
+      "potency": "low",
+      "function": "The Volume",
+      "notes": "Clean laundry, thick air. Often at 50-80% concentration."
+    },
+    "Habanolide": {
+      "min_percent": 5.0,
+      "max_percent": 20.0,
+      "typical_percent": 12.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Iron",
+      "notes": "Hot steam, metallic musk. Excellent fixative."
+    },
+    "Ethylene Brassylate": {
+      "min_percent": 5.0,
+      "max_percent": 20.0,
+      "typical_percent": 10.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Polish",
+      "notes": "Sweet, floral musk. Adds polish effect."
+    },
+    "Ambroxan": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Radiance",
+      "notes": "Mineral, amber, skin. Powerful diffusion enhancer."
+    },
+    "Ambrox Super": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Radiance",
+      "notes": "Powerful ambergris effect. Same as Ambroxan in dilution."
+    },
+    "Patchouli Light": {
+      "min_percent": 1.0,
+      "max_percent": 5.0,
+      "typical_percent": 3.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Earth",
+      "notes": "Clean dirt, woody. Use sparingly."
+    },
+    "Vertofix Coeur": {
+      "min_percent": 5.0,
+      "max_percent": 15.0,
+      "typical_percent": 10.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Leather Wood",
+      "notes": "Dry wood, sturdy. Good fixative."
+    },
+    "Hedione": {
+      "min_percent": 10.0,
+      "max_percent": 30.0,
+      "typical_percent": 20.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "low",
+      "function": "The Blender",
+      "notes": "Transparent jasmine, air. Universal blender, can be used liberally."
+    },
+    "Alpha Isomethyl Ionone": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "The Powder",
+      "notes": "Violet, lipstick, cosmetic. Core violet material."
+    },
+    "Dihydromyrcenol": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "The Cologne",
+      "notes": "Lime, soap, metallic. Classic cologne freshness."
+    },
+    "Linalool": {
+      "min_percent": 5.0,
+      "max_percent": 15.0,
+      "typical_percent": 10.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "The Fresh Floral",
+      "notes": "Lavender, bergamot core. Natural floral freshness."
+    },
+    "Phenyl Ethyl Acetate": {
+      "min_percent": 1.0,
+      "max_percent": 5.0,
+      "typical_percent": 3.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "The Jam",
+      "notes": "Honey, rose, fruity."
+    },
+    "Benzyl Salicylate": {
+      "min_percent": 5.0,
+      "max_percent": 15.0,
+      "typical_percent": 10.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "The Sunscreen",
+      "notes": "Balsamic, floral, UV. Good fixative."
+    },
+    "Aldehyde C-10": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.5,
+      "category": "top",
+      "note": "top",
+      "potency": "high",
+      "function": "The Peel",
+      "notes": "Orange skin, waxy. Powerful aldehyde, use sparingly."
+    },
+    "Aldehyde C-12 MNA": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "top",
+      "note": "top",
+      "potency": "extreme",
+      "function": "The Shimmer",
+      "notes": "Incense, hot iron. Very powerful, trace amounts only."
+    },
+    "C-12 MNA": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "top",
+      "note": "top",
+      "potency": "extreme",
+      "function": "The Shimmer",
+      "notes": "Aldehyde, powerful sparkle. Same as Aldehyde C-12 MNA."
+    },
+    "Linalyl Acetate": {
+      "min_percent": 5.0,
+      "max_percent": 15.0,
+      "typical_percent": 10.0,
+      "category": "top",
+      "note": "top",
+      "potency": "medium",
+      "function": "The Crispness",
+      "notes": "Earl Grey tea, bergamot. Crisp top note."
+    },
+    "Triplal": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.5,
+      "category": "top",
+      "note": "top",
+      "potency": "high",
+      "function": "The Snap",
+      "notes": "Green grass, zest. Sharp impact."
+    },
+    "Helional": {
+      "min_percent": 1.0,
+      "max_percent": 5.0,
+      "typical_percent": 3.0,
+      "category": "top",
+      "note": "top",
+      "potency": "medium",
+      "function": "The Silver",
+      "notes": "Watery, metallic, airy. Marine aldehydic."
+    },
+    "Alpha Irone": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "extreme",
+      "function": "The Luxury",
+      "notes": "Authentic iris heart, cold metallic. Extremely potent, use at trace levels."
+    },
+    "Alpha-Irone": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "extreme",
+      "function": "The Luxury",
+      "notes": "Authentic iris heart, DHP core. Same as Alpha Irone."
+    },
+    "Beta Damascone": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "extreme",
+      "function": "The Glow",
+      "notes": "Roasted fruit, rose. Extremely diffusive, trace amounts only."
+    },
+    "Undecavertol": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.5,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "high",
+      "function": "The Anti-Sugar",
+      "notes": "Violet leaf, watery. Balances sweetness."
+    },
+    "Isobutyl Quinoline": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.3,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "high",
+      "function": "The Grit",
+      "notes": "Green leather, roots. Adds character."
+    },
+    "Birch Tar": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.3,
+      "category": "modifier",
+      "note": "base",
+      "potency": "high",
+      "function": "The Smoke",
+      "notes": "Campfire, leather. Powerful smoky effect."
+    },
+    "Ethyl Maltol": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.3,
+      "category": "modifier",
+      "note": "base",
+      "potency": "high",
+      "function": "The Addiction",
+      "notes": "Cotton candy, sugar. Very sweet, use sparingly."
+    },
+    "Cashmeran": {
+      "min_percent": 0.5,
+      "max_percent": 2.0,
+      "typical_percent": 1.0,
+      "category": "modifier",
+      "note": "base",
+      "potency": "high",
+      "function": "The Texture",
+      "notes": "Wet concrete, pine. Musky, soft, woody."
+    },
+    "Vanillin": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "Gourmand Sweet",
+      "notes": "Sweet vanilla, gourmand. Often used at 10% dilution."
+    },
+    "Coumarin": {
+      "min_percent": 0.1,
+      "max_percent": 0.8,
+      "typical_percent": 0.4,
+      "category": "base",
+      "note": "base",
+      "potency": "high",
+      "function": "Tonka/Hay",
+      "notes": "Sweet hay, tonka bean. IFRA restricted to 0.8% max."
+    },
+    "Ionone Beta": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Violet Wood",
+      "notes": "Woody-violet, floral character."
+    },
+    "Alpha-ionone": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Violet Floral",
+      "notes": "Violet, floral. Orris character."
+    },
+    "Methyl-ionone": {
+      "min_percent": 1.0,
+      "max_percent": 8.0,
+      "typical_percent": 4.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Woody Violet",
+      "notes": "Woody-violet, powdery."
+    },
+    "Evernyl": {
+      "min_percent": 0.5,
+      "max_percent": 3.0,
+      "typical_percent": 1.5,
+      "category": "base",
+      "note": "base",
+      "potency": "high",
+      "function": "Oakmoss",
+      "notes": "Oakmoss, dry, woody. IFRA restricted."
+    },
+    "Ebanol": {
+      "min_percent": 2.0,
+      "max_percent": 15.0,
+      "typical_percent": 8.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "Sandalwood",
+      "notes": "Sandalwood, creamy. Good sandalwood alternative."
+    },
+    "Bacdanol": {
+      "min_percent": 2.0,
+      "max_percent": 15.0,
+      "typical_percent": 8.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "Sandalwood",
+      "notes": "Sandalwood, smooth. Excellent fixative."
+    },
+    "D-Limonene": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "top",
+      "note": "top",
+      "potency": "medium",
+      "function": "Citrus",
+      "notes": "Fresh citrus, orange-lemon. Prone to oxidation, use with BHT."
+    },
+    "Hydroxycitronellal": {
+      "min_percent": 0.5,
+      "max_percent": 4.0,
+      "typical_percent": 2.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Lily of the Valley",
+      "notes": "Lily of the valley, floral. Listed allergen, restricted."
+    },
+    "Cyclamen Aldehyde": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Floral Aldehyde",
+      "notes": "Floral aldehyde, cyclamen flower."
+    },
+    "Rose Oxide": {
+      "min_percent": 0.1,
+      "max_percent": 1.0,
+      "typical_percent": 0.3,
+      "category": "modifier",
+      "note": "top",
+      "potency": "high",
+      "function": "Metallic Rose",
+      "notes": "Metallic edge, green thorn effect."
+    },
+    "Phenethyl Alcohol": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "heart",
+      "note": "heart",
+      "potency": "medium",
+      "function": "Rose",
+      "notes": "Rose, honey, bread-like. Natural rose character."
+    },
+    "Suederal": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "Suede",
+      "notes": "Suede, leather-like, soft."
+    },
+    "Ambrofix": {
+      "min_percent": 1.0,
+      "max_percent": 10.0,
+      "typical_percent": 5.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "Amber",
+      "notes": "Clean amber, fixative."
+    },
+    "Eugenol": {
+      "min_percent": 0.1,
+      "max_percent": 0.5,
+      "typical_percent": 0.2,
+      "category": "modifier",
+      "note": "heart",
+      "potency": "extreme",
+      "function": "Clove",
+      "notes": "Clove, spicy, warm. IFRA restricted to 0.5% max."
+    },
+    "Citral": {
+      "min_percent": 0.1,
+      "max_percent": 0.6,
+      "typical_percent": 0.3,
+      "category": "top",
+      "note": "top",
+      "potency": "extreme",
+      "function": "Lemon",
+      "notes": "Lemon, verbena, bright. IFRA restricted to 0.6% max."
+    }
+  },
+  "potency_categories": {
+    "extreme": {
+      "max_allowed": 1.0,
+      "warning_threshold": 0.5,
+      "description": "Ultra-potent materials. Use at trace levels only (0.1-0.5%). Can overwhelm entire formula."
+    },
+    "high": {
+      "max_allowed": 5.0,
+      "warning_threshold": 2.0,
+      "description": "Strong impact materials. Use sparingly (0.5-2%). Effective as modifiers and accents."
+    },
+    "medium": {
+      "max_allowed": 15.0,
+      "warning_threshold": 10.0,
+      "description": "Standard impact materials. Normal usage range (5-15%). Form core of most accords."
+    },
+    "low": {
+      "max_allowed": 50.0,
+      "warning_threshold": 30.0,
+      "description": "Foundation materials. Can be used liberally (10-50%). Provide structure and volume."
+    }
+  },
+  "note_distribution_guidelines": {
+    "top": {
+      "min_percent": 10.0,
+      "max_percent": 30.0,
+      "ideal_percent": 20.0,
+      "description": "First impression, 15-30 minutes"
+    },
+    "heart": {
+      "min_percent": 30.0,
+      "max_percent": 50.0,
+      "ideal_percent": 40.0,
+      "description": "Main character, 30 min to 4 hours"
+    },
+    "base": {
+      "min_percent": 30.0,
+      "max_percent": 50.0,
+      "ideal_percent": 40.0,
+      "description": "Foundation and longevity, 4+ hours"
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-01-06",
+    "source": "master_organ_guide.md, chemical_inventory.md"
+  }
+}

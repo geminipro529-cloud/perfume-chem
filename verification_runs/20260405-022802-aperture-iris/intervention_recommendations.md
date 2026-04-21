@@ -1,0 +1,459 @@
+# Intervention Recommendations - Aperture Iris
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Bergamot FCF oil Sicilian + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Aldehyde C12 MNA
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Clearwood
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Aldehyde C12 MNA
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Clearwood
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C12 MNA + Ambrox Super (30% w/v, 3 g in 10 mL)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 5.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Clearwood
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Ambrox Super (30% w/v, 3 g in 10 mL)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Galaxolide (80%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 5.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Ambrox Super (30% w/v, 3 g in 10 mL)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 5.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide (80%) + Ambrox Super (30% w/v, 3 g in 10 mL)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.9 vs 5.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Bacdanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Ambrox Super (30% w/v, 3 g in 10 mL)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bacdanol + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Bacdanol + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Phenethyl Alcohol (PEA) + Hydroxycitronellal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Phenethyl Alcohol (PEA) + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hydroxycitronellal + Neroli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hydroxycitronellal + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hydroxycitronellal + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Neroli EO + Cis Jasmone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Neroli EO + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Neroli EO + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cis Jasmone + Indole (10%)
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cis Jasmone + Rose Oxide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 3.2 — pre-mixing improves homogeneity.'}
+- INCREASE Ambrox Super for longevity (axis delta 0.3, total delta 0.2)
+  - Rationale: ambergris-style drydown fixative, extends persistence
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: maps to Warm-Narcotic: Sensual, heavy, enveloping, narcotic
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Neroli EO for radiance (axis delta 0.6, total delta 0.2)
+  - Rationale: luminous floral éclat, top-note radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Habanolide for longevity (axis delta 0.4, total delta 0.1)
+  - Rationale: macrocyclic musk tenacity, modern clean persistence
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: carries the roles noblesse / refinement, peau / skin intimacy
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Cedrat FCF oil Sicilian for balance (axis delta 1.0, total delta 0.2)
+  - Rationale: sharp citron top-note for base-heavy mineral accords
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 78.7
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Galaxolide for longevity (axis delta 0.8, total delta 0.1)
+  - Rationale: polycyclic musk persistence engine (80% dil → 2.4% active)
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: carries the roles peau / skin intimacy, transparence / airy lift
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- INCREASE Ambrox Super for longevity (axis delta 0.3, total delta 0.2)
+  - Rationale: ambergris-style drydown fixative, extends persistence
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: maps to Warm-Narcotic: Sensual, heavy, enveloping, narcotic
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Neroli EO for radiance (axis delta 0.7, total delta 0.2)
+  - Rationale: luminous floral éclat, top-note radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Habanolide for longevity (axis delta 0.4, total delta 0.1)
+  - Rationale: macrocyclic musk tenacity, modern clean persistence
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: carries the roles noblesse / refinement, peau / skin intimacy
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- REBALANCE Cedrat FCF oil Sicilian for balance (axis delta 1.0, total delta 0.2)
+  - Rationale: sharp citron top-note for base-heavy mineral accords
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 78.7
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Allyl Amyl Glycolate for radiance (axis delta 0.6, total delta 0.2)
+  - Rationale: green-pineapple laundry lift at trace
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- ADD Neroli EO for radiance (axis delta 0.5, total delta 0.2)
+  - Rationale: luminous floral éclat, top-note radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Florol for radiance (axis delta 0.3, total delta 0.3)
+  - Rationale: fresh muguet-adjacent transparency, aquatic radiance
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Galaxolide for longevity (axis delta 0.5, total delta 0.1)
+  - Rationale: polycyclic musk persistence engine (80% dil → 2.4% active)
+  - Provenance:
+    - Mode:
+      - selected because longevity is currently weak at 75.8
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - Supports the base band inside the detected skin_scent pyramid.
+    - Roudnitska: carries the roles peau / skin intimacy, transparence / airy lift
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Bergamot EO for radiance (axis delta 0.5, total delta 0.3)
+  - Rationale: rich bergamot éclat, top-note luminosity
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Linalool for radiance (axis delta 0.5, total delta 0.6)
+  - Rationale: clean transparent lift, radiance diffuser
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 66.1
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.8% now versus 10% target for the detected skin_scent style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected skin_scent style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

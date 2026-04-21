@@ -1,0 +1,4286 @@
+[
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "Bergamot",
+    "effect": "ALDEHYDE C10 pairs well with Bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "orange",
+    "effect": "ALDEHYDE C10 pairs well with orange",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "rose",
+    "effect": "ALDEHYDE C10 pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "jasmine",
+    "effect": "ALDEHYDE C10 pairs well with jasmine",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "musks",
+    "effect": "ALDEHYDE C10 pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "__avoid__",
+    "effect": "Overdosing — goes rancid-fatty immediately",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALDEHYDE C10",
+    "material_b": "__carles_rule__",
+    "effect": "Always trial aldehyde modifiers at 0.1-1% before raising dose.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "Hydroxycitronellal",
+    "effect": "ALDEHYDE C11 pairs well with Hydroxycitronellal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "musks",
+    "effect": "ALDEHYDE C11 pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "citrus",
+    "effect": "ALDEHYDE C11 pairs well with BERGAMOT FCF",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "floral bouquets",
+    "effect": "ALDEHYDE C11 pairs well with floral bouquets",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "__avoid__",
+    "effect": "Pairing with heavy vanillin (creates dissonance)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALDEHYDE C11",
+    "material_b": "__carles_rule__",
+    "effect": "Slightly more forgiving than C10 — can be used at marginally higher levels without going fatty.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "Rose",
+    "effect": "ALDEHYDE C12 MNA pairs well with Rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "jasmine",
+    "effect": "ALDEHYDE C12 MNA pairs well with jasmine",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "musks",
+    "effect": "ALDEHYDE C12 MNA pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "powdery accords",
+    "effect": "ALDEHYDE C12 MNA pairs well with powdery accords",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "amber",
+    "effect": "ALDEHYDE C12 MNA pairs well with amber",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "__avoid__",
+    "effect": "Pure aquatic compositions (metallic note clashes with marine)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALDEHYDE C12 MNA",
+    "material_b": "__carles_rule__",
+    "effect": "Works with nearly anything. The universal aldehyde.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "Other ionones",
+    "effect": "ALLYL IONONE pairs well with Other ionones",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "iris materials",
+    "effect": "ALLYL IONONE pairs well with iris materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "musks",
+    "effect": "ALLYL IONONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "coumarin",
+    "effect": "ALLYL IONONE pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "hedione",
+    "effect": "ALLYL IONONE pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — blends well with everything",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALLYL IONONE",
+    "material_b": "__carles_rule__",
+    "effect": "Pair with alpha irone for iris depth, with musks for powdery skin.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "Beta ionone",
+    "effect": "ALPHA IONONE pairs well with Beta ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "bergamot",
+    "effect": "ALPHA IONONE pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "rose",
+    "effect": "ALPHA IONONE pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "jasmine",
+    "effect": "ALPHA IONONE pairs well with jasmine",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "woods",
+    "effect": "ALPHA IONONE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — very safe blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALPHA IONONE",
+    "material_b": "__carles_rule__",
+    "effect": "Use for warmth. Beta ionone for violet. Both together for full iris.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "Methyl ionone",
+    "effect": "ALPHA IRONE pairs well with Methyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "allyl ionone",
+    "effect": "ALPHA IRONE pairs well with allyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "musks",
+    "effect": "ALPHA IRONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "hedione",
+    "effect": "ALPHA IRONE pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "coumarin",
+    "effect": "ALPHA IRONE pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "__avoid__",
+    "effect": "Overpowering — at >1% active it dominates everything",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ALPHA IRONE",
+    "material_b": "__carles_rule__",
+    "effect": "Support with methyl ionone (volume) and allyl ionone (warmth). Alpha irone provides character; the other ionones provide body.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "Musks",
+    "effect": "AMBER CORE pairs well with Musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "vanilla",
+    "effect": "AMBER CORE pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "woods",
+    "effect": "AMBER CORE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "iris",
+    "effect": "AMBER CORE pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "spices",
+    "effect": "AMBER CORE pairs well with spices",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "__avoid__",
+    "effect": "Pairing with your custom amber accords (redundancy)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBER CORE",
+    "material_b": "__carles_rule__",
+    "effect": "Trial with every heart material to find the best combinations.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "Musks",
+    "effect": "AMBER XTREME pairs well with Musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "woods",
+    "effect": "AMBER XTREME pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "iris",
+    "effect": "AMBER XTREME pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "other ambers",
+    "effect": "AMBER XTREME pairs well with other ambers",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "hedione",
+    "effect": "AMBER XTREME pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "__avoid__",
+    "effect": "Overdosing — it will suffocate the whole composition.",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBER XTREME",
+    "material_b": "__carles_rule__",
+    "effect": "Use as a replacement or complement to Ambrox.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "Ambrox",
+    "effect": "AMBERMAX pairs well with Ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "Amber Xtreme",
+    "effect": "AMBERMAX pairs well with Amber Xtreme",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "musks",
+    "effect": "AMBERMAX pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "vanillin",
+    "effect": "AMBERMAX pairs well with vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "iris",
+    "effect": "AMBERMAX pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "woods",
+    "effect": "AMBERMAX pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — very forgiving material",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBERMAX",
+    "material_b": "__carles_rule__",
+    "effect": "Layers under Ambrox/Amber Xtreme for multi-dimensional amber.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "Ambrox Super",
+    "effect": "AMBROFIX pairs well with Ambrox Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "musks",
+    "effect": "AMBROFIX pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "iris",
+    "effect": "AMBROFIX pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "woods",
+    "effect": "AMBROFIX pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "hedione",
+    "effect": "AMBROFIX pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "vanilla",
+    "effect": "AMBROFIX pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "__avoid__",
+    "effect": "Using at same dose as Ambrox Super — they stack. Halve both.",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBROFIX",
+    "material_b": "__carles_rule__",
+    "effect": "Can substitute or complement Ambrox Super. Use both together at reduced doses for complexity.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "Everything. Musks",
+    "effect": "AMBROX SUPER pairs well with Everything. Musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "woods",
+    "effect": "AMBROX SUPER pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "florals",
+    "effect": "AMBROX SUPER pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "iris",
+    "effect": "AMBROX SUPER pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "spices — it improves all.",
+    "effect": "AMBROX SUPER pairs well with spices — it improves all.",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "__avoid__",
+    "effect": ">5% active makes compositions smell \"flat\" — all Ambrox, no",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBROX SUPER",
+    "material_b": "__carles_rule__",
+    "effect": "Trial at 2-5% active in every composition type.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "Other musks",
+    "effect": "AMBRETTOLIDE pairs well with Other musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "ambrox",
+    "effect": "AMBRETTOLIDE pairs well with ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "rose",
+    "effect": "AMBRETTOLIDE pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "iris",
+    "effect": "AMBRETTOLIDE pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "pear notes",
+    "effect": "AMBRETTOLIDE pairs well with pear notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "woods",
+    "effect": "AMBRETTOLIDE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Won't project if used alone — needs polycyclic musks for reach",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AMBRETTOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Combine with Galaxolide (clean) + Ambrettolide (warm) for a multidimensional musk base.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "Linalool",
+    "effect": "AURANTIOL pairs well with Linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "hedione",
+    "effect": "AURANTIOL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "bergamot",
+    "effect": "AURANTIOL pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "musks",
+    "effect": "AURANTIOL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "jasmine FO",
+    "effect": "AURANTIOL pairs well with jasmine FO",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "iris",
+    "effect": "AURANTIOL pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "__avoid__",
+    "effect": "Strongly acidic compositions (acids break the Schiff base too fast)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "AURANTIOL",
+    "material_b": "__carles_rule__",
+    "effect": "Superb with linalool, hedione, and musks.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "Rose",
+    "effect": "BACDANOL pairs well with Rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "iris",
+    "effect": "BACDANOL pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "musks",
+    "effect": "BACDANOL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "amber",
+    "effect": "BACDANOL pairs well with amber",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "vanilla",
+    "effect": "BACDANOL pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "hedione",
+    "effect": "BACDANOL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BACDANOL",
+    "material_b": "__carles_rule__",
+    "effect": "Rose + Bacdanol = classic rose-sandalwood duet. Iris + Bacdanol = luxurious powdery-creamy.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "Vanillin",
+    "effect": "BENZOIN RESINOID pairs well with Vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "labdanum",
+    "effect": "BENZOIN RESINOID pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "musks",
+    "effect": "BENZOIN RESINOID pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "amber",
+    "effect": "BENZOIN RESINOID pairs well with amber",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "iris",
+    "effect": "BENZOIN RESINOID pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "frankincense",
+    "effect": "BENZOIN RESINOID pairs well with frankincense",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "__avoid__",
+    "effect": "Light citrus-only compositions (too heavy)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BENZOIN RESINOID",
+    "material_b": "__carles_rule__",
+    "effect": "Benzoin + labdanum + vanillin = amber triad. Benzoin + tonka/coumarin = powdery oriental.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "Olibanum",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with Olibanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "myrrh",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with myrrh",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "labdanum",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "guaiacol",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with guaiacol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "birch tar",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with birch tar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "iris",
+    "effect": "BENZOIN SUMATRA RESINOID pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "__avoid__",
+    "effect": "Pure fruity/aquatic (too heavy, creates muddle)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "__carles_rule__",
+    "effect": "Sumatra benzoin + olibanum + myrrh = incense triad.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BENZYL BENZOATE",
+    "material_b": "Everything — invisible additive",
+    "effect": "BENZYL BENZOATE pairs well with Everything — invisible additive",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZYL BENZOATE",
+    "material_b": "__avoid__",
+    "effect": "Overuse can make formula feel \"heavy\" without adding smell",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BENZYL BENZOATE",
+    "material_b": "__carles_rule__",
+    "effect": "Add 2-5% to every formula as fixative.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "Florals",
+    "effect": "BENZYL SALICYLATE pairs well with Florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "iris",
+    "effect": "BENZYL SALICYLATE pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "musks",
+    "effect": "BENZYL SALICYLATE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "powder accords",
+    "effect": "BENZYL SALICYLATE pairs well with powder accords",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — very safe and forgiving",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BENZYL SALICYLATE",
+    "material_b": "__carles_rule__",
+    "effect": "Use in floral and powdery compositions. Replace with benzyl benzoate in fresh/citrus where you want zero base contribution.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BERGAMOT EO",
+    "material_b": "Everything — the universal citrus top",
+    "effect": "BERGAMOT EO pairs well with Everything — the universal citrus top",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BERGAMOT EO",
+    "material_b": "__avoid__",
+    "effect": "SKIN APPLICATION IN SUNLIGHT — use FCF version instead",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BERGAMOT EO",
+    "material_b": "__carles_rule__",
+    "effect": "Start with bergamot. It works with everything.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BERGAMOT FCF",
+    "material_b": "__avoid__",
+    "effect": "Nothing — IFRA compliant, skin-safe",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "Other ionones",
+    "effect": "BETA IONONE pairs well with Other ionones",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "iris materials",
+    "effect": "BETA IONONE pairs well with iris materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "rose",
+    "effect": "BETA IONONE pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "coumarin",
+    "effect": "BETA IONONE pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "musks",
+    "effect": "BETA IONONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "__avoid__",
+    "effect": "Overdosing → olfactory fatigue makes you think it's gone (it's not)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BETA IONONE",
+    "material_b": "__carles_rule__",
+    "effect": "β-ionone for violet character. α-ionone for warmth. Allyl ionone for bulk. Alpha irone for luxury. The ionone quartet covers all of iris/violet.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "Guaiacol",
+    "effect": "BIRCH TAR RECTIFIED pairs well with Guaiacol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "IBQ",
+    "effect": "BIRCH TAR RECTIFIED pairs well with IBQ",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "labdanum",
+    "effect": "BIRCH TAR RECTIFIED pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "olibanum",
+    "effect": "BIRCH TAR RECTIFIED pairs well with olibanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "vetiver",
+    "effect": "BIRCH TAR RECTIFIED pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "Iso E Super",
+    "effect": "BIRCH TAR RECTIFIED pairs well with Iso E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "__avoid__",
+    "effect": "Overdosing — it will ruin the entire batch. Start at 0.1%.",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BIRCH TAR RECTIFIED",
+    "material_b": "__carles_rule__",
+    "effect": "Birch tar (trace) + isobutyl quinoline (trace) = leather.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "BERGAMOT FCF",
+    "effect": "BLACK PEPPER FTEC pairs well with BERGAMOT FCF",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "vetiver",
+    "effect": "BLACK PEPPER FTEC pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "cedar",
+    "effect": "BLACK PEPPER FTEC pairs well with cedar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "pink pepper",
+    "effect": "BLACK PEPPER FTEC pairs well with PINK PEPPER BASE",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "musks",
+    "effect": "BLACK PEPPER FTEC pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "ambrox",
+    "effect": "BLACK PEPPER FTEC pairs well with ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "__avoid__",
+    "effect": "Heavy florals (pepper + rose can clash if unmediated)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "__carles_rule__",
+    "effect": "Black pepper + bergamot = classic masculine opening. Black pepper + vetiver = Terre d'Hermès backbone.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "Rose",
+    "effect": "BLACKCURRANT FTEC pairs well with Rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "iris",
+    "effect": "BLACKCURRANT FTEC pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "musks",
+    "effect": "BLACKCURRANT FTEC pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "hedione",
+    "effect": "BLACKCURRANT FTEC pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "dewberry",
+    "effect": "BLACKCURRANT FTEC pairs well with DEWBERRY FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "beta ionone",
+    "effect": "BLACKCURRANT FTEC pairs well with beta ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "__avoid__",
+    "effect": "Aquatic compositions (cassis + marine = unpleasant clash)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "BLACKCURRANT FTEC",
+    "material_b": "__carles_rule__",
+    "effect": "Cassis + rose = modern chypre. Cassis + musks = Narciso type. Cassis + iris = dark luxurious floral.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "Hedione",
+    "effect": "CALONE pairs well with Hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "dihydromyrcenol",
+    "effect": "CALONE pairs well with dihydromyrcenol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "BERGAMOT FCF",
+    "effect": "CALONE pairs well with BERGAMOT FCF",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "floralozone",
+    "effect": "CALONE pairs well with floralozone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "musks",
+    "effect": "CALONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "__avoid__",
+    "effect": "OVERDOSING — the #1 danger material. Go under, never over.",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CALONE",
+    "material_b": "__carles_rule__",
+    "effect": "Calone + hedione + dihydromyrcenol = aquatic triad.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "Bergamot",
+    "effect": "CARDAMOM FTEC pairs well with Bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "iris",
+    "effect": "CARDAMOM FTEC pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "pepper",
+    "effect": "CARDAMOM FTEC pairs well with BLACK PEPPER FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "cedar",
+    "effect": "CARDAMOM FTEC pairs well with cedar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "musks",
+    "effect": "CARDAMOM FTEC pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "ISO E Super",
+    "effect": "CARDAMOM FTEC pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "__avoid__",
+    "effect": "Nothing — extremely versatile",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CARDAMOM FTEC",
+    "material_b": "__carles_rule__",
+    "effect": "Cardamom + bergamot + ISO E = modern aromatic masculine. Cardamom + iris + musks = Dior Homme direction.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "Iris materials",
+    "effect": "CARROT SEED EO pairs well with Iris materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "vetiver",
+    "effect": "CARROT SEED EO pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "cedar",
+    "effect": "CARROT SEED EO pairs well with cedar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "coumarin",
+    "effect": "CARROT SEED EO pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "patchouli",
+    "effect": "CARROT SEED EO pairs well with patchouli",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "__avoid__",
+    "effect": "High doses — becomes unpleasantly \"root vegetable\"",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CARROT SEED EO",
+    "material_b": "__carles_rule__",
+    "effect": "Carrot seed + iris + vetiver = Terre d'Hermès earth note. Carrot seed + coumarin + iris = powdery-earthy luxury.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "Musks",
+    "effect": "CASHMERAN pairs well with Musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "iris",
+    "effect": "CASHMERAN pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "ambrox",
+    "effect": "CASHMERAN pairs well with ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "woods",
+    "effect": "CASHMERAN pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "pepper",
+    "effect": "CASHMERAN pairs well with pepper",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "coumarin",
+    "effect": "CASHMERAN pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal enhancer",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CASHMERAN",
+    "material_b": "__carles_rule__",
+    "effect": "Cashmeran + musks = warm cashmere musk. Cashmeran + iris = soft powdery luxury. Cashmeran + ambrox = modern warmth.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "Other woods",
+    "effect": "CEDAMBER pairs well with Other woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "musks",
+    "effect": "CEDAMBER pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "iris",
+    "effect": "CEDAMBER pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "amber materials",
+    "effect": "CEDAMBER pairs well with amber materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "__avoid__",
+    "effect": "Stacking with both Cedramber AND amber materials (redundant)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CEDAMBER",
+    "material_b": "__carles_rule__",
+    "effect": "Can substitute for cedar + amber in simple formulas.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "Iso E Super",
+    "effect": "CEDRAMBER pairs well with Iso E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "cedarwood EO",
+    "effect": "CEDRAMBER pairs well with cedarwood EO",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "vetiver",
+    "effect": "CEDRAMBER pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "musks",
+    "effect": "CEDRAMBER pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "ambrox",
+    "effect": "CEDRAMBER pairs well with ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "__avoid__",
+    "effect": "Stacking excessively with Cedamber (partially redundant)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CEDRAMBER",
+    "material_b": "__carles_rule__",
+    "effect": "Cedramber + Iso E Super = modern woody base. Cedramber + vetiver + Vertofix = complete wood section.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "Cedramber",
+    "effect": "CEDARWOOD EO pairs well with Cedramber",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "Iso E Super",
+    "effect": "CEDARWOOD EO pairs well with Iso E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "vetiver",
+    "effect": "CEDARWOOD EO pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "bergamot",
+    "effect": "CEDARWOOD EO pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "musks",
+    "effect": "CEDARWOOD EO pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal woody natural",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CEDARWOOD EO",
+    "material_b": "__carles_rule__",
+    "effect": "Cedarwood EO (natural texture) + Cedramber (warmth) + Iso E Super (abstract aura) = complete cedar trilogy.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "D-Limonene",
+    "effect": "CITRAL pairs well with D-Limonene",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "linalool",
+    "effect": "CITRAL pairs well with linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "BERGAMOT FCF",
+    "effect": "CITRAL pairs well with BERGAMOT FCF",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "verbena accords",
+    "effect": "CITRAL pairs well with verbena accords",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "__avoid__",
+    "effect": "Formulas with methyl anthranilate or strong amines (Schiff",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CITRAL",
+    "material_b": "__carles_rule__",
+    "effect": "Citral + D-limonene = natural lemon reconstruction. Citral + linalool = lemon-floral bridge.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "Geraniol",
+    "effect": "CITRONELLAL pairs well with Geraniol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "rose",
+    "effect": "CITRONELLAL pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "linalool",
+    "effect": "CITRONELLAL pairs well with linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "hydroxycitronellal",
+    "effect": "CITRONELLAL pairs well with hydroxycitronellal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "bergamot",
+    "effect": "CITRONELLAL pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "__avoid__",
+    "effect": "Strong acids (cyclization to isopulegol can occur)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CITRONELLAL",
+    "material_b": "__carles_rule__",
+    "effect": "Citronellal + geraniol = rosy-citrus accord. Citronellal + linalool = dewy freshness.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "Lavender",
+    "effect": "COUMARIN pairs well with Lavender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "iris",
+    "effect": "COUMARIN pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "vanillin",
+    "effect": "COUMARIN pairs well with vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "musks",
+    "effect": "COUMARIN pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "bergamot",
+    "effect": "COUMARIN pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "tonka FO",
+    "effect": "COUMARIN pairs well with tonka FO",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "__avoid__",
+    "effect": "Nothing — blends with everything",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "COUMARIN",
+    "material_b": "__carles_rule__",
+    "effect": "Coumarin + lavender = fougère base. Coumarin + vanillin = sweet powdery oriental. Coumarin + iris = powdery luxury.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "Hydroxycitronellal",
+    "effect": "CYCLAMEN ALDEHYDE pairs well with Hydroxycitronellal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "Florol",
+    "effect": "CYCLAMEN ALDEHYDE pairs well with Florol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "hedione",
+    "effect": "CYCLAMEN ALDEHYDE pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "linalool",
+    "effect": "CYCLAMEN ALDEHYDE pairs well with linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "rose oxide",
+    "effect": "CYCLAMEN ALDEHYDE pairs well with rose oxide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — good blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "CYCLAMEN ALDEHYDE",
+    "material_b": "__carles_rule__",
+    "effect": "Cyclamen aldehyde + hydroxycitronellal = classic muguet duo. Add Florol for the aqueous facet = full muguet accord.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "DEP",
+    "material_b": "Use as a carrier when DPG or IPM aren't suitable",
+    "effect": "DEP pairs well with Use as a carrier when DPG or IPM aren't suitable",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEP",
+    "material_b": "__avoid__",
+    "effect": "Excessive use — regulatory scrutiny on phthalates",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "Blackcurrant FTEC",
+    "effect": "DEWBERRY FTEC pairs well with Blackcurrant FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "raspberry ketone",
+    "effect": "DEWBERRY FTEC pairs well with raspberry ketone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "musks",
+    "effect": "DEWBERRY FTEC pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "vanilla",
+    "effect": "DEWBERRY FTEC pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "__avoid__",
+    "effect": "Heavy leather/incense (clashes with sweetness)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "__carles_rule__",
+    "effect": "Dewberry + blackcurrant = dark-to-light berry gradient. Dewberry + musks = soft fruity musk. Dewberry + vanilla = sweet fruity gourmand.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "Beta ionone",
+    "effect": "DIHYDRO BETA IONONE pairs well with Beta ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "allyl ionone",
+    "effect": "DIHYDRO BETA IONONE pairs well with allyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "methyl ionone",
+    "effect": "DIHYDRO BETA IONONE pairs well with methyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "cedarwood",
+    "effect": "DIHYDRO BETA IONONE pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "ISO E Super",
+    "effect": "DIHYDRO BETA IONONE pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — excellent blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "DIHYDRO BETA IONONE",
+    "material_b": "__carles_rule__",
+    "effect": "Use β-ionone (violet) + DH-β-ionone (woody persistence) together: β-ionone blooms in the heart, DH-β-ionone persists into the base. This creates \"violet that lasts.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "Bergamot",
+    "effect": "DIHYDROMYRCENOL pairs well with Bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "hedione",
+    "effect": "DIHYDROMYRCENOL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "musks",
+    "effect": "DIHYDROMYRCENOL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "lavender",
+    "effect": "DIHYDROMYRCENOL pairs well with lavender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "calone",
+    "effect": "DIHYDROMYRCENOL pairs well with calone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "__avoid__",
+    "effect": "Heavy orientals (fresh-clean clashes with dark-sweet)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "DIHYDROMYRCENOL",
+    "material_b": "__carles_rule__",
+    "effect": "DHM + bergamot = modern fresh opening.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "DIPROPYLENE GLYCOL",
+    "material_b": "__carles_rule__",
+    "effect": "D-Limonene (flash 0-5 min) + bergamot (5-30 min) + linalool (30-120 min) = cascading citrus top note that evolves over time.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "Iris materials",
+    "effect": "EBANOL pairs well with Iris materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "musks",
+    "effect": "EBANOL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "vanilla",
+    "effect": "EBANOL pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "florals",
+    "effect": "EBANOL pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "cedarwood",
+    "effect": "EBANOL pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — universal blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "EBANOL",
+    "material_b": "__carles_rule__",
+    "effect": "Ebanol + iris = \"cashmere\" effect. Ebanol + musks = creamy skin scent. Ebanol + rose oxide = classic new sandalwood.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "Vanillin",
+    "effect": "ETHYL MALTOL pairs well with Vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "coumarin",
+    "effect": "ETHYL MALTOL pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "tonka",
+    "effect": "ETHYL MALTOL pairs well with tonka",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "fruity notes",
+    "effect": "ETHYL MALTOL pairs well with DEWBERRY FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "maple lactone",
+    "effect": "ETHYL MALTOL pairs well with maple lactone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "__avoid__",
+    "effect": "Fresh/citrus-heavy compositions (clashes badly)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ETHYL MALTOL",
+    "material_b": "__carles_rule__",
+    "effect": "Use in TRACES (0.05-0.3% of concentrate). Ethyl maltol + vanillin = \"pastry shop.\" Ethyl maltol + coumarin = \"dolce\" sweetness. Ethyl maltol at >1% = \"candy overdose.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "Galaxolide",
+    "effect": "ETHYLENE BRASSYLATE pairs well with Galaxolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "Habanolide",
+    "effect": "ETHYLENE BRASSYLATE pairs well with Habanolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "Ambrettolide",
+    "effect": "ETHYLENE BRASSYLATE pairs well with Ambrettolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "Ambrox",
+    "effect": "ETHYLENE BRASSYLATE pairs well with Ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "floral heart notes",
+    "effect": "ETHYLENE BRASSYLATE pairs well with floral heart notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal base note",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ETHYLENE BRASSYLATE",
+    "material_b": "__carles_rule__",
+    "effect": "EB (volume/base) + Galaxolide (powdery/heart) + Habanolide (animalic depth) = modern musk triad.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "Ethylene brassylate",
+    "effect": "EXALTOLIDE pairs well with Ethylene brassylate",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "Galaxolide",
+    "effect": "EXALTOLIDE pairs well with Galaxolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "Ambrettolide",
+    "effect": "EXALTOLIDE pairs well with Ambrettolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "Ambrox",
+    "effect": "EXALTOLIDE pairs well with Ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "sandalwood",
+    "effect": "EXALTOLIDE pairs well with sandalwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal base musk",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "EXALTOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Exaltolide (warm/skin) + EB (clean/powder) = balanced musk base. Exaltolide + Ambrettolide = luxurious skin musk duo.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "Hedione",
+    "effect": "FLORALOZONE pairs well with Hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "Calone (1%)",
+    "effect": "FLORALOZONE pairs well with Calone (1%)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "DHM",
+    "effect": "FLORALOZONE pairs well with DHM",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "bergamot",
+    "effect": "FLORALOZONE pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "musks",
+    "effect": "FLORALOZONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "__avoid__",
+    "effect": "Heavy orientals/heavy gourmands — freshness clashes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "FLORALOZONE",
+    "material_b": "__carles_rule__",
+    "effect": "Floralozone + hedione = \"air freshener\" freshness. Floralozone + Calone = full aquatic (but watch for over-freshness). Floralozone + florals = \"dewy flowers\" effect.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "Hydroxycitronellal",
+    "effect": "FLOROL pairs well with Hydroxycitronellal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "hedione",
+    "effect": "FLOROL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "linalool",
+    "effect": "FLOROL pairs well with linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "bergamot",
+    "effect": "FLOROL pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "musks",
+    "effect": "FLOROL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "__avoid__",
+    "effect": "Nothing significant — very good blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "FLOROL",
+    "material_b": "__carles_rule__",
+    "effect": "Florol + hydroxycitronellal = classic muguet accord. Florol + hedione = transparent, airy lily. Florol + floralozone = \"rain on lilies.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "EB",
+    "effect": "GALAXOLIDE pairs well with EB",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "Habanolide",
+    "effect": "GALAXOLIDE pairs well with Habanolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "florals",
+    "effect": "GALAXOLIDE pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "woods",
+    "effect": "GALAXOLIDE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "virtually everything",
+    "effect": "GALAXOLIDE pairs well with virtually everything",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal blender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "GALAXOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Galaxolide (clean/powdery) + EB (base volume) + Habanolide (animalic depth) = complete musk accord. Galaxolide + floral heart = \"clean floral\" genre.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "Rose",
+    "effect": "GALBANUM RESINOID pairs well with Rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "iris materials",
+    "effect": "GALBANUM RESINOID pairs well with iris materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "cassis",
+    "effect": "GALBANUM RESINOID pairs well with cassis",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "bergamot",
+    "effect": "GALBANUM RESINOID pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "oakmoss",
+    "effect": "GALBANUM RESINOID pairs well with oakmoss",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "__avoid__",
+    "effect": "Overdose — instantly ruins a formula with bitter green",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "GALBANUM RESINOID",
+    "material_b": "__carles_rule__",
+    "effect": "Galbanum + rose = classic green chypre (Vent Vert). Galbanum + iris = sophisticated cold floral. Galbanum + cassis = modern dark green.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "Linalool",
+    "effect": "GERANIOL pairs well with Linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "phenethyl alcohol",
+    "effect": "GERANIOL pairs well with phenethyl alcohol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "rose oxide",
+    "effect": "GERANIOL pairs well with rose oxide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "bergamot",
+    "effect": "GERANIOL pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal rose builder",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "GERANIOL",
+    "material_b": "__carles_rule__",
+    "effect": "Geraniol + PEA + citronellol = classic rose accord. Geraniol + citral = lemon-rose (lemongrass character). Geraniol + geranium EO = bolster natural geranium.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "Vetiver",
+    "effect": "GRAPEFRUIT FCF pairs well with Vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "pink pepper",
+    "effect": "GRAPEFRUIT FCF pairs well with pink pepper",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "bergamot",
+    "effect": "GRAPEFRUIT FCF pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "DHM",
+    "effect": "GRAPEFRUIT FCF pairs well with DHM",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "hedione",
+    "effect": "GRAPEFRUIT FCF pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "__avoid__",
+    "effect": "Old stock — oxidizes like all citrus",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "GRAPEFRUIT FCF",
+    "material_b": "__carles_rule__",
+    "effect": "Grapefruit + vetiver = classic modern fresh. Grapefruit + pink pepper = sparkling opening. Grapefruit + DHM + musks = fresh sport genre.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "Birch tar",
+    "effect": "GUAIACOL pairs well with Birch tar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "suederal",
+    "effect": "GUAIACOL pairs well with suederal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "vanilla",
+    "effect": "GUAIACOL pairs well with vanilla",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "labdanum",
+    "effect": "GUAIACOL pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "leather notes",
+    "effect": "GUAIACOL pairs well with leather notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "__avoid__",
+    "effect": "Overdose (instantly ruins a formula), fresh/clean compositions",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "GUAIACOL",
+    "material_b": "__carles_rule__",
+    "effect": "Guaiacol + birch tar = dark leather duo. Guaiacol + vanillin = \"bonfire\" effect. Guaiacol + suederal = smoky suede.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "All other musks",
+    "effect": "HABANOLIDE pairs well with All other musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "Ambrox",
+    "effect": "HABANOLIDE pairs well with Ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "woods",
+    "effect": "HABANOLIDE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "florals",
+    "effect": "HABANOLIDE pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "HABANOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Habanolide + Galaxolide + EB = complete musk spectrum. Habanolide + Ambrox = sophisticated amber-musk base. Habanolide alone at 10% = elegant modern skin scent.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "HEDIONE",
+    "material_b": "EVERYTHING — universal enhancer",
+    "effect": "HEDIONE pairs well with EVERYTHING — universal enhancer",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HEDIONE",
+    "material_b": "__avoid__",
+    "effect": "Nothing",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "HEDIONE",
+    "material_b": "__carles_rule__",
+    "effect": "Hedione at 10-25% of concentrate = adds radiance to ANYTHING. Hedione + bergamot = \"glow.\" Hedione + Galaxolide = \"radiant musk.\" Hedione + iris = \"luminous iris.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "Vanillin",
+    "effect": "HELIOTROPIN pairs well with Vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "coumarin",
+    "effect": "HELIOTROPIN pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "iris",
+    "effect": "HELIOTROPIN pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "tonka",
+    "effect": "HELIOTROPIN pairs well with tonka",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "musks",
+    "effect": "HELIOTROPIN pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "lavender",
+    "effect": "HELIOTROPIN pairs well with lavender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "__avoid__",
+    "effect": "Fresh-sharp compositions where powder would be discordant",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "HELIOTROPIN",
+    "material_b": "__carles_rule__",
+    "effect": "Heliotropin + vanillin = \"warm pastry.\" Heliotropin + iris = \"powdery elegant.\" Heliotropin + coumarin = \"classic Oriental\" sweetness.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "cis-3-Hexenol",
+    "effect": "HEXYL ACETATE pairs well with cis-3-Hexenol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "bergamot",
+    "effect": "HEXYL ACETATE pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "galbanum",
+    "effect": "HEXYL ACETATE pairs well with galbanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "green notes",
+    "effect": "HEXYL ACETATE pairs well with green notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "__avoid__",
+    "effect": "Heavy sweet compositions — wasted: evaporates long before",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "HEXYL ACETATE",
+    "material_b": "__carles_rule__",
+    "effect": "Hexyl acetate + cis-3-hexenol = \"green apple leaf.\" Hexyl acetate + bergamot = sparkling fresh. Hexyl acetate + galbanum = green chypre opening.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "Florol",
+    "effect": "HYDROXYCITRONELLAL pairs well with Florol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "cyclamen aldehyde",
+    "effect": "HYDROXYCITRONELLAL pairs well with cyclamen aldehyde",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "hedione",
+    "effect": "HYDROXYCITRONELLAL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "linalool",
+    "effect": "HYDROXYCITRONELLAL pairs well with linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "musks",
+    "effect": "HYDROXYCITRONELLAL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "__avoid__",
+    "effect": "Check IFRA limits — sensitizer at high levels",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "HYDROXYCITRONELLAL",
+    "material_b": "__carles_rule__",
+    "effect": "HCA + florol + hedione = classic muguet triad.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ISO E SUPER",
+    "material_b": "EVERYTHING — universal enhancer",
+    "effect": "ISO E SUPER pairs well with EVERYTHING — universal enhancer",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISO E SUPER",
+    "material_b": "__avoid__",
+    "effect": "Nothing — but beware anosmia: ask others to evaluate",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ISO E SUPER",
+    "material_b": "__carles_rule__",
+    "effect": "IES at 5-10% + anything = \"improved version of that thing.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "Birch tar",
+    "effect": "ISOBUTYL QUINOLINE pairs well with Birch tar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "suederal",
+    "effect": "ISOBUTYL QUINOLINE pairs well with suederal",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "labdanum",
+    "effect": "ISOBUTYL QUINOLINE pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "styrax",
+    "effect": "ISOBUTYL QUINOLINE pairs well with styrax",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "guaiacol",
+    "effect": "ISOBUTYL QUINOLINE pairs well with guaiacol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "__avoid__",
+    "effect": "Overdose — instantly makes everything smell \"chemical\"",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ISOBUTYL QUINOLINE",
+    "material_b": "__carles_rule__",
+    "effect": "IBQ + birch tar = classic leather accord.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "Hedione",
+    "effect": "JASMINE FO pairs well with Hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "musks",
+    "effect": "JASMINE FO pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "rose materials",
+    "effect": "JASMINE FO pairs well with rose materials",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "orange/linalool",
+    "effect": "JASMINE FO pairs well with orange/linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "__avoid__",
+    "effect": "Evaluate the FO quality — if it smells cheap or chemical, use it",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "JASMINE FO",
+    "material_b": "__carles_rule__",
+    "effect": "Jasmine FO + hedione (10-20%) = enhanced radiant jasmine. Jasmine FO + rose materials = \"soliflore pair\" (the two queens). Jasmine FO + musks = sensual floral musk. Jasmine FO + orange blossom = classic wedding bouquet.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "ISO E Super",
+    "effect": "KEPHALIS pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "cedarwood",
+    "effect": "KEPHALIS pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "ambrox",
+    "effect": "KEPHALIS pairs well with ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "vetiver",
+    "effect": "KEPHALIS pairs well with vetiver",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "patchouli",
+    "effect": "KEPHALIS pairs well with patchouli",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "__avoid__",
+    "effect": "Excessive dosing — overtakes lighter elements",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "KEPHALIS",
+    "material_b": "__carles_rule__",
+    "effect": "Kephalis + ISO E Super = \"molecular wood\" duo. Kephalis + ambrox = radiant amber. Kephalis + cedarwood = warm cedar with projection.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "Vanillin",
+    "effect": "LABDANUM ABSOLUTE pairs well with Vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "benzoin",
+    "effect": "LABDANUM ABSOLUTE pairs well with BENZOIN SUMATRA RESINOID",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "olibanum",
+    "effect": "LABDANUM ABSOLUTE pairs well with olibanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "birch tar",
+    "effect": "LABDANUM ABSOLUTE pairs well with birch tar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "musks",
+    "effect": "LABDANUM ABSOLUTE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "Ambrox",
+    "effect": "LABDANUM ABSOLUTE pairs well with Ambrox",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "__avoid__",
+    "effect": "Fresh/clean compositions (too dark)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "LABDANUM ABSOLUTE",
+    "material_b": "__carles_rule__",
+    "effect": "Labdanum + vanillin + benzoin = classic Oriental base. Labdanum + birch tar + IBQ = dark leather. Labdanum + olibanum + myrrh = biblical incense.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "Coumarin",
+    "effect": "LAVENDER EO pairs well with Coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "bergamot",
+    "effect": "LAVENDER EO pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "geraniol",
+    "effect": "LAVENDER EO pairs well with geraniol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "musks",
+    "effect": "LAVENDER EO pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "cedarwood",
+    "effect": "LAVENDER EO pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "__avoid__",
+    "effect": "Nothing — universal, time-tested",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "LAVENDER EO",
+    "material_b": "__carles_rule__",
+    "effect": "Lavender + coumarin = fougère signature. Lavender + bergamot = aromatic cologne. Lavender + geraniol = herbal-rosy.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "Labdanum",
+    "effect": "LEATHER FO pairs well with Labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "woods",
+    "effect": "LEATHER FO pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "iris",
+    "effect": "LEATHER FO pairs well with iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "dark florals",
+    "effect": "LEATHER FO pairs well with dark florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "__avoid__",
+    "effect": "Fresh/clean compositions",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "LEATHER FO",
+    "material_b": "__carles_rule__",
+    "effect": "Leather FO + labdanum = dark leather. Leather FO + iris = \"suede gloves\" (cold leather). Leather FO + vanillin = \"vintage book\" quality.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "Everything — bergamot",
+    "effect": "LINALOOL pairs well with Everything — bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "florals",
+    "effect": "LINALOOL pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "hedione",
+    "effect": "LINALOOL pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "musks",
+    "effect": "LINALOOL pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "woods",
+    "effect": "LINALOOL pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "__avoid__",
+    "effect": "Nothing",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "LINALOOL",
+    "material_b": "__carles_rule__",
+    "effect": "Linalool + bergamot = classic Eau de Cologne base. Linalool + geraniol = starts a rose. Linalool + hedione = transparent floral radiance. Linalool + everything = improvement.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "Linalool (always pair)",
+    "effect": "LINALYL ACETATE pairs well with Linalool (always pair)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "bergamot",
+    "effect": "LINALYL ACETATE pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "lavender",
+    "effect": "LINALYL ACETATE pairs well with lavender",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "DHM",
+    "effect": "LINALYL ACETATE pairs well with DHM",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "coumarin",
+    "effect": "LINALYL ACETATE pairs well with coumarin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "__avoid__",
+    "effect": "Nothing — safe and versatile",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "LINALYL ACETATE",
+    "material_b": "__carles_rule__",
+    "effect": "Linalyl acetate + linalool = natural lavender reconstruction. Linalyl acetate + bergamot = enhanced bergamot top. Linalyl acetate + dihydromyrcenol = maximum freshness.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "Other musks (EB",
+    "effect": "MACROLIDE pairs well with Other musks (EB",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "Habanolide",
+    "effect": "MACROLIDE pairs well with Habanolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "Galaxolide)",
+    "effect": "MACROLIDE pairs well with Galaxolide)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "woods",
+    "effect": "MACROLIDE pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "florals",
+    "effect": "MACROLIDE pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MACROLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Layer with your other macrocyclics for musk complexity.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "Vanillin",
+    "effect": "MAPLE LACTONE pairs well with Vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "ethyl maltol",
+    "effect": "MAPLE LACTONE pairs well with ethyl maltol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "tonka",
+    "effect": "MAPLE LACTONE pairs well with tonka",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "rum notes",
+    "effect": "MAPLE LACTONE pairs well with rum notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "tobacco",
+    "effect": "MAPLE LACTONE pairs well with tobacco",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "__avoid__",
+    "effect": "Fresh/citrus (overpowers), any overdose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "MAPLE LACTONE",
+    "material_b": "__carles_rule__",
+    "effect": "Maple lactone at TRACE + vanillin = \"crème brûlée.\" Maple lactone + tobacco/leather = \"rum-aged leather.\"",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "Allyl ionone",
+    "effect": "METHYL IONONE pairs well with Allyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "ISO E Super",
+    "effect": "METHYL IONONE pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "hedione",
+    "effect": "METHYL IONONE pairs well with hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "musks",
+    "effect": "METHYL IONONE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "sandalwood",
+    "effect": "METHYL IONONE pairs well with sandalwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "__avoid__",
+    "effect": "Nothing",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "METHYL IONONE",
+    "material_b": "__carles_rule__",
+    "effect": "Methyl ionone + allyl ionone = iris duo. Methyl ionone + ISO E Super = \"cashmere wood.\" Methyl ionone + musks = prestige skin scent.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "Grapefruit FCF (first partner)",
+    "effect": "METHYL PAMPLEMOUSSE pairs well with Grapefruit FCF (first partner)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "BERGAMOT FCF",
+    "effect": "METHYL PAMPLEMOUSSE pairs well with BERGAMOT FCF",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "DHM",
+    "effect": "METHYL PAMPLEMOUSSE pairs well with DHM",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "pink pepper",
+    "effect": "METHYL PAMPLEMOUSSE pairs well with pink pepper",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "__avoid__",
+    "effect": "Overdose — becomes sulfurous/catty",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "METHYL PAMPLEMOUSSE",
+    "material_b": "__carles_rule__",
+    "effect": "Methyl Pamplemousse + grapefruit FCF = realistic long-lasting grapefruit. MP provides character; FCF provides body.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "Methyl ionone",
+    "effect": "MOLECULE IRIS pairs well with Methyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "allyl ionone",
+    "effect": "MOLECULE IRIS pairs well with allyl ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "I-Iris FTEC",
+    "effect": "MOLECULE IRIS pairs well with I-Iris FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "musks",
+    "effect": "MOLECULE IRIS pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "woods",
+    "effect": "MOLECULE IRIS pairs well with woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MOLECULE IRIS",
+    "material_b": "__carles_rule__",
+    "effect": "Molecule Iris + methyl ionone + allyl ionone = layered iris. Molecule Iris + I-Iris FTEC = reinforced iris complexity.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "Galaxolide",
+    "effect": "MUSK KETONE pairs well with Galaxolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "florals",
+    "effect": "MUSK KETONE pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "aldehydes",
+    "effect": "MUSK KETONE pairs well with aldehydes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "vanillin",
+    "effect": "MUSK KETONE pairs well with vanillin",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "__avoid__",
+    "effect": "Check regulations for intended product category",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "MUSK KETONE",
+    "material_b": "__carles_rule__",
+    "effect": "MK + Galaxolide = sweet-clean musk blend.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "Olibanum",
+    "effect": "MYRRH EO pairs well with Olibanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "labdanum",
+    "effect": "MYRRH EO pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "frankincense",
+    "effect": "MYRRH EO pairs well with frankincense",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "rose",
+    "effect": "MYRRH EO pairs well with rose",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "benzoin",
+    "effect": "MYRRH EO pairs well with BENZOIN SUMATRA RESINOID",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "oud",
+    "effect": "MYRRH EO pairs well with oud",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "__avoid__",
+    "effect": "Fresh/light compositions — too heavy and dark",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "MYRRH EO",
+    "material_b": "__carles_rule__",
+    "effect": "Myrrh + olibanum = \"sacred temple\" duo. Myrrh + labdanum = \"dark amber incense.\" Myrrh + rose = ancient Middle Eastern combination.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "Ebanol",
+    "effect": "NORLIMBANOL DEXTRO pairs well with Ebanol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "cedarwood",
+    "effect": "NORLIMBANOL DEXTRO pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "ISO E Super",
+    "effect": "NORLIMBANOL DEXTRO pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "musks",
+    "effect": "NORLIMBANOL DEXTRO pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "sandalwood FO",
+    "effect": "NORLIMBANOL DEXTRO pairs well with sandalwood FO",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "__avoid__",
+    "effect": "Overdose — even one drop too many creates woody dominance",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "NORLIMBANOL DEXTRO",
+    "material_b": "__carles_rule__",
+    "effect": "Norlimbanol 1% + Ebanol (neat) + cedarwood = \"sandalwood temple\" — Norlimbanol provides the heart, Ebanol the cream, cedar the structure. Use in SINGLE DROPS.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "OLIBANUM RESINOID",
+    "material_b": "Myrrh EO (sacred)",
+    "effect": "OLIBANUM RESINOID pairs well with Myrrh EO (sacred)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "OLIBANUM RESINOID",
+    "material_b": "labdanum (amber-incense)",
+    "effect": "OLIBANUM RESINOID pairs well with labdanum (amber-incense)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "OLIBANUM RESINOID",
+    "material_b": "ISO E Super",
+    "effect": "OLIBANUM RESINOID pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "OLIBANUM RESINOID",
+    "material_b": "__avoid__",
+    "effect": "Overdosing monoterpene harshness — balance with musks or",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "OLIBANUM RESINOID",
+    "material_b": "__carles_rule__",
+    "effect": "Olibanum + myrrh = the oldest perfume combination in human history (sacred accord). Olibanum + rose = the sacred-romantic bridge. Olibanum + labdanum = amplified amber-incense depth.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "Methyl Ionone",
+    "effect": "ORIVONE pairs well with Methyl Ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "ISO E Super",
+    "effect": "ORIVONE pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "Molecule Iris",
+    "effect": "ORIVONE pairs well with Molecule Iris",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "ORRIS FTEC",
+    "effect": "ORIVONE pairs well with ORRIS FTEC",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "__avoid__",
+    "effect": "Overdose makes formula dusty/dry",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ORIVONE",
+    "material_b": "__carles_rule__",
+    "effect": "Orivone + Methyl Ionone = reinforced iris heart. Orivone + cedarwood = iris-woody bridge. Orivone + ISO E Super = transparent wood halo with orris elegance.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ORRIS F-TEC",
+    "material_b": "Hedione (radiance)",
+    "effect": "ORRIS F-TEC pairs well with Hedione (radiance)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORRIS F-TEC",
+    "material_b": "cedarwood (structure)",
+    "effect": "ORRIS F-TEC pairs well with cedarwood (structure)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORRIS F-TEC",
+    "material_b": "Methyl Ionone",
+    "effect": "ORRIS F-TEC pairs well with Methyl Ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ORRIS F-TEC",
+    "material_b": "__avoid__",
+    "effect": "Stacking with too many powdery materials = suffocating",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ORRIS F-TEC",
+    "material_b": "__carles_rule__",
+    "effect": "ORRIS FTEC + Hedione = Dior iris radiance (the backbone of multiple iconic fragrances).",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "PATCHOULI ESSENTIAL OIL",
+    "material_b": "Vetiver (earth duo)",
+    "effect": "PATCHOULI ESSENTIAL OIL pairs well with Vetiver (earth duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PATCHOULI ESSENTIAL OIL",
+    "material_b": "labdanum (amber)",
+    "effect": "PATCHOULI ESSENTIAL OIL pairs well with labdanum (amber)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PATCHOULI ESSENTIAL OIL",
+    "material_b": "cedarwood (structure)",
+    "effect": "PATCHOULI ESSENTIAL OIL pairs well with cedarwood (structure)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PATCHOULI ESSENTIAL OIL",
+    "material_b": "__avoid__",
+    "effect": "Overuse creates a \"dirty hippie\" impression; balance with",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "PATCHOULI ESSENTIAL OIL",
+    "material_b": "__carles_rule__",
+    "effect": "Patchouli + vetiver = the \"dark earth\" accord (male). Patchouli + coumarin = fougère base (classic masculine). Patchouli + vanillin = \"chypre sweet\" base. Patchouli + labdanum = ancient amber depth. Patchouli + ISO E Super + musks = modern woody base.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "Geraniol",
+    "effect": "PEONILE pairs well with Geraniol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "phenethyl alcohol",
+    "effect": "PEONILE pairs well with phenethyl alcohol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "raspberry ketone",
+    "effect": "PEONILE pairs well with raspberry ketone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "musks",
+    "effect": "PEONILE pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "__avoid__",
+    "effect": "Overdose = synthetic-metallic fruit; overwhelms lighter",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "PEONILE",
+    "material_b": "__carles_rule__",
+    "effect": "Peonile + geraniol + phenethyl alcohol = lush antique rose. Peonile + raspberry ketone = fruit explosion (CAREFUL!). Peonile + ISO E Super = modern fruity-wood.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "PHENETHYL ALCOHOL",
+    "material_b": "Geraniol (rose duo)",
+    "effect": "PHENETHYL ALCOHOL pairs well with Geraniol (rose duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PHENETHYL ALCOHOL",
+    "material_b": "Hedione (radiance)",
+    "effect": "PHENETHYL ALCOHOL pairs well with Hedione (radiance)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PHENETHYL ALCOHOL",
+    "material_b": "Peonile (fruit)",
+    "effect": "PHENETHYL ALCOHOL pairs well with Peonile (fruit)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PHENETHYL ALCOHOL",
+    "material_b": "__avoid__",
+    "effect": "Nothing specific — very friendly material",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "PHENETHYL ALCOHOL",
+    "material_b": "__carles_rule__",
+    "effect": "PEA + geraniol = rose body + rose sparkle = simple rose.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "PINK PEPPER BASE",
+    "material_b": "Bergamot (luxury top)",
+    "effect": "PINK PEPPER BASE pairs well with Bergamot (luxury top)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PINK PEPPER BASE",
+    "material_b": "ISO E Super (modern wood)",
+    "effect": "PINK PEPPER BASE pairs well with ISO E Super (modern wood)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PINK PEPPER BASE",
+    "material_b": "patchouli",
+    "effect": "PINK PEPPER BASE pairs well with patchouli",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "PINK PEPPER BASE",
+    "material_b": "__avoid__",
+    "effect": "Stacking with too many top notes (becomes chaotic)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "PINK PEPPER BASE",
+    "material_b": "__carles_rule__",
+    "effect": "Pink pepper + bergamot = modern luxury opener. Pink pepper + ISO E Super = peppery-wood haze. Pink pepper + patchouli = warm-earthy spice. Pink pepper + rose (PEA + geraniol) = spicy-rose (trending).",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "RASPBERRY KETONE",
+    "material_b": "Peonile (fruit amplifier)",
+    "effect": "RASPBERRY KETONE pairs well with Peonile (fruit amplifier)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "RASPBERRY KETONE",
+    "material_b": "vanillin (crème)",
+    "effect": "RASPBERRY KETONE pairs well with vanillin (crème)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "RASPBERRY KETONE",
+    "material_b": "Methyl Ionone",
+    "effect": "RASPBERRY KETONE pairs well with Methyl Ionone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "RASPBERRY KETONE",
+    "material_b": "__avoid__",
+    "effect": "Adding as undissolved crystals; stacking with Ethyl Maltol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "RASPBERRY KETONE",
+    "material_b": "__carles_rule__",
+    "effect": "Raspberry ketone + Peonile = full-spectrum berry-rose. Raspberry ketone + vanillin = raspberry crème. Raspberry ketone + ISO E Super = modern fruity-wood. Raspberry ketone + violet (Methyl Ionone) = berry-violet.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "Other musks (Galaxolide",
+    "effect": "ROMANDOLIDE pairs well with Other musks (Galaxolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "Habanolide",
+    "effect": "ROMANDOLIDE pairs well with Habanolide",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "EB)",
+    "effect": "ROMANDOLIDE pairs well with EB)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "ISO E Super",
+    "effect": "ROMANDOLIDE pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Isolation — Romandolide works best in ENSEMBLE with other musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ROMANDOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Romandolide + Galaxolide = clean-fruity base (modern fabric softener accord). Romandolide + Habanolide = fruity + animalic = complex musk. Romandolide + Ethylene Brassylate = enormous fruity musk volume.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "Geraniol",
+    "effect": "ROSE OXIDE pairs well with Geraniol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "PEA",
+    "effect": "ROSE OXIDE pairs well with PEA",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "citronellal (lychee trick)",
+    "effect": "ROSE OXIDE pairs well with citronellal (lychee trick)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "Hedione",
+    "effect": "ROSE OXIDE pairs well with Hedione",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "__avoid__",
+    "effect": "Overdose → harsh metallic geranium; high % overwhelms",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ROSE OXIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Rose oxide 10% + geraniol + PEA = modern rose (dewy + sweet). Rose oxide + citronellal = lychee-rose illusion (classic trick). Rose oxide + Dihydromyrcenol = fresh masculine rose. Rose oxide + Hedione = transparent crystalline rose.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "SANDALWOOD FRAGRANCE OIL",
+    "material_b": "ISO E Super (modern)",
+    "effect": "SANDALWOOD FRAGRANCE OIL pairs well with ISO E Super (modern)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SANDALWOOD FRAGRANCE OIL",
+    "material_b": "rose (classic)",
+    "effect": "SANDALWOOD FRAGRANCE OIL pairs well with rose (classic)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SANDALWOOD FRAGRANCE OIL",
+    "material_b": "vanillin (oriental)",
+    "effect": "SANDALWOOD FRAGRANCE OIL pairs well with vanillin (oriental)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SANDALWOOD FRAGRANCE OIL",
+    "material_b": "__avoid__",
+    "effect": "Overcombination with BOTH this FO and neat Ebanol at high",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "SANDALWOOD FRAGRANCE OIL",
+    "material_b": "__carles_rule__",
+    "effect": "Sandalwood FO + ISO E Super = modern wood duo. Sandalwood FO + rose (PEA + geraniol) = the classic \"rose de mai on sandalwood\" — perfumery's most famous dyad. Sandalwood FO + vanillin = warm oriental base. Sandalwood FO + patchouli = deep earthy wood.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "Hedione (radiance duo)",
+    "effect": "SCENTENAL pairs well with Hedione (radiance duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "florals",
+    "effect": "SCENTENAL pairs well with florals",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "fresh notes",
+    "effect": "SCENTENAL pairs well with fresh notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "aldehydes",
+    "effect": "SCENTENAL pairs well with aldehydes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "__avoid__",
+    "effect": "Overdose = metallic harshness; excessive stacking with other",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "SCENTENAL",
+    "material_b": "__carles_rule__",
+    "effect": "Scentenal 1% + Hedione = double radiance (powerful combo). Scentenal 1% + florals = transparent, dewy, \"morning\" quality. Scentenal 1% + aldehydes = amplified Chanel-style sparkle.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "STYRAX FTEC",
+    "material_b": "Labdanum (amber)",
+    "effect": "STYRAX FTEC pairs well with Labdanum (amber)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "STYRAX FTEC",
+    "material_b": "olibanum (incense)",
+    "effect": "STYRAX FTEC pairs well with olibanum (incense)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "STYRAX FTEC",
+    "material_b": "leather notes",
+    "effect": "STYRAX FTEC pairs well with leather notes",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "STYRAX FTEC",
+    "material_b": "__avoid__",
+    "effect": "Overuse creates cloying sweetness; balance with dry woods",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "STYRAX FTEC",
+    "material_b": "__carles_rule__",
+    "effect": "Styrax FTEC + labdanum = full amber balsam. Styrax FTEC + leather (Suederal/Isobutyl Quinoline) = leathery-balsamic (Russian leather type). Styrax FTEC + olibanum = sacred resinous incense. Styrax FTEC + vanilla = gourmand warmth.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "ISO E Super",
+    "effect": "SUEDERAL pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "styrax",
+    "effect": "SUEDERAL pairs well with styrax",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "olibanum",
+    "effect": "SUEDERAL pairs well with olibanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "birch tar",
+    "effect": "SUEDERAL pairs well with birch tar",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "cedarwood",
+    "effect": "SUEDERAL pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "__avoid__",
+    "effect": "Overdose → metallic, harsh, industrial; balance with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "SUEDERAL",
+    "material_b": "__carles_rule__",
+    "effect": "Suederal 10% + ISO E Super = modern suede-wood. Suederal 10% + styrax = classic Russian leather. Suederal 10% + olibanum = smoky-leather incense. Suederal 10% + birch tar = raw leather with suede overlay. Suederal 10% + Isobutyl Quinoline (MICRO) = dark leather with suede finish.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "TERPINYL ACETATE",
+    "material_b": "Linalyl acetate (fougère)",
+    "effect": "TERPINYL ACETATE pairs well with Linalyl acetate (fougère)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TERPINYL ACETATE",
+    "material_b": "bergamot (citrus-aromatic)",
+    "effect": "TERPINYL ACETATE pairs well with bergamot (citrus-aromatic)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TERPINYL ACETATE",
+    "material_b": "__avoid__",
+    "effect": "Over-stacking with other terpenes (becomes \"pine cleaner\")",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "TERPINYL ACETATE",
+    "material_b": "__carles_rule__",
+    "effect": "Terpinyl acetate + linalyl acetate = lavender-cardamom aromatic (classic fougère backbone). Terpinyl acetate + bergamot = amplified bergamot with spice-aromatic depth. Terpinyl acetate + ISO E Super = aromatic-woody (Terre d'Hermès zone). Terpinyl acetate + Cardamom FTEC = reinforced spice.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "TONALIDE",
+    "material_b": "Galaxolide (warm/clean duo)",
+    "effect": "TONALIDE pairs well with Galaxolide (warm/clean duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TONALIDE",
+    "material_b": "Ethylene Brassylate (volume)",
+    "effect": "TONALIDE pairs well with Ethylene Brassylate (volume)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TONALIDE",
+    "material_b": "__avoid__",
+    "effect": "Very high doses — environmental persistence concerns +",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "TONALIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Tonalide 10% + Galaxolide = warm-clean musk duo (classic fabric softener/laundry accord). Tonalide 10% + Ethylene Brassylate = enormous warm musk base. Tonalide 10% + vanillin = sweet skin accord. Tonalide 10% + ISO E Super = modern warm-woody musk.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "TONKA BEAN FRAGRANCE OIL",
+    "material_b": "Lavender (fougère)",
+    "effect": "TONKA BEAN FRAGRANCE OIL pairs well with Lavender (fougère)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TONKA BEAN FRAGRANCE OIL",
+    "material_b": "vanillin (amplify)",
+    "effect": "TONKA BEAN FRAGRANCE OIL pairs well with vanillin (amplify)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TONKA BEAN FRAGRANCE OIL",
+    "material_b": "patchouli (depth)",
+    "effect": "TONKA BEAN FRAGRANCE OIL pairs well with patchouli (depth)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TONKA BEAN FRAGRANCE OIL",
+    "material_b": "__avoid__",
+    "effect": "Overdose = cloying, \"cheap vanilla candle\" impression;",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "TONKA BEAN FRAGRANCE OIL",
+    "material_b": "__carles_rule__",
+    "effect": "Tonka FO + lavender = fougère archetype. Tonka FO + vanillin = gourmand warmth amplifier. Tonka FO + patchouli = sweet-earthy depth. Tonka FO + tobacco/leather notes = gentleman's club. Tonka FO + cedarwood = warm woody elegance.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "TRIETHYL CITRATE",
+    "material_b": "Crystalline solids (dissolve raspberry ketone",
+    "effect": "TRIETHYL CITRATE pairs well with Crystalline solids (dissolve raspberry ketone",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TRIETHYL CITRATE",
+    "material_b": "vanillin)",
+    "effect": "TRIETHYL CITRATE pairs well with vanillin)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "TRIETHYL CITRATE",
+    "material_b": "__avoid__",
+    "effect": "Using as 100% solvent — still need ethanol for proper",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "TRIETHYL CITRATE",
+    "material_b": "__carles_rule__",
+    "effect": "Use to dissolve: raspberry ketone, coumarin, vanillin, heliotropin, and other crystalline materials.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VANILLIN",
+    "material_b": "Labdanum (amber)",
+    "effect": "VANILLIN pairs well with Labdanum (amber)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VANILLIN",
+    "material_b": "coumarin/tonka (oriental)",
+    "effect": "VANILLIN pairs well with coumarin/tonka (oriental)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VANILLIN",
+    "material_b": "musks (soften)",
+    "effect": "VANILLIN pairs well with musks (soften)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VANILLIN",
+    "material_b": "__avoid__",
+    "effect": "Stacking with Ethyl Maltol AND Maple Lactone (triple sweetness",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VANILLIN",
+    "material_b": "__carles_rule__",
+    "effect": "Vanillin 10% + labdanum = amber (THE classic amber formula). Vanillin 10% + coumarin (Tonka FO) = soft oriental base. Vanillin 10% + ISO E Super = modern woody-sweet. Vanillin 10% + Ethyl Maltol = CAREFUL (double sweetness). Vanillin 10% + patchouli = chypre-sweet foundation.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "Linalool",
+    "effect": "VERDOX pairs well with Linalool",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "bergamot",
+    "effect": "VERDOX pairs well with bergamot",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "cis-3-hexenol",
+    "effect": "VERDOX pairs well with cis-3-hexenol",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "ISO E Super",
+    "effect": "VERDOX pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "__avoid__",
+    "effect": "Overuse creates a generic \"freshener\" quality",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VERDOX",
+    "material_b": "__carles_rule__",
+    "effect": "Verdox + cis-3-hexenol = amplified green (careful!). Verdox + linalool = fresh-green floral bridge. Verdox + bergamot = green-citrus opening. Verdox + ISO E Super = green-woody haze. Verdox + Dihydromyrcenol = reinforced masculine freshness.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "ISO E Super",
+    "effect": "VERTOFIX COEUR pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "cedarwood EO",
+    "effect": "VERTOFIX COEUR pairs well with cedarwood EO",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "patchouli",
+    "effect": "VERTOFIX COEUR pairs well with patchouli",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "labdanum",
+    "effect": "VERTOFIX COEUR pairs well with labdanum",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "musks",
+    "effect": "VERTOFIX COEUR pairs well with musks",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "__avoid__",
+    "effect": "Overuse = heavy, monotonous woody base",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VERTOFIX COEUR",
+    "material_b": "__carles_rule__",
+    "effect": "Vertofix + ISO E Super = modern woody base (redundant but complementary — Vertofix warmer, ISO E more transparent). Vertofix + cedarwood EO = amplified cedar (natural + synthetic = full spectrum). Vertofix + labdanum = deep amber-wood. Vertofix + patchouli = earthy-wood monolith. Vertofix + musks = smooth woody-musk base.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "Vetiver EO (duo)",
+    "effect": "VETIVAL pairs well with Vetiver EO (duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "ISO E Super",
+    "effect": "VETIVAL pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "grapefruit",
+    "effect": "VETIVAL pairs well with grapefruit",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "cedarwood",
+    "effect": "VETIVAL pairs well with cedarwood",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "__avoid__",
+    "effect": "Using WITHOUT any vetiver EO = loses authenticity",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VETIVAL",
+    "material_b": "__carles_rule__",
+    "effect": "Vetival + Vetiver EO = full-spectrum vetiver (clean top + dark base). Vetival + ISO E Super = transparent woody earth. Vetival + grapefruit FCF = the \"modern vetiver\" accord (Vetiver Tonka zone). Vetival + cedarwood = amplified woody depth.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VETIVER ESSENTIAL OIL",
+    "material_b": "Vetival (duo)",
+    "effect": "VETIVER ESSENTIAL OIL pairs well with Vetival (duo)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVER ESSENTIAL OIL",
+    "material_b": "patchouli (earth)",
+    "effect": "VETIVER ESSENTIAL OIL pairs well with patchouli (earth)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVER ESSENTIAL OIL",
+    "material_b": "grapefruit (modern)",
+    "effect": "VETIVER ESSENTIAL OIL pairs well with grapefruit (modern)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VETIVER ESSENTIAL OIL",
+    "material_b": "__avoid__",
+    "effect": "Overdose = earthy/smoky dominance overwhelms everything else",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VETIVER ESSENTIAL OIL",
+    "material_b": "__carles_rule__",
+    "effect": "Vetiver + patchouli = the earth dyad (masculine). Vetiver + grapefruit = the \"modern vetiver\" accord. Vetiver + ISO E Super = transparent earthy-wood. Vetiver + Hedione = earthy radiance (Terre d'Hermès DNA). Vetiver + rose = the \"vetiver-rose\" niche accord.",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "VIOLET FLEURESSENCE",
+    "material_b": "Methyl Ionone (amplify)",
+    "effect": "VIOLET FLEURESSENCE pairs well with Methyl Ionone (amplify)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VIOLET FLEURESSENCE",
+    "material_b": "ORRIS FTEC (iris bridge)",
+    "effect": "VIOLET FLEURESSENCE pairs well with ORRIS FTEC (iris bridge)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VIOLET FLEURESSENCE",
+    "material_b": "ISO E Super",
+    "effect": "VIOLET FLEURESSENCE pairs well with ISO E Super",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "VIOLET FLEURESSENCE",
+    "material_b": "__avoid__",
+    "effect": "Over-stacking with too many powdery materials (ORRIS +",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "VIOLET FLEURESSENCE",
+    "material_b": "__carles_rule__",
+    "effect": "Violet Fleuressence + Methyl Ionone = reinforced violet-iris. Violet Fleuressence + ORRIS FTEC = violet-iris bridge (seamless transition). Violet Fleuressence + ISO E Super = violet-woody haze. Violet Fleuressence + raspberry ketone = violet-berry (rich, feminine). Violet Fleuressence + cedarwood = violet-wood (classic).",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  },
+  {
+    "material_a": "ZENOLIDE",
+    "material_b": "Other musks (ensemble player)",
+    "effect": "ZENOLIDE pairs well with Other musks (ensemble player)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ZENOLIDE",
+    "material_b": "Hedione (transparency)",
+    "effect": "ZENOLIDE pairs well with Hedione (transparency)",
+    "source": "scientific_reference/PRACTICAL_USAGE/Best_with",
+    "type": "synergy"
+  },
+  {
+    "material_a": "ZENOLIDE",
+    "material_b": "__avoid__",
+    "effect": "Using as sole musk — too transparent alone; layer with at",
+    "source": "scientific_reference/PRACTICAL_USAGE/Avoid",
+    "type": "conflict"
+  },
+  {
+    "material_a": "ZENOLIDE",
+    "material_b": "__carles_rule__",
+    "effect": "Zenolide + Galaxolide = powdery-clean musk duo. Zenolide + Habanolide = clean-metallic musk bridge. Zenolide + Ethylene Brassylate = enormous clean musk volume. Zenolide + Hedione = transparent radiant base. Zenolide + ISO E Super = the \"invisible\" base (both materials work subliminally).",
+    "source": "scientific_reference/CARLES/Pairing_Rule",
+    "type": "neutral"
+  }
+]

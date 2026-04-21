@@ -1,0 +1,464 @@
+[
+  {
+    "material_a": "Hedione",
+    "material_b": "BERGAMOT FCF",
+    "effect": "2-3x projection",
+    "ratio": "1:4 (Hedione:Bergamot FCF)",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Iso E Super",
+    "material_b": "Musks (Galaxolide, Habanolide)",
+    "effect": "3-5x intensity",
+    "ratio": "1:1 to 2:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Ambroxan",
+    "material_b": "Marine notes (Calone)",
+    "effect": "2-4x intensity",
+    "ratio": "1:3",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Dihydromyrcenol",
+    "material_b": "Florals (Rose, Jasmine)",
+    "effect": "2x projection",
+    "ratio": "1:5",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Iso E Super",
+    "material_b": "Limonene",
+    "effect": "Hydrophobic caging",
+    "ratio": "2x longer top note",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Linalool",
+    "material_b": "Citral",
+    "effect": "H-bonding",
+    "ratio": "1.5x longer",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Benzyl Ben solubility_and_precipitation.mdzoate",
+    "material_b": "Florals",
+    "effect": "H-bonding + mass",
+    "ratio": "2x longer heart",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Ambroxan",
+    "material_b": "Bergamot",
+    "effect": "Caging",
+    "ratio": "1.5-2x longer",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Vanillin",
+    "material_b": "Ethyl maltol",
+    "effect": "Rich caramel (neither alone is caramel)",
+    "ratio": "2:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Iso E Super",
+    "material_b": "Hedione",
+    "effect": "Radiant amber (neither alone is amber)",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Calone",
+    "material_b": "Hedione",
+    "effect": "Aquatic floral (neither alone is this)",
+    "ratio": "1:4",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Coumarin",
+    "material_b": "Vanillin",
+    "effect": "Tonka bean (richer than either)",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Bergamot projects 2x further",
+    "material_b": "",
+    "effect": "5% Rose + 85% EtOH",
+    "ratio": "+20% Hedione",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Limonene lasts 2x longer",
+    "material_b": "",
+    "effect": "5% Rose + 5% Vetiver",
+    "ratio": "+25% Iso E Super",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Goal",
+    "material_b": "Amplifier",
+    "effect": "Target",
+    "ratio": "Ratio",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "1:4",
+    "material_b": "2-3x sillage",
+    "effect": "",
+    "ratio": "**Long-lasting top**",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Citrus",
+    "material_b": "2:1",
+    "effect": "2x duration",
+    "ratio": "",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Ambroxan",
+    "material_b": "Galaxolide",
+    "effect": "2:1",
+    "ratio": "3-5x intensity",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Radiant rose",
+    "material_b": "Hedione + Iso E",
+    "effect": "Rose notes",
+    "ratio": "2:2:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Rich dessert",
+    "material_b": "",
+    "effect": "**Aquatic clean**",
+    "ratio": "Hedione",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Vanillin",
+    "material_b": "Calone = Rotten Oyster",
+    "effect": "Vanillin's aldehyde group + Calone's ketone + marine character = seafood disaster",
+    "ratio": "avoid",
+    "source": "synergy_and_amplification.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Heavy Musks",
+    "material_b": "Dirty Animalics = Muddy Mess",
+    "effect": "Both are high-logP, slow-evaporating; they fight for space",
+    "ratio": "avoid",
+    "source": "synergy_and_amplification.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Indole",
+    "material_b": "Civet = Too Much",
+    "effect": "Both are indolic/animalic; together it's overwhelming",
+    "ratio": "avoid",
+    "source": "synergy_and_amplification.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Vanillin",
+    "material_b": "Ethyl Maltol",
+    "effect": "Rich, deep caramel that neither molecule has alone.",
+    "ratio": "2:1 (Vanillin:Ethyl Maltol)",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Iso E Super",
+    "material_b": "Hedione",
+    "effect": "Glowing, radiant, \"solar\" amber that neither has alone.",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Calone",
+    "material_b": "Hedione",
+    "effect": "Fresh, watery floral that's not \"melon-y\".",
+    "ratio": "1:4 (Calone:Hedione)",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Coumarin",
+    "material_b": "Vanillin",
+    "effect": "Richer tonka bean character than either alone.",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Ambroxan",
+    "material_b": "Musks",
+    "effect": "Musks smell 3-5x stronger.",
+    "ratio": "1:1 to 2:1 (Ambroxan:Musk)",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Rose (Geraniol",
+    "material_b": "Jasmine (Indole",
+    "effect": "\"Rosy Jasmine\" (more complex than either alone).",
+    "ratio": "n/a",
+    "source": "interaction_chemistry.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Citrus (sharp, fresh",
+    "material_b": "Heavy Musk (soft, animalic",
+    "effect": "Jarring unless balanced.",
+    "ratio": "n/a",
+    "source": "interaction_chemistry.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "Citral",
+    "material_b": "amines",
+    "effect": "Brown mess — Schiff base",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Cinnamaldehyde",
+    "material_b": "oxygen",
+    "effect": "Cinnamic acid — loses sweetness",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Eugenol",
+    "material_b": "alkaline water",
+    "effect": "Darkens",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Vanillin",
+    "material_b": "Fe³⁺",
+    "effect": "Purple stain",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Linalyl acetate",
+    "material_b": "moisture",
+    "effect": "Hydrolysis to linalool + acetic acid",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "Limonene",
+    "material_b": "oxygen",
+    "effect": "Oxidation to carvone, limonene oxide — musty",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict"
+  },
+  {
+    "material_a": "aldehyde",
+    "material_b": "amine",
+    "effect": "Schiff base formation — discoloration, smell change",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "aldehyde",
+    "material_b": "oxygen",
+    "effect": "Oxidation to carboxylic acid — sour off-note",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "phenol",
+    "material_b": "base",
+    "effect": "Deprotonation — discoloration",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "phenol",
+    "material_b": "oxygen",
+    "effect": "Quinone formation — brown color",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "ester",
+    "material_b": "acid+water",
+    "effect": "Hydrolysis to acid + alcohol",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "terpene",
+    "material_b": "oxygen+light",
+    "effect": "Oxidation to off-notes (musty, turpentine)",
+    "ratio": "n/a",
+    "source": "functional_group_reactivity.md",
+    "type": "conflict",
+    "is_functional_group_rule": true
+  },
+  {
+    "material_a": "animalic",
+    "material_b": "clean_base",
+    "effect": "FORBIDDEN — animalics create fecal/urine smell in clean bases",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "animalic",
+    "material_b": "aquatic_base",
+    "effect": "FORBIDDEN — animalics clash with aquatic transparency",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "animalic",
+    "material_b": "aldehydic_base",
+    "effect": "FORBIDDEN — animalics overpower delicate aldehydic lift",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "aldehyde",
+    "material_b": "heavy_oriental_base",
+    "effect": "POOR — aldehydes masked/buried under heavy resins",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "aldehyde",
+    "material_b": "resinous_base",
+    "effect": "POOR — aldehydes masked by heavy resins",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "fresh_green",
+    "material_b": "heavy_oriental_base",
+    "effect": "POOR — fresh greens clash with sweet orientals (salad in bakery)",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "marine",
+    "material_b": "heavy_oriental_base",
+    "effect": "POOR — marine notes clash with heavy sweetness",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "marine",
+    "material_b": "resinous_base",
+    "effect": "POOR — marine notes clash with heavy resins",
+    "type": "conflict",
+    "source": "engine/validator.py"
+  },
+  {
+    "material_a": "BERGAMOT FCF",
+    "material_b": "HEDIONE",
+    "effect": "Radiant citrus lift",
+    "ratio": "1:4",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BERGAMOT FCF",
+    "material_b": "LINALOOL",
+    "effect": "Sparkling citrus floral bridge",
+    "ratio": "1:1 to 2:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "BERGAMOT FCF",
+    "effect": "Sharp aromatic opening with bright citrus lift",
+    "ratio": "1:2",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BLACK PEPPER FTEC",
+    "material_b": "CARDAMOM FTEC",
+    "effect": "Warm sparkling spice accord",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "BLACKCURRANT FTEC",
+    "effect": "Dark-to-light berry gradient",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "DEWBERRY FTEC",
+    "material_b": "RASPBERRY KETONE",
+    "effect": "Juicy berry gourmand lift",
+    "ratio": "2:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "OLIBANUM RESINOID",
+    "effect": "Incense-resin depth with smoky balsamic lift",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  },
+  {
+    "material_a": "BENZOIN SUMATRA RESINOID",
+    "material_b": "LABDANUM ABSOLUTE",
+    "effect": "Deep balsamic amber resin",
+    "ratio": "1:1",
+    "source": "synergy_and_amplification.md",
+    "type": "synergy"
+  }
+]

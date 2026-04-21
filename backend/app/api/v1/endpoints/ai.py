@@ -1,0 +1,86 @@
+"""AI-powered endpoints"""
+
+from fastapi import APIRouter, Depends, HTTPException
+from typing import Dict, Any, Optional
+
+from app.schemas.perfume import (
+    AIAnalysisRequest,
+    AIModificationRequest,
+    AIPairingRequest
+)
+from app.services.ai.base import BaseAIService
+from app.api.deps import get_ai_service, get_model_selector_dep
+from app.core.exceptions import AIServiceError
+from app.services.validation_pipeline import validate_formula, validate_search_query, attach_validation
+
+router = APIRouter()
+
+
+@router.get("/models")
+async def get_available_models(
+    model_selector: Dict[str, Any] = Depends(get_model_selector_dep)
+) -> Dict[str, Any]:
+    """Get available AI models for selection"""
+    return model_selector
+
+
+@router.post("/analyze-perfume")
+async def analyze_perfume(
+    request: AIAnalysisRequest,
+    model: Optional[str] = None,
+    force_provider: Optional[str] = None,
+    ai_service: BaseAIService = Depends(get_ai_service)
+) -> Dict[str, Any]:
+    """Analyze a perfume composition using AI"""
+    ingredients_dict = {ing.name: ing.percentage for ing in request.ingredients}
+    report = validate_formula(ingredients_dict)
+    try:
+        result = await ai_service.analyze_perfume(
+            name=request.name,
+            ingredients=[ing.dict() for ing in request.ingredients],
+            concentration=request.concentration
+        )
+        return attach_validation(result, report)
+    except AIServiceError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/suggest-modifications")
+async def suggest_modifications(
+    request: AIModificationRequest,
+    model: Optional[str] = None,
+    force_provider: Optional[str] = None,
+    ai_service: BaseAIService = Depends(get_ai_service)
+) -> Dict[str, Any]:
+    """Get AI suggestions for formula modifications"""
+    # Validate formula if it contains numeric ingredient percentages
+    formula_nums = {k: v for k, v in request.formula.items() if isinstance(v, (int, float))}
+    report = validate_formula(formula_nums) if formula_nums else None
+    validate_search_query(request.goal)
+    try:
+        result = await ai_service.suggest_modifications(
+            formula=request.formula,
+            goal=request.goal
+        )
+        return attach_validation(result, report) if report else result
+    except AIServiceError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/suggest-pairings")
+async def suggest_pairings(
+    request: AIPairingRequest,
+    model: Optional[str] = None,
+    force_provider: Optional[str] = None,
+    ai_service: BaseAIService = Depends(get_ai_service)
+) -> Dict[str, Any]:
+    """Get AI suggestions for ingredient pairings"""
+    validate_search_query(request.ingredient)
+    try:
+        result = await ai_service.suggest_pairings(
+            ingredient=request.ingredient,
+            cas_number=request.cas_number
+        )
+        return result
+    except AIServiceError as e:
+        raise HTTPException(status_code=500, detail=str(e))

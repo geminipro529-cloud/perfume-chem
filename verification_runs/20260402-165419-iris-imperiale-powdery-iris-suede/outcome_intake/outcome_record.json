@@ -1,0 +1,79 @@
+{
+  "records": [
+    {
+      "formula_name": "Iris Impériale — Powdery Iris / Suede",
+      "formula_version": "1.0",
+      "ingredients": {
+        "Bergamot FCF Sicilian": 4.8,
+        "Cardamom FTEC": 3.2,
+        "Aldehyde C11": 2.0,
+        "Alpha Irone": 18.0,
+        "Orivone": 3.2,
+        "Methyl Ionone": 4.8,
+        "Hedione": 8.0,
+        "Suederal": 4.0,
+        "Javanol": 6.0,
+        "Cashmeran": 8.0,
+        "Ambrox Super": 8.0,
+        "Habanolide": 4.0,
+        "Iso E Super": 12.0,
+        "Benzyl Salicylate": 4.0,
+        "Vanillin": 4.0,
+        "Coumarin": 6.0
+      },
+      "total_volume_ml": null,
+      "concentration_pct": null,
+      "predicted_scores": {
+        "longevity": 83.4,
+        "sillage": 63.9,
+        "balance": 55.7,
+        "synergy": 67.0,
+        "theory": 77.0,
+        "cost": 87.6,
+        "radiance": 59.5,
+        "texture": 80.0,
+        "complexity": 76,
+        "character_balance": 81.3,
+        "arithmetic_total": 70.7,
+        "geometric_total": 69.9,
+        "_radar": {
+          "warmth": 2.95,
+          "sweetness": 1.55,
+          "freshness": 1.15,
+          "powdery": 3.05,
+          "green": 0.14,
+          "animalic": 0.44,
+          "radiance": 2.52,
+          "woody": 3.24,
+          "spicy": 0.22,
+          "floral": 2.17,
+          "smoky": 0.0,
+          "creamy": 2.89
+        },
+        "total": 69.9
+      },
+      "rating_longevity": null,
+      "rating_sillage": null,
+      "rating_balance": null,
+      "rating_overall": null,
+      "rating_complexity": null,
+      "notes_text": null,
+      "top_notes_observed": null,
+      "heart_notes_observed": null,
+      "base_notes_observed": null,
+      "longevity_hours": null,
+      "sillage_description": null,
+      "batch_size_ml": null,
+      "maceration_days": null,
+      "creation_date": "2026-04-02T16:54:19.865492",
+      "evaluation_date": "2026-04-02T11:04:15.512322+00:00",
+      "tags": [
+        "standalone-verification",
+        "20260402-165419-iris-imperiale-powdery-iris-suede"
+      ],
+      "bundle_dir": "D:\\chatbots\\perfume-chem\\verification_runs\\20260402-165419-iris-imperiale-powdery-iris-suede",
+      "raw_observation": {}
+    }
+  ],
+  "source_bundle": "D:\\chatbots\\perfume-chem\\verification_runs\\20260402-165419-iris-imperiale-powdery-iris-suede"
+}

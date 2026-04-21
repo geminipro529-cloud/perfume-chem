@@ -1,0 +1,50 @@
+{
+  "created_at": "2026-04-02T18:01:59.606923",
+  "bundle_type": "standalone_verification",
+  "source_file": "D:\\chatbots\\perfume-chem\\luxury_formulas_2026-03-26.md",
+  "formula_number": 1,
+  "formula_name": "Iris Imp\u00e9riale \u2014 Powdery Iris / Suede",
+  "files": [
+    "metadata.json",
+    "bundle_manifest.json",
+    "verification_summary.json",
+    "predicted_report.md",
+    "mixing_protocol.txt",
+    "wear_test_template.md",
+    "comparison_template.md",
+    "observations.csv"
+  ],
+  "schemas": {
+    "score_axes": [
+      "geometric_total",
+      "arithmetic_total",
+      "longevity",
+      "sillage",
+      "balance",
+      "theory",
+      "radiance",
+      "texture",
+      "complexity",
+      "character_balance",
+      "synergy",
+      "cost"
+    ],
+    "wear_test_axes": [
+      "Opening",
+      "Heart",
+      "Drydown",
+      "Longevity",
+      "Projection",
+      "Balance",
+      "Overall"
+    ],
+    "star_axes": [
+      "wearability",
+      "versatility",
+      "originality",
+      "mass_appeal",
+      "value_for_money",
+      "age_range"
+    ]
+  }
+}

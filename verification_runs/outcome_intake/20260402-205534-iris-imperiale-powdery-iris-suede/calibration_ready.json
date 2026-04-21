@@ -1,0 +1,41 @@
+{
+  "bundle": "D:\\chatbots\\perfume-chem\\verification_runs\\20260402-205534-iris-imperiale-powdery-iris-suede",
+  "readiness": {
+    "outcome_count": 0,
+    "prediction_confidence": 5.0,
+    "confidence_grade": "VERY_LOW",
+    "calibration_ready": false,
+    "calibration_practical": false,
+    "notes": [
+      "At least 3 outcomes are needed for a first regression fit.",
+      "10+ outcomes is the point where calibration starts to become useful.",
+      "The current prediction confidence still depends only on recorded outcomes."
+    ]
+  },
+  "calibration_preview": {
+    "source": "standalone_records",
+    "total_outcomes_used": 1,
+    "axes": {
+      "longevity": {
+        "samples": 0,
+        "trainable": false
+      },
+      "sillage": {
+        "samples": 0,
+        "trainable": false
+      },
+      "balance": {
+        "samples": 0,
+        "trainable": false
+      }
+    },
+    "minimum_samples_per_axis": 3,
+    "ready_axes": [],
+    "ready": false
+  },
+  "calibration_report": {
+    "total_outcomes_used": 1,
+    "axes_calibrated": 0,
+    "results": []
+  }
+}

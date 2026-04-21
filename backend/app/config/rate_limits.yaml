@@ -1,0 +1,84 @@
+# API Rate Limits Configuration
+#
+# Configure rate limits for different API providers.
+# The rate limiter supports multiple time windows and token-based limits.
+
+providers:
+  # Cerebras Free Tier
+  # https://inference-docs.cerebras.ai/introduction
+  cerebras:
+    requests_per_second: 0.5
+    requests_per_minute: 30
+    requests_per_hour: 900
+    requests_per_day: 14400
+    tokens_per_minute: 64000
+    tokens_per_hour: 1000000
+    tokens_per_day: 1000000
+    burst_allowance: 0.8
+    min_backoff_seconds: 2.0
+    max_backoff_seconds: 120.0
+    backoff_multiplier: 2.0
+
+  # Baseten (ultra-conservative defaults to avoid 429s)
+  baseten:
+    requests_per_second: 0.5
+    requests_per_minute: 20
+    requests_per_hour: 500
+    requests_per_day: null
+    tokens_per_minute: 10000
+    tokens_per_hour: 100000
+    tokens_per_day: null
+    burst_allowance: 0.7
+    min_backoff_seconds: 5.0
+    max_backoff_seconds: 180.0
+    backoff_multiplier: 2.0
+
+  # Kimi K2 Thinking (Baseten-hosted)
+  kimi_k2:
+    requests_per_second: 0.33
+    requests_per_minute: 20
+    requests_per_hour: 1200
+    requests_per_day: 28800
+    tokens_per_minute: 32000
+    burst_allowance: 0.7
+    min_backoff_seconds: 5.0
+    max_backoff_seconds: 180.0
+    backoff_multiplier: 2.0
+
+  # OpenAI (reference values; adjust for your tier)
+  openai:
+    requests_per_minute: 500
+    requests_per_day: 10000
+    tokens_per_minute: 30000
+    tokens_per_day: 200000
+    burst_allowance: 0.9
+    min_backoff_seconds: 1.0
+    max_backoff_seconds: 60.0
+
+  # Anthropic Claude (reference values; adjust for your tier)
+  anthropic:
+    requests_per_minute: 50
+    requests_per_day: 1000
+    tokens_per_minute: 40000
+    tokens_per_day: 100000
+    burst_allowance: 0.9
+    min_backoff_seconds: 1.0
+    max_backoff_seconds: 60.0
+
+  # Generic default (fallback)
+  default:
+    requests_per_second: 1.0
+    requests_per_minute: 60
+    requests_per_hour: 1000
+    requests_per_day: 10000
+    burst_allowance: 0.9
+    min_backoff_seconds: 1.0
+    max_backoff_seconds: 60.0
+    backoff_multiplier: 2.0
+
+# Notes:
+# - requests_per_second: Fractional rates use token bucket algorithm
+# - requests_per_minute/hour/day: Use sliding window algorithm
+# - tokens_per_minute/hour/day: Track token usage in sliding windows
+# - burst_allowance scales token bucket capacity (lower = more conservative)
+# - The rate limiter will enforce ALL configured limits

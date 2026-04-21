@@ -1,0 +1,79 @@
+{
+  "created_at": "2026-04-02T20:19:45.287597",
+  "bundle_type": "standalone_verification",
+  "source_file": "D:\\chatbots\\perfume-chem\\luxury_formulas_2026-03-26.md",
+  "formula_number": 1,
+  "formula_name": "Iris Imp\u00e9riale \u2014 Powdery Iris / Suede",
+  "files": [
+    "metadata.json",
+    "bundle_manifest.json",
+    "verification_summary.json",
+    "predicted_report.md",
+    "intervention_recommendations.md",
+    "mixing_protocol.txt",
+    "wear_test_template.md",
+    "comparison_template.md",
+    "observations.csv"
+  ],
+  "schemas": {
+    "score_axes": [
+      "geometric_total",
+      "arithmetic_total",
+      "longevity",
+      "sillage",
+      "balance",
+      "theory",
+      "radiance",
+      "texture",
+      "complexity",
+      "character_balance",
+      "synergy",
+      "cost"
+    ],
+    "wear_test_axes": [
+      "Opening",
+      "Heart",
+      "Drydown",
+      "Longevity",
+      "Projection",
+      "Balance",
+      "Overall"
+    ],
+    "star_axes": [
+      "wearability",
+      "versatility",
+      "originality",
+      "sophistication",
+      "signature_potential",
+      "mass_appeal",
+      "gender_versatility",
+      "age_range",
+      "formula_elegance",
+      "value_for_money"
+    ],
+    "intervention_phases": [
+      "pre_mix",
+      "between_mix",
+      "post_mix"
+    ],
+    "observation_fields": [
+      "date",
+      "batch_id",
+      "formula_name",
+      "intervention_phase",
+      "recommendation_section",
+      "observation_tags",
+      "intervention_context",
+      "maceration_days",
+      "wear_test_hours",
+      "opening_score_10",
+      "heart_score_10",
+      "drydown_score_10",
+      "longevity_score_10",
+      "projection_score_10",
+      "balance_score_10",
+      "overall_score_10",
+      "notes"
+    ]
+  }
+}

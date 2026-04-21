@@ -1,0 +1,266 @@
+{
+  "carles_method": {
+    "description": "Jean Carles' systematic perfume construction method",
+    "principle": "Systematically trial combinations of characteristic materials against base types using a grid approach",
+    "note_distribution": {
+      "top": {
+        "min_pct": 10,
+        "max_pct": 30,
+        "ideal_pct": 20,
+        "role": "First impression, sparkle, lift"
+      },
+      "heart": {
+        "min_pct": 25,
+        "max_pct": 50,
+        "ideal_pct": 40,
+        "role": "Theme, character, identity"
+      },
+      "base": {
+        "min_pct": 30,
+        "max_pct": 55,
+        "ideal_pct": 40,
+        "role": "Foundation, longevity, depth"
+      }
+    },
+    "positions": {
+      "effets": "Top note modifiers — sparkle and lift (aldehydes, citrus, green)",
+      "modificateurs": "Heart note modifiers — character and theme",
+      "fond": "Base note foundation — longevity and depth"
+    },
+    "method_steps": [
+      "1. Choose a characterizing material (the star ingredient)",
+      "2. Build a base accord (amber, woody, musk, or chypre)",
+      "3. Trial the star against multiple bases in a grid",
+      "4. Select the best combination",
+      "5. Add modifiers (top note sparkle, heart bridges)",
+      "6. Refine proportions iteratively"
+    ]
+  },
+  "roudnitska_roles": {
+    "description": "Edmond Roudnitska's aesthetic role taxonomy for perfume materials",
+    "principle": "Every material in a composition serves an aesthetic function, not just a scent category",
+    "roles": {
+      "transparence": {
+        "description": "Materials that give airy, lifted, abstract quality — 'open the window'",
+        "examples": [
+          "Aldehyde C10",
+          "Aldehyde C11",
+          "Aldehyde C12 MNA",
+          "Hedione",
+          "Dihydromyrcenol"
+        ],
+        "effect": "Prevents composition from feeling heavy or closed"
+      },
+      "chaleur": {
+        "description": "Materials that provide warmth and comfort",
+        "examples": [
+          "Vanillin",
+          "Benzoin Resinoid",
+          "Coumarin",
+          "Labdanum Absolute"
+        ],
+        "effect": "Creates psychological warmth and enveloping quality"
+      },
+      "noblesse": {
+        "description": "Materials that convey quality and refinement",
+        "examples": [
+          "Alpha Irone",
+          "Rose Absolute",
+          "Sandalwood EO",
+          "Oud Oil"
+        ],
+        "effect": "Elevates composition above commodity level"
+      },
+      "peau": {
+        "description": "Skin-like materials that create intimacy",
+        "examples": [
+          "Iso E Super",
+          "Galaxolide",
+          "Habanolide",
+          "Ethylene Brassylate",
+          "Cashmeran",
+          "Ambrox Super"
+        ],
+        "effect": "Creates close-to-skin effect and personal aura"
+      },
+      "eclat": {
+        "description": "Materials that create brightness and radiance",
+        "examples": [
+          "Bergamot FCF",
+          "Bergamot FCF Sicilian",
+          "Linalool",
+          "Hedione",
+          "Cedrat FCF oil Sicilian"
+        ],
+        "effect": "Projects outward, creates sillage trail"
+      },
+      "profondeur": {
+        "description": "Materials that create depth and mystery",
+        "examples": [
+          "Patchouli EO",
+          "Vetiver EO",
+          "Myrrh EO",
+          "Birch Tar Rectified"
+        ],
+        "effect": "Adds complexity and intrigue to dry-down"
+      }
+    }
+  },
+  "opk_sar": {
+    "description": "Ohloff, Pickenhagen & Kraft Structure-Activity Relationship principles",
+    "principle": "Molecular structure determines olfactory character — predictable patterns exist",
+    "rules": [
+      {
+        "rule": "Chain length determines aldehyde character",
+        "detail": "C8=orange, C9=rose, C10=waxy-orange, C11=clean-waxy, C12=metallic-soapy. Each CH₂ shifts from fruity→waxy→soapy→metallic.",
+        "applies_to": "Linear aliphatic aldehydes"
+      },
+      {
+        "rule": "Odd-even effect in aldehydes",
+        "detail": "Odd-carbon aldehydes are more floral, even-carbon more fatty/waxy",
+        "applies_to": "Linear aliphatic aldehydes"
+      },
+      {
+        "rule": "Branching softens character",
+        "detail": "Branched aldehydes (e.g., C12 MNA) are softer and less harsh than linear counterparts",
+        "applies_to": "Aldehydes"
+      },
+      {
+        "rule": "Ionone ring size determines violet vs iris",
+        "detail": "Alpha-ionone = more violet-like, beta-ionone = more woody-iris. Methyl substitution adds powdery warmth.",
+        "applies_to": "Ionones and irones"
+      },
+      {
+        "rule": "Macrocyclic ring size determines musk character",
+        "detail": "C14-C16 macrolides = sweet, skin-like musk. Smaller rings = sharper. Larger = weaker.",
+        "applies_to": "Macrocyclic musks"
+      },
+      {
+        "rule": "Ester hydrolysis stability",
+        "detail": "Esters with bulky R groups are more stable. Linear esters hydrolyze faster.",
+        "applies_to": "Esters (Hedione, linalyl acetate, benzyl acetate)"
+      },
+      {
+        "rule": "Lipophilicity determines tenacity",
+        "detail": "Higher CLP (Clog P) = more lipophilic = slower evaporation = longer lasting on skin",
+        "applies_to": "All materials"
+      },
+      {
+        "rule": "Vapor pressure determines projection",
+        "detail": "Higher VP = more volatile = more projection but less longevity",
+        "applies_to": "All materials"
+      },
+      {
+        "rule": "Molecular weight correlates with note position",
+        "detail": "MW < 170 = top note, 170-250 = heart, >250 = base. Exceptions exist for cyclic structures.",
+        "applies_to": "All materials"
+      }
+    ]
+  },
+  "jellinek_map": {
+    "description": "Paul Jellinek's psychological odor effect map with dual axes",
+    "principle": "Odors affect psychology along two orthogonal axes — can map any material to a quadrant",
+    "axes": {
+      "x_axis": {
+        "negative": "Narcotic (sedating, heavy)",
+        "positive": "Stimulating (energizing, bright)"
+      },
+      "y_axis": {
+        "negative": "Anti-erogenic (clean, clinical)",
+        "positive": "Erogenic (sensual, warm)"
+      }
+    },
+    "quadrants": {
+      "upper_left": {
+        "name": "Fresh-Stimulating",
+        "character": "Clean, bright, attention-getting, energizing",
+        "materials": [
+          "Bergamot FCF",
+          "Aldehyde C10",
+          "cis-3-Hexenol",
+          "Calone"
+        ],
+        "perfume_types": [
+          "Colognes",
+          "Sport fragrances",
+          "Clean/fresh"
+        ]
+      },
+      "upper_right": {
+        "name": "Warm-Stimulating",
+        "character": "Spicy, energetic, warming, assertive",
+        "materials": [
+          "Black Pepper FTEC",
+          "Cardamom FTEC",
+          "Cinnamaldehyde",
+          "Eugenol"
+        ],
+        "perfume_types": [
+          "Oriental-spicy",
+          "Gourmand-spicy"
+        ]
+      },
+      "lower_right": {
+        "name": "Warm-Narcotic",
+        "character": "Sensual, heavy, enveloping, narcotic",
+        "materials": [
+          "Vanillin",
+          "Ambrox Super",
+          "Galaxolide",
+          "Labdanum Absolute",
+          "Oud Oil"
+        ],
+        "perfume_types": [
+          "Oriental",
+          "Amber",
+          "Oud"
+        ]
+      },
+      "lower_left": {
+        "name": "Cool-Narcotic",
+        "character": "Soft, powdery, calming, dreamy",
+        "materials": [
+          "Orris F-TEC",
+          "Methyl Ionone",
+          "Heliotropin Fleuressence",
+          "Coumarin"
+        ],
+        "perfume_types": [
+          "Powdery",
+          "Iris/violet",
+          "Soft floral"
+        ]
+      }
+    },
+    "design_principle": "A well-balanced composition should have materials spanning at least 2-3 quadrants for complexity. Monotone compositions (all in one quadrant) lack depth."
+  },
+  "legendary_book_principles": {
+    "chemistry_of_fragrances": {
+      "source": "The Chemistry of Fragrances (Sell, RSC)",
+      "key_principles": [
+        "Molecular geometry determines smell — small structural changes create large olfactory shifts",
+        "Olfactory receptors are combinatorial — each molecule activates a unique pattern of receptors",
+        "The 'perfume pyramid' is an approximation — actual temporal evolution depends on vapor pressure curves",
+        "Fixation is both physical (molecular trapping) and perceptual (receptor adaptation masking base notes)"
+      ]
+    },
+    "perfumery_principles_and_practice": {
+      "source": "Perfumery: Principles and Practice (Calkin & Jellinek)",
+      "key_principles": [
+        "Fragrance families are defined by dominant accord, not individual materials",
+        "Balance requires tension — purely harmonious compositions are boring",
+        "The best perfumes have a 'twist' — one unexpected element that creates memorability",
+        "Systematic grid trials (Carles method) outperform random experimentation"
+      ]
+    },
+    "perfume_materials_natural_origin": {
+      "source": "Perfume & Flavor Materials of Natural Origin (Arctander)",
+      "key_principles": [
+        "Natural materials are complex mixtures — a single EO can contain 200+ molecules",
+        "The 'body' of a natural material comes from trace components, not the major ones",
+        "Synthetic materials should reconstruct the olfactory profile, not just the chemical composition",
+        "Tenacity depends on the molecular weight distribution, not just a single molecule's MW"
+      ]
+    }
+  }
+}

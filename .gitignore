@@ -1,0 +1,40 @@
+# Archive / scratch work — not shipped to GitHub
+archive/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.mypy_cache/
+.pytest_cache/
+
+# Virtual envs
+venv/
+.venv/
+
+# Environment
+.env
+.env.local
+
+# Databases & workbooks (binary / regenerable)
+*.db
+*.xlsx
+*.csv
+
+# Large / temp outputs
+*.png
+output.txt
+output/
+debug_*.log
+temporal_test_*.png
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.claude/
+
+# Node / frontend build
+frontend/node_modules/
+frontend/dist/
+frontend/build/

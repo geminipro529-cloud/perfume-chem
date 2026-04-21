@@ -1,0 +1,312 @@
+PERFUME FORMULA ARCHITECTURE TEMPLATE
+Based on: inventory.txt (2026-03-09, 104 materials)
+=============================================================================================
+
+A reusable skeleton for composing EDPs using YOUR materials.
+Fill in the blanks for each new formula. Concentrations assume a
+finished EDP at 15-20% concentration in ethanol.
+
+═══════════════════════════════════════════════════════════════════════════════
+  ARCHITECTURE OVERVIEW — THE 7 LAYERS
+═══════════════════════════════════════════════════════════════════════════════
+
+Every well-structured perfume needs these functional layers.
+Not every layer needs multiple materials — some use just one.
+
+  LAYER 1: DIFFUSION CORE        (2-5%)    — What throws off the skin
+  LAYER 2: TOP / OPENING         (8-15%)   — First 30 minutes
+  LAYER 3: HEART ACCORD          (25-40%)  — The main character
+  LAYER 4: WOODY / AMBER SPINE   (15-25%)  — Structure and warmth
+  LAYER 5: MUSK BASE             (5-15%)   — Skin scent, tenacity
+  LAYER 6: SWEET MODIFIERS       (1-5%)    — Sweetness, gourmand touches
+  LAYER 7: TRACE / EFFECT        (0.1-1%)  — Subliminal character shifts
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 1: DIFFUSION CORE  (2-5% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: Makes the fragrance project off skin. These molecules radiate.
+
+Pick 1-2 from your collection:
+
+| Material | Dose Range | Character |
+|----------|-----------|-----------|
+| Hedione | 3-15% | Jasmine radiance, transparent lift |
+| Ambrox Super — 30% | 2-5% (active) | Amber projection, warmth |
+| Romandolide | 0.5-2% | Forward musk throw |
+| Dihydromyrcenol | 0.3-1% | Clean-soapy aura |
+| Ambrofix — 10% | 1-3% (active) | Ambroxan warmth, softer |
+| Iso E Super | 3-8% | Woody skin-scent halo |
+
+TEMPLATE:
+  Diffusion agent 1: ____________  at _____%
+  Diffusion agent 2: ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 2: TOP / OPENING  (8-15% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: First impression. Burns off in 15-30 min. Must be inviting.
+
+Pick 2-4 from your collection:
+
+| Material | Dose Range | Character |
+|----------|-----------|-----------|
+| Bergamot FCF | 1-3% | Classic citrus-floral sparkle |
+| D-Limonene | 0.5-2% | Pure orange burst |
+| Grapefruit FCF | 0.5-2% | Bitter-fresh citrus |
+| Linalool | 0.5-2% | Fresh-floral lavender |
+| Linalyl Acetate | 0.5-2% | Sweet lavender |
+| Lavender EO | 1-3% | Aromatic herbal |
+| Citronellal | 0.2-1% | Lemony-fresh |
+| Hexyl Acetate — 10% | 0.3-1% | Green-fruity pear |
+| Dihydromyrcenol | 0.2-1% | Clean-soapy modern |
+| Aldehyde C11 — 1% | 0.01-0.05% | Waxy-aldehydic lift |
+
+TEMPLATE:
+  Citrus/bright: ____________  at _____%
+  Fresh/green:   ____________  at _____%
+  Aromatic:      ____________  at _____%
+  Effect:        ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 3: HEART ACCORD  (25-40% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: The main character. What people smell after 30 min.
+This is where you define the fragrance identity.
+
+Choose a PRIMARY theme, then support it:
+
+─── THEME A: IRIS / POWDERY ───
+| Material | Dose Range | Role |
+|----------|-----------|------|
+| Methyl Ionone | 3-8% | Bright iris body |
+| Alpha Irone — 10% | 0.5-2% (active) | True orris butter character |
+| Orivone | 0.01-0.1% | Metallic iris flash |
+| ORRIS F-TEC | 1-4% | Pre-blended orris |
+| I-IRIS F-TEC | 1-3% | Iris radiance |
+| Molecule Iris | 2-5% | Abstract iris |
+| Allyl Ionone | 2-5% | Warm woody-violet |
+| Coumarin — 20% | 1-4% (active) | Powdery warmth |
+
+─── THEME B: FLORAL ───
+| Material | Dose Range | Role |
+|----------|-----------|------|
+| Hedione | 5-15% | Jasmine transparency |
+| Hydroxycitronellal | 1-3% | Muguet, watery |
+| Phenethyl Alcohol | 0.5-2% | Clean rose |
+| Peonile | 1-4% | Peony-rose |
+| Aurantiol | 1-3% | Orange blossom |
+| Geraniol | 0.5-2% | Fresh rose |
+| Florol | 0.3-1.5% | Aqueous muguet |
+| Cyclamen Aldehyde | 0.2-1% | Powdery muguet |
+| Rose Oxide — 10% | 0.1-0.3% (active) | Metallic rose |
+
+─── THEME C: WOODY-AMBER ───
+| Material | Dose Range | Role |
+|----------|-----------|------|
+| Iso E Super | 5-12% | Woody-amber velvet |
+| Cashmeran — 20% | 1-3% (active) | Warm cashmere |
+| Cedramber | 2-5% | Rich woody cedar |
+| Amber Xtreme | 0.1-0.5% | Amber power |
+| Kephalis | 2-5% | Clean woody |
+| Vetiver EO | 0.5-2% | Earthy-green depth |
+| Patchouli EO | 0.3-2% | Dark earthy |
+
+─── THEME D: LEATHER-SMOKY ───
+| Material | Dose Range | Role |
+|----------|-----------|------|
+| Isobutyl Quinoline — 10% | 0.01-0.05% (active) | Bitter leather |
+| Birch Tar Rectified | 0.05-0.3% | Smoky leather |
+| Styrax FTEC | 0.2-1% | Balsamic leather |
+| Suederal — 10% | 0.2-1% (active) | Suede texture |
+| Guaiacol | 0.05-0.3% | Smoky phenolic |
+| Labdanum Absolute — 10% | 0.5-2% (active) | Warm amber-leather |
+
+TEMPLATE:
+  Primary theme: ____________
+  Core material 1: ____________  at _____%
+  Core material 2: ____________  at _____%
+  Core material 3: ____________  at _____%
+  Support 1:       ____________  at _____%
+  Support 2:       ____________  at _____%
+  Texture:         ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 4: WOODY / AMBER SPINE  (15-25% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: Structural backbone. Warmth, depth, tenacity.
+
+Pick 2-4 from your collection:
+
+| Material | Dose Range | Role |
+|----------|-----------|------|
+| Ambrox Super — 30% | 2-5% (active) | Amber foundation |
+| Iso E Super | 3-8% | Woody aura |
+| Cedarwood EO | 1-3% | Dry cedar |
+| Cedramber | 1-4% | Rich warm cedar |
+| Cedamber — 10% | 0.5-2% (active) | Sweet woody-amber |
+| Ambermax — 10% | 0.5-2% (active) | Warm rounded amber |
+| Amber Xtreme | 0.1-0.5% | Amber power |
+| Cashmeran — 20% | 0.5-2% (active) | Cashmere warmth |
+| Vertofix Coeur | 1-4% | Dry cedar heartwood |
+| Vetival | 1-3% | Woody-earthy base |
+| Bacdanol | 1-4% | Creamy sandalwood |
+| Ebanol | 1-4% | Milky sandalwood |
+
+TEMPLATE:
+  Amber core: ____________  at _____%
+  Wood 1:     ____________  at _____%
+  Wood 2:     ____________  at _____%
+  Texture:    ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 5: MUSK BASE  (5-15% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: Skin scent. What lingers closest to the body after hours.
+
+Pick 2-3 from your collection:
+
+| Material | Dose Range | Character |
+|----------|-----------|-----------|
+| Galaxolide — 100% | 1-4% | Clean, laundry, sweet |
+| Habanolide | 1-4% | Clean, pear-skin, modern |
+| Romandolide | 0.5-2% | Projecting, modern |
+| Ethylene Brassylate | 0.5-3% | Powdery, persistent |
+| Exaltolide — 10% | 0.5-2% (active) | Warm, sweet, skin-like |
+| Ambrettolide — 10% | 1-4% (active) | Warm, slightly fruity |
+| Zenolide | 0.5-3% | Clean, transparent |
+| Musk Ketone — 10% | 0.3-1.5% (active) | Powdery classic |
+| Tonalide — 10% | 0.5-2% (active) | Sweet-woody |
+| Macrolide — 10% | 1-4% (active) | Clean, subliminal |
+
+TEMPLATE:
+  Primary musk:   ____________  at _____%
+  Secondary musk: ____________  at _____%
+  Warmth musk:    ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 6: SWEET MODIFIERS  (1-5% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: Sweetness calibration. Links accords. Adds comfort and warmth.
+
+Pick 1-3 from your collection:
+
+| Material | Dose Range | Character |
+|----------|-----------|-----------|
+| Vanillin — 10% | 0.5-2% (active) | Classic vanilla |
+| Coumarin — 20% | 0.5-3% (active) | Powdery hay, tonka |
+| Ethyl Maltol — 10% | 0.05-0.3% (active) | Cotton candy, caramel |
+| Maple Lactone — 20% | 0.1-0.5% (active) | Maple syrup, creamy |
+| Benzoin Resinoid — 50% DPG | 0.5-2% (active) | Vanilla-balsamic resin |
+| Benzoin Sumatra — 10% | 0.5-2% (active) | Smoky-balsamic |
+| Heliotropin | 0.2-1% | Powdery, cherry-almond |
+| Raspberry Ketone | 0.1-0.5% | Sweet berry |
+
+TEMPLATE:
+  Vanilla type:  ____________  at _____%
+  Powdery sweet: ____________  at _____%
+  Effect sweet:  ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  LAYER 7: TRACE / EFFECT MATERIALS  (0.1-1% of concentrate)
+═══════════════════════════════════════════════════════════════════════════════
+
+Purpose: Subliminal character. You shouldn't smell these individually,
+but they shift the entire composition's character.
+
+| Material | Dose Range | Effect |
+|----------|-----------|--------|
+| Norlimbanol Dextro — 1% | 0.005-0.02% (active) | Woody tenacity, fixation |
+| Isobutyl Quinoline — 10% | 0.01-0.05% (active) | Ghost of leather |
+| Orivone | 0.01-0.05% | Metallic iris mineral flash |
+| Scentenal — 1% | 0.005-0.03% (active) | Green-metallic, apple |
+| Calone — 1% | 0.003-0.02% (active) | Marine-ozonic breath |
+| Aldehyde C10 — 1% | 0.01-0.05% (active) | Waxy citrus lift |
+| Aldehyde C11 — 1% | 0.01-0.05% (active) | Clean soapy shimmer |
+| Aldehyde C12 MNA — 1% | 0.01-0.05% (active) | Metallic linen |
+| Galbanum Resinoid — 10% | 0.1-0.3% (active) | Green knife edge |
+| Rose Oxide — 10% | 0.05-0.2% (active) | Metallic rose flash |
+| Guaiacol | 0.05-0.2% | Smoke undertone |
+
+TEMPLATE:
+  Trace effect 1: ____________  at _____%
+  Trace effect 2: ____________  at _____%
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  BLANK FORMULA SHEET — 100% CONCENTRATE
+═══════════════════════════════════════════════════════════════════════════════
+
+Copy this for each new formula. Fill in materials and percentages.
+Total must equal 100%. Then dilute to desired strength in ethanol.
+
+FORMULA NAME: ___________________________
+DATE: ___________
+TARGET: _______ mL at _______% concentration
+STYLE: ___________________________
+
+LAYER 1 — DIFFUSION CORE (target: 3-5%)
+  ________________________________  _____% 
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 2 — TOP / OPENING (target: 8-15%)
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 3 — HEART ACCORD (target: 25-40%)
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 4 — WOODY/AMBER SPINE (target: 15-25%)
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 5 — MUSK BASE (target: 5-15%)
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 6 — SWEET MODIFIERS (target: 1-5%)
+  ________________________________  _____%
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+LAYER 7 — TRACE / EFFECT (target: 0.1-1%)
+  ________________________________  _____%
+  ________________________________  _____%
+                          Subtotal: _____%
+
+══════════════════════════════════
+  GRAND TOTAL:              100.00%
+══════════════════════════════════
+
+DILUTION:
+  Concentrate weight: _______ g  (total × concentration%)
+  Ethanol weight:     _______ g  (fill to target total weight)
+  Total batch:        _______ g  = _______ mL

@@ -1,0 +1,67 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Install dependencies
+        working-directory: ./backend
+        run: |
+          poetry install
+      
+      - name: Run linting
+        working-directory: ./backend
+        run: |
+          poetry run ruff check app
+      
+      - name: Run type checking
+        working-directory: ./backend
+        run: |
+          poetry run mypy app --ignore-missing-imports
+      
+      - name: Run tests
+        working-directory: ./backend
+        env:
+          OPENAI_API_KEY: test-key
+          SECRET_KEY: test-secret-key-for-ci
+        run: |
+          poetry run pytest --cov=app --cov-report=xml --cov-report=term
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage.xml
+          flags: backend
+
+  build-docker:
+    needs: test-backend
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build Docker image
+        run: |
+          docker compose build

@@ -1,0 +1,364 @@
+# Intervention Recommendations - Iris Impériale — Powdery Iris / Suede
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Aldehyde C11 + Alpha Irone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C11 + Orivone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C11 + Methyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C11 + Javanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C11 + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Aldehyde C11 + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Methyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Irone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Methyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Javanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Orivone + Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Orivone + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Methyl Ionone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Ionone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Suederal + Javanol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Suederal + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Javanol + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Javanol + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cashmeran + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.4 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.4 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 1.4 — pre-mixing improves homogeneity.'}
+- Recommend Orivone
+- INCREASE Bergamot EO for balance (axis delta 1.9, total delta 0.6)
+  - Rationale: top-note lift for base-heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- INCREASE Hedione for balance (axis delta 3.1, total delta 0.9)
+  - Rationale: heart-note volume for top-heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: carries the roles eclat / outward radiance, transparence / airy lift
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Nympheal for radiance (axis delta 0.3, total delta 0.8)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 59.5
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Dimethyl Benzyl Carbinyl Acetate for sillage (axis delta 0.6, total delta 0.7)
+  - Rationale: gardenia-rose cosmetic volume, transparent diffusion
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 62.7
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Cedrat FCF oil Sicilian for balance (axis delta 2.7, total delta 0.7)
+  - Rationale: sharp citron top-note for base-heavy mineral accords
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- ADD Nympheal for radiance (axis delta 0.2, total delta 0.5)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 59.5
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Dimethyl Benzyl Carbinyl Acetate for sillage (axis delta 0.4, total delta 0.4)
+  - Rationale: gardenia-rose cosmetic volume, transparent diffusion
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 62.7
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- REBALANCE Bergamot EO for balance (axis delta 1.7, total delta 0.5)
+  - Rationale: top-note lift for base-heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.1/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Cedrat FCF oil Sicilian for balance (axis delta 1.7, total delta 0.4)
+  - Rationale: sharp citron top-note for base-heavy mineral accords
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.1/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Linalool for balance (axis delta 2.4, total delta 1.7)
+  - Rationale: transparent fresh lift for dark/heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- ADD Nympheal for radiance (axis delta 0.1, total delta 0.3)
+  - Rationale: watery transparent floral, diffusive radiance bloom
+  - Provenance:
+    - Mode:
+      - selected because radiance is currently weak at 59.5
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Dimethyl Benzyl Carbinyl Acetate for sillage (axis delta 0.2, total delta 0.2)
+  - Rationale: gardenia-rose cosmetic volume, transparent diffusion
+  - Provenance:
+    - Mode:
+      - selected because sillage is currently weak at 62.7
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 26.6% now versus 40% target for the detected classical style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Cedrat FCF oil Sicilian for balance (axis delta 0.9, total delta 0.2)
+  - Rationale: sharp citron top-note for base-heavy mineral accords
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the transparence / airy lift role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.5/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Linalool for balance (axis delta 1.3, total delta 1.1)
+  - Rationale: transparent fresh lift for dark/heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.4/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Bergamot EO for balance (axis delta 1.3, total delta 0.4)
+  - Rationale: top-note lift for base-heavy formulas
+  - Provenance:
+    - Mode:
+      - selected because balance is currently weak at 55.7
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 9.4% now versus 20% target for the detected classical style.
+    - Roudnitska: carries the eclat / outward radiance role
+    - Jellinek: maps to Fresh-Stimulating: Clean, bright, attention-getting, energizing
+    - Style: supports the detected classical style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.4/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

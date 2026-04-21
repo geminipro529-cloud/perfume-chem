@@ -1,0 +1,110 @@
+{
+  "fragrance_families": [
+    {
+      "name": "Citrus",
+      "description": "Fresh, zesty, uplifting",
+      "key_materials": ["Bergamot", "Lemon", "Orange", "Grapefruit"],
+      "typical_uses": ["Top notes", "Fresh fragrances"]
+    },
+    {
+      "name": "Floral",
+      "description": "Romantic, feminine, elegant",
+      "key_materials": ["Rose", "Jasmine", "Lily", "Tuberose"],
+      "typical_uses": ["Heart notes", "Classic perfumes"]
+    },
+    {
+      "name": "Oriental",
+      "description": "Warm, sensual, exotic",
+      "key_materials": ["Vanilla", "Amber", "Benzoin", "Labdanum"],
+      "typical_uses": ["Base notes", "Evening wear"]
+    },
+    {
+      "name": "Woody",
+      "description": "Earthy, sophisticated, masculine",
+      "key_materials": ["Sandalwood", "Cedar", "Vetiver", "Oud"],
+      "typical_uses": ["Base notes", "Masculine fragrances"]
+    },
+    {
+      "name": "Fresh",
+      "description": "Clean, aquatic, modern",
+      "key_materials": ["Marine notes", "Cucumber", "Melon"],
+      "typical_uses": ["Top notes", "Sport fragrances"]
+    },
+    {
+      "name": "Fougère",
+      "description": "Classic, barbershop, aromatic",
+      "key_materials": ["Lavender", "Oakmoss", "Coumarin"],
+      "typical_uses": ["Men's fragrances", "Classic perfumery"]
+    },
+    {
+      "name": "Chypre",
+      "description": "Complex, mossy, elegant",
+      "key_materials": ["Bergamot", "Oakmoss", "Patchouli", "Labdanum"],
+      "typical_uses": ["Sophisticated perfumes", "Vintage style"]
+    },
+    {
+      "name": "Gourmand",
+      "description": "Sweet, edible, comforting",
+      "key_materials": ["Vanilla", "Caramel", "Coffee", "Chocolate"],
+      "typical_uses": ["Sweet perfumes", "Modern fragrances"]
+    }
+  ],
+  "concentration_types": [
+    {
+      "type": "Parfum/Extrait",
+      "concentration_range": [20, 40],
+      "longevity_hours": [8, 24],
+      "sillage": "Strong to Enormous"
+    },
+    {
+      "type": "Eau de Parfum (EDP)",
+      "concentration_range": [15, 20],
+      "longevity_hours": [6, 8],
+      "sillage": "Moderate to Strong"
+    },
+    {
+      "type": "Eau de Toilette (EDT)",
+      "concentration_range": [5, 15],
+      "longevity_hours": [4, 6],
+      "sillage": "Moderate"
+    },
+    {
+      "type": "Eau de Cologne (EDC)",
+      "concentration_range": [2, 5],
+      "longevity_hours": [2, 4],
+      "sillage": "Light"
+    },
+    {
+      "type": "Eau Fraîche",
+      "concentration_range": [1, 3],
+      "longevity_hours": [1, 2],
+      "sillage": "Very Light"
+    }
+  ],
+  "common_solvents": [
+    {
+      "name": "Ethanol (95%)",
+      "use_case": "Standard perfume carrier",
+      "properties": "Good solubility, fast evaporation",
+      "typical_percentage": 80
+    },
+    {
+      "name": "Isopropyl Myristate (IPM)",
+      "use_case": "Oil-based formulas",
+      "properties": "Excellent solubility, no odor",
+      "typical_percentage": 90
+    },
+    {
+      "name": "Dipropylene Glycol (DPG)",
+      "use_case": "Dilutions, testing",
+      "properties": "Neutral, stable",
+      "typical_percentage": 90
+    },
+    {
+      "name": "Fractionated Coconut Oil",
+      "use_case": "Natural perfumery",
+      "properties": "Odorless, skin-safe",
+      "typical_percentage": 90
+    }
+  ]
+}

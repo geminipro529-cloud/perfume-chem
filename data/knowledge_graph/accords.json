@@ -1,0 +1,703 @@
+{
+  "_meta": {
+    "description": "Master registry of perfume accords, fragrance families, and accord types",
+    "sources": [
+      "Michael Edwards Fragrance Wheel",
+      "Jean-Claude Ellena — Perfume: The Alchemy of Scent",
+      "Edmond Roudnitska — L'Esthétique en Question",
+      "Jean Carles — A Method of Creation in Perfumery",
+      "Paul Jellinek — The Practice of Modern Perfumery",
+      "Steffen Arctander — Perfume & Flavor Materials of Natural Origin",
+      "Robert R. Calkin & J. Stephan Jellinek — Perfumery: Principles and Practice",
+      "Charles Sell — The Chemistry of Fragrances (RSC)"
+    ],
+    "version": "1.0",
+    "created": "2026-03-27"
+  },
+
+  "fragrance_families": {
+    "_note": "Top-level families from Michael Edwards Fragrance Wheel + classical perfumery canon",
+
+    "floral": {
+      "description": "Built around flower notes — the largest family in perfumery",
+      "jellinek_quadrant": "lower_left",
+      "roudnitska_dominant_roles": ["noblesse", "eclat"],
+      "sub_families": {
+        "soliflore": {
+          "description": "Single flower dominates — rose, jasmine, tuberose, lily, violet",
+          "core_materials": ["Rose Absolute", "Jasmine Absolute", "Tuberose Absolute", "Hydroxycitronellal", "Alpha Isomethyl Ionone"],
+          "benchmark_perfumes": ["Frédéric Malle Une Rose", "Serge Lutens A la Nuit", "Dior J'adore"]
+        },
+        "floral_bouquet": {
+          "description": "Multiple flowers blended — the classic feminine form",
+          "core_materials": ["Rose", "Jasmine", "Ylang Ylang", "Lily of the Valley", "Iris"],
+          "benchmark_perfumes": ["Chanel No. 5", "Joy by Jean Patou", "Guerlain L'Heure Bleue"]
+        },
+        "white_floral": {
+          "description": "Indolic, narcotic, heady white flowers — tuberose, gardenia, jasmine",
+          "core_materials": ["Tuberose Absolute", "Jasmine Absolute", "Indole", "Methyl Anthranilate", "Hedione"],
+          "benchmark_perfumes": ["Fracas", "Carnal Flower", "Tom Ford Tubéreuse Nue"]
+        },
+        "floral_green": {
+          "description": "Flowers with green leaf and stem facets",
+          "core_materials": ["Galbanum", "Violet Leaf", "Cis-3-Hexenol", "Hydroxycitronellal"],
+          "benchmark_perfumes": ["Chanel No. 19", "Vent Vert", "Eau de Campagne"]
+        },
+        "floral_aldehyde": {
+          "description": "Floral heart lifted by aldehydic sparkle",
+          "core_materials": ["Aldehydes C10-C12", "Rose", "Jasmine", "Ylang"],
+          "benchmark_perfumes": ["Chanel No. 5", "Arpège", "White Linen"]
+        },
+        "floral_fruity": {
+          "description": "Modern flowers with juicy fruit accents — peach, berry, pear",
+          "core_materials": ["Gamma-Undecalactone", "Aldehyde C14", "Damascone", "Rose", "Hedione"],
+          "benchmark_perfumes": ["Lancôme La Vie Est Belle", "Miss Dior", "Marc Jacobs Daisy"]
+        }
+      }
+    },
+
+    "oriental": {
+      "description": "Warm, sensual, enveloping — built on amber, vanilla, resins, spices",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["chaleur", "profondeur"],
+      "sub_families": {
+        "classic_oriental": {
+          "description": "Traditional amber-vanilla-spice — rich, opulent, narcotic",
+          "core_materials": ["Vanillin", "Benzoin", "Labdanum", "Styrax", "Cinnamon", "Clove"],
+          "benchmark_perfumes": ["Shalimar", "Opium", "Obsession"]
+        },
+        "soft_oriental": {
+          "description": "Lighter oriental with floral or musk heart — less heavy",
+          "core_materials": ["Vanillin", "Musk", "Amber", "Floral heart", "Sandalwood"],
+          "benchmark_perfumes": ["Narciso Rodriguez For Her", "Coco Mademoiselle", "Flowerbomb"]
+        },
+        "spicy_oriental": {
+          "description": "Orientals dominated by spice notes — assertive, warm-stimulating",
+          "core_materials": ["Cinnamon", "Cardamom", "Pink Pepper", "Clove", "Saffron", "Amber"],
+          "benchmark_perfumes": ["Amouage Interlude", "Bvlgari Black", "By Kilian Angels' Share"]
+        },
+        "amber": {
+          "description": "Centered on the amber accord — labdanum, benzoin, vanillin",
+          "core_materials": ["Labdanum", "Benzoin", "Vanillin", "Amber bases", "Ambroxan"],
+          "benchmark_perfumes": ["Prada Amber", "MFK Grand Soir", "Ambre Sultan"]
+        },
+        "resinous": {
+          "description": "Frankincense, myrrh, elemi — sacred, smoky-sweet resins",
+          "core_materials": ["Frankincense", "Myrrh", "Elemi", "Benzoin", "Olibanum"],
+          "benchmark_perfumes": ["CdG Avignon", "Tom Ford Oud Wood", "Profumum Roma Olibanum"]
+        }
+      }
+    },
+
+    "woody": {
+      "description": "Built on wood notes — sandalwood, cedar, vetiver, oud, patchouli",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["profondeur", "peau"],
+      "sub_families": {
+        "dry_woods": {
+          "description": "Austere, dry, pencil-shaving — cedar, guaiac, vetiver",
+          "core_materials": ["Cedarwood", "Iso E Super", "Vetiver", "Guaiacwood"],
+          "benchmark_perfumes": ["Terre d'Hermès", "Escentric Molecules 01", "Guerlain Vetiver"]
+        },
+        "creamy_woods": {
+          "description": "Smooth, milky, buttery — sandalwood, Javanol, Ebanol",
+          "core_materials": ["Sandalwood", "Javanol", "Ebanol", "Cashmeran"],
+          "benchmark_perfumes": ["Le Labo Santal 33", "Tam Dao", "Molecule 04"]
+        },
+        "mossy_woods": {
+          "description": "Damp earth, oakmoss, forest floor — the chypre DNA",
+          "core_materials": ["Oakmoss", "Evernyl", "Vetiveryl Acetate", "Patchouli"],
+          "benchmark_perfumes": ["Chanel Pour Monsieur", "Dior Eau Sauvage", "Molinard Habanita"]
+        },
+        "aromatic_woods": {
+          "description": "Cedar and sandalwood with herbal-aromatic facets",
+          "core_materials": ["Cedarwood", "Sandalwood", "Lavender", "Rosemary", "Geranium"],
+          "benchmark_perfumes": ["Bleu de Chanel", "Sauvage", "Acqua di Gio Profumo"]
+        },
+        "oud": {
+          "description": "Agarwood (oud) as star — animalic, medicinal, complex",
+          "core_materials": ["Oud", "Cypriol", "Guaiacol", "Saffron", "Rose"],
+          "benchmark_perfumes": ["MFK Oud Satin Mood", "Tom Ford Oud Wood", "Amouage Interlude"]
+        },
+        "patchouli": {
+          "description": "Patchouli-dominant — earthy, dark, hippie-to-luxury spectrum",
+          "core_materials": ["Patchouli", "Coumarin", "Vanilla", "Musk"],
+          "benchmark_perfumes": ["Thierry Mugler Angel", "Dior Addict", "Reminiscence Patchouli"]
+        }
+      }
+    },
+
+    "fresh": {
+      "description": "Light, clean, uplifting — citrus, green, aquatic, ozonic",
+      "jellinek_quadrant": "upper_left",
+      "roudnitska_dominant_roles": ["transparence", "eclat"],
+      "sub_families": {
+        "citrus": {
+          "description": "Built on hesperidic oils — bergamot, lemon, orange, grapefruit",
+          "core_materials": ["Bergamot", "Lemon", "Orange", "Grapefruit", "Linalool", "Petitgrain"],
+          "benchmark_perfumes": ["Acqua di Parma Colonia", "4711", "Hermès Eau d'Orange Verte"]
+        },
+        "green": {
+          "description": "Leafy, grassy, crisp — galbanum, violet leaf, cis-3-hexenol",
+          "core_materials": ["Galbanum", "Cis-3-Hexenol", "Violet Leaf", "Stemone"],
+          "benchmark_perfumes": ["Chanel No. 19", "Sisley Eau de Campagne", "Vent Vert"]
+        },
+        "aquatic_marine": {
+          "description": "Oceanic, ozonic, wet — Calone, Helional, water-effect molecules",
+          "core_materials": ["Calone", "Helional", "Dihydromyrcenol", "Ambroxan"],
+          "benchmark_perfumes": ["Acqua di Gio", "Davidoff Cool Water", "Issey Miyake L'Eau d'Issey"]
+        },
+        "ozonic": {
+          "description": "Clean-air, after-rain, metallic freshness",
+          "core_materials": ["Calone", "Floralozone", "Scentenal", "Aldehydes"],
+          "benchmark_perfumes": ["L'Eau d'Issey", "Kenzo Air", "CK One"]
+        }
+      }
+    },
+
+    "aromatic": {
+      "description": "Herbs, lavender, sage, thyme — the 'barber-shop' family",
+      "jellinek_quadrant": "upper_left",
+      "roudnitska_dominant_roles": ["eclat", "transparence"],
+      "sub_families": {
+        "aromatic_fougere": {
+          "description": "Classic barbershop — lavender, coumarin, oakmoss, geranium",
+          "core_materials": ["Lavender", "Coumarin", "Oakmoss", "Geranium", "Tonka"],
+          "benchmark_perfumes": ["Fougère Royale", "Pour un Homme de Caron", "Azzaro Pour Homme"]
+        },
+        "aromatic_fresh": {
+          "description": "Modern aromatic with aquatic or citrus freshness",
+          "core_materials": ["Lavender", "Dihydromyrcenol", "Ambroxan", "Sage"],
+          "benchmark_perfumes": ["Dior Sauvage", "Bleu de Chanel", "YSL Y"]
+        },
+        "herbal": {
+          "description": "Herb-garden naturalism — basil, thyme, rosemary, tarragon",
+          "core_materials": ["Basil", "Thyme", "Rosemary", "Tarragon", "Clary Sage"],
+          "benchmark_perfumes": ["Hermès Un Jardin", "Le Labo Thé Noir", "Maison Margiela Untitled"]
+        }
+      }
+    },
+
+    "chypre": {
+      "description": "The legendary Coty accord — bergamot, labdanum, patchouli, oakmoss",
+      "jellinek_quadrant": "lower_left",
+      "roudnitska_dominant_roles": ["profondeur", "noblesse"],
+      "sub_families": {
+        "classic_chypre": {
+          "description": "Original Coty structure — citrus/floral/oakmoss-patchouli",
+          "core_materials": ["Bergamot", "Rose", "Jasmine", "Oakmoss", "Patchouli", "Labdanum"],
+          "benchmark_perfumes": ["Mitsouko", "Miss Dior (original)", "Coty Chypre"]
+        },
+        "fruity_chypre": {
+          "description": "Chypre with prominent fruit notes — peach, plum, blackcurrant",
+          "core_materials": ["Gamma-Undecalactone", "Cassis", "Bergamot", "Oakmoss", "Patchouli"],
+          "benchmark_perfumes": ["Femme by Rochas", "Mitsouko", "Guerlain Chamade"]
+        },
+        "leather_chypre": {
+          "description": "Chypre skeleton with leather overlay",
+          "core_materials": ["Birch Tar", "Isobutyl Quinoline", "Suede accord", "Oakmoss", "Bergamot"],
+          "benchmark_perfumes": ["Bandit", "Jolie Madame", "Knize Ten"]
+        },
+        "green_chypre": {
+          "description": "Chypre with strong green galbanum or leaf opening",
+          "core_materials": ["Galbanum", "Oakmoss", "Bergamot", "Rose", "Patchouli"],
+          "benchmark_perfumes": ["Chanel No. 19", "Ma Griffe", "Givenchy III"]
+        },
+        "modern_chypre": {
+          "description": "Post-IFRA chypre using Evernyl and alternatives to oakmoss",
+          "core_materials": ["Evernyl", "Patchouli", "Bergamot", "Ambroxan", "Iso E Super"],
+          "benchmark_perfumes": ["Tom Ford Noir", "D&G The One", "Chanel Coco"]
+        }
+      }
+    },
+
+    "fougere": {
+      "description": "Houbigant's immortal accord — lavender, coumarin, oakmoss",
+      "jellinek_quadrant": "upper_left",
+      "roudnitska_dominant_roles": ["eclat", "transparence", "profondeur"],
+      "sub_families": {
+        "classic_fougere": {
+          "description": "Traditional barbershop — lavender, geranium, coumarin, oakmoss",
+          "core_materials": ["Lavender", "Coumarin", "Oakmoss", "Geranium", "Bergamot"],
+          "benchmark_perfumes": ["Fougère Royale", "Brut", "Azzaro Pour Homme"]
+        },
+        "modern_fougere": {
+          "description": "Updated with synthetics — dihydromyrcenol, ambroxan, hedione",
+          "core_materials": ["Lavender", "Coumarin", "Ambroxan", "Dihydromyrcenol", "Hedione"],
+          "benchmark_perfumes": ["Dior Sauvage", "Versace Pour Homme", "YSL La Nuit de L'Homme"]
+        },
+        "aromatic_fougere": {
+          "description": "Fougère with dominant aromatic herbs — rosemary, basil, sage",
+          "core_materials": ["Lavender", "Rosemary", "Sage", "Coumarin", "Vetiver"],
+          "benchmark_perfumes": ["Boss Bottled", "Pour un Homme de Caron", "Givenchy Gentleman"]
+        },
+        "woody_fougere": {
+          "description": "Fougère with heavy wood base — patchouli, vetiver, sandalwood",
+          "core_materials": ["Lavender", "Coumarin", "Patchouli", "Vetiver", "Sandalwood"],
+          "benchmark_perfumes": ["Dior Homme", "YSL Rive Gauche PH", "Givenchy Pi"]
+        }
+      }
+    },
+
+    "leather": {
+      "description": "Animalic, smoky, suede — birch tar, isobutyl quinoline, castoreum",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["profondeur", "chaleur"],
+      "sub_families": {
+        "classic_leather": {
+          "description": "Smoky birch-tar leather — the Russian leather tradition",
+          "core_materials": ["Birch Tar", "Castoreum", "Labdanum", "Tobacco", "Smoke"],
+          "benchmark_perfumes": ["Knize Ten", "Tuscan Leather", "Cuir de Russie"]
+        },
+        "suede": {
+          "description": "Soft, powdery, subtle leather — suede glove character",
+          "core_materials": ["Suederal", "Safraleine", "Iso E Super", "Violet", "Iris"],
+          "benchmark_perfumes": ["Daim Blond", "MFK Gentle Fluidity Gold", "Le Labo Another 13"]
+        },
+        "smoky_leather": {
+          "description": "Dark, aggressive, Tuscan Leather-style — smoke and tar dominant",
+          "core_materials": ["Birch Tar", "Cade Oil", "Guaiacol", "Cashmeran", "Oud"],
+          "benchmark_perfumes": ["Tom Ford Tuscan Leather", "Memo African Leather", "PDM Herod"]
+        }
+      }
+    },
+
+    "gourmand": {
+      "description": "Sweet, edible, dessert-like — vanilla, caramel, chocolate, coffee, praline",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["chaleur", "peau"],
+      "sub_families": {
+        "vanilla_gourmand": {
+          "description": "Vanilla-dominant — warm, creamy, comforting",
+          "core_materials": ["Vanillin", "Ethyl Vanillin", "Benzoin", "Tonka", "Coumarin"],
+          "benchmark_perfumes": ["Dior Addict", "Kayali Vanilla", "Xerjoff Naxos"]
+        },
+        "chocolate_coffee": {
+          "description": "Roasted, bitter-sweet — cocoa, espresso, mocha",
+          "core_materials": ["Cocoa Absolute", "Coffee Absolute", "Vanillin", "Tonka", "Patchouli"],
+          "benchmark_perfumes": ["Thierry Mugler Angel", "Montale Chocolate Greedy", "By Kilian Black Phantom"]
+        },
+        "caramel_praline": {
+          "description": "Burnt sugar, toffee, nut-sweet notes",
+          "core_materials": ["Ethyl Maltol", "Furaneol", "Maple Lactone", "Vanillin", "Benzoin"],
+          "benchmark_perfumes": ["Prada Candy", "Lolita Lempicka", "By Kilian Angels' Share"]
+        },
+        "fruity_gourmand": {
+          "description": "Sweet fruits with gourmand base — candied fruit, jam",
+          "core_materials": ["Gamma-Decalactone", "Ethyl Maltol", "Damascone", "Vanillin"],
+          "benchmark_perfumes": ["Lancôme La Vie Est Belle", "Carolina Herrera Good Girl", "Versace Crystal Noir"]
+        },
+        "boozy_gourmand": {
+          "description": "Rum, whisky, cognac — warm alcoholic sweetness",
+          "core_materials": ["Rum Absolute", "Cognac EO", "Vanillin", "Tonka", "Dried Fruits"],
+          "benchmark_perfumes": ["By Kilian Angels' Share", "Nishane Ani", "Xerjoff Naxos"]
+        }
+      }
+    },
+
+    "musk_skin": {
+      "description": "Skin-scent, intimate, barely-there — musks, ambrette, cashmeran",
+      "jellinek_quadrant": "lower_left",
+      "roudnitska_dominant_roles": ["peau", "transparence"],
+      "sub_families": {
+        "white_musk": {
+          "description": "Clean, laundry-fresh, soapy — the universal crowd-pleaser",
+          "core_materials": ["Galaxolide", "Habanolide", "Ethylene Brassylate", "Helvetolide"],
+          "benchmark_perfumes": ["Clean Skin", "Narciso Rodriguez For Her", "Glossier You"]
+        },
+        "skin_musk": {
+          "description": "Transparent, your-skin-but-better — Iso E Super, Ambroxan",
+          "core_materials": ["Iso E Super", "Ambroxan", "Cashmeran", "Cetalox"],
+          "benchmark_perfumes": ["Escentric Molecules 01", "Juliette Has a Gun Not a Perfume", "Le Labo Another 13"]
+        },
+        "animalic_musk": {
+          "description": "Dirty, sexual, raw — civet, castoreum, costus, indole",
+          "core_materials": ["Civet", "Castoreum", "Costus", "Indole", "Skatole"],
+          "benchmark_perfumes": ["Muscs Koublaï Khän", "Papillon Salome", "Zoologist Civet"]
+        },
+        "powdery_musk": {
+          "description": "Talc-like, baby powder, soft — heliotrope, iris, musk",
+          "core_materials": ["Heliotropin", "Alpha Isomethyl Ionone", "Galaxolide", "Vanillin", "Coumarin"],
+          "benchmark_perfumes": ["Prada Infusion d'Iris", "L'Artisan Drôle de Rose", "Hermès Eau de Merveilles"]
+        }
+      }
+    },
+
+    "tobacco": {
+      "description": "Dried tobacco leaf, pipe tobacco, smoky-sweet warmth",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["chaleur", "profondeur"],
+      "sub_families": {
+        "pipe_tobacco": {
+          "description": "Sweet, honeyed, aromatic pipe tobacco",
+          "core_materials": ["Tobacco Absolute", "Coumarin", "Vanillin", "Dried Fruit", "Honey"],
+          "benchmark_perfumes": ["Tom Ford Tobacco Vanille", "Xerjoff Naxos", "By Kilian Back to Black"]
+        },
+        "dry_tobacco": {
+          "description": "Dry, papery, green tobacco leaf — less sweet",
+          "core_materials": ["Tobacco Absolute", "Oakmoss", "Hay", "Vetiver"],
+          "benchmark_perfumes": ["Creed Original Vetiver", "Hermès Bel Ami", "Versace The Dreamer"]
+        }
+      }
+    },
+
+    "fruity": {
+      "description": "Fruit-dominant compositions — beyond citrus, into berry, tropical, stone fruit",
+      "jellinek_quadrant": "upper_right",
+      "roudnitska_dominant_roles": ["eclat", "transparence"],
+      "sub_families": {
+        "berry": {
+          "description": "Blackcurrant (cassis), raspberry, strawberry, blackberry",
+          "core_materials": ["Cassis Base", "Raspberry Ketone", "Damascone Delta", "Undecatriene"],
+          "benchmark_perfumes": ["Guerlain La Petite Robe Noire", "Dior Poison", "Lancôme Trésor Midnight Rose"]
+        },
+        "tropical": {
+          "description": "Mango, coconut, passion fruit, lychee — exotic, sun-drenched",
+          "core_materials": ["Methyl Laitone", "Coconut Lactone", "Undecalactone", "Triplal"],
+          "benchmark_perfumes": ["Escada Island Kiss", "Tom Ford Soleil Blanc", "Vilhelm Poets of Berlin"]
+        },
+        "stone_fruit": {
+          "description": "Peach, apricot, plum — soft, velvety, lactonic",
+          "core_materials": ["Gamma-Undecalactone", "Aldehyde C14", "Osmanthus", "Damascone"],
+          "benchmark_perfumes": ["Mitsouko (peach)", "MFK À La Rose", "Hermès Un Jardin sur le Nil"]
+        }
+      }
+    },
+
+    "powdery": {
+      "description": "Iris, violet, heliotrope, talc — soft, intimate, nostalgic",
+      "jellinek_quadrant": "lower_left",
+      "roudnitska_dominant_roles": ["noblesse", "peau"],
+      "sub_families": {
+        "iris_orris": {
+          "description": "Buttery, earthy, violet-powdery — the pinnacle of niche luxury",
+          "core_materials": ["Orris Butter", "Alpha Isomethyl Ionone", "Methyl Ionone", "Iris Concrete"],
+          "benchmark_perfumes": ["Dior Homme", "Prada Infusion d'Iris", "Xerjoff Irisss"]
+        },
+        "violet": {
+          "description": "Candied violet, green-powdery, nostalgic",
+          "core_materials": ["Alpha Isomethyl Ionone", "Ionone Beta", "Violet Leaf", "Orris"],
+          "benchmark_perfumes": ["Bois de Violette", "Après l'Ondée", "Lipstick Rose"]
+        },
+        "heliotrope": {
+          "description": "Almond-vanilla-powder — soft, vintage, slightly gourmand",
+          "core_materials": ["Heliotropin", "Vanillin", "Coumarin", "Almond"],
+          "benchmark_perfumes": ["Guerlain Après l'Ondée", "L'Artisan Drôle de Rose", "Etro Heliotrope"]
+        }
+      }
+    },
+
+    "aldehydic": {
+      "description": "Sparkling, metallic-effervescent — aldehydes as the star, not just modifiers",
+      "jellinek_quadrant": "upper_left",
+      "roudnitska_dominant_roles": ["transparence", "eclat"],
+      "sub_families": {
+        "classic_aldehydic": {
+          "description": "Full-blown aldehyde bouquet over floral — Chanel No. 5 archetype",
+          "core_materials": ["Aldehyde C10", "Aldehyde C11", "Aldehyde C12 MNA", "Rose", "Jasmine", "Ylang"],
+          "benchmark_perfumes": ["Chanel No. 5", "Arpège", "White Linen"]
+        },
+        "modern_aldehydic": {
+          "description": "Subtle aldehyde lift in modern context — less soapy, more metallic",
+          "core_materials": ["Aldehyde C11", "Iso E Super", "Ambroxan", "Hedione"],
+          "benchmark_perfumes": ["Molecule 01", "Juliette Has a Gun Not a Perfume", "Le Labo Another 13"]
+        }
+      }
+    },
+
+    "incense": {
+      "description": "Frankincense, olibanum, church-smoke — sacred, ritualistic, meditative",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["profondeur", "chaleur"],
+      "sub_families": {
+        "sacred_incense": {
+          "description": "Cathedral incense — frankincense, myrrh, cold stone",
+          "core_materials": ["Olibanum", "Myrrh", "Benzoin", "Labdanum", "Cypriol"],
+          "benchmark_perfumes": ["CdG Avignon", "Profumum Roma Olibanum", "Jéroboam Ambra"]
+        },
+        "smoky_incense": {
+          "description": "Charred, smoked — cade, birch, guaiacol mixed with resin",
+          "core_materials": ["Cade Oil", "Guaiacol", "Olibanum", "Birch Tar", "Patchouli"],
+          "benchmark_perfumes": ["Tom Ford Oud Wood", "CdG 2", "Byredo Gypsy Water"]
+        }
+      }
+    },
+
+    "aquatic": {
+      "description": "Water-inspired — ocean, rain, dew, wet garden, mineral",
+      "jellinek_quadrant": "upper_left",
+      "roudnitska_dominant_roles": ["transparence", "eclat"],
+      "sub_families": {
+        "marine": {
+          "description": "Sea spray, salt, kelp — Calone-driven ocean effect",
+          "core_materials": ["Calone", "Helional", "Ambroxan", "Dihydromyrcenol"],
+          "benchmark_perfumes": ["Acqua di Gio", "Davidoff Cool Water", "Bvlgari Aqva"]
+        },
+        "rain_petrichor": {
+          "description": "After-rain, wet earth, mineral — petrichor effect",
+          "core_materials": ["Geosmin", "Vetiver", "Iris", "Violet Leaf", "Hedione"],
+          "benchmark_perfumes": ["Hermès Un Jardin après la Mousson", "Clean Rain", "Commodity Rain"]
+        },
+        "mineral": {
+          "description": "Wet stone, flint, salt — austere, non-sweet freshness",
+          "core_materials": ["Ambroxan", "Iso E Super", "Vetiver", "Aldehydes"],
+          "benchmark_perfumes": ["Terre d'Hermès", "Escentric Molecules 02", "MFK Aqua Universalis"]
+        }
+      }
+    },
+
+    "spicy": {
+      "description": "Spice-dominant compositions — warm or cool, culinary or exotic",
+      "jellinek_quadrant": "upper_right",
+      "roudnitska_dominant_roles": ["eclat", "chaleur"],
+      "sub_families": {
+        "warm_spice": {
+          "description": "Cinnamon, clove, nutmeg — mulled wine, chai, baked goods",
+          "core_materials": ["Cinnamon", "Eugenol", "Nutmeg", "Clove", "Star Anise"],
+          "benchmark_perfumes": ["Amouage Interlude", "Spicebomb", "YSL Opium"]
+        },
+        "cool_spice": {
+          "description": "Pink pepper, cardamom, ginger — bright, zesty spice",
+          "core_materials": ["Pink Pepper CO2", "Cardamom", "Ginger", "Elemi", "Black Pepper"],
+          "benchmark_perfumes": ["Terre d'Hermès", "Cartier Déclaration", "Le Labo Santal 33"]
+        },
+        "saffron": {
+          "description": "Saffron as dominant — leathery, metallic, medicinal, hay-like",
+          "core_materials": ["Saffron", "Safranal", "Iso E Super", "Oud", "Rose"],
+          "benchmark_perfumes": ["MFK Baccarat Rouge 540", "Byredo Black Saffron", "Kilian Rolling in Love"]
+        }
+      }
+    },
+
+    "animalic": {
+      "description": "Raw, sexual, primal — civet, castoreum, costus, hyraceum, indole",
+      "jellinek_quadrant": "lower_right",
+      "roudnitska_dominant_roles": ["profondeur", "chaleur"],
+      "sub_families": {
+        "classic_animalic": {
+          "description": "Natural animalics or their synthetic replacements — deep, primal",
+          "core_materials": ["Civet", "Castoreum", "Costus", "Hyraceum", "Indole"],
+          "benchmark_perfumes": ["Muscs Koublaï Khän", "Jicky", "Salome"]
+        },
+        "honey_beeswax": {
+          "description": "Sweet-animalic — honey, beeswax, phenylacetic acid",
+          "core_materials": ["Phenylacetic Acid", "Methyl Phenylacetate", "Benzyl Benzoate", "Rose"],
+          "benchmark_perfumes": ["Guerlain Spiritueuse Double Vanille", "Zoologist Bee", "Hiram Green Slowdive"]
+        }
+      }
+    }
+  },
+
+  "classical_accords": {
+    "_note": "The canonical named accords from perfumery textbooks — building block combinations, not full formulas",
+
+    "fougere_accord": {
+      "family": "fougere",
+      "definition": "Lavender + Coumarin + Oakmoss (+ Geranium, Bergamot)",
+      "essential_materials": ["Lavender", "Coumarin", "Oakmoss/Evernyl", "Geranium", "Bergamot"],
+      "character": "Clean, herbal, barbershop, masculine",
+      "origin": "Houbigant Fougère Royale (1882)"
+    },
+    "chypre_accord": {
+      "family": "chypre",
+      "definition": "Bergamot + Labdanum + Oakmoss (+ Rose, Patchouli)",
+      "essential_materials": ["Bergamot", "Labdanum", "Oakmoss/Evernyl", "Rose", "Jasmine", "Patchouli"],
+      "character": "Sophisticated, complex, mossy-elegant",
+      "origin": "Coty Chypre (1917)"
+    },
+    "amber_accord": {
+      "family": "oriental",
+      "definition": "Labdanum + Benzoin + Vanillin (+ Styrax, Tolu Balsam)",
+      "essential_materials": ["Labdanum", "Benzoin", "Vanillin", "Tonka/Coumarin"],
+      "character": "Warm, sweet, resinous, enveloping",
+      "origin": "Ancient, codified by Guerlain (Shalimar, 1925)"
+    },
+    "cologne_accord": {
+      "family": "fresh",
+      "definition": "Bergamot + Lemon + Orange + Neroli + Lavender + Rosemary",
+      "essential_materials": ["Bergamot", "Lemon", "Orange", "Neroli", "Lavender", "Rosemary"],
+      "character": "Fresh, bright, ephemeral, universal",
+      "origin": "4711 / Eau de Cologne tradition (1709+)"
+    },
+    "rose_accord": {
+      "family": "floral",
+      "definition": "Rose absolute/oxide + Geraniol + Citronellol + Phenylethyl Alcohol",
+      "essential_materials": ["Rose Absolute", "Geraniol", "Citronellol", "Phenylethyl Alcohol"],
+      "character": "Romantic, feminine, natural, complex",
+      "origin": "Ancient, fundamental floral building block"
+    },
+    "jasmine_accord": {
+      "family": "floral",
+      "definition": "Jasmine absolute + Hedione + Indole + Benzyl Acetate",
+      "essential_materials": ["Jasmine Absolute", "Hedione", "Indole", "Benzyl Acetate"],
+      "character": "Indolic, narcotic, white-floral, sensual",
+      "origin": "Ancient, Grasse tradition"
+    },
+    "musk_accord": {
+      "family": "musk_skin",
+      "definition": "Blend of macrocyclic + polycyclic + nitro musks for depth",
+      "essential_materials": ["Galaxolide", "Habanolide", "Ethylene Brassylate", "Exaltolide"],
+      "character": "Clean, warm, skin-like, intimate",
+      "origin": "Modern synthetic era (1950s+)"
+    },
+    "marine_accord": {
+      "family": "aquatic",
+      "definition": "Calone + Dihydromyrcenol + Hedione (+ Helional)",
+      "essential_materials": ["Calone", "Dihydromyrcenol", "Hedione", "Helional"],
+      "character": "Oceanic, watery, fresh, transparent",
+      "origin": "New West (1988), Acqua di Gio (1996)"
+    },
+    "leather_accord": {
+      "family": "leather",
+      "definition": "Birch Tar + Isobutyl Quinoline + Castoreum (+ Labdanum, Styrax)",
+      "essential_materials": ["Birch Tar", "Isobutyl Quinoline", "Castoreum", "Labdanum"],
+      "character": "Smoky, animalic, dark, heavy",
+      "origin": "Russian leather tradition (Guerlain Cuir de Russie family)"
+    },
+    "gourmand_accord": {
+      "family": "gourmand",
+      "definition": "Ethyl Maltol + Vanillin + Coumarin + Benzoin (+ Patchouli)",
+      "essential_materials": ["Ethyl Maltol", "Vanillin", "Coumarin", "Benzoin", "Patchouli"],
+      "character": "Sweet, edible, dessert-like, warm",
+      "origin": "Thierry Mugler Angel (1992)"
+    },
+    "vetiver_accord": {
+      "family": "woody",
+      "definition": "Vetiver + Vetiveryl Acetate + Iso E Super (+ Cedar)",
+      "essential_materials": ["Vetiver", "Vetiveryl Acetate", "Iso E Super", "Cedarwood"],
+      "character": "Earthy, rooty, smoky-mineral, masculine",
+      "origin": "Guerlain Vetiver (1961)"
+    },
+    "sandalwood_accord": {
+      "family": "woody",
+      "definition": "Sandalwood + Javanol + Polysantol + Ebanol",
+      "essential_materials": ["Sandalwood", "Javanol", "Polysantol", "Ebanol"],
+      "character": "Creamy, milky, warm-wood, spiritual",
+      "origin": "Ancient, Indian spiritual tradition"
+    },
+    "oud_accord": {
+      "family": "woody",
+      "definition": "Oud + Cypriol + Guaiacol + Saffron (+ Rose)",
+      "essential_materials": ["Oud", "Cypriol", "Guaiacol", "Saffron", "Rose"],
+      "character": "Animalic, medicinal, complex, luxurious",
+      "origin": "Middle Eastern / Southeast Asian tradition"
+    },
+    "iris_accord": {
+      "family": "powdery",
+      "definition": "Orris Butter + Alpha Isomethyl Ionone + Methyl Ionone + Violet Leaf",
+      "essential_materials": ["Orris Butter", "Alpha Isomethyl Ionone", "Methyl Ionone", "Violet Leaf"],
+      "character": "Powdery, buttery, cold, supremely elegant",
+      "origin": "Guerlain tradition, elevated by Dior Homme (2005)"
+    },
+    "tobacco_accord": {
+      "family": "tobacco",
+      "definition": "Tobacco Absolute + Coumarin + Vanillin + Dried Fruit + Honey",
+      "essential_materials": ["Tobacco Absolute", "Coumarin", "Vanillin", "Dried Fruit"],
+      "character": "Sweet, warm, smoky, comforting",
+      "origin": "Tom Ford Tobacco Vanille (2007) popularized"
+    },
+    "incense_accord": {
+      "family": "incense",
+      "definition": "Olibanum + Benzoin + Myrrh + Labdanum (+ Elemi)",
+      "essential_materials": ["Olibanum", "Benzoin", "Myrrh", "Labdanum", "Elemi"],
+      "character": "Sacred, smoky-sweet, meditative, ritualistic",
+      "origin": "CdG Avignon (2008), ancient spiritual use"
+    },
+    "patchouli_accord": {
+      "family": "woody",
+      "definition": "Patchouli + Coumarin + Vanilla + Musk",
+      "essential_materials": ["Patchouli", "Coumarin", "Vanillin", "Musk"],
+      "character": "Earthy, dark, sweet, hippie-to-luxury spectrum",
+      "origin": "Thierry Mugler Angel (1992) luxury application"
+    },
+    "suede_accord": {
+      "family": "leather",
+      "definition": "Suederal + Safraleine + Iso E Super + Violet",
+      "essential_materials": ["Suederal", "Safraleine", "Iso E Super", "Violet"],
+      "character": "Soft, powdery-leather, intimate, tactile",
+      "origin": "Serge Lutens Daim Blond (2003)"
+    },
+    "ozonic_accord": {
+      "family": "aquatic",
+      "definition": "Calone + Floralozone + Aldehydes + Hedione",
+      "essential_materials": ["Calone", "Floralozone", "Scentenal", "Hedione"],
+      "character": "Post-rain, metallic freshness, clean air",
+      "origin": "L'Eau d'Issey (1992)"
+    },
+    "honey_accord": {
+      "family": "animalic",
+      "definition": "Phenylacetic Acid + Methyl Phenylacetate + Rose + Benzyl Benzoate",
+      "essential_materials": ["Phenylacetic Acid", "Methyl Phenylacetate", "Rose", "Benzyl Benzoate"],
+      "character": "Sweet-animalic, waxy, golden, warm",
+      "origin": "Natural honey reconstruction"
+    }
+  },
+
+  "modern_niche_types": {
+    "_note": "Contemporary niche/artisan perfume categories that don't fit classical families cleanly",
+
+    "molecular_minimalism": {
+      "description": "Single-molecule or near-single-molecule compositions — Iso E Super, Ambroxan focal point",
+      "core_approach": "Strip away complexity, let one molecule speak",
+      "benchmark_perfumes": ["Escentric Molecules 01", "Juliette Has a Gun Not a Perfume", "Molecule 04"]
+    },
+    "photorealistic_nature": {
+      "description": "Exact naturalistic reproduction of a real place or moment — rain, grass, earth",
+      "core_approach": "Headspace analysis recreation, naturalistic impression",
+      "benchmark_perfumes": ["CB I Hate Perfume In The Library", "Imaginary Authors", "Commodity Book"]
+    },
+    "conceptual_abstract": {
+      "description": "Non-representational — the fragrance IS the concept, not depicting real objects",
+      "core_approach": "Abstract emotional/philosophical idea expressed in scent",
+      "benchmark_perfumes": ["CdG 2", "Byredo Unnamed", "Maison Margiela Replica When the Rain Stops"]
+    },
+    "gourmand_niche": {
+      "description": "Elevated gourmand — culinary without being juvenile, with bitter/smoky/savory edges",
+      "core_approach": "Add complexity (oud, leather, incense, spice) to sweet base",
+      "benchmark_perfumes": ["Xerjoff Naxos", "By Kilian Angels' Share", "Profumum Roma Dulcis in Fundo"]
+    },
+    "bespoke_skin_scent": {
+      "description": "Invisible fragrance — smells like enhanced skin rather than 'perfume'",
+      "core_approach": "Transparent musks + ambers + woody molecules at low concentration",
+      "benchmark_perfumes": ["Le Labo Another 13", "Glossier You", "Escentric Molecules 02"]
+    }
+  },
+
+  "inventory_accord_mapping": {
+    "_note": "Quick lookup: which accords can be built from the current inventory categories",
+    "strong_coverage": [
+      "amber_accord",
+      "musk_accord",
+      "iris_accord",
+      "vetiver_accord",
+      "cologne_accord",
+      "incense_accord",
+      "gourmand_accord",
+      "leather_accord"
+    ],
+    "partial_coverage": [
+      "chypre_accord",
+      "fougere_accord",
+      "rose_accord",
+      "marine_accord",
+      "sandalwood_accord",
+      "tobacco_accord"
+    ],
+    "limited_coverage": [
+      "oud_accord",
+      "jasmine_accord",
+      "suede_accord",
+      "ozonic_accord",
+      "honey_accord",
+      "patchouli_accord"
+    ]
+  },
+
+  "statistics": {
+    "fragrance_families": 16,
+    "sub_families": 62,
+    "classical_accords": 20,
+    "modern_niche_types": 5,
+    "total_named_categories": 87
+  }
+}
