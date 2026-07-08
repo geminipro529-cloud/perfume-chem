@@ -1,0 +1,211 @@
+
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  STEP 1 ΓÇö Audit v7b (current state)
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+
+==============================================================================
+  SHADOW AUDIT ΓÇö v7b
+==============================================================================
+  silent=0  shadow=0  declared=51  unknown=0
+  Predicted trace_score (luxury component 5): 0.0 / 15.00
+  Shadow plateau: 2-10 materials = best zone (+1.125 luxury per shadow)
+
+  Material                           raw ┬╡L    dil   pct_conc    odt_ppm    ratio  class
+  -------------------------------- -------- ------ ---------- ---------- --------  -----
+  Hedione                            1250.0   1.00    10.2151          3 3.41e+04  declared
+  Ebanol                             1100.0   1.00     8.9893        1.5 5.99e+04  declared
+  Ethyl Linalool                     1050.0   1.00     8.5807        1.5 5.72e+04  declared
+  Ethylene Brassylate                 800.0   1.00     6.5377          2 3.27e+04  declared
+  Benzoin Resinoid                   1475.0   0.50     6.0269         20 3.01e+03  declared
+  Orivone                             650.0   1.00     5.3119        0.5 1.06e+05  declared
+  Hedione HC                          600.0   1.00     4.9032          3 1.63e+04  declared
+  Habanolide                          600.0   1.00     4.9032        0.2 2.45e+05  declared
+  Bergamot FCF oil Sicilian           550.0   1.00     4.4947        1.5    3e+04  declared
+  Delta Decalactone                   500.0   1.00     4.0861          2 2.04e+04  declared
+  Hexyl Salicylate                    500.0   1.00     4.0861         30 1.36e+03  declared
+  Benzyl Salicylate                   500.0   1.00     4.0861         50      817  declared
+  Hydroxycitronellal                  300.0   1.00     2.4516          3 8.17e+03  declared
+  Cedarwood EO                        300.0   1.00     2.4516          3 8.17e+03  declared
+  Alpha Irone                         900.0   0.30     2.2065       0.01 2.21e+06  declared
+  Carrot Seed EO                      200.0   1.00     1.6344          1 1.63e+04  declared
+  Iso E Super                         200.0   1.00     1.6344          2 8.17e+03  declared
+  Mayol                               175.0   1.00     1.4301        0.5 2.86e+04  declared
+  Heliotropal                         150.0   1.00     1.2258          1 1.23e+04  declared
+  Lilyreal ND                         125.0   1.00     1.0215        0.3 3.41e+04  declared
+  DBCA                                125.0   1.00     1.0215        0.1 1.02e+05  declared
+  Ambermax                            250.0   0.50     1.0215        0.1 1.02e+05  declared
+  Javanol                             100.0   1.00     0.8172        0.5 1.63e+04  declared
+  Anisaldehyde                        100.0   1.00     0.8172          1 8.17e+03  declared
+  Azarbre                             100.0   1.00     0.8172        0.5 1.63e+04  declared
+  Gamma Decalactone                   100.0   1.00     0.8172        0.3 2.72e+04  declared
+  Musk Ketone                         900.0   0.10     0.7355          2 3.68e+03  declared
+  Ambrox Super                        300.0   0.30     0.7355       0.05 1.47e+05  declared
+  Freesia HDI                          75.0   1.00     0.6129        0.5 1.23e+04  declared
+  Ethyl Vanillin                       75.0   1.00     0.6129          3 2.04e+03  declared
+  Gamma Undecalactone                  75.0   1.00     0.6129        0.2 3.06e+04  declared
+  Beta Ionone                          75.0   1.00     0.6129       0.05 1.23e+05  declared
+  Ambrettolide                        700.0   0.10     0.5720        0.5 1.14e+04  declared
+  Alpha Ionone                         60.0   1.00     0.4903        0.1  4.9e+04  declared
+  Coumarin                            275.0   0.20     0.4495          5      899  declared
+  Bourgeonal                           50.0   1.00     0.4086       0.05 8.17e+04  declared
+  Helional                             50.0   1.00     0.4086        0.1 4.09e+04  declared
+  Vanillin                            400.0   0.10     0.3269         10      327  declared
+  Ultralia                             40.0   1.00     0.3269       0.05 6.54e+04  declared
+  ACA                                  40.0   1.00     0.3269          2 1.63e+03  declared
+  Irotyl                               25.0   1.00     0.2043        0.2 1.02e+04  declared
+  Alpha Isomethyl Ionone               25.0   1.00     0.2043        0.5 4.09e+03  declared
+  PEDMC                                25.0   1.00     0.2043        0.8 2.55e+03  declared
+  Aurantiol                            25.0   1.00     0.2043        0.3 6.81e+03  declared
+  Isoeugenol                           15.0   1.00     0.1226        0.4 3.06e+03  declared
+  Ethyl Maltol                        100.0   0.10     0.0817        0.1 8.17e+03  declared
+  Farnesol                             10.0   1.00     0.0817         10     81.7  declared
+  Damascol                             75.0   0.10     0.0613      0.005 1.23e+05  declared
+  Indole                               15.0   0.10     0.0123       0.05 2.45e+03  declared
+  Scentenal                            25.0   0.01     0.0020       0.05      409  declared
+  Geosmin                               2.0   0.01     0.0002      0.001 1.63e+03  declared
+
+  ΓåÆ Currently silent (0): []
+  ΓåÆ Currently shadow (0): []
+  ΓåÆ Barely-declared (ratio 1-3, candidates for down-dose into shadow):
+
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  STEP 2 ΓÇö Build v7c from audit findings
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  + Phenethyl Alcohol (PEA)       60.0 ┬╡L @ 1.00  (rosy white-floral alcohol)
+  + Methyl Anthranilate           25.0 ┬╡L @ 1.00  (powdery orange-blossom Schiff-base precursor)
+  + Cyclamen Aldehyde              8.0 ┬╡L @ 1.00  (fresh muguet aldehyde, 5th muguet axis)
+  + Ambrofix                      30.0 ┬╡L @ 0.30  (amber-mineral shadow (4th amber, sits below threshold))
+  + Allyl Ionone                  40.0 ┬╡L @ 1.00  (violet-iris reinforcement, distinct from Alpha/Beta/AIMI)
+  + Champaca Flower EO             8.0 ┬╡L @ 1.00  (natural magnolia-tea white floral, naturals++)
+
+  --- Down-dose targets (barely-declared, not protected) ---
+
+  v7c concentrate: 16328.0 ┬╡L (32.66% of 50 mL)
+
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  STEP 3 ΓÇö Audit v7c (post-additions + down-doses)
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+
+==============================================================================
+  SHADOW AUDIT ΓÇö v7c
+==============================================================================
+  silent=0  shadow=0  declared=57  unknown=0
+  Predicted trace_score (luxury component 5): 0.0 / 15.00
+  Shadow plateau: 2-10 materials = best zone (+1.125 luxury per shadow)
+
+  Material                           raw ┬╡L    dil   pct_conc    odt_ppm    ratio  class
+  -------------------------------- -------- ------ ---------- ---------- --------  -----
+  Hedione                            1250.0   1.00    10.0914          3 3.36e+04  declared
+  Ebanol                             1100.0   1.00     8.8804        1.5 5.92e+04  declared
+  Ethyl Linalool                     1050.0   1.00     8.4768        1.5 5.65e+04  declared
+  Ethylene Brassylate                 800.0   1.00     6.4585          2 3.23e+04  declared
+  Benzoin Resinoid                   1475.0   0.50     5.9539         20 2.98e+03  declared
+  Orivone                             650.0   1.00     5.2475        0.5 1.05e+05  declared
+  Hedione HC                          600.0   1.00     4.8439          3 1.61e+04  declared
+  Habanolide                          600.0   1.00     4.8439        0.2 2.42e+05  declared
+  Bergamot FCF oil Sicilian           550.0   1.00     4.4402        1.5 2.96e+04  declared
+  Delta Decalactone                   500.0   1.00     4.0366          2 2.02e+04  declared
+  Hexyl Salicylate                    500.0   1.00     4.0366         30 1.35e+03  declared
+  Benzyl Salicylate                   500.0   1.00     4.0366         50      807  declared
+  Hydroxycitronellal                  300.0   1.00     2.4219          3 8.07e+03  declared
+  Cedarwood EO                        300.0   1.00     2.4219          3 8.07e+03  declared
+  Alpha Irone                         900.0   0.30     2.1797       0.01 2.18e+06  declared
+  Carrot Seed EO                      200.0   1.00     1.6146          1 1.61e+04  declared
+  Iso E Super                         200.0   1.00     1.6146          2 8.07e+03  declared
+  Mayol                               175.0   1.00     1.4128        0.5 2.83e+04  declared
+  Heliotropal                         150.0   1.00     1.2110          1 1.21e+04  declared
+  Lilyreal ND                         125.0   1.00     1.0091        0.3 3.36e+04  declared
+  DBCA                                125.0   1.00     1.0091        0.1 1.01e+05  declared
+  Ambermax                            250.0   0.50     1.0091        0.1 1.01e+05  declared
+  Javanol                             100.0   1.00     0.8073        0.5 1.61e+04  declared
+  Anisaldehyde                        100.0   1.00     0.8073          1 8.07e+03  declared
+  Azarbre                             100.0   1.00     0.8073        0.5 1.61e+04  declared
+  Gamma Decalactone                   100.0   1.00     0.8073        0.3 2.69e+04  declared
+  Musk Ketone                         900.0   0.10     0.7266          2 3.63e+03  declared
+  Ambrox Super                        300.0   0.30     0.7266       0.05 1.45e+05  declared
+  Freesia HDI                          75.0   1.00     0.6055        0.5 1.21e+04  declared
+  Ethyl Vanillin                       75.0   1.00     0.6055          3 2.02e+03  declared
+  Gamma Undecalactone                  75.0   1.00     0.6055        0.2 3.03e+04  declared
+  Beta Ionone                          75.0   1.00     0.6055       0.05 1.21e+05  declared
+  Ambrettolide                        700.0   0.10     0.5651        0.5 1.13e+04  declared
+  Alpha Ionone                         60.0   1.00     0.4844        0.1 4.84e+04  declared
+  Phenethyl Alcohol (PEA)              60.0   1.00     0.4844         40      121  declared
+  Coumarin                            275.0   0.20     0.4440          5      888  declared
+  Bourgeonal                           50.0   1.00     0.4037       0.05 8.07e+04  declared
+  Helional                             50.0   1.00     0.4037        0.1 4.04e+04  declared
+  Vanillin                            400.0   0.10     0.3229         10      323  declared
+  Ultralia                             40.0   1.00     0.3229       0.05 6.46e+04  declared
+  ACA                                  40.0   1.00     0.3229          2 1.61e+03  declared
+  Allyl Ionone                         40.0   1.00     0.3229        0.5 6.46e+03  declared
+  Irotyl                               25.0   1.00     0.2018        0.2 1.01e+04  declared
+  Alpha Isomethyl Ionone               25.0   1.00     0.2018        0.5 4.04e+03  declared
+  PEDMC                                25.0   1.00     0.2018        0.8 2.52e+03  declared
+  Aurantiol                            25.0   1.00     0.2018        0.3 6.73e+03  declared
+  Methyl Anthranilate                  25.0   1.00     0.2018        0.4 5.05e+03  declared
+  Isoeugenol                           15.0   1.00     0.1211        0.4 3.03e+03  declared
+  Ethyl Maltol                        100.0   0.10     0.0807        0.1 8.07e+03  declared
+  Farnesol                             10.0   1.00     0.0807         10     80.7  declared
+  Ambrofix                             30.0   0.30     0.0727       0.05 1.45e+04  declared
+  Cyclamen Aldehyde                     8.0   1.00     0.0646        0.5 1.29e+03  declared
+  Champaca Flower EO                    8.0   1.00     0.0646        1.5      431  declared
+  Damascol                             75.0   0.10     0.0605      0.005 1.21e+05  declared
+  Indole                               15.0   0.10     0.0121       0.05 2.42e+03  declared
+  Scentenal                            25.0   0.01     0.0020       0.05      404  declared
+  Geosmin                               2.0   0.01     0.0002      0.001 1.61e+03  declared
+
+  --- Class transitions v7b ΓåÆ v7c ---
+  Phenethyl Alcohol (PEA)              (new) ΓåÆ declared   ratio=121.0969
+  Allyl Ionone                         (new) ΓåÆ declared   ratio=6458.5037
+  Methyl Anthranilate                  (new) ΓåÆ declared   ratio=5045.706
+  Ambrofix                             (new) ΓåÆ declared   ratio=14531.6333
+  Cyclamen Aldehyde                    (new) ΓåÆ declared   ratio=1291.7007
+  Champaca Flower EO                   (new) ΓåÆ declared   ratio=430.5669
+
+  Trace score: v7b=0.0 ΓåÆ v7c=0.0  (╬ö=+0.00)
+
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  STEP 4 ΓÇö Score v7c (default and brief weights)
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+
+  v7c geo (default): 79.406
+  v7c geo (brief)  : 79.406
+
+  vs prior versions:
+    v3  default = 79.288
+    v7a default = 80.934     brief = 80.996
+    v7b default = 80.542     brief = 80.592
+    v7c default = 79.406     brief = 79.406
+
+  v7c axis breakdown (default):
+    longevity               79.50
+    sillage                 99.70
+    luxury                  58.00
+    texture                 81.10
+    stacking_depth          90.00
+    photorealism            78.40
+    perceptual_clarity      61.50
+    skin_performance        77.50
+    synergy                 95.00
+    hedonic                 85.60
+
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  STEP 5 ΓÇö Verify formulas
+ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+
+  --- Inventory check (v7c, 57 materials) ---
+  PASS ΓÇö all 57 materials confirmed in inventory.
+
+  --- IFRA cap check (v7c) ---
+  OK   ACA: 40.0 / 50.0 (80%)
+  OK   Farnesol: 10.0 / 10.0 (100%)
+  PASS ΓÇö all IFRA-capped materials within limits.
+
+  --- Volume check (v7c) ---
+  Concentrate: 16328.0 ┬╡L (32.66%)
+  Ethanol 96%: 33672.0 ┬╡L
+  TOTAL      : 50000.0 ┬╡L  (target 50000.0)
+  PASS ΓÇö total = 50000 ┬╡L exact.
+
+  Saved ΓåÆ _opt_v7c_shadow_audit.json
+
+  ΓöÇΓöÇΓöÇ DONE ΓöÇΓöÇΓöÇ

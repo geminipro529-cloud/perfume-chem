@@ -1,0 +1,151 @@
+- canonical_name: Z-ZOLVENT F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6ZZ00449
+    perfumersworld_price_usd_per_g: 0.06
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Z-Zolvent Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6ZZ00501
+    perfumersworld_price_usd_per_g: 0.06
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Z11 HD 8.5
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 5WU21414
+    perfumersworld_price_usd_per_g: 2.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Zenolide
+  aliases:
+  - zenolide
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 256.3
+  density_25c_g_ml: null
+  logp: 3.6
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.65
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3XA22378
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - musks
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

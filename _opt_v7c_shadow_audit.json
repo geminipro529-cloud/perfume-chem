@@ -1,0 +1,1202 @@
+{
+  "v7b_audit": {
+    "label": "v7b",
+    "counts": {
+      "silent": 0,
+      "shadow": 0,
+      "declared": 51,
+      "unknown": 0
+    },
+    "trace_score_predicted": 0.0,
+    "shadow_count": 0,
+    "rows": [
+      {
+        "name": "Hedione",
+        "raw_ul": 1250.0,
+        "dil": 1.0,
+        "pct_in_conc": 10.21511,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 34050.3799,
+        "class": "declared"
+      },
+      {
+        "name": "Ebanol",
+        "raw_ul": 1100.0,
+        "dil": 1.0,
+        "pct_in_conc": 8.9893,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 59928.6685,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Linalool",
+        "raw_ul": 1050.0,
+        "dil": 1.0,
+        "pct_in_conc": 8.5807,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 57204.6382,
+        "class": "declared"
+      },
+      {
+        "name": "Ethylene Brassylate",
+        "raw_ul": 800.0,
+        "dil": 1.0,
+        "pct_in_conc": 6.53767,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 32688.3647,
+        "class": "declared"
+      },
+      {
+        "name": "Benzoin Resinoid",
+        "raw_ul": 1475.0,
+        "dil": 0.5,
+        "pct_in_conc": 6.02692,
+        "odt_ppm": 20.0,
+        "ratio_to_odt": 3013.4586,
+        "class": "declared"
+      },
+      {
+        "name": "Orivone",
+        "raw_ul": 650.0,
+        "dil": 1.0,
+        "pct_in_conc": 5.31186,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 106237.1851,
+        "class": "declared"
+      },
+      {
+        "name": "Hedione HC",
+        "raw_ul": 600.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.90325,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 16344.1823,
+        "class": "declared"
+      },
+      {
+        "name": "Habanolide",
+        "raw_ul": 600.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.90325,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 245162.7349,
+        "class": "declared"
+      },
+      {
+        "name": "Bergamot FCF oil Sicilian",
+        "raw_ul": 550.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.49465,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 29964.3343,
+        "class": "declared"
+      },
+      {
+        "name": "Delta Decalactone",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.08605,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 20430.2279,
+        "class": "declared"
+      },
+      {
+        "name": "Hexyl Salicylate",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.08605,
+        "odt_ppm": 30.0,
+        "ratio_to_odt": 1362.0152,
+        "class": "declared"
+      },
+      {
+        "name": "Benzyl Salicylate",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.08605,
+        "odt_ppm": 50.0,
+        "ratio_to_odt": 817.2091,
+        "class": "declared"
+      },
+      {
+        "name": "Hydroxycitronellal",
+        "raw_ul": 300.0,
+        "dil": 1.0,
+        "pct_in_conc": 2.45163,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 8172.0912,
+        "class": "declared"
+      },
+      {
+        "name": "Cedarwood EO",
+        "raw_ul": 300.0,
+        "dil": 1.0,
+        "pct_in_conc": 2.45163,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 8172.0912,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Irone",
+        "raw_ul": 900.0,
+        "dil": 0.3,
+        "pct_in_conc": 2.20646,
+        "odt_ppm": 0.01,
+        "ratio_to_odt": 2206464.6144,
+        "class": "declared"
+      },
+      {
+        "name": "Carrot Seed EO",
+        "raw_ul": 200.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.63442,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 16344.1823,
+        "class": "declared"
+      },
+      {
+        "name": "Iso E Super",
+        "raw_ul": 200.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.63442,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 8172.0912,
+        "class": "declared"
+      },
+      {
+        "name": "Mayol",
+        "raw_ul": 175.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.43012,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 28602.3191,
+        "class": "declared"
+      },
+      {
+        "name": "Heliotropal",
+        "raw_ul": 150.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.22581,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 12258.1367,
+        "class": "declared"
+      },
+      {
+        "name": "Lilyreal ND",
+        "raw_ul": 125.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.02151,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 34050.3799,
+        "class": "declared"
+      },
+      {
+        "name": "DBCA",
+        "raw_ul": 125.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.02151,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 102151.1396,
+        "class": "declared"
+      },
+      {
+        "name": "Ambermax",
+        "raw_ul": 250.0,
+        "dil": 0.5,
+        "pct_in_conc": 1.02151,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 102151.1396,
+        "class": "declared"
+      },
+      {
+        "name": "Javanol",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.81721,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 16344.1823,
+        "class": "declared"
+      },
+      {
+        "name": "Anisaldehyde",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.81721,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 8172.0912,
+        "class": "declared"
+      },
+      {
+        "name": "Azarbre",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.81721,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 16344.1823,
+        "class": "declared"
+      },
+      {
+        "name": "Gamma Decalactone",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.81721,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 27240.3039,
+        "class": "declared"
+      },
+      {
+        "name": "Musk Ketone",
+        "raw_ul": 900.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.73549,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 3677.441,
+        "class": "declared"
+      },
+      {
+        "name": "Ambrox Super",
+        "raw_ul": 300.0,
+        "dil": 0.3,
+        "pct_in_conc": 0.73549,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 147097.641,
+        "class": "declared"
+      },
+      {
+        "name": "Freesia HDI",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.61291,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 12258.1367,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Vanillin",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.61291,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 2043.0228,
+        "class": "declared"
+      },
+      {
+        "name": "Gamma Undecalactone",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.61291,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 30645.3419,
+        "class": "declared"
+      },
+      {
+        "name": "Beta Ionone",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.61291,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 122581.3675,
+        "class": "declared"
+      },
+      {
+        "name": "Ambrettolide",
+        "raw_ul": 700.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.57205,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 11440.9276,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Ionone",
+        "raw_ul": 60.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.49033,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 49032.547,
+        "class": "declared"
+      },
+      {
+        "name": "Coumarin",
+        "raw_ul": 275.0,
+        "dil": 0.2,
+        "pct_in_conc": 0.44947,
+        "odt_ppm": 5.0,
+        "ratio_to_odt": 898.93,
+        "class": "declared"
+      },
+      {
+        "name": "Bourgeonal",
+        "raw_ul": 50.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.4086,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 81720.9116,
+        "class": "declared"
+      },
+      {
+        "name": "Helional",
+        "raw_ul": 50.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.4086,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 40860.4558,
+        "class": "declared"
+      },
+      {
+        "name": "Vanillin",
+        "raw_ul": 400.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.32688,
+        "odt_ppm": 10.0,
+        "ratio_to_odt": 326.8836,
+        "class": "declared"
+      },
+      {
+        "name": "Ultralia",
+        "raw_ul": 40.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.32688,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 65376.7293,
+        "class": "declared"
+      },
+      {
+        "name": "ACA",
+        "raw_ul": 40.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.32688,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 1634.4182,
+        "class": "declared"
+      },
+      {
+        "name": "Irotyl",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.2043,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 10215.114,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Isomethyl Ionone",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.2043,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 4086.0456,
+        "class": "declared"
+      },
+      {
+        "name": "PEDMC",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.2043,
+        "odt_ppm": 0.8,
+        "ratio_to_odt": 2553.7785,
+        "class": "declared"
+      },
+      {
+        "name": "Aurantiol",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.2043,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 6810.076,
+        "class": "declared"
+      },
+      {
+        "name": "Isoeugenol",
+        "raw_ul": 15.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.12258,
+        "odt_ppm": 0.4,
+        "ratio_to_odt": 3064.5342,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Maltol",
+        "raw_ul": 100.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.08172,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 8172.0912,
+        "class": "declared"
+      },
+      {
+        "name": "Farnesol",
+        "raw_ul": 10.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.08172,
+        "odt_ppm": 10.0,
+        "ratio_to_odt": 81.7209,
+        "class": "declared"
+      },
+      {
+        "name": "Damascol",
+        "raw_ul": 75.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.06129,
+        "odt_ppm": 0.005,
+        "ratio_to_odt": 122581.3675,
+        "class": "declared"
+      },
+      {
+        "name": "Indole",
+        "raw_ul": 15.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.01226,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 2451.6273,
+        "class": "declared"
+      },
+      {
+        "name": "Scentenal",
+        "raw_ul": 25.0,
+        "dil": 0.01,
+        "pct_in_conc": 0.00204,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 408.6046,
+        "class": "declared"
+      },
+      {
+        "name": "Geosmin",
+        "raw_ul": 2.0,
+        "dil": 0.01,
+        "pct_in_conc": 0.00016,
+        "odt_ppm": 0.001,
+        "ratio_to_odt": 1634.4182,
+        "class": "declared"
+      }
+    ]
+  },
+  "v7c_audit": {
+    "label": "v7c",
+    "counts": {
+      "silent": 0,
+      "shadow": 0,
+      "declared": 57,
+      "unknown": 0
+    },
+    "trace_score_predicted": 0.0,
+    "shadow_count": 0,
+    "rows": [
+      {
+        "name": "Hedione",
+        "raw_ul": 1250.0,
+        "dil": 1.0,
+        "pct_in_conc": 10.09141,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 33638.0402,
+        "class": "declared"
+      },
+      {
+        "name": "Ebanol",
+        "raw_ul": 1100.0,
+        "dil": 1.0,
+        "pct_in_conc": 8.88044,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 59202.9507,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Linalool",
+        "raw_ul": 1050.0,
+        "dil": 1.0,
+        "pct_in_conc": 8.47679,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 56511.9075,
+        "class": "declared"
+      },
+      {
+        "name": "Ethylene Brassylate",
+        "raw_ul": 800.0,
+        "dil": 1.0,
+        "pct_in_conc": 6.4585,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 32292.5186,
+        "class": "declared"
+      },
+      {
+        "name": "Benzoin Resinoid",
+        "raw_ul": 1475.0,
+        "dil": 0.5,
+        "pct_in_conc": 5.95393,
+        "odt_ppm": 20.0,
+        "ratio_to_odt": 2976.9666,
+        "class": "declared"
+      },
+      {
+        "name": "Orivone",
+        "raw_ul": 650.0,
+        "dil": 1.0,
+        "pct_in_conc": 5.24753,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 104950.6853,
+        "class": "declared"
+      },
+      {
+        "name": "Hedione HC",
+        "raw_ul": 600.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.84388,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 16146.2593,
+        "class": "declared"
+      },
+      {
+        "name": "Habanolide",
+        "raw_ul": 600.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.84388,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 242193.8891,
+        "class": "declared"
+      },
+      {
+        "name": "Bergamot FCF oil Sicilian",
+        "raw_ul": 550.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.44022,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 29601.4753,
+        "class": "declared"
+      },
+      {
+        "name": "Delta Decalactone",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.03656,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 20182.8241,
+        "class": "declared"
+      },
+      {
+        "name": "Hexyl Salicylate",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.03656,
+        "odt_ppm": 30.0,
+        "ratio_to_odt": 1345.5216,
+        "class": "declared"
+      },
+      {
+        "name": "Benzyl Salicylate",
+        "raw_ul": 500.0,
+        "dil": 1.0,
+        "pct_in_conc": 4.03656,
+        "odt_ppm": 50.0,
+        "ratio_to_odt": 807.313,
+        "class": "declared"
+      },
+      {
+        "name": "Hydroxycitronellal",
+        "raw_ul": 300.0,
+        "dil": 1.0,
+        "pct_in_conc": 2.42194,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 8073.1296,
+        "class": "declared"
+      },
+      {
+        "name": "Cedarwood EO",
+        "raw_ul": 300.0,
+        "dil": 1.0,
+        "pct_in_conc": 2.42194,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 8073.1296,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Irone",
+        "raw_ul": 900.0,
+        "dil": 0.3,
+        "pct_in_conc": 2.17975,
+        "odt_ppm": 0.01,
+        "ratio_to_odt": 2179745.0021,
+        "class": "declared"
+      },
+      {
+        "name": "Carrot Seed EO",
+        "raw_ul": 200.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.61463,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 16146.2593,
+        "class": "declared"
+      },
+      {
+        "name": "Iso E Super",
+        "raw_ul": 200.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.61463,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 8073.1296,
+        "class": "declared"
+      },
+      {
+        "name": "Mayol",
+        "raw_ul": 175.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.4128,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 28255.9537,
+        "class": "declared"
+      },
+      {
+        "name": "Heliotropal",
+        "raw_ul": 150.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.21097,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 12109.6945,
+        "class": "declared"
+      },
+      {
+        "name": "Lilyreal ND",
+        "raw_ul": 125.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.00914,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 33638.0402,
+        "class": "declared"
+      },
+      {
+        "name": "DBCA",
+        "raw_ul": 125.0,
+        "dil": 1.0,
+        "pct_in_conc": 1.00914,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 100914.1205,
+        "class": "declared"
+      },
+      {
+        "name": "Ambermax",
+        "raw_ul": 250.0,
+        "dil": 0.5,
+        "pct_in_conc": 1.00914,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 100914.1205,
+        "class": "declared"
+      },
+      {
+        "name": "Javanol",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.80731,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 16146.2593,
+        "class": "declared"
+      },
+      {
+        "name": "Anisaldehyde",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.80731,
+        "odt_ppm": 1.0,
+        "ratio_to_odt": 8073.1296,
+        "class": "declared"
+      },
+      {
+        "name": "Azarbre",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.80731,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 16146.2593,
+        "class": "declared"
+      },
+      {
+        "name": "Gamma Decalactone",
+        "raw_ul": 100.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.80731,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 26910.4321,
+        "class": "declared"
+      },
+      {
+        "name": "Musk Ketone",
+        "raw_ul": 900.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.72658,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 3632.9083,
+        "class": "declared"
+      },
+      {
+        "name": "Ambrox Super",
+        "raw_ul": 300.0,
+        "dil": 0.3,
+        "pct_in_conc": 0.72658,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 145316.3335,
+        "class": "declared"
+      },
+      {
+        "name": "Freesia HDI",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.60548,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 12109.6945,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Vanillin",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.60548,
+        "odt_ppm": 3.0,
+        "ratio_to_odt": 2018.2824,
+        "class": "declared"
+      },
+      {
+        "name": "Gamma Undecalactone",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.60548,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 30274.2361,
+        "class": "declared"
+      },
+      {
+        "name": "Beta Ionone",
+        "raw_ul": 75.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.60548,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 121096.9446,
+        "class": "declared"
+      },
+      {
+        "name": "Ambrettolide",
+        "raw_ul": 700.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.56512,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 11302.3815,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Ionone",
+        "raw_ul": 60.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.48439,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 48438.7778,
+        "class": "declared"
+      },
+      {
+        "name": "Phenethyl Alcohol (PEA)",
+        "raw_ul": 60.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.48439,
+        "odt_ppm": 40.0,
+        "ratio_to_odt": 121.0969,
+        "class": "declared"
+      },
+      {
+        "name": "Coumarin",
+        "raw_ul": 275.0,
+        "dil": 0.2,
+        "pct_in_conc": 0.44402,
+        "odt_ppm": 5.0,
+        "ratio_to_odt": 888.0443,
+        "class": "declared"
+      },
+      {
+        "name": "Bourgeonal",
+        "raw_ul": 50.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.40366,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 80731.2964,
+        "class": "declared"
+      },
+      {
+        "name": "Helional",
+        "raw_ul": 50.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.40366,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 40365.6482,
+        "class": "declared"
+      },
+      {
+        "name": "Vanillin",
+        "raw_ul": 400.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.32293,
+        "odt_ppm": 10.0,
+        "ratio_to_odt": 322.9252,
+        "class": "declared"
+      },
+      {
+        "name": "Ultralia",
+        "raw_ul": 40.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.32293,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 64585.0371,
+        "class": "declared"
+      },
+      {
+        "name": "ACA",
+        "raw_ul": 40.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.32293,
+        "odt_ppm": 2.0,
+        "ratio_to_odt": 1614.6259,
+        "class": "declared"
+      },
+      {
+        "name": "Allyl Ionone",
+        "raw_ul": 40.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.32293,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 6458.5037,
+        "class": "declared"
+      },
+      {
+        "name": "Irotyl",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.20183,
+        "odt_ppm": 0.2,
+        "ratio_to_odt": 10091.412,
+        "class": "declared"
+      },
+      {
+        "name": "Alpha Isomethyl Ionone",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.20183,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 4036.5648,
+        "class": "declared"
+      },
+      {
+        "name": "PEDMC",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.20183,
+        "odt_ppm": 0.8,
+        "ratio_to_odt": 2522.853,
+        "class": "declared"
+      },
+      {
+        "name": "Aurantiol",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.20183,
+        "odt_ppm": 0.3,
+        "ratio_to_odt": 6727.608,
+        "class": "declared"
+      },
+      {
+        "name": "Methyl Anthranilate",
+        "raw_ul": 25.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.20183,
+        "odt_ppm": 0.4,
+        "ratio_to_odt": 5045.706,
+        "class": "declared"
+      },
+      {
+        "name": "Isoeugenol",
+        "raw_ul": 15.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.1211,
+        "odt_ppm": 0.4,
+        "ratio_to_odt": 3027.4236,
+        "class": "declared"
+      },
+      {
+        "name": "Ethyl Maltol",
+        "raw_ul": 100.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.08073,
+        "odt_ppm": 0.1,
+        "ratio_to_odt": 8073.1296,
+        "class": "declared"
+      },
+      {
+        "name": "Farnesol",
+        "raw_ul": 10.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.08073,
+        "odt_ppm": 10.0,
+        "ratio_to_odt": 80.7313,
+        "class": "declared"
+      },
+      {
+        "name": "Ambrofix",
+        "raw_ul": 30.0,
+        "dil": 0.3,
+        "pct_in_conc": 0.07266,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 14531.6333,
+        "class": "declared"
+      },
+      {
+        "name": "Cyclamen Aldehyde",
+        "raw_ul": 8.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.06459,
+        "odt_ppm": 0.5,
+        "ratio_to_odt": 1291.7007,
+        "class": "declared"
+      },
+      {
+        "name": "Champaca Flower EO",
+        "raw_ul": 8.0,
+        "dil": 1.0,
+        "pct_in_conc": 0.06459,
+        "odt_ppm": 1.5,
+        "ratio_to_odt": 430.5669,
+        "class": "declared"
+      },
+      {
+        "name": "Damascol",
+        "raw_ul": 75.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.06055,
+        "odt_ppm": 0.005,
+        "ratio_to_odt": 121096.9446,
+        "class": "declared"
+      },
+      {
+        "name": "Indole",
+        "raw_ul": 15.0,
+        "dil": 0.1,
+        "pct_in_conc": 0.01211,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 2421.9389,
+        "class": "declared"
+      },
+      {
+        "name": "Scentenal",
+        "raw_ul": 25.0,
+        "dil": 0.01,
+        "pct_in_conc": 0.00202,
+        "odt_ppm": 0.05,
+        "ratio_to_odt": 403.6565,
+        "class": "declared"
+      },
+      {
+        "name": "Geosmin",
+        "raw_ul": 2.0,
+        "dil": 0.01,
+        "pct_in_conc": 0.00016,
+        "odt_ppm": 0.001,
+        "ratio_to_odt": 1614.6259,
+        "class": "declared"
+      }
+    ]
+  },
+  "v7c_ing": {
+    "Benzoin Resinoid": 1475.0,
+    "Hedione": 1250.0,
+    "Ethyl Linalool": 1050.0,
+    "Alpha Irone": 900.0,
+    "Ebanol": 1100.0,
+    "Ethylene Brassylate": 800.0,
+    "Ambrettolide": 700.0,
+    "Hedione HC": 600.0,
+    "Carrot Seed EO": 200.0,
+    "Habanolide": 600.0,
+    "Bergamot FCF oil Sicilian": 550.0,
+    "Ambrox Super": 300.0,
+    "Musk Ketone": 900.0,
+    "Vanillin": 400.0,
+    "Orivone": 650.0,
+    "Hydroxycitronellal": 300.0,
+    "Delta Decalactone": 500.0,
+    "Hexyl Salicylate": 500.0,
+    "Coumarin": 275.0,
+    "Benzyl Salicylate": 500.0,
+    "Mayol": 175.0,
+    "Javanol": 100.0,
+    "Ethyl Maltol": 100.0,
+    "Lilyreal ND": 125.0,
+    "DBCA": 125.0,
+    "Freesia HDI": 75.0,
+    "Ethyl Vanillin": 75.0,
+    "Damascol": 75.0,
+    "Gamma Undecalactone": 75.0,
+    "Iso E Super": 200.0,
+    "Heliotropal": 150.0,
+    "Bourgeonal": 50.0,
+    "Beta Ionone": 75.0,
+    "Anisaldehyde": 100.0,
+    "Scentenal": 25.0,
+    "Alpha Ionone": 60.0,
+    "Irotyl": 25.0,
+    "Ultralia": 40.0,
+    "Alpha Isomethyl Ionone": 25.0,
+    "PEDMC": 25.0,
+    "Aurantiol": 25.0,
+    "Geosmin": 2.0,
+    "Indole": 15.0,
+    "Isoeugenol": 15.0,
+    "Farnesol": 10.0,
+    "Cedarwood EO": 300.0,
+    "Ambermax": 250.0,
+    "Azarbre": 100.0,
+    "Gamma Decalactone": 100.0,
+    "Helional": 50.0,
+    "ACA": 40.0,
+    "Phenethyl Alcohol (PEA)": 60.0,
+    "Methyl Anthranilate": 25.0,
+    "Cyclamen Aldehyde": 8.0,
+    "Ambrofix": 30.0,
+    "Allyl Ionone": 40.0,
+    "Champaca Flower EO": 8.0
+  },
+  "v7c_dil": {
+    "Scentenal": 0.01,
+    "Alpha Irone": 0.3,
+    "Musk Ketone": 0.1,
+    "Coumarin": 0.2,
+    "Vanillin": 0.1,
+    "Ethyl Maltol": 0.1,
+    "Benzoin Resinoid": 0.5,
+    "Ambrettolide": 0.1,
+    "Ambrox Super": 0.3,
+    "Damascol": 0.1,
+    "Geosmin": 0.01,
+    "Indole": 0.1,
+    "Cedarwood EO": 1.0,
+    "Ambermax": 0.5,
+    "Azarbre": 1.0,
+    "Gamma Decalactone": 1.0,
+    "Helional": 1.0,
+    "ACA": 1.0,
+    "Phenethyl Alcohol (PEA)": 1.0,
+    "Methyl Anthranilate": 1.0,
+    "Cyclamen Aldehyde": 1.0,
+    "Ambrofix": 0.3,
+    "Allyl Ionone": 1.0,
+    "Champaca Flower EO": 1.0
+  },
+  "v7c_geo_default": 79.859,
+  "v7c_geo_brief": 79.859,
+  "v7c_axes_default": {
+    "longevity": 78.8,
+    "sillage": 100.0,
+    "luxury": 60.7,
+    "texture": 81.1,
+    "stacking_depth": 90.0,
+    "photorealism": 78.9,
+    "perceptual_clarity": 61.5,
+    "skin_performance": 77.5,
+    "synergy": 95.0,
+    "hedonic": 85.6
+  },
+  "v7c_axes_brief": {
+    "longevity": 78.8,
+    "sillage": 100.0,
+    "luxury": 60.7,
+    "texture": 81.1,
+    "stacking_depth": 90.0,
+    "photorealism": 78.9,
+    "perceptual_clarity": 61.5,
+    "skin_performance": 77.5,
+    "synergy": 95.0,
+    "hedonic": 85.6
+  },
+  "concentrate_ul": 16328.0,
+  "ethanol_ul": 33672.0,
+  "ifra_fails": [],
+  "inventory_missing": [],
+  "transitions": [
+    [
+      "Phenethyl Alcohol (PEA)",
+      "(new)",
+      "declared",
+      121.0969
+    ],
+    [
+      "Allyl Ionone",
+      "(new)",
+      "declared",
+      6458.5037
+    ],
+    [
+      "Methyl Anthranilate",
+      "(new)",
+      "declared",
+      5045.706
+    ],
+    [
+      "Ambrofix",
+      "(new)",
+      "declared",
+      14531.6333
+    ],
+    [
+      "Cyclamen Aldehyde",
+      "(new)",
+      "declared",
+      1291.7007
+    ],
+    [
+      "Champaca Flower EO",
+      "(new)",
+      "declared",
+      430.5669
+    ]
+  ],
+  "new_additions": [
+    [
+      "Phenethyl Alcohol (PEA)",
+      60.0,
+      1.0,
+      "rosy white-floral alcohol",
+      "white floral"
+    ],
+    [
+      "Methyl Anthranilate",
+      25.0,
+      1.0,
+      "powdery orange-blossom Schiff-base precursor",
+      "powder + bridge"
+    ],
+    [
+      "Cyclamen Aldehyde",
+      8.0,
+      1.0,
+      "fresh muguet aldehyde, 5th muguet axis",
+      "white floral muguet"
+    ],
+    [
+      "Ambrofix",
+      30.0,
+      0.3,
+      "amber-mineral shadow (4th amber, sits below threshold)",
+      "amber depth"
+    ],
+    [
+      "Allyl Ionone",
+      40.0,
+      1.0,
+      "violet-iris reinforcement, distinct from Alpha/Beta/AIMI",
+      "iris"
+    ],
+    [
+      "Champaca Flower EO",
+      8.0,
+      1.0,
+      "natural magnolia-tea white floral, naturals++",
+      "white floral natural"
+    ]
+  ],
+  "v3_geo_default": 79.288,
+  "v7a_geo_default": 80.934,
+  "v7a_geo_brief": 80.996,
+  "v7b_geo_default": 80.542,
+  "v7b_geo_brief": 80.592
+}

@@ -1,0 +1,1310 @@
+- canonical_name: H-HERB F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6HL18013
+    perfumersworld_price_usd_per_g: 0.26
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: H-Herb Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6HL11969
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Habanolide
+  aliases:
+  - habanolide
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 238.4
+  density_25c_g_ml: null
+  logp: 4.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.02
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0002
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.72
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3XA09821
+    perfumersworld_price_usd_per_g: 0.45
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - musks
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hair Conditioner Base - Unscentedhaircond
+  aliases:
+  - Hair Conditioner Base - unscentedHAIRCOND
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: 0.04
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hand Lotion Base - Unscentedhandlotn
+  aliases:
+  - Hand Lotion Base - unscentedHANDLOTN
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: 0.04
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hay Absolute
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8NY00523
+    perfumersworld_price_usd_per_g: 4.4
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5NY12745
+        price_usd_per_g: 0.41
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hedione
+  aliases:
+  - hedione
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 226.3
+  density_25c_g_ml: null
+  logp: 2.7
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.1
+    TRPA1: 0.0
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.78
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3JJ00218
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hedione HC
+  aliases:
+  - hedione hc
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 226.3
+  density_25c_g_ml: null
+  logp: 2.7
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.78
+  ifra_max_pct_edp: null
+  user_stock_dilution: high cis
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Hedione High Cis
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4JJ10013
+    perfumersworld_price_usd_per_g: 1.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in TEC
+        sku: 5JJ21775
+        price_usd_per_g: 0.13
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Helional
+  aliases:
+  - helional
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 192.2
+  density_25c_g_ml: null
+  logp: 2.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.62
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3GM00219
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Heliotropal
+  aliases:
+  - heliotropin
+  - heliotropal
+  - piperonal
+  - HELIOTROPAL
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: Piperonal
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 6VN21924
+    perfumersworld_price_usd_per_g: 0.39
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Heliotrope Base - Heliotropin Replacement
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6VN21659
+    perfumersworld_price_usd_per_g: 0.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Heliotrope F-TEC
+  aliases:
+  - HELIOTROPE F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6VN18501
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Heliotrope Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6VN09081
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Heliotropin Fleuressence
+  aliases:
+  - heliotropin fleuressence
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 150.1
+  density_25c_g_ml: null
+  logp: 1.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.4
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.0
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.85
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Helvetolide
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3XD17215
+    perfumersworld_price_usd_per_g: 1.9
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hercolyn D
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2QZ00223
+    perfumersworld_price_usd_per_g: 0.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexanlactone-Gamma
+  aliases:
+  - Hexanlactone-gamma
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4DH02050
+    perfumersworld_price_usd_per_g: 0.72
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexanoic Acid
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FG13385
+    perfumersworld_price_usd_per_g: 0.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexanol
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FG04398
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexyl Acetate
+  aliases:
+  - hexyl acetate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 10%
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4FG01284
+    perfumersworld_price_usd_per_g: 0.12
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexyl Cinnamic Aldehyde (HCA)
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3JJ00217
+    perfumersworld_price_usd_per_g: 0.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hexyl Salicylate
+  aliases:
+  - hexyl salicylate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 222.3
+  density_25c_g_ml: null
+  logp: 5.7
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.05
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.6
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3OG00230
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hindinol
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4WX24656
+    perfumersworld_price_usd_per_g: 0.39
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ho Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7LB07762
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Holy Basil Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7HS08359
+    perfumersworld_price_usd_per_g: 0.84
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: HONEY F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6PF18597
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Honey Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6PF08147
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hyacinth Body
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4GN00231
+    perfumersworld_price_usd_per_g: 0.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5GN08474
+        price_usd_per_g: 0.11
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hyacinth F-TEC
+  aliases:
+  - HYACINTH F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6GN18227
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hyacinth Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6GN09131
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hydratropic Aldehyde
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4GM00232
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hydroxycitronellal
+  aliases:
+  - hydroxycitronellal
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 172.3
+  density_25c_g_ml: null
+  logp: 1.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 2.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.005
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.72
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3MC00233
+    perfumersworld_price_usd_per_g: 0.23
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hyssop Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7HS00870
+    perfumersworld_price_usd_per_g: 1.77
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

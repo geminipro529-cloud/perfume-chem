@@ -1,0 +1,4837 @@
+{
+  "formula": {
+    "number": 1,
+    "name": "Bangkok Fresh Layton",
+    "ingredients_ul": {
+      "Ambrox Super": 943.0,
+      "Iso E Super": 831.0,
+      "Vanillin": 453.0,
+      "Habanolide": 383.0,
+      "Hedione HC": 344.0,
+      "Cardamom FTEC": 312.0,
+      "Bergamot FCF": 301.0,
+      "Hedione": 283.0,
+      "Linalyl Acetate": 226.0,
+      "Lavender EO": 223.0,
+      "Alpha Isomethyl Ionone": 170.0,
+      "Apritone": 159.0,
+      "Sandalore": 151.0,
+      "Coumarin": 132.0,
+      "Cedrat FCF oil Sicilian": 129.0,
+      "Grapefruit FCF": 129.0,
+      "Romandolide": 129.0,
+      "Red Mandarin EO": 108.0,
+      "Galaxolide": 95.0,
+      "Ethylene Brassylate": 86.0,
+      "Hexyl Acetate": 80.0,
+      "Dihydromyrcenol": 69.0,
+      "Ethyl Linalool": 65.0,
+      "Azarbre": 65.0,
+      "Ethyl Vanillin": 57.0,
+      "Benzyl Acetate": 43.0,
+      "Ethyl 2-Methylbutyrate": 34.0
+    },
+    "ingredients_pct": {
+      "Ambrox Super": 15.7167,
+      "Iso E Super": 13.85,
+      "Vanillin": 7.55,
+      "Habanolide": 6.3833,
+      "Hedione HC": 5.7333,
+      "Cardamom FTEC": 5.2,
+      "Bergamot FCF": 5.0167,
+      "Hedione": 4.7167,
+      "Linalyl Acetate": 3.7667,
+      "Lavender EO": 3.7167,
+      "Alpha Isomethyl Ionone": 2.8333,
+      "Apritone": 2.65,
+      "Sandalore": 2.5167,
+      "Coumarin": 2.2,
+      "Cedrat FCF oil Sicilian": 2.15,
+      "Grapefruit FCF": 2.15,
+      "Romandolide": 2.15,
+      "Red Mandarin EO": 1.8,
+      "Galaxolide": 1.5833,
+      "Ethylene Brassylate": 1.4333,
+      "Hexyl Acetate": 1.3333,
+      "Dihydromyrcenol": 1.15,
+      "Ethyl Linalool": 1.0833,
+      "Azarbre": 1.0833,
+      "Ethyl Vanillin": 0.95,
+      "Benzyl Acetate": 0.7167,
+      "Ethyl 2-Methylbutyrate": 0.5667
+    },
+    "dilutions": {
+      "Ambrox Super": 0.3,
+      "Iso E Super": 1.0,
+      "Vanillin": 0.1,
+      "Habanolide": 1.0,
+      "Hedione HC": 1.0,
+      "Cardamom FTEC": 0.1,
+      "Bergamot FCF": 1.0,
+      "Hedione": 1.0,
+      "Linalyl Acetate": 1.0,
+      "Lavender EO": 1.0,
+      "Alpha Isomethyl Ionone": 1.0,
+      "Apritone": 0.1,
+      "Sandalore": 1.0,
+      "Coumarin": 0.2,
+      "Cedrat FCF oil Sicilian": 1.0,
+      "Grapefruit FCF": 1.0,
+      "Romandolide": 1.0,
+      "Red Mandarin EO": 1.0,
+      "Galaxolide": 0.8,
+      "Ethylene Brassylate": 1.0,
+      "Hexyl Acetate": 0.1,
+      "Dihydromyrcenol": 1.0,
+      "Ethyl Linalool": 1.0,
+      "Azarbre": 1.0,
+      "Ethyl Vanillin": 1.0,
+      "Benzyl Acetate": 1.0,
+      "Ethyl 2-Methylbutyrate": 0.1
+    },
+    "concentrate_ml": 6.0,
+    "body": "\n\n*Daytime Layton DNA: bergamot-citron apple, cardamom air, clean amber musk.*\n\n**Market logic:** Built for Thai daytime and malls: keep the apple-cardamom hook, reduce winter vanilla density, and let citrus/fresh musks carry projection.\n\n**Perfumer-readable verdict:** A non-technical perfumer should read this as a commercial fresh amber: apple and cardamom are obvious in the top, lavender is support, and the drydown is soft vanilla amber rather than barbershop fougere.\n\n**Optimizer score:** `-78.268 -> -64.244` (`+14.024`)\n\n### Optimized Formula - 30 mL EDP\n\n| # | Material | Dilution | Amount (uL) | Amount (mL) |\n|---:|---|---:|---:|---:|\n| 1 | Ambrox Super | 30% | 943 | 0.943 |\n| 2 | Iso E Super | neat | 831 | 0.831 |\n| 3 | Vanillin | 10% | 453 | 0.453 |\n| 4 | Habanolide | neat | 383 | 0.383 |\n| 5 | Hedione HC | neat | 344 | 0.344 |\n| 6 | Cardamom FTEC | 10% | 312 | 0.312 |\n| 7 | Bergamot FCF | neat | 301 | 0.301 |\n| 8 | Hedione | neat | 283 | 0.283 |\n| 9 | Linalyl Acetate | neat | 226 | 0.226 |\n| 10 | Lavender EO | neat | 223 | 0.223 |\n| 11 | Alpha Isomethyl Ionone | neat | 170 | 0.170 |\n| 12 | Apritone | 10% | 159 | 0.159 |\n| 13 | Sandalore | neat | 151 | 0.151 |\n| 14 | Coumarin | 20% | 132 | 0.132 |\n| 15 | Cedrat FCF oil Sicilian | neat | 129 | 0.129 |\n| 16 | Grapefruit FCF | neat | 129 | 0.129 |\n| 17 | Romandolide | neat | 129 | 0.129 |\n| 18 | Red Mandarin EO | neat | 108 | 0.108 |\n| 19 | Galaxolide | 80% | 95 | 0.095 |\n| 20 | Ethylene Brassylate | neat | 86 | 0.086 |\n| 21 | Hexyl Acetate | 10% | 80 | 0.080 |\n| 22 | Dihydromyrcenol | neat | 69 | 0.069 |\n| 23 | Ethyl Linalool | neat | 65 | 0.065 |\n| 24 | Azarbre | neat | 65 | 0.065 |\n| 25 | Ethyl Vanillin | neat | 57 | 0.057 |\n| 26 | Benzyl Acetate | neat | 43 | 0.043 |\n| 27 | Ethyl 2-Methylbutyrate | 10% prep | 34 | 0.034 |\n| - | **Fragrance concentrate subtotal** | - | **6000** | **6.000** |\n| - | Ethanol 96% bottle fill | neat | **24000** | **24.000** |\n| - | **Final bottle total** | - | **30000** | **30.000** |\n\n### Active Neat-Equivalent View\n\n| Material | Raw concentrate % | Active neat-equivalent % of concentrate |\n|---|---:|---:|\n| Ambrox Super | 15.727 | 4.718 |\n| Iso E Super | 13.855 | 13.855 |\n| Vanillin | 7.549 | 0.755 |\n| Habanolide | 6.386 | 6.386 |\n| Hedione HC | 5.736 | 5.736 |\n| Cardamom FTEC | 5.200 | 0.520 |\n| Bergamot FCF | 5.019 | 5.019 |\n| Hedione | 4.718 | 4.718 |\n| Linalyl Acetate | 3.774 | 3.774 |\n| Lavender EO | 3.712 | 3.712 |\n| Alpha Isomethyl Ionone | 2.831 | 2.831 |\n| Apritone | 2.655 | 0.266 |\n| Sandalore | 2.509 | 2.509 |\n| Coumarin | 2.202 | 0.440 |\n| Cedrat FCF oil Sicilian | 2.151 | 2.151 |\n| Grapefruit FCF | 2.151 | 2.151 |\n| Romandolide | 2.151 | 2.151 |\n| Red Mandarin EO | 1.792 | 1.792 |\n| Galaxolide | 1.577 | 1.262 |\n| Ethylene Brassylate | 1.434 | 1.434 |\n| Hexyl Acetate | 1.327 | 0.133 |\n| Dihydromyrcenol | 1.147 | 1.147 |\n| Ethyl Linalool | 1.075 | 1.075 |\n| Azarbre | 1.075 | 1.075 |\n| Ethyl Vanillin | 0.955 | 0.955 |\n| Benzyl Acetate | 0.717 | 0.717 |\n| Ethyl 2-Methylbutyrate | 0.574 | 0.057 |\n\n### Family OAV Envelope\n\n| Window | Optimized family OAV |\n|---|---|\n| top | `citrus`=2695.6, `fresh`=376.9, `fruity`=112.9, `aromatic`=78.7, `amber`=10.1, `wood`=2.7, `musk`=1.7, `radiance`=1.6 |\n| heart | `fresh`=1889.8, `fruity`=870.1, `citrus`=685.6, `aromatic`=369.0, `amber`=90.3, `wood`=24.0, `musk`=15.5, `radiance`=14.1 |\n| base | `fruity`=144.5, `amber`=106.1, `wood`=27.1, `musk`=18.4, `radiance`=13.9, `aromatic`=8.8, `gourmand`=5.9, `spice`=2.7 |\n\n### Vapor ppm / ODT / OAV Leaders\n\n**top window**\n\n| Material | Vapor ppm | ODT ppm | OAV |\n|---|---:|---:|---:|\n| Grapefruit FCF | 8.109762 | 0.005000 | 1622.0 |\n| Red Mandarin EO | 6.758135 | 0.010000 | 675.8 |\n| Dihydromyrcenol | 0.376899 | 0.001000 | 376.9 |\n| Bergamot FCF | 4.097428 | 0.015000 | 273.2 |\n| Cedrat FCF oil Sicilian | 1.496100 | 0.012000 | 124.7 |\n| Ethyl 2-Methylbutyrate | 0.006655 | 0.000060 | 110.9 |\n| Lavender EO | 1.453627 | 0.020000 | 72.7 |\n| Ambrox Super | 0.003014 | 0.000300 | 10.0 |\n\n**heart window**\n\n| Material | Vapor ppm | ODT ppm | OAV |\n|---|---:|---:|---:|\n| Dihydromyrcenol | 1.889792 | 0.001000 | 1889.8 |\n| Ethyl 2-Methylbutyrate | 0.051194 | 0.000060 | 853.2 |\n| Bergamot FCF | 6.318873 | 0.015000 | 421.3 |\n| Lavender EO | 6.454433 | 0.020000 | 322.7 |\n| Cedrat FCF oil Sicilian | 3.171542 | 0.012000 | 264.3 |\n| Ambrox Super | 0.027076 | 0.000300 | 90.3 |\n| Linalyl Acetate | 2.234145 | 0.050000 | 44.7 |\n| Iso E Super | 0.239843 | 0.010000 | 24.0 |\n\n**base window**\n\n| Material | Vapor ppm | ODT ppm | OAV |\n|---|---:|---:|---:|\n| Ethyl 2-Methylbutyrate | 0.007967 | 0.000060 | 132.8 |\n| Ambrox Super | 0.031801 | 0.000300 | 106.0 |\n| Iso E Super | 0.270934 | 0.010000 | 27.1 |\n| Habanolide | 0.017290 | 0.001000 | 17.3 |\n| Hedione | 0.274843 | 0.020000 | 13.7 |\n| Hexyl Acetate | 0.023148 | 0.002000 | 11.6 |\n| Linalyl Acetate | 0.347685 | 0.050000 | 7.0 |\n| Ethyl Vanillin | 0.026343 | 0.006000 | 4.4 |\n\n### Mixing Order\n\n1. Add musks, woods, amber, balsamic, coumarin, and vanilla materials first.\n2. Add Hedione/radiance, ionone, floral, and sandalwood bridge materials.\n3. Add lavender and aromatic support materials.\n4. Add apple, cardamom, citrus, and high-impact trace materials last.\n5. Add ethanol bottle fill after the concentrate is homogeneous.\n6. Rest 48 hours before first read; judge seriously after 14-21 days.\n\n"
+  },
+  "scores": {
+    "longevity": 84.5,
+    "sillage": 91.7,
+    "synergy": 95,
+    "luxury": 46.7,
+    "texture": 78.2,
+    "stacking_depth": 63.0,
+    "skin_performance": 73.3,
+    "hedonic": 85.9,
+    "perceptual_clarity": 78.5,
+    "photorealism": 85.4,
+    "arithmetic_total": 77.1,
+    "geometric_total": 75.6,
+    "_radar": {
+      "warmth": 1.96,
+      "sweetness": 1.25,
+      "freshness": 3.53,
+      "powdery": 0.87,
+      "green": 0.78,
+      "animalic": 0.2,
+      "radiance": 3.47,
+      "woody": 2.48,
+      "spicy": 0.1,
+      "floral": 1.98,
+      "smoky": 0.0,
+      "creamy": 1.04,
+      "transparency": 6.36
+    },
+    "_style_fingerprint": {
+      "dominant_style": "linear",
+      "primary_candidate": {
+        "style": "fresh",
+        "kind": "category",
+        "score": 87.1,
+        "confidence": 0.64,
+        "signals": {
+          "matched_keywords": [
+            "bergamot"
+          ],
+          "matched_anchors": [
+            "bergamot",
+            "cedrat",
+            "dihydromyrcenol",
+            "hedione",
+            "linalool",
+            "linalyl acetate"
+          ],
+          "balance_target": [
+            35,
+            40,
+            25
+          ],
+          "balance_score": 60.0,
+          "positive_dims": {
+            "freshness": 3.53,
+            "radiance": 3.47,
+            "green": 0.78
+          },
+          "negative_dims": {
+            "sweetness": 1.25,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      },
+      "style_candidates": [
+        {
+          "style": "linear",
+          "kind": "style",
+          "score": 82.7,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "dihydromyrcenol",
+              "galaxolide",
+              "habanolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              33,
+              34,
+              33
+            ],
+            "balance_score": 75.1,
+            "positive_dims": {
+              "radiance": 3.47,
+              "freshness": 3.53,
+              "creamy": 1.04,
+              "woody": 2.48
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.2,
+              "green": 0.78
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "iris_crystalline",
+          "kind": "style",
+          "score": 82.2,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              12,
+              38,
+              50
+            ],
+            "balance_score": 60.7,
+            "positive_dims": {
+              "transparency": 6.36,
+              "radiance": 3.47,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "floral": 1.98
+            },
+            "negative_dims": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "creamy": 1.04,
+              "animalic": 0.2,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "fougere",
+          "kind": "style",
+          "score": 81.2,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [
+              "coumarin",
+              "lavender"
+            ],
+            "matched_anchors": [
+              "bergamot",
+              "coumarin",
+              "lavender"
+            ],
+            "balance_target": [
+              25,
+              40,
+              35
+            ],
+            "balance_score": 67.7,
+            "positive_dims": {
+              "green": 0.78,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "freshness": 3.53
+            },
+            "negative_dims": {
+              "sweetness": 1.25,
+              "creamy": 1.04
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 80.7,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "galaxolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 66.9,
+            "positive_dims": {
+              "freshness": 3.53,
+              "floral": 1.98,
+              "woody": 2.48,
+              "radiance": 3.47
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.2
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        }
+      ],
+      "category_candidates": [
+        {
+          "style": "fresh",
+          "kind": "category",
+          "score": 87.1,
+          "confidence": 0.64,
+          "signals": {
+            "matched_keywords": [
+              "bergamot"
+            ],
+            "matched_anchors": [
+              "bergamot",
+              "cedrat",
+              "dihydromyrcenol",
+              "hedione",
+              "linalool",
+              "linalyl acetate"
+            ],
+            "balance_target": [
+              35,
+              40,
+              25
+            ],
+            "balance_score": 60.0,
+            "positive_dims": {
+              "freshness": 3.53,
+              "radiance": 3.47,
+              "green": 0.78
+            },
+            "negative_dims": {
+              "sweetness": 1.25,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "style": "fresh",
+          "kind": "category",
+          "score": 87.1,
+          "confidence": 0.64,
+          "signals": {
+            "matched_keywords": [
+              "bergamot"
+            ],
+            "matched_anchors": [
+              "bergamot",
+              "cedrat",
+              "dihydromyrcenol",
+              "hedione",
+              "linalool",
+              "linalyl acetate"
+            ],
+            "balance_target": [
+              35,
+              40,
+              25
+            ],
+            "balance_score": 60.0,
+            "positive_dims": {
+              "freshness": 3.53,
+              "radiance": 3.47,
+              "green": 0.78
+            },
+            "negative_dims": {
+              "sweetness": 1.25,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "linear",
+          "kind": "style",
+          "score": 82.7,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "dihydromyrcenol",
+              "galaxolide",
+              "habanolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              33,
+              34,
+              33
+            ],
+            "balance_score": 75.1,
+            "positive_dims": {
+              "radiance": 3.47,
+              "freshness": 3.53,
+              "creamy": 1.04,
+              "woody": 2.48
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.2,
+              "green": 0.78
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "iris_crystalline",
+          "kind": "style",
+          "score": 82.2,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              12,
+              38,
+              50
+            ],
+            "balance_score": 60.7,
+            "positive_dims": {
+              "transparency": 6.36,
+              "radiance": 3.47,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "floral": 1.98
+            },
+            "negative_dims": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "creamy": 1.04,
+              "animalic": 0.2,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "fougere",
+          "kind": "style",
+          "score": 81.2,
+          "confidence": 0.56,
+          "signals": {
+            "matched_keywords": [
+              "coumarin",
+              "lavender"
+            ],
+            "matched_anchors": [
+              "bergamot",
+              "coumarin",
+              "lavender"
+            ],
+            "balance_target": [
+              25,
+              40,
+              35
+            ],
+            "balance_score": 67.7,
+            "positive_dims": {
+              "green": 0.78,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "freshness": 3.53
+            },
+            "negative_dims": {
+              "sweetness": 1.25,
+              "creamy": 1.04
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        },
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 80.7,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "galaxolide",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 66.9,
+            "positive_dims": {
+              "freshness": 3.53,
+              "floral": 1.98,
+              "woody": 2.48,
+              "radiance": 3.47
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.2
+            },
+            "radar": {
+              "warmth": 1.96,
+              "sweetness": 1.25,
+              "freshness": 3.53,
+              "powdery": 0.87,
+              "green": 0.78,
+              "animalic": 0.2,
+              "radiance": 3.47,
+              "woody": 2.48,
+              "spicy": 0.1,
+              "floral": 1.98,
+              "smoky": 0.0,
+              "creamy": 1.04,
+              "transparency": 6.36
+            },
+            "note_distribution": {
+              "top": 32.5,
+              "heart": 22.5,
+              "base": 45.0
+            }
+          }
+        }
+      ],
+      "radar": {
+        "warmth": 1.96,
+        "sweetness": 1.25,
+        "freshness": 3.53,
+        "powdery": 0.87,
+        "green": 0.78,
+        "animalic": 0.2,
+        "radiance": 3.47,
+        "woody": 2.48,
+        "spicy": 0.1,
+        "floral": 1.98,
+        "smoky": 0.0,
+        "creamy": 1.04,
+        "transparency": 6.36
+      },
+      "note_distribution": {
+        "top": 32.5,
+        "heart": 22.5,
+        "base": 45.0
+      },
+      "ingredient_count": 27,
+      "has_dilution_data": true
+    },
+    "_style_candidates": [
+      {
+        "style": "fresh",
+        "kind": "category",
+        "score": 87.1,
+        "confidence": 0.64,
+        "signals": {
+          "matched_keywords": [
+            "bergamot"
+          ],
+          "matched_anchors": [
+            "bergamot",
+            "cedrat",
+            "dihydromyrcenol",
+            "hedione",
+            "linalool",
+            "linalyl acetate"
+          ],
+          "balance_target": [
+            35,
+            40,
+            25
+          ],
+          "balance_score": 60.0,
+          "positive_dims": {
+            "freshness": 3.53,
+            "radiance": 3.47,
+            "green": 0.78
+          },
+          "negative_dims": {
+            "sweetness": 1.25,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      },
+      {
+        "style": "linear",
+        "kind": "style",
+        "score": 82.7,
+        "confidence": 0.56,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "dihydromyrcenol",
+            "galaxolide",
+            "habanolide",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            33,
+            34,
+            33
+          ],
+          "balance_score": 75.1,
+          "positive_dims": {
+            "radiance": 3.47,
+            "freshness": 3.53,
+            "creamy": 1.04,
+            "woody": 2.48
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.2,
+            "green": 0.78
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      },
+      {
+        "style": "iris_crystalline",
+        "kind": "style",
+        "score": 82.2,
+        "confidence": 0.56,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            12,
+            38,
+            50
+          ],
+          "balance_score": 60.7,
+          "positive_dims": {
+            "transparency": 6.36,
+            "radiance": 3.47,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "floral": 1.98
+          },
+          "negative_dims": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "creamy": 1.04,
+            "animalic": 0.2,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      },
+      {
+        "style": "fougere",
+        "kind": "style",
+        "score": 81.2,
+        "confidence": 0.56,
+        "signals": {
+          "matched_keywords": [
+            "coumarin",
+            "lavender"
+          ],
+          "matched_anchors": [
+            "bergamot",
+            "coumarin",
+            "lavender"
+          ],
+          "balance_target": [
+            25,
+            40,
+            35
+          ],
+          "balance_score": 67.7,
+          "positive_dims": {
+            "green": 0.78,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "freshness": 3.53
+          },
+          "negative_dims": {
+            "sweetness": 1.25,
+            "creamy": 1.04
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      },
+      {
+        "style": "classical",
+        "kind": "style",
+        "score": 80.7,
+        "confidence": 0.55,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "galaxolide",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            20,
+            40,
+            40
+          ],
+          "balance_score": 66.9,
+          "positive_dims": {
+            "freshness": 3.53,
+            "floral": 1.98,
+            "woody": 2.48,
+            "radiance": 3.47
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.2
+          },
+          "radar": {
+            "warmth": 1.96,
+            "sweetness": 1.25,
+            "freshness": 3.53,
+            "powdery": 0.87,
+            "green": 0.78,
+            "animalic": 0.2,
+            "radiance": 3.47,
+            "woody": 2.48,
+            "spicy": 0.1,
+            "floral": 1.98,
+            "smoky": 0.0,
+            "creamy": 1.04,
+            "transparency": 6.36
+          },
+          "note_distribution": {
+            "top": 32.5,
+            "heart": 22.5,
+            "base": 45.0
+          }
+        }
+      }
+    ],
+    "_science": {
+      "skin": {
+        "reservoir_score": 98.0,
+        "substantivity_score": 69.1,
+        "diagnostics": [
+          "Blooming materials (Iso-E-effect): Ambrox Super, Habanolide, Romandolide, Galaxolide, Ethylene Brassylate"
+        ]
+      },
+      "hedonic": {
+        "valence": 0.697,
+        "pleasantness": "pleasant",
+        "diagnostics": [
+          "Hedonic class: pleasant (mean valence +0.70)",
+          "\u2713 >80% of formula mass is hedonically pleasant"
+        ]
+      },
+      "psychophysics": {
+        "perceptible": 12,
+        "suppression": "optimal",
+        "anosmia_risk": [
+          {
+            "material": "Ambrox Super",
+            "receptor": "OR4D6",
+            "prevalence": 0.05,
+            "severity": "hyposmia",
+            "mass_uL": 660.8
+          },
+          {
+            "material": "Iso E Super",
+            "receptor": "OR11H7P",
+            "prevalence": 0.2,
+            "severity": "hyposmia",
+            "mass_uL": 1941.1
+          },
+          {
+            "material": "Habanolide",
+            "receptor": "OR2J3",
+            "prevalence": 0.08,
+            "severity": "hyposmia",
+            "mass_uL": 894.6
+          },
+          {
+            "material": "Galaxolide",
+            "receptor": "OR2J3",
+            "prevalence": 0.1,
+            "severity": "anosmia",
+            "mass_uL": 177.5
+          },
+          {
+            "material": "Ethylene Brassylate",
+            "receptor": "OR2J3",
+            "prevalence": 0.06,
+            "severity": "hyposmia",
+            "mass_uL": 200.9
+          }
+        ],
+        "diagnostics": [
+          "Perceptual channels: 12 (8 cross-adaptation groups + 4 solo materials) from 27 ingredients",
+          "Channel model: 22 materials collapsed into 8 group channels (Laing ceiling applies to channels, not ingredients)",
+          "Active receptor groups (7 with 2+ members):",
+          "  \u2022 terpene_alcohol: Dihydromyrcenol, Ethyl Linalool, Cardamom FTEC (3 \u2192 1 channel)",
+          "  \u2022 terpene_ester: Linalyl Acetate, Hexyl Acetate (2 \u2192 1 channel)",
+          "  \u2022 vanillic_coumarinic: Vanillin, Ethyl Vanillin, Coumarin (3 \u2192 1 channel)",
+          "  \u2022 musk: Habanolide, Ethylene Brassylate, Romandolide, Galaxolide (4 \u2192 1 channel)",
+          "  \u2022 woody_amber: Iso E Super, Sandalore, Ambrox Super (3 \u2192 1 channel)",
+          "  \u2022 citrus_terpene: Bergamot FCF, Cedrat FCF oil Sicilian, Grapefruit FCF, Red Mandarin EO (4 \u2192 1 channel)",
+          "  \u2022 jasmine: Hedione, Hedione, Benzyl Acetate (3 \u2192 1 channel)",
+          "Genetic anosmia risk: 5.2% of formula mass affected by OR variants",
+          "  \u2022 Ambrox Super: 5% population (hyposmia, OR4D6)",
+          "  \u2022 Iso E Super: 20% population (hyposmia, OR11H7P)",
+          "  \u2022 Habanolide: 8% population (hyposmia, OR2J3)",
+          "  \u2022 Galaxolide: 10% population (anosmia, OR2J3)",
+          "  \u2022 Ethylene Brassylate: 6% population (hyposmia, OR2J3)",
+          "Distinctiveness index: 0.36"
+        ]
+      },
+      "trigeminal": {
+        "dominant": "cooling",
+        "diagnostics": [
+          "\u2139 Subtle cooling chemesthetic undertone"
+        ]
+      },
+      "dose_response": {
+        "overdosed": [
+          {
+            "material": "Ethyl Vanillin",
+            "conc_pct": 1.3314,
+            "character": "overpowering sweet, chemical",
+            "quality": "negative"
+          }
+        ],
+        "character_map": {
+          "Iso E Super": "dominant abstract-wood, monotone",
+          "Vanillin": "rich vanilla, balsamic",
+          "Hedione HC": "jasmine-green, full body",
+          "Hedione": "jasmine-green, full body",
+          "Coumarin": "rich coumarinic, tobacco warmth",
+          "Galaxolide": "clean musk, subtle skin",
+          "Ethylene Brassylate": "subtle musk veil, skin-scent",
+          "Dihydromyrcenol": "fresh cologne-soapy, lily-of-valley",
+          "Ethyl Linalool": "transparent terpene-ether, floral body",
+          "Ethyl Vanillin": "overpowering sweet, chemical"
+        },
+        "diagnostics": [
+          "\u26a0 OVERDOSED: Ethyl Vanillin (1.331%: overpowering sweet, chemical)",
+          "\u2713 8 material(s) in optimal character zone",
+          "\u2139 Near character-shift boundary: Hedione HC, Hedione, Ethyl Linalool \u2014 small dose changes could shift perceived character"
+        ]
+      },
+      "diffusion": {
+        "sillage_class": "moderate",
+        "field_pct": {
+          "far": 27.8,
+          "mid": 51.5,
+          "near": 20.8
+        },
+        "diagnostics": [
+          "Field distribution: far=28% | mid=51% | near=21%",
+          "MW spread: 140 Da (130\u2013270)",
+          "Sillage class: moderate",
+          "Projection index (mean Kaw): 0.00686",
+          "Far-field: Bergamot FCF, Linalyl Acetate, Lavender EO, Cedrat FCF oil Sicilian, Grapefruit FCF",
+          "Mid-field: Ambrox Super, Iso E Super, Vanillin, Hedione HC, Cardamom FTEC",
+          "Near-field: Habanolide, Sandalore, Romandolide, Galaxolide, Ethylene Brassylate"
+        ]
+      }
+    },
+    "total": 75.6,
+    "balance": 58.0,
+    "theory": 74.1,
+    "radiance": 34.7,
+    "complexity": 84.5,
+    "character_balance": 86.6,
+    "cost": 50.0
+  },
+  "character_radar": {
+    "warmth": 1.96,
+    "sweetness": 1.25,
+    "freshness": 3.53,
+    "powdery": 0.87,
+    "green": 0.78,
+    "animalic": 0.2,
+    "radiance": 3.47,
+    "woody": 2.48,
+    "spicy": 0.1,
+    "floral": 1.98,
+    "smoky": 0.0,
+    "creamy": 1.04,
+    "transparency": 6.36
+  },
+  "star_ratings": {
+    "wearability": 5.347499999999999,
+    "versatility": 4.9948486459688155,
+    "originality": 2.5,
+    "sophistication": 5.9727191999999985,
+    "signature_potential": 6.6,
+    "mass_appeal": 3.042749999999999,
+    "gender_versatility": 7.8294999999999995,
+    "age_range": 7.0385,
+    "formula_elegance": 4.9,
+    "value_for_money": 4.582
+  },
+  "star_average": 5.28,
+  "confidence": {
+    "data_confidence": 47.0,
+    "pairing_confidence": 12.5,
+    "prediction_confidence": 5.0,
+    "overall_confidence": 24.1,
+    "confidence_grade": "VERY_LOW",
+    "per_material": {
+      "Ambrox Super": 50.0,
+      "Iso E Super": 50.0,
+      "Vanillin": 50.0,
+      "Habanolide": 50.0,
+      "Hedione HC": 0.0,
+      "Cardamom FTEC": 50.0,
+      "Bergamot FCF": 40.0,
+      "Hedione": 50.0,
+      "Linalyl Acetate": 50.0,
+      "Lavender EO": 100.0,
+      "Alpha Isomethyl Ionone": 50.0,
+      "Apritone": 30.0,
+      "Sandalore": 30.0,
+      "Coumarin": 50.0,
+      "Cedrat FCF oil Sicilian": 30.0,
+      "Grapefruit FCF": 100.0,
+      "Romandolide": 50.0,
+      "Red Mandarin EO": 30.0,
+      "Galaxolide": 50.0,
+      "Ethylene Brassylate": 50.0,
+      "Hexyl Acetate": 50.0,
+      "Dihydromyrcenol": 50.0,
+      "Ethyl Linalool": 50.0,
+      "Azarbre": 50.0,
+      "Ethyl Vanillin": 40.0,
+      "Benzyl Acetate": 40.0,
+      "Ethyl 2-Methylbutyrate": 30.0
+    }
+  },
+  "recommendations": [],
+  "recommendation_sections": {
+    "pre_mix": {
+      "title": "Pre-Mix Recommendations",
+      "context": "Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.",
+      "observation_tags": [
+        "pre_mix",
+        "compatibility",
+        "dissolution",
+        "safety"
+      ],
+      "recommendations": [
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Iso E Super",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 4.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Habanolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 5.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Galaxolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 5.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ambrox Super",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.4 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Iso E Super",
+          "material_b": "Habanolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.9 vs 5.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Iso E Super",
+          "material_b": "Sandalore",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.9 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Iso E Super",
+          "material_b": "Red Mandarin EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.9 vs 4.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Iso E Super",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.9 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Vanillin",
+          "material_b": "Coumarin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.2 vs 1.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Vanillin",
+          "material_b": "Ethyl Vanillin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.2 vs 1.6 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Vanillin",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.2 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Vanillin",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.2 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Habanolide",
+          "material_b": "Galaxolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.2 vs 5.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Habanolide",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 5.2 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Bergamot FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Hedione",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Lavender EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Apritone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Romandolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cardamom FTEC",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Hedione",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Linalyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Lavender EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Apritone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Grapefruit FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Bergamot FCF",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Lavender EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Apritone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Romandolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hedione",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.5 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Lavender EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Alpha Isomethyl Ionone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 4.1 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Apritone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Sandalore",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Grapefruit FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 4.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Linalyl Acetate",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.4 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Apritone",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 3.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Romandolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Lavender EO",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Sandalore",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 4.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Grapefruit FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 4.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Red Mandarin EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 4.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Alpha Isomethyl Ionone",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.1 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Cedrat FCF oil Sicilian",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Grapefruit FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Apritone",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Sandalore",
+          "material_b": "Grapefruit FCF",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Sandalore",
+          "material_b": "Red Mandarin EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 4.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Sandalore",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Sandalore",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Sandalore",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.2 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Coumarin",
+          "material_b": "Ethyl Vanillin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.4 vs 1.6 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Coumarin",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.4 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Coumarin",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.4 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cedrat FCF oil Sicilian",
+          "material_b": "Romandolide",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.2 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cedrat FCF oil Sicilian",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cedrat FCF oil Sicilian",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cedrat FCF oil Sicilian",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Cedrat FCF oil Sicilian",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.7 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Grapefruit FCF",
+          "material_b": "Red Mandarin EO",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.0 vs 4.4 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Grapefruit FCF",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.0 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Grapefruit FCF",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Grapefruit FCF",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.0 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Romandolide",
+          "material_b": "Hexyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Romandolide",
+          "material_b": "Ethyl Vanillin",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.2 vs 1.6 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Romandolide",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.2 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Romandolide",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.2 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Red Mandarin EO",
+          "material_b": "Ethylene Brassylate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.4 vs 3.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Red Mandarin EO",
+          "material_b": "Azarbre",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 4.4 vs 4.8 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ethylene Brassylate",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.9 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hexyl Acetate",
+          "material_b": "Dihydromyrcenol",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.8 vs 3.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Hexyl Acetate",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.8 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Dihydromyrcenol",
+          "material_b": "Ethyl Linalool",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 3.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ethyl Vanillin",
+          "material_b": "Benzyl Acetate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.6 vs 2.0 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Ethyl Vanillin",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 1.6 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        },
+        {
+          "kind": "beneficial_premix",
+          "material_a": "Benzyl Acetate",
+          "material_b": "Ethyl 2-Methylbutyrate",
+          "details": {
+            "classification": "benefits-from-prebond",
+            "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+            "note": "CLP 2.0 vs 1.9 \u2014 pre-mixing improves homogeneity."
+          }
+        }
+      ],
+      "template": [
+        "Confirm any must-prebond pairs before combining the concentrate.",
+        "Resolve crystalline or stubborn materials before they reach the bulk batch.",
+        "Record phase-specific notes in observations.csv using observation_tags and intervention_context."
+      ]
+    },
+    "between_mix": {
+      "title": "Between-Mix Recommendations",
+      "context": "Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.",
+      "observation_tags": [
+        "between_mix",
+        "iteration",
+        "adjustment"
+      ],
+      "recommendations": [],
+      "template": [
+        "Use this section for candidate changes in the next batch or next additive trial.",
+        "If you apply a correction, mark the observation with between_mix and a short intervention_context note."
+      ]
+    },
+    "post_mix": {
+      "title": "Post-Mix Recommendations",
+      "context": "Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.",
+      "observation_tags": [
+        "post_mix",
+        "wear_test",
+        "maceration"
+      ],
+      "recommendations": [
+        {
+          "kind": "follow_up_check",
+          "label": "Opening read",
+          "text": "Capture the first 15 minutes separately from the later wear-test reads."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Heart read",
+          "text": "Capture the main evolution window and note whether the character shifts after maceration."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Drydown read",
+          "text": "Capture the final drydown, stability, and any off-notes before deciding on a correction."
+        },
+        {
+          "kind": "follow_up_check",
+          "label": "Next-variant planning",
+          "text": "If a correction is needed, create a new between_mix trial instead of mutating the current bottle."
+        }
+      ],
+      "template": [
+        "Record the opening, heart, and drydown after the mix has settled.",
+        "If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.",
+        "Capture any intervention tags alongside the wear-test notes."
+      ]
+    }
+  },
+  "intervention_phases": [
+    "pre_mix",
+    "between_mix",
+    "post_mix"
+  ],
+  "comparison": {
+    "score_axes": {
+      "geometric_total": 75.6,
+      "arithmetic_total": 77.1,
+      "longevity": 84.5,
+      "sillage": 91.7,
+      "balance": 58.0,
+      "theory": 74.1,
+      "radiance": 34.7,
+      "texture": 78.2,
+      "complexity": 84.5,
+      "character_balance": 86.6,
+      "synergy": 95,
+      "cost": 50.0
+    },
+    "wear_axes": {
+      "opening": null,
+      "heart": null,
+      "drydown": null,
+      "longevity": null,
+      "projection": null,
+      "balance": null,
+      "overall": null
+    },
+    "star_axes": {
+      "wearability": 5.347499999999999,
+      "versatility": 4.9948486459688155,
+      "originality": 2.5,
+      "sophistication": 5.9727191999999985,
+      "signature_potential": 6.6,
+      "mass_appeal": 3.042749999999999,
+      "gender_versatility": 7.8294999999999995,
+      "age_range": 7.0385,
+      "formula_elegance": 4.9,
+      "value_for_money": 4.582
+    },
+    "intervention_axes": {
+      "pre_mix": {
+        "title": "Pre-Mix Recommendations",
+        "context": "Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.",
+        "observation_tags": [
+          "pre_mix",
+          "compatibility",
+          "dissolution",
+          "safety"
+        ]
+      },
+      "between_mix": {
+        "title": "Between-Mix Recommendations",
+        "context": "Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.",
+        "observation_tags": [
+          "between_mix",
+          "iteration",
+          "adjustment"
+        ]
+      },
+      "post_mix": {
+        "title": "Post-Mix Recommendations",
+        "context": "Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.",
+        "observation_tags": [
+          "post_mix",
+          "wear_test",
+          "maceration"
+        ]
+      }
+    }
+  },
+  "fingerprint": {
+    "name": "Bangkok Fresh Layton",
+    "vector": [
+      2.7955,
+      1.8266666666666667,
+      2.916,
+      1.0753333333333333,
+      0.682,
+      0.47150000000000003,
+      3.032833333333333,
+      2.414166666666667,
+      0.40116666666666667,
+      1.441333333333333,
+      0.0,
+      1.1145000000000003,
+      5.5105,
+      0.27266666666666667,
+      0.1385,
+      0.10450000000000001,
+      0.0,
+      0.0,
+      0.35250000000000004,
+      0.13183333333333336,
+      0.32233333333333336,
+      0.107,
+      0.30583333333333323,
+      0.10450000000000001,
+      0.09966666666666668,
+      0.0355,
+      0.025166666666666667,
+      0.30583333333333323,
+      0.13999999999999999,
+      0.5541666666666667,
+      6.4397871515496385,
+      4.859359754051042,
+      5.344921428571427
+    ],
+    "ingredient_count": 27,
+    "total_mass": 6000.0,
+    "top_vector": [
+      0.2895,
+      0.5521666666666667,
+      2.0306666666666664,
+      0.0,
+      0.6676666666666667,
+      0.0,
+      0.046,
+      0.2445,
+      0.40116666666666667,
+      0.5568333333333334,
+      0.0,
+      0.0,
+      1.28,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.23833333333333329,
+      0.0675,
+      0.0,
+      0.0,
+      0.30583333333333323,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.30583333333333323,
+      0.0,
+      0.0,
+      1.5065395552921987,
+      2.5090816245829726,
+      1.3660214285714287
+    ],
+    "heart_vector": [
+      0.0,
+      0.18983333333333335,
+      0.5439999999999999,
+      0.14166666666666666,
+      0.014333333333333333,
+      0.0,
+      1.045,
+      0.08499999999999999,
+      0.0,
+      0.84,
+      0.0,
+      0.0,
+      1.045,
+      0.0,
+      0.0,
+      0.10450000000000001,
+      0.0,
+      0.0,
+      0.007166666666666667,
+      0.028333333333333332,
+      0.0,
+      0.0,
+      0.0,
+      0.10450000000000001,
+      0.0,
+      0.0355,
+      0.0,
+      0.0,
+      0.13999999999999999,
+      0.0,
+      0.9955333087231408,
+      0.6530422513956766,
+      0.6338761904761905
+    ],
+    "base_vector": [
+      2.5060000000000002,
+      1.0846666666666667,
+      0.3413333333333334,
+      0.9336666666666668,
+      0.0,
+      0.47150000000000003,
+      1.9418333333333337,
+      2.0846666666666667,
+      0.0,
+      0.0445,
+      0.0,
+      1.1145000000000003,
+      3.1855,
+      0.27266666666666667,
+      0.1385,
+      0.0,
+      0.0,
+      0.0,
+      0.107,
+      0.036000000000000004,
+      0.32233333333333336,
+      0.107,
+      0.0,
+      0.0,
+      0.09966666666666668,
+      0.0,
+      0.025166666666666667,
+      0.0,
+      0.0,
+      0.5541666666666667,
+      3.9377142875342983,
+      1.6972358780723915,
+      3.345023809523809
+    ],
+    "note_distribution": {
+      "top": 30.6,
+      "heart": 14.0,
+      "base": 55.4
+    },
+    "role_distribution": {
+      "fixative": 27.3,
+      "volume": 13.9,
+      "character": 35.2,
+      "radiance": 10.4,
+      "modifier": 13.2
+    },
+    "texture_distribution": {
+      "cocoon": 32.2,
+      "cushion": 10.7,
+      "veil": 10.0,
+      "halo": 10.4,
+      "lift": 30.6,
+      "diffusion": 3.5,
+      "skin-effect": 2.5
+    },
+    "materials": [
+      "Ambrox Super",
+      "Iso E Super",
+      "Vanillin",
+      "Habanolide",
+      "Hedione HC",
+      "Cardamom FTEC",
+      "Bergamot FCF",
+      "Hedione",
+      "Linalyl Acetate",
+      "Lavender EO",
+      "Alpha Isomethyl Ionone",
+      "Apritone",
+      "Sandalore",
+      "Coumarin",
+      "Cedrat FCF oil Sicilian",
+      "Grapefruit FCF",
+      "Romandolide",
+      "Red Mandarin EO",
+      "Galaxolide",
+      "Ethylene Brassylate",
+      "Hexyl Acetate",
+      "Dihydromyrcenol",
+      "Ethyl Linalool",
+      "Azarbre",
+      "Ethyl Vanillin",
+      "Benzyl Acetate",
+      "Ethyl 2-Methylbutyrate"
+    ],
+    "unknown_materials": [],
+    "character_radar": {
+      "warmth": 2.7955,
+      "sweetness": 1.8266666666666667,
+      "freshness": 2.916,
+      "powdery": 1.0753333333333333,
+      "green": 0.682,
+      "animalic": 0.47150000000000003,
+      "radiance": 3.032833333333333,
+      "woody": 2.414166666666667,
+      "spicy": 0.40116666666666667,
+      "floral": 1.441333333333333,
+      "smoky": 0.0,
+      "creamy": 1.1145000000000003,
+      "transparency": 5.5105
+    },
+    "dominant_character": [
+      [
+        "transparency",
+        5.5105
+      ],
+      [
+        "radiance",
+        3.032833333333333
+      ],
+      [
+        "freshness",
+        2.916
+      ]
+    ]
+  },
+  "synergy_graph": {
+    "node_count": 27,
+    "edge_count": 290,
+    "overall_synergy": 0.219,
+    "strongest_pairs": [
+      [
+        "Ambrox Super",
+        "Hedione",
+        0.8
+      ],
+      [
+        "Ambrox Super",
+        "Dihydromyrcenol",
+        0.8
+      ],
+      [
+        "Iso E Super",
+        "Habanolide",
+        0.8
+      ],
+      [
+        "Iso E Super",
+        "Hedione HC",
+        0.8
+      ],
+      [
+        "Iso E Super",
+        "Bergamot FCF",
+        0.8
+      ]
+    ],
+    "weakest_pairs": [
+      [
+        "Ambrox Super",
+        "Habanolide",
+        0.0
+      ],
+      [
+        "Ambrox Super",
+        "Romandolide",
+        0.0
+      ],
+      [
+        "Ambrox Super",
+        "Galaxolide",
+        0.0
+      ],
+      [
+        "Ambrox Super",
+        "Azarbre",
+        0.0
+      ],
+      [
+        "Ambrox Super",
+        "Ethyl 2-Methylbutyrate",
+        0.0
+      ]
+    ],
+    "clash_pairs": [
+      [
+        "Bergamot FCF",
+        "Red Mandarin EO",
+        -0.05
+      ],
+      [
+        "Cedrat FCF oil Sicilian",
+        "Red Mandarin EO",
+        -0.05
+      ],
+      [
+        "Grapefruit FCF",
+        "Red Mandarin EO",
+        -0.05
+      ],
+      [
+        "Romandolide",
+        "Ethylene Brassylate",
+        -0.05
+      ],
+      [
+        "Ambrox Super",
+        "Sandalore",
+        -0.1
+      ],
+      [
+        "Hedione HC",
+        "Hedione",
+        -0.1
+      ],
+      [
+        "Cardamom FTEC",
+        "Ethyl Linalool",
+        -0.1
+      ],
+      [
+        "Bergamot FCF",
+        "Lavender EO",
+        -0.1
+      ],
+      [
+        "Bergamot FCF",
+        "Dihydromyrcenol",
+        -0.1
+      ],
+      [
+        "Linalyl Acetate",
+        "Cedrat FCF oil Sicilian",
+        -0.1
+      ],
+      [
+        "Linalyl Acetate",
+        "Grapefruit FCF",
+        -0.1
+      ],
+      [
+        "Linalyl Acetate",
+        "Dihydromyrcenol",
+        -0.1
+      ],
+      [
+        "Lavender EO",
+        "Cedrat FCF oil Sicilian",
+        -0.1
+      ],
+      [
+        "Lavender EO",
+        "Grapefruit FCF",
+        -0.1
+      ],
+      [
+        "Apritone",
+        "Red Mandarin EO",
+        -0.1
+      ],
+      [
+        "Sandalore",
+        "Azarbre",
+        -0.1
+      ],
+      [
+        "Cedrat FCF oil Sicilian",
+        "Dihydromyrcenol",
+        -0.1
+      ],
+      [
+        "Grapefruit FCF",
+        "Dihydromyrcenol",
+        -0.1
+      ],
+      [
+        "Red Mandarin EO",
+        "Ethyl 2-Methylbutyrate",
+        -0.1
+      ],
+      [
+        "Hexyl Acetate",
+        "Ethyl 2-Methylbutyrate",
+        -0.1
+      ],
+      [
+        "Linalyl Acetate",
+        "Hexyl Acetate",
+        -0.15
+      ],
+      [
+        "Bergamot FCF",
+        "Cedrat FCF oil Sicilian",
+        -0.15
+      ],
+      [
+        "Bergamot FCF",
+        "Grapefruit FCF",
+        -0.15
+      ],
+      [
+        "Coumarin",
+        "Ethyl Vanillin",
+        -0.2
+      ]
+    ],
+    "stacks": [
+      {
+        "name": "Stack(Ambrox Super, Hedione, Dihydromyrcenol)",
+        "materials": [
+          "Ambrox Super",
+          "Hedione",
+          "Dihydromyrcenol"
+        ],
+        "total_synergy": 2.4,
+        "avg_synergy": 0.8,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Iso E Super, Hedione HC, Bergamot FCF)",
+        "materials": [
+          "Iso E Super",
+          "Hedione HC",
+          "Bergamot FCF"
+        ],
+        "total_synergy": 2.4,
+        "avg_synergy": 0.8,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Iso E Super, Bergamot FCF, Hedione)",
+        "materials": [
+          "Iso E Super",
+          "Bergamot FCF",
+          "Hedione"
+        ],
+        "total_synergy": 2.4,
+        "avg_synergy": 0.8,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Iso E Super, Hedione, Dihydromyrcenol)",
+        "materials": [
+          "Iso E Super",
+          "Hedione",
+          "Dihydromyrcenol"
+        ],
+        "total_synergy": 2.4,
+        "avg_synergy": 0.8,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Bergamot FCF, Hedione, Ethyl Linalool)",
+        "materials": [
+          "Bergamot FCF",
+          "Hedione",
+          "Ethyl Linalool"
+        ],
+        "total_synergy": 2.4,
+        "avg_synergy": 0.8,
+        "description": "freshness + transparency + floral"
+      },
+      {
+        "name": "Stack(Iso E Super, Habanolide, Galaxolide)",
+        "materials": [
+          "Iso E Super",
+          "Habanolide",
+          "Galaxolide"
+        ],
+        "total_synergy": 2.35,
+        "avg_synergy": 0.783,
+        "description": "transparency + radiance + warmth"
+      },
+      {
+        "name": "Stack(Ambrox Super, Iso E Super, Hedione)",
+        "materials": [
+          "Ambrox Super",
+          "Iso E Super",
+          "Hedione"
+        ],
+        "total_synergy": 2.3,
+        "avg_synergy": 0.767,
+        "description": "transparency + radiance + woody"
+      },
+      {
+        "name": "Stack(Ambrox Super, Iso E Super, Dihydromyrcenol)",
+        "materials": [
+          "Ambrox Super",
+          "Iso E Super",
+          "Dihydromyrcenol"
+        ],
+        "total_synergy": 2.3,
+        "avg_synergy": 0.767,
+        "description": "transparency + radiance + woody"
+      },
+      {
+        "name": "Stack(Vanillin, Coumarin, Red Mandarin EO)",
+        "materials": [
+          "Vanillin",
+          "Coumarin",
+          "Red Mandarin EO"
+        ],
+        "total_synergy": 2.3,
+        "avg_synergy": 0.767,
+        "description": "sweetness + warmth"
+      },
+      {
+        "name": "Stack(Hedione, Dihydromyrcenol, Ethyl Linalool)",
+        "materials": [
+          "Hedione",
+          "Dihydromyrcenol",
+          "Ethyl Linalool"
+        ],
+        "total_synergy": 2.3,
+        "avg_synergy": 0.767,
+        "description": "freshness + transparency + radiance"
+      },
+      {
+        "name": "Stack(Habanolide, Romandolide, Galaxolide)",
+        "materials": [
+          "Habanolide",
+          "Romandolide",
+          "Galaxolide"
+        ],
+        "total_synergy": 2.25,
+        "avg_synergy": 0.75,
+        "description": "transparency + radiance"
+      },
+      {
+        "name": "Stack(Habanolide, Galaxolide, Ethylene Brassylate)",
+        "materials": [
+          "Habanolide",
+          "Galaxolide",
+          "Ethylene Brassylate"
+        ],
+        "total_synergy": 2.25,
+        "avg_synergy": 0.75,
+        "description": "transparency + powdery"
+      },
+      {
+        "name": "Stack(Iso E Super, Hedione HC, Grapefruit FCF)",
+        "materials": [
+          "Iso E Super",
+          "Hedione HC",
+          "Grapefruit FCF"
+        ],
+        "total_synergy": 1.9,
+        "avg_synergy": 0.633,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Iso E Super, Hedione HC, Dihydromyrcenol)",
+        "materials": [
+          "Iso E Super",
+          "Hedione HC",
+          "Dihydromyrcenol"
+        ],
+        "total_synergy": 1.9,
+        "avg_synergy": 0.633,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Iso E Super, Hedione, Grapefruit FCF)",
+        "materials": [
+          "Iso E Super",
+          "Hedione",
+          "Grapefruit FCF"
+        ],
+        "total_synergy": 1.9,
+        "avg_synergy": 0.633,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Hedione HC, Cardamom FTEC, Bergamot FCF)",
+        "materials": [
+          "Hedione HC",
+          "Cardamom FTEC",
+          "Bergamot FCF"
+        ],
+        "total_synergy": 1.9,
+        "avg_synergy": 0.633,
+        "description": "freshness + transparency + radiance"
+      },
+      {
+        "name": "Stack(Cardamom FTEC, Bergamot FCF, Hedione)",
+        "materials": [
+          "Cardamom FTEC",
+          "Bergamot FCF",
+          "Hedione"
+        ],
+        "total_synergy": 1.9,
+        "avg_synergy": 0.633,
+        "description": "freshness + transparency + radiance"
+      },
+      {
+        "name": "Stack(Ambrox Super, Bergamot FCF, Hedione)",
+        "materials": [
+          "Ambrox Super",
+          "Bergamot FCF",
+          "Hedione"
+        ],
+        "total_synergy": 1.85,
+        "avg_synergy": 0.617,
+        "description": "transparency + radiance + freshness"
+      },
+      {
+        "name": "Stack(Ambrox Super, Hedione, Apritone)",
+        "materials": [
+          "Ambrox Super",
+          "Hedione",
+          "Apritone"
+        ],
+        "total_synergy": 1.85,
+        "avg_synergy": 0.617,
+        "description": "transparency + radiance + warmth"
+      },
+      {
+        "name": "Stack(Ambrox Super, Hedione, Cedrat FCF oil Sicilian)",
+        "materials": [
+          "Ambrox Super",
+          "Hedione",
+          "Cedrat FCF oil Sicilian"
+        ],
+        "total_synergy": 1.85,
+        "avg_synergy": 0.617,
+        "description": "transparency + radiance + freshness"
+      }
+    ],
+    "musk_compatibility": {
+      "compatible": [
+        [
+          "Musk Ketone",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Zenolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Labdanum",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Siam Benzoin",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Myristic Acid Powder",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzyl Benzoate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Macrolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Tonalide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Exaltolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Ambrettolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzyl Salicylate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzoin Resinoid",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Hexyl Salicylate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzoin Sumatra Resinoid",
+          0.0,
+          "no strong interaction"
+        ]
+      ],
+      "too_heavy": [],
+      "recommended": [],
+      "already_present": [
+        "Habanolide",
+        "Romandolide",
+        "Galaxolide",
+        "Ethylene Brassylate"
+      ]
+    }
+  },
+  "chemical_life_graph": {
+    "formula_name": "Bangkok Fresh Layton",
+    "structure_mode": "formula",
+    "ingredient_count": 27,
+    "total_mass_ul": 6000.0,
+    "concentrate_pct": 20.0,
+    "fingerprint": {
+      "name": "Bangkok Fresh Layton",
+      "vector": [
+        2.7955,
+        1.8266666666666667,
+        2.916,
+        1.0753333333333333,
+        0.682,
+        0.47150000000000003,
+        3.032833333333333,
+        2.414166666666667,
+        0.40116666666666667,
+        1.441333333333333,
+        0.0,
+        1.1145000000000003,
+        5.5105,
+        0.27266666666666667,
+        0.1385,
+        0.10450000000000001,
+        0.0,
+        0.0,
+        0.35250000000000004,
+        0.13183333333333336,
+        0.32233333333333336,
+        0.107,
+        0.30583333333333323,
+        0.10450000000000001,
+        0.09966666666666668,
+        0.0355,
+        0.025166666666666667,
+        0.30583333333333323,
+        0.13999999999999999,
+        0.5541666666666667,
+        6.4397871515496385,
+        4.859359754051042,
+        5.344921428571427
+      ],
+      "ingredient_count": 27,
+      "total_mass": 6000.0,
+      "top_vector": [
+        0.2895,
+        0.5521666666666667,
+        2.0306666666666664,
+        0.0,
+        0.6676666666666667,
+        0.0,
+        0.046,
+        0.2445,
+        0.40116666666666667,
+        0.5568333333333334,
+        0.0,
+        0.0,
+        1.28,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.23833333333333329,
+        0.0675,
+        0.0,
+        0.0,
+        0.30583333333333323,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.30583333333333323,
+        0.0,
+        0.0,
+        1.5065395552921987,
+        2.5090816245829726,
+        1.3660214285714287
+      ],
+      "heart_vector": [
+        0.0,
+        0.18983333333333335,
+        0.5439999999999999,
+        0.14166666666666666,
+        0.014333333333333333,
+        0.0,
+        1.045,
+        0.08499999999999999,
+        0.0,
+        0.84,
+        0.0,
+        0.0,
+        1.045,
+        0.0,
+        0.0,
+        0.10450000000000001,
+        0.0,
+        0.0,
+        0.007166666666666667,
+        0.028333333333333332,
+        0.0,
+        0.0,
+        0.0,
+        0.10450000000000001,
+        0.0,
+        0.0355,
+        0.0,
+        0.0,
+        0.13999999999999999,
+        0.0,
+        0.9955333087231408,
+        0.6530422513956766,
+        0.6338761904761905
+      ],
+      "base_vector": [
+        2.5060000000000002,
+        1.0846666666666667,
+        0.3413333333333334,
+        0.9336666666666668,
+        0.0,
+        0.47150000000000003,
+        1.9418333333333337,
+        2.0846666666666667,
+        0.0,
+        0.0445,
+        0.0,
+        1.1145000000000003,
+        3.1855,
+        0.27266666666666667,
+        0.1385,
+        0.0,
+        0.0,
+        0.0,
+        0.107,
+        0.036000000000000004,
+        0.32233333333333336,
+        0.107,
+        0.0,
+        0.0,
+        0.09966666666666668,
+        0.0,
+        0.025166666666666667,
+        0.0,
+        0.0,
+        0.5541666666666667,
+        3.9377142875342983,
+        1.6972358780723915,
+        3.345023809523809
+      ],
+      "note_distribution": {
+        "top": 30.6,
+        "heart": 14.0,
+        "base": 55.4
+      },
+      "role_distribution": {
+        "fixative": 27.3,
+        "volume": 13.9,
+        "character": 35.2,
+        "radiance": 10.4,
+        "modifier": 13.2
+      },
+      "texture_distribution": {
+        "cocoon": 32.2,
+        "cushion": 10.7,
+        "veil": 10.0,
+        "halo": 10.4,
+        "lift": 30.6,
+        "diffusion": 3.5,
+        "skin-effect": 2.5
+      },
+      "materials": [
+        "Ambrox Super",
+        "Iso E Super",
+        "Vanillin",
+        "Habanolide",
+        "Hedione HC",
+        "Cardamom FTEC",
+        "Bergamot FCF",
+        "Hedione",
+        "Linalyl Acetate",
+        "Lavender EO",
+        "Alpha Isomethyl Ionone",
+        "Apritone",
+        "Sandalore",
+        "Coumarin",
+        "Cedrat FCF oil Sicilian",
+        "Grapefruit FCF",
+        "Romandolide",
+        "Red Mandarin EO",
+        "Galaxolide",
+        "Ethylene Brassylate",
+        "Hexyl Acetate",
+        "Dihydromyrcenol",
+        "Ethyl Linalool",
+        "Azarbre",
+        "Ethyl Vanillin",
+        "Benzyl Acetate",
+        "Ethyl 2-Methylbutyrate"
+      ],
+      "unknown_materials": []
+    },
+    "character_vector": {
+      "warmth": 2.8,
+      "sweetness": 1.83,
+      "freshness": 2.92,
+      "powdery": 1.08,
+      "green": 0.68,
+      "animalic": 0.47,
+      "radiance": 3.03,
+      "woody": 2.41,
+      "spicy": 0.4,
+      "floral": 1.44,
+      "smoky": 0.0,
+      "creamy": 1.11,
+      "transparency": 5.51
+    },
+    "weight_diagnosis": {
+      "overweight": [
+        [
+          "transparency",
+          2.51
+        ]
+      ],
+      "underweight": [
+        [
+          "green",
+          4.32
+        ],
+        [
+          "freshness",
+          4.08
+        ],
+        [
+          "radiance",
+          2.97
+        ],
+        [
+          "spicy",
+          1.6
+        ],
+        [
+          "floral",
+          1.56
+        ]
+      ],
+      "balance_score": 83.9
+    },
+    "role_coverage": {
+      "fixative": 5,
+      "volume": 1,
+      "character": 12,
+      "radiance": 2,
+      "modifier": 7
+    },
+    "note_coverage": {
+      "top": 12,
+      "heart": 4,
+      "base": 11
+    },
+    "texture_coverage": {
+      "cocoon": 4,
+      "cushion": 3,
+      "veil": 3,
+      "halo": 2,
+      "lift": 12,
+      "diffusion": 2,
+      "skin-effect": 1
+    },
+    "structural_gaps": [
+      {
+        "gap_type": "role",
+        "name": "bridge",
+        "severity": 0.5,
+        "suggestion": "A bridge material would add nuance",
+        "candidates": [
+          "Linalool"
+        ]
+      },
+      {
+        "gap_type": "role",
+        "name": "trace",
+        "severity": 0.5,
+        "suggestion": "A trace material would add nuance",
+        "candidates": [
+          "Aldehyde C10",
+          "Aldehyde C11",
+          "Aldehyde C11 undecylenic",
+          "Aldehyde C12 MNA",
+          "Scentenal"
+        ]
+      },
+      {
+        "gap_type": "dimension",
+        "name": "green (need 5, have 0.7)",
+        "severity": 0.43200000000000005,
+        "suggestion": "Add materials with high green character",
+        "candidates": [
+          "cis-3-Hexenol",
+          "Verdox",
+          "Galbanum Resinoid",
+          "Cyclamen Aldehyde",
+          "Undecavertol"
+        ]
+      },
+      {
+        "gap_type": "dimension",
+        "name": "freshness (need 7, have 2.9)",
+        "severity": 0.40800000000000003,
+        "suggestion": "Add materials with high freshness character",
+        "candidates": [
+          "Citral",
+          "Citronellal",
+          "D-Limonene",
+          "Linalool",
+          "Terpinyl Acetate"
+        ]
+      },
+      {
+        "gap_type": "dimension",
+        "name": "radiance (need 6, have 3.0)",
+        "severity": 0.29700000000000004,
+        "suggestion": "Add materials with high radiance character",
+        "candidates": [
+          "Aldehyde C10",
+          "Aldehyde C11",
+          "Aldehyde C12 MNA",
+          "Nympheal"
+        ]
+      }
+    ],
+    "synergy_report": {
+      "overall_synergy": 0.219,
+      "strongest_pairs": [
+        [
+          "Ambrox Super",
+          "Hedione",
+          0.8
+        ],
+        [
+          "Ambrox Super",
+          "Dihydromyrcenol",
+          0.8
+        ],
+        [
+          "Iso E Super",
+          "Habanolide",
+          0.8
+        ],
+        [
+          "Iso E Super",
+          "Hedione HC",
+          0.8
+        ],
+        [
+          "Iso E Super",
+          "Bergamot FCF",
+          0.8
+        ]
+      ],
+      "weakest_pairs": [
+        [
+          "Ambrox Super",
+          "Habanolide",
+          0.0
+        ],
+        [
+          "Ambrox Super",
+          "Romandolide",
+          0.0
+        ],
+        [
+          "Ambrox Super",
+          "Galaxolide",
+          0.0
+        ],
+        [
+          "Ambrox Super",
+          "Azarbre",
+          0.0
+        ],
+        [
+          "Ambrox Super",
+          "Ethyl 2-Methylbutyrate",
+          0.0
+        ]
+      ],
+      "clash_pairs": [
+        [
+          "Bergamot FCF",
+          "Red Mandarin EO",
+          -0.05
+        ],
+        [
+          "Cedrat FCF oil Sicilian",
+          "Red Mandarin EO",
+          -0.05
+        ],
+        [
+          "Grapefruit FCF",
+          "Red Mandarin EO",
+          -0.05
+        ],
+        [
+          "Romandolide",
+          "Ethylene Brassylate",
+          -0.05
+        ],
+        [
+          "Ambrox Super",
+          "Sandalore",
+          -0.1
+        ],
+        [
+          "Hedione HC",
+          "Hedione",
+          -0.1
+        ],
+        [
+          "Cardamom FTEC",
+          "Ethyl Linalool",
+          -0.1
+        ],
+        [
+          "Bergamot FCF",
+          "Lavender EO",
+          -0.1
+        ],
+        [
+          "Bergamot FCF",
+          "Dihydromyrcenol",
+          -0.1
+        ],
+        [
+          "Linalyl Acetate",
+          "Cedrat FCF oil Sicilian",
+          -0.1
+        ],
+        [
+          "Linalyl Acetate",
+          "Grapefruit FCF",
+          -0.1
+        ],
+        [
+          "Linalyl Acetate",
+          "Dihydromyrcenol",
+          -0.1
+        ],
+        [
+          "Lavender EO",
+          "Cedrat FCF oil Sicilian",
+          -0.1
+        ],
+        [
+          "Lavender EO",
+          "Grapefruit FCF",
+          -0.1
+        ],
+        [
+          "Apritone",
+          "Red Mandarin EO",
+          -0.1
+        ],
+        [
+          "Sandalore",
+          "Azarbre",
+          -0.1
+        ],
+        [
+          "Cedrat FCF oil Sicilian",
+          "Dihydromyrcenol",
+          -0.1
+        ],
+        [
+          "Grapefruit FCF",
+          "Dihydromyrcenol",
+          -0.1
+        ],
+        [
+          "Red Mandarin EO",
+          "Ethyl 2-Methylbutyrate",
+          -0.1
+        ],
+        [
+          "Hexyl Acetate",
+          "Ethyl 2-Methylbutyrate",
+          -0.1
+        ],
+        [
+          "Linalyl Acetate",
+          "Hexyl Acetate",
+          -0.15
+        ],
+        [
+          "Bergamot FCF",
+          "Cedrat FCF oil Sicilian",
+          -0.15
+        ],
+        [
+          "Bergamot FCF",
+          "Grapefruit FCF",
+          -0.15
+        ],
+        [
+          "Coumarin",
+          "Ethyl Vanillin",
+          -0.2
+        ]
+      ],
+      "stacks": [
+        {
+          "name": "Stack(Ambrox Super, Hedione, Dihydromyrcenol)",
+          "materials": [
+            "Ambrox Super",
+            "Hedione",
+            "Dihydromyrcenol"
+          ],
+          "total_synergy": 2.4,
+          "avg_synergy": 0.8,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Iso E Super, Hedione HC, Bergamot FCF)",
+          "materials": [
+            "Iso E Super",
+            "Hedione HC",
+            "Bergamot FCF"
+          ],
+          "total_synergy": 2.4,
+          "avg_synergy": 0.8,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Iso E Super, Bergamot FCF, Hedione)",
+          "materials": [
+            "Iso E Super",
+            "Bergamot FCF",
+            "Hedione"
+          ],
+          "total_synergy": 2.4,
+          "avg_synergy": 0.8,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Iso E Super, Hedione, Dihydromyrcenol)",
+          "materials": [
+            "Iso E Super",
+            "Hedione",
+            "Dihydromyrcenol"
+          ],
+          "total_synergy": 2.4,
+          "avg_synergy": 0.8,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Bergamot FCF, Hedione, Ethyl Linalool)",
+          "materials": [
+            "Bergamot FCF",
+            "Hedione",
+            "Ethyl Linalool"
+          ],
+          "total_synergy": 2.4,
+          "avg_synergy": 0.8,
+          "description": "freshness + transparency + floral"
+        },
+        {
+          "name": "Stack(Iso E Super, Habanolide, Galaxolide)",
+          "materials": [
+            "Iso E Super",
+            "Habanolide",
+            "Galaxolide"
+          ],
+          "total_synergy": 2.35,
+          "avg_synergy": 0.783,
+          "description": "transparency + radiance + warmth"
+        },
+        {
+          "name": "Stack(Ambrox Super, Iso E Super, Hedione)",
+          "materials": [
+            "Ambrox Super",
+            "Iso E Super",
+            "Hedione"
+          ],
+          "total_synergy": 2.3,
+          "avg_synergy": 0.767,
+          "description": "transparency + radiance + woody"
+        },
+        {
+          "name": "Stack(Ambrox Super, Iso E Super, Dihydromyrcenol)",
+          "materials": [
+            "Ambrox Super",
+            "Iso E Super",
+            "Dihydromyrcenol"
+          ],
+          "total_synergy": 2.3,
+          "avg_synergy": 0.767,
+          "description": "transparency + radiance + woody"
+        },
+        {
+          "name": "Stack(Vanillin, Coumarin, Red Mandarin EO)",
+          "materials": [
+            "Vanillin",
+            "Coumarin",
+            "Red Mandarin EO"
+          ],
+          "total_synergy": 2.3,
+          "avg_synergy": 0.767,
+          "description": "sweetness + warmth"
+        },
+        {
+          "name": "Stack(Hedione, Dihydromyrcenol, Ethyl Linalool)",
+          "materials": [
+            "Hedione",
+            "Dihydromyrcenol",
+            "Ethyl Linalool"
+          ],
+          "total_synergy": 2.3,
+          "avg_synergy": 0.767,
+          "description": "freshness + transparency + radiance"
+        },
+        {
+          "name": "Stack(Habanolide, Romandolide, Galaxolide)",
+          "materials": [
+            "Habanolide",
+            "Romandolide",
+            "Galaxolide"
+          ],
+          "total_synergy": 2.25,
+          "avg_synergy": 0.75,
+          "description": "transparency + radiance"
+        },
+        {
+          "name": "Stack(Habanolide, Galaxolide, Ethylene Brassylate)",
+          "materials": [
+            "Habanolide",
+            "Galaxolide",
+            "Ethylene Brassylate"
+          ],
+          "total_synergy": 2.25,
+          "avg_synergy": 0.75,
+          "description": "transparency + powdery"
+        },
+        {
+          "name": "Stack(Iso E Super, Hedione HC, Grapefruit FCF)",
+          "materials": [
+            "Iso E Super",
+            "Hedione HC",
+            "Grapefruit FCF"
+          ],
+          "total_synergy": 1.9,
+          "avg_synergy": 0.633,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Iso E Super, Hedione HC, Dihydromyrcenol)",
+          "materials": [
+            "Iso E Super",
+            "Hedione HC",
+            "Dihydromyrcenol"
+          ],
+          "total_synergy": 1.9,
+          "avg_synergy": 0.633,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Iso E Super, Hedione, Grapefruit FCF)",
+          "materials": [
+            "Iso E Super",
+            "Hedione",
+            "Grapefruit FCF"
+          ],
+          "total_synergy": 1.9,
+          "avg_synergy": 0.633,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Hedione HC, Cardamom FTEC, Bergamot FCF)",
+          "materials": [
+            "Hedione HC",
+            "Cardamom FTEC",
+            "Bergamot FCF"
+          ],
+          "total_synergy": 1.9,
+          "avg_synergy": 0.633,
+          "description": "freshness + transparency + radiance"
+        },
+        {
+          "name": "Stack(Cardamom FTEC, Bergamot FCF, Hedione)",
+          "materials": [
+            "Cardamom FTEC",
+            "Bergamot FCF",
+            "Hedione"
+          ],
+          "total_synergy": 1.9,
+          "avg_synergy": 0.633,
+          "description": "freshness + transparency + radiance"
+        },
+        {
+          "name": "Stack(Ambrox Super, Bergamot FCF, Hedione)",
+          "materials": [
+            "Ambrox Super",
+            "Bergamot FCF",
+            "Hedione"
+          ],
+          "total_synergy": 1.85,
+          "avg_synergy": 0.617,
+          "description": "transparency + radiance + freshness"
+        },
+        {
+          "name": "Stack(Ambrox Super, Hedione, Apritone)",
+          "materials": [
+            "Ambrox Super",
+            "Hedione",
+            "Apritone"
+          ],
+          "total_synergy": 1.85,
+          "avg_synergy": 0.617,
+          "description": "transparency + radiance + warmth"
+        },
+        {
+          "name": "Stack(Ambrox Super, Hedione, Cedrat FCF oil Sicilian)",
+          "materials": [
+            "Ambrox Super",
+            "Hedione",
+            "Cedrat FCF oil Sicilian"
+          ],
+          "total_synergy": 1.85,
+          "avg_synergy": 0.617,
+          "description": "transparency + radiance + freshness"
+        }
+      ]
+    },
+    "musk_analysis": {
+      "compatible": [
+        [
+          "Musk Ketone",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Zenolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Labdanum",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Siam Benzoin",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Myristic Acid Powder",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzyl Benzoate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Macrolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Tonalide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Exaltolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Ambrettolide",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzyl Salicylate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzoin Resinoid",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Hexyl Salicylate",
+          0.0,
+          "no strong interaction"
+        ],
+        [
+          "Benzoin Sumatra Resinoid",
+          0.0,
+          "no strong interaction"
+        ]
+      ],
+      "too_heavy": [],
+      "recommended": [],
+      "already_present": [
+        "Habanolide",
+        "Romandolide",
+        "Galaxolide",
+        "Ethylene Brassylate"
+      ]
+    },
+    "temporal": {
+      "note_transitions": [],
+      "longevity_hours": 24,
+      "top_dominance_minutes": 1440,
+      "linear_score": 0.94
+    },
+    "health_score": 22.7
+  },
+  "temporal_graph": {
+    "time_points": [
+      0,
+      0.25,
+      1,
+      4,
+      8,
+      24
+    ],
+    "time_labels": [
+      "0min",
+      "15min",
+      "1hr",
+      "4hr",
+      "8hr",
+      "24hr"
+    ],
+    "dominant_notes": [
+      "top",
+      "top",
+      "top",
+      "top",
+      "top",
+      "top"
+    ],
+    "note_evolution": [
+      {
+        "top": 98.8,
+        "heart": 0.9,
+        "base": 0.3
+      },
+      {
+        "top": 95.2,
+        "heart": 3.5,
+        "base": 1.3
+      },
+      {
+        "top": 92.5,
+        "heart": 5.5,
+        "base": 2.1
+      },
+      {
+        "top": 81.4,
+        "heart": 13.3,
+        "base": 5.3
+      },
+      {
+        "top": 71.1,
+        "heart": 20.2,
+        "base": 8.6
+      },
+      {
+        "top": 44.0,
+        "heart": 35.9,
+        "base": 20.1
+      }
+    ],
+    "opening_note": "top",
+    "drydown_note": "top",
+    "transitions": [],
+    "fadeout_times": {
+      "Iso E Super": ">24hr",
+      "Hedione HC": ">24hr",
+      "Cardamom FTEC": ">24hr",
+      "Hedione": ">24hr",
+      "Linalyl Acetate": "8hr",
+      "Lavender EO": ">24hr",
+      "Hexyl Acetate": "15min"
+    },
+    "top_material_curves": [
+      {
+        "name": "Linalyl Acetate",
+        "curve": [
+          14.12,
+          44.79,
+          36.72,
+          6.7,
+          0.32,
+          0.0
+        ],
+        "fadeout": "8hr"
+      },
+      {
+        "name": "Bergamot FCF",
+        "curve": [
+          2.75,
+          10.49,
+          14.93,
+          24.72,
+          22.39,
+          4.98
+        ],
+        "fadeout": null
+      },
+      {
+        "name": "Hexyl Acetate",
+        "curve": [
+          71.46,
+          3.83,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fadeout": "15min"
+      },
+      {
+        "name": "Cardamom FTEC",
+        "curve": [
+          0.95,
+          3.72,
+          5.7,
+          12.73,
+          17.18,
+          18.84
+        ],
+        "fadeout": ">24hr"
+      },
+      {
+        "name": "Hedione HC",
+        "curve": [
+          0.65,
+          2.54,
+          3.97,
+          9.52,
+          14.12,
+          22.6
+        ],
+        "fadeout": ">24hr"
+      },
+      {
+        "name": "Lavender EO",
+        "curve": [
+          0.42,
+          1.64,
+          2.56,
+          6.14,
+          9.09,
+          14.46
+        ],
+        "fadeout": ">24hr"
+      },
+      {
+        "name": "Cedrat FCF oil Sicilian",
+        "curve": [
+          1.55,
+          5.8,
+          7.83,
+          10.52,
+          7.22,
+          0.53
+        ],
+        "fadeout": null
+      },
+      {
+        "name": "Grapefruit FCF",
+        "curve": [
+          1.14,
+          4.33,
+          6.01,
+          9.06,
+          7.24,
+          0.97
+        ],
+        "fadeout": null
+      }
+    ]
+  },
+  "prebond_analysis": {
+    "must_prebond": [],
+    "benefits": [
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Iso E Super",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 4.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Habanolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 5.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Galaxolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 5.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ambrox Super",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.4 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Iso E Super",
+        "material_b": "Habanolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.9 vs 5.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Iso E Super",
+        "material_b": "Sandalore",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.9 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Iso E Super",
+        "material_b": "Red Mandarin EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.9 vs 4.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Iso E Super",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.9 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Vanillin",
+        "material_b": "Coumarin",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.2 vs 1.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Vanillin",
+        "material_b": "Ethyl Vanillin",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.2 vs 1.6 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Vanillin",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.2 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Vanillin",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.2 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Habanolide",
+        "material_b": "Galaxolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.2 vs 5.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Habanolide",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 5.2 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Bergamot FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Hedione",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Lavender EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Apritone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Romandolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cardamom FTEC",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Hedione",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Linalyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Lavender EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Apritone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Grapefruit FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Bergamot FCF",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Lavender EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Apritone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Romandolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hedione",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.5 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Lavender EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Alpha Isomethyl Ionone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 4.1 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Apritone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Sandalore",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Grapefruit FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 4.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Linalyl Acetate",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.4 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Apritone",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 3.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Romandolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Lavender EO",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Sandalore",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 4.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Grapefruit FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 4.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Red Mandarin EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 4.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Alpha Isomethyl Ionone",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.1 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Cedrat FCF oil Sicilian",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.7 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Grapefruit FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Apritone",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Sandalore",
+        "material_b": "Grapefruit FCF",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 4.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Sandalore",
+        "material_b": "Red Mandarin EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 4.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Sandalore",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Sandalore",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Sandalore",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.2 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Coumarin",
+        "material_b": "Ethyl Vanillin",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.4 vs 1.6 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Coumarin",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.4 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Coumarin",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.4 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cedrat FCF oil Sicilian",
+        "material_b": "Romandolide",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.2 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cedrat FCF oil Sicilian",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cedrat FCF oil Sicilian",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cedrat FCF oil Sicilian",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Cedrat FCF oil Sicilian",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.7 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Grapefruit FCF",
+        "material_b": "Red Mandarin EO",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.0 vs 4.4 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Grapefruit FCF",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.0 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Grapefruit FCF",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Grapefruit FCF",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.0 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Romandolide",
+        "material_b": "Hexyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.2 vs 2.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Romandolide",
+        "material_b": "Ethyl Vanillin",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.2 vs 1.6 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Romandolide",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.2 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Romandolide",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.2 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Red Mandarin EO",
+        "material_b": "Ethylene Brassylate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.4 vs 3.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Red Mandarin EO",
+        "material_b": "Azarbre",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 4.4 vs 4.8 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ethylene Brassylate",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.9 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hexyl Acetate",
+        "material_b": "Dihydromyrcenol",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.8 vs 3.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Hexyl Acetate",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.8 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Dihydromyrcenol",
+        "material_b": "Ethyl Linalool",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 3.0 vs 3.5 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ethyl Vanillin",
+        "material_b": "Benzyl Acetate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.6 vs 2.0 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Ethyl Vanillin",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 1.6 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      },
+      {
+        "material_a": "Benzyl Acetate",
+        "material_b": "Ethyl 2-Methylbutyrate",
+        "classification": "benefits-from-prebond",
+        "reaction": "Solubility matching (similar CLP \u2192 better miscibility)",
+        "note": "CLP 2.0 vs 1.9 \u2014 pre-mixing improves homogeneity."
+      }
+    ],
+    "keep_separate": [],
+    "crystalline": [
+      "Vanillin",
+      "Coumarin",
+      "Ethyl Vanillin"
+    ]
+  },
+  "blocked_materials": {},
+  "mixing_protocol": {
+    "title": "Bangkok Fresh Layton",
+    "total_materials": 27,
+    "total_pct": 100.0,
+    "phases": [
+      {
+        "phase": "dissolution",
+        "instructions": [
+          "1. Dissolve Vanillin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula.",
+          "2. Dissolve Coumarin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula.",
+          "3. Dissolve Ethyl Vanillin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula."
+        ]
+      },
+      {
+        "phase": "base",
+        "instructions": [
+          "Step 4. Add Galaxolide (1.58%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 5. Add Ambrox Super (15.72%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 6. Add Habanolide (6.38%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 7. Add Iso E Super (13.85%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 8. Add Azarbre (1.08%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 9. Add Ethylene Brassylate (1.43%)\n           Base note \u2014 add early for structural foundation.",
+          "Step 10. Add Romandolide (2.15%)\n           Base note \u2014 add early for structural foundation.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      },
+      {
+        "phase": "heart",
+        "instructions": [
+          "Step 11. Add Sandalore (2.52%)\n           Heart note \u2014 forms the core character.",
+          "Step 12. Add Alpha Isomethyl Ionone (2.83%)\n           Heart note \u2014 forms the core character.",
+          "Step 13. Add Apritone (2.65%)\n           Heart note \u2014 forms the core character.",
+          "Step 14. Add Hedione (4.72%)\n           Heart note \u2014 forms the core character.",
+          "Step 15. Add Hedione HC (5.73%)\n           Heart note \u2014 forms the core character.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      },
+      {
+        "phase": "top",
+        "instructions": [
+          "Step 16. Add Red Mandarin EO (1.8%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 17. Add Grapefruit FCF (2.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 18. Add Ethyl Linalool (1.08%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 19. Add Linalyl Acetate (3.77%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 20. Add Bergamot FCF (5.02%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 21. Add Dihydromyrcenol (1.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 22. Add Hexyl Acetate (1.33%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 23. Add Lavender EO (3.72%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 24. Add Cedrat FCF oil Sicilian (2.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 25. Add Cardamom FTEC (5.2%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 26. Add Benzyl Acetate (0.72%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "Step 27. Add Ethyl 2-Methylbutyrate (0.57%)\n           Top note \u2014 most volatile, add last to preserve freshness.",
+          "\u2192 Stir gently for 2-3 minutes. Let rest 5 minutes."
+        ]
+      }
+    ],
+    "maceration": "28 days minimum, best at 28-42 days",
+    "warnings": [
+      "\u26a0 CRYSTALLINE SOLIDS: Vanillin, Coumarin, Ethyl Vanillin \u2014 dissolve in warm solvent before adding."
+    ],
+    "full_text": "\u2550\u2550\u2550 MIXING PROTOCOL: Bangkok Fresh Layton \u2550\u2550\u2550\nMaterials: 27 | Total: 100.0%\n\n\u2500\u2500\u2500 WARNINGS \u2500\u2500\u2500\n\u26a0 CRYSTALLINE SOLIDS: Vanillin, Coumarin, Ethyl Vanillin \u2014 dissolve in warm solvent before adding.\n\n\u2500\u2500\u2500 PHASE 0: DISSOLUTION \u2500\u2500\u2500\n  1. Dissolve Vanillin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula.\n  2. Dissolve Coumarin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula.\n  3. Dissolve Ethyl Vanillin in warm ethanol or DPG (40-50\u00b0C) until fully clear before adding to formula.\n\n\u2500\u2500\u2500 PHASE 1: BASE LAYER (foundation) \u2500\u2500\u2500\n  Step 4. Add Galaxolide (1.58%)\n           Base note \u2014 add early for structural foundation.\n  Step 5. Add Ambrox Super (15.72%)\n           Base note \u2014 add early for structural foundation.\n  Step 6. Add Habanolide (6.38%)\n           Base note \u2014 add early for structural foundation.\n  Step 7. Add Iso E Super (13.85%)\n           Base note \u2014 add early for structural foundation.\n  Step 8. Add Azarbre (1.08%)\n           Base note \u2014 add early for structural foundation.\n  Step 9. Add Ethylene Brassylate (1.43%)\n           Base note \u2014 add early for structural foundation.\n  Step 10. Add Romandolide (2.15%)\n           Base note \u2014 add early for structural foundation.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 PHASE 2: HEART LAYER (character) \u2500\u2500\u2500\n  Step 11. Add Sandalore (2.52%)\n           Heart note \u2014 forms the core character.\n  Step 12. Add Alpha Isomethyl Ionone (2.83%)\n           Heart note \u2014 forms the core character.\n  Step 13. Add Apritone (2.65%)\n           Heart note \u2014 forms the core character.\n  Step 14. Add Hedione (4.72%)\n           Heart note \u2014 forms the core character.\n  Step 15. Add Hedione HC (5.73%)\n           Heart note \u2014 forms the core character.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 PHASE 3: TOP NOTES (sparkle) \u2500\u2500\u2500\n  Step 16. Add Red Mandarin EO (1.8%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 17. Add Grapefruit FCF (2.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 18. Add Ethyl Linalool (1.08%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 19. Add Linalyl Acetate (3.77%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 20. Add Bergamot FCF (5.02%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 21. Add Dihydromyrcenol (1.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 22. Add Hexyl Acetate (1.33%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 23. Add Lavender EO (3.72%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 24. Add Cedrat FCF oil Sicilian (2.15%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 25. Add Cardamom FTEC (5.2%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 26. Add Benzyl Acetate (0.72%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  Step 27. Add Ethyl 2-Methylbutyrate (0.57%)\n           Top note \u2014 most volatile, add last to preserve freshness.\n  \u2192 Stir gently for 2-3 minutes. Let rest 5 minutes.\n\n\u2500\u2500\u2500 MACERATION \u2500\u2500\u2500\n  Seal tightly and store in a cool, dark place.\n  Estimated maturation: 28 days minimum.\n  Check at day 7 for initial impressions.\n  Best results typically at day 28 \u2013 42."
+  }
+}

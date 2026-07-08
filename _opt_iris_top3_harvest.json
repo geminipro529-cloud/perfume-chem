@@ -1,0 +1,502 @@
+{
+  "v3_baseline": {
+    "geo": 78.837,
+    "axes": {
+      "longevity": 82.1,
+      "sillage": 74.5,
+      "luxury": 63.4,
+      "texture": 81.0,
+      "stacking_depth": 85.0,
+      "photorealism": 82.8,
+      "perceptual_clarity": 75.3,
+      "skin_performance": 77.3,
+      "synergy": 95.0,
+      "hedonic": 84.7
+    },
+    "ing": {
+      "Benzoin Resinoid": 1475.0,
+      "Hedione": 1250.0,
+      "Ethyl Linalool": 1050.0,
+      "Alpha Irone": 900.0,
+      "Ebanol": 900.0,
+      "Ethylene Brassylate": 800.0,
+      "Ambrettolide": 700.0,
+      "Hedione HC": 600.0,
+      "Carrot Seed EO": 600.0,
+      "Habanolide": 600.0,
+      "Bergamot FCF oil Sicilian": 550.0,
+      "Ambrox Super": 550.0,
+      "Musk Ketone": 400.0,
+      "Vanillin": 400.0,
+      "Orivone": 350.0,
+      "Cedarwood Virginia EO": 350.0,
+      "Hydroxycitronellal": 300.0,
+      "Delta Decalactone": 300.0,
+      "Hexyl Salicylate": 300.0,
+      "Coumarin": 275.0,
+      "Benzyl Salicylate": 250.0,
+      "Mayol": 175.0,
+      "Javanol": 100.0,
+      "Ethyl Maltol": 100.0,
+      "Lilyreal ND": 75.0,
+      "DBCA": 75.0,
+      "Freesia HDI": 75.0,
+      "Ethyl Vanillin": 75.0,
+      "Damascol": 75.0,
+      "Gamma Undecalactone": 75.0,
+      "Iso E Super": 50.0,
+      "Heliotropal": 50.0,
+      "Bourgeonal": 50.0,
+      "Beta Ionone": 40.0,
+      "Anisaldehyde": 40.0,
+      "Scentenal": 25.0,
+      "Alpha Ionone": 25.0,
+      "Irotyl": 25.0,
+      "Ultralia": 25.0,
+      "Alpha Isomethyl Ionone": 25.0,
+      "PEDMC": 25.0,
+      "Aurantiol": 25.0,
+      "Geosmin": 15.0,
+      "Indole": 15.0,
+      "Isoeugenol": 15.0,
+      "Farnesol": 10.0
+    }
+  },
+  "probes": {
+    "Javanol_100to200": {
+      "desc": "Sandalwood intimate reinforced",
+      "seed_geo": 78.635,
+      "final_geo": 79.07,
+      "delta": 0.23299999999998988,
+      "moves": 14,
+      "axes": {
+        "longevity": 83.8,
+        "sillage": 73.9,
+        "luxury": 64.4,
+        "texture": 81.0,
+        "stacking_depth": 85.0,
+        "photorealism": 83.4,
+        "perceptual_clarity": 75.4,
+        "skin_performance": 76.1,
+        "synergy": 95.0,
+        "hedonic": 84.1
+      },
+      "ing": {
+        "Benzoin Resinoid": 1275.0,
+        "Hedione": 1250.0,
+        "Ethyl Linalool": 1100.0,
+        "Alpha Irone": 900.0,
+        "Ebanol": 1100.0,
+        "Ethylene Brassylate": 600.0,
+        "Ambrettolide": 500.0,
+        "Hedione HC": 600.0,
+        "Carrot Seed EO": 800.0,
+        "Habanolide": 650.0,
+        "Bergamot FCF oil Sicilian": 550.0,
+        "Ambrox Super": 550.0,
+        "Musk Ketone": 400.0,
+        "Vanillin": 400.0,
+        "Orivone": 350.0,
+        "Cedarwood Virginia EO": 550.0,
+        "Hydroxycitronellal": 300.0,
+        "Delta Decalactone": 275.0,
+        "Hexyl Salicylate": 300.0,
+        "Coumarin": 275.0,
+        "Benzyl Salicylate": 200.0,
+        "Mayol": 175.0,
+        "Javanol": 200.0,
+        "Ethyl Maltol": 100.0,
+        "Lilyreal ND": 75.0,
+        "DBCA": 75.0,
+        "Freesia HDI": 75.0,
+        "Ethyl Vanillin": 100.0,
+        "Damascol": 75.0,
+        "Gamma Undecalactone": 25.0,
+        "Iso E Super": 250.0,
+        "Heliotropal": 50.0,
+        "Bourgeonal": 50.0,
+        "Beta Ionone": 40.0,
+        "Anisaldehyde": 40.0,
+        "Scentenal": 25.0,
+        "Alpha Ionone": 25.0,
+        "Irotyl": 25.0,
+        "Ultralia": 25.0,
+        "Alpha Isomethyl Ionone": 25.0,
+        "PEDMC": 25.0,
+        "Aurantiol": 25.0,
+        "Geosmin": 15.0,
+        "Indole": 15.0,
+        "Isoeugenol": 15.0,
+        "Farnesol": 10.0
+      },
+      "dil": {
+        "Scentenal": 0.01,
+        "Alpha Irone": 0.3,
+        "Musk Ketone": 0.1,
+        "Coumarin": 0.2,
+        "Vanillin": 0.1,
+        "Ethyl Maltol": 0.1,
+        "Benzoin Resinoid": 0.5,
+        "Ambrettolide": 0.1,
+        "Ambrox Super": 0.3,
+        "Damascol": 0.1,
+        "Geosmin": 0.01,
+        "Indole": 0.1
+      },
+      "changes_vs_v3": [
+        {
+          "name": "Ambrettolide",
+          "v3": 700.0,
+          "new": 500.0,
+          "delta": -200.0
+        },
+        {
+          "name": "Benzoin Resinoid",
+          "v3": 1475.0,
+          "new": 1275.0,
+          "delta": -200.0
+        },
+        {
+          "name": "Benzyl Salicylate",
+          "v3": 250.0,
+          "new": 200.0,
+          "delta": -50.0
+        },
+        {
+          "name": "Carrot Seed EO",
+          "v3": 600.0,
+          "new": 800.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Cedarwood Virginia EO",
+          "v3": 350.0,
+          "new": 550.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Delta Decalactone",
+          "v3": 300.0,
+          "new": 275.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Ebanol",
+          "v3": 900.0,
+          "new": 1100.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Ethyl Linalool",
+          "v3": 1050.0,
+          "new": 1100.0,
+          "delta": 50.0
+        },
+        {
+          "name": "Ethyl Vanillin",
+          "v3": 75.0,
+          "new": 100.0,
+          "delta": 25.0
+        },
+        {
+          "name": "Ethylene Brassylate",
+          "v3": 800.0,
+          "new": 600.0,
+          "delta": -200.0
+        },
+        {
+          "name": "Gamma Undecalactone",
+          "v3": 75.0,
+          "new": 25.0,
+          "delta": -50.0
+        },
+        {
+          "name": "Habanolide",
+          "v3": 600.0,
+          "new": 650.0,
+          "delta": 50.0
+        },
+        {
+          "name": "Iso E Super",
+          "v3": 50.0,
+          "new": 250.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Javanol",
+          "v3": 100.0,
+          "new": 200.0,
+          "delta": 100.0
+        }
+      ]
+    },
+    "Orivone_350to500": {
+      "desc": "Iris-butter warmth",
+      "seed_geo": 78.761,
+      "final_geo": 78.974,
+      "delta": 0.13700000000000045,
+      "moves": 7,
+      "axes": {
+        "longevity": 82.6,
+        "sillage": 74.3,
+        "luxury": 63.9,
+        "texture": 81.1,
+        "stacking_depth": 85.0,
+        "photorealism": 83.0,
+        "perceptual_clarity": 75.2,
+        "skin_performance": 77.3,
+        "synergy": 95.0,
+        "hedonic": 84.7
+      },
+      "ing": {
+        "Benzoin Resinoid": 1475.0,
+        "Hedione": 1250.0,
+        "Ethyl Linalool": 1100.0,
+        "Alpha Irone": 900.0,
+        "Ebanol": 900.0,
+        "Ethylene Brassylate": 800.0,
+        "Ambrettolide": 700.0,
+        "Hedione HC": 600.0,
+        "Carrot Seed EO": 600.0,
+        "Habanolide": 600.0,
+        "Bergamot FCF oil Sicilian": 550.0,
+        "Ambrox Super": 550.0,
+        "Musk Ketone": 400.0,
+        "Vanillin": 400.0,
+        "Orivone": 500.0,
+        "Cedarwood Virginia EO": 550.0,
+        "Hydroxycitronellal": 300.0,
+        "Delta Decalactone": 300.0,
+        "Hexyl Salicylate": 400.0,
+        "Coumarin": 275.0,
+        "Benzyl Salicylate": 225.0,
+        "Mayol": 175.0,
+        "Javanol": 100.0,
+        "Ethyl Maltol": 100.0,
+        "Lilyreal ND": 75.0,
+        "DBCA": 75.0,
+        "Freesia HDI": 75.0,
+        "Ethyl Vanillin": 75.0,
+        "Damascol": 75.0,
+        "Gamma Undecalactone": 50.0,
+        "Iso E Super": 150.0,
+        "Heliotropal": 50.0,
+        "Bourgeonal": 50.0,
+        "Beta Ionone": 40.0,
+        "Anisaldehyde": 40.0,
+        "Scentenal": 25.0,
+        "Alpha Ionone": 25.0,
+        "Irotyl": 25.0,
+        "Ultralia": 25.0,
+        "Alpha Isomethyl Ionone": 25.0,
+        "PEDMC": 25.0,
+        "Aurantiol": 25.0,
+        "Geosmin": 15.0,
+        "Indole": 15.0,
+        "Isoeugenol": 15.0,
+        "Farnesol": 10.0
+      },
+      "dil": {
+        "Scentenal": 0.01,
+        "Alpha Irone": 0.3,
+        "Musk Ketone": 0.1,
+        "Coumarin": 0.2,
+        "Vanillin": 0.1,
+        "Ethyl Maltol": 0.1,
+        "Benzoin Resinoid": 0.5,
+        "Ambrettolide": 0.1,
+        "Ambrox Super": 0.3,
+        "Damascol": 0.1,
+        "Geosmin": 0.01,
+        "Indole": 0.1
+      },
+      "changes_vs_v3": [
+        {
+          "name": "Benzyl Salicylate",
+          "v3": 250.0,
+          "new": 225.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Cedarwood Virginia EO",
+          "v3": 350.0,
+          "new": 550.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Ethyl Linalool",
+          "v3": 1050.0,
+          "new": 1100.0,
+          "delta": 50.0
+        },
+        {
+          "name": "Gamma Undecalactone",
+          "v3": 75.0,
+          "new": 50.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Hexyl Salicylate",
+          "v3": 300.0,
+          "new": 400.0,
+          "delta": 100.0
+        },
+        {
+          "name": "Iso E Super",
+          "v3": 50.0,
+          "new": 150.0,
+          "delta": 100.0
+        },
+        {
+          "name": "Orivone",
+          "v3": 350.0,
+          "new": 500.0,
+          "delta": 150.0
+        }
+      ]
+    },
+    "CarrotSeed_600to800": {
+      "desc": "Carrot seed iris-naturalism lift",
+      "seed_geo": 77.935,
+      "final_geo": 79.084,
+      "delta": 0.2469999999999999,
+      "moves": 11,
+      "axes": {
+        "longevity": 84.6,
+        "sillage": 73.2,
+        "luxury": 64.3,
+        "texture": 80.9,
+        "stacking_depth": 85.0,
+        "photorealism": 83.0,
+        "perceptual_clarity": 75.3,
+        "skin_performance": 77.3,
+        "synergy": 95.0,
+        "hedonic": 84.2
+      },
+      "ing": {
+        "Benzoin Resinoid": 1475.0,
+        "Hedione": 1250.0,
+        "Ethyl Linalool": 1050.0,
+        "Alpha Irone": 900.0,
+        "Ebanol": 1100.0,
+        "Ethylene Brassylate": 800.0,
+        "Ambrettolide": 700.0,
+        "Hedione HC": 600.0,
+        "Carrot Seed EO": 800.0,
+        "Habanolide": 600.0,
+        "Bergamot FCF oil Sicilian": 550.0,
+        "Ambrox Super": 750.0,
+        "Musk Ketone": 400.0,
+        "Vanillin": 400.0,
+        "Orivone": 350.0,
+        "Cedarwood Virginia EO": 550.0,
+        "Hydroxycitronellal": 300.0,
+        "Delta Decalactone": 275.0,
+        "Hexyl Salicylate": 350.0,
+        "Coumarin": 275.0,
+        "Benzyl Salicylate": 50.0,
+        "Mayol": 175.0,
+        "Javanol": 100.0,
+        "Ethyl Maltol": 100.0,
+        "Lilyreal ND": 75.0,
+        "DBCA": 75.0,
+        "Freesia HDI": 75.0,
+        "Ethyl Vanillin": 75.0,
+        "Damascol": 75.0,
+        "Gamma Undecalactone": 75.0,
+        "Iso E Super": 200.0,
+        "Heliotropal": 25.0,
+        "Bourgeonal": 50.0,
+        "Beta Ionone": 40.0,
+        "Anisaldehyde": 15.0,
+        "Scentenal": 25.0,
+        "Alpha Ionone": 25.0,
+        "Irotyl": 25.0,
+        "Ultralia": 25.0,
+        "Alpha Isomethyl Ionone": 25.0,
+        "PEDMC": 25.0,
+        "Aurantiol": 25.0,
+        "Geosmin": 15.0,
+        "Indole": 15.0,
+        "Isoeugenol": 15.0,
+        "Farnesol": 10.0
+      },
+      "dil": {
+        "Scentenal": 0.01,
+        "Alpha Irone": 0.3,
+        "Musk Ketone": 0.1,
+        "Coumarin": 0.2,
+        "Vanillin": 0.1,
+        "Ethyl Maltol": 0.1,
+        "Benzoin Resinoid": 0.5,
+        "Ambrettolide": 0.1,
+        "Ambrox Super": 0.3,
+        "Damascol": 0.1,
+        "Geosmin": 0.01,
+        "Indole": 0.1
+      },
+      "changes_vs_v3": [
+        {
+          "name": "Ambrox Super",
+          "v3": 550.0,
+          "new": 750.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Anisaldehyde",
+          "v3": 40.0,
+          "new": 15.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Benzyl Salicylate",
+          "v3": 250.0,
+          "new": 50.0,
+          "delta": -200.0
+        },
+        {
+          "name": "Carrot Seed EO",
+          "v3": 600.0,
+          "new": 800.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Cedarwood Virginia EO",
+          "v3": 350.0,
+          "new": 550.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Delta Decalactone",
+          "v3": 300.0,
+          "new": 275.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Ebanol",
+          "v3": 900.0,
+          "new": 1100.0,
+          "delta": 200.0
+        },
+        {
+          "name": "Heliotropal",
+          "v3": 50.0,
+          "new": 25.0,
+          "delta": -25.0
+        },
+        {
+          "name": "Hexyl Salicylate",
+          "v3": 300.0,
+          "new": 350.0,
+          "delta": 50.0
+        },
+        {
+          "name": "Iso E Super",
+          "v3": 50.0,
+          "new": 200.0,
+          "delta": 150.0
+        }
+      ]
+    }
+  }
+}

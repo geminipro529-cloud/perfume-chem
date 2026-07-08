@@ -1,0 +1,128 @@
+══════════════════════════════════════════════════════════════════════════════
+  IRIS RÊVERIE LACTÉE — 50 mL v2 VERIFICATION + OPTIMIZER
+══════════════════════════════════════════════════════════════════════════════
+
+  v1 (optimizer-converged):
+    materials:   45
+    concentrate: 12895 µL = 25.79%
+    geo:         78.573
+
+  v2 starting (hand-expanded palette):
+    materials:   48
+    concentrate: 14610 µL = 29.22%
+    geo:         78.407  Δ vs v1: -0.166
+
+  v1 vs v2-start axis comparison:
+    axis                         v1   v2-start        Δ
+    longevity                 83.20      84.50    +1.30
+    sillage                   73.10      71.80    -1.30
+    luxury                    61.90      61.30    -0.60
+    texture                   81.10      81.10    +0.00
+    stacking_depth            85.00      85.00    +0.00
+    photorealism              82.30      82.50    +0.20
+    perceptual_clarity        74.70      74.00    -0.70
+    skin_performance          78.80      78.70    -0.10
+    synergy                   95.00      95.00    +0.00
+    hedonic                   84.80      84.60    -0.20
+
+══════════════════════════════════════════════════════════════════════════════
+  v2 CONVERGENCE WAVES
+══════════════════════════════════════════════════════════════════════════════
+  · Wave  1 · seed=    1 · 78.407 → 78.407  Δ+0.000  ·  0 moves · 50.4s
+  ★ Wave  2 · seed=   42 · 78.407 → 78.567  Δ+0.160  ·  9 moves · 90.6s
+  · Wave  3 · seed= 2026 · 78.567 → 78.567  Δ+0.000  ·  0 moves · 49.2s
+  · Wave  4 · seed=    7 · 78.567 → 78.567  Δ+0.000  ·  0 moves · 49.2s
+
+  ✓ CONVERGED: last 2 waves both Δ ≤ 0.05
+
+══════════════════════════════════════════════════════════════════════════════
+  FINAL — v1 vs v2-start vs v2-final
+══════════════════════════════════════════════════════════════════════════════
+
+  v1 geo:       78.573
+  v2 start geo: 78.407  (Δ vs v1: -0.166)
+  v2 final geo: 78.567  (Δ vs v1: -0.006)
+  v2 final concentrate: 14885 µL = 29.77%
+
+  Axis comparison v1 → v2-final:
+    axis                         v1    v2fin        Δ
+    ↑ longevity                 83.20    85.80    +2.60
+    ↓ sillage                   73.10    71.90    -1.20
+    · luxury                    61.90    62.00    +0.10
+    · texture                   81.10    81.00    -0.10
+    · stacking_depth            85.00    85.00    +0.00
+    · photorealism              82.30    81.90    -0.40
+    ↓ perceptual_clarity        74.70    73.60    -1.10
+    · skin_performance          78.80    78.80    +0.00
+    · synergy                   95.00    95.00    +0.00
+    · hedonic                   84.80    84.50    -0.30
+
+  Ingredient deltas v1 → v2-final (|Δ| ≥ 1 µL):
+    Material                             v1    v2fin      ΔµL
+    Cedarwood Virginia EO                 0      550     +550
+    Alpha Irone                         500      900     +400
+    Ambrettolide                        200      500     +300
+    Benzoin Resinoid                   1475     1275     -200
+    Bergamot FCF oil Sicilian           550      750     +200
+    Coumarin                            300      100     -200
+    Ethylene Brassylate                 900     1100     +200
+    Habanolide                          450      650     +200
+    Iso E Super                         450      250     -200
+    Carrot Seed EO                      450      625     +175
+    Ebanol                              650      800     +150
+    Orivone                             225      350     +125
+    Javanol                               0      100     +100
+    Heliotropal                          25      100      +75
+    Heliotropin                           0       75      +75
+    Gamma Undecalactone                  10       75      +65
+    Delta Decalactone                   300      275      -25
+
+  FINAL v2 FORMULA (sorted by µL):
+    Benzoin Resinoid                  50%   1275.0 µL
+    Hedione                          neat   1250.0 µL
+    Ethylene Brassylate              neat   1100.0 µL
+    Alpha Irone                       30%    900.0 µL
+    Ebanol                           neat    800.0 µL
+    Bergamot FCF oil Sicilian        neat    750.0 µL
+    Ethyl Linalool                   neat    650.0 µL
+    Habanolide                       neat    650.0 µL
+    Carrot Seed EO                   neat    625.0 µL
+    Hedione HC                       neat    600.0 µL
+    Exaltolide                        10%    600.0 µL
+    Ambrox Super                      30%    550.0 µL
+    Cedarwood Virginia EO            neat    550.0 µL
+    Ambrettolide                      10%    500.0 µL
+    Musk Ketone                       10%    400.0 µL
+    Vanillin                          10%    400.0 µL
+    Benzyl Salicylate                neat    350.0 µL
+    Orivone                          neat    350.0 µL
+    Hydroxycitronellal               neat    300.0 µL
+    Hexyl Salicylate                 neat    300.0 µL
+    Delta Decalactone                neat    275.0 µL
+    Iso E Super                      neat    250.0 µL
+    Mayol                            neat    175.0 µL
+    Coumarin                          20%    100.0 µL
+    Javanol                          neat    100.0 µL
+    Ethyl Maltol                      10%    100.0 µL
+    Heliotropal                      neat    100.0 µL
+    Heliotropin                      neat     75.0 µL
+    Lilyreal ND                      neat     75.0 µL
+    DBCA                             neat     75.0 µL
+    Freesia HDI                      neat     75.0 µL
+    Ethyl Vanillin                   neat     75.0 µL
+    Damascol                          10%     75.0 µL
+    Gamma Undecalactone              neat     75.0 µL
+    Bourgeonal                       neat     50.0 µL
+    Beta Ionone                      neat     40.0 µL
+    Anisaldehyde                     neat     40.0 µL
+    Scentenal                          1%     25.0 µL
+    Alpha Ionone                     neat     25.0 µL
+    Irotyl                           neat     25.0 µL
+    Ultralia                         neat     25.0 µL
+    Alpha Isomethyl Ionone           neat     25.0 µL
+    PEDMC                            neat     25.0 µL
+    Aurantiol                        neat     25.0 µL
+    Geosmin                            1%     15.0 µL
+    Indole                            10%     15.0 µL
+    Isoeugenol                       neat     15.0 µL
+    Farnesol                         neat     10.0 µL

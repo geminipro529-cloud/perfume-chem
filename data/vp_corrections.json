@@ -1,0 +1,174 @@
+{
+  "_meta": {
+    "description": "VP corrections from Perplexity audit (2026-05-10)",
+    "action": "Replace these VP values in material_properties.json and ingredient_intelligence.py",
+    "unit": "Pa at 25C unless stated"
+  },
+
+  "corrections_material_properties_json": {
+    "HEXYL ACETATE": {
+      "old_vp": 150.0,
+      "new_vp": 194.0,
+      "unit": "Pa",
+      "source": "ScenTree / EPI suite",
+      "note": "1.388 mmHg = 185 Pa. Use 194 Pa."
+    },
+    "DIPROPYLENE GLYCOL": {
+      "old_vp": 190.0,
+      "new_vp": 2.1,
+      "unit": "Pa",
+      "source": "ScenTree",
+      "note": "0.016 mmHg = 2.1 Pa. Old value 190 was mmHg."
+    },
+    "LINALOOL": {
+      "old_vp": 22.0,
+      "new_vp": 22.7,
+      "unit": "Pa",
+      "source": "BASF / ScenTree",
+      "note": "0.17 mmHg = 22.7 Pa. Old value 22 was actually close but wrong reasoning."
+    },
+    "LINALYL ACETATE": {
+      "old_vp": 10.0,
+      "new_vp": 17.5,
+      "unit": "Pa",
+      "source": "ScenTree",
+      "note": "0.131 mmHg = 17.5 Pa."
+    },
+    "FLOROL": {
+      "old_vp": 6.0,
+      "new_vp": 0.007,
+      "unit": "Pa",
+      "source": "ScenTree (20C)",
+      "note": "0.0000534 mmHg at 20C = 0.007 Pa. Old value 6.0 was wrong."
+    },
+    "DIHYDROMYRCENOL": {
+      "old_vp": 10.0,
+      "new_vp": 14.8,
+      "unit": "Pa",
+      "source": "ScenTree / literature",
+      "note": "~0.11 mmHg = 14.8 Pa. Another source says 16.5 Pa."
+    },
+    "CEDARWOOD EO": {
+      "old_vp": 100.0,
+      "new_vp": 9.37,
+      "unit": "Pa",
+      "source": "ScenTree (Virginia type)",
+      "note": "Cedarwood Atlas = 1.89 Pa, Virginia = 9.37 Pa. Split by species."
+    },
+    "CEDARWOOD OIL VIRGINIA": {
+      "old_vp": null,
+      "new_vp": 9.37,
+      "unit": "Pa",
+      "source": "ScenTree",
+      "note": "Virginia cedarwood specifically."
+    },
+    "GUAIACOL": {
+      "old_vp": 14.0,
+      "new_vp": 0.053,
+      "unit": "Pa",
+      "source": "PubChem / EPI",
+      "note": "~0.0004 mmHg = 0.053 Pa. Old value 14.0 was way off."
+    },
+    "CITRONELLAL": {
+      "old_vp": 8.0,
+      "new_vp": 40.0,
+      "unit": "Pa",
+      "source": "ScenTree",
+      "note": "~0.3 mmHg = 40 Pa. Old value 8.0 was low."
+    },
+    "ROSE OXIDE": {
+      "old_vp": 25.0,
+      "new_vp": 53.0,
+      "unit": "Pa",
+      "source": "ScenTree",
+      "note": "~0.4 mmHg = 53 Pa. Old value 25 was low."
+    },
+    "LAVENDER EO": {
+      "old_vp": 0.3,
+      "new_vp": null,
+      "unit": "Pa",
+      "source": "ChemicalBook (14.8-358 Pa range)",
+      "note": "Too broad a range for a single value. Flag for species-specific entry."
+    }
+  },
+
+  "corrections_ingredient_intelligence_py": {
+    "Cyclamen Aldehyde": {
+      "old_vp": 0.08,
+      "new_vp": 0.52,
+      "note": "0.0039 mmHg = 0.52 Pa"
+    },
+    "Hexyl Acetate": {
+      "old_vp": 1.4,
+      "new_vp": 194.0,
+      "note": "Major correction. Old value was far too low."
+    },
+    "Beta-Pinene": {
+      "old_vp": 300.0,
+      "new_vp": 320.0,
+      "note": "Perplexity: 2.4 mmHg = 320 Pa. Close to old 300."
+    },
+    "Pine EO": {
+      "old_vp": 2.0,
+      "new_vp": 180.0,
+      "note": "YAML has 180 Pa. Old ingredient_intelligence value was wrong."
+    }
+  },
+
+  "mw_corrections": {
+    "DBCA": {
+      "old_mw_ingredient_intelligence": 204.27,
+      "old_mw_molecular_weight_distribution": 172.0,
+      "new_mw": 192.25,
+      "source": "PubChem CID 9024",
+      "note": "Both old values were wrong. PubChem confirms C12H16O2 = 192.25."
+    },
+    "Cyclamen Aldehyde": {
+      "old_mw_compounds_json": 174.24,
+      "new_mw": 190.28,
+      "source": "PubChem CID 517827",
+      "note": "C13H18O = 190.28. compounds.json value was wrong."
+    },
+    "Pine EO": {
+      "old_mw_ingredient_intelligence": 170.0,
+      "new_mw": 136.23,
+      "source": "PubChem (pinene-dominant)",
+      "note": "Use 136.23 (pinene MW) as representative."
+    }
+  },
+
+  "logp_corrections": {
+    "Beta-Pinene": {
+      "old_logp_ingredient_intelligence": 4.2,
+      "old_logp_yaml": 3.1,
+      "new_logp": 3.1,
+      "source": "PubChem XLogP",
+      "note": "PubChem confirms 3.1. Codebase 4.2 was wrong."
+    },
+    "DBCA": {
+      "old_logp_values": [2.9, 3.2, 3.5],
+      "new_logp": 2.7,
+      "source": "PubChem XLogP",
+      "note": "All three codebase values were wrong."
+    },
+    "Oranger Crystals": {
+      "old_logp_ingredient_intelligence": 2.8,
+      "old_logp_yaml": 2.678,
+      "new_logp": 3.2,
+      "source": "PubChem XLogP",
+      "note": "PubChem confirms 3.2."
+    },
+    "PEDMC": {
+      "old_logp_ingredient_intelligence": 2.8,
+      "new_logp": 2.1,
+      "source": "PubChem XLogP",
+      "note": "PubChem confirms 2.1."
+    },
+    "PCME": {
+      "old_logp_ingredient_intelligence": 2.6,
+      "new_logp": 2.7,
+      "source": "PubChem XLogP",
+      "note": "PubChem confirms 2.7. Close to old value."
+    }
+  }
+}

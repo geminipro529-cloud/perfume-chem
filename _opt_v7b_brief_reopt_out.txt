@@ -1,0 +1,48 @@
+════════════════════════════════════════════════════════════════════════════
+  v7b — A1+A2+A4 + all B + D2 (brief weights) + D3 (re-seed)
+════════════════════════════════════════════════════════════════════════════
+
+[1] Composite scores — default vs brief weights
+  version       default      brief  Δ(brief-default)
+  v3             78.601     78.601  +0.000
+  v7a            81.020     81.020  +0.000
+  v7b            80.871     80.757  -0.114
+
+  Δ v7b vs v7a (default): -0.149
+  Δ v7b vs v7a (brief)  : -0.263
+  Δ v7b vs v3  (default): +2.270
+  Δ v7b vs v3  (brief)  : +2.156
+
+[2] Axis table — v7a vs v7b (default weights)
+  axis                        v3     v7a     v7b  Δ v7b-v7a
+  longevity                81.70   80.50   79.70      -0.80
+  sillage                  78.90  100.00   99.60      -0.40
+  luxury                   64.50   61.60   60.60      -1.00
+  texture                  74.00   81.20   81.10      -0.10
+  stacking_depth           85.00   85.00   90.00      +5.00
+  photorealism             82.50   80.40   79.30      -1.10
+  perceptual_clarity       75.30   74.80   71.60      -3.20
+  skin_performance         77.30   77.50   77.50      +0.00
+  synergy                  95.00   95.00   95.00      +0.00
+  hedonic                  84.70   85.70   85.60      -0.10
+
+[3] IFRA & cap compliance (v7b)
+  PASS: no IFRA violations
+    ACA: 40.0 / 50.0 µL (80% of cap)
+    Farnesol: 10.0 / 10.0 µL (100% of cap)
+
+[4] Volume check (v7b)
+  Concentrate: 16157.0 µL (32.31%)
+  Ethanol 96%: 33843.0 µL
+  Total      : 50000.0 µL (target 50000.0)
+
+[5] D3 — Re-seeded hill-climb from v7b (brief weights)
+  v7b (brief weights): 80.757
+  v7c (hill-climb): 80.757 (0 accepted moves, 0.6s)
+  v7c (default weights for reference): 80.757
+  Δ v7c-v7b (brief): +0.000
+
+[6] v7c changes vs v7b
+    (no moves accepted — v7b already at local optimum under brief weights)
+
+Saved: _opt_v7b_brief.json

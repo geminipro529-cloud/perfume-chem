@@ -1,0 +1,618 @@
+- canonical_name: Y-MOSSY F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YH18062
+    perfumersworld_price_usd_per_g: 0.24
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Y-Mossy Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YH12453
+    perfumersworld_price_usd_per_g: 0.37
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Comoros Complete EO
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 204.4
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.002
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.65
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+- canonical_name: Ylang Comoros Complete EO F3255
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Ylang Comoros Complete Essential Oil F3255
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ23636
+    perfumersworld_price_usd_per_g: 0.7
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Comoros Extra Essential Oil F3350
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ23639
+    perfumersworld_price_usd_per_g: 1.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Comoros I Essential Oil F3330
+  aliases:
+  - Ylang Comoros I essential oil F3330
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ23638
+    perfumersworld_price_usd_per_g: 1.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Comoros II Essential Oil F3315
+  aliases:
+  - Ylang Comoros II essential oil F3315
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ23637
+    perfumersworld_price_usd_per_g: 0.9
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Comoros III EO
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.68
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    hedonic_valence: engine.hedonic_model
+- canonical_name: Ylang Comoros III EO F3295
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Ylang Comoros III Essential Oil F3295
+  aliases:
+  - Ylang Comoros III essential oil F3295
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ17821
+    perfumersworld_price_usd_per_g: 0.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: YLANG F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NJ18527
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang III
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 200.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.65
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+- canonical_name: Ylang Madagascar Complete Organic Ess. Oil N1450
+  aliases:
+  - Ylang Madagascar Complete ORGANIC Ess. oil N1450
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ23635
+    perfumersworld_price_usd_per_g: 0.9
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Ylang EO
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: Extra grade
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Ylang Ylang Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ00472
+    perfumersworld_price_usd_per_g: 0.9
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Ylang Essential Oil Extra
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7NJ07496
+    perfumersworld_price_usd_per_g: 1.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ylang Ylang Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NJ09074
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

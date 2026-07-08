@@ -1,0 +1,649 @@
+{
+  "F1_Classic_Aromatic": {
+    "name": "F1_Classic_Aromatic",
+    "initial": {
+      "recipe_wt_pct": {
+        "Bergamot FCF": 12.0,
+        "Lavender EO": 10.0,
+        "Linalyl Acetate": 5.0,
+        "Geraniol": 3.0,
+        "Coumarin": 6.0,
+        "Eugenol": 1.5,
+        "Hedione": 15.0,
+        "Iso E Super": 12.0,
+        "Cedarwood EO": 6.0,
+        "Patchouli EO": 5.0,
+        "Vetiver EO": 3.0,
+        "Evernyl": 2.0,
+        "Habanolide": 8.0,
+        "Galaxolide": 6.5,
+        "Ambrox Super": 2.0,
+        "Vanillin": 1.0,
+        "Hexyl Salicylate": 2.0
+      },
+      "score": -19289269.939370897,
+      "envelope": {
+        "top": {
+          "citrus": 4129.718084552502,
+          "aromatic": 1286.4947451268436,
+          "geranium": 37.135345705227465,
+          "coumarin": 26.128517292825343,
+          "spice": 72.70076941631899,
+          "radiance": 25.32029978929119,
+          "wood": 29.16445365398343,
+          "moss": 9.73493687107815,
+          "musk": 13.77966640243766,
+          "amber": 26.93167814587609,
+          "gourmand": 1.2549241879799824,
+          "cushion": 2.8639895248246106
+        },
+        "heart": {
+          "citrus": 3524.566312207112,
+          "aromatic": 1224.566496829945,
+          "geranium": 38.08960853343346,
+          "coumarin": 27.237456986414003,
+          "spice": 75.09068017044562,
+          "radiance": 26.394937327090542,
+          "wood": 30.448950610555745,
+          "moss": 10.166734235273427,
+          "musk": 14.396189500324816,
+          "amber": 28.132686842461496,
+          "gourmand": 1.3099865106091986,
+          "cushion": 2.991708128456094
+        },
+        "base": {
+          "citrus": 284.4645277274734,
+          "aromatic": 468.82389155584804,
+          "geranium": 39.38326741111779,
+          "coumarin": 35.05348533090873,
+          "spice": 85.32268829162585,
+          "radiance": 33.96919722964332,
+          "wood": 40.00677675510425,
+          "moss": 13.41188243433053,
+          "musk": 19.086237969891524,
+          "amber": 37.22722994430728,
+          "gourmand": 1.717479120994664,
+          "cushion": 3.958847124981664
+        }
+      }
+    },
+    "optimized": {
+      "recipe_wt_pct": {
+        "Hedione": 19.163,
+        "Iso E Super": 15.318,
+        "Habanolide": 9.098,
+        "Galaxolide": 7.683,
+        "Cedarwood EO": 7.172,
+        "Patchouli EO": 5.776,
+        "Coumarin": 5.366,
+        "Bergamot FCF": 4.891,
+        "Linalyl Acetate": 4.873,
+        "Lavender EO": 4.101,
+        "Geraniol": 3.746,
+        "Vetiver EO": 3.545,
+        "Hexyl Salicylate": 2.501,
+        "Evernyl": 2.464,
+        "Ambrox Super": 1.955,
+        "Eugenol": 1.632,
+        "Vanillin": 0.715
+      },
+      "score": -3442173.697837124,
+      "envelope": {
+        "top": {
+          "citrus": 1785.587536863096,
+          "aromatic": 588.7952502554635,
+          "geranium": 49.19007072367203,
+          "coumarin": 24.789772585194306,
+          "spice": 83.92575302338398,
+          "radiance": 34.31629384454002,
+          "wood": 38.099878884243644,
+          "moss": 12.722051920025608,
+          "musk": 16.670326604804593,
+          "amber": 27.93212393321417,
+          "gourmand": 0.9519009963509529,
+          "cushion": 3.79932189949137
+        },
+        "heart": {
+          "citrus": 1470.6933217832395,
+          "aromatic": 547.183355670349,
+          "geranium": 49.30893909198515,
+          "coumarin": 25.280533422917582,
+          "spice": 84.75370178122685,
+          "radiance": 34.995650343548924,
+          "wood": 38.91748834421765,
+          "moss": 12.99917941260529,
+          "musk": 17.04014269572898,
+          "amber": 28.547511359160445,
+          "gourmand": 0.9721637852746358,
+          "cushion": 3.883026773838185
+        },
+        "base": {
+          "citrus": 119.06443809977064,
+          "aromatic": 206.22940816079876,
+          "geranium": 44.414578263839665,
+          "coumarin": 28.04543954689852,
+          "spice": 83.51113472418844,
+          "radiance": 38.82308888406083,
+          "wood": 44.03425608012655,
+          "moss": 14.764666798301192,
+          "musk": 19.446574560508015,
+          "amber": 32.52021342225749,
+          "gourmand": 1.0977192609861375,
+          "cushion": 4.423392912287521
+        }
+      }
+    },
+    "delta_score": 15847096.241533773,
+    "missing_from_spine": []
+  },
+  "F2_Fresh_Aquatic": {
+    "name": "F2_Fresh_Aquatic",
+    "initial": {
+      "recipe_wt_pct": {
+        "Bergamot FCF": 10.0,
+        "Grapefruit FCF": 4.0,
+        "Dihydromyrcenol": 15.0,
+        "Lavender EO": 6.0,
+        "Calone": 0.4,
+        "Floralozone": 3.0,
+        "Hedione": 14.0,
+        "Coumarin": 3.0,
+        "Geraniol": 1.5,
+        "Iso E Super": 12.0,
+        "Cedarwood EO": 5.0,
+        "Vetiver EO": 2.0,
+        "Habanolide": 7.0,
+        "Romandolide": 6.0,
+        "Ambrox Super": 2.5,
+        "Amberwood F": 3.0,
+        "Hexyl Salicylate": 5.6
+      },
+      "score": -3601531335.5746408,
+      "envelope": {
+        "top": {
+          "citrus": 22087.637806680024,
+          "marine": 38962.45540962501,
+          "aromatic": 728.6634456226769,
+          "radiance": 23.18542900624698,
+          "coumarin": 12.817233203326392,
+          "geranium": 18.216586140566925,
+          "wood": 23.714759609783783,
+          "musk": 11.213775907494936,
+          "amber": 57.011150203040806,
+          "cushion": 7.867540237087552
+        },
+        "heart": {
+          "citrus": 7877.983735823029,
+          "marine": 40046.79692555657,
+          "aromatic": 726.5457369879431,
+          "radiance": 25.34313242364722,
+          "coumarin": 14.010042181628311,
+          "geranium": 19.598089515398197,
+          "wood": 25.95964275490052,
+          "musk": 12.283873102671498,
+          "amber": 62.437133021124694,
+          "cushion": 8.617140435808366
+        },
+        "base": {
+          "citrus": 201.2462592260302,
+          "marine": 25498.128802830423,
+          "aromatic": 254.73746229671036,
+          "radiance": 36.351221722542796,
+          "coumarin": 20.09546969858177,
+          "geranium": 22.11818112543398,
+          "wood": 38.063657927681874,
+          "musk": 18.201484389570506,
+          "amber": 92.19493082901113,
+          "cushion": 12.742182474040087
+        }
+      }
+    },
+    "optimized": {
+      "recipe_wt_pct": {
+        "Hedione": 16.722,
+        "Iso E Super": 14.517,
+        "Bergamot FCF": 11.988,
+        "Habanolide": 8.166,
+        "Lavender EO": 7.295,
+        "Romandolide": 7.15,
+        "Dihydromyrcenol": 5.817,
+        "Cedarwood EO": 5.805,
+        "Hexyl Salicylate": 5.096,
+        "Coumarin": 3.431,
+        "Floralozone": 3.038,
+        "Amberwood F": 3.006,
+        "Ambrox Super": 2.471,
+        "Vetiver EO": 2.147,
+        "Geraniol": 1.645,
+        "Grapefruit FCF": 1.545,
+        "Calone": 0.159
+      },
+      "score": -652888527.4885472,
+      "envelope": {
+        "top": {
+          "citrus": 11672.110975285392,
+          "marine": 16109.428941537763,
+          "aromatic": 917.1941552129688,
+          "radiance": 28.669303743540258,
+          "coumarin": 15.17493216254275,
+          "geranium": 20.68198006524892,
+          "wood": 29.076682375809543,
+          "musk": 13.548994864548906,
+          "amber": 58.67780155557128,
+          "cushion": 7.412185842614455
+        },
+        "heart": {
+          "citrus": 5311.250655782039,
+          "marine": 16119.507186428882,
+          "aromatic": 887.6814122975613,
+          "radiance": 30.521188497761447,
+          "coumarin": 16.155152183563867,
+          "geranium": 21.658694326120372,
+          "wood": 31.001758706150515,
+          "musk": 14.456487730255589,
+          "amber": 62.59294122237287,
+          "cushion": 7.907526555645369
+        },
+        "base": {
+          "citrus": 249.73506200964064,
+          "marine": 10042.611157131241,
+          "aromatic": 301.6864109194304,
+          "radiance": 40.487679185045955,
+          "coumarin": 21.43050945875525,
+          "geranium": 22.777153282154714,
+          "wood": 42.0110911455948,
+          "musk": 19.790659785496008,
+          "amber": 85.39983838405524,
+          "cushion": 10.803752441667669
+        }
+      }
+    },
+    "delta_score": 2948642808.0860934,
+    "missing_from_spine": []
+  },
+  "F3_Sweet_Gourmand": {
+    "name": "F3_Sweet_Gourmand",
+    "initial": {
+      "recipe_wt_pct": {
+        "Bergamot FCF": 8.0,
+        "Lavender EO": 12.0,
+        "Linalyl Acetate": 4.0,
+        "Hedione": 12.0,
+        "Coumarin": 7.0,
+        "Vanillin": 4.0,
+        "Ethyl Maltol": 0.6,
+        "Heliotropal": 2.0,
+        "Anisaldehyde": 1.5,
+        "Eugenol": 1.0,
+        "Cedarwood EO": 5.0,
+        "Sandalore": 4.0,
+        "Iso E Super": 10.0,
+        "Ambrox Super": 2.5,
+        "Ambermax": 3.0,
+        "Habanolide": 5.0,
+        "Ethylene Brassylate": 7.0,
+        "Galaxolide": 4.4,
+        "Patchouli EO": 5.0,
+        "Hexyl Salicylate": 2.0
+      },
+      "score": -11741274.817407705,
+      "envelope": {
+        "top": {
+          "citrus": 2759.400701199533,
+          "aromatic": 1527.7971165435013,
+          "radiance": 20.302263223584717,
+          "coumarin": 30.552529993616584,
+          "gourmand": 50.89170652437584,
+          "spice": 48.57729995069976,
+          "wood": 59.03159427960316,
+          "amber": 519.612719286529,
+          "musk": 10.664164706101271,
+          "cushion": 2.870496680847467
+        },
+        "heart": {
+          "citrus": 2334.9141642346353,
+          "aromatic": 1440.8953854687124,
+          "radiance": 20.99356342474069,
+          "coumarin": 31.59285588722804,
+          "gourmand": 52.55770413709249,
+          "spice": 49.76925688483517,
+          "wood": 60.990168162412736,
+          "amber": 536.222427936508,
+          "musk": 11.051775710731002,
+          "cushion": 2.9743823761849315
+        },
+        "base": {
+          "citrus": 200.50865876821567,
+          "aromatic": 538.7717269488202,
+          "radiance": 25.79318552201145,
+          "coumarin": 38.81572540034421,
+          "gourmand": 63.53352199244331,
+          "spice": 54.219854682122765,
+          "wood": 74.13965906605303,
+          "amber": 641.8214078602324,
+          "musk": 13.97567518874296,
+          "cushion": 3.7539358346574736
+        }
+      }
+    },
+    "optimized": {
+      "recipe_wt_pct": {
+        "Hedione": 15.5,
+        "Iso E Super": 13.086,
+        "Ethylene Brassylate": 8.436,
+        "Patchouli EO": 6.315,
+        "Cedarwood EO": 6.088,
+        "Habanolide": 5.915,
+        "Coumarin": 5.457,
+        "Galaxolide": 5.059,
+        "Lavender EO": 4.976,
+        "Sandalore": 4.653,
+        "Vanillin": 4.611,
+        "Linalyl Acetate": 4.153,
+        "Bergamot FCF": 3.326,
+        "Ambrox Super": 2.743,
+        "Hexyl Salicylate": 2.467,
+        "Heliotropal": 2.339,
+        "Ambermax": 1.773,
+        "Anisaldehyde": 1.7,
+        "Eugenol": 1.072,
+        "Ethyl Maltol": 0.331
+      },
+      "score": -2206175.4102238133,
+      "envelope": {
+        "top": {
+          "citrus": 1214.4658258017373,
+          "aromatic": 696.4228065149251,
+          "radiance": 27.761950902744317,
+          "coumarin": 25.21392548955775,
+          "gourmand": 59.25998972982598,
+          "spice": 55.139478033258875,
+          "wood": 75.30795139962717,
+          "amber": 343.19627315920474,
+          "musk": 13.37984980200537,
+          "cushion": 3.7478952101511527
+        },
+        "heart": {
+          "citrus": 996.1962977391319,
+          "aromatic": 643.3416624000204,
+          "radiance": 28.197098055198328,
+          "coumarin": 25.6091343103429,
+          "gourmand": 60.093950990269065,
+          "spice": 55.458217885965645,
+          "wood": 76.42682222203428,
+          "amber": 347.9109461819986,
+          "musk": 13.621528038932588,
+          "cushion": 3.814983629164351
+        },
+        "base": {
+          "citrus": 82.88052684263783,
+          "aromatic": 233.2583826162663,
+          "radiance": 30.608411088477915,
+          "coumarin": 27.799134118573235,
+          "gourmand": 64.0336709213907,
+          "spice": 53.57586477094543,
+          "wood": 82.1964196064317,
+          "amber": 369.23953302260605,
+          "musk": 15.205703320754731,
+          "cushion": 4.250576485564865
+        }
+      }
+    },
+    "delta_score": 9535099.407183891,
+    "missing_from_spine": []
+  },
+  "F4_Modern_Ambrox": {
+    "name": "F4_Modern_Ambrox",
+    "initial": {
+      "recipe_wt_pct": {
+        "Bergamot FCF": 14.0,
+        "Red Mandarin EO": 3.0,
+        "Lavender EO": 5.0,
+        "Linalool": 3.0,
+        "Hedione": 15.0,
+        "Eugenol": 0.8,
+        "Geraniol": 1.5,
+        "Iso E Super": 18.0,
+        "Cedarwood EO": 4.0,
+        "Patchouli EO": 3.0,
+        "Vetiver EO": 1.5,
+        "Ambrox Super": 6.0,
+        "Ambrofix": 3.0,
+        "Amberwood F": 4.0,
+        "Habanolide": 6.0,
+        "Romandolide": 5.0,
+        "Galaxolide": 2.7,
+        "Hexyl Salicylate": 1.5,
+        "Citral": 0.6
+      },
+      "score": -169998555.98595843,
+      "envelope": {
+        "top": {
+          "citrus": 12752.917399145766,
+          "aromatic": 2063.6111801179586,
+          "radiance": 26.972186692058322,
+          "spice": 41.30332824748139,
+          "geranium": 19.77902089569928,
+          "wood": 33.091097511810226,
+          "amber": 981.4469652252909,
+          "musk": 10.85598479854345,
+          "cushion": 2.288126348932673
+        },
+        "heart": {
+          "citrus": 6134.347723843125,
+          "aromatic": 2032.193501768601,
+          "radiance": 29.423743060655976,
+          "spice": 44.62744474428806,
+          "geranium": 21.2164025650493,
+          "wood": 36.157137271325965,
+          "amber": 1068.6863948999674,
+          "musk": 11.869874777081552,
+          "cushion": 2.5014588545686958
+        },
+        "base": {
+          "citrus": 254.11996089553375,
+          "aromatic": 589.707535994283,
+          "radiance": 39.228763011796964,
+          "spice": 51.693938378995135,
+          "geranium": 22.08944599636819,
+          "wood": 49.35876808559168,
+          "amber": 1387.3098024918822,
+          "musk": 16.36496505383058,
+          "cushion": 3.4413806057443868
+        }
+      }
+    },
+    "optimized": {
+      "recipe_wt_pct": {
+        "Iso E Super": 22.55,
+        "Hedione": 19.388,
+        "Habanolide": 7.337,
+        "Ambrox Super": 7.313,
+        "Lavender EO": 6.321,
+        "Romandolide": 5.885,
+        "Bergamot FCF": 5.782,
+        "Cedarwood EO": 5.119,
+        "Amberwood F": 3.431,
+        "Galaxolide": 3.368,
+        "Patchouli EO": 2.544,
+        "Ambrofix": 2.476,
+        "Hexyl Salicylate": 1.691,
+        "Geraniol": 1.602,
+        "Vetiver EO": 1.233,
+        "Linalool": 1.221,
+        "Red Mandarin EO": 1.218,
+        "Eugenol": 0.93,
+        "Citral": 0.593
+      },
+      "score": -32731622.688260145,
+      "envelope": {
+        "top": {
+          "citrus": 5391.018446663738,
+          "aromatic": 1452.5310513182703,
+          "radiance": 36.042676640243094,
+          "spice": 49.66194532428221,
+          "geranium": 21.837323753565638,
+          "wood": 41.74258574775196,
+          "amber": 873.732235599487,
+          "musk": 13.726219649500518,
+          "cushion": 2.6661824072136566
+        },
+        "heart": {
+          "citrus": 2312.3604867077806,
+          "aromatic": 1363.8507734088646,
+          "radiance": 37.65502535161382,
+          "spice": 51.35894171246029,
+          "geranium": 22.410517613027118,
+          "wood": 43.68374707513455,
+          "amber": 911.2012631761389,
+          "musk": 14.3751061910079,
+          "cushion": 2.791789498532063
+        },
+        "base": {
+          "citrus": 118.75298004181715,
+          "aromatic": 398.4709499812561,
+          "radiance": 43.45014601916997,
+          "spice": 52.04980632730485,
+          "geranium": 20.58443787117321,
+          "wood": 51.50664482604287,
+          "amber": 1028.1868328882856,
+          "musk": 17.109160065397536,
+          "cushion": 3.316208045421068
+        }
+      }
+    },
+    "delta_score": 137266933.2976983,
+    "missing_from_spine": []
+  },
+  "F5_Woody_Aromatic": {
+    "name": "F5_Woody_Aromatic",
+    "initial": {
+      "recipe_wt_pct": {
+        "Bergamot FCF": 11.0,
+        "Grapefruit FCF": 3.0,
+        "Lavender EO": 7.0,
+        "Linalyl Acetate": 3.0,
+        "Geraniol": 2.0,
+        "Hedione": 14.0,
+        "Coumarin": 3.0,
+        "Cedarwood oil Virginia": 6.0,
+        "Cedarwood EO": 3.0,
+        "Iso E Super": 16.0,
+        "Vetiver EO": 4.0,
+        "Patchouli EO": 3.0,
+        "Sandalore": 3.0,
+        "Ebanol": 2.0,
+        "Ambrox Super": 3.0,
+        "Amberwood F": 2.5,
+        "Habanolide": 7.0,
+        "Romandolide": 4.5,
+        "Hexyl Salicylate": 1.0,
+        "Cashmeran": 0.4
+      },
+      "score": -354782982.8545994,
+      "envelope": {
+        "top": {
+          "citrus": 18869.1106415319,
+          "aromatic": 934.2829149484625,
+          "geranium": 25.82385629360714,
+          "radiance": 24.65077081990726,
+          "coumarin": 13.627294890915119,
+          "wood": 66.53205875504362,
+          "amber": 63.38759280472566,
+          "musk": 11.866825658018662,
+          "cushion": 1.4937100862586523,
+          "default": 7.725876928945381
+        },
+        "heart": {
+          "citrus": 6703.891795575941,
+          "aromatic": 916.7341475280234,
+          "geranium": 27.372503019631015,
+          "radiance": 26.567114506833605,
+          "coumarin": 14.686676795232671,
+          "wood": 71.70059871278846,
+          "amber": 68.45475469329418,
+          "musk": 12.818285677918741,
+          "cushion": 1.613243388148764,
+          "default": 8.330406891567511
+        },
+        "base": {
+          "citrus": 228.42347283464198,
+          "aromatic": 316.10414161178966,
+          "geranium": 27.253174345508608,
+          "radiance": 33.33201988635261,
+          "coumarin": 18.426412205104548,
+          "wood": 89.93095832542043,
+          "amber": 88.34960409679067,
+          "musk": 16.59441880504673,
+          "cushion": 2.084370502185705,
+          "default": 10.520139153165502
+        }
+      }
+    },
+    "optimized": {
+      "recipe_wt_pct": {
+        "Iso E Super": 18.622,
+        "Hedione": 16.782,
+        "Habanolide": 8.42,
+        "Lavender EO": 8.27,
+        "Cedarwood oil Virginia": 7.303,
+        "Romandolide": 5.38,
+        "Vetiver EO": 4.429,
+        "Bergamot FCF": 4.224,
+        "Patchouli EO": 3.151,
+        "Sandalore": 3.142,
+        "Cedarwood EO": 3.095,
+        "Coumarin": 2.986,
+        "Linalyl Acetate": 2.956,
+        "Ambrox Super": 2.574,
+        "Amberwood F": 2.504,
+        "Ebanol": 2.024,
+        "Geraniol": 2.003,
+        "Grapefruit FCF": 1.159,
+        "Hexyl Salicylate": 0.533,
+        "Cashmeran": 0.446
+      },
+      "score": -56758007.280277304,
+      "envelope": {
+        "top": {
+          "citrus": 7460.823441121482,
+          "aromatic": 1125.2578550982216,
+          "geranium": 26.513413771956163,
+          "radiance": 30.28958127475998,
+          "coumarin": 13.901385351712307,
+          "wood": 74.95949345398678,
+          "amber": 58.88099785956113,
+          "musk": 14.629541422114878,
+          "cushion": 0.8158264313353004,
+          "default": 8.823879664436324
+        },
+        "heart": {
+          "citrus": 2331.891916576067,
+          "aromatic": 1058.9138143435978,
+          "geranium": 27.056626506821946,
+          "radiance": 31.450408811422722,
+          "coumarin": 14.434146460809405,
+          "wood": 77.83478130613008,
+          "amber": 61.26704009808298,
+          "musk": 15.226014172014768,
+          "cushion": 0.8489632858064646,
+          "default": 9.16654550525134
+        },
+        "base": {
+          "citrus": 94.74921110137541,
+          "aromatic": 355.75242127262675,
+          "geranium": 24.86557965730401,
+          "radiance": 35.93993684182703,
+          "coumarin": 16.49461268620323,
+          "wood": 89.01374083368984,
+          "amber": 71.89766540718243,
+          "musk": 17.92159054213528,
+          "cushion": 0.9974036492507765,
+          "default": 10.539812890761054
+        }
+      }
+    },
+    "delta_score": 298024975.5743221,
+    "missing_from_spine": []
+  }
+}

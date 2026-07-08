@@ -1,0 +1,149 @@
+
+==============================================================================
+  V6a: Helional floor ΓåÆ 0 (free it to zero out)
+==============================================================================
+  patches:  Helional floor=0.0  Cashmeran ceil=400.0
+  brief gate: OK
+  baseline geo: 72.103
+  start: geo=72.103  hed=87.10  lux=56.80  tex=70.60  depth=80.00  skin=69.30
+    Γÿà p1 Ethyl Safranate: 55 ΓåÆ 35  (╬ö-20, rebalanced)  geo 72.103 ΓåÆ 72.113  hed=87.10 lux=56.90 tex=70.60
+    Γÿà p1 Helional: 80 ΓåÆ 40  (╬ö-40, rebalanced)  geo 72.113 ΓåÆ 72.164  hed=87.20 lux=57.00 tex=70.50
+    Γÿà p1 Hedione HC: 2886 ΓåÆ 2876  (╬ö-10, rebalanced)  geo 72.164 ΓåÆ 72.174  hed=87.10 lux=57.00 tex=70.50
+    Γÿà p1 Alpha Irone: 1027 ΓåÆ 947  (╬ö-80, rebalanced)  geo 72.174 ΓåÆ 72.204  hed=87.20 lux=57.00 tex=70.60
+    Γÿà p1 Alpha Isomethyl Ionone: 558 ΓåÆ 478  (╬ö-80, rebalanced)  geo 72.204 ΓåÆ 72.238  hed=87.20 lux=57.20 tex=70.60
+    Γÿà p1 Orivone: 281 ΓåÆ 241  (╬ö-40, rebalanced)  geo 72.238 ΓåÆ 72.295  hed=87.20 lux=57.30 tex=70.70
+    Γÿà p1 Heliotropal: 282 ΓåÆ 362  (╬ö+80, rebalanced)  geo 72.295 ΓåÆ 72.322  hed=87.20 lux=57.40 tex=70.60
+    Γÿà p1 Hexyl Salicylate: 917 ΓåÆ 957  (╬ö+40, rebalanced)  geo 72.322 ΓåÆ 72.367  hed=87.10 lux=57.50 tex=70.60
+    Γÿà p1 Ebanol: 918 ΓåÆ 938  (╬ö+20, rebalanced)  geo 72.367 ΓåÆ 72.391  hed=87.10 lux=57.50 tex=70.60
+  pass 1 complete  moves=9  t=7s  geo=72.391
+    Γÿà p2 Helional: 40 ΓåÆ 20  (╬ö-20, rebalanced)  geo 72.391 ΓåÆ 72.420  hed=87.10 lux=57.60 tex=70.60
+    Γÿà p2 Cis Jasmone: 89 ΓåÆ 79  (╬ö-10, rebalanced)  geo 72.420 ΓåÆ 72.443  hed=87.20 lux=57.60 tex=70.60
+  pass 2 complete  moves=11  t=11s  geo=72.443
+  pass 3 complete  moves=11  t=15s  geo=72.443
+
+  optimized geo: 72.443   ╬ö = +0.340   moves=11
+  axes baseline ΓåÆ optimized:
+    hedonic                87.10 ΓåÆ  87.20  (+0.10)
+    texture                70.60 ΓåÆ  70.60  (+0.00)
+    luxury                 56.80 ΓåÆ  57.60  (+0.80)
+    stacking_depth         80.00 ΓåÆ  80.00  (+0.00)
+    skin_performance       69.30 ΓåÆ  70.20  (+0.90)
+    longevity              66.20 ΓåÆ  67.00  (+0.80)
+    sillage                73.70 ΓåÆ  73.60  (-0.10)
+    synergy                64.00 ΓåÆ  64.00  (+0.00)
+    photorealism           85.60 ΓåÆ  85.70  (+0.10)
+    perceptual_clarity     86.80 ΓåÆ  87.00  (+0.20)
+
+==============================================================================
+  V6b: Cashmeran ceil ΓåÆ 300 (blend, don't overdrive)
+==============================================================================
+  patches:  Helional floor=40.0  Cashmeran ceil=300.0
+  brief gate: OK
+  baseline geo: 72.103
+  start: geo=72.103  hed=87.10  lux=56.80  tex=70.60  depth=80.00  skin=69.30
+    Γÿà p1 Ethyl Safranate: 55 ΓåÆ 35  (╬ö-20, rebalanced)  geo 72.103 ΓåÆ 72.113  hed=87.10 lux=56.90 tex=70.60
+    Γÿà p1 Helional: 80 ΓåÆ 40  (╬ö-40, rebalanced)  geo 72.113 ΓåÆ 72.164  hed=87.20 lux=57.00 tex=70.50
+    Γÿà p1 Hedione HC: 2886 ΓåÆ 2876  (╬ö-10, rebalanced)  geo 72.164 ΓåÆ 72.174  hed=87.10 lux=57.00 tex=70.50
+    Γÿà p1 Alpha Irone: 1027 ΓåÆ 947  (╬ö-80, rebalanced)  geo 72.174 ΓåÆ 72.204  hed=87.20 lux=57.00 tex=70.60
+    Γÿà p1 Alpha Isomethyl Ionone: 558 ΓåÆ 478  (╬ö-80, rebalanced)  geo 72.204 ΓåÆ 72.238  hed=87.20 lux=57.20 tex=70.60
+    Γÿà p1 Orivone: 281 ΓåÆ 241  (╬ö-40, rebalanced)  geo 72.238 ΓåÆ 72.295  hed=87.20 lux=57.30 tex=70.70
+    Γÿà p1 Heliotropal: 282 ΓåÆ 362  (╬ö+80, rebalanced)  geo 72.295 ΓåÆ 72.322  hed=87.20 lux=57.40 tex=70.60
+    Γÿà p1 Hexyl Salicylate: 917 ΓåÆ 957  (╬ö+40, rebalanced)  geo 72.322 ΓåÆ 72.367  hed=87.10 lux=57.50 tex=70.60
+    Γÿà p1 Ebanol: 918 ΓåÆ 938  (╬ö+20, rebalanced)  geo 72.367 ΓåÆ 72.391  hed=87.10 lux=57.50 tex=70.60
+  pass 1 complete  moves=9  t=7s  geo=72.391
+    Γÿà p2 Hedione HC: 2893 ΓåÆ 2873  (╬ö-20, rebalanced)  geo 72.391 ΓåÆ 72.416  hed=87.10 lux=57.60 tex=70.60
+    Γÿà p2 Hexyl Salicylate: 957 ΓåÆ 967  (╬ö+10, rebalanced)  geo 72.416 ΓåÆ 72.428  hed=87.10 lux=57.60 tex=70.60
+  pass 2 complete  moves=11  t=12s  geo=72.428
+    Γÿà p3 Bergamot FCF oil Sicilian: 507 ΓåÆ 497  (╬ö-10, rebalanced)  geo 72.428 ΓåÆ 72.432  hed=87.10 lux=57.60 tex=70.60
+    Γÿà p3 Petitgrain EO: 167 ΓåÆ 177  (╬ö+10, rebalanced)  geo 72.432 ΓåÆ 72.462  hed=87.10 lux=57.80 tex=70.60
+    Γÿà p3 Heliotropal: 361 ΓåÆ 341  (╬ö-20, rebalanced)  geo 72.462 ΓåÆ 72.469  hed=87.10 lux=57.80 tex=70.60
+    Γÿà p3 Hexyl Salicylate: 969 ΓåÆ 989  (╬ö+20, rebalanced)  geo 72.469 ΓåÆ 72.496  hed=87.10 lux=57.80 tex=70.70
+  pass 3 complete  moves=15  t=16s  geo=72.496
+  pass 4 complete  moves=15  t=20s  geo=72.496
+
+  optimized geo: 72.496   ╬ö = +0.393   moves=15
+  axes baseline ΓåÆ optimized:
+    hedonic                87.10 ΓåÆ  87.10  (+0.00)
+    texture                70.60 ΓåÆ  70.70  (+0.10)
+    luxury                 56.80 ΓåÆ  57.80  (+1.00)
+    stacking_depth         80.00 ΓåÆ  80.00  (+0.00)
+    skin_performance       69.30 ΓåÆ  70.50  (+1.20)
+    longevity              66.20 ΓåÆ  66.80  (+0.60)
+    sillage                73.70 ΓåÆ  73.60  (-0.10)
+    synergy                64.00 ΓåÆ  64.00  (+0.00)
+    photorealism           85.60 ΓåÆ  85.80  (+0.20)
+    perceptual_clarity     86.80 ΓåÆ  87.00  (+0.20)
+
+==============================================================================
+  V6c: both (Helional free + Cashmeran ceil 300)
+==============================================================================
+  patches:  Helional floor=0.0  Cashmeran ceil=300.0
+  brief gate: OK
+  baseline geo: 72.103
+  start: geo=72.103  hed=87.10  lux=56.80  tex=70.60  depth=80.00  skin=69.30
+    Γÿà p1 Ethyl Safranate: 55 ΓåÆ 35  (╬ö-20, rebalanced)  geo 72.103 ΓåÆ 72.113  hed=87.10 lux=56.90 tex=70.60
+    Γÿà p1 Helional: 80 ΓåÆ 40  (╬ö-40, rebalanced)  geo 72.113 ΓåÆ 72.164  hed=87.20 lux=57.00 tex=70.50
+    Γÿà p1 Hedione HC: 2886 ΓåÆ 2876  (╬ö-10, rebalanced)  geo 72.164 ΓåÆ 72.174  hed=87.10 lux=57.00 tex=70.50
+    Γÿà p1 Alpha Irone: 1027 ΓåÆ 947  (╬ö-80, rebalanced)  geo 72.174 ΓåÆ 72.204  hed=87.20 lux=57.00 tex=70.60
+    Γÿà p1 Alpha Isomethyl Ionone: 558 ΓåÆ 478  (╬ö-80, rebalanced)  geo 72.204 ΓåÆ 72.238  hed=87.20 lux=57.20 tex=70.60
+    Γÿà p1 Orivone: 281 ΓåÆ 241  (╬ö-40, rebalanced)  geo 72.238 ΓåÆ 72.295  hed=87.20 lux=57.30 tex=70.70
+    Γÿà p1 Heliotropal: 282 ΓåÆ 362  (╬ö+80, rebalanced)  geo 72.295 ΓåÆ 72.322  hed=87.20 lux=57.40 tex=70.60
+    Γÿà p1 Hexyl Salicylate: 917 ΓåÆ 957  (╬ö+40, rebalanced)  geo 72.322 ΓåÆ 72.367  hed=87.10 lux=57.50 tex=70.60
+    Γÿà p1 Ebanol: 918 ΓåÆ 938  (╬ö+20, rebalanced)  geo 72.367 ΓåÆ 72.391  hed=87.10 lux=57.50 tex=70.60
+  pass 1 complete  moves=9  t=7s  geo=72.391
+    Γÿà p2 Helional: 40 ΓåÆ 20  (╬ö-20, rebalanced)  geo 72.391 ΓåÆ 72.420  hed=87.10 lux=57.60 tex=70.60
+    Γÿà p2 Cis Jasmone: 89 ΓåÆ 79  (╬ö-10, rebalanced)  geo 72.420 ΓåÆ 72.443  hed=87.20 lux=57.60 tex=70.60
+  pass 2 complete  moves=11  t=11s  geo=72.443
+  pass 3 complete  moves=11  t=15s  geo=72.443
+
+  optimized geo: 72.443   ╬ö = +0.340   moves=11
+  axes baseline ΓåÆ optimized:
+    hedonic                87.10 ΓåÆ  87.20  (+0.10)
+    texture                70.60 ΓåÆ  70.60  (+0.00)
+    luxury                 56.80 ΓåÆ  57.60  (+0.80)
+    stacking_depth         80.00 ΓåÆ  80.00  (+0.00)
+    skin_performance       69.30 ΓåÆ  70.20  (+0.90)
+    longevity              66.20 ΓåÆ  67.00  (+0.80)
+    sillage                73.70 ΓåÆ  73.60  (-0.10)
+    synergy                64.00 ΓåÆ  64.00  (+0.00)
+    photorealism           85.60 ΓåÆ  85.70  (+0.10)
+    perceptual_clarity     86.80 ΓåÆ  87.00  (+0.20)
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  SUMMARY  (v4=71.893 ┬╖ v5=72.496)
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  variant                                                     geo   ╬ö vs v5  texture  luxury
+  V6a: Helional floor ΓåÆ 0 (free it to zero out)            72.443    -0.053    70.60   57.60
+  V6b: Cashmeran ceil ΓåÆ 300 (blend, don't overdrive)       72.496    +0.000    70.70   57.80
+  V6c: both (Helional free + Cashmeran ceil 300)           72.443    -0.053    70.60   57.60
+
+  BEST: V6b: Cashmeran ceil ΓåÆ 300 (blend, don't overdrive)  (geo 72.496)
+  final ingredients (┬╡L of as-bottled):
+      Bergamot FCF oil Sicilian          496.6  (base   500.0  ╬ö   -3.4)
+    Γÿà Petitgrain EO                      177.5  (base   165.0  ╬ö  +12.5)
+      Aldehyde C12 MNA                   334.6  (base   330.0  ╬ö   +4.6)
+    Γÿà Ethyl Safranate                     35.4  (base    55.0  ╬ö  -19.6)
+    Γÿà Helional                            40.5  (base    80.0  ╬ö  -39.5)
+      Hedione HC                        2869.7  (base  2870.0  ╬ö   -0.3)
+      Cis Jasmone                         89.2  (base    88.0  ╬ö   +1.2)
+      Dihydrojasmone                      40.6  (base    40.0  ╬ö   +0.6)
+      Amyl Cinnamic Aldehyde              81.1  (base    80.0  ╬ö   +1.1)
+      Benzyl Acetate                     312.3  (base   308.0  ╬ö   +4.3)
+      Gamma Undecalactone                167.3  (base   165.0  ╬ö   +2.3)
+    Γÿà Alpha Irone                        946.2  (base  1020.0  ╬ö  -73.8)
+    Γÿà Alpha Isomethyl Ionone             474.2  (base   550.0  ╬ö  -75.8)
+    Γÿà Orivone                            238.3  (base   275.0  ╬ö  -36.7)
+    Γÿà Heliotropal                        340.0  (base   275.0  ╬ö  +65.0)
+      Ultralia                            44.6  (base    44.0  ╬ö   +0.6)
+      Cashmeran                          202.8  (base   200.0  ╬ö   +2.8)
+    Γÿà Hexyl Salicylate                   989.2  (base   900.0  ╬ö  +89.2)
+    Γÿà Ebanol                             939.6  (base   905.0  ╬ö  +34.6)
+    Γÿà Coumarin                           481.7  (base   475.0  ╬ö   +6.7)
+    Γÿà Musk Ketone                        390.4  (base   385.0  ╬ö   +5.4)
+    Γÿà Exaltolide                         446.2  (base   440.0  ╬ö   +6.2)
+    Γÿà Ambrettolide                       446.2  (base   440.0  ╬ö   +6.2)
+    Γÿà Ambrofix                           415.8  (base   410.0  ╬ö   +5.8)
+
+  ╬ú concentrate = 11000.0 ┬╡L
+
+  ΓåÆ _opt_iris_jasmine_luxe_v6_out.json

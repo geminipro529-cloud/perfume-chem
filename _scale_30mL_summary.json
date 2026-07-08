@@ -1,0 +1,79 @@
+{
+  "Photorealistic Iris": {
+    "batch_ml": 30.0,
+    "geo_15mL": 82.698,
+    "geo_30mL_scaled": 82.93,
+    "geo_30mL_optimized": 83.486,
+    "hill_climb_gain": 0.5559999999999974,
+    "nonlinear": {
+      "oav_abs_errors": 0,
+      "oav_abs_warnings": 1,
+      "oav_prop_errors": 0,
+      "oav_prop_warnings": 0,
+      "oav_prop_info": 1,
+      "dose_response_score": 100,
+      "overdosed": [],
+      "marginal": [
+        "Dihydromyrcenol"
+      ],
+      "subliminal": [
+        "Scentenal",
+        "Hedione HC",
+        "Cis Jasmone",
+        "Carrot Seed EO",
+        "Farnesol",
+        "Heliotropal",
+        "Musk Ketone",
+        "Azarbre",
+        "Exaltolide",
+        "Ambrettolide",
+        "IPM"
+      ],
+      "perceptual_half_life_hr": 24.0,
+      "longevity_hr": 24.0
+    },
+    "concentrate_ul": 7422.0
+  },
+  "Iris-Jasmine": {
+    "batch_ml": 30.0,
+    "geo_15mL": 81.053,
+    "geo_30mL_scaled": 81.498,
+    "geo_30mL_optimized": 82.268,
+    "hill_climb_gain": 0.769999999999996,
+    "nonlinear": {
+      "oav_abs_errors": 0,
+      "oav_abs_warnings": 2,
+      "oav_prop_errors": 0,
+      "oav_prop_warnings": 0,
+      "oav_prop_info": 2,
+      "dose_response_score": 90.0,
+      "overdosed": [],
+      "marginal": [
+        "Hedione",
+        "Ethylene Brassylate",
+        "Dihydromyrcenol"
+      ],
+      "subliminal": [
+        "Hedione HC",
+        "Methyl Benzoate",
+        "Benzyl Acetate",
+        "Paradisamide",
+        "Jasmine FO",
+        "Ylang Extra EO",
+        "Carrot Seed EO",
+        "Farnesol",
+        "Benzyl Salicylate",
+        "Koavone",
+        "Romandolide",
+        "Musk Ketone",
+        "Exaltolide",
+        "Ambrettolide",
+        "IPM",
+        "Benzyl Benzoate"
+      ],
+      "perceptual_half_life_hr": 24.0,
+      "longevity_hr": 24.0
+    },
+    "concentrate_ul": 8158.0
+  }
+}

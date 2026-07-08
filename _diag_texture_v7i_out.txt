@@ -1,0 +1,116 @@
+
+========== v7h ==========
+  geo (overall)     : 82.274
+  texture (engine)  : 73.8
+  texture (replay)  : 73.8
+  detected style    : iris_powdery
+  -- character dims (weighted by effective %) --
+    warmth              1.598
+    sweetness           1.596
+    freshness           2.724
+    powdery             1.581
+    green               0.448
+    animalic            0.046
+    radiance            2.693
+    woody               1.629
+    spicy               0.029
+    floral              3.052
+    smoky               0.109
+    creamy              1.959
+    transparency        4.354
+  -- derived tactile axes (clamped 0..10) --
+    roundness   1.74   crispness   2.92   dryness     1.12
+    silkiness   3.92   harshness   0.07
+  -- sub-components --
+    coherence   35.0 / 35   (rc_tension 1.18, sh_tension 3.85)
+    richness    14.0 / 25   (active facets > 2.0: 2)
+    fit          9.8 / 20   (style→iris_powdery)
+    balance     15.0 / 20
+    TOTAL       73.8 / 100
+  -- top contributors to silkiness ingredients (floral/creamy/transparency) --
+    [floral]
+      Hedione                              85.907
+      Ethyl Linalool                       43.796
+      Hedione HC                           40.427
+      Hydroxycitronellal                   35.374
+      Ethylene Brassylate                  19.371
+      Alpha Irone                          18.950
+    [creamy]
+      Ebanol                               60.641
+      Ethylene Brassylate                  38.743
+      Orivone                              22.740
+      Benzoin Resinoid                     21.898
+      Alpha Irone                          15.792
+      Hydroxycitronellal                   15.160
+    [transparency]
+      Hedione                              143.179
+      Hedione HC                           67.378
+      Ebanol                               53.060
+      Hydroxycitronellal                   35.374
+      Orivone                              18.950
+      Habanolide                           16.171
+
+========== v7i ==========
+  geo (overall)     : 82.083
+  texture (engine)  : 73.7
+  texture (replay)  : 73.7
+  detected style    : iris_powdery
+  -- character dims (weighted by effective %) --
+    warmth              1.677
+    sweetness           1.654
+    freshness           2.568
+    powdery             1.602
+    green               0.457
+    animalic            0.043
+    radiance            2.442
+    woody               1.626
+    spicy               0.028
+    floral              2.892
+    smoky               0.119
+    creamy              2.166
+    transparency        4.248
+  -- derived tactile axes (clamped 0..10) --
+    roundness   1.87   crispness   2.82   dryness     1.06
+    silkiness   3.88   harshness   0.07
+  -- sub-components --
+    coherence   35.0 / 35   (rc_tension 0.95, sh_tension 3.80)
+    richness    14.0 / 25   (active facets > 2.0: 2)
+    fit          9.7 / 20   (style→iris_powdery)
+    balance     15.0 / 20
+    TOTAL       73.7 / 100
+  -- top contributors to silkiness ingredients (floral/creamy/transparency) --
+    [floral]
+      Hedione                              71.325
+      Ethyl Linalool                       42.795
+      Hedione HC                           38.040
+      Hydroxycitronellal                   33.285
+      Ethylene Brassylate                  19.813
+      Alpha Irone                          17.831
+    [creamy]
+      Ebanol                               69.740
+      Ethylene Brassylate                  39.625
+      Benzoin Resinoid                     23.775
+      Orivone                              21.398
+      Alpha Irone                          14.859
+      Hydroxycitronellal                   14.265
+    [transparency]
+      Hedione                              118.875
+      Hedione HC                           63.400
+      Ebanol                               61.023
+      Hydroxycitronellal                   33.285
+      Hexyl Salicylate                     24.964
+      Orivone                              17.831
+
+========== SIDE-BY-SIDE Δ ==========
+  metric                       v7h       v7i         Δ
+  texture_engine             73.80     73.70     -0.10
+  roundness                   1.74      1.87     +0.13
+  crispness                   2.92      2.82     -0.10
+  dryness                     1.12      1.06     -0.06
+  silkiness                   3.92      3.88     -0.05
+  harshness                   0.07      0.07     +0.00
+  coherence                  35.00     35.00     +0.00
+  richness                   14.00     14.00     +0.00
+  fit                         9.80      9.69     -0.11
+  balance                    15.00     15.00     +0.00
+  style v7h=iris_powdery   style v7i=iris_powdery

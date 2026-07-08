@@ -1,0 +1,1387 @@
+- canonical_name: E-EDIBLE F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6EG18010
+    perfumersworld_price_usd_per_g: 0.12
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: E-Edible Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6EG08432
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ebanol
+  aliases:
+  - ebanol
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 220.4
+  density_25c_g_ml: null
+  logp: 3.3
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.08
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0004
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.68
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4WX07563
+    perfumersworld_price_usd_per_g: 0.76
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - woods / amber / structure
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Elemi EO
+  aliases:
+  - elemi eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Elemi Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7QC00902
+    perfumersworld_price_usd_per_g: 0.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Elemi Gum
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2CQ00168
+    perfumersworld_price_usd_per_g: 0.27
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Estragon Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7PH00170
+    perfumersworld_price_usd_per_g: 1.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethanol 96%
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - solvents / carriers
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Ethyl 2-Methylbutyrate
+  aliases:
+  - ethyl 2-methylbutyrate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4FD04118
+    perfumersworld_price_usd_per_g: 0.36
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5FD12135
+        price_usd_per_g: 0.07
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Acetate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 9FC01313
+    perfumersworld_price_usd_per_g: 0.05
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5FC12427
+        price_usd_per_g: 0.03
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Acetoacetate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FG00172
+    perfumersworld_price_usd_per_g: 0.08
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Amyl Ketone
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FY00173
+    perfumersworld_price_usd_per_g: 1.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Anthranilate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3NF03984
+    perfumersworld_price_usd_per_g: 0.37
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Benzoate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3NJ01315
+    perfumersworld_price_usd_per_g: 0.13
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5NJ12470
+        price_usd_per_g: 0.05
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Butyrate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FD00174
+    perfumersworld_price_usd_per_g: 0.08
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Isovalerate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FD02026
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Lactate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FD04102
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Levulinate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FH04104
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Linalool
+  aliases:
+  - ethyl linalool
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4LL11499
+    perfumersworld_price_usd_per_g: 0.19
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Linalyl Acetate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3LC19147
+    perfumersworld_price_usd_per_g: 0.28
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Maltol
+  aliases:
+  - ethyl maltol
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 140.1
+  density_25c_g_ml: null
+  logp: 0.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.02
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.85
+  ifra_max_pct_edp: null
+  user_stock_dilution: 10%
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 1VF00175
+    perfumersworld_price_usd_per_g: 0.48
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 1.0% in DPG
+        sku: 5VF07861
+        price_usd_per_g: 0.04
+      - form: 5.0% in DPG
+        sku: 5VF07531
+        price_usd_per_g: 0.09
+  families:
+  - sweet / gourmand / balsamic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Phenyl Acetate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3PF02759
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5PF07867
+        price_usd_per_g: 0.07
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Safranate
+  aliases:
+  - ethyl safranate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 166.2
+  density_25c_g_ml: null
+  logp: 2.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 3.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.005
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.1
+    TRPV1: 0.15
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.55
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4ES06848
+    perfumersworld_price_usd_per_g: 1.57
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5ES13018
+        price_usd_per_g: 0.2
+  families:
+  - spice / aromatic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Salicylate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3OP01253
+    perfumersworld_price_usd_per_g: 0.45
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5OP12472
+        price_usd_per_g: 0.06
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethyl Vanillin
+  aliases:
+  - ethyl vanillin
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 166.2
+  density_25c_g_ml: null
+  logp: 1.6
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.15
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0002
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.88
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 1VV00179
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5VV07559
+        price_usd_per_g: 0.07
+  families:
+  - sweet / gourmand / balsamic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ethylene Brassylate
+  aliases:
+  - ethylene brassylate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 270.4
+  density_25c_g_ml: null
+  logp: 4.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.008
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 8.0e-05
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.0
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.7
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3XU00180
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - musks
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Eucalyptol
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3BH00181
+    perfumersworld_price_usd_per_g: 0.21
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Eucalyptus Citriodora Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7CC00914
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Eucalyptus Citriodora Natural Blend
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6CA07765
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Eucalyptus Globulus Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7BH00182
+    perfumersworld_price_usd_per_g: 0.17
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Eugenol
+  aliases:
+  - eugenol
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 164.2
+  density_25c_g_ml: null
+  logp: 2.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 2.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.2
+    TRPV1: 0.5
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.45
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3SP00184
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - spice / aromatic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Evening Primrose Oil - Fixed Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZA01393
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Evernyl
+  aliases:
+  - evernyl
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 196.2
+  density_25c_g_ml: null
+  logp: 2.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.1
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0005
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.35
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 1YP00185
+    perfumersworld_price_usd_per_g: 0.52
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5YY07815
+        price_usd_per_g: 0.09
+  families:
+  - leather / smoky / phenolic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Exaltolide
+  aliases:
+  - exaltolide
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 240.4
+  density_25c_g_ml: null
+  logp: 5.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.015
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.00015
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.75
+  ifra_max_pct_edp: null
+  user_stock_dilution: 10%
+  user_in_inventory: true
+  supplier: null
+  families:
+  - musks
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Exaltolide Pentadecanolide
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2XX00186
+    perfumersworld_price_usd_per_g: 1.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5XX07862
+        price_usd_per_g: 0.15
+      - form: 50.0% in DPG
+        sku: 5XX08283
+        price_usd_per_g: 0.84
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

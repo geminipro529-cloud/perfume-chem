@@ -1,0 +1,156 @@
+{
+  "iris": {
+    "ingredients": {
+      "Bergamot FCF oil Sicilian": 100,
+      "Leafovert": 4,
+      "Ethyl Linalool": 70,
+      "Dihydromyrcenol": 170,
+      "Allyl Amyl Glycolate": 10,
+      "Scentenal": 12,
+      "Alpha Irone": 250,
+      "Myristic Acid": 750,
+      "Alpha Ionone": 40,
+      "Beta Ionone": 25,
+      "Dihydro Beta Ionone": 20,
+      "Orivone": 60,
+      "Hedione": 325,
+      "Hedione HC": 85,
+      "Cis Jasmone": 10,
+      "Carrot Seed EO": 30,
+      "Ultralia": 40,
+      "Cyclamen Aldehyde": 15,
+      "Farnesol": 5,
+      "Heliotropal": 40,
+      "Musk Ketone": 100,
+      "Koavone": 100,
+      "Azarbre": 50,
+      "Ebanol": 115,
+      "Iso E Super": 125,
+      "Habanolide": 335,
+      "Ethylene Brassylate": 190,
+      "Exaltolide": 150,
+      "Ambrettolide": 125,
+      "Ambrox Super": 50,
+      "IPM": 250,
+      "Paradisamide": 60,
+      "Cashmeran": 30
+    },
+    "dilutions": {
+      "Alpha Irone": 0.3,
+      "Scentenal": 0.01,
+      "Myristic Acid": 0.2,
+      "Musk Ketone": 0.1,
+      "Exaltolide": 0.1,
+      "Ambrettolide": 0.1,
+      "Ambrox Super": 0.3,
+      "Paradisamide": 0.1,
+      "Cashmeran": 0.2
+    },
+    "geo": 82.698,
+    "seeds": [
+      [
+        1,
+        82.698
+      ],
+      [
+        42,
+        82.16
+      ],
+      [
+        2026,
+        82.03
+      ]
+    ],
+    "detail": {
+      "longevity": 88.7,
+      "sillage": 92.6,
+      "luxury": 79.6,
+      "texture": 73.3,
+      "stacking_depth": 75.0,
+      "photorealism": 86.6,
+      "perceptual_clarity": 82.5,
+      "skin_performance": 76.0,
+      "synergy": 95,
+      "hedonic": 84.8
+    }
+  },
+  "iris_jasmine": {
+    "ingredients": {
+      "Bergamot FCF oil Sicilian": 140,
+      "Leafovert": 4,
+      "Allyl Amyl Glycolate": 8,
+      "Ethyl Linalool": 48,
+      "Alpha Irone": 310,
+      "Alpha Ionone": 35,
+      "Beta Ionone": 15,
+      "Alpha Isomethyl Ionone": 120,
+      "Irotyl": 35,
+      "Orivone": 55,
+      "Ultralia": 35,
+      "Myristic Acid": 500,
+      "Hedione": 620,
+      "Hedione HC": 95,
+      "Indole": 8,
+      "Methyl Benzoate": 25,
+      "Benzyl Acetate": 20,
+      "Paradisamide": 5,
+      "Jasmine FO": 35,
+      "Ylang Extra EO": 35,
+      "Carrot Seed EO": 20,
+      "Farnesol": 6,
+      "Benzyl Salicylate": 220,
+      "Hexyl Salicylate": 90,
+      "Ebanol": 115,
+      "Koavone": 20,
+      "Iso E Super": 130,
+      "Ethylene Brassylate": 320,
+      "Romandolide": 95,
+      "Musk Ketone": 150,
+      "Exaltolide": 180,
+      "Ambrettolide": 140,
+      "Ambrox Super": 40,
+      "IPM": 250,
+      "Benzyl Benzoate": 20,
+      "Dihydromyrcenol": 240,
+      "Cashmeran": 60
+    },
+    "dilutions": {
+      "Alpha Irone": 0.3,
+      "Myristic Acid": 0.2,
+      "Indole": 0.1,
+      "Paradisamide": 0.1,
+      "Musk Ketone": 0.1,
+      "Exaltolide": 0.1,
+      "Ambrettolide": 0.1,
+      "Ambrox Super": 0.3,
+      "Cashmeran": 0.2
+    },
+    "geo": 81.053,
+    "seeds": [
+      [
+        1,
+        81.053
+      ],
+      [
+        42,
+        80.987
+      ],
+      [
+        2026,
+        80.943
+      ]
+    ],
+    "detail": {
+      "longevity": 81.5,
+      "sillage": 95.5,
+      "luxury": 75.6,
+      "texture": 74.0,
+      "stacking_depth": 75.0,
+      "photorealism": 85.1,
+      "perceptual_clarity": 75.9,
+      "skin_performance": 76.2,
+      "synergy": 95,
+      "hedonic": 84.6
+    }
+  }
+}

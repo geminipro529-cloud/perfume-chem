@@ -1,0 +1,2716 @@
+- canonical_name: B-ICEBERG F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6BB18004
+    perfumersworld_price_usd_per_g: 0.12
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: B-Iceberg Fleuressence
+  aliases:
+  - B-iceBerg Fleuressence
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6BB07833
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bacdanol
+  aliases:
+  - bacdanol
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 208.3
+  density_25c_g_ml: null
+  logp: 3.6
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.7
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4WR00045
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - woods / amber / structure
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Banana F-TEC
+  aliases:
+  - BANANA F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6FD18188
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Banana Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6FD09062
+    perfumersworld_price_usd_per_g: 0.26
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bangkok 3-Weeks Foundation & Pro Workshops(english)wsbkall3
+  aliases:
+  - Bangkok 3-weeks Foundation & Pro Workshops(English)WSBKALL3
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: 3950.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: BASIL F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6PS18638
+    perfumersworld_price_usd_per_g: 0.38
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Basil Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6PS12413
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Basil Linalool Oil Egypt
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7PL24627
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bay West Indies Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7SP00048
+    perfumersworld_price_usd_per_g: 1.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5SP07871
+        price_usd_per_g: 0.15
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benjoin Laos Matured
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2QV23712
+    perfumersworld_price_usd_per_g: 0.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzaldehyde
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FN00049
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5FN07794
+        price_usd_per_g: 0.07
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzoin F-TEC
+  aliases:
+  - BENZOIN F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6QV18435
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzoin Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6QV09111
+    perfumersworld_price_usd_per_g: 0.35
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzoin Resinoid
+  aliases:
+  - benzoin resinoid
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 212.2
+  density_25c_g_ml: null
+  logp: 2.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.02
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.7
+  ifra_max_pct_edp: null
+  user_stock_dilution: 50% in DPG
+  user_in_inventory: true
+  supplier: null
+  families:
+  - sweet / gourmand / balsamic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Benzoin Siam Resinoid
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2QV00050
+    perfumersworld_price_usd_per_g: 0.7
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 50.0% in BB
+        sku: 5QV07505
+        price_usd_per_g: 0.4
+      - form: 50.0% in DPG
+        sku: 5QV13027
+        price_usd_per_g: 0.4
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzoin Sumatra Resinoid
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 10%
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 2QV08253
+    perfumersworld_price_usd_per_g: 0.4
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - sweet / gourmand / balsamic
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzophenone
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 1RP00051
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5RP09245
+        price_usd_per_g: 0.08
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Acetate
+  aliases:
+  - benzyl acetate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 150.2
+  density_25c_g_ml: null
+  logp: 2.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.75
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3JF00052
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Alcohol
+  aliases:
+  - benzyl alcohol
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Benzyl Alcohol (BA)
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZN00053
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Benzoate
+  aliases:
+  - benzyl benzoate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 212.2
+  density_25c_g_ml: null
+  logp: 4.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.35
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    mw_g_mol: engine.skin_interaction
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Benzyl Benzoate (BB)
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZN00054
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Butyrate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4JD00055
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Cinnamate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2SQ00056
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5SQ12479
+        price_usd_per_g: 0.1
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Formate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4JW00057
+    perfumersworld_price_usd_per_g: 0.84
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Isoeugenol
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 1SP00058
+    perfumersworld_price_usd_per_g: 0.7
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5SP12480
+        price_usd_per_g: 0.1
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Propionate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3JF00059
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Benzyl Salicylate
+  aliases:
+  - benzyl salicylate
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 228.3
+  density_25c_g_ml: null
+  logp: 3.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.03
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.0002
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.0
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.55
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3ON00060
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bergamot Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7CL00061
+    perfumersworld_price_usd_per_g: 0.35
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bergamot F-TEC
+  aliases:
+  - BERGAMOT F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6CL18898
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bergamot FCF
+  aliases:
+  - bergamot
+  - bergamot eo
+  - bergamot fcf
+  - Bergamot EO
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 148.0
+  density_25c_g_ml: null
+  logp: 2.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 40.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.025
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.1
+    TRPA1: 0.05
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.78
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Bergamot FCF Sicilian
+  aliases:
+  - bergamot fcf sicilian
+  - bergamot fcf oil sicilian
+  - Bergamot FCF oil Sicilian
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 148.0
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 40.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.025
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.1
+    TRPA1: 0.05
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.8
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 7CL24020
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bergamot Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6CL09058
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Berry Hexanoate (berryflor)
+  aliases:
+  - Berry Hexanoate (BerryFlor)
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FG19149
+    perfumersworld_price_usd_per_g: 1.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Beta Caryophyllene
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3WS00089
+    perfumersworld_price_usd_per_g: 0.14
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Beta Damascone
+  aliases:
+  - beta damascone
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 9IR00141
+    perfumersworld_price_usd_per_g: 3.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5IR07532
+        price_usd_per_g: 0.35
+  families: []
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Beta Homocyclocitral
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4BC11314
+    perfumersworld_price_usd_per_g: 7.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Beta Ionone
+  aliases:
+  - beta ionone
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 192.3
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 1.2
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.7
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3IF00238
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - iris / violet
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Beta Pinene
+  aliases:
+  - Beta-Pinene
+  - beta-Pinene
+  - beta pinene
+  cas: 127-91-3
+  smiles: CC1(C2CCC(=C)C1C2)C
+  inchikey: WTARULDDTDQWMU-UHFFFAOYSA-N
+  mw_g_mol: 136.23
+  density_25c_g_ml: null
+  logp: 3.1
+  functional_groups:
+  - monoterpene
+  - alkene
+  chirality: null
+  vp_25c_pa: 390.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 25.0
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: neat
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3KC00386
+    perfumersworld_price_usd_per_g: 0.06
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - terpene
+  - aromatic
+  - top
+  character: Pine-green, woody-fresh terpene lift; oxidation-sensitive.
+  notes: PubChem-backed beta-pinene identity; current inventory addition should resolve to this canonical entry.
+  provenance:
+    aliases: inventory.txt
+    cas: pubchem:Beta-Pinene
+    smiles: pubchem:Beta-Pinene
+    inchikey: pubchem:Beta-Pinene
+    mw_g_mol: pubchem:Beta-Pinene
+    logp: pubchem:Beta-Pinene
+    vp_25c_pa: manual:2026-04-29 optimizer physics override
+    odt_air_ppb: manual:2026-04-29 optimizer ODT override
+    user_stock_dilution: inventory.txt
+    user_in_inventory: inventory.txt
+    character: docs/dosing_reference.md
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Birch Tar
+  aliases:
+  - birch tar
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Birch Tar Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 5TP07825
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: 1.0% in DPG
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Birch Tar Oil Rectified
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7TP00822
+    perfumersworld_price_usd_per_g: 2.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5TP11094
+        price_usd_per_g: 0.25
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Birch Tar Rectified
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 124.1
+  density_25c_g_ml: null
+  logp: 2.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 6.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.1
+    TRPV1: 0.2
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.1
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - leather / smoky / phenolic
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Bitter Orange Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7CA00849
+    perfumersworld_price_usd_per_g: 0.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Black Agarwood Artificial
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6WU07708
+    perfumersworld_price_usd_per_g: 1.7
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Black Pepper EO
+  aliases:
+  - black pepper eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier: null
+  families: []
+  character: null
+  notes: null
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Black Pepper Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7SQ00359
+    perfumersworld_price_usd_per_g: 1.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: BLACK Pepper F-TEC
+  aliases:
+  - BLACK PEPPER F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6SH18444
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Black Pepper Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6SH09677
+    perfumersworld_price_usd_per_g: 0.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Black Pepper FTEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - spice / aromatic
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Black Tea Base
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6HE09224
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Blackcurrant Absolute
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8FB00063
+    perfumersworld_price_usd_per_g: 8.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5FB20096
+        price_usd_per_g: 0.64
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Blackcurrant F-TEC
+  aliases:
+  - BLACKCURRANT F-TEC
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6FB18179
+    perfumersworld_price_usd_per_g: 0.32
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Blackcurrant Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6FB09427
+    perfumersworld_price_usd_per_g: 0.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Blackcurrant FTEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier: null
+  families:
+  - spice / aromatic
+  character: null
+  notes: null
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Blood Orange Sicilian
+  aliases:
+  - blood orange sicilian
+  - Blood Orange oil Sicilian
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.2
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 180.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.048
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.05
+    TRPA1: 0.05
+    TRPV1: 0.0
+    TRPV3: null
+    nasal_pungency: null
+  hedonic_valence: 0.8
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 7CA24032
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - citrus / top
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Blue Chamomile Essential Oil
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7HF00102
+    perfumersworld_price_usd_per_g: 2.12
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5HF07844
+        price_usd_per_g: 0.24
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: BOIS DE ROSE F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6LW18324
+    perfumersworld_price_usd_per_g: 0.16
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bois De Rose Fleuressence
+  aliases:
+  - Bois de Rose Fleuressence
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6LW12346
+    perfumersworld_price_usd_per_g: 0.27
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bonding Concentrateb
+  aliases:
+  - Bonding ConcentrateB
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: ON06020
+    perfumersworld_price_usd_per_g: 5.02
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bonding Factorb
+  aliases:
+  - Bonding FactorB
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: ON06021
+    perfumersworld_price_usd_per_g: 0.52
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Borneol
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 1BW00064
+    perfumersworld_price_usd_per_g: 0.14
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 50.0% in DPG
+        sku: 5BW12462
+        price_usd_per_g: 0.07
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Bourgeonal
+  aliases:
+  - bourgeonal
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 204.3
+  density_25c_g_ml: null
+  logp: 2.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 1.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.68
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4MA00067
+    perfumersworld_price_usd_per_g: 0.52
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5MA12469
+        price_usd_per_g: 0.09
+  families:
+  - floral materials
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: BROOM F-TEC
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NL18792
+    perfumersworld_price_usd_per_g: 0.17
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Broom Fleuressence
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NL08427
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Buccoxime
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 1FB00071
+    perfumersworld_price_usd_per_g: 2.8
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5FB07818
+        price_usd_per_g: 0.32
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Butyl Butyrate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3FD05860
+    perfumersworld_price_usd_per_g: 0.11
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Butyl Isovalerate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FD05871
+    perfumersworld_price_usd_per_g: 0.24
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Butyl Salicylate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3OH00073
+    perfumersworld_price_usd_per_g: 0.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Butylated Hydroxytoluene (BHT) Antioxidant
+  aliases:
+  - Butylated Hydroxytoluene (BHT) antioxidant
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZP03359
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character: null
+  notes: null
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

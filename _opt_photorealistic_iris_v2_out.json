@@ -1,0 +1,2279 @@
+{
+  "current_baseline": {
+    "objective": 77.62969652479471,
+    "geo": 75.95605647523075,
+    "detail": {
+      "longevity": 91.4,
+      "sillage": 81.2,
+      "synergy": 95,
+      "luxury": 39.6,
+      "texture": 80.9,
+      "stacking_depth": 75.0,
+      "skin_performance": 77.6,
+      "hedonic": 84.4,
+      "perceptual_clarity": 76.2,
+      "photorealism": 87.1,
+      "arithmetic_total": 77.9,
+      "geometric_total": 75.9,
+      "_radar": {
+        "warmth": 1.63,
+        "sweetness": 0.7,
+        "freshness": 2.51,
+        "powdery": 2.09,
+        "green": 0.44,
+        "animalic": 0.05,
+        "radiance": 3.23,
+        "woody": 2.65,
+        "spicy": 0.0,
+        "floral": 2.54,
+        "smoky": 0.0,
+        "creamy": 1.87,
+        "transparency": 5.59
+      },
+      "_style_fingerprint": {
+        "dominant_style": "iris_powdery",
+        "primary_candidate": {
+          "style": "iris_powdery",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.6,
+          "signals": {
+            "matched_keywords": [
+              "ionone",
+              "irone",
+              "orivone",
+              "ultralia"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "beta ionone",
+              "cashmeran",
+              "musk ketone",
+              "orivone",
+              "ultralia"
+            ],
+            "balance_target": [
+              8,
+              42,
+              50
+            ],
+            "balance_score": 87.1,
+            "positive_dims": {
+              "powdery": 2.09,
+              "floral": 2.54,
+              "creamy": 1.87,
+              "radiance": 3.23,
+              "warmth": 1.63
+            },
+            "negative_dims": {
+              "green": 0.44,
+              "animalic": 0.05,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        },
+        "style_candidates": [
+          {
+            "style": "iris_powdery",
+            "kind": "style",
+            "score": 100.0,
+            "confidence": 0.6,
+            "signals": {
+              "matched_keywords": [
+                "ionone",
+                "irone",
+                "orivone",
+                "ultralia"
+              ],
+              "matched_anchors": [
+                "alpha irone",
+                "beta ionone",
+                "cashmeran",
+                "musk ketone",
+                "orivone",
+                "ultralia"
+              ],
+              "balance_target": [
+                8,
+                42,
+                50
+              ],
+              "balance_score": 87.1,
+              "positive_dims": {
+                "powdery": 2.09,
+                "floral": 2.54,
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "warmth": 1.63
+              },
+              "negative_dims": {
+                "green": 0.44,
+                "animalic": 0.05,
+                "smoky": 0.0
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "iris_crystalline",
+            "kind": "style",
+            "score": 100.0,
+            "confidence": 0.55,
+            "signals": {
+              "matched_keywords": [
+                "irone"
+              ],
+              "matched_anchors": [
+                "alpha irone",
+                "cyclamen aldehyde",
+                "hedione",
+                "iso e super",
+                "scentenal"
+              ],
+              "balance_target": [
+                12,
+                38,
+                50
+              ],
+              "balance_score": 92.9,
+              "positive_dims": {
+                "transparency": 5.59,
+                "radiance": 3.23,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "floral": 2.54
+              },
+              "negative_dims": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "creamy": 1.87,
+                "animalic": 0.05,
+                "smoky": 0.0
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "classical",
+            "kind": "style",
+            "score": 82.3,
+            "confidence": 0.45,
+            "signals": {
+              "matched_keywords": [],
+              "matched_anchors": [
+                "ambrox",
+                "hedione",
+                "iso e super"
+              ],
+              "balance_target": [
+                20,
+                40,
+                40
+              ],
+              "balance_score": 74.7,
+              "positive_dims": {
+                "freshness": 2.51,
+                "floral": 2.54,
+                "woody": 2.65,
+                "radiance": 3.23
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "skin_scent",
+            "kind": "style",
+            "score": 81.5,
+            "confidence": 0.45,
+            "signals": {
+              "matched_keywords": [
+                "musk"
+              ],
+              "matched_anchors": [
+                "ambrox",
+                "cashmeran",
+                "ethylene brassylate",
+                "habanolide",
+                "iso e super"
+              ],
+              "balance_target": [
+                10,
+                55,
+                35
+              ],
+              "balance_score": 59.0,
+              "positive_dims": {
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "warmth": 1.63
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          }
+        ],
+        "category_candidates": [
+          {
+            "style": "musky",
+            "kind": "category",
+            "score": 79.8,
+            "confidence": 0.44,
+            "signals": {
+              "matched_keywords": [
+                "musk"
+              ],
+              "matched_anchors": [
+                "ambrettolide",
+                "ethylene brassylate",
+                "habanolide",
+                "musk ketone"
+              ],
+              "balance_target": [
+                10,
+                50,
+                40
+              ],
+              "balance_score": 69.6,
+              "positive_dims": {
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "woody": 2.65
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          }
+        ],
+        "candidates": [
+          {
+            "style": "iris_powdery",
+            "kind": "style",
+            "score": 100.0,
+            "confidence": 0.6,
+            "signals": {
+              "matched_keywords": [
+                "ionone",
+                "irone",
+                "orivone",
+                "ultralia"
+              ],
+              "matched_anchors": [
+                "alpha irone",
+                "beta ionone",
+                "cashmeran",
+                "musk ketone",
+                "orivone",
+                "ultralia"
+              ],
+              "balance_target": [
+                8,
+                42,
+                50
+              ],
+              "balance_score": 87.1,
+              "positive_dims": {
+                "powdery": 2.09,
+                "floral": 2.54,
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "warmth": 1.63
+              },
+              "negative_dims": {
+                "green": 0.44,
+                "animalic": 0.05,
+                "smoky": 0.0
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "iris_crystalline",
+            "kind": "style",
+            "score": 100.0,
+            "confidence": 0.55,
+            "signals": {
+              "matched_keywords": [
+                "irone"
+              ],
+              "matched_anchors": [
+                "alpha irone",
+                "cyclamen aldehyde",
+                "hedione",
+                "iso e super",
+                "scentenal"
+              ],
+              "balance_target": [
+                12,
+                38,
+                50
+              ],
+              "balance_score": 92.9,
+              "positive_dims": {
+                "transparency": 5.59,
+                "radiance": 3.23,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "floral": 2.54
+              },
+              "negative_dims": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "creamy": 1.87,
+                "animalic": 0.05,
+                "smoky": 0.0
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "classical",
+            "kind": "style",
+            "score": 82.3,
+            "confidence": 0.45,
+            "signals": {
+              "matched_keywords": [],
+              "matched_anchors": [
+                "ambrox",
+                "hedione",
+                "iso e super"
+              ],
+              "balance_target": [
+                20,
+                40,
+                40
+              ],
+              "balance_score": 74.7,
+              "positive_dims": {
+                "freshness": 2.51,
+                "floral": 2.54,
+                "woody": 2.65,
+                "radiance": 3.23
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "skin_scent",
+            "kind": "style",
+            "score": 81.5,
+            "confidence": 0.45,
+            "signals": {
+              "matched_keywords": [
+                "musk"
+              ],
+              "matched_anchors": [
+                "ambrox",
+                "cashmeran",
+                "ethylene brassylate",
+                "habanolide",
+                "iso e super"
+              ],
+              "balance_target": [
+                10,
+                55,
+                35
+              ],
+              "balance_score": 59.0,
+              "positive_dims": {
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "warmth": 1.63
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          },
+          {
+            "style": "musky",
+            "kind": "category",
+            "score": 79.8,
+            "confidence": 0.44,
+            "signals": {
+              "matched_keywords": [
+                "musk"
+              ],
+              "matched_anchors": [
+                "ambrettolide",
+                "ethylene brassylate",
+                "habanolide",
+                "musk ketone"
+              ],
+              "balance_target": [
+                10,
+                50,
+                40
+              ],
+              "balance_score": 69.6,
+              "positive_dims": {
+                "creamy": 1.87,
+                "radiance": 3.23,
+                "woody": 2.65
+              },
+              "negative_dims": {
+                "smoky": 0.0,
+                "animalic": 0.05
+              },
+              "radar": {
+                "warmth": 1.63,
+                "sweetness": 0.7,
+                "freshness": 2.51,
+                "powdery": 2.09,
+                "green": 0.44,
+                "animalic": 0.05,
+                "radiance": 3.23,
+                "woody": 2.65,
+                "spicy": 0.0,
+                "floral": 2.54,
+                "smoky": 0.0,
+                "creamy": 1.87,
+                "transparency": 5.59
+              },
+              "note_distribution": {
+                "top": 11.4,
+                "heart": 35.0,
+                "base": 53.6
+              }
+            }
+          }
+        ],
+        "radar": {
+          "warmth": 1.63,
+          "sweetness": 0.7,
+          "freshness": 2.51,
+          "powdery": 2.09,
+          "green": 0.44,
+          "animalic": 0.05,
+          "radiance": 3.23,
+          "woody": 2.65,
+          "spicy": 0.0,
+          "floral": 2.54,
+          "smoky": 0.0,
+          "creamy": 1.87,
+          "transparency": 5.59
+        },
+        "note_distribution": {
+          "top": 11.4,
+          "heart": 35.0,
+          "base": 53.6
+        },
+        "ingredient_count": 34,
+        "has_dilution_data": true
+      },
+      "_style_candidates": [
+        {
+          "style": "iris_powdery",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.6,
+          "signals": {
+            "matched_keywords": [
+              "ionone",
+              "irone",
+              "orivone",
+              "ultralia"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "beta ionone",
+              "cashmeran",
+              "musk ketone",
+              "orivone",
+              "ultralia"
+            ],
+            "balance_target": [
+              8,
+              42,
+              50
+            ],
+            "balance_score": 87.1,
+            "positive_dims": {
+              "powdery": 2.09,
+              "floral": 2.54,
+              "creamy": 1.87,
+              "radiance": 3.23,
+              "warmth": 1.63
+            },
+            "negative_dims": {
+              "green": 0.44,
+              "animalic": 0.05,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        },
+        {
+          "style": "iris_crystalline",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [
+              "irone"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "cyclamen aldehyde",
+              "hedione",
+              "iso e super",
+              "scentenal"
+            ],
+            "balance_target": [
+              12,
+              38,
+              50
+            ],
+            "balance_score": 92.9,
+            "positive_dims": {
+              "transparency": 5.59,
+              "radiance": 3.23,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "floral": 2.54
+            },
+            "negative_dims": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "creamy": 1.87,
+              "animalic": 0.05,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        },
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 82.3,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 74.7,
+            "positive_dims": {
+              "freshness": 2.51,
+              "floral": 2.54,
+              "woody": 2.65,
+              "radiance": 3.23
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.05
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        },
+        {
+          "style": "skin_scent",
+          "kind": "style",
+          "score": 81.5,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrox",
+              "cashmeran",
+              "ethylene brassylate",
+              "habanolide",
+              "iso e super"
+            ],
+            "balance_target": [
+              10,
+              55,
+              35
+            ],
+            "balance_score": 59.0,
+            "positive_dims": {
+              "creamy": 1.87,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "warmth": 1.63
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.05
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        },
+        {
+          "style": "musky",
+          "kind": "category",
+          "score": 79.8,
+          "confidence": 0.44,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrettolide",
+              "ethylene brassylate",
+              "habanolide",
+              "musk ketone"
+            ],
+            "balance_target": [
+              10,
+              50,
+              40
+            ],
+            "balance_score": 69.6,
+            "positive_dims": {
+              "creamy": 1.87,
+              "radiance": 3.23,
+              "woody": 2.65
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.05
+            },
+            "radar": {
+              "warmth": 1.63,
+              "sweetness": 0.7,
+              "freshness": 2.51,
+              "powdery": 2.09,
+              "green": 0.44,
+              "animalic": 0.05,
+              "radiance": 3.23,
+              "woody": 2.65,
+              "spicy": 0.0,
+              "floral": 2.54,
+              "smoky": 0.0,
+              "creamy": 1.87,
+              "transparency": 5.59
+            },
+            "note_distribution": {
+              "top": 11.4,
+              "heart": 35.0,
+              "base": 53.6
+            }
+          }
+        }
+      ],
+      "_science": {
+        "skin": {
+          "reservoir_score": 98.8,
+          "substantivity_score": 66.1,
+          "diagnostics": [
+            "Blooming materials (Iso-E-effect): Habanolide, Ethylene Brassylate, Exaltolide, Ambrox Super"
+          ]
+        },
+        "hedonic": {
+          "valence": 0.658,
+          "pleasantness": "pleasant",
+          "diagnostics": [
+            "Hedonic class: pleasant (mean valence +0.66)",
+            "\u2713 >80% of formula mass is hedonically pleasant"
+          ]
+        },
+        "psychophysics": {
+          "perceptible": 17,
+          "suppression": "high",
+          "anosmia_risk": [
+            {
+              "material": "Alpha Irone",
+              "receptor": "OR5A1",
+              "prevalence": 0.06,
+              "severity": "hyposmia",
+              "mass_uL": 2379.0
+            },
+            {
+              "material": "Alpha Ionone",
+              "receptor": "OR5A1",
+              "prevalence": 0.08,
+              "severity": "hyposmia",
+              "mass_uL": 417.4
+            },
+            {
+              "material": "Beta Ionone",
+              "receptor": "OR5A1",
+              "prevalence": 0.08,
+              "severity": "hyposmia",
+              "mass_uL": 260.9
+            },
+            {
+              "material": "Iso E Super",
+              "receptor": "OR11H7P",
+              "prevalence": 0.2,
+              "severity": "hyposmia",
+              "mass_uL": 3547.7
+            },
+            {
+              "material": "Habanolide",
+              "receptor": "OR2J3",
+              "prevalence": 0.08,
+              "severity": "hyposmia",
+              "mass_uL": 3026.0
+            },
+            {
+              "material": "Ethylene Brassylate",
+              "receptor": "OR2J3",
+              "prevalence": 0.06,
+              "severity": "hyposmia",
+              "mass_uL": 1982.5
+            },
+            {
+              "material": "Exaltolide",
+              "receptor": "OR2J3",
+              "prevalence": 0.07,
+              "severity": "hyposmia",
+              "mass_uL": 156.5
+            },
+            {
+              "material": "Ambrox Super",
+              "receptor": "OR4D6",
+              "prevalence": 0.05,
+              "severity": "hyposmia",
+              "mass_uL": 125.2
+            }
+          ],
+          "diagnostics": [
+            "Perceptual channels: 17 (8 cross-adaptation groups + 9 solo materials) from 34 ingredients",
+            "Channel model: 25 materials collapsed into 8 group channels (Laing ceiling applies to channels, not ingredients)",
+            "Active receptor groups (6 with 2+ members):",
+            "  \u2022 terpene_alcohol: Dihydromyrcenol, Ethyl Linalool (2 \u2192 1 channel)",
+            "  \u2022 aldehyde_aromatic: Cyclamen Aldehyde, Scentenal (2 \u2192 1 channel)",
+            "  \u2022 ionone_family: Alpha Ionone, Beta Ionone, Alpha Irone, Ultralia, Alpha Isomethyl Ionone, Dihydro Beta Ionone, Orivone (7 \u2192 1 channel)",
+            "  \u2022 musk: Habanolide, Exaltolide, Ethylene Brassylate, Cashmeran, Musk Ketone (5 \u2192 1 channel)",
+            "  \u2022 woody_amber: Iso E Super, Koavone, Carrot Seed EO, Ebanol, Ambrox Super (5 \u2192 1 channel)",
+            "  \u2022 jasmine: Hedione, Hedione, Cis Jasmone (3 \u2192 1 channel)",
+            "Genetic anosmia risk: 4.3% of formula mass affected by OR variants",
+            "  \u2022 Alpha Irone: 6% population (hyposmia, OR5A1)",
+            "  \u2022 Alpha Ionone: 8% population (hyposmia, OR5A1)",
+            "  \u2022 Beta Ionone: 8% population (hyposmia, OR5A1)",
+            "  \u2022 Iso E Super: 20% population (hyposmia, OR11H7P)",
+            "  \u2022 Habanolide: 8% population (hyposmia, OR2J3)",
+            "  \u2022 Ethylene Brassylate: 6% population (hyposmia, OR2J3)",
+            "  \u2022 Exaltolide: 7% population (hyposmia, OR2J3)",
+            "  \u2022 Ambrox Super: 5% population (hyposmia, OR4D6)",
+            "Distinctiveness index: 0.37"
+          ]
+        },
+        "trigeminal": {
+          "dominant": "cooling",
+          "diagnostics": [
+            "\u2139 Subtle cooling chemesthetic undertone"
+          ]
+        },
+        "dose_response": {
+          "overdosed": [
+            {
+              "material": "Cyclamen Aldehyde",
+              "conc_pct": 0.5217,
+              "character": "sharp, chemical, metallic overload",
+              "quality": "negative"
+            }
+          ],
+          "character_map": {
+            "Ethyl Linalool": "transparent terpene-ether, floral body",
+            "Dihydromyrcenol": "waxy-terpenic, adaptation residual",
+            "Scentenal": "metallic green ozone, mineral",
+            "Hedione": "dominant jasmine-hedione character",
+            "Cyclamen Aldehyde": "sharp, chemical, metallic overload",
+            "Heliotropal": "full heliotrope, cherry-almond, violet-powder",
+            "Musk Ketone": "powdery, sweet musk, cosmetic",
+            "Iso E Super": "dominant abstract-wood, monotone",
+            "Ethylene Brassylate": "powdery musk, gentle fixative",
+            "Paradisamide": "passion fruit, cassis, rhubarb",
+            "Cashmeran": "woody-musky warmth, cashmere"
+          },
+          "diagnostics": [
+            "\u26a0 OVERDOSED: Cyclamen Aldehyde (0.522%: sharp, chemical, metallic overload)",
+            "\u2713 7 material(s) in optimal character zone",
+            "\u2139 Near character-shift boundary: Ethyl Linalool, Dihydromyrcenol, Heliotropal \u2014 small dose changes could shift perceived character"
+          ]
+        },
+        "diffusion": {
+          "sillage_class": "moderate",
+          "field_pct": {
+            "far": 6.9,
+            "mid": 66.8,
+            "near": 26.3
+          },
+          "diagnostics": [
+            "Field distribution: far=7% | mid=67% | near=26%",
+            "MW spread: 140 Da (154\u2013294)",
+            "Sillage class: moderate",
+            "Projection index (mean Kaw): 0.00200",
+            "Far-field: Leafovert, Dihydromyrcenol, Allyl Amyl Glycolate, Scentenal",
+            "Mid-field: Alpha Irone, Alpha Ionone, Beta Ionone, Orivone, Hedione",
+            "Near-field: Musk Ketone, Azarbre, Habanolide, Ethylene Brassylate, Exaltolide"
+          ]
+        }
+      },
+      "total": 75.9
+    },
+    "concentrate_ul": 4441.0
+  },
+  "selected_seed": "current_no_hc_seed",
+  "objective": 83.34274077257285,
+  "geo": 75.77231933784908,
+  "detail": {
+    "longevity": 90.5,
+    "sillage": 84.4,
+    "synergy": 95,
+    "luxury": 41.2,
+    "texture": 80.9,
+    "stacking_depth": 75.0,
+    "skin_performance": 75.4,
+    "hedonic": 84.4,
+    "perceptual_clarity": 74.4,
+    "photorealism": 85.1,
+    "arithmetic_total": 77.8,
+    "geometric_total": 76.0,
+    "_radar": {
+      "warmth": 1.5,
+      "sweetness": 0.76,
+      "freshness": 2.52,
+      "powdery": 2.26,
+      "green": 0.49,
+      "animalic": 0.04,
+      "radiance": 2.97,
+      "woody": 2.55,
+      "spicy": 0.0,
+      "floral": 2.79,
+      "smoky": 0.0,
+      "creamy": 1.82,
+      "transparency": 5.17
+    },
+    "_style_fingerprint": {
+      "dominant_style": "iris_powdery",
+      "primary_candidate": {
+        "style": "iris_powdery",
+        "kind": "style",
+        "score": 100.0,
+        "confidence": 0.6,
+        "signals": {
+          "matched_keywords": [
+            "ionone",
+            "irone",
+            "orivone",
+            "ultralia",
+            "violet"
+          ],
+          "matched_anchors": [
+            "alpha irone",
+            "beta ionone",
+            "musk ketone",
+            "orivone",
+            "ultralia"
+          ],
+          "balance_target": [
+            8,
+            42,
+            50
+          ],
+          "balance_score": 91.0,
+          "positive_dims": {
+            "powdery": 2.26,
+            "floral": 2.79,
+            "creamy": 1.82,
+            "radiance": 2.97,
+            "warmth": 1.5
+          },
+          "negative_dims": {
+            "green": 0.49,
+            "animalic": 0.04,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      },
+      "style_candidates": [
+        {
+          "style": "iris_powdery",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.6,
+          "signals": {
+            "matched_keywords": [
+              "ionone",
+              "irone",
+              "orivone",
+              "ultralia",
+              "violet"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "beta ionone",
+              "musk ketone",
+              "orivone",
+              "ultralia"
+            ],
+            "balance_target": [
+              8,
+              42,
+              50
+            ],
+            "balance_score": 91.0,
+            "positive_dims": {
+              "powdery": 2.26,
+              "floral": 2.79,
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "warmth": 1.5
+            },
+            "negative_dims": {
+              "green": 0.49,
+              "animalic": 0.04,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "iris_crystalline",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [
+              "irone"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "cyclamen aldehyde",
+              "hedione",
+              "iso e super",
+              "scentenal"
+            ],
+            "balance_target": [
+              12,
+              38,
+              50
+            ],
+            "balance_score": 98.1,
+            "positive_dims": {
+              "transparency": 5.17,
+              "radiance": 2.97,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "floral": 2.79
+            },
+            "negative_dims": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "creamy": 1.82,
+              "animalic": 0.04,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 84.5,
+          "confidence": 0.46,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 82.5,
+            "positive_dims": {
+              "freshness": 2.52,
+              "floral": 2.79,
+              "woody": 2.55,
+              "radiance": 2.97
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "skin_scent",
+          "kind": "style",
+          "score": 83.0,
+          "confidence": 0.46,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrox",
+              "ethylene brassylate",
+              "habanolide",
+              "iso e super"
+            ],
+            "balance_target": [
+              10,
+              55,
+              35
+            ],
+            "balance_score": 67.2,
+            "positive_dims": {
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "warmth": 1.5
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        }
+      ],
+      "category_candidates": [
+        {
+          "style": "musky",
+          "kind": "category",
+          "score": 81.5,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrettolide",
+              "ethylene brassylate",
+              "habanolide",
+              "musk ketone"
+            ],
+            "balance_target": [
+              10,
+              50,
+              40
+            ],
+            "balance_score": 77.6,
+            "positive_dims": {
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "woody": 2.55
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "style": "iris_powdery",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.6,
+          "signals": {
+            "matched_keywords": [
+              "ionone",
+              "irone",
+              "orivone",
+              "ultralia",
+              "violet"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "beta ionone",
+              "musk ketone",
+              "orivone",
+              "ultralia"
+            ],
+            "balance_target": [
+              8,
+              42,
+              50
+            ],
+            "balance_score": 91.0,
+            "positive_dims": {
+              "powdery": 2.26,
+              "floral": 2.79,
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "warmth": 1.5
+            },
+            "negative_dims": {
+              "green": 0.49,
+              "animalic": 0.04,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "iris_crystalline",
+          "kind": "style",
+          "score": 100.0,
+          "confidence": 0.55,
+          "signals": {
+            "matched_keywords": [
+              "irone"
+            ],
+            "matched_anchors": [
+              "alpha irone",
+              "cyclamen aldehyde",
+              "hedione",
+              "iso e super",
+              "scentenal"
+            ],
+            "balance_target": [
+              12,
+              38,
+              50
+            ],
+            "balance_score": 98.1,
+            "positive_dims": {
+              "transparency": 5.17,
+              "radiance": 2.97,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "floral": 2.79
+            },
+            "negative_dims": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "creamy": 1.82,
+              "animalic": 0.04,
+              "smoky": 0.0
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "classical",
+          "kind": "style",
+          "score": 84.5,
+          "confidence": 0.46,
+          "signals": {
+            "matched_keywords": [],
+            "matched_anchors": [
+              "ambrox",
+              "hedione",
+              "iso e super"
+            ],
+            "balance_target": [
+              20,
+              40,
+              40
+            ],
+            "balance_score": 82.5,
+            "positive_dims": {
+              "freshness": 2.52,
+              "floral": 2.79,
+              "woody": 2.55,
+              "radiance": 2.97
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "skin_scent",
+          "kind": "style",
+          "score": 83.0,
+          "confidence": 0.46,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrox",
+              "ethylene brassylate",
+              "habanolide",
+              "iso e super"
+            ],
+            "balance_target": [
+              10,
+              55,
+              35
+            ],
+            "balance_score": 67.2,
+            "positive_dims": {
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "warmth": 1.5
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        },
+        {
+          "style": "musky",
+          "kind": "category",
+          "score": 81.5,
+          "confidence": 0.45,
+          "signals": {
+            "matched_keywords": [
+              "musk"
+            ],
+            "matched_anchors": [
+              "ambrettolide",
+              "ethylene brassylate",
+              "habanolide",
+              "musk ketone"
+            ],
+            "balance_target": [
+              10,
+              50,
+              40
+            ],
+            "balance_score": 77.6,
+            "positive_dims": {
+              "creamy": 1.82,
+              "radiance": 2.97,
+              "woody": 2.55
+            },
+            "negative_dims": {
+              "smoky": 0.0,
+              "animalic": 0.04
+            },
+            "radar": {
+              "warmth": 1.5,
+              "sweetness": 0.76,
+              "freshness": 2.52,
+              "powdery": 2.26,
+              "green": 0.49,
+              "animalic": 0.04,
+              "radiance": 2.97,
+              "woody": 2.55,
+              "spicy": 0.0,
+              "floral": 2.79,
+              "smoky": 0.0,
+              "creamy": 1.82,
+              "transparency": 5.17
+            },
+            "note_distribution": {
+              "top": 12.7,
+              "heart": 38.4,
+              "base": 49.0
+            }
+          }
+        }
+      ],
+      "radar": {
+        "warmth": 1.5,
+        "sweetness": 0.76,
+        "freshness": 2.52,
+        "powdery": 2.26,
+        "green": 0.49,
+        "animalic": 0.04,
+        "radiance": 2.97,
+        "woody": 2.55,
+        "spicy": 0.0,
+        "floral": 2.79,
+        "smoky": 0.0,
+        "creamy": 1.82,
+        "transparency": 5.17
+      },
+      "note_distribution": {
+        "top": 12.7,
+        "heart": 38.4,
+        "base": 49.0
+      },
+      "ingredient_count": 34,
+      "has_dilution_data": true
+    },
+    "_style_candidates": [
+      {
+        "style": "iris_powdery",
+        "kind": "style",
+        "score": 100.0,
+        "confidence": 0.6,
+        "signals": {
+          "matched_keywords": [
+            "ionone",
+            "irone",
+            "orivone",
+            "ultralia",
+            "violet"
+          ],
+          "matched_anchors": [
+            "alpha irone",
+            "beta ionone",
+            "musk ketone",
+            "orivone",
+            "ultralia"
+          ],
+          "balance_target": [
+            8,
+            42,
+            50
+          ],
+          "balance_score": 91.0,
+          "positive_dims": {
+            "powdery": 2.26,
+            "floral": 2.79,
+            "creamy": 1.82,
+            "radiance": 2.97,
+            "warmth": 1.5
+          },
+          "negative_dims": {
+            "green": 0.49,
+            "animalic": 0.04,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      },
+      {
+        "style": "iris_crystalline",
+        "kind": "style",
+        "score": 100.0,
+        "confidence": 0.55,
+        "signals": {
+          "matched_keywords": [
+            "irone"
+          ],
+          "matched_anchors": [
+            "alpha irone",
+            "cyclamen aldehyde",
+            "hedione",
+            "iso e super",
+            "scentenal"
+          ],
+          "balance_target": [
+            12,
+            38,
+            50
+          ],
+          "balance_score": 98.1,
+          "positive_dims": {
+            "transparency": 5.17,
+            "radiance": 2.97,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "floral": 2.79
+          },
+          "negative_dims": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "creamy": 1.82,
+            "animalic": 0.04,
+            "smoky": 0.0
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      },
+      {
+        "style": "classical",
+        "kind": "style",
+        "score": 84.5,
+        "confidence": 0.46,
+        "signals": {
+          "matched_keywords": [],
+          "matched_anchors": [
+            "ambrox",
+            "hedione",
+            "iso e super"
+          ],
+          "balance_target": [
+            20,
+            40,
+            40
+          ],
+          "balance_score": 82.5,
+          "positive_dims": {
+            "freshness": 2.52,
+            "floral": 2.79,
+            "woody": 2.55,
+            "radiance": 2.97
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.04
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      },
+      {
+        "style": "skin_scent",
+        "kind": "style",
+        "score": 83.0,
+        "confidence": 0.46,
+        "signals": {
+          "matched_keywords": [
+            "musk"
+          ],
+          "matched_anchors": [
+            "ambrox",
+            "ethylene brassylate",
+            "habanolide",
+            "iso e super"
+          ],
+          "balance_target": [
+            10,
+            55,
+            35
+          ],
+          "balance_score": 67.2,
+          "positive_dims": {
+            "creamy": 1.82,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "warmth": 1.5
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.04
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      },
+      {
+        "style": "musky",
+        "kind": "category",
+        "score": 81.5,
+        "confidence": 0.45,
+        "signals": {
+          "matched_keywords": [
+            "musk"
+          ],
+          "matched_anchors": [
+            "ambrettolide",
+            "ethylene brassylate",
+            "habanolide",
+            "musk ketone"
+          ],
+          "balance_target": [
+            10,
+            50,
+            40
+          ],
+          "balance_score": 77.6,
+          "positive_dims": {
+            "creamy": 1.82,
+            "radiance": 2.97,
+            "woody": 2.55
+          },
+          "negative_dims": {
+            "smoky": 0.0,
+            "animalic": 0.04
+          },
+          "radar": {
+            "warmth": 1.5,
+            "sweetness": 0.76,
+            "freshness": 2.52,
+            "powdery": 2.26,
+            "green": 0.49,
+            "animalic": 0.04,
+            "radiance": 2.97,
+            "woody": 2.55,
+            "spicy": 0.0,
+            "floral": 2.79,
+            "smoky": 0.0,
+            "creamy": 1.82,
+            "transparency": 5.17
+          },
+          "note_distribution": {
+            "top": 12.7,
+            "heart": 38.4,
+            "base": 49.0
+          }
+        }
+      }
+    ],
+    "_science": {
+      "skin": {
+        "reservoir_score": 97.3,
+        "substantivity_score": 61.3,
+        "diagnostics": [
+          "Blooming materials (Iso-E-effect): Habanolide, Ethylene Brassylate, Exaltolide, Ambrox Super"
+        ]
+      },
+      "hedonic": {
+        "valence": 0.66,
+        "pleasantness": "pleasant",
+        "diagnostics": [
+          "Hedonic class: pleasant (mean valence +0.66)",
+          "\u2713 >80% of formula mass is hedonically pleasant"
+        ]
+      },
+      "psychophysics": {
+        "perceptible": 18,
+        "suppression": "high",
+        "anosmia_risk": [
+          {
+            "material": "Alpha Irone",
+            "receptor": "OR5A1",
+            "prevalence": 0.06,
+            "severity": "hyposmia",
+            "mass_uL": 2572.6
+          },
+          {
+            "material": "Alpha Ionone",
+            "receptor": "OR5A1",
+            "prevalence": 0.08,
+            "severity": "hyposmia",
+            "mass_uL": 408.4
+          },
+          {
+            "material": "Beta Ionone",
+            "receptor": "OR5A1",
+            "prevalence": 0.08,
+            "severity": "hyposmia",
+            "mass_uL": 255.2
+          },
+          {
+            "material": "Iso E Super",
+            "receptor": "OR11H7P",
+            "prevalence": 0.2,
+            "severity": "hyposmia",
+            "mass_uL": 2858.5
+          },
+          {
+            "material": "Habanolide",
+            "receptor": "OR2J3",
+            "prevalence": 0.08,
+            "severity": "hyposmia",
+            "mass_uL": 2297.0
+          },
+          {
+            "material": "Ethylene Brassylate",
+            "receptor": "OR2J3",
+            "prevalence": 0.06,
+            "severity": "hyposmia",
+            "mass_uL": 2041.8
+          },
+          {
+            "material": "Exaltolide",
+            "receptor": "OR2J3",
+            "prevalence": 0.07,
+            "severity": "hyposmia",
+            "mass_uL": 153.1
+          },
+          {
+            "material": "Ambrox Super",
+            "receptor": "OR4D6",
+            "prevalence": 0.05,
+            "severity": "hyposmia",
+            "mass_uL": 45.9
+          }
+        ],
+        "diagnostics": [
+          "Perceptual channels: 18 (9 cross-adaptation groups + 9 solo materials) from 34 ingredients",
+          "Channel model: 25 materials collapsed into 9 group channels (Laing ceiling applies to channels, not ingredients)",
+          "Active receptor groups (6 with 2+ members):",
+          "  \u2022 terpene_alcohol: Dihydromyrcenol, Ethyl Linalool (2 \u2192 1 channel)",
+          "  \u2022 aldehyde_aromatic: Cyclamen Aldehyde, Scentenal (2 \u2192 1 channel)",
+          "  \u2022 ionone_family: Alpha Ionone, Beta Ionone, Alpha Irone, Ultralia, Alpha Isomethyl Ionone, Dihydro Beta Ionone, Orivone (7 \u2192 1 channel)",
+          "  \u2022 musk: Habanolide, Exaltolide, Ethylene Brassylate, Musk Ketone (4 \u2192 1 channel)",
+          "  \u2022 woody_amber: Iso E Super, Koavone, Carrot Seed EO, Ebanol, Ambrox Super (5 \u2192 1 channel)",
+          "  \u2022 jasmine: Hedione, Hedione, Cis Jasmone (3 \u2192 1 channel)",
+          "Genetic anosmia risk: 3.7% of formula mass affected by OR variants",
+          "  \u2022 Alpha Irone: 6% population (hyposmia, OR5A1)",
+          "  \u2022 Alpha Ionone: 8% population (hyposmia, OR5A1)",
+          "  \u2022 Beta Ionone: 8% population (hyposmia, OR5A1)",
+          "  \u2022 Iso E Super: 20% population (hyposmia, OR11H7P)",
+          "  \u2022 Habanolide: 8% population (hyposmia, OR2J3)",
+          "  \u2022 Ethylene Brassylate: 6% population (hyposmia, OR2J3)",
+          "  \u2022 Exaltolide: 7% population (hyposmia, OR2J3)",
+          "  \u2022 Ambrox Super: 5% population (hyposmia, OR4D6)",
+          "Distinctiveness index: 0.34"
+        ]
+      },
+      "trigeminal": {
+        "dominant": "cooling",
+        "diagnostics": [
+          "\u2139 Subtle cooling chemesthetic undertone"
+        ]
+      },
+      "dose_response": {
+        "overdosed": [
+          {
+            "material": "Cyclamen Aldehyde",
+            "conc_pct": 0.5104,
+            "character": "sharp, chemical, metallic overload",
+            "quality": "negative"
+          }
+        ],
+        "character_map": {
+          "Ethyl Linalool": "chemical-etherish, loses floral quality",
+          "Dihydromyrcenol": "waxy-terpenic, adaptation residual",
+          "Scentenal": "metallic green ozone, mineral",
+          "Hedione": "dominant jasmine-hedione character",
+          "Cyclamen Aldehyde": "sharp, chemical, metallic overload",
+          "Heliotropal": "full heliotrope, cherry-almond, violet-powder",
+          "Musk Ketone": "powdery, sweet musk, cosmetic",
+          "Iso E Super": "dominant abstract-wood, monotone",
+          "Ethylene Brassylate": "powdery musk, gentle fixative"
+        },
+        "diagnostics": [
+          "\u26a0 OVERDOSED: Cyclamen Aldehyde (0.510%: sharp, chemical, metallic overload)",
+          "\u2713 4 material(s) in optimal character zone",
+          "\u2139 Near character-shift boundary: Ethyl Linalool, Dihydromyrcenol, Heliotropal \u2014 small dose changes could shift perceived character"
+        ]
+      },
+      "diffusion": {
+        "sillage_class": "moderate",
+        "field_pct": {
+          "far": 7.7,
+          "mid": 68.0,
+          "near": 24.3
+        },
+        "diagnostics": [
+          "Field distribution: far=8% | mid=68% | near=24%",
+          "MW spread: 158 Da (136\u2013294)",
+          "Sillage class: moderate",
+          "Projection index (mean Kaw): 0.00252",
+          "Far-field: Grapefruit FCF, Leafovert, Dihydromyrcenol, Allyl Amyl Glycolate, Scentenal",
+          "Mid-field: Alpha Irone, Alpha Ionone, Beta Ionone, Orivone, Hedione",
+          "Near-field: Musk Ketone, Azarbre, Habanolide, Ethylene Brassylate, Exaltolide"
+        ]
+      }
+    },
+    "total": 76.0
+  },
+  "ingredients": {
+    "Bergamot FCF oil Sicilian": 110.0,
+    "Grapefruit FCF": 23.0,
+    "Leafovert": 4.0,
+    "Ethyl Linalool": 90.0,
+    "Dihydromyrcenol": 125.0,
+    "Allyl Amyl Glycolate": 10.0,
+    "Scentenal": 12.0,
+    "Alpha Irone": 840.0,
+    "Myristic Acid": 800.0,
+    "Alpha Ionone": 40.0,
+    "Beta Ionone": 25.0,
+    "Alpha Isomethyl Ionone": 70.0,
+    "Dihydro Beta Ionone": 20.0,
+    "Irotyl": 20.0,
+    "Orivone": 80.0,
+    "Hedione": 450.0,
+    "Cis Jasmone": 10.0,
+    "Carrot Seed EO": 35.0,
+    "Ultralia": 40.0,
+    "Cyclamen Aldehyde": 15.0,
+    "Farnesol": 5.0,
+    "Violet Fleuressence": 10.0,
+    "Heliotropal": 50.0,
+    "Musk Ketone": 110.0,
+    "Koavone": 120.0,
+    "Azarbre": 50.0,
+    "Ebanol": 95.0,
+    "Iso E Super": 280.0,
+    "Habanolide": 225.0,
+    "Ethylene Brassylate": 200.0,
+    "Exaltolide": 150.0,
+    "Ambrettolide": 140.0,
+    "Ambrox Super": 15.0,
+    "IPM": 280.0
+  },
+  "dilutions": {
+    "Alpha Irone": 0.3,
+    "Myristic Acid": 0.2,
+    "Musk Ketone": 0.1,
+    "Exaltolide": 0.1,
+    "Ambrettolide": 0.1,
+    "Ambrox Super": 0.3,
+    "Scentenal": 0.01,
+    "Paradisamide": 0.1,
+    "Cashmeran": 0.2
+  },
+  "current_30_formula": {
+    "Myristic Acid": 750.0,
+    "Alpha Irone": 730.0,
+    "Iso E Super": 365.0,
+    "Hedione": 355.0,
+    "Habanolide": 335.0,
+    "IPM": 250.0,
+    "Ethylene Brassylate": 190.0,
+    "Dihydromyrcenol": 170.0,
+    "Exaltolide": 150.0,
+    "Ambrettolide": 140.0,
+    "Ebanol": 115.0,
+    "Bergamot FCF oil Sicilian": 100.0,
+    "Musk Ketone": 100.0,
+    "Koavone": 100.0,
+    "Hedione HC": 85.0,
+    "Ethyl Linalool": 70.0,
+    "Orivone": 60.0,
+    "Paradisamide": 60.0,
+    "Azarbre": 50.0,
+    "Ambrox Super": 50.0,
+    "Alpha Ionone": 40.0,
+    "Ultralia": 40.0,
+    "Heliotropal": 40.0,
+    "Carrot Seed EO": 30.0,
+    "Cashmeran": 30.0,
+    "Beta Ionone": 25.0,
+    "Dihydro Beta Ionone": 20.0,
+    "Cyclamen Aldehyde": 15.0,
+    "Scentenal": 12.0,
+    "Allyl Amyl Glycolate": 10.0,
+    "Cis Jasmone": 10.0,
+    "Farnesol": 5.0,
+    "Leafovert": 4.0
+  }
+}

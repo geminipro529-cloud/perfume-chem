@@ -1,0 +1,30 @@
+==============================================================================
+  IRIS REVERIE LACTEE — v7 (perfumer-hand) + v8 (brief-constrained)
+==============================================================================
+
+  v3 baseline:   geo = 78.790
+  v6 CarrotSeed: geo = 79.025  (Δ vs v3 +0.235)
+
+  v7 perfumer:   geo = 78.013  (Δ vs v3 -0.777)  concentrate = 14715 uL
+
+  running v8 brief-constrained hill-climb from v3 ...
+  v8 constrained: geo = 78.813  (Δ vs v3 +0.023)  1 moves  57s  concentrate = 14235 uL
+
+  AXIS COMPARISON
+
+  axis                           v3  v6 Carrot    v7 hand   v8 brief
+  longevity                   82.10      84.50      81.00      82.30
+  sillage                     74.50      73.20      74.90      74.40
+  luxury                      63.40      64.30      61.10      63.40
+  texture                     81.00      80.90      81.20      81.00
+  stacking_depth              85.00      85.00      85.00      85.00
+  photorealism                82.40      82.60      80.00      82.40
+  perceptual_clarity          75.30      75.30      73.40      75.40
+  skin_performance            77.30      77.30      77.50      77.30
+  synergy                     95.00      95.00      95.00      95.00
+  hedonic                     84.70      84.20      85.90      84.80
+
+  v8 changes vs v3 (|Δ| >= 15 uL):
+    Ebanol                         900.0 ->   950.0  D  +50.0
+
+  saved: _opt_v7_v8_iris_brief.json

@@ -1,0 +1,81 @@
+Loading _opt_convergence_v2_out.json …
+  15 mL geo = 81.053
+  37 materials, 4244 µL concentrate @ 15 mL
+  scaled to 30 mL: 8488 µL concentrate
+  geo @ 30 mL scaled = 81.521
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Iris-Jasmine (scaled 30 mL) @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 8488.0 µL / 30.0 mL = 28.29%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 2 warn (informational flags omitted)
+    warn: Indole: 16.00 µL (neat-equiv 1.60 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Paradisamide: 10.00 µL (neat-equiv 1.00 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 2 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 100.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 8
+  Marginal (neutral zone): 2
+    ⚠ Hedione                      @ 14.609% → neutral: dominant jasmine-hedione character
+    ⚠ Dihydromyrcenol              @ 5.655% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 37 materials...
+  ✗ TemporalEngine failed: No module named 'matplotlib'
+
+── HILL-CLIMB (floored, top-up safe) — Iris-Jasmine ──
+  start geo = 81.521
+    pass 1: Hedione +1240→1360 (Δ+120, floor=1240) → geo 81.548
+    pass 1: Hexyl Salicylate +180→300 (Δ+120, floor=180) → geo 81.576
+    pass 1: Ebanol +230→290 (Δ+60, floor=230) → geo 81.600
+    pass 1: Iso E Super +260→290 (Δ+30, floor=260) → geo 81.629
+    pass 1: Ethylene Brassylate +640→670 (Δ+30, floor=640) → geo 81.661
+    pass 1: Romandolide +190→310 (Δ+120, floor=190) → geo 81.689
+    pass 1: IPM +500→560 (Δ+60, floor=500) → geo 81.712
+    pass 1: Dihydromyrcenol +480→495 (Δ+15, floor=480) → geo 81.746
+    pass 1 took 15.7s
+    pass 2: Ebanol +290→350 (Δ+60, floor=230) → geo 81.767
+    pass 2: Ethylene Brassylate +670→730 (Δ+60, floor=640) → geo 81.791
+    pass 2 took 18.0s
+    pass 3: no improvement (19.0s) — converged
+  final geo = 81.791  (improved=True)
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Iris-Jasmine (floored-optimized 30 mL) @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 9163.0 µL / 30.0 mL = 30.54%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 2 warn (informational flags omitted)
+    warn: Indole: 16.00 µL (neat-equiv 1.60 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Paradisamide: 10.00 µL (neat-equiv 1.00 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 2 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 100.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 8
+  Marginal (neutral zone): 2
+    ⚠ Hedione                      @ 14.842% → neutral: dominant jasmine-hedione character
+    ⚠ Dihydromyrcenol              @ 5.402% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 37 materials...
+  ✗ TemporalEngine failed: No module named 'matplotlib'
+
+✓ All 37 materials ≥ 15 mL × 2 floor — top-up safe
+  wrote formulas\collections\Iris_Jasmine_30mL_optimized.md
+
+✓ Wrote formulas\collections\Iris_Jasmine_30mL_optimized.md
+  15 mL geo        : 81.053
+  30 mL scaled geo : 81.521
+  30 mL floored geo: 81.791  (Δ +0.270)
+  wrote _redo_iris_jasmine_30mL_out.json

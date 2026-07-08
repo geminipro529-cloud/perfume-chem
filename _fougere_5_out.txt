@@ -1,0 +1,58 @@
+
+=== F1_Classic_Aromatic ===
+materials: 17   missing-from-spine: []
+INITIAL  score = -19289269.939
+  top  : citrus=4129.72  aromatic=1286.49  spice=72.70  geranium=37.14  wood=29.16  amber=26.93
+  heart: citrus=3524.57  aromatic=1224.57  spice=75.09  geranium=38.09  wood=30.45  amber=28.13
+  base : aromatic=468.82  citrus=284.46  spice=85.32  wood=40.01  geranium=39.38  amber=37.23
+OPTIMIZED score = -3442173.698   (╬ö = +15847096.242)
+  top  : citrus=1785.59  aromatic=588.80  spice=83.93  geranium=49.19  wood=38.10  radiance=34.32
+  heart: citrus=1470.69  aromatic=547.18  spice=84.75  geranium=49.31  wood=38.92  radiance=35.00
+  base : aromatic=206.23  citrus=119.06  spice=83.51  geranium=44.41  wood=44.03  radiance=38.82
+
+=== F2_Fresh_Aquatic ===
+materials: 17   missing-from-spine: []
+INITIAL  score = -3601531335.575
+  top  : marine=38962.46  citrus=22087.64  aromatic=728.66  amber=57.01  wood=23.71  radiance=23.19
+  heart: marine=40046.80  citrus=7877.98  aromatic=726.55  amber=62.44  wood=25.96  radiance=25.34
+  base : marine=25498.13  aromatic=254.74  citrus=201.25  amber=92.19  wood=38.06  radiance=36.35
+OPTIMIZED score = -652888527.489   (╬ö = +2948642808.086)
+  top  : marine=16109.43  citrus=11672.11  aromatic=917.19  amber=58.68  wood=29.08  radiance=28.67
+  heart: marine=16119.51  citrus=5311.25  aromatic=887.68  amber=62.59  wood=31.00  radiance=30.52
+  base : marine=10042.61  aromatic=301.69  citrus=249.74  amber=85.40  wood=42.01  radiance=40.49
+
+=== F3_Sweet_Gourmand ===
+materials: 20   missing-from-spine: []
+INITIAL  score = -11741274.817
+  top  : citrus=2759.40  aromatic=1527.80  amber=519.61  wood=59.03  gourmand=50.89  spice=48.58
+  heart: citrus=2334.91  aromatic=1440.90  amber=536.22  wood=60.99  gourmand=52.56  spice=49.77
+  base : amber=641.82  aromatic=538.77  citrus=200.51  wood=74.14  gourmand=63.53  spice=54.22
+OPTIMIZED score = -2206175.410   (╬ö = +9535099.407)
+  top  : citrus=1214.47  aromatic=696.42  amber=343.20  wood=75.31  gourmand=59.26  spice=55.14
+  heart: citrus=996.20  aromatic=643.34  amber=347.91  wood=76.43  gourmand=60.09  spice=55.46
+  base : amber=369.24  aromatic=233.26  citrus=82.88  wood=82.20  gourmand=64.03  spice=53.58
+
+=== F4_Modern_Ambrox ===
+materials: 19   missing-from-spine: []
+INITIAL  score = -169998555.986
+  top  : citrus=12752.92  aromatic=2063.61  amber=981.45  spice=41.30  wood=33.09  radiance=26.97
+  heart: citrus=6134.35  aromatic=2032.19  amber=1068.69  spice=44.63  wood=36.16  radiance=29.42
+  base : amber=1387.31  aromatic=589.71  citrus=254.12  spice=51.69  wood=49.36  radiance=39.23
+OPTIMIZED score = -32731622.688   (╬ö = +137266933.298)
+  top  : citrus=5391.02  aromatic=1452.53  amber=873.73  spice=49.66  wood=41.74  radiance=36.04
+  heart: citrus=2312.36  aromatic=1363.85  amber=911.20  spice=51.36  wood=43.68  radiance=37.66
+  base : amber=1028.19  aromatic=398.47  citrus=118.75  spice=52.05  wood=51.51  radiance=43.45
+
+=== F5_Woody_Aromatic ===
+materials: 20   missing-from-spine: []
+INITIAL  score = -354782982.855
+  top  : citrus=18869.11  aromatic=934.28  wood=66.53  amber=63.39  geranium=25.82  radiance=24.65
+  heart: citrus=6703.89  aromatic=916.73  wood=71.70  amber=68.45  geranium=27.37  radiance=26.57
+  base : aromatic=316.10  citrus=228.42  wood=89.93  amber=88.35  radiance=33.33  geranium=27.25
+OPTIMIZED score = -56758007.280   (╬ö = +298024975.574)
+  top  : citrus=7460.82  aromatic=1125.26  wood=74.96  amber=58.88  radiance=30.29  geranium=26.51
+  heart: citrus=2331.89  aromatic=1058.91  wood=77.83  amber=61.27  radiance=31.45  geranium=27.06
+  base : aromatic=355.75  citrus=94.75  wood=89.01  amber=71.90  radiance=35.94  geranium=24.87
+
+Wrote D:\chatbots\perfume-chem\_fougere_5_mass_appeal_out.json
+Wrote D:\chatbots\perfume-chem\_fougere_5_mass_appeal_out.md

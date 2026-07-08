@@ -1,0 +1,1411 @@
+[
+  {
+    "index": 1,
+    "title": "Silver Neroli Musk - Neroli White Floral Musk (Masculine)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Neroli White Floral Musk",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Prada L'Homme clean floral / Dior Homme Cologne cleanliness",
+    "total_ul": 5100.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 80.7,
+      "sillage": 81.6,
+      "synergy": 72.0,
+      "luxury": 52.0,
+      "texture": 73.1,
+      "stacking_depth": 70.0,
+      "skin_performance": 46.5,
+      "hedonic": 85.8,
+      "perceptual_clarity": 78.0,
+      "photorealism": 84.8,
+      "arithmetic_total": 71.9,
+      "geometric_total": 70.6,
+      "total": 70.6
+    },
+    "geometric_total": 70.6,
+    "arithmetic_total": 71.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 14.90 µL of 1.0% (neat-equiv 0.149 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 49.66666666666668,
+          "target_oav": 49.66666666666668
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 8.53 µL of 1.0% (neat-equiv 0.085 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 170.66666666666666,
+          "target_oav": 170.66666666666666
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 94.9,
+      "ifra_score": 95.0,
+      "allergen_score": 94.0,
+      "violations": [
+        {
+          "material": "Oranger Crystals",
+          "actual_pct": 0.2983,
+          "limit_pct": 0.2,
+          "ratio": 1.49,
+          "severity": "minor"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Hydroxycitronellal"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Hydroxycitronellal",
+          "potency": "moderate",
+          "ec3": 9.7,
+          "pct_in_product": 0.5963,
+          "fraction_into_skin": 0.455865,
+          "effective_exposure_index": 0.271848
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Salicylate, Hydroxycitronellal",
+        "⚠ Sensitization-active materials: Hydroxycitronellal",
+        "ℹ Dermal uptake overlay (effective exposure index): Hydroxycitronellal (0.2718)"
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "title": "Ironed Shirt Iris - Powdery Clean Iris (Masculine)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Powdery Clean Iris",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Dior Homme clean iris / Prada amber-iris cleanliness",
+    "total_ul": 5100.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 78.3,
+      "sillage": 87.5,
+      "synergy": 95,
+      "luxury": 42.9,
+      "texture": 72.4,
+      "stacking_depth": 70.0,
+      "skin_performance": 45.4,
+      "hedonic": 84.7,
+      "perceptual_clarity": 79.9,
+      "photorealism": 80.0,
+      "arithmetic_total": 72.3,
+      "geometric_total": 70.2,
+      "total": 70.2
+    },
+    "geometric_total": 70.2,
+    "arithmetic_total": 72.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 16.53 µL of 1.0% (neat-equiv 0.165 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 55.11111111111112,
+          "target_oav": 55.11111111111112
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 12.40 µL of 1.0% (neat-equiv 0.124 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 248.00000000000003,
+          "target_oav": 248.00000000000003
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Benzoate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Benzoate"
+      ]
+    }
+  },
+  {
+    "index": 3,
+    "title": "Peony Gold Veil - Fruity Floral (Feminine)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Fruity Floral",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Lancôme Idôle / Miss Dior mass-prestige fruity floral",
+    "total_ul": 5400.0,
+    "n_materials": 36,
+    "scores": {
+      "longevity": 80.3,
+      "sillage": 94.5,
+      "synergy": 88.0,
+      "luxury": 44.6,
+      "texture": 72.1,
+      "stacking_depth": 70.0,
+      "skin_performance": 48.1,
+      "hedonic": 86.0,
+      "perceptual_clarity": 70.4,
+      "photorealism": 84.9,
+      "arithmetic_total": 73.1,
+      "geometric_total": 71.1,
+      "total": 71.1
+    },
+    "geometric_total": 71.1,
+    "arithmetic_total": 73.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 12.97 µL of 1.0% (neat-equiv 0.130 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 43.22222222222222,
+          "target_oav": 43.22222222222222
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 9.27 µL of 1.0% (neat-equiv 0.093 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4633.333333333334,
+          "target_oav": 4633.333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.3,
+      "ifra_score": 100.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Farnesol"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Farnesol"
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "title": "Bangkok Amber Blue - Fresh Amber Woods (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Fresh Amber Woods",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "YSL Y / Dylan Blue amber-fresh Thai mall style",
+    "total_ul": 5400.0,
+    "n_materials": 27,
+    "scores": {
+      "longevity": 87.2,
+      "sillage": 88.1,
+      "synergy": 95,
+      "luxury": 46.1,
+      "texture": 79.5,
+      "stacking_depth": 63.0,
+      "skin_performance": 56.2,
+      "hedonic": 84.3,
+      "perceptual_clarity": 80.0,
+      "photorealism": 82.6,
+      "arithmetic_total": 75.1,
+      "geometric_total": 73.4,
+      "total": 73.4
+    },
+    "geometric_total": 73.4,
+    "arithmetic_total": 75.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 12.53 µL of 1.0% (neat-equiv 0.125 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 41.777777777777786,
+          "target_oav": 41.777777777777786
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Benzoate",
+        "Coumarin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Benzoate, Coumarin"
+      ]
+    }
+  },
+  {
+    "index": 5,
+    "title": "Dark Tonka Tobacco - Tobacco Tonka Amber (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Tobacco Tonka Amber",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 20%",
+    "reference": "Tobacco Vanille / Wanted by Night accessible amber",
+    "total_ul": 6000.0,
+    "n_materials": 33,
+    "scores": {
+      "longevity": 86.3,
+      "sillage": 93.5,
+      "synergy": 95,
+      "luxury": 47.4,
+      "texture": 80.2,
+      "stacking_depth": 63.0,
+      "skin_performance": 55.9,
+      "hedonic": 84.5,
+      "perceptual_clarity": 70.9,
+      "photorealism": 70.4,
+      "arithmetic_total": 73.9,
+      "geometric_total": 72.2,
+      "total": 72.2
+    },
+    "geometric_total": 72.2,
+    "arithmetic_total": 73.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Cinnamaldehyde",
+        "Coumarin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Cinnamaldehyde",
+          "potency": "moderate",
+          "ec3": 1.4,
+          "pct_in_product": 0.025,
+          "fraction_into_skin": 0.71617,
+          "effective_exposure_index": 0.017904
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Cinnamaldehyde, Coumarin",
+        "⚠ Sensitization-active materials: Cinnamaldehyde",
+        "ℹ Dermal uptake overlay (effective exposure index): Cinnamaldehyde (0.0179)"
+      ]
+    }
+  },
+  {
+    "index": 6,
+    "title": "Vanilla Silk Bloom - Vanilla Floral Amber (Feminine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Vanilla Floral Amber",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 19%",
+    "reference": "Black Opium / Mon Guerlain easy vanilla floral amber",
+    "total_ul": 5700.0,
+    "n_materials": 30,
+    "scores": {
+      "longevity": 83.7,
+      "sillage": 79.7,
+      "synergy": 95,
+      "luxury": 45.5,
+      "texture": 76.8,
+      "stacking_depth": 67.0,
+      "skin_performance": 45.2,
+      "hedonic": 86.3,
+      "perceptual_clarity": 81.1,
+      "photorealism": 75.2,
+      "arithmetic_total": 72.2,
+      "geometric_total": 70.3,
+      "total": 70.3
+    },
+    "geometric_total": 70.3,
+    "arithmetic_total": 72.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 12.93 µL of 1.0% (neat-equiv 0.129 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 43.11111111111111,
+          "target_oav": 43.11111111111111
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 90.7,
+      "ifra_score": 85.0,
+      "allergen_score": 94.0,
+      "violations": [
+        {
+          "material": "Oranger Crystals",
+          "actual_pct": 0.3447,
+          "limit_pct": 0.2,
+          "ratio": 1.72,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Coumarin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Salicylate, Coumarin"
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "title": "Cobalt Cedar Air - Aromatic Woody (Masculine)",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Aromatic Woody",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Bleu de Chanel / Sauvage premium mass woods",
+    "total_ul": 5400.0,
+    "n_materials": 27,
+    "scores": {
+      "longevity": 87.6,
+      "sillage": 90.3,
+      "synergy": 95,
+      "luxury": 45.4,
+      "texture": 79.8,
+      "stacking_depth": 68.0,
+      "skin_performance": 51.9,
+      "hedonic": 83.3,
+      "perceptual_clarity": 79.9,
+      "photorealism": 83.1,
+      "arithmetic_total": 75.5,
+      "geometric_total": 73.6,
+      "total": 73.6
+    },
+    "geometric_total": 73.6,
+    "arithmetic_total": 75.5,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 14.50 µL of 1.0% (neat-equiv 0.145 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 48.333333333333336,
+          "target_oav": 48.333333333333336
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Benzoate",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.207,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.207
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Benzoate, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2070)"
+      ]
+    }
+  },
+  {
+    "index": 8,
+    "title": "Santal Sport Club - Sandalwood Aromatic (Masculine)",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Sandalwood Aromatic",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Santal 33 made cleaner, Thai mall wearable",
+    "total_ul": 5400.0,
+    "n_materials": 33,
+    "scores": {
+      "longevity": 85.9,
+      "sillage": 99.8,
+      "synergy": 95,
+      "luxury": 48.2,
+      "texture": 77.8,
+      "stacking_depth": 56.0,
+      "skin_performance": 45.1,
+      "hedonic": 83.3,
+      "perceptual_clarity": 80.6,
+      "photorealism": 77.2,
+      "arithmetic_total": 73.9,
+      "geometric_total": 71.4,
+      "total": 71.4
+    },
+    "geometric_total": 71.4,
+    "arithmetic_total": 73.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Benzoate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Benzoate"
+      ]
+    }
+  },
+  {
+    "index": 9,
+    "title": "Cashmere Peach Woods - Soft Creamy Woody (Feminine)",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Soft Creamy Woody",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Burberry Her / Cashmere Mist woody-musky sweetness",
+    "total_ul": 5400.0,
+    "n_materials": 35,
+    "scores": {
+      "longevity": 86.9,
+      "sillage": 97.3,
+      "synergy": 92.0,
+      "luxury": 48.7,
+      "texture": 76.1,
+      "stacking_depth": 75.0,
+      "skin_performance": 47.9,
+      "hedonic": 84.9,
+      "perceptual_clarity": 69.6,
+      "photorealism": 78.0,
+      "arithmetic_total": 75.1,
+      "geometric_total": 73.2,
+      "total": 73.2
+    },
+    "geometric_total": 73.2,
+    "arithmetic_total": 75.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 9.60 µL of 1.0% (neat-equiv 0.096 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 32.00000000000001,
+          "target_oav": 32.00000000000001
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.3,
+      "ifra_score": 100.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Farnesol"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Farnesol"
+      ]
+    }
+  },
+  {
+    "index": 10,
+    "title": "Green Patchouli Cologne - Citrus Patchouli Chypre (Masculine)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Citrus Patchouli Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Terre d'Hermes / modern citrus patchouli office chypre",
+    "total_ul": 5100.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 84.7,
+      "sillage": 84.2,
+      "synergy": 95,
+      "luxury": 56.4,
+      "texture": 79.3,
+      "stacking_depth": 61.0,
+      "skin_performance": 56.8,
+      "hedonic": 82.9,
+      "perceptual_clarity": 73.7,
+      "photorealism": 83.2,
+      "arithmetic_total": 74.8,
+      "geometric_total": 73.7,
+      "total": 73.7
+    },
+    "geometric_total": 73.7,
+    "arithmetic_total": 74.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 16.63 µL of 1.0% (neat-equiv 0.166 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 55.44444444444444,
+          "target_oav": 55.44444444444444
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.5,
+      "ifra_score": 100.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Coumarin",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.3323,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.332333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU allergen(s) require label declaration: Benzyl Salicylate, Coumarin, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.3323)"
+      ]
+    }
+  },
+  {
+    "index": 11,
+    "title": "Suede Moss Night - Leather Patchouli Chypre (Masculine)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Leather Patchouli Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Tom Ford leather-patchouli made safer and more wearable",
+    "total_ul": 5400.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 88.3,
+      "sillage": 77.1,
+      "synergy": 94.0,
+      "luxury": 55.0,
+      "texture": 78.5,
+      "stacking_depth": 64.0,
+      "skin_performance": 53.7,
+      "hedonic": 82.4,
+      "perceptual_clarity": 82.9,
+      "photorealism": 79.4,
+      "arithmetic_total": 74.5,
+      "geometric_total": 73.3,
+      "total": 73.3
+    },
+    "geometric_total": 73.3,
+    "arithmetic_total": 74.5,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Rose Oxide",
+          "severity": "info",
+          "message": "Rose Oxide: scaled dose 22.00 µL of 1.0% (neat-equiv 0.220 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 22000.0,
+          "target_oav": 22000.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.2747,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.274666
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Salicylate, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2747)"
+      ]
+    }
+  },
+  {
+    "index": 12,
+    "title": "Rose Cassis Chypre - Fruity Rose Chypre (Feminine)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Fruity Rose Chypre",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Armani Si / Coco Mademoiselle rose-cassis chypre",
+    "total_ul": 5400.0,
+    "n_materials": 29,
+    "scores": {
+      "longevity": 84.2,
+      "sillage": 84.6,
+      "synergy": 95,
+      "luxury": 50.4,
+      "texture": 71.9,
+      "stacking_depth": 68.0,
+      "skin_performance": 56.6,
+      "hedonic": 84.0,
+      "perceptual_clarity": 73.9,
+      "photorealism": 84.2,
+      "arithmetic_total": 74.2,
+      "geometric_total": 73.0,
+      "total": 73.0
+    },
+    "geometric_total": 73.0,
+    "arithmetic_total": 74.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 14.57 µL of 1.0% (neat-equiv 0.146 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 48.555555555555564,
+          "target_oav": 48.555555555555564
+        },
+        {
+          "material": "Rose Oxide",
+          "severity": "info",
+          "message": "Rose Oxide: scaled dose 19.40 µL of 1.0% (neat-equiv 0.194 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 19400.000000000004,
+          "target_oav": 19400.000000000004
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 99.1,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU allergen(s) require label declaration: Benzyl Salicylate"
+      ]
+    }
+  },
+  {
+    "index": 13,
+    "title": "Aromatic Barbershop Blue - Aromatic Fougere (Masculine)",
+    "variant": "baseline",
+    "family": "Fougere",
+    "sub_family": "Aromatic Fougere",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "modern barbershop / Legend / Platinum Egoiste mass appeal",
+    "total_ul": 5100.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 84.0,
+      "sillage": 91.8,
+      "synergy": 95,
+      "luxury": 56.0,
+      "texture": 81,
+      "stacking_depth": 65.0,
+      "skin_performance": 52.6,
+      "hedonic": 83.7,
+      "perceptual_clarity": 71.8,
+      "photorealism": 83.5,
+      "arithmetic_total": 75.7,
+      "geometric_total": 74.4,
+      "total": 74.4
+    },
+    "geometric_total": 74.4,
+    "arithmetic_total": 75.7,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 17.60 µL of 1.0% (neat-equiv 0.176 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 58.66666666666667,
+          "target_oav": 58.66666666666667
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.3523,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.352333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Coumarin, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.3523)"
+      ]
+    }
+  },
+  {
+    "index": 14,
+    "title": "Mintless Tonka Club - Sweet Fougere (Masculine)",
+    "variant": "baseline",
+    "family": "Fougere",
+    "sub_family": "Sweet Fougere",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 18%",
+    "reference": "Le Male / Eros style without toothpaste mint",
+    "total_ul": 5400.0,
+    "n_materials": 27,
+    "scores": {
+      "longevity": 83.4,
+      "sillage": 87.7,
+      "synergy": 95,
+      "luxury": 53.1,
+      "texture": 69,
+      "stacking_depth": 71.0,
+      "skin_performance": 49.4,
+      "hedonic": 85.1,
+      "perceptual_clarity": 73.5,
+      "photorealism": 80.1,
+      "arithmetic_total": 73.7,
+      "geometric_total": 72.3,
+      "total": 72.3
+    },
+    "geometric_total": 72.3,
+    "arithmetic_total": 73.7,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.3453,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.345333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Coumarin, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.3453)"
+      ]
+    }
+  },
+  {
+    "index": 15,
+    "title": "Lavender Skin Cream - Lavender Vanilla Fougere (Feminine)",
+    "variant": "baseline",
+    "family": "Fougere",
+    "sub_family": "Lavender Vanilla Fougere",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Mon Guerlain / Libre lavender-vanilla mass appeal",
+    "total_ul": 5100.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 82.6,
+      "sillage": 86.0,
+      "synergy": 72.0,
+      "luxury": 55.0,
+      "texture": 71.7,
+      "stacking_depth": 67.0,
+      "skin_performance": 46.4,
+      "hedonic": 86.1,
+      "perceptual_clarity": 82.1,
+      "photorealism": 80.6,
+      "arithmetic_total": 72.4,
+      "geometric_total": 71.1,
+      "total": 71.1
+    },
+    "geometric_total": 71.1,
+    "arithmetic_total": 72.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 14.00 µL of 1.0% (neat-equiv 0.140 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 46.66666666666667,
+          "target_oav": 46.66666666666667
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Coumarin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Salicylate, Coumarin"
+      ]
+    }
+  },
+  {
+    "index": 16,
+    "title": "Andaman Blue EDP - Aquatic Aromatic (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Aquatic Aromatic",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Acqua di Gio Profumo / Bvlgari Aqva premium mass",
+    "total_ul": 5100.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 85.1,
+      "sillage": 94.8,
+      "synergy": 95,
+      "luxury": 52.3,
+      "texture": 81.2,
+      "stacking_depth": 61.0,
+      "skin_performance": 52.2,
+      "hedonic": 84.5,
+      "perceptual_clarity": 81.5,
+      "photorealism": 89.4,
+      "arithmetic_total": 76.8,
+      "geometric_total": 74.9,
+      "total": 74.9
+    },
+    "geometric_total": 74.9,
+    "arithmetic_total": 76.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 16.87 µL of 1.0% (neat-equiv 0.169 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 56.22222222222223,
+          "target_oav": 56.22222222222223
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 43.40 µL of 1.0% (neat-equiv 0.434 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 2169.9999999999995,
+          "target_oav": 2169.9999999999995
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 14.47 µL of 1.0% (neat-equiv 0.145 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 289.3333333333333,
+          "target_oav": 289.3333333333333
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.3,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.241,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.241
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU allergen(s) require label declaration: Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2410)"
+      ]
+    }
+  },
+  {
+    "index": 17,
+    "title": "Citrus Tailored Musk - Citrus Cologne Intense (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Citrus Cologne Intense",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 16%",
+    "reference": "Acqua di Parma / Atelier Cologne premium citrus",
+    "total_ul": 4800.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 75.9,
+      "sillage": 94.3,
+      "synergy": 82.0,
+      "luxury": 51.7,
+      "texture": 73.6,
+      "stacking_depth": 72.0,
+      "skin_performance": 50.6,
+      "hedonic": 85.4,
+      "perceptual_clarity": 78.4,
+      "photorealism": 81.7,
+      "arithmetic_total": 73.9,
+      "geometric_total": 72.6,
+      "total": 72.6
+    },
+    "geometric_total": 72.6,
+    "arithmetic_total": 73.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 19.77 µL of 1.0% (neat-equiv 0.198 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 98.83333333333333,
+          "target_oav": 98.83333333333333
+        },
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 17.30 µL of 1.0% (neat-equiv 0.173 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 57.66666666666667,
+          "target_oav": 57.66666666666667
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Benzoate",
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.247,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.247
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU allergen(s) require label declaration: Benzyl Benzoate, Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2470)"
+      ]
+    }
+  },
+  {
+    "index": 18,
+    "title": "Clean Pear Air - Fresh Fruity Floral (Feminine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Fresh Fruity Floral",
+    "gender": "F",
+    "format_strength": "30 mL EDP @ 17%",
+    "reference": "Chance Eau Tendre / Daisy clean fruity fresh",
+    "total_ul": 5100.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 82.5,
+      "sillage": 95.2,
+      "synergy": 74.0,
+      "luxury": 45.6,
+      "texture": 71.8,
+      "stacking_depth": 67.0,
+      "skin_performance": 43.5,
+      "hedonic": 85.1,
+      "perceptual_clarity": 81.9,
+      "photorealism": 83.0,
+      "arithmetic_total": 72.4,
+      "geometric_total": 70.3,
+      "total": 70.3
+    },
+    "geometric_total": 70.3,
+    "arithmetic_total": 72.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11",
+          "severity": "info",
+          "message": "Aldehyde C11: scaled dose 15.30 µL of 1.0% (neat-equiv 0.153 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 51.0,
+          "target_oav": 51.0
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.20 µL of 1.0% (neat-equiv 0.102 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 204.0,
+          "target_oav": 204.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 99.1,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Benzyl Benzoate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU allergen(s) require label declaration: Benzyl Benzoate"
+      ]
+    }
+  }
+]

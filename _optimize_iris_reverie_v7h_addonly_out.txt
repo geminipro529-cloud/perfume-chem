@@ -1,0 +1,198 @@
+==============================================================================
+DATA COVERAGE
+==============================================================================
+  Materials in formula      : 45
+  Materials with MW + VP    : 45
+  Materials missing physics : 0  
+
+==============================================================================
+HEADSPACE @ 305 K  (top 20 by partial pressure)
+==============================================================================
+ # material                        P_i(Pa)        ppm      ╬│
+ 1 Ethanol                        7409.707   73128.12   1.00
+ 2 Bergamot FCF Sicilian             1.623      16.02   3.04
+ 3 Ethyl Linalool                    0.245       2.42   1.99
+ 4 Carrot Seed EO                    0.015       0.15   2.67
+ 5 Anisaldehyde                      0.003       0.03   2.72
+ 6 Alpha Ionone                      0.003       0.03   2.81
+ 7 Hydroxycitronellal                0.002       0.02   1.39
+ 8 Cedarwood EO                      0.002       0.02   3.26
+ 9 Iso E Super                       0.002       0.02   4.78
+10 Hedione                           0.002       0.01   2.35
+11 Lilyreal                          0.001       0.01   2.04
+12 Alpha Isomethyl Ionone            0.001       0.01   2.81
+13 Freesia HDI                       0.001       0.01   2.04
+14 Alpha Irone                       0.001       0.01   2.63
+15 Beta Ionone                       0.001       0.01   2.81
+16 Hedione HC                        0.000       0.00   2.35
+17 Allyl Ionone                      0.000       0.00   2.81
+18 DBCA                              0.000       0.00   2.21
+19 Mayol                             0.000       0.00   2.04
+20 PEDMC                             0.000       0.00   2.57
+
+==============================================================================
+OAV PROFILE  (mixture-shifted, top 25 by perceived intensity)
+==============================================================================
+ # material                            OAV  I(Stevens)    ODT_eff
+ 1 Bergamot FCF Sicilian            201.52       18.51     0.0795
+ 2 Ethyl Linalool                   166.01       16.64     0.0146
+ 3 Beta Ionone                      392.49       10.90     0.0000
+ 4 Alpha Irone                       39.74        4.36     0.0001
+ 5 Alpha Ionone                      32.69        4.03     0.0009
+ 6 Hydroxycitronellal                19.46        3.48     0.0013
+ 7 Freesia HDI                        6.84        2.88     0.0011
+ 8 Ethanol                            7.77        2.27  9413.3342
+ 9 Ebanol                             6.60        2.05     0.0001
+10 DBCA                               4.63        1.90     0.0010
+11 Allyl Ionone                       4.71        1.86     0.0010
+12 Lilyreal                           4.44        1.82     0.0023
+13 Alpha Isomethyl Ionone             3.76        1.70     0.0021
+14 Iso E Super                        3.84        1.67     0.0046
+15 Mayol                              2.85        1.52     0.0011
+16 Heliotropal                        2.11        1.35     0.0012
+17 Bourgeonal                         2.00        1.32     0.0001
+18 Anisaldehyde                       1.64        1.22     0.0192
+19 Carrot Seed EO                     1.56        1.20     0.0977
+20 PEDMC                              1.43        1.11     0.0020
+21 Indole                             0.51        0.76     0.0011
+22 Cedarwood EO                       0.36        0.68     0.0638
+23 gamma-Nonalactone                  0.33        0.64     0.0008
+24 Javanol                            0.27        0.60     0.0001
+25 gamma-Decalactone                  0.27        0.59     0.0013
+
+SUB-THRESHOLD (OAV < 1):  25 of 45 scored materials
+   Benzoin Resinoid              OAV= 0.000  ΓåÉ in liquid but not in air
+   Musk Ketone                   OAV= 0.000  ΓåÉ in liquid but not in air
+   Ambrettolide                  OAV= 0.001  ΓåÉ in liquid but not in air
+   Romandolide                   OAV= 0.001  ΓåÉ in liquid but not in air
+   Ethylene Brassylate           OAV= 0.001  ΓåÉ in liquid but not in air
+   Tonalide                      OAV= 0.001  ΓåÉ in liquid but not in air
+   Habanolide                    OAV= 0.002  ΓåÉ in liquid but not in air
+   Zenolide                      OAV= 0.002  ΓåÉ in liquid but not in air
+   Coumarin                      OAV= 0.002  ΓåÉ in liquid but not in air
+   Hedione HC                    OAV= 0.007  ΓåÉ in liquid but not in air
+   Hexyl Salicylate              OAV= 0.009  ΓåÉ in liquid but not in air
+   Galaxolide                    OAV= 0.017  ΓåÉ in liquid but not in air
+   Hedione                       OAV= 0.019  ΓåÉ in liquid but not in air
+   Ambrox Super                  OAV= 0.072  ΓåÉ in liquid but not in air
+   Vanillin                      OAV= 0.078  ΓåÉ in liquid but not in air
+   Ethyl Vanillin                OAV= 0.087  ΓåÉ in liquid but not in air
+   Scentenal                     OAV= 0.123  ΓåÉ in liquid but not in air
+   Damascol                      OAV= 0.167  ΓåÉ in liquid but not in air
+   Isoeugenol                    OAV= 0.214  ΓåÉ in liquid but not in air
+   Orivone                       OAV= 0.241  ΓåÉ in liquid but not in air
+   Javanol                       OAV= 0.265  ΓåÉ in liquid but not in air
+   gamma-Decalactone             OAV= 0.268  ΓåÉ in liquid but not in air
+   gamma-Nonalactone             OAV= 0.334  ΓåÉ in liquid but not in air
+   Cedarwood EO                  OAV= 0.363  ΓåÉ in liquid but not in air
+   Indole                        OAV= 0.509  ΓåÉ in liquid but not in air
+
+==============================================================================
+PHASE-SEPARATION RISK  (Hansen RED vs ethanol-rich solvent, top 10)
+==============================================================================
+material                          RED  flag
+Iso E Super                      1.82  BLOOM RISK
+Ethanol                          1.72  BLOOM RISK
+Ambrox Super                     1.66  BLOOM RISK
+Galaxolide                       1.64  BLOOM RISK
+Habanolide                       1.64  BLOOM RISK
+Tonalide                         1.63  BLOOM RISK
+Zenolide                         1.63  BLOOM RISK
+Ambrettolide                     1.63  BLOOM RISK
+Musk Ketone                      1.62  BLOOM RISK
+Cedarwood EO                     1.56  BLOOM RISK
+
+==============================================================================
+SPRAY DELIVERY
+==============================================================================
+  Dv50 (atomiser typical)   : 26.5 ┬╡m
+  Dv90                      : 43.8 ┬╡m
+  30 ┬╡m drop after 0.5 s    : 26.5 ┬╡m  (ethanol d┬▓-law)
+  Cleft conc @ 100 ┬╡g/m┬│ HS : 10.0 ┬╡g/m┬│ (10% diversion)
+
+==============================================================================
+VERDICT vs BRIEF (cosmetic-creamy iris, NOT rooty)
+==============================================================================
+  Top-5 headspace drivers (post-EtOH) : ['Bergamot FCF Sicilian', 'Ethyl Linalool', 'Carrot Seed EO', 'Anisaldehyde', 'Alpha Ionone']
+  Top-5 perceived intensity           : ['Bergamot FCF Sicilian', 'Ethyl Linalool', 'Beta Ionone', 'Alpha Irone', 'Alpha Ionone']
+
+  Iris/orris-powder axis              :  21.56
+  Muguet-cushion axis                 :  10.04
+  Salicylate cushion                  :   0.15
+  Macrocyclic-musk skin halo          :   0.98
+  Rooty (carrot-seed) intrusion       :   1.20
+
+  iris : rooty ratio                  :  18.0├ù (target ΓëÑ 5├ù)
+  ΓåÆ Brief held: iris-powder dominates over carrot-seed earth.
+==============================================================================
+ADD-ONLY OPTIMIZER  (Hedione HC + Alpha Irone LOCKED ΓÇö not yet in stock)
+==============================================================================
+  Materials             : 45
+  Locked (no room)      : 8
+  Free to add           : 37
+  Baseline score        : -285876.422
+
+  Optimized score       : -269158.660
+  ╬ö score               : +16717.762
+
+==============================================================================
+PRIORITY RANKING  ΓÇö  add these first when materials arrive
+==============================================================================
+rank material                          now      add        ΓåÆ     ╬öscore    ╬ös/┬╡L
+   1 Indole                            1.5     +0.5      2.0      +57.8 +113.134
+   2 Mayol                            25.0     +5.5     30.5     +224.8  +40.602
+   3 Freesia HDI                      75.0    +20.3     95.3     +697.4  +34.352
+   4 Damascol                          2.5     +0.8      3.3      +20.8  +27.328
+   5 Lilyreal                         65.0    +18.1     83.1     +491.8  +27.122
+   6 PEDMC                            25.0     +4.2     29.2      +99.4  +23.869
+   7 DBCA                             75.0    +21.2     96.2     +433.9  +20.485
+   8 Heliotropal                      55.0    +11.3     66.3     +189.6  +16.713
+   9 Anisaldehyde                    130.0    +36.6    166.6     +502.9  +13.760
+  10 gamma-Nonalactone                20.0     +3.1     23.1      +39.8  +12.917
+  11 Iso E Super                     200.0    +59.4    259.4     +755.3  +12.723
+  12 gamma-Decalactone                50.0    +13.1     63.1     +118.9   +9.067
+  13 Ebanol                          900.0   +259.3   1159.3    +2230.3   +8.600
+  14 Coumarin                         15.0     +3.5     18.5      +29.8   +8.565
+  15 Javanol                          55.0     +9.4     64.4      +75.4   +8.033
+  16 Cedarwood EO                    600.0   +178.7    778.7    +1377.3   +7.707
+  17 Ambrox Super                    135.0    +35.0    170.0     +243.5   +6.954
+  18 Vanillin                         30.0     +7.0     37.0      +48.3   +6.900
+  19 Orivone                         450.0   +122.0    572.0     +830.7   +6.806
+  20 Ethyl Vanillin                   25.0     +6.5     31.5      +43.0   +6.654
+  21 Ambrettolide                     30.0     +0.8     30.8       +5.3   +6.301
+  22 Habanolide                      240.0    +60.3    300.3     +379.8   +6.301
+  23 Zenolide                        100.0    +26.7    126.7     +166.8   +6.252
+  24 Galaxolide                      240.0    +51.8    291.8     +320.7   +6.188
+  25 Tonalide                         15.0     +3.8     18.8      +23.3   +6.183
+  26 Hedione                        1700.0   +495.4   2195.4    +3036.6   +6.130 HARD
+  27 Hexyl Salicylate                200.0    +49.0    249.0     +282.7   +5.772 HARD
+  28 Romandolide                     700.0   +200.7    900.7    +1139.8   +5.678
+  29 Ethylene Brassylate            1150.0   +322.4   1472.4    +1812.5   +5.622
+  30 Musk Ketone                      20.0     +2.3     22.3      +12.1   +5.195
+  31 Benzoin Resinoid                650.0   +183.1    833.1     +626.1   +3.420
+  32 Alpha Isomethyl Ionone           80.0     +1.9     81.9      -28.6  -15.010
+  33 Allyl Ionone                     30.0     +1.8     31.8     -120.1  -67.084
+
+  Total material added  : 2215.4 ┬╡L
+  Batch grows from      : 50.00 mL ΓåÆ 52.22 mL
+
+==============================================================================
+FAMILY AXIS  (now ΓåÆ add-only opt ΓåÆ target)
+==============================================================================
+family                now        opt     target   ╬ö to tgt
+amber                0.07       0.09       2.00      -1.91
+anisic               1.64       2.05       3.00      -0.95
+balsamic             0.00       0.00       3.00      -3.00
+citrus             367.53     357.86      25.00    +332.86
+earthy               1.56       1.52       0.00      +1.52
+floral              24.12      24.94      14.00     +10.94
+green                6.84       8.49       0.00      +8.49
+indolic              0.51       0.67       0.40      +0.27
+lactone              0.60       0.71       3.00      -2.29
+muguet               9.30      10.90       8.00      +2.90
+musk                 1.45       1.65       3.00      -1.35
+powder              42.09      41.44      12.00     +29.44
+solvent              7.77       7.74       0.00      +7.74
+vanilla              0.17       0.20       2.00      -1.80
+violet             433.66     420.92      25.00    +395.92
+wood                11.06      13.85       6.00      +7.85

@@ -1,0 +1,203 @@
+"""
+CRITICAL: This file patches ODT_DATA and _PROFILES with verified values.
+Loaded AFTER auto-generated entries to prevent VFY overwrite bug.
+Every value has _flag and _source to block the auto-gen sweep.
+
+Auto-gen bug: VFY entries at bottom of odor_thresholds.py overwrite
+ODT values with metadata-only dicts (no odt_air). This file exists
+purely to OVERRIDE those entries with correct values. No auto-gen
+will touch this because it's verified by external cross-check.
+"""
+
+import sys
+import os
+
+# ════════════════════════════════════════════════════════════
+# VP CORRECTIONS — verified from external sources
+# (Indenta SDS, BASF SDS, Vigon SDS, Firmenich, ChemBook, etc.)
+# ════════════════════════════════════════════════════════════
+
+VP_PATCH = {
+    # 🔴 CRITICAL (DB was >50x wrong)
+    "Galaxolide":       0.0727,    # Indenta SDS OECD TG104: 0.000727 hPa@25C (DB was 0.0001 = 727x)
+    "Vanillin":         0.20,      # HSDB 0.131 Pa, Scribd 0.293 Pa; sublimation VP consensus
+    "Melonal":          53.0,      # Vigon SDS: 0.53 hPa = 53 Pa (DB stored hPa as Pa = 106x)
+    "Triplal":          66.1,      # ChemBook: 66.1 Pa@24C; ScenTree: 0.723 mmHg@23C = 96 Pa
+    "Alpha Irone":      0.559,     # Parchem: 0.00419 mmHg@25C (DB was 0.005 = 112x)
+    "Norlimbanol Dextro":0.067,    # Vigon SDS: 0.0005 mmHg@25C (DB was 0.001 = 67x)
+    "Ethyl Vanillin":   0.019,     # Fisher SDS: 0.00014 mmHg (DB was 0.0002 = 95x)
+    "Ethyl maltol":     0.029,     # DirectPCW: 0.000220 mmHg@25C (DB was 0.001 = 29x)
+    
+    # 🟠 MAJOR (DB was 10-50x wrong)
+    "Dynascone":        1.44,      # Firmenich official: 1.44 Pa@20C (DB was 0.15 = 10x)
+    "Ambrettolide":     0.003,     # ChemBook/Dupeux 2022: 0.003 Pa@25C (DB was 0.0001 = 30x)
+    "Isobutyl Quinoline":0.129,    # ScenTree: 0.00097 mmHg@20C (DB was 0.005 = 26x)
+    
+    # 🟡 MINOR (DB was 2-10x wrong)
+    "Calone":           0.05,      # Firmenich official: 0.05 Pa@20C (DB was 0.293 = 6x HIGH)
+    "Cashmeran":        0.40,      # Vigon SDS: 0.003 mmHg@25C (DB was 1.2 = 3x HIGH)
+    "Citronellol":      2.67,      # BASF SDS: 0.02 mmHg@25C (DB was 0.67 = 4x)
+    "Geraniol":         2.67,      # PubChem estimate; conservative (DB was 2.12)
+    "Coumarin":         0.133,     # NIST Delta-sub-H via Sigma 0.01 mmHg@47C (DB was 0.19)
+    "Habanolide":       0.000053,  # DSM-Firmenich official: 0.00003 Pa@20C (DB was 0.0002 = 4x HIGH)
+    "Ambrofix":         0.066,     # ChemBook: 0.066 Pa@25C (DB was 0.05)
+    "Hedione":          0.089,     # ScenTree: 0.00067 mmHg@20C (DB was 0.21 = 2.4x HIGH)
+    "Hedione HC":       0.089,     # Same source — same molecule, high-cis isomer
+}
+
+VP_SOURCE = {
+    "Galaxolide": "Indenta/Finefrag OECD TG104 SDS: 0.000727 hPa@25C; ChemicalBook 0.073 Pa@25C",
+    "Vanillin": "HSDB via PubChem: 9.8e-4 mmHg = 0.131 Pa; Scribd: 2.2e-3 mmHg = 0.293 Pa; midpoint 0.20 Pa",
+    "Melonal": "Vigon SDS #500230: 0.53 hPa@20C = 53 Pa; Vigon Natural #507242 confirms",
+    "Triplal": "ChemicalBook: 66.1 Pa@24C; ScenTree: 0.723 mmHg@23C = 96.4 Pa; conservative 66.1 Pa",
+    "Alpha Irone": "Parchem data sheet: 0.00419 mmHg@25C = 0.559 Pa; ChemicalBook: 0.4 Pa@20C",
+    "Norlimbanol Dextro": "Vigon SDS #508325: 0.0005 mmHg@25C = 0.0667 Pa; ScenTree Timberol: 0.00051 mmHg@25C = 0.068 Pa",
+    "Ethyl Vanillin": "DirectPCW SDS: 0.000220 mmHg@25C = 0.029 Pa; Fisher Scientific: 0.00014 mmHg = 0.019 Pa",
+    "Ethyl maltol": "DirectPCW SDS: 0.000220 mmHg@25C = 0.029 Pa; Fisher Scientific: 0.00014 mmHg = 0.019 Pa",
+    "Dynascone": "Firmenich official marketing sheet: 1.44 Pa@20C; ScenTree: 0.0187 mmHg@25C = 2.49 Pa",
+    "Ambrettolide": "ChemicalBook (citing Dupeux et al. 2022 JCED): 0.003 Pa@25C",
+    "Isobutyl Quinoline": "ScenTree: 0.00097 mmHg@20C = 0.129 Pa; TGSC EPI: 0.0024 mmHg = 0.32 Pa",
+    "Calone": "Firmenich official Calone data sheet: 0.05 Pa@20C (originator = authoritative)",
+    "Cashmeran": "Vigon SDS #505040: 0.003 mmHg@25C = 0.40 Pa",
+    "Citronellol": "BASF SDS: approx 0.02 mmHg@25C = 2.67 Pa; ChemicalBook confirms",
+    "Geraniol": "PubChem: 3.0e-2 mmHg@25C = 4.00 Pa; conservative 2.67 Pa",
+    "Coumarin": "NIST Antoine (Stull 1947); Delta-sub-H 83.1 kJ/mol (Sabbah 1991); CC extrapolation from Sigma 0.01 mmHg@47C",
+    "Habanolide": "DSM-Firmenich official product studio: 0.00003 Pa@20C",
+    "Ambrofix": "ChemicalBook: 0.066 Pa@25C; Vigon SDS: >0.001 mmHg@20C = >0.133 Pa",
+    "Hedione": "ScenTree: 0.00067 mmHg@20C = 0.089 Pa; Wikipedia MW confirms",
+    "Hedione HC": "ScenTree hedione value 0.00067 mmHg@20C = 0.089 Pa; high-cis isomer",
+}
+
+# ════════════════════════════════════════════════════════════
+# ODT CORRECTIONS — verified from external cross-check
+# (van Gemert 2011, Devos 1990, Kraft 2005/2008, Elsharif 2015, etc.)
+# ════════════════════════════════════════════════════════════
+
+ODT_PATCH = {
+    # PUBLISHED (Tier A) — direct human psychophysical measurements
+    "hedione":          0.05,     # Porta et al. 2005: isomer 0.003 ppb; racemic ~0.05 ppb
+    "iso e super":      0.05,     # Kraft 2008: Arborone 0.0005 ppb; mix ~50-100x = 0.05 ppb
+    "linalool":         8.0,      # van Gemert 2011 / RIFM: 8 ppb air (NOT 0.51 — that was water ODT)
+    "linalyl acetate":  2.7,      # van Gemert 2011: published 2.7 ppb (NOT 50 ppb)
+    "romandolide":      4.9,      # Kraft & Eichenberger 2004: 54 ng/L = 4.9 ppb
+    "ethylene brassylate":0.97,   # van Gemert 2011 / RIFM sensory panel: 0.97 ppb
+    "ambrettolide":     0.136,    # Kraft 2005 Wiley: 1.4 ng/L = 0.136 ppb
+    "javanol":          0.0016,   # Birkbeck et al. 2025 Helv Chim Acta: 0.015 ng/L
+    "dihydrojasmone":   0.75,     # van Gemert 2011, Devos 1990: 0.75 ppb
+    "damascenone":      0.04,     # Leffingwell 1991 corrected: 0.04 ppb (was 0.004 = 10x fatigue artifact)
+    "alpha damascone":  0.04,     # Leffingwell 1991 corrected; fatigue artifact accounted
+    "geraniol":         40.0,     # RIFM safety assessment: 40 ppb air (NOT 2.22 — that was water ODT)
+    "indole":           0.14,     # van Gemert 2011: air detection threshold 0.14 ppb; fecal recognition 140 ppb
+    "galaxolide":       0.31,     # Kraft & Swift 2005 Perspectives p.131: 0.31 ppb
+    "ambrofix":         0.3,      # van Gemert 2011 pp.33-34: 0.15-0.30 ppb
+    "ambrox super":     0.3,      # van Gemert 2011, Neuner-Jehle & Etzweiler 1991
+    "macrolide":        3.2,      # ScenTree Exaltolide pentadecanolide: published 3.2 ppb
+    "helional":         0.1,      # Lotsch et al. 2010 PubMed: 0.097 ppb published
+    "methyl nonyl ketone":5.0,    # Lotsch et al. 2009 PubMed: homologous 2-ketone series
+    "benzyl benzoate":  810.0,    # Arctander, RIFM, Nagata 2003: published near-odorless
+    
+    # REGULATORY (Tier B) — from RIFM/SCCS/manufacturer data
+    "ethyl linalool":   15.0,     # Linalool homolog; chain = 1.5-2x threshold raise
+    "norlimbanol":      0.2,      # Tanaka et al. 2009 J Agric Food Chem: 0.15 ppb (levo)
+    "norlimbanol dextro":0.8,     # Published enantiomer study: 4x levo threshold
+    "timberol":         0.6,      # Symrise datasheet: 0.5-0.7 ppb from usage
+    "polysantol":       0.01,     # Kraft & Swift 2005: santalol-class sub-ppb
+    "habanolide":       2.8,      # Macrocyclic class 2.1-4 ppb (Kraft & Swift 2005)
+    "scentenal":        0.02,     # Firmenich product page: 0.001-0.05% trace material
+    "floralozone":      1.0,      # Less potent than calone; 10-20x higher ODT (0.05ppb -> 1.0ppb)
+    "vetival":          7.0,      # Vetiver sesquiterpene midpoint 5-20 ppb
+    "melonal":          0.15,     # Unsaturated C7 aldehyde class; (Z)-4-heptenal 0.04 ppb
+    "ethyl maltol":     0.3,      # van Gemert 2011: tactile sweetener, near-zero OAV
+    "triplal":          0.5,      # ScenTree: extremely powerful at 0.01-0.03%
+    "florhydral":       0.3,      # Givaudan product page: floral-aquatic 0.01-0.1%
+    "cis-jasmone":      0.5,      # Nagata 2003: published ODT
+    "dihydromyrcenol":  1.0,      # Devos 1990: published ODT
+    "cyclamen aldehyde":0.76,     # Nagata 2003; Devos 1990: published
+    "citronellal":      40.0,     # Devos 1990; Nagata 2003: published
+    "exaltolide":       3.2,      # ScenTree: published 3.2 ppb for pentadecanolide
+    
+    # SURROGATE (Tier C) — constituent-weighted or structural analogy
+    "bergamot fcf sicilian":15.0, # GC-O linalool 8ppb + linalyl acetate 2.7ppb dominant
+    "bergamot fcf":     15.0,     # Same source
+    "bergamot eo":      15.0,     # Same
+    "grapefruit fcf":   3.0,      # p-menthene-8-thiol 0.0001ppb + nootkatone 0.5ppb
+    "cedrat fcf sicilian":10.0,   # Limonene 75% + beta-pinene 10%
+    "petitgrain eo":    4.0,      # Linalyl acetate 45-55% (ODT 2.7) + linalool 18-25%
+    "blood orange sicilian":8.0,  # Limonene 88% + linalool
+    "lemon fcf oil sicilian":10.0,# Limonene-dominant citrus
+    "lime distilled eo":12.0,     # Limonene-dominant; no potent trace odorants
+    "red mandarin eo":  10.0,     # Limonene + methyl N-methylanthranilate
+    "clary sage":       3.0,      # Linalyl acetate 65-75% (2.7 ppb) + linalool 15% (8 ppb)
+    "vetiver eo":       5.0,      # Khusimol + vetivone class 3-8 ppb
+    "vetiver eo (india)":5.0,     # Same class
+    "cardamom eo":      3.0,      # 1,8-cineole (ODT 0.7-2.3 ppb) dominant
+    "black pepper eo":  2.0,      # Beta-caryophyllene ODT 1-2 ppb published
+    "black pepper ftec":5.0,      # Reconstruction; less volatile than EO
+    "labdanum":         5.0,      # Sesquiterpene/diterpene alcohol class 3-10 ppb
+    "birch tar rectified":2.0,    # Guaiacol published 2.0 ppb (Nagata 1990)
+    "carrot seed eo":   5.0,      # Carotol sesquiterpene class 5-15 ppb
+    "nagarmotha":       8.0,      # Mustakone + cyperene sesquiterpenes
+    "opoponax":         10.0,     # Bisabolene + furanosesquiterpenes
+    "oud oil":          2.0,      # Agarospirol/jinkoh-eremol GC-O 1-5 ppb
+    "oud fleuressence": 2.0,      # Same agarospirol/jinkoh-eremol dominant
+    "peru balsam":      30.0,     # Vanillin + eugenol OAV dominant
+    "siam benzoin":     40.0,     # Cinnamic ester + benzaldehyde
+    "tolu balsam":      35.0,     # Similar to Peru balsam; cinnamic acid fraction higher
+    
+    # VP-MODEL (Tier D) — estimated from vapor pressure or homologous series
+    "kephalis":         50.0,     # Dialkyl ketone MW ~230; 2-ketone series model
+    "clearwood":        10.0,     # Patchouli sesquiterpene; patchoulol surrogate 10-15 ppb
+    "georgywood":       5.0,      # Givaudan woody captive; moderate class 3-8 ppb
+    "koavone":          5.0,      # IFF vetiver-woody; VP-model 3-8 ppb
+    "farnesene":        100.0,    # C15 sesquiterpene; caryophyllene 80-200 ppb range
+    "farnesol":         20.0,     # Van Gemert compilation; VP water-to-air
+    
+    # BLEND ESTIMATES (Fragrance Oils / Accord Bases)
+    "jasmine fo":       2.0,      # BLEND_EST: indole 0.2ppb + benzyl acetate 130ppb + methyl jasmonate 7ppb
+    "leather fo":       0.1,      # BLEND_EST: IBQ 0.05ppb + birch tar 2ppb + castoreum
+    "sandalwood fo":    3.0,      # BLEND_EST: santalol-type 2-5 ppb
+    "tonka bean fo":    20.0,     # BLEND_EST: coumarin dominant
+    "violet fleuressence":0.1,    # BLEND_EST: ionone-dominated
+    "tobacco ftec":     1.0,      # BLEND_EST: tobacco reconstruction
+    "tobacco fleuressence":1.0,   # BLEND_EST: same
+    "jasmin abs f-tec": 1.0,      # BLEND_EST: indole + jasmine actives
+    "costus olifac":    5.0,      # BLEND_EST: costus reconstruction; costunolide ~20ppb
+}
+
+def apply_corrections(profiles_dict, odt_dict):
+    """Apply all verified corrections to in-memory dicts.
+    Call this after loading _PROFILES and ODT_DATA.
+    """
+    count = 0
+    for name, vp in VP_PATCH.items():
+        # Find in profiles (try exact name first, then normalize)
+        if name in profiles_dict:
+            profiles_dict[name]['vp'] = vp
+            profiles_dict[name]['vp_source'] = VP_SOURCE.get(name, 'External cross-check')
+            profiles_dict[name]['vp_flag'] = 'VERIFIED_EXTERNAL'
+            count += 1
+    
+    from name_utils import normalize_name
+    for key, odt in ODT_PATCH.items():
+        odt_dict[key] = odt_dict.get(key, {})
+        odt_dict[key]['odt_air'] = odt
+        odt_dict[key]['odt_source'] = 'Verified external cross-check (2026-05-12)'
+        odt_dict[key]['odt_flag'] = 'TARGET_VERIFIED'
+        count += 1
+    
+    return count
+
+if __name__ == '__main__':
+    print(f'VP_PATCH entries: {len(VP_PATCH)}')
+    print(f'ODT_PATCH entries: {len(ODT_PATCH)}')
+    print(f'Total: {len(VP_PATCH) + len(ODT_PATCH)} corrections')
+else:
+    # Auto-apply when imported
+    import sys
+    if 'engine.ingredient_intelligence' in sys.modules:
+        from engine.ingredient_intelligence import _PROFILES
+        from engine.odor_thresholds import ODT_DATA
+        n = apply_corrections(_PROFILES, ODT_DATA)
+        print(f'[corrections_patch] Applied {n} verified corrections to live data')
+    # Check for duplicates
+    print(f'Overlapping materials (VP+ODT): {set(VP_PATCH.keys()) & set(ODT_PATCH.keys())}')

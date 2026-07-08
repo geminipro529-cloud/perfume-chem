@@ -1,0 +1,124 @@
+============================================================================
+  v7h — IFRA + anosmia-aware iris-violet refinement of v7g
+============================================================================
+
+  v7g baseline : geo=82.870
+  v7h seed     : geo=81.349  luxury=60.10  hedonic=85.80
+  brief check  : FAIL — IFRA: Damascol: 7.5 µL active > 6.0 µL IFRA
+
+  IFRA gate    : FAIL
+    ✗ Damascol: 7.5 µL active > 6.0 µL IFRA
+
+  IRIS-VIOLET CHORD (anosmia-balanced):
+    Alpha Irone                 1050 µL × 0.30 = 315.0 µL active  core — irones, slow
+    Beta Ionone                   60 µL × 1.00 =  60.0 µL active  headspace — CAPPED 60µL (OR5A1 hyposmia)
+    Alpha Ionone                 110 µL × 1.00 = 110.0 µL active  headspace — no anosmia, ODT 0.4 ppb
+    Alpha Isomethyl Ionone        80 µL × 1.00 =  80.0 µL active  powder — slow-adapt violet
+    Allyl Ionone                  30 µL × 1.00 =  30.0 µL active  fruity-violet bridge, no β-receptor compete
+    Orivone                      500 µL × 1.00 = 500.0 µL active  buttery iris support
+    Ultralia                      40 µL × 1.00 =  40.0 µL active  ghost iris trace
+    Carrot Seed EO               200 µL × 1.00 = 200.0 µL active  rooty — capped per brief
+
+────────────────────────────────────────────────────────────────────────────
+  CLIMB — IFRA-locked, β-Ionone-capped, anosmia-aware
+────────────────────────────────────────────────────────────────────────────
+    ★ pass 1 Damascol: 75 → 25  geo 81.349 → 81.361
+    ★ pass 1 Anisaldehyde: 135 → 130  geo 81.361 → 81.374
+    ★ pass 1 Cedarwood EO: 400 → 600  geo 81.374 → 81.476
+    ★ pass 1 Helional: 25 → 0  geo 81.476 → 81.498
+    ★ pass 1 Heliotropal: 80 → 55  geo 81.498 → 81.525
+    ★ pass 1 Romandolide: 850 → 900  geo 81.525 → 81.701
+    ★ pass 2 Benzoin Resinoid: 1200 → 1300  geo 81.701 → 81.716
+    ★ pass 2 Hedione: 1500 → 1700  geo 81.716 → 81.755
+    ★ pass 2 Ethyl Linalool: 1050 → 1100  geo 81.755 → 81.775
+    ★ pass 2 Ebanol: 1100 → 900  geo 81.775 → 81.789
+    ★ pass 2 Ethylene Brassylate: 950 → 1150  geo 81.789 → 81.796
+    ★ pass 2 Hedione HC: 600 → 800  geo 81.796 → 81.832
+    ★ pass 2 Carrot Seed EO: 200 → 210  geo 81.832 → 81.844
+    ★ pass 2 Habanolide: 250 → 240  geo 81.844 → 81.853
+    ★ pass 2 Delta Decalactone: 275 → 75  geo 81.853 → 81.956
+    ★ pass 2 Hexyl Salicylate: 400 → 200  geo 81.956 → 81.985
+    ★ pass 2 Benzyl Salicylate: 100 → 0  geo 81.985 → 81.998
+    ★ pass 2 Mayol: 75 → 25  geo 81.998 → 82.020
+    ★ pass 2 Javanol: 75 → 60  geo 82.020 → 82.030
+    ★ pass 2 Lilyreal ND: 75 → 60  geo 82.030 → 82.043
+    ★ pass 2 Romandolide: 900 → 700  geo 82.043 → 82.073
+    ★ pass 2 Zenolide: 150 → 100  geo 82.073 → 82.087
+    ★ pass 2 Galaxolide: 275 → 300  geo 82.087 → 82.107
+    ★ pass 3 Ethyl Linalool: 1100 → 1300  geo 82.107 → 82.133
+    ★ pass 3 Alpha Irone: 1050 → 1250  geo 82.133 → 82.150
+    ★ pass 3 Bergamot FCF oil Sicilian: 365 → 265  geo 82.150 → 82.167
+    ★ pass 3 Vanillin: 400 → 300  geo 82.167 → 82.179
+    ★ pass 3 Orivone: 500 → 450  geo 82.179 → 82.199
+    ★ pass 3 Delta Decalactone: 75 → 50  geo 82.199 → 82.207
+    ★ pass 3 Javanol: 60 → 55  geo 82.207 → 82.213
+    ★ pass 3 Lilyreal ND: 60 → 65  geo 82.213 → 82.224
+  climb done: 31 moves, 264s, final geo 82.224
+
+────────────────────────────────────────────────────────────────────────────
+  v7h vs v7g (default scorer)
+────────────────────────────────────────────────────────────────────────────
+
+  axis                    v7g        v7h        Δ
+  longevity                81.90     81.70      -0.20
+  sillage                  99.60     99.50      -0.10
+  luxury                   61.40     62.60      +1.20
+  texture                  80.80     73.80      -7.00  ⚠
+  stacking_depth           90.00     90.00      +0.00
+  photorealism             81.80     82.90      +1.10
+  perceptual_clarity       84.90     85.20      +0.30
+  skin_performance         81.00     80.50      -0.50
+  synergy                  95.00     95.00      +0.00
+  hedonic                  85.90     85.80      -0.10
+
+  geo: v7g 82.870 → v7h 82.224  (-0.646)
+
+  Brief guardrails: ✓ PASS
+  IFRA gate       : ✓ PASS
+
+  Final IRIS-VIOLET CHORD:
+    Alpha Irone                 1250 µL × 0.30 = 375.0 µL active  core — irones, slow
+    Beta Ionone                   60 µL × 1.00 =  60.0 µL active  headspace — CAPPED 60µL (OR5A1 hyposmia)
+    Alpha Ionone                 110 µL × 1.00 = 110.0 µL active  headspace — no anosmia, ODT 0.4 ppb
+    Alpha Isomethyl Ionone        80 µL × 1.00 =  80.0 µL active  powder — slow-adapt violet
+    Allyl Ionone                  30 µL × 1.00 =  30.0 µL active  fruity-violet bridge, no β-receptor compete
+    Orivone                      450 µL × 1.00 = 450.0 µL active  buttery iris support
+    Ultralia                      40 µL × 1.00 =  40.0 µL active  ghost iris trace
+    Carrot Seed EO               210 µL × 1.00 = 210.0 µL active  rooty — capped per brief
+    TOTAL IRIS ACTIVE                             = 1355.0 µL
+
+  Δ ingredients (v7h vs v7g):
+    Allyl Ionone                         0.0 →    30.0  (  +30.0)
+    Alpha Ionone                        60.0 →   110.0  (  +50.0)
+    Alpha Irone                       1050.0 →  1250.0  ( +200.0)
+    Alpha Isomethyl Ionone              25.0 →    80.0  (  +55.0)
+    Anisaldehyde                       135.0 →   130.0  (   -5.0)  [IFRA]
+    Benzoin Resinoid                  1675.0 →  1300.0  ( -375.0)
+    Bergamot FCF oil Sicilian          365.0 →   265.0  ( -100.0)  [IFRA]
+    Beta Ionone                         75.0 →    60.0  (  -15.0)
+    Bourgeonal                          50.0 →     4.0  (  -46.0)  [IFRA]
+    Carrot Seed EO                     200.0 →   210.0  (  +10.0)
+    Cedarwood EO                       400.0 →   600.0  ( +200.0)
+    Damascol                            75.0 →    25.0  (  -50.0)  [IFRA]
+    Delta Decalactone                  275.0 →    50.0  ( -225.0)
+    Ebanol                            1100.0 →   900.0  ( -200.0)
+    Ethyl Linalool                    1050.0 →  1300.0  ( +250.0)
+    Ethylene Brassylate               1275.0 →  1150.0  ( -125.0)
+    Galaxolide                         275.0 →   300.0  (  +25.0)
+    Habanolide                         250.0 →   240.0  (  -10.0)
+    Hedione                           1500.0 →  1700.0  ( +200.0)
+    Hedione HC                         600.0 →   800.0  ( +200.0)
+    Helional                            25.0 →     0.0  (  -25.0)  [IFRA]
+    Heliotropal                         35.0 →    55.0  (  +20.0)
+    Hexyl Salicylate                   400.0 →   200.0  ( -200.0)
+    Hydroxycitronellal                 500.0 →   600.0  ( +100.0)  [IFRA]
+    Javanol                             75.0 →    55.0  (  -20.0)
+    Lilyreal ND                         75.0 →    65.0  (  -10.0)
+    Mayol                               75.0 →    25.0  (  -50.0)
+    Orivone                            500.0 →   450.0  (  -50.0)
+    Romandolide                        600.0 →   700.0  ( +100.0)
+    Vanillin                           400.0 →   300.0  ( -100.0)
+    Zenolide                           150.0 →   100.0  (  -50.0)
+
+  snapshot → _opt_v7h_ifra_iris.json
+  ─── DONE ───

@@ -1,0 +1,58 @@
+{
+  "data_coverage_pct": {
+    "mw": 11.624072547403133,
+    "logp": 9.810387469084914,
+    "vp_25c": 9.64550700741962,
+    "antoine": 0.0,
+    "dhvap": 0.0,
+    "hsp": 0.0,
+    "odt_air": 1.0717230008244023,
+    "or_targets": 0.0,
+    "ifra": 0.08244023083264633,
+    "hedonic": 10.1401483924155,
+    "trp": 3.957131079967024,
+    "smiles": 0.08244023083264633,
+    "cas": 0.41220115416323166
+  },
+  "weaknesses": [
+    {
+      "title": "Antoine constants",
+      "body": "0% of materials have Antoine A/B/C. Phase 1 falls back to single-point VP_25 \u2192 VP(T) extrapolation is wrong above 40 \u00b0C and at the cold-tail."
+    },
+    {
+      "title": "UNIFAC \u03b3",
+      "body": "thermo.unifac integration is stubbed. Activity coefficients use a Hansen-distance regular-solution heuristic calibrated only to limonene-in-EtOH."
+    },
+    {
+      "title": "OR targets",
+      "body": "0% of materials have published EC50/Hill coefficients. Receptor occupancy uses a family\u2192OR-affinity prior. Mainland 2014 dataset not yet ingested."
+    },
+    {
+      "title": "Hedonic / TRP / IFRA",
+      "body": "Coverage <10%. Ferreira mixture-shift \u03b2=0.3 is hard-coded, not fitted."
+    },
+    {
+      "title": "Adaptation timescales",
+      "body": "\u03c4_fast / \u03c4_med / \u03c4_slow values from rat single-cell studies. Human bulb-level feedback may differ by 2-3\u00d7."
+    },
+    {
+      "title": "Maturation kinetics",
+      "body": "Arrhenius A/Ea per reaction class are order-of-magnitude calibrated to one Blakeway 1987 reference. Per-aldehyde overrides not yet supplied."
+    },
+    {
+      "title": "Spray atomisation",
+      "body": "Log-normal Dv50=30 \u00b5m \u03c3_g=1.5 is the typical perfume-atomiser literature value, not measured for any specific bottle."
+    },
+    {
+      "title": "OR polymorphism coverage",
+      "body": "Only OR7D4 / OR5A1 / OR11H7 SNPs encoded. ~400 ORs \u00d7 3 variants = ~1200 alleles remain unmodeled."
+    }
+  ],
+  "open_questions": [
+    "Should mixture-shift \u03b2 be material-pair-specific?",
+    "Is Stevens' law (per-OR exponent) or Weber\u2013Fechner (log) the better default for supra-threshold perception?",
+    "How to weight retronasal vs orthonasal in the optimizer when the brief is for skin fragrance, not flavour?",
+    "Lateral-inhibition kernel: ring-uniform vs structural-similarity-weighted?",
+    "Granularity of OR families: 8 abstract groups (current) vs full 396-locus model?"
+  ]
+}

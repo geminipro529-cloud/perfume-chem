@@ -1,0 +1,18 @@
+REDESIGNED DHC FORMULAS — Verified ODT Architecture
+==========================================================================================
+  Formula               Citrus   LAc     H    HC       OAV   Cit%   Lac% Flower%
+  ----------------------------------------------------------------------
+  Bergamot                6500    80  1100   450   206,046  10.5%   5.0%   4.0%
+  Cedrat                  6500    80  1000   400   200,939  12.9%   5.2%   3.6%
+  Grapefruit              5500   100  1200   500   257,295  25.7%   5.0%   1.6%
+  Lime                    6500    80  1000   400   188,835  10.3%   5.5%   0.0%
+  Mandarin                6000   100  1050   450   202,391  10.7%   6.4%   4.6%
+  Blood Orange            6000    80  1050   450   214,425  21.0%   4.8%   0.2%
+  Lemon                   6500    80  1050   450   201,621  16.1%   5.1%   0.1%
+
+KEY REDESIGN DECISIONS:
+  - Bergamot dose 5000->6500 (ODT 4->15 ppb = 3.75x less visible)
+  - Linalyl Acetate slashed to 80-100uL (ODT 50->2.7 = 18x MORE visible)
+  - Grapefruit dose 5200->5500 (ODT 5->3 = smaller bump needed)
+  - Scentenal trace 0.06->0.02 active (ODT 0.5->0.02 = 25x MORE visible)
+  - All citruses bumped +500-1500uL for corrected ODT values

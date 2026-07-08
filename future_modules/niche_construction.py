@@ -1,0 +1,364 @@
+"""Niche-house construction paradigms — molecule-forward, abstract/representational, dramatic arc.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+
+Encodes the advanced construction intelligence from the Advanced Perfumery
+Supplement (Gaps 7 + 8). Covers:
+
+  - Molecule-Forward Construction (Escentric Molecules paradigm)
+  - Abstract vs. Representational continuum (4 style levels)
+  - Deliberate Dramatic Arc (Amouage Interlude-style)
+  - Platform Thinking (3-material diffusion core)
+  - 5 key luxury principles distilled from Dior/Chanel/Amouage-level formulas
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Sequence
+
+from ._shared_types import FragranceFamily, NoteTier
+
+
+# ---------------------------------------------------------------------------
+# Construction style continuum
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class ConstructionStyle:
+    """One point on the representational→abstract construction continuum."""
+    style: str
+    description: str
+    examples: str
+    key_method: str
+    material_count_range: tuple[int, int]
+    dominant_material_count: int  # how many primary character materials
+
+
+CONSTRUCTION_CONTINUUM: tuple[ConstructionStyle, ...] = (
+    ConstructionStyle(
+        "Representational (photorealistic)",
+        "Formula smells like a specific real object (rose, jasmine, grapefruit). The goal is fidelity to the natural referent.",
+        "Various soliflores, rose absolute replicas",
+        "OAV targeting of character-defining compounds, natural-analog reconstruction",
+        (6, 20), 3,
+    ),
+    ConstructionStyle(
+        "Semi-abstract",
+        "Formula evokes a feeling, place, or impression using real materials, but does not replicate them photorealistically.",
+        "Chanel No.5 (abstract flowers), Cool Water (abstract ocean)",
+        "Selective use of character compounds, suppression of naturalistic elements",
+        (12, 30), 5,
+    ),
+    ConstructionStyle(
+        "Abstract",
+        "No real-world referent — purely hedonic experience. The wearer thinks 'this is beautiful' not 'this smells like X.'",
+        "Molecule 01, early Ellena (Hermès) fragrances",
+        "Texture-first (Method G), minimum material, ghost-note exploitation",
+        (3, 12), 2,
+    ),
+    ConstructionStyle(
+        "Conceptual (dramatic arc)",
+        "Formula tells a narrative over time — the temporal progression is the fragrance's meaning, not the individual notes.",
+        "Amouage Interlude (chaos → serenity), Dior Fahrenheit (gasoline → violet → leather)",
+        "Deliberate temporal hedonic arc design",
+        (12, 30), 4,
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# Dramatic arc construction (3-act structure)
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class DramaticAct:
+    """One act in a 3-act dramatic fragrance arc (Interlude-style)."""
+    act: str
+    duration_min: tuple[float, float]  # (min, max) minutes
+    character: str
+    hedonic_target: tuple[float, float]  # (min, max) hedonic
+    material_criteria: str
+    vp_range_pa: tuple[float, float]
+    example_materials: tuple[str, ...]
+
+
+DRAMATIC_ARC_STRUCTURE: tuple[DramaticAct, ...] = (
+    DramaticAct(
+        "Act I — Tension", (0, 20),
+        "Deliberately jarring, high OAV materials that do NOT harmonize with Act II. Creates tension and anticipation.",
+        (0.0, 1.5),
+        "Materials with hedonic < +1.5 that are volatility-appropriate for rapid evaporation",
+        (1, 50),
+        (
+            "Pimento Berry Oil", "Oregano EO", "Sichuan Pepper",
+            "Green Galbanum", "Bitter Violet Leaf", "Sharp Aldehydes C10/C11",
+        ),
+    ),
+    DramaticAct(
+        "Act II — Resolution", (20, 90),
+        "Character resolution — the materials that feel 'right'. Act I materials have evaporated; Act II dominates the experience.",
+        (3.0, 5.0),
+        "Beautiful heart materials that provide the fragrance's core identity after the tension resolves",
+        (0.05, 10),
+        (
+            "Frankincense / Olibanum", "Cistus / Labdanum", "Vanilla",
+            "Hedione", "Rose Absolute", "Jasmine Absolute", "Benzoin",
+        ),
+    ),
+    DramaticAct(
+        "Act III — Intimacy", (90, 720),
+        "Intimacy — the deeply personal, skin-close base. Only the wearer (and those intimately close) perceive this.",
+        (2.0, 4.0),
+        "Low-VP materials that create a personal, intimate skin experience",
+        (0.0, 0.01),
+        (
+            "Sandalwood / Javanol", "Ambroxan", "Galaxolide",
+            "Habanolide", "Benzyl Benzoate", "Ambrettolide", "Coumarin",
+        ),
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# Molecule-Forward Construction (Escentric Molecules paradigm)
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class MoleculeForwardBlueprint:
+    """Blueprint for constructing a molecule-forward (Escentric Molecules-style) fragrance."""
+    anchor_material: str
+    anchor_oav_target: tuple[float, float]
+    supporting_count: tuple[int, int]  # (min, max) supporting materials
+    philosophy: str
+
+
+MOLECULE_FORWARD_ANCHORS: tuple[MoleculeForwardBlueprint, ...] = (
+    MoleculeForwardBlueprint(
+        "Iso E Super",
+        (200, 800),
+        (4, 10),
+        "Iso E Super has extreme olfactory persistence — it fades into imperceptibility (specific anosmia builds), then returns to threshold unexpectedly. Creates 'intermittent perception' — the fragrance seems to appear and disappear throughout the day.",
+    ),
+    MoleculeForwardBlueprint(
+        "Ambroxan",
+        (100, 500),
+        (4, 10),
+        "Ambroxan operates via OR7A17 which signals differently from standard olfactory channels. The amber-skin warmth it creates feels like a personal aura rather than a 'fragrance' smell.",
+    ),
+    MoleculeForwardBlueprint(
+        "Norlimbanol",
+        (50, 200),
+        (4, 8),
+        "'The Hedione of wood materials.' In traces, boosts woody and ambery notes across the complete pyramid. Powerful performance anchor with near-zero evaporation rate.",
+    ),
+    MoleculeForwardBlueprint(
+        "Habanolide",
+        (50, 150),
+        (4, 8),
+        "Transparent macrocyclic musk that reads as 'enhanced clean skin' rather than 'musk.' Universal perception, low anosmia risk — ideal for minimalist skin scents.",
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# Platform Thinking — the "3-material diffusion core"
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class DiffusionPlatform:
+    """A 3-material diffusion platform as used by luxury/niche houses."""
+    name: str
+    materials: tuple[str, str, str]
+    total_formula_pct: float           # approximate % of total formula weight
+    character: str
+    example_formulas: tuple[str, ...]
+    construction_note: str
+
+
+DIFFUSION_PLATFORMS: tuple[DiffusionPlatform, ...] = (
+    DiffusionPlatform(
+        "Sauvage Platform",
+        ("Ambroxan", "Iso E Super", "Hedione"),
+        44.0,  # ~15% each
+        "Amber-skin anchor + woody sillage + jasmine radiance — the definitive modern designer masculine platform",
+        ("Dior Sauvage",),
+        "Each at ~15% of concentrate creates 3 OAV > 100 anchors simultaneously. Everything else modulates these three.",
+    ),
+    DiffusionPlatform(
+        "Aventus Platform",
+        ("Helvetolide", "Hedione", "Iso E Super"),
+        51.0,  # 14% + 23% + 14%
+        "Transparent fruity-musk cloud + radiance + woody sillage — the identity of Aventus IS its platform",
+        ("Creed Aventus",),
+        "Helvetolide at 14% reads as fruity-transparent atmosphere, not musk. This is the highest musk loading of any famous fragrance.",
+    ),
+    DiffusionPlatform(
+        "Black Orchid Platform",
+        ("Iso E Super", "Hedione", "Ethylene Brassylate"),
+        26.0,
+        "Transparent woody-amber-musk deployed in darker, spicier context — same core platform, completely different result",
+        ("Tom Ford Black Orchid", "Many Tom Ford Private Blend fragrances"),
+        "The same woody-amber-musk platform as Sauvage but in a darker context: the platform is neutral, the character materials make the difference.",
+    ),
+    DiffusionPlatform(
+        "Layton Platform",
+        ("Iso E Super", "Ambroxan", "Norlimbanol"),
+        40.0,  # 22% + 10% + 8.5%
+        "Ultra-high woody sillage + amber skin + dry woody depth — the niche woody-amber signature",
+        ("PDM Layton", "PDM Pegasus", "Roja Dove Elysium"),
+        "Iso E Super at 22% approaches single-molecule territory. Norlimbanol at 8.5% is the invisible woody depth amplifier.",
+    ),
+    DiffusionPlatform(
+        "No.5 Platform (non-platform approach)",
+        ("Aldehyde Quartet", "Jasmine-Rose Absolute", "Orris-Sandalwood-Musk"),
+        0,  # Not a mass-percentage platform — a layered structure
+        "Three-layer depth: abstract metallic → sensual floral → intimate skin. Not platform-based but layer-based.",
+        ("Chanel No.5",),
+        "Chanel No.5 uses layered depth rather than a 3-material mass platform. This is the alternative to platform thinking for abstract florals.",
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# 5 Key Luxury Principles (from Closing Intelligence Summary)
+# ---------------------------------------------------------------------------
+
+FIVE_LUXURY_PRINCIPLES: tuple[tuple[str, str, str, tuple[str, ...]], ...] = (
+    (
+        "Platform thinking",
+        "Great luxury formulas are built on a 3-material diffusion platform, not individual notes. The platform defines sillage, longevity, and character simultaneously.",
+        "Sauvage: Ambroxan + Iso E Super + Hedione at ~15% each",
+        ("Before adding any character material, build the diffusion platform first.", "The platform should be 30-60% of formula weight.", "The platform materials should provide complementary character (amber + woody + radiant)."),
+    ),
+    (
+        "Temporal drama",
+        "The formula must be designed as a narrative arc — tension and release over time. Uniformly pleasant formulas are forgettable.",
+        "Interlude: oregano-pimento tension → incense resolution → intimate base",
+        ("Act I (0-20 min) should be challenging (hedonic < +1.5)", "Act II (20-90 min) should be beautiful (hedonic > +3.0)", "Act III (90+ min) should be intimate"),
+    ),
+    (
+        "Somatosensory dimension",
+        "Sichuan pepper, cooling materials, warmth materials add a tactile dimension that purely olfactory formulas cannot achieve.",
+        "Sauvage: Sichuan pepper electric tingling; Aventus: birch tar smoky texture",
+        ("Add at least one somatosensory material at the opening.", "TRPV1/TRPM8-channel materials create non-replicable tactile depth.", "Somatosensory + olfactory must be designed as independent layers."),
+    ),
+    (
+        "Specific anosmia as design variable",
+        "For Thai/East Asian market: ~20% Ambroxan anosmia means every Ambroxan-anchor formula loses impact for 1 in 5 consumers. Multi-class musk coverage is not optional.",
+        "Sauvage: Habanolide + Ambrettolide backup; Black Orchid: Ethylene Brassylate + Iso E Super woody-musk",
+        ("Always use 3+ musk structural classes.", "Never rely on a single material for any critical character dimension.", "Test your own anosmia profile before designing formulas."),
+    ),
+    (
+        "Invisible infrastructure",
+        "Norlimbanol, Vertofix Coeur, Cashmeran, Helional, Florol — the 'infrastructure materials' that make a formula feel expensive, cohesive, and three-dimensional.",
+        "Layton: Norlimbanol 8.5% + Cashmeran 6% + Helional 0.7% — none identifiable, all essential",
+        ("Add at least one infrastructure material even if never identifiable as a note.", "Norlimbanol 0.1-0.5% boosts ALL woody-amber notes across the pyramid.", "Vertofix Coeur 1% + Iso E Super 3% = expensive dry-wood atmosphere."),
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def get_construction_style(style_name: str) -> ConstructionStyle | None:
+    """Return construction style by name."""
+    for cs in CONSTRUCTION_CONTINUUM:
+        if style_name.lower() in cs.style.lower():
+            return cs
+    return None
+
+
+def get_all_construction_styles() -> tuple[ConstructionStyle, ...]:
+    """Return the full representational→abstract continuum."""
+    return CONSTRUCTION_CONTINUUM
+
+
+def get_dramatic_arc_structure() -> tuple[DramaticAct, ...]:
+    """Return the 3-act dramatic arc structure."""
+    return DRAMATIC_ARC_STRUCTURE
+
+
+def get_act_materials(act: str) -> tuple[str, ...] | None:
+    """Return example materials for a dramatic arc act."""
+    for da in DRAMATIC_ARC_STRUCTURE:
+        if da.act.lower() == act.lower():
+            return da.example_materials
+    return None
+
+
+def get_molecule_forward_blueprint(material: str) -> MoleculeForwardBlueprint | None:
+    """Return molecule-forward blueprint for a material."""
+    for mfb in MOLECULE_FORWARD_ANCHORS:
+        if mfb.anchor_material.lower() == material.lower():
+            return mfb
+    return None
+
+
+def get_all_molecule_forward_anchors() -> tuple[MoleculeForwardBlueprint, ...]:
+    """Return all molecule-forward anchor blueprints."""
+    return MOLECULE_FORWARD_ANCHORS
+
+
+def get_diffusion_platform(name: str) -> DiffusionPlatform | None:
+    """Return a diffusion platform by name."""
+    for dp in DIFFUSION_PLATFORMS:
+        if name.lower() in dp.name.lower():
+            return dp
+    return None
+
+
+def get_all_diffusion_platforms() -> tuple[DiffusionPlatform, ...]:
+    """Return all known diffusion platforms."""
+    return DIFFUSION_PLATFORMS
+
+
+def get_five_luxury_principles() -> tuple[tuple[str, str, str, tuple[str, ...]], ...]:
+    """Return the 5 key luxury principles with implementation guidance."""
+    return FIVE_LUXURY_PRINCIPLES
+
+
+def design_dramatic_arc(
+    act1_materials: tuple[str, ...],
+    act2_materials: tuple[str, ...],
+    act3_materials: tuple[str, ...],
+) -> str:
+    """Validate a dramatic arc design and return feedback."""
+    issues = []
+    if len(act1_materials) < 2:
+        issues.append("Act I needs at least 2 contrasting tension materials")
+    if len(act2_materials) < 3:
+        issues.append("Act II needs at least 3 harmonizing resolution materials")
+    if len(act3_materials) < 2:
+        issues.append("Act III needs at least 2 intimate base materials")
+
+    if not issues:
+        return "Dramatic arc structure valid: tension → resolution → intimacy"
+    return "Dramatic arc issues: " + "; ".join(issues)
+
+
+def build_concept_strip(brief_elements: Sequence[str]) -> dict[str, str]:
+    """Translate abstract brief elements into a 5-material concept strip.
+
+    This is the professional 'smell the brief' exercise used at luxury houses.
+    """
+    translation = {
+        "raw": "Ambroxan (amber-skin anchor, high dose)",
+        "wild": "Cypriol EO (smoky-earthy-woody)",
+        "mediterranean": "Lavender EO + Bergamot FCF (aromatic fresh)",
+        "volcanic": "Cashmeran (spicy-mineral texture) + Geosmin trace",
+        "fresh": "Dihydromyrcenol + Hedione (transparent diffusion)",
+        "masculine": "Norlimbanol 0.3% + Iso E Super 5% (woody depth)",
+        "luxury": "Jasmine Absolute 2% + Orris Butter 0.1% (credibility anchors)",
+        "long_lasting": "Ambroxan 5% + Galaxolide 50% 10% (ultra-base platform)",
+    }
+    result: dict[str, str] = {}
+    for element in brief_elements:
+        for key, translation_text in translation.items():
+            if key in element.lower():
+                result[element] = translation_text
+                break
+        else:
+            result[element] = "No direct translation — consider abstract texture approach"
+    return result

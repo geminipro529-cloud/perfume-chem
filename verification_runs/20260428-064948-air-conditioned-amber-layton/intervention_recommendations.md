@@ -1,0 +1,434 @@
+# Intervention Recommendations - Air-Conditioned Amber Layton
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Ambrox Super + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Alpha Isomethyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Sandalore
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Sandalore
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Bergamot FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Cardamom FTEC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Benzoin Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Ambrettolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 5.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Cardamom FTEC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Sandalore
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Benzoin Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cardamom FTEC + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Sandalore + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Coumarin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 1.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Benzoin Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Ethyl Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 1.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vanillin + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.2 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Cedrat FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Benzoin Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Ethyl Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 1.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Benzyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedrat FCF oil Sicilian + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Azarbre + Red Mandarin EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Azarbre + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Red Mandarin EO + Norlimbanol Dextro
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Hexyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Acetate + Benzoin Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.0 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Acetate + Ethyl Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.0 vs 1.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Acetate + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.0 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Acetate + Ethyl Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Acetate + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethyl Linalool + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzoin Resinoid + Ethyl Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.9 vs 1.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzoin Resinoid + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.9 vs 1.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethyl Vanillin + Ethyl 2-Methylbutyrate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.6 vs 1.9 — pre-mixing improves homogeneity.'}
+- ADD Indole (10%) for stacking_depth (axis delta 4.0, total delta 0.4)
+  - Rationale: animalic depth at trace (10% dil → 0.05% active)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Isobutyl Quinoline (10%) for stacking_depth (axis delta 3.0, total delta 0.3)
+  - Rationale: dirty leather at trace, animalic depth (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 39.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Ethyl Maltol (10%) for stacking_depth (axis delta 9.0, total delta 0.9)
+  - Rationale: synergistic gap filler (3 synergies: Vanillin, Coumarin, Benzoin Resinoid)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 38.0% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Birch Tar Rectified for stacking_depth (axis delta 3.0, total delta 0.3)
+  - Rationale: smoky leather at trace, phenolic dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Olibanum Resinoid for stacking_depth (axis delta 3.0, total delta 0.5)
+  - Rationale: frankincense depth, incense dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 38.0% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- ADD Ethyl Maltol (10%) for stacking_depth (axis delta 9.0, total delta 0.9)
+  - Rationale: synergistic gap filler (3 synergies: Vanillin, Coumarin, Benzoin Resinoid)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 38.0% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Indole (10%) for stacking_depth (axis delta 4.0, total delta 0.4)
+  - Rationale: animalic depth at trace (10% dil → 0.05% active)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Isobutyl Quinoline (10%) for stacking_depth (axis delta 3.0, total delta 0.3)
+  - Rationale: dirty leather at trace, animalic depth (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - heart band is 39.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Birch Tar Rectified for stacking_depth (axis delta 3.0, total delta 0.3)
+  - Rationale: smoky leather at trace, phenolic dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Olibanum Resinoid for stacking_depth (axis delta 3.0, total delta 0.4)
+  - Rationale: frankincense depth, incense dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 71.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 38.0% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.4/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

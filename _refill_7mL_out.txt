@@ -1,0 +1,99 @@
+══════════════════════════════════════════════════════════════════════
+  PHOTOREALISTIC IRIS — 7 mL REFILL (scaled from 30 mL optimized)
+══════════════════════════════════════════════════════════════════════
+  Concentrate: 1051.4 µL (15.02%)
+  Ethanol 96%: 5948.6 µL
+  Scale factor: 0.2333
+
+──────────────────────────────────────────────────────────────────────
+ (A) OAV guard @ 7 mL — absolute ODT crossings
+──────────────────────────────────────────────────────────────────────
+  0 err · 5 warn · 0 info
+    warn: Leafovert: 0.93 µL (neat-equiv 0.93 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Scentenal: 2.80 µL (neat-equiv 0.03 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Farnesol: 1.17 µL (neat-equiv 1.17 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Paradisamide: 14.00 µL (neat-equiv 1.40 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Cashmeran: 7.00 µL (neat-equiv 1.40 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+──────────────────────────────────────────────────────────────────────
+ (B) Proportional re-split check: 7 → 3.5 mL (trace-floor safety)
+──────────────────────────────────────────────────────────────────────
+  2 err · 0 warn · 3 info
+    error: Leafovert: proportional scaling from 7.0 mL → 3.5 mL yields 0.465 µL (below 1.0 µL pipette floor). Use a weaker pre-dilution or keep minimum 1 µL and accept concentration shift.
+    error: Farnesol: proportional scaling from 7.0 mL → 3.5 mL yields 0.585 µL (below 1.0 µL pipette floor). Use a weaker pre-dilution or keep minimum 1 µL and accept concentration shift.
+
+──────────────────────────────────────────────────────────────────────
+ (C) Hill dose-response — character-zone audit
+──────────────────────────────────────────────────────────────────────
+  Score: 100.0/100
+  Optimal: 11 · Marginal: 1 · Overdosed: 0
+    ⚠ Iso E Super                  @ 8.101% → neutral
+
+──────────────────────────────────────────────────────────────────────
+ (D) Axis scoring
+──────────────────────────────────────────────────────────────────────
+  Geo composite: 83.848
+    longevity                90.30
+    sillage                  90.60
+    luxury                   76.90
+    texture                  80.90
+    stacking_depth           75.00
+    photorealism             88.50
+    perceptual_clarity       84.40
+    skin_performance         78.40
+    synergy                  95.00
+    hedonic                  84.30
+
+──────────────────────────────────────────────────────────────────────
+ (E) Per-material: ppm in final 7 mL (assumes density ≈ 0.85 g/mL EtOH)
+──────────────────────────────────────────────────────────────────────
+  Final batch mass: ~5950 mg
+
+   #  Material                       Dil   µL(dil)   µL(neat)   ppm(w/w)
+  ──────────────────────────────────────────────────────────────────────
+   1  Bergamot FCF oil Sicilian     neat     23.33      23.33       3921
+   2  Leafovert                     neat      0.93       0.93        156
+   3  Ethyl Linalool                neat     16.33      16.33       2745
+   4  Dihydromyrcenol               neat     39.67      39.67       6667
+   5  Allyl Amyl Glycolate          neat      2.33       2.33        392
+   6  Scentenal                       1%      2.80       0.03          5
+   7  Alpha Irone                    30%    170.33      51.10       8588
+   8  Myristic Acid                  20%    175.00      35.00       5882
+   9  Alpha Ionone                  neat      9.33       9.33       1568
+  10  Beta Ionone                   neat      5.83       5.83        980
+  11  Dihydro Beta Ionone           neat      4.67       4.67        785
+  12  Orivone                       neat     14.00      14.00       2353
+  13  Hedione                       neat     82.83      82.83      13921
+  14  Hedione HC                    neat     19.83      19.83       3333
+  15  Cis Jasmone                   neat      2.33       2.33        392
+  16  Carrot Seed EO                neat      7.00       7.00       1176
+  17  Ultralia                      neat      9.33       9.33       1568
+  18  Cyclamen Aldehyde             neat      3.50       3.50        588
+  19  Farnesol                      neat      1.17       1.17        197
+  20  Heliotropal                   neat      9.33       9.33       1568
+  21  Musk Ketone                    10%     23.33       2.33        392
+  22  Koavone                       neat     23.33      23.33       3921
+  23  Azarbre                       neat     11.67      11.67       1961
+  24  Ebanol                        neat     26.83      26.83       4509
+  25  Iso E Super                   neat     85.17      85.17      14314
+  26  Habanolide                    neat     78.17      78.17      13138
+  27  Ethylene Brassylate           neat     44.33      44.33       7450
+  28  Exaltolide                     10%     35.00       3.50        588
+  29  Ambrettolide                   10%     32.67       3.27        549
+  30  Ambrox Super                   30%     11.67       3.50        588
+  31  IPM                           neat     58.33      58.33       9803
+  32  Paradisamide                   10%     14.00       1.40        235
+  33  Cashmeran                      20%      7.00       1.40        235
+
+──────────────────────────────────────────────────────────────────────
+ Mixing Procedure (7 mL in a 20 mL beaker)
+──────────────────────────────────────────────────────────────────────
+  1. Add materials in listed order (macros → traces).
+  2. Top up with ethanol 96%: 5949 µL.
+  3. Cap, swirl 30 s, rest 24–48 hr for maceration.
+  4. Pour into parent bottle, swirl.
+
+  Traces < 1 µL — use a 10% pre-dilution in DPG, or micro-pipette 0.2–0.5 µL.
+  Sub-µL materials: Leafovert
+
+✓ Saved: formulas/collections/Photorealistic_Iris_7mL_REFILL_VERIFIED.md

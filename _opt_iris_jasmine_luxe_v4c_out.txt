@@ -1,0 +1,102 @@
+==============================================================================
+  Iris-Jasmine *Luxe Lact├⌐e* ΓÇö character-aligned optimization
+  Axis weights:  hedonic 1.6 ┬╖ texture 1.4 ┬╖ luxury 1.4 ┬╖
+                 stacking_depth 1.2 ┬╖ skin_performance 1.2 ┬╖
+                 longevity/sillage 1.0 ┬╖ photorealism 0.4 ┬╖ clarity 0.4
+==============================================================================
+
+  brief gate: OK
+
+  baseline geo (character-weighted): 71.455
+  baseline axes:
+     hedonic                w=1.6   score=87.10
+     texture                w=1.4   score=73.70
+     luxury                 w=1.4   score=56.90
+     stacking_depth         w=1.2   score=73.00
+     skin_performance       w=1.2   score=69.80
+     longevity              w=1.0   score=66.10
+     sillage                w=1.0   score=72.80
+     synergy                w=0.8   score=60.00
+     photorealism           w=0.4   score=86.80
+     perceptual_clarity     w=0.4   score=87.80
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  HILL-CLIMB ΓÇö mass-preserving paired moves
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  start: geo=71.455  hed=87.10  lux=56.90  tex=73.70  depth=73.00  skin=69.80
+    Γÿà p1 Bergamot FCF oil Sicilian: 500 ΓåÆ 580  (╬ö+80, rebalanced)  geo 71.455 ΓåÆ 71.527  hed=87.10 lux=57.00 tex=73.70
+    Γÿà p1 Petitgrain EO: 164 ΓåÆ 174  (╬ö+10, rebalanced)  geo 71.527 ΓåÆ 71.581  hed=87.10 lux=57.30 tex=73.70
+    Γÿà p1 Ethyl Safranate: 55 ΓåÆ 45  (╬ö-10, rebalanced)  geo 71.581 ΓåÆ 71.593  hed=87.10 lux=57.30 tex=73.70
+    Γÿà p1 Alpha Isomethyl Ionone: 546 ΓåÆ 506  (╬ö-40, rebalanced)  geo 71.593 ΓåÆ 71.611  hed=87.10 lux=57.40 tex=73.70
+    Γÿà p1 Heliotropal: 274 ΓåÆ 314  (╬ö+40, rebalanced)  geo 71.611 ΓåÆ 71.627  hed=87.10 lux=57.40 tex=73.70
+    Γÿà p1 Ultralia: 44 ΓåÆ 34  (╬ö-10, rebalanced)  geo 71.627 ΓåÆ 71.644  hed=87.10 lux=57.50 tex=73.70
+    Γÿà p1 Hexyl Salicylate: 944 ΓåÆ 954  (╬ö+10, rebalanced)  geo 71.644 ΓåÆ 71.659  hed=87.10 lux=57.50 tex=73.70
+    Γÿà p1 Ebanol: 928 ΓåÆ 933  (╬ö+5, rebalanced)  geo 71.659 ΓåÆ 71.669  hed=87.10 lux=57.50 tex=73.70
+  pass 1 complete  moves=8  t=8s  geo=71.669
+    Γÿà p2 Alpha Isomethyl Ionone: 504 ΓåÆ 464  (╬ö-40, rebalanced)  geo 71.669 ΓåÆ 71.686  hed=87.10 lux=57.60 tex=73.70
+    Γÿà p2 Heliotropal: 315 ΓåÆ 335  (╬ö+20, rebalanced)  geo 71.686 ΓåÆ 71.697  hed=87.10 lux=57.60 tex=73.70
+    Γÿà p2 Hexyl Salicylate: 955 ΓåÆ 975  (╬ö+20, rebalanced)  geo 71.697 ΓåÆ 71.710  hed=87.10 lux=57.60 tex=73.70
+  pass 2 complete  moves=11  t=16s  geo=71.710
+    Γÿà p3 Alpha Irone: 1091 ΓåÆ 1081  (╬ö-10, rebalanced)  geo 71.710 ΓåÆ 71.727  hed=87.10 lux=57.70 tex=73.70
+    Γÿà p3 Alpha Isomethyl Ionone: 462 ΓåÆ 442  (╬ö-20, rebalanced)  geo 71.727 ΓåÆ 71.737  hed=87.10 lux=57.70 tex=73.70
+    Γÿà p3 Hexyl Salicylate: 978 ΓåÆ 998  (╬ö+20, rebalanced)  geo 71.737 ΓåÆ 71.744  hed=87.00 lux=57.70 tex=73.70
+    Γÿà p3 Coumarin: 491 ΓåÆ 486  (╬ö-5, rebalanced)  geo 71.744 ΓåÆ 71.754  hed=87.00 lux=57.70 tex=73.70
+  pass 3 complete  moves=15  t=24s  geo=71.754
+    Γÿà p4 Petitgrain EO: 174 ΓåÆ 184  (╬ö+10, rebalanced)  geo 71.754 ΓåÆ 71.783  hed=87.00 lux=57.90 tex=73.70
+    Γÿà p4 Ethyl Safranate: 45 ΓåÆ 35  (╬ö-10, rebalanced)  geo 71.783 ΓåÆ 71.791  hed=87.00 lux=58.00 tex=73.60
+    Γÿà p4 Helional: 79 ΓåÆ 74  (╬ö-5, rebalanced)  geo 71.791 ΓåÆ 71.804  hed=87.10 lux=58.00 tex=73.60
+  pass 4 complete  moves=18  t=32s  geo=71.804
+    Γÿà p5 Petitgrain EO: 184 ΓåÆ 189  (╬ö+5, rebalanced)  geo 71.804 ΓåÆ 71.820  hed=87.10 lux=58.10 tex=73.60
+    Γÿà p5 Ethyl Safranate: 35 ΓåÆ 30  (╬ö-5, rebalanced)  geo 71.820 ΓåÆ 71.832  hed=87.10 lux=58.10 tex=73.60
+  pass 5 complete  moves=20  t=38s  geo=71.832
+    Γÿà p6 Bergamot FCF oil Sicilian: 581 ΓåÆ 586  (╬ö+5, rebalanced)  geo 71.832 ΓåÆ 71.845  hed=87.10 lux=58.10 tex=73.60
+  pass 6 complete  moves=21  t=43s  geo=71.845
+  pass 7 complete  moves=21  t=48s  geo=71.845
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  RESULT
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  baseline geo : 71.455
+  optimized geo: 71.845   ╬ö = +0.390
+  moves accepted: 21
+
+  axis             baseline   optimized   ╬ö
+    hedonic                87.10      87.10   +0.00
+    texture                73.70      73.60   -0.10
+    luxury                 56.90      58.10   +1.20
+    stacking_depth         73.00      73.00   +0.00
+    skin_performance       69.80      70.60   +0.80
+    longevity              66.10      66.20   +0.10
+    sillage                72.80      73.70   +0.90
+    synergy                60.00      60.00   +0.00
+    photorealism           86.80      87.10   +0.30
+    perceptual_clarity     87.80      87.90   +0.10
+
+  final ingredients (┬╡L of as-bottled):
+    Γÿà Bergamot FCF oil Sicilian          585.7  (base   500.0  ╬ö  +85.7)
+    Γÿà Petitgrain EO                      189.3  (base   165.0  ╬ö  +24.3)
+      Aldehyde C12 MNA                   327.7  (base   330.0  ╬ö   -2.3)
+    Γÿà Ethyl Safranate                     29.5  (base    55.0  ╬ö  -25.5)
+    Γÿà Helional                            74.4  (base    80.0  ╬ö   -5.6)
+    Γÿà Hedione HC                        2850.3  (base  2870.0  ╬ö  -19.7)
+      Cis Jasmone                         87.4  (base    88.0  ╬ö   -0.6)
+      Dihydrojasmone                      39.7  (base    40.0  ╬ö   -0.3)
+      Amyl Cinnamic Aldehyde              79.5  (base    80.0  ╬ö   -0.5)
+      Benzyl Acetate                     305.9  (base   308.0  ╬ö   -2.1)
+      Gamma Undecalactone                163.9  (base   165.0  ╬ö   -1.1)
+    Γÿà Alpha Irone                       1081.4  (base  1100.0  ╬ö  -18.6)
+    Γÿà Alpha Isomethyl Ionone             441.6  (base   550.0  ╬ö -108.4)
+      Orivone                            273.1  (base   275.0  ╬ö   -1.9)
+    Γÿà Heliotropal                        334.7  (base   275.0  ╬ö  +59.7)
+    Γÿà Ultralia                            33.7  (base    44.0  ╬ö  -10.3)
+    Γÿà Hexyl Salicylate                   998.3  (base   950.0  ╬ö  +48.3)
+      Ebanol                             934.1  (base   935.0  ╬ö   -0.9)
+    Γÿà Coumarin                           486.4  (base   495.0  ╬ö   -8.6)
+      Musk Ketone                        382.4  (base   385.0  ╬ö   -2.6)
+      Exaltolide                         437.0  (base   440.0  ╬ö   -3.0)
+      Ambrettolide                       437.0  (base   440.0  ╬ö   -3.0)
+      Ambrofix                           427.1  (base   430.0  ╬ö   -2.9)
+
+  ╬ú concentrate = 11000.0 ┬╡L  (target 11000 ┬▒ 330)
+
+  ΓåÆ _opt_iris_jasmine_luxe_v4c_out.json

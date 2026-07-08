@@ -1,0 +1,2709 @@
+[
+  {
+    "index": 1,
+    "title": "CHERRY MELT — Sweet Fruity-Floral Body Mist (Women)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Sweet Fruity-Floral Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 6 % (body mist)",
+    "reference": "Mistine Sweet Pink, Cathy Doll body mist",
+    "total_ul": 1800.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 87.0,
+      "sillage": 84.4,
+      "synergy": 58.0,
+      "luxury": 50.7,
+      "texture": 71.8,
+      "stacking_depth": 43.0,
+      "skin_performance": 52.7,
+      "hedonic": 86.6,
+      "perceptual_clarity": 85.9,
+      "photorealism": 83.6,
+      "arithmetic_total": 69.8,
+      "geometric_total": 67.6,
+      "total": 67.6
+    },
+    "geometric_total": 67.6,
+    "arithmetic_total": 69.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4166.666666666667,
+          "target_oav": 4166.666666666667
+        }
+      ]
+    }
+  },
+  {
+    "index": 1,
+    "title": "CHERRY MELT — Sweet Fruity-Floral Body Mist (Women)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "Sweet Fruity-Floral Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 6 % (body mist)",
+    "reference": "Mistine Sweet Pink, Cathy Doll body mist",
+    "total_ul": 1905.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 87.2,
+      "sillage": 84.0,
+      "synergy": 72.0,
+      "luxury": 50.8,
+      "texture": 71.7,
+      "stacking_depth": 62.0,
+      "skin_performance": 55.5,
+      "hedonic": 86.5,
+      "perceptual_clarity": 77.4,
+      "photorealism": 83.5,
+      "arithmetic_total": 72.5,
+      "geometric_total": 71.3,
+      "total": 71.3
+    },
+    "geometric_total": 71.3,
+    "arithmetic_total": 72.5,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4166.666666666667,
+          "target_oav": 4166.666666666667
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + texture"
+      },
+      {
+        "material": "Norlimbanol Dextro",
+        "dilution": 1.0,
+        "ul": 5.0,
+        "axis": "Performance + longevity"
+      },
+      {
+        "material": "Paradisamide",
+        "dilution": 0.1,
+        "ul": 40.0,
+        "axis": "Performance + differentiation"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.2,
+      "sillage": -0.4,
+      "synergy": 14.0,
+      "luxury": 0.1,
+      "texture": -0.1,
+      "stacking_depth": 19.0,
+      "skin_performance": 2.8,
+      "hedonic": -0.1,
+      "perceptual_clarity": -8.5,
+      "photorealism": -0.1,
+      "arithmetic_total": 2.7,
+      "geometric_total": 3.7
+    }
+  },
+  {
+    "index": 2,
+    "title": "BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Powdery Floral (น้ำหอมแป้ง)",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "Mistine Baby Powder, Cathy Doll Magic Hour Powder",
+    "total_ul": 2130.0,
+    "n_materials": 19,
+    "scores": {
+      "longevity": 83.2,
+      "sillage": 80.3,
+      "synergy": 60.0,
+      "luxury": 51.6,
+      "texture": 73.0,
+      "stacking_depth": 46.0,
+      "skin_performance": 60.2,
+      "hedonic": 86.7,
+      "perceptual_clarity": 83.5,
+      "photorealism": 77.3,
+      "arithmetic_total": 69.6,
+      "geometric_total": 68.0,
+      "total": 68.0
+    },
+    "geometric_total": 68.0,
+    "arithmetic_total": 69.6,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Heliotropal: formula uses 10.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 44.44444444444445,
+          "target_oav": 44.44444444444445
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 200.0,
+          "target_oav": 200.0
+        }
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "title": "BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "Powdery Floral (น้ำหอมแป้ง)",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "Mistine Baby Powder, Cathy Doll Magic Hour Powder",
+    "total_ul": 2265.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 82.8,
+      "sillage": 81.4,
+      "synergy": 76.0,
+      "luxury": 52.4,
+      "texture": 73.1,
+      "stacking_depth": 60.0,
+      "skin_performance": 64.5,
+      "hedonic": 86.3,
+      "perceptual_clarity": 83.2,
+      "photorealism": 78.6,
+      "arithmetic_total": 73.0,
+      "geometric_total": 72.1,
+      "total": 72.1
+    },
+    "geometric_total": 72.1,
+    "arithmetic_total": 73.0,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Heliotropal: formula uses 10.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 44.44444444444445,
+          "target_oav": 44.44444444444445
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 200.0,
+          "target_oav": 200.0
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ultralia",
+        "dilution": 1.0,
+        "ul": 15.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + fixation"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.4,
+      "sillage": 1.1,
+      "synergy": 16.0,
+      "luxury": 0.8,
+      "texture": 0.1,
+      "stacking_depth": 14.0,
+      "skin_performance": 4.3,
+      "hedonic": -0.4,
+      "perceptual_clarity": -0.3,
+      "photorealism": 1.3,
+      "arithmetic_total": 3.4,
+      "geometric_total": 4.1
+    }
+  },
+  {
+    "index": 3,
+    "title": "MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "White Floral Cologne",
+    "gender": "U/W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "BSC White Cotton, Eveandboy Jasmine",
+    "total_ul": 2103.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 77.5,
+      "sillage": 92.7,
+      "synergy": 52.0,
+      "luxury": 52.4,
+      "texture": 74,
+      "stacking_depth": 56.0,
+      "skin_performance": 45.1,
+      "hedonic": 86.7,
+      "perceptual_clarity": 83.7,
+      "photorealism": 85.4,
+      "arithmetic_total": 70.4,
+      "geometric_total": 68.4,
+      "total": 68.4
+    },
+    "geometric_total": 68.4,
+    "arithmetic_total": 70.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Indole",
+          "severity": "info",
+          "message": "Indole: scaled dose 2.67 µL of 10.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 533.3333333333334,
+          "target_oav": 533.3333333333334
+        }
+      ]
+    }
+  },
+  {
+    "index": 3,
+    "title": "MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "White Floral Cologne",
+    "gender": "U/W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "BSC White Cotton, Eveandboy Jasmine",
+    "total_ul": 2233.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 77.2,
+      "sillage": 92.9,
+      "synergy": 62.0,
+      "luxury": 51.1,
+      "texture": 74,
+      "stacking_depth": 67.0,
+      "skin_performance": 44.4,
+      "hedonic": 86.7,
+      "perceptual_clarity": 83.5,
+      "photorealism": 85.7,
+      "arithmetic_total": 72.2,
+      "geometric_total": 70.4,
+      "total": 70.4
+    },
+    "geometric_total": 70.4,
+    "arithmetic_total": 72.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "DBCA"
+      ],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Indole",
+          "severity": "info",
+          "message": "Indole: scaled dose 2.67 µL of 10.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 533.3333333333334,
+          "target_oav": 533.3333333333334
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrox Super",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Nympheal",
+        "dilution": 1.0,
+        "ul": 40.0,
+        "axis": "Texture + performance"
+      },
+      {
+        "material": "DBCA",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Depth + photorealism"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.3,
+      "sillage": 0.2,
+      "synergy": 10.0,
+      "luxury": -1.3,
+      "texture": 0.0,
+      "stacking_depth": 11.0,
+      "skin_performance": -0.7,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.2,
+      "photorealism": 0.3,
+      "arithmetic_total": 1.8,
+      "geometric_total": 2.0
+    }
+  },
+  {
+    "index": 4,
+    "title": "MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Vanilla-Coconut Gourmand Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "BSC Coconut Vanilla, Mistine Sweet Vanilla",
+    "total_ul": 2385.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 83.9,
+      "sillage": 78.8,
+      "synergy": 56.0,
+      "luxury": 51.0,
+      "texture": 81,
+      "stacking_depth": 51.0,
+      "skin_performance": 55.3,
+      "hedonic": 88.5,
+      "perceptual_clarity": 81.7,
+      "photorealism": 65.6,
+      "arithmetic_total": 68.9,
+      "geometric_total": 67.4,
+      "total": 67.4
+    },
+    "geometric_total": 67.4,
+    "arithmetic_total": 68.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 3333.3333333333335,
+          "target_oav": 3333.3333333333335
+        }
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "title": "MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Vanilla-Coconut Gourmand Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "BSC Coconut Vanilla, Mistine Sweet Vanilla",
+    "total_ul": 2513.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 82.6,
+      "sillage": 80.9,
+      "synergy": 62.0,
+      "luxury": 51.1,
+      "texture": 81,
+      "stacking_depth": 65.0,
+      "skin_performance": 56.4,
+      "hedonic": 88.2,
+      "perceptual_clarity": 81.5,
+      "photorealism": 67.2,
+      "arithmetic_total": 71.3,
+      "geometric_total": 70.2,
+      "total": 70.2
+    },
+    "geometric_total": 70.2,
+    "arithmetic_total": 71.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 3333.3333333333335,
+          "target_oav": 3333.3333333333335
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance + polish"
+      },
+      {
+        "material": "Paradisamide",
+        "dilution": 0.1,
+        "ul": 60.0,
+        "axis": "Longevity + differentiation"
+      },
+      {
+        "material": "Methyl Nonyl Ketone",
+        "dilution": 1.0,
+        "ul": 8.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.3,
+      "sillage": 2.1,
+      "synergy": 6.0,
+      "luxury": 0.1,
+      "texture": 0.0,
+      "stacking_depth": 14.0,
+      "skin_performance": 1.1,
+      "hedonic": -0.3,
+      "perceptual_clarity": -0.2,
+      "photorealism": 1.6,
+      "arithmetic_total": 2.4,
+      "geometric_total": 2.8
+    }
+  },
+  {
+    "index": 5,
+    "title": "THAI OUD — Oud-Amber Mid-Mass (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Oud-Amber (Mid-Mass)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Karmart Oud, BSC Oud Royal, Vasu Oud Lite",
+    "total_ul": 3605.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 88.1,
+      "sillage": 70.0,
+      "synergy": 88.0,
+      "luxury": 42.2,
+      "texture": 76.4,
+      "stacking_depth": 72.0,
+      "skin_performance": 56.2,
+      "hedonic": 81.9,
+      "perceptual_clarity": 72.6,
+      "photorealism": 68.6,
+      "arithmetic_total": 70.7,
+      "geometric_total": 69.2,
+      "total": 69.2
+    },
+    "geometric_total": 69.2,
+    "arithmetic_total": 70.7,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    }
+  },
+  {
+    "index": 5,
+    "title": "THAI OUD — Oud-Amber Mid-Mass (Masculine)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Oud-Amber (Mid-Mass)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Karmart Oud, BSC Oud Royal, Vasu Oud Lite",
+    "total_ul": 3760.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 88.1,
+      "sillage": 76.7,
+      "synergy": 94.0,
+      "luxury": 43.3,
+      "texture": 80.2,
+      "stacking_depth": 79.0,
+      "skin_performance": 60.6,
+      "hedonic": 81.9,
+      "perceptual_clarity": 72.0,
+      "photorealism": 70.2,
+      "arithmetic_total": 73.8,
+      "geometric_total": 72.3,
+      "total": 72.3
+    },
+    "geometric_total": 72.3,
+    "arithmetic_total": 73.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + fixation"
+      },
+      {
+        "material": "Nagarmortha Oil",
+        "dilution": 1.0,
+        "ul": 35.0,
+        "axis": "Depth + category identity"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": 6.7,
+      "synergy": 6.0,
+      "luxury": 1.1,
+      "texture": 3.8,
+      "stacking_depth": 7.0,
+      "skin_performance": 4.4,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.6,
+      "photorealism": 1.6,
+      "arithmetic_total": 3.1,
+      "geometric_total": 3.1
+    }
+  },
+  {
+    "index": 6,
+    "title": "EXPLORER LITE — Soft Skin Amber for Men (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Soft Skin Amber for Men",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Mont Blanc Explorer Ultra Blue / CK One Gold dupes",
+    "total_ul": 2950.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 86.8,
+      "sillage": 74.5,
+      "synergy": 95,
+      "luxury": 41.0,
+      "texture": 85,
+      "stacking_depth": 61.0,
+      "skin_performance": 45.4,
+      "hedonic": 85.6,
+      "perceptual_clarity": 81.7,
+      "photorealism": 78.4,
+      "arithmetic_total": 72.1,
+      "geometric_total": 69.6,
+      "total": 69.6
+    },
+    "geometric_total": 69.6,
+    "arithmetic_total": 72.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    }
+  },
+  {
+    "index": 6,
+    "title": "EXPLORER LITE — Soft Skin Amber for Men (Masculine)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Soft Skin Amber for Men",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Mont Blanc Explorer Ultra Blue / CK One Gold dupes",
+    "total_ul": 3120.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 86.9,
+      "sillage": 75.5,
+      "synergy": 95,
+      "luxury": 39.4,
+      "texture": 85,
+      "stacking_depth": 68.0,
+      "skin_performance": 51.0,
+      "hedonic": 85.5,
+      "perceptual_clarity": 81.4,
+      "photorealism": 79.3,
+      "arithmetic_total": 73.4,
+      "geometric_total": 71.2,
+      "total": 71.2
+    },
+    "geometric_total": 71.2,
+    "arithmetic_total": 73.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Cedramber",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": 1.0,
+      "synergy": 0.0,
+      "luxury": -1.6,
+      "texture": 0.0,
+      "stacking_depth": 7.0,
+      "skin_performance": 5.6,
+      "hedonic": -0.1,
+      "perceptual_clarity": -0.3,
+      "photorealism": 0.9,
+      "arithmetic_total": 1.3,
+      "geometric_total": 1.6
+    }
+  },
+  {
+    "index": 7,
+    "title": "SANDALWOOD VANILLA — Sandalwood-Gourmand for Women",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Sandalwood-Gourmand for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "BSC Sandalwood Vanilla, Cathy Doll Sandal Cream",
+    "total_ul": 2715.0,
+    "n_materials": 19,
+    "scores": {
+      "longevity": 85.5,
+      "sillage": 66.9,
+      "synergy": 62.0,
+      "luxury": 49.4,
+      "texture": 78.4,
+      "stacking_depth": 53.0,
+      "skin_performance": 60.4,
+      "hedonic": 88.1,
+      "perceptual_clarity": 83.6,
+      "photorealism": 64.2,
+      "arithmetic_total": 68.4,
+      "geometric_total": 67.2,
+      "total": 67.2
+    },
+    "geometric_total": 67.2,
+    "arithmetic_total": 68.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        }
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "title": "SANDALWOOD VANILLA — Sandalwood-Gourmand for Women",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Sandalwood-Gourmand for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "BSC Sandalwood Vanilla, Cathy Doll Sandal Cream",
+    "total_ul": 2870.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 85.5,
+      "sillage": 66.0,
+      "synergy": 74.0,
+      "luxury": 47.2,
+      "texture": 78.5,
+      "stacking_depth": 57.0,
+      "skin_performance": 59.9,
+      "hedonic": 88.0,
+      "perceptual_clarity": 82.3,
+      "photorealism": 63.9,
+      "arithmetic_total": 69.2,
+      "geometric_total": 67.9,
+      "total": 67.9
+    },
+    "geometric_total": 67.9,
+    "arithmetic_total": 69.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + performance"
+      },
+      {
+        "material": "Ebanol",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Polysantol",
+        "dilution": 1.0,
+        "ul": 35.0,
+        "axis": "Longevity + diffusion"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": -0.9,
+      "synergy": 12.0,
+      "luxury": -2.2,
+      "texture": 0.1,
+      "stacking_depth": 4.0,
+      "skin_performance": -0.5,
+      "hedonic": -0.1,
+      "perceptual_clarity": -1.3,
+      "photorealism": -0.3,
+      "arithmetic_total": 0.8,
+      "geometric_total": 0.7
+    }
+  },
+  {
+    "index": 8,
+    "title": "KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Aromatic Woody (Sauvage Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 12 %",
+    "reference": "Eveandboy Sauvage / Bleu dupes",
+    "total_ul": 3500.0,
+    "n_materials": 21,
+    "scores": {
+      "longevity": 87.3,
+      "sillage": 81.7,
+      "synergy": 95,
+      "luxury": 43.0,
+      "texture": 79.3,
+      "stacking_depth": 65.0,
+      "skin_performance": 50.1,
+      "hedonic": 84.1,
+      "perceptual_clarity": 82.0,
+      "photorealism": 77.1,
+      "arithmetic_total": 73.3,
+      "geometric_total": 71.2,
+      "total": 71.2
+    },
+    "geometric_total": 71.2,
+    "arithmetic_total": 73.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    }
+  },
+  {
+    "index": 8,
+    "title": "KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Aromatic Woody (Sauvage Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 12 %",
+    "reference": "Eveandboy Sauvage / Bleu dupes",
+    "total_ul": 3670.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 87.5,
+      "sillage": 82.6,
+      "synergy": 95,
+      "luxury": 40.6,
+      "texture": 79.4,
+      "stacking_depth": 69.0,
+      "skin_performance": 53.0,
+      "hedonic": 84.1,
+      "perceptual_clarity": 81.9,
+      "photorealism": 81.0,
+      "arithmetic_total": 74.3,
+      "geometric_total": 72.1,
+      "total": 72.1
+    },
+    "geometric_total": 72.1,
+    "arithmetic_total": 74.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity"
+      },
+      {
+        "material": "Beta-Pinene",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Performance"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.2,
+      "sillage": 0.9,
+      "synergy": 0.0,
+      "luxury": -2.4,
+      "texture": 0.1,
+      "stacking_depth": 4.0,
+      "skin_performance": 2.9,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.1,
+      "photorealism": 3.9,
+      "arithmetic_total": 1.0,
+      "geometric_total": 0.9
+    }
+  },
+  {
+    "index": 9,
+    "title": "SILK CASHMERE — Soft Cashmere Skin-Musk for Women",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Soft Cashmere Skin-Musk for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Magic Hour, Watsons soft musk",
+    "total_ul": 2475.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 86.7,
+      "sillage": 69.2,
+      "synergy": 68.0,
+      "luxury": 38.0,
+      "texture": 83.2,
+      "stacking_depth": 56.0,
+      "skin_performance": 48.5,
+      "hedonic": 85.8,
+      "perceptual_clarity": 83.4,
+      "photorealism": 72.4,
+      "arithmetic_total": 68.3,
+      "geometric_total": 66.0,
+      "total": 66.0
+    },
+    "geometric_total": 66.0,
+    "arithmetic_total": 68.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 166.66666666666666,
+          "target_oav": 166.66666666666666
+        }
+      ]
+    }
+  },
+  {
+    "index": 9,
+    "title": "SILK CASHMERE — Soft Cashmere Skin-Musk for Women",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Soft Cashmere Skin-Musk for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Magic Hour, Watsons soft musk",
+    "total_ul": 2610.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 86.7,
+      "sillage": 69.3,
+      "synergy": 78.0,
+      "luxury": 36.6,
+      "texture": 83.2,
+      "stacking_depth": 67.0,
+      "skin_performance": 49.6,
+      "hedonic": 85.8,
+      "perceptual_clarity": 83.3,
+      "photorealism": 72.5,
+      "arithmetic_total": 70.2,
+      "geometric_total": 67.9,
+      "total": 67.9
+    },
+    "geometric_total": 67.9,
+    "arithmetic_total": 70.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 166.66666666666666,
+          "target_oav": 166.66666666666666
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ultralia",
+        "dilution": 1.0,
+        "ul": 15.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Suederal",
+        "dilution": 0.1,
+        "ul": 40.0,
+        "axis": "Depth + texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": 0.1,
+      "synergy": 10.0,
+      "luxury": -1.4,
+      "texture": 0.0,
+      "stacking_depth": 11.0,
+      "skin_performance": 1.1,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.1,
+      "photorealism": 0.1,
+      "arithmetic_total": 1.9,
+      "geometric_total": 1.9
+    }
+  },
+  {
+    "index": 10,
+    "title": "CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Fruity Chypre (Coco Mad Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 14 %",
+    "reference": "Coco Mademoiselle dupe at Eveandboy",
+    "total_ul": 3845.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 87.2,
+      "sillage": 80.3,
+      "synergy": 95,
+      "luxury": 57.6,
+      "texture": 78.1,
+      "stacking_depth": 63.0,
+      "skin_performance": 43.4,
+      "hedonic": 82.3,
+      "perceptual_clarity": 83.0,
+      "photorealism": 81.1,
+      "arithmetic_total": 74.1,
+      "geometric_total": 72.4,
+      "total": 72.4
+    },
+    "geometric_total": 72.4,
+    "arithmetic_total": 74.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    }
+  },
+  {
+    "index": 10,
+    "title": "CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Fruity Chypre (Coco Mad Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 14 %",
+    "reference": "Coco Mademoiselle dupe at Eveandboy",
+    "total_ul": 3990.0,
+    "n_materials": 30,
+    "scores": {
+      "longevity": 87.2,
+      "sillage": 81.5,
+      "synergy": 95,
+      "luxury": 57.3,
+      "texture": 78.2,
+      "stacking_depth": 68.0,
+      "skin_performance": 48.6,
+      "hedonic": 82.3,
+      "perceptual_clarity": 81.8,
+      "photorealism": 80.6,
+      "arithmetic_total": 75.1,
+      "geometric_total": 73.8,
+      "total": 73.8
+    },
+    "geometric_total": 73.8,
+    "arithmetic_total": 75.1,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Damascone Beta",
+        "dilution": 0.1,
+        "ul": 25.0,
+        "axis": "Luxury + lift"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": 1.2,
+      "synergy": 0.0,
+      "luxury": -0.3,
+      "texture": 0.1,
+      "stacking_depth": 5.0,
+      "skin_performance": 5.2,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.2,
+      "photorealism": -0.5,
+      "arithmetic_total": 1.0,
+      "geometric_total": 1.4
+    }
+  },
+  {
+    "index": 11,
+    "title": "ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Rose-Blackcurrant Chypre (Sì Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 13 %",
+    "reference": "Armani Sì dupe",
+    "total_ul": 3640.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 83.0,
+      "sillage": 85.9,
+      "synergy": 95,
+      "luxury": 58.6,
+      "texture": 76,
+      "stacking_depth": 69.0,
+      "skin_performance": 53.8,
+      "hedonic": 82.8,
+      "perceptual_clarity": 74.3,
+      "photorealism": 75.9,
+      "arithmetic_total": 74.6,
+      "geometric_total": 73.7,
+      "total": 73.7
+    },
+    "geometric_total": 73.7,
+    "arithmetic_total": 74.6,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 5000.0,
+          "target_oav": 5000.0
+        }
+      ]
+    }
+  },
+  {
+    "index": 11,
+    "title": "ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Rose-Blackcurrant Chypre (Sì Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 13 %",
+    "reference": "Armani Sì dupe",
+    "total_ul": 3795.0,
+    "n_materials": 31,
+    "scores": {
+      "longevity": 82.0,
+      "sillage": 85.8,
+      "synergy": 95,
+      "luxury": 58.6,
+      "texture": 76,
+      "stacking_depth": 74.0,
+      "skin_performance": 59.0,
+      "hedonic": 82.8,
+      "perceptual_clarity": 72.3,
+      "photorealism": 75.8,
+      "arithmetic_total": 75.4,
+      "geometric_total": 74.6,
+      "total": 74.6
+    },
+    "geometric_total": 74.6,
+    "arithmetic_total": 75.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 5000.0,
+          "target_oav": 5000.0
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Damascol",
+        "dilution": 0.1,
+        "ul": 35.0,
+        "axis": "Luxury + depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.0,
+      "sillage": -0.1,
+      "synergy": 0.0,
+      "luxury": 0.0,
+      "texture": 0.0,
+      "stacking_depth": 5.0,
+      "skin_performance": 5.2,
+      "hedonic": 0.0,
+      "perceptual_clarity": -2.0,
+      "photorealism": -0.1,
+      "arithmetic_total": 0.8,
+      "geometric_total": 0.9
+    }
+  },
+  {
+    "index": 12,
+    "title": "RUGBY — Aromatic Patchouli Men's Chypre (Masculine)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Aromatic Patchouli Men's Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 11 %",
+    "reference": "Le Male / Polo Black mass-tier dupe",
+    "total_ul": 3255.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 85.9,
+      "sillage": 90.5,
+      "synergy": 95,
+      "luxury": 59.8,
+      "texture": 81,
+      "stacking_depth": 73.0,
+      "skin_performance": 45.9,
+      "hedonic": 82.2,
+      "perceptual_clarity": 82.7,
+      "photorealism": 78.3,
+      "arithmetic_total": 76.8,
+      "geometric_total": 75.3,
+      "total": 75.3
+    },
+    "geometric_total": 75.3,
+    "arithmetic_total": 76.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    }
+  },
+  {
+    "index": 12,
+    "title": "RUGBY — Aromatic Patchouli Men's Chypre (Masculine)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Aromatic Patchouli Men's Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 11 %",
+    "reference": "Le Male / Polo Black mass-tier dupe",
+    "total_ul": 3405.0,
+    "n_materials": 27,
+    "scores": {
+      "longevity": 86.0,
+      "sillage": 91.5,
+      "synergy": 95,
+      "luxury": 58.3,
+      "texture": 81,
+      "stacking_depth": 85.0,
+      "skin_performance": 52.5,
+      "hedonic": 82.2,
+      "perceptual_clarity": 81.4,
+      "photorealism": 78.2,
+      "arithmetic_total": 78.6,
+      "geometric_total": 77.4,
+      "total": 77.4
+    },
+    "geometric_total": 77.4,
+    "arithmetic_total": 78.6,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Aromatic depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": 1.0,
+      "synergy": 0.0,
+      "luxury": -1.5,
+      "texture": 0.0,
+      "stacking_depth": 12.0,
+      "skin_performance": 6.6,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.3,
+      "photorealism": -0.1,
+      "arithmetic_total": 1.8,
+      "geometric_total": 2.1
+    }
+  },
+  {
+    "index": 13,
+    "title": "ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Aquatic Fougère (Cool Water Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Cool Water dupe at Eveandboy",
+    "total_ul": 2880.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 80.6,
+      "sillage": 91.1,
+      "synergy": 95,
+      "luxury": 49.8,
+      "texture": 80.9,
+      "stacking_depth": 65.0,
+      "skin_performance": 48.3,
+      "hedonic": 84.9,
+      "perceptual_clarity": 82.0,
+      "photorealism": 87.0,
+      "arithmetic_total": 75.4,
+      "geometric_total": 73.5,
+      "total": 73.5
+    },
+    "geometric_total": 73.5,
+    "arithmetic_total": 75.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1333.3333333333333,
+          "target_oav": 1333.3333333333333
+        }
+      ]
+    }
+  },
+  {
+    "index": 13,
+    "title": "ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Aquatic Fougère (Cool Water Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Cool Water dupe at Eveandboy",
+    "total_ul": 3040.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 80.0,
+      "sillage": 90.8,
+      "synergy": 95,
+      "luxury": 47.2,
+      "texture": 80.8,
+      "stacking_depth": 72.0,
+      "skin_performance": 50.4,
+      "hedonic": 84.9,
+      "perceptual_clarity": 80.8,
+      "photorealism": 86.7,
+      "arithmetic_total": 75.9,
+      "geometric_total": 74.0,
+      "total": 74.0
+    },
+    "geometric_total": 74.0,
+    "arithmetic_total": 75.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1333.3333333333333,
+          "target_oav": 1333.3333333333333
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.6,
+      "sillage": -0.3,
+      "synergy": 0.0,
+      "luxury": -2.6,
+      "texture": -0.1,
+      "stacking_depth": 7.0,
+      "skin_performance": 2.1,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.2,
+      "photorealism": -0.3,
+      "arithmetic_total": 0.5,
+      "geometric_total": 0.5
+    }
+  },
+  {
+    "index": 14,
+    "title": "ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Sweet Fougère (Le Male / PHI Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Le Male EDT / Pour Homme Intense dupe",
+    "total_ul": 3805.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 83.2,
+      "sillage": 76.1,
+      "synergy": 95,
+      "luxury": 48.2,
+      "texture": 80.8,
+      "stacking_depth": 71.0,
+      "skin_performance": 48.7,
+      "hedonic": 84.1,
+      "perceptual_clarity": 81.2,
+      "photorealism": 71.9,
+      "arithmetic_total": 72.9,
+      "geometric_total": 71.3,
+      "total": 71.3
+    },
+    "geometric_total": 71.3,
+    "arithmetic_total": 72.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    }
+  },
+  {
+    "index": 14,
+    "title": "ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Sweet Fougère (Le Male / PHI Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Le Male EDT / Pour Homme Intense dupe",
+    "total_ul": 3905.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 83.2,
+      "sillage": 76.6,
+      "synergy": 95,
+      "luxury": 48.3,
+      "texture": 80.7,
+      "stacking_depth": 84.0,
+      "skin_performance": 53.6,
+      "hedonic": 84.1,
+      "perceptual_clarity": 72.6,
+      "photorealism": 72.4,
+      "arithmetic_total": 74.2,
+      "geometric_total": 72.8,
+      "total": 72.8
+    },
+    "geometric_total": 72.8,
+    "arithmetic_total": 74.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Heliotropal",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Texture + depth"
+      },
+      {
+        "material": "Cardamom EO",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Performance + luxury"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": 0.5,
+      "synergy": 0.0,
+      "luxury": 0.1,
+      "texture": -0.1,
+      "stacking_depth": 13.0,
+      "skin_performance": 4.9,
+      "hedonic": 0.0,
+      "perceptual_clarity": -8.6,
+      "photorealism": 0.5,
+      "arithmetic_total": 1.3,
+      "geometric_total": 1.5
+    }
+  },
+  {
+    "index": 15,
+    "title": "LAVENDER MILK — Soft Lavender-Vanilla for Women",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Soft Lavender-Vanilla for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Lavender Milk, BSC Lavender Cream",
+    "total_ul": 2515.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 79.0,
+      "sillage": 86.5,
+      "synergy": 94.0,
+      "luxury": 60.0,
+      "texture": 72.9,
+      "stacking_depth": 43.0,
+      "skin_performance": 45.2,
+      "hedonic": 89.0,
+      "perceptual_clarity": 83.0,
+      "photorealism": 80.7,
+      "arithmetic_total": 71.8,
+      "geometric_total": 69.5,
+      "total": 69.5
+    },
+    "geometric_total": 69.5,
+    "arithmetic_total": 71.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        }
+      ]
+    }
+  },
+  {
+    "index": 15,
+    "title": "LAVENDER MILK — Soft Lavender-Vanilla for Women",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Soft Lavender-Vanilla for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Lavender Milk, BSC Lavender Cream",
+    "total_ul": 2655.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 78.7,
+      "sillage": 90.9,
+      "synergy": 95,
+      "luxury": 58.3,
+      "texture": 72.8,
+      "stacking_depth": 69.0,
+      "skin_performance": 47.2,
+      "hedonic": 88.9,
+      "perceptual_clarity": 81.7,
+      "photorealism": 79.4,
+      "arithmetic_total": 75.0,
+      "geometric_total": 73.6,
+      "total": 73.6
+    },
+    "geometric_total": 73.6,
+    "arithmetic_total": 75.0,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 27.777777777777782,
+          "target_oav": 27.777777777777782
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Ambrox Super",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Heliotropal",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.3,
+      "sillage": 4.4,
+      "synergy": 1.0,
+      "luxury": -1.7,
+      "texture": -0.1,
+      "stacking_depth": 26.0,
+      "skin_performance": 2.0,
+      "hedonic": -0.1,
+      "perceptual_clarity": -1.3,
+      "photorealism": -1.3,
+      "arithmetic_total": 3.2,
+      "geometric_total": 4.1
+    }
+  },
+  {
+    "index": 16,
+    "title": "OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Aquatic (Acqua di Giò Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Acqua di Giò dupe",
+    "total_ul": 2660.0,
+    "n_materials": 21,
+    "scores": {
+      "longevity": 85.9,
+      "sillage": 91.0,
+      "synergy": 94.0,
+      "luxury": 50.9,
+      "texture": 80.1,
+      "stacking_depth": 59.0,
+      "skin_performance": 48.3,
+      "hedonic": 84.7,
+      "perceptual_clarity": 82.9,
+      "photorealism": 87.3,
+      "arithmetic_total": 75.4,
+      "geometric_total": 73.4,
+      "total": 73.4
+    },
+    "geometric_total": 73.4,
+    "arithmetic_total": 75.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 50.0,
+          "target_oav": 50.0
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1333.3333333333333,
+          "target_oav": 1333.3333333333333
+        }
+      ]
+    }
+  },
+  {
+    "index": 16,
+    "title": "OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Aquatic (Acqua di Giò Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Acqua di Giò dupe",
+    "total_ul": 2800.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 86.0,
+      "sillage": 91.6,
+      "synergy": 95,
+      "luxury": 48.4,
+      "texture": 80.2,
+      "stacking_depth": 70.0,
+      "skin_performance": 54.1,
+      "hedonic": 84.7,
+      "perceptual_clarity": 81.6,
+      "photorealism": 86.8,
+      "arithmetic_total": 76.9,
+      "geometric_total": 75.2,
+      "total": 75.2
+    },
+    "geometric_total": 75.2,
+    "arithmetic_total": 76.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 50.0,
+          "target_oav": 50.0
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1333.3333333333333,
+          "target_oav": 1333.3333333333333
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": 0.6,
+      "synergy": 1.0,
+      "luxury": -2.5,
+      "texture": 0.1,
+      "stacking_depth": 11.0,
+      "skin_performance": 5.8,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.3,
+      "photorealism": -0.5,
+      "arithmetic_total": 1.5,
+      "geometric_total": 1.8
+    }
+  },
+  {
+    "index": 17,
+    "title": "SUNDAY COLOGNE — Citrus Cologne (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Citrus Cologne",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 6 % (cologne)",
+    "reference": "Mistine Splash for Men, 4711 / AdP Colonia mass tier",
+    "total_ul": 1920.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 64.2,
+      "sillage": 89.9,
+      "synergy": 95,
+      "luxury": 45.2,
+      "texture": 75.0,
+      "stacking_depth": 68.0,
+      "skin_performance": 58.5,
+      "hedonic": 88.3,
+      "perceptual_clarity": 82.4,
+      "photorealism": 79.1,
+      "arithmetic_total": 73.0,
+      "geometric_total": 71.4,
+      "total": 71.4
+    },
+    "geometric_total": 71.4,
+    "arithmetic_total": 73.0,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 50.0,
+          "target_oav": 50.0
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    }
+  },
+  {
+    "index": 17,
+    "title": "SUNDAY COLOGNE — Citrus Cologne (Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Citrus Cologne",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 6 % (cologne)",
+    "reference": "Mistine Splash for Men, 4711 / AdP Colonia mass tier",
+    "total_ul": 2080.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 67.0,
+      "sillage": 89.0,
+      "synergy": 95,
+      "luxury": 47.8,
+      "texture": 74.5,
+      "stacking_depth": 75.0,
+      "skin_performance": 58.2,
+      "hedonic": 88.0,
+      "perceptual_clarity": 78.9,
+      "photorealism": 78.6,
+      "arithmetic_total": 73.9,
+      "geometric_total": 72.5,
+      "total": 72.5
+    },
+    "geometric_total": 72.5,
+    "arithmetic_total": 73.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 50.0,
+          "target_oav": 50.0
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Zenolide",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Longevity + clean projection"
+      },
+      {
+        "material": "Cashmeran",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Skin performance + depth"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Performance"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 2.8,
+      "sillage": -0.9,
+      "synergy": 0.0,
+      "luxury": 2.6,
+      "texture": -0.5,
+      "stacking_depth": 7.0,
+      "skin_performance": -0.3,
+      "hedonic": -0.3,
+      "perceptual_clarity": -3.5,
+      "photorealism": -0.5,
+      "arithmetic_total": 0.9,
+      "geometric_total": 1.1
+    }
+  },
+  {
+    "index": 18,
+    "title": "AQUATIC HORIZON — Marine / Ozonic (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Marine / Ozonic",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "Bvlgari Aqva / Cool Water Wave dupe",
+    "total_ul": 2395.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 86.0,
+      "sillage": 88.9,
+      "synergy": 90.0,
+      "luxury": 51.3,
+      "texture": 80.2,
+      "stacking_depth": 63.0,
+      "skin_performance": 50.5,
+      "hedonic": 85.3,
+      "perceptual_clarity": 82.9,
+      "photorealism": 85.0,
+      "arithmetic_total": 75.4,
+      "geometric_total": 73.7,
+      "total": 73.7
+    },
+    "geometric_total": 73.7,
+    "arithmetic_total": 75.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 66.66666666666667,
+          "target_oav": 66.66666666666667
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 200.0,
+          "target_oav": 200.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 33.33 µL of 1.0% (neat-equiv 0.333 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1666.6666666666667,
+          "target_oav": 1666.6666666666667
+        }
+      ]
+    }
+  },
+  {
+    "index": 18,
+    "title": "AQUATIC HORIZON — Marine / Ozonic (Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Marine / Ozonic",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "Bvlgari Aqva / Cool Water Wave dupe",
+    "total_ul": 2535.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 86.4,
+      "sillage": 89.1,
+      "synergy": 92.0,
+      "luxury": 48.7,
+      "texture": 80.3,
+      "stacking_depth": 63.0,
+      "skin_performance": 55.5,
+      "hedonic": 85.2,
+      "perceptual_clarity": 82.7,
+      "photorealism": 86.2,
+      "arithmetic_total": 75.9,
+      "geometric_total": 74.3,
+      "total": 74.3
+    },
+    "geometric_total": 74.3,
+    "arithmetic_total": 75.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 5,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 66.66666666666667,
+          "target_oav": 66.66666666666667
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 200.0,
+          "target_oav": 200.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 33.33 µL of 1.0% (neat-equiv 0.333 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 1666.6666666666667,
+          "target_oav": 1666.6666666666667
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + depth"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.4,
+      "sillage": 0.2,
+      "synergy": 2.0,
+      "luxury": -2.6,
+      "texture": 0.1,
+      "stacking_depth": 0.0,
+      "skin_performance": 5.0,
+      "hedonic": -0.1,
+      "perceptual_clarity": -0.2,
+      "photorealism": 1.2,
+      "arithmetic_total": 0.5,
+      "geometric_total": 0.6
+    }
+  }
+]

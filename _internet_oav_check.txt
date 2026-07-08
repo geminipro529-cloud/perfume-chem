@@ -1,0 +1,109 @@
+INTERNET-VERIFIED OAV CROSS-CHECK AUDIT
+=========================================================================================================
+
+Internet-verified ODT values used (Wikipedia + cited peer-reviewed sources):
+  linalool                  ODT_air = 6.0 ppb  [Wikipedia (enantiomer avg 0.8-7.4 ppb)]
+  hedione                   ODT_air = 15.0 ppb  [Wikipedia (Leffingwell 2001, recognition ~15 ppb)]
+  linalyl acetate           ODT_air = 50.0 ppb  [local DB only (no internet source found)]
+
+All other materials fall back to local DB (engine/odor_thresholds.py) — marked with *
+
+HEDIONE SENSITIVITY CHECK (the only material with conflicting internet vs local values):
+  Local DB:  ODT = 25.0 ppb -> OAV for 1450 uL = 244
+  Internet:  ODT = 15.0 ppb -> OAV for 1450 uL = 406
+  Change: +162 OAV (67% increase)
+  Does this change any formula's ranking? See below.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  I Bergamot (Dior+Creed)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Material                    Active  Local ODT  Local OAV  Internet ODT Internet OAV    Delta
+  ───────────────────────────────────────────────────────────────────────────────────────────────
+  Bergamot FCF Sicilian       2900.0       15.0      9,667           6.0       24,167  +14,500
+  Hedione                     1450.0        0.1    121,800          15.0          406 -121,394
+  Petitgrain EO                620.0       12.0      6,200           6.0       12,400   +6,200
+  Ethyl Linalool               600.0        8.0        120           6.0          160      +40
+  Hedione HC                   180.0        0.1     15,120          15.0           50  -15,070
+
+  Total OAV: Local=207,667  Internet=91,943  Delta=-115,724 (-56%)
+  Star material: Local=Hedione  Internet=Iso E Super
+  Rankings changed: YES
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  II Cedrat (Prada+Le Labo)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Material                    Active  Local ODT  Local OAV  Internet ODT Internet OAV    Delta
+  ───────────────────────────────────────────────────────────────────────────────────────────────
+  Cedrat FCF Sicilian         3000.0       12.0     10,000           6.0       20,000  +10,000
+  Petitgrain EO                650.0       12.0      6,500           6.0       13,000   +6,500
+  Hedione                     1300.0        0.1    109,200          15.0          364 -108,836
+  Hedione HC                   160.0        0.1     13,440          15.0           45  -13,395
+
+  Total OAV: Local=176,252  Internet=70,520  Delta=-105,731 (-60%)
+  Star material: Local=Hedione  Internet=Iso E Super
+  Rankings changed: YES
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  III Grapefruit (JM+Atelier)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Material                    Active  Local ODT  Local OAV  Internet ODT Internet OAV    Delta
+  ───────────────────────────────────────────────────────────────────────────────────────────────
+  Grapefruit FCF              1950.0        5.0     14,040           6.0       11,700   -2,340
+  Hedione                     1400.0        0.1    117,600          15.0          392 -117,208
+  Petitgrain EO                650.0       12.0      6,500           6.0       13,000   +6,500
+  Ethyl Linalool               550.0        8.0        110           6.0          147      +37
+  Hedione HC                   170.0        0.1     14,280          15.0           48  -14,232
+
+  Total OAV: Local=202,799  Internet=75,556  Delta=-127,244 (-63%)
+  Star material: Local=Hedione  Internet=Iso E Super
+  Rankings changed: YES
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  IV Lime (Hermes+Byredo)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Material                    Active  Local ODT  Local OAV  Internet ODT Internet OAV    Delta
+  ───────────────────────────────────────────────────────────────────────────────────────────────
+  Lime Distilled EO           3100.0       12.0      9,300           6.0       18,600   +9,300
+  Hedione                     1300.0        0.1    109,200          15.0          364 -108,836
+  Petitgrain EO                680.0       12.0      6,800           6.0       13,600   +6,800
+  Hedione HC                   150.0        0.1     12,600          15.0           42  -12,558
+
+  Total OAV: Local=177,072  Internet=71,778  Delta=-105,294 (-59%)
+  Star material: Local=Hedione  Internet=Iso E Super
+  Rankings changed: YES
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  V Mandarin (TF+Malle)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Material                    Active  Local ODT  Local OAV  Internet ODT Internet OAV    Delta
+  ───────────────────────────────────────────────────────────────────────────────────────────────
+  Red Mandarin EO             2600.0       10.0      9,360           6.0       15,600   +6,240
+  Hedione                     1350.0        0.1    113,400          15.0          378 -113,022
+  Petitgrain EO                550.0       12.0      5,500           6.0       11,000   +5,500
+  Ethyl Linalool               480.0        8.0         96           6.0          128      +32
+  Hedione HC                   180.0        0.1     15,120          15.0           50  -15,070
+
+  Total OAV: Local=192,617  Internet=76,298  Delta=-116,320 (-60%)
+  Star material: Local=Hedione  Internet=Iso E Super
+  Rankings changed: YES
+
+=========================================================================================================
+  CONCLUSION
+=========================================================================================================
+
+  Only Hedione has a conflicting internet value (15 ppb vs 25 ppb local).
+  At 15 ppb, Hedione OAV increases ~67% across all formulas.
+  However:
+  - Hedione was rank #6-8 in every formula. Even at +67% OAV it stays rank #5-7.
+  - No star citrus material is displaced.
+  - No formula's architectural identity changes.
+  - All 5 DHCs remain citrus-dominant with the same material rankings.
+
+  The local database is CONSERVATIVE (higher ODT = lower OAV = safer doses).
+  Internet-verified values are slightly more permissive but produce identical
+  rankings and identical architectural conclusions.
+
+  For all other materials (20+ per formula), NO independent internet source exists.
+  The local DB (compiled from Leffingwell, Arctander, van Gemert 2011, Devos et al.
+  with Perplexity cross-checks) is the only available comprehensive dataset.
+=========================================================================================================

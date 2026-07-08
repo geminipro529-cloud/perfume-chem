@@ -1,0 +1,100 @@
+============================================================================
+  v7i — Soft-iris cushion recovery + Dihydro β-Ionone + Myristic Acid
+============================================================================
+
+  v7h baseline : geo=82.224  texture=73.80
+  v7i seed     : geo=82.047  luxury=61.80  texture=73.80  hedonic=85.90
+  brief check  : OK
+  cushion seed : 720.0 µL active (floor 600)
+
+  IFRA gate    : PASS
+
+  IRIS-VIOLET CHORD (soft, with fatty matrix):
+    Alpha Irone                 1250 µL × 0.30 = 375.0 µL active  core — irones, slow
+    Beta Ionone                   60 µL × 1.00 =  60.0 µL active  headspace — CAPPED (OR5A1 hyposmia)
+    Dihydro Beta Ionone          100 µL × 1.00 = 100.0 µL active  creamier-smoother β — no anosmia
+    Alpha Ionone                 110 µL × 1.00 = 110.0 µL active  headspace — no anosmia
+    Alpha Isomethyl Ionone        80 µL × 1.00 =  80.0 µL active  powder — softened by Ultralia halo
+    Ultralia                      80 µL × 1.00 =  80.0 µL active  ghost iris halo (boosted to soften AIMI)
+    Orivone                      450 µL × 1.00 = 450.0 µL active  buttery iris support
+    Myristic Acid Powder         200 µL × 0.10 =  20.0 µL active  orris butter fatty matrix (10% DPG)
+    Carrot Seed EO               150 µL × 1.00 = 150.0 µL active  rooty — lowered for soft brief
+
+  CUSHION REGISTER (floor ≥ 600 µL active):
+    Hexyl Salicylate             350 µL × 1.00 = 350.0 µL active
+    Benzyl Salicylate            100 µL × 1.00 = 100.0 µL active
+    Mayol                         50 µL × 1.00 =  50.0 µL active
+    Delta Decalactone            200 µL × 1.00 = 200.0 µL active
+    Myristic Acid Powder         200 µL × 0.10 =  20.0 µL active
+    TOTAL                                         = 720.0 µL
+
+────────────────────────────────────────────────────────────────────────────
+  CLIMB — cushion-floored, anosmia-capped, Allyl Ionone locked off
+────────────────────────────────────────────────────────────────────────────
+    ★ pass 1 Benzoin Resinoid: 1300 → 1500  geo 82.047 → 82.106
+    ★ pass 1 Hedione: 1700 → 1500  geo 82.106 → 82.200
+    ★ pass 1 Ethyl Linalool: 1300 → 1350  geo 82.200 → 82.207
+    ★ pass 1 Ebanol: 900 → 1100  geo 82.207 → 82.213
+    ★ pass 1 Ethylene Brassylate: 1150 → 1250  geo 82.213 → 82.231
+  climb done: 5 moves, 166s, final geo 82.231
+
+────────────────────────────────────────────────────────────────────────────
+  v7i vs v7h (default scorer)
+────────────────────────────────────────────────────────────────────────────
+
+  axis                    v7h        v7i        Δ
+  longevity                81.70     82.70      +1.00
+  sillage                  99.50     99.80      +0.30
+  luxury                   62.60     61.60      -1.00
+  texture                  73.80     73.70      -0.10
+  stacking_depth           90.00     90.00      +0.00
+  photorealism             82.90     81.90      -1.00
+  perceptual_clarity       85.20     84.90      -0.30
+  skin_performance         80.50     80.80      +0.30
+  synergy                  95.00     95.00      +0.00
+  hedonic                  85.80     85.90      +0.10
+
+  geo: v7h 82.224 → v7i 82.083  (-0.141)
+
+  Brief guardrails: ✓ PASS
+  IFRA gate       : ✓ PASS
+  Cushion final   : 720.0 µL active (floor 600)
+
+  Final IRIS-VIOLET CHORD:
+    Alpha Irone                 1250 µL × 0.30 = 375.0 µL active  core — irones, slow
+    Beta Ionone                   60 µL × 1.00 =  60.0 µL active  headspace — CAPPED (OR5A1 hyposmia)
+    Dihydro Beta Ionone          100 µL × 1.00 = 100.0 µL active  creamier-smoother β — no anosmia
+    Alpha Ionone                 110 µL × 1.00 = 110.0 µL active  headspace — no anosmia
+    Alpha Isomethyl Ionone        80 µL × 1.00 =  80.0 µL active  powder — softened by Ultralia halo
+    Ultralia                      80 µL × 1.00 =  80.0 µL active  ghost iris halo (boosted to soften AIMI)
+    Orivone                      450 µL × 1.00 = 450.0 µL active  buttery iris support
+    Myristic Acid Powder         200 µL × 0.10 =  20.0 µL active  orris butter fatty matrix (10% DPG)
+    Carrot Seed EO               150 µL × 1.00 = 150.0 µL active  rooty — lowered for soft brief
+    TOTAL IRIS ACTIVE                             = 1425.0 µL
+
+  Final CUSHION REGISTER:
+    Hexyl Salicylate             350 µL × 1.00 = 350.0 µL active
+    Benzyl Salicylate            100 µL × 1.00 = 100.0 µL active
+    Mayol                         50 µL × 1.00 =  50.0 µL active
+    Delta Decalactone            200 µL × 1.00 = 200.0 µL active
+    Myristic Acid Powder         200 µL × 0.10 =  20.0 µL active
+    TOTAL CUSHION                                 = 720.0 µL
+
+  Δ ingredients (v7i vs v7h):
+    Allyl Ionone                        30.0 →     0.0  (  -30.0)  [REMOVED]
+    Benzoin Resinoid                  1300.0 →  1500.0  ( +200.0)
+    Benzyl Salicylate                    0.0 →   100.0  ( +100.0)  [NEW]
+    Carrot Seed EO                     210.0 →   150.0  (  -60.0)
+    Delta Decalactone                   50.0 →   200.0  ( +150.0)
+    Dihydro Beta Ionone                  0.0 →   100.0  ( +100.0)  [NEW]
+    Ebanol                             900.0 →  1100.0  ( +200.0)
+    Ethyl Linalool                    1300.0 →  1350.0  (  +50.0)
+    Ethylene Brassylate               1150.0 →  1250.0  ( +100.0)
+    Hedione                           1700.0 →  1500.0  ( -200.0)
+    Hexyl Salicylate                   200.0 →   350.0  ( +150.0)
+    Mayol                               25.0 →    50.0  (  +25.0)
+    Myristic Acid Powder                 0.0 →   200.0  ( +200.0)  [NEW]
+    Ultralia                            40.0 →    80.0  (  +40.0)
+
+  snapshot → _opt_v7i_cushion_floor.json
+  ─── DONE ───

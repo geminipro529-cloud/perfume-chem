@@ -1,0 +1,292 @@
+Loading optimized 15 mL formulas from _opt_convergence_v2_out.json …
+
+Per-seed converged geo scores (at 15 mL):
+  Iris        : 82.698  (seeds: [[1, 82.698], [42, 82.16], [2026, 82.03]])
+  Iris-Jasmine: 81.053  (seeds: [[1, 81.053], [42, 80.987], [2026, 80.943]])
+
+Building FormulaScorer(batch_volume_ml=30.0) …
+
+████████████████████████████████████████████████████████████████
+  Photorealistic Iris
+████████████████████████████████████████████████████████████████
+
+Scaled 33 materials: total concentrate 3741 µL @ 15 mL → 7482 µL @ 30 mL
+Scaled 30 mL geo composite: 82.930
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Photorealistic Iris @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 7482.0 µL / 30.0 mL = 24.94%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 1 warn (informational flags omitted)
+    warn: Scentenal: 24.00 µL (neat-equiv 0.24 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 1 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 100.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 11
+  Marginal (neutral zone): 1
+    ⚠ Dihydromyrcenol              @ 4.544% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 33 materials...
+  Perceptual half-life: 24.0 hr
+  Longevity (OAV>2):    24.0 hr
+  Subliminal materials (OAV peak < 1): 11
+    ○ Scentenal
+    ○ Hedione HC
+    ○ Cis Jasmone
+    ○ Carrot Seed EO
+    ○ Farnesol
+    ○ Heliotropal
+    ○ Musk Ketone
+    ○ Azarbre
+    ○ Exaltolide
+    ○ Ambrettolide
+    ○ IPM
+  Opening   : Beta Ionone(OAV=1630), Dihydromyrcenol(OAV=1126), Bergamot FCF oil Sicilian(OAV=224)
+  1hr       : Beta Ionone(OAV=1627), Dihydromyrcenol(OAV=1090), Bergamot FCF oil Sicilian(OAV=192)
+  4hr       : Beta Ionone(OAV=1618), Dihydromyrcenol(OAV=990), Bergamot FCF oil Sicilian(OAV=123)
+  Drydown   : Beta Ionone(OAV=1607), Dihydromyrcenol(OAV=871), Bergamot FCF oil Sicilian(OAV=68)
+
+── HILL-CLIMB @ 30 mL — Photorealistic Iris (brief, 8 passes) ──
+  start geo = 82.930
+    pass 1: Dihydromyrcenol +340→355 (step +15) → geo 82.980
+    pass 1: Hedione +650→680 (step +30) → geo 83.007
+    pass 1: Hedione HC +170→200 (step +30) → geo 83.046
+    pass 1: Heliotropal +80→65 (step -15) → geo 83.075
+    pass 1: Musk Ketone +200→140 (step -60) → geo 83.098
+    pass 1: Koavone +200→170 (step -30) → geo 83.134
+    pass 1: Habanolide +670→730 (step +60) → geo 83.177
+    pass 1 took 16.7s
+    pass 2: Bergamot FCF oil Sicilian +200→140 (step -60) → geo 83.247
+    pass 2: Ethyl Linalool +140→110 (step -30) → geo 83.281
+    pass 2: Hedione +680→695 (step +15) → geo 83.314
+    pass 2: Heliotropal +65→50 (step -15) → geo 83.356
+    pass 2 took 16.9s
+    pass 3: Hedione +695→725 (step +30) → geo 83.379
+    pass 3: Heliotropal +50→35 (step -15) → geo 83.411
+    pass 3: Koavone +170→155 (step -15) → geo 83.433
+    pass 3: Habanolide +730→745 (step +15) → geo 83.458
+    pass 3 took 16.7s
+    pass 4: Cyclamen Aldehyde +30→15 (step -15) → geo 83.486
+    pass 4 took 17.5s
+    pass 5: no improvement (17.7s) — converged
+  ✓ Improved geo by 0.000
+
+Hill-climb gained 0.556 — re-running non-linear audit
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Photorealistic Iris (post-hill-climb) @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 7422.0 µL / 30.0 mL = 24.74%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 1 warn (informational flags omitted)
+    warn: Scentenal: 24.00 µL (neat-equiv 0.24 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 1 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 100.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 11
+  Marginal (neutral zone): 1
+    ⚠ Dihydromyrcenol              @ 4.783% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 33 materials...
+  Perceptual half-life: 24.0 hr
+  Longevity (OAV>2):    24.0 hr
+  Subliminal materials (OAV peak < 1): 11
+    ○ Scentenal
+    ○ Hedione HC
+    ○ Cis Jasmone
+    ○ Carrot Seed EO
+    ○ Farnesol
+    ○ Heliotropal
+    ○ Musk Ketone
+    ○ Azarbre
+    ○ Exaltolide
+    ○ Ambrettolide
+    ○ IPM
+  Opening   : Beta Ionone(OAV=1643), Dihydromyrcenol(OAV=1185), Bergamot FCF oil Sicilian(OAV=158)
+  1hr       : Beta Ionone(OAV=1640), Dihydromyrcenol(OAV=1147), Bergamot FCF oil Sicilian(OAV=136)
+  4hr       : Beta Ionone(OAV=1631), Dihydromyrcenol(OAV=1042), Bergamot FCF oil Sicilian(OAV=87)
+  Drydown   : Beta Ionone(OAV=1620), Dihydromyrcenol(OAV=916), Alpha Irone(OAV=58)
+  wrote formulas\collections\Photorealistic_Iris_30mL_optimized.md
+
+████████████████████████████████████████████████████████████████
+  Iris-Jasmine
+████████████████████████████████████████████████████████████████
+
+Scaled 37 materials: total concentrate 4244 µL @ 15 mL → 8488 µL @ 30 mL
+Scaled 30 mL geo composite: 81.498
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Iris-Jasmine @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 8488.0 µL / 30.0 mL = 28.29%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 2 warn (informational flags omitted)
+    warn: Indole: 16.00 µL (neat-equiv 1.60 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Paradisamide: 10.00 µL (neat-equiv 1.00 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 2 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 100.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 8
+  Marginal (neutral zone): 2
+    ⚠ Hedione                      @ 14.609% → neutral: dominant jasmine-hedione character
+    ⚠ Dihydromyrcenol              @ 5.655% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 37 materials...
+  Perceptual half-life: 24.0 hr
+  Longevity (OAV>2):    24.0 hr
+  Subliminal materials (OAV peak < 1): 12
+    ○ Hedione HC
+    ○ Paradisamide
+    ○ Ylang Extra EO
+    ○ Carrot Seed EO
+    ○ Farnesol
+    ○ Benzyl Salicylate
+    ○ Romandolide
+    ○ Musk Ketone
+    ○ Exaltolide
+    ○ Ambrettolide
+    ○ IPM
+    ○ Benzyl Benzoate
+  Opening   : Dihydromyrcenol(OAV=1401), Beta Ionone(OAV=862), Bergamot FCF oil Sicilian(OAV=276)
+  1hr       : Dihydromyrcenol(OAV=1357), Beta Ionone(OAV=861), Bergamot FCF oil Sicilian(OAV=238)
+  4hr       : Dihydromyrcenol(OAV=1232), Beta Ionone(OAV=856), Bergamot FCF oil Sicilian(OAV=152)
+  Drydown   : Dihydromyrcenol(OAV=1083), Beta Ionone(OAV=850), Bergamot FCF oil Sicilian(OAV=83)
+
+── HILL-CLIMB @ 30 mL — Iris-Jasmine (brief, 8 passes) ──
+  start geo = 81.498
+    pass 1: Bergamot FCF oil Sicilian +280→265 (step -15) → geo 81.519
+    pass 1: Ethyl Linalool +96→66 (step -30) → geo 81.540
+    pass 1: Irotyl +70→40 (step -30) → geo 81.592
+    pass 1: Methyl Benzoate +50→20 (step -30) → geo 81.618
+    pass 1: Benzyl Acetate +40→10 (step -30) → geo 81.662
+    pass 1: Jasmine FO +70→40 (step -30) → geo 81.704
+    pass 1: Ylang Extra EO +70→40 (step -30) → geo 81.737
+    pass 1: Koavone +40→10 (step -30) → geo 81.775
+    pass 1: Iso E Super +260→290 (step +30) → geo 81.799
+    pass 1: Ethylene Brassylate +640→670 (step +30) → geo 81.838
+    pass 1 took 20.3s
+    pass 2: Bergamot FCF oil Sicilian +265→205 (step -60) → geo 81.858
+    pass 2: Ethyl Linalool +66→36 (step -30) → geo 81.882
+    pass 2: Irotyl +40→25 (step -15) → geo 81.910
+    pass 2: Hedione +1240→1270 (step +30) → geo 81.933
+    pass 2: Jasmine FO +40→10 (step -30) → geo 81.966
+    pass 2: Ylang Extra EO +40→10 (step -30) → geo 81.994
+    pass 2: Ethylene Brassylate +670→730 (step +60) → geo 82.042
+    pass 2: Benzyl Benzoate +40→25 (step -15) → geo 82.063
+    pass 2 took 19.6s
+    pass 3: Bergamot FCF oil Sicilian +205→190 (step -15) → geo 82.085
+    pass 3: Ethylene Brassylate +730→790 (step +60) → geo 82.111
+    pass 3: Musk Ketone +300→270 (step -30) → geo 82.133
+    pass 3 took 20.2s
+    pass 4: Ethylene Brassylate +790→850 (step +60) → geo 82.156
+    pass 4: Benzyl Benzoate +25→10 (step -15) → geo 82.182
+    pass 4 took 20.4s
+    pass 5: Bergamot FCF oil Sicilian +190→130 (step -60) → geo 82.214
+    pass 5: Methyl Benzoate +20→5 (step -15) → geo 82.235
+    pass 5: Benzyl Salicylate +440→380 (step -60) → geo 82.268
+    pass 5 took 20.0s
+    pass 6: no improvement (20.1s) — converged
+  ✓ Improved geo by 0.000
+
+Hill-climb gained 0.770 — re-running non-linear audit
+
+════════════════════════════════════════════════════════════
+  NON-LINEAR VERIFICATION — Iris-Jasmine (post-hill-climb) @ 30.0 mL
+════════════════════════════════════════════════════════════
+  Concentrate: 8158.0 µL / 30.0 mL = 27.19%
+
+── (A) OAV guard: absolute-µL at 30 mL (ODT crossings) ──
+  0 err · 2 warn (informational flags omitted)
+    warn: Indole: 16.00 µL (neat-equiv 1.60 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+    warn: Paradisamide: 10.00 µL (neat-equiv 1.00 µL) — near pipette floor; cannot be halved safely, re-dilute stock or keep dose fixed across splits
+
+── (B) OAV guard: proportional 30 → 15 mL reverse (re-split) ──
+  0 err · 0 warn · 2 info
+
+── (C) Hill dose-response: character zones vs CHARACTER_SHIFT_DATA ──
+  Dose-response score: 90.0/100
+  Overdosed (negative/dangerous zone): 0
+  Optimal (positive zone): 7
+  Marginal (neutral zone): 3
+    ⚠ Hedione                      @ 15.568% → neutral: dominant jasmine-hedione character
+    ⚠ Ethylene Brassylate          @ 10.419% → neutral: flat, monotone musk blanket
+    ⚠ Dihydromyrcenol              @ 5.884% → neutral: waxy-terpenic, adaptation residual
+
+── (D) TemporalEngine: Raoult/Stevens/mixture-suppression ──
+  Simulating 37 materials...
+  Perceptual half-life: 24.0 hr
+  Longevity (OAV>2):    24.0 hr
+  Subliminal materials (OAV peak < 1): 16
+    ○ Hedione HC
+    ○ Methyl Benzoate
+    ○ Benzyl Acetate
+    ○ Paradisamide
+    ○ Jasmine FO
+    ○ Ylang Extra EO
+    ○ Carrot Seed EO
+    ○ Farnesol
+    ○ Benzyl Salicylate
+    ○ Koavone
+    ○ Romandolide
+    ○ Musk Ketone
+    ○ Exaltolide
+    ○ Ambrettolide
+    ○ IPM
+    ○ Benzyl Benzoate
+  Opening   : Dihydromyrcenol(OAV=1457), Beta Ionone(OAV=897), Bergamot FCF oil Sicilian(OAV=133)
+  1hr       : Dihydromyrcenol(OAV=1411), Beta Ionone(OAV=895), Bergamot FCF oil Sicilian(OAV=115)
+  4hr       : Dihydromyrcenol(OAV=1282), Beta Ionone(OAV=891), Bergamot FCF oil Sicilian(OAV=73)
+  Drydown   : Dihydromyrcenol(OAV=1127), Beta Ionone(OAV=884), Alpha Irone(OAV=66)
+  wrote formulas\collections\Iris_Jasmine_30mL_optimized.md
+
+
+════════════════════════════════════════════════════════════════
+  FINAL SUMMARY — 30 mL non-linear reverification
+════════════════════════════════════════════════════════════════
+
+  Photorealistic Iris:
+    15 mL geo        : 82.698
+    30 mL scaled geo : 82.930
+    30 mL optimized  : 83.486
+    hill-climb gain  : +0.556
+    concentrate µL   : 7422 / 30000 (24.7%)
+    dose-response    : 100.0/100
+    overdosed        : 0
+    subliminal       : 11
+    perceptual t½    : 24.0 hr
+    longevity OAV>2  : 24.0 hr
+
+  Iris-Jasmine:
+    15 mL geo        : 81.053
+    30 mL scaled geo : 81.498
+    30 mL optimized  : 82.268
+    hill-climb gain  : +0.770
+    concentrate µL   : 8158 / 30000 (27.2%)
+    dose-response    : 90.0/100
+    overdosed        : 0
+    subliminal       : 16
+    perceptual t½    : 24.0 hr
+    longevity OAV>2  : 24.0 hr
+
+  total runtime: 209.1s
+  summary JSON: _scale_30mL_summary.json
+  markdown:     formulas/collections/{Photorealistic_Iris,Iris_Jasmine}_30mL_optimized.md

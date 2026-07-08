@@ -1,0 +1,94 @@
+============================================================================
+  v7e — luxury push from v7d-add
+============================================================================
+
+  v7d-add geo (default): 82.321  luxury=61.50
+
+  Luxury sub-components (v7d-add):
+    natural_score   : 14.05 / 20   (nat_frac=12.16%, target 12-30%)
+    premium_score   : 20.00 / 20   (prem_frac=66.48%, target ≥25%)
+    architecture    : 12.48 / 15   (note_frac t/h/b = 12/40/48, target 18/42/40)
+    trace_shadow    :  0.00 / 15   (shadow_count=0, target 2-10)
+    declared notes  : 47   silent=0
+    OR families >3  : overload=13   counts={'gourmand': 5, 'floral': 6, 'iris': 5, 'woody': 6, 'musk': 4, 'muguet': 5}
+    dominant >2     : redundancy=27   counts={'sweetness': 6, 'radiance': 2, 'freshness': 3, 'powdery': 6, 'creamy': 5, 'woody': 3, 'transparency': 10, 'floral': 8}
+
+────────────────────────────────────────────────────────────────────────────
+  STEP B — Shadow-plateau probe
+────────────────────────────────────────────────────────────────────────────
+    + Cashmeran                      25µL @  0.2: geo=82.310  lux=61.50  declared (Δgeo=-0.011 Δlux=+0.00 Δsubs=-0.01)
+    + Norlimbanol Dextro             15µL @  0.1: geo=82.321  lux=61.50  declared (Δgeo=+0.000 Δlux=+0.00 Δsubs=-0.00)
+    + Romandolide                    25µL @    1: geo=82.318  lux=61.50  declared (Δgeo=-0.003 Δlux=+0.00 Δsubs=-0.04)
+    + Vetiver EO                     50µL @    1: geo=81.385  lux=61.60  declared (Δgeo=-0.936 Δlux=+0.10 Δsubs=+0.06)
+    + Patchouli EO                   25µL @    1: geo=82.300  lux=61.60  declared (Δgeo=-0.021 Δlux=+0.10 Δsubs=+0.03)
+    + Clary Sage EO                  25µL @    1: geo=81.390  lux=61.60  declared (Δgeo=-0.931 Δlux=+0.10 Δsubs=+0.10)
+    + Cyclamen Aldehyde              20µL @  0.1: geo=82.321  lux=61.50  declared (Δgeo=+0.000 Δlux=+0.00 Δsubs=+0.00)
+    + Methyl Ionone                  25µL @    1: geo=81.392  lux=61.60  declared (Δgeo=-0.929 Δlux=+0.10 Δsubs=+0.02)
+
+────────────────────────────────────────────────────────────────────────────
+  STEP C — Greedy multi-add (shadow plateau)
+────────────────────────────────────────────────────────────────────────────
+  positive picks: 0
+
+  after greedy seed: geo=82.321  luxury=61.50  shadow=0
+    Δ vs v7d-add: geo +0.000  luxury +0.00
+
+────────────────────────────────────────────────────────────────────────────
+  STEP D — Hill-climb from seeded baseline (default weights)
+────────────────────────────────────────────────────────────────────────────
+  D1 — prune pass (try drop each material):
+    ✂ drop Farnesol                     geo 82.321→82.353  lux 61.50→61.50
+    ✂ drop Geosmin                      geo 82.353→82.993  lux 61.50→61.50
+    ✂ drop Irotyl                       geo 82.993→83.006  lux 61.50→61.50
+    ✂ drop Aurantiol                    geo 83.006→83.026  lux 61.50→61.50
+    ✂ drop Musk Ketone                  geo 83.026→83.040  lux 61.50→61.60
+
+  D2 — architecture rebalance (lift top, trim base):
+    ▼ Hexyl Salicylate           350→250  geo 83.054  lux 61.80
+    ▼ Benzyl Salicylate          150→50  geo 83.081  lux 62.00
+
+  D3 — full hill-climb:
+    ★ pass 1 Ethylene Brassylate: 800 → 1000  geo 83.105
+    ★ pass 1 Coumarin: 275 → 75  geo 83.140
+    ★ pass 1 Heliotropal: 100 → 0  geo 83.178
+    ★ pass 1 Anisaldehyde: 160 → 185  geo 83.205
+
+  v7e final geo=83.205  (11 moves, 115s)
+  Δ vs v7d-add: +0.884
+
+────────────────────────────────────────────────────────────────────────────
+  v7e axis breakdown vs v7d-add
+────────────────────────────────────────────────────────────────────────────
+  axis                    v7d-add      v7e        Δ
+  longevity                 82.80    83.10    +0.30
+  sillage                   99.80   100.00    +0.20
+  luxury                    61.50    61.90    +0.40
+  texture                   81.00    81.00    +0.00
+  stacking_depth            90.00    90.00    +0.00
+  photorealism              82.50    82.80    +0.30
+  perceptual_clarity        75.80    84.70    +8.90
+  skin_performance          79.60    80.10    +0.50
+  synergy                   95.00    95.00    +0.00
+  hedonic                   85.70    85.80    +0.10
+
+  Luxury sub-components (v7e):
+    natural_score   : 14.14 / 20   (Δ +0.09, nat_frac=12.43%)
+    premium_score   : 20.00 / 20   (Δ +0.00, prem_frac=67.84%)
+    architecture    : 12.72 / 15   (Δ +0.24)
+    trace_shadow    :  0.00 / 15   (Δ +0.00, shadow=0)
+
+  Δ ingredients (v7e vs v7d-add):
+    Musk Ketone                           600.0 →     0.0  (-600.0)
+    Ethylene Brassylate                   800.0 →  1000.0  (+200.0)
+    Coumarin                              275.0 →    75.0  (-200.0)
+    Hexyl Salicylate                      350.0 →   250.0  (-100.0)
+    Heliotropal                           100.0 →     0.0  (-100.0)
+    Benzyl Salicylate                     150.0 →    50.0  (-100.0)
+    Irotyl                                 25.0 →     0.0  (-25.0)
+    Aurantiol                              25.0 →     0.0  (-25.0)
+    Anisaldehyde                          160.0 →   185.0  (+25.0)
+    Geosmin                                15.0 →     0.0  (-15.0)
+    Farnesol                               10.0 →     0.0  (-10.0)
+
+  snapshot → _opt_v7e_luxury.json
+  ─── DONE ───
