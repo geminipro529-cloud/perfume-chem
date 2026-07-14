@@ -1,0 +1,29 @@
+{
+  "formula_name": "F3 Le Barbier Aromatique — Classical Aromatic Fougere",
+  "brief": "aromatic_fougere",
+  "expected_concentrate_ul": 6000,
+  "batch_volume_ml": 30,
+  "temperature_K": 305.0,
+  "concentration_bracket": "EdP",
+  "raw_formula": [
+    {"name": "Bergamot FCF oil Sicilian", "percent": 6.0, "dilution": 1.0},
+    {"name": "Cedrat FCF oil Sicilian", "percent": 3.0, "dilution": 1.0},
+    {"name": "Petitgrain EO", "percent": 2.0, "dilution": 1.0},
+    {"name": "Lavender EO", "percent": 7.0, "dilution": 1.0},
+    {"name": "Lavender EO High Altitude", "percent": 6.0, "dilution": 1.0},
+    {"name": "Clary Sage EO", "percent": 5.0, "dilution": 1.0},
+    {"name": "Rosemary EO", "percent": 2.0, "dilution": 1.0},
+    {"name": "Geranium EO", "percent": 6.0, "dilution": 1.0},
+    {"name": "Linalool", "percent": 3.0, "dilution": 1.0},
+    {"name": "Linalyl Acetate", "percent": 2.0, "dilution": 1.0},
+    {"name": "PEA", "percent": 1.0, "dilution": 1.0},
+    {"name": "Geraniol", "percent": 2.0, "dilution": 1.0},
+    {"name": "Coumarin", "percent": 10.0, "dilution": 0.2},
+    {"name": "Evernyl", "percent": 0.5, "dilution": 1.0},
+    {"name": "Patchouli EO", "percent": 5.0, "dilution": 1.0},
+    {"name": "Cedarwood oil Virginia", "percent": 14.0, "dilution": 1.0},
+    {"name": "Vetiver EO", "percent": 6.0, "dilution": 1.0},
+    {"name": "Habanolide", "percent": 5.0, "dilution": 1.0},
+    {"name": "Ambrettolide", "percent": 3.0, "dilution": 0.1}
+  ]
+}

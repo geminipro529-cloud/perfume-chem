@@ -93,7 +93,7 @@
 | 19 | Ultralia | neat | 30 | 0.03 | 3,333 | Ghost-iris gossamer — transparent powder echo |
 | **ROSE BRIGHTNESS** |||||||
 | 20 | PEA | neat | 150 | 0.15 | 25 | Rose petal freshness |
-| 21 | Geraniol | neat | 100 | 0.10 | 83 | Rose brightness — geranium-floral lift |
+| 21 | Geraniol | 10% in DPG | 1000 | 1.000 | 83 | Rose brightness — geranium-floral lift |
 | 22 | Rose Oxide | **1% in DPG** | 30 | 0.03 | 2,000 | Metallic rose sparkle (0.3 µL active — controlled) |
 | 23 | Alpha Damascone | 10% in DPG | 10 | 0.01 | 3,704 | Rose-ketone — plum-apple-rose radiance (1 µL active) |
 

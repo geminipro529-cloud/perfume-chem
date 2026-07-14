@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MITH Bangkok vs Vibeslab — Competitive Infographic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e0e0e0; line-height: 1.5; }
+  .canvas { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+  /* HEADER */
+  .header { text-align: center; padding: 60px 0 40px; position: relative; }
+  .header::after { content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 1px; background: linear-gradient(90deg,transparent,#6c5ce7,#e17055,transparent); }
+  .header h1 { font-size: 48px; font-weight: 900; background: linear-gradient(135deg,#6c5ce7,#e17055,#fdcb6e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+  .header .sub { font-size: 16px; color: #888; margin-top: 8px; letter-spacing: 3px; text-transform: uppercase; }
+  .header .frameworks { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+  .header .frameworks span { background: rgba(108,92,231,0.15); border: 1px solid rgba(108,92,231,0.3); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #a29bfe; }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; }
+
+  /* CARDS */
+  .card { background: linear-gradient(145deg,#14141e,#1a1a2e); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .card.mith::before { background: linear-gradient(90deg,#6c5ce7,#a29bfe); }
+  .card.vibes::before { background: linear-gradient(90deg,#e17055,#fdcb6e); }
+  .card h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .card.mith h2 { color: #a29bfe; }
+  .card.vibes h2 { color: #fdcb6e; }
+  .card .big { font-size: 36px; font-weight: 900; }
+  .card .label { font-size: 12px; color: #888; margin-top: 2px; }
+  .card .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+  .card .row:last-child { border: none; }
+  .card .row .val { font-weight: 600; color: #fff; }
+
+  /* FULL WIDTH */
+  .full { grid-column: 1 / -1; }
+
+  /* STRATEGIC GROUP MAP */
+  .sgm-wrap { position: relative; height: 320px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: #0e0e18; overflow: hidden; }
+  .sgm-wrap .axis-y { position: absolute; left: 60px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 11px; color: #666; letter-spacing: 2px; white-space: nowrap; }
+  .sgm-wrap .axis-x { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666; letter-spacing: 2px; }
+  .sgm-wrap .dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%,-50%); transition: all 0.3s; }
+  .sgm-wrap .dot:hover { transform: translate(-50%,-50%) scale(2); z-index: 10; }
+  .sgm-wrap .dot.mith { background: #6c5ce7; left: 25%; top: 60%; width: 32px; height: 32px; }
+  .sgm-wrap .dot.vibes { background: #e17055; left: 80%; top: 20%; width: 24px; height: 24px; }
+  .sgm-wrap .dot.butterfly { background: #00b894; left: 15%; top: 75%; width: 18px; height: 18px; opacity: 0.6; }
+  .sgm-wrap .label { position: absolute; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .sgm-wrap .label.mith { left: 25%; top: 72%; color: #a29bfe; }
+  .sgm-wrap .label.vibes { left: 80%; top: 10%; color: #fdcb6e; }
+  .sgm-wrap .label.butterfly { left: 15%; top: 85%; color: #55efc4; font-size: 10px; }
+  .sgm-wrap .quadrant-label { position: absolute; font-size: 9px; color: rgba(255,255,255,0.08); font-weight: 700; letter-spacing: 1px; }
+  .sgm-wrap .ql1 { top: 8%; left: 10%; } .sgm-wrap .ql2 { top: 8%; right: 10%; }
+  .sgm-wrap .ql3 { bottom: 25%; left: 10%; } .sgm-wrap .ql4 { bottom: 25%; right: 10%; }
+
+  /* BAR CHARTS */
+  .bar-chart { margin: 16px 0; }
+  .bar-item { display: flex; align-items: center; margin: 6px 0; gap: 10px; }
+  .bar-item .bar-label { width: 140px; font-size: 11px; text-align: right; color: #aaa; flex-shrink: 0; }
+  .bar-item .bar-track { flex: 1; height: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; }
+  .bar-item .bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease; }
+  .bar-item .bar-fill.mith { background: linear-gradient(90deg,#6c5ce7,#a29bfe); }
+  .bar-item .bar-fill.vibes { background: linear-gradient(90deg,#e17055,#fdcb6e); }
+  .bar-item .bar-pct { width: 40px; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { display: flex; align-items: center; gap: 0; margin: 24px 0; padding: 16px 0; position: relative; overflow-x: auto; }
+  .timeline-item { flex: 1; min-width: 140px; text-align: center; position: relative; padding: 12px 8px; }
+  .timeline-item::before { content: ''; position: absolute; top: 50%; left: -50%; right: 50%; height: 2px; background: rgba(255,255,255,0.1); }
+  .timeline-item:first-child::before { display: none; }
+  .timeline-item .year { font-size: 13px; font-weight: 700; color: #a29bfe; }
+  .timeline-item .event { font-size: 10px; color: #888; margin-top: 4px; }
+
+  /* RADAR */
+  .radar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .radar-item { text-align: center; padding: 16px; }
+  .radar-item .score { font-size: 28px; font-weight: 900; }
+  .radar-item .score.mith-high { color: #a29bfe; }
+  .radar-item .score.vibes-high { color: #fdcb6e; }
+  .radar-item .dim { font-size: 11px; color: #888; margin-top: 4px; }
+  .radar-item .sub-score { font-size: 11px; color: #666; margin-top: 2px; }
+
+  /* TOWS TABLE */
+  .tows { width: 100%; border-collapse: collapse; font-size: 12px; margin: 16px 0; }
+  .tows th { padding: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 10px; }
+  .tows td { padding: 10px; border: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+  .tows .s-o { background: rgba(108,92,231,0.08); }
+  .tows .w-o { background: rgba(225,112,85,0.08); }
+
+  /* RECS */
+  .recs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .rec-item { padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
+  .rec-item .num { display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 50%; font-size: 11px; font-weight: 700; margin-right: 8px; }
+  .rec-item.mith .num { background: #6c5ce7; color: #fff; }
+  .rec-item.vibes .num { background: #e17055; color: #fff; }
+  .rec-item .rec-text { font-size: 13px; }
+
+  /* KEY FINDING BANNER */
+  .banner { background: linear-gradient(135deg, rgba(108,92,231,0.2), rgba(225,112,85,0.2)); border: 1px solid rgba(108,92,231,0.3); border-radius: 16px; padding: 32px; text-align: center; margin: 24px 0; }
+  .banner h3 { font-size: 20px; color: #fff; }
+  .banner p { color: #aaa; font-size: 13px; margin-top: 8px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .recs { grid-template-columns: 1fr; }
+    .header h1 { font-size: 32px; }
+    .radar-grid { grid-template-columns: 1fr; }
+  }
+
+  .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin: 2px; }
+  .tag.mith-tag { background: rgba(108,92,231,0.2); color: #a29bfe; }
+  .tag.vibes-tag { background: rgba(225,112,85,0.2); color: #fdcb6e; }
+  .tag.neutral { background: rgba(255,255,255,0.08); color: #aaa; }
+
+  .footnote { text-align: center; color: #555; font-size: 11px; padding: 40px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>MITH  BANGKOK  vs  VIBESLAB</h1>
+    <div class="sub">Thai Indie Fragrance Competitive Analysis · 9 Frameworks · 2026</div>
+    <div class="frameworks">
+      <span>Porter's Five Forces</span>
+      <span>VRIO</span>
+      <span>Strategic Group Map</span>
+      <span>Perceptual Map</span>
+      <span>SWOT/TOWS</span>
+      <span>Business Model Canvas</span>
+      <span>Brand Resonance</span>
+      <span>Blue Ocean</span>
+      <span>Pantip Ethnography</span>
+    </div>
+  </div>
+
+  <!-- KEY FINDING BANNER -->
+  <div class="banner">
+    <h3>They rarely compete for the same customer</h3>
+    <p>MITH: broad-appeal cultural scent house (399-2,859 THB) · Vibeslab: concept-driven niche house (2,900-4,900 THB)<br>
+    Collision zone: 2,000-3,000 THB band. Underserved whitespace: 1,500-2,500 THB.</p>
+  </div>
+
+  <!-- AT A GLANCE -->
+  <div class="grid">
+    <div class="card mith">
+      <h2>MITH Bangkok</h2>
+      <div style="display:flex; gap:24px; margin-bottom:16px; flex-wrap:wrap;">
+        <div><div class="big">51</div><div class="label">Products</div></div>
+        <div><div class="big">12.8</div><div class="label">THB/mL avg</div></div>
+        <div><div class="big">8</div><div class="label">Categories</div></div>
+      </div>
+      <div class="row"><span>Founded</span><span class="val">~2015-2017</span></div>
+      <div class="row"><span>Perfumers</span><span class="val">Bisch·Morillas·Pellegrin·Durande</span></div>
+      <div class="row"><span>B2B revenue</span><span class="val" style="color:#e17055;">NONE</span></div>
+      <div class="row"><span>Body care</span><span class="val" style="color:#00b894;">YES (5 lines)</span></div>
+      <div class="row"><span>Physical retail</span><span class="val">Central World·Ladprao</span></div>
+      <div class="row"><span>Est. monthly rev</span><span class="val">2M-5M THB</span></div>
+    </div>
+
+    <div class="card vibes">
+      <h2>Vibeslab</h2>
+      <div style="display:flex; gap:24px; margin-bottom:16px; flex-wrap:wrap;">
+        <div><div class="big">13</div><div class="label">EDP Products</div></div>
+        <div><div class="big">58</div><div class="label">THB/mL avg</div></div>
+        <div><div class="big">10</div><div class="label">Categories</div></div>
+      </div>
+      <div class="row"><span>Founded</span><span class="val" style="color:#fdcb6e;">~2014 (Pantip confirmed)</span></div>
+      <div class="row"><span>Perfumers</span><span class="val">In-house (undisclosed)</span></div>
+      <div class="row"><span>B2B revenue</span><span class="val" style="color:#00b894;">STRONG (1M-3M THB/mo)</span></div>
+      <div class="row"><span>Body care</span><span class="val" style="color:#e17055;">NONE</span></div>
+      <div class="row"><span>Clients</span><span class="val">Porsche·Owndays·Lebua·Centara</span></div>
+      <div class="row"><span>Est. monthly rev</span><span class="val">2M-6M THB</span></div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC GROUP MAP -->
+  <div class="card full">
+    <h2 style="color:#fdcb6e;">Strategic Group Map</h2>
+    <div class="sgm-wrap">
+      <div class="axis-y">OLFACTIVE UNIQUENESS →</div>
+      <div class="axis-x">← PRICE (THB)</div>
+      <div class="quadrant-label ql1">Low price<br>Low uniqueness</div>
+      <div class="quadrant-label ql2">High price<br>High uniqueness</div>
+      <div class="quadrant-label ql3">Low price<br>Low uniqueness</div>
+      <div class="quadrant-label ql4">High price<br>Low uniqueness</div>
+      <div class="dot vibes" style="left:80%; top:20%;"></div>
+      <div class="label vibes" style="left:80%; top:8%;">VIBESLAB</div>
+      <div class="dot mith" style="left:25%; top:55%;"></div>
+      <div class="label mith" style="left:25%; top:67%;">MITH BANGKOK</div>
+      <div class="dot butterfly" style="left:12%; top:72%;"></div>
+      <div class="label butterfly" style="left:12%; top:85%;">Butterfly Thai</div>
+      <div style="position:absolute; left:48%; top:65%; width:80px; height:80px; border:2px dashed rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:8px; color:rgba(255,255,255,0.2); text-align:center; line-height:1.3;">
+        BLUE<br>OCEAN<br>GAP
+      </div>
+    </div>
+  </div>
+
+  <!-- VRIO ADVANTAGES -->
+  <div class="grid">
+    <div class="card mith">
+      <h2>VRIO: MITH Advantages</h2>
+      <div class="bar-chart">
+        <div class="bar-item"><span class="bar-label">Thai cultural scent IP</span><div class="bar-track"><div class="bar-fill mith" style="width:85%"></div></div><span class="bar-pct">85%</span></div>
+        <div class="bar-item"><span class="bar-label">Perfumer roster</span><div class="bar-track"><div class="bar-fill mith" style="width:80%"></div></div><span class="bar-pct">80%</span></div>
+        <div class="bar-item"><span class="bar-label">Mall booth leases</span><div class="bar-track"><div class="bar-fill mith" style="width:75%"></div></div><span class="bar-pct">75%</span></div>
+        <div class="bar-item"><span class="bar-label">Body care ecosystem</span><div class="bar-track"><div class="bar-fill mith" style="width:45%"></div></div><span class="bar-pct">45%</span></div>
+        <div class="bar-item"><span class="bar-label">45+ SKU breadth</span><div class="bar-track"><div class="bar-fill mith" style="width:25%"></div></div><span class="bar-pct">25%</span></div>
+      </div>
+      <div style="margin-top:12px; padding:12px; background:rgba(108,92,231,0.1); border-radius:8px; font-size:12px; color:#a29bfe;">
+        <strong>Sustainability:</strong> Moderate — IP is authentic but perfumers can leave. Mall leases are relationship-based.
+      </div>
+    </div>
+    <div class="card vibes">
+      <h2>VRIO: Vibeslab Advantages</h2>
+      <div class="bar-chart">
+        <div class="bar-item"><span class="bar-label">B2B network (12 yr)</span><div class="bar-track"><div class="bar-fill vibes" style="width:95%"></div></div><span class="bar-pct">95%</span></div>
+        <div class="bar-item"><span class="bar-label">Novelty concept IP</span><div class="bar-track"><div class="bar-fill vibes" style="width:90%"></div></div><span class="bar-pct">90%</span></div>
+        <div class="bar-item"><span class="bar-label">Curation discipline</span><div class="bar-track"><div class="bar-fill vibes" style="width:80%"></div></div><span class="bar-pct">80%</span></div>
+        <div class="bar-item"><span class="bar-label">Shopify aesthetic</span><div class="bar-track"><div class="bar-fill vibes" style="width:30%"></div></div><span class="bar-pct">30%</span></div>
+        <div class="bar-item"><span class="bar-label">Experiment Kit</span><div class="bar-track"><div class="bar-fill vibes" style="width:35%"></div></div><span class="bar-pct">35%</span></div>
+      </div>
+      <div style="margin-top:12px; padding:12px; background:rgba(225,112,85,0.1); border-radius:8px; font-size:12px; color:#fdcb6e;">
+        <strong>Sustainability:</strong> High — 12-year B2B network is irreplicable. Novelty concepts can be trademarked.
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="card full">
+    <h2 style="color:#a29bfe;">Competitive Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="year">2014</div>
+        <div class="event">Vibeslab founded<br>(Pantip first mention)</div>
+        <div class="tag vibes-tag">Vibeslab</div>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2015-17</div>
+        <div class="event">MITH founded<br>MEE MIT MAK Co.</div>
+        <div class="tag mith-tag">MITH</div>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2018</div>
+        <div class="event">Vibeslab x Owndays<br>retail scent contract</div>
+        <div class="tag vibes-tag">B2B win</div>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2021</div>
+        <div class="event">MITH at Central World<br>Pantip organic buzz</div>
+        <div class="tag mith-tag">Retail</div>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2024</div>
+        <div class="event">Vibeslab x Porsche/AAS<br>luxury auto custom scent</div>
+        <div class="tag vibes-tag">B2B win</div>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2025-26</div>
+        <div class="event">Both launch new scents<br>MITH: Legend (Morillas)</div>
+        <div class="tag neutral">Both active</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTER + REVENUE -->
+  <div class="grid">
+    <div class="card full">
+      <h2 style="color:#a29bfe;">Porter's Five Forces — Industry Structure</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; gap:12px; margin:16px 0;">
+        <div style="text-align:center; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px;">
+          <div style="font-size:32px; font-weight:900; color:#e17055;">HIGH</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">New Entrants</div>
+          <div style="font-size:10px; color:#666; margin-top:4px;">Low formulation &amp; capital barrier</div>
+        </div>
+        <div style="text-align:center; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px;">
+          <div style="font-size:32px; font-weight:900; color:#fdcb6e;">MOD-HIGH</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Substitutes</div>
+          <div style="font-size:10px; color:#666; margin-top:4px;">Grey market Dior/Chanel, oil perfumes</div>
+        </div>
+        <div style="text-align:center; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px;">
+          <div style="font-size:32px; font-weight:900; color:#e17055;">HIGH</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Buyer Power</div>
+          <div style="font-size:10px; color:#666; margin-top:4px;">Zero switching cost, full info symmetry</div>
+        </div>
+        <div style="text-align:center; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px;">
+          <div style="font-size:32px; font-weight:900; color:#00b894;">LOW-MOD</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Supplier Power</div>
+          <div style="font-size:10px; color:#666; margin-top:4px;">Distributor access, multiple houses</div>
+        </div>
+        <div style="text-align:center; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px;">
+          <div style="font-size:32px; font-weight:900; color:#fdcb6e;">MODERATE</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Rivalry</div>
+          <div style="font-size:10px; color:#666; margin-top:4px;">Differentiated positioning limits direct head-to-head</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE MODEL -->
+  <div class="grid">
+    <div class="card mith">
+      <h2>Revenue Model — MITH</h2>
+      <div style="position:relative; height:200px; display:flex; align-items:flex-end; gap:16px; margin:16px 0;">
+        <div style="flex:3; background:linear-gradient(180deg,#6c5ce7,#a29bfe); height:160px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; font-size:12px; font-weight:700;">EDP<br>1.6M-4M</div>
+        <div style="flex:1; background:linear-gradient(180deg,#a29bfe,#dfe6e9); height:60px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; font-size:11px; font-weight:600;">Body<br>0.4M-1M</div>
+        <div style="flex:0.3; background:rgba(255,255,255,0.05); height:5px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; font-size:10px; color:#e17055;">B2B<br>0</div>
+      </div>
+      <div style="font-size:11px; color:#888; text-align:center;">Monthly revenue in THB · 2M-5M total</div>
+    </div>
+    <div class="card vibes">
+      <h2>Revenue Model — Vibeslab</h2>
+      <div style="position:relative; height:200px; display:flex; align-items:flex-end; gap:16px; margin:16px 0;">
+        <div style="flex:2; background:linear-gradient(180deg,#e17055,#fdcb6e); height:110px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; font-size:11px; font-weight:600;">EDP<br>1M-2.8M</div>
+        <div style="flex:0.3; background:rgba(255,255,255,0.05); height:5px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; font-size:10px;">Body<br>0</div>
+        <div style="flex:2.5; background:linear-gradient(180deg,#fdcb6e,#ffeaa7); height:130px; border-radius:8px 8px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; font-size:11px; font-weight:600;">B2B<br>1M-3M</div>
+      </div>
+      <div style="font-size:11px; color:#888; text-align:center;">Monthly revenue in THB · 2M-6M total</div>
+    </div>
+  </div>
+
+  <!-- BRAND RESONANCE PYRAMID -->
+  <div class="card full">
+    <h2 style="color:#a29bfe;">Brand Resonance Pyramid</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div>
+        <div style="text-align:center; margin-bottom:8px;"><span style="font-weight:700; color:#a29bfe;">MITH</span> <span style="font-size:11px; color:#666;">— broad but shallow</span></div>
+        <div style="background:rgba(108,92,231,0.15); border:1px solid rgba(108,92,231,0.3); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#a29bfe;">4. RELATIONSHIP: repeat via body care</div>
+        <div style="background:rgba(108,92,231,0.12); border:1px solid rgba(108,92,231,0.2); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#a29bfe; margin-top:4px;">3. RESPONSE: quality at fair price</div>
+        <div style="background:rgba(108,92,231,0.08); border:1px solid rgba(108,92,231,0.15); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#a29bfe; margin-top:4px;">2. MEANING: variety·perfumers·Thai</div>
+        <div style="background:rgba(108,92,231,0.05); border:1px solid rgba(108,92,231,0.1); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#a29bfe; margin-top:4px;">1. IDENTITY: blue booth, accessible, cultural</div>
+      </div>
+      <div>
+        <div style="text-align:center; margin-bottom:8px;"><span style="font-weight:700; color:#fdcb6e;">Vibeslab</span> <span style="font-size:11px; color:#666;">— deep but narrow</span></div>
+        <div style="background:rgba(225,112,85,0.15); border:1px solid rgba(225,112,85,0.3); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#fdcb6e;">4. RELATIONSHIP: fans collect, recommend</div>
+        <div style="background:rgba(225,112,85,0.12); border:1px solid rgba(225,112,85,0.2); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#fdcb6e; margin-top:4px;">3. RESPONSE: intriguing, addictive, bold</div>
+        <div style="background:rgba(225,112,85,0.08); border:1px solid rgba(225,112,85,0.15); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#fdcb6e; margin-top:4px;">2. MEANING: unique concepts·dark·storytelling</div>
+        <div style="background:rgba(225,112,85,0.05); border:1px solid rgba(225,112,85,0.1); border-radius:8px; padding:8px; text-align:center; font-size:12px; color:#fdcb6e; margin-top:4px;">1. IDENTITY: Shopify, uncommon, memory-triggering</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOWS SAMPLE -->
+  <div class="card full">
+    <h2 style="color:#fdcb6e;">TOWS Strategy Cross-Match (Selected)</h2>
+    <table class="tows">
+      <tr>
+        <th style="width:25%;"></th>
+        <th style="color:#00b894;">Strengths (S)</th>
+        <th style="color:#e17055;">Weaknesses (W)</th>
+      </tr>
+      <tr>
+        <td style="color:#a29bfe; font-weight:600;">Opportunities (O)</td>
+        <td class="s-o">
+          <strong>S+O:</strong> Launch "Bangkok Stories" concept sub-line using Thai IP<br>
+          <small style="color:#888;">MITH: cultural IP × concept scents = Vibeslab competitor</small>
+        </td>
+        <td class="w-o">
+          <strong>W+O:</strong> MITH Scent Branding for Thai hotels<br>
+          <small style="color:#888;">MITH: B2B division using existing fragrance IP</small>
+        </td>
+      </tr>
+      <tr>
+        <td style="color:#e17055; font-weight:600;">Threats (T)</td>
+        <td class="s-o">
+          <strong>S+T:</strong> Lock perfumers into multi-year contracts<br>
+          <small style="color:#888;">MITH: protect Bisch/Morillas from poaching</small>
+        </td>
+        <td class="w-o">
+          <strong>W+T:</strong> Fix 100ml supply before competitors fill gap<br>
+          <small style="color:#888;">Vibeslab: ~2M THB/month latent demand</small>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- MATERIAL COVERAGE -->
+  <div class="grid">
+    <div class="card mith">
+      <h2>Inventory Coverage: MITH Notes</h2>
+      <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+        <div style="flex-shrink:0; width:80px; height:80px; border-radius:50%; background:conic-gradient(#6c5ce7 0deg 192deg, rgba(255,255,255,0.08) 192deg 360deg); display:flex; align-items:center; justify-content:center;">
+          <div style="width:60px; height:60px; border-radius:50%; background:#14141e; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#a29bfe;">53%</div>
+        </div>
+        <div>
+          <div style="font-size:12px;">24/45 notes matched to inventory</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Missing: Oakmoss, Muguet, Apple, Cypress, Anise, Almond, Black Currant, Lily-of-the-Valley</div>
+        </div>
+      </div>
+    </div>
+    <div class="card vibes">
+      <h2>Inventory Coverage: Vibeslab Notes</h2>
+      <div style="display:flex; align-items:center; gap:16px; margin:16px 0;">
+        <div style="flex-shrink:0; width:80px; height:80px; border-radius:50%; background:conic-gradient(#e17055 0deg 190deg, rgba(255,255,255,0.08) 190deg 360deg); display:flex; align-items:center; justify-content:center;">
+          <div style="width:60px; height:60px; border-radius:50%; background:#14141e; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#fdcb6e;">53%</div>
+        </div>
+        <div>
+          <div style="font-size:12px;">9/17 notes matched to inventory</div>
+          <div style="font-size:11px; color:#888; margin-top:4px;">Missing: Yuzu, Civettone, Ambroxan, Green Tea, Vanilla, Soap, Petitgrain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANTIP FINDINGS -->
+  <div class="card full">
+    <h2 style="color:#a29bfe;">Pantip Ethnography — Real Thai Consumer Sentiment</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+      <div style="background:rgba(108,92,231,0.08); border-radius:12px; padding:16px; border:1px solid rgba(108,92,231,0.15);">
+        <div style="font-size:28px; font-weight:900; color:#a29bfe;">6</div>
+        <div style="font-size:12px; color:#888;">Pantip threads mentioning MITH</div>
+        <div style="margin-top:12px; font-size:12px; color:#ccc; font-style:italic;">"Mith Bangkok has a testing booth, blue booth in malls, lots of scents, got dizzy sniffing them all. Tell the staff what you like."</div>
+        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="tag mith-tag">Central World 3F</span>
+          <span class="tag mith-tag">Central Ladprao</span>
+          <span class="tag mith-tag">Shopee</span>
+          <span class="tag mith-tag">#1 Thai brand rec</span>
+        </div>
+      </div>
+      <div style="background:rgba(225,112,85,0.08); border-radius:12px; padding:16px; border:1px solid rgba(225,112,85,0.15);">
+        <div style="font-size:28px; font-weight:900; color:#fdcb6e;">5</div>
+        <div style="font-size:12px; color:#888;">Pantip threads mentioning Vibeslab</div>
+        <div style="margin-top:12px; font-size:12px; color:#ccc; font-style:italic;">"Porsche scent created by Vibeslab specifically for AAS customers"</div>
+        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="tag vibes-tag">Porsche/AAS</span>
+          <span class="tag vibes-tag">Owndays</span>
+          <span class="tag vibes-tag">Hotels</span>
+          <span class="tag neutral">Since 2014</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC RECOMMENDATIONS -->
+  <div class="card full">
+    <h2 style="color:#00b894;">Strategic Recommendations</h2>
+    <div class="recs">
+      <div class="rec-item mith">
+        <div><span class="num">1</span><span class="rec-text"><strong style="color:#a29bfe;">Launch B2B scent branding</strong> — 3 hotel packages (50k/150k/300k THB). Target 20 contracts year 1 = ~3M THB incremental revenue.</span></div>
+      </div>
+      <div class="rec-item mith">
+        <div><span class="num">2</span><span class="rec-text"><strong style="color:#a29bfe;">Prune to 25 hero SKUs</strong> + 5 "Bangkok Stories" concept scents. Limited-edition drops for scarcity bidding.</span></div>
+      </div>
+      <div class="rec-item mith">
+        <div><span class="num">3</span><span class="rec-text"><strong style="color:#a29bfe;">Discovery set</strong> — 8x2ml at 399 THB. Convert website visitors into buyers.</span></div>
+      </div>
+      <div class="rec-item vibes">
+        <div><span class="num">1</span><span class="rec-text"><strong style="color:#fdcb6e;">Fix 100ml supply</strong> — all sizes sold out. ~2M THB/month in latent demand.</span></div>
+      </div>
+      <div class="rec-item vibes">
+        <div><span class="num">2</span><span class="rec-text"><strong style="color:#fdcb6e;">Launch 30ml at 1,900 THB</strong> — capture price-sensitive niche segment. Enters the 1,500-2,500 THB blue ocean.</span></div>
+      </div>
+      <div class="rec-item vibes">
+        <div><span class="num">3</span><span class="rec-text"><strong style="color:#fdcb6e;">Body care in top 3 scents</strong> — Money, Skins, Grand Hotel Ginza. Hand cream at 590 THB = impulse purchase + brand recall.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footnote">
+    Analysis by Opencode · 9 competitive frameworks · 2026-05-25<br>
+    Data sources: Website scraping, Pantip.co.th, product page analysis, pipeline OAV gating engine<br>
+    See <code style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">data/competitor_analysis_mith_vs_vibeslab.md</code>
+    · <code style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">scripts/competitor_analysis.py</code>
+    · <code style="background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">formulas/competitors/</code>
+  </div>
+
+</div>
+</body>
+</html>

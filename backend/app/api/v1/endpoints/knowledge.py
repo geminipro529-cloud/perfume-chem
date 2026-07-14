@@ -2,6 +2,7 @@
 
 import sys
 from pathlib import Path
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
@@ -11,6 +12,7 @@ if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
 from engine.knowledge import KnowledgeIndex
+
 from app.services.validation_pipeline import validate_search_query
 
 router = APIRouter()

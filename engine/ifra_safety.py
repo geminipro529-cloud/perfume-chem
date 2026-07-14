@@ -1,7 +1,15 @@
 """IFRA compliance & allergen safety scoring.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- IFRA limits (%) must be cross-checked against OAV to ensure
+  perceptibility claims are consistent with concentration limits.
+
 Implements regulatory ceiling analysis per IFRA 51st Amendment (2024)
-and EU Cosmetics Regulation 1223/2009 Annex III (26 allergens).
+and EU Cosmetics Regulation 1223/2009 Annex III as amended by
+Regulation (EU) 2023/1545.
 
 Category 4 = Fine Fragrance (eau de parfum, eau de toilette, cologne).
 Max use levels are percentages of the FINISHED PRODUCT, not concentrate.
@@ -24,6 +32,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+
+from engine.material_resolver import resolve_material
+from engine.skin_compartments import skin_partition
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -66,6 +77,9 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
     # Ketones / lactones
     "Coumarin":                2.78,
     "Musk Ketone":             1.4,
+    "Oranger Crystals":        0.2,   # Methyl beta-naphthyl ketone; phototoxicity limit
+    "2-Acetonaphthone":        0.2,
+    "Methyl beta-naphthyl ketone": 0.2,
     "Maple Lactone":           5.0,
     "Gamma Decalactone":       5.0,
     "Gamma Undecalactone":     5.0,
@@ -85,6 +99,7 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
     "Ambrox Super":            15.0,
     "Cedarwood EO":            10.0,
     "Vetiver EO":              10.0,
+    "Vetiver EO (India)":       10.0,
     "Patchouli EO":            20.0,
     # Balsamic
     "Benzoin Resinoid":        5.0,
@@ -108,7 +123,10 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
     "Red Mandarin EO":         5.0,
     "Blood Orange Sicilian":   5.0,
     "Lavender EO":             8.0,
+    "Lavender EO (BONTAUX SAS)": 8.0,
     "Clary Sage EO":           5.0,
+    "Cardamom EO":             5.0,
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 5.0,
     "Ylang Comoros Complete EO": 4.0,
     "Ylang Comoros III EO":    5.0,
     "Champaca Flower EO":      3.0,
@@ -116,79 +134,110 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
     "Myrrh EO":                5.0,
     "Olibanum Resinoid":       5.0,
     "Carrot Seed EO":          5.0,
-    "Birch Tar Rectified":     0.2,
+    # IFRA 51st Amendment — new restrictions (2023)
+    "Farnesol":                 2.2,    # IFRA 51st — Restriction + Specification
+    "Ylang Ylang EO":           0.8,    # IFRA 51st — Restriction (2020)
+    "Alpha Damascone":          0.02,   # IFRA 51st — Rose ketones family restriction
+    "Grapefruit FCF":           4.0,    # IFRA 51st — Phototoxicity restriction (furocoumarins)
+    "Bergamot EO":              0.4,    # IFRA 51st — Phototoxicity restriction; use FCF for higher concentrations
+    "Citronellyl Acetate":      2.5,    # IFRA 51st — New restriction 2023
     # Dihydromyrcenol is unrestricted but noted
     "Dihydromyrcenol":         50.0,
     # Standard synthetics — very high limits (effectively unrestricted)
-    "Heliotropin Fleuressence": 20.0,
-    "Methyl Ionone Pure":      20.0,
+        "Methyl Ionone Pure":      20.0,
     "Florol":                  5.0,
     "Bourgeonal":              5.0,
     "Freesia HDI":             10.0,
     "Lilyreal ND":             5.0,
     "Nympheal":                5.0,
     "Helional":                5.0,
+    # Rose ketones / florals
+    "Damascone Beta":          0.02,   # IFRA 51st — Rose ketones family (same class as Alpha Damascone)
+    "Cis Jasmone":             5.0,    # Natural jasmine constituent — no IFRA restriction
+    "Peonile":                 5.0,    # Peony ester — no restriction; generous limit
+    # Green / leaf
+    "Leafovert":               5.0,    # Green leaf alcohol — no known restriction
+    # Musks (macrocyclic — unrestricted)
+    "Romandolide":             10.0,   # Macrocyclic musk — no IFRA restriction
+    # Ambers
+    "Ambermax":                5.0,    # Amber material — no known restriction
 }
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# EU 26 Allergens — Mandatory Declaration in EU/UK
+# EU fragrance allergens — Mandatory declaration in EU/UK
+# Annex III of 1223/2009 as amended by 2023/1545.
 # These must be listed on packaging if above threshold:
 #   0.001% (10 ppm) in leave-on products
 #   0.01%  (100 ppm) in rinse-off products
 # ═══════════════════════════════════════════════════════════════════════════════
 
-EU_26_ALLERGENS: dict[str, dict[str, Any]] = {
-    "Linalool":               {"cas": "78-70-6",    "threshold_pct": 0.001,
+EU_FRAGRANCE_ALLERGENS: dict[str, dict[str, Any]] = {
+    "Linalool":               {"cas": "78-70-6",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low",       "note": "Sensitizer when oxidized"},
-    "Limonene":               {"cas": "5989-27-5",  "threshold_pct": 0.001,
+    "Limonene":               {"cas": "5989-27-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low",       "note": "D-Limonene; sensitizer when oxidized"},
-    "Citronellol":            {"cas": "106-22-9",   "threshold_pct": 0.001,
+    "Citronellol":            {"cas": "106-22-9",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Geraniol":               {"cas": "106-24-1",   "threshold_pct": 0.001,
+    "Geraniol":               {"cas": "106-24-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Citral":                 {"cas": "5392-40-5",  "threshold_pct": 0.001,
+    "Citral":                 {"cas": "5392-40-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate",  "note": "Neral + geranial mixture"},
-    "Eugenol":                {"cas": "97-53-0",    "threshold_pct": 0.001,
+    "Eugenol":                {"cas": "97-53-0",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Isoeugenol":             {"cas": "97-54-1",    "threshold_pct": 0.001,
+    "Isoeugenol":             {"cas": "97-54-1",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "high",      "note": "Strong sensitizer"},
-    "Cinnamaldehyde":         {"cas": "104-55-2",   "threshold_pct": 0.001,
+    "Cinnamaldehyde":         {"cas": "104-55-2",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "high",      "note": "Cinnamal; potent sensitizer"},
-    "Hydroxycitronellal":     {"cas": "107-75-5",   "threshold_pct": 0.001,
+    "Hydroxycitronellal":     {"cas": "107-75-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Cinnamyl Alcohol":       {"cas": "104-54-1",   "threshold_pct": 0.001,
+    "Cinnamyl Alcohol":       {"cas": "104-54-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Coumarin":               {"cas": "91-64-5",    "threshold_pct": 0.001,
+    "Coumarin":               {"cas": "91-64-5",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Alpha Isomethyl Ionone": {"cas": "127-51-5",   "threshold_pct": 0.001,
+    "Alpha Isomethyl Ionone": {"cas": "127-51-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Benzyl Alcohol":         {"cas": "100-51-6",   "threshold_pct": 0.001,
+    "Benzyl Alcohol":         {"cas": "100-51-6",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Benzyl Salicylate":      {"cas": "118-58-1",   "threshold_pct": 0.001,
+    "Benzyl Salicylate":      {"cas": "118-58-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Benzyl Benzoate":        {"cas": "120-51-4",   "threshold_pct": 0.001,
+    "Benzyl Benzoate":        {"cas": "120-51-4",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Benzyl Cinnamate":       {"cas": "103-41-3",   "threshold_pct": 0.001,
+    "Benzyl Cinnamate":       {"cas": "103-41-3",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Farnesol":               {"cas": "4602-84-0",  "threshold_pct": 0.001,
+    "Farnesol":               {"cas": "4602-84-0",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Methyl 2-Octynoate":     {"cas": "111-12-6",   "threshold_pct": 0.001,
+    "Methyl 2-Octynoate":     {"cas": "111-12-6",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Anise Alcohol":          {"cas": "105-13-5",   "threshold_pct": 0.001,
+    "Anise Alcohol":          {"cas": "105-13-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Amyl Cinnamal":          {"cas": "122-40-7",   "threshold_pct": 0.001,
+    "Amyl Cinnamal":          {"cas": "122-40-7",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "moderate"},
-    "Amylcinnamyl Alcohol":   {"cas": "101-85-9",   "threshold_pct": 0.001,
+    "Amylcinnamyl Alcohol":   {"cas": "101-85-9",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Hexyl Cinnamal":         {"cas": "101-86-0",   "threshold_pct": 0.001,
+    "Hexyl Cinnamal":         {"cas": "101-86-0",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low"},
-    "Evernia Prunastri":      {"cas": "90028-68-5", "threshold_pct": 0.001,
+    "Evernia Prunastri":      {"cas": "90028-68-5", "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "high",      "note": "Oakmoss extract (Evernyl substitute)"},
-    "Evernia Furfuracea":     {"cas": "90028-67-4", "threshold_pct": 0.001,
+    "Evernia Furfuracea":     {"cas": "90028-67-4", "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "high",      "note": "Treemoss extract"},
-    "d-Limonene":             {"cas": "5989-27-5",  "threshold_pct": 0.001,
+    "d-Limonene":             {"cas": "5989-27-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
                                "risk": "low",       "note": "Alias for D-Limonene"},
+    # Inventory-relevant 2023/1545 additions
+    "Linalyl Acetate":        {"cas": "115-95-7",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "moderate",  "note": "Added by EU 2023/1545; prehapten via oxidation/hydrolysis"},
+    "Methyl Salicylate":      {"cas": "119-36-8",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
+    "Hexyl Salicylate":       {"cas": "6259-76-3",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
+    "Citronellyl Acetate":    {"cas": "150-84-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
+    "Geranyl Acetate":        {"cas": "105-87-3",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
+    "Vanillin":               {"cas": "121-33-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "low",       "note": "Added by EU 2023/1545"},
+    "Ethyl Vanillin":         {"cas": "121-32-4",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
+                               "risk": "low",       "note": "Modeled under EU 2023/1545 expanded fragrance-allergen regime"},
 }
 
 # Map inventory names to allergen names where they differ
@@ -198,6 +247,12 @@ _ALLERGEN_NAME_MAP: dict[str, str] = {
     "Alpha Isomethyl Ionone": "Alpha Isomethyl Ionone",
     "Benzyl Salicylate": "Benzyl Salicylate",
 }
+
+
+def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) -> float:
+    if leave_on:
+        return float(allergen_data.get("leave_on_threshold_pct", allergen_data.get("threshold_pct", 0.001)))
+    return float(allergen_data.get("rinse_off_threshold_pct", 0.01))
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -232,17 +287,24 @@ SENSITIZATION_DATA: dict[str, dict[str, Any]] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 BANNED_MATERIALS: set[str] = {
-    "Lilial",           # BMHCA — banned EU March 2022
     "Lyral",            # HICC — banned EU August 2021
+    "Lilial",           # Butylphenyl Methylpropional — banned EU 2022, IFRA 49th Amendment
+    "Birch Tar Rectified",  # CAS 8001-88-5 — prohibited IFRA 51st Amendment (Birch wood pyrolysate)
     "Musk Xylene",      # phased out (environmental persistence)
     "Musk Ambrette",    # phototoxic, banned 1995
     "Nitrobenzene",     # toxic
     "6-Methylcoumarin", # phototoxic
 }
 
-# Not banned outright but restricted in some jurisdictions
+# Restricted materials (not banned, but jurisdiction-dependent limits)
 RESTRICTED_MATERIALS: set[str] = {
     "Diethyl Phthalate",
+}
+
+# IFRA 51st Amendment — materials reclassified as specification-only (not concentration limit)
+IFRA_SPECIFICATION_ONLY: set[str] = {
+    "Linalool",         # Specification standard: oxidation control (peroxide <20 mmol/L), not a hard limit
+    "Musk Ketone",      # Specification standard only under 51st Amendment
 }
 
 
@@ -262,6 +324,33 @@ class IFRASafetyReport:
     sensitizer_flags: list[dict[str, Any]]
     banned_flags: list[str]
     diagnostics: list[str]
+    dermal_exposure: list[dict[str, Any]] = field(default_factory=list)
+    uptake_weighted_sensitizers: list[dict[str, Any]] = field(default_factory=list)
+
+
+def _resolve_physchem(name: str) -> tuple[float | None, float | None, str, str]:
+    identity = resolve_material(name)
+    reg_mat = identity.registry_material
+    profile = identity.profile
+
+    logp = getattr(reg_mat, "logp", None)
+    logp_source = "registry:data_spine.logp"
+    if logp is None:
+        logp = getattr(profile, "clogp", None)
+        logp_source = "profile:ingredient_intelligence.clogp" if logp is not None else "default:skin_partition"
+
+    mw = getattr(reg_mat, "mw_g_mol", None)
+    mw_source = "registry:data_spine.mw"
+    if mw is None:
+        mw = getattr(profile, "mw", None)
+        mw_source = "profile:ingredient_intelligence.mw" if mw is not None else "default:skin_partition"
+
+    return (
+        float(logp) if logp is not None else None,
+        float(mw) if mw is not None else None,
+        logp_source,
+        mw_source,
+    )
 
 
 def score_ifra_compliance(
@@ -269,6 +358,7 @@ def score_ifra_compliance(
     dilutions: dict[str, float] | None = None,
     total_volume_ml: float = 10.0,
     concentration_pct: float = 20.0,
+    leave_on: bool = True,
 ) -> IFRASafetyReport:
     """Score a formula for IFRA compliance and allergen safety.
 
@@ -287,6 +377,8 @@ def score_ifra_compliance(
     allergen_decl: list[str] = []
     sensitizer_flags: list[dict[str, Any]] = []
     banned_flags: list[str] = []
+    restricted_flags: list[str] = []
+    dermal_exposure: list[dict[str, Any]] = []
     diagnostics: list[str] = []
 
     # Calculate each material's % in finished product
@@ -295,6 +387,22 @@ def score_ifra_compliance(
         active_ul = amount_ul * dil
         active_ml = active_ul / 1000.0
         pct_in_product = (active_ml / total_volume_ml) * 100.0
+        logp, mw, logp_source, mw_source = _resolve_physchem(name)
+        partition = skin_partition(name, logp=logp, mw_g_mol=mw)
+        exposure_index = pct_in_product * partition.fraction_into_skin
+        dermal_row = {
+            "material": name,
+            "pct_in_product": round(pct_in_product, 6),
+            "logp": round(logp, 4) if logp is not None else None,
+            "mw_g_mol": round(mw, 4) if mw is not None else None,
+            "logp_source": logp_source,
+            "mw_source": mw_source,
+            "fraction_into_skin": round(partition.fraction_into_skin, 6),
+            "effective_exposure_index": round(exposure_index, 6),
+            "depot_tau_min": round(partition.depot_tau_s / 60.0, 3),
+            "sebum_factor": round(partition.sebum_factor, 3),
+        }
+        dermal_exposure.append(dermal_row)
 
         # Check IFRA limits
         limit = IFRA_CAT4_LIMITS.get(name)
@@ -318,10 +426,10 @@ def score_ifra_compliance(
 
         # Check EU allergen declaration threshold
         name_lower = name.lower()
-        for allergen_name, allergen_data in EU_26_ALLERGENS.items():
+        for allergen_name, allergen_data in EU_FRAGRANCE_ALLERGENS.items():
             mapped = _ALLERGEN_NAME_MAP.get(name, name)
             if mapped.lower() == allergen_name.lower() or name.lower() == allergen_name.lower():
-                threshold = allergen_data["threshold_pct"]
+                threshold = _allergen_threshold_pct(allergen_data, leave_on=leave_on)
                 if pct_in_product > threshold:
                     if allergen_name not in allergen_decl:
                         allergen_decl.append(allergen_name)
@@ -335,11 +443,15 @@ def score_ifra_compliance(
                     "potency": sens_data["potency"],
                     "ec3": sens_data["ec3"],
                     "pct_in_product": round(pct_in_product, 4),
+                    "fraction_into_skin": dermal_row["fraction_into_skin"],
+                    "effective_exposure_index": dermal_row["effective_exposure_index"],
                 })
 
         # Check banned materials
         if name in BANNED_MATERIALS:
             banned_flags.append(name)
+        elif name in RESTRICTED_MATERIALS:
+            restricted_flags.append(name)
 
     # ── Compute scores ──
     # IFRA score: start at 100, deduct per violation
@@ -376,13 +488,19 @@ def score_ifra_compliance(
     # Composite
     composite = (ifra_score * 0.5 + allergen_score * 0.3 +
                  max(0, 100 - sens_penalty) * 0.2)
+    dermal_exposure.sort(key=lambda row: row["effective_exposure_index"], reverse=True)
+    uptake_weighted_sensitizers = sorted(
+        sensitizer_flags,
+        key=lambda row: row.get("effective_exposure_index", 0.0),
+        reverse=True,
+    )[:5]
 
     # Diagnostics
     if not violations and not banned_flags:
         diagnostics.append("✓ All materials within IFRA Category 4 limits")
     if allergen_decl:
         diagnostics.append(
-            f"ℹ {len(allergen_decl)} EU allergen(s) require label declaration: "
+            f"ℹ {len(allergen_decl)} EU fragrance allergen(s) require label declaration: "
             + ", ".join(sorted(allergen_decl))
         )
     if sensitizer_flags:
@@ -391,6 +509,20 @@ def score_ifra_compliance(
     if warnings:
         names = [f"{w['material']} ({w['usage_pct']}%)" for w in warnings]
         diagnostics.append(f"ℹ Near IFRA limits: {', '.join(names)}")
+    if restricted_flags:
+        diagnostics.append(
+            "⚠ Legacy experimental materials in formula: "
+            + ", ".join(sorted(set(restricted_flags)))
+            + " (allowed for local bench use here; review current regulations before any commercial use)"
+        )
+    if uptake_weighted_sensitizers:
+        names = [
+            f"{row['material']} ({row['effective_exposure_index']:.4f})"
+            for row in uptake_weighted_sensitizers[:3]
+        ]
+        diagnostics.append(
+            "ℹ Dermal uptake overlay (effective exposure index): " + ", ".join(names)
+        )
 
     return IFRASafetyReport(
         score=round(composite, 1),
@@ -401,5 +533,7 @@ def score_ifra_compliance(
         allergen_declarations=sorted(allergen_decl),
         sensitizer_flags=sensitizer_flags,
         banned_flags=banned_flags,
+        dermal_exposure=dermal_exposure,
+        uptake_weighted_sensitizers=uptake_weighted_sensitizers,
         diagnostics=diagnostics,
     )

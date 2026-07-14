@@ -76,12 +76,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 180.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -104,7 +104,8 @@
   families:
   - pre-blended
   character: Intense floral jasmine, slightly fruity, mildly jam-like, narcotic.
-  notes: Proprietary F-TEC perfume compound base, not a single molecule. Supplier fine-fragrance IFRA class 4 max 2.52%.
+  notes: Proprietary F-TEC perfume compound base, not a single molecule. Supplier
+    fine-fragrance IFRA class 4 max 2.52%.
   provenance:
     ifra_max_pct_edp: perfumersworld:IFRA_6JN19189
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -186,12 +187,12 @@
   cas: 8022-96-6
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 170.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -216,8 +217,11 @@
         sku: 5JN08464
         price_usd_per_g: 1.9
   families: []
-  character: Rich sweet heavy narcotic fruity-floral jasmine tea absolute with warm velvety body.
-  notes: Natural extract / proprietary perfume compound; treat as mixture rather than a single-molecule record. Supplier typical use 0.07 to 5.7%; fine-fragrance IFRA class 4 max 37.63%.
+  character: Rich sweet heavy narcotic fruity-floral jasmine tea absolute with warm
+    velvety body.
+  notes: Natural extract / proprietary perfume compound; treat as mixture rather than
+    a single-molecule record. Supplier typical use 0.07 to 5.7%; fine-fragrance IFRA
+    class 4 max 37.63%.
   provenance:
     cas: perfumersworld:8JN00254
     ifra_max_pct_edp: perfumersworld:IFRA_8JN00254
@@ -302,12 +306,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -319,7 +323,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -402,29 +406,33 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Jasmine Sambac Absolute
-  aliases: []
-  cas: null
+  aliases:
+  - Jasmine Sambac
+  - jasmine sambac
+  cas: 91770-14-8
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 170.0
   density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  logp: 3.0
+  functional_groups:
+  - floral
+  - indolic
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 1.0
+  odt_eth_ppm: 1.5
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.1
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 8JN00256
     perfumersworld_price_usd_per_g: 11.0
@@ -478,12 +486,12 @@
 - canonical_name: Javanol
   aliases:
   - javanol
-  cas: null
+  cas: 198404-98-7
   smiles: null
   inchikey: null
-  mw_g_mol: 210.4
+  mw_g_mol: 222.37
   density_25c_g_ml: null
-  logp: 3.6
+  logp: 4.1
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.1
@@ -498,7 +506,7 @@
   trp_targets: null
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4WX10027
@@ -522,14 +530,18 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Jessemal Jasmonyl
-  aliases: [Jessemal]
-  cas: "38285-49-3"
-  smiles: "CCCCC1COCC(C1OC(=O)C)C"
-  inchikey: "XWNKVSFNBVIKJB-UHFFFAOYSA-N"
-  mw_g_mol: 214.30
+  aliases:
+  - Jessemal
+  cas: 38285-49-3
+  smiles: CCCCC1COCC(C1OC(=O)C)C
+  inchikey: XWNKVSFNBVIKJB-UHFFFAOYSA-N
+  mw_g_mol: 214.3
   density_25c_g_ml: null
   logp: 2.8
-  functional_groups: [ester, ether, tetrahydropyran]
+  functional_groups:
+  - ester
+  - ether
+  - tetrahydropyran
   chirality: mixture
   vp_25c_pa: 0.5
   antoine: null
@@ -680,3 +692,73 @@
     user_in_inventory: inventory.txt
     character: docs/dosing_reference.md
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: jessemal (jasmonyl)
+  aliases:
+  - Jessemal
+  - Jasmonyl
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 214.3
+  density_25c_g_ml: null
+  logp: 2.8
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 1.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+- canonical_name: juniper berry eo
+  aliases:
+  - Juniper Berry EO
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.2
+  density_25c_g_ml: null
+  logp: 4.3
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 65.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 10.0
+  odt_eth_ppm: 0.1
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+
+- canonical_name: Jasmine Sambac Blossoms
+  aliases:
+  - jasmine sambac blossoms
+  - jasmine sambac flowers
+  cas: null
+  mw_g_mol: 220.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.3
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 3.0
+  odt_eth_ppm: 0.5
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

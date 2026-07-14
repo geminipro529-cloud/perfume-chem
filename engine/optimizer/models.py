@@ -552,6 +552,10 @@ def _normalize_loaded_rules(raw_rules: list[dict]) -> list[dict]:
                 "type": rule_type,
                 "source": str(rule.get("source") or "").strip(),
             }
+            if "axis" in rule:
+                normalized["axis"] = str(rule["axis"]).strip()
+            if "magnitude" in rule:
+                normalized["magnitude"] = float(rule["magnitude"])
             if "ratio" in rule:
                 normalized["ratio"] = str(rule.get("ratio") or "").strip()
             key = (
@@ -1082,18 +1086,30 @@ def _matching_rules_for_material(name: str, index: dict[str, list[dict]]) -> lis
 
 
 def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, object]:
-    """Canonical rule-match analysis for a formula's ingredient set."""
+    """Canonical rule-match analysis for a formula's ingredient set.
+    
+    Now includes per-axis magnitude-weighted scoring.
+    Every rule has 'axis' and 'magnitude' fields."""
     unique_names = [name for name in dict.fromkeys(ingredient_names) if name]
     identities = {name: material_identity_key(name) for name in unique_names}
     positive_pairs: set[tuple[str, str]] = set()
     conflict_pairs: set[tuple[str, str]] = set()
     covered_pairs: set[tuple[str, str]] = set()
 
+    # Per-axis magnitude tracking
+    axis_magnitudes: dict[str, float] = {
+        "depth": 0.0, "texture": 0.0, "hedonic": 0.0,
+        "performance": 0.0, "sillage": 0.0, "complexity": 0.0,
+    }
+
     indexes = (get_pairing_index(), get_synergy_index())
     for name in unique_names:
         for index in indexes:
             for rule in _matching_rules_for_material(name, index):
                 partner = rule["material_b"]
+                rule_axis = rule.get("axis", "complexity")
+                rule_mag = float(rule.get("magnitude", 1.0))
+                rule_type = rule.get("type", "pairing")
                 for other in unique_names:
                     if other == name or not materials_match(partner, other):
                         continue
@@ -1101,17 +1117,29 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
                     if pair[0] == pair[1]:
                         continue
                     covered_pairs.add(pair)
-                    if rule["type"] == "synergy":
+                    if rule_type == "synergy":
                         positive_pairs.add(pair)
-                    elif rule["type"] == "conflict":
+                    elif rule_type == "conflict":
                         conflict_pairs.add(pair)
+                    # Track by axis — only highest magnitude per pair per axis
+                    if rule_axis in axis_magnitudes:
+                        axis_magnitudes[rule_axis] += rule_mag
 
     total_pairs = len(unique_names) * (len(unique_names) - 1) // 2
+    # Normalize axis magnitudes to 0-100
+    max_possible = max(total_pairs * 3.0, 1.0)
+    axis_scores = {
+        k: min(100.0, (v / max_possible) * 100.0)
+        for k, v in axis_magnitudes.items()
+    }
     return {
         "positive_pairs": positive_pairs,
         "conflict_pairs": conflict_pairs,
         "covered_pairs": covered_pairs,
         "total_pairs": total_pairs,
+        "axis_scores": axis_scores,
+        "raw_axis_magnitudes": {k: round(v, 4) for k, v in axis_magnitudes.items()},
+        "total_axis_magnitude": sum(axis_magnitudes.values()),
     }
 
 

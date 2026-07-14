@@ -18,11 +18,118 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from engine.pipeline.audit_log import load_events, summarize_events, suggest_repairs
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.knowledge.literature_rules import (
+    build_knowledge_rule_quality_contract,
+    build_literature_rule_contract,
+)
+from engine.odor_thresholds import ODT_VERIFICATION
+from engine.science_audit import build_science_audit_contract
+from engine.schema_validator import SchemaValidator
 from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+DISCONNECTED_MODULE_STATUS = {
+    "engine.optimizer.gate_aware": "promote",
+    "engine.odt_verifier": "promote",
+    "engine.knowledge.embeddings": "verify_only",
+    "engine.biology.microbiome": "advisory_only",
+    "engine.biology.genetics": "advisory_only",
+    "engine.receptor.binding": "advisory_until_coverage",
+    "engine.formulator": "deprecated_from_pipeline_narrative",
+    "engine.opus_v_workbook": "deprecated_from_pipeline_narrative",
+    "engine.reconstruction_pipeline": "deprecated_from_pipeline_narrative",
+    "engine.family_scorer": "audit_for_duplication",
+    "engine.formula_analyzer": "audit_for_duplication",
+    "engine.odor_ontology": "advisory_only",
+    "engine.pattern_miner": "advisory_only",
+    "engine.thermo.headspace": "consolidate_or_deprecate",
+    "engine.thermo.trajectory": "consolidate_or_deprecate",
+}
+
+
+def _data_authority_coverage_report() -> dict:
+    by_vfy: dict[str, int] = {}
+    for meta in ODT_VERIFICATION.values():
+        vfy = str((meta or {}).get("vfy", "UNKNOWN"))
+        by_vfy[vfy] = by_vfy.get(vfy, 0) + 1
+    total = sum(by_vfy.values()) or 1
+    science = build_science_audit_contract()
+    return {
+        "odt_verification_counts": by_vfy,
+        "odt_authoritative_pct": round(
+            100.0
+            * sum(
+                by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST")
+            )
+            / total,
+            1,
+        ),
+        "odt_heuristic_pct": round(
+            100.0
+            * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN"))
+            / total,
+            1,
+        ),
+        "science_coverage_pct": science.get("data_coverage_pct", {}),
+    }
+
+
+def _disconnected_module_status_report() -> dict:
+    existing = {}
+    for module_name, disposition in DISCONNECTED_MODULE_STATUS.items():
+        relative = Path(*module_name.split(".")).with_suffix(".py")
+        existing[module_name] = {
+            "status": disposition,
+            "path": str(relative),
+            "exists": (PROJECT_ROOT / relative).exists(),
+        }
+    return existing
+
+
+def _evidence_posture_report() -> dict:
+    return {
+        "authoritative_internal": [
+            "schema_validation",
+            "literature_rule_contract",
+            "knowledge_rule_quality",
+            "disconnected_module_status",
+        ],
+        "mixed_authority": [
+            "data_authority_coverage",
+        ],
+        "heuristic_or_partial_science": [
+            "science_audit",
+        ],
+        "notes": {
+            "authoritative_internal": (
+                "Repository-verified structure, rule inventory, and codebase status."
+            ),
+            "mixed_authority": (
+                "Contains both verified authority counts and coverage gaps for runtime chemistry inputs."
+            ),
+            "heuristic_or_partial_science": (
+                "Research-facing science layers with explicit heuristic, inferred, or incomplete coverage."
+            ),
+        },
+    }
 
 
 def _print_json(payload: dict | list) -> None:
     print(json.dumps(payload, indent=2, ensure_ascii=False))
+
+
+def _is_scratch_formula_path(path: Path) -> bool:
+    return path.name.startswith("_")
+
+
+def _matching_formula_paths(
+    pattern: str, *, include_scratch: bool = False
+) -> list[Path]:
+    paths = [Path(path) for path in glob.glob(str(PROJECT_ROOT / pattern), recursive=True)]
+    paths = sorted(paths)
+    if include_scratch:
+        return paths
+    return [path for path in paths if not _is_scratch_formula_path(path)]
 
 
 def _cmd_summarize(args: argparse.Namespace) -> int:
@@ -44,9 +151,7 @@ def _cmd_summarize(args: argparse.Namespace) -> int:
 
 def _cmd_scan_formulas(args: argparse.Namespace) -> int:
     pattern = args.glob
-    paths = [
-        Path(path) for path in glob.glob(str(PROJECT_ROOT / pattern), recursive=True)
-    ]
+    paths = _matching_formula_paths(pattern, include_scratch=args.include_scratch)
     if not paths:
         print(f"No files matched {pattern!r}")
         return 1
@@ -70,23 +175,33 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                 family_archetype=args.family_archetype,
                 allow_preblends=args.allow_preblends,
                 commercial_mode=commercial_mode,
-                commercial_confidence_policy="warn" if args.commercial_trial else "block",
+                commercial_confidence_policy="warn"
+                if args.commercial_trial
+                else "block",
                 ifra_headroom=ifra_headroom,
                 batch_scaling_targets_ml=tuple(args.scaling_target_ml or ()),
                 audit_enabled=not args.no_audit,
                 audit_source=f"scan-formulas:{path.relative_to(PROJECT_ROOT)}",
             )
             report = gate_formula(formula, config)
-            file_reports.append({
-                "number": report.number,
-                "name": report.name,
-                "status": report.status,
-                "commercial_readiness": report.commercial_readiness,
-                "audit_event_id": report.audit_event_id,
-                "failed_gates": [gate.gate for gate in report.gates if gate.status == "FAIL"],
-                "warn_gates": [gate.gate for gate in report.gates if gate.status == "WARN"],
-            })
-        reports.append({"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports})
+            file_reports.append(
+                {
+                    "number": report.number,
+                    "name": report.name,
+                    "status": report.status,
+                    "commercial_readiness": report.commercial_readiness,
+                    "audit_event_id": report.audit_event_id,
+                    "failed_gates": [
+                        gate.gate for gate in report.gates if gate.status == "FAIL"
+                    ],
+                    "warn_gates": [
+                        gate.gate for gate in report.gates if gate.status == "WARN"
+                    ],
+                }
+            )
+        reports.append(
+            {"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports}
+        )
 
     if args.json:
         _print_json({"scanned_files": len(paths), "results": reports})
@@ -123,18 +238,160 @@ def _cmd_suggest_repairs(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_verify(args: argparse.Namespace) -> int:
+    schema = SchemaValidator().validate_all().summary()
+    literature = build_literature_rule_contract().as_dict()
+    knowledge_rule_quality = build_knowledge_rule_quality_contract().as_dict()
+    science = build_science_audit_contract()
+    data_authority = _data_authority_coverage_report()
+    disconnected_modules = _disconnected_module_status_report()
+    evidence_posture = _evidence_posture_report()
+
+    formula_paths = _matching_formula_paths(
+        args.glob, include_scratch=args.include_scratch
+    )
+    formula_paths = sorted(formula_paths)[: max(1, int(args.sample_limit))]
+    representative: list[dict] = []
+    for path in formula_paths:
+        try:
+            formulas = parse_formula_markdown(path)
+        except Exception as exc:
+            representative.append(
+                {
+                    "file": str(path.relative_to(PROJECT_ROOT)),
+                    "error": str(exc),
+                    "formulas": [],
+                }
+            )
+            continue
+        runs = []
+        for formula in formulas[:1]:
+            config = ReleaseGateConfig(
+                brief=args.brief,
+                family_archetype=args.family_archetype,
+                allow_preblends=args.allow_preblends,
+                audit_enabled=not args.no_audit,
+                audit_source=f"verify:{path.relative_to(PROJECT_ROOT)}",
+            )
+            report = gate_formula(formula, config).as_dict()
+            runs.append(
+                {
+                    "name": report["name"],
+                    "status": report["status"],
+                    "commercial_readiness": report["commercial_readiness"],
+                    "preflight_status": (report.get("preflight") or {}).get("status"),
+                    "failed_gates": [
+                        gate["gate"]
+                        for gate in report.get("gates", [])
+                        if gate.get("status") == "FAIL"
+                    ],
+                    "warn_gates": [
+                        gate["gate"]
+                        for gate in report.get("gates", [])
+                        if gate.get("status") == "WARN"
+                    ],
+                }
+            )
+        representative.append(
+            {
+                "file": str(path.relative_to(PROJECT_ROOT)),
+                "formulas": runs,
+            }
+        )
+
+    payload = {
+        "evidence_posture": evidence_posture,
+        "schema_validation": schema,
+        "literature_rule_contract": literature,
+        "knowledge_rule_quality": knowledge_rule_quality,
+        "science_audit": science,
+        "data_authority_coverage": data_authority,
+        "disconnected_module_status": disconnected_modules,
+        "representative_runs": representative,
+    }
+    if args.json:
+        _print_json(payload)
+        return 0
+
+    print("Schema validation:")
+    print(
+        f"  errors={schema['errors']} warnings={schema['warnings']} total_issues={schema['total_issues']}"
+    )
+    print("Literature rule contract:")
+    print(
+        f"  status={literature['status']} english={literature['english_sources']} "
+        f"french_manifest={literature['french_manifest_entries']} "
+        f"deterministic_rules={literature['deterministic_rule_entries']} "
+        f"index_fresh={literature['index_fresh']}"
+    )
+    print("Knowledge rule quality:")
+    print(
+        f"  status={knowledge_rule_quality['status']} total={knowledge_rule_quality['total_entries']} "
+        f"valid={knowledge_rule_quality['valid_entries']} advisory={knowledge_rule_quality['advisory_entries']} "
+        f"invalid={knowledge_rule_quality['invalid_entries']}"
+    )
+    print("Data authority coverage:")
+    print(
+        f"  odt_authoritative_pct={data_authority['odt_authoritative_pct']} "
+        f"odt_heuristic_pct={data_authority['odt_heuristic_pct']}"
+    )
+    print("Disconnected module status:")
+    for module_name, meta in disconnected_modules.items():
+        print(f"  {module_name}: {meta['status']} exists={meta['exists']}")
+    print("Representative runs:")
+    for row in representative:
+        if row.get("error"):
+            print(f"  {row['file']}: ERROR {row['error']}")
+            continue
+        for formula in row.get("formulas", []):
+            print(
+                f"  {row['file']} -> {formula['name']}: {formula['status']} "
+                f"({formula['commercial_readiness']}) preflight={formula['preflight_status']}"
+            )
+            if formula["failed_gates"]:
+                print("    FAIL: " + ", ".join(formula["failed_gates"]))
+            if formula["warn_gates"]:
+                print("    WARN: " + ", ".join(formula["warn_gates"][:8]))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Review pipeline audit logs and historical formula outputs.")
+    parser = argparse.ArgumentParser(
+        description="Review pipeline audit logs and historical formula outputs."
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    summarize = sub.add_parser("summarize", help="Summarize JSONL pipeline audit events.")
+    summarize = sub.add_parser(
+        "summarize", help="Summarize JSONL pipeline audit events."
+    )
     summarize.add_argument("--path", default=None)
     summarize.add_argument("--json", action="store_true")
     summarize.set_defaults(func=_cmd_summarize)
 
-    scan = sub.add_parser("scan-formulas", help="Run release gates across markdown formulas and log results.")
+    scan = sub.add_parser(
+        "scan-formulas",
+        help="Run release gates across markdown formulas and log results.",
+    )
     scan.add_argument("--glob", default="formulas/**/*.md")
-    scan.add_argument("--brief", default="auto", choices=["auto", "generic", "layton_dna", "aromatic_fougere", "vetiver_woody"])
+    scan.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas in scan results.",
+    )
+    scan.add_argument(
+        "--brief",
+        default="auto",
+        choices=[
+            "auto",
+            "generic",
+            "layton_dna",
+            "aromatic_fougere",
+            "vetiver_woody",
+            "floral_aldehydic_amber",
+            "woody_floral_musk",
+            "gourmand_floral",
+        ],
+    )
     scan.add_argument("--family-archetype", default="")
     scan.add_argument("--allow-preblends", action="store_true")
     commercial = scan.add_mutually_exclusive_group()
@@ -146,11 +403,45 @@ def main(argv: list[str] | None = None) -> int:
     scan.add_argument("--json", action="store_true")
     scan.set_defaults(func=_cmd_scan_formulas)
 
-    suggest = sub.add_parser("suggest-repairs", help="Rank recurring issues and print deterministic repair suggestions.")
+    suggest = sub.add_parser(
+        "suggest-repairs",
+        help="Rank recurring issues and print deterministic repair suggestions.",
+    )
     suggest.add_argument("--material", default=None)
     suggest.add_argument("--path", default=None)
     suggest.add_argument("--json", action="store_true")
     suggest.set_defaults(func=_cmd_suggest_repairs)
+
+    verify = sub.add_parser(
+        "verify",
+        help="Run schema/literature/science checks plus representative release runs.",
+    )
+    verify.add_argument("--glob", default="formulas/**/*.md")
+    verify.add_argument("--sample-limit", type=int, default=5)
+    verify.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas in representative runs.",
+    )
+    verify.add_argument(
+        "--brief",
+        default="auto",
+        choices=[
+            "auto",
+            "generic",
+            "layton_dna",
+            "aromatic_fougere",
+            "vetiver_woody",
+            "floral_aldehydic_amber",
+            "woody_floral_musk",
+            "gourmand_floral",
+        ],
+    )
+    verify.add_argument("--family-archetype", default="")
+    verify.add_argument("--allow-preblends", action="store_true")
+    verify.add_argument("--no-audit", action="store_true")
+    verify.add_argument("--json", action="store_true")
+    verify.set_defaults(func=_cmd_verify)
 
     args = parser.parse_args(argv)
     return int(args.func(args))

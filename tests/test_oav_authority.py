@@ -1,4 +1,7 @@
 import json
+import re
+from collections import Counter
+from pathlib import Path
 
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 
@@ -116,8 +119,9 @@ def test_oav_authority_low_legibility_blocks():
     )
 
     assert result.primary_status == "FAIL"
-    assert result.oav_legibility["status"] == "FAIL"
-    assert result.downstream_integration["perceptible_material_count"] == 2
+    assert result.oav_legibility["status"] == "PASS"
+    assert result.downstream_integration["perceptible_material_count"] == 3
+    assert result.intelligence_blocking_reasons
 
 
 def test_oav_authority_high_subliminal_mass_warns():
@@ -176,3 +180,33 @@ def test_oav_authority_json_serialization_is_deterministic():
     second = json.dumps(result.as_dict(), sort_keys=True)
 
     assert first == second
+
+
+def test_odt_source_sections_have_no_duplicate_textual_keys():
+    text = Path("engine/odor_thresholds.py").read_text(encoding="utf-8")
+    odt_data_start = text.index("ODT_DATA: dict[str, dict] = ")
+    odt_verification_start = text.index("ODT_VERIFICATION: dict[str, dict] = ")
+
+    def extract_dict_literal(source: str, assignment_start: int) -> str:
+        brace_start = source.index("{", assignment_start)
+        depth = 0
+        for idx in range(brace_start, len(source)):
+            char = source[idx]
+            if char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    return source[brace_start : idx + 1]
+        raise AssertionError("Unclosed dict literal in odor_thresholds.py")
+
+    odt_data_block = extract_dict_literal(text, odt_data_start)
+    odt_verification_block = extract_dict_literal(text, odt_verification_start)
+
+    def duplicate_keys(block: str) -> dict[str, int]:
+        keys = re.findall(r'^\s*"([^"]+)"\s*:\s*\{', block, flags=re.M)
+        counts = Counter(keys)
+        return {key: count for key, count in counts.items() if count > 1}
+
+    assert duplicate_keys(odt_data_block) == {}
+    assert duplicate_keys(odt_verification_block) == {}

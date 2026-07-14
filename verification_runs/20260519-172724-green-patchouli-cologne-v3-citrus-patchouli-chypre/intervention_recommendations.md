@@ -1,0 +1,441 @@
+# Intervention Recommendations - Green Patchouli Cologne V3 — Citrus Patchouli Chypre
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Galaxolide + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Clearwood
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Ambrox Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Vetiver EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Galaxolide + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.8 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Clearwood
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Ambrox Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Vetiver EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Ambrox Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Vetiver EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Clearwood + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.3 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Vetiver EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrox Super + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vetiver EO + Cedramber
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vetiver EO + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vetiver EO + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vetiver EO + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Romandolide + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.2 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Geraniol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedramber + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Coumarin + Vanillin
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 1.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Hedione
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Lavender EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.7 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.7 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Lavender EO + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Geraniol + Azarbre
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Geraniol + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Geraniol + Grapefruit FCF
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Geraniol + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Azarbre + Bergamot FCF oil Sicilian
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Azarbre + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF oil Sicilian + Petitgrain EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.8 vs 2.8 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Grapefruit FCF + Black Pepper EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.5 — pre-mixing improves homogeneity.'}
+- ADD Indole (10%) for stacking_depth (axis delta 12.0, total delta 1.6)
+  - Rationale: animalic depth at trace (10% dil → 0.05% active)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Isobutyl Quinoline (10%) for stacking_depth (axis delta 3.0, total delta 0.4)
+  - Rationale: dirty leather at trace, animalic depth (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - Supports the heart band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Macrolide (10%) for skin_performance (axis delta 2.3, total delta 1.6)
+  - Rationale: soft powdery musk texture, gentle roundness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 59.4
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Birch Tar Rectified for stacking_depth (axis delta 8.0, total delta 1.3)
+  - Rationale: smoky leather at trace, phenolic dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Exaltolide (10%) for stacking_depth (axis delta 8.0, total delta 1.2)
+  - Rationale: frankincense depth, incense dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: carries the peau / skin intimacy role
+    - Jellinek: maps to Warm-Narcotic: Sensual, heavy, enveloping, narcotic
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- ADD Indole (10%) for stacking_depth (axis delta 12.0, total delta 1.6)
+  - Rationale: animalic depth at trace (10% dil → 0.05% active)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Macrolide (10%) for skin_performance (axis delta 2.3, total delta 1.6)
+  - Rationale: soft powdery musk texture, gentle roundness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 59.4
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Isobutyl Quinoline (10%) for stacking_depth (axis delta 3.0, total delta 0.4)
+  - Rationale: dirty leather at trace, animalic depth (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - Supports the heart band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Birch Tar Rectified for stacking_depth (axis delta 8.0, total delta 1.4)
+  - Rationale: smoky leather at trace, phenolic dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Exaltolide (10%) for stacking_depth (axis delta 8.0, total delta 1.2)
+  - Rationale: frankincense depth, incense dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: carries the peau / skin intimacy role
+    - Jellinek: maps to Warm-Narcotic: Sensual, heavy, enveloping, narcotic
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- ADD Indole (10%) for stacking_depth (axis delta 12.0, total delta 1.6)
+  - Rationale: animalic depth at trace (10% dil → 0.05% active)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Birch Tar Rectified for stacking_depth (axis delta 8.0, total delta 1.4)
+  - Rationale: smoky leather at trace, phenolic dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - top band is 11.2% now versus 20% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Exaltolide (10%) for stacking_depth (axis delta 8.0, total delta 1.2)
+  - Rationale: frankincense depth, incense dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: carries the peau / skin intimacy role
+    - Jellinek: maps to Warm-Narcotic: Sensual, heavy, enveloping, narcotic
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Isobutyl Quinoline (10%) for stacking_depth (axis delta 3.0, total delta 0.4)
+  - Rationale: dirty leather at trace, animalic depth (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - heart material; Carles treats this band as Theme, character, identity.
+      - Supports the heart band inside the detected iris_crystalline pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 100.0/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Ethylene Brassylate for stacking_depth (axis delta 8.0, total delta 1.4)
+  - Rationale: clean macrocyclic musk, powdery-retro dimension
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 58.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 36.9% now versus 40% target for the detected iris_crystalline style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected iris_crystalline style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

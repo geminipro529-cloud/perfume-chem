@@ -15,16 +15,17 @@ WARNING / INFO issues → processing continues; issues attached to response.
 Rate limiting is handled separately as middleware in main.py.
 """
 
-from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, field
-from fastapi import HTTPException
 import logging
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+from fastapi import HTTPException
 
 from app.core.tracing import get_tracer
 from app.services.chemistry_validator import (
     ChemistryValidator,
-    ValidationSeverity,
     ValidationIssue,
+    ValidationSeverity,
 )
 
 logger = logging.getLogger(__name__)

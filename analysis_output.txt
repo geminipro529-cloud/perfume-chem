@@ -1,0 +1,237 @@
+## Gate Summary
+
+**97 PASS** / **27 WARN** / **5 FAIL**
+
+  FAIL physics_data_coverage: {"Labdanum Resinoid": ["mw", "logp", "vp"]}
+  FAIL pipette_floor_neat_traces: Beta Ionone=2.0uL below 5.0 uL neat floor
+  FAIL perfume_knowledge: top OAV off-target for family chypre; heart OAV off-target for family chypre; base OAV off-target for family chypre
+  FAIL literature_compliance: Literature compliance: 2/5 principles passed (40%)
+  FAIL olfactory_fatigue: Olfactory overdose: beta ionone=19693 (overdose)
+  WARN pipeline_preflight: 9 checks; 5 warnings
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (35% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 36.2% active mass across 5 materials
+  WARN opaque_preblends: allowed by config: Sandalwood FO, Tonka Bean FO
+  WARN osmotheque_archivability: Archivability: 2 opaque preblend(s)
+  WARN oav_overdose_blocker: High OAV (10k-50k): Beta Ionone=19692; may be intentional for rose/citrus/character materials, review dosing
+  WARN vp_cross_source: 1 materials with VP=None or 0: Labdanum Resinoid
+  WARN small_diluted_traces: Aldehyde C12 MNA=2.0uL at 1.0%; Cocoa Absolute=10.0uL at 10.0%; Jasmine Sambac=10.0uL at 10.0%; Labdanum Resinoid=5.0uL at 10.0%; Methyl Pam
+  WARN safety_ifra_allergen: 15 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): dihydromyrcenol:methyl pamplemousse = 732:1; dihydromyrcenol:ethyl linalool = 3718:1; dihydromyrcenol:a
+  WARN edge_cases: Musk coverage: 0%, gaps: 3, Bangkok VP ├ù157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN guerlain_vanillin_coumarin: Vanillin present without coumarin ΓÇö no structural counterweight
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 3.7:1 ΓÇö Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN roudnitska_hedione_pct: Hedione = 3.2% of concentrate (<5%, minimal radiance effect)
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 90%) ΓÇö collapse risk
+  WARN mixture_suppression: 5 families each >10% OAV ΓÇö mixture suppression likely (humans perceive Γëñ4)
+  WARN evaporation_rate_balance: Pyramid imbalance: base = 70%
+  WARN mass_market_tier_check: 28% of active mass from premium materials (>25% threshold). At 1500-3500 THB retail, this margin may be tight. Premium materials: Ambrox Sup
+  WARN robustness_perturbation: 1 fragile perturbation(s) across 38 checks; Beta Ionone up: top family OAV drift 89.4% > 25%
+  WARN confidence_minimum: combined confidence 47.8; preflight science penalty 29.0
+
+## Headspace OAV ΓÇö Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Beta Ionone                  |    19692.5 | heart |      massive |   1.200 |    0.1378 |  0.000007 |  0.0020 |  1.16 | Beta Ionone                   
+|   2 | Petitgrain EO Paraguay       |     9451.0 | top   |  very strong |   6.000 |    4.8728 |  0.004000 |  0.0100 |  8.23 | Petitgrain EO Paraguay        
+|   3 | Dihydromyrcenol              |     6006.6 | top   |  very strong |  17.000 |    6.0066 |  0.001000 |  0.0050 |  3.58 | Dihydromyrcenol               
+|   4 | Alpha Damascone              |     5743.7 | heart |  very strong |   2.000 |    0.2297 |  0.000040 |  0.0020 |  1.16 | Alpha Damascone               
+|   5 | Iso E Super                  |     4498.1 | base  |  very strong |   0.150 |    0.2249 |  0.000050 |  0.0300 | 14.32 | Iso E Super                   
+|   6 | Dihydrojasmone               |     3391.7 | heart |  very strong |   7.660 |    2.5437 |  0.000750 |  0.0050 |  3.36 | Dihydrojasmone                
+|   7 | Hedione                      |     2066.0 | heart |  very strong |   0.210 |    0.1033 |  0.000050 |  0.0100 |  4.95 | Hedione                       
+|   8 | Tuberose Absolute            |     1464.2 | heart |  very strong |   0.005 |    0.0001 |  0.001000 |  0.0010 |  0.51 | Tuberose Absolute             
+|   9 | Alpha Ionone                 |     1076.9 | heart |  very strong |   1.500 |    0.4308 |  0.000400 |  0.0050 |  2.91 | Alpha Ionone                  
+|  10 | Osmanthus Absolute           |      492.7 | heart |       strong |   0.010 |    0.0005 |  0.000500 |  0.0015 |  0.84 | Osmanthus Absolute            
+|  11 | Cedarwood EO                 |      162.3 | base  |       strong |   0.250 |    0.5404 |  0.015000 |  0.0200 | 10.95 | Cedarwood EO                  
+|  12 | Ambrox Super                 |      156.7 | base  |       strong |   0.050 |    0.0470 |  0.000300 |  0.0198 |  9.37 | Ambrox Super                  
+|  13 | Heliotropal (Piperonal)      |      102.5 | base  |       strong |   0.150 |    0.0717 |  0.000700 |  0.0050 |  3.73 | Heliotropal                   
+|  14 | Jessemal (Jasmonyl)          |       25.8 | heart |     moderate |   0.500 |    0.1289 |  0.005000 |  0.0050 |  2.61 | Jessemal                      
+|  15 | Patchouli EO                 |       18.6 | base  |     moderate |   0.001 |    0.0003 |  0.003000 |  0.0050 |  2.52 | Patchouli EO                  
+|  16 | Methyl Pamplemousse          |        8.2 | top   |  perceptible |   0.500 |    0.0246 |  0.003000 |  0.0005 |  0.33 | Methyl Pamplemousse           
+|  17 | Ethyl Linalool               |        1.6 | top   | at threshold |   0.080 |    0.0242 |  0.015000 |  0.0050 |  3.07 | Ethyl Linalool                
+|  18 | Vanillin                     |        0.9 | base  | sub-threshold |   0.200 |    0.0185 |  0.020000 |  0.0005 |  0.37 | Vanillin                      
+|  19 | Sandalwood FO                |        0.8 | base  | sub-threshold |   0.001 |    0.0024 |  0.003000 |  0.0300 | 15.99 | Sandalwood FO                 
+|  20 | Jasmine Sambac               |        0.3 | heart | sub-threshold |   0.005 |    0.0003 |  0.001000 |  0.0010 |  0.66 |                               
+|  21 | Cocoa Absolute               |        0.0 | base  | sub-threshold |   0.010 |    0.0002 |  0.005000 |  0.0010 |  0.45 | Cocoa Absolute                
+|  22 | Tonka Bean FO                |        0.0 | base  | sub-threshold |   0.001 |    0.0004 |  0.020000 |  0.0050 |  3.11 | Tonka Bean FO                 
+|  23 | Paradisamide                 |        0.0 | heart | sub-threshold |   0.002 |    0.0001 |  0.008000 |  0.0005 |  0.26 | Paradisamide                  
+|  24 | Aldehyde C12 MNA             |        0.0 | top   | sub-threshold |   0.010 |    0.0000 |  0.011000 |  0.0000 |  0.01 | Aldehyde C12 MNA              
+|  25 | Siam Benzoin                 |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.040000 |  0.0100 |  5.27 | Siam Benzoin                  
+|  26 | Labdanum Resinoid            |        0.0 | heart | sub-threshold |   0.000 |    0.0000 |  0.005000 |  0.0005 |  0.28 |                               
+
+**Materials:** 26 total (5 top, 11 heart, 10 base)
+**Total vapor:** 15.41 ppm
+### Note Distribution
+
+**TOP:** 5 mats, 11.4% active, 28.5% OAV
+  - Petitgrain EO Paraguay       OAV=  9451.0 (very strong) VP=6.000Pa
+  - Dihydromyrcenol              OAV=  6006.6 (very strong) VP=17.000Pa
+  - Methyl Pamplemousse          OAV=     8.2 (perceptible) VP=0.500Pa
+  - Ethyl Linalool               OAV=     1.6 (at threshold) VP=0.080Pa
+  - Aldehyde C12 MNA             OAV=     0.0 (sub-threshold) VP=0.010Pa
+**HEART:** 11 mats, 18.6% active, 62.5% OAV
+  - Beta Ionone                  OAV= 19692.5 (massive) VP=1.200Pa
+  - Alpha Damascone              OAV=  5743.7 (very strong) VP=2.000Pa
+  - Dihydrojasmone               OAV=  3391.7 (very strong) VP=7.660Pa
+  - Hedione                      OAV=  2066.0 (very strong) VP=0.210Pa
+  - Tuberose Absolute            OAV=  1464.2 (very strong) VP=0.005Pa
+  - Alpha Ionone                 OAV=  1076.9 (very strong) VP=1.500Pa
+  ... and 5 more
+**BASE:** 10 mats, 70.0% active, 9.1% OAV
+  - Iso E Super                  OAV=  4498.1 (very strong) VP=0.150Pa
+  - Cedarwood EO                 OAV=   162.3 (strong) VP=0.250Pa
+  - Ambrox Super                 OAV=   156.7 (strong) VP=0.050Pa
+  - Heliotropal (Piperonal)      OAV=   102.5 (strong) VP=0.150Pa
+  - Patchouli EO                 OAV=    18.6 (moderate) VP=0.001Pa
+  - Vanillin                     OAV=     0.9 (sub-threshold) VP=0.200Pa
+  ... and 4 more
+### OAV by Odor Family
+
+             iris  36.4% ==================  (2 mats)
+            woody  19.7% =========  (5 mats)
+           citrus  17.4% ========  (2 mats)
+           floral  15.7% =======  (6 mats)
+             rose  10.6% =====  (1 mats)
+            amber   0.3% =  (1 mats)
+           fruity   0.0% =  (2 mats)
+         gourmand   0.0% =  (4 mats)
+                ?   0.0% =  (2 mats)
+        aldehydic   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+9/26 materials below perceptible threshold
+  - Aldehyde C12 MNA: OAV=0.00 VP=0.010Pa act=0uL role=Aldehyde C12 MNA [Structural (acceptable)]
+  - Paradisamide: OAV=0.01 VP=0.002Pa act=0uL role=Paradisamide [Structural (acceptable)]
+  - Jasmine Sambac: OAV=0.33 VP=0.005Pa act=1uL role= [Structural (acceptable)]
+  - Sandalwood FO: OAV=0.79 VP=0.001Pa act=30uL role=Sandalwood FO [Structural (acceptable)]
+  - Siam Benzoin: OAV=0.00 VP=0.000Pa act=10uL role=Siam Benzoin [Structural (acceptable)]
+  - Vanillin: OAV=0.93 VP=0.200Pa act=0uL role=Vanillin [Structural (acceptable)]
+  - Tonka Bean FO: OAV=0.02 VP=0.001Pa act=5uL role=Tonka Bean FO [Structural (acceptable)]
+  - Labdanum Resinoid: OAV=0.00 VP=0.000Pa act=0uL role= [Structural (acceptable)]
+  - Cocoa Absolute: OAV=0.04 VP=0.010Pa act=1uL role=Cocoa Absolute [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Dihydromyrcenol OAV=6007 dominates headspace ΓÇö may mask subtler notes
+  - Petitgrain EO Paraguay OAV=9451 dominates headspace ΓÇö may mask subtler notes
+  - Alpha Damascone OAV=5744 dominates headspace ΓÇö may mask subtler notes
+  - Beta Ionone OAV=19693 dominates headspace ΓÇö may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 11.4/18.6/70.0 |  15.41ppm |    309 | Beta Ionone(19693), Petitgrain E(9451), Dihydromyrce(6007)
+| top          |    300s | 11.3/18.6/70.1 |  15.35ppm |    309 | Beta Ionone(19697), Petitgrain E(9429), Dihydromyrce(5962)
+| heart        |   1800s | 11.2/18.6/70.3 |  15.04ppm |    308 | Beta Ionone(19719), Petitgrain E(9319), Dihydromyrce(5745)
+| late_heart   |   7200s | 10.6/18.5/70.9 |  14.01ppm |    306 | Beta Ionone(19786), Petitgrain E(8928), Alpha Damasc(5723)
+| drydown      |  14400s | 10.0/18.4/71.6 |  12.77ppm |    304 | Beta Ionone(19848), Petitgrain E(8421), Alpha Damasc(5694)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) ΓÇö Evap:0%
+  T:11.4% H:18.6% B:70.0%  Vapor:15.41ppm
+  Leaders: Beta Ionone OAV 19693 | Petitgrain EO Paraguay OAV 9451 | Dihydromyrcenol OAV 6007 | Alpha Damascone OAV 5744 | Iso E Super OAV 4498
+
+**TOP** (300.0s) ΓÇö Evap:0%
+  T:11.3% H:18.6% B:70.1%  Vapor:15.35ppm
+  Leaders: Beta Ionone OAV 19697 | Petitgrain EO Paraguay OAV 9429 | Dihydromyrcenol OAV 5962 | Alpha Damascone OAV 5743 | Iso E Super OAV 4501
+
+**HEART** (1800.0s) ΓÇö Evap:0%
+  T:11.2% H:18.6% B:70.3%  Vapor:15.04ppm
+  Leaders: Beta Ionone OAV 19719 | Petitgrain EO Paraguay OAV 9319 | Dihydromyrcenol OAV 5745 | Alpha Damascone OAV 5739 | Iso E Super OAV 4517
+
+**LATE_HEART** (7200.0s) ΓÇö Evap:1%
+  T:10.6% H:18.5% B:70.9%  Vapor:14.01ppm
+  Leaders: Beta Ionone OAV 19786 | Petitgrain EO Paraguay OAV 8928 | Alpha Damascone OAV 5723 | Dihydromyrcenol OAV 5024 | Iso E Super OAV 4569
+
+**DRYDOWN** (14400.0s) ΓÇö Evap:2%
+  T:10.0% H:18.4% B:71.6%  Vapor:12.77ppm
+  Leaders: Beta Ionone OAV 19848 | Petitgrain EO Paraguay OAV 8421 | Alpha Damascone OAV 5694 | Iso E Super OAV 4634 | Dihydromyrcenol OAV 4196
+## Structural OAV Analysis
+
+**Vapor:** 15 ppm  |  **Active:** 0.6%  |  **Perceptible:** 17/26
+
+### OAV Tiers
+  **massive** (9): Dihydromyrcenol(6007), Petitgrain EO Paraguay(9451), Hedione(2066), Alpha Damascone(5744), Alpha Ionone(1077), Beta Ionone(19693), Dihydrojasmone(3392), Iso E Super(4498), Tuberose Absolute(1464)  ! fatigue risk, overload risk
+  **v.strong** (4): Heliotropal (Piperonal)(102), Ambrox Super(157), Cedarwood EO(162), Osmanthus Absolute(493)
+  **moderate** (2): Jessemal (Jasmonyl)(26), Patchouli EO(19)
+  **perceptible** (1): Methyl Pamplemousse(8)
+  **threshold** (1): Ethyl Linalool(2)
+  **sub** (9): Aldehyde C12 MNA(0), Paradisamide(0), Jasmine Sambac(0), Sandalwood FO(1), Siam Benzoin(0), Vanillin(1), Tonka Bean FO(0), Labdanum Resinoid(0), Cocoa Absolute(0)
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**    49706 (91%)
+  **Base**       4655 (9%)
+  **Ratio:** 11:1 between strongest/weakest block
+
+### Issues
+  ! 9 sub-threshold material(s): Aldehyde C12 MNA, Paradisamide, Jasmine Sambac, Sandalwood FO, Siam Benzoin, Vanillin, Tonka Bean FO, Labdanum Resinoid, Cocoa Absolute
+  ! Missing 'strong' tier (OAV 50-100)
+  ! 9 massive-OAV materials ΓÇö sensory overload likely
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong) + Dihydromyrcenol(very strong) + Methyl Pamplemousse(perceptible)
+  Heart: Beta Ionone(massive) + Alpha Damascone(very strong)
+  Base: Iso E Super(very strong) + Cedarwood EO(strong) + Ambrox Super(strong) + Heliotropal (Piperonal)(strong) + Patchouli EO(moderate)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay dominates at OAV 9451 (very strong).
+  - Petitgrain EO Paraguay OAV=9451 VP=6.0Pa (citrus)
+  - Dihydromyrcenol OAV=6007 VP=17.0Pa (woody)
+  - Methyl Pamplemousse OAV=8 VP=0.5Pa (citrus)
+  - Ethyl Linalool OAV=2 VP=0.1Pa (fruity)
+  Total vapor: 15.4 ppm
+
+### 3. Heart (30min-2hr)
+  Beta Ionone OAV=19719 (massive)
+  Petitgrain EO Paraguay OAV=9319 (very strong)
+  Dihydromyrcenol OAV=5745 (very strong)
+  Alpha Damascone OAV=5739 (very strong)
+  T:11.2% H:18.6% B:70.3%
+  Vapor: 15.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 72% of headspace
+  - Beta Ionone OAV=19848
+  - Petitgrain EO Paraguay OAV=8421
+  - Alpha Damascone OAV=5694
+  - Iso E Super OAV=4634
+  - Dihydromyrcenol OAV=4196
+  - Dihydrojasmone OAV=2954
+  Vapor: 12.8 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Beta Ionone(19693) + Petitgrain EO Paraguay(9451) + Dihydromyrcenol(6007) + Alpha Damascone(5744)
+  OAV by family: iris36% woody20% citrus17% floral16%
+
+### 6. Longevity
+  Evaporation: 2% over 4h
+  Vapor: 15.4 > 12.8 ppm
+  Base @ drydown: 72%
+  Est. skin life: 6-8h moderate + 2-4h skin scent
+
+### 7. Balance
+  Pyramid: T:11.4% H:18.6% B:70.0%
+  OAV range: 0.00 to 19693 (sigma-log=2.31)
+  Wide contrast: citrus (OAV 19693) dominates opening before burning off to reveal base.
+    massive: 1
+    sub-threshold: 8
+
+### 8. Flags
+  SUB: Vanillin OAV=0.93 role=Vanillin
+  SUB: Sandalwood FO OAV=0.79 role=Sandalwood FO
+  SUB: Jasmine Sambac OAV=0.33 role=
+  SUB: Cocoa Absolute OAV=0.04 role=Cocoa Absolute
+  SUB: Tonka Bean FO OAV=0.02 role=Tonka Bean FO
+  SUB: Paradisamide OAV=0.01 role=Paradisamide
+  SUB: Aldehyde C12 MNA OAV=0.00 role=Aldehyde C12 MNA
+  SUB: Siam Benzoin OAV=0.00 role=Siam Benzoin
+  SUB: Labdanum Resinoid OAV=0.00 role=
+

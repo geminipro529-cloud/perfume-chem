@@ -1,0 +1,1537 @@
+{
+  "formula_name": "F3 Le Barbier Aromatique ΓÇö Classical Aromatic Fougere",
+  "resolved_family": "aromatic_fougere",
+  "archetype_key": "aromatic_fougere.classic_reference",
+  "overall_status": "WARN",
+  "commercial_readiness": "CONDITIONAL_PASS",
+  "notes": [],
+  "summary": {
+    "stages": {
+      "passed": 13,
+      "warned": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    "materials": 19,
+    "note_distribution": {
+      "top": 31.0,
+      "heart": 50.4,
+      "base": 18.6
+    },
+    "perceptible_count": 19,
+    "total_vapor_ppm": 135.41,
+    "archetype": "aromatic_fougere.classic_reference",
+    "evaporation_pct": 0,
+    "vapor_decay": 33.2,
+    "oav_max": 14362.68,
+    "oav_min": 2.32,
+    "oav_median": 259.6,
+    "oav_contrast_sigma_log": 1.26
+  },
+  "stages": [
+    {
+      "name": "registry_integrity",
+      "status": "PASS",
+      "detail": "271 unique entries, 271 normalized keys",
+      "data": {
+        "total_entries": 271,
+        "total_normalized": 271,
+        "missing_odt": []
+      }
+    },
+    {
+      "name": "name_normalization",
+      "status": "PASS",
+      "detail": "19 materials resolved",
+      "data": {
+        "materials": [
+          {
+            "requested": "Bergamot FCF oil Sicilian",
+            "canonical": "bergamot fcf sicilian",
+            "profile_name": "Bergamot FCF oil Sicilian",
+            "registry_name": "Bergamot FCF Sicilian",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 10.0
+          },
+          {
+            "requested": "Cedrat FCF oil Sicilian",
+            "canonical": "cedrat fcf sicilian",
+            "profile_name": "Cedrat FCF Sicilian",
+            "registry_name": "Cedrat FCF Sicilian",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 4.0
+          },
+          {
+            "requested": "Petitgrain EO",
+            "canonical": "petitgrain eo",
+            "profile_name": "Petitgrain EO",
+            "registry_name": "Petitgrain EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 2.0
+          },
+          {
+            "requested": "Lavender EO",
+            "canonical": "lavender eo",
+            "profile_name": "Lavender EO",
+            "registry_name": "Lavender EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 10.0
+          },
+          {
+            "requested": "Lavender EO High Altitude",
+            "canonical": "lavender eo high altitude",
+            "profile_name": "Lavender EO High Altitude",
+            "registry_name": null,
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 6.0
+          },
+          {
+            "requested": "Clary Sage EO",
+            "canonical": "clary sage eo",
+            "profile_name": "Clary Sage EO",
+            "registry_name": "Clary Sage EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 5.0
+          },
+          {
+            "requested": "Rosemary EO",
+            "canonical": "rosemary eo (french rosmarinus officinalis leaf oil)",
+            "profile_name": null,
+            "registry_name": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 2.0
+          },
+          {
+            "requested": "Geranium EO",
+            "canonical": "geranium eo",
+            "profile_name": "Geranium EO",
+            "registry_name": null,
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 6.0
+          },
+          {
+            "requested": "Linalool",
+            "canonical": "linalool",
+            "profile_name": "Linalool",
+            "registry_name": "Linalool",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 3.0
+          },
+          {
+            "requested": "Linalyl Acetate",
+            "canonical": "linalyl acetate",
+            "profile_name": "Linalyl Acetate",
+            "registry_name": "Linalyl Acetate",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 2.0
+          },
+          {
+            "requested": "PEA",
+            "canonical": "phenethyl alcohol",
+            "profile_name": "Phenethyl Alcohol",
+            "registry_name": "Phenethyl Alcohol",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 1.0
+          },
+          {
+            "requested": "Geraniol",
+            "canonical": "geraniol",
+            "profile_name": "Geraniol",
+            "registry_name": "Geraniol",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 2.0
+          },
+          {
+            "requested": "Coumarin",
+            "canonical": "coumarin",
+            "profile_name": "Coumarin",
+            "registry_name": "Coumarin",
+            "is_known": true,
+            "dilution": 0.2,
+            "percent": 8.0
+          },
+          {
+            "requested": "Evernyl",
+            "canonical": "evernyl",
+            "profile_name": "Evernyl",
+            "registry_name": "Evernyl",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 0.5
+          },
+          {
+            "requested": "Patchouli EO",
+            "canonical": "patchouli eo",
+            "profile_name": "Patchouli EO",
+            "registry_name": "Patchouli EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 3.0
+          },
+          {
+            "requested": "Cedarwood oil Virginia",
+            "canonical": "cedarwood virginia",
+            "profile_name": "Cedarwood oil Virginia",
+            "registry_name": "Cedarwood Virginia EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 10.0
+          },
+          {
+            "requested": "Vetiver EO",
+            "canonical": "vetiver eo",
+            "profile_name": "Vetiver EO",
+            "registry_name": "Vetiver EO",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 4.0
+          },
+          {
+            "requested": "Habanolide",
+            "canonical": "habanolide",
+            "profile_name": "Habanolide",
+            "registry_name": "Habanolide",
+            "is_known": true,
+            "dilution": 1.0,
+            "percent": 5.0
+          },
+          {
+            "requested": "Ambrettolide",
+            "canonical": "ambrettolide",
+            "profile_name": "Ambrettolide",
+            "registry_name": "Ambrettolide",
+            "is_known": true,
+            "dilution": 0.1,
+            "percent": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "family_resolution",
+      "status": "PASS",
+      "detail": "brief=aromatic_fougere ΓåÆ archetype=aromatic_fougere.classic_reference (family=aromatic_fougere)",
+      "data": {
+        "archetype_key": "aromatic_fougere.classic_reference",
+        "family": "aromatic_fougere",
+        "label": "Classic/reference aromatic fougere"
+      }
+    },
+    {
+      "name": "build_formula_state",
+      "status": "PASS",
+      "detail": "19 materials, 0 with missing fields, total active: 4644.0 ┬╡L",
+      "data": {
+        "material_count": 19,
+        "total_active_ul": 4644.0,
+        "missing_fields_count": 0,
+        "missing_fields": []
+      }
+    },
+    {
+      "name": "active_percent_check",
+      "status": "PASS",
+      "detail": "19 materials have dilution-adjusted active percent",
+      "data": {
+        "diluted_materials": {
+          "bergamot fcf sicilian": {
+            "raw_pct": 11.56,
+            "active_pct": 12.92
+          },
+          "cedrat fcf sicilian": {
+            "raw_pct": 4.62,
+            "active_pct": 5.17
+          },
+          "petitgrain eo": {
+            "raw_pct": 2.31,
+            "active_pct": 2.58
+          },
+          "lavender eo": {
+            "raw_pct": 11.56,
+            "active_pct": 12.92
+          },
+          "lavender eo high altitude": {
+            "raw_pct": 6.94,
+            "active_pct": 7.75
+          },
+          "clary sage eo": {
+            "raw_pct": 5.78,
+            "active_pct": 6.46
+          },
+          "rosemary eo (french rosmarinus officinalis leaf oil)": {
+            "raw_pct": 2.31,
+            "active_pct": 2.58
+          },
+          "geranium eo": {
+            "raw_pct": 6.94,
+            "active_pct": 7.75
+          },
+          "linalool": {
+            "raw_pct": 3.47,
+            "active_pct": 3.88
+          },
+          "linalyl acetate": {
+            "raw_pct": 2.31,
+            "active_pct": 2.58
+          },
+          "phenethyl alcohol": {
+            "raw_pct": 1.16,
+            "active_pct": 1.29
+          },
+          "geraniol": {
+            "raw_pct": 2.31,
+            "active_pct": 2.58
+          },
+          "coumarin": {
+            "raw_pct": 9.25,
+            "active_pct": 2.07
+          },
+          "evernyl": {
+            "raw_pct": 0.58,
+            "active_pct": 0.65
+          },
+          "patchouli eo": {
+            "raw_pct": 3.47,
+            "active_pct": 3.88
+          },
+          "cedarwood virginia": {
+            "raw_pct": 11.56,
+            "active_pct": 12.92
+          },
+          "vetiver eo": {
+            "raw_pct": 4.62,
+            "active_pct": 5.17
+          },
+          "habanolide": {
+            "raw_pct": 5.78,
+            "active_pct": 6.46
+          },
+          "ambrettolide": {
+            "raw_pct": 3.47,
+            "active_pct": 0.39
+          }
+        },
+        "note_distribution": {
+          "top": 31.0,
+          "heart": 50.4,
+          "base": 18.6
+        }
+      }
+    },
+    {
+      "name": "odt_coverage",
+      "status": "PASS",
+      "detail": "all 19 materials have ODT data",
+      "data": {}
+    },
+    {
+      "name": "oav_computation",
+      "status": "PASS",
+      "detail": "19/19 perceptible (OAV>=1), 0 sub-threshold, total vapor: 135.41 ppm",
+      "data": {
+        "total_vapor_ppm": 135.4122,
+        "perceptible_count": 19,
+        "sub_threshold_count": 0,
+        "sub_threshold_materials": [],
+        "dominant_materials": [
+          "bergamot fcf sicilian",
+          "cedrat fcf sicilian",
+          "lavender eo",
+          "clary sage eo",
+          "rosemary eo (french rosmarinus officinalis leaf oil)",
+          "geranium eo",
+          "linalool"
+        ],
+        "oav_table": [
+          {
+            "name": "bergamot fcf sicilian",
+            "canonical": "bergamot fcf sicilian",
+            "note": "heart",
+            "family": "citrus",
+            "raw_ul": 600.0,
+            "dilution": 1.0,
+            "active_ul": 600.0,
+            "vapor_ppm": 59.896272,
+            "odt_air_ppm": 0.006,
+            "oav": 9982.71,
+            "intensity": 158.3386,
+            "vp_pa": 40.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.151655
+          },
+          {
+            "name": "cedrat fcf sicilian",
+            "canonical": "cedrat fcf sicilian",
+            "note": "top",
+            "family": "citrus",
+            "raw_ul": 240.0,
+            "dilution": 1.0,
+            "active_ul": 240.0,
+            "vapor_ppm": 20.412019,
+            "odt_air_ppm": 0.008,
+            "oav": 2551.5,
+            "intensity": 74.7718,
+            "vp_pa": 35.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.059065
+          },
+          {
+            "name": "petitgrain eo",
+            "canonical": "petitgrain eo",
+            "note": "top",
+            "family": "aromatic",
+            "raw_ul": 120.0,
+            "dilution": 1.0,
+            "active_ul": 120.0,
+            "vapor_ppm": 1.35476,
+            "odt_air_ppm": 0.003,
+            "oav": 451.59,
+            "intensity": 11.5318,
+            "vp_pa": 6.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.022868
+          },
+          {
+            "name": "lavender eo",
+            "canonical": "lavender eo",
+            "note": "heart",
+            "family": "aromatic",
+            "raw_ul": 600.0,
+            "dilution": 1.0,
+            "active_ul": 600.0,
+            "vapor_ppm": 28.725367,
+            "odt_air_ppm": 0.002,
+            "oav": 14362.68,
+            "intensity": 46.0145,
+            "vp_pa": 20.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.145463
+          },
+          {
+            "name": "lavender eo high altitude",
+            "canonical": "lavender eo high altitude",
+            "note": "top",
+            "family": "aromatic",
+            "raw_ul": 360.0,
+            "dilution": 1.0,
+            "active_ul": 360.0,
+            "vapor_ppm": 0.391087,
+            "odt_air_ppm": 0.002,
+            "oav": 195.54,
+            "intensity": 8.2508,
+            "vp_pa": 0.5,
+            "gamma": 1.0005,
+            "mole_fraction": 0.079217
+          },
+          {
+            "name": "clary sage eo",
+            "canonical": "clary sage eo",
+            "note": "top",
+            "family": "green",
+            "raw_ul": 300.0,
+            "dilution": 1.0,
+            "active_ul": 300.0,
+            "vapor_ppm": 2.822417,
+            "odt_air_ppm": 0.002,
+            "oav": 1411.21,
+            "intensity": 53.9853,
+            "vp_pa": 5.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.05717
+          },
+          {
+            "name": "rosemary eo (french rosmarinus officinalis leaf oil)",
+            "canonical": "rosemary eo (french rosmarinus officinalis leaf oil)",
+            "note": "top",
+            "family": "aromatic",
+            "raw_ul": 120.0,
+            "dilution": 1.0,
+            "active_ul": 120.0,
+            "vapor_ppm": 4.653509,
+            "odt_air_ppm": 0.007,
+            "oav": 664.79,
+            "intensity": 13.4609,
+            "vp_pa": 18.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.026183
+          },
+          {
+            "name": "geranium eo",
+            "canonical": "geranium eo",
+            "note": "heart",
+            "family": "floral",
+            "raw_ul": 360.0,
+            "dilution": 1.0,
+            "active_ul": 360.0,
+            "vapor_ppm": 2.117352,
+            "odt_air_ppm": 0.0015,
+            "oav": 1411.57,
+            "intensity": 21.0317,
+            "vp_pa": 2.5,
+            "gamma": 1.0005,
+            "mole_fraction": 0.085777
+          },
+          {
+            "name": "linalool",
+            "canonical": "linalool",
+            "note": "top",
+            "family": "aromatic",
+            "raw_ul": 180.0,
+            "dilution": 1.0,
+            "active_ul": 180.0,
+            "vapor_ppm": 10.228351,
+            "odt_air_ppm": 0.0015,
+            "oav": 6818.9,
+            "intensity": 34.1575,
+            "vp_pa": 21.3,
+            "gamma": 1.115,
+            "mole_fraction": 0.043639
+          },
+          {
+            "name": "linalyl acetate",
+            "canonical": "linalyl acetate",
+            "note": "top",
+            "family": "aromatic",
+            "raw_ul": 120.0,
+            "dilution": 1.0,
+            "active_ul": 120.0,
+            "vapor_ppm": 1.128967,
+            "odt_air_ppm": 0.0027,
+            "oav": 418.14,
+            "intensity": 11.1822,
+            "vp_pa": 5.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.022868
+          },
+          {
+            "name": "phenethyl alcohol",
+            "canonical": "phenethyl alcohol",
+            "note": "heart",
+            "family": "rose",
+            "raw_ul": 60.0,
+            "dilution": 1.0,
+            "active_ul": 60.0,
+            "vapor_ppm": 2.138673,
+            "odt_air_ppm": 0.2,
+            "oav": 10.69,
+            "intensity": 2.5802,
+            "vp_pa": 11.57,
+            "gamma": 1.0005,
+            "mole_fraction": 0.018721
+          },
+          {
+            "name": "geraniol",
+            "canonical": "geraniol",
+            "note": "heart",
+            "family": "rose",
+            "raw_ul": 120.0,
+            "dilution": 1.0,
+            "active_ul": 120.0,
+            "vapor_ppm": 1.149015,
+            "odt_air_ppm": 0.04,
+            "oav": 28.73,
+            "intensity": 3.8309,
+            "vp_pa": 4.0,
+            "gamma": 1.0005,
+            "mole_fraction": 0.029093
+          },
+          {
+            "name": "coumarin",
+            "canonical": "coumarin",
+            "note": "base",
+            "family": "gourmand",
+            "raw_ul": 480.0,
+            "dilution": 0.2,
+            "active_ul": 96.0,
+            "vapor_ppm": 0.181736,
+            "odt_air_ppm": 0.0007,
+            "oav": 259.62,
+            "intensity": 9.2414,
+            "vp_pa": 0.5,
+            "gamma": 1.4993,
+            "mole_fraction": 0.024563
+          },
+          {
+            "name": "evernyl",
+            "canonical": "evernyl",
+            "note": "base",
+            "family": "woody",
+            "raw_ul": 30.0,
+            "dilution": 1.0,
+            "active_ul": 30.0,
+            "vapor_ppm": 0.005648,
+            "odt_air_ppm": 0.0003,
+            "oav": 18.83,
+            "intensity": 3.2352,
+            "vp_pa": 0.1,
+            "gamma": 1.0005,
+            "mole_fraction": 0.00572
+          },
+          {
+            "name": "patchouli eo",
+            "canonical": "patchouli eo",
+            "note": "base",
+            "family": "woody",
+            "raw_ul": 180.0,
+            "dilution": 1.0,
+            "active_ul": 180.0,
+            "vapor_ppm": 0.018128,
+            "odt_air_ppm": 0.003,
+            "oav": 6.04,
+            "intensity": 2.0535,
+            "vp_pa": 0.06,
+            "gamma": 1.0112,
+            "mole_fraction": 0.030276
+          },
+          {
+            "name": "cedarwood virginia",
+            "canonical": "cedarwood virginia",
+            "note": "heart",
+            "family": null,
+            "raw_ul": 600.0,
+            "dilution": 1.0,
+            "active_ul": 600.0,
+            "vapor_ppm": 0.159382,
+            "odt_air_ppm": 0.015,
+            "oav": 10.63,
+            "intensity": 2.5736,
+            "vp_pa": 0.15,
+            "gamma": 1.0005,
+            "mole_fraction": 0.107612
+          },
+          {
+            "name": "vetiver eo",
+            "canonical": "vetiver eo",
+            "note": "base",
+            "family": "woody",
+            "raw_ul": 240.0,
+            "dilution": 1.0,
+            "active_ul": 240.0,
+            "vapor_ppm": 0.01993,
+            "odt_air_ppm": 0.005,
+            "oav": 3.99,
+            "intensity": 1.7386,
+            "vp_pa": 0.05,
+            "gamma": 1.0005,
+            "mole_fraction": 0.040368
+          },
+          {
+            "name": "habanolide",
+            "canonical": "habanolide",
+            "note": "base",
+            "family": "musk",
+            "raw_ul": 300.0,
+            "dilution": 1.0,
+            "active_ul": 300.0,
+            "vapor_ppm": 0.009296,
+            "odt_air_ppm": 0.0028,
+            "oav": 3.32,
+            "intensity": 1.4333,
+            "vp_pa": 0.02,
+            "gamma": 1.0005,
+            "mole_fraction": 0.047074
+          },
+          {
+            "name": "ambrettolide",
+            "canonical": "ambrettolide",
+            "note": "base",
+            "family": "musk",
+            "raw_ul": 180.0,
+            "dilution": 0.1,
+            "active_ul": 18.0,
+            "vapor_ppm": 0.000316,
+            "odt_air_ppm": 0.000136,
+            "oav": 2.32,
+            "intensity": 1.2879,
+            "vp_pa": 0.012,
+            "gamma": 1.0005,
+            "mole_fraction": 0.002668
+          }
+        ]
+      }
+    },
+    {
+      "name": "family_fit",
+      "status": "PASS",
+      "detail": "all 6 checks passed for Classic/reference aromatic fougere",
+      "data": {
+        "archetype": "aromatic_fougere.classic_reference",
+        "family": "aromatic_fougere",
+        "label": "Classic/reference aromatic fougere",
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "fougere_aromatic_lavender_axis",
+            "status": "PASS",
+            "detail": "32.370% active >= 5.000",
+            "value": 32.369942,
+            "rule": {
+              "name": "fougere_aromatic_lavender_axis",
+              "materials": [
+                "Lavender EO",
+                "Lavender EO High Altitude",
+                "Spike Lavender EO",
+                "Lavender Spike Essential Oil",
+                "Clary Sage EO",
+                "Petitgrain EO",
+                "Juniper Berry EO",
+                "Beta-Pinene",
+                "Pine EO",
+                "Pine Essential Oil",
+                "Linalool",
+                "Linalyl Acetate",
+                "Ethyl Linalool",
+                "Dihydromyrcenol",
+                "Terpinyl Acetate"
+              ],
+              "basis": "active",
+              "minimum": 5.0,
+              "maximum": null,
+              "detail": ""
+            }
+          },
+          {
+            "name": "fougere_citrus_fresh_top",
+            "status": "PASS",
+            "detail": "18.497% active >= 4.000",
+            "value": 18.49711,
+            "rule": {
+              "name": "fougere_citrus_fresh_top",
+              "materials": [
+                "Bergamot FCF",
+                "Bergamot",
+                "Bergamot FCF Sicilian",
+                "Bergamot FCF oil Sicilian",
+                "Cedrat FCF Sicilian",
+                "Cedrat FCF oil Sicilian",
+                "Grapefruit FCF",
+                "Red Mandarin EO",
+                "Lime Distilled EO",
+                "Lime Distilled Essential Oil",
+                "Limonene",
+                "D-Limonene",
+                "Petitgrain EO"
+              ],
+              "basis": "active",
+              "minimum": 4.0,
+              "maximum": null,
+              "detail": ""
+            }
+          },
+          {
+            "name": "fougere_coumarin_tonka_axis",
+            "status": "PASS",
+            "detail": "1.850% active >= 0.350",
+            "value": 1.849711,
+            "rule": {
+              "name": "fougere_coumarin_tonka_axis",
+              "materials": [
+                "Coumarin"
+              ],
+              "basis": "active",
+              "minimum": 0.35,
+              "maximum": null,
+              "detail": ""
+            }
+          },
+          {
+            "name": "fougere_moss_wood_drydown",
+            "status": "PASS",
+            "detail": "22.081% active >= 3.000",
+            "value": 22.080925,
+            "rule": {
+              "name": "fougere_moss_wood_drydown",
+              "materials": [
+                "Coumarin",
+                "Evernyl",
+                "Vetiver EO",
+                "Patchouli EO",
+                "Cedarwood EO",
+                "Cedarwood oil Virginia",
+                "Iso E Super"
+              ],
+              "basis": "active",
+              "minimum": 3.0,
+              "maximum": null,
+              "detail": ""
+            }
+          },
+          {
+            "name": "marine_not_shower_gel",
+            "status": "PASS",
+            "detail": "0.000% raw <= 7.500",
+            "value": 0.0,
+            "rule": {
+              "name": "marine_not_shower_gel",
+              "materials": [
+                "Calone",
+                "Floralozone",
+                "Scentenal"
+              ],
+              "basis": "raw",
+              "minimum": null,
+              "maximum": 7.5,
+              "detail": ""
+            }
+          },
+          {
+            "name": "fruit_not_candy_axis",
+            "status": "PASS",
+            "detail": "0.000% active <= 1.000",
+            "value": 0.0,
+            "rule": {
+              "name": "fruit_not_candy_axis",
+              "materials": [
+                "Apritone",
+                "Hexyl Acetate",
+                "Ethyl 2-Methylbutyrate",
+                "Methyl Pamplemousse"
+              ],
+              "basis": "active",
+              "minimum": null,
+              "maximum": 1.0,
+              "detail": ""
+            }
+          }
+        ],
+        "forbidden_hits": [],
+        "oav_targets": {
+          "top": {
+            "citrus": 900,
+            "aromatic": 260,
+            "fresh": 210
+          },
+          "heart": {
+            "aromatic": 260,
+            "coumarin": 16,
+            "green": 80
+          },
+          "base": {
+            "aromatic": 95,
+            "wood": 45,
+            "moss": 10,
+            "coumarin": 12
+          }
+        }
+      }
+    },
+    {
+      "name": "pyramid_balance",
+      "status": "WARN",
+      "detail": "deviation in top, heart, base; source=pyramid_targets.aromatic_fougere.EdP",
+      "data": {
+        "source": "pyramid_targets.aromatic_fougere.EdP",
+        "target": {
+          "top": 20,
+          "heart": 40,
+          "base": 40
+        },
+        "actual": {
+          "top": 31.0,
+          "heart": 50.4,
+          "base": 18.6
+        },
+        "deviations": {
+          "top": {
+            "expected": 20,
+            "actual": 31.0,
+            "delta": 11.0
+          },
+          "heart": {
+            "expected": 40,
+            "actual": 50.4,
+            "delta": 10.4
+          },
+          "base": {
+            "expected": 40,
+            "actual": 18.6,
+            "delta": -21.4
+          }
+        },
+        "oav_distribution": {
+          "top": 31.0,
+          "heart": 50.4,
+          "base": 18.6
+        }
+      }
+    },
+    {
+      "name": "temporal_simulation",
+      "status": "PASS",
+      "detail": "5 windows; evap: 20% over 14400s; base @ drydown: 23%",
+      "data": {
+        "windows": [
+          {
+            "label": "opening",
+            "t_seconds": 0.0,
+            "total_vapor_ppm": 135.4122,
+            "total_active_ul": 4644.0,
+            "note_distribution": {
+              "top": 31.0,
+              "heart": 50.4,
+              "base": 18.6
+            },
+            "dominant_oav": [
+              {
+                "material": "lavender eo",
+                "oav": 14362.684,
+                "ppm": 28.725367,
+                "intensity": 46.014,
+                "family": "aromatic"
+              },
+              {
+                "material": "bergamot fcf sicilian",
+                "oav": 9982.712,
+                "ppm": 59.896272,
+                "intensity": 158.339,
+                "family": "citrus"
+              },
+              {
+                "material": "linalool",
+                "oav": 6818.901,
+                "ppm": 10.228351,
+                "intensity": 34.157,
+                "family": "aromatic"
+              },
+              {
+                "material": "cedrat fcf sicilian",
+                "oav": 2551.502,
+                "ppm": 20.412019,
+                "intensity": 74.772,
+                "family": "citrus"
+              },
+              {
+                "material": "geranium eo",
+                "oav": 1411.568,
+                "ppm": 2.117352,
+                "intensity": 21.032,
+                "family": "floral"
+              }
+            ],
+            "receptor_activation": {
+              "OR1A1": 0.9886,
+              "OR2W1": 0.9445,
+              "OR5A1": 0.8765,
+              "OR7D4": 0.0064,
+              "OR10G4": 0.1851,
+              "OR11H7": 0.0,
+              "OR8B3": 0.0351,
+              "OR_WD": 0.9205
+            }
+          },
+          {
+            "label": "top",
+            "t_seconds": 300.0,
+            "total_vapor_ppm": 134.3242,
+            "total_active_ul": 4616.94,
+            "note_distribution": {
+              "top": 31.0,
+              "heart": 50.3,
+              "base": 18.7
+            },
+            "dominant_oav": [
+              {
+                "material": "lavender eo",
+                "oav": 14319.465,
+                "ppm": 28.63893,
+                "intensity": 45.959,
+                "family": "aromatic"
+              },
+              {
+                "material": "bergamot fcf sicilian",
+                "oav": 9852.932,
+                "ppm": 59.117595,
+                "intensity": 157.203,
+                "family": "citrus"
+              },
+              {
+                "material": "linalool",
+                "oav": 6786.488,
+                "ppm": 10.179732,
+                "intensity": 34.092,
+                "family": "aromatic"
+              },
+              {
+                "material": "cedrat fcf sicilian",
+                "oav": 2525.13,
+                "ppm": 20.20104,
+                "intensity": 74.346,
+                "family": "citrus"
+              },
+              {
+                "material": "geranium eo",
+                "oav": 1419.287,
+                "ppm": 2.128931,
+                "intensity": 21.08,
+                "family": "floral"
+              }
+            ],
+            "receptor_activation": {
+              "OR1A1": 0.9884,
+              "OR2W1": 0.9438,
+              "OR5A1": 0.8765,
+              "OR7D4": 0.0064,
+              "OR10G4": 0.186,
+              "OR11H7": 0.0,
+              "OR8B3": 0.0353,
+              "OR_WD": 0.9202
+            }
+          },
+          {
+            "label": "heart",
+            "t_seconds": 1800.0,
+            "total_vapor_ppm": 128.9728,
+            "total_active_ul": 4487.39,
+            "note_distribution": {
+              "top": 31.0,
+              "heart": 49.8,
+              "base": 19.2
+            },
+            "dominant_oav": [
+              {
+                "material": "lavender eo",
+                "oav": 14093.948,
+                "ppm": 28.187896,
+                "intensity": 45.668,
+                "family": "aromatic"
+              },
+              {
+                "material": "bergamot fcf sicilian",
+                "oav": 9221.47,
+                "ppm": 55.328821,
+                "intensity": 151.579,
+                "family": "citrus"
+              },
+              {
+                "material": "linalool",
+                "oav": 6621.408,
+                "ppm": 9.932112,
+                "intensity": 33.758,
+                "family": "aromatic"
+              },
+              {
+                "material": "cedrat fcf sicilian",
+                "oav": 2395.369,
+                "ppm": 19.162952,
+                "intensity": 72.22,
+                "family": "citrus"
+              },
+              {
+                "material": "geranium eo",
+                "oav": 1457.346,
+                "ppm": 2.186019,
+                "intensity": 21.316,
+                "family": "floral"
+              }
+            ],
+            "receptor_activation": {
+              "OR1A1": 0.9877,
+              "OR2W1": 0.9407,
+              "OR5A1": 0.8764,
+              "OR7D4": 0.0066,
+              "OR10G4": 0.1906,
+              "OR11H7": 0.0,
+              "OR8B3": 0.0363,
+              "OR_WD": 0.9187
+            }
+          },
+          {
+            "label": "late_heart",
+            "t_seconds": 7200.0,
+            "total_vapor_ppm": 111.005,
+            "total_active_ul": 4090.6,
+            "note_distribution": {
+              "top": 30.9,
+              "heart": 48.0,
+              "base": 21.1
+            },
+            "dominant_oav": [
+              {
+                "material": "lavender eo",
+                "oav": 13170.572,
+                "ppm": 26.341144,
+                "intensity": 44.447,
+                "family": "aromatic"
+              },
+              {
+                "material": "bergamot fcf sicilian",
+                "oav": 7188.458,
+                "ppm": 43.130751,
+                "intensity": 132.175,
+                "family": "citrus"
+              },
+              {
+                "material": "linalool",
+                "oav": 5995.954,
+                "ppm": 8.993931,
+                "intensity": 32.445,
+                "family": "aromatic"
+              },
+              {
+                "material": "cedrat fcf sicilian",
+                "oav": 1960.119,
+                "ppm": 15.680954,
+                "intensity": 64.678,
+                "family": "citrus"
+              },
+              {
+                "material": "geranium eo",
+                "oav": 1586.082,
+                "ppm": 2.379123,
+                "intensity": 22.087,
+                "family": "floral"
+              }
+            ],
+            "receptor_activation": {
+              "OR1A1": 0.9848,
+              "OR2W1": 0.9275,
+              "OR5A1": 0.8752,
+              "OR7D4": 0.0074,
+              "OR10G4": 0.206,
+              "OR11H7": 0.0,
+              "OR8B3": 0.0399,
+              "OR_WD": 0.9126
+            }
+          },
+          {
+            "label": "drydown",
+            "t_seconds": 14400.0,
+            "total_vapor_ppm": 90.394,
+            "total_active_ul": 3693.26,
+            "note_distribution": {
+              "top": 30.6,
+              "heart": 46.1,
+              "base": 23.3
+            },
+            "dominant_oav": [
+              {
+                "material": "lavender eo",
+                "oav": 11756.273,
+                "ppm": 23.512547,
+                "intensity": 42.473,
+                "family": "aromatic"
+              },
+              {
+                "material": "linalool",
+                "oav": 5132.365,
+                "ppm": 7.698547,
+                "intensity": 30.488,
+                "family": "aromatic"
+              },
+              {
+                "material": "bergamot fcf sicilian",
+                "oav": 5038.706,
+                "ppm": 30.232233,
+                "intensity": 108.711,
+                "family": "citrus"
+              },
+              {
+                "material": "geranium eo",
+                "oav": 1734.784,
+                "ppm": 2.602177,
+                "intensity": 22.934,
+                "family": "floral"
+              },
+              {
+                "material": "clary sage eo",
+                "oav": 1657.468,
+                "ppm": 3.314936,
+                "intensity": 58.979,
+                "family": "green"
+              }
+            ],
+            "receptor_activation": {
+              "OR1A1": 0.9794,
+              "OR2W1": 0.9047,
+              "OR5A1": 0.8719,
+              "OR7D4": 0.0083,
+              "OR10G4": 0.224,
+              "OR11H7": 0.0,
+              "OR8B3": 0.0441,
+              "OR_WD": 0.9025
+            }
+          }
+        ],
+        "evaporation_pct": 20.5
+      }
+    },
+    {
+      "name": "ifra_safety",
+      "status": "PASS",
+      "detail": "all 19 materials within IFRA limits",
+      "data": {
+        "checked": 19,
+        "compliant": 19,
+        "violations": 0,
+        "headroom": 1.0,
+        "violation_details": []
+      }
+    },
+    {
+      "name": "robustness",
+      "status": "PASS",
+      "detail": "38 perturbations stable",
+      "data": {
+        "status": "PASS",
+        "checked": 38,
+        "issues_count": 0,
+        "issue_details": [],
+        "perturbations": [
+          {
+            "material": "bergamot fcf sicilian",
+            "direction": "up",
+            "delta_ul": 30.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.031549,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "bergamot fcf sicilian",
+            "direction": "down",
+            "delta_ul": 30.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.031564,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "cedrat fcf sicilian",
+            "direction": "up",
+            "delta_ul": 12.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.001869,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "cedrat fcf sicilian",
+            "direction": "down",
+            "delta_ul": 12.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.001869,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "petitgrain eo",
+            "direction": "up",
+            "delta_ul": 6.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.003281,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "petitgrain eo",
+            "direction": "down",
+            "delta_ul": 6.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.003278,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "lavender eo",
+            "direction": "up",
+            "delta_ul": 30.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.031564,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "lavender eo",
+            "direction": "down",
+            "delta_ul": 30.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.031549,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "lavender eo high altitude",
+            "direction": "up",
+            "delta_ul": 18.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.008136,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          },
+          {
+            "material": "lavender eo high altitude",
+            "direction": "down",
+            "delta_ul": 18.0,
+            "status": "PASS",
+            "family_envelope_drift": 0.008128,
+            "top_leader_changed": false,
+            "safety_failed": false,
+            "brief_failed": false,
+            "detail": "stable within perturbation thresholds"
+          }
+        ]
+      }
+    },
+    {
+      "name": "oav_intelligence",
+      "status": "PASS",
+      "detail": "analysis complete",
+      "data": {
+        "family_oav_targets": {},
+        "balance_report": {},
+        "performance_projection": {
+          "materials": [
+            {
+              "material": "lavender eo",
+              "mapped_material": "lavender eo",
+              "oav": 14362.683553,
+              "engine_note": "heart",
+              "future_note_tier": "heart",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 25.0,
+              "paris_vp_pa": 3.5,
+              "bangkok_shift": {
+                "paris_vp": 3.5,
+                "bangkok_vp": 9.8,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 25.0,
+                "bangkok_half_life_min_est": 8.928571
+              }
+            },
+            {
+              "material": "linalool",
+              "mapped_material": "linalool",
+              "oav": 6818.90092,
+              "engine_note": "top",
+              "future_note_tier": "top",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 20.0,
+              "paris_vp_pa": 15.8,
+              "bangkok_shift": {
+                "paris_vp": 15.8,
+                "bangkok_vp": 44.24,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 20.0,
+                "bangkok_half_life_min_est": 7.142857
+              }
+            },
+            {
+              "material": "linalyl acetate",
+              "mapped_material": "linalyl acetate",
+              "oav": 418.135898,
+              "engine_note": "top",
+              "future_note_tier": "top",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 18.0,
+              "paris_vp_pa": 17.5,
+              "bangkok_shift": {
+                "paris_vp": 17.5,
+                "bangkok_vp": 49.0,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 18.0,
+                "bangkok_half_life_min_est": 6.428571
+              }
+            },
+            {
+              "material": "coumarin",
+              "mapped_material": "coumarin",
+              "oav": 259.623444,
+              "engine_note": "base",
+              "future_note_tier": "base",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 180.0,
+              "paris_vp_pa": 0.19,
+              "bangkok_shift": {
+                "paris_vp": 0.19,
+                "bangkok_vp": 0.532,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 180.0,
+                "bangkok_half_life_min_est": 64.285714
+              }
+            },
+            {
+              "material": "lavender eo high altitude",
+              "mapped_material": "lavender eo high altitude",
+              "oav": 195.543712,
+              "engine_note": "top",
+              "future_note_tier": "heart",
+              "note_tier_mismatch": true,
+              "paris_half_life_min": 25.0,
+              "paris_vp_pa": 3.5,
+              "bangkok_shift": {
+                "paris_vp": 3.5,
+                "bangkok_vp": 9.8,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 25.0,
+                "bangkok_half_life_min_est": 8.928571
+              }
+            },
+            {
+              "material": "geraniol",
+              "mapped_material": "geraniol",
+              "oav": 28.725367,
+              "engine_note": "heart",
+              "future_note_tier": "heart",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 55.0,
+              "paris_vp_pa": 2.12,
+              "bangkok_shift": {
+                "paris_vp": 2.12,
+                "bangkok_vp": 5.936,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 55.0,
+                "bangkok_half_life_min_est": 19.642857
+              }
+            },
+            {
+              "material": "phenethyl alcohol",
+              "mapped_material": "phenethyl alcohol",
+              "oav": 10.693367,
+              "engine_note": "heart",
+              "future_note_tier": "heart",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 90.0,
+              "paris_vp_pa": 0.03,
+              "bangkok_shift": {
+                "paris_vp": 0.03,
+                "bangkok_vp": 0.084,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 90.0,
+                "bangkok_half_life_min_est": 32.142857
+              }
+            },
+            {
+              "material": "patchouli eo",
+              "mapped_material": "patchouli eo",
+              "oav": 6.042773,
+              "engine_note": "base",
+              "future_note_tier": "base",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 1080.0,
+              "paris_vp_pa": 0.001,
+              "bangkok_shift": {
+                "paris_vp": 0.001,
+                "bangkok_vp": 0.0028,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 1080.0,
+                "bangkok_half_life_min_est": 385.714286
+              }
+            },
+            {
+              "material": "vetiver eo",
+              "mapped_material": "vetiver eo",
+              "oav": 3.985903,
+              "engine_note": "base",
+              "future_note_tier": "base",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 960.0,
+              "paris_vp_pa": 0.003,
+              "bangkok_shift": {
+                "paris_vp": 0.003,
+                "bangkok_vp": 0.0084,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 960.0,
+                "bangkok_half_life_min_est": 342.857143
+              }
+            },
+            {
+              "material": "habanolide",
+              "mapped_material": "habanolide",
+              "oav": 3.319994,
+              "engine_note": "base",
+              "future_note_tier": "base",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 840.0,
+              "paris_vp_pa": 0.0003,
+              "bangkok_shift": {
+                "paris_vp": 0.0003,
+                "bangkok_vp": 0.00084,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 840.0,
+                "bangkok_half_life_min_est": 300.0
+              }
+            },
+            {
+              "material": "ambrettolide",
+              "mapped_material": "ambrettolide",
+              "oav": 2.324212,
+              "engine_note": "base",
+              "future_note_tier": "base",
+              "note_tier_mismatch": false,
+              "paris_half_life_min": 900.0,
+              "paris_vp_pa": 0.0005,
+              "bangkok_shift": {
+                "paris_vp": 0.0005,
+                "bangkok_vp": 0.0014,
+                "vp_ratio": 2.8,
+                "paris_half_life_min": 900.0,
+                "bangkok_half_life_min_est": 321.428571
+              }
+            }
+          ],
+          "warnings": [
+            "geraniol may collapse quickly in Bangkok heat (~19.6 min half-life)",
+            "lavender eo high altitude may collapse quickly in Bangkok heat (~8.9 min half-life)",
+            "lavender eo high altitude note-tier mismatch: engine=top, future=heart",
+            "lavender eo may collapse quickly in Bangkok heat (~8.9 min half-life)",
+            "linalool may collapse quickly in Bangkok heat (~7.1 min half-life)",
+            "linalyl acetate may collapse quickly in Bangkok heat (~6.4 min half-life)"
+          ]
+        },
+        "synergy_pairs": [],
+        "antagonist_pairs": [],
+        "shift_zones": {}
+      }
+    },
+    {
+      "name": "confidence",
+      "status": "WARN",
+      "detail": "combined confidence 47.1",
+      "data": {
+        "overall_confidence": 24.7,
+        "pipeline_confidence": 69.6,
+        "combined_confidence": 47.1,
+        "combined_grade": "LOW",
+        "missing_fields": []
+      }
+    },
+    {
+      "name": "repair_suggestions",
+      "status": "PASS",
+      "detail": "no repairs needed",
+      "data": {
+        "suggestions": []
+      }
+    }
+  ]
+}

@@ -64,7 +64,7 @@
 | 12 | Iso E Super | neat | 597 | 0.597 |
 | 13 | Lavender EO | neat | 355 | 0.355 |
 | 14 | Linalyl Acetate | neat | 251 | 0.251 |
-| 15 | Geraniol | neat | 146 | 0.146 |
+| 15 | Geraniol | 10% in DPG | 1460 | 1.460 |
 | 16 | Eugenol | neat | 65 | 0.065 |
 | | **Stage 1B subtotal** | | **2 156** | **2.156** |
 

@@ -4,13 +4,26 @@ Phase 1 of the Next-Gen CAFD pipeline: migrate from flat JSON files to
 SQLite with schema enforcement, provenance tracking, and confidence scoring.
 """
 
+import enum
+
 from sqlalchemy import (
-    Column, Integer, String, Float, Boolean, Text, JSON,
-    DateTime, ForeignKey, Index, Enum as SAEnum,
+    JSON,
+    Boolean,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+)
+from sqlalchemy import (
+    Enum as SAEnum,
 )
 from sqlalchemy.orm import relationship
+
 from app.models.base import BaseModel
-import enum
 
 
 class ConfidenceLevel(str, enum.Enum):

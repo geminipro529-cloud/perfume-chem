@@ -6,6 +6,13 @@
 > **⚠️ RULE 1: All perfume calculations must use ppm, ODT, and OAV.**  
 > Concentrations are in **ppm** (parts per million w/w in concentrate). Odor detection thresholds are **ODT** (in ppm for ethanol solution, or ppb for air). Odor Activity Value is **OAV = concentration_ppm / ODT_ppm**. Every formula dose must be convertible to ppm, every threshold check must reference ODT, and every perceptibility claim must be backed by OAV. No exceptions — this applies to formulation, dosing, gating, scoring, and all pipeline modules.
 
+> **⚠️ RULE 2: NEVER create new pipeline scripts.**  
+
+> **⚠️ RULE 3: Optimize for the name, not just the numbers.**  
+> When optimizing, enhancing, or modifying a formula, the target is the **name / concept / original brief** of the perfume — not numerical scores. A formula named "Iris Cathedral" must be optimized toward iris-incense character, even if the optimizer suggests boosting radiance with Hedione and citrus. The name is the north star. Numerical gates (OAV, pyramid, IFRA compliance) are floors to meet — not ceilings to chase. This rule applies to all agents, all sessions, all formulas. When uncertain, re-read the formula name and ask: "Does this still smell like its name?"  
+> **⚠️ RULE 4: Every natural mixture uses composite OAV, not monomolecular.**  
+> All EOs, absolutes, resinoids, and natural mixtures (35+ entries) are decomposed into published GC-O constituents in `engine/pipeline/natural_absolute_decomposition.py`. The pipeline auto-applies composite OAV via `formula_state.py` at lines 219 and 567. Never use the old monomolecular OAV for naturals. This increases OAV accuracy by 100-500,000× for absolutes.
+
 ## Repo architecture
 
 Two separate Python environments — they don't share a package manager:
@@ -53,6 +60,116 @@ pytest tests/test_pipeline_gates.py -k test_gate_blocks
 
 From `.github/workflows/ci.yml`: `ruff check app` → `mypy app --ignore-missing-imports` → `pytest --cov=app`. Same order applies locally.
 
+## Running Formulas Through the Pipeline
+
+### Before running
+
+1. **Read `docs/fragrance_families_reference.md`** to confirm the family exists and is buildable from inventory.
+2. **Confirm every material is in stock** — check `inventory.txt` for DEPLETED markers.
+3. **Confirm every material has physics data** — check `engine/odor_thresholds.py` ODT_DATA, `data/materials/<LETTER>.yaml` for MW/logP/VP/ODT, and `engine/ingredient_intelligence.py` _PROFILES for note/role/texture.
+4. **Check for duplicate ODT entries** — `grepp "material_name" engine/odor_thresholds.py` and count occurrences. The last entry wins.
+
+### Running
+
+```bash
+python scripts/formula_release_gate.py \
+    --formula-file formulas/My_Formula_30mL_EDP.md \
+    --expected-concentrate-ul 6000 \
+    --brief <family> \
+    --json
+```
+
+Supported `--brief` values: `auto`, `generic`, `aromatic_fougere`, `layton_dna`, `vetiver_woody`. Pass `--family-archetype <key>` directly if the brief isn't in the defaults table.
+
+### After running — read MORE than just gate status
+
+The JSON output is ~6000 lines. Gates are only ~20%. Agents MUST extract these sections:
+
+| Section | JSON path | What it tells you |
+|---------|-----------|-------------------|
+| **Headspace OAV** | `formulas[0].formula_state.materials[]` | Per-material OAV, VP, gamma, mole fraction, active µL |
+| **Temporal evolution** | `formulas[0].time_series[]` | 5-window OAV (0s→5min→30min→2hr→4hr) |
+| **Note distribution** | `formulas[0].formula_state.note_distribution` | OAV-weighted T/H/B split (more accurate than pyramid gate) |
+| **Pyramid evaluation** | Gate `perfume_knowledge` → `data.pyramid` | VP-tier pyramid vs family targets |
+| **OAV intelligence** | Gate `oav_intelligence` → `data` | Balance reports, performance projection, material cliff findings |
+| **IFRA details** | Gate `safety_ifra_allergen` → `data` | Violations, edge dosing, allergen declarations |
+| **Config** | `config_summary` | Confirm brief, archetype, temperature, concentration bracket |
+| **Dermal exposure** | Gate `safety_ifra_allergen` → `data.dermal_exposure[]` | Per-material skin penetration estimates |
+
+### Required: always present the OAV headspace table
+
+After every pipeline run, format the per-material OAV table from
+`formulas[0].formula_state.materials[]` in this exact column order:
+
+```
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+```
+
+Include `note_distribution` (T/H/B split) and `time_series` temporal
+windows (opening → top → heart → late_heart → drydown). Present this
+**before** discussing gate outcomes — raw headspace physics is more
+diagnostic than pass/fail.
+
+Flag any material with OAV < 1 (below perceptible threshold) if its
+functional role requires perceptibility (e.g. projection musk,
+character note, radiance amplifier). Materials with OAV < 1 whose role
+is purely structural (fixative, inert base) are acceptable.
+
+### Required: perfumer analysis format
+
+After presenting the OAV headspace table and temporal evolution, produce a
+complete perfumer analysis section covering these topics **in order**:
+
+1. **Character** — What is the fragrance family? What classical reference perfumes does it evoke? Describe the dominant structural architecture (e.g. "top-to-base with thin heart").
+
+2. **Opening (0-5min)** — Describe what the first blast smells like. Reference OAV ratios: which materials dominate, what is their perceptibility (massive >1000, very strong 100-1000, strong 50-100, moderate 10-50, perceptible 5-10, at threshold 1-5, sub-threshold <1). Quote total vapor ppm.
+
+3. **Heart (30min-2hr)** — How does the composition evolve as top notes burn off? Describe which materials emerge and what they contribute. Note the H/T/B distribution shift.
+
+4. **Drydown (2hr-4hr+)** — What persists at 4h? Quote base % dominance at drydown. Describe the final character (mossy, woody, sweet, etc.). Flag any materials that functionally underperform.
+
+5. **Sillage & Diffusion** — Identify primary OAV carriers. Quote opening vs drydown projection materials.
+
+6. **Longevity** — Quote % raw evaporation over 4h, base persistence %, expected skin life.
+
+7. **Balance** — Pyramid vs target, OAV range min-to-max, sigma-log contrast score, heart density assessment.
+
+8. **Flags** — Sub-threshold materials by functional role, IFRA edges, data quality issues.
+
+
+### Using the analysis script
+
+The repo provides `scripts/format_pipeline_analysis.py` which reads a
+pipeline JSON output and prints the full formatted analysis. Run:
+
+```bash
+python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
+```
+
+This is the **required** format. Every pipeline run output must be run
+through this script and the result presented in **two places**:
+
+1. **In the chat** — paste the full analysis output into the conversation so the user can review it immediately.
+2. **Appended to the formula file** — add the analysis to the formula markdown file (under a `## Pipeline Analysis` section) for permanent record.
+
+Agents must NOT skip the chat presentation step. The analysis must be shown
+verbatim in the chat before discussing decisions or next steps. Do not
+summarize or paraphrase the analysis output — present it directly.
+
+### Integrated CLI usage
+
+The pipeline CLI supports a `--print-analysis` flag that runs both the
+release gates and the analysis script:
+
+```bash
+python scripts/formula_release_gate.py \
+    --formula-file formulas/My_Formula_30mL_EDP.md \
+    --expected-concentrate-ul 6000 \
+    --brief vetiver_woody \
+    --json 2>/dev/null | python -c "import sys,json; d=json.load(sys.stdin); open('output.json','w').write(json.dumps(d,indent=2))"
+python scripts/format_pipeline_analysis.py --input output.json
+```
+
 ## Key conventions
 
 - **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
@@ -60,13 +177,16 @@ From `.github/workflows/ci.yml`: `ruff check app` → `mypy app --ignore-missing
 - **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
 - **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
 - **`archive/` and `output/` are gitignored** — scratch scripts (prefix `_`) and generated outputs go there.
-- **Pipeline scripts** in `pipelines/` are depth-1 orchestrators that self-register the repo root on `sys.path` and import `engine/` modules directly.
+- **Pipeline logic** lives in `engine/pipeline/` (gates, formula_state, simulator, oav_intelligence, etc.). The entry point is `scripts/formula_release_gate.py`. The old `pipelines/` directory has been removed — all orchestration now imports `engine/` modules directly.
 - **`.vscode/`, `.claude/`, `*.db`, `*.xlsx`, `*.csv`, `*.png` are gitignored.**
 - **`engine/` dependencies** (`sentence-transformers`, `faiss-cpu`, `torch`, etc.) are in root `requirements.txt`, not in the Poetry project.
 
 ## When formulating perfumes
 
 The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, build 2–3 material musk chords across depth/projection/character-echo axes, and always read `inventory.txt` first. Agents generating formulas should treat that file as a required reference.
+
+> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
+> Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
 
 ---
 
@@ -124,6 +244,61 @@ Flag any material with OAV < 1 (below perceptible threshold) if its
 functional role requires perceptibility (e.g. projection musk,
 character note, radiance amplifier). Materials with OAV < 1 whose role
 is purely structural (fixative, inert base) are acceptable.
+
+### Required: perfumer analysis format
+
+After presenting the OAV headspace table and temporal evolution, produce a
+complete perfumer analysis section covering these topics **in order**:
+
+1. **Character** — What is the fragrance family? What classical reference perfumes does it evoke? Describe the dominant structural architecture (e.g. "top-to-base with thin heart").
+
+2. **Opening (0-5min)** — Describe what the first blast smells like. Reference OAV ratios: which materials dominate, what is their perceptibility (massive >1000, very strong 100-1000, strong 50-100, moderate 10-50, perceptible 5-10, at threshold 1-5, sub-threshold <1). Quote total vapor ppm.
+
+3. **Heart (30min-2hr)** — How does the composition evolve as top notes burn off? Describe which materials emerge and what they contribute. Note the H/T/B distribution shift.
+
+4. **Drydown (2hr-4hr+)** — What persists at 4h? Quote base % dominance at drydown. Describe the final character (mossy, woody, sweet, etc.). Flag any materials that functionally underperform.
+
+5. **Sillage & Diffusion** — Identify primary OAV carriers. Quote opening vs drydown projection materials.
+
+6. **Longevity** — Quote % raw evaporation over 4h, base persistence %, expected skin life.
+
+7. **Balance** — Pyramid vs target, OAV range min-to-max, sigma-log contrast score, heart density assessment.
+
+8. **Flags** — Sub-threshold materials by functional role, IFRA edges, data quality issues.
+
+
+### Using the analysis script
+
+The repo provides `scripts/format_pipeline_analysis.py` which reads a
+pipeline JSON output and prints the full formatted analysis. Run:
+
+```bash
+python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
+```
+
+This is the **required** format. Every pipeline run output must be run
+through this script and the result presented in **two places**:
+
+1. **In the chat** — paste the full analysis output into the conversation so the user can review it immediately.
+2. **Appended to the formula file** — add the analysis to the formula markdown file (under a `## Pipeline Analysis` section) for permanent record.
+
+Agents must NOT skip the chat presentation step. The analysis must be shown
+verbatim in the chat before discussing decisions or next steps. Do not
+summarize or paraphrase the analysis output — present it directly.
+
+### Integrated CLI usage
+
+The pipeline CLI supports a `--print-analysis` flag that runs both the
+release gates and the analysis script:
+
+```bash
+python scripts/formula_release_gate.py \
+    --formula-file formulas/My_Formula_30mL_EDP.md \
+    --expected-concentrate-ul 6000 \
+    --brief vetiver_woody \
+    --json 2>/dev/null | python -c "import sys,json; d=json.load(sys.stdin); open('output.json','w').write(json.dumps(d,indent=2))"
+python scripts/format_pipeline_analysis.py --input output.json
+```
 
 ### Common pipeline bugs
 
@@ -200,8 +375,8 @@ Three separate data paths consume material properties:
 ### 1. ODT_VERIFICATION vs ODT_DATA duplication
 `odor_thresholds.py` has TWO dicts — `ODT_DATA` (numeric values) and `ODT_VERIFICATION` (metadata only). Both contain entries for the same materials. **Numeric ODT values must exist in BOTH** — the last entry wins in `ODT_DATA`, so `ODT_VERIFICATION` entries that appear later in the file do NOT affect lookups. However, `_lookup_odt()` only reads `ODT_DATA`.
 
-### 2. Hedione/Hedione HC ODT collision
-`engine/name_utils.py` aliases `"hedione hc" → "hedione"`. This causes `ODT_DATA` keys for both to normalize to the same name, and the later entry (`hedione hc` with `odt_air=20.0`) overwrites the earlier (`hedione` with `odt_air=0.05`). The peer-reviewed pure-isomer ODT (0.05 ppb) is therefore inaccessible for the formula_state pipeline. The practical value (20.0 ppb) is used for both.
+### 2. ~~Hedione/Hedione HC ODT collision~~ (FIXED 2026-05-25)
+Fixed: Both `"hedione"` and `"hedione hc"` in ODT_DATA now correctly use `odt_air=0.05`. `ODT_DATA` and `ODT_VERIFICATION` are separate dicts — the collision was due to a wrong numeric value (20.0 → 0.05) in `ODT_DATA`, not an alias issue.
 
 ### 3. Non-inventory legacy entries
 `material_properties.json` contains entries with `"in_inventory": false` — materials that existed in the knowledge graph but are no longer in `inventory.txt`. These were previously copied as-is without validation. The generator now force-overrides their physical properties (MW, VP, cLogP, ODT) from `_PROFILES` on regeneration.
@@ -273,3 +448,218 @@ Added profiles to `ingredient_intelligence.py` for: Diethyl Phthalate, Dipropyle
 - `Cyclimal Aldehyde`: was aliased to `Florol` (wrong), corrected to `Cyclamen Aldehyde`
 - Generator ALIASES: `amyl cinnamic aldehyde` → `ACA`, `rosemary eo` → `Rosemary EO (French Rosmarinus Officinalis leaf oil)`, `lemon fcf oil sicilian` → `Lemon FCF oil Sicilian`
 - Added aliases for legacy variants with parenthetical names
+
+## Agentic Workflow (for DeepSeek)
+
+When tasks involve multiple domains (e.g., research + code + test), break them into sub-tasks using `sequential_thinking` first, then use `context7` or `grep` for research before writing code. This compensates for DeepSeek's tendency to shortcut complex reasoning chains.
+
+## Tool usage rules
+
+When searching docs or libraries, use `context7` tools.
+When checking GitHub for code patterns, use `grep` tool.
+When the task requires step-by-step decomposition, use `sequential_thinking`.
+When fetching live web content, use `fetch` tool.
+When understanding project structure or tracing module dependencies, use `repo_map` tool.
+When searching for chemical compound data (MW, logP, VP, ODT, CAS), use `pubchem` tool.
+
+## Agents for synergy/pairing discovery
+
+Use `@agent-citrus-top` for citrus, green, and top-note material pairings.
+Use `@agent-floral-heart` for floral and heart-note material pairings.
+Use `@agent-woody-base` for woody, amber, and base-structure material pairings.
+Use `@agent-musk-fixative` for musk, fixative, gourmand, and leather material pairings.
+Use `@agent-spice-aromatic` for spice, aromatic, and specialty material pairings.
+
+Each agent reads `inventory.txt`, evaluates pairs against perfumery + chemistry criteria, and appends findings to `data/knowledge_graph/pairing_rules_discovered.json`. Run all 5 agents in parallel to cover the full inventory.
+
+## Token efficiency
+
+MCP servers consume context tokens just by being loaded. Only invoke them when they will provide concrete benefit — do not call them reflexively. Prefer built-in tools (`read`, `grep`, `glob`, `bash`) for simple queries; save MCP calls for cases where they genuinely add value (cross-referencing external code, searching docs, deep architecture mapping).
+
+## Session Learnings (2026-06-05)
+
+### Composite OAV Model
+- `engine/pipeline/natural_absolute_decomposition.py` decomposes 35+ naturals into GC-O constituents
+- Injected at `formula_state.py:219` and `formula_state.py:567`
+- Osmanthus absolute composite OAV is 100-500,000× higher than monomolecular
+- When naturals show OAV 0, check: is the composite model covering this material?
+- Common missing naturals: add to both `_ABSOLUTE_CONSTITUENTS` dict in decomposition module AND `name_utils._ALIASES` AND add YAML aliases in `data/materials/<LETTER>.yaml`
+
+### Material Audit Checklist
+Every new material must exist in 4 locations:
+1. `inventory.txt`
+2. `data/materials/<LETTER>.yaml` (with aliases matching inventory name)
+3. `engine/ingredient_intelligence.py` (`_PROFILES`, `_TYPICAL_DOSE`)
+4. `engine/odor_thresholds.py` (`ODT_DATA` — check for duplicates, last entry wins)
+
+### Formula Optimization Workflow
+1. Gate with `python scripts/formula_release_gate.py --formula-file <path> --expected-concentrate-ul <ul> --brief generic --json`
+2. OAV report with `python scripts/format_oav_report.py <output.json>`
+3. Full analysis with `python scripts/format_pipeline_analysis.py --input <output.json>`
+4. Full scoring with `python scripts/verify_formula_workflow.py --formula-file <path>`
+5. Always present the OAV ranking BEFORE discussing gate outcomes
+6. Osmanthus at 500-700 µL of 10% is a clear lead (not a soliflore)
+7. Bergamot at >100 µL creates a limonene pool that persists 4h+ — the nose adapts in 90s
+
+### Perfumery Literature References
+- Calkin & Jellinek (1994): chypre ratios, fixative loading
+- Carles (1961): pyramid structure, accord ratios, material counts
+- Ellena (2011): transparent watercolor, Hedione:Iso E ratio, material count ≤18
+- Sinding et al. (2017): olfactory adaptation — high VP citrus habituates in 45-90s
+- Laing & Francis (1989): humans track 3-4 components maximum
+- Shiseido Féminité du Bois GCMS: gold standard woody-floral skeleton (Iso E 45.5%, Sandalore 9.4%, Cashmeran 1%)
+- Dior Homme Parfum (Demachy, 2014): Sandalwood + Oud + Cedar + Leather base
+- Hong et al. (2023): GC-MS-O of osmanthus — β-ionone is the dominant character compound
+- Guo et al. (2024): osmanthus absolute composite OAV = 1,371,872 floral
+- Fraterworks: Methylionones are softer, more iris-like than ionones
+
+### Key Material Data (Verified)
+- Tonkarome is 20% in TEC (not 10% in DPG)
+- Methyl Ionone Pure VP = 0.4 Pa (was erroneously 0.01, fixed 2026-05-31)
+- Osmanthus Absolute effective ODT = 0.5 ppb (composite, β-ionone weighted)
+- Geraniol 10% in DPG: prepared for rose-accord dosing at pipeline-safe OAV
+- Lavender HA = Lavender EO High Altitude
+- cis-3-Hexenol NOT in inventory — use Parmavert instead
+- Freesia HDI IS in inventory at line 84
+- Petitgrain EO Paraguay IS in inventory at line 41
+
+---
+
+## Tools & Token Optimization
+
+### MCP Toggle Script
+
+`scripts/toggle-mcp.ps1` manages which MCP servers are loaded. Each active MCP consumes context tokens — disable unused ones to maximize token budget.
+
+```powershell
+# View current MCP status
+.\scripts\toggle-mcp.ps1 -Status
+
+# Apply named profiles:
+.\scripts\toggle-mcp.ps1 -Profile formula   # chemistry/formula work (pubchem+memory+seq on, rest off)
+.\scripts\toggle-mcp.ps1 -Profile dev       # full development (all on)
+.\scripts\toggle-mcp.ps1 -Profile minimal   # maximum token efficiency (all off)
+
+# Toggle specific MCPs:
+.\scripts\toggle-mcp.ps1 -Enable github,playwright
+.\scripts\toggle-mcp.ps1 -Disable playwright
+```
+
+**Restart OpenCode after toggling** for changes to take effect.
+
+### MCP Server Profiles
+
+| Profile | github | playwright | seq_think | pubchem | memory | Best for |
+|---------|--------|------------|-----------|---------|--------|----------|
+| `formula` | OFF | OFF | ON | ON | ON | Formula gating, material analysis, chemistry work |
+| `dev` | ON | ON | ON | ON | ON | Full development, PRs, code changes |
+| `minimal` | OFF | OFF | OFF | OFF | OFF | Max token efficiency, simple queries |
+| `full` | ON | ON | ON | ON | ON | Same as dev |
+
+### Token Optimization Strategy
+
+**MCP servers consume context tokens just by being loaded.** Each active MCP adds its tool definitions to the system prompt. For maximum token efficiency:
+
+1. **Formula/chemistry sessions**: Use `formula` profile. You rarely need GitHub or Playwright when gating formulas or analyzing OAV data.
+2. **Code development sessions**: Use `dev` profile (or toggle on needed MCPs individually).
+3. **Quick lookups**: Use `minimal` profile if the built-in tools (grep, glob, read) suffice.
+
+**High-impact toggles**: `playwright` and `github` are the heaviest token consumers. Disable them first when not needed.
+
+### Available Tools Overview
+
+| Tool | Type | Use when |
+|------|------|----------|
+| `grep` | Built-in | Content search in codebase |
+| `glob` | Built-in | File pattern matching |
+| `rg` (ripgrep) | Shell | Fast regex search (already installed: 15.1.0) |
+| `sg` (ast-grep) | Shell/skill | AST-aware structural search (0.43.0) |
+| `basedpyright` | LSP | Python type checking (1.39.8, configured as default) |
+| `ruff` | Formatter | Python formatting |
+| `gh` | Shell | GitHub CLI operations (2.95.0) |
+| `npx` | Shell | Node package runner (11.16.0) |
+| `docker compose` | Shell | Container management |
+
+### MCP Servers Reference
+
+| MCP | Package | Purpose | Token cost |
+|-----|---------|---------|------------|
+| `github` | `@modelcontextprotocol/server-github` | Code search, PRs, issues, repo ops | High |
+| `playwright` | `@playwright/mcp` | Browser automation, web testing | High |
+| `sequential_thinking` | `@modelcontextprotocol/server-sequential-thinking` | Multi-step reasoning | Medium |
+| `pubchem` | `@cyanheads/pubchem-mcp-server` | Chemical compound data (MW, logP, VP, ODT) | Medium |
+| `memory` | `@modelcontextprotocol/server-memory` | Persistent knowledge graph | Low-Medium |
+
+### LSP
+
+The workspace uses **basedpyright** (1.39.8) for Python type checking, configured in `opencode.json`. It replaces the deprecated `pyright`. Both `.py` and `.pyi` files are covered.
+
+---
+
+## Agent Failure Registry (Session 2026-07-06 - Cassis Iris Smoke)
+
+Every systemic failure from this session. Read before formulating. Learn or repeat.
+
+### F1. OAKMOSS COMPOSITE OAV - 300x UNDERESTIMATE
+- Symptom: Perfumer smelled dominant oakmoss. Pipeline said OAV 0.03.
+- Root cause: Composite decomposition had 5 constituents at 23% weight. Missing: atranorin degradation on skin (time-dependent, not equilibrium), methyl beta-orcinol carboxylate (primary olfactory monoaryl), orcinol phenolics (highest VP oakmoss constituents at 0.15-0.50 Pa).
+- Fix: Expanded to 10 constituents at 46% weight. Added degradation pathway. Composite OAV 0.03 to 0.28 (10x) but still below threshold - equilibrium models cannot capture reaction kinetics.
+- Learning: Natural absolute OAV models are PERCEPTUALLY FLOORS. Trust the nose over the model. Applicable to all naturals with degradation pathways (labdanum, tonka, vanilla, patchouli).
+
+### F2. HEDIONE CROWDING - 18% = ONE-NOTE
+- Symptom: All character voices buried under Hedione radiance.
+- Root cause: Hedione at 18% of concentrate. Below 12% it is a carrier. Above 15% it IS the perfume.
+- Fix: Cannot reduce in mixed bottle. Only counter: brute-force character material dosing above Hedione OAV.
+- Learning: CHECK HEDIONE DOSE BEFORE MIXING. Max 12% for chypre. Max 15% for floral.
+
+### F3. SILENT PASSENGERS - MATERIALS BELOW OAV 1
+- Symptom: 20/44 materials below OAV 1 despite character/signature labeling.
+- Root cause: VP below 0.05 Pa + low dose = headspace vacuum. VP wall is absolute.
+- Fix: Cut them or reclassify as structural. Jasmine, Indole, Cade cut. Cade replaced with IBQ (VP 1 Pa).
+- Learning: VP below 0.05 Pa = skin-only. Do not label as character/signature.
+
+### F4. PIPELINE PARSER BUG - SECTION HEADERS AS MATERIALS
+- Symptom: Accord headers parsed as material entries, inflating concentrate total.
+- Root cause: Number + uL + % triggers row parser regardless of prefix.
+- Fix: Use flat single-table format. Remove section headers for first gate.
+- Learning: Check exact_subtotal in JSON. If parsed > expected, headers are being read as materials.
+
+### F5. GUAIACOL IFRA VIOLATION
+- Symptom: Boosted to 180 uL of 10% (0.3% active), 3x IFRA Cat4 limit.
+- Root cause: Chasing headspace OAV without checking IFRA. VP 0.053 Pa will never project strongly regardless of dose.
+- Fix: Revert to 60 uL (0.1%). Use IBQ and Birch Tar for headspace smoke.
+- Learning: Materials with VP below 0.1 Pa hit IFRA limits before meaningful headspace OAV. Use higher-VP analogs.
+
+### F6. IONONE RECEPTOR SATURATION
+- Symptom: Alpha Irone dose increases give diminishing perceptual returns.
+- Root cause: OR5AN1 has finite binding sites. Stevens exponent n=0.3-0.4 compounds the effect.
+- Fix: Cap at 200 uL of 30%. Diversify with receptor-orthogonal materials (Heliotropal, Orivone, Osmanthus).
+- Learning: Ionone receptor ceiling is real. Mono-dosing is wasteful.
+
+### F7. SUBAGENT MODEL FORMAT FAILURE
+- Symptom: All task() calls fail with model format errors.
+- Root cause: oh-my-openagent.json uses bare names (deepseek-chat) but system expects provider/model format.
+- Fix: Edit config, restart session. Workaround: direct execution.
+- Learning: Check subagent availability first. If broken, proceed directly.
+
+### F8. DILUTION MISMATCH
+- Symptom: Formula labels mismatch inventory dilutions.
+- Root cause: Formula text includes non-dilution text. Inventory has duplicate entries at different dilutions.
+- Fix: Run evaluate_formula.py or /validate before gating.
+- Learning: Three minutes of preflight saves three hours of debugging.
+
+### F9. PIPELINE BRIEF MISMATCH
+- Symptom: generic brief expects generic floral pyramid. Chypre flagged as FAIL.
+- Root cause: No chypre fruity/modern brief. Available archetype targets Mitsouko, not modern pineapple-iris.
+- Fix: Gate with generic, ignore perfume_knowledge FAIL, evaluate pyramid manually.
+- Learning: Brief system needs expansion for modern chypre/fruity territory.
+
+### F10. OAKMOSS FIX IS TEMPLATE FOR ALL NATURALS
+- Learning: Before gating, check if natural has composite decomposition in natural_absolute_decomposition.py. If absent, OAV is significantly underestimated.
+
+### F11. NATURAL LUXURY KITCHEN-SINK FAILURE — L'HOMME RESERVE (2026-07-07)
+- Symptom: 28-material L'Homme Reserve smelled "muddy/chaotic" — unrecognizable as L'Homme EDT. User wasted 225µL Alpha Irone 30% (expensive iris butter).
+- Root cause: Mixed EOs/aromachemicals from incompatible chemical families and flower species. Blue Chamomile (azulene/matricine) clashed with Rose (citronellol/geraniol/phenylethyl alcohol). Osmanthus (lactone/β-ionone) clashed with Clove (eugenol/phenylpropanoid). Geranium (citronellol/geraniol/menthone) clashed with Violet Leaf (nonadienal/undecatriene). These are chemically incompatible — they don't belong in the same bottle.
+- Fix: Cut 7 materials. v3 = 21 materials: kept only chemically compatible families (Ginger zingiberene + Bergamot limonene/linalool + Rose citronellol/geraniol + Clove eugenol + Iris irones + Violet Leaf + woody-amber synthetics).
+- Learning: **Do NOT mix EOs from chemically incompatible families.** If the structural forms of aromachemicals isolated from one flower species don't match or belong to the same chemical family as another flower species, do NOT combine them. Chemical family compatibility matters more than "natural luxury" intent. The "kitchen sink" approach fails because it ignores chemical taxonomy.
+- AGENT RULE: Before combining any two complex naturals (EOs/absolutes), verify they share at least one chemical family (e.g., both contain phenylpropanoids, or both are terpenoid-dominant, or both are benzenoid). If they're chemically unrelated at the constituent level, they will clash — cut one. Always recommend 10mL test batch before full formula.

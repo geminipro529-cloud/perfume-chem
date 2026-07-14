@@ -1,4 +1,11 @@
-"""Validation engine: Chemistry rules cannot break perfumery, perfumery cannot break chemistry."""
+"""Validation engine: Chemistry rules cannot break perfumery, perfumery cannot break chemistry.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+"""
 
 import json
 from pathlib import Path
@@ -90,14 +97,14 @@ def get_chemical_classes(material: str) -> set[str]:
     return classes
 
 def get_intensity_tier(odt: float) -> str:
-    """Determine intensity tier based on ODT"""
-    if odt < 0.00001:
+    """Determine intensity tier based on ODT in ppm (ethanol phase)."""
+    if odt < 0.1:
         return "ultra_potent"
-    elif odt < 0.0001:
+    elif odt < 1.0:
         return "extremely_potent"
-    elif odt < 0.01:
+    elif odt < 100.0:
         return "high_impact"
-    elif odt < 0.1:
+    elif odt < 1000.0:
         return "moderate"
     else:
         return "low"
@@ -653,18 +660,21 @@ def classify_base_type(formula: Dict[str, float]) -> str:
         return "moderate"  # Fallback
 
 def get_odt(material_name: str) -> Optional[float]:
-    """Get ODT for a material (% in solution)."""
-    name_lower = material_name.lower()
-    
-    # Direct match
-    if name_lower in ODT_DATABASE:
-        return ODT_DATABASE[name_lower]
-    
-    # Fuzzy match for common variations
-    for key in ODT_DATABASE:
-        if key in name_lower or name_lower in key:
-            return ODT_DATABASE[key]
-    
+    """Get ODT (ppm in ethanol) from authoritative ODT_DATA.
+
+    Returns odt_eth (ppm ethanol-phase) for dosage validation.
+    Previously used stale %-based ODT_DATABASE — now reads from
+    engine.odor_thresholds.ODT_DATA (corrected 2026-05-19).
+    """
+    from engine.name_utils import normalize_name
+    from engine.odor_thresholds import ODT_DATA
+    key = normalize_name(material_name)
+    # Exact normalized match
+    for odt_name, data in ODT_DATA.items():
+        if normalize_name(odt_name) == key and isinstance(data, dict):
+            val = data.get("odt_eth")
+            if val is not None:
+                return float(val)
     return None
 
 def validate_dosage(
@@ -749,7 +759,12 @@ def validate_dosage(
     
     # Step 5: Calculate Odor Value and apply tier-based thresholds
     if odt:
-        odor_value = final_conc_pct / odt
+        # odt is now in ppm (ethanol phase from ODT_DATA). Convert to %
+        # to maintain dimensional consistency with final_conc_pct.
+        odt_pct = odt / 10000.0
+        odor_value = final_conc_pct / odt_pct if odt_pct > 0 else None
+        if odor_value is None:
+            odor_value = 0.0
         
         # Determine intensity tier
         tier = get_intensity_tier(odt)
@@ -759,11 +774,11 @@ def validate_dosage(
             thresholds = OV_THRESHOLDS["ultra_potent"]
             if odor_value > thresholds["error"]:
                 errors.append(
-                    f"❌ ULTRA-POTENT OVERDOSE: OV = {odor_value:.0f} (ODT {odt}%) - MUST pre-dilute to 1:1000, add {(dose_ml * 1000):.1f} mL of dilution"
+                    f"❌ ULTRA-POTENT OVERDOSE: OV = {odor_value:.0f} (ODT {odt} ppm) - MUST pre-dilute to 1:1000"
                 )
                 safe = False
             elif odor_value > thresholds["warn"]:
-                warnings.append(f"⚠️ ULTRA-POTENT: OV = {odor_value:.0f} - approaching limit (max OV {thresholds['safe']})")
+                warnings.append(f"⚠️ ULTRA-POTENT: OV = {odor_value:.0f} - approaching limit")
                 
         elif tier == "extremely_potent":
             # Different thresholds for animalics vs. others

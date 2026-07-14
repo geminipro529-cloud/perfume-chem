@@ -18,7 +18,7 @@ INVENTORY_PATH = PROJECT_ROOT / "inventory.txt"
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
-_PERCENT_RE = re.compile(r"\((\d+(?:\.\d+)?)\s*%(?:\s*(?:in\s+)?(?:DPG|TEC|IPM|DEP))?\)")
+_PERCENT_RE = re.compile(r"\((\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
 
 _SOLVENT_CATEGORY_TOKENS = ("solvent", "carrier")
 _SOLVENT_MATERIALS = {
@@ -67,6 +67,8 @@ def _strip_status(raw_name: str) -> str:
 
 def _canonical_name(raw_name: str) -> str:
     clean = _strip_status(raw_name)
+    # Remove trailing `# comment` before stripping parenthetical
+    clean = re.sub(r"\s*#.*$", "", clean).strip()
     return re.sub(r"\s*\([^)]*\)\s*$", "", clean).strip()
 
 

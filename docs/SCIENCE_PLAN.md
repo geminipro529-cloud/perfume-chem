@@ -1,3 +1,6 @@
+> **⚠️ RULE: Optimize for the name, not just the numbers.**  
+> This simulator's optimizers are tools, not oracles. The optimization target is always the **name / concept / original brief** of the perfume, not a numerical score. Numerical gates are floors to meet, not ceilings to chase.
+
 # SCIENCE_PLAN — perfume-chem physical simulator
 
 This document is the contract between the `perfume-chem` simulator and any

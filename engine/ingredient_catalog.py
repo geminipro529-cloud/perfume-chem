@@ -48,6 +48,7 @@ _ALIASES: dict[str, list[str]] = {
     "alpha ionone": ["alpha ionone", "alpha-ionone", "ionone alpha"],
     "allyl ionone": ["allyl ionone", "allyl ionone ketone v", "allyl ionone cetone v", "ketone v", "cetone v"],
     "ambrox super": ["ambrox super", "ambroxide"],
+    "ambrox super 33% dep/etoh": ["ambrox super 33% dep/etoh", "ambrox super 20", "ambrox super dep", "ambrox super 33"],
     "beta ionone": ["beta ionone", "beta-ionone", "ionone beta"],
     "cedramber": ["cedramber", "cedamber"],
     "hedione": ["hedione", "methyl dihydrojasmonate"],
@@ -430,6 +431,19 @@ def _build_material_properties_index() -> dict[str, dict[str, Any]]:
                 if identity is not None:
                     for extra in (identity.profile_name, identity.chemistry_name, identity.identity_key, *identity.aliases):
                         index.setdefault(_identity_key(extra), item)
+    for material in _load_data_spine_materials():
+        item = {
+            "name": material.canonical_name,
+            "alt_name": None,
+            "cas": material.cas,
+            "mw": material.mw_g_mol,
+            "vp": material.vp_25c_pa,
+            "clp": material.logp,
+            "odt": material.odt_air_ppb,
+            "stock_form": material.user_stock_dilution,
+        }
+        for name in (material.canonical_name, *(material.aliases or [])):
+            index.setdefault(_identity_key(name), item)
     return index
 
 
@@ -452,6 +466,17 @@ def _build_pairing_index() -> dict[str, dict[str, list[str]]]:
         value["synergy"] = _dedupe_keep_order(value["synergy"])
         value["conflict"] = _dedupe_keep_order(value["conflict"])
     return dict(index)
+
+
+def _load_data_spine_materials() -> list[Any]:
+    try:
+        from engine.data_spine.loader import load_registry
+    except Exception:
+        return []
+    try:
+        return list(load_registry().all())
+    except Exception:
+        return []
 
 
 def _load_expensive_material_substitutes() -> dict[str, dict[str, Any]]:
@@ -480,7 +505,7 @@ def _choose_display_name(entry: dict[str, Any]) -> str:
     def clean(name: str) -> str:
         stripped = re.sub(r"\s*\([^)]*\)\s*$", "", name).strip()
         return stripped or name
-    for source in ("inventory", "history", "shopping"):
+    for source in ("inventory", "history", "shopping", "spine"):
         names = entry["source_names"].get(source) or []
         if names:
             return clean(names[0])
@@ -553,7 +578,12 @@ def _category_context(category: str) -> dict[str, Any]:
     return _CATEGORY_CONTEXTS.get(category.lower(), _CATEGORY_CONTEXTS["unknown"])
 
 
-def _properties_from_sources(display_name: str, aliases: list[str], prop_record: dict[str, Any] | None) -> dict[str, Any]:
+def _properties_from_sources(
+    display_name: str,
+    aliases: list[str],
+    prop_record: dict[str, Any] | None,
+    spine_material: Any | None = None,
+) -> dict[str, Any]:
     ground_truth = _ground_truth_identity(display_name, *aliases)
     profile = None
     for candidate in [display_name, *aliases]:
@@ -592,6 +622,13 @@ def _properties_from_sources(display_name: str, aliases: list[str], prop_record:
         properties["typical_pct_range"] = prop_record.get("typical_pct_range")
         properties["stock_form"] = prop_record.get("stock_form")
         properties["handle_as"] = prop_record.get("handle_as")
+    if spine_material is not None:
+        properties["cas"] = properties["cas"] or getattr(spine_material, "cas", None)
+        properties["mw"] = properties["mw"] or getattr(spine_material, "mw_g_mol", None)
+        properties["vp"] = properties["vp"] or getattr(spine_material, "vp_25c_pa", None)
+        properties["clogp"] = properties["clogp"] or getattr(spine_material, "logp", None)
+        properties["odt"] = properties["odt"] or getattr(spine_material, "odt_air_ppb", None)
+        properties["stock_form"] = properties["stock_form"] or getattr(spine_material, "user_stock_dilution", None)
     if profile is not None:
         properties["mw"] = properties["mw"] or profile.mw
         properties["vp"] = properties["vp"] or profile.vp
@@ -720,6 +757,7 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
     properties_index = _build_material_properties_index()
     pairing_index = _build_pairing_index()
     inventory = _inventory_records()
+    spine_materials = _load_data_spine_materials()
     entries: dict[str, dict[str, Any]] = {}
 
     def ensure(key: str) -> dict[str, Any]:
@@ -730,7 +768,7 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                 "aliases": [],
                 "category": "",
                 "status_flags": set(),
-                "source_names": {"inventory": [], "history": [], "shopping": []},
+                "source_names": {"inventory": [], "history": [], "shopping": [], "spine": []},
                 "observed_forms": [],
                 "historical_forms": [],
                 "notes": [],
@@ -774,6 +812,25 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
         entry["buy_list_priority"].extend(record["priority"])
         entry["source_files"].add("shopping_list.md")
 
+    spine_index: dict[str, Any] = {}
+    for material in spine_materials:
+        key = _identity_key(getattr(material, "canonical_name", ""))
+        if not key:
+            continue
+        spine_index[key] = material
+        entry = ensure(key)
+        entry["source_names"]["spine"].append(material.canonical_name)
+        entry["aliases"].extend([material.canonical_name, *(material.aliases or [])])
+        if material.user_stock_dilution:
+            entry["observed_forms"].append(material.user_stock_dilution)
+        if material.character:
+            entry["notes"].append(material.character)
+        if material.notes:
+            entry["notes"].append(material.notes)
+        if material.ifra_max_pct_edp is not None:
+            entry["ifra_status"].append(f"IFRA fine fragrance max {material.ifra_max_pct_edp}%")
+        entry["source_files"].add("data/materials")
+
     catalog: list[dict[str, Any]] = []
     for key, entry in entries.items():
         aliases = _dedupe_keep_order(entry["aliases"])
@@ -796,9 +853,15 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                 prop_record = properties_index.get(_identity_key(alias))
                 if prop_record is not None:
                     break
+        spine_material = spine_index.get(key)
+        if spine_material is None:
+            for alias in aliases:
+                spine_material = spine_index.get(_identity_key(alias))
+                if spine_material is not None:
+                    break
         if not _prop_record_matches_ground_truth(prop_record, ground_truth):
             prop_record = None
-        properties = _properties_from_sources(display_name, aliases, prop_record)
+        properties = _properties_from_sources(display_name, aliases, prop_record, spine_material)
         best_with = _best_with(prop_record, display_name)
         avoid = _avoid_list(prop_record, display_name)
         pairings = deepcopy(pairing_index.get(key, {"synergy": [], "conflict": []}))
@@ -882,9 +945,15 @@ def load_ingredient_catalog(path: Path | None = None, *, refresh: bool = False) 
     global _CATALOG_CACHE, _CATALOG_CACHE_PATH
     target = path or DEFAULT_OUTPUT_PATH
     if refresh or not target.exists():
-        write_ingredient_catalog(target)
-        # Invalidate cache on refresh/rebuild
-        _CATALOG_CACHE = None
+        try:
+            write_ingredient_catalog(target)
+            # Invalidate cache on refresh/rebuild
+            _CATALOG_CACHE = None
+        except PermissionError:
+            result = build_ingredient_catalog()
+            _CATALOG_CACHE = result
+            _CATALOG_CACHE_PATH = target
+            return result
     if _CATALOG_CACHE is not None and _CATALOG_CACHE_PATH == target:
         return _CATALOG_CACHE
     payload = _load_json(target) or {}

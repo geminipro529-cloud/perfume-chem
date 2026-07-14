@@ -47,7 +47,7 @@ Pipette directly into the bottle. Wipe or swap pipette between each material.
 |------:|---------|----------|-------:|------|
 | 12 | Hedione | neat | 540 µL | radiance amplifier, jasmine transparency |
 | 13 | Lavender EO High Altitude | neat | 360 µL | the aromatic-fougere soul — French angustifolia, premium |
-| 14 | Geraniol | neat | 130 µL | geranium-leaf brightness, green-rose luminosity |
+| 14 | Geraniol | 10% in DPG | 130 µL | geranium-leaf brightness, green-rose luminosity |
 | 15 | Hedione HC | neat | 60 µL | high-cis radiance boost (~8× standard Hedione) |
 | 16 | Coumarin | 20% | 56 µL | fougere structure — tonka whisper below perceptibility (11.2 µL active) |
 
@@ -101,7 +101,7 @@ Citrus top softens after 2–3 weeks; the lavender-geranium heart blooms fully a
 | | Scentenal | 1% | 15 |
 | **Heart** | Hedione | neat | 540 |
 | | Lavender EO High Altitude | neat | 360 |
-| | Geraniol | neat | 130 |
+| | Geraniol | 10% in DPG | 130 |
 | | Hedione HC | neat | 60 |
 | | Coumarin | 20% | 56 |
 | **Base** | Iso E Super | neat | 900 |

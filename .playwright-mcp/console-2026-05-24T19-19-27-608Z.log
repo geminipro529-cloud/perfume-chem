@@ -1,0 +1,318 @@
+[    1343ms] [WARNING] [Meta Pixel] - Duplicate Pixel ID: 1281141270057469. @ https://connect.facebook.net/en_US/fbevents.js:181
+[    1434ms] [LOG] route.path: /category/fragrance @ https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:75
+[    1434ms] [LOG] For Preprod Deployment - 21 may 2026 @ https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:75
+[    1522ms] [ERROR] Hydration completed but contains mismatches. @ https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:12
+[    1733ms] TypeError: Cannot read properties of undefined (reading 'split')
+    at <anonymous>:1:212
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[    1735ms] TypeError: Cannot read properties of undefined (reading 'utm_source')
+    at <anonymous>:1:120
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[    1749ms] [ERROR] Failed to load resource: the server responded with a status of 422 () @ https://capig.datah04.com/events/9035cdfe6f4676eb1d340e721cd46c4a0a5f81b21e950e285a4977fb7c2adb88:0
+[    1750ms] TypeError: Cannot read properties of null (reading 'removeEventListener')
+    at <anonymous>:1:256
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[    1817ms] Uncaught TypeError: Cannot read properties of null (reading 'salt')
+    at decrypt (https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js:0:30025)
+    at decrypt (https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js:0:26873)
+    at <anonymous> (:0:22)
+    at <anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:428)
+    at <anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:131)
+[    2138ms] [ERROR] Failed to load resource: the server responded with a status of 422 () @ https://capig.datah04.com/events/9035cdfe6f4676eb1d340e721cd46c4a0a5f81b21e950e285a4977fb7c2adb88:0
+[    5374ms] [LOG] ProductsList changed: {oldLength: 0, newLength: 12, isLazyLoad: true, trackedCount: 0} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5374ms] [LOG] Product 1: {name: Signature EDP Mini, id: 3614229147261, price: 2200.00, revenue: 1199.00, brand: CHLOE} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5374ms] [LOG] Product 2: {name: Libre EDP, id: 3614272648401, price: 3950.00, revenue: 3555.00, brand: YVES SAINT LAURENT} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5374ms] [LOG] Product 3: {name: Si Passione EDP, id: 3614271994721, price: 4000.00, revenue: 3200.00, brand: GIORGIO ARMANI} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 4: {name: Y Men EDP, id: 3614272050341, price: 4500.00, revenue: 4050.00, brand: YVES SAINT LAURENT} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 5: {name: Scrub, id: 9950001122359, price: 198.00, revenue: 99.00, brand: SUGAR GLUTA} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 6: {name: Her EDP, id: 3614227693241, price: 3660.00, revenue: 2699.00, brand: BURBERRY} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 7: {name: Signature EDP, id: 3607346232347, price: 5250.00, revenue: 3675.00, brand: CHLOE} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 8: {name: Signature EDP, id: 3607346232385, price: 6600.00, revenue: 4620.00, brand: CHLOE} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 9: {name: Signature EDP, id: 3614220808840, price: 8400.00, revenue: 5880.00, brand: CHLOE} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 10: {name: Her EDP, id: 3614227693876, price: 7110.00, revenue: 5688.00, brand: BURBERRY} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 11: {name: CK Be EDT, id: 088300104680, price: 2150.00, revenue: 1399.00, brand: CALVIN KLEIN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Product 12: {name: Vitamin Enriched Face Base, id: 716170254401, price: 1100.00, revenue: 990.00, brand: BOBBI BROWN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5375ms] [LOG] Sending analytics for NEW products only: {newProducts: 12, totalProducts: 12, totalTracked: 12} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5376ms] [LOG] GTM Event Data: {event: view_item_list, category: GA4 Event, name: view_item_list, label: view_item_list, ecommerce: Object} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5393ms] [LOG] 📘 Facebook Pixel Event Data: {event: ViewItemList, data: Object, itemsCount: 12, totalValue: 37054} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5393ms] [WARNING] [Meta Pixel] - You are sending a non-standard event 'ViewItemList'. The preferred way to send these events is using trackCustom. See 'https://developers.facebook.com/docs/ads-for-websites/pixel-events/#events' for more information. @ https://connect.facebook.net/en_US/fbevents.js:181
+[    5402ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5402ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5404ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5404ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5407ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5407ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5409ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5409ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5410ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5411ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5412ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5412ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5413ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5413ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5414ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5414ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5415ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5415ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5416ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5416ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5417ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5417ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5418ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5419ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5420ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5420ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5421ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5421ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5423ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5423ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5424ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5425ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5427ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5427ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5428ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5428ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5429ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5430ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5431ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5431ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5432ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5432ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5433ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5434ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5435ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5435ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5436ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5436ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5440ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5440ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5441ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5441ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5443ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5443ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5444ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5444ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5445ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5446ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5447ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5447ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5448ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5449ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5450ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5450ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5451ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5451ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5451ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5452ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5453ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5453ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5454ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5454ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5455ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5455ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5456ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5456ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5457ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5457ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5458ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5459ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5460ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5460ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5460ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5461ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5461ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5462ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5462ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5462ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5463ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5463ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5464ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5465ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5465ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5466ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5467ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5467ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5692ms] [LOG] ProductsList changed: {oldLength: 24, newLength: 24, isLazyLoad: false, trackedCount: 12} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 1: {name: CK One EDT, id: 088300107681, price: 2150.00, revenue: 1399.00, brand: CALVIN KLEIN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 2: {name: Vitamin Enriched Face Base, id: 716170027456, price: 3000.00, revenue: 2700.00, brand: BOBBI BROWN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 3: {name: Madagascar Centella Ampoule, id: 8809576260601, price: 790.00, revenue: 790.00, brand: SKIN1004} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 4: {name: Explorer EDP, id: 3386460101035, price: 5200.00, revenue: 3900.00, brand: MONTBLANC} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 5: {name: Her EDP, id: 3614227693920, price: 5070.00, revenue: 4056.00, brand: BURBERRY} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 6: {name: My Burberry Black Edp, id: 3614229828986, price: 3590.00, revenue: 2872.00, brand: BURBERRY} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 7: {name: Jenner 2.0 Eau de Parfum, id: 4064941156826, price: 1900.00, revenue: 1330.00, brand: KYLIE} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 8: {name: Calendula Herbal Extract Alcohol-Free Toner, id: 3700194711702, price: 1890.00, revenue: 1701.00, brand: KIEHL'S} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 9: {name: Advanced Night Repair Synchronized Multi-Recovery Complex, id: 887167485471, price: 3650.00, revenue: 3285.00, brand: ESTEE LAUDER} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 10: {name: Eclat D'Arpege EDP Spray, id: 3386461515671, price: 5400.00, revenue: 4050.00, brand: LANVIN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 11: {name: Advanced Night Repair Synchronized Multi-Recovery Complex, id: 887167485488, price: 5100.00, revenue: 4590.00, brand: ESTEE LAUDER} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5693ms] [LOG] Product 12: {name: CK One EDT, id: 088300107407, price: 3180.00, revenue: 2385.00, brand: CALVIN KLEIN} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5694ms] [LOG] Sending analytics for NEW products only: {newProducts: 12, totalProducts: 24, totalTracked: 24} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5694ms] [LOG] GTM Event Data: {event: view_item_list, category: GA4 Event, name: view_item_list, label: view_item_list, ecommerce: Object} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5708ms] [LOG] 📘 Facebook Pixel Event Data: {event: ViewItemList, data: Object, itemsCount: 12, totalValue: 33058} @ https://www.eveandboy.com/_nuxt/_categoryName_.BP_cewod.js:0
+[    5714ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5714ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5715ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5715ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5716ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5716ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5718ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5718ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5720ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5720ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5721ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5722ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5724ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5724ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5726ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5726ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5727ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5728ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5728ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5729ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5732ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5732ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5733ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5734ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5736ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5736ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5738ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5738ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5740ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5740ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5742ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5742ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5744ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5745ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5745ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5746ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5747ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5747ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5749ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5750ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5751ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5752ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5752ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5753ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5755ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5755ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5756ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5756ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5759ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5759ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5760ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5760ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5761ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5761ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5762ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5763ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5764ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5764ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5765ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5765ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5767ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5767ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5768ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5768ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5769ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5769ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5770ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5770ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5771ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5772ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5773ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5773ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5774ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5775ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5776ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5777ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5778ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5779ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5781ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5781ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5782ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5782ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5784ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5784ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5787ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5787ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5788ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5788ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5790ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5790ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5791ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5791ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5792ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5792ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5793ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    5793ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6553ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6553ms] [LOG] Test 3614229147261 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6554ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6554ms] [LOG] Test 3614272648425 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6555ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6555ms] [LOG] Test 3614271994844 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6556ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6556ms] [LOG] Test 3614272050358 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6557ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6557ms] [LOG] Test 9950001122359 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6558ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6558ms] [LOG] Test 3614227693241 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6558ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6558ms] [LOG] Test 3607346232347 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6559ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6559ms] [LOG] Test 3607346232385 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6560ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6560ms] [LOG] Test 3614220808840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6561ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6561ms] [LOG] Test 3614227693876 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6562ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6562ms] [LOG] Test 088300104680 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6563ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6563ms] [LOG] Test 716170254401 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6564ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6564ms] [LOG] Test 088300107681 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6565ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6565ms] [LOG] Test 716170027456 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6566ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6566ms] [LOG] Test 8809576260601 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6567ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6567ms] [LOG] Test 3386460101035 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6568ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6568ms] [LOG] Test 3614227693920 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6569ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6569ms] [LOG] Test 3614229829006 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6570ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6570ms] [LOG] Test 4064941156840 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6571ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6571ms] [LOG] Test 3700194700324 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6572ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6572ms] [LOG] Test 887167485471 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6573ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6573ms] [LOG] Test 3386461515671 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6574ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6574ms] [LOG] Test 887167485488 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6575ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0
+[    6575ms] [LOG] Test 088300107407 @ https://www.eveandboy.com/_nuxt/product-card.DNd5Gcjr.js:0

@@ -1,0 +1,225 @@
+========================================================================================================================
+COLLECTION FORMULA SCORING REPORT
+========================================================================================================================
+Input: formulas\collections\Thai_True_Mass_Market_Eighteen_2026-05-02.md
+Additions: formulas\collections\Thai_True_Mass_Market_Eighteen_Differentiation_Additions_2026-05-02.md
+
+Parsed formulas: 18 baseline, 18 augmented
+
+AUGMENTED DELTA SUMMARY
+------------------------------------------------------------------------------------------------------------------------
+ #  Name                       Family     Geo Base  Geo Aug    dGeo   dLong   dSill    dLux    dTex   dDepth
+ 1  CHERRY MELT — Sweet Fruity Floral         50.1     50.4     0.3     0.2    -0.3     0.2     0.0      0.0
+ 2  BABY POWDER VEIL — Powdery Floral         49.6     50.6     1.0    -0.4     0.6     0.9     0.0      0.0
+ 3  MALI COLOGNE — White Flora Floral         53.8     54.1     0.3    -0.3     1.3    -1.6     0.0      0.0
+ 4  MANGO NIAO — Vanilla-Cocon Oriental       49.2     49.5     0.3    -1.4     2.0    -0.8     0.0      0.0
+ 5  THAI OUD — Oud-Amber Mid-M Oriental       60.3     61.5     1.2    -1.5     7.4     1.0     0.0      0.0
+ 6  EXPLORER LITE — Soft Skin  Oriental       48.4     49.1     0.7     0.1     1.1    -1.5     0.0      0.0
+ 7  SANDALWOOD VANILLA — Sanda Woody          49.0     48.7    -0.3     0.1    -2.6    -3.1     0.0      0.0
+ 8  KING OF NIGHT — Aromatic W Woody          59.5     60.1     0.6     0.1     5.8    -2.4     0.0      0.0
+ 9  SILK CASHMERE — Soft Cashm Woody          46.6     46.8     0.2     0.0     0.0    -1.4     0.0      0.0
+10  CAFÉ COCO — Fruity Chypre  Chypre         58.7     59.2     0.5    -0.7     0.5    -1.3     0.0      0.0
+11  ROSE NOIR — Rose-Blackcurr Chypre         59.3     59.7     0.4    -0.7     0.4    -0.1     0.0      0.0
+12  RUGBY — Aromatic Patchouli Chypre         61.0     61.1     0.1    -1.1     0.6    -1.2     0.0      0.0
+13  ICE BLUE — Aquatic Fougère Fougère        51.7     51.7     0.0    -0.5    -0.6    -2.7     0.0      0.0
+14  ROYAL TONKA — Sweet Fougèr Fougère        58.0     61.7     3.7    -0.9     3.6    -0.7     0.0     13.2
+15  LAVENDER MILK — Soft Laven Fougère        51.4     52.1     0.7    -0.8     4.9    -0.7     0.0      0.0
+16  OCEAN BLUE — Aquatic (Acqu Fresh          55.3     55.6     0.3    -1.3     1.7    -2.1     0.0      0.0
+17  SUNDAY COLOGNE — Citrus Co Fresh          50.4     51.2     0.8     2.8     0.0     2.9     0.0      0.0
+18  AQUATIC HORIZON — Marine / Fresh          55.1     55.2     0.1    -0.1    -1.1    -2.9     0.0      0.0
+
+BASELINE CATEGORY SCORES
+------------------------------------------------------------------------------------------------------------------------
+#10 CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women) | Chypre / Fruity Chypre (Coco Mad Dupe) | Geo 58.7; long=79.2 sill=99.2 luxu=58.7 text=36.0 stac=19.2 syne=74.2
+    Weak axes: stacking_depth 19.2, texture 36.0, skin_performance 52.1
+    Inventory not found: Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 violations: Evernyl 0.4333%>0.1%
+
+#11 ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women) | Chypre / Rose-Blackcurrant Chypre (Sì Dupe) | Geo 59.3; long=74.2 sill=105.8 luxu=58.8 text=36.0 stac=19.2 syne=76.4
+    Weak axes: stacking_depth 19.2, texture 36.0, luxury 58.8
+    Inventory not found: Benzoin Resinoid, Blackcurrant FTEC, Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 violations: Alpha Damascone 0.0267%>0.02%; Evernyl 0.3333%>0.1%
+
+#12 RUGBY — Aromatic Patchouli Men's Chypre (Masculine) | Chypre / Aromatic Patchouli Men's Chypre | Geo 61.0; long=76.0 sill=118.9 luxu=60.2 text=36.0 stac=19.2 syne=90.6
+    Weak axes: stacking_depth 19.2, texture 36.0, skin_performance 55.1
+    Inventory not found: Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 violations: Evernyl 0.2667%>0.1%
+
+#01 CHERRY MELT — Sweet Fruity-Floral Body Mist (Women) | Floral / Sweet Fruity-Floral Body Mist | Geo 50.1; long=87.3 sill=101.5 luxu=50.4 text=36.0 stac= 0.0 syne=51.2
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 50.4
+    Hard fail axes: ['stacking_depth']
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+    IFRA Cat 4 near-limit warnings: Alpha Damascone 83.3% of limit
+
+#02 BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women) | Floral / Powdery Floral (น้ำหอมแป้ง) | Geo 49.6; long=83.2 sill=95.5 luxu=49.6 text=36.0 stac= 0.0 syne=49.7
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 49.6
+    Hard fail axes: ['stacking_depth']
+    Inventory not found: Heliotropin Fleuressence
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#03 MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning) | Floral / White Floral Cologne | Geo 53.8; long=75.7 sill=106.6 luxu=50.0 text=36.0 stac=13.2 syne=45.6
+    Weak axes: stacking_depth 13.2, texture 36.0, synergy 45.6
+    Dilution mismatches: Galaxolide: formula 80.0%, inventory 50.0%
+    IFRA Cat 4 near-limit warnings: Methyl Anthranilate 100.0% of limit
+
+#13 ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine) | Fougère / Aquatic Fougère (Cool Water Dupe) | Geo 51.7; long=75.5 sill=118.6 luxu=54.5 text=36.0 stac= 0.0 syne=84.1
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 54.5
+    Hard fail axes: ['stacking_depth']
+    Dilution mismatches: Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 violations: Evernyl 0.1667%>0.1%
+
+#14 ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine) | Fougère / Sweet Fougère (Le Male / PHI Dupe) | Geo 58.0; long=81.0 sill=98.9 luxu=49.2 text=36.0 stac=19.2 syne=77.7
+    Weak axes: stacking_depth 19.2, texture 36.0, luxury 49.2
+    Inventory not found: Benzoin Resinoid, Heliotropin Fleuressence, Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 violations: Evernyl 0.1667%>0.1%
+    IFRA Cat 4 near-limit warnings: Methyl Anthranilate 100.0% of limit
+
+#15 LAVENDER MILK — Soft Lavender-Vanilla for Women | Fougère / Soft Lavender-Vanilla for Women | Geo 51.4; long=75.5 sill=111.6 luxu=63.1 text=36.0 stac= 0.0 syne=72.0
+    Weak axes: stacking_depth 0.0, texture 36.0, skin_performance 52.9
+    Hard fail axes: ['stacking_depth']
+    Inventory not found: Heliotropin Fleuressence
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#16 OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine) | Fresh / Aquatic (Acqua di Giò Dupe) | Geo 55.3; long=83.4 sill=114.7 luxu=52.1 text=36.0 stac= 9.6 syne=72.8
+    Weak axes: stacking_depth 9.6, texture 36.0, luxury 52.1
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#17 SUNDAY COLOGNE — Citrus Cologne (Masculine) | Fresh / Citrus Cologne | Geo 50.4; long=62.2 sill=120.0 luxu=52.0 text=36.0 stac= 0.0 syne=72.9
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 52.0
+    Hard fail axes: ['stacking_depth']
+    Dilution mismatches: Galaxolide: formula 80.0%, inventory 50.0%
+
+#18 AQUATIC HORIZON — Marine / Ozonic (Masculine) | Fresh / Marine / Ozonic | Geo 55.1; long=82.7 sill=114.0 luxu=52.7 text=36.0 stac= 9.6 syne=69.1
+    Weak axes: stacking_depth 9.6, texture 36.0, luxury 52.7
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#04 MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women) | Oriental / Vanilla-Coconut Gourmand Body Mist | Geo 49.2; long=84.2 sill=92.6 luxu=51.2 text=36.0 stac= 0.0 syne=49.9
+    Weak axes: stacking_depth 0.0, texture 36.0, synergy 49.9
+    Hard fail axes: ['stacking_depth']
+    Dilution mismatches: Allyl Amyl Glycolate: formula 100.0%, inventory 10.0%; Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+    IFRA Cat 4 near-limit warnings: Methyl Anthranilate 83.3% of limit
+
+#05 THAI OUD — Oud-Amber Mid-Mass (Masculine) | Oriental / Oud-Amber (Mid-Mass) | Geo 60.3; long=87.1 sill=85.6 luxu=46.8 text=36.0 stac=32.4 syne=64.9
+    Weak axes: stacking_depth 32.4, texture 36.0, luxury 46.8
+    Inventory not found: Benzoin Resinoid, Oud Fleuressence, Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%; Olibanum Resinoid: formula 100.0%, inventory 10.0%
+    IFRA Cat 4 near-limit warnings: Alpha Damascone 83.3% of limit
+
+#06 EXPLORER LITE — Soft Skin Amber for Men (Masculine) | Oriental / Soft Skin Amber for Men | Geo 48.4; long=86.6 sill=91.9 luxu=41.1 text=36.0 stac= 0.0 syne=75.1
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 41.1
+    Hard fail axes: ['stacking_depth']
+    Inventory not found: Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#07 SANDALWOOD VANILLA — Sandalwood-Gourmand for Women | Woody / Sandalwood-Gourmand for Women | Geo 49.0; long=85.6 sill=82.2 luxu=49.4 text=36.0 stac= 0.0 syne=52.7
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 49.4
+    Hard fail axes: ['stacking_depth']
+    Inventory not found: Bacdanol, Benzoin Resinoid, Heliotropin Fleuressence, Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#08 KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine) | Woody / Aromatic Woody (Sauvage Dupe) | Geo 59.5; long=87.3 sill=111.0 luxu=46.1 text=36.0 stac=22.8 syne=77.2
+    Weak axes: stacking_depth 22.8, texture 36.0, luxury 46.1
+    Inventory not found: Pink Pepper Base
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#09 SILK CASHMERE — Soft Cashmere Skin-Musk for Women | Woody / Soft Cashmere Skin-Musk for Women | Geo 46.6; long=86.6 sill=86.9 luxu=38.0 text=36.0 stac= 0.0 syne=54.4
+    Weak axes: stacking_depth 0.0, texture 36.0, luxury 38.0
+    Hard fail axes: ['stacking_depth']
+    Inventory not found: Heliotropin Fleuressence
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+AUGMENTED DETAIL
+------------------------------------------------------------------------------------------------------------------------
+#01 CHERRY MELT — Sweet Fruity-Floral Body Mist (Women) | Geo 50.4; long=87.5 sill=101.2 luxu=50.6 text=36.0 stac= 0.0 syne=59.0
+    Added: Ambrofix 60uL, Norlimbanol Dextro 5uL, Paradisamide 40uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 50.6
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#02 BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women) | Geo 50.6; long=82.8 sill=96.1 luxu=50.5 text=36.0 stac= 0.0 syne=58.8
+    Added: Ultralia 15uL, Ambrofix 60uL, Hexyl Salicylate 60uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 50.5
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#03 MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning) | Geo 54.1; long=75.4 sill=107.9 luxu=48.4 text=36.0 stac=13.2 syne=51.5
+    Added: Ambrox Super 60uL, Nympheal 40uL, DBCA 30uL
+    Weak axes after additions: stacking_depth 13.2, texture 36.0, luxury 48.4
+    Dilution mismatches: Galaxolide: formula 80.0%, inventory 50.0%
+
+#04 MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women) | Geo 49.5; long=82.8 sill=94.6 luxu=50.4 text=36.0 stac= 0.0 syne=52.6
+    Added: Ethyl Linalool 60uL, Paradisamide 60uL, Methyl Nonyl Ketone 8uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 50.4
+    Dilution mismatches: Allyl Amyl Glycolate: formula 100.0%, inventory 10.0%; Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#05 THAI OUD — Oud-Amber Mid-Mass (Masculine) | Geo 61.5; long=85.6 sill=93.0 luxu=47.8 text=36.0 stac=32.4 syne=67.7
+    Added: Ethyl Linalool 60uL, Hexyl Salicylate 60uL, Nagarmortha Oil 35uL
+    Weak axes after additions: stacking_depth 32.4, texture 36.0, luxury 47.8
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%; Olibanum Resinoid: formula 100.0%, inventory 10.0%
+
+#06 EXPLORER LITE — Soft Skin Amber for Men (Masculine) | Geo 49.1; long=86.7 sill=93.0 luxu=39.6 text=36.0 stac= 0.0 syne=81.6
+    Added: Ethyl Linalool 60uL, Hexyl Salicylate 60uL, Cedramber 50uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 39.6
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#07 SANDALWOOD VANILLA — Sandalwood-Gourmand for Women | Geo 48.7; long=85.7 sill=79.6 luxu=46.3 text=36.0 stac= 0.0 syne=59.4
+    Added: Ambrofix 60uL, Ebanol 60uL, Polysantol 35uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 46.3
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#08 KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine) | Geo 60.1; long=87.4 sill=116.8 luxu=43.7 text=36.0 stac=22.8 syne=76.7
+    Added: Hexyl Salicylate 60uL, Macrolide 80uL, Beta-Pinene 30uL
+    Weak axes after additions: stacking_depth 22.8, texture 36.0, luxury 43.7
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#09 SILK CASHMERE — Soft Cashmere Skin-Musk for Women | Geo 46.8; long=86.6 sill=86.9 luxu=36.6 text=36.0 stac= 0.0 syne=58.8
+    Added: Ultralia 15uL, Macrolide 80uL, Suederal 40uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 36.6
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#10 CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women) | Geo 59.2; long=78.5 sill=99.7 luxu=57.4 text=36.0 stac=19.2 syne=78.1
+    Added: Hexyl Salicylate 60uL, Ethyl Linalool 60uL, Damascone Beta 25uL
+    Weak axes after additions: stacking_depth 19.2, texture 36.0, luxury 57.4
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#11 ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women) | Geo 59.7; long=73.5 sill=106.2 luxu=58.7 text=36.0 stac=19.2 syne=78.9
+    Added: Hexyl Salicylate 60uL, Ethyl Linalool 60uL, Damascol 35uL
+    Weak axes after additions: stacking_depth 19.2, texture 36.0, luxury 58.7
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#12 RUGBY — Aromatic Patchouli Men's Chypre (Masculine) | Geo 61.1; long=74.9 sill=119.5 luxu=59.0 text=36.0 stac=19.2 syne=96.0
+    Added: Hexyl Salicylate 60uL, Ethyl Linalool 60uL, Rosemary EO 30uL
+    Weak axes after additions: stacking_depth 19.2, texture 36.0, luxury 59.0
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#13 ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine) | Geo 51.7; long=75.0 sill=118.0 luxu=51.8 text=36.0 stac= 0.0 syne=90.6
+    Added: Macrolide 80uL, Ethyl Linalool 60uL, Scentenal 20uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 51.8
+    Dilution mismatches: Galaxolide: formula 100.0%, inventory 50.0%
+
+#14 ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine) | Geo 61.7; long=80.1 sill=102.5 luxu=48.5 text=36.0 stac=32.4 syne=80.1
+    Added: Hexyl Salicylate 60uL, Heliotropal 20uL, Cardamom EO 20uL
+    Weak axes after additions: stacking_depth 32.4, texture 36.0, luxury 48.5
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Ethyl Vanillin: formula 100.0%, inventory 10.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#15 LAVENDER MILK — Soft Lavender-Vanilla for Women | Geo 52.1; long=74.7 sill=116.5 luxu=62.4 text=36.0 stac= 0.0 syne=82.9
+    Added: Ethyl Linalool 60uL, Ambrox Super 60uL, Heliotropal 20uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, skin_performance 55.4
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#16 OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine) | Geo 55.6; long=82.1 sill=116.4 luxu=50.0 text=36.0 stac= 9.6 syne=76.0
+    Added: Ethyl Linalool 60uL, Hexyl Salicylate 60uL, Scentenal 20uL
+    Weak axes after additions: stacking_depth 9.6, texture 36.0, luxury 50.0
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%
+
+#17 SUNDAY COLOGNE — Citrus Cologne (Masculine) | Geo 51.2; long=65.0 sill=120.0 luxu=54.9 text=36.0 stac= 0.0 syne=81.8
+    Added: Zenolide 60uL, Cashmeran 50uL, Ethyl Linalool 50uL
+    Weak axes after additions: stacking_depth 0.0, texture 36.0, luxury 54.9
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 80.0%, inventory 50.0%
+
+#18 AQUATIC HORIZON — Marine / Ozonic (Masculine) | Geo 55.2; long=82.6 sill=112.9 luxu=49.8 text=36.0 stac= 9.6 syne=69.4
+    Added: Hexyl Salicylate 60uL, Ambrofix 60uL, Scentenal 20uL
+    Weak axes after additions: stacking_depth 9.6, texture 36.0, luxury 49.8
+    Dilution mismatches: Cashmeran: formula 100.0%, inventory 20.0%; Galaxolide: formula 100.0%, inventory 50.0%

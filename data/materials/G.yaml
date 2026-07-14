@@ -116,7 +116,7 @@
   logp: 4.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
+  vp_25c_pa: 0.0727
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0001
@@ -378,12 +378,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -506,7 +506,7 @@
   logp: 3.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.8
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -518,7 +518,7 @@
   trp_targets: null
   hedonic_valence: 0.83
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4DD01639
@@ -663,7 +663,7 @@
   logp: 3.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.002
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -675,7 +675,7 @@
   trp_targets: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -877,12 +877,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 182.3
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -940,7 +940,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3RL00204
@@ -1671,18 +1671,58 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Geranium EO
+  aliases:
+  - geranium eo
+  - geranium flower eo
+  - pelargonium graveolens flower oil
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 157.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 1.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.003
+  hsp: null
+  odt_air_ppb: 0.3
+  odt_eth_ppm: 1.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: 0.7
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral
+  - green
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: estimated
+    vp_25c_pa: estimated
+    logp: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    user_in_inventory: inventory.txt
 - canonical_name: Grapefruit FCF
   aliases:
   - grapefruit fcf
-  cas: null
+  cas: 8016-20-4
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
   density_25c_g_ml: null
-  logp: null
+  logp: 4.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 170.0
+  vp_25c_pa: 1.8
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.045
@@ -1699,7 +1739,7 @@
     nasal_pungency: null
   hedonic_valence: 0.73
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -2195,7 +2235,7 @@
   logp: 1.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 10.0
+  vp_25c_pa: 0.053
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -2316,3 +2356,91 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: galbanum eo
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.0
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 15.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 0.1
+  odt_eth_ppm: 0.01
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: null
+    other: {}
+  families:
+  - green
+  - natural
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: geraniol (10% in dpg)
+  aliases:
+  - Geraniol 10%
+  - Geraniol (10%)
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 154.3
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 4.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 2.0
+  odt_eth_ppm: 0.02
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 10.0
+  user_in_inventory: true
+
+- canonical_name: Ginger EO
+  aliases:
+  - ginger eo
+  - ginger essential oil
+  cas: 8007-08-7
+  mw_g_mol: 136.0
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 10.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.5
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

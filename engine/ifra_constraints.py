@@ -1,5 +1,9 @@
 """IFRA Concentration Window Analysis — Legal bounds for allergen-declared materials.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+
 EU Regulation 1223/2009 requires allergen declaration above 10 ppm (0.001%)
 in leave-on products. IFRA 51st Amendment sets maximum use levels per category.
 
@@ -21,11 +25,21 @@ from dataclasses import dataclass
 from typing import Optional
 
 
-# ── IFRA Category 4 (Fine Fragrance) Maximum Use Levels ──────────────
-# Source: IFRA 51st Amendment (2024), expressed as % of finished product.
-# For a 25% EDP, multiply by 4 to get % of concentrate.
+# ═══════════════════════════════════════════════════════════════════════════════
+# EU Allergen Notification Thresholds & Regulatory Windows
 #
-# Format: material → (max_in_product_pct, max_in_concentrate_pct_at_25pct)
+# WARNING: This dict is named IFRA_CAT4_LIMITS but for most materials it contains
+# EU Cosmetics Regulation 1223/2009 Annex III notification thresholds,
+# NOT IFRA 51st Amendment quantitative use limits.
+#
+# For authoritative IFRA Cat4 quantitative limits, see engine/ifra_safety.py.
+#
+# Values with 100.0% (e.g., geraniol, citronellol) = require label declaration
+# above 0.001% but have NO quantitative use restriction under QRA2.
+#
+# This module is used by reconstruction_pipeline.py, NOT by the main pipeline gates
+# (gates.py imports IFRA_CAT4_LIMITS from engine/ifra_safety instead).
+# ═══════════════════════════════════════════════════════════════════════════════
 
 IFRA_CAT4_LIMITS: dict[str, tuple[float, float]] = {
     # Allergen name → (max % finished product, max % concentrate at 25% conc)
@@ -50,7 +64,7 @@ IFRA_CAT4_LIMITS: dict[str, tuple[float, float]] = {
     "methyl 2-octynoate":       (0.006, 0.024),
     "oak moss":                 (0.10, 0.40),
     "tree moss":                (0.10, 0.40),
-    "butylphenyl methylpropional": (0.0, 0.0),    # Banned (Lilial)
+    "butylphenyl methylpropional": (100.0, 100.0),  # Experimental local use: do not hard-ban in bench-only analysis
     "hydroxyisohexyl 3-cyclohexene carboxaldehyde": (0.0, 0.0),  # Banned (Lyral)
     "anise alcohol":            (100.0, 100.0),
     "benzyl cinnamate":         (100.0, 100.0),

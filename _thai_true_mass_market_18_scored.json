@@ -1,0 +1,4088 @@
+[
+  {
+    "index": 1,
+    "title": "CHERRY MELT — Sweet Fruity-Floral Body Mist (Women)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Sweet Fruity-Floral Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 6 % (body mist)",
+    "reference": "Mistine Sweet Pink, Cathy Doll body mist",
+    "total_ul": 1800.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 87.3,
+      "sillage": 101.5,
+      "luxury": 50.4,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 63.2,
+      "hedonic": 86.6,
+      "perceptual_clarity": 85.9,
+      "photorealism": 79.1,
+      "synergy": 51.2,
+      "arithmetic_total": 62.9,
+      "geometric_total": 50.1,
+      "total": 50.1
+    },
+    "geometric_total": 50.1,
+    "arithmetic_total": 62.9,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20833.333333333332,
+          "target_oav": 20833.333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.6,
+      "ifra_score": 99.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0167,
+          "limit_pct": 0.02,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU fragrance allergen(s) require label declaration: Vanillin",
+        "ℹ Near IFRA limits: Alpha Damascone (83.3%)"
+      ]
+    }
+  },
+  {
+    "index": 1,
+    "title": "CHERRY MELT — Sweet Fruity-Floral Body Mist (Women)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "Sweet Fruity-Floral Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 6 % (body mist)",
+    "reference": "Mistine Sweet Pink, Cathy Doll body mist",
+    "total_ul": 1905.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 87.5,
+      "sillage": 101.2,
+      "luxury": 50.6,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 66.6,
+      "hedonic": 86.5,
+      "perceptual_clarity": 77.4,
+      "photorealism": 79.1,
+      "synergy": 59.0,
+      "arithmetic_total": 63.1,
+      "geometric_total": 50.4,
+      "total": 50.4
+    },
+    "geometric_total": 50.4,
+    "arithmetic_total": 63.1,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20833.333333333332,
+          "target_oav": 20833.333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.6,
+      "ifra_score": 99.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0167,
+          "limit_pct": 0.02,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU fragrance allergen(s) require label declaration: Vanillin",
+        "ℹ Near IFRA limits: Alpha Damascone (83.3%)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + texture"
+      },
+      {
+        "material": "Norlimbanol Dextro",
+        "dilution": 1.0,
+        "ul": 5.0,
+        "axis": "Performance + longevity"
+      },
+      {
+        "material": "Paradisamide",
+        "dilution": 0.1,
+        "ul": 40.0,
+        "axis": "Performance + differentiation"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.2,
+      "sillage": -0.3,
+      "synergy": 7.8,
+      "luxury": 0.2,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 3.4,
+      "hedonic": -0.1,
+      "perceptual_clarity": -8.5,
+      "photorealism": 0.0,
+      "arithmetic_total": 0.2,
+      "geometric_total": 0.3
+    }
+  },
+  {
+    "index": 2,
+    "title": "BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "Powdery Floral (น้ำหอมแป้ง)",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "Mistine Baby Powder, Cathy Doll Magic Hour Powder",
+    "total_ul": 2130.0,
+    "n_materials": 19,
+    "scores": {
+      "longevity": 83.2,
+      "sillage": 95.5,
+      "luxury": 49.6,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 70.0,
+      "hedonic": 86.1,
+      "perceptual_clarity": 83.5,
+      "photorealism": 78.7,
+      "synergy": 49.7,
+      "arithmetic_total": 61.9,
+      "geometric_total": 49.6,
+      "total": 49.6
+    },
+    "geometric_total": 49.6,
+    "arithmetic_total": 61.9,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Heliotropal: formula uses 10.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4.545454545454545,
+          "target_oav": 4.545454545454545
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 97.3,
+      "ifra_score": 100.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Vanillin"
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "title": "BABY POWDER VEIL — Powdery Floral / น้ำหอมแป้ง (Women)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "Powdery Floral (น้ำหอมแป้ง)",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "Mistine Baby Powder, Cathy Doll Magic Hour Powder",
+    "total_ul": 2265.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 82.8,
+      "sillage": 96.1,
+      "luxury": 50.5,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 75.1,
+      "hedonic": 85.8,
+      "perceptual_clarity": 83.2,
+      "photorealism": 77.9,
+      "synergy": 58.8,
+      "arithmetic_total": 63.1,
+      "geometric_total": 50.6,
+      "total": 50.6
+    },
+    "geometric_total": 50.6,
+    "arithmetic_total": 63.1,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Heliotropal: formula uses 10.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 33.333333333333336,
+          "target_oav": 33.333333333333336
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4.545454545454545,
+          "target_oav": 4.545454545454545
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.4,
+      "ifra_score": 100.0,
+      "allergen_score": 88.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Hexyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Hexyl Salicylate, Vanillin"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ultralia",
+        "dilution": 1.0,
+        "ul": 15.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + fixation"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.4,
+      "sillage": 0.6,
+      "synergy": 9.1,
+      "luxury": 0.9,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 5.1,
+      "hedonic": -0.3,
+      "perceptual_clarity": -0.3,
+      "photorealism": -0.8,
+      "arithmetic_total": 1.2,
+      "geometric_total": 1.0
+    }
+  },
+  {
+    "index": 3,
+    "title": "MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning)",
+    "variant": "baseline",
+    "family": "Floral",
+    "sub_family": "White Floral Cologne",
+    "gender": "U/W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "BSC White Cotton, Eveandboy Jasmine",
+    "total_ul": 2103.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 75.7,
+      "sillage": 106.6,
+      "luxury": 50.0,
+      "texture": 36.0,
+      "stacking_depth": 13.2,
+      "skin_performance": 54.1,
+      "hedonic": 86.7,
+      "perceptual_clarity": 83.7,
+      "photorealism": 78.1,
+      "synergy": 45.6,
+      "arithmetic_total": 62.0,
+      "geometric_total": 53.8,
+      "total": 53.8
+    },
+    "geometric_total": 53.8,
+    "arithmetic_total": 62.0,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Indole",
+          "severity": "info",
+          "message": "Indole: scaled dose 2.67 µL of 10.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 533.3333333333334,
+          "target_oav": 533.3333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.8,
+      "ifra_score": 99.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.1,
+          "limit_pct": 0.1,
+          "usage_pct": 100.0
+        }
+      ],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Hexyl Salicylate",
+        "Linalyl Acetate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Benzyl Salicylate, Hexyl Salicylate, Linalyl Acetate",
+        "ℹ Near IFRA limits: Methyl Anthranilate (100.0%)"
+      ]
+    }
+  },
+  {
+    "index": 3,
+    "title": "MALI COLOGNE — White Floral Cologne (Unisex / Women-Leaning)",
+    "variant": "augmented",
+    "family": "Floral",
+    "sub_family": "White Floral Cologne",
+    "gender": "U/W",
+    "format_strength": "30 mL EDT @ 7 %",
+    "reference": "BSC White Cotton, Eveandboy Jasmine",
+    "total_ul": 2233.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 75.4,
+      "sillage": 107.9,
+      "luxury": 48.4,
+      "texture": 36.0,
+      "stacking_depth": 13.2,
+      "skin_performance": 53.3,
+      "hedonic": 86.7,
+      "perceptual_clarity": 83.5,
+      "photorealism": 78.5,
+      "synergy": 51.5,
+      "arithmetic_total": 62.3,
+      "geometric_total": 54.1,
+      "total": 54.1
+    },
+    "geometric_total": 54.1,
+    "arithmetic_total": 62.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "DBCA"
+      ],
+      "dilution_mismatches": [
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Indole",
+          "severity": "info",
+          "message": "Indole: scaled dose 2.67 µL of 10.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 533.3333333333334,
+          "target_oav": 533.3333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.8,
+      "ifra_score": 99.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.1,
+          "limit_pct": 0.1,
+          "usage_pct": 100.0
+        }
+      ],
+      "allergen_declarations": [
+        "Benzyl Salicylate",
+        "Hexyl Salicylate",
+        "Linalyl Acetate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Benzyl Salicylate, Hexyl Salicylate, Linalyl Acetate",
+        "ℹ Near IFRA limits: Methyl Anthranilate (100.0%)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrox Super",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Nympheal",
+        "dilution": 1.0,
+        "ul": 40.0,
+        "axis": "Texture + performance"
+      },
+      {
+        "material": "DBCA",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Depth + photorealism"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.3,
+      "sillage": 1.3,
+      "synergy": 5.9,
+      "luxury": -1.6,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": -0.8,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.2,
+      "photorealism": 0.4,
+      "arithmetic_total": 0.3,
+      "geometric_total": 0.3
+    }
+  },
+  {
+    "index": 4,
+    "title": "MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Vanilla-Coconut Gourmand Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "BSC Coconut Vanilla, Mistine Sweet Vanilla",
+    "total_ul": 2385.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 84.2,
+      "sillage": 92.6,
+      "luxury": 51.2,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 66.4,
+      "hedonic": 88.5,
+      "perceptual_clarity": 81.7,
+      "photorealism": 75.5,
+      "synergy": 49.9,
+      "arithmetic_total": 61.2,
+      "geometric_total": 49.2,
+      "total": 49.2
+    },
+    "geometric_total": 49.2,
+    "arithmetic_total": 61.2,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Allyl Amyl Glycolate: formula 100.0%, inventory 10.0%",
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 16666.666666666668,
+          "target_oav": 16666.666666666668
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.8,
+      "ifra_score": 99.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.0833,
+          "limit_pct": 0.1,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Coumarin, Ethyl Vanillin, Vanillin",
+        "ℹ Near IFRA limits: Methyl Anthranilate (83.3%)"
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "title": "MANGO NIAO — Vanilla-Coconut Gourmand Body Mist (Women)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Vanilla-Coconut Gourmand Body Mist",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "BSC Coconut Vanilla, Mistine Sweet Vanilla",
+    "total_ul": 2513.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 82.8,
+      "sillage": 94.6,
+      "luxury": 50.4,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 67.7,
+      "hedonic": 88.2,
+      "perceptual_clarity": 81.5,
+      "photorealism": 76.2,
+      "synergy": 52.6,
+      "arithmetic_total": 61.6,
+      "geometric_total": 49.5,
+      "total": 49.5
+    },
+    "geometric_total": 49.5,
+    "arithmetic_total": 61.6,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Allyl Amyl Glycolate: formula 100.0%, inventory 10.0%",
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        },
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 16666.666666666668,
+          "target_oav": 16666.666666666668
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.8,
+      "ifra_score": 99.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.0833,
+          "limit_pct": 0.1,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Coumarin, Ethyl Vanillin, Vanillin",
+        "ℹ Near IFRA limits: Methyl Anthranilate (83.3%)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance + polish"
+      },
+      {
+        "material": "Paradisamide",
+        "dilution": 0.1,
+        "ul": 60.0,
+        "axis": "Longevity + differentiation"
+      },
+      {
+        "material": "Methyl Nonyl Ketone",
+        "dilution": 1.0,
+        "ul": 8.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.4,
+      "sillage": 2.0,
+      "synergy": 2.7,
+      "luxury": -0.8,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 1.3,
+      "hedonic": -0.3,
+      "perceptual_clarity": -0.2,
+      "photorealism": 0.7,
+      "arithmetic_total": 0.4,
+      "geometric_total": 0.3
+    }
+  },
+  {
+    "index": 5,
+    "title": "THAI OUD — Oud-Amber Mid-Mass (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Oud-Amber (Mid-Mass)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Karmart Oud, BSC Oud Royal, Vasu Oud Lite",
+    "total_ul": 3605.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 87.1,
+      "sillage": 85.6,
+      "luxury": 46.8,
+      "texture": 36.0,
+      "stacking_depth": 32.4,
+      "skin_performance": 67.4,
+      "hedonic": 81.9,
+      "perceptual_clarity": 72.2,
+      "photorealism": 75.6,
+      "synergy": 64.9,
+      "arithmetic_total": 63.9,
+      "geometric_total": 60.3,
+      "total": 60.3
+    },
+    "geometric_total": 60.3,
+    "arithmetic_total": 63.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Oud Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%",
+        "Olibanum Resinoid: formula 100.0%, inventory 10.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 44.0,
+      "ifra_score": 0.0,
+      "allergen_score": 88.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0167,
+          "limit_pct": 0.02,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Cinnamaldehyde",
+        "Eugenol",
+        "Geraniol",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        },
+        {
+          "material": "Cinnamaldehyde",
+          "potency": "moderate",
+          "ec3": 1.4,
+          "pct_in_product": 0.0333,
+          "fraction_into_skin": 0.71617,
+          "effective_exposure_index": 0.023872
+        },
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [
+        "Birch Tar Rectified"
+      ],
+      "diagnostics": [
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Cinnamaldehyde, Eugenol, Geraniol, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol, Cinnamaldehyde, Eugenol",
+        "ℹ Near IFRA limits: Alpha Damascone (83.3%)",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667), Eugenol (0.0609), Cinnamaldehyde (0.0239)"
+      ]
+    }
+  },
+  {
+    "index": 5,
+    "title": "THAI OUD — Oud-Amber Mid-Mass (Masculine)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Oud-Amber (Mid-Mass)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Karmart Oud, BSC Oud Royal, Vasu Oud Lite",
+    "total_ul": 3760.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 85.6,
+      "sillage": 93.0,
+      "luxury": 47.8,
+      "texture": 36.0,
+      "stacking_depth": 32.4,
+      "skin_performance": 72.7,
+      "hedonic": 81.9,
+      "perceptual_clarity": 71.6,
+      "photorealism": 75.7,
+      "synergy": 67.7,
+      "arithmetic_total": 65.4,
+      "geometric_total": 61.5,
+      "total": 61.5
+    },
+    "geometric_total": 61.5,
+    "arithmetic_total": 65.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Oud Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%",
+        "Olibanum Resinoid: formula 100.0%, inventory 10.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 43.1,
+      "ifra_score": 0.0,
+      "allergen_score": 85.0,
+      "violations": [],
+      "warnings": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0167,
+          "limit_pct": 0.02,
+          "usage_pct": 83.3
+        }
+      ],
+      "allergen_declarations": [
+        "Cinnamaldehyde",
+        "Eugenol",
+        "Geraniol",
+        "Hexyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        },
+        {
+          "material": "Cinnamaldehyde",
+          "potency": "moderate",
+          "ec3": 1.4,
+          "pct_in_product": 0.0333,
+          "fraction_into_skin": 0.71617,
+          "effective_exposure_index": 0.023872
+        },
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [
+        "Birch Tar Rectified"
+      ],
+      "diagnostics": [
+        "ℹ 5 EU fragrance allergen(s) require label declaration: Cinnamaldehyde, Eugenol, Geraniol, Hexyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol, Cinnamaldehyde, Eugenol",
+        "ℹ Near IFRA limits: Alpha Damascone (83.3%)",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667), Eugenol (0.0609), Cinnamaldehyde (0.0239)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + fixation"
+      },
+      {
+        "material": "Nagarmortha Oil",
+        "dilution": 1.0,
+        "ul": 35.0,
+        "axis": "Depth + category identity"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.5,
+      "sillage": 7.4,
+      "synergy": 2.8,
+      "luxury": 1.0,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 5.3,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.6,
+      "photorealism": 0.1,
+      "arithmetic_total": 1.5,
+      "geometric_total": 1.2
+    }
+  },
+  {
+    "index": 6,
+    "title": "EXPLORER LITE — Soft Skin Amber for Men (Masculine)",
+    "variant": "baseline",
+    "family": "Oriental",
+    "sub_family": "Soft Skin Amber for Men",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Mont Blanc Explorer Ultra Blue / CK One Gold dupes",
+    "total_ul": 2950.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 86.6,
+      "sillage": 91.9,
+      "luxury": 41.1,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 54.5,
+      "hedonic": 85.6,
+      "perceptual_clarity": 81.7,
+      "photorealism": 74.5,
+      "synergy": 75.1,
+      "arithmetic_total": 60.6,
+      "geometric_total": 48.4,
+      "total": 48.4
+    },
+    "geometric_total": 48.4,
+    "arithmetic_total": 60.6,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.5,
+      "ifra_score": 100.0,
+      "allergen_score": 91.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.133333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 3 EU fragrance allergen(s) require label declaration: Coumarin, Geraniol, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1333)"
+      ]
+    }
+  },
+  {
+    "index": 6,
+    "title": "EXPLORER LITE — Soft Skin Amber for Men (Masculine)",
+    "variant": "augmented",
+    "family": "Oriental",
+    "sub_family": "Soft Skin Amber for Men",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Mont Blanc Explorer Ultra Blue / CK One Gold dupes",
+    "total_ul": 3120.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 86.7,
+      "sillage": 93.0,
+      "luxury": 39.6,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 61.2,
+      "hedonic": 85.5,
+      "perceptual_clarity": 81.4,
+      "photorealism": 74.5,
+      "synergy": 81.6,
+      "arithmetic_total": 61.7,
+      "geometric_total": 49.1,
+      "total": 49.1
+    },
+    "geometric_total": 49.1,
+    "arithmetic_total": 61.7,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 95.6,
+      "ifra_score": 100.0,
+      "allergen_score": 88.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol",
+        "Hexyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.133333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Coumarin, Geraniol, Hexyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1333)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Cedramber",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": 1.1,
+      "synergy": 6.5,
+      "luxury": -1.5,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 6.7,
+      "hedonic": -0.1,
+      "perceptual_clarity": -0.3,
+      "photorealism": 0.0,
+      "arithmetic_total": 1.1,
+      "geometric_total": 0.7
+    }
+  },
+  {
+    "index": 7,
+    "title": "SANDALWOOD VANILLA — Sandalwood-Gourmand for Women",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Sandalwood-Gourmand for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "BSC Sandalwood Vanilla, Cathy Doll Sandal Cream",
+    "total_ul": 2715.0,
+    "n_materials": 19,
+    "scores": {
+      "longevity": 85.6,
+      "sillage": 82.2,
+      "luxury": 49.4,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 71.0,
+      "hedonic": 87.9,
+      "perceptual_clarity": 83.6,
+      "photorealism": 74.9,
+      "synergy": 52.7,
+      "arithmetic_total": 60.7,
+      "geometric_total": 49.0,
+      "total": 49.0
+    },
+    "geometric_total": 49.0,
+    "arithmetic_total": 60.7,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Bacdanol",
+        "Benzoin Resinoid",
+        "Heliotropin Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.4,
+      "ifra_score": 100.0,
+      "allergen_score": 88.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Coumarin, Ethyl Vanillin, Vanillin"
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "title": "SANDALWOOD VANILLA — Sandalwood-Gourmand for Women",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Sandalwood-Gourmand for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "BSC Sandalwood Vanilla, Cathy Doll Sandal Cream",
+    "total_ul": 2870.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 85.7,
+      "sillage": 79.6,
+      "luxury": 46.3,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 70.4,
+      "hedonic": 87.8,
+      "perceptual_clarity": 82.3,
+      "photorealism": 74.4,
+      "synergy": 59.4,
+      "arithmetic_total": 60.3,
+      "geometric_total": 48.7,
+      "total": 48.7
+    },
+    "geometric_total": 48.7,
+    "arithmetic_total": 60.3,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Bacdanol",
+        "Benzoin Resinoid",
+        "Heliotropin Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 96.4,
+      "ifra_score": 100.0,
+      "allergen_score": 88.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Coumarin, Ethyl Vanillin, Vanillin"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + performance"
+      },
+      {
+        "material": "Ebanol",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Polysantol",
+        "dilution": 1.0,
+        "ul": 35.0,
+        "axis": "Longevity + diffusion"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": -2.6,
+      "synergy": 6.7,
+      "luxury": -3.1,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": -0.6,
+      "hedonic": -0.1,
+      "perceptual_clarity": -1.3,
+      "photorealism": -0.5,
+      "arithmetic_total": -0.4,
+      "geometric_total": -0.3
+    }
+  },
+  {
+    "index": 8,
+    "title": "KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Aromatic Woody (Sauvage Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 12 %",
+    "reference": "Eveandboy Sauvage / Bleu dupes",
+    "total_ul": 3500.0,
+    "n_materials": 21,
+    "scores": {
+      "longevity": 87.3,
+      "sillage": 111.0,
+      "luxury": 46.1,
+      "texture": 36.0,
+      "stacking_depth": 22.8,
+      "skin_performance": 60.1,
+      "hedonic": 84.1,
+      "perceptual_clarity": 82.0,
+      "photorealism": 65.6,
+      "synergy": 77.2,
+      "arithmetic_total": 65.8,
+      "geometric_total": 59.5,
+      "total": 59.5
+    },
+    "geometric_total": 59.5,
+    "arithmetic_total": 65.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 98.3,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Geraniol"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.133333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU fragrance allergen(s) require label declaration: Geraniol",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1333)"
+      ]
+    }
+  },
+  {
+    "index": 8,
+    "title": "KING OF NIGHT — Aromatic Woody (Sauvage Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Aromatic Woody (Sauvage Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 12 %",
+    "reference": "Eveandboy Sauvage / Bleu dupes",
+    "total_ul": 3670.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 87.4,
+      "sillage": 116.8,
+      "luxury": 43.7,
+      "texture": 36.0,
+      "stacking_depth": 22.8,
+      "skin_performance": 63.6,
+      "hedonic": 84.1,
+      "perceptual_clarity": 81.9,
+      "photorealism": 69.1,
+      "synergy": 76.7,
+      "arithmetic_total": 66.8,
+      "geometric_total": 60.1,
+      "total": 60.1
+    },
+    "geometric_total": 60.1,
+    "arithmetic_total": 66.8,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 97.4,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Geraniol",
+        "Hexyl Salicylate"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.133333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU fragrance allergen(s) require label declaration: Geraniol, Hexyl Salicylate",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1333)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity"
+      },
+      {
+        "material": "Beta-Pinene",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Performance"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.1,
+      "sillage": 5.8,
+      "synergy": -0.5,
+      "luxury": -2.4,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 3.5,
+      "hedonic": 0.0,
+      "perceptual_clarity": -0.1,
+      "photorealism": 3.5,
+      "arithmetic_total": 1.0,
+      "geometric_total": 0.6
+    }
+  },
+  {
+    "index": 9,
+    "title": "SILK CASHMERE — Soft Cashmere Skin-Musk for Women",
+    "variant": "baseline",
+    "family": "Woody",
+    "sub_family": "Soft Cashmere Skin-Musk for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Magic Hour, Watsons soft musk",
+    "total_ul": 2475.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 86.6,
+      "sillage": 86.9,
+      "luxury": 38.0,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 56.9,
+      "hedonic": 85.7,
+      "perceptual_clarity": 83.4,
+      "photorealism": 71.2,
+      "synergy": 54.4,
+      "arithmetic_total": 58.3,
+      "geometric_total": 46.6,
+      "total": 46.6
+    },
+    "geometric_total": 46.6,
+    "arithmetic_total": 58.3,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 3.7878787878787876,
+          "target_oav": 3.7878787878787876
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Vanillin"
+      ]
+    }
+  },
+  {
+    "index": 9,
+    "title": "SILK CASHMERE — Soft Cashmere Skin-Musk for Women",
+    "variant": "augmented",
+    "family": "Woody",
+    "sub_family": "Soft Cashmere Skin-Musk for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Magic Hour, Watsons soft musk",
+    "total_ul": 2610.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 86.6,
+      "sillage": 86.9,
+      "luxury": 36.6,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 58.3,
+      "hedonic": 85.6,
+      "perceptual_clarity": 83.3,
+      "photorealism": 70.8,
+      "synergy": 58.8,
+      "arithmetic_total": 58.5,
+      "geometric_total": 46.8,
+      "total": 46.8
+    },
+    "geometric_total": 46.8,
+    "arithmetic_total": 58.5,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 3.7878787878787876,
+          "target_oav": 3.7878787878787876
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Vanillin"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ultralia",
+        "dilution": 1.0,
+        "ul": 15.0,
+        "axis": "Texture + luxury"
+      },
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Suederal",
+        "dilution": 0.1,
+        "ul": 40.0,
+        "axis": "Depth + texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 0.0,
+      "sillage": 0.0,
+      "synergy": 4.4,
+      "luxury": -1.4,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 1.4,
+      "hedonic": -0.1,
+      "perceptual_clarity": -0.1,
+      "photorealism": -0.4,
+      "arithmetic_total": 0.2,
+      "geometric_total": 0.2
+    }
+  },
+  {
+    "index": 10,
+    "title": "CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Fruity Chypre (Coco Mad Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 14 %",
+    "reference": "Coco Mademoiselle dupe at Eveandboy",
+    "total_ul": 3845.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 79.2,
+      "sillage": 99.2,
+      "luxury": 58.7,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 52.1,
+      "hedonic": 82.3,
+      "perceptual_clarity": 83.0,
+      "photorealism": 80.0,
+      "synergy": 74.2,
+      "arithmetic_total": 64.9,
+      "geometric_total": 58.7,
+      "total": 58.7
+    },
+    "geometric_total": 58.7,
+    "arithmetic_total": 64.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 78.8,
+      "ifra_score": 70.0,
+      "allergen_score": 82.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.4333,
+          "limit_pct": 0.1,
+          "ratio": 4.33,
+          "severity": "critical"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Citronellol",
+        "Coumarin",
+        "Geraniol",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.2667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.266666
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 6 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Citronellol, Coumarin, Geraniol, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2667)"
+      ]
+    }
+  },
+  {
+    "index": 10,
+    "title": "CAFÉ COCO — Fruity Chypre (Coco Mademoiselle Dupe, Women)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Fruity Chypre (Coco Mad Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 14 %",
+    "reference": "Coco Mademoiselle dupe at Eveandboy",
+    "total_ul": 3990.0,
+    "n_materials": 30,
+    "scores": {
+      "longevity": 78.5,
+      "sillage": 99.7,
+      "luxury": 57.4,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 58.3,
+      "hedonic": 82.3,
+      "perceptual_clarity": 81.8,
+      "photorealism": 78.6,
+      "synergy": 78.1,
+      "arithmetic_total": 65.4,
+      "geometric_total": 59.2,
+      "total": 59.2
+    },
+    "geometric_total": 59.2,
+    "arithmetic_total": 65.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 77.9,
+      "ifra_score": 70.0,
+      "allergen_score": 79.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.4333,
+          "limit_pct": 0.1,
+          "ratio": 4.33,
+          "severity": "critical"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate",
+        "Citronellol",
+        "Coumarin",
+        "Geraniol",
+        "Hexyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.2667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.266666
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 7 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Citronellol, Coumarin, Geraniol, Hexyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.2667)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Damascone Beta",
+        "dilution": 0.1,
+        "ul": 25.0,
+        "axis": "Luxury + lift"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.7,
+      "sillage": 0.5,
+      "synergy": 3.9,
+      "luxury": -1.3,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 6.2,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.2,
+      "photorealism": -1.4,
+      "arithmetic_total": 0.5,
+      "geometric_total": 0.5
+    }
+  },
+  {
+    "index": 11,
+    "title": "ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Rose-Blackcurrant Chypre (Sì Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 13 %",
+    "reference": "Armani Sì dupe",
+    "total_ul": 3640.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 74.2,
+      "sillage": 105.8,
+      "luxury": 58.8,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 64.6,
+      "hedonic": 82.8,
+      "perceptual_clarity": 74.3,
+      "photorealism": 76.7,
+      "synergy": 76.4,
+      "arithmetic_total": 65.5,
+      "geometric_total": 59.3,
+      "total": 59.3
+    },
+    "geometric_total": 59.3,
+    "arithmetic_total": 65.5,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Blackcurrant FTEC",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25000.0,
+          "target_oav": 25000.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 77.2,
+      "ifra_score": 65.0,
+      "allergen_score": 85.0,
+      "violations": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0267,
+          "limit_pct": 0.02,
+          "ratio": 1.33,
+          "severity": "minor"
+        },
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.3333,
+          "limit_pct": 0.1,
+          "ratio": 3.33,
+          "severity": "critical"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Citronellol",
+        "Coumarin",
+        "Geraniol",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.3333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.333333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 5 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Citronellol, Coumarin, Geraniol, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.3333)"
+      ]
+    }
+  },
+  {
+    "index": 11,
+    "title": "ROSE NOIR — Rose-Blackcurrant Chypre (Sì Dupe, Women)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Rose-Blackcurrant Chypre (Sì Dupe)",
+    "gender": "W",
+    "format_strength": "30 mL EDP @ 13 %",
+    "reference": "Armani Sì dupe",
+    "total_ul": 3795.0,
+    "n_materials": 31,
+    "scores": {
+      "longevity": 73.5,
+      "sillage": 106.2,
+      "luxury": 58.7,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 70.8,
+      "hedonic": 82.8,
+      "perceptual_clarity": 72.3,
+      "photorealism": 75.5,
+      "synergy": 78.9,
+      "arithmetic_total": 65.9,
+      "geometric_total": 59.7,
+      "total": 59.7
+    },
+    "geometric_total": 59.7,
+    "arithmetic_total": 65.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Blackcurrant FTEC",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Damascenone",
+          "severity": "info",
+          "message": "Damascenone: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25000.0,
+          "target_oav": 25000.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 76.3,
+      "ifra_score": 65.0,
+      "allergen_score": 82.0,
+      "violations": [
+        {
+          "material": "Alpha Damascone",
+          "actual_pct": 0.0267,
+          "limit_pct": 0.02,
+          "ratio": 1.33,
+          "severity": "minor"
+        },
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.3333,
+          "limit_pct": 0.1,
+          "ratio": 3.33,
+          "severity": "critical"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Citronellol",
+        "Coumarin",
+        "Geraniol",
+        "Hexyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.3333,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.333333
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 6 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Citronellol, Coumarin, Geraniol, Hexyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.3333)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Damascol",
+        "dilution": 0.1,
+        "ul": 35.0,
+        "axis": "Luxury + depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.7,
+      "sillage": 0.4,
+      "synergy": 2.5,
+      "luxury": -0.1,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 6.2,
+      "hedonic": 0.0,
+      "perceptual_clarity": -2.0,
+      "photorealism": -1.2,
+      "arithmetic_total": 0.4,
+      "geometric_total": 0.4
+    }
+  },
+  {
+    "index": 12,
+    "title": "RUGBY — Aromatic Patchouli Men's Chypre (Masculine)",
+    "variant": "baseline",
+    "family": "Chypre",
+    "sub_family": "Aromatic Patchouli Men's Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 11 %",
+    "reference": "Le Male / Polo Black mass-tier dupe",
+    "total_ul": 3255.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 76.0,
+      "sillage": 118.9,
+      "luxury": 60.2,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 55.1,
+      "hedonic": 82.2,
+      "perceptual_clarity": 82.7,
+      "photorealism": 80.3,
+      "synergy": 90.6,
+      "arithmetic_total": 68.4,
+      "geometric_total": 61.0,
+      "total": 61.0
+    },
+    "geometric_total": 61.0,
+    "arithmetic_total": 68.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 84.6,
+      "ifra_score": 85.0,
+      "allergen_score": 79.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.2667,
+          "limit_pct": 0.1,
+          "ratio": 2.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Eugenol",
+        "Geraniol",
+        "Linalool",
+        "Linalyl Acetate",
+        "Methyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        },
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 7 EU fragrance allergen(s) require label declaration: Coumarin, Eugenol, Geraniol, Linalool, Linalyl Acetate, Methyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol, Eugenol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667), Eugenol (0.0609)"
+      ]
+    }
+  },
+  {
+    "index": 12,
+    "title": "RUGBY — Aromatic Patchouli Men's Chypre (Masculine)",
+    "variant": "augmented",
+    "family": "Chypre",
+    "sub_family": "Aromatic Patchouli Men's Chypre",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 11 %",
+    "reference": "Le Male / Polo Black mass-tier dupe",
+    "total_ul": 3405.0,
+    "n_materials": 27,
+    "scores": {
+      "longevity": 74.9,
+      "sillage": 119.5,
+      "luxury": 59.0,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 63.0,
+      "hedonic": 82.2,
+      "perceptual_clarity": 73.0,
+      "photorealism": 78.5,
+      "synergy": 96.0,
+      "arithmetic_total": 68.4,
+      "geometric_total": 61.1,
+      "total": 61.1
+    },
+    "geometric_total": 61.1,
+    "arithmetic_total": 68.4,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Cardamom FTEC: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 83.7,
+      "ifra_score": 85.0,
+      "allergen_score": 76.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.2667,
+          "limit_pct": 0.1,
+          "ratio": 2.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Eugenol",
+        "Geraniol",
+        "Hexyl Salicylate",
+        "Linalool",
+        "Linalyl Acetate",
+        "Methyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        },
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 8 EU fragrance allergen(s) require label declaration: Coumarin, Eugenol, Geraniol, Hexyl Salicylate, Linalool, Linalyl Acetate, Methyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol, Eugenol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667), Eugenol (0.0609)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Rosemary EO",
+        "dilution": 1.0,
+        "ul": 30.0,
+        "axis": "Aromatic depth"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.1,
+      "sillage": 0.6,
+      "synergy": 5.4,
+      "luxury": -1.2,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 7.9,
+      "hedonic": 0.0,
+      "perceptual_clarity": -9.7,
+      "photorealism": -1.8,
+      "arithmetic_total": 0.0,
+      "geometric_total": 0.1
+    }
+  },
+  {
+    "index": 13,
+    "title": "ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Aquatic Fougère (Cool Water Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Cool Water dupe at Eveandboy",
+    "total_ul": 2880.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 75.5,
+      "sillage": 118.6,
+      "luxury": 54.5,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 58.0,
+      "hedonic": 84.9,
+      "perceptual_clarity": 82.0,
+      "photorealism": 79.1,
+      "synergy": 84.1,
+      "arithmetic_total": 65.3,
+      "geometric_total": 51.7,
+      "total": 51.7
+    },
+    "geometric_total": 51.7,
+    "arithmetic_total": 65.3,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133333.33333333334,
+          "target_oav": 133333.33333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 88.1,
+      "ifra_score": 85.0,
+      "allergen_score": 88.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.1667,
+          "limit_pct": 0.1,
+          "ratio": 1.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol",
+        "Linalool",
+        "Linalyl Acetate"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Coumarin, Geraniol, Linalool, Linalyl Acetate",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667)"
+      ]
+    }
+  },
+  {
+    "index": 13,
+    "title": "ICE BLUE — Aquatic Fougère (Cool Water Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Aquatic Fougère (Cool Water Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Cool Water dupe at Eveandboy",
+    "total_ul": 3040.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 75.0,
+      "sillage": 118.0,
+      "luxury": 51.8,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 60.5,
+      "hedonic": 84.9,
+      "perceptual_clarity": 80.8,
+      "photorealism": 79.1,
+      "synergy": 90.6,
+      "arithmetic_total": 65.5,
+      "geometric_total": 51.7,
+      "total": 51.7
+    },
+    "geometric_total": 51.7,
+    "arithmetic_total": 65.5,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133333.33333333334,
+          "target_oav": 133333.33333333334
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 88.1,
+      "ifra_score": 85.0,
+      "allergen_score": 88.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.1667,
+          "limit_pct": 0.1,
+          "ratio": 1.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [],
+      "allergen_declarations": [
+        "Coumarin",
+        "Geraniol",
+        "Linalool",
+        "Linalyl Acetate"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.166667
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 4 EU fragrance allergen(s) require label declaration: Coumarin, Geraniol, Linalool, Linalyl Acetate",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1667)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Macrolide",
+        "dilution": 0.1,
+        "ul": 80.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.5,
+      "sillage": -0.6,
+      "synergy": 6.5,
+      "luxury": -2.7,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 2.5,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.2,
+      "photorealism": 0.0,
+      "arithmetic_total": 0.2,
+      "geometric_total": 0.0
+    }
+  },
+  {
+    "index": 14,
+    "title": "ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Sweet Fougère (Le Male / PHI Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Le Male EDT / Pour Homme Intense dupe",
+    "total_ul": 3805.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 81.0,
+      "sillage": 98.9,
+      "luxury": 49.2,
+      "texture": 36.0,
+      "stacking_depth": 19.2,
+      "skin_performance": 57.2,
+      "hedonic": 84.0,
+      "perceptual_clarity": 81.2,
+      "photorealism": 74.8,
+      "synergy": 77.7,
+      "arithmetic_total": 64.2,
+      "geometric_total": 58.0,
+      "total": 58.0
+    },
+    "geometric_total": 58.0,
+    "arithmetic_total": 64.2,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Heliotropin Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 86.7,
+      "ifra_score": 84.0,
+      "allergen_score": 85.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.1667,
+          "limit_pct": 0.1,
+          "ratio": 1.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.1,
+          "limit_pct": 0.1,
+          "usage_pct": 100.0
+        }
+      ],
+      "allergen_declarations": [
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Eugenol",
+        "Methyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 5 EU fragrance allergen(s) require label declaration: Coumarin, Ethyl Vanillin, Eugenol, Methyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Eugenol",
+        "ℹ Near IFRA limits: Methyl Anthranilate (100.0%)",
+        "ℹ Dermal uptake overlay (effective exposure index): Eugenol (0.0609)"
+      ]
+    }
+  },
+  {
+    "index": 14,
+    "title": "ROYAL TONKA — Sweet Fougère (Le Male / PHI Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Sweet Fougère (Le Male / PHI Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDP @ 12 %",
+    "reference": "Le Male EDT / Pour Homme Intense dupe",
+    "total_ul": 3905.0,
+    "n_materials": 28,
+    "scores": {
+      "longevity": 80.1,
+      "sillage": 102.5,
+      "luxury": 48.5,
+      "texture": 36.0,
+      "stacking_depth": 32.4,
+      "skin_performance": 62.3,
+      "hedonic": 84.0,
+      "perceptual_clarity": 72.2,
+      "photorealism": 74.9,
+      "synergy": 80.1,
+      "arithmetic_total": 65.9,
+      "geometric_total": 61.7,
+      "total": 61.7
+    },
+    "geometric_total": 61.7,
+    "arithmetic_total": 65.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Benzoin Resinoid",
+        "Heliotropin Fleuressence",
+        "Pink Pepper Base"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Ethyl Vanillin: formula 100.0%, inventory 10.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "items": []
+    },
+    "ifra_safety": {
+      "score": 85.8,
+      "ifra_score": 84.0,
+      "allergen_score": 82.0,
+      "violations": [
+        {
+          "material": "Evernyl",
+          "actual_pct": 0.1667,
+          "limit_pct": 0.1,
+          "ratio": 1.67,
+          "severity": "moderate"
+        }
+      ],
+      "warnings": [
+        {
+          "material": "Methyl Anthranilate",
+          "actual_pct": 0.1,
+          "limit_pct": 0.1,
+          "usage_pct": 100.0
+        }
+      ],
+      "allergen_declarations": [
+        "Coumarin",
+        "Ethyl Vanillin",
+        "Eugenol",
+        "Hexyl Salicylate",
+        "Methyl Salicylate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Eugenol",
+          "potency": "moderate",
+          "ec3": 5.5,
+          "pct_in_product": 0.0833,
+          "fraction_into_skin": 0.730539,
+          "effective_exposure_index": 0.060878
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "ℹ 6 EU fragrance allergen(s) require label declaration: Coumarin, Ethyl Vanillin, Eugenol, Hexyl Salicylate, Methyl Salicylate, Vanillin",
+        "⚠ Sensitization-active materials: Eugenol",
+        "ℹ Near IFRA limits: Methyl Anthranilate (100.0%)",
+        "ℹ Dermal uptake overlay (effective exposure index): Eugenol (0.0609)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Heliotropal",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Texture + depth"
+      },
+      {
+        "material": "Cardamom EO",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Performance + luxury"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.9,
+      "sillage": 3.6,
+      "synergy": 2.4,
+      "luxury": -0.7,
+      "texture": 0.0,
+      "stacking_depth": 13.2,
+      "skin_performance": 5.1,
+      "hedonic": 0.0,
+      "perceptual_clarity": -9.0,
+      "photorealism": 0.1,
+      "arithmetic_total": 1.7,
+      "geometric_total": 3.7
+    }
+  },
+  {
+    "index": 15,
+    "title": "LAVENDER MILK — Soft Lavender-Vanilla for Women",
+    "variant": "baseline",
+    "family": "Fougère",
+    "sub_family": "Soft Lavender-Vanilla for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Lavender Milk, BSC Lavender Cream",
+    "total_ul": 2515.0,
+    "n_materials": 20,
+    "scores": {
+      "longevity": 75.5,
+      "sillage": 111.6,
+      "luxury": 63.1,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 52.9,
+      "hedonic": 88.8,
+      "perceptual_clarity": 83.0,
+      "photorealism": 79.4,
+      "synergy": 72.0,
+      "arithmetic_total": 64.5,
+      "geometric_total": 51.4,
+      "total": 51.4
+    },
+    "geometric_total": 51.4,
+    "arithmetic_total": 64.5,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 93.8,
+      "ifra_score": 100.0,
+      "allergen_score": 82.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Coumarin",
+        "Geraniol",
+        "Linalool",
+        "Linalyl Acetate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.1
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 6 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Coumarin, Geraniol, Linalool, Linalyl Acetate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1000)"
+      ]
+    }
+  },
+  {
+    "index": 15,
+    "title": "LAVENDER MILK — Soft Lavender-Vanilla for Women",
+    "variant": "augmented",
+    "family": "Fougère",
+    "sub_family": "Soft Lavender-Vanilla for Women",
+    "gender": "W",
+    "format_strength": "30 mL EDT @ 8 %",
+    "reference": "Cathy Doll Lavender Milk, BSC Lavender Cream",
+    "total_ul": 2655.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 74.7,
+      "sillage": 116.5,
+      "luxury": 62.4,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 55.4,
+      "hedonic": 88.8,
+      "perceptual_clarity": 81.7,
+      "photorealism": 78.2,
+      "synergy": 82.9,
+      "arithmetic_total": 65.7,
+      "geometric_total": 52.1,
+      "total": 52.1
+    },
+    "geometric_total": 52.1,
+    "arithmetic_total": 65.7,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [
+        "Heliotropin Fleuressence"
+      ],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock",
+        "Musk Ketone: formula uses 10.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 1,
+      "items": [
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 8.33 µL of 1.0% (neat-equiv 0.083 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 20.833333333333332,
+          "target_oav": 20.833333333333332
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 93.8,
+      "ifra_score": 100.0,
+      "allergen_score": 82.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Alpha Isomethyl Ionone",
+        "Coumarin",
+        "Geraniol",
+        "Linalool",
+        "Linalyl Acetate",
+        "Vanillin"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.1
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 6 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Coumarin, Geraniol, Linalool, Linalyl Acetate, Vanillin",
+        "⚠ Sensitization-active materials: Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Geraniol (0.1000)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Ambrox Super",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + skin performance"
+      },
+      {
+        "material": "Heliotropal",
+        "dilution": 1.0,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.8,
+      "sillage": 4.9,
+      "synergy": 10.9,
+      "luxury": -0.7,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 2.5,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.3,
+      "photorealism": -1.2,
+      "arithmetic_total": 1.2,
+      "geometric_total": 0.7
+    }
+  },
+  {
+    "index": 16,
+    "title": "OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Aquatic (Acqua di Giò Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Acqua di Giò dupe",
+    "total_ul": 2660.0,
+    "n_materials": 21,
+    "scores": {
+      "longevity": 83.4,
+      "sillage": 114.7,
+      "luxury": 52.1,
+      "texture": 36.0,
+      "stacking_depth": 9.6,
+      "skin_performance": 58.0,
+      "hedonic": 84.7,
+      "perceptual_clarity": 82.9,
+      "photorealism": 79.0,
+      "synergy": 72.8,
+      "arithmetic_total": 65.9,
+      "geometric_total": 55.3,
+      "total": 55.3
+    },
+    "geometric_total": 55.3,
+    "arithmetic_total": 65.9,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 3,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 123.45679012345678,
+          "target_oav": 123.45679012345678
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133333.33333333334,
+          "target_oav": 133333.33333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 99.1,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Linalool"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU fragrance allergen(s) require label declaration: Linalool"
+      ]
+    }
+  },
+  {
+    "index": 16,
+    "title": "OCEAN BLUE — Aquatic (Acqua di Giò Dupe, Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Aquatic (Acqua di Giò Dupe)",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 10 %",
+    "reference": "Acqua di Giò dupe",
+    "total_ul": 2800.0,
+    "n_materials": 24,
+    "scores": {
+      "longevity": 82.1,
+      "sillage": 116.4,
+      "luxury": 50.0,
+      "texture": 36.0,
+      "stacking_depth": 9.6,
+      "skin_performance": 64.9,
+      "hedonic": 84.7,
+      "perceptual_clarity": 81.6,
+      "photorealism": 77.4,
+      "synergy": 76.0,
+      "arithmetic_total": 66.3,
+      "geometric_total": 55.6,
+      "total": 55.6
+    },
+    "geometric_total": 55.6,
+    "arithmetic_total": 66.3,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 123.45679012345678,
+          "target_oav": 123.45679012345678
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 26.67 µL of 1.0% (neat-equiv 0.267 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133333.33333333334,
+          "target_oav": 133333.33333333334
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 98.2,
+      "ifra_score": 100.0,
+      "allergen_score": 94.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Hexyl Salicylate",
+        "Linalool"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 2 EU fragrance allergen(s) require label declaration: Hexyl Salicylate, Linalool"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Performance"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -1.3,
+      "sillage": 1.7,
+      "synergy": 3.2,
+      "luxury": -2.1,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 6.9,
+      "hedonic": 0.0,
+      "perceptual_clarity": -1.3,
+      "photorealism": -1.6,
+      "arithmetic_total": 0.4,
+      "geometric_total": 0.3
+    }
+  },
+  {
+    "index": 17,
+    "title": "SUNDAY COLOGNE — Citrus Cologne (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Citrus Cologne",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 6 % (cologne)",
+    "reference": "Mistine Splash for Men, 4711 / AdP Colonia mass tier",
+    "total_ul": 1920.0,
+    "n_materials": 23,
+    "scores": {
+      "longevity": 62.2,
+      "sillage": 120.0,
+      "luxury": 52.0,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 70.2,
+      "hedonic": 88.3,
+      "perceptual_clarity": 82.4,
+      "photorealism": 70.3,
+      "synergy": 72.9,
+      "arithmetic_total": 63.5,
+      "geometric_total": 50.4,
+      "total": 50.4
+    },
+    "geometric_total": 50.4,
+    "arithmetic_total": 63.5,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 123.45679012345678,
+          "target_oav": 123.45679012345678
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 92.1,
+      "ifra_score": 100.0,
+      "allergen_score": 79.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Citral",
+        "Coumarin",
+        "Geraniol",
+        "Limonene",
+        "Linalool",
+        "Linalyl Acetate",
+        "d-Limonene"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Citral",
+          "potency": "moderate",
+          "ec3": 6.1,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.979256,
+          "effective_exposure_index": 0.163209
+        },
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.1
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 7 EU fragrance allergen(s) require label declaration: Citral, Coumarin, Geraniol, Limonene, Linalool, Linalyl Acetate, d-Limonene",
+        "⚠ Sensitization-active materials: Citral, Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Citral (0.1632), Geraniol (0.1000)"
+      ]
+    }
+  },
+  {
+    "index": 17,
+    "title": "SUNDAY COLOGNE — Citrus Cologne (Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Citrus Cologne",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 6 % (cologne)",
+    "reference": "Mistine Splash for Men, 4711 / AdP Colonia mass tier",
+    "total_ul": 2080.0,
+    "n_materials": 26,
+    "scores": {
+      "longevity": 65.0,
+      "sillage": 120.0,
+      "luxury": 54.9,
+      "texture": 36.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 69.8,
+      "hedonic": 88.0,
+      "perceptual_clarity": 78.9,
+      "photorealism": 71.0,
+      "synergy": 81.8,
+      "arithmetic_total": 64.5,
+      "geometric_total": 51.2,
+      "total": 51.2
+    },
+    "geometric_total": 51.2,
+    "arithmetic_total": 64.5,
+    "hard_fail_axes": [
+      "stacking_depth"
+    ],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 80.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 2,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 123.45679012345678,
+          "target_oav": 123.45679012345678
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 92.1,
+      "ifra_score": 100.0,
+      "allergen_score": 79.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Citral",
+        "Coumarin",
+        "Geraniol",
+        "Limonene",
+        "Linalool",
+        "Linalyl Acetate",
+        "d-Limonene"
+      ],
+      "sensitizer_flags": [
+        {
+          "material": "Citral",
+          "potency": "moderate",
+          "ec3": 6.1,
+          "pct_in_product": 0.1667,
+          "fraction_into_skin": 0.979256,
+          "effective_exposure_index": 0.163209
+        },
+        {
+          "material": "Geraniol",
+          "potency": "moderate",
+          "ec3": 7.2,
+          "pct_in_product": 0.1,
+          "fraction_into_skin": 0.999999,
+          "effective_exposure_index": 0.1
+        }
+      ],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 7 EU fragrance allergen(s) require label declaration: Citral, Coumarin, Geraniol, Limonene, Linalool, Linalyl Acetate, d-Limonene",
+        "⚠ Sensitization-active materials: Citral, Geraniol",
+        "ℹ Dermal uptake overlay (effective exposure index): Citral (0.1632), Geraniol (0.1000)"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Zenolide",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Longevity + clean projection"
+      },
+      {
+        "material": "Cashmeran",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Skin performance + depth"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "dilution": 1.0,
+        "ul": 50.0,
+        "axis": "Performance"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": 2.8,
+      "sillage": 0.0,
+      "synergy": 8.9,
+      "luxury": 2.9,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": -0.4,
+      "hedonic": -0.3,
+      "perceptual_clarity": -3.5,
+      "photorealism": 0.7,
+      "arithmetic_total": 1.0,
+      "geometric_total": 0.8
+    }
+  },
+  {
+    "index": 18,
+    "title": "AQUATIC HORIZON — Marine / Ozonic (Masculine)",
+    "variant": "baseline",
+    "family": "Fresh",
+    "sub_family": "Marine / Ozonic",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "Bvlgari Aqva / Cool Water Wave dupe",
+    "total_ul": 2395.0,
+    "n_materials": 22,
+    "scores": {
+      "longevity": 82.7,
+      "sillage": 114.0,
+      "luxury": 52.7,
+      "texture": 36.0,
+      "stacking_depth": 9.6,
+      "skin_performance": 60.6,
+      "hedonic": 85.3,
+      "perceptual_clarity": 82.9,
+      "photorealism": 76.1,
+      "synergy": 69.1,
+      "arithmetic_total": 65.5,
+      "geometric_total": 55.1,
+      "total": 55.1
+    },
+    "geometric_total": 55.1,
+    "arithmetic_total": 65.5,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 4,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 164.6090534979424,
+          "target_oav": 164.6090534979424
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4.545454545454545,
+          "target_oav": 4.545454545454545
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 33.33 µL of 1.0% (neat-equiv 0.333 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 166666.66666666666,
+          "target_oav": 166666.66666666666
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 100.0,
+      "ifra_score": 100.0,
+      "allergen_score": 100.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits"
+      ]
+    }
+  },
+  {
+    "index": 18,
+    "title": "AQUATIC HORIZON — Marine / Ozonic (Masculine)",
+    "variant": "augmented",
+    "family": "Fresh",
+    "sub_family": "Marine / Ozonic",
+    "gender": "M",
+    "format_strength": "30 mL EDT @ 9 %",
+    "reference": "Bvlgari Aqva / Cool Water Wave dupe",
+    "total_ul": 2535.0,
+    "n_materials": 25,
+    "scores": {
+      "longevity": 82.6,
+      "sillage": 112.9,
+      "luxury": 49.8,
+      "texture": 36.0,
+      "stacking_depth": 9.6,
+      "skin_performance": 66.6,
+      "hedonic": 85.2,
+      "perceptual_clarity": 82.7,
+      "photorealism": 76.6,
+      "synergy": 69.4,
+      "arithmetic_total": 65.7,
+      "geometric_total": 55.2,
+      "total": 55.2
+    },
+    "geometric_total": 55.2,
+    "arithmetic_total": 65.7,
+    "hard_fail_axes": [],
+    "unknown_materials": [],
+    "inventory_findings": {
+      "not_in_inventory": [],
+      "dilution_mismatches": [
+        "Cashmeran: formula 100.0%, inventory 20.0%",
+        "Galaxolide: formula 100.0%, inventory 50.0%"
+      ],
+      "prepared_dilutions": [
+        "Aldehyde C11 undecylenic: formula uses 1.0% working dilution from neat stock",
+        "Ambrox Super: formula uses 30.0% working dilution from neat stock"
+      ],
+      "unavailable": []
+    },
+    "oav_guard": {
+      "source_volume_ml": 30.0,
+      "target_volume_ml": 10.0,
+      "errors": 0,
+      "warnings": 0,
+      "infos": 5,
+      "items": [
+        {
+          "material": "Aldehyde C10",
+          "severity": "info",
+          "message": "Aldehyde C10: scaled dose 13.33 µL of 1.0% (neat-equiv 0.133 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 164.6090534979424,
+          "target_oav": 164.6090534979424
+        },
+        {
+          "material": "Aldehyde C11 undecylenic",
+          "severity": "info",
+          "message": "Aldehyde C11 undecylenic: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 25.0,
+          "target_oav": 25.0
+        },
+        {
+          "material": "Aldehyde C12 MNA",
+          "severity": "info",
+          "message": "Aldehyde C12 MNA: scaled dose 10.00 µL of 1.0% (neat-equiv 0.100 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 4.545454545454545,
+          "target_oav": 4.545454545454545
+        },
+        {
+          "material": "Calone",
+          "severity": "info",
+          "message": "Calone: scaled dose 33.33 µL of 1.0% (neat-equiv 0.333 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 166666.66666666666,
+          "target_oav": 166666.66666666666
+        },
+        {
+          "material": "Scentenal",
+          "severity": "info",
+          "message": "Scentenal: scaled dose 6.67 µL of 1.0% (neat-equiv 0.067 µL) — trace band, verify dilution stock accuracy",
+          "source_oav": 133.33333333333334,
+          "target_oav": 133.33333333333334
+        }
+      ]
+    },
+    "ifra_safety": {
+      "score": 99.1,
+      "ifra_score": 100.0,
+      "allergen_score": 97.0,
+      "violations": [],
+      "warnings": [],
+      "allergen_declarations": [
+        "Hexyl Salicylate"
+      ],
+      "sensitizer_flags": [],
+      "banned_flags": [],
+      "diagnostics": [
+        "✓ All materials within IFRA Category 4 limits",
+        "ℹ 1 EU fragrance allergen(s) require label declaration: Hexyl Salicylate"
+      ]
+    },
+    "applied_additions": [
+      {
+        "material": "Hexyl Salicylate",
+        "dilution": 1.0,
+        "ul": 60.0,
+        "axis": "Skin performance + texture"
+      },
+      {
+        "material": "Ambrofix",
+        "dilution": 0.3,
+        "ul": 60.0,
+        "axis": "Longevity + depth"
+      },
+      {
+        "material": "Scentenal",
+        "dilution": 0.01,
+        "ul": 20.0,
+        "axis": "Texture"
+      }
+    ],
+    "score_delta_vs_baseline": {
+      "longevity": -0.1,
+      "sillage": -1.1,
+      "synergy": 0.3,
+      "luxury": -2.9,
+      "texture": 0.0,
+      "stacking_depth": 0.0,
+      "skin_performance": 6.0,
+      "hedonic": -0.1,
+      "perceptual_clarity": -0.2,
+      "photorealism": 0.5,
+      "arithmetic_total": 0.2,
+      "geometric_total": 0.1
+    }
+  }
+]

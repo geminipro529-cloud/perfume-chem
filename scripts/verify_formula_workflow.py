@@ -413,29 +413,228 @@ def _install_formula_vector_compatibility() -> None:
 
 
 def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
+    """Parse formula rows from a markdown table. Accepts multiple formats.
+    
+    Supported:
+      | # | Ingredient | Dilution | µL | mL |   (canonical)
+      | Ingredient | Dilution | µL |               (no row number)
+      | Ingredient | % |                         (percentages, neat)
+      | Ingredient | % | Dilution |               (percentages with dilution)
+    
+    Handles section headers (**Top**, **Heart**, **Base**) and inline dilutions
+    like "(10% in DPG)" or "10%".
+    """
     ingredients_ul: dict[str, float] = {}
     dilutions: dict[str, float] = {}
+    total_ul_val: float | None = None
 
-    for line in body.splitlines():
-        if "**-" in line or "---" in line:
-            continue
-        match = re.match(
-            r"\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|",
-            line,
-        )
+    def _split_row(line: str) -> list[str]:
+        parts = [p.strip().replace("**", "") for p in line.split("|")]
+        if parts and parts[0] == "":
+            parts = parts[1:]
+        if parts and parts[-1] == "":
+            parts = parts[:-1]
+        return parts
+
+    def _normalize_header(cell: str) -> str:
+        cell = cell.strip().replace("**", "").replace("`", "")
+        cell = cell.replace("µ", "u").replace("μ", "u")
+        cell = re.sub(r"\s+", " ", cell.lower())
+        return cell
+
+    def _is_separator_row(line: str) -> bool:
+        stripped = line.strip()
+        return bool(stripped.startswith("|") and re.fullmatch(r"\|[\s:\-|]+\|?", stripped))
+
+    def _find_col(headers: list[str], *tokens: str) -> int | None:
+        for idx, header in enumerate(headers):
+            if any(token in header for token in tokens):
+                return idx
+        return None
+
+    def _parse_amount(v: str) -> float | None:
+        clean = v.strip().replace("**", "").replace("`", "")
+        if clean.lower() in {"", "-", "--", "---", "—", "–", "na", "n/a"}:
+            return None
+        match = re.search(r"[-+]?\d[\d,\s]*(?:\.\d+)?", clean)
         if not match:
+            return None
+        token = match.group(0).replace(",", "").replace(" ", "")
+        try:
+            return float(token)
+        except ValueError:
+            return None
+
+    def _parse_dil(v: str) -> float:
+        clean = v.strip().replace("**", "").replace("`", "")
+        low = clean.lower()
+        if low in ("", "neat", "pure", "-", "--", "---", "—", "–"):
+            return 1.0
+        m = re.search(r"(\d+(?:[.,]\d+)?)\s*%", clean)
+        if m:
+            return float(m.group(1).replace(",", ".")) / 100.0
+        numeric = _parse_amount(clean)
+        if numeric is None:
+            return 1.0
+        if 0.0 < numeric <= 1.0:
+            return numeric
+        return 1.0
+
+    def _skip_ingredient(name: str) -> bool:
+        low = re.sub(r"\s+", " ", name.strip().lower())
+        if not low:
+            return True
+        if low in {"#", "ingredient", "material", "component", "layer", "ord"}:
+            return True
+        if "subtotal" in low or low == "total" or "batch total" in low:
+            return True
+        if "ethanol" in low or "concentrate total" in low or "matured concentrate" in low:
+            return True
+        if low.startswith("—") or low.startswith("-") or low.startswith("top:") or low.startswith("heart:") or low.startswith("base:"):
+            return True
+        return False
+
+    def _section_is_excluded(section: str) -> bool:
+        low = section.lower().strip()
+        if not low:
+            return False
+        blocked_tokens = (
+            "release gate audit",
+            "calibration summary",
+            "repair history",
+            "gate time-series oav leaders",
+            "family oav envelope",
+            "vapor ppm / odt / oav leaders",
+            "mixing order",
+            "accord architecture",
+            "material selection rationale",
+            "what you'll need",
+            "equipment",
+            "procedure",
+        )
+        return any(token in low for token in blocked_tokens)
+
+    def _extract_total_concentrate_ul(text: str) -> float | None:
+        patterns = (
+            (r"composition of bottle:[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*ml\s+concentrate", "ml"),
+            (r"concentrate target:[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*u?l", "ul"),
+            (r"concentrate total[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*u?l", "ul"),
+            (r"concentrate total[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*ml", "ml"),
+        )
+        for pattern, unit in patterns:
+            match = re.search(pattern, text, flags=re.IGNORECASE)
+            if not match:
+                continue
+            value = _parse_amount(match.group(1))
+            if value is None:
+                continue
+            if unit == "ml":
+                return value * 1000.0
+            return value
+        return None
+
+    lines = body.splitlines()
+    total_ul_val = _extract_total_concentrate_ul(body)
+    
+    # First pass: find total concentrate volume
+    if total_ul_val is None:
+        for line in lines:
+            clean = line.strip().lower()
+            if "**total**" in clean or "concentrate" in clean:
+                for token in clean.split("|"):
+                    val = _parse_amount(token)
+                    if val is not None and val >= 100:
+                        total_ul_val = val
+                        break
+                if total_ul_val is not None:
+                    break
+
+    # Second pass: parse ingredient rows from markdown tables with usable headers.
+    current_headers: list[str] | None = None
+    current_section = ""
+    for idx, line in enumerate(lines):
+        raw = line.strip()
+        heading_match = re.match(r"^#{2,6}\s+(.+?)\s*$", raw)
+        if heading_match:
+            current_section = heading_match.group(1).strip()
+            current_headers = None
+            continue
+        if not raw.startswith("|"):
+            current_headers = None
             continue
 
-        ingredient = match.group(2).replace("**", "").strip()
-        dilution_raw = match.group(3).strip()
-        amount_ul = float(match.group(4))
-        if "ethanol" in ingredient.lower() or "total" in ingredient.lower():
+        if idx + 1 < len(lines) and _is_separator_row(lines[idx + 1]):
+            current_headers = [_normalize_header(part) for part in _split_row(raw)]
             continue
 
-        ingredients_ul[ingredient] = amount_ul
-        dilutions[ingredient] = _parse_dilution(dilution_raw)
+        if _is_separator_row(raw) or current_headers is None or _section_is_excluded(current_section):
+            continue
 
+        parts = _split_row(raw)
+        if len(parts) < 2:
+            continue
+
+        name_idx = _find_col(current_headers, "ingredient", "material", "component")
+        dilution_idx = _find_col(current_headers, "dilution", "form", "stock")
+        amount_ul_idx = None
+        amount_ml_idx = None
+        percent_idx = None
+        for i, header in enumerate(current_headers):
+            if "ul" in header and ("amount" in header or header == "ul" or "µl" in header):
+                amount_ul_idx = i
+                break
+        for i, header in enumerate(current_headers):
+            if "ml" in header and ("amount" in header or header == "ml"):
+                amount_ml_idx = i
+                break
+        for i, header in enumerate(current_headers):
+            if header == "%" or "percent" in header:
+                percent_idx = i
+                break
+
+        if name_idx is None:
+            continue
+        if amount_ul_idx is None and amount_ml_idx is None and percent_idx is None:
+            continue
+
+        if name_idx >= len(parts):
+            continue
+        ingredient = parts[name_idx].strip()
+        if _skip_ingredient(ingredient):
+            continue
+
+        amount_ul: float | None = None
+        if amount_ul_idx is not None and amount_ul_idx < len(parts):
+            amount_ul = _parse_amount(parts[amount_ul_idx])
+        if amount_ul is None and percent_idx is not None and percent_idx < len(parts):
+            amount_ul = _parse_amount(parts[percent_idx])
+        if amount_ul is None and amount_ml_idx is not None and amount_ml_idx < len(parts):
+            amount_ml = _parse_amount(parts[amount_ml_idx])
+            if amount_ml is not None:
+                amount_ul = amount_ml * 1000.0
+        if amount_ul is None:
+            continue
+
+        dilution = 1.0
+        if dilution_idx is not None and dilution_idx < len(parts):
+            dilution = _parse_dil(parts[dilution_idx])
+
+        ingredients_ul[ingredient] = ingredients_ul.get(ingredient, 0.0) + amount_ul
+        if ingredient not in dilutions or dilution != 1.0:
+            dilutions[ingredient] = dilution
+
+    # Convert percentages to µL if total_ul is known and values look like pcts
+    vals = list(ingredients_ul.values())
+    if vals and total_ul_val and all(v < 100 for v in vals):
+        for name in list(ingredients_ul):
+            ingredients_ul[name] = ingredients_ul[name] * total_ul_val / 100.0
+    
     return ingredients_ul, dilutions
+
+
+def _infer_family_archetype(body: str) -> str:
+    match = re.search(r"\*\*Family archetype:\*\*\s*`?([A-Za-z0-9_.-]+)`?", body)
+    return match.group(1).strip() if match else ""
 
 
 def _build_formula_record(number: int, name: str, body: str, ingredients_ul: dict[str, float], dilutions: dict[str, float]) -> dict:
@@ -453,6 +652,7 @@ def _build_formula_record(number: int, name: str, body: str, ingredients_ul: dic
         "dilutions": dilutions,
         "concentrate_ml": concentrate_ml,
         "body": body,
+        "family_archetype": _infer_family_archetype(body),
     }
 
 

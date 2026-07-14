@@ -12,8 +12,11 @@ from dataclasses import dataclass
 from typing import Callable, Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
+from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.audit_log import append_event, gate_report_event
 from engine.pipeline.gates import GateReport, ReleaseGateConfig, gate_formula
+from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
+from engine.pipeline.release_scoring import compute_unified_release_scores
 
 
 RawPct = Mapping[str, float]
@@ -71,6 +74,7 @@ class GateAwareOptimizationResult:
     gate_report: GateReport
     repair_actions: tuple[GateRepairAction, ...]
     iterations: int
+    interventions: dict | None = None
     audit_event_id: str | None = None
 
     @property
@@ -92,6 +96,7 @@ class GateAwareOptimizationResult:
             "commercial_readiness": self.commercial_readiness,
             "iterations": self.iterations,
             "audit_event_id": self.audit_event_id,
+            "interventions": dict(self.interventions or {}),
             "repair_actions": [action.as_dict() for action in self.repair_actions],
             "gate_report": self.gate_report.as_dict(),
         }
@@ -673,6 +678,41 @@ def optimize_until_release_ready(
         family_archetype=family_archetype,
     )
     final_report = gate_formula(formula, config)
+    authority = analyze_oav_authority(
+        OAVAuthorityRequest(
+            formula_name=name,
+            ingredients_ul=formula["ingredients_ul"],
+            dilutions=formula["dilutions"],
+            batch_volume_ml=config.batch_volume_ml,
+            temperature_K=config.temperature_K,
+            family_archetype=family_archetype,
+        )
+    )
+    unified_scores = compute_unified_release_scores(formula, authority, final_report.as_dict()).as_dict()
+    optimizer_report = {
+        **final_report.as_dict(),
+        "scores": unified_scores["scores"],
+        "industry_10": unified_scores["industry_10"],
+        "score_provenance": unified_scores["provenance"],
+        "oav_table": [
+            {
+                "name": row.name,
+                "dilution": row.dilution,
+                "raw_ul": round(row.raw_ul, 2),
+                "active_ul": round(row.active_ul, 2),
+                "vapor_ppm": round(row.vapor_ppm, 6),
+                "odt_air_ppm": row.odt_air_ppm,
+                "oav": round(row.oav, 2) if row.oav is not None else None,
+                "note": row.note,
+            }
+            for row in authority.material_rows
+        ],
+    }
+    interventions = build_intervention_contract(
+        formula,
+        optimizer_report,
+        batch_volume_ml=config.batch_volume_ml,
+    )
     iterations = pass_index if "pass_index" in locals() else 0
     audit_event_id = None
     if config.audit_enabled:
@@ -691,6 +731,7 @@ def optimize_until_release_ready(
         gate_report=final_report,
         repair_actions=tuple(actions),
         iterations=iterations,
+        interventions=interventions,
         audit_event_id=audit_event_id,
     )
 

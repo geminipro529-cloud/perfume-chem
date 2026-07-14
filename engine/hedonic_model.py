@@ -1,5 +1,9 @@
 """Hedonic valence modelling — intrinsic pleasantness prediction.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+
 Odorant molecules have measurable hedonic valence (pleasantness)
 that is partially universal across cultures. Khan et al. (2007)
 demonstrated that molecular features (compact, high MW, fewer
@@ -15,10 +19,10 @@ legitimate creative tool — Muscs Koublaï Khän (Lutens), Secretions
 Magnifiques (ELDO) — but must be intentional, not accidental.
 
 Sources:
-  Khan et al. (2007) PNAS — predicting odor pleasantness from structure
-  Zarzo (2008) Chemical Senses — molecular descriptors and pleasantness
+  Khan et al. (2007) J Neurosci, 27(37), 10015-10023 — predicting odor pleasantness from structure
+  Zarzo (2011) Sensors, 11(5), 5296-5322 — molecular descriptors and pleasantness
   Dravnieks (1985) Atlas of Odor Character Profiles — 146 odorant profiles
-  Keller & Vosshall (2004) Nature Neuroscience — individual variation
+  Keller et al. (2007) Nature, 449(7161), 468-472 — OR7D4 individual variation
   Yeshurun & Sobel (2010) Annual Review Psych — perception of smell
 """
 
@@ -39,12 +43,13 @@ HEDONIC_VALENCE: dict[str, float] = {
     # ── Universally pleasant (vanillic, floral, fruity) ──
     "Vanillin":               0.90,
     "Ethyl Vanillin":         0.88,
-    "Heliotropin Fleuressence": 0.85,
+    "Heliotropal": 0.85,  # neat piperonal
     "Linalool":               0.82,
     "Linalyl Acetate":        0.80,
     "Hedione":                0.78,
     "Phenethyl Alcohol":      0.82,
     "Benzyl Acetate":         0.75,
+    "Jessemal":              0.45,
     "Coumarin":               0.80,
     "Maple Lactone":          0.85,
     "Gamma Decalactone":      0.83,
@@ -116,7 +121,7 @@ HEDONIC_VALENCE: dict[str, float] = {
     # ── Spice (context-dependent) ──
     "Eugenol":                0.45,
     "Ethyl Safranate":        0.55,
-    "Cardamom FTEC":          0.60,
+        "Cardamom EO":            0.65,  # natural EO, more aromatic complexity than FTEC
     "Terpinyl Acetate":       0.55,
     # ── Leather / smoke (acquired taste) ──
     "Suederal":               0.30,
@@ -134,8 +139,11 @@ HEDONIC_VALENCE: dict[str, float] = {
     "Myrrh EO":               0.45,
     # ── EOs ──
     "Lavender EO":            0.75,
+    "Lavender EO (BONTAUX SAS)": 0.78,  # premium French angustifolia, less camphoraceous
     "Clary Sage EO":          0.50,
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 0.55,
     "Vetiver EO":             0.45,
+    "Vetiver EO (India)":     0.50,  # deeper, richer ruh khus character
     "Patchouli EO":           0.42,
     "Cedarwood EO":           0.55,
     "Champaca Flower EO":     0.60,

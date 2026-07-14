@@ -371,6 +371,8 @@ def _compute_rank_score(
     score -= 18.0 * len(missing_odt_materials)
     if odt_coverage.get("status") == "FAIL":
         score -= 25.0
+    elif odt_coverage.get("status") == "WARN":
+        score -= 8.0
     if oav_legibility.get("status") == "FAIL":
         score -= 30.0
     elif oav_legibility.get("status") == "WARN":
@@ -414,6 +416,7 @@ def analyze_oav_authority(request: OAVAuthorityRequest) -> OAVAuthorityResult:
         temperature_K=float(request.temperature_K),
         context=request.context,
         windows=request.target_windows,
+        initial_state=state,
     )
     material_rows = tuple(
         OAVMaterialRow.from_material_state(material)
@@ -448,6 +451,8 @@ def analyze_oav_authority(request: OAVAuthorityRequest) -> OAVAuthorityResult:
         blocking_reasons.append(
             "ODT coverage incomplete for required materials: " + ", ".join(missing_odt_materials)
         )
+    elif odt_coverage.get("status") == "WARN":
+        warning_reasons.append(str(odt_coverage.get("detail", "ODT authority is partially derived")))
     if oav_legibility.get("status") == "FAIL":
         blocking_reasons.append(str(oav_legibility.get("detail", "OAV legibility failed")))
     elif oav_legibility.get("status") == "WARN":

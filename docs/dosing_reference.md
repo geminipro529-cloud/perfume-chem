@@ -1,8 +1,11 @@
 # Dosing Reference — All Inventory Materials
 ## µL Ranges for 10 mL · 30 mL · 50 mL · 100 mL Batches
-**Updated:** 2026-04-13
+**Updated:** 2026-04-30
 
 All values in **µL of your stock solution** (dilution already factored in — volumes are what you pipette from your bottle).
+
+> **⚠️ RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+> Concentrations are in **ppm** (parts per million w/w in concentrate). Odor detection thresholds are **ODT** (in ppm for ethanol solution, or ppb for air). Odor Activity Value is **OAV = concentration_ppm / ODT_ppm**. Every formula dose must be convertible to ppm, every threshold check must reference ODT, and every perceptibility claim must be backed by OAV. No exceptions.
 
 > **1,000 µL = 1 mL.** At 100 mL batch size some saturated values reach several mL — that's correct; workhorse materials like Hedione or Iso E Super CAN be 5–10% of a formula.
 
@@ -48,6 +51,7 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedrat FCF Sicilian | neat | 15 | 40–80 | 100–200 | 250–350 | 450 | Bitter citron, sharper than bergamot. Mineral |
 | Blood Orange Sicilian | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Juicy, sweet-tart. Less terpenic than D-Limonene |
 | Red Mandarin EO | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Sweet tangerine warmth. Pairs with orientals |
+| Lime Distilled EO | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Cold tart lime peel. Cleaner and safer than expressed lime; classic mojito/gin freshness |
 | Ethyl 2-Methylbutyrate | neat | 3 | 5–15 | 20–50 | 60–100 | 150 | Green apple burst, extremely potent. Easy to overdose |
 | Lemonile | neat | 5 | 15–30 | 40–80 | 100–150 | 200 | Synthetic lemon, clean. More tenacious than EOs |
 | Orange Peel EO | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Natural orange, very fleeting |
@@ -156,6 +160,8 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedarwood EO | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Natural cedar, pencil-shaving warmth |
 | Cedarwood Virginia | neat | 15 | 40–80 | 100–200 | 250–400 | 500 | Virginia cedar, drier/sharper than Atlas |
 | Vetiver EO | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Earthy-smoky-rooty. Dark-green |
+| Vetiver EO (India) | neat | 8 | 15–40 | 50–100 | 120–200 | 280 | Indian ruh khus. Deeper, more complex than standard Vetiver EO |
+| Nagarmortha Oil | neat | 5 | 10–30 | 40–80 | 100–150 | 200 | Cypriol: dry earthy smoky wood. Excellent oud/vetiver bridge; easy to over-darken |
 | Clearwood | neat | 10 | 20–50 | 60–120 | 150–250 | 400 | Clean patchouli replacement. Earth without heavy |
 | Norlimbanol Dextro | neat | 3 | 5–15 | 15–40 | 50–80 | 120 | Extreme woody power. A few µL = huge structure |
 
@@ -212,15 +218,22 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Black Pepper FTEC | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Pre-built pepper. Warm spice |
 | Black Pepper materials | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Natural pepper components |
 | Cardamom FTEC | 10% | 15 | 30–60 | 80–150 | 200–300 | 400 | Spicy-aromatic cardamom |
+| Cardamom EO | neat | 5 | 10–25 | 30–60 | 80–120 | 180 | Green cardamom EO. Brighter lift than FTEC; cineolic-spicy top |
 | Pink Pepper Base | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Rose-pepper, fresher than black |
 | Ethyl Safranate | neat | 3 | 5–15 | 20–50 | 60–100 | 150 | Saffron, potent metallic-leathery-spice |
 | Eugenol | neat | 3 | 5–15 | 20–50 | 60–100 | 150 | Clove, dental. Sensitizer — IFRA limits |
 | Isoeugenol | neat | 3 | 5–15 | 20–50 | 60–100 | 150 | Carnation-clove, smoother. Sensitizer |
 | Cinnamaldehyde | neat | 3 | 5–10 | 15–30 | 40–60 | 80 | Cinnamon bark. Irritant — dose LOW |
 | Lavender EO | neat | 10 | 30–60 | 80–150 | 200–300 | 400 | Classic lavender. Fougère backbone |
+| Lavender EO (BONTAUX SAS) | neat | 12 | 35–70 | 90–180 | 250–350 | 450 | Premium French lavender. Floral-herbaceous with soft honeyed sweetness |
+| Spike Lavender EO | neat | 5 | 15–40 | 50–120 | 150–250 | 300 | Camphoraceous lavender. More aromatic/masculine, less floral-soft than Lavender EO |
+| Beta-Pinene | neat | 3 | 5–20 | 30–80 | 100–150 | 200 | Pine-green terpene top. Fresh conifer lift; oxidizes, use fresh and low |
+| Pine EO | neat | 5 | 10–30 | 40–100 | 120–200 | 300 | Coniferous pine needle/forest top. Terpene-rich; fresh resinous-green, oxidizes |
 | Clary Sage EO | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Herbal-muscatel, earthy-sweet |
 | Patchouli EO | neat | 10 | 20–50 | 60–120 | 150–250 | 400 | Dark earthy. Improves with age |
 | Myrrh EO | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Resinous-balsamic-medicinal |
+| Juniper Berry EO | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Gin-like conifer freshness. Cools citrus and sharpens aromatic woods |
+| Frankincense EO | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Bright olibanum top: citrus-pine-incense. Lighter and more volatile than resinoid |
 | Olibanum Resinoid | neat | 10 | 20–50 | 60–120 | 150–250 | 350 | Frankincense, lemony-resinous |
 
 ## Accord Bases / FTECs / Other — 10 mL
@@ -277,6 +290,7 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedrat FCF Sicilian | neat | 45 | 120–240 | 300–600 | 750–1,050 | 1,350 |
 | Blood Orange Sicilian | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
 | Red Mandarin EO | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
+| Lime Distilled EO | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
 | Ethyl 2-Methylbutyrate | neat | 9 | 15–45 | 60–150 | 180–300 | 450 |
 | Lemonile | neat | 15 | 45–90 | 120–240 | 300–450 | 600 |
 | Orange Peel EO | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
@@ -385,6 +399,8 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedarwood EO | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
 | Cedarwood Virginia | neat | 45 | 120–240 | 300–600 | 750–1,200 | 1,500 |
 | Vetiver EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
+| Vetiver EO (India) | neat | 24 | 45–120 | 150–300 | 360–600 | 840 |
+| Nagarmortha Oil | neat | 15 | 30–90 | 120–240 | 300–450 | 600 |
 | Clearwood | neat | 30 | 60–150 | 180–360 | 450–750 | 1,200 |
 | Norlimbanol Dextro | neat | 9 | 15–45 | 45–120 | 150–240 | 360 |
 
@@ -439,15 +455,22 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Black Pepper FTEC | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 | Black Pepper materials | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 | Cardamom FTEC | 10% | 45 | 90–180 | 240–450 | 600–900 | 1,200 |
+| Cardamom EO | neat | 15 | 30–75 | 90–180 | 240–360 | 540 |
 | Pink Pepper Base | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 | Ethyl Safranate | neat | 9 | 15–45 | 60–150 | 180–300 | 450 |
 | Eugenol | neat | 9 | 15–45 | 60–150 | 180–300 | 450 |
 | Isoeugenol | neat | 9 | 15–45 | 60–150 | 180–300 | 450 |
 | Cinnamaldehyde | neat | 9 | 15–30 | 45–90 | 120–180 | 240 |
 | Lavender EO | neat | 30 | 90–180 | 240–450 | 600–900 | 1,200 |
+| Lavender EO (BONTAUX SAS) | neat | 36 | 105–210 | 270–540 | 750–1,050 | 1,350 |
+| Spike Lavender EO | neat | 15 | 45–120 | 150–360 | 450–750 | 900 |
+| Beta-Pinene | neat | 9 | 15–60 | 90–240 | 300–450 | 600 |
+| Pine EO | neat | 15 | 30–90 | 120–300 | 360–600 | 900 |
 | Clary Sage EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 | Patchouli EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,200 |
 | Myrrh EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
+| Juniper Berry EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
+| Frankincense EO | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 | Olibanum Resinoid | neat | 30 | 60–150 | 180–360 | 450–750 | 1,050 |
 
 ## Accord Bases / FTECs / Other — 30 mL
@@ -504,6 +527,7 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedrat FCF Sicilian | neat | 75 | 200–400 | 500–1,000 | 1,250–1,750 | 2,250 |
 | Blood Orange Sicilian | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
 | Red Mandarin EO | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
+| Lime Distilled EO | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
 | Ethyl 2-Methylbutyrate | neat | 15 | 25–75 | 100–250 | 300–500 | 750 |
 | Lemonile | neat | 25 | 75–150 | 200–400 | 500–750 | 1,000 |
 | Orange Peel EO | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
@@ -612,6 +636,8 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedarwood EO | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
 | Cedarwood Virginia | neat | 75 | 200–400 | 500–1,000 | 1,250–2,000 | 2,500 |
 | Vetiver EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
+| Vetiver EO (India) | neat | 40 | 75–200 | 250–500 | 600–1,000 | 1,400 |
+| Nagarmortha Oil | neat | 25 | 50–150 | 200–400 | 500–750 | 1,000 |
 | Clearwood | neat | 50 | 100–250 | 300–600 | 750–1,250 | 2,000 |
 | Norlimbanol Dextro | neat | 15 | 25–75 | 75–200 | 250–400 | 600 |
 
@@ -666,15 +692,22 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Black Pepper FTEC | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 | Black Pepper materials | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 | Cardamom FTEC | 10% | 75 | 150–300 | 400–750 | 1,000–1,500 | 2,000 |
+| Cardamom EO | neat | 25 | 50–125 | 150–300 | 400–600 | 900 |
 | Pink Pepper Base | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 | Ethyl Safranate | neat | 15 | 25–75 | 100–250 | 300–500 | 750 |
 | Eugenol | neat | 15 | 25–75 | 100–250 | 300–500 | 750 |
 | Isoeugenol | neat | 15 | 25–75 | 100–250 | 300–500 | 750 |
 | Cinnamaldehyde | neat | 15 | 25–50 | 75–150 | 200–300 | 400 |
 | Lavender EO | neat | 50 | 150–300 | 400–750 | 1,000–1,500 | 2,000 |
+| Lavender EO (BONTAUX SAS) | neat | 60 | 175–350 | 450–900 | 1,250–1,750 | 2,250 |
+| Spike Lavender EO | neat | 25 | 75–200 | 250–600 | 750–1,250 | 1,500 |
+| Beta-Pinene | neat | 15 | 25–100 | 150–400 | 500–750 | 1,000 |
+| Pine EO | neat | 25 | 50–150 | 200–500 | 600–1,000 | 1,500 |
 | Clary Sage EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 | Patchouli EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 2,000 |
 | Myrrh EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
+| Juniper Berry EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
+| Frankincense EO | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 | Olibanum Resinoid | neat | 50 | 100–250 | 300–600 | 750–1,250 | 1,750 |
 
 ## Accord Bases / FTECs / Other — 50 mL
@@ -731,6 +764,7 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedrat FCF Sicilian | neat | 150 | 400–800 | 1,000–2,000 | 2,500–3,500 | 4,500 |
 | Blood Orange Sicilian | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
 | Red Mandarin EO | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
+| Lime Distilled EO | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
 | Ethyl 2-Methylbutyrate | neat | 30 | 50–150 | 200–500 | 600–1,000 | 1,500 |
 | Lemonile | neat | 50 | 150–300 | 400–800 | 1,000–1,500 | 2,000 |
 | Orange Peel EO | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
@@ -839,6 +873,8 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Cedarwood EO | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
 | Cedarwood Virginia | neat | 150 | 400–800 | 1,000–2,000 | 2,500–4,000 | 5,000 |
 | Vetiver EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
+| Vetiver EO (India) | neat | 80 | 150–400 | 500–1,000 | 1,200–2,000 | 2,800 |
+| Nagarmortha Oil | neat | 50 | 100–300 | 400–800 | 1,000–1,500 | 2,000 |
 | Clearwood | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 4,000 |
 | Norlimbanol Dextro | neat | 30 | 50–150 | 150–400 | 500–800 | 1,200 |
 
@@ -893,15 +929,22 @@ All values in **µL of your stock solution** (dilution already factored in — v
 | Black Pepper FTEC | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 | Black Pepper materials | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 | Cardamom FTEC | 10% | 150 | 300–600 | 800–1,500 | 2,000–3,000 | 4,000 |
+| Cardamom EO | neat | 50 | 100–250 | 300–600 | 800–1,200 | 1,800 |
 | Pink Pepper Base | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 | Ethyl Safranate | neat | 30 | 50–150 | 200–500 | 600–1,000 | 1,500 |
 | Eugenol | neat | 30 | 50–150 | 200–500 | 600–1,000 | 1,500 |
 | Isoeugenol | neat | 30 | 50–150 | 200–500 | 600–1,000 | 1,500 |
 | Cinnamaldehyde | neat | 30 | 50–100 | 150–300 | 400–600 | 800 |
 | Lavender EO | neat | 100 | 300–600 | 800–1,500 | 2,000–3,000 | 4,000 |
+| Lavender EO (BONTAUX SAS) | neat | 120 | 350–700 | 900–1,800 | 2,500–3,500 | 4,500 |
+| Spike Lavender EO | neat | 50 | 150–400 | 500–1,200 | 1,500–2,500 | 3,000 |
+| Beta-Pinene | neat | 30 | 50–200 | 300–800 | 1,000–1,500 | 2,000 |
+| Pine EO | neat | 50 | 100–300 | 400–1,000 | 1,200–2,000 | 3,000 |
 | Clary Sage EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 | Patchouli EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 4,000 |
 | Myrrh EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
+| Juniper Berry EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
+| Frankincense EO | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 | Olibanum Resinoid | neat | 100 | 200–500 | 600–1,200 | 1,500–2,500 | 3,500 |
 
 ## Accord Bases / FTECs / Other — 100 mL

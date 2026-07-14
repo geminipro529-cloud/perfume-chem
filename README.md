@@ -2,6 +2,18 @@
 
 AI-powered perfume chemistry and formulation platform with advanced fragrance analysis, formula creation, and IFRA compliance checking.
 
+## Model Setup
+
+Model IDs, local-path conventions, and env-file lookup rules are documented in [docs/MODEL_LOCATIONS.md](docs/MODEL_LOCATIONS.md).
+
+Short version:
+
+- Root `.env` is used when you run `python run_api_server.py` from the repo root.
+- `backend/.env` is used when you start Uvicorn from inside `backend/`.
+- `HF_LOCAL_MODEL_PATH` must point to a local Transformers model directory.
+- `LLAMA_CPP_MODEL_PATH` must point to a local `.gguf` file.
+- `OLLAMA_MODEL` is only the served model name, not a repo file path.
+
 ## Features
 
 - 🧪 **Chemical Calculations**: Dilution, concentration, and volume conversions
@@ -13,6 +25,15 @@ AI-powered perfume chemistry and formulation platform with advanced fragrance an
 - 🔍 **Ingredient Database**: Comprehensive chemical compound library
 
 ## 📦 Inventory
+
+> **⚠️ RULE: Read [`inventory.txt`](inventory.txt) before constructing ANY fragrance.**  
+> Materials, dilutions, and stock levels change. Never assume availability. Verify every material against the live inventory file before dosing.
+
+> **⚠️ RULE: Optimize for the name, not just the numbers.**  
+> When asked to optimize, enhance, or modify a formula, the target is the **name / concept / original brief** of the perfume — not numerical scores. The name is the north star. Numerical gates are floors to meet, not ceilings to chase.
+
+> **⚠️ RULE: All perfume calculations must use ppm, ODT, and OAV.**  
+> Concentrations are in **ppm** (parts per million w/w in concentrate). Odor detection thresholds are **ODT** (ppm for ethanol solution, ppb for air). Odor Activity Value is **OAV = concentration_ppm / ODT_ppm**. Every formula dose must be convertible to ppm, every threshold check must reference ODT, and every perceptibility claim must be backed by OAV. No exceptions.
 
 **Current Materials: 104** (Updated 2026-03-09)  
 📄 **[View Full Inventory →](inventory.txt)**
@@ -54,20 +75,7 @@ perfume-chem/
 ├── frontend/                  UI
 ├── run_api_server.py          API entry point
 │
-├── pipelines/                 Pipeline entry points (depth-1 orchestrators)
-│   ├── accord_pipeline.py
-│   ├── luxury_niche_pipeline.py
-│   ├── luxury_v2_pipeline.py
-│   ├── masculine_luxury_pipeline.py
-│   ├── niche_discovery_pipeline.py
-│   ├── niche_ideas_pipeline.py
-│   ├── niche_texture_collection.py
-│   ├── run_opus_v_pipeline.py
-│   ├── iris_cathedral_formula.py
-│   ├── opus_v/                Opus V reverse-engineering + temporal modules
-│   ├── temporal/              Temporal-release formula simulators
-│   ├── analysis/              Scoring / rating / ODT analysis
-│   └── utilities/             Knowledge dump + xlsx extract helpers
+├── engine/pipeline/            Formula release gates + OAV analysis (replaces pipelines/)
 │
 ├── scripts/                   Small utility scripts
 ├── knowledge/                 Knowledge base (accord rules, fragrance facts)
@@ -98,82 +106,152 @@ perfume-chem/
     └── legacy_opus_v/         Superseded Opus V spreadsheets
 ```
 
-### Pipeline Entry Points
+### Pipeline Modules (engine/pipeline/)
 
-| Pipeline | Purpose |
-|----------|---------|
-| `pipelines/accord_pipeline.py` | Generate + score accord-level compositions |
-| `pipelines/luxury_niche_pipeline.py` | Luxury niche formula discovery |
-| `pipelines/luxury_v2_pipeline.py` | Luxury V2 (γ-weighted photorealism) |
-| `pipelines/masculine_luxury_pipeline.py` | Masculine luxury discovery |
-| `pipelines/niche_discovery_pipeline.py` | Broad niche accord exploration |
-| `pipelines/niche_ideas_pipeline.py` | Concept-seeded niche ideas |
-| `pipelines/niche_texture_collection.py` | Texture-driven niche collection |
-| `pipelines/run_opus_v_pipeline.py` | Opus V reconstruction pipeline |
-| `pipelines/iris_cathedral_formula.py` | Iris cathedral architectural formula |
-| `pipelines/opus_v/opus_v_analyzer.py` | Opus V module-level analysis |
-| `pipelines/opus_v/opus_v_bayesian_reconstruction.py` | Bayesian Opus V reconstruction |
-| `pipelines/opus_v/opus_v_temporal_analysis.py` | Temporal release Opus V |
-| `pipelines/temporal/aperture_iris_temporal.py` | Aperture Iris temporal simulator |
-| `pipelines/temporal/porcelaine_poudree_temporal.py` | Porcelaine Poudrée temporal simulator |
-| `pipelines/analysis/rate_all_formulas.py` | Batch-rate every formula in `formulas/` |
-| `pipelines/analysis/score_iris.py` | Iris-specific scoring |
-| `pipelines/analysis/analyze_formulas.py` | Multi-axis formula analysis |
-| `pipelines/utilities/dump_knowledge.py` | Export knowledge graph |
-| `pipelines/utilities/extract_knowledge_graph.py` | Build knowledge graph |
+| Module | Purpose |
+|--------|---------|
+| `engine/pipeline/formula_state.py` | Formula headspace state — OAV, mole fractions, activity coefficients |
+| `engine/pipeline/gates.py` | Release gates — IFRA, pyramid, OAV authority, family drift |
+| `engine/pipeline/simulator.py` | Temporal evolution — 5-window OAV simulation |
+| `engine/pipeline/oav_intelligence.py` | OAV balance reports, performance projection, cliff detection |
+| `engine/pipeline/oav_authority.py` | OAV confidence scoring + data quality assessment |
+| `engine/pipeline/natural_absolute_decomposition.py` | Composite OAV for 35+ natural mixtures |
+| `engine/pipeline/release_scoring.py` | Final release scoring + recommendations |
+| `engine/pipeline/preflight.py` | Pre-gate validation — inventory, data completeness |
+| `engine/pipeline/interventions.py` | Formula interventions — dosing, rebalancing |
+| `engine/pipeline/robustness.py` | Robustness testing — dilution, temperature, aging |
+| `engine/pipeline/audit_log.py` | Pipeline audit logging |
+| `engine/pipeline/analysis.py` | Post-gate analysis formatting |
 
-Each pipeline script self-registers the workspace root on `sys.path` and imports the live `engine/` modules.
+**Entry point**: `scripts/formula_release_gate.py` — orchestrates all engine/pipeline/ modules.
 
 ## Quick Start
 
 ### Prerequisites
 
-- Python 3.11+
-- Poetry
-- Docker & Docker Compose (optional)
+| Tool | Version | Path |
+|------|---------|------|
+| Python 3.12 | 3.12.0 | `.venv\Scripts\python.exe` |
+| Node.js | 26.3.0 | `C:\Program Files\nodejs\node.exe` |
+| npm | 11.16.0 | `C:\Program Files\nodejs\npm.cmd` |
+| Poetry | 2.4.1 | via `.venv\Scripts\python.exe -m poetry` |
+| GitHub CLI | 2.95.0 | `C:\Program Files\GitHub CLI\gh.exe` |
+| oh-my-opencode | 4.11.1 | `%APPDATA%\npm\oh-my-opencode.cmd` |
+| OpenCode CLI | 1.17.8 | `%APPDATA%\npm\lildax.cmd` (alias: `opencode`) |
+| AST-Grep | 0.43.0 | `%APPDATA%\npm\sg.cmd` |
+| Ollama | — | `D:\ollama\ollama` |
 
-### Installation
+### One-Command Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd perfume-chem
-   ```
+Run the startup script from the repo root:
 
-2. **Backend Setup**
-   ```bash
-   cd backend
-   poetry install
-   cp .env.example .env
-   # Edit .env and add your OPENAI_API_KEY
-   ```
+```powershell
+.\opencode-startup.ps1
+```
 
-3. **Run the API**
-   ```bash
-   poetry run uvicorn app.main:app --reload
-   ```
+This checks/installs: Node.js → npm → `@opencode-ai/cli` → `oh-my-opencode` → Python venv → copies node.exe for CLI wrapper compatibility.
 
-4. **Access the API**
-   - API: http://localhost:8000
-   - Interactive Docs: http://localhost:8000/docs
-   - Health Check: http://localhost:8000/health
+### Manual Setup
+
+#### 1. Python Virtual Environment
+
+```powershell
+# Create venv (one-time)
+python -m venv .venv
+
+# Install engine dependencies
+.venv\Scripts\pip install -r requirements.txt
+
+# Install backend dependencies
+cd backend
+..\.venv\Scripts\python -m poetry install
+cd ..
+```
+
+#### 2. Node.js + OpenCode CLI
+
+```powershell
+# Install OpenCode v2 CLI
+C:\Program Files\nodejs\npm.cmd install -g @opencode-ai/cli
+
+# Create 'opencode' alias for 'lildax'
+copy "$env:APPDATA\npm\lildax.cmd" "$env:APPDATA\npm\opencode.cmd"
+
+# Copy node.exe for CLI wrapper (fixes PATH issues)
+copy "C:\Program Files\nodejs\node.exe" "$env:APPDATA\npm\node.exe"
+```
+
+#### 3. oh-my-opencode (Agent Harness)
+
+```powershell
+npm install -g oh-my-opencode
+oh-my-opencode install --no-tui --platform=opencode --claude=no --openai=no --gemini=no --copilot=yes --opencode-zen=no --skip-auth
+```
+
+#### 4. Environment Variables
+
+Copy and edit:
+
+```powershell
+copy .env.example .env
+# Edit .env with your API keys
+# See backend/.env.example for full options
+```
+
+**Key vars in `.env`:**
+- `AI_PROVIDER=deepseek`
+- `DEEPSEEK_API_KEY=sk-...` (already set)
+- `GITHUB_TOKEN=github_pat_...` (for GitHub MCP)
+
+#### 5. Run the API
+
+```powershell
+python run_api_server.py
+```
+
+Or with auto PATH:
+
+```powershell
+$env:PATH = "C:\Program Files\nodejs;C:\Program Files\GitHub CLI;.venv\Scripts;$env:PATH"
+python run_api_server.py
+```
+
+- **API**: http://localhost:8000
+- **Docs**: http://localhost:8000/docs
+- **Health**: http://localhost:8000/health
 
 ### Using Docker
 
-```bash
-# Copy environment file
-cp backend/.env.example backend/.env
-# Edit backend/.env and add your OPENAI_API_KEY
-
-# Start services
+```powershell
 docker compose up -d
-
-# View logs
 docker compose logs -f
-
-# Stop services
 docker compose down
 ```
+
+## OpenCode + oh-my-opencode
+
+This workspace uses **oh-my-opencode** (v4.11.1) as the agent orchestration layer over **OpenCode CLI** (v2, binary: `lildax`).
+
+### Available Commands
+
+| Command | What it does |
+|---------|--------------|
+| `oh-my-opencode --help` | Agent harness help |
+| `omo run <message>` | Run with todo/background task enforcement |
+| `omo doctor` | Check environment health |
+| `lildax serve` | Start OpenCode v2 API server |
+| `lildax --version` | Show version |
+
+### Slash Commands (in OpenCode TUI)
+
+| Command | Arguments | Action |
+|---------|-----------|--------|
+| `/gate` | `<formula> <uL> <brief>` | Run pipeline + analysis |
+| `/audit` | `[brief]` | Historical formula scanning |
+| `/inventory` | — | Read inventory.txt summary |
+| `/lint` | — | `ruff check` + `mypy` |
+| `/test-engine` | — | `pytest tests/` |
+| `/test-backend` | — | `pytest --cov=app` |
 
 ## API Endpoints
 

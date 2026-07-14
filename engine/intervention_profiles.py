@@ -275,7 +275,7 @@ FAMILY_BASES: dict[str, dict[str, object]] = {
         "signal_materials": {
             "top_fades_fast": ("Hedione", "Bergamot FCF oil Sicilian", "Linalool"),
             "too_sharp": ("Benzyl Salicylate", "Hydroxycitronellal", "Florol"),
-            "too_flat": ("Peonile", "Jasmine FO", "Heliotropin Fleuressence"),
+            "too_flat": ("Peonile", "Jasmine FO", "Heliotropal"),
             "heart_thin": ("Hedione", "Lilyreal ND", "Nympheal"),
             "too_cosmetic": ("Neroli EO", "Peonile", "Linalool"),
             "too_soapy": ("Jasmine FO", "Peonile", "Labdanum Absolute (10%)"),
@@ -364,8 +364,8 @@ FAMILY_BASES: dict[str, dict[str, object]] = {
                 "Labdanum Absolute (10%)",
                 "Vanillin (10%)",
             ),
-            "too_flat": ("Heliotropin Fleuressence", "Blackcurrant FTEC", "Dewberry FTEC"),
-            "too_generic": ("Blackcurrant FTEC", "Dewberry FTEC", "Peonile"),
+            "too_flat": ("Heliotropal", "Blackcurrant FTEC", "Heliotropal"),
+            "too_generic": ("Blackcurrant FTEC", "Heliotropal", "Peonile"),
         },
         "signal_notes": {
             "too_sweet": (
@@ -552,7 +552,7 @@ FAMILY_BASES: dict[str, dict[str, object]] = {
         "signal_materials": {
             "too_powdery": ("Methyl Ionone Pure", "Ultralia", "Hedione"),
             "too_cosmetic": ("Alpha Ionone", "Orris F-TEC", "Sandalwood FO"),
-            "drydown_thin": ("Ambrox Super", "Benzyl Salicylate", "Heliotropin Fleuressence"),
+            "drydown_thin": ("Ambrox Super", "Benzyl Salicylate", "Heliotropal"),
             "too_soft": ("Orris F-TEC", "Methyl Ionone Pure", "Sandalwood FO"),
             "too_generic": ("Ultralia", "Orris F-TEC", "Alpha Ionone"),
         },
@@ -608,7 +608,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "accent_materials": ("Hydroxycitronellal", "Nympheal"),
         "observation_signals": ("top_fades_fast", "too_sharp", "heart_thin"),
         "signal_materials": {
-            "too_flat": ("Peonile", "Heliotropin Fleuressence"),
+            "too_flat": ("Peonile", "Heliotropal"),
         },
     },
     {
@@ -623,7 +623,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "description": (
             "A richer white floral that leans plush, creamy, and slightly narcotic."
         ),
-        "anchor_materials": ("Jasmine FO", "Heliotropin Fleuressence", "Vanillin (10%)"),
+        "anchor_materials": ("Jasmine FO", "Heliotropal", "Vanillin (10%)"),
         "bridge_materials": ("Peonile", "Florol"),
         "accent_materials": ("Indole (10%)", "Nympheal"),
         "observation_signals": ("too_flat", "heart_thin", "too_soapy"),
@@ -646,7 +646,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         ),
         "anchor_materials": ("Neroli EO", "Bergamot FCF oil Sicilian", "Hedione"),
         "bridge_materials": ("Linalool", "Peonile"),
-        "accent_materials": ("Hydroxycitronellal", "Heliotropin Fleuressence"),
+        "accent_materials": ("Hydroxycitronellal", "Heliotropal"),
         "observation_signals": ("top_fades_fast", "too_cosmetic", "too_sharp"),
     },
     {
@@ -712,7 +712,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "description": (
             "A gourmand that reads creamy, milky, and soft rather than candy-like."
         ),
-        "anchor_materials": ("Vanillin (10%)", "Heliotropin Fleuressence", "Coumarin (20%)"),
+        "anchor_materials": ("Vanillin (10%)", "Heliotropal", "Coumarin (20%)"),
         "bridge_materials": ("Benzyl Salicylate", "Sandalwood FO"),
         "accent_materials": ("Ethyl Vanillin", "Ambrox Super"),
         "observation_signals": ("too_sweet", "drydown_thin", "too_flat"),
@@ -746,9 +746,9 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "description": (
             "A fruity gourmand that keeps the sweet structure juicy and lifted."
         ),
-        "anchor_materials": ("Blackcurrant FTEC", "Dewberry FTEC", "Peonile"),
+        "anchor_materials": ("Blackcurrant FTEC", "Heliotropal", "Peonile"),
         "bridge_materials": ("Hedione", "Linalool"),
-        "accent_materials": ("Heliotropin Fleuressence", "Vanillin (10%)"),
+        "accent_materials": ("Heliotropal", "Vanillin (10%)"),
         "observation_signals": ("too_sweet", "too_flat", "too_generic"),
     },
     {
@@ -884,7 +884,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         ),
         "anchor_materials": ("Jasmine FO", "Bergamot FCF oil Sicilian", "Evernyl"),
         "bridge_materials": ("Patchouli EO", "Labdanum Absolute (10%)"),
-        "accent_materials": ("Heliotropin Fleuressence", "Peonile"),
+        "accent_materials": ("Heliotropal", "Peonile"),
         "observation_signals": ("too_sweet", "too_flat", "too_generic"),
     },
     {
@@ -952,7 +952,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "description": (
             "A soft, powdery skin scent that leans iris and musk rather than fresh laundry."
         ),
-        "anchor_materials": ("Heliotropin Fleuressence", "Alpha Ionone", "Ultralia"),
+        "anchor_materials": ("Heliotropal", "Alpha Ionone", "Ultralia"),
         "bridge_materials": ("Benzyl Salicylate", "Ambrox Super"),
         "accent_materials": ("Methyl Ionone Pure", "Galaxolide (100%)"),
         "observation_signals": ("too_powdery", "too_cosmetic", "drydown_thin"),
@@ -1020,7 +1020,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         "description": (
             "A classical iris that emphasizes powder, cosmetic lift, and smoothness."
         ),
-        "anchor_materials": ("Orris F-TEC", "Alpha Ionone", "Heliotropin Fleuressence"),
+        "anchor_materials": ("Orris F-TEC", "Alpha Ionone", "Heliotropal"),
         "bridge_materials": ("Benzyl Salicylate", "Vanillin (10%)"),
         "accent_materials": ("Methyl Ionone Pure", "Ultralia"),
         "observation_signals": ("too_powdery", "too_cosmetic", "drydown_thin"),
@@ -1056,7 +1056,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         ),
         "anchor_materials": ("Sandalwood FO", "Orris F-TEC", "Ambrox Super"),
         "bridge_materials": ("Vetiver EO", "Iso E Super"),
-        "accent_materials": ("Alpha Ionone", "Heliotropin Fleuressence"),
+        "accent_materials": ("Alpha Ionone", "Heliotropal"),
         "observation_signals": ("too_woody", "too_soft", "too_generic"),
     },
     {
@@ -1090,7 +1090,7 @@ PROFILE_VARIANTS: list[dict[str, object]] = [
         ),
         "anchor_materials": ("Hydroxycitronellal", "Benzyl Salicylate", "Linalool"),
         "bridge_materials": ("Lilyreal ND", "Peonile"),
-        "accent_materials": ("Heliotropin Fleuressence", "Nympheal"),
+        "accent_materials": ("Heliotropal", "Nympheal"),
         "observation_signals": ("too_soapy", "too_flat", "drydown_thin"),
     },
     {
@@ -1184,7 +1184,7 @@ OBSERVATION_RULES: list[ObservationInterventionRule] = [
         ),
         family_bias=("white_floral", "iris", "muguet", "chypre", "gourmand"),
         preferred_axes=("structure", "contrast", "signature"),
-        materials=("Peonile", "Heliotropin Fleuressence", "Evernyl", "Blackcurrant FTEC"),
+        materials=("Peonile", "Heliotropal", "Evernyl", "Blackcurrant FTEC"),
         dose_style="structural",
     ),
     ObservationInterventionRule(
@@ -1358,7 +1358,7 @@ OBSERVATION_RULES: list[ObservationInterventionRule] = [
         ),
         family_bias=("iris", "skin_scent", "amber", "gourmand"),
         preferred_axes=("texture", "identity", "body"),
-        materials=("Benzyl Salicylate", "Heliotropin Fleuressence", "Suederal (10%)", "Ultralia"),
+        materials=("Benzyl Salicylate", "Heliotropal", "Suederal (10%)", "Ultralia"),
         dose_style="bridge",
     ),
     ObservationInterventionRule(
@@ -1406,7 +1406,7 @@ OBSERVATION_RULES: list[ObservationInterventionRule] = [
         ),
         family_bias=("gourmand", "amber", "leather", "chypre", "iris", "muguet"),
         preferred_axes=("signature", "identity", "contrast"),
-        materials=("Peonile", "Heliotropin Fleuressence", "Blackcurrant FTEC", "Dewberry FTEC"),
+        materials=("Peonile", "Heliotropal", "Blackcurrant FTEC", "Heliotropal"),
         dose_style="structural",
     ),
     ObservationInterventionRule(

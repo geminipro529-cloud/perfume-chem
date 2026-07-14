@@ -1,0 +1,618 @@
+# Intervention Recommendations - Osmanthus Apricot-Suede Chypre — 30mL EdP
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Bergamot FCF + Petitgrain EO Paraguay
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Parmavert
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Methyl Pamplemousse
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Parmavert
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Methyl Pamplemousse
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Petitgrain EO Paraguay + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Parmavert
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Methyl Pamplemousse
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'H-bonding (donor + acceptor pairing)', 'note': 'Pre-mixing allows H-bonds to form before dilution.'}
+- Beneficial premix: Linalool + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: cis-3-Hexenol + Phenethyl Alcohol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.6 vs 1.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: cis-3-Hexenol + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.6 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: cis-3-Hexenol + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.6 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Alpha Isomethyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Parmavert + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Methyl Pamplemousse + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.5 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Hedione HC
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hedione HC + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Beta Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Alpha Isomethyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Oakmoss Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Alpha Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Alpha Isomethyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Oakmoss Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Beta Ionone + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.4 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Alpha Isomethyl Ionone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Ionone + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Linalyl Acetate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.4 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Hexyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Oakmoss Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Alpha Isomethyl Ionone + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Rhodinol ex Citronella
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalyl Acetate + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.4 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Phenethyl Alcohol + Evernyl
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 1.4 vs 2.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Iso E Super
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.6 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Rhodinol ex Citronella + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Benzyl Salicylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Iso E Super + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.6 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Benzyl Benzoate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Salicylate + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Oakmoss Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Ambrettolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Hexyl Salicylate + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Oakmoss Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Benzyl Benzoate + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Patchouli EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Oakmoss Absolute + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Labdanum Resinoid
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Habanolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Patchouli EO + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.5 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Evernyl + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.1 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Isobutyl Quinoline
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Labdanum Resinoid + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Suederal + Romandolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 2.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Suederal + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.0 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Isobutyl Quinoline + Ethylene Brassylate
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Isobutyl Quinoline + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Isobutyl Quinoline + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Isobutyl Quinoline + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Isobutyl Quinoline + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Cedarwood EO
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 3.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ethylene Brassylate + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.2 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Ambrettolide
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 5.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Habanolide + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.2 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Ambrettolide + Vertofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.5 vs 5.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Vertofix + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 5.0 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedarwood EO + Cashmeran
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 3.3 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedarwood EO + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cedarwood EO + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.9 vs 4.5 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Cashmeran + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.3 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Timberol + Ambrofix
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 4.1 vs 4.5 — pre-mixing improves homogeneity.'}
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+- No explicit recommendations captured yet.
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

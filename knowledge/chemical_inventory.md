@@ -1,5 +1,5 @@
 # Chemical Inventory with Properties
-**Last Updated:** 2026-04-20
+**Last Updated:** 2026-04-30
 **Rule:** Always append new chemicals to this file when they arrive.
 **IMPORTANT:** During conversations, if user confirms having a chemical NOT in this file, ADD IT IMMEDIATELY.
 
@@ -185,8 +185,13 @@ This file tracks all chemicals in your inventory with their key properties for f
 | **Bourgeonal**          | 18127-01-0     | Neat              | 3.0      | 1.0                              | Compliant       | Heavy cosmetic lily aldehyde, OR1D2 muguet | 2026-04-20 | Unknown      |
 | **Nympheal**            | 68901-22-4     | Neat              | 3.8      | 0.6                              | Compliant       | Deep transparent muguet nitrile | 2026-04-20 | Unknown      |
 | **Lilyreal ND**         | N/A            | Neat              | 3.5      | 1.5                              | Compliant       | Clean synthetic muguet nitrile, cosmetic | 2026-04-20 | Unknown      |
+| **Lilial**              | 80-54-6        | Neat              | ~4.3     | ~0.2                             | Restricted      | Legacy muguet aldehyde; keep as experimental non-commercial bench material | 2026-04-30 | Unknown      |
 | **Mayol**               | N/A            | Neat              | ~2.5     | 1.5                              | Compliant       | Transparent muguet-lily, post-Lyral replacement | 2026-04-20 | Unknown      |
 | **Farnesol**            | 4602-84-0      | Neat              | 5.8      | 0.08                             | Restricted      | Lily-muguet fixative, sesquiterpene alcohol | 2026-04-20 | Unknown      |
+| **Costus Olifac**       | N/A            | 10% in DPG        | Unknown  | Unknown                          | Unknown         | Costus-style animalic oily-hair/wool accent; use trace only | 2026-04-30 | Unknown      |
+| **Vetiver EO (India)**   | 8016-96-4      | Neat              | 3.8      | 0.04                             | Compliant       | Indian ruh khus; deep earthy-smoky vetiver, premium origin with superior tenacity | 2026-05-08 | Unknown      |
+| **Cardamom EO**          | 8000-66-6      | Neat              | 2.5      | 15.0                             | Compliant       | Green cardamom EO; spicy-cineolic-aromatic; 1,8-cineole + α-terpinyl acetate dominant | 2026-05-08 | Unknown      |
+| **Lavender EO (BONTAUX SAS)** | 8000-28-0      | Neat              | 2.3      | 22.0                             | Compliant       | Premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness; less camphoraceous | 2026-05-08 | Unknown      |
 
 > **VP Column Correction (2026-04-20):** All VP values with entries in `engine/diffusion_model.py` have been corrected to match that authoritative source (Pa at 25°C). Materials NOT in the engine (FTECs, FOs, concentrates, some specialty chemicals) retain estimated values marked with `~`. The engine's authoritative VP source remains `engine/diffusion_model.py`.
 

@@ -1,0 +1,122 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e7]:
+      - link [ref=e8] [cursor=pointer]:
+        - /url: /
+      - text:   
+      - generic [ref=e10]:
+        - navigation [ref=e11]:
+          - list [ref=e12]:
+            - listitem:
+              - generic [ref=e13] [cursor=pointer]:
+                - generic [ref=e14]: 
+                - text: ทั้งหมด
+            - listitem [ref=e15]:
+              - text: 
+              - generic [ref=e16] [cursor=pointer]: โทรศัพท์
+            - listitem [ref=e17]:
+              - text: 
+              - generic [ref=e18] [cursor=pointer]: คอมพิวเตอร์
+            - text:   
+        - textbox "ค้นหาสินค้า..." [ref=e22]
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - generic [ref=e25] [cursor=pointer]: 
+          - listitem [ref=e26]:
+            - link:
+              - /url: javascript:void(0);
+            - link "" [ref=e27] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e28]: 
+  - generic [ref=e32]:
+    - generic [ref=e33]: "คำค้นหายอดนิยม:"
+    - generic [ref=e34]:
+      - link "iPhone X" [ref=e35] [cursor=pointer]:
+        - /url: /s/ราคา/iphone-x
+      - text: ","
+      - link "iPhone 8" [ref=e36] [cursor=pointer]:
+        - /url: /s/ราคา/iphone-8
+      - text: ","
+      - link "iPhone 7" [ref=e37] [cursor=pointer]:
+        - /url: /s/ราคา/iphone-7
+      - text: ","
+      - link "Samsung Galaxy S9" [ref=e38] [cursor=pointer]:
+        - /url: /s/ราคา/samsung-galaxy-s9
+      - text: ","
+      - link "Samsung Galaxy Note 8" [ref=e39] [cursor=pointer]:
+        - /url: /s/ราคา/samsung-galaxy-note-8
+      - text: ","
+      - link "Nubia N1" [ref=e40] [cursor=pointer]:
+        - /url: /s/ราคา/nubia-n1
+  - generic [ref=e44]:
+    - heading "ไม่พบหน้าที่คุณต้องการ" [level=1] [ref=e47]
+    - heading "ลองเช็คชื่อเว็บไซต์ดูอีกทีว่าคุณพิมพ์ถูกต้อง" [level=3] [ref=e48]
+  - generic [ref=e53]:
+    - generic [ref=e54]:
+      - img [ref=e55]
+      - generic [ref=e56]:
+        - text: บริษัท ไพรซ์ซ่า จำกัด
+        - text: 126/101 เออร์โก ทาวเวอร์ ชั้น 26 ถนนกรุงธนบุรี
+        - text: แขวงบางลำภูล่าง เขตคลองสาน กรุงเทพฯ 10600
+      - generic [ref=e57]: ข้อมูลสินค้าและราคาเป็นข้อมูลที่ได้รับจากร้านค้า Priceza ไม่รับรองถึงความถูกต้องของข้อมูล หรือความผิดพลาด ใดๆ ของข้อมูลดังกล่าว
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: ลิงก์
+        - list [ref=e61]:
+          - listitem [ref=e62]:
+            - link "เกี่ยวกับเรา" [ref=e63] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e64]:
+            - link "Insight" [ref=e65] [cursor=pointer]:
+              - /url: /insights/
+          - listitem [ref=e66]:
+            - link "Priceza Affiliate" [ref=e67] [cursor=pointer]:
+              - /url: https://affiliate.priceza.com/
+          - listitem [ref=e68]:
+            - link "Priceza Influencer" [ref=e69] [cursor=pointer]:
+              - /url: https://pricezainfluencer.com/
+          - listitem [ref=e70]:
+            - link "ข้อตกลงและเงื่อนไข" [ref=e71] [cursor=pointer]:
+              - /url: /terms-and-conditions
+          - listitem [ref=e72]:
+            - link "ติดต่อเรา" [ref=e73] [cursor=pointer]:
+              - /url: /contact-us
+      - list [ref=e74]:
+        - listitem [ref=e75]:
+          - link "Verified" [ref=e76] [cursor=pointer]:
+            - /url: /priceza-verified
+        - listitem [ref=e77]:
+          - link "Priceza Money" [ref=e78] [cursor=pointer]:
+            - /url: https://money.priceza.com
+        - listitem [ref=e79]:
+          - link "โปรโมทร้านค้า" [ref=e80] [cursor=pointer]:
+            - /url: /promote?utm_source=Web_PZ&utm_medium=WebsitePZ_Promote&utm_campaign=PZV
+        - listitem [ref=e81]:
+          - link "ฝากข่าวประชาสัมพันธ์ฟรี" [ref=e82] [cursor=pointer]:
+            - /url: mailto:pr@priceza.com?subject=แจ้งลงข่าวประชาสัมพันธ์
+    - generic [ref=e83]:
+      - generic [ref=e84]: ช่องทางติดต่อ
+      - list [ref=e85]:
+        - listitem [ref=e86]:
+          - link "Facebook" [ref=e87] [cursor=pointer]:
+            - /url: https://www.facebook.com/Priceza
+        - listitem [ref=e88]:
+          - link "Line" [ref=e89] [cursor=pointer]:
+            - /url: http://line.me/ti/p/%40priceza_th
+        - listitem [ref=e90]:
+          - link "Instagram" [ref=e91] [cursor=pointer]:
+            - /url: https://www.instagram.com/priceza_th
+        - listitem [ref=e92]:
+          - link "Twitter" [ref=e93] [cursor=pointer]:
+            - /url: https://twitter.com/PricezaLive
+        - listitem [ref=e94]:
+          - link "YouTube" [ref=e95] [cursor=pointer]:
+            - /url: http://www.youtube.com/channel/UC4j-fWpw2-_Cnzi2kWeuY6A
+  - generic: 
+  - generic: 
+  - generic [ref=e97]:
+    - generic [ref=e98]: Copyright © Priceza All Rights Reserved.
+    - generic [ref=e99]:
+      - text: ทะเบียนพาณิชย์อิเล็กทรอนิกส์เลขที่
+      - link "0105554078566" [ref=e100]:
+        - /url: "#"

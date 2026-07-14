@@ -59,7 +59,7 @@
 | 26 | Hedione | neat | 540 | 540.0 | primary radiance amplifier |
 | 27 | **Lavender EO High Altitude** | neat | 350 | 350.0 | aromatic-fougere soul |
 | 28 | Hedione HC | neat | 100 | 100.0 | high-cis radiance boost |
-| 29 | Geraniol | neat | 90 | 90.0 | geranium-leaf green-rose |
+| 29 | Geraniol | 10% in DPG | 9000 | 9.000 | geranium-leaf green-rose |
 | 30 | Coumarin | 20% | 52 | 10.4 | fougere structure — tonka whisper |
 | 31 | Linalyl Acetate | neat | 40 | 40.0 | clean lavender facet |
 | 32 | Neroli EO | neat | 35 | 35.0 | bitter-floral citrus luxury |

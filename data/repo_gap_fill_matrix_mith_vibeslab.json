@@ -1,0 +1,184 @@
+{
+  "capture_date": "2026-05-25",
+  "purpose": "Map competitor and market gaps to whether current repo products fill them",
+  "scoring_scale": {
+    "90_100": "very strong existing fit",
+    "80_89": "strong fit with minor remediation",
+    "70_79": "partial fit requiring clearer positioning",
+    "under_70": "repo does not truly fill the gap yet"
+  },
+  "mith_gaps": [
+    {
+      "gap": "No tightly dominant male blue-woody hero with sharper hero architecture",
+      "type": "product",
+      "best_repo_fill": "Bangkok Compass",
+      "gap_fill_score": 95
+    },
+    {
+      "gap": "Weak climate-native Thai-fresh flagship with immediate local identity",
+      "type": "product",
+      "best_repo_fill": "Makrut Tropic",
+      "gap_fill_score": 93
+    },
+    {
+      "gap": "Weak premium-mass masculine aromatic/fougere bridge",
+      "type": "product",
+      "best_repo_fill": "Aromatic Barbershop Blue",
+      "gap_fill_score": 86
+    },
+    {
+      "gap": "Weak disciplined upper-mass blue-woody premium-male closer",
+      "type": "product",
+      "best_repo_fill": "Cobalt Cedar Air",
+      "gap_fill_score": 88
+    },
+    {
+      "gap": "No standout direct Thai-access oud volume-killer",
+      "type": "product",
+      "best_repo_fill": "Thai Oud",
+      "gap_fill_score": 84
+    },
+    {
+      "gap": "No strong sweet-fougere male hero lane",
+      "type": "product",
+      "best_repo_fill": "Royal Tonka",
+      "gap_fill_score": 82
+    },
+    {
+      "gap": "No concentrated female fruity-chypre category-killer",
+      "type": "product",
+      "best_repo_fill": "Mango Mademoiselle",
+      "gap_fill_score": 81
+    },
+    {
+      "gap": "No B2B scent-branding platform",
+      "type": "structural",
+      "best_repo_fill": null,
+      "gap_fill_score": 25
+    },
+    {
+      "gap": "No strong discovery-set or trial-funnel product architecture",
+      "type": "structural",
+      "best_repo_fill": null,
+      "gap_fill_score": 40
+    }
+  ],
+  "vibeslab_gaps": [
+    {
+      "gap": "Weak mainstream-feminine bestseller coverage",
+      "type": "product",
+      "best_repo_fill": "Mango Mademoiselle",
+      "gap_fill_score": 92
+    },
+    {
+      "gap": "Weak secondary mainstream-feminine rose/cassis/chypre coverage",
+      "type": "product",
+      "best_repo_fill": "Rose Cassis Chypre",
+      "gap_fill_score": 89
+    },
+    {
+      "gap": "No mass-readable male blue-woody hero",
+      "type": "product",
+      "best_repo_fill": "Bangkok Compass",
+      "gap_fill_score": 90
+    },
+    {
+      "gap": "No easy-entry Thai-fresh culturally anchored hero",
+      "type": "product",
+      "best_repo_fill": "Makrut Tropic",
+      "gap_fill_score": 88
+    },
+    {
+      "gap": "No clear sweet-fougere male bestseller lane",
+      "type": "product",
+      "best_repo_fill": "Royal Tonka",
+      "gap_fill_score": 85
+    },
+    {
+      "gap": "No body-care extension in hero scents",
+      "type": "structural",
+      "best_repo_fill": null,
+      "gap_fill_score": 35
+    },
+    {
+      "gap": "No lower-priced bridge size or bridge product around 1,500-2,500 THB",
+      "type": "structural",
+      "best_repo_fill": "Makrut Tropic / Bangkok Compass / Thai Oud as scent candidates",
+      "gap_fill_score": 72
+    },
+    {
+      "gap": "Limited Thai-cultural identity anchor",
+      "type": "product",
+      "best_repo_fill": "Bai Toey",
+      "gap_fill_score": 84
+    },
+    {
+      "gap": "Narrow accessible aquatic or daily-fresh lane",
+      "type": "product",
+      "best_repo_fill": "Aow Phra Nang",
+      "gap_fill_score": 77
+    },
+    {
+      "gap": "No strong barbershop or premium fougere bridge",
+      "type": "product",
+      "best_repo_fill": "Aromatic Barbershop Blue",
+      "gap_fill_score": 80
+    }
+  ],
+  "shared_market_gaps": [
+    {
+      "gap": "1,500-2,500 THB bridge band",
+      "type": "structural",
+      "best_repo_fill": "Makrut Tropic / Bangkok Compass / Thai Oud",
+      "gap_fill_score": 78
+    },
+    {
+      "gap": "Climate-native Thai premium freshness that is culturally specific but not touristy",
+      "type": "product",
+      "best_repo_fill": "Makrut Tropic / Bai Toey / Aow Phra Nang",
+      "gap_fill_score": 90
+    },
+    {
+      "gap": "Mainstream-feminine Thai bestseller with stronger differentiation than generic dupe logic",
+      "type": "product",
+      "best_repo_fill": "Mango Mademoiselle / Rose Cassis Chypre",
+      "gap_fill_score": 88
+    },
+    {
+      "gap": "Male blue-woody hero stronger than broad-assortment local brands and easier than concept niche",
+      "type": "product",
+      "best_repo_fill": "Bangkok Compass / Cobalt Cedar Air",
+      "gap_fill_score": 93
+    },
+    {
+      "gap": "Thai-accessible oud that is less niche-coded but still premium enough to trade up",
+      "type": "product",
+      "best_repo_fill": "Thai Oud",
+      "gap_fill_score": 84
+    },
+    {
+      "gap": "Sweet-fougere male offer between youth mass and premium prestige",
+      "type": "product",
+      "best_repo_fill": "Royal Tonka",
+      "gap_fill_score": 83
+    },
+    {
+      "gap": "Female local-identity fresh-green product that does not collapse into simple body mist",
+      "type": "product",
+      "best_repo_fill": "Bai Toey",
+      "gap_fill_score": 79
+    },
+    {
+      "gap": "Body-care ecosystem attached to high-scoring heroes",
+      "type": "structural",
+      "best_repo_fill": null,
+      "gap_fill_score": 32
+    },
+    {
+      "gap": "Discovery-set or sampler architecture built around hero families",
+      "type": "structural",
+      "best_repo_fill": null,
+      "gap_fill_score": 38
+    }
+  ]
+}

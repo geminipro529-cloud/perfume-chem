@@ -58,7 +58,7 @@ Base total: ~2,980 µL
 |----:|----------|----------|----:|------|
 | 26 | Hedione | neat | 480 | primary radiance amplifier |
 | 27 | Lavender EO High Altitude | neat | 280 | aromatic-fougere soul — French angustifolia |
-| 28 | Geraniol | neat | 100 | geranium-leaf green-rose brightness |
+| 28 | Geraniol | 10% in DPG | 100 | geranium-leaf green-rose brightness |
 | 29 | Hedione HC | neat | 80 | high-cis radiance boost (~8× standard) |
 | 30 | Alpha Irone | 30% in DEP | 50 | THE Amouage orris signature (15 µL active) |
 | 31 | Coumarin | 20% | 55 | fougere structure — tonka whisper (11 µL active) |
@@ -129,7 +129,7 @@ The top softens at 3 weeks; the incense-orris-sandalwood heart blooms at 4+ week
 |----------|----------|----:|
 | Hedione | neat | 480 |
 | Lavender EO High Altitude | neat | 280 |
-| Geraniol | neat | 100 |
+| Geraniol | 10% in DPG | 100 |
 | Hedione HC | neat | 80 |
 | Alpha Irone | 30% in DEP | 50 |
 | Coumarin | 20% | 55 |

@@ -1,9 +1,11 @@
 """Reference data endpoints"""
 
+from typing import List
+
 from fastapi import APIRouter, HTTPException, Query
-from typing import List, Optional
-from app.services.data_loader import DataLoader
 from pydantic import BaseModel
+
+from app.services.data_loader import DataLoader
 
 router = APIRouter(
     prefix="/api/v1/reference",

@@ -1,7 +1,17 @@
 """API v1 router aggregation"""
 
 from fastapi import APIRouter
-from app.api.v1.endpoints import formulas, ai, reference, optimizer, mixer, knowledge, outcomes, enhancements
+
+from app.api.v1.endpoints import (
+    ai,
+    enhancements,
+    formulas,
+    knowledge,
+    mixer,
+    optimizer,
+    outcomes,
+    reference,
+)
 
 api_router = APIRouter()
 

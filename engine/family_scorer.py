@@ -308,6 +308,26 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         perceptual_clarity=0.9,  # must read clean across the arc
         photorealism=0.7,
     ),
+    "aromatic_fougere": "fougere",
+    "fougere_classical": "fougere",
+    "citrus_classical": "cologne",
+    "citrus_aromatic": "cologne",
+    "floral_soliflore": "soliflore",
+    "floral_bouquet": "floral",
+    "floral_white": "floral",
+    "floral_muguet": "soliflore",
+    "floral_carnation": "floral",
+    "floral_powdery": "floral",
+    "floral_green": "green",
+    "floral_aldehydic": "floral",
+    "chypre_classical": "chypre",
+    "chypre_floral": "chypre",
+    "chypre_fruity": "chypre",
+    "chypre_green": "chypre",
+    "chypre_leathery": "chypre",
+    "oriental_classical": "oriental",
+    "oriental_soft": "amber",
+    "oriental_floral": "oriental",
 }
 
 # Resolve aliases into flat dict
@@ -333,7 +353,13 @@ def get_family_weights(family: str) -> ObjectiveWeights:
         ObjectiveWeights configured for that family, or DEFAULT_WEIGHTS if unknown.
     """
     key = family.lower().replace(" ", "_").replace("-", "_")
-    return _RESOLVED.get(key, DEFAULT_WEIGHTS)
+    if key in _RESOLVED:
+        return _RESOLVED[key]
+    if "." in key:
+        stem = key.split(".", 1)[0]
+        if stem in _RESOLVED:
+            return _RESOLVED[stem]
+    return DEFAULT_WEIGHTS
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

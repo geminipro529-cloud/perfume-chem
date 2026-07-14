@@ -46,6 +46,7 @@ class TrustedSource(Enum):
     SIGMA_ALDRICH = "Sigma-Aldrich"
     
     # Tier 3: Formulation databases
+    DATA_SPINE = "Local Data Spine"
     USER_INVENTORY = "User Chemical Inventory"
     FORMULATION_HISTORY = "Historical Formulations"
     
@@ -234,6 +235,21 @@ class ChemicalKnowledgeBase:
         
         # Source 2: material_properties.json
         try:
+            from .data_spine.loader import load_registry
+            material = load_registry().get(name)
+            if material:
+                record.molecular_weight = record.molecular_weight or material.mw_g_mol
+                record.vapor_pressure = record.vapor_pressure or material.vp_25c_pa
+                record.log_p = record.log_p or material.logp
+                record.odor_threshold = record.odor_threshold or material.odt_air_ppb
+                record.cas_number = record.cas_number or material.cas
+                record.odor_description = record.odor_description or material.character
+                sources.append(TrustedSource.DATA_SPINE)
+        except (ImportError, Exception):
+            pass
+
+        # Source 3: material_properties.json
+        try:
             props_path = os.path.join(
                 os.path.dirname(__file__), "..", "data",
                 "knowledge_graph", "material_properties.json"
@@ -252,14 +268,14 @@ class ChemicalKnowledgeBase:
                             record.log_p = entry["clp"]
                         if entry.get("odt") and not record.odor_threshold:
                             record.odor_threshold = entry["odt"]
-                        if entry.get("cas"):
+                        if entry.get("cas") and not record.cas_number:
                             record.cas_number = entry["cas"]
                         sources.append(TrustedSource.PUBCHEM)
                         break
         except (IOError, json.JSONDecodeError):
             pass
         
-        # Source 3: compounds.json (IFRA limits, CAS, MW)
+        # Source 4: compounds.json (IFRA limits, CAS, MW)
         try:
             compounds_path = os.path.join(
                 os.path.dirname(__file__), "..", "data", "compounds.json"
@@ -391,10 +407,6 @@ def require_verified_data(func):
 
 # PRE-POPULATE KNOWN PROBLEM CHEMICALS
 FLAGGED_CHEMICALS = {
-    "orivone": "CAS number mismatch (33704-61-9 = Cashmeran, not iris molecule). "
-               "No verified odor character or usage data from trusted sources. "
-               "Trade name without clear chemical identity. DO NOT RECOMMEND.",
-    
     # Add more as discovered
 }
 
@@ -424,7 +436,7 @@ if __name__ == "__main__":
     # Test
     kb = initialize_knowledge_base()
     
-    # Test Orivone (should fail)
+    # Test Orivone with the current validated data path
     can_rec, record, reason = kb.validate_for_recommendation("Orivone")
     print(f"\nOrivone validation: {can_rec}")
     print(f"Reason: {reason}")

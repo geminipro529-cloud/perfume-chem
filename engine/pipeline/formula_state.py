@@ -17,19 +17,25 @@ raw uL -> active uL -> mass -> moles -> mole fraction -> headspace ppm -> OAV.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import Mapping
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import MaterialProfile
 from engine.material_resolver import resolve_material
 from engine.mixer.prebonding import get_functional_groups
-from engine.name_utils import normalize_name
-from engine.odor_thresholds import ODT_DATA
+from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
 from engine.science_data import get_science_profile
 from engine.thermo.activity import gamma
 from engine.thermo.antoine import R_GAS, vp_pa
-from engine.uncertainty import FieldUncertainty, FormulaUncertainty, combine_uncertainties, field_uncertainty
+from engine.uncertainty import (
+    FieldUncertainty,
+    FormulaUncertainty,
+    combine_uncertainties,
+    field_uncertainty,
+)
+from engine.pipeline.natural_absolute_decomposition import composite_oav
 
 
 P_ATM_PA = 101_325.0
@@ -158,6 +164,113 @@ class FormulaState:
         denom = sum(totals.values()) or 1.0
         return {k: round(v / denom * 100.0, 1) for k, v in totals.items()}
 
+    @classmethod
+    def from_base(
+        cls, base: FormulaState, *, new_raw_ul: dict[str, float]
+    ) -> FormulaState:
+        """Create a new FormulaState with different raw_ul amounts, reusing constant fields.
+
+        Only amount-dependent fields (raw_ul, active_g, moles, mole_fraction,
+        partial_pressure, vapor_ppm, oav, intensity) are recomputed.
+        Constant material properties (MW, VP, gamma, HSP, ODT, etc.) are copied
+        from the base state. This avoids redundant material resolution and
+        property lookups during temporal simulation.
+        """
+        materials: list[MaterialState] = []
+        total_raw = sum(new_raw_ul.values())
+        mole_inputs: dict[str, float] = {}
+        for m in base.materials:
+            raw_ul = new_raw_ul.get(m.name, 0.0)
+            active_ul = raw_ul * m.dilution
+            density = m.density_g_ml
+            active_g = active_ul * density / 1000.0
+            mw = float(m.mw_g_mol or DEFAULT_MW_G_MOL)
+            moles = active_g / mw if active_g > 0 else 0.0
+            canonical = m.canonical_name
+            mole_inputs[canonical] = mole_inputs.get(canonical, 0.0) + moles
+
+        total_moles = sum(mole_inputs.values())
+        mole_fractions = {
+            name: (moles / total_moles if total_moles > 0 else 0.0)
+            for name, moles in mole_inputs.items()
+        }
+
+        for m in base.materials:
+            raw_ul = new_raw_ul.get(m.name, 0.0)
+            active_ul = raw_ul * m.dilution
+            density = m.density_g_ml
+            active_g = active_ul * density / 1000.0
+            mw = float(m.mw_g_mol or DEFAULT_MW_G_MOL)
+            moles = active_g / mw if active_g > 0 else 0.0
+            x_i = mole_fractions.get(m.canonical_name, 0.0)
+
+            partial_pressure = (
+                (m.gamma * x_i * m.vp_pure_pa) if m.vp_pure_pa is not None else 0.0
+            )
+            vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
+            oav_value = (
+                oav(vapor_ppm, m.odt_air_ppm) if m.odt_air_ppm is not None else None
+            )
+
+            # RULE 1b — Natural Absolute Decomposition:
+            # For known natural absolutes, replace the monomolecular OAV
+            # with a composite OAV computed from published GC-O constituents.
+            # The monomolecular model understates natural OAV by 100-1000x.
+            composite = composite_oav(m.canonical_name, active_g, total_moles)
+            if composite is not None:
+                oav_value = composite
+            intensity = (
+                perceived_intensity_stevens(oav_value, m.family)
+                if oav_value is not None
+                else None
+            )
+
+            materials.append(
+                MaterialState(
+                    name=m.name,
+                    canonical_name=m.canonical_name,
+                    raw_ul=raw_ul,
+                    dilution=m.dilution,
+                    active_ul=active_ul,
+                    density_g_ml=density,
+                    active_g=active_g,
+                    mw_g_mol=m.mw_g_mol,
+                    moles=moles,
+                    mole_fraction=x_i,
+                    logp=m.logp,
+                    vp_pure_pa=m.vp_pure_pa,
+                    gamma=m.gamma,
+                    gamma_source=m.gamma_source,
+                    partial_pressure_pa=float(partial_pressure),
+                    vapor_ppm=float(vapor_ppm),
+                    odt_air_ppm=m.odt_air_ppm,
+                    oav=oav_value,
+                    intensity=intensity,
+                    family=m.family,
+                    note=m.note,
+                    profile_name=m.profile_name,
+                    registry_name=m.registry_name,
+                    ifra_limit_pct=m.ifra_limit_pct,
+                    is_known=m.is_known,
+                    is_opaque_preblend=m.is_opaque_preblend,
+                    functional_groups=m.functional_groups,
+                    hsp=m.hsp,
+                    hsp_source=m.hsp_source,
+                    sources=m.sources,
+                    missing_fields=m.missing_fields,
+                )
+            )
+
+        return cls(
+            materials=tuple(materials),
+            total_raw_ul=total_raw,
+            total_active_ul=sum(m.active_ul for m in materials),
+            batch_volume_ml=base.batch_volume_ml,
+            temperature_K=base.temperature_K,
+            context=base.context,
+            uncertainty=base.uncertainty,
+        )
+
     def as_dict(self) -> dict:
         return {
             "total_raw_ul": round(self.total_raw_ul, 4),
@@ -176,15 +289,36 @@ class FormulaState:
         }
 
 
-def _lookup_odt(name: str, profile: MaterialProfile | None, registry_material=None) -> tuple[float | None, str]:
-    norm = normalize_name(name)
-    for odt_name, data in ODT_DATA.items():
-        if normalize_name(odt_name) == norm:
-            odt_air_ppb = data.get("odt_air")
-            if odt_air_ppb is not None:
-                return float(odt_air_ppb) / 1000.0, "literature:odor_thresholds.odt_air"
-    if registry_material is not None and getattr(registry_material, "odt_air_ppb", None) is not None:
-        return float(registry_material.odt_air_ppb) / 1000.0, "registry:data_spine.odt_air_ppb"
+def _odt_source_label(data: dict) -> str:
+    vfy = str(data.get("vfy", "")).upper().strip()
+    if vfy == "DERIVED":
+        return "derived:odor_thresholds.odt_air"
+    if vfy == "UNVERIFIED":
+        return "unverified:odor_thresholds.odt_air"
+    if vfy == "PEER_EST":
+        return "estimated:odor_thresholds.odt_air"
+    if vfy.startswith("PEER"):
+        return "literature:peer_reviewed.odt_air"
+    return "literature:odor_thresholds.odt_air"
+
+
+def _lookup_odt(
+    name: str, profile: MaterialProfile | None, registry_material=None
+) -> tuple[float | None, str]:
+    verification = verify_odt(name)
+    data = lookup_odt_entry(name)
+    if data is not None:
+        odt_air_ppb = data.get("odt_air")
+        if odt_air_ppb is not None:
+            source_data = verification or data
+            return float(odt_air_ppb) / 1000.0, _odt_source_label(source_data)
+    if (
+        registry_material is not None
+        and getattr(registry_material, "odt_air_ppb", None) is not None
+    ):
+        return float(
+            registry_material.odt_air_ppb
+        ) / 1000.0, "registry:data_spine.odt_air_ppb"
     if profile and profile.odt is not None:
         return float(profile.odt) / 1000.0, "profile:ingredient_intelligence.odt"
     return None, "missing"
@@ -217,7 +351,9 @@ def _registry_hsp(material) -> tuple[float, float, float] | None:
     return (float(hsp.delta_d), float(hsp.delta_p), float(hsp.delta_h))
 
 
-def _fallback_hsp(*candidates: str | None) -> tuple[tuple[float, float, float] | None, str]:
+def _fallback_hsp(
+    *candidates: str | None,
+) -> tuple[tuple[float, float, float] | None, str]:
     seen: set[str] = set()
     for candidate in candidates:
         if not candidate:
@@ -229,7 +365,11 @@ def _fallback_hsp(*candidates: str | None) -> tuple[tuple[float, float, float] |
         profile = get_science_profile(key)
         hsp = (profile.hansen_dd, profile.hansen_dp, profile.hansen_dh)
         if all(value is not None for value in hsp):
-            return (float(hsp[0]), float(hsp[1]), float(hsp[2])), "fallback:science_data.hsp"
+            return (
+                float(hsp[0]),
+                float(hsp[1]),
+                float(hsp[2]),
+            ), "fallback:science_data.hsp"
     return None, "missing"
 
 
@@ -259,16 +399,28 @@ def _registry_antoine(material) -> tuple[float, float, float] | None:
     return (float(ant.A), float(ant.B), float(ant.C))
 
 
-def build_formula_state(
-    ingredients_ul: Mapping[str, float],
-    dilutions: Mapping[str, float] | None = None,
-    *,
-    batch_volume_ml: float = 30.0,
-    temperature_K: float = DEFAULT_TEMPERATURE_K,
-    context: str = "skin",
+def _freeze_mapping(
+    mapping: Mapping[str, float] | None, default: float
+) -> tuple[tuple[str, float], ...]:
+    if not mapping:
+        return ()
+    return tuple(
+        (str(name), float(value if value is not None else default))
+        for name, value in mapping.items()
+    )
+
+
+@lru_cache(maxsize=256)
+def _build_formula_state_cached(
+    ingredient_items: tuple[tuple[str, float], ...],
+    dilution_items: tuple[tuple[str, float], ...],
+    batch_volume_ml: float,
+    temperature_K: float,
+    context: str,
 ) -> FormulaState:
     """Build a canonical physical state from a raw uL formula table."""
-    dilutions = dilutions or {}
+    ingredients_ul = dict(ingredient_items)
+    dilutions = dict(dilution_items)
 
     raw_rows = []
     total_moles = 0.0
@@ -317,14 +469,36 @@ def build_formula_state(
             name,
         )
 
-        raw_rows.append((
-            name, raw_ul, dilution, active_ul, active_g, moles, identity, profile, reg_mat,
-            mw, mw_source, logp, logp_source, functional_groups, hsp, hsp_source,
-        ))
-        uncertainty_fields.extend([
-            field_uncertainty(f"{name}.mw", mw_source if mw is not None else "missing"),
-            field_uncertainty(f"{name}.logp", logp_source if logp is not None else "missing"),
-        ])
+        raw_rows.append(
+            (
+                name,
+                raw_ul,
+                dilution,
+                active_ul,
+                active_g,
+                moles,
+                identity,
+                profile,
+                reg_mat,
+                mw,
+                mw_source,
+                logp,
+                logp_source,
+                functional_groups,
+                hsp,
+                hsp_source,
+            )
+        )
+        uncertainty_fields.extend(
+            [
+                field_uncertainty(
+                    f"{name}.mw", mw_source if mw is not None else "missing"
+                ),
+                field_uncertainty(
+                    f"{name}.logp", logp_source if logp is not None else "missing"
+                ),
+            ]
+        )
 
     mole_fractions = {
         name: (moles / total_moles if total_moles > 0 else 0.0)
@@ -333,8 +507,22 @@ def build_formula_state(
 
     materials: list[MaterialState] = []
     for (
-        name, raw_ul, dilution, active_ul, active_g, moles, identity, profile, reg_mat,
-        mw, mw_source, logp, logp_source, functional_groups, hsp, hsp_source,
+        name,
+        raw_ul,
+        dilution,
+        active_ul,
+        active_g,
+        moles,
+        identity,
+        profile,
+        reg_mat,
+        mw,
+        mw_source,
+        logp,
+        logp_source,
+        functional_groups,
+        hsp,
+        hsp_source,
     ) in raw_rows:
         canonical = identity.canonical_name
         x_i = mole_fractions.get(canonical, 0.0)
@@ -356,16 +544,28 @@ def build_formula_state(
             vp = None
 
         gamma_source = "heuristic:hansen_distance"
-        try:
-            gamma_value = gamma(canonical, mole_fractions, temperature_K, hsp_table=hsp_table)
-        except Exception:
-            gamma_value = 1.0
-            gamma_source = "fallback:ideal_gamma"
+        profile_activity_coef = getattr(profile, "activity_coef", None)
+        if hsp_source == "missing" and profile_activity_coef is not None:
+            gamma_value = float(profile_activity_coef)
+            gamma_source = "profile:ingredient_intelligence.activity_coef"
+        else:
+            try:
+                gamma_value = gamma(
+                    canonical, mole_fractions, temperature_K, hsp_table=hsp_table
+                )
+            except Exception:
+                gamma_value = 1.0
+                gamma_source = "fallback:ideal_gamma"
 
         partial_pressure = (gamma_value * x_i * vp) if vp is not None else 0.0
         vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
         odt_air_ppm, odt_source = _lookup_odt(name, profile, reg_mat)
         oav_value = oav(vapor_ppm, odt_air_ppm) if odt_air_ppm else None
+
+        # RULE 1b — Natural Absolute Decomposition
+        composite = composite_oav(canonical, active_g, total_moles)
+        if composite is not None:
+            oav_value = composite
         family = getattr(profile, "or_family", None) if profile else None
         intensity = (
             perceived_intensity_stevens(oav_value, family)
@@ -375,7 +575,9 @@ def build_formula_state(
         note = getattr(profile, "note", None) or "heart"
         reg_name = identity.registry_name
         profile_name = identity.profile_name
-        ifra_limit = IFRA_CAT4_LIMITS.get(name) or IFRA_CAT4_LIMITS.get(profile_name or "")
+        ifra_limit = IFRA_CAT4_LIMITS.get(name) or IFRA_CAT4_LIMITS.get(
+            profile_name or ""
+        )
         missing = tuple(
             field_name
             for field_name, value in (
@@ -393,13 +595,17 @@ def build_formula_state(
             "vp": vp_source if vp is not None else "missing",
             "gamma": gamma_source,
             "odt": odt_source,
-            "ifra": "literature:ifra_safety" if ifra_limit is not None else "missing_or_unrestricted",
+            "ifra": "literature:ifra_safety"
+            if ifra_limit is not None
+            else "missing_or_unrestricted",
         }
-        uncertainty_fields.extend([
-            field_uncertainty(f"{name}.vp", sources["vp"]),
-            field_uncertainty(f"{name}.gamma", sources["gamma"]),
-            field_uncertainty(f"{name}.odt", sources["odt"]),
-        ])
+        uncertainty_fields.extend(
+            [
+                field_uncertainty(f"{name}.vp", sources["vp"]),
+                field_uncertainty(f"{name}.gamma", sources["gamma"]),
+                field_uncertainty(f"{name}.odt", sources["odt"]),
+            ]
+        )
 
         materials.append(
             MaterialState(
@@ -408,7 +614,9 @@ def build_formula_state(
                 raw_ul=raw_ul,
                 dilution=dilution,
                 active_ul=active_ul,
-                density_g_ml=float(getattr(reg_mat, "density_25c_g_ml", None) or DEFAULT_DENSITY_G_ML),
+                density_g_ml=float(
+                    getattr(reg_mat, "density_25c_g_ml", None) or DEFAULT_DENSITY_G_ML
+                ),
                 active_g=active_g,
                 mw_g_mol=float(mw) if mw is not None else None,
                 moles=moles,
@@ -446,3 +654,24 @@ def build_formula_state(
         context=context,
         uncertainty=combine_uncertainties(uncertainty_fields),
     )
+
+
+def build_formula_state(
+    ingredients_ul: Mapping[str, float],
+    dilutions: Mapping[str, float] | None = None,
+    *,
+    batch_volume_ml: float = 30.0,
+    temperature_K: float = DEFAULT_TEMPERATURE_K,
+    context: str = "skin",
+) -> FormulaState:
+    """Build a canonical physical state from a raw uL formula table."""
+    return _build_formula_state_cached(
+        _freeze_mapping(ingredients_ul, 0.0),
+        _freeze_mapping(dilutions, 1.0),
+        float(batch_volume_ml),
+        float(temperature_K),
+        str(context),
+    )
+
+
+build_formula_state.cache_clear = _build_formula_state_cached.cache_clear

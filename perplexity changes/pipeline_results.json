@@ -1,0 +1,4152 @@
+{
+  "woody_vetiver": {
+    "formula_name": "Vetiver Classique 30mL EdP",
+    "resolved_family": "woody",
+    "archetype_key": "woody.vetiver_classical",
+    "overall_status": "FAIL",
+    "commercial_readiness": "NOT_RELEASE_READY",
+    "notes": [
+      "Fail-fast at family_fit: 2 anchor failures: tobacco_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 4.324% active above 4.000"
+    ],
+    "summary": {
+      "stages": {
+        "passed": 7,
+        "warned": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "materials": 15,
+      "note_distribution": {
+        "top": 10.0,
+        "heart": 35.4,
+        "base": 54.7
+      },
+      "perceptible_count": 14,
+      "total_vapor_ppm": 100.78,
+      "archetype": "woody.vetiver_classical",
+      "oav_max": 11813.06,
+      "oav_min": 0.24,
+      "oav_median": 33.0,
+      "oav_contrast_sigma_log": 1.5
+    },
+    "stages": [
+      {
+        "name": "registry_integrity",
+        "status": "PASS",
+        "detail": "270 unique entries, 270 normalized keys",
+        "data": {
+          "total_entries": 270,
+          "total_normalized": 270,
+          "missing_odt": []
+        }
+      },
+      {
+        "name": "name_normalization",
+        "status": "PASS",
+        "detail": "15 materials resolved",
+        "data": {
+          "materials": [
+            {
+              "requested": "Vetiver EO",
+              "canonical": "vetiver eo",
+              "profile_name": "Vetiver EO",
+              "registry_name": "Vetiver EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Bergamot FCF oil Sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "profile_name": "Bergamot FCF oil Sicilian",
+              "registry_name": "Bergamot FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Cedrat FCF oil Sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "profile_name": "Cedrat FCF Sicilian",
+              "registry_name": "Cedrat FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Iso E Super",
+              "canonical": "iso e super",
+              "profile_name": "Iso E Super",
+              "registry_name": "Iso E Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 18.0
+            },
+            {
+              "requested": "Cedarwood oil Virginia",
+              "canonical": "cedarwood virginia",
+              "profile_name": "Cedarwood oil Virginia",
+              "registry_name": "Cedarwood Virginia EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Vetival",
+              "canonical": "vetival",
+              "profile_name": "Vetival",
+              "registry_name": "Vetival",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            },
+            {
+              "requested": "Evernyl",
+              "canonical": "evernyl",
+              "profile_name": "Evernyl",
+              "registry_name": "Evernyl",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 0.5
+            },
+            {
+              "requested": "Coumarin",
+              "canonical": "coumarin",
+              "profile_name": "Coumarin",
+              "registry_name": "Coumarin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 1.0
+            },
+            {
+              "requested": "Patchouli EO",
+              "canonical": "patchouli eo",
+              "profile_name": "Patchouli EO",
+              "registry_name": "Patchouli EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Ambrox Super",
+              "canonical": "ambrox super",
+              "profile_name": "Ambrox Super",
+              "registry_name": "Ambrox Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 3.0
+            },
+            {
+              "requested": "Habanolide",
+              "canonical": "habanolide",
+              "profile_name": "Habanolide",
+              "registry_name": "Habanolide",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Linalool",
+              "canonical": "linalool",
+              "profile_name": "Linalool",
+              "registry_name": "Linalool",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Hedione",
+              "canonical": "hedione",
+              "profile_name": "Hedione",
+              "registry_name": "Hedione",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 12.0
+            },
+            {
+              "requested": "Black Pepper EO",
+              "canonical": "black pepper eo",
+              "profile_name": "Black Pepper EO",
+              "registry_name": "Black Pepper EO",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 1.5
+            },
+            {
+              "requested": "Javanol",
+              "canonical": "javanol",
+              "profile_name": "Javanol",
+              "registry_name": "Javanol",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_resolution",
+        "status": "PASS",
+        "detail": "brief=vetiver_woody ΓåÆ archetype=woody.vetiver_classical (family=woody)",
+        "data": {
+          "archetype_key": "woody.vetiver_classical",
+          "family": "woody",
+          "label": "Classical vetiver woody"
+        }
+      },
+      {
+        "name": "build_formula_state",
+        "status": "PASS",
+        "detail": "15 materials, 0 with missing fields, total active: 5431.2 ┬╡L",
+        "data": {
+          "material_count": 15,
+          "total_active_ul": 5431.2,
+          "missing_fields_count": 0,
+          "missing_fields": []
+        }
+      },
+      {
+        "name": "active_percent_check",
+        "status": "PASS",
+        "detail": "15 materials have dilution-adjusted active percent",
+        "data": {
+          "diluted_materials": {
+            "vetiver eo": {
+              "raw_pct": 16.22,
+              "active_pct": 16.57
+            },
+            "bergamot fcf sicilian": {
+              "raw_pct": 10.81,
+              "active_pct": 11.05
+            },
+            "cedrat fcf sicilian": {
+              "raw_pct": 5.41,
+              "active_pct": 5.52
+            },
+            "iso e super": {
+              "raw_pct": 19.46,
+              "active_pct": 19.89
+            },
+            "cedarwood virginia": {
+              "raw_pct": 8.65,
+              "active_pct": 8.84
+            },
+            "vetival": {
+              "raw_pct": 2.16,
+              "active_pct": 2.21
+            },
+            "evernyl": {
+              "raw_pct": 0.54,
+              "active_pct": 0.55
+            },
+            "coumarin": {
+              "raw_pct": 1.08,
+              "active_pct": 1.1
+            },
+            "patchouli eo": {
+              "raw_pct": 4.32,
+              "active_pct": 4.42
+            },
+            "ambrox super": {
+              "raw_pct": 3.24,
+              "active_pct": 3.31
+            },
+            "habanolide": {
+              "raw_pct": 8.65,
+              "active_pct": 8.84
+            },
+            "linalool": {
+              "raw_pct": 4.32,
+              "active_pct": 4.42
+            },
+            "hedione": {
+              "raw_pct": 12.97,
+              "active_pct": 13.26
+            },
+            "black pepper eo": {
+              "raw_pct": 1.62,
+              "active_pct": 0.02
+            },
+            "javanol": {
+              "raw_pct": 0.54,
+              "active_pct": 0.01
+            }
+          },
+          "note_distribution": {
+            "top": 10.0,
+            "heart": 35.4,
+            "base": 54.7
+          }
+        }
+      },
+      {
+        "name": "odt_coverage",
+        "status": "PASS",
+        "detail": "all 15 materials have ODT data",
+        "data": {}
+      },
+      {
+        "name": "oav_computation",
+        "status": "PASS",
+        "detail": "14/15 perceptible (OAV>=1), 1 sub-threshold, total vapor: 100.78 ppm",
+        "data": {
+          "total_vapor_ppm": 100.7771,
+          "perceptible_count": 14,
+          "sub_threshold_count": 1,
+          "sub_threshold_materials": [
+            {
+              "name": "black pepper eo",
+              "oav": 0.24,
+              "role": "character",
+              "active_ul": 0.9
+            }
+          ],
+          "dominant_materials": [
+            "bergamot fcf sicilian",
+            "cedrat fcf sicilian",
+            "iso e super",
+            "linalool",
+            "hedione"
+          ],
+          "oav_table": [
+            {
+              "name": "vetiver eo",
+              "canonical": "vetiver eo",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.074838,
+              "odt_air_ppm": 0.005,
+              "oav": 14.97,
+              "intensity": 2.9516,
+              "vp_pa": 0.05,
+              "gamma": 1.0016,
+              "mole_fraction": 0.151421
+            },
+            {
+              "name": "bergamot fcf sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "note": "heart",
+              "family": "citrus",
+              "raw_ul": 600.0,
+              "dilution": 1.0,
+              "active_ul": 600.0,
+              "vapor_ppm": 59.978537,
+              "odt_air_ppm": 0.006,
+              "oav": 9996.42,
+              "intensity": 158.4581,
+              "vp_pa": 40.0,
+              "gamma": 1.0016,
+              "mole_fraction": 0.151694
+            },
+            {
+              "name": "cedrat fcf sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 25.550067,
+              "odt_air_ppm": 0.008,
+              "oav": 3193.76,
+              "intensity": 84.5992,
+              "vp_pa": 35.0,
+              "gamma": 1.0016,
+              "mole_fraction": 0.073851
+            },
+            {
+              "name": "iso e super",
+              "canonical": "iso e super",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 1080.0,
+              "dilution": 1.0,
+              "active_ul": 1080.0,
+              "vapor_ppm": 0.273388,
+              "odt_air_ppm": 5e-05,
+              "oav": 5467.76,
+              "intensity": 31.2697,
+              "vp_pa": 0.15,
+              "gamma": 1.0712,
+              "mole_fraction": 0.172403
+            },
+            {
+              "name": "cedarwood virginia",
+              "canonical": "cedarwood virginia",
+              "note": "heart",
+              "family": null,
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 0.12768,
+              "odt_air_ppm": 0.015,
+              "oav": 8.51,
+              "intensity": 2.3551,
+              "vp_pa": 0.15,
+              "gamma": 1.0016,
+              "mole_fraction": 0.086112
+            },
+            {
+              "name": "vetival",
+              "canonical": "vetival",
+              "note": "heart",
+              "family": "woody",
+              "raw_ul": 120.0,
+              "dilution": 1.0,
+              "active_ul": 120.0,
+              "vapor_ppm": 0.043029,
+              "odt_air_ppm": 0.007,
+              "oav": 6.15,
+              "intensity": 2.0676,
+              "vp_pa": 0.2,
+              "gamma": 1.0016,
+              "mole_fraction": 0.021765
+            },
+            {
+              "name": "evernyl",
+              "canonical": "evernyl",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 30.0,
+              "dilution": 1.0,
+              "active_ul": 30.0,
+              "vapor_ppm": 0.005655,
+              "odt_air_ppm": 0.0003,
+              "oav": 18.85,
+              "intensity": 3.237,
+              "vp_pa": 0.1,
+              "gamma": 1.0016,
+              "mole_fraction": 0.005721
+            },
+            {
+              "name": "coumarin",
+              "canonical": "coumarin",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 60.0,
+              "dilution": 1.0,
+              "active_ul": 60.0,
+              "vapor_ppm": 0.121024,
+              "odt_air_ppm": 0.0007,
+              "oav": 172.89,
+              "intensity": 7.8543,
+              "vp_pa": 0.5,
+              "gamma": 1.5971,
+              "mole_fraction": 0.015356
+            },
+            {
+              "name": "patchouli eo",
+              "canonical": "patchouli eo",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 0.02425,
+              "odt_air_ppm": 0.003,
+              "oav": 8.08,
+              "intensity": 2.3069,
+              "vp_pa": 0.06,
+              "gamma": 1.0142,
+              "mole_fraction": 0.040379
+            },
+            {
+              "name": "ambrox super",
+              "canonical": "ambrox super",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 180.0,
+              "dilution": 1.0,
+              "active_ul": 180.0,
+              "vapor_ppm": 0.014363,
+              "odt_air_ppm": 0.0003,
+              "oav": 47.88,
+              "intensity": 3.8729,
+              "vp_pa": 0.05,
+              "gamma": 1.0216,
+              "mole_fraction": 0.028491
+            },
+            {
+              "name": "habanolide",
+              "canonical": "habanolide",
+              "note": "base",
+              "family": "musk",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 0.014894,
+              "odt_air_ppm": 0.0028,
+              "oav": 5.32,
+              "intensity": 1.651,
+              "vp_pa": 0.02,
+              "gamma": 1.0016,
+              "mole_fraction": 0.075338
+            },
+            {
+              "name": "linalool",
+              "canonical": "linalool",
+              "note": "top",
+              "family": "aromatic",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 13.95816,
+              "odt_air_ppm": 0.0015,
+              "oav": 9305.44,
+              "intensity": 38.6807,
+              "vp_pa": 21.3,
+              "gamma": 1.1409,
+              "mole_fraction": 0.0582
+            },
+            {
+              "name": "hedione",
+              "canonical": "hedione",
+              "note": "heart",
+              "family": "floral",
+              "raw_ul": 720.0,
+              "dilution": 1.0,
+              "active_ul": 720.0,
+              "vapor_ppm": 0.590653,
+              "odt_air_ppm": 5e-05,
+              "oav": 11813.06,
+              "intensity": 51.3325,
+              "vp_pa": 0.5,
+              "gamma": 1.0054,
+              "mole_fraction": 0.119049
+            },
+            {
+              "name": "black pepper eo",
+              "canonical": "black pepper eo",
+              "note": "top",
+              "family": "spice",
+              "raw_ul": 90.0,
+              "dilution": 0.01,
+              "active_ul": 0.9,
+              "vapor_ppm": 0.000489,
+              "odt_air_ppm": 0.002,
+              "oav": 0.24,
+              "intensity": 0.4943,
+              "vp_pa": 0.3,
+              "gamma": 1.0016,
+              "mole_fraction": 0.000165
+            },
+            {
+              "name": "javanol",
+              "canonical": "javanol",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 30.0,
+              "dilution": 0.01,
+              "active_ul": 0.3,
+              "vapor_ppm": 5.3e-05,
+              "odt_air_ppm": 1.6000000000000001e-06,
+              "oav": 32.96,
+              "intensity": 4.0476,
+              "vp_pa": 0.1,
+              "gamma": 1.0016,
+              "mole_fraction": 5.3e-05
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_fit",
+        "status": "FAIL",
+        "detail": "2 anchor failures: tobacco_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 4.324% active above 4.000",
+        "data": {
+          "archetype": "woody.vetiver_classical",
+          "family": "woody",
+          "label": "Classical vetiver woody",
+          "status": "FAIL",
+          "checks": [
+            {
+              "name": "vetiver_star_axis",
+              "status": "PASS",
+              "detail": "18.378% active >= 8.000",
+              "value": 18.378378,
+              "rule": {
+                "name": "vetiver_star_axis",
+                "materials": [
+                  "Vetiver EO",
+                  "Vetiver EO (India)",
+                  "Vetival"
+                ],
+                "basis": "active",
+                "minimum": 8.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "citrus_fresh_top",
+              "status": "PASS",
+              "detail": "16.216% active >= 6.000",
+              "value": 16.216216,
+              "rule": {
+                "name": "citrus_fresh_top",
+                "materials": [
+                  "Bergamot FCF",
+                  "Bergamot",
+                  "Bergamot FCF Sicilian",
+                  "Bergamot FCF oil Sicilian",
+                  "Cedrat FCF Sicilian",
+                  "Cedrat FCF oil Sicilian",
+                  "Grapefruit FCF",
+                  "Red Mandarin EO",
+                  "Lime Distilled EO",
+                  "Lime Distilled Essential Oil",
+                  "Limonene",
+                  "D-Limonene",
+                  "Petitgrain EO"
+                ],
+                "basis": "active",
+                "minimum": 6.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "woody_spine",
+              "status": "PASS",
+              "detail": "51.351% active >= 12.000",
+              "value": 51.351351,
+              "rule": {
+                "name": "woody_spine",
+                "materials": [
+                  "Vetiver EO",
+                  "Vetiver EO (India)",
+                  "Vetival",
+                  "Vetikon",
+                  "Cedarwood EO",
+                  "Cedarwood oil Virginia",
+                  "Iso E Super",
+                  "Vertofix",
+                  "Timberol",
+                  "Evernyl",
+                  "Patchouli EO",
+                  "Koavone",
+                  "Clearwood",
+                  "Nagarmortha Oil"
+                ],
+                "basis": "active",
+                "minimum": 12.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "moss_structure",
+              "status": "PASS",
+              "detail": "0.541% active >= 0.300",
+              "value": 0.540541,
+              "rule": {
+                "name": "moss_structure",
+                "materials": [
+                  "Evernyl"
+                ],
+                "basis": "active",
+                "minimum": 0.3,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "coumarin_warmth",
+              "status": "PASS",
+              "detail": "1.081% active >= 0.300",
+              "value": 1.081081,
+              "rule": {
+                "name": "coumarin_warmth",
+                "materials": [
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": 0.3,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "tobacco_resin_depth",
+              "status": "FAIL",
+              "detail": "0.000% active below 0.100",
+              "value": 0.0,
+              "rule": {
+                "name": "tobacco_resin_depth",
+                "materials": [
+                  "Tobacco Absolute"
+                ],
+                "basis": "active",
+                "minimum": 0.1,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "not_gourmand",
+              "status": "PASS",
+              "detail": "1.081% active <= 2.500",
+              "value": 1.081081,
+              "rule": {
+                "name": "not_gourmand",
+                "materials": [
+                  "Vanillin",
+                  "Ethyl Vanillin",
+                  "Ethyl Maltol",
+                  "Benzoin Resinoid",
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 2.5,
+                "detail": ""
+              }
+            },
+            {
+              "name": "not_aquatic",
+              "status": "PASS",
+              "detail": "0.000% raw <= 2.000",
+              "value": 0.0,
+              "rule": {
+                "name": "not_aquatic",
+                "materials": [
+                  "Calone",
+                  "Floralozone",
+                  "Scentenal"
+                ],
+                "basis": "raw",
+                "minimum": null,
+                "maximum": 2.0,
+                "detail": ""
+              }
+            },
+            {
+              "name": "not_aromatic_fougere",
+              "status": "FAIL",
+              "detail": "4.324% active above 4.000",
+              "value": 4.324324,
+              "rule": {
+                "name": "not_aromatic_fougere",
+                "materials": [
+                  "Lavender EO",
+                  "Lavender EO High Altitude",
+                  "Spike Lavender EO",
+                  "Lavender Spike Essential Oil",
+                  "Clary Sage EO",
+                  "Petitgrain EO",
+                  "Juniper Berry EO",
+                  "Beta-Pinene",
+                  "Pine EO",
+                  "Pine Essential Oil",
+                  "Linalool",
+                  "Linalyl Acetate",
+                  "Ethyl Linalool",
+                  "Dihydromyrcenol",
+                  "Terpinyl Acetate"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 4.0,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fruit_not_candy",
+              "status": "PASS",
+              "detail": "0.000% active <= 0.800",
+              "value": 0.0,
+              "rule": {
+                "name": "fruit_not_candy",
+                "materials": [
+                  "Apritone",
+                  "Hexyl Acetate",
+                  "Ethyl 2-Methylbutyrate",
+                  "Methyl Pamplemousse"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 0.8,
+                "detail": ""
+              }
+            }
+          ],
+          "forbidden_hits": [],
+          "oav_targets": {
+            "top": {
+              "citrus": 1200,
+              "spice": 80,
+              "aromatic": 120,
+              "green": 60
+            },
+            "heart": {
+              "woody": 800,
+              "floral": 250,
+              "spice": 40,
+              "radiance": 150
+            },
+            "base": {
+              "wood": 120,
+              "musk": 35,
+              "moss": 12,
+              "coumarin": 18
+            }
+          }
+        }
+      }
+    ]
+  },
+  "chypre": {
+    "formula_name": "Chypre Vert 30mL EdP",
+    "resolved_family": "aromatic_fougere",
+    "archetype_key": "aromatic_fougere.classic_reference",
+    "overall_status": "FAIL",
+    "commercial_readiness": "NOT_RELEASE_READY",
+    "notes": [
+      "Fail-fast at family_fit: 1 anchor failures: fougere_aromatic_lavender_axis: 3.015% active below 5.000"
+    ],
+    "summary": {
+      "stages": {
+        "passed": 7,
+        "warned": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "materials": 17,
+      "note_distribution": {
+        "top": 13.3,
+        "heart": 43.9,
+        "base": 42.8
+      },
+      "perceptible_count": 16,
+      "total_vapor_ppm": 114.88,
+      "archetype": "aromatic_fougere.classic_reference",
+      "oav_max": 13371.14,
+      "oav_min": 0.51,
+      "oav_median": 50.4,
+      "oav_contrast_sigma_log": 1.51
+    },
+    "stages": [
+      {
+        "name": "registry_integrity",
+        "status": "PASS",
+        "detail": "270 unique entries, 270 normalized keys",
+        "data": {
+          "total_entries": 270,
+          "total_normalized": 270,
+          "missing_odt": []
+        }
+      },
+      {
+        "name": "name_normalization",
+        "status": "PASS",
+        "detail": "17 materials resolved",
+        "data": {
+          "materials": [
+            {
+              "requested": "Bergamot FCF oil Sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "profile_name": "Bergamot FCF oil Sicilian",
+              "registry_name": "Bergamot FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Cedrat FCF oil Sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "profile_name": "Cedrat FCF Sicilian",
+              "registry_name": "Cedrat FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Lemon FCF oil Sicilian",
+              "canonical": "lemon fcf oil sicilian",
+              "profile_name": "Lemon FCF oil Sicilian",
+              "registry_name": "Lemon FCF Oil Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Iso E Super",
+              "canonical": "iso e super",
+              "profile_name": "Iso E Super",
+              "registry_name": "Iso E Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Patchouli EO",
+              "canonical": "patchouli eo",
+              "profile_name": "Patchouli EO",
+              "registry_name": "Patchouli EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Evernyl",
+              "canonical": "evernyl",
+              "profile_name": "Evernyl",
+              "registry_name": "Evernyl",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 1.5
+            },
+            {
+              "requested": "Labdanum Absolute",
+              "canonical": "labdanum absolute",
+              "profile_name": "Labdanum Absolute",
+              "registry_name": "Labdanum Absolute",
+              "is_known": true,
+              "dilution": 0.5,
+              "percent": 2.0
+            },
+            {
+              "requested": "Vetiver EO",
+              "canonical": "vetiver eo",
+              "profile_name": "Vetiver EO",
+              "registry_name": "Vetiver EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Galbanum Resinoid",
+              "canonical": "galbanum resinoid",
+              "profile_name": "Galbanum Resinoid",
+              "registry_name": "Galbanum Resinoid",
+              "is_known": true,
+              "dilution": 0.1,
+              "percent": 0.5
+            },
+            {
+              "requested": "Jasmine Absolute",
+              "canonical": "jasmine absolute",
+              "profile_name": "Jasmine Absolute",
+              "registry_name": "Jasmine Absolute",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Rose Absolute",
+              "canonical": "rose absolute",
+              "profile_name": "Rose Absolute",
+              "registry_name": "Rose Absolute",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 3.0
+            },
+            {
+              "requested": "Ambrox Super",
+              "canonical": "ambrox super",
+              "profile_name": "Ambrox Super",
+              "registry_name": "Ambrox Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            },
+            {
+              "requested": "Habanolide",
+              "canonical": "habanolide",
+              "profile_name": "Habanolide",
+              "registry_name": "Habanolide",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Hedione",
+              "canonical": "hedione",
+              "profile_name": "Hedione",
+              "registry_name": "Hedione",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Linalool",
+              "canonical": "linalool",
+              "profile_name": "Linalool",
+              "registry_name": "Linalool",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 3.0
+            },
+            {
+              "requested": "Coumarin",
+              "canonical": "coumarin",
+              "profile_name": "Coumarin",
+              "registry_name": "Coumarin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 0.5
+            },
+            {
+              "requested": "Cedarwood oil Virginia",
+              "canonical": "cedarwood virginia",
+              "profile_name": "Cedarwood oil Virginia",
+              "registry_name": "Cedarwood Virginia EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 6.0
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_resolution",
+        "status": "PASS",
+        "detail": "brief=generic ΓåÆ archetype=aromatic_fougere.classic_reference (family=aromatic_fougere)",
+        "data": {
+          "archetype_key": "aromatic_fougere.classic_reference",
+          "family": "aromatic_fougere",
+          "label": "Classic/reference aromatic fougere"
+        }
+      },
+      {
+        "name": "build_formula_state",
+        "status": "PASS",
+        "detail": "17 materials, 0 with missing fields, total active: 5883.0 ┬╡L",
+        "data": {
+          "material_count": 17,
+          "total_active_ul": 5883.0,
+          "missing_fields_count": 0,
+          "missing_fields": []
+        }
+      },
+      {
+        "name": "active_percent_check",
+        "status": "PASS",
+        "detail": "16 materials have dilution-adjusted active percent",
+        "data": {
+          "diluted_materials": {
+            "bergamot fcf sicilian": {
+              "raw_pct": 15.08,
+              "active_pct": 15.3
+            },
+            "cedrat fcf sicilian": {
+              "raw_pct": 5.03,
+              "active_pct": 5.1
+            },
+            "lemon fcf oil sicilian": {
+              "raw_pct": 5.03,
+              "active_pct": 5.1
+            },
+            "iso e super": {
+              "raw_pct": 15.08,
+              "active_pct": 15.3
+            },
+            "patchouli eo": {
+              "raw_pct": 8.04,
+              "active_pct": 8.16
+            },
+            "evernyl": {
+              "raw_pct": 1.51,
+              "active_pct": 1.53
+            },
+            "labdanum absolute": {
+              "raw_pct": 2.01,
+              "active_pct": 1.02
+            },
+            "vetiver eo": {
+              "raw_pct": 4.02,
+              "active_pct": 4.08
+            },
+            "galbanum resinoid": {
+              "raw_pct": 0.5,
+              "active_pct": 0.05
+            },
+            "jasmine absolute": {
+              "raw_pct": 4.02,
+              "active_pct": 4.08
+            },
+            "rose absolute": {
+              "raw_pct": 3.02,
+              "active_pct": 3.06
+            },
+            "ambrox super": {
+              "raw_pct": 2.01,
+              "active_pct": 2.04
+            },
+            "habanolide": {
+              "raw_pct": 10.05,
+              "active_pct": 10.2
+            },
+            "hedione": {
+              "raw_pct": 15.08,
+              "active_pct": 15.3
+            },
+            "linalool": {
+              "raw_pct": 3.02,
+              "active_pct": 3.06
+            },
+            "cedarwood virginia": {
+              "raw_pct": 6.03,
+              "active_pct": 6.12
+            }
+          },
+          "note_distribution": {
+            "top": 13.3,
+            "heart": 43.9,
+            "base": 42.8
+          }
+        }
+      },
+      {
+        "name": "odt_coverage",
+        "status": "PASS",
+        "detail": "all 17 materials have ODT data",
+        "data": {}
+      },
+      {
+        "name": "oav_computation",
+        "status": "PASS",
+        "detail": "16/17 perceptible (OAV>=1), 1 sub-threshold, total vapor: 114.88 ppm",
+        "data": {
+          "total_vapor_ppm": 114.8816,
+          "perceptible_count": 16,
+          "sub_threshold_count": 1,
+          "sub_threshold_materials": [
+            {
+              "name": "labdanum absolute",
+              "oav": 0.51,
+              "role": "character",
+              "active_ul": 60.0
+            }
+          ],
+          "dominant_materials": [
+            "bergamot fcf sicilian",
+            "cedrat fcf sicilian",
+            "iso e super",
+            "rose absolute",
+            "hedione",
+            "linalool"
+          ],
+          "oav_table": [
+            {
+              "name": "bergamot fcf sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "note": "heart",
+              "family": "citrus",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 80.226847,
+              "odt_air_ppm": 0.006,
+              "oav": 13371.14,
+              "intensity": 185.9485,
+              "vp_pa": 40.0,
+              "gamma": 1.0011,
+              "mole_fraction": 0.203005
+            },
+            {
+              "name": "cedrat fcf sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 22.783721,
+              "odt_air_ppm": 0.008,
+              "oav": 2847.97,
+              "intensity": 79.4317,
+              "vp_pa": 35.0,
+              "gamma": 1.0011,
+              "mole_fraction": 0.065888
+            },
+            {
+              "name": "lemon fcf oil sicilian",
+              "canonical": "lemon fcf oil sicilian",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 1.455095,
+              "odt_air_ppm": 0.008,
+              "oav": 181.89,
+              "intensity": 17.4941,
+              "vp_pa": 2.5,
+              "gamma": 1.0011,
+              "mole_fraction": 0.058911
+            },
+            {
+              "name": "iso e super",
+              "canonical": "iso e super",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.20404,
+              "odt_air_ppm": 5e-05,
+              "oav": 4080.79,
+              "intensity": 27.8162,
+              "vp_pa": 0.15,
+              "gamma": 1.0753,
+              "mole_fraction": 0.128177
+            },
+            {
+              "name": "patchouli eo",
+              "canonical": "patchouli eo",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 0.043233,
+              "odt_air_ppm": 0.003,
+              "oav": 14.41,
+              "intensity": 2.9072,
+              "vp_pa": 0.06,
+              "gamma": 1.0133,
+              "mole_fraction": 0.07205
+            },
+            {
+              "name": "evernyl",
+              "canonical": "evernyl",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 90.0,
+              "dilution": 1.0,
+              "active_ul": 90.0,
+              "vapor_ppm": 0.015129,
+              "odt_air_ppm": 0.0003,
+              "oav": 50.43,
+              "intensity": 4.7982,
+              "vp_pa": 0.1,
+              "gamma": 1.0011,
+              "mole_fraction": 0.015313
+            },
+            {
+              "name": "labdanum absolute",
+              "canonical": "labdanum absolute",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 120.0,
+              "dilution": 0.5,
+              "active_ul": 60.0,
+              "vapor_ppm": 0.002533,
+              "odt_air_ppm": 0.005,
+              "oav": 0.51,
+              "intensity": 0.7882,
+              "vp_pa": 0.03,
+              "gamma": 1.0011,
+              "mole_fraction": 0.008545
+            },
+            {
+              "name": "vetiver eo",
+              "canonical": "vetiver eo",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 0.017796,
+              "odt_air_ppm": 0.005,
+              "oav": 3.56,
+              "intensity": 1.6617,
+              "vp_pa": 0.05,
+              "gamma": 1.0011,
+              "mole_fraction": 0.036025
+            },
+            {
+              "name": "galbanum resinoid",
+              "canonical": "galbanum resinoid",
+              "note": "top",
+              "family": "green",
+              "raw_ul": 30.0,
+              "dilution": 0.1,
+              "active_ul": 3.0,
+              "vapor_ppm": 0.000495,
+              "odt_air_ppm": 0.0003,
+              "oav": 1.65,
+              "intensity": 1.3167,
+              "vp_pa": 0.1,
+              "gamma": 1.0011,
+              "mole_fraction": 0.000501
+            },
+            {
+              "name": "jasmine absolute",
+              "canonical": "jasmine absolute",
+              "note": "heart",
+              "family": "floral",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 0.002328,
+              "odt_air_ppm": 0.001,
+              "oav": 2.33,
+              "intensity": 1.4261,
+              "vp_pa": 0.005,
+              "gamma": 1.0011,
+              "mole_fraction": 0.047129
+            },
+            {
+              "name": "rose absolute",
+              "canonical": "rose absolute",
+              "note": "heart",
+              "family": "rose",
+              "raw_ul": 180.0,
+              "dilution": 1.0,
+              "active_ul": 180.0,
+              "vapor_ppm": 0.005397,
+              "odt_air_ppm": 2e-06,
+              "oav": 2698.54,
+              "intensity": 23.575,
+              "vp_pa": 0.02,
+              "gamma": 1.0011,
+              "mole_fraction": 0.027313
+            },
+            {
+              "name": "ambrox super",
+              "canonical": "ambrox super",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 120.0,
+              "dilution": 1.0,
+              "active_ul": 120.0,
+              "vapor_ppm": 0.00856,
+              "odt_air_ppm": 0.0003,
+              "oav": 28.53,
+              "intensity": 3.2313,
+              "vp_pa": 0.05,
+              "gamma": 1.0237,
+              "mole_fraction": 0.016946
+            },
+            {
+              "name": "habanolide",
+              "canonical": "habanolide",
+              "note": "base",
+              "family": "musk",
+              "raw_ul": 600.0,
+              "dilution": 1.0,
+              "active_ul": 600.0,
+              "vapor_ppm": 0.016602,
+              "odt_air_ppm": 0.0028,
+              "oav": 5.93,
+              "intensity": 1.7057,
+              "vp_pa": 0.02,
+              "gamma": 1.0011,
+              "mole_fraction": 0.084018
+            },
+            {
+              "name": "hedione",
+              "canonical": "hedione",
+              "note": "heart",
+              "family": "floral",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.658614,
+              "odt_air_ppm": 5e-05,
+              "oav": 13172.27,
+              "intensity": 53.735,
+              "vp_pa": 0.5,
+              "gamma": 1.0053,
+              "mole_fraction": 0.132765
+            },
+            {
+              "name": "linalool",
+              "canonical": "linalool",
+              "note": "top",
+              "family": "aromatic",
+              "raw_ul": 180.0,
+              "dilution": 1.0,
+              "active_ul": 180.0,
+              "vapor_ppm": 9.30221,
+              "odt_air_ppm": 0.0015,
+              "oav": 6201.47,
+              "intensity": 32.885,
+              "vp_pa": 21.3,
+              "gamma": 1.1363,
+              "mole_fraction": 0.038943
+            },
+            {
+              "name": "coumarin",
+              "canonical": "coumarin",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 30.0,
+              "dilution": 1.0,
+              "active_ul": 30.0,
+              "vapor_ppm": 0.053635,
+              "odt_air_ppm": 0.0007,
+              "oav": 76.62,
+              "intensity": 5.672,
+              "vp_pa": 0.5,
+              "gamma": 1.5867,
+              "mole_fraction": 0.00685
+            },
+            {
+              "name": "cedarwood virginia",
+              "canonical": "cedarwood virginia",
+              "note": "heart",
+              "family": null,
+              "raw_ul": 360.0,
+              "dilution": 1.0,
+              "active_ul": 360.0,
+              "vapor_ppm": 0.085392,
+              "odt_air_ppm": 0.015,
+              "oav": 5.69,
+              "intensity": 2.0051,
+              "vp_pa": 0.15,
+              "gamma": 1.0011,
+              "mole_fraction": 0.05762
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_fit",
+        "status": "FAIL",
+        "detail": "1 anchor failures: fougere_aromatic_lavender_axis: 3.015% active below 5.000",
+        "data": {
+          "archetype": "aromatic_fougere.classic_reference",
+          "family": "aromatic_fougere",
+          "label": "Classic/reference aromatic fougere",
+          "status": "FAIL",
+          "checks": [
+            {
+              "name": "fougere_aromatic_lavender_axis",
+              "status": "FAIL",
+              "detail": "3.015% active below 5.000",
+              "value": 3.015075,
+              "rule": {
+                "name": "fougere_aromatic_lavender_axis",
+                "materials": [
+                  "Lavender EO",
+                  "Lavender EO High Altitude",
+                  "Spike Lavender EO",
+                  "Lavender Spike Essential Oil",
+                  "Clary Sage EO",
+                  "Petitgrain EO",
+                  "Juniper Berry EO",
+                  "Beta-Pinene",
+                  "Pine EO",
+                  "Pine Essential Oil",
+                  "Linalool",
+                  "Linalyl Acetate",
+                  "Ethyl Linalool",
+                  "Dihydromyrcenol",
+                  "Terpinyl Acetate"
+                ],
+                "basis": "active",
+                "minimum": 5.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fougere_citrus_fresh_top",
+              "status": "PASS",
+              "detail": "20.101% active >= 4.000",
+              "value": 20.100503,
+              "rule": {
+                "name": "fougere_citrus_fresh_top",
+                "materials": [
+                  "Bergamot FCF",
+                  "Bergamot",
+                  "Bergamot FCF Sicilian",
+                  "Bergamot FCF oil Sicilian",
+                  "Cedrat FCF Sicilian",
+                  "Cedrat FCF oil Sicilian",
+                  "Grapefruit FCF",
+                  "Red Mandarin EO",
+                  "Lime Distilled EO",
+                  "Lime Distilled Essential Oil",
+                  "Limonene",
+                  "D-Limonene",
+                  "Petitgrain EO"
+                ],
+                "basis": "active",
+                "minimum": 4.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fougere_coumarin_tonka_axis",
+              "status": "PASS",
+              "detail": "0.503% active >= 0.350",
+              "value": 0.502513,
+              "rule": {
+                "name": "fougere_coumarin_tonka_axis",
+                "materials": [
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": 0.35,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fougere_moss_wood_drydown",
+              "status": "PASS",
+              "detail": "35.176% active >= 3.000",
+              "value": 35.175879,
+              "rule": {
+                "name": "fougere_moss_wood_drydown",
+                "materials": [
+                  "Coumarin",
+                  "Evernyl",
+                  "Vetiver EO",
+                  "Patchouli EO",
+                  "Cedarwood EO",
+                  "Cedarwood oil Virginia",
+                  "Iso E Super"
+                ],
+                "basis": "active",
+                "minimum": 3.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "marine_not_shower_gel",
+              "status": "PASS",
+              "detail": "0.000% raw <= 7.500",
+              "value": 0.0,
+              "rule": {
+                "name": "marine_not_shower_gel",
+                "materials": [
+                  "Calone",
+                  "Floralozone",
+                  "Scentenal"
+                ],
+                "basis": "raw",
+                "minimum": null,
+                "maximum": 7.5,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fruit_not_candy_axis",
+              "status": "PASS",
+              "detail": "0.000% active <= 1.000",
+              "value": 0.0,
+              "rule": {
+                "name": "fruit_not_candy_axis",
+                "materials": [
+                  "Apritone",
+                  "Hexyl Acetate",
+                  "Ethyl 2-Methylbutyrate",
+                  "Methyl Pamplemousse"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 1.0,
+                "detail": ""
+              }
+            }
+          ],
+          "forbidden_hits": [],
+          "oav_targets": {
+            "top": {
+              "citrus": 900,
+              "aromatic": 260,
+              "fresh": 210
+            },
+            "heart": {
+              "aromatic": 260,
+              "coumarin": 16,
+              "green": 80
+            },
+            "base": {
+              "aromatic": 95,
+              "wood": 45,
+              "moss": 10,
+              "coumarin": 12
+            }
+          }
+        }
+      }
+    ]
+  },
+  "oriental": {
+    "formula_name": "Ambre Oriental 30mL EdP",
+    "resolved_family": "layton_dna",
+    "archetype_key": "layton_dna.indoor_amber",
+    "overall_status": "FAIL",
+    "commercial_readiness": "NOT_RELEASE_READY",
+    "notes": [
+      "Fail-fast at family_fit: 2 anchor failures: layton_apple_hook: 0.000% active below 0.100; indoor_gourmand_not_heavy: 8.287% active above 3.400"
+    ],
+    "summary": {
+      "stages": {
+        "passed": 7,
+        "warned": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "materials": 16,
+      "note_distribution": {
+        "top": 7.9,
+        "heart": 26.6,
+        "base": 65.5
+      },
+      "perceptible_count": 14,
+      "total_vapor_ppm": 196.09,
+      "archetype": "layton_dna.indoor_amber",
+      "oav_max": 28237.07,
+      "oav_min": 0.01,
+      "oav_median": 38.7,
+      "oav_contrast_sigma_log": 1.72
+    },
+    "stages": [
+      {
+        "name": "registry_integrity",
+        "status": "PASS",
+        "detail": "270 unique entries, 270 normalized keys",
+        "data": {
+          "total_entries": 270,
+          "total_normalized": 270,
+          "missing_odt": []
+        }
+      },
+      {
+        "name": "name_normalization",
+        "status": "PASS",
+        "detail": "16 materials resolved",
+        "data": {
+          "materials": [
+            {
+              "requested": "Bergamot FCF oil Sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "profile_name": "Bergamot FCF oil Sicilian",
+              "registry_name": "Bergamot FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Red Mandarin EO",
+              "canonical": "red mandarin eo",
+              "profile_name": "Red Mandarin EO",
+              "registry_name": "Red Mandarin EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Cardamom EO",
+              "canonical": "cardamom eo",
+              "profile_name": "Cardamom EO",
+              "registry_name": "Cardamom EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            },
+            {
+              "requested": "Benzoin Sumatra Resinoid",
+              "canonical": "benzoin sumatra resinoid",
+              "profile_name": "Benzoin Sumatra Resinoid",
+              "registry_name": "Benzoin Sumatra Resinoid",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Labdanum Absolute",
+              "canonical": "labdanum absolute",
+              "profile_name": "Labdanum Absolute",
+              "registry_name": "Labdanum Absolute",
+              "is_known": true,
+              "dilution": 0.5,
+              "percent": 3.0
+            },
+            {
+              "requested": "Vanillin",
+              "canonical": "vanillin",
+              "profile_name": "Vanillin",
+              "registry_name": "Vanillin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 6.0
+            },
+            {
+              "requested": "Iso E Super",
+              "canonical": "iso e super",
+              "profile_name": "Iso E Super",
+              "registry_name": "Iso E Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Ambrox Super",
+              "canonical": "ambrox super",
+              "profile_name": "Ambrox Super",
+              "registry_name": "Ambrox Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Cashmeran",
+              "canonical": "cashmeran",
+              "profile_name": "Cashmeran",
+              "registry_name": "Cashmeran",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            },
+            {
+              "requested": "Habanolide",
+              "canonical": "habanolide",
+              "profile_name": "Habanolide",
+              "registry_name": "Habanolide",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Ethylene Brassylate",
+              "canonical": "ethylene brassylate",
+              "profile_name": "Ethylene Brassylate",
+              "registry_name": "Ethylene Brassylate",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Hedione",
+              "canonical": "hedione",
+              "profile_name": "Hedione",
+              "registry_name": "Hedione",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Sandalore",
+              "canonical": "sandalore",
+              "profile_name": "Sandalore",
+              "registry_name": "Sandalore",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Coumarin",
+              "canonical": "coumarin",
+              "profile_name": "Coumarin",
+              "registry_name": "Coumarin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 1.5
+            },
+            {
+              "requested": "Eugenol",
+              "canonical": "eugenol",
+              "profile_name": "Eugenol",
+              "registry_name": "Eugenol",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 0.5
+            },
+            {
+              "requested": "Javanol",
+              "canonical": "javanol",
+              "profile_name": "Javanol",
+              "registry_name": "Javanol",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_resolution",
+        "status": "PASS",
+        "detail": "brief=generic ΓåÆ archetype=layton_dna.indoor_amber (family=layton_dna)",
+        "data": {
+          "archetype_key": "layton_dna.indoor_amber",
+          "family": "layton_dna",
+          "label": "Air-conditioned amber Layton DNA-inspired trial"
+        }
+      },
+      {
+        "name": "build_formula_state",
+        "status": "PASS",
+        "detail": "16 materials, 0 with missing fields, total active: 5310.3 ┬╡L",
+        "data": {
+          "material_count": 16,
+          "total_active_ul": 5310.3,
+          "missing_fields_count": 0,
+          "missing_fields": []
+        }
+      },
+      {
+        "name": "active_percent_check",
+        "status": "PASS",
+        "detail": "16 materials have dilution-adjusted active percent",
+        "data": {
+          "diluted_materials": {
+            "bergamot fcf sicilian": {
+              "raw_pct": 8.84,
+              "active_pct": 9.04
+            },
+            "red mandarin eo": {
+              "raw_pct": 5.52,
+              "active_pct": 5.65
+            },
+            "cardamom eo": {
+              "raw_pct": 2.21,
+              "active_pct": 2.26
+            },
+            "benzoin sumatra resinoid": {
+              "raw_pct": 4.42,
+              "active_pct": 4.52
+            },
+            "labdanum absolute": {
+              "raw_pct": 3.31,
+              "active_pct": 1.69
+            },
+            "vanillin": {
+              "raw_pct": 6.63,
+              "active_pct": 6.78
+            },
+            "iso e super": {
+              "raw_pct": 16.57,
+              "active_pct": 16.95
+            },
+            "ambrox super": {
+              "raw_pct": 5.52,
+              "active_pct": 5.65
+            },
+            "cashmeran": {
+              "raw_pct": 2.21,
+              "active_pct": 2.26
+            },
+            "habanolide": {
+              "raw_pct": 11.05,
+              "active_pct": 11.3
+            },
+            "ethylene brassylate": {
+              "raw_pct": 8.84,
+              "active_pct": 9.04
+            },
+            "hedione": {
+              "raw_pct": 16.57,
+              "active_pct": 16.95
+            },
+            "sandalore": {
+              "raw_pct": 5.52,
+              "active_pct": 5.65
+            },
+            "coumarin": {
+              "raw_pct": 1.66,
+              "active_pct": 1.69
+            },
+            "eugenol": {
+              "raw_pct": 0.55,
+              "active_pct": 0.56
+            },
+            "javanol": {
+              "raw_pct": 0.55,
+              "active_pct": 0.01
+            }
+          },
+          "note_distribution": {
+            "top": 7.9,
+            "heart": 26.6,
+            "base": 65.5
+          }
+        }
+      },
+      {
+        "name": "odt_coverage",
+        "status": "PASS",
+        "detail": "all 16 materials have ODT data",
+        "data": {}
+      },
+      {
+        "name": "oav_computation",
+        "status": "PASS",
+        "detail": "14/16 perceptible (OAV>=1), 2 sub-threshold, total vapor: 196.09 ppm",
+        "data": {
+          "total_vapor_ppm": 196.0936,
+          "perceptible_count": 14,
+          "sub_threshold_count": 2,
+          "sub_threshold_materials": [
+            {
+              "name": "benzoin sumatra resinoid",
+              "oav": 0.01,
+              "role": "fixative",
+              "active_ul": 240.0
+            },
+            {
+              "name": "labdanum absolute",
+              "oav": 0.87,
+              "role": "character",
+              "active_ul": 90.0
+            }
+          ],
+          "dominant_materials": [
+            "bergamot fcf sicilian",
+            "red mandarin eo",
+            "cardamom eo",
+            "iso e super",
+            "hedione"
+          ],
+          "oav_table": [
+            {
+              "name": "bergamot fcf sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "note": "heart",
+              "family": "citrus",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 48.914321,
+              "odt_air_ppm": 0.006,
+              "oav": 8152.39,
+              "intensity": 141.6468,
+              "vp_pa": 40.0,
+              "gamma": 1.0023,
+              "mole_fraction": 0.123627
+            },
+            {
+              "name": "red mandarin eo",
+              "canonical": "red mandarin eo",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 141.185335,
+              "odt_air_ppm": 0.005,
+              "oav": 28237.07,
+              "intensity": 280.5116,
+              "vp_pa": 170.0,
+              "gamma": 1.0023,
+              "mole_fraction": 0.083961
+            },
+            {
+              "name": "cardamom eo",
+              "canonical": "cardamom eo",
+              "note": "top",
+              "family": "spice",
+              "raw_ul": 120.0,
+              "dilution": 1.0,
+              "active_ul": 120.0,
+              "vapor_ppm": 4.090591,
+              "odt_air_ppm": 0.003,
+              "oav": 1363.53,
+              "intensity": 36.926,
+              "vp_pa": 15.0,
+              "gamma": 1.0023,
+              "mole_fraction": 0.02757
+            },
+            {
+              "name": "benzoin sumatra resinoid",
+              "canonical": "benzoin sumatra resinoid",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 4.3e-05,
+              "odt_air_ppm": 0.003,
+              "oav": 0.01,
+              "intensity": 0.1824,
+              "vp_pa": 0.0001,
+              "gamma": 1.0023,
+              "mole_fraction": 0.043104
+            },
+            {
+              "name": "labdanum absolute",
+              "canonical": "labdanum absolute",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 180.0,
+              "dilution": 0.5,
+              "active_ul": 90.0,
+              "vapor_ppm": 0.004343,
+              "odt_air_ppm": 0.005,
+              "oav": 0.87,
+              "intensity": 0.9519,
+              "vp_pa": 0.03,
+              "gamma": 1.0023,
+              "mole_fraction": 0.014636
+            },
+            {
+              "name": "vanillin",
+              "canonical": "vanillin",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 360.0,
+              "dilution": 1.0,
+              "active_ul": 360.0,
+              "vapor_ppm": 0.380891,
+              "odt_air_ppm": 0.02,
+              "oav": 19.04,
+              "intensity": 3.2502,
+              "vp_pa": 0.2,
+              "gamma": 2.1402,
+              "mole_fraction": 0.090162
+            },
+            {
+              "name": "iso e super",
+              "canonical": "iso e super",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.242138,
+              "odt_air_ppm": 5e-05,
+              "oav": 4842.75,
+              "intensity": 29.7877,
+              "vp_pa": 0.15,
+              "gamma": 1.1176,
+              "mole_fraction": 0.146359
+            },
+            {
+              "name": "ambrox super",
+              "canonical": "ambrox super",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 0.025038,
+              "odt_air_ppm": 0.0003,
+              "oav": 83.46,
+              "intensity": 4.7046,
+              "vp_pa": 0.05,
+              "gamma": 1.0489,
+              "mole_fraction": 0.048374
+            },
+            {
+              "name": "cashmeran",
+              "canonical": "cashmeran",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 120.0,
+              "dilution": 1.0,
+              "active_ul": 120.0,
+              "vapor_ppm": 0.087728,
+              "odt_air_ppm": 0.002,
+              "oav": 43.86,
+              "intensity": 4.5378,
+              "vp_pa": 0.4,
+              "gamma": 1.0023,
+              "mole_fraction": 0.022173
+            },
+            {
+              "name": "habanolide",
+              "canonical": "habanolide",
+              "note": "base",
+              "family": "musk",
+              "raw_ul": 600.0,
+              "dilution": 1.0,
+              "active_ul": 600.0,
+              "vapor_ppm": 0.018979,
+              "odt_air_ppm": 0.0028,
+              "oav": 6.78,
+              "intensity": 1.7756,
+              "vp_pa": 0.02,
+              "gamma": 1.0023,
+              "mole_fraction": 0.095936
+            },
+            {
+              "name": "ethylene brassylate",
+              "canonical": "ethylene brassylate",
+              "note": "base",
+              "family": "musk",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 0.005355,
+              "odt_air_ppm": 0.0009699999999999999,
+              "oav": 5.52,
+              "intensity": 1.6695,
+              "vp_pa": 0.008,
+              "gamma": 1.0023,
+              "mole_fraction": 0.067666
+            },
+            {
+              "name": "hedione",
+              "canonical": "hedione",
+              "note": "heart",
+              "family": "floral",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.756793,
+              "odt_air_ppm": 5e-05,
+              "oav": 15135.87,
+              "intensity": 56.9643,
+              "vp_pa": 0.5,
+              "gamma": 1.0117,
+              "mole_fraction": 0.151598
+            },
+            {
+              "name": "sandalore",
+              "canonical": "sandalore",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 0.043009,
+              "odt_air_ppm": 0.01,
+              "oav": 4.3,
+              "intensity": 1.7924,
+              "vp_pa": 0.08,
+              "gamma": 1.0023,
+              "mole_fraction": 0.054351
+            },
+            {
+              "name": "coumarin",
+              "canonical": "coumarin",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 90.0,
+              "dilution": 1.0,
+              "active_ul": 90.0,
+              "vapor_ppm": 0.166788,
+              "odt_air_ppm": 0.0007,
+              "oav": 238.27,
+              "intensity": 8.9295,
+              "vp_pa": 0.5,
+              "gamma": 1.4404,
+              "mole_fraction": 0.023466
+            },
+            {
+              "name": "eugenol",
+              "canonical": "eugenol",
+              "note": "heart",
+              "family": "spice",
+              "raw_ul": 30.0,
+              "dilution": 1.0,
+              "active_ul": 30.0,
+              "vapor_ppm": 0.17222,
+              "odt_air_ppm": 0.006,
+              "oav": 28.7,
+              "intensity": 5.3576,
+              "vp_pa": 2.5,
+              "gamma": 1.0023,
+              "mole_fraction": 0.006964
+            },
+            {
+              "name": "javanol",
+              "canonical": "javanol",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 30.0,
+              "dilution": 0.01,
+              "active_ul": 0.3,
+              "vapor_ppm": 5.4e-05,
+              "odt_air_ppm": 1.6000000000000001e-06,
+              "oav": 33.6,
+              "intensity": 4.0789,
+              "vp_pa": 0.1,
+              "gamma": 1.0023,
+              "mole_fraction": 5.4e-05
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_fit",
+        "status": "FAIL",
+        "detail": "2 anchor failures: layton_apple_hook: 0.000% active below 0.100; indoor_gourmand_not_heavy: 8.287% active above 3.400",
+        "data": {
+          "archetype": "layton_dna.indoor_amber",
+          "family": "layton_dna",
+          "label": "Air-conditioned amber Layton DNA-inspired trial",
+          "status": "FAIL",
+          "checks": [
+            {
+              "name": "layton_apple_hook",
+              "status": "FAIL",
+              "detail": "0.000% active below 0.100",
+              "value": 0.0,
+              "rule": {
+                "name": "layton_apple_hook",
+                "materials": [
+                  "Apritone",
+                  "Hexyl Acetate",
+                  "Ethyl 2-Methylbutyrate"
+                ],
+                "basis": "active",
+                "minimum": 0.1,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "layton_citrus_lift",
+              "status": "PASS",
+              "detail": "14.365% active >= 3.000",
+              "value": 14.364641,
+              "rule": {
+                "name": "layton_citrus_lift",
+                "materials": [
+                  "Bergamot FCF",
+                  "Bergamot",
+                  "Bergamot FCF Sicilian",
+                  "Bergamot FCF oil Sicilian",
+                  "Cedrat FCF Sicilian",
+                  "Cedrat FCF oil Sicilian",
+                  "Grapefruit FCF",
+                  "Red Mandarin EO",
+                  "Lime Distilled EO",
+                  "Lime Distilled Essential Oil",
+                  "Limonene",
+                  "D-Limonene",
+                  "Petitgrain EO"
+                ],
+                "basis": "active",
+                "minimum": 3.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "layton_cardamom_like_spice",
+              "status": "PASS",
+              "detail": "0.552% active >= 0.200",
+              "value": 0.552486,
+              "rule": {
+                "name": "layton_cardamom_like_spice",
+                "materials": [
+                  "Terpinyl Acetate",
+                  "Eugenol"
+                ],
+                "basis": "active",
+                "minimum": 0.2,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "layton_hedione_radiance",
+              "status": "PASS",
+              "detail": "16.575% active >= 5.000",
+              "value": 16.574586,
+              "rule": {
+                "name": "layton_hedione_radiance",
+                "materials": [
+                  "Hedione",
+                  "Hedione HC",
+                  "Dihydrojasmone"
+                ],
+                "basis": "active",
+                "minimum": 5.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "layton_amber_wood_musk_base",
+              "status": "PASS",
+              "detail": "49.724% active >= 20.000",
+              "value": 49.723757,
+              "rule": {
+                "name": "layton_amber_wood_musk_base",
+                "materials": [
+                  "Ambrox Super",
+                  "Ambrofix",
+                  "Azarbre",
+                  "Ambermax",
+                  "Iso E Super",
+                  "Sandalore",
+                  "Timberol",
+                  "Norlimbanol Dextro",
+                  "Cashmeran",
+                  "Habanolide",
+                  "Romandolide",
+                  "Galaxolide",
+                  "Ethylene Brassylate",
+                  "Ambrettolide"
+                ],
+                "basis": "active",
+                "minimum": 20.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "layton_vanilla_coumarin_comfort",
+              "status": "PASS",
+              "detail": "8.287% active >= 1.250",
+              "value": 8.287293,
+              "rule": {
+                "name": "layton_vanilla_coumarin_comfort",
+                "materials": [
+                  "Vanillin",
+                  "Ethyl Vanillin",
+                  "Ethyl Maltol",
+                  "Benzoin Resinoid",
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": 1.25,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "lavender_support_not_theme",
+              "status": "PASS",
+              "detail": "0.000% raw <= 8.000",
+              "value": 0.0,
+              "rule": {
+                "name": "lavender_support_not_theme",
+                "materials": [
+                  "Lavender EO",
+                  "Linalool",
+                  "Linalyl Acetate",
+                  "Ethyl Linalool"
+                ],
+                "basis": "raw",
+                "minimum": null,
+                "maximum": 8.0,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fougere_shadow_not_mossy",
+              "status": "PASS",
+              "detail": "1.657% active <= 3.000",
+              "value": 1.657459,
+              "rule": {
+                "name": "fougere_shadow_not_mossy",
+                "materials": [
+                  "Coumarin",
+                  "Evernyl",
+                  "Vetiver EO",
+                  "Patchouli EO",
+                  "Cedarwood EO",
+                  "Cedarwood oil Virginia"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 3.0,
+                "detail": ""
+              }
+            },
+            {
+              "name": "indoor_gourmand_not_heavy",
+              "status": "FAIL",
+              "detail": "8.287% active above 3.400",
+              "value": 8.287293,
+              "rule": {
+                "name": "indoor_gourmand_not_heavy",
+                "materials": [
+                  "Vanillin",
+                  "Ethyl Vanillin",
+                  "Ethyl Maltol",
+                  "Benzoin Resinoid",
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 3.4,
+                "detail": ""
+              }
+            }
+          ],
+          "forbidden_hits": [],
+          "oav_targets": {
+            "top": {
+              "citrus": 1150,
+              "fruity": 65,
+              "aromatic": 175,
+              "amber": 190
+            },
+            "heart": {
+              "amber": 145,
+              "fruity": 85,
+              "radiance": 140,
+              "wood": 70
+            },
+            "base": {
+              "amber": 145,
+              "wood": 42,
+              "musk": 24,
+              "gourmand": 12
+            }
+          }
+        }
+      }
+    ]
+  },
+  "citrus": {
+    "formula_name": "Citrus Sport 30mL EdP",
+    "resolved_family": "aromatic_fougere",
+    "archetype_key": "aromatic_fougere.modern_mineral",
+    "overall_status": "FAIL",
+    "commercial_readiness": "NOT_RELEASE_READY",
+    "notes": [],
+    "summary": {
+      "stages": {
+        "passed": 12,
+        "warned": 2,
+        "failed": 1,
+        "skipped": 0
+      },
+      "materials": 15,
+      "note_distribution": {
+        "top": 42.2,
+        "heart": 35.7,
+        "base": 22.2
+      },
+      "perceptible_count": 14,
+      "total_vapor_ppm": 387.32,
+      "archetype": "aromatic_fougere.modern_mineral",
+      "evaporation_pct": 0,
+      "vapor_decay": 69.0,
+      "oav_max": 46608.08,
+      "oav_min": 0.21,
+      "oav_median": 2596.7,
+      "oav_contrast_sigma_log": 1.59
+    },
+    "stages": [
+      {
+        "name": "registry_integrity",
+        "status": "PASS",
+        "detail": "270 unique entries, 270 normalized keys",
+        "data": {
+          "total_entries": 270,
+          "total_normalized": 270,
+          "missing_odt": []
+        }
+      },
+      {
+        "name": "name_normalization",
+        "status": "PASS",
+        "detail": "15 materials resolved",
+        "data": {
+          "materials": [
+            {
+              "requested": "Bergamot FCF oil Sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "profile_name": "Bergamot FCF oil Sicilian",
+              "registry_name": "Bergamot FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 18.0
+            },
+            {
+              "requested": "Cedrat FCF oil Sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "profile_name": "Cedrat FCF Sicilian",
+              "registry_name": "Cedrat FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Lemon FCF oil Sicilian",
+              "canonical": "lemon fcf oil sicilian",
+              "profile_name": "Lemon FCF oil Sicilian",
+              "registry_name": "Lemon FCF Oil Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Grapefruit FCF",
+              "canonical": "grapefruit fcf",
+              "profile_name": "Grapefruit FCF",
+              "registry_name": "Grapefruit FCF",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 6.0
+            },
+            {
+              "requested": "Lime Distilled EO",
+              "canonical": "lime distilled eo",
+              "profile_name": "Lime Distilled EO",
+              "registry_name": "Lime Distilled Essential Oil",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Dihydromyrcenol",
+              "canonical": "dihydromyrcenol",
+              "profile_name": "Dihydromyrcenol",
+              "registry_name": "Dihydromyrcenol",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Hedione",
+              "canonical": "hedione",
+              "profile_name": "Hedione",
+              "registry_name": "Hedione",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Iso E Super",
+              "canonical": "iso e super",
+              "profile_name": "Iso E Super",
+              "registry_name": "Iso E Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Habanolide",
+              "canonical": "habanolide",
+              "profile_name": "Habanolide",
+              "registry_name": "Habanolide",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 8.0
+            },
+            {
+              "requested": "Linalool",
+              "canonical": "linalool",
+              "profile_name": "Linalool",
+              "registry_name": "Linalool",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Linalyl Acetate",
+              "canonical": "linalyl acetate",
+              "profile_name": "Linalyl Acetate",
+              "registry_name": "Linalyl Acetate",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 3.0
+            },
+            {
+              "requested": "Coumarin",
+              "canonical": "coumarin",
+              "profile_name": "Coumarin",
+              "registry_name": "Coumarin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 0.5
+            },
+            {
+              "requested": "Calone",
+              "canonical": "calone",
+              "profile_name": "Calone",
+              "registry_name": "Calone",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.3
+            },
+            {
+              "requested": "Floralozone",
+              "canonical": "floralozone",
+              "profile_name": "Floralozone",
+              "registry_name": "Floralozone",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.5
+            },
+            {
+              "requested": "Ambrox Super",
+              "canonical": "ambrox super",
+              "profile_name": "Ambrox Super",
+              "registry_name": "Ambrox Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_resolution",
+        "status": "PASS",
+        "detail": "brief=generic ΓåÆ archetype=aromatic_fougere.modern_mineral (family=aromatic_fougere)",
+        "data": {
+          "archetype_key": "aromatic_fougere.modern_mineral",
+          "family": "aromatic_fougere",
+          "label": "Modern mineral aromatic fougere"
+        }
+      },
+      {
+        "name": "build_formula_state",
+        "status": "PASS",
+        "detail": "15 materials, 0 with missing fields, total active: 5550.5 ┬╡L",
+        "data": {
+          "material_count": 15,
+          "total_active_ul": 5550.48,
+          "missing_fields_count": 0,
+          "missing_fields": []
+        }
+      },
+      {
+        "name": "active_percent_check",
+        "status": "PASS",
+        "detail": "14 materials have dilution-adjusted active percent",
+        "data": {
+          "diluted_materials": {
+            "bergamot fcf sicilian": {
+              "raw_pct": 19.29,
+              "active_pct": 19.46
+            },
+            "cedrat fcf sicilian": {
+              "raw_pct": 8.57,
+              "active_pct": 8.65
+            },
+            "lemon fcf oil sicilian": {
+              "raw_pct": 8.57,
+              "active_pct": 8.65
+            },
+            "grapefruit fcf": {
+              "raw_pct": 6.43,
+              "active_pct": 6.49
+            },
+            "lime distilled eo": {
+              "raw_pct": 4.29,
+              "active_pct": 4.32
+            },
+            "dihydromyrcenol": {
+              "raw_pct": 5.36,
+              "active_pct": 5.4
+            },
+            "hedione": {
+              "raw_pct": 16.08,
+              "active_pct": 16.21
+            },
+            "iso e super": {
+              "raw_pct": 10.72,
+              "active_pct": 10.81
+            },
+            "habanolide": {
+              "raw_pct": 8.57,
+              "active_pct": 8.65
+            },
+            "linalool": {
+              "raw_pct": 5.36,
+              "active_pct": 5.4
+            },
+            "linalyl acetate": {
+              "raw_pct": 3.22,
+              "active_pct": 3.24
+            },
+            "calone": {
+              "raw_pct": 0.32,
+              "active_pct": 0.0
+            },
+            "floralozone": {
+              "raw_pct": 0.54,
+              "active_pct": 0.01
+            },
+            "ambrox super": {
+              "raw_pct": 2.14,
+              "active_pct": 2.16
+            }
+          },
+          "note_distribution": {
+            "top": 42.2,
+            "heart": 35.7,
+            "base": 22.2
+          }
+        }
+      },
+      {
+        "name": "odt_coverage",
+        "status": "PASS",
+        "detail": "all 15 materials have ODT data",
+        "data": {}
+      },
+      {
+        "name": "oav_computation",
+        "status": "PASS",
+        "detail": "14/15 perceptible (OAV>=1), 1 sub-threshold, total vapor: 387.32 ppm",
+        "data": {
+          "total_vapor_ppm": 387.3211,
+          "perceptible_count": 14,
+          "sub_threshold_count": 1,
+          "sub_threshold_materials": [
+            {
+              "name": "floralozone",
+              "oav": 0.21,
+              "role": "modifier",
+              "active_ul": 0.3
+            }
+          ],
+          "dominant_materials": [
+            "bergamot fcf sicilian",
+            "cedrat fcf sicilian",
+            "grapefruit fcf",
+            "lime distilled eo",
+            "dihydromyrcenol",
+            "hedione",
+            "iso e super",
+            "linalool",
+            "linalyl acetate"
+          ],
+          "oav_table": [
+            {
+              "name": "bergamot fcf sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "note": "heart",
+              "family": "citrus",
+              "raw_ul": 1080.0,
+              "dilution": 1.0,
+              "active_ul": 1080.0,
+              "vapor_ppm": 90.830176,
+              "odt_air_ppm": 0.006,
+              "oav": 15138.36,
+              "intensity": 199.0872,
+              "vp_pa": 40.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.22998
+            },
+            {
+              "name": "cedrat fcf sicilian",
+              "canonical": "cedrat fcf sicilian",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 34.393298,
+              "odt_air_ppm": 0.008,
+              "oav": 4299.16,
+              "intensity": 99.6233,
+              "vp_pa": 35.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.099524
+            },
+            {
+              "name": "lemon fcf oil sicilian",
+              "canonical": "lemon fcf oil sicilian",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 2.196547,
+              "odt_air_ppm": 0.008,
+              "oav": 274.57,
+              "intensity": 21.9411,
+              "vp_pa": 2.5,
+              "gamma": 1.0005,
+              "mole_fraction": 0.088986
+            },
+            {
+              "name": "grapefruit fcf",
+              "canonical": "grapefruit fcf",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 360.0,
+              "dilution": 1.0,
+              "active_ul": 360.0,
+              "vapor_ppm": 139.82423,
+              "odt_air_ppm": 0.003,
+              "oav": 46608.08,
+              "intensity": 369.5334,
+              "vp_pa": 170.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.083302
+            },
+            {
+              "name": "lime distilled eo",
+              "canonical": "lime distilled eo",
+              "note": "top",
+              "family": "citrus",
+              "raw_ul": 240.0,
+              "dilution": 1.0,
+              "active_ul": 240.0,
+              "vapor_ppm": 93.216154,
+              "odt_air_ppm": 0.008,
+              "oav": 11652.02,
+              "intensity": 172.3934,
+              "vp_pa": 170.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.055534
+            },
+            {
+              "name": "dihydromyrcenol",
+              "canonical": "dihydromyrcenol",
+              "note": "top",
+              "family": "woody",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 10.153583,
+              "odt_air_ppm": 0.001,
+              "oav": 10153.58,
+              "intensity": 40.0542,
+              "vp_pa": 17.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.060491
+            },
+            {
+              "name": "hedione",
+              "canonical": "hedione",
+              "note": "heart",
+              "family": "floral",
+              "raw_ul": 900.0,
+              "dilution": 1.0,
+              "active_ul": 900.0,
+              "vapor_ppm": 0.620875,
+              "odt_air_ppm": 5e-05,
+              "oav": 12417.5,
+              "intensity": 52.4197,
+              "vp_pa": 0.5,
+              "gamma": 1.0038,
+              "mole_fraction": 0.125339
+            },
+            {
+              "name": "iso e super",
+              "canonical": "iso e super",
+              "note": "base",
+              "family": "woody",
+              "raw_ul": 600.0,
+              "dilution": 1.0,
+              "active_ul": 600.0,
+              "vapor_ppm": 0.129833,
+              "odt_air_ppm": 5e-05,
+              "oav": 2596.67,
+              "intensity": 23.2149,
+              "vp_pa": 0.15,
+              "gamma": 1.0872,
+              "mole_fraction": 0.080672
+            },
+            {
+              "name": "habanolide",
+              "canonical": "habanolide",
+              "note": "base",
+              "family": "musk",
+              "raw_ul": 480.0,
+              "dilution": 1.0,
+              "active_ul": 480.0,
+              "vapor_ppm": 0.012531,
+              "odt_air_ppm": 0.0028,
+              "oav": 4.48,
+              "intensity": 1.5676,
+              "vp_pa": 0.02,
+              "gamma": 1.0005,
+              "mole_fraction": 0.063455
+            },
+            {
+              "name": "linalool",
+              "canonical": "linalool",
+              "note": "top",
+              "family": "aromatic",
+              "raw_ul": 300.0,
+              "dilution": 1.0,
+              "active_ul": 300.0,
+              "vapor_ppm": 14.458128,
+              "odt_air_ppm": 0.0015,
+              "oav": 9638.75,
+              "intensity": 39.2291,
+              "vp_pa": 21.3,
+              "gamma": 1.1224,
+              "mole_fraction": 0.061275
+            },
+            {
+              "name": "linalyl acetate",
+              "canonical": "linalyl acetate",
+              "note": "top",
+              "family": "aromatic",
+              "raw_ul": 180.0,
+              "dilution": 1.0,
+              "active_ul": 180.0,
+              "vapor_ppm": 1.426692,
+              "odt_air_ppm": 0.0027,
+              "oav": 528.4,
+              "intensity": 12.2797,
+              "vp_pa": 5.0,
+              "gamma": 1.0005,
+              "mole_fraction": 0.028899
+            },
+            {
+              "name": "coumarin",
+              "canonical": "coumarin",
+              "note": "base",
+              "family": "gourmand",
+              "raw_ul": 30.0,
+              "dilution": 1.0,
+              "active_ul": 30.0,
+              "vapor_ppm": 0.050121,
+              "odt_air_ppm": 0.0007,
+              "oav": 71.6,
+              "intensity": 5.5204,
+              "vp_pa": 0.5,
+              "gamma": 1.5706,
+              "mole_fraction": 0.006467
+            },
+            {
+              "name": "calone",
+              "canonical": "calone",
+              "note": "heart",
+              "family": "aquatic",
+              "raw_ul": 18.0,
+              "dilution": 0.01,
+              "active_ul": 0.18,
+              "vapor_ppm": 0.000583,
+              "odt_air_ppm": 5e-05,
+              "oav": 11.66,
+              "intensity": 2.6708,
+              "vp_pa": 2.0,
+              "gamma": 1.0005,
+              "mole_fraction": 3e-05
+            },
+            {
+              "name": "floralozone",
+              "canonical": "floralozone",
+              "note": "heart",
+              "family": "ozone",
+              "raw_ul": 30.0,
+              "dilution": 0.01,
+              "active_ul": 0.3,
+              "vapor_ppm": 0.000211,
+              "odt_air_ppm": 0.001,
+              "oav": 0.21,
+              "intensity": 0.5371,
+              "vp_pa": 0.431,
+              "gamma": 1.0005,
+              "mole_fraction": 5e-05
+            },
+            {
+              "name": "ambrox super",
+              "canonical": "ambrox super",
+              "note": "base",
+              "family": "amber",
+              "raw_ul": 120.0,
+              "dilution": 1.0,
+              "active_ul": 120.0,
+              "vapor_ppm": 0.008136,
+              "odt_air_ppm": 0.0003,
+              "oav": 27.12,
+              "intensity": 3.1743,
+              "vp_pa": 0.05,
+              "gamma": 1.0306,
+              "mole_fraction": 0.015998
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_fit",
+        "status": "PASS",
+        "detail": "all 8 checks passed for Modern mineral aromatic fougere",
+        "data": {
+          "archetype": "aromatic_fougere.modern_mineral",
+          "family": "aromatic_fougere",
+          "label": "Modern mineral aromatic fougere",
+          "status": "PASS",
+          "checks": [
+            {
+              "name": "mineral_fougere_lavender_axis",
+              "status": "PASS",
+              "detail": "13.934% active >= 4.500",
+              "value": 13.933548,
+              "rule": {
+                "name": "mineral_fougere_lavender_axis",
+                "materials": [
+                  "Lavender EO",
+                  "Lavender EO High Altitude",
+                  "Spike Lavender EO",
+                  "Lavender Spike Essential Oil",
+                  "Clary Sage EO",
+                  "Petitgrain EO",
+                  "Juniper Berry EO",
+                  "Beta-Pinene",
+                  "Pine EO",
+                  "Pine Essential Oil",
+                  "Linalool",
+                  "Linalyl Acetate",
+                  "Ethyl Linalool",
+                  "Dihydromyrcenol",
+                  "Terpinyl Acetate"
+                ],
+                "basis": "active",
+                "minimum": 4.5,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "mineral_fougere_citrus_lift",
+              "status": "PASS",
+              "detail": "38.585% active >= 4.000",
+              "value": 38.585209,
+              "rule": {
+                "name": "mineral_fougere_citrus_lift",
+                "materials": [
+                  "Bergamot FCF",
+                  "Bergamot",
+                  "Bergamot FCF Sicilian",
+                  "Bergamot FCF oil Sicilian",
+                  "Cedrat FCF Sicilian",
+                  "Cedrat FCF oil Sicilian",
+                  "Grapefruit FCF",
+                  "Red Mandarin EO",
+                  "Lime Distilled EO",
+                  "Lime Distilled Essential Oil",
+                  "Limonene",
+                  "D-Limonene",
+                  "Petitgrain EO"
+                ],
+                "basis": "active",
+                "minimum": 4.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "mineral_fougere_coumarin_trace",
+              "status": "PASS",
+              "detail": "0.536% active >= 0.200",
+              "value": 0.535906,
+              "rule": {
+                "name": "mineral_fougere_coumarin_trace",
+                "materials": [
+                  "Coumarin"
+                ],
+                "basis": "active",
+                "minimum": 0.2,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "mineral_fougere_moss_wood_backbone",
+              "status": "PASS",
+              "detail": "11.254% active >= 3.000",
+              "value": 11.254019,
+              "rule": {
+                "name": "mineral_fougere_moss_wood_backbone",
+                "materials": [
+                  "Coumarin",
+                  "Evernyl",
+                  "Vetiver EO",
+                  "Patchouli EO",
+                  "Cedarwood EO",
+                  "Cedarwood oil Virginia",
+                  "Iso E Super"
+                ],
+                "basis": "active",
+                "minimum": 3.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "mineral_signature_present",
+              "status": "PASS",
+              "detail": "6.217% raw >= 3.000",
+              "value": 6.216506,
+              "rule": {
+                "name": "mineral_signature_present",
+                "materials": [
+                  "Calone",
+                  "Floralozone",
+                  "Scentenal",
+                  "Dihydromyrcenol"
+                ],
+                "basis": "raw",
+                "minimum": 3.0,
+                "maximum": null,
+                "detail": ""
+              }
+            },
+            {
+              "name": "marine_not_shower_gel",
+              "status": "PASS",
+              "detail": "0.857% raw <= 7.500",
+              "value": 0.857449,
+              "rule": {
+                "name": "marine_not_shower_gel",
+                "materials": [
+                  "Calone",
+                  "Floralozone",
+                  "Scentenal"
+                ],
+                "basis": "raw",
+                "minimum": null,
+                "maximum": 7.5,
+                "detail": ""
+              }
+            },
+            {
+              "name": "dhm_not_functional_flood",
+              "status": "PASS",
+              "detail": "5.359% raw <= 8.000",
+              "value": 5.359057,
+              "rule": {
+                "name": "dhm_not_functional_flood",
+                "materials": [
+                  "Dihydromyrcenol"
+                ],
+                "basis": "raw",
+                "minimum": null,
+                "maximum": 8.0,
+                "detail": ""
+              }
+            },
+            {
+              "name": "fruit_not_candy_axis",
+              "status": "PASS",
+              "detail": "0.000% active <= 0.800",
+              "value": 0.0,
+              "rule": {
+                "name": "fruit_not_candy_axis",
+                "materials": [
+                  "Apritone",
+                  "Hexyl Acetate",
+                  "Ethyl 2-Methylbutyrate",
+                  "Methyl Pamplemousse"
+                ],
+                "basis": "active",
+                "minimum": null,
+                "maximum": 0.8,
+                "detail": ""
+              }
+            }
+          ],
+          "forbidden_hits": [],
+          "oav_targets": {
+            "top": {
+              "citrus": 1800,
+              "fresh": 1200,
+              "aromatic": 180,
+              "marine": 45
+            },
+            "heart": {
+              "fresh": 3200,
+              "aromatic": 700,
+              "marine": 260
+            },
+            "base": {
+              "marine": 160,
+              "wood": 70,
+              "aromatic": 30
+            }
+          }
+        }
+      },
+      {
+        "name": "pyramid_balance",
+        "status": "WARN",
+        "detail": "deviation in top, base; source=pyramid_targets.aromatic_fougere.EdP",
+        "data": {
+          "source": "pyramid_targets.aromatic_fougere.EdP",
+          "target": {
+            "top": 20,
+            "heart": 40,
+            "base": 40
+          },
+          "actual": {
+            "top": 42.2,
+            "heart": 35.7,
+            "base": 22.2
+          },
+          "deviations": {
+            "top": {
+              "expected": 20,
+              "actual": 42.2,
+              "delta": 22.2
+            },
+            "heart": {
+              "expected": 40,
+              "actual": 35.7,
+              "delta": -4.3
+            },
+            "base": {
+              "expected": 40,
+              "actual": 22.2,
+              "delta": -17.8
+            }
+          },
+          "oav_distribution": {
+            "top": 42.2,
+            "heart": 35.7,
+            "base": 22.2
+          }
+        }
+      },
+      {
+        "name": "temporal_simulation",
+        "status": "PASS",
+        "detail": "5 windows; evap: 32% over 14400s; base @ drydown: 33%",
+        "data": {
+          "windows": [
+            {
+              "label": "opening",
+              "t_seconds": 0.0,
+              "total_vapor_ppm": 387.3211,
+              "total_active_ul": 5550.48,
+              "note_distribution": {
+                "top": 42.2,
+                "heart": 35.7,
+                "base": 22.2
+              },
+              "dominant_oav": [
+                {
+                  "material": "grapefruit fcf",
+                  "oav": 46608.077,
+                  "ppm": 139.82423,
+                  "intensity": 369.533,
+                  "family": "citrus"
+                },
+                {
+                  "material": "bergamot fcf sicilian",
+                  "oav": 15138.363,
+                  "ppm": 90.830176,
+                  "intensity": 199.087,
+                  "family": "citrus"
+                },
+                {
+                  "material": "hedione",
+                  "oav": 12417.496,
+                  "ppm": 0.620875,
+                  "intensity": 52.42,
+                  "family": "floral"
+                },
+                {
+                  "material": "lime distilled eo",
+                  "oav": 11652.019,
+                  "ppm": 93.216154,
+                  "intensity": 172.393,
+                  "family": "citrus"
+                },
+                {
+                  "material": "dihydromyrcenol",
+                  "oav": 10153.583,
+                  "ppm": 10.153583,
+                  "intensity": 40.054,
+                  "family": "woody"
+                }
+              ],
+              "receptor_activation": {
+                "OR1A1": 0.9973,
+                "OR2W1": 0.9863,
+                "OR5A1": 0.764,
+                "OR7D4": 0.0083,
+                "OR10G4": 0.0608,
+                "OR11H7": 0.0,
+                "OR8B3": 0.0099,
+                "OR_WD": 0.9257
+              }
+            },
+            {
+              "label": "top",
+              "t_seconds": 300.0,
+              "total_vapor_ppm": 372.3533,
+              "total_active_ul": 5463.97,
+              "note_distribution": {
+                "top": 41.6,
+                "heart": 35.9,
+                "base": 22.5
+              },
+              "dominant_oav": [
+                {
+                  "material": "grapefruit fcf",
+                  "oav": 43542.187,
+                  "ppm": 130.62656,
+                  "intensity": 355.96,
+                  "family": "citrus"
+                },
+                {
+                  "material": "bergamot fcf sicilian",
+                  "oav": 15133.204,
+                  "ppm": 90.799226,
+                  "intensity": 199.05,
+                  "family": "citrus"
+                },
+                {
+                  "material": "hedione",
+                  "oav": 12657.668,
+                  "ppm": 0.632883,
+                  "intensity": 52.843,
+                  "family": "floral"
+                },
+                {
+                  "material": "lime distilled eo",
+                  "oav": 10885.547,
+                  "ppm": 87.084373,
+                  "intensity": 166.061,
+                  "family": "citrus"
+                },
+                {
+                  "material": "dihydromyrcenol",
+                  "oav": 10268.288,
+                  "ppm": 10.268288,
+                  "intensity": 40.235,
+                  "family": "woody"
+                }
+              ],
+              "receptor_activation": {
+                "OR1A1": 0.9971,
+                "OR2W1": 0.9857,
+                "OR5A1": 0.7661,
+                "OR7D4": 0.0084,
+                "OR10G4": 0.0619,
+                "OR11H7": 0.0,
+                "OR8B3": 0.0101,
+                "OR_WD": 0.9243
+              }
+            },
+            {
+              "label": "heart",
+              "t_seconds": 1800.0,
+              "total_vapor_ppm": 308.1271,
+              "total_active_ul": 5096.84,
+              "note_distribution": {
+                "top": 39.4,
+                "heart": 36.5,
+                "base": 24.1
+              },
+              "dominant_oav": [
+                {
+                  "material": "grapefruit fcf",
+                  "oav": 30655.905,
+                  "ppm": 91.967714,
+                  "intensity": 293.483,
+                  "family": "citrus"
+                },
+                {
+                  "material": "bergamot fcf sicilian",
+                  "oav": 14946.844,
+                  "ppm": 89.681065,
+                  "intensity": 197.698,
+                  "family": "citrus"
+                },
+                {
+                  "material": "hedione",
+                  "oav": 13782.19,
+                  "ppm": 0.689109,
+                  "intensity": 54.766,
+                  "family": "floral"
+                },
+                {
+                  "material": "dihydromyrcenol",
+                  "oav": 10746.082,
+                  "ppm": 10.746082,
+                  "intensity": 40.973,
+                  "family": "woody"
+                },
+                {
+                  "material": "linalool",
+                  "oav": 10003.823,
+                  "ppm": 15.005734,
+                  "intensity": 39.817,
+                  "family": "aromatic"
+                }
+              ],
+              "receptor_activation": {
+                "OR1A1": 0.9965,
+                "OR2W1": 0.9824,
+                "OR5A1": 0.7745,
+                "OR7D4": 0.0092,
+                "OR10G4": 0.0671,
+                "OR11H7": 0.0,
+                "OR8B3": 0.011,
+                "OR_WD": 0.9174
+              }
+            },
+            {
+              "label": "late_heart",
+              "t_seconds": 7200.0,
+              "total_vapor_ppm": 180.9627,
+              "total_active_ul": 4301.7,
+              "note_distribution": {
+                "top": 35.0,
+                "heart": 36.5,
+                "base": 28.6
+              },
+              "dominant_oav": [
+                {
+                  "material": "hedione",
+                  "oav": 16976.306,
+                  "ppm": 0.848815,
+                  "intensity": 59.777,
+                  "family": "floral"
+                },
+                {
+                  "material": "bergamot fcf sicilian",
+                  "oav": 12958.281,
+                  "ppm": 77.749684,
+                  "intensity": 182.768,
+                  "family": "citrus"
+                },
+                {
+                  "material": "dihydromyrcenol",
+                  "oav": 11474.367,
+                  "ppm": 11.474367,
+                  "intensity": 42.062,
+                  "family": "woody"
+                },
+                {
+                  "material": "linalool",
+                  "oav": 10080.614,
+                  "ppm": 15.120922,
+                  "intensity": 39.939,
+                  "family": "aromatic"
+                },
+                {
+                  "material": "grapefruit fcf",
+                  "oav": 7857.042,
+                  "ppm": 23.571126,
+                  "intensity": 138.801,
+                  "family": "citrus"
+                }
+              ],
+              "receptor_activation": {
+                "OR1A1": 0.9936,
+                "OR2W1": 0.968,
+                "OR5A1": 0.7878,
+                "OR7D4": 0.0114,
+                "OR10G4": 0.0816,
+                "OR11H7": 0.0,
+                "OR8B3": 0.0136,
+                "OR_WD": 0.8977
+              }
+            },
+            {
+              "label": "drydown",
+              "t_seconds": 14400.0,
+              "total_vapor_ppm": 119.9078,
+              "total_active_ul": 3750.52,
+              "note_distribution": {
+                "top": 32.3,
+                "heart": 34.9,
+                "base": 32.7
+              },
+              "dominant_oav": [
+                {
+                  "material": "hedione",
+                  "oav": 20092.372,
+                  "ppm": 1.004619,
+                  "intensity": 64.161,
+                  "family": "floral"
+                },
+                {
+                  "material": "dihydromyrcenol",
+                  "oav": 11222.422,
+                  "ppm": 11.222422,
+                  "intensity": 41.69,
+                  "family": "woody"
+                },
+                {
+                  "material": "bergamot fcf sicilian",
+                  "oav": 9599.847,
+                  "ppm": 57.599083,
+                  "intensity": 154.969,
+                  "family": "citrus"
+                },
+                {
+                  "material": "linalool",
+                  "oav": 9130.984,
+                  "ppm": 13.696477,
+                  "intensity": 38.389,
+                  "family": "aromatic"
+                },
+                {
+                  "material": "iso e super",
+                  "oav": 4189.676,
+                  "ppm": 0.209484,
+                  "intensity": 28.111,
+                  "family": "woody"
+                }
+              ],
+              "receptor_activation": {
+                "OR1A1": 0.9895,
+                "OR2W1": 0.9482,
+                "OR5A1": 0.7885,
+                "OR7D4": 0.0135,
+                "OR10G4": 0.0953,
+                "OR11H7": 0.0,
+                "OR8B3": 0.0161,
+                "OR_WD": 0.8795
+              }
+            }
+          ],
+          "evaporation_pct": 32.4
+        }
+      },
+      {
+        "name": "ifra_safety",
+        "status": "FAIL",
+        "detail": "2 IFRA violations: bergamot fcf sicilian at 19.458% (limit 10.000%); grapefruit fcf at 6.486% (limit 4.000%)",
+        "data": {
+          "checked": 15,
+          "compliant": 13,
+          "violations": 2,
+          "headroom": 1.0,
+          "violation_details": [
+            {
+              "material": "bergamot fcf sicilian",
+              "active_pct_finished": 19.4578,
+              "limit_pct": 10.0,
+              "effective_limit": 10.0,
+              "exceedance_pct": 94.6
+            },
+            {
+              "material": "grapefruit fcf",
+              "active_pct_finished": 6.4859,
+              "limit_pct": 4.0,
+              "effective_limit": 4.0,
+              "exceedance_pct": 62.1
+            }
+          ]
+        }
+      },
+      {
+        "name": "robustness",
+        "status": "PASS",
+        "detail": "30 perturbations stable",
+        "data": {
+          "status": "PASS",
+          "checked": 30,
+          "issues_count": 0,
+          "issue_details": [],
+          "perturbations": [
+            {
+              "material": "bergamot fcf sicilian",
+              "direction": "up",
+              "delta_ul": 54.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.012367,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "bergamot fcf sicilian",
+              "direction": "down",
+              "delta_ul": 54.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.012461,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "cedrat fcf sicilian",
+              "direction": "up",
+              "delta_ul": 24.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.001056,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "cedrat fcf sicilian",
+              "direction": "down",
+              "delta_ul": 24.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.001055,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "lemon fcf oil sicilian",
+              "direction": "up",
+              "delta_ul": 24.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.002728,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "lemon fcf oil sicilian",
+              "direction": "down",
+              "delta_ul": 24.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.002725,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "grapefruit fcf",
+              "direction": "up",
+              "delta_ul": 18.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.017462,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "grapefruit fcf",
+              "direction": "down",
+              "delta_ul": 18.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.017465,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "lime distilled eo",
+              "direction": "up",
+              "delta_ul": 12.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.003403,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            },
+            {
+              "material": "lime distilled eo",
+              "direction": "down",
+              "delta_ul": 12.0,
+              "status": "PASS",
+              "family_envelope_drift": 0.003403,
+              "top_leader_changed": false,
+              "safety_failed": false,
+              "brief_failed": false,
+              "detail": "stable within perturbation thresholds"
+            }
+          ]
+        }
+      },
+      {
+        "name": "oav_intelligence",
+        "status": "PASS",
+        "detail": "analysis complete",
+        "data": {
+          "family_oav_targets": {},
+          "balance_report": {},
+          "performance_projection": {
+            "materials": [
+              {
+                "material": "hedione",
+                "mapped_material": "hedione",
+                "oav": 12417.496276,
+                "engine_note": "heart",
+                "future_note_tier": "heart",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 180.0,
+                "paris_vp_pa": 0.1,
+                "bangkok_shift": {
+                  "paris_vp": 0.1,
+                  "bangkok_vp": 0.28,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 180.0,
+                  "bangkok_half_life_min_est": 64.285714
+                }
+              },
+              {
+                "material": "dihydromyrcenol",
+                "mapped_material": "dihydromyrcenol",
+                "oav": 10153.582952,
+                "engine_note": "top",
+                "future_note_tier": "top",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 20.0,
+                "paris_vp_pa": 14.8,
+                "bangkok_shift": {
+                  "paris_vp": 14.8,
+                  "bangkok_vp": 41.44,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 20.0,
+                  "bangkok_half_life_min_est": 7.142857
+                }
+              },
+              {
+                "material": "linalool",
+                "mapped_material": "linalool",
+                "oav": 9638.751831,
+                "engine_note": "top",
+                "future_note_tier": "top",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 20.0,
+                "paris_vp_pa": 15.8,
+                "bangkok_shift": {
+                  "paris_vp": 15.8,
+                  "bangkok_vp": 44.24,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 20.0,
+                  "bangkok_half_life_min_est": 7.142857
+                }
+              },
+              {
+                "material": "iso e super",
+                "mapped_material": "iso e super",
+                "oav": 2596.669272,
+                "engine_note": "base",
+                "future_note_tier": "base",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 360.0,
+                "paris_vp_pa": 0.231,
+                "bangkok_shift": {
+                  "paris_vp": 0.231,
+                  "bangkok_vp": 0.6468,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 360.0,
+                  "bangkok_half_life_min_est": 128.571429
+                }
+              },
+              {
+                "material": "linalyl acetate",
+                "mapped_material": "linalyl acetate",
+                "oav": 528.404575,
+                "engine_note": "top",
+                "future_note_tier": "top",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 18.0,
+                "paris_vp_pa": 17.5,
+                "bangkok_shift": {
+                  "paris_vp": 17.5,
+                  "bangkok_vp": 49.0,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 18.0,
+                  "bangkok_half_life_min_est": 6.428571
+                }
+              },
+              {
+                "material": "coumarin",
+                "mapped_material": "coumarin",
+                "oav": 71.601252,
+                "engine_note": "base",
+                "future_note_tier": "base",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 180.0,
+                "paris_vp_pa": 0.19,
+                "bangkok_shift": {
+                  "paris_vp": 0.19,
+                  "bangkok_vp": 0.532,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 180.0,
+                  "bangkok_half_life_min_est": 64.285714
+                }
+              },
+              {
+                "material": "ambrox super",
+                "mapped_material": "ambrox super",
+                "oav": 27.119485,
+                "engine_note": "base",
+                "future_note_tier": "base",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 600.0,
+                "paris_vp_pa": 0.05,
+                "bangkok_shift": {
+                  "paris_vp": 0.05,
+                  "bangkok_vp": 0.14,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 600.0,
+                  "bangkok_half_life_min_est": 214.285714
+                }
+              },
+              {
+                "material": "calone",
+                "mapped_material": "calone",
+                "oav": 11.657012,
+                "engine_note": "heart",
+                "future_note_tier": "heart",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 90.0,
+                "paris_vp_pa": 0.293,
+                "bangkok_shift": {
+                  "paris_vp": 0.293,
+                  "bangkok_vp": 0.8204,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 90.0,
+                  "bangkok_half_life_min_est": 32.142857
+                }
+              },
+              {
+                "material": "habanolide",
+                "mapped_material": "habanolide",
+                "oav": 4.475227,
+                "engine_note": "base",
+                "future_note_tier": "base",
+                "note_tier_mismatch": false,
+                "paris_half_life_min": 840.0,
+                "paris_vp_pa": 0.0003,
+                "bangkok_shift": {
+                  "paris_vp": 0.0003,
+                  "bangkok_vp": 0.00084,
+                  "vp_ratio": 2.8,
+                  "paris_half_life_min": 840.0,
+                  "bangkok_half_life_min_est": 300.0
+                }
+              }
+            ],
+            "warnings": [
+              "dihydromyrcenol may collapse quickly in Bangkok heat (~7.1 min half-life)",
+              "linalool may collapse quickly in Bangkok heat (~7.1 min half-life)",
+              "linalyl acetate may collapse quickly in Bangkok heat (~6.4 min half-life)"
+            ]
+          },
+          "synergy_pairs": [],
+          "antagonist_pairs": [],
+          "shift_zones": {}
+        }
+      },
+      {
+        "name": "confidence",
+        "status": "PASS",
+        "detail": "combined confidence 51.2 (MEDIUM)",
+        "data": {
+          "overall_confidence": 32.6,
+          "pipeline_confidence": 69.7,
+          "combined_confidence": 51.2,
+          "combined_grade": "MEDIUM",
+          "missing_fields": []
+        }
+      },
+      {
+        "name": "repair_suggestions",
+        "status": "WARN",
+        "detail": "2 suggestions",
+        "data": {
+          "failed_gates": 1,
+          "warnings": 1,
+          "suggestions": [
+            "Reduce bergamot fcf sicilian from 19.458% to 10.000% (IFRA limit)",
+            "Reduce grapefruit fcf from 6.486% to 4.000% (IFRA limit)"
+          ]
+        }
+      }
+    ]
+  },
+  "green": {
+    "formula_name": "Green Galbanum 30mL EdP",
+    "resolved_family": "aromatic_fougere",
+    "archetype_key": "aromatic_fougere.classic_reference",
+    "overall_status": "FAIL",
+    "commercial_readiness": "NOT_RELEASE_READY",
+    "notes": [
+      "Fail-fast at odt_coverage: 2 missing ODT: cis 3 hexenol; violet leaf absolute"
+    ],
+    "summary": {
+      "stages": {
+        "passed": 5,
+        "warned": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "materials": 17,
+      "note_distribution": {
+        "top": 9.8,
+        "heart": 42.1,
+        "base": 48.0
+      },
+      "perceptible_count": 14,
+      "total_vapor_ppm": 88.97,
+      "archetype": "aromatic_fougere.classic_reference"
+    },
+    "stages": [
+      {
+        "name": "registry_integrity",
+        "status": "PASS",
+        "detail": "270 unique entries, 270 normalized keys",
+        "data": {
+          "total_entries": 270,
+          "total_normalized": 270,
+          "missing_odt": []
+        }
+      },
+      {
+        "name": "name_normalization",
+        "status": "PASS",
+        "detail": "17 materials resolved",
+        "data": {
+          "materials": [
+            {
+              "requested": "Bergamot FCF oil Sicilian",
+              "canonical": "bergamot fcf sicilian",
+              "profile_name": "Bergamot FCF oil Sicilian",
+              "registry_name": "Bergamot FCF Sicilian",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Galbanum Resinoid",
+              "canonical": "galbanum resinoid",
+              "profile_name": "Galbanum Resinoid",
+              "registry_name": "Galbanum Resinoid",
+              "is_known": true,
+              "dilution": 0.1,
+              "percent": 2.0
+            },
+            {
+              "requested": "Cis-3-Hexenol",
+              "canonical": "cis 3 hexenol",
+              "profile_name": "cis-3-Hexenol",
+              "registry_name": "cis-3-Hexenol",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.5
+            },
+            {
+              "requested": "Violet Leaf Absolute",
+              "canonical": "violet leaf absolute",
+              "profile_name": null,
+              "registry_name": "Violet Leaf Absolute",
+              "is_known": true,
+              "dilution": 0.1,
+              "percent": 1.0
+            },
+            {
+              "requested": "Hedione",
+              "canonical": "hedione",
+              "profile_name": "Hedione",
+              "registry_name": "Hedione",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Iso E Super",
+              "canonical": "iso e super",
+              "profile_name": "Iso E Super",
+              "registry_name": "Iso E Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 15.0
+            },
+            {
+              "requested": "Vetiver EO",
+              "canonical": "vetiver eo",
+              "profile_name": "Vetiver EO",
+              "registry_name": "Vetiver EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 6.0
+            },
+            {
+              "requested": "Patchouli EO",
+              "canonical": "patchouli eo",
+              "profile_name": "Patchouli EO",
+              "registry_name": "Patchouli EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Evernyl",
+              "canonical": "evernyl",
+              "profile_name": "Evernyl",
+              "registry_name": "Evernyl",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 1.0
+            },
+            {
+              "requested": "Habanolide",
+              "canonical": "habanolide",
+              "profile_name": "Habanolide",
+              "registry_name": "Habanolide",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 10.0
+            },
+            {
+              "requested": "Linalool",
+              "canonical": "linalool",
+              "profile_name": "Linalool",
+              "registry_name": "Linalool",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 5.0
+            },
+            {
+              "requested": "Petitgrain EO",
+              "canonical": "petitgrain eo",
+              "profile_name": "Petitgrain EO",
+              "registry_name": "Petitgrain EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 3.0
+            },
+            {
+              "requested": "Coumarin",
+              "canonical": "coumarin",
+              "profile_name": "Coumarin",
+              "registry_name": "Coumarin",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 1.0
+            },
+            {
+              "requested": "Cedarwood oil Virginia",
+              "canonical": "cedarwood virginia",
+              "profile_name": "Cedarwood oil Virginia",
+              "registry_name": "Cedarwood Virginia EO",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 6.0
+            },
+            {
+              "requested": "Ambrox Super",
+              "canonical": "ambrox super",
+              "profile_name": "Ambrox Super",
+              "registry_name": "Ambrox Super",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 2.0
+            },
+            {
+              "requested": "Florol",
+              "canonical": "florol",
+              "profile_name": "Florol",
+              "registry_name": "Florol",
+              "is_known": true,
+              "dilution": 1.0,
+              "percent": 4.0
+            },
+            {
+              "requested": "Parmavert",
+              "canonical": "parmavert",
+              "profile_name": "Parmavert",
+              "registry_name": "Parmavert",
+              "is_known": true,
+              "dilution": 0.01,
+              "percent": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "family_resolution",
+        "status": "PASS",
+        "detail": "brief=generic ΓåÆ archetype=aromatic_fougere.classic_reference (family=aromatic_fougere)",
+        "data": {
+          "archetype_key": "aromatic_fougere.classic_reference",
+          "family": "aromatic_fougere",
+          "label": "Classic/reference aromatic fougere"
+        }
+      },
+      {
+        "name": "build_formula_state",
+        "status": "PASS",
+        "detail": "17 materials, 2 with missing fields, total active: 4998.6 ┬╡L",
+        "data": {
+          "material_count": 17,
+          "total_active_ul": 4998.6,
+          "missing_fields_count": 2,
+          "missing_fields": [
+            "cis 3 hexenol",
+            "violet leaf absolute"
+          ]
+        }
+      },
+      {
+        "name": "active_percent_check",
+        "status": "PASS",
+        "detail": "17 materials have dilution-adjusted active percent",
+        "data": {
+          "diluted_materials": {
+            "bergamot fcf sicilian": {
+              "raw_pct": 11.49,
+              "active_pct": 12.0
+            },
+            "galbanum resinoid": {
+              "raw_pct": 2.3,
+              "active_pct": 0.24
+            },
+            "cis 3 hexenol": {
+              "raw_pct": 0.57,
+              "active_pct": 0.01
+            },
+            "violet leaf absolute": {
+              "raw_pct": 1.15,
+              "active_pct": 0.12
+            },
+            "hedione": {
+              "raw_pct": 17.24,
+              "active_pct": 18.01
+            },
+            "iso e super": {
+              "raw_pct": 17.24,
+              "active_pct": 18.01
+            },
+            "vetiver eo": {
+              "raw_pct": 6.9,
+              "active_pct": 7.2
+            },
+            "patchouli eo": {
+              "raw_pct": 5.75,
+              "active_pct": 6.0
+            },
+            "evernyl": {
+              "raw_pct": 1.15,
+              "active_pct": 1.2
+            },
+            "habanolide": {
+              "raw_pct": 11.49,
+              "active_pct": 12.0
+            },
+            "linalool": {
+              "raw_pct": 5.75,
+              "active_pct": 6.0
+            },
+            "petitgrain eo": {
+              "raw_pct": 3.45,
+              "active_pct": 3.6
+            },
+            "coumarin": {
+              "raw_pct": 1.15,
+              "active_pct": 1.2
+            },
+            "cedarwood virginia": {
+              "raw_pct": 6.9,
+              "active_pct": 7.2
+            },
+            "ambrox super": {
+              "raw_pct": 2.3,
+              "active_pct": 2.4
+            },
+            "florol": {
+              "raw_pct": 4.6,
+              "active_pct": 4.8
+            },
+            "parmavert": {
+              "raw_pct": 0.57,
+              "active_pct": 0.01
+            }
+          },
+          "note_distribution": {
+            "top": 9.8,
+            "heart": 42.1,
+            "base": 48.0
+          }
+        }
+      },
+      {
+        "name": "odt_coverage",
+        "status": "FAIL",
+        "detail": "2 missing ODT: cis 3 hexenol; violet leaf absolute",
+        "data": {
+          "missing": [
+            "cis 3 hexenol",
+            "violet leaf absolute"
+          ]
+        }
+      }
+    ]
+  }
+}

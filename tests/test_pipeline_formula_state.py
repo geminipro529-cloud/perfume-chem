@@ -51,3 +51,19 @@ def test_formula_state_adds_chemistry_metadata_and_hsp_fallback():
     assert "terpene" in rows["D-Limonene"].functional_groups
     assert "aldehyde" in rows["Aldehyde C12 MNA"].functional_groups
     assert "amine" in rows["Indole"].functional_groups
+
+
+def test_formula_state_reuses_cached_result_for_identical_requests():
+    build_formula_state.cache_clear()
+    state_a = build_formula_state(
+        {"Hedione": 1000.0, "Iso E Super": 1000.0},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+    state_b = build_formula_state(
+        {"Hedione": 1000.0, "Iso E Super": 1000.0},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+
+    assert state_a is state_b

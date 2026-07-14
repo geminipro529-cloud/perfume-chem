@@ -1,0 +1,149 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e11]:
+          - generic [ref=e13]:
+            - generic [ref=e14]:
+              - link [ref=e16] [cursor=pointer]:
+                - /url: https://www.facebook.com/eveandboy/
+                - img [ref=e17]
+              - link [ref=e22] [cursor=pointer]:
+                - /url: https://www.instagram.com/eveandboy/
+                - img [ref=e23]
+              - link [ref=e29] [cursor=pointer]:
+                - /url: https://page.line.me/cgf1906p
+                - img [ref=e30]
+              - link [ref=e43] [cursor=pointer]:
+                - /url: https://twitter.com/EVEANDBOY
+                - img [ref=e44]
+              - link [ref=e47] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCtg2epXx8uGFbUVVZSc_OFg
+                - img [ref=e48]
+              - link "@EVEANDBOY" [ref=e52] [cursor=pointer]:
+                - /url: https://page.line.me/cgf1906p
+                - generic [ref=e53]: "@EVEANDBOY"
+            - generic [ref=e54]:
+              - link "Our Stores" [ref=e55] [cursor=pointer]:
+                - /url: /info/ourstore
+              - generic [ref=e56]: "Select Language :"
+              - button "English" [ref=e58] [cursor=pointer]:
+                - text: English
+                - img [ref=e60]
+          - generic [ref=e64]:
+            - generic [ref=e68]:
+              - textbox "Search" [ref=e69]
+              - img [ref=e71] [cursor=pointer]
+            - img [ref=e78] [cursor=pointer]
+            - link "Hello, Guest Login / Register" [ref=e83] [cursor=pointer]:
+              - /url: /guest/login
+              - generic [ref=e84]:
+                - generic [ref=e85]:
+                  - heading "Hello, Guest" [level=5] [ref=e86]
+                  - heading "Login / Register" [level=5] [ref=e87]
+                - img [ref=e89]
+            - button [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+        - generic [ref=e99]:
+          - link "Login / Register" [ref=e101] [cursor=pointer]:
+            - /url: /guest/login
+            - heading "Login / Register" [level=5] [ref=e104]
+          - img [ref=e106] [cursor=pointer]
+          - generic [ref=e111] [cursor=pointer]:
+            - img [ref=e112]
+            - separator [ref=e117]
+            - button [ref=e119]:
+              - img [ref=e120]
+      - list [ref=e123]:
+        - listitem [ref=e125] [cursor=pointer]:
+          - img [ref=e127]
+        - generic [ref=e131]:
+          - listitem [ref=e132] [cursor=pointer]:
+            - heading "PROMOTIONS" [level=6] [ref=e133]
+          - listitem [ref=e134] [cursor=pointer]:
+            - heading "BRANDS" [level=6] [ref=e135]
+  - main [ref=e136]:
+    - generic [ref=e140]:
+      - img [ref=e142]
+      - heading "Page Not Found!" [level=1] [ref=e160]
+      - heading "We can’t find the page your’re looking for. please contact customer service or head back to home" [level=1] [ref=e162]
+  - contentinfo [ref=e163]:
+    - contentinfo [ref=e164]:
+      - generic [ref=e168]:
+        - generic [ref=e169]:
+          - heading "ABOUT EVEANDBOY" [level=3] [ref=e170]
+          - list [ref=e171]:
+            - listitem [ref=e172]:
+              - link "Brand story" [ref=e173] [cursor=pointer]:
+                - /url: /info/about
+            - listitem [ref=e174]:
+              - link "Privacy Policy" [ref=e175] [cursor=pointer]:
+                - /url: /info/privacypolicy
+            - listitem [ref=e176]:
+              - link "Terms and Conditions" [ref=e177] [cursor=pointer]:
+                - /url: /info/termsandpolicies
+            - listitem [ref=e178]:
+              - link "Sell on EVEANDBOY" [ref=e179] [cursor=pointer]:
+                - /url: https://www.eveandboy.com/p/partner-eveandboy?query=65938f5d26b57d2aeb06d403
+            - listitem [ref=e180]:
+              - link "Whistleblowing" [ref=e181] [cursor=pointer]:
+                - /url: /whistleblowing
+        - generic [ref=e182]:
+          - heading "CUSTOMER CARE" [level=3] [ref=e183]
+          - list [ref=e184]:
+            - listitem [ref=e185]:
+              - link "Online Shopping" [ref=e186] [cursor=pointer]:
+                - /url: https://www.eveandboy.com/p/shopping-by-channel?query=650013cf28329e58f73b27cd
+            - listitem [ref=e187]:
+              - link "Find a store" [ref=e188] [cursor=pointer]:
+                - /url: /info/ourstore
+            - listitem [ref=e189]:
+              - link "Contact us" [ref=e190] [cursor=pointer]:
+                - /url: /info/contact
+        - generic [ref=e191]:
+          - heading "EVEANDBOY MEMBER" [level=3] [ref=e192]
+          - list [ref=e193]:
+            - listitem [ref=e194]:
+              - link "Member registration" [ref=e195] [cursor=pointer]:
+                - /url: /guest/login
+        - generic [ref=e196]:
+          - heading "FOLLOW US" [level=3] [ref=e197]
+          - list [ref=e198]:
+            - listitem [ref=e199]:
+              - link [ref=e200] [cursor=pointer]:
+                - /url: https://www.facebook.com/eveandboy/
+                - img [ref=e201]
+            - listitem [ref=e205]:
+              - link [ref=e206] [cursor=pointer]:
+                - /url: https://www.instagram.com/eveandboy/
+                - img [ref=e207]
+            - listitem [ref=e212]:
+              - link [ref=e213] [cursor=pointer]:
+                - /url: https://page.line.me/cgf1906p
+                - img [ref=e214]
+            - listitem [ref=e216]:
+              - link [ref=e217] [cursor=pointer]:
+                - /url: https://twitter.com/EVEANDBOY
+                - img [ref=e218]
+            - listitem [ref=e220]:
+              - link [ref=e221] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@eveandboy
+                - img [ref=e222]
+            - listitem [ref=e224]:
+              - link [ref=e225] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCtg2epXx8uGFbUVVZSc_OFg
+                - img [ref=e226]
+          - generic [ref=e228]:
+            - heading "GET THE APP" [level=3] [ref=e229]
+            - list [ref=e230]:
+              - listitem [ref=e231]:
+                - heading "Enjoyable, easy, and convenient" [level=6] [ref=e232]
+          - generic [ref=e233]:
+            - link [ref=e235] [cursor=pointer]:
+              - /url: https://apps.apple.com/us/app/id1477714447
+            - link [ref=e237] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.eveandboy.th
+      - generic [ref=e239]:
+        - img [ref=e241] [cursor=pointer]
+        - text: EVEANDBOY Company Limited
+        - heading "All rights reserved 2026 EVEANDBOY Co.,ltd" [level=6] [ref=e246]

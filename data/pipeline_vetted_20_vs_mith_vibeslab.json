@@ -1,0 +1,340 @@
+{
+  "date": "2026-05-25",
+  "scope": "Pipeline-vetted and accepted formula comparison against MITH Bangkok and Vibeslab product lanes only.",
+  "explicit_exclusions": [
+    "formulas/mass-market/*",
+    "formulas/collections/Thai_True_Mass_Market_Eighteen_2026-05-02.md",
+    "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+    "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md"
+  ],
+  "assumption": "20 total accepted formulas across families, not 20 formulas inside every family.",
+  "literature_lenses": [
+    "accessible premium and masstige",
+    "choice overload and hero SKU clarity",
+    "sensory marketing and servicescape asymmetry",
+    "repeat wear hedonic logic",
+    "Thai climate and category fit"
+  ],
+  "score_caps": {
+    "vs_mith": 90,
+    "vs_vibeslab": 88
+  },
+  "formulas": [
+    {
+      "name": "Bleu Carbon Final",
+      "file": "formulas/complete/Bleu_Carbon_Final_2026-05-08.md",
+      "family": "aromatic woody fougere / blue masculine",
+      "maturity_signal": "complete final build with release gate language",
+      "closest_competitor_target": [
+        "MITH Legend",
+        "Vibeslab Money"
+      ],
+      "gap_fill": "clearer male blue hero",
+      "score_vs_mith": 84,
+      "score_vs_vibeslab": 76,
+      "confidence": "medium",
+      "reason": "High-legibility masculine hero in a top Thai prestige lane."
+    },
+    {
+      "name": "Cobalt Cedar Air",
+      "file": "formulas/Cobalt_Cedar_Air_30mL_EDP.md",
+      "family": "aromatic woody / blue masculine",
+      "maturity_signal": "finished recipe with commercial framing",
+      "closest_competitor_target": [
+        "MITH Legend",
+        "Vibeslab Money"
+      ],
+      "gap_fill": "disciplined premium male blue",
+      "score_vs_mith": 87,
+      "score_vs_vibeslab": 78,
+      "confidence": "medium",
+      "reason": "Strongest direct product attack on MITH's woody-aromatic core."
+    },
+    {
+      "name": "F1 Le Barbier de Grasse v2",
+      "file": "formulas/complete/F1_Le_Barbier_de_Grasse_30mL_EDP_v2_longevity.md",
+      "family": "classical fougere / barbershop citrus",
+      "maturity_signal": "complete longevity revision",
+      "closest_competitor_target": [
+        "MITH woody masculine line",
+        "Vibeslab concept masculines"
+      ],
+      "gap_fill": "classical masculine pillar",
+      "score_vs_mith": 74,
+      "score_vs_vibeslab": 68,
+      "confidence": "medium",
+      "reason": "Strong family integrity, narrower lane than blue woody."
+    },
+    {
+      "name": "Fougere Herbier",
+      "file": "formulas/Fougere_Herbier_30mL_EDP.md",
+      "family": "classical aromatic fougere",
+      "maturity_signal": "explicit pipeline analysis section",
+      "closest_competitor_target": [
+        "MITH aromatic line",
+        "Vibeslab lacks this pillar"
+      ],
+      "gap_fill": "herbaceous fougere authority",
+      "score_vs_mith": 72,
+      "score_vs_vibeslab": 69,
+      "confidence": "medium",
+      "reason": "Credible but narrower commercial ceiling than sweeter masculine families."
+    },
+    {
+      "name": "Vetiver Classique V5",
+      "file": "formulas/Vetiver_Classique_V5_30mL_EDP.md",
+      "family": "classical vetiver woody",
+      "maturity_signal": "explicit PASS result",
+      "closest_competitor_target": [
+        "MITH woody niche flankers",
+        "Vibeslab male spend"
+      ],
+      "gap_fill": "serious vetiver lane",
+      "score_vs_mith": 76,
+      "score_vs_vibeslab": 72,
+      "confidence": "medium",
+      "reason": "Higher perfumer authority than either competitor's most legible masculine pillars."
+    },
+    {
+      "name": "L'Apothicaire du Nord",
+      "file": "formulas/complete/Apothicaire_du_Nord_50mL_EDTplus.md",
+      "family": "gin-vetiver-cardamom woody aromatic",
+      "maturity_signal": "final ready to compound",
+      "closest_competitor_target": [
+        "Vibeslab concept scents"
+      ],
+      "gap_fill": "artisanal masculine niche",
+      "score_vs_mith": 65,
+      "score_vs_vibeslab": 67,
+      "confidence": "low",
+      "reason": "Interesting brand-builder, not a broad retail hitter."
+    },
+    {
+      "name": "Le Chypre Vert",
+      "file": "formulas/collections/F2_Le_Chypre_Vert_30mL_EDP_Optimized.md",
+      "family": "green chypre luxury",
+      "maturity_signal": "optimized finished concept",
+      "closest_competitor_target": [
+        "MITH women's floral chypre edge",
+        "Vibeslab green conceptuals"
+      ],
+      "gap_fill": "true green chypre prestige",
+      "score_vs_mith": 73,
+      "score_vs_vibeslab": 79,
+      "confidence": "medium",
+      "reason": "Structured green chypre is a real whitespace lane."
+    },
+    {
+      "name": "Vert Eclat",
+      "file": "formulas/Vert_Eclat_Green_Chypre_Axis_30mL_EDP.md",
+      "family": "green chypre accessible",
+      "maturity_signal": "full finished bottle formula",
+      "closest_competitor_target": [
+        "MITH green fresh overlap",
+        "Vibeslab Grand Hotel Ginza adjacency"
+      ],
+      "gap_fill": "wearable green office scent",
+      "score_vs_mith": 71,
+      "score_vs_vibeslab": 76,
+      "confidence": "medium",
+      "reason": "More wearable than prestige-green builds, still second-tier volume family."
+    },
+    {
+      "name": "Green Patchouli Cologne V4",
+      "file": "formulas/Green_Patchouli_Cologne_V4_30mL_EDP.md",
+      "family": "citrus patchouli chypre",
+      "maturity_signal": "final V4 formula",
+      "closest_competitor_target": [
+        "MITH floral chypre premium zone",
+        "Vibeslab mossy green concepts"
+      ],
+      "gap_fill": "office prestige chypre-cologne",
+      "score_vs_mith": 69,
+      "score_vs_vibeslab": 74,
+      "confidence": "medium",
+      "reason": "Strong polish, but not as broad a lane as blue woody or clean skin."
+    },
+    {
+      "name": "Bleu Luxe Mineral Jasmine",
+      "file": "formulas/complete/Bleu_Luxe_Mineral_Jasmine_vF_30mL_EDP.md",
+      "family": "woody chypre / mineral jasmine",
+      "maturity_signal": "complete finished bottle",
+      "closest_competitor_target": [
+        "MITH Nude-adjacent premium feminine",
+        "Vibeslab floral concept line"
+      ],
+      "gap_fill": "premium floral-mineral luxury",
+      "score_vs_mith": 78,
+      "score_vs_vibeslab": 81,
+      "confidence": "medium",
+      "reason": "Strong luxury cues plus broad wearability."
+    },
+    {
+      "name": "Haute Lavande",
+      "file": "formulas/complete/Haute_Lavande_30mL_2026-05-11.md",
+      "family": "lavender soliflore",
+      "maturity_signal": "complete finished build",
+      "closest_competitor_target": [
+        "none directly"
+      ],
+      "gap_fill": "artisanal lavender purity",
+      "score_vs_mith": 64,
+      "score_vs_vibeslab": 60,
+      "confidence": "low",
+      "reason": "Beautiful but niche-leaning."
+    },
+    {
+      "name": "Haute Lavande Soliflore",
+      "file": "formulas/complete/Haute_Lavande_Soliflore_50mL_2026-05-14.md",
+      "family": "true lavender soliflore",
+      "maturity_signal": "complete stabilized build",
+      "closest_competitor_target": [
+        "none directly"
+      ],
+      "gap_fill": "softer lavender comfort lane",
+      "score_vs_mith": 61,
+      "score_vs_vibeslab": 58,
+      "confidence": "low",
+      "reason": "Authority piece more than volume seller."
+    },
+    {
+      "name": "Iris-Lavender Lipstick",
+      "file": "formulas/complete/Iris_Lavender_Lipstick_30mL_EdP.md",
+      "family": "powdery iris / cosmetic floral",
+      "maturity_signal": "finished build from accepted Haute Lavande base",
+      "closest_competitor_target": [
+        "MITH Nude",
+        "Vibeslab feminine prestige gap"
+      ],
+      "gap_fill": "powdery prestige comfort",
+      "score_vs_mith": 80,
+      "score_vs_vibeslab": 85,
+      "confidence": "medium",
+      "reason": "One of the cleanest feminine prestige gaps in the whole competitor set."
+    },
+    {
+      "name": "Iris Reverie Lactee v8",
+      "file": "formulas/complete/Iris_Reverie_Lactee_v8_50mL_BUILD.md",
+      "family": "iris lactonic white floral",
+      "maturity_signal": "v8 luxury optimization build",
+      "closest_competitor_target": [
+        "MITH soft feminine zone",
+        "Vibeslab under-served feminine prestige"
+      ],
+      "gap_fill": "creamy luxury iris",
+      "score_vs_mith": 77,
+      "score_vs_vibeslab": 83,
+      "confidence": "medium",
+      "reason": "High emotional comfort with a strong prestige frame."
+    },
+    {
+      "name": "Photorealistic Iris v4",
+      "file": "formulas/collections/Photorealistic_Iris_v4_Final.md",
+      "family": "photorealistic orris / rooty iris",
+      "maturity_signal": "explicit final version",
+      "closest_competitor_target": [
+        "prestige enthusiast spend"
+      ],
+      "gap_fill": "true orris craft authority",
+      "score_vs_mith": 69,
+      "score_vs_vibeslab": 71,
+      "confidence": "low",
+      "reason": "Excellent authority piece, smaller audience."
+    },
+    {
+      "name": "Jasmin d'Orris Collab",
+      "file": "formulas/complete/Jasmin_dOrris_Amouage_HenryJacques_Collab_30mL_EdP.md",
+      "family": "jasmine orris extrait",
+      "maturity_signal": "complete collaborative final",
+      "closest_competitor_target": [
+        "Vibeslab premium concept spend"
+      ],
+      "gap_fill": "white floral iris luxury",
+      "score_vs_mith": 68,
+      "score_vs_vibeslab": 70,
+      "confidence": "low",
+      "reason": "Luxurious but complexity narrows the audience."
+    },
+    {
+      "name": "Porcelaine",
+      "file": "formulas/complete/Porcelaine_Optimized_Mixing_Instructions.md",
+      "family": "aldehydic clean cosmetic floral",
+      "maturity_signal": "optimized finished instructions",
+      "closest_competitor_target": [
+        "MITH Nude",
+        "Vibeslab lacks clean-cosmetic hero"
+      ],
+      "gap_fill": "clean-skin luxury with body-line potential",
+      "score_vs_mith": 82,
+      "score_vs_vibeslab": 86,
+      "confidence": "medium",
+      "reason": "High-repeat, easy to understand, extension-ready."
+    },
+    {
+      "name": "Dior Homme Cologne II Cedrat",
+      "file": "formulas/Dior_Homme_Cologne_II_Cedrat_Demachy_30mL_EdT.md",
+      "family": "citrus cologne / cedrat",
+      "maturity_signal": "full finished Demachy edition",
+      "closest_competitor_target": [
+        "MITH fresh Thai citrus line",
+        "Vibeslab Grand Hotel Ginza"
+      ],
+      "gap_fill": "premium citrus clarity",
+      "score_vs_mith": 83,
+      "score_vs_vibeslab": 80,
+      "confidence": "medium",
+      "reason": "One of the best first-spray climate-fit products in the set."
+    },
+    {
+      "name": "Demachy DHC Riche",
+      "file": "formulas/Demachy_DHC_Riche_30mL_EdP.md",
+      "family": "orange blossom cologne / neroli radiant",
+      "maturity_signal": "full finished richer edition",
+      "closest_competitor_target": [
+        "MITH lighter florals fresh",
+        "Vibeslab freshness concepts"
+      ],
+      "gap_fill": "richer neroli fresh luxury",
+      "score_vs_mith": 75,
+      "score_vs_vibeslab": 77,
+      "confidence": "medium",
+      "reason": "Commercial freshness with more softness and radiance."
+    },
+    {
+      "name": "Eclipse VII Event Horizon V3",
+      "file": "formulas/complete/Eclipse_VII_Event_Horizon_V3_Perfumer_Fix.md",
+      "family": "dark leather-smoke oriental",
+      "maturity_signal": "perfumer-fix final revision",
+      "closest_competitor_target": [
+        "Vibeslab dark concept spend"
+      ],
+      "gap_fill": "darker niche statement",
+      "score_vs_mith": 59,
+      "score_vs_vibeslab": 66,
+      "confidence": "low",
+      "reason": "Brand-image piece more than a broad retail seller."
+    }
+  ],
+  "top_attack_products": {
+    "vs_mith": [
+      "Cobalt Cedar Air",
+      "Bleu Carbon Final",
+      "Dior Homme Cologne II Cedrat",
+      "Porcelaine",
+      "Iris-Lavender Lipstick"
+    ],
+    "vs_vibeslab": [
+      "Porcelaine",
+      "Iris-Lavender Lipstick",
+      "Iris Reverie Lactee v8",
+      "Bleu Luxe Mineral Jasmine",
+      "Dior Homme Cologne II Cedrat"
+    ]
+  },
+  "structural_gaps_not_filled": [
+    "Vibeslab B2B scent-branding moat",
+    "MITH mall-distribution scale",
+    "1,500-2,500 THB white-space pack architecture",
+    "Discovery-set conversion object"
+  ]
+}

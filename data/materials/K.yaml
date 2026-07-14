@@ -111,24 +111,24 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 234.4
+  mw_g_mol: 224.34
   density_25c_g_ml: null
   logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.05
+  vp_25c_pa: 0.46
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 1.0
+  odt_eth_ppm: 0.01
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: 0.45
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 100.0
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 4WY07089
@@ -190,7 +190,7 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 192.3
+  mw_g_mol: 206.33
   density_25c_g_ml: null
   logp: 3.5
   functional_groups: []
@@ -207,7 +207,7 @@
   trp_targets: null
   hedonic_valence: 0.55
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4WI10591

@@ -1,21 +1,22 @@
 """Formula calculation endpoints"""
 
-from fastapi import APIRouter, Depends, HTTPException
-from typing import Dict, Any
+from typing import Any, Dict
 
-from app.schemas.chemical import DilutionCalculation, DilutionResult
-from app.schemas.perfume import FormulaCreate, FormulaResponse
+from fastapi import APIRouter, HTTPException
+
+from app.core.exceptions import DilutionCalculationError
 from app.domain.ingredients.chemistry import (
     calculate_dilution,
     calculate_drops_to_ml,
     calculate_ml_to_drops,
-    validate_formula_balance,
     calculate_note_distribution,
     estimate_longevity,
-    estimate_sillage
+    estimate_sillage,
+    validate_formula_balance,
 )
-from app.core.exceptions import DilutionCalculationError
-from app.services.validation_pipeline import validate_formula, attach_validation
+from app.schemas.chemical import DilutionCalculation, DilutionResult
+from app.schemas.perfume import FormulaCreate
+from app.services.validation_pipeline import attach_validation, validate_formula
 
 router = APIRouter()
 
@@ -58,17 +59,17 @@ async def analyze_formula(formula: FormulaCreate) -> Dict[str, Any]:
     try:
         # Validate balance
         validate_formula_balance([ing.dict() for ing in formula.ingredients])
-        
+
         # Calculate note distribution
         note_dist = calculate_note_distribution([ing.dict() for ing in formula.ingredients])
-        
+
         # Estimate properties
         longevity = estimate_longevity(note_dist)
         sillage = estimate_sillage(
             note_dist.get('top', 0),
             formula.concentration_percent or 15.0
         )
-        
+
         return attach_validation({
             "formula_name": formula.name,
             "note_distribution": note_dist,

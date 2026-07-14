@@ -10,7 +10,7 @@ class PerfumeChemException(Exception):
 
 class EntityNotFoundError(PerfumeChemException):
     """Raised when a requested entity is not found"""
-    
+
     def __init__(self, entity: str, entity_id: int | str):
         self.entity = entity
         self.entity_id = entity_id
@@ -19,7 +19,7 @@ class EntityNotFoundError(PerfumeChemException):
 
 class AIServiceError(PerfumeChemException):
     """Raised when AI service encounters an error"""
-    
+
     def __init__(self, message: str, original_error: Exception | None = None):
         self.original_error = original_error
         super().__init__(message)
@@ -27,7 +27,7 @@ class AIServiceError(PerfumeChemException):
 
 class ValidationError(PerfumeChemException):
     """Raised when validation fails"""
-    
+
     def __init__(self, field: str, message: str):
         self.field = field
         super().__init__(f"Validation error on {field}: {message}")
@@ -35,7 +35,7 @@ class ValidationError(PerfumeChemException):
 
 class IFRAComplianceError(PerfumeChemException):
     """Raised when a formula violates IFRA guidelines"""
-    
+
     def __init__(self, ingredient: str, limit: float, actual: float):
         self.ingredient = ingredient
         self.limit = limit
@@ -47,7 +47,7 @@ class IFRAComplianceError(PerfumeChemException):
 
 class ChemicalIncompatibilityError(PerfumeChemException):
     """Raised when incompatible chemicals are combined"""
-    
+
     def __init__(self, chemical1: str, chemical2: str, reason: str):
         self.chemical1 = chemical1
         self.chemical2 = chemical2
@@ -64,7 +64,7 @@ class DilutionCalculationError(PerfumeChemException):
 
 class FormulaBalanceError(PerfumeChemException):
     """Raised when formula percentages don't sum to 100%"""
-    
+
     def __init__(self, total: float):
         self.total = total
         super().__init__(f"Formula ingredients sum to {total}%, must be 100%")

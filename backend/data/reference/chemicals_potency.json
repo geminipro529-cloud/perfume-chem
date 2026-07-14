@@ -70,6 +70,36 @@
       "function": "The Earth",
       "notes": "Clean dirt, woody. Use sparingly."
     },
+    "Vetiver EO (India)": {
+      "min_percent": 2.0,
+      "max_percent": 15.0,
+      "typical_percent": 8.0,
+      "category": "base",
+      "note": "base",
+      "potency": "medium",
+      "function": "The Dark Earth",
+      "notes": "Deep earthy-smoky-rooty Indian ruh khus. The most prized vetiver origin with superior tenacity."
+    },
+    "Cardamom EO": {
+      "min_percent": 0.5,
+      "max_percent": 5.0,
+      "typical_percent": 2.0,
+      "category": "top",
+      "note": "top",
+      "potency": "medium",
+      "function": "The Spice Lift",
+      "notes": "Spicy-green-cineolic cardamom top note. Bright opening with warm eucalyptus undertone."
+    },
+    "Lavender EO (BONTAUX SAS)": {
+      "min_percent": 3.0,
+      "max_percent": 20.0,
+      "typical_percent": 10.0,
+      "category": "top-heart",
+      "note": "top-heart",
+      "potency": "medium",
+      "function": "The French Classic",
+      "notes": "Premium French lavender angustifolia. Floral-herbaceous with soft honeyed sweetness; less camphoraceous than standard."
+    },
     "Vertofix Coeur": {
       "min_percent": 5.0,
       "max_percent": 15.0,
@@ -160,16 +190,7 @@
       "function": "The Shimmer",
       "notes": "Incense, hot iron. Very powerful, trace amounts only."
     },
-    "C-12 MNA": {
-      "min_percent": 0.1,
-      "max_percent": 0.5,
-      "typical_percent": 0.2,
-      "category": "top",
-      "note": "top",
-      "potency": "extreme",
-      "function": "The Shimmer",
-      "notes": "Aldehyde, powerful sparkle. Same as Aldehyde C-12 MNA."
-    },
+    
     "Linalyl Acetate": {
       "min_percent": 5.0,
       "max_percent": 15.0,

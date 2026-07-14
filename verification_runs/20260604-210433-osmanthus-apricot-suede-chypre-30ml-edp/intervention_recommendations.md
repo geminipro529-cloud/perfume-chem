@@ -1,0 +1,271 @@
+# Intervention Recommendations - Osmanthus Apricot-Suede Chypre — 30mL EdP
+
+This file is the standalone intervention surface for the verification bundle.
+It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.
+
+## Pre-Mix Recommendations
+
+- Context: Use before combining ingredients or before building the next batch. Focus on prebonding, dissolution, and safety checks.
+- Observation tags: pre_mix, compatibility, dissolution, safety
+
+### Recommendations
+- Beneficial premix: Bergamot FCF + Linalool
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Bergamot FCF + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Osmanthus Absolute
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Linalool + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Apritone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.2 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Osmanthus Absolute + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Damascone Beta
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.7 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Gamma Decalactone
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 2.9 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Apritone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.2 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 3.0 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Damascone Beta + Timberol
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 3.7 vs 4.1 — pre-mixing improves homogeneity.'}
+- Beneficial premix: Gamma Decalactone + Suederal
+  - Details: {'classification': 'benefits-from-prebond', 'reaction': 'Solubility matching (similar CLP → better miscibility)', 'note': 'CLP 2.9 vs 3.0 — pre-mixing improves homogeneity.'}
+- ADD Tonalide (10%) for skin_performance (axis delta 5.2, total delta 1.4)
+  - Rationale: warm musk fabric texture, laundry softness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Macrolide (10%) for skin_performance (axis delta 3.3, total delta 0.6)
+  - Rationale: soft powdery musk texture, gentle roundness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Linalyl Acetate for skin_performance (axis delta 0.1, total delta 0.5)
+  - Rationale: synergistic gap filler (2 synergies: Linalool, Bergamot FCF)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected fresh pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD D-Limonene for skin_performance (axis delta 8.0, total delta 1.1)
+  - Rationale: synergistic gap filler (2 synergies: Linalool, Bergamot FCF)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected fresh pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.6/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Galaxolide (50%) for skin_performance (axis delta 3.5, total delta 1.3)
+  - Rationale: clean cosmetic musk texture (80% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - formulation-time intervention while proportions are still flexible
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 98.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Confirm any must-prebond pairs before combining the concentrate.
+- Resolve crystalline or stubborn materials before they reach the bulk batch.
+- Record phase-specific notes in observations.csv using observation_tags and intervention_context.
+
+## Between-Mix Recommendations
+
+- Context: Use when planning the next trial or corrective addition after the current mix exists. Treat these as next-variant candidates, not retroactive edits.
+- Observation tags: between_mix, iteration, adjustment
+
+### Recommendations
+- ADD Tonalide (10%) for skin_performance (axis delta 5.2, total delta 1.4)
+  - Rationale: warm musk fabric texture, laundry softness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Macrolide (10%) for skin_performance (axis delta 3.3, total delta 0.6)
+  - Rationale: soft powdery musk texture, gentle roundness (10% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.9/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Linalyl Acetate for skin_performance (axis delta 0.1, total delta 0.5)
+  - Rationale: synergistic gap filler (2 synergies: Linalool, Bergamot FCF)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected fresh pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.8/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD D-Limonene for skin_performance (axis delta 7.0, total delta 1.0)
+  - Rationale: synergistic gap filler (2 synergies: Linalool, Bergamot FCF)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected fresh pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.7/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- ADD Galaxolide (50%) for skin_performance (axis delta 3.0, total delta 1.2)
+  - Rationale: clean cosmetic musk texture (80% dil)
+  - Provenance:
+    - Mode:
+      - selected because skin_performance is currently weak at 21.1
+      - next-batch correction guided by observations and intent tags
+    - Carles:
+      - base material; Carles treats this band as Foundation, longevity, depth.
+      - base band is 0.8% now versus 40% target for the detected fresh style.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 99.2/100
+      - style alignment 100.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+
+### Template
+- Use this section for candidate changes in the next batch or next additive trial.
+- If you apply a correction, mark the observation with between_mix and a short intervention_context note.
+
+## Post-Mix Recommendations
+
+- Context: Use after blending and during wear testing or maceration. Focus on follow-up reads and deciding whether a new variant is needed.
+- Observation tags: post_mix, wear_test, maceration
+
+### Recommendations
+- ADD Petitgrain EO Paraguay for stacking_depth (axis delta 8.0, total delta 1.8)
+  - Rationale: synergistic gap filler (2 synergies: Bergamot FCF, Linalool)
+  - Provenance:
+    - Mode:
+      - selected because stacking_depth is currently weak at 0.0
+      - add-only bottle correction with conservative dosing
+    - Carles:
+      - top material; Carles treats this band as First impression, sparkle, lift.
+      - Supports the top band inside the detected fresh pyramid.
+    - Roudnitska: no explicit canonical role in the current knowledge graph; used here as a practical structural correction
+    - Jellinek: no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction
+    - Style: supports the detected fresh style fingerprint
+    - Identity:
+      - preserves baseline identity at 96.1/100
+      - style alignment 90.0/100
+      - target alignment 100.0/100
+      - style fingerprint and note balance stay close to the baseline
+- Opening read: Capture the first 15 minutes separately from the later wear-test reads.
+- Heart read: Capture the main evolution window and note whether the character shifts after maceration.
+- Drydown read: Capture the final drydown, stability, and any off-notes before deciding on a correction.
+- Next-variant planning: If a correction is needed, create a new between_mix trial instead of mutating the current bottle.
+
+### Template
+- Record the opening, heart, and drydown after the mix has settled.
+- If a correction is needed, create a new between_mix variant rather than mutating the existing bottle.
+- Capture any intervention tags alongside the wear-test notes.
+

@@ -112,8 +112,10 @@ TRIGEMINAL_PROFILES: dict[str, dict[str, float]] = {
     "Methyl Pamplemousse":  {"TRPM8": 0.08, "TRPV1": 0.0,  "TRPA1": 0.05,
                              "numbing": 0.0,  "effervescence": 0.10},
     # ── Spice ──
-    "Cardamom FTEC":        {"TRPM8": 0.15, "TRPV1": 0.15, "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Cardamom EO":        {"TRPM8": 0.15, "TRPV1": 0.15, "TRPA1": 0.10,
+                              "numbing": 0.0,  "effervescence": 0.0},
+    "Cardamom EO":          {"TRPM8": 0.20, "TRPV1": 0.05, "TRPA1": 0.08,
+                              "numbing": 0.0,  "effervescence": 0.0},
     # ── Ambrox / mineral ──
     "Ambrox Super":         {"TRPM8": 0.0,  "TRPV1": 0.05, "TRPA1": 0.05,
                              "numbing": 0.0,  "effervescence": 0.0},
@@ -122,11 +124,13 @@ TRIGEMINAL_PROFILES: dict[str, dict[str, float]] = {
                              "numbing": 0.0,  "effervescence": 0.0},
     # ── Lavender ──
     "Lavender EO":          {"TRPM8": 0.20, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.0},
+                              "numbing": 0.0,  "effervescence": 0.0},
+    "Lavender EO (BONTAUX SAS)": {"TRPM8": 0.15, "TRPV1": 0.0, "TRPA1": 0.03,
+                              "numbing": 0.0,  "effervescence": 0.0},
     "Clary Sage EO":        {"TRPM8": 0.15, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.0},
+                              "numbing": 0.0,  "effervescence": 0.0},
     # ── Heliotropin / vanillic ──
-    "Heliotropin Fleuressence": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0,
+    "Heliotropal": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0,
                              "numbing": 0.0,  "effervescence": 0.0},
     "Vanillin":             {"TRPM8": 0.0,  "TRPV1": 0.05, "TRPA1": 0.0,
                              "numbing": 0.0,  "effervescence": 0.0},

@@ -1,0 +1,24 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [active]:
+      - button "Skip to main content":
+        - generic: Skip to main content
+    - generic [ref=e8]:
+      - navigation [ref=e9]:
+        - generic [ref=e10]:
+          - link [ref=e12] [cursor=pointer]:
+            - /url: /
+            - img [ref=e13]
+          - link "Need help?" [ref=e16] [cursor=pointer]:
+            - /url: https://help.shopee.co.th/th/s
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - img [ref=e20]
+          - generic [ref=e32]: Page Unavailable
+          - generic [ref=e33]: Looks like you’re not logged in yet. Log in to continue or head back to the homepage.
+          - generic [ref=e34]:
+            - button "Log In" [ref=e35] [cursor=pointer]
+            - button "Back to Home Page" [ref=e36] [cursor=pointer]
+        - generic [ref=e37]: "ID: 756d0115991-4500-41cf-a9e7-576a456dc50e"
+  - generic:
+    - img

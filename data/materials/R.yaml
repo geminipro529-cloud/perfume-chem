@@ -153,7 +153,7 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.3
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0004
@@ -165,7 +165,7 @@
   trp_targets: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 1FL00392
@@ -199,7 +199,7 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 170.0
+  vp_25c_pa: 1.8
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.045
@@ -216,7 +216,7 @@
     nasal_pungency: null
   hedonic_valence: 0.82
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -312,12 +312,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 156.26
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 7.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -489,15 +489,15 @@
 - canonical_name: Romandolide
   aliases:
   - romandolide
-  cas: null
+  cas: 236391-76-7
   smiles: null
   inchikey: null
-  mw_g_mol: 268.4
+  mw_g_mol: 270.36
   density_25c_g_ml: null
-  logp: 5.0
+  logp: 4.56
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.0005
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 5.0e-05
@@ -509,7 +509,7 @@
   trp_targets: null
   hedonic_valence: 0.68
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3XU22379
@@ -613,12 +613,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 220.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.02
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1056,7 +1056,7 @@
   logp: 2.9
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 5.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1207,11 +1207,11 @@
   - rosemary eo french
   - rosemary eo (french rosmarinus officinalis leaf oil)
   - rosemary officinalis eo
-  cas: '8000-25-7'
+  cas: 8000-25-7
   smiles: null
   inchikey: null
-  mw_g_mol: 154.3
-  density_25c_g_ml: 0.90
+  mw_g_mol: 170.0
+  density_25c_g_ml: 0.9
   logp: 2.8
   functional_groups:
   - monoterpenol
@@ -1219,17 +1219,17 @@
   - ketone
   - essential oil
   chirality: null
-  vp_25c_pa: 18.0
+  vp_25c_pa: 0.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.011
   hsp: null
   odt_air_ppb: 20.0
-  odt_eth_ppm: null
+  odt_eth_ppm: 0.15
   stevens_n: null
   or_targets: []
   trp_targets:
-    TRPM8: 0.20
+    TRPM8: 0.2
     TRPA1: 0.05
     TRPV1: 0.0
     TRPV3: null
@@ -1241,8 +1241,11 @@
   supplier: null
   families:
   - spice / aromatic
-  character: Herbal, camphoraceous, fresh, cineole-rich; classic French rosemary leaf oil with green-aromatic lift and balsamic-woody undertone for fougère structures.
-  notes: Steam-distilled French Rosmarinus officinalis leaf oil; cineole-rich chemotype; excellent for aromatic-fougère lift and herbal freshness in masculine and sport compositions. Pairs with lavender, bergamot, pine, and coumarin.
+  character: Herbal, camphoraceous, fresh, cineole-rich; classic French rosemary leaf
+    oil with green-aromatic lift and balsamic-woody undertone for fougère structures.
+  notes: Steam-distilled French Rosmarinus officinalis leaf oil; cineole-rich chemotype;
+    excellent for aromatic-fougère lift and herbal freshness in masculine and sport
+    compositions. Pairs with lavender, bergamot, pine, and coumarin.
   provenance:
     mw_g_mol: manual:2026-05-08 rosemary cineole-type EO approximation
     density_25c_g_ml: manual:2026-05-08 rosemary EO typical density
@@ -1441,3 +1444,91 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: rose de mai absolute
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 220.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.001
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.05
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 0.1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: null
+    other: {}
+  families:
+  - floral
+  - natural
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: Rose Essential Oil
+  aliases:
+  - Rose Essential Oil (Rosa Damascena, India)
+  - rose essential oil
+  - rose eo
+  - rosa damascena eo
+  cas: 8007-01-0
+  smiles:
+  inchikey:
+  mw_g_mol: 175.0
+  density_25c_g_ml: 0.88
+  logp: 3.0
+  functional_groups:
+  - monoterpenol
+  - essential oil
+  chirality:
+  vp_25c_pa: 1.0
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.005
+  hsp:
+  odt_air_ppb: 3.0
+  odt_eth_ppm: 0.5
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.85
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+  families:
+  - floral
+  - natural
+  character: Rich honeyed rose; Rosa damascena from India, steam-distilled. Classic
+    full-bodied rose character with citronellol-geraniol heart.
+  notes: Steam-distilled Rosa damascena flower oil. Warm, rich, slightly spicy rose.
+    Pairs with PEA, geraniol, hedione, ionones for full rose accords.
+  provenance:
+    mw_g_mol: manual:2026-06-15 constituent-weighted average
+    density_25c_g_ml: manual:2026-06-15 typical rose EO density
+    logp: manual:2026-06-15 terpenoid EO approximation
+    vp_25c_pa: manual:2026-06-15 constituent-weighted average
+    odt_air_ppb: manual:2026-06-15 estimated from GC-O literature
+    odt_eth_ppm: manual:2026-06-15 estimated from GC-O literature
+    hedonic_valence: manual:2026-06-15 universal appeal rating
+    user_in_inventory: inventory.txt

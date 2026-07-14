@@ -34,19 +34,6 @@
     ]
   },
   {
-    "name": "Alpha Ionone",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 3.86,
-        "pubchem_value": 3,
-        "delta": 0.86,
-        "name": "Alpha Ionone",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
     "name": "Alpha Isomethyl Ionone",
     "flags": [
       {
@@ -136,19 +123,6 @@
     ]
   },
   {
-    "name": "Beta Ionone",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 4.42,
-        "pubchem_value": 2.9,
-        "delta": 1.52,
-        "name": "Beta Ionone",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
     "name": "Bourgeonal",
     "flags": [
       {
@@ -157,19 +131,6 @@
         "pubchem_value": 190.28,
         "delta": 14.03,
         "name": "Bourgeonal",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
-    "name": "Cashmeran",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 4.5,
-        "pubchem_value": 3.3,
-        "delta": 1.2,
-        "name": "Cashmeran",
         "action": "AUTO-OVERRIDE: PubChem trusted"
       }
     ]
@@ -342,19 +303,6 @@
     ]
   },
   {
-    "name": "Galaxolide",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 5.9,
-        "pubchem_value": 4.8,
-        "delta": 1.1,
-        "name": "Galaxolide",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
     "name": "Geraniol",
     "flags": [
       {
@@ -394,48 +342,6 @@
     ]
   },
   {
-    "name": "Kephalis",
-    "flags": [
-      {
-        "field": "mw",
-        "db_value": 234.38,
-        "pubchem_value": 224.34,
-        "delta": 10.04,
-        "name": "Kephalis",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      },
-      {
-        "field": "logp",
-        "db_value": 5.2,
-        "pubchem_value": 3.1,
-        "delta": 2.1,
-        "name": "Kephalis",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
-    "name": "Lemonile",
-    "flags": [
-      {
-        "field": "mw",
-        "db_value": 151.23,
-        "pubchem_value": 163.26,
-        "delta": 12.03,
-        "name": "Lemonile",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      },
-      {
-        "field": "logp",
-        "db_value": 2.8,
-        "pubchem_value": 3.7,
-        "delta": 0.9,
-        "name": "Lemonile",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
     "name": "Mayol",
     "flags": [
       {
@@ -462,47 +368,13 @@
     ]
   },
   {
-    "name": "Musk Ketone",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 3.0,
-        "pubchem_value": 3.7,
-        "delta": 0.7,
-        "name": "Musk Ketone",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
-    "name": "Paradisamide",
-    "flags": [
-      {
-        "field": "logp",
-        "db_value": 2.5,
-        "pubchem_value": 3.4,
-        "delta": 0.9,
-        "name": "Paradisamide",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      }
-    ]
-  },
-  {
     "name": "Peonile",
     "flags": [
       {
         "field": "mw",
-        "db_value": 156.22,
+        "db_value": 197.27,
         "pubchem_value": 192.3,
-        "delta": 36.08,
-        "name": "Peonile",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      },
-      {
-        "field": "logp",
-        "db_value": 2.5,
-        "pubchem_value": 3.5,
-        "delta": 1.0,
+        "delta": 4.97,
         "name": "Peonile",
         "action": "AUTO-OVERRIDE: PubChem trusted"
       }
@@ -511,14 +383,6 @@
   {
     "name": "Romandolide",
     "flags": [
-      {
-        "field": "mw",
-        "db_value": 284.0,
-        "pubchem_value": 270.36,
-        "delta": 13.64,
-        "name": "Romandolide",
-        "action": "AUTO-OVERRIDE: PubChem trusted"
-      },
       {
         "field": "logp",
         "db_value": 4.56,

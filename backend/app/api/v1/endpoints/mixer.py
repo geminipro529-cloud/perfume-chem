@@ -2,6 +2,7 @@
 
 import sys
 from pathlib import Path
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
@@ -10,10 +11,11 @@ _project_root = str(Path(__file__).resolve().parent.parent.parent.parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+from engine.mixer.instructions import InstructionGenerator
 from engine.mixer.prebonding import PreBondingAnalyzer
 from engine.mixer.sequencer import MixingSequencer
-from engine.mixer.instructions import InstructionGenerator
-from app.services.validation_pipeline import validate_formula, validate_pair, attach_validation
+
+from app.services.validation_pipeline import validate_formula, validate_pair
 
 router = APIRouter()
 

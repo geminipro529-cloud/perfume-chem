@@ -1,0 +1,326 @@
+# La Nuit de L'Homme Luxe - 30mL EDT 15%
+
+**Date**: 2026-07-09  
+**Concentration**: 15% EDT, 4,500 uL concentrate + 25.5 mL ethanol  
+**Batch size**: 30 mL total  
+**Family archetype:** `ysl_la_nuit`  
+**Target**: YSL La Nuit de L'Homme EDT, made smoother, deeper, and more expensive-smelling while preserving the cardamom-lavender-cedar signature.  
+**Status**: Formula written. Pipeline analysis appended below after verification.
+
+---
+
+## Design Lock
+
+La Nuit is not just "L'Homme but darker." The identity is a warm-cool aromatic spice accord: cardamom up front, lavender in the heart, cedar/vetiver/coumarin underneath. This formula keeps that shape and avoids rose, iris, leather, incense, heavy vanilla, and balsamic detours.
+
+| Axis | Kept In Formula | Reason |
+|---|---:|---|
+| Cardamom signature | Cardamom EO | Main La Nuit recognizer; cool-spicy, seductive, aromatic |
+| Lavender heart | Lavender EO (BONTAUX SAS), Spike Lavender EO, Linalyl Acetate, Linalool | Soft French lavender plus a small masculine camphor edge |
+| Citrus flash | Bergamot FCF oil Sicilian | Opening brightness without turning into daytime L'Homme |
+| Pepper sparkle | Black Pepper EO | White pepper substitute; kept low so cardamom stays dominant |
+| Radiant luxury | Hedione HC + Hedione | Smooths and expands the cardamom-lavender heart |
+| Tonka/coumarin warmth | Coumarin 20% + Tonkarome 20% | Sweet hay-tonka warmth without gourmand vanilla |
+| Woody backbone | Cedarwood oil Virginia + Iso E Super + Ambrofix | Cedar skeleton, molecular halo, polished ambergris support |
+| Skin trail | Habanolide + Romandolide + Ebanol + Cashmeran | Warm, intimate, expensive drydown without laundry musk |
+
+Caraway is part of the repo skeleton for `ysl_la_nuit`, but it is not in inventory. I am not substituting Anise EO directly because it would read licorice, not caraway. The missing shadow is covered indirectly by cardamom, black pepper, lavender, coumarin, and vetiver.
+
+---
+
+## Reference Checks
+
+| Check | Finding | Formula Response |
+|---|---|---|
+| Official YSL ingredient story | YSL describes La Nuit EDT through bergamot/cardamom flash, lavender heart, and cedarwood-tonka-vetiver drydown | These materials are explicit structural pillars |
+| Retail note consensus | Sephora lists cardamom, cedarwood, and coumarin; common pyramids include lavender, bergamot, cedar, vetiver, caraway | Cardamom, cedar, coumarin/tonka, lavender, bergamot, vetiver included |
+| Repo skeleton | `engine/pipeline/gates.py` checks cardamom, lavender, cedar, caraway; requires 2 markers | Cardamom, lavender, and cedar are present |
+| Inventory reality | Caraway is absent | No fake caraway overdose; use related aromatic-spice warmth instead |
+| Reserve/Luxe lesson | Avoid unrelated "luxury" naturals that muddy YSL transparent masculine DNA | No rose EO, osmanthus, clove EO, chamomile, ylang, tuberose, balsams, or leather |
+
+---
+
+## Formula
+
+| # | Ingredient | Dilution | Amount (uL) | Amount (mL) | Role |
+|---|---|---:|---:|---:|---|
+| 1 | Iso E Super | 1.0 | 780 | 0.780 | Abstract cedar skin halo |
+| 2 | Cedarwood oil Virginia | 1.0 | 540 | 0.540 | Literal cedarwood backbone |
+| 3 | Benzyl Benzoate | 1.0 | 365 | 0.365 | Quiet fixative mass |
+| 4 | Ambrofix | 0.30 | 300 | 0.300 | Polished ambergris-mineral support |
+| 5 | Coumarin | 0.20 | 280 | 0.280 | Hay-tonka warmth, fougere memory |
+| 6 | Habanolide | 1.0 | 270 | 0.270 | Warm skin musk, close sensuality |
+| 7 | Hedione HC | 1.0 | 240 | 0.240 | High-cis radiance through the aromatic heart |
+| 8 | Tonkarome | 0.20 | 230 | 0.230 | Refined tonka body, less crude than Tonka FO |
+| 9 | Bergamot FCF oil Sicilian | 1.0 | 220 | 0.220 | Polished citrus flash under cardamom |
+| 10 | Romandolide | 1.0 | 220 | 0.220 | Projection musk without detergent effect |
+| 11 | Vetiver EO (India) | 1.0 | 190 | 0.190 | Dry earthy root, evening masculinity |
+| 12 | Ebanol | 1.0 | 180 | 0.180 | Creamy sandalwood softness under cedar |
+| 13 | Cashmeran | 1.0 | 170 | 0.170 | Warm textile shadow, seductive night texture |
+| 14 | Lavender EO (BONTAUX SAS) | 1.0 | 130 | 0.130 | Premium French lavender heart |
+| 15 | Cardamom EO | 1.0 | 120 | 0.120 | Signature cool-spicy La Nuit opening |
+| 16 | Hedione | 1.0 | 110 | 0.110 | Transparent diffusion and heart lift |
+| 17 | Linalyl Acetate | 1.0 | 90 | 0.090 | Lavender-bergamot ester smoothness |
+| 18 | Linalool | 1.0 | 35 | 0.035 | Fresh floral lavender support |
+| 19 | Black Pepper EO | 1.0 | 15 | 0.015 | White pepper substitute, dry sparkle |
+| 20 | Spike Lavender EO | 1.0 | 15 | 0.015 | Masculine camphor-herbal edge |
+| | **Total** | | **4500** | **4.500** | |
+
+---
+
+## Layer Summary
+
+| Layer | Materials | Raw uL | % of concentrate |
+|:---|:---:|---:|---:|
+| Top / spice flash | 9,15,17,18,19 | 480 | 10.7% |
+| Aromatic heart | 5,7,8,14,16,20 | 1005 | 22.3% |
+| Base / skin trail | 1,2,3,4,6,10,11,12,13 | 3015 | 67.0% |
+| **Total concentrate** | **20** | **4500** | **100.0%** |
+| Ethanol 96% | | **25500** | **85.0% of finished bottle** |
+| **Finished volume** | | **30000 uL / 30 mL** | **15% EDT** |
+
+---
+
+## Why This Should Track La Nuit
+
+The first thing should be cardamom, not citrus. Bergamot and linalyl acetate brighten it, but the cardamom stays the signature. The heart should move into lavender, not generic blue freshness. The drydown should feel cedar-tonka-vetiver with smooth skin musks, not gourmand amber or leather.
+
+This is intentionally more polished and longer-wearing than the classic EDT. The risk is that Hedione/Iso E/Ambrofix make it more modern and diffusive than the original. That is acceptable for this "Luxe" interpretation, but the aromatic-spicy structure remains the north star.
+
+---
+
+## Material Rejections
+
+| Rejected | Why |
+|---|---|
+| Anise EO | Too licorice; not a clean caraway substitute |
+| Clove EO, Eugenol, Isoeugenol | Turns the spice clove-carnation instead of cardamom |
+| Ginger EO | Pulls toward L'Homme EDT rather than La Nuit |
+| Dihydromyrcenol | Too fresh-blue for the seductive La Nuit silhouette |
+| Rose EO, Geranium EO, Rhodinol | Rosy-natural detour; muddies cardamom-lavender |
+| Alpha Irone, heavy ionones | Moves toward iris designer territory |
+| Labdanum, benzoin, opoponax | Too amber-balsamic; changes the family |
+| Leather/IBQ/smoke materials | Too dark and genre-shifting |
+| Galaxolide | Too laundry-clean for this brief |
+
+---
+
+## Mixing Order
+
+1. Add 25.5 mL ethanol to a 30 mL bottle.
+2. Add base materials from largest to smallest. Swirl after the woods, then after musks.
+3. Add aromatic heart materials from largest to smallest. Swirl gently.
+4. Add top/spice materials from largest to smallest. Cap and invert gently.
+5. Rest 2 weeks minimum, 4 weeks preferred. Evaluate strip at 0 min, 15 min, 2 hr, and 6 hr.
+
+---
+
+## Inventory Check
+
+All 20 materials are present in `inventory.txt` as of 2026-07-09. No depleted material is used.
+
+---
+
+## Pipeline Analysis
+
+## Gate Summary
+
+**109 PASS** / **20 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 3 warnings
+  WARN odt_coverage: 10 material(s) rely on derived/unverified ODTs (43% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 34.1% active mass across 6 materials
+  WARN safety_ifra_allergen: 6 materials lack explicit IFRA Cat4 limits; 4 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, coumarin
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN family_drift_detector: unknown family archetype: ysl_la_nuit
+  WARN perfume_knowledge: Pyramid needs improvement: Expected T:20% H:40% B:40%, Actual T:7.1% H:42.8% B:50.2%
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): bergamot fcf sicilian:black pepper eo = 73:1; bergamot fcf sicilian:coumarin = 10:1; bergamot fcf sicil
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN mixture_suppression: 5 families each >10% OAV — mixture suppression likely (humans perceive ≤4)
+  WARN oav_intelligence: Unmapped family archetype for future-module intelligence: ysl_la_nuit; coumarin is in dominant shift zone: Dominant coumarin, bitter almond 
+  WARN olfactory_fatigue: Olfactory fatigue risk: iso e super=5829 (limit 5000); hedione=7.8% of concentrate (<10% minimum for radiance)
+  WARN confidence_minimum: combined confidence 34.9; preflight science penalty 25.9
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Iso E Super                  |     5828.7 | heart |  very strong |   0.150 |    0.2914 |  0.000050 |  0.7800 | 18.48 | Iso E Super                   
+|   2 | Lavender EO (BONTAUX SAS)    |     5721.6 | heart |  very strong |  22.000 |    8.9406 |  0.002000 |  0.1144 |  4.12 | Lavender EO (BONTAUX SAS)     
+|   3 | Cardamom EO                  |     3676.6 | top   |  very strong |  15.000 |   10.7790 |  0.003000 |  0.1116 |  3.64 | Cardamom EO                   
+|   4 | Hedione                      |     3584.9 | heart |  very strong |   0.210 |    0.1792 |  0.000050 |  0.1100 |  8.59 | Hedione                       
+|   5 | Ebanol                       |     2845.8 | heart |  very strong |   0.890 |    0.5976 |  0.000210 |  0.1800 |  4.54 | Ebanol                        
+|   6 | Linalool                     |     2041.9 | top   |  very strong |  21.300 |    3.0629 |  0.001500 |  0.0350 |  1.26 | Linalool                      
+|   7 | Linalyl Acetate              |     1628.8 | top   |  very strong |  17.500 |    4.3979 |  0.002700 |  0.0900 |  2.55 | Linalyl Acetate               
+|   8 | Hedione HC                   |     1519.3 | heart |  very strong |   0.089 |    0.0760 |  0.000050 |  0.2400 |  8.59 | Hedione                       
+|   9 | Bergamot FCF oil Sicilian    |      886.7 | heart |       strong |   2.500 |    5.3201 |  0.006000 |  0.2200 |  7.19 | Bergamot FCF oil Sicilian     
+|  10 | Spike Lavender EO            |      498.3 | top   |       strong |  70.000 |    7.4745 |  0.015000 |  0.0150 |  0.54 | Spike Lavender EO             
+|  11 | Cashmeran                    |      271.0 | base  |       strong |   1.200 |    0.5420 |  0.002000 |  0.1700 |  4.58 | Cashmeran                     
+|  12 | Coumarin                     |       90.5 | base  | moderate-strong |   0.190 |    0.0634 |  0.000700 |  0.0560 |  2.13 | Coumarin                      
+|  13 | Vetiver EO (India)           |       50.2 | base  | moderate-strong |   0.040 |    0.0371 |  0.005000 |  0.1881 |  4.70 | Vetiver EO                    
+|  14 | Ambrofix                     |       46.8 | base  |     moderate |   0.066 |    0.0140 |  0.000300 |  0.0900 |  2.11 | Ambrox Super                  
+|  15 | Romandolide                  |       13.7 | base  |     moderate |   0.100 |    0.0669 |  0.004900 |  0.2200 |  4.52 | Romandolide                   
+|  16 | Black Pepper EO              |       12.1 | top   |     moderate |   0.300 |    0.0241 |  0.002000 |  0.0150 |  0.41 | Black Pepper EO               
+|  17 | Tonkarome                    |        9.5 | base  |  perceptible |   0.050 |    0.0047 |  0.000500 |  0.0460 |  1.60 | Tonkarome                     
+|  18 | Cedarwood oil Virginia       |        1.1 | base  | at threshold |   0.005 |    0.0163 |  0.015000 |  0.5292 | 13.22 | Cedarwood oil Virginia        
+|  19 | Habanolide                   |        0.0 | base  | sub-threshold |   0.000 |    0.0001 |  0.002800 |  0.2700 |  6.29 | Habanolide                    
+|  20 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0012 |  0.810000 |  0.3650 |  9.55 | Benzyl Benzoate               
+
+**Materials:** 20 total (5 top, 6 heart, 9 base)
+**Total vapor:** 41.89 ppm
+### Note Distribution
+
+**TOP:** 5 mats, 7.1% active, 27.4% OAV
+  - Cardamom EO                  OAV=  3676.6 (very strong) VP=15.000Pa
+  - Linalool                     OAV=  2041.9 (very strong) VP=21.300Pa
+  - Linalyl Acetate              OAV=  1628.8 (very strong) VP=17.500Pa
+  - Spike Lavender EO            OAV=   498.3 (strong) VP=70.000Pa
+  - Black Pepper EO              OAV=    12.1 (moderate) VP=0.300Pa
+**HEART:** 6 mats, 42.8% active, 71.0% OAV
+  - Iso E Super                  OAV=  5828.7 (very strong) VP=0.150Pa
+  - Lavender EO (BONTAUX SAS)    OAV=  5721.6 (very strong) VP=22.000Pa
+  - Hedione                      OAV=  3584.9 (very strong) VP=0.210Pa
+  - Ebanol                       OAV=  2845.8 (very strong) VP=0.890Pa
+  - Hedione HC                   OAV=  1519.3 (very strong) VP=0.089Pa
+  - Bergamot FCF oil Sicilian    OAV=   886.7 (strong) VP=2.500Pa
+**BASE:** 9 mats, 50.2% active, 1.7% OAV
+  - Cashmeran                    OAV=   271.0 (strong) VP=1.200Pa
+  - Coumarin                     OAV=    90.5 (moderate-strong) VP=0.190Pa
+  - Vetiver EO (India)           OAV=    50.2 (moderate-strong) VP=0.040Pa
+  - Ambrofix                     OAV=    46.8 (moderate) VP=0.066Pa
+  - Romandolide                  OAV=    13.7 (moderate) VP=0.100Pa
+  - Tonkarome                    OAV=     9.5 (perceptible) VP=0.050Pa
+  ... and 3 more
+### OAV by Odor Family
+
+            woody  31.3% ===============  (5 mats)
+                ?  19.9% =========  (1 mats)
+           floral  17.8% ========  (2 mats)
+         aromatic  14.5% =======  (3 mats)
+            spice  12.8% ======  (2 mats)
+           citrus   3.1% =  (1 mats)
+         gourmand   0.3% =  (2 mats)
+            amber   0.2% =  (1 mats)
+             musk   0.0% =  (2 mats)
+         fixative   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+2/20 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=365uL role=Benzyl Benzoate [Structural (acceptable)]
+  - Habanolide: OAV=0.04 VP=0.000Pa act=270uL role=Habanolide [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Lavender EO (BONTAUX SAS) OAV=5722 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=5829 dominates headspace — may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  7.1/42.8/50.2 |  41.89ppm |   4500 | Iso E Super(5829), Lavender EO (5722), Cardamom EO(3677)
+| top          |    300s |  7.0/42.8/50.2 |  41.15ppm |   4494 | Iso E Super(5840), Lavender EO (5672), Cardamom EO(3633)
+| heart        |   1800s |  6.6/42.8/50.6 |  37.89ppm |   4465 | Iso E Super(5892), Lavender EO (5429), Hedione(3624)
+| late_heart   |   7200s |  5.5/42.8/51.7 |  30.08ppm |   4376 | Iso E Super(6054), Lavender EO (4612), Hedione(3725)
+| drydown      |  14400s |  4.4/42.7/52.9 |  24.01ppm |   4284 | Iso E Super(6228), Hedione(3833), Lavender EO (3682)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:7.1% H:42.8% B:50.2%  Vapor:41.89ppm
+  Leaders: Iso E Super OAV 5829 | Lavender EO (BONTAUX SAS) OAV 5722 | Cardamom EO OAV 3677 | Hedione OAV 3585 | Ebanol OAV 2846
+
+**TOP** (300.0s) — Evap:0%
+  T:7.0% H:42.8% B:50.2%  Vapor:41.15ppm
+  Leaders: Iso E Super OAV 5840 | Lavender EO (BONTAUX SAS) OAV 5672 | Cardamom EO OAV 3633 | Hedione OAV 3592 | Ebanol OAV 2850
+
+**HEART** (1800.0s) — Evap:1%
+  T:6.6% H:42.8% B:50.6%  Vapor:37.89ppm
+  Leaders: Iso E Super OAV 5892 | Lavender EO (BONTAUX SAS) OAV 5429 | Hedione OAV 3624 | Cardamom EO OAV 3423 | Ebanol OAV 2869
+
+**LATE_HEART** (7200.0s) — Evap:3%
+  T:5.5% H:42.8% B:51.7%  Vapor:30.08ppm
+  Leaders: Iso E Super OAV 6054 | Lavender EO (BONTAUX SAS) OAV 4612 | Hedione OAV 3725 | Ebanol OAV 2922 | Cardamom EO OAV 2747
+
+**DRYDOWN** (14400.0s) — Evap:5%
+  T:4.4% H:42.7% B:52.9%  Vapor:24.01ppm
+  Leaders: Iso E Super OAV 6228 | Hedione OAV 3833 | Lavender EO (BONTAUX SAS) OAV 3682 | Ebanol OAV 2972 | Cardamom EO OAV 2032
+## Structural OAV Analysis
+
+**Vapor:** 42 ppm  |  **Active:** 12.9%  |  **Perceptible:** 18/20
+
+### OAV Tiers
+  **massive** (8): Cardamom EO(3677), Linalyl Acetate(1629), Linalool(2042), Lavender EO (BONTAUX SAS)(5722), Hedione HC(1519), Hedione(3585), Iso E Super(5829), Ebanol(2846)  ! overload risk
+  **v.strong** (3): Bergamot FCF oil Sicilian(887), Spike Lavender EO(498), Cashmeran(271)
+  **strong** (2): Coumarin(91), Vetiver EO (India)(50)
+  **moderate** (3): Black Pepper EO(12), Ambrofix(47), Romandolide(14)
+  **perceptible** (1): Tonkarome(9)
+  **threshold** (1): Cedarwood oil Virginia(1)
+  **sub** (2): Benzyl Benzoate(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**    20387 (98%)
+  **Base**        483 (2%)
+  **Ratio:** 42:1 between strongest/weakest block
+
+### Issues
+  ! 2 sub-threshold material(s): Benzyl Benzoate, Habanolide
+  ! 8 massive-OAV materials — sensory overload likely
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Cardamom EO(very strong) + Linalool(very strong) + Linalyl Acetate(very strong)
+  Heart: Iso E Super(very strong) + Lavender EO (BONTAUX SAS)(very strong)
+  Base: Cashmeran(strong) + Coumarin(moderate-strong) + Vetiver EO (India)(moderate-strong) + Ambrofix(moderate) + Romandolide(moderate)
+
+### 2. Opening (0-5min)
+  Cardamom EO dominates at OAV 3677 (very strong).
+  - Cardamom EO OAV=3677 VP=15.0Pa (spice)
+  - Linalool OAV=2042 VP=21.3Pa (aromatic)
+  - Linalyl Acetate OAV=1629 VP=17.5Pa (aromatic)
+  - Spike Lavender EO OAV=498 VP=70.0Pa (aromatic)
+  Total vapor: 41.9 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=5892 (very strong)
+  Lavender EO (BONTAUX SAS) OAV=5429 (very strong)
+  Hedione OAV=3624 (very strong)
+  Cardamom EO OAV=3423 (very strong)
+  T:6.6% H:42.8% B:50.6%
+  Vapor: 37.9 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 53% of headspace
+  - Iso E Super OAV=6228
+  - Hedione OAV=3833
+  - Lavender EO (BONTAUX SAS) OAV=3682
+  - Ebanol OAV=2972
+  - Cardamom EO OAV=2032
+  - Hedione HC OAV=1624
+  Vapor: 24.0 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Iso E Super(5829) + Lavender EO (BONTAUX SAS)(5722) + Cardamom EO(3677) + Hedione(3585)
+  OAV by family: woody31% None20% floral18% aromatic15%
+
+### 6. Longevity
+  Evaporation: 5% over 4h
+  Vapor: 41.9 > 24.0 ppm
+  Base @ drydown: 53%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:7.1% H:42.8% B:50.2%
+  OAV range: 0.00 to 5829 (sigma-log=1.79)
+  Wide contrast: citrus (OAV 5829) dominates opening before burning off to reveal base.
+    sub-threshold: 2
+
+### 8. Flags
+  SUB: Habanolide OAV=0.04 role=Habanolide
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+  IFRA: Iso E Super at 20.09% active — near/above Cat4 limit (20.0%)

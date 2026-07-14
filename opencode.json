@@ -1,0 +1,243 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "deepseek-reasoner",
+  "provider": {
+    "deepseek": {
+      "options": {
+        "apiKey": "{env:DEEPSEEK_API_KEY}"
+      }
+    },
+    "openai": {
+      "options": {
+        "apiKey": "{env:OPENAI_API_KEY}"
+      }
+    }
+  },
+  "instructions": [
+    ".github/copilot-instructions.md"
+  ],
+  "plugin": [
+    "oh-my-openagent@latest",
+    ".opencode/plugins/env-guard.js",
+    ".opencode/plugins/inventory-guard.js"
+  ],
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 12000
+  },
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny"
+    },
+    "edit": "allow",
+    "bash": {
+      "*": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git add*": "allow",
+      "git commit*": "allow",
+      "git branch*": "allow",
+      "git checkout*": "allow",
+      "git switch*": "allow",
+      "git push*": "allow",
+      "git pull*": "allow",
+      "git fetch*": "allow",
+      "poetry run ruff*": "allow",
+      "poetry run mypy*": "allow",
+      "poetry run pytest*": "allow",
+      "poetry install*": "allow",
+      "poetry add*": "allow",
+      "pytest*": "allow",
+      "python scripts/*": "allow",
+      "python _generate_material_properties.py": "allow",
+      "python -m *": "allow",
+      "pip install*": "allow",
+      "npm install*": "allow",
+      "npm run*": "allow",
+      "npx *": "allow",
+      "rg *": "allow",
+      "sg *": "allow",
+      "oh-my-opencode*": "allow",
+      "omo *": "allow",
+      ".\\scripts\\*": "allow",
+      "docker compose*": "allow",
+      ".venv\\Scripts\\pip*": "allow",
+      ".venv\\Scripts\\python*": "allow"
+    },
+    "external_directory": "allow"
+  },
+  "lsp": {
+    "basedpyright": {
+      "command": [
+        "basedpyright-langserver",
+        "--stdio"
+      ],
+      "extensions": [
+        ".py",
+        ".pyi"
+      ]
+    }
+  },
+  "formatter": {
+    "ruff": {}
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "**/__pycache__/**",
+      "**/*.pyc",
+      "**/.mypy_cache/**",
+      "**/.pytest_cache/**",
+      "**/.ruff_cache/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/*.egg-info/**",
+      "**/htmlcov/**",
+      ".venv/**",
+      ".git/**",
+      "output/**",
+      "archive/**",
+      "verification_runs/**",
+      "*.db",
+      "*.xlsx",
+      "*.csv",
+      "*.png",
+      ".opencode/node_modules/**",
+      ".playwright-mcp/**",
+      ".opencode/package-lock.json"
+    ]
+  },
+  "mcp": {
+    "github": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "enabled": true,
+      "environment": {
+        "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
+      }
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ],
+      "enabled": true
+    },
+    "sequential_thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "enabled": true
+    },
+    "pubchem": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@cyanheads/pubchem-mcp-server"
+      ],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "agent-citrus-top": {
+      "description": "Parses citrus, green, and top-note materials for synergy/pairing rules",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-citrus-top.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-floral-heart": {
+      "description": "Parses floral and heart-note materials for synergy/pairing rules",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-floral-heart.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-woody-base": {
+      "description": "Parses woody, amber, and base-structure materials for synergy/pairing rules",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-woody-base.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-musk-fixative": {
+      "description": "Parses musks, fixatives, gourmand, and leather materials for synergy/pairing rules",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-musk-fixative.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-spice-aromatic": {
+      "description": "Parses spice, aromatic, and specialty materials for synergy/pairing rules",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-spice-aromatic.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-formula-reviewer": {
+      "description": "Post-formulation quality review โ€” checks material diversity, musk chord, fixative layering, family compliance",
+      "mode": "subagent",
+      "model": "deepseek-reasoner",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-formula-reviewer.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-inventory-scout": {
+      "description": "Periodically scans inventory for data completeness โ€” missing ODT, missing profiles, stale VPs, duplicates",
+      "mode": "subagent",
+      "model": "deepseek-chat",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-inventory-scout.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    }
+  }
+}

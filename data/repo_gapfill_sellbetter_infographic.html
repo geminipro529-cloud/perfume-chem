@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fragrance Portfolio · Competitive Scoring & Positioning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#07070d;color:#ddd;line-height:1.5;overflow-x:hidden}
+  .bg-particles{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;overflow:hidden}
+  .bg-particles span{position:absolute;width:3px;height:3px;background:rgba(108,92,231,0.15);border-radius:50%;animation:float 20s infinite}
+  .bg-particles span:nth-child(1){left:10%;top:20%;animation-delay:0s}
+  .bg-particles span:nth-child(2){left:30%;top:60%;animation-delay:3s}
+  .bg-particles span:nth-child(3){left:50%;top:10%;animation-delay:6s}
+  .bg-particles span:nth-child(4){left:70%;top:70%;animation-delay:9s}
+  .bg-particles span:nth-child(5){left:90%;top:30%;animation-delay:12s}
+  .bg-particles span:nth-child(6){left:20%;top:80%;animation-delay:15s}
+  .bg-particles span:nth-child(7){left:80%;top:50%;animation-delay:2s}
+  .bg-particles span:nth-child(8){left:45%;top:40%;animation-delay:8s}
+  @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0.3}50%{transform:translateY(-60px) scale(2);opacity:0.8}}
+  .canvas{max-width:1400px;margin:0 auto;padding:30px 20px;position:relative;z-index:1}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(7,7,13,0.95);backdrop-filter:blur(12px);padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:20px}
+  .nav-wrap{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:1400px;margin:auto;padding:0 20px}
+  .nav a{display:inline-block;padding:6px 12px;border-radius:8px;font-size:10px;font-weight:600;text-decoration:none;color:#888;background:rgba(255,255,255,0.04);transition:all 0.2s;white-space:nowrap}
+  .nav a:hover{background:rgba(108,92,231,0.2);color:#a29bfe}
+  .hero{text-align:center;padding:60px 20px 40px;position:relative}
+  .hero::after{content:'';position:absolute;bottom:0;left:5%;width:90%;height:1px;background:linear-gradient(90deg,transparent,#6c5ce7,#e17055,#fdcb6e,transparent)}
+  .hero h1{font-size:clamp(32px,5vw,60px);font-weight:900;background:linear-gradient(135deg,#6c5ce7,#e17055,#fdcb6e,#6c5ce7);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite;letter-spacing:-1px}
+  @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+  .hero .sub{font-size:15px;color:#666;margin-top:8px;letter-spacing:4px;text-transform:uppercase}
+  .hero .stats{display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap}
+  .hero .stat-item{text-align:center}
+  .hero .stat-item .num{font-size:36px;font-weight:900;background:linear-gradient(135deg,#6c5ce7,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .stat-item .lbl{font-size:11px;color:#666;margin-top:2px}
+  .hero .stat-item .lbl2{font-size:10px;color:#444}
+  .mkt-overview{background:linear-gradient(135deg,rgba(108,92,231,0.08),rgba(225,112,85,0.08));border:1px solid rgba(108,92,231,0.15);border-radius:16px;padding:24px;margin:30px 0}
+  .mkt-overview h2{font-size:13px;color:#888;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+  .mkt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+  .mkt-item{padding:12px 8px;background:rgba(0,0,0,0.3);border-radius:8px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+  .mkt-item .rank{font-size:11px;font-weight:700;color:#6c5ce7}
+  .mkt-item .fam{font-size:10px;color:#aaa;margin-top:2px}
+  .mkt-item .share{font-size:13px;font-weight:700;color:#fff;margin-top:2px}
+  .mkt-item .example{font-size:9px;color:#555;margin-top:2px}
+  .legend{display:flex;gap:20px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#888}
+  /* FAMILY SECTIONS */
+  .family-section{background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:16px;border:1px solid rgba(255,255,255,0.06);padding:28px;margin:24px 0;position:relative;overflow:hidden}
+  .family-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .woody-bar::before{background:linear-gradient(90deg,#6c5ce7,#a29bfe)}
+  .floral-bar::before{background:linear-gradient(90deg,#fd79a8,#e84393)}
+  .chypre-bar::before{background:linear-gradient(90deg,#00b894,#55efc4)}
+  .oriental-bar::before{background:linear-gradient(90deg,#e17055,#fdcb6e)}
+  .fougere-bar::before{background:linear-gradient(90deg,#0984e3,#74b9ff)}
+  .fresh-bar::before{background:linear-gradient(90deg,#00cec9,#81ecec)}
+  .gourmand-bar::before{background:linear-gradient(90deg,#fdcb6e,#e17055)}
+  .musk-bar::before{background:linear-gradient(90deg,#dfe6e9,#b2bec3)}
+  .iris-bar::before{background:linear-gradient(90deg,#a29bfe,#6c5ce7)}
+  .leather-bar::before{background:linear-gradient(90deg,#2d3436,#636e72)}
+  .citrus-bar::before{background:linear-gradient(90deg,#f6e58d,#f9ca24)}
+  .aquatic-bar::before{background:linear-gradient(90deg,#81ecec,#00cec9)}
+  .incense-bar::before{background:linear-gradient(90deg,#b71540,#eb2f06)}
+  .family-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+  .family-header h2{font-size:24px;font-weight:900}
+  .family-header .rank-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600}
+  .family-header .desc{font-size:12px;color:#888;margin-top:4px;max-width:600px}
+  .f-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+  .f-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px;transition:transform 0.2s,box-shadow 0.2s}
+  .f-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+  .f-card .tag-row{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap}
+  .f-card .tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px}
+  .f-card .tag.proj{background:rgba(108,92,231,0.12);color:#a29bfe;border:1px solid rgba(108,92,231,0.2)}
+  .f-card .tag.comp{background:rgba(225,112,85,0.12);color:#fdcb6e;border:1px solid rgba(225,112,85,0.2)}
+  .f-card .tag.prem{background:rgba(108,92,231,0.2);color:#a29bfe}
+  .f-card .tag.mass{background:rgba(0,184,148,0.2);color:#55efc4}
+  .f-card .tag.luxe{background:rgba(253,203,110,0.2);color:#fdcb6e}
+  .f-card .tag.tmass{background:rgba(225,112,85,0.2);color:#e17055}
+  .f-card .f-name{font-size:14px;font-weight:700;color:#fff}
+  .f-card .f-ref{font-size:10px;color:#888;margin:2px 0 8px}
+  .score-row{display:flex;align-items:center;gap:6px;margin:2px 0}
+  .score-row .sl{font-size:9px;width:65px;text-align:right;color:#888;flex-shrink:0}
+  .score-row .st{flex:1;height:12px;background:rgba(255,255,255,0.05);border-radius:6px;overflow:hidden}
+  .score-row .st .sf{height:100%;border-radius:6px;transition:width 1.5s ease}
+  .sf.blue{background:linear-gradient(90deg,#6c5ce7,#a29bfe)}
+  .sf.green{background:linear-gradient(90deg,#00b894,#55efc4)}
+  .sf.orange{background:linear-gradient(90deg,#e17055,#fdcb6e)}
+  .sf.pink{background:linear-gradient(90deg,#fd79a8,#e84393)}
+  .sf.yellow{background:linear-gradient(90deg,#f9ca24,#f6e58d)}
+  .sf.gray{background:linear-gradient(90deg,#636e72,#b2bec3)}
+  .score-row .sv{font-size:9px;font-weight:700;width:24px;text-align:right;flex-shrink:0}
+  .vs-bar{display:flex;align-items:center;gap:6px;margin:6px 0;padding:6px 8px;background:rgba(0,0,0,0.2);border-radius:6px}
+  .vs-bar .vl{font-size:9px;color:#666;width:45px;flex-shrink:0}
+  .vs-bar .vt{flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:7px}
+  .vs-bar .vt .vf{height:100%;border-radius:7px}
+  .vf.our{background:linear-gradient(90deg,#6c5ce7,#a29bfe)}
+  .vf.them{background:linear-gradient(90deg,#e17055,#fdcb6e)}
+  .vs-bar .vp{font-size:9px;font-weight:700;width:30px;text-align:right;flex-shrink:0}
+  .pos-badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;margin:4px 0}
+  .pos-badge.led{background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid rgba(0,184,148,0.3)}
+  .pos-badge.fol{background:rgba(108,92,231,0.12);color:#a29bfe;border:1px solid rgba(108,92,231,0.2)}
+  .pos-badge.bo{background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid rgba(253,203,110,0.3)}
+  .gap-note{font-size:10px;padding:6px 8px;border-radius:4px;margin-top:6px;background:rgba(0,184,148,0.06);border-left:2px solid #00b894;color:#999}
+  .gap-note strong{color:#55efc4}
+  .gap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .gap-box{background:rgba(0,184,148,0.06);border:1px solid rgba(0,184,148,0.15);border-radius:8px;padding:12px}
+  .gap-box .g-title{font-size:12px;font-weight:700;color:#55efc4}
+  .gap-box .g-sub{font-size:10px;color:#888;margin:2px 0}
+  .gap-box .g-desc{font-size:10px;color:#aaa}
+  .footer{text-align:center;color:#444;font-size:11px;padding:40px 20px;border-top:1px solid rgba(255,255,255,0.04);margin-top:40px}
+</style>
+</head>
+<body>
+<div class="bg-particles"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="nav"><div class="nav-wrap">
+<a href="#woody">Woody</a><a href="#floral">Floral</a><a href="#chypre">Chypre</a>
+<a href="#oriental">Oriental</a><a href="#fougere">Fougere</a><a href="#fresh">Fresh</a>
+<a href="#gourmand">Gourmand</a><a href="#musk">Musk</a><a href="#iris">Iris</a>
+<a href="#leather">Leather</a><a href="#citrus">Citrus</a><a href="#aquatic">Aquatic</a>
+<a href="#incense">Incense</a><a href="#gaps">Gaps</a>
+</div></div>
+<div class="canvas">
+<div class="hero">
+  <h1>FRAGRANCE PORTFOLIO · MARKET POSITIONING</h1>
+  <div class="sub">13 Families · 65 Project Formulas · 13 Competitor Benchmarks · Industry + Smell Scoring</div>
+  <div class="stats">
+    <div class="stat-item"><div class="num">22</div><div class="lbl">Families in Wheel</div><div class="lbl2">fully buildable</div></div>
+    <div class="stat-item"><div class="num">186</div><div class="lbl">Inventory Materials</div><div class="lbl2">in stock</div></div>
+    <div class="stat-item"><div class="num">127+</div><div class="lbl">Formula Files</div><div class="lbl2">across 5 tiers</div></div>
+    <div class="stat-item"><div class="num">65</div><div class="lbl">Scored in Analysis</div><div class="lbl2">5 per family + competitors</div></div>
+  </div>
+</div>
+
+<div class="mkt-overview">
+  <h2>Thai Market Family Rankings (by volume share)</h2>
+  <div class="mkt-grid">
+    <div class="mkt-item"><div class="rank">#1</div><div class="fam">Woody Aromatic</div><div class="share">~18% men</div><div class="example">Bleu de Chanel</div></div>
+    <div class="mkt-item"><div class="rank">#2</div><div class="fam">Fruity Floral</div><div class="share">~22% women</div><div class="example">La Vie Est Belle</div></div>
+    <div class="mkt-item"><div class="rank">#3</div><div class="fam">Fruity Chypre</div><div class="share">~16% women</div><div class="example">Coco Mademoiselle</div></div>
+    <div class="mkt-item"><div class="rank">#4</div><div class="fam">Fresh Aquatic</div><div class="share">~12% men</div><div class="example">Acqua di Gio</div></div>
+    <div class="mkt-item"><div class="rank">#5</div><div class="fam">White Floral</div><div class="share">~10% women</div><div class="example">J'adore</div></div>
+    <div class="mkt-item"><div class="rank">#6</div><div class="fam">Vanilla Amber</div><div class="share">~9% women</div><div class="example">Black Opium</div></div>
+    <div class="mkt-item"><div class="rank">#7</div><div class="fam">Fougere Aromatic</div><div class="share">~8% men</div><div class="example">Versace Eros</div></div>
+    <div class="mkt-item"><div class="rank">#8</div><div class="fam">Sandalwood</div><div class="share">~5% unisex</div><div class="example">Santal 33</div></div>
+    <div class="mkt-item"><div class="rank">GN</div><div class="fam">Gourmand</div><div class="share">Growing</div><div class="example">Angel</div></div>
+    <div class="mkt-item"><div class="rank">NI</div><div class="fam">Iris/Powdery</div><div class="share">Strong niche</div><div class="example">Prada L'Homme</div></div>
+  </div>
+</div>
+<div class="legend">
+  <span class="legend-item"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></span> Project Formula</span>
+  <span class="legend-item"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(90deg,#e17055,#fdcb6e)"></span> Competitor Benchmark</span>
+  <span class="legend-item"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;border:2px solid #00b894"></span> Blue Ocean Gap</span>
+</div>
+
+<section id="woody" class="family-section woody-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#a29bfe;">Woody Aromatic</h2>
+    <span class="rank-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;">#1 Thai Market — ~18% men's share</span>
+    <div class="desc">Flagship competitor: <strong>Chanel Bleu de Chanel EDP</strong> — Iso E Super, Ambroxan, bergamot, cedar, incense</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Cobalt</div>
+  <div class="f-ref">Designer Prestige · Bleu direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:78%"></div></div><span class="sv" style="color:#55efc4;">78</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:92%"></div></div><span class="sv" style="color:#a29bfe;">92</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:85%"></div></div><span class="sv" style="color:#a29bfe;">85</span></div>
+  <div class="score-row"><span class="sl">Synergy</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Bleu</span>
+    <div class="vt"><div class="vf our" style="width:88%"></div></div>
+    <span class="vp" style="color:#a29bfe;">88%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> outperforms in sillage; weaker incense</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Bangkok Compass</div>
+  <div class="f-ref">Mass Market · Sauvage/Bleu localized</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:76%"></div></div><span class="sv" style="color:#a29bfe;">76</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:80%"></div></div><span class="sv" style="color:#a29bfe;">80</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Sauvage</span>
+    <div class="vt"><div class="vf our" style="width:54%"></div></div>
+    <span class="vp" style="color:#a29bfe;">54%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 46% cost savings; no direct Thai dupe exists</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Cedar Smoke</div>
+  <div class="f-ref">Designer Prestige · Santal 33 direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:68%"></div></div><span class="sv" style="color:#55efc4;">68</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:90%"></div></div><span class="sv" style="color:#a29bfe;">90</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Santal 33</span>
+    <div class="vt"><div class="vf our" style="width:84%"></div></div>
+    <span class="vp" style="color:#a29bfe;">84%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> cedar-smoke angle is distinct; better sillage</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Temple Sandalwood</div>
+  <div class="f-ref">Mass Market · Wat incense sandalwood</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:70%"></div></div><span class="sv" style="color:#55efc4;">70</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — no temple sandalwood perfume exists</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">King of Night</div>
+  <div class="f-ref">True Mass · Sauvage dupe</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:68%"></div></div><span class="sv" style="color:#a29bfe;">68</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:65%"></div></div><span class="sv" style="color:#55efc4;">65</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Eveandboy dupes</span>
+    <div class="vt"><div class="vf our" style="width:95%"></div></div>
+    <span class="vp" style="color:#a29bfe;">95%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> mass king at 99-290 THB tier</div>
+</div>
+</div>
+</section>
+
+<section id="floral" class="family-section floral-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#e84393;">Floral</h2>
+    <span class="rank-badge" style="background:rgba(232,67,147,0.15);color:#e84393;">#2 Thai Market — 3 sub-families top ~22% women's</span>
+    <div class="desc">Flagship competitor: <strong>Lancome La Vie Est Belle + Dior J'adore</strong> — Fruity Floral, White Floral, Powdery Floral</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Belle Reverie</div>
+  <div class="f-ref">Designer Prestige · LVEB direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:82%"></div></div><span class="sv" style="color:#55efc4;">82</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs LVEB</span>
+    <div class="vt"><div class="vf our" style="width:86%"></div></div>
+    <span class="vp" style="color:#a29bfe;">86%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> alpha-irone core matches LVEB; Maple Lactone for praline</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">White Bloom</div>
+  <div class="f-ref">Designer Prestige · J'adore direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:80%"></div></div><span class="sv" style="color:#55efc4;">80</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs J'adore</span>
+    <div class="vt"><div class="vf our" style="width:84%"></div></div>
+    <span class="vp" style="color:#a29bfe;">84%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> ylang complete + jasmine FO; pear-aldehyde top identical</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Velvet Powder</div>
+  <div class="f-ref">Designer Prestige · Idole direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:78%"></div></div><span class="sv" style="color:#55efc4;">78</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:80%"></div></div><span class="sv" style="color:#a29bfe;">80</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Idole</span>
+    <div class="vt"><div class="vf our" style="width:52%"></div></div>
+    <span class="vp" style="color:#a29bfe;">52%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 48% cheaper; comparable quality</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Mali Garland</div>
+  <div class="f-ref">Mass Market · Jasmine sambac</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:76%"></div></div><span class="sv" style="color:#a29bfe;">76</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — dok mali jasmine perfume is culturally unique</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Lychee Bloom</div>
+  <div class="f-ref">Mass Market · Fruity Floral teen</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:70%"></div></div><span class="sv" style="color:#55efc4;">70</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Mistine Sweet Pink</span>
+    <div class="vt"><div class="vf our" style="width:90%"></div></div>
+    <span class="vp" style="color:#a29bfe;">90%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> lychee-rose appeals to Thai teen market</div>
+</div>
+</div>
+</section>
+
+<section id="chypre" class="family-section chypre-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#55efc4;">Chypre</h2>
+    <span class="rank-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;">#3 Thai Market — ~16% women's share</span>
+    <div class="desc">Flagship competitor: <strong>Chanel Coco Mademoiselle EDP</strong> — bergamot, rose, jasmine, patchouli, vanilla</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Demoiselle</div>
+  <div class="f-ref">Designer Prestige · Coco Mad direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:87%"></div></div><span class="sv" style="color:#a29bfe;">87</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:80%"></div></div><span class="sv" style="color:#55efc4;">80</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:90%"></div></div><span class="sv" style="color:#a29bfe;">90</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Coco Mad</span>
+    <div class="vt"><div class="vf our" style="width:87%"></div></div>
+    <span class="vp" style="color:#a29bfe;">87%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> bergamot-patchouli-vetiver matches Coco Mad DNA</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Romance Bouquet</div>
+  <div class="f-ref">Designer Prestige · Mon Guerlain</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:76%"></div></div><span class="sv" style="color:#55efc4;">76</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Mon Guerlain</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> rose-iris-patchouli floral chypre</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Mango Mademoiselle</div>
+  <div class="f-ref">Mass Market · Mango + patchouli</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — mango chypre has zero competition</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Cafe Coco</div>
+  <div class="f-ref">True Mass · Coco Mad dupe</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:70%"></div></div><span class="sv" style="color:#a29bfe;">70</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Eveandboy dupes</span>
+    <div class="vt"><div class="vf our" style="width:97%"></div></div>
+    <span class="vp" style="color:#a29bfe;">97%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 97% value score at 99-290 THB</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">F2 Le Chypre Vert</div>
+  <div class="f-ref">Optimized luxury green chypre</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:91%"></div></div><span class="sv" style="color:#a29bfe;">91</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:76%"></div></div><span class="sv" style="color:#55efc4;">76</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> TOP SCORE — 91 industry, 93 luxury; no competitor</div>
+</div>
+</div>
+</section>
+
+<section id="oriental" class="family-section oriental-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#fdcb6e;">Oriental / Vanilla Amber</h2>
+    <span class="rank-badge" style="background:rgba(225,112,85,0.15);color:#fdcb6e;">#6 Thai Market — ~9% women's share</span>
+    <div class="desc">Flagship competitor: <strong>YSL Black Opium + Tom Ford Tobacco Vanille</strong> — coffee, vanilla, white flowers, patchouli</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Midnight Coffee</div>
+  <div class="f-ref">Designer Prestige · Black Opium</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:85%"></div></div><span class="sv" style="color:#a29bfe;">85</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:82%"></div></div><span class="sv" style="color:#55efc4;">82</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:90%"></div></div><span class="sv" style="color:#a29bfe;">90</span></div>
+  <div class="score-row"><span class="sl">Longevity</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Black Opium</span>
+    <div class="vt"><div class="vf our" style="width:85%"></div></div>
+    <span class="vp" style="color:#a29bfe;">85%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> coffee-vanilla core matches; ethyl vanillin overdose</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Black Vanille</div>
+  <div class="f-ref">Designer Prestige · TF Tobacco Vanille</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs TF TV</span>
+    <div class="vt"><div class="vf our" style="width:88%"></div></div>
+    <span class="vp" style="color:#a29bfe;">88%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> tobacco absolute + vanilla; 1/3 the price</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Sticky Rice</div>
+  <div class="f-ref">Mass Market · Coconut-pandan-vanilla</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — mango sticky rice has viral potential</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Velvet Skin</div>
+  <div class="f-ref">Mass Market · Alien/Narciso direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:78%"></div></div><span class="sv" style="color:#a29bfe;">78</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Narciso Rodriguez</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> competitive at lower price tier</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Mango Niao</div>
+  <div class="f-ref">True Mass · Vanilla-coconut body mist</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:65%"></div></div><span class="sv" style="color:#a29bfe;">65</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs BSC Coconut Vanilla</span>
+    <div class="vt"><div class="vf our" style="width:95%"></div></div>
+    <span class="vp" style="color:#a29bfe;">95%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> mass leader at 99 THB tier</div>
+</div>
+</div>
+</section>
+
+<section id="fougere" class="family-section fougere-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#74b9ff;">Fougere Aromatic</h2>
+    <span class="rank-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;">#7 Thai Market — ~8% men's share</span>
+    <div class="desc">Flagship competitor: <strong>Versace Eros / Givenchy Gentleman</strong> — lavender, coumarin, oakmoss, vanilla</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Gentleman</div>
+  <div class="f-ref">Designer Prestige · Givenchy direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:85%"></div></div><span class="sv" style="color:#a29bfe;">85</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Givenchy Gentleman</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> lavender-iris-patchouli core matches</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Eros</div>
+  <div class="f-ref">Designer Prestige · Versace Eros</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:83%"></div></div><span class="sv" style="color:#a29bfe;">83</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:76%"></div></div><span class="sv" style="color:#55efc4;">76</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Versace Eros</span>
+    <div class="vt"><div class="vf our" style="width:83%"></div></div>
+    <span class="vp" style="color:#a29bfe;">83%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> mint-apple-lavender-vanilla core</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">F1 Le Barbier</div>
+  <div class="f-ref">Optimized luxury barbershop</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:93%"></div></div><span class="sv" style="color:#a29bfe;">93</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:78%"></div></div><span class="sv" style="color:#55efc4;">78</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> TOP SCORE — 93 industry, 95 luxury; crown jewel</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Lemongrass Cool</div>
+  <div class="f-ref">Mass Market · Lemongrass fougere</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — lemongrass fougere is entirely novel</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Tonka Honey</div>
+  <div class="f-ref">Mass Market · Sweet Fougere</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:76%"></div></div><span class="sv" style="color:#a29bfe;">76</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Pour Homme Intense</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> coumarin-honey-amber sweet fougere</div>
+</div>
+</div>
+</section>
+
+<section id="fresh" class="family-section fresh-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#81ecec;">Fresh / Aquatic</h2>
+    <span class="rank-badge" style="background:rgba(0,206,201,0.15);color:#81ecec;">#4 Thai Market — ~12% men's share</span>
+    <div class="desc">Flagship competitor: <strong>Acqua di Gio Profumo</strong> — marine, bergamot, geranium, patchouli, incense</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Marine Profumo</div>
+  <div class="f-ref">Designer Prestige · AdG Profumo</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs AdG Profumo</span>
+    <div class="vt"><div class="vf our" style="width:84%"></div></div>
+    <span class="vp" style="color:#a29bfe;">84%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> marine-bergamot-incense matches AdG</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Aow Phra Nang</div>
+  <div class="f-ref">Mass Market · Krabi beach aquatic</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> UNIQUE — only Thai beach-named perfume</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Makrut Tropic</div>
+  <div class="f-ref">Mass Market · Kaffir lime citrus</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — kaffir lime citrus is unique</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Bai Toey</div>
+  <div class="f-ref">Mass Market · Pandan green</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:70%"></div></div><span class="sv" style="color:#a29bfe;">70</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — pandan green note has no competitor</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Ocean Blue</div>
+  <div class="f-ref">True Mass · AdG dupe</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:68%"></div></div><span class="sv" style="color:#a29bfe;">68</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs AdG</span>
+    <div class="vt"><div class="vf our" style="width:96%"></div></div>
+    <span class="vp" style="color:#a29bfe;">96%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> mass king at 1/10th price</div>
+</div>
+</div>
+</section>
+
+<section id="gourmand" class="family-section gourmand-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#fdcb6e;">Gourmand</h2>
+    <span class="rank-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;">GROWING — Tier 2, rising trend</span>
+    <div class="desc">Flagship competitor: <strong>Mugler Angel</strong> — cotton candy, patchouli, caramel, vanilla</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Golden Rice (MITH)</div>
+  <div class="f-ref">Competitor formula · rice gourmand</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:76%"></div></div><span class="sv" style="color:#a29bfe;">76</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:78%"></div></div><span class="sv" style="color:#55efc4;">78</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> UNIQUE — rice note is rare; MITH proved commercial viability</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Pink Pearls</div>
+  <div class="f-ref">Mass Market · Fruity Floral Gourmand</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:78%"></div></div><span class="sv" style="color:#a29bfe;">78</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:80%"></div></div><span class="sv" style="color:#55efc4;">80</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Angel</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> highest hedonic in portfolio (80)</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Cherry Melt</div>
+  <div class="f-ref">True Mass · Sweet Fruity body mist</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:64%"></div></div><span class="sv" style="color:#a29bfe;">64</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Mistine Sweet Pink</span>
+    <div class="vt"><div class="vf our" style="width:88%"></div></div>
+    <span class="vp" style="color:#a29bfe;">88%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> competes at 99 THB tier</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Velvet Bloom</div>
+  <div class="f-ref">Mass Market · Vanilla Amber Gourmand</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:76%"></div></div><span class="sv" style="color:#a29bfe;">76</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:78%"></div></div><span class="sv" style="color:#55efc4;">78</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Angel</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> vanilla amber with broad appeal</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Iris Cacao</div>
+  <div class="f-ref">Luxury · iris + cacao</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Xerjoff Iris Cacao</span>
+    <div class="vt"><div class="vf our" style="width:90%"></div></div>
+    <span class="vp" style="color:#a29bfe;">90%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> luxury niche at 1/3 price</div>
+</div>
+</div>
+</section>
+
+<section id="musk" class="family-section musk-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#b2bec3;">Musk / Skin Scent</h2>
+    <span class="rank-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;">RISING — fastest-growing unisex 2024-26</span>
+    <div class="desc">Flagship competitor: <strong>Le Labo Another 13 / Glossier You</strong> — ambroxan, ISO E Super, musk, pear</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Whispered Skin</div>
+  <div class="f-ref">Designer Prestige · Skin musk</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:76%"></div></div><span class="sv" style="color:#55efc4;">76</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Glossier You</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> cashmeran + sandalwood + musk core</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">MITH Nude (Formula)</div>
+  <div class="f-ref">Interpretation · Bisch style skin scent</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:80%"></div></div><span class="sv" style="color:#a29bfe;">80</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Glossier You</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> triple musk stack is more complex than Glossier</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Nuage Suede</div>
+  <div class="f-ref">Luxury skin suede</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:70%"></div></div><span class="sv" style="color:#55efc4;">70</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 88 geo-score; luxury suede musk</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Cashmere Khao</div>
+  <div class="f-ref">Mass Market · Cashmeran + rice</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:70%"></div></div><span class="sv" style="color:#a29bfe;">70</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — cashmeran + rice skin scent</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Silk Cashmere</div>
+  <div class="f-ref">True Mass · Skin musk</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:66%"></div></div><span class="sv" style="color:#a29bfe;">66</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Cathy Doll</span>
+    <div class="vt"><div class="vf our" style="width:94%"></div></div>
+    <span class="vp" style="color:#a29bfe;">94%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 94% value score at mass tier</div>
+</div>
+</div>
+</section>
+
+<section id="iris" class="family-section iris-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#a29bfe;">Iris / Powdery / Violet</h2>
+    <span class="rank-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;">STRONG NICHE — Tier 2, deepest collection (19+ files)</span>
+    <div class="desc">Flagship competitor: <strong>Prada L'Homme / Dior Homme Intense</strong> — iris, violet, orris, powder</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Iris Dreamweaver v5</div>
+  <div class="f-ref">Luxury photorealistic iris</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:90%"></div></div><span class="sv" style="color:#a29bfe;">90</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Dior Homme Intense</span>
+    <div class="vt"><div class="vf our" style="width:90%"></div></div>
+    <span class="vp" style="color:#a29bfe;">90%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 94 photorealism; 5 optimization rounds</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Jasmin d'Orris</div>
+  <div class="f-ref">Luxury iris-jasmine · 10 versions</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:74%"></div></div><span class="sv" style="color:#55efc4;">74</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> MOST-ITERATED — 10 versions, Lutens/Malle/Henry Jacques styles</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Orris Damascone</div>
+  <div class="f-ref">Luxury orris + damascone</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:87%"></div></div><span class="sv" style="color:#a29bfe;">87</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:70%"></div></div><span class="sv" style="color:#55efc4;">70</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> orris-damascone synergy is unique</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Aperture Iris</div>
+  <div class="f-ref">Optimized modern transparent iris</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs The Different Company</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> Ellena-adjacent transparent iris</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Iris Reverie Lactee</div>
+  <div class="f-ref">Luxury milky iris</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:84%"></div></div><span class="sv" style="color:#a29bfe;">84</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:70%"></div></div><span class="sv" style="color:#55efc4;">70</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — lactonic iris almost non-existent commercially</div>
+</div>
+</div>
+</section>
+
+<section id="leather" class="family-section leather-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#636e72;">Leather</h2>
+    <span class="rank-badge" style="background:rgba(99,110,114,0.15);color:#636e72;">TIER 3 — Niche-commercial, strong cult following</span>
+    <div class="desc">Flagship competitor: <strong>Tom Ford Tuscan Leather / Chanel Cuir de Russie</strong> — birch tar, IBQ, styrax, saffron, raspberry</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Cuir Nomade</div>
+  <div class="f-ref">Masculine Luxury Leather</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:85%"></div></div><span class="sv" style="color:#a29bfe;">85</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:62%"></div></div><span class="sv" style="color:#55efc4;">62</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs TF Tuscan Leather</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 85 industry; hedonic 62 is expected for leather</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Patchouli Absolu</div>
+  <div class="f-ref">Designer Prestige · Coromandel</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:86%"></div></div><span class="sv" style="color:#a29bfe;">86</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:64%"></div></div><span class="sv" style="color:#55efc4;">64</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs TF Coromandel</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> patchouli-chypre at leather-adjacent</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Noir Obscur</div>
+  <div class="f-ref">Masculine Luxury Oriental Leather</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:83%"></div></div><span class="sv" style="color:#a29bfe;">83</span></div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> dark oriental leather</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Rugby</div>
+  <div class="f-ref">True Mass · Aromatic Patchouli men's</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:68%"></div></div><span class="sv" style="color:#a29bfe;">68</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Le Male dupes</span>
+    <div class="vt"><div class="vf our" style="width:93%"></div></div>
+    <span class="vp" style="color:#a29bfe;">93%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 93% value score at mass tier</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Eclipse VII Event Horizon</div>
+  <div class="f-ref">Luxury dark leather-spicy</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:87%"></div></div><span class="sv" style="color:#a29bfe;">87</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:60%"></div></div><span class="sv" style="color:#55efc4;">60</span></div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> highest synergy in leather category (90)</div>
+</div>
+</div>
+</section>
+
+<section id="citrus" class="family-section citrus-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#f9ca24;">Citrus / Cologne</h2>
+    <span class="rank-badge" style="background:rgba(249,202,36,0.15);color:#f9ca24;">HERITAGE — Tier 2, strong tourist + local</span>
+    <div class="desc">Flagship competitor: <strong>Acqua di Parma Colonia / Atelier Cologne Orange Sanguine</strong> — bergamot, lemon, orange, neroli</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Coloniale</div>
+  <div class="f-ref">Designer Prestige · AdP Colonia</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:80%"></div></div><span class="sv" style="color:#a29bfe;">80</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:80%"></div></div><span class="sv" style="color:#55efc4;">80</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:68%"></div></div><span class="sv" style="color:#a29bfe;">68</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs AdP Colonia</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> high hedonic (80) for citrus; sillage is expectedly lower</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Makrut Tropic</div>
+  <div class="f-ref">Mass Market · Kaffir lime</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — kaffir lime is culturally distinct</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Italian Bergamot</div>
+  <div class="f-ref">Designer Prestige · Bergamot soliflore</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:82%"></div></div><span class="sv" style="color:#55efc4;">82</span></div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> classic bergamot soliflore</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Sunday Cologne</div>
+  <div class="f-ref">True Mass · 4711/AdP tier</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:62%"></div></div><span class="sv" style="color:#a29bfe;">62</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs 4711</span>
+    <div class="vt"><div class="vf our" style="width:97%"></div></div>
+    <span class="vp" style="color:#a29bfe;">97%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> best value in portfolio (97)</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Aow Phra Nang (Citrus)</div>
+  <div class="f-ref">Mass Market · Sea-salt citrus</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> destination-branded citrus aquatic</div>
+</div>
+</div>
+</section>
+
+<section id="aquatic" class="family-section aquatic-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#81ecec;">Aquatic / Marine</h2>
+    <span class="rank-badge" style="background:rgba(129,236,236,0.15);color:#81ecec;">#4 Thai Market (~12% combined with Fresh)</span>
+    <div class="desc">Flagship competitor: <strong>Acqua di Gio / Issey Miyake L'Eau d'Issey</strong> — calone, DHM, hedione, water notes</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Storm Wave</div>
+  <div class="f-ref">Designer Prestige · L'Eau d'Issey</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:80%"></div></div><span class="sv" style="color:#a29bfe;">80</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:68%"></div></div><span class="sv" style="color:#55efc4;">68</span></div>
+  <div class="score-row"><span class="sl">Sillage</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs L'Eau d'Issey</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> DHM + hedione + calone marine ozonic</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Sea Mist</div>
+  <div class="f-ref">Mass Market · Cool Water direction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:66%"></div></div><span class="sv" style="color:#55efc4;">66</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Cool Water</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> competitive at lower price</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Aow Phra Nang</div>
+  <div class="f-ref">Mass Market · Krabi beach</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:74%"></div></div><span class="sv" style="color:#a29bfe;">74</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> only Thai destination-named aquatic</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Surface Calm</div>
+  <div class="f-ref">Mass Market · Calm sea concept</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:70%"></div></div><span class="sv" style="color:#a29bfe;">70</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:64%"></div></div><span class="sv" style="color:#55efc4;">64</span></div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> meditative aquatic concept</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Ice Blue</div>
+  <div class="f-ref">True Mass · Cool Water dupe</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:66%"></div></div><span class="sv" style="color:#a29bfe;">66</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Cool Water</span>
+    <div class="vt"><div class="vf our" style="width:95%"></div></div>
+    <span class="vp" style="color:#a29bfe;">95%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> mass king at 1/20th price</div>
+</div>
+</div>
+</section>
+
+<section id="incense" class="family-section incense-bar">
+<div class="family-header">
+  <div>
+    <h2 style="color:#eb2f06;">Incense / Resinous</h2>
+    <span class="rank-badge" style="background:rgba(235,47,6,0.15);color:#eb2f06;">TIER 2 — Strong niche, cult following</span>
+    <div class="desc">Flagship competitor: <strong>Amouage Interlude / CdG Incense Series</strong> — olibanum, myrrh, labdanum, benzoin</div>
+  </div>
+</div>
+<div class="f-grid">
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Incense Cathedral</div>
+  <div class="f-ref">Luxury incense-iris</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:88%"></div></div><span class="sv" style="color:#a29bfe;">88</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:66%"></div></div><span class="sv" style="color:#55efc4;">66</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Amouage Interlude</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> incense-iris is unique; sacred meets powdery</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag prem">PRESTIGE</span></div>
+  <div class="f-name">Crimson Velvet</div>
+  <div class="f-ref">Designer Prestige · Floral Amber</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:82%"></div></div><span class="sv" style="color:#a29bfe;">82</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:72%"></div></div><span class="sv" style="color:#55efc4;">72</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Hypnotic Poison</span>
+    <div class="vt"><div class="vf our" style="width:0%"></div></div>
+    <span class="vp" style="color:#a29bfe;">0%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> spicy floral amber</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag mass">MASS</span></div>
+  <div class="f-name">Twilight Champaca</div>
+  <div class="f-ref">Mass Market · Champaca + amber</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:72%"></div></div><span class="sv" style="color:#a29bfe;">72</span></div>
+  <div><span class="pos-badge bo">BLUE OCEAN</span></div>
+  <div class="gap-note"><strong>Gap:</strong> BLUE OCEAN — champaca temple flower is culturally sacred</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag tmass">TRUE MASS</span></div>
+  <div class="f-name">Thai Oud</div>
+  <div class="f-ref">True Mass · Oud-Amber</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:68%"></div></div><span class="sv" style="color:#a29bfe;">68</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Karmart Oud</span>
+    <div class="vt"><div class="vf our" style="width:90%"></div></div>
+    <span class="vp" style="color:#a29bfe;">90%</span>
+  </div>
+  <div><span class="pos-badge fol">FOLLOWER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> competes with BSC/Karmart Oud</div>
+</div>
+
+<div class="f-card">
+  <div class="tag-row"><span class="tag proj">PROJECT</span><span class="tag luxe">LUXURY</span></div>
+  <div class="f-name">Opus V (Reverse Eng.)</div>
+  <div class="f-ref">Luxury · Amouage reconstruction</div>
+  <div class="score-row"><span class="sl">Industry</span><div class="st"><div class="sf blue" style="width:90%"></div></div><span class="sv" style="color:#a29bfe;">90</span></div>
+  <div class="score-row"><span class="sl">Smell/Hedonic</span><div class="st"><div class="sf green" style="width:68%"></div></div><span class="sv" style="color:#55efc4;">68</span></div>
+
+  <div class="vs-bar">
+    <span class="vl">vs Amouage Opus V</span>
+    <div class="vt"><div class="vf our" style="width:90%"></div></div>
+    <span class="vp" style="color:#a29bfe;">90%</span>
+  </div>
+  <div><span class="pos-badge led">LEADER</span></div>
+  <div class="gap-note"><strong>Gap:</strong> 30+ docs; competes with £300+ niche at 1/5 cost</div>
+</div>
+</div>
+</section>
+
+<section class="family-section" style="border:1px solid rgba(0,184,148,0.3);">
+<div class="family-header">
+  <div>
+    <h2 style="color:#55efc4;">Strategic Gap Analysis</h2>
+    <div class="desc">Blue Ocean gaps — markets where no competitor formula exists across any price tier.</div>
+  </div>
+</div>
+<div class="gap-grid">
+
+<div class="gap-box">
+  <div class="g-title">Temple Sandalwood</div>
+  <div class="g-sub">Woody · Mass</div>
+  <div class="g-desc">No commercial temple sandalwood perfume exists</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Mango Mademoiselle</div>
+  <div class="g-sub">Chypre · Mass</div>
+  <div class="g-desc">Mango + patchouli chypre — zero competition</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Bai Toey (Pandan)</div>
+  <div class="g-sub">Fresh Green · Mass</div>
+  <div class="g-desc">Pandan has never been a perfume primary note</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Sticky Rice</div>
+  <div class="g-sub">Oriental · Mass</div>
+  <div class="g-desc">Mango sticky rice — iconic Thai dessert scent</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Lemongrass Cool</div>
+  <div class="g-sub">Fougere · Mass</div>
+  <div class="g-desc">Lemongrass fougere — entirely novel concept</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Mali Garland</div>
+  <div class="g-sub">Floral · Mass</div>
+  <div class="g-desc">Jasmine sambac — most culturally significant Thai flower</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Champaca Twilight</div>
+  <div class="g-sub">Incense · Mass</div>
+  <div class="g-desc">Sacred temple flower + amber incense</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Milky Iris</div>
+  <div class="g-sub">Iris · Luxury</div>
+  <div class="g-desc">Lactonic iris almost non-existent commercially</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Kaffir Lime Citrus</div>
+  <div class="g-sub">Citrus · Mass</div>
+  <div class="g-desc">Makrut lime — universally recognized, never perfumed</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Cashmere Khao</div>
+  <div class="g-sub">Musk · Mass</div>
+  <div class="g-desc">Cashmeran + rice skin scent — unique</div>
+</div>
+
+<div class="gap-box">
+  <div class="g-title">Destination Aquatics</div>
+  <div class="g-sub">Aquatic · Mass</div>
+  <div class="g-desc">Aow Phra Nang — tourist gifting potential</div>
+</div>
+
+</div>
+</section>
+
+<section class="family-section" style="border:1px solid rgba(162,155,254,0.3);">
+<div class="family-header">
+  <div>
+    <h2 style="color:#a29bfe;">Portfolio Scoring Summary</h2>
+    <div class="desc">Average industry scores, hedonic values, and leadership counts per family.</div>
+  </div>
+</div>
+<div style="overflow-x:auto;font-size:12px;">
+<table style="width:100%;border-collapse:collapse;">
+<tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+  <th style="padding:8px;text-align:left;color:#888;">Family</th>
+  <th style="padding:8px;text-align:center;color:#888;">Avg Industry</th>
+  <th style="padding:8px;text-align:center;color:#888;">Avg Hedonic</th>
+  <th style="padding:8px;text-align:center;color:#888;">Top Score</th>
+  <th style="padding:8px;text-align:center;color:#888;">Leaders</th>
+  <th style="padding:8px;text-align:center;color:#888;">Blue Oceans</th>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#a29bfe;">Woody</td>
+  <td style="padding:8px;text-align:center;color:#fff;">77.6</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">70.6</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">88</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#e84393;">Floral</td>
+  <td style="padding:8px;text-align:center;color:#fff;">80.0</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">76.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">86</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#55efc4;">Chypre</td>
+  <td style="padding:8px;text-align:center;color:#fff;">80.8</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">76.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">91</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#fdcb6e;">Oriental</td>
+  <td style="padding:8px;text-align:center;color:#fff;">77.6</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">76.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">88</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#74b9ff;">Fougere</td>
+  <td style="padding:8px;text-align:center;color:#fff;">81.8</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">75.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">93</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#81ecec;">Fresh</td>
+  <td style="padding:8px;text-align:center;color:#fff;">73.6</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">—</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">84</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">3</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#fdcb6e;">Gourmand</td>
+  <td style="padding:8px;text-align:center;color:#fff;">76.0</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">76.7</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">86</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#b2bec3;">Musk</td>
+  <td style="padding:8px;text-align:center;color:#fff;">77.2</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">73.3</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">88</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#a29bfe;">Iris</td>
+  <td style="padding:8px;text-align:center;color:#fff;">87.0</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">72.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">90</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">5</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#636e72;">Leather</td>
+  <td style="padding:8px;text-align:center;color:#fff;">81.8</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">62.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">87</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">0</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#f9ca24;">Citrus</td>
+  <td style="padding:8px;text-align:center;color:#fff;">72.4</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">81.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">80</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">2</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#81ecec;">Aquatic</td>
+  <td style="padding:8px;text-align:center;color:#fff;">72.4</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">66.0</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">80</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">2</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+  <td style="padding:8px;font-weight:600;color:#eb2f06;">Incense</td>
+  <td style="padding:8px;text-align:center;color:#fff;">80.0</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">68.7</td>
+  <td style="padding:8px;text-align:center;color:#a29bfe;">90</td>
+  <td style="padding:8px;text-align:center;color:#55efc4;">3</td>
+  <td style="padding:8px;text-align:center;color:#fdcb6e;">1</td>
+</tr>
+
+</table>
+</div>
+</section>
+
+<div class="footer">
+  Generated from pipeline scoring · 13 families · 65 project formulas · 13 competitor benchmarks<br>
+  Frameworks: Industry scoring (10 axes) + Hedonic valence model + Cultural fit indices<br>
+  See <code>formulas/collections/</code> · <code>engine/optimizer/scoring.py</code> · <code>engine/hedonic_model.py</code>
+</div>
+
+</div>
+</body>
+</html>

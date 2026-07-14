@@ -2,15 +2,16 @@
 
 import time
 from collections import deque
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from contextlib import asynccontextmanager
 
-from app.core.config import get_settings
-from app.core.logging import setup_logging, get_logger
-from app.core.tracing import setup_tracing
 from app.api.v1.router import api_router
+from app.core.config import get_settings
+from app.core.logging import get_logger, setup_logging
+from app.core.tracing import setup_tracing
 
 settings = get_settings()
 logger = get_logger(__name__)
@@ -29,9 +30,9 @@ async def lifespan(app: FastAPI):
     logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     logger.info(f"Environment: {settings.ENVIRONMENT}")
     logger.info(f"Debug mode: {settings.DEBUG}")
-    
+
     yield
-    
+
     # Shutdown
     logger.info("Shutting down application")
 

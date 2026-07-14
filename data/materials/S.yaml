@@ -1179,7 +1179,7 @@
   logp: 3.9
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.08
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1191,7 +1191,7 @@
   trp_targets: null
   hedonic_valence: 0.7
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4WX00405
@@ -1288,12 +1288,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 220.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1467,12 +1467,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 210.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1484,7 +1484,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1840,12 +1840,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 212.24
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.0001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1873,12 +1873,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 131.17
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2607,12 +2607,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 148.2
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.5
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.002
@@ -2684,12 +2684,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 238.4
+  mw_g_mol: 168.28
   density_25c_g_ml: null
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.06
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -3186,3 +3186,26 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: spike lavender eo
+  aliases:
+  - Spike Lavender EO
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 154.0
+  density_25c_g_ml: null
+  logp: 3.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 70.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 20.0
+  odt_eth_ppm: 0.2
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

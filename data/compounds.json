@@ -280,11 +280,50 @@
       "scent": ["metallic", "green", "floral"],
       "note": "heart",
       "volatility": "medium",
-      "molecular_weight": 174.24,
+      "molecular_weight": 190.28,
       "ifra_limit": 2.7,
       "allergen": false,
       "solubility": {"ethanol": "high", "oil": "high", "water": "low"},
       "blends_with": ["green", "floral", "metallic"]
+    },
+    {
+      "name": "Vetiver EO (India)",
+      "cas": "8016-96-4",
+      "category": "Essential Oil",
+      "scent": ["earthy", "smoky", "woody", "rooty"],
+      "note": "base",
+      "volatility": "low",
+      "molecular_weight": 222.4,
+      "ifra_limit": null,
+      "allergen": false,
+      "solubility": {"ethanol": "high", "oil": "high", "water": "none"},
+      "blends_with": ["woody", "citrus", "amber", "floral"]
+    },
+    {
+      "name": "Cardamom EO",
+      "cas": "8000-66-6",
+      "category": "Essential Oil",
+      "scent": ["spicy", "green", "camphoraceous", "warm"],
+      "note": "top",
+      "volatility": "high",
+      "molecular_weight": 154.3,
+      "ifra_limit": null,
+      "allergen": false,
+      "solubility": {"ethanol": "high", "oil": "high", "water": "none"},
+      "blends_with": ["citrus", "floral", "spicy", "woody"]
+    },
+    {
+      "name": "Lavender EO (BONTAUX SAS)",
+      "cas": "8000-28-0",
+      "category": "Essential Oil",
+      "scent": ["floral", "herbaceous", "sweet", "aromatic"],
+      "note": "top-heart",
+      "volatility": "high",
+      "molecular_weight": 154.3,
+      "ifra_limit": null,
+      "allergen": true,
+      "solubility": {"ethanol": "high", "oil": "high", "water": "none"},
+      "blends_with": ["citrus", "fougere", "herbal", "floral"]
     }
   ]
 }

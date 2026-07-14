@@ -2,7 +2,8 @@
 
 import sys
 from pathlib import Path
-from fastapi import APIRouter, HTTPException
+
+from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 # Add project root to path so engine module is importable
@@ -10,11 +11,12 @@ _project_root = str(Path(__file__).resolve().parent.parent.parent.parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
-from engine.optimizer.models import FormulaVector, ObjectiveWeights, OptimizationConstraints
-from engine.optimizer.scoring import FormulaScorer
-from engine.optimizer.optimizer import FormulaOptimizer
 from engine.confidence import ConfidenceScorer
-from app.services.validation_pipeline import validate_formula, attach_validation
+from engine.optimizer.models import FormulaVector, ObjectiveWeights, OptimizationConstraints
+from engine.optimizer.optimizer import FormulaOptimizer
+from engine.optimizer.scoring import FormulaScorer
+
+from app.services.validation_pipeline import attach_validation, validate_formula
 
 router = APIRouter()
 

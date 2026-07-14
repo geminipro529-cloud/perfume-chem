@@ -1,10 +1,8 @@
 """Base AI service interface"""
 
-import asyncio
 import functools
-import inspect
 from abc import ABC, abstractmethod
-from typing import AsyncGenerator, Optional, Dict, Any
+from typing import Any, AsyncGenerator, Dict, Optional
 
 
 def _make_complete_tracer(method):

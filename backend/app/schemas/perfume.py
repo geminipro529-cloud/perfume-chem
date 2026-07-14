@@ -1,7 +1,9 @@
 """Perfume and formula schemas"""
 
+from typing import Any, Dict, List, Optional
+
 from pydantic import BaseModel, Field, validator
-from typing import Optional, List, Dict, Any
+
 from app.schemas.chemical import FormulaIngredient
 
 
@@ -22,9 +24,9 @@ class PerfumeCreate(PerfumeBase):
     solvent: str = "ethanol"
     notes: Optional[str] = None
     tags: Optional[List[str]] = None
-    
+
     @validator('ingredients')
-    def validate_ingredients_sum(cls, v):
+    def validate_ingredients_sum(self, v):
         """Ensure ingredients sum to ~100%"""
         if v:
             total = sum(ing.percentage for ing in v)
@@ -46,7 +48,7 @@ class PerfumeResponse(PerfumeBase):
     cost_per_100ml: Optional[float] = None
     created_at: Any
     updated_at: Any
-    
+
     class Config:
         from_attributes = True
 
@@ -64,9 +66,9 @@ class FormulaCreate(FormulaBase):
     perfume_id: Optional[int] = None
     ingredients: List[FormulaIngredient]
     notes: Optional[str] = None
-    
+
     @validator('ingredients')
-    def validate_formula_balance(cls, v):
+    def validate_formula_balance(self, v):
         """Ensure formula is balanced"""
         total = sum(ing.percentage for ing in v)
         if not (99.0 <= total <= 101.0):
@@ -88,7 +90,7 @@ class FormulaResponse(FormulaBase):
     cost_per_ml: Optional[float] = None
     created_at: Any
     updated_at: Any
-    
+
     class Config:
         from_attributes = True
 

@@ -1,19 +1,20 @@
 """
 Model configuration system for AI providers with data provenance tracking.
-Data provenance: Model metadata from Hugging Face Hub, Ollama library, 
+Data provenance: Model metadata from Hugging Face Hub, Ollama library,
 and provider documentation
-Sources: 
+Sources:
 - Hugging Face Model Hub: https://huggingface.co/models
 - Ollama Library: https://ollama.com/library
 - Model cards and documentation
 Last updated: 2026-01-12
 """
 
-from enum import Enum
-from typing import Dict, List, Optional, Any
-from pydantic import BaseModel, Field, validator
-import yaml
 import os
+from enum import Enum
+from typing import Any, Dict, List, Optional
+
+import yaml
+from pydantic import BaseModel, Field, validator
 
 
 class ModelPurpose(str, Enum):
@@ -58,7 +59,7 @@ class ModelLicense(str, Enum):
 class ModelConfig(BaseModel):
     """
     Configuration for an AI model with data provenance tracking.
-    
+
     Data provenance requirements:
     - Source: Where the model was obtained
     - Version: Specific model version/commit
@@ -66,84 +67,84 @@ class ModelConfig(BaseModel):
     - License: Usage restrictions and requirements
     - Last updated: When this configuration was validated
     """
-    
+
     # Model identification
     model_id: str = Field(..., description="Unique identifier for the model")
     display_name: str = Field(..., description="Human-readable model name")
     provider: ModelProvider = Field(..., description="AI provider")
-    
+
     # Data provenance
     source_url: str = Field(..., description="URL where model can be accessed")
     version: str = Field(..., description="Model version or commit hash")
     training_data: str = Field(..., description="Description of training data")
     license: ModelLicense = Field(..., description="Model license")
     data_provenance: str = Field(
-        ..., 
+        ...,
         description="Detailed data provenance information"
     )
     last_validated: str = Field(
-        ..., 
+        ...,
         description="Date when model was last validated"
     )
-    
+
     # Technical specifications
     purpose: ModelPurpose = Field(..., description="Intended use case")
     restrictions: List[ModelRestriction] = Field(
-        default=[], 
+        default=[],
         description="Usage restrictions"
     )
     context_window: int = Field(..., description="Token context window size")
     parameter_count: Optional[str] = Field(
-        None, 
+        None,
         description="Number of parameters (e.g., '7B', '70B')"
     )
     size_gb: Optional[float] = Field(
-        None, 
+        None,
         description="Approximate size in GB"
     )
-    
+
     # Performance characteristics
     recommended_max_tokens: int = Field(
-        512, 
+        512,
         description="Recommended maximum tokens per request"
     )
     recommended_temperature: float = Field(
-        0.7, 
+        0.7,
         description="Recommended temperature"
     )
     supports_tools: bool = Field(
-        False, 
+        False,
         description="Whether model supports tool calling"
     )
-    
+
     # Configuration
     base_url: Optional[str] = Field(
-        None, 
+        None,
         description="API base URL if different from default"
     )
     api_key_env_var: Optional[str] = Field(
-        None, 
+        None,
         description="Environment variable for API key"
     )
     requires_gpu: bool = Field(False, description="Whether model requires GPU")
-    
+
     # Scientific integrity
     scientific_accuracy_score: Optional[float] = Field(
-        None, 
+        None,
         description="Estimated scientific accuracy score (0-1)",
         ge=0.0,
         le=1.0
     )
     hallucination_risk: str = Field(
-        "medium", 
+        "medium",
         description="Risk of generating hallucinated content"
     )
-    
+
     class Config:
         use_enum_values = True
-    
+
     @validator('last_validated')
-    def validate_date_format(cls, v):
+    def validate_date_format(self, v):
         """Validate date format is YYYY-MM-DD."""
         from datetime import datetime
         try:
@@ -156,23 +157,23 @@ class ModelConfig(BaseModel):
 class ModelRegistry:
     """
     Registry for all available AI models with data provenance tracking.
-    
-    Data provenance: Each model configuration includes source, version, 
-    and training data information to maintain scientific integrity and 
+
+    Data provenance: Each model configuration includes source, version,
+    and training data information to maintain scientific integrity and
     reproducibility.
     """
-    
+
     def __init__(self, config_path: Optional[str] = None):
         """Initialize model registry, optionally loading from YAML config."""
         self.models: Dict[str, ModelConfig] = {}
         self._load_default_models()
-        
+
         if config_path and os.path.exists(config_path):
             self._load_from_yaml(config_path)
-    
+
     def _load_default_models(self):
         """Load default models with data provenance information."""
-        
+
         # Approved Hugging Face models for scientific analysis
         self.models["dolphin-mixtral"] = ModelConfig(
             model_id="dolphin-mixtral",
@@ -201,7 +202,7 @@ class ModelRegistry:
             scientific_accuracy_score=0.85,
             hallucination_risk="medium"
         )
-        
+
         self.models["scibert"] = ModelConfig(
             model_id="scibert",
             display_name="SciBERT",
@@ -229,7 +230,7 @@ class ModelRegistry:
             scientific_accuracy_score=0.90,
             hallucination_risk="low"
         )
-        
+
         # Ollama models
         self.models["llama3.2-3b"] = ModelConfig(
             model_id="llama3.2-3b",
@@ -257,7 +258,7 @@ class ModelRegistry:
             scientific_accuracy_score=0.75,
             hallucination_risk="medium"
         )
-        
+
         # Cerebras models
         self.models["cerebras-llama3.1-8b"] = ModelConfig(
             model_id="cerebras-llama3.1-8b",
@@ -285,13 +286,13 @@ class ModelRegistry:
             scientific_accuracy_score=0.80,
             hallucination_risk="medium"
         )
-    
+
     def _load_from_yaml(self, config_path: str):
         """Load additional models from YAML configuration file."""
         try:
             with open(config_path, 'r') as f:
                 config_data = yaml.safe_load(f)
-            
+
             if config_data and 'models' in config_data:
                 for model_id, model_data in config_data['models'].items():
                     try:
@@ -301,25 +302,25 @@ class ModelRegistry:
                         print(f"Warning: Failed to load model {model_id}: {e}")
         except Exception as e:
             print(f"Warning: Failed to load model config from {config_path}: {e}")
-    
+
     def get_model(self, model_id: str) -> Optional[ModelConfig]:
         """Get model configuration by ID."""
         return self.models.get(model_id)
-    
+
     def get_models_by_purpose(self, purpose: ModelPurpose) -> List[ModelConfig]:
         """Get all models for a specific purpose."""
         return [
             model for model in self.models.values()
             if model.purpose == purpose
         ]
-    
+
     def get_models_by_provider(self, provider: ModelProvider) -> List[ModelConfig]:
         """Get all models from a specific provider."""
         return [
             model for model in self.models.values()
             if model.provider == provider
         ]
-    
+
     def list_models(self) -> List[Dict[str, Any]]:
         """List all available models with basic information."""
         return [
@@ -334,12 +335,12 @@ class ModelRegistry:
             }
             for model_id, config in self.models.items()
         ]
-    
+
     def validate_model_usage(self, model_id: str, prompt: str) -> Dict[str, Any]:
         """
         Validate if a model can be used for a specific prompt.
-        
-        Returns validation results including any restrictions that would be 
+
+        Returns validation results including any restrictions that would be
         violated.
         """
         model = self.get_model(model_id)
@@ -349,9 +350,9 @@ class ModelRegistry:
                 "error": f"Model {model_id} not found",
                 "violations": []
             }
-        
+
         violations = []
-        
+
         # Check for data generation requests
         if ModelRestriction.NO_DATA_GENERATION in model.restrictions:
             data_generation_keywords = [
@@ -365,7 +366,7 @@ class ModelRegistry:
                         f"Violates NO_DATA_GENERATION: prompt contains '{keyword}'"
                     )
                     break
-        
+
         # Check for citation requirements
         if ModelRestriction.CITATION_REQUIRED in model.restrictions:
             citation_words = ["cite", "citation", "reference", "source"]
@@ -373,7 +374,7 @@ class ModelRegistry:
                 violations.append(
                     "Violates CITATION_REQUIRED: prompt doesn't request citations"
                 )
-        
+
         return {
             "valid": len(violations) == 0,
             "model_id": model_id,
@@ -381,18 +382,18 @@ class ModelRegistry:
             "violations": violations,
             "restrictions": model.restrictions
         }
-    
+
     def get_scientific_prompt_template(self, model_id: str, task_type: str) -> str:
         """
         Get a scientific prompt template for a specific model and task type.
-        
-        Includes data provenance requirements and scientific integrity 
+
+        Includes data provenance requirements and scientific integrity
         guardrails.
         """
         model = self.get_model(model_id)
         if not model:
             return ""
-        
+
         base_template = """You are a scientific researcher analyzing perfume chemistry data.
 
 DATA PROVENANCE REQUIREMENTS:
@@ -411,9 +412,9 @@ RESPONSE FORMAT:
 4. Limitations and uncertainties
 5. References (PMID/DOI/URL)
 
-IMPORTANT: If you cannot find real data, state "No real data found" and 
+IMPORTANT: If you cannot find real data, state "No real data found" and
 suggest verification methods."""
-        
+
         if task_type == "chemical_literature":
             return base_template + """
 
@@ -423,7 +424,7 @@ SPECIFIC INSTRUCTIONS FOR CHEMICAL LITERATURE ANALYSIS:
 - Note detection limits and analytical methods
 - Compare across multiple studies
 - Identify conflicting data points"""
-        
+
         elif task_type == "formulation_analysis":
             return base_template + """
 
@@ -433,7 +434,7 @@ SPECIFIC INSTRUCTIONS FOR FORMULATION ANALYSIS:
 - Note concentration ranges and safety limits
 - Consider volatility and evaporation profiles
 - Reference IFRA restrictions when applicable"""
-        
+
         return base_template
 
 
@@ -449,7 +450,7 @@ def get_model_registry() -> ModelRegistry:
 def validate_scientific_query(model_id: str, query: str) -> Dict[str, Any]:
     """
     Validate a scientific query against model restrictions.
-    
+
     Data provenance: This validation ensures scientific integrity by preventing
     requests for synthetic data generation.
     """
@@ -466,7 +467,7 @@ def get_available_models() -> List[Dict[str, Any]]:
 def get_model_for_purpose(purpose: ModelPurpose) -> Optional[ModelConfig]:
     """
     Get the most appropriate model for a specific purpose.
-    
+
     Selection criteria:
     1. Highest scientific accuracy score
     2. Appropriate restrictions for the task
@@ -475,14 +476,14 @@ def get_model_for_purpose(purpose: ModelPurpose) -> Optional[ModelConfig]:
     """
     registry = get_model_registry()
     models = registry.get_models_by_purpose(purpose)
-    
+
     if not models:
         return None
-    
+
     # Sort by scientific accuracy score (descending)
     models.sort(key=lambda x: x.scientific_accuracy_score or 0, reverse=True)
-    
+
     # Filter out models with hallucination risk "high"
     filtered_models = [m for m in models if m.hallucination_risk != "high"]
-    
+
     return filtered_models[0] if filtered_models else models[0]

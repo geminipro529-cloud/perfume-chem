@@ -1,0 +1,105 @@
+## Gate Summary
+
+**11 PASS** / **7 WARN** / **5 FAIL**
+
+  FAIL exact_subtotal: 6717.0 uL parsed; expected 6517.0 uL
+  FAIL chemistry_stability: predicted maturation shelf life 7 days
+  FAIL pipette_floor_neat_traces: Beta-Pinene=1.5uL; Nagarmotha Oil=4.0uL; Petitgrain EO=3.0uL below 5.0 uL neat floor
+  FAIL safety_ifra_allergen: IFRA violations: Evernyl 0.1067% > 0.1%; IFRA headroom 100% violations: Evernyl 0.106667% > 0.1%; Γä╣ 8 EU fragrance allergen(s) require label
+  FAIL perfume_knowledge: top OAV off-target for family floral; heart OAV off-target for family floral; base OAV off-target for family floral
+  WARN odt_coverage: 26 material(s) rely on derived/unverified ODTs (72% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 19.6% active mass across 8 materials
+  WARN small_diluted_traces: Damascenone=6.0uL at 1.0%; Geosmin=2.5uL at 0.1%
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN master_perfumer_gate: too many materials for a readable formula
+  WARN robustness_perturbation: 85 fragile perturbation(s) across 86 checks; Lavender EO High Altitude up: safety failure under perturbation; IFRA headroom failure: Evernyl
+  WARN confidence_minimum: combined confidence 46.6
+
+## Headspace OAV ΓÇö Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Orivone                      |    11808.6 | heart |      massive |   8.600 |    3.5426 |  0.000300 |  0.2000 |  4.17 | Orivone                       
+|   2 | Hedione                      |     7205.7 | heart |  very strong |   0.500 |    0.3603 |  0.000050 |  0.3680 |  7.26 | Hedione                       
+|   3 | Lavender EO (Bontaux SAS)    |     6784.0 | heart |  very strong |  22.000 |   13.5680 |  0.002000 |  0.2746 |  6.25 | Lavender EO                   
+|   4 | Linalool                     |     4023.7 | top   |  very strong |  21.300 |    6.0356 |  0.001500 |  0.1120 |  2.55 | Linalool                      
+|   5 | Javanol                      |     3809.4 | base  |  very strong |   0.100 |    0.0061 |  0.000002 |  0.0370 |  0.62 | Javanol                       
+|   6 | Alpha Ionone                 |     2027.7 | heart |  very strong |   1.500 |    0.8111 |  0.000400 |  0.3000 |  5.48 | Alpha Ionone                  
+|   7 | Iso E Super                  |     1849.2 | base  |  very strong |   0.150 |    0.0925 |  0.000050 |  0.3820 |  5.72 | Iso E Super                   
+|   8 | Bergamot FCF                 |     1561.2 | top   |  very strong |  40.000 |    9.3674 |  0.006000 |  0.1000 |  2.37 | Bergamot FCF                  
+|   9 | Alpha Isomethyl Ionone       |      546.0 | heart |       strong |   0.400 |    0.4368 |  0.000800 |  0.6500 | 11.06 | Alpha-Isomethyl Ionone        
+|  10 | Spike Lavender EO            |      539.1 | top   |       strong |  24.000 |    8.0865 |  0.015000 |  0.1500 |  3.41 | Spike Lavender EO             
+|  11 | Beta-Pinene                  |      496.1 | top   |       strong | 390.000 |    1.4884 |  0.003000 |  0.0015 |  0.04 | Beta-Pinene                   
+|  12 | Linalyl Acetate              |      461.0 | top   |       strong |   5.000 |    1.2448 |  0.002700 |  0.1410 |  2.52 | Linalyl Acetate               
+|  13 | Beta Ionone                  |      370.8 | heart |       strong |   1.200 |    0.0026 |  0.000007 |  0.0012 |  0.02 | Beta Ionone                   
+|  14 | Lavender EO High Altitude    |      285.4 | top   |       strong |   0.500 |    0.5709 |  0.002000 |  0.5600 | 11.57 | Lavender EO High Altitude     
+|  15 | Clary Sage EO                |      220.7 | top   |       strong |   5.000 |    0.4414 |  0.002000 |  0.0500 |  0.89 | Clary Sage EO                 
+|  16 | Alpha Irone                  |       67.2 | base  | moderate-strong |   0.300 |    0.0605 |  0.000900 |  0.1200 |  2.04 | Alpha Irone                   
+|  17 | Coumarin                     |       61.4 | base  | moderate-strong |   0.500 |    0.0430 |  0.000700 |  0.0236 |  0.57 | Coumarin                      
+|  18 | Cashmeran                    |       33.6 | base  |     moderate |   0.400 |    0.0672 |  0.002000 |  0.1000 |  1.70 | Cashmeran                     
+|  19 | Heliotropal                  |       26.4 | base  |     moderate |   0.080 |    0.0185 |  0.000700 |  0.1000 |  2.34 | Heliotropal                   
+|  20 | Raspberry Ketone             |       23.7 | heart |     moderate |   0.300 |    0.0095 |  0.000400 |  0.0150 |  0.32 | Raspberry Ketone              
+|  21 | Evernyl                      |       18.8 | base  |     moderate |   0.100 |    0.0057 |  0.000300 |  0.0320 |  0.57 | Evernyl                       
+|  22 | Petitgrain EO                |       10.6 | top   |     moderate |   6.000 |    0.0318 |  0.003000 |  0.0030 |  0.05 | Petitgrain EO                 
+|  23 | Geraniol                     |        8.3 | heart |  perceptible |   4.000 |    0.3324 |  0.040000 |  0.0370 |  0.84 | Geraniol                      
+|  24 | Allyl Ionone                 |        7.4 | heart |  perceptible |   0.066 |    0.0074 |  0.001000 |  0.0745 |  1.13 | Allyl Ionone                  
+|  25 | Terpinyl Acetate             |        5.6 | base  |  perceptible |   3.000 |    0.1960 |  0.035000 |  0.0370 |  0.66 | Terpinyl Acetate              
+|  26 | Ambrettolide                 |        4.7 | base  | at threshold |   0.012 |    0.0006 |  0.000136 |  0.0385 |  0.54 | Ambrettolide                  
+|  27 | Cedarwood oil Virginia       |        4.2 | base  | at threshold |   0.150 |    0.0623 |  0.015000 |  0.2450 |  4.21 | Cedarwood oil Virginia        
+|  28 | Ambrox Super                 |        3.2 | base  | at threshold |   0.050 |    0.0010 |  0.000300 |  0.0129 |  0.19 | Ambrox Super                  
+|  29 | Hedione HC                   |        3.2 | heart | at threshold |   0.089 |    0.0641 |  0.020000 |  0.1000 |  7.26 | Hedione                       
+|  30 | Irotyl                       |        2.9 | heart | at threshold |   0.005 |    0.0029 |  0.001000 |  0.3500 |  5.96 | Irotyl                        
+|  31 | Damascenone                  |        2.7 | heart | at threshold |   1.000 |    0.0001 |  0.000040 |  0.0001 |  0.00 | Damascenone                   
+|  32 | Vetival                      |        1.2 | heart | at threshold |   0.200 |    0.0087 |  0.007000 |  0.0260 |  0.44 | Vetival                       
+|  33 | Vertofix                     |        1.1 | base  | at threshold |   0.080 |    0.0070 |  0.006300 |  0.0590 |  0.88 | Vertofix                      
+|  34 | Anisaldehyde                 |        1.0 | heart | at threshold |   0.050 |    0.0051 |  0.005000 |  0.0400 |  1.03 | Anisaldehyde                  
+|  35 | Ethyl Linalool               |        0.8 | top   | sub-threshold |   0.080 |    0.0113 |  0.015000 |  0.0740 |  1.43 | Ethyl Linalool                
+|  36 | Vanillin                     |        0.6 | base  | sub-threshold |   0.200 |    0.0127 |  0.020000 |  0.0120 |  0.28 | Vanillin                      
+|  37 | Vetiver EO                   |        0.6 | base  | sub-threshold |   0.050 |    0.0030 |  0.005000 |  0.0390 |  0.62 | Vetiver EO                    
+|  38 | Carrot Seed EO               |        0.6 | heart | sub-threshold |   0.150 |    0.0029 |  0.005000 |  0.0120 |  0.19 | Carrot Seed EO                
+|  39 | Dihydro Beta Ionone          |        0.5 | heart | sub-threshold |   0.020 |    0.0025 |  0.005000 |  0.0700 |  1.27 | Dihydro Beta Ionone           
+|  40 | Benzyl Salicylate            |        0.4 | base  | sub-threshold |   0.030 |    0.0043 |  0.010000 |  0.0800 |  1.23 | Benzyl Salicylate             
+|  41 | Geosmin                      |        0.1 | heart | sub-threshold |   0.100 |    0.0000 |  0.000006 |  0.0000 |  0.00 | Geosmin                       
+|  42 | Romandolide                  |        0.0 | base  | sub-threshold |   0.001 |    0.0002 |  0.004900 |  0.2650 |  3.47 | Romandolide                   
+|  43 | Nagarmotha Oil               |        0.0 | heart | sub-threshold |   0.005 |    0.0000 |  0.005000 |  0.0040 |  0.06 |                               
+|  44 | Zenolide                     |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.003000 |  0.0660 |  0.90 | Zenolide                      
+|  45 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0003 |  0.810000 |  0.1890 |  3.13 | Benzyl Benzoate               
+
+**Materials:** 45 total (9 top, 18 heart, 18 base)
+**Total vapor:** 47.02 ppm
+### Note Distribution
+
+**TOP:** 9 mats, 21.3% active, 18.0% OAV
+  - Linalool                     OAV=  4023.7 (very strong) VP=21.300Pa
+  - Bergamot FCF                 OAV=  1561.2 (very strong) VP=40.000Pa
+  - Spike Lavender EO            OAV=   539.1 (strong) VP=24.000Pa
+  - Beta-Pinene                  OAV=   496.1 (strong) VP=390.000Pa
+  - Linalyl Acetate              OAV=   461.0 (strong) VP=5.000Pa
+  - Lavender EO High Altitude    OAV=   285.4 (strong) VP=0.500Pa
+  ... and 3 more
+**HEART:** 18 mats, 45.8% active, 68.1% OAV
+  - Orivone                      OAV= 11808.6 (massive) VP=8.600Pa
+  - Hedione                      OAV=  7205.7 (very strong) VP=0.500Pa
+  - Lavender EO (Bontaux SAS)    OAV=  6784.0 (very strong) VP=22.000Pa
+  - Alpha Ionone                 OAV=  2027.7 (very strong) VP=1.500Pa
+  - Alpha Isomethyl Ionone       OAV=   546.0 (strong) VP=0.400Pa
+  - Beta Ionone                  OAV=   370.8 (strong) VP=1.200Pa
+  ... and 12 more
+**BASE:** 18 mats, 32.9% active, 13.9% OAV
+  - Javanol                      OAV=  3809.4 (very strong) VP=0.100Pa
+  - Iso E Super                  OAV=  1849.2 (very strong) VP=0.150Pa
+  - Alpha Irone                  OAV=    67.2 (moderate-strong) VP=0.300Pa
+  - Coumarin                     OAV=    61.4 (moderate-strong) VP=0.500Pa
+  - Cashmeran                    OAV=    33.6 (moderate) VP=0.400Pa
+  - Heliotropal                  OAV=    26.4 (moderate) VP=0.080Pa
+  ... and 12 more
+Traceback (most recent call last):
+  File "D:\chatbots\perfume-chem\scripts\format_pipeline_analysis.py", line 339, in <module>
+    main()
+  File "D:\chatbots\perfume-chem\scripts\format_pipeline_analysis.py", line 328, in main
+    for line in build_class_distribution(mats):
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\chatbots\perfume-chem\scripts\format_pipeline_analysis.py", line 139, in build_class_distribution
+    lines.append(f"  {f:>15s} {pct:5.1f}% {bar}  ({len(d['names'])} mats)")
+                     ^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__

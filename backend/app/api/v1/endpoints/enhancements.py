@@ -6,6 +6,7 @@ that were added to the engine layer.
 
 import sys
 from pathlib import Path
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
@@ -14,12 +15,17 @@ _project_root = str(Path(__file__).resolve().parent.parent.parent.parent.parent)
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
-from engine.confidence import ConfidenceScorer
-from engine.volatility import VolatilityCurveSimulator
-from engine.odor_ontology import OdorOntology
-from engine.gap_detector import GapDetector
 from engine.calibration import ScoreCalibrationPipeline
-from app.services.validation_pipeline import validate_formula, validate_search_query, attach_validation
+from engine.confidence import ConfidenceScorer
+from engine.gap_detector import GapDetector
+from engine.odor_ontology import OdorOntology
+from engine.volatility import VolatilityCurveSimulator
+
+from app.services.validation_pipeline import (
+    attach_validation,
+    validate_formula,
+    validate_search_query,
+)
 
 router = APIRouter()
 
@@ -173,6 +179,7 @@ async def train_calibration():
     if report.axes_calibrated > 0:
         import sqlite3
         from datetime import datetime, timezone
+
         from engine.optimizer.models import DB_PATH
 
         if DB_PATH.exists():

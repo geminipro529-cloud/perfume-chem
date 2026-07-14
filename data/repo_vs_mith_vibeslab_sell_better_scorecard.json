@@ -1,0 +1,293 @@
+{
+  "capture_date": "2026-05-25",
+  "scope": "Commercially framed formulas screened across repo; retail-product outperformance only",
+  "screened_surfaces": [
+    "formulas/",
+    "formulas/collections/",
+    "formulas/mass-market/",
+    "formulas/complete/",
+    "data/competitor_analysis_mith_vs_vibeslab.md",
+    "data/competitor_brief.md",
+    "data/thai_market_sales_2500_15000_thb.md",
+    "docs/thailand_mass_market_perfumes_2000_20000.md"
+  ],
+  "literature_basis": [
+    "Masstige / accessible luxury",
+    "Choice overload and focused hero-SKU logic",
+    "Sensory marketing and servicescape asymmetry",
+    "Premiumness and rarity/coherence signaling"
+  ],
+  "score_interpretation": {
+    "90_100": "strong sell-better candidate in matched Thai lane",
+    "80_89": "likely to outsell with competent launch execution",
+    "70_79": "competitive but needs cleaner lane selection or remediation",
+    "under_70": "not a first-wave attack candidate"
+  },
+  "candidates": [
+    {
+      "candidate": "Bangkok Compass",
+      "source_collection": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "family": "Woody",
+      "sub_family": "Aromatic Woody",
+      "variant": "baseline",
+      "geometric_total": 66.4,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Legend",
+          "Blue Wood",
+          "male woody / aromatic cluster"
+        ],
+        "Vibeslab": [
+          "Money",
+          "masculine retail shelf attention"
+        ]
+      },
+      "sell_better_vs_mith": 91,
+      "sell_better_vs_vibeslab": 88,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Tier-1 Thai men's family, strongest engine score, focused hero logic, easier retail conversion than competitor breadth or concept-niche framing"
+    },
+    {
+      "candidate": "Makrut Tropic",
+      "source_collection": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "family": "Fresh",
+      "sub_family": "Citrus",
+      "variant": "augmented",
+      "geometric_total": 64.1,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Thai Pomelo",
+          "Lemon Ice Tea"
+        ],
+        "Vibeslab": [
+          "Grand Hotel Ginza",
+          "Swim"
+        ]
+      },
+      "sell_better_vs_mith": 89,
+      "sell_better_vs_vibeslab": 86,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Thai cultural citrus anchor plus heat-fit freshness gives stronger immediate purchase logic than more abstract freshness products"
+    },
+    {
+      "candidate": "Mango Mademoiselle",
+      "source_collection": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "family": "Chypre",
+      "sub_family": "Fruity Chypre",
+      "variant": "augmented",
+      "geometric_total": 61.7,
+      "closest_competitor_targets": {
+        "MITH": [
+          "women's easy floral / gourmand cluster"
+        ],
+        "Vibeslab": [
+          "female retail whitespace"
+        ]
+      },
+      "sell_better_vs_mith": 81,
+      "sell_better_vs_vibeslab": 87,
+      "readiness": "one IFRA issue to resolve before launch",
+      "why": "Fruity chypre is a top Thai women's lane and Vibeslab leaves it structurally open"
+    },
+    {
+      "candidate": "Thai Oud",
+      "source_collection": "formulas/collections/Thai_True_Mass_Market_Eighteen_2026-05-02.md",
+      "family": "Oriental",
+      "sub_family": "Oud-Amber (Mid-Mass)",
+      "variant": "augmented",
+      "geometric_total": 61.5,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Heritage Oud",
+          "Royal Oud",
+          "Oud and Black Tea"
+        ],
+        "Vibeslab": [
+          "Oud Elevator"
+        ]
+      },
+      "sell_better_vs_mith": 82,
+      "sell_better_vs_vibeslab": 78,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Accessible Thai oud is a direct male-volume play and can outpull more premium or concept-heavy oud offerings"
+    },
+    {
+      "candidate": "Royal Tonka",
+      "source_collection": "formulas/collections/Thai_True_Mass_Market_Eighteen_2026-05-02.md",
+      "family": "Fougere",
+      "sub_family": "Sweet Fougere (Le Male / PHI Dupe)",
+      "variant": "augmented",
+      "geometric_total": 61.7,
+      "closest_competitor_targets": {
+        "MITH": [
+          "male evening / sweet-masculine whitespace"
+        ],
+        "Vibeslab": [
+          "lack of sweet-fougere retail hero"
+        ]
+      },
+      "sell_better_vs_mith": 80,
+      "sell_better_vs_vibeslab": 84,
+      "readiness": "one IFRA issue to resolve before launch",
+      "why": "Strong male-commercial family that neither competitor currently owns cleanly in retail"
+    },
+    {
+      "candidate": "Bai Toey",
+      "source_collection": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "family": "Fresh",
+      "sub_family": "Green",
+      "variant": "baseline",
+      "geometric_total": 63.2,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Thai concept cluster"
+        ],
+        "Vibeslab": [
+          "Afternoon Tea",
+          "Grand Hotel Ginza"
+        ]
+      },
+      "sell_better_vs_mith": 79,
+      "sell_better_vs_vibeslab": 83,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "High local identity density and freshness legibility, though green is a smaller volume lane than blue woody or fruity chypre"
+    },
+    {
+      "candidate": "Aromatic Barbershop Blue",
+      "source_collection": "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md",
+      "family": "Fougere",
+      "sub_family": "Aromatic Fougere",
+      "variant": "baseline",
+      "geometric_total": 60.4,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Legend cluster"
+        ],
+        "Vibeslab": [
+          "masculine premium whitespace"
+        ]
+      },
+      "sell_better_vs_mith": 82,
+      "sell_better_vs_vibeslab": 78,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "High-sell masculine family with more focus than MITH and broader appeal than Vibeslab's concept woods"
+    },
+    {
+      "candidate": "Cobalt Cedar Air",
+      "source_collection": "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md",
+      "family": "Woody",
+      "sub_family": "Aromatic Woody",
+      "variant": "baseline",
+      "geometric_total": 59.7,
+      "closest_competitor_targets": {
+        "MITH": [
+          "Legend",
+          "Blue Wood"
+        ],
+        "Vibeslab": [
+          "Money",
+          "New Car"
+        ]
+      },
+      "sell_better_vs_mith": 83,
+      "sell_better_vs_vibeslab": 79,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Upper-mass blue woody remains a larger retail lane than concept-forward masculine woods"
+    },
+    {
+      "candidate": "Dark Tonka Tobacco",
+      "source_collection": "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md",
+      "family": "Oriental",
+      "sub_family": "Tobacco Tonka Amber",
+      "variant": "baseline",
+      "geometric_total": 60.1,
+      "closest_competitor_targets": {
+        "MITH": [
+          "male amber / oud evening spend"
+        ],
+        "Vibeslab": [
+          "Burning Jazz Bar"
+        ]
+      },
+      "sell_better_vs_mith": 77,
+      "sell_better_vs_vibeslab": 81,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Broader wearable tobacco-amber lane than more conceptual smoky-bar storytelling"
+    },
+    {
+      "candidate": "Green Patchouli Cologne",
+      "source_collection": "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md",
+      "family": "Chypre",
+      "sub_family": "Citrus Patchouli Chypre",
+      "variant": "baseline",
+      "geometric_total": 60.2,
+      "closest_competitor_targets": {
+        "MITH": [
+          "upper tea / woody / oud crossover spend"
+        ],
+        "Vibeslab": [
+          "Aged Oakmoss",
+          "Pencil"
+        ]
+      },
+      "sell_better_vs_mith": 76,
+      "sell_better_vs_vibeslab": 74,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Strong prestige-office profile but narrower than the biggest-volume male/female Thai lanes"
+    },
+    {
+      "candidate": "Rose Cassis Chypre",
+      "source_collection": "formulas/collections/Premium_Mass_4000_THB_Universal_Eighteen_2026-05-02.md",
+      "family": "Chypre",
+      "sub_family": "Fruity Rose Chypre",
+      "variant": "baseline",
+      "geometric_total": 58.7,
+      "closest_competitor_targets": {
+        "MITH": [
+          "women's floral / gourmand cluster"
+        ],
+        "Vibeslab": [
+          "female retail whitespace"
+        ]
+      },
+      "sell_better_vs_mith": 78,
+      "sell_better_vs_vibeslab": 84,
+      "readiness": "clean scorer profile; no unknown materials or IFRA violations in scored output",
+      "why": "Thai female bestseller family with better mainstream pull than Vibeslab's current feminine concept mix"
+    },
+    {
+      "candidate": "Lemongrass Cool",
+      "source_collection": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "family": "Fougere",
+      "sub_family": "Aromatic Fougere",
+      "variant": "baseline",
+      "geometric_total": 60.9,
+      "closest_competitor_targets": {
+        "MITH": [
+          "male aromatic line"
+        ],
+        "Vibeslab": [
+          "lack of mass-readable aromatic fougere lane"
+        ]
+      },
+      "sell_better_vs_mith": 78,
+      "sell_better_vs_vibeslab": 80,
+      "readiness": "one IFRA issue to resolve before launch",
+      "why": "Strong local freshness story with solid male-commercial fit, but slightly less universal than blue woody"
+    }
+  ],
+  "top_vs_mith": [
+    "Bangkok Compass",
+    "Makrut Tropic",
+    "Cobalt Cedar Air",
+    "Thai Oud",
+    "Aromatic Barbershop Blue"
+  ],
+  "top_vs_vibeslab": [
+    "Bangkok Compass",
+    "Mango Mademoiselle",
+    "Makrut Tropic",
+    "Royal Tonka",
+    "Rose Cassis Chypre"
+  ]
+}

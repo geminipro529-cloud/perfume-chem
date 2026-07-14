@@ -318,7 +318,7 @@ AXIS_CANDIDATES: dict[str, list[tuple[str, float, str]]] = {
         ("birch tar rectified", 0.3, "smoky leather at trace, phenolic dimension"),
         ("styrax ftec", 1.5, "balsamic-leather smoke, smoke/amber dimension"),
         # ── Iris / Powder ──
-        ("heliotropin fleuressence", 1.5, "powdery iris support, fills iris dimension"),
+        ("heliotropal", 1.5, "powdery iris support, fills iris dimension"),
         ("ultralia", 0.5, "ghost iris at trace, powdery transparent dimension"),
         # ── Rose / Floral ──
         ("rose oxide", 0.8, "metallic damascone rose, geranium facet (10% dil)"),
@@ -1352,3 +1352,47 @@ def format_recommendations(
 
     lines.append("")
     return "\n".join(lines)
+
+
+def find_hidden_fixatives(vp_threshold: float = 1.0) -> list[dict]:
+    """Scan ALL ingredient_intelligence _PROFILES for materials whose VP classifies
+    them as fixatives (< vp_threshold Pa) but whose note/role places them in
+    top/heart categories — the classic blind spot when optimizing for longevity.
+
+    A 'hidden fixative' is any material whose vapor pressure is low enough to
+    persist well into the drydown but whose perfumery category (citrus, floral,
+    fruity, green, etc.) makes it easy to overlook when reaching for 'base'
+    or 'musk' materials.
+
+    Returns a list of dicts sorted by VP ascending (best fixatives first):
+        { "name": str, "vp": float, "note": str, "role": str,
+          "category": str, "families": list[str], "why": str }
+    """
+    from engine.ingredient_intelligence import _PROFILES
+    results: list[dict] = []
+    for mat_name, profile in _PROFILES.items():
+        vp = profile.get("vp", None)
+        if vp is None or vp > vp_threshold:
+            continue
+        note = profile.get("note", "unknown")
+        role = profile.get("role", "unknown")
+        char = profile.get("character", {})
+        # Determine dominant odor family from character keys
+        families = sorted(char, key=char.get, reverse=True)[:3] if char else []
+        why_parts = []
+        if note in ("top", "heart"):
+            why_parts.append(f"note={note} (not base)")
+        if vp < 0.01:
+            why_parts.append(f"VP={vp:.4f}Pa — below 0.01 threshold")
+        else:
+            why_parts.append(f"VP={vp:.4f}Pa")
+        results.append({
+            "name": mat_name,
+            "vp": vp,
+            "note": note,
+            "role": role,
+            "families": families,
+            "why": "; ".join(why_parts),
+        })
+    results.sort(key=lambda r: r["vp"])
+    return results

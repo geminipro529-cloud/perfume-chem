@@ -85,6 +85,33 @@ def test_oav_intelligence_surfaces_synergy_and_performance_warnings():
     assert result.performance_projection["warnings"]
 
 
+def test_oav_intelligence_maps_historical_archetypes_to_supported_family_targets():
+    cases = {
+        "citrus_classical.4711_reference": "citrus",
+        "citrus_aromatic.eau_sauvage_reference": "citrus",
+        "floral_bouquet.quelques_fleurs_reference": "floral_jasmine",
+        "floral_muguet.diorissimo_reference": "floral_jasmine",
+        "fougere_classical.fougere_royale_reference": "aromatic_fougere",
+        "chypre_classical.coty_reference": "chypre",
+        "chypre_leathery.bandit_reference": "chypre",
+        "oriental_classical.shalimar_reference": "amber_oriental",
+        "oriental_soft.jicky_reference": "amber_oriental",
+        "oriental_floral.lheure_bleue_reference": "amber_oriental",
+    }
+
+    for archetype, expected in cases.items():
+        result = _analyze(
+            {
+                "Bergamot FCF oil Sicilian": 600.0,
+                "Hedione": 500.0,
+                "Patchouli EO": 300.0,
+                "Iso E Super": 500.0,
+            },
+            family_archetype=archetype,
+        )
+        assert result.as_dict()["mapped_family"] == expected
+
+
 def test_gate_formula_exposes_oav_intelligence_gate():
     report = gate_formula(
         {

@@ -1,0 +1,188 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e6]:
+        - list [ref=e7]:
+          - listitem [ref=e8]: ช้อปครบ 499.- ส่งฟรี
+          - listitem [ref=e9]: ส่งเร็วทันใจ
+          - listitem [ref=e10]: สินค้าของแท้ 100%
+        - list [ref=e11]:
+          - listitem [ref=e12] [cursor=pointer]: โหลดแอป
+          - listitem [ref=e13] [cursor=pointer]: Change Language
+      - generic [ref=e15]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - link [ref=e19] [cursor=pointer]:
+              - /url: /
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - generic [ref=e22] [cursor=pointer]: ประเภท
+              - listitem [ref=e23]:
+                - link "แบรนด์" [ref=e24] [cursor=pointer]:
+                  - /url: https://www.konvy.com/brand.php
+              - listitem [ref=e25]:
+                - link "MID YEAR SALES" [ref=e26] [cursor=pointer]:
+                  - /url: https://www.konvy.com/promo/?sign=MidYearSale_20260516
+              - listitem [ref=e27]:
+                - link "แนะนำ" [ref=e28] [cursor=pointer]:
+                  - /url: https://www.konvy.com/?promo_sign=index
+              - listitem [ref=e29]:
+                - link "LUXE" [ref=e30] [cursor=pointer]:
+                  - /url: https://www.konvy.com/promo/?sign=Luxe
+              - listitem [ref=e31]:
+                - link "สินค้าใหม่" [ref=e32] [cursor=pointer]:
+                  - /url: https://www.konvy.com/promo/?sign=NewArrival_20241001
+              - listitem [ref=e33]:
+                - link "เคาน์เตอร์แบรนด์" [ref=e34] [cursor=pointer]:
+                  - /url: https://www.konvy.com/promo/?sign=CounterBrand_2022
+          - generic [ref=e35]:
+            - generic [ref=e37]:
+              - button "Submit" [ref=e38] [cursor=pointer]
+              - textbox "ค้นหาสินค้า ดีลความงาม" [ref=e39]
+            - link "บัญชีของฉัน" [ref=e42] [cursor=pointer]:
+              - /url: javascript:void(0);
+            - link "ตะกร้าของฉัน 0" [ref=e43] [cursor=pointer]:
+              - /url: javascript:;
+              - text: ตะกร้าของฉัน
+              - generic [ref=e44]: "0"
+        - generic [ref=e47]:
+          - link "สกินแคร์" [ref=e48] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=113-0-0-0&from=category
+          - link "เครื่องสำอาง" [ref=e49] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=114-0-0-0&from=category
+          - link "ผลิตภัณฑ์แม่และเด็ก" [ref=e50] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=2993-0-0-0&from=category
+          - link "อุปกรณ์เพื่อความงาม" [ref=e51] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=8009-0-0-0&from=category
+          - link "แฟชั่น & ไลฟ์สไตล์" [ref=e52] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=5996-0-0-0&from=category
+          - link "น้ำหอม" [ref=e53] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=115-0-0-0&from=category
+          - link "ผลิตภัณฑ์สุขภาพ" [ref=e54] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=119-0-0-0&from=category
+          - link "ของใช้ในบ้าน" [ref=e55] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=6894-0-0-0&from=category
+          - link "ผลิตภัณฑ์ดูแลร่างกาย" [ref=e56] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=116-0-0-0&from=category
+          - link "ของเล่น & เกม" [ref=e57] [cursor=pointer]:
+            - /url: https://www.konvy.com/mall/list.php?param=7730-0-0-0&from=category
+    - generic [ref=e58]:
+      - img [ref=e59]
+      - generic [ref=e60]:
+        - heading "อุ๊ปส์！" [level=2] [ref=e61]
+        - paragraph [ref=e62]: ดูเหมือนว่าเราจะไม่พบหน้าที่คุณกำลังค้นหา
+        - paragraph [ref=e63]: คุณอาจลองหาอีกครั้งจากหน้าโฮมเพจ
+        - link "กลับไปที่หน้าหลัก" [ref=e64] [cursor=pointer]:
+          - /url: https://www.konvy.com
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - heading "ช้อปครบ 499.- ส่งฟรี" [level=4]:
+          - generic [ref=e68]: ช้อปครบ 499.- ส่งฟรี
+        - heading "สินค้าของแท้ 100%" [level=4]:
+          - generic [ref=e70]: สินค้าของแท้ 100%
+        - heading "ส่งเร็วทันใจ" [level=4]:
+          - generic [ref=e72]: ส่งเร็วทันใจ
+        - heading "เปลี่ยน/คืนได้ภายใน 14 วัน" [level=4]:
+          - generic [ref=e74]: เปลี่ยน/คืนได้ภายใน 14 วัน
+        - heading "รีวิวมากมายจากผู้ใช้จริง" [level=4]:
+          - generic [ref=e76]: รีวิวมากมายจากผู้ใช้จริง
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: CUSTOMER SERVICE
+          - heading "วิธีการลงทะเบียน" [level=5] [ref=e81]:
+            - link "วิธีการลงทะเบียน" [ref=e82] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Registration
+          - heading "สั่งซื้ออย่างไร" [level=5] [ref=e83]:
+            - link "สั่งซื้ออย่างไร" [ref=e84] [cursor=pointer]:
+              - /url: https://www.konvy.com/promo/?sign=howtoorder
+          - heading "วิธีการชำระสินค้า" [level=5] [ref=e85]:
+            - link "วิธีการชำระสินค้า" [ref=e86] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=payment
+          - heading "การจัดส่ง" [level=5] [ref=e87]:
+            - link "การจัดส่ง" [ref=e88] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Shipping
+          - heading "คำถามที่พบบ่อย" [level=5] [ref=e89]:
+            - link "คำถามที่พบบ่อย" [ref=e90] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=FAQ
+          - heading "ติดต่อเรา" [level=5] [ref=e91]:
+            - link "ติดต่อเรา" [ref=e92] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=ContactUs
+          - heading "แลกเปลี่ยน/คืน" [level=5] [ref=e93]:
+            - link "แลกเปลี่ยน/คืน" [ref=e94] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Exchange/Return
+          - heading "Partnership Promotion" [level=5] [ref=e95]:
+            - link "Partnership Promotion" [ref=e96] [cursor=pointer]:
+              - /url: https://www.konvy.com/promo/?sign=KonvyPartnership
+        - generic [ref=e97]:
+          - paragraph [ref=e98]: KONVY
+          - heading "เกี่ยวกับ Konvy" [level=5] [ref=e99]:
+            - link "เกี่ยวกับ Konvy" [ref=e100] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=About Konvy
+          - heading "ร่วมงานกับเรา" [level=5] [ref=e101]:
+            - link "ร่วมงานกับเรา" [ref=e102] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Jobs
+          - heading "นโยบายความเป็นส่วนตัว" [level=5] [ref=e103]:
+            - link "นโยบายความเป็นส่วนตัว" [ref=e104] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Privacy Policy
+          - heading "ข้อตกลงและเงื่อนไข" [level=5] [ref=e105]:
+            - link "ข้อตกลงและเงื่อนไข" [ref=e106] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Terms and Conditions
+          - heading "รับประกันคุณภาพ" [level=5] [ref=e107]:
+            - link "รับประกันคุณภาพ" [ref=e108] [cursor=pointer]:
+              - /url: https://www.konvy.com/about/help.php?p=Quality Guarantee
+          - heading "ขายสินค้ากับ Konvy" [level=5] [ref=e109]:
+            - link "ขายสินค้ากับ Konvy" [ref=e110] [cursor=pointer]:
+              - /url: https://www.konvy.com/feedback/seller.php
+          - heading "Seller center (สำหรับผู้ขายปัจจุบัน)" [level=5] [ref=e111]:
+            - link "Seller center (สำหรับผู้ขายปัจจุบัน)" [ref=e112] [cursor=pointer]:
+              - /url: https://seller.konvy.com
+          - heading "การสั่งซื้อสินค้าจำนวนมาก" [level=5] [ref=e113]:
+            - link "การสั่งซื้อสินค้าจำนวนมาก" [ref=e114] [cursor=pointer]:
+              - /url: https://www.konvy.com/feedback/batch_purchase.php
+        - generic [ref=e115]:
+          - paragraph [ref=e116]: ฝ่ายบริการลูกค้า
+          - paragraph [ref=e117]: 02-105-4235
+          - paragraph [ref=e118]: support@konvy.com
+          - paragraph [ref=e119]:
+            - text: จันทร์ - อาทิตย์ (ยกเว้นวันหยุดนักขัตฤกษ์)
+            - text: 8.00AM - 6.00PM
+        - generic [ref=e120]:
+          - paragraph [ref=e121]: DOWNLOAD OUR APP
+          - generic:
+            - link [ref=e122] [cursor=pointer]:
+              - /url: https://apps.apple.com/th/app/konvy-%E0%B8%8A-%E0%B8%AD%E0%B8%9B%E0%B8%9B-%E0%B8%87%E0%B9%80%E0%B8%84%E0%B8%A3-%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B3%E0%B8%AD%E0%B8%B2%E0%B8%87/id1117795353?l=th
+            - link [ref=e124] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.konvy.konvy
+            - link [ref=e126] [cursor=pointer]:
+              - /url: https://appgallery.cloud.huawei.com/ag/n/app/C102090727?channelId=konvy&id=a6458d61d51b464d97242ae6593c2e44&s=2C1C7D150E21B3684136334423C6D6A4B1A9CEC5DCFF34E368FFE44F7E71FD30&detailType=0&v=
+        - generic [ref=e128]:
+          - paragraph [ref=e129]: ติดตามเราได้ที่
+          - generic [ref=e130]:
+            - link "Facebook" [ref=e131] [cursor=pointer]:
+              - /url: https://www.facebook.com/konvycom
+            - link "Line" [ref=e133] [cursor=pointer]:
+              - /url: http://line.me/ti/p/%40konvy.com
+            - link "Twitter" [ref=e135] [cursor=pointer]:
+              - /url: https://twitter.com/Konvy_Official
+            - link "Instagram" [ref=e137] [cursor=pointer]:
+              - /url: https://instagram.com/konvy_com/
+            - link "Tiktok" [ref=e139] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@konvy_official
+    - generic [ref=e145]:
+      - text: COPYRIGHT © 2012-2025 KONVY INTERNATIONAL CO., LTD. KONVY.COM ALL RIGHTS RESERVED.
+      - text: "COMPANY REGISTRATION / TAX ID: 0105-55412-9276"
+    - generic [ref=e146]:
+      - link [ref=e147] [cursor=pointer]:
+        - /url: javascript:;
+      - link [ref=e148] [cursor=pointer]:
+        - /url: javascript:;
+  - generic [ref=e151]:
+    - generic [ref=e152]:
+      - text: คอนวี่ ใช้คุกกี้เพื่อเพิ่มประสิทธิภาพในการให้บริการและส่งมอบประสบการณ์ที่ดีในการใช้งานเว็บไซต์ ตรวจสอบและทำความเข้าใจ
+      - link "นโยบายคุกกี้" [ref=e153] [cursor=pointer]:
+        - /url: /about/help.php?p=Cookie%20Policy
+      - text: และ
+      - link "นโยบายความเป็นส่วนตัว" [ref=e154] [cursor=pointer]:
+        - /url: /about/help.php?p=Privacy%20Policy
+      - text: หากคุณไม่ปฏิเสธและดำเนินการต่อโดยการคลิกปุ่ม
+    - generic [ref=e155] [cursor=pointer]: ยอมรับ

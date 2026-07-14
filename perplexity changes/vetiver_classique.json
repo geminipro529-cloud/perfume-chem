@@ -1,0 +1,28 @@
+{
+  "formula_name": "Vetiver Classique 30mL EdP",
+  "brief": "vetiver_woody",
+  "expected_concentrate_ul": 6000,
+  "batch_volume_ml": 30,
+  "temperature_K": 305.0,
+  "concentration_bracket": "EdP",
+  "raw_formula": [
+    {"name": "Bergamot FCF", "percent": 5.67, "dilution": 1.0},
+    {"name": "Petitgrain EO", "percent": 3.33, "dilution": 1.0},
+    {"name": "Black Pepper EO", "percent": 2.50, "dilution": 1.0},
+    {"name": "Linalool", "percent": 0.33, "dilution": 1.0},
+    {"name": "Geraniol", "percent": 6.67, "dilution": 1.0},
+    {"name": "Lavender EO", "percent": 0.33, "dilution": 1.0},
+    {"name": "Vetiver EO (India)", "percent": 28.33, "dilution": 1.0},
+    {"name": "Cedarwood EO", "percent": 10.83, "dilution": 1.0},
+    {"name": "Sandalore", "percent": 6.67, "dilution": 1.0},
+    {"name": "Iso E Super", "percent": 2.50, "dilution": 1.0},
+    {"name": "Vertofix", "percent": 8.33, "dilution": 1.0},
+    {"name": "Vetival", "percent": 3.33, "dilution": 1.0},
+    {"name": "Hedione HC", "percent": 1.67, "dilution": 1.0},
+    {"name": "Evernyl", "percent": 0.50, "dilution": 1.0},
+    {"name": "Coumarin", "percent": 3.33, "dilution": 0.2},
+    {"name": "Tobacco Absolute", "percent": 6.67, "dilution": 0.1},
+    {"name": "Habanolide", "percent": 7.50, "dilution": 1.0},
+    {"name": "Patchouli EO", "percent": 1.50, "dilution": 1.0}
+  ]
+}

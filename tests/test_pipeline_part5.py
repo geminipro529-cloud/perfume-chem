@@ -12,7 +12,9 @@ from scripts.verify_formula_workflow import parse_formula_markdown
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def _formula(ingredients, *, name="Trial Formula", body="aromatic fougere", dilutions=None):
+def _formula(
+    ingredients, *, name="Trial Formula", body="aromatic fougere", dilutions=None
+):
     total = sum(ingredients.values()) or 1.0
     return {
         "number": 1,
@@ -43,10 +45,10 @@ def _trial_fougere():
 class _LowConfidence:
     def score(self, _ingredients):
         return {
-            "data_confidence": 0.0,
-            "pairing_confidence": 0.0,
-            "prediction_confidence": 0.0,
-            "overall_confidence": 0.0,
+            "data_confidence": 30.0,
+            "pairing_confidence": 30.0,
+            "prediction_confidence": 30.0,
+            "overall_confidence": 30.0,
             "confidence_grade": "LOW",
             "per_material": {},
         }
@@ -137,7 +139,11 @@ def test_commercial_trial_upgrades_scaling_warning_to_blocker(monkeypatch):
 
     technical = gate_formula(
         _trial_fougere(),
-        ReleaseGateConfig(brief="aromatic_fougere", batch_scaling_targets_ml=(15.0,), audit_enabled=False),
+        ReleaseGateConfig(
+            brief="aromatic_fougere",
+            batch_scaling_targets_ml=(15.0,),
+            audit_enabled=False,
+        ),
     )
     trial = gate_formula(
         _trial_fougere(),
@@ -150,23 +156,33 @@ def test_commercial_trial_upgrades_scaling_warning_to_blocker(monkeypatch):
         ),
     )
 
-    assert {gate.gate: gate for gate in technical.gates}["oav_scaling_guard"].status == "WARN"
-    assert {gate.gate: gate for gate in trial.gates}["oav_scaling_guard"].status == "FAIL"
+    assert {gate.gate: gate for gate in technical.gates}[
+        "oav_scaling_guard"
+    ].status == "WARN"
+    assert {gate.gate: gate for gate in trial.gates}[
+        "oav_scaling_guard"
+    ].status == "FAIL"
 
 
 def test_unknown_material_fails_gate_and_legacy_scorer_penalizes():
     formula = _formula({"Hedione": 5900.0, "Mysteryonium X": 100.0}, body="generic")
-    report = gate_formula(formula, ReleaseGateConfig(brief="generic", audit_enabled=False))
+    report = gate_formula(
+        formula, ReleaseGateConfig(brief="generic", audit_enabled=False)
+    )
     gate_map = {gate.gate: gate for gate in report.gates}
 
-    scores = FormulaScorer().score(FormulaVector(ingredients={"Hedione": 98.0, "Mysteryonium X": 2.0}))
+    scores = FormulaScorer().score(
+        FormulaVector(ingredients={"Hedione": 98.0, "Mysteryonium X": 2.0})
+    )
 
     assert gate_map["material_spine_coverage"].status == "FAIL"
     assert scores["_unknown_materials"] == ["Mysteryonium X"]
     assert scores["total"] <= 5.0
 
 
-def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(tmp_path, capsys):
+def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
+    tmp_path, capsys
+):
     formula_path = tmp_path / "trial.md"
     formula_path.write_text(
         """# Trial Fougere
@@ -186,16 +202,18 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(tm
         encoding="utf-8",
     )
 
-    status = release_gate_main([
-        "--formula-file",
-        str(formula_path),
-        "--brief",
-        "aromatic_fougere",
-        "--commercial-trial",
-        "--scaling-target-ml",
-        "15",
-        "--no-audit",
-    ])
+    status = release_gate_main(
+        [
+            "--formula-file",
+            str(formula_path),
+            "--brief",
+            "aromatic_fougere",
+            "--commercial-trial",
+            "--scaling-target-ml",
+            "15",
+            "--no-audit",
+        ]
+    )
     captured = capsys.readouterr()
 
     assert status == 0
@@ -203,7 +221,12 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(tm
 
 
 def test_regenerated_thai_markdown_is_commercial_trial_safe():
-    path = PROJECT_ROOT / "formulas" / "collections" / "Thai_Aromatic_Fougere_3_Optimized.md"
+    path = (
+        PROJECT_ROOT
+        / "formulas"
+        / "collections"
+        / "Thai_Aromatic_Fougere_3_Optimized.md"
+    )
     text = path.read_text(encoding="utf-8")
     formulas = parse_formula_markdown(path)
 
@@ -217,7 +240,12 @@ def test_regenerated_thai_markdown_is_commercial_trial_safe():
 
 
 def test_regenerated_layton_markdown_is_transparent_trial_output():
-    path = PROJECT_ROOT / "formulas" / "collections" / "Layton_DNA_Mass_Market_3_Optimized.md"
+    path = (
+        PROJECT_ROOT
+        / "formulas"
+        / "collections"
+        / "Layton_DNA_Mass_Market_3_Optimized.md"
+    )
     text = path.read_text(encoding="utf-8")
     formulas = parse_formula_markdown(path)
 

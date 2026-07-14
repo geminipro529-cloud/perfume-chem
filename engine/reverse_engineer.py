@@ -523,7 +523,7 @@ _DESCRIPTOR_MAP: dict[str, list[tuple[str, float]]] = {
     "white musk":   [("Galaxolide 80%", 0.45), ("Ethylene Brassylate", 0.35)],
     "skin":         [("Iso E Super", 0.35), ("Galaxolide 80%", 0.30)],
     # Spicy
-    "cardamom":     [("Cardamom FTEC", 0.50)],
+    "cardamom":     [("Cardamom EO", 0.05)],
     "pepper":       [("Pink Pepper EO", 0.45)],
     "pink pepper":  [("Pink Pepper EO", 0.60)],
     "saffron":      [("Ethyl Safranate", 0.50)],

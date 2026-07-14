@@ -207,11 +207,6 @@ def analyze_perfumer_signature(
             # Older era: nitro musks more likely, modern captives less
             if mat in ("musk ketone", "musk xylene"):
                 combined *= 1.2
-        elif year > 2020:
-            # Recent: Lilial banned, newer captives
-            if mat == "butylphenyl methylpropional":
-                combined = 0.0
-
         priors.append(PerfumerPrior(
             material=mat,
             portfolio_frequency=p_freq,

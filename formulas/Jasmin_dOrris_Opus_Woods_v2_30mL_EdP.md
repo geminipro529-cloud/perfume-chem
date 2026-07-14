@@ -107,7 +107,7 @@ Jasmine and orris are **layers inside a dry-wood concert hall**, not floating ab
 | **ORRIS SUBTOTAL** | **595** | | | **20,071** | |
 | **ROSE TRACE (brightness only)** |||||||
 | 31 | PEA | neat | 100 | 200.0 | **17** | Rose petal freshness |
-| 32 | Geraniol | neat | 60 | 40.0 | **50** | Rose brightness |
+| 32 | Geraniol | 10% in DPG | 600 | 0.600 | **50** | Rose brightness |
 | 33 | Rose Oxide | **1% DPG** | 10 | 0.005 | **667** | Trace metallic — lychee-rose register (0.1 µL active) |
 | 34 | Alpha Damascone | 10% DPG | 4 | 0.009 | **1,481** | Trace rose-ketone (0.4 µL active) |
 | **ROSE SUBTOTAL** | **174** | | | **2,215** | |

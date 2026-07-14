@@ -111,6 +111,8 @@ def test_optimized_markdown_requires_embedded_gate_audit():
     assert "**Gate status:**" in markdown
     assert "**Commercial readiness:**" in markdown
     assert "### Gate Time-Series OAV Leaders" in markdown
+    assert result.interventions is not None
+    assert "blocking_issues" in result.interventions
 
 
 def test_gate_aware_optimizer_records_chemistry_specific_block_actions():

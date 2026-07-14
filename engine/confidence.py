@@ -12,6 +12,7 @@ Inspired by pharma CADD applicability-domain analysis.
 
 import math
 import sqlite3
+from engine.calibration.store import count_outcome_records
 from engine.optimizer.models import (
     _lookup_material, analyze_formula_rule_coverage, DB_PATH,
 )
@@ -33,17 +34,23 @@ class ConfidenceScorer:
     def _count_outcomes(self) -> int:
         if self._outcome_count is not None:
             return self._outcome_count
+        sqlite_count = 0
         if not DB_PATH.exists():
-            self._outcome_count = 0
-            return 0
+            sqlite_count = 0
+        else:
+            try:
+                conn = sqlite3.connect(str(DB_PATH))
+                sqlite_count = int(conn.execute(
+                    "SELECT COUNT(*) FROM formulation_outcomes"
+                ).fetchone()[0])
+                conn.close()
+            except Exception:
+                sqlite_count = 0
         try:
-            conn = sqlite3.connect(str(DB_PATH))
-            self._outcome_count = conn.execute(
-                "SELECT COUNT(*) FROM formulation_outcomes"
-            ).fetchone()[0]
-            conn.close()
+            calibration_count = count_outcome_records()
         except Exception:
-            self._outcome_count = 0
+            calibration_count = 0
+        self._outcome_count = sqlite_count + calibration_count
         return self._outcome_count
 
     # ── Per-material data confidence ──
@@ -66,14 +73,30 @@ class ConfidenceScorer:
         return round(sum(scores) / len(scores), 1)
 
     def pairing_confidence(self, ingredients: dict[str, float]) -> float:
-        """What fraction of ingredient pairs are covered by known rules? 0-100."""
+        """What fraction of ingredient pairs are covered by known rules? 0-100.
+        
+        Now weighted by effect magnitude — a pair with magnitude 3.0 synergy
+        contributes more than a magnitude 1.0 pairing.
+        """
         names = list(ingredients)
         if len(names) < 2:
             return 0.0
         coverage = analyze_formula_rule_coverage(names)
         total_pairs = int(coverage["total_pairs"])
         covered_pairs = len(coverage["covered_pairs"])
-        return round(covered_pairs / total_pairs * 100, 1) if total_pairs else 0.0
+        total_mag = float(coverage.get("total_axis_magnitude", 0.0))
+
+        # Base coverage ratio (classic)
+        base_score = (covered_pairs / total_pairs * 100) if total_pairs else 0.0
+
+        # Effect bonus: magnitude per pair
+        # If every pair had max synergy (3.0), total_mag = total_pairs * 3.0
+        # Scale: 0-20 bonus points
+        max_mag = max(total_pairs * 3.0, 1.0)
+        mag_ratio = total_mag / max_mag
+        mag_bonus = min(20.0, mag_ratio * 25.0)
+
+        return round(min(100.0, base_score + mag_bonus), 1)
 
     def prediction_confidence(self, ingredients: dict[str, float]) -> float:
         """How many observed outcomes exist? More data = higher confidence.

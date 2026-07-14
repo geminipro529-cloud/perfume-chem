@@ -1,0 +1,28 @@
+{
+  "formula_name": "Vetiver Classique V3 — Performance + Sillage + Hedonic",
+  "brief": "vetiver_woody",
+  "expected_concentrate_ul": 6000,
+  "batch_volume_ml": 30,
+  "temperature_K": 305.0,
+  "concentration_bracket": "EdP",
+  "raw_formula": [
+    {"name": "Bergamot FCF", "percent": 5.0, "dilution": 1.0},
+    {"name": "Petitgrain EO", "percent": 2.0, "dilution": 1.0},
+    {"name": "Linalool", "percent": 1.5, "dilution": 1.0},
+    {"name": "Geraniol", "percent": 10.0, "dilution": 1.0},
+    {"name": "Lavender EO", "percent": 0.5, "dilution": 1.0},
+    {"name": "Vetiver EO (India)", "percent": 27.0, "dilution": 1.0},
+    {"name": "Cedarwood EO", "percent": 6.0, "dilution": 1.0},
+    {"name": "Sandalore", "percent": 5.0, "dilution": 1.0},
+    {"name": "Iso E Super", "percent": 8.0, "dilution": 1.0},
+    {"name": "Vertofix", "percent": 4.0, "dilution": 1.0},
+    {"name": "Vetival", "percent": 3.0, "dilution": 1.0},
+    {"name": "Ambrox Super", "percent": 4.0, "dilution": 1.0},
+    {"name": "Evernyl", "percent": 0.5, "dilution": 1.0},
+    {"name": "Coumarin", "percent": 1.5, "dilution": 1.0},
+    {"name": "Tobacco Absolute", "percent": 12.0, "dilution": 0.1},
+    {"name": "Habanolide", "percent": 5.0, "dilution": 1.0},
+    {"name": "Patchouli EO", "percent": 2.0, "dilution": 1.0},
+    {"name": "Dihydromyrcenol", "percent": 1.0, "dilution": 1.0}
+  ]
+}

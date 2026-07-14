@@ -13,6 +13,8 @@ from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.receptor.binding import ligands_from_family, or_occupancy
+from engine.biology.genetics import apply_polymorphism  # OR genotype modulation
+from engine.delivery.spray import droplet_distribution  # spray droplet physics
 
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
@@ -62,7 +64,9 @@ class SimulationFrame:
         }
 
 
-def _loss_rate_per_s(vp_pa: float | None, gamma_value: float, mw_g_mol: float | None) -> float:
+def _loss_rate_per_s(
+    vp_pa: float | None, gamma_value: float, mw_g_mol: float | None
+) -> float:
     """Heuristic finite-film loss rate.
 
     The rate scales with headspace escaping tendency (gamma * VP) and inverse
@@ -107,9 +111,10 @@ def simulate_formula(
     temperature_K: float = 305.0,
     context: str = "skin",
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS,
+    initial_state: FormulaState | None = None,
 ) -> list[SimulationFrame]:
     """Return time-window FormulaState frames for release gates and reports."""
-    initial = build_formula_state(
+    initial = initial_state or build_formula_state(
         ingredients_ul,
         dilutions,
         batch_volume_ml=batch_volume_ml,
@@ -122,13 +127,7 @@ def simulate_formula(
             frame_state = initial
         else:
             remaining = _remaining_raw_ul(initial, seconds)
-            frame_state = build_formula_state(
-                remaining,
-                dilutions,
-                batch_volume_ml=batch_volume_ml,
-                temperature_K=temperature_K,
-                context=context,
-            )
+            frame_state = FormulaState.from_base(initial, new_raw_ul=remaining)
         frames.append(
             SimulationFrame(
                 label=label,

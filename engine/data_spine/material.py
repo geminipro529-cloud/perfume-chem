@@ -158,6 +158,8 @@ class Material:
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Material":
         data = dict(data)
+        if not data.get("canonical_name") and data.get("name"):
+            data["canonical_name"] = data["name"]
         if data.get("antoine") is None:
             data["antoine"] = {}
         if data.get("hsp") is None:

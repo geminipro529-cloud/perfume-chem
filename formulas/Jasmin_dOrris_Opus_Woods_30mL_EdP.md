@@ -96,7 +96,7 @@ You don't build Amouage by stacking florals on musks. You build it by creating a
 | **ORRIS SUBTOTAL** | **655** | | | **22,928** | **Orris concrete — 20% of total** |
 | **ROSE TRACE (brightness only, not a register)** |||||||
 | 30 | PEA | neat | 100 | 200.0 | **17** | Rose petal freshness |
-| 31 | Geraniol | neat | 60 | 40.0 | **50** | Rose brightness |
+| 31 | Geraniol | 10% in DPG | 600 | 0.600 | **50** | Rose brightness |
 | 32 | Rose Oxide | **1% DPG** | 20 | 0.005 | **1,333** | Metallic rose — integrates with ionone metallic coolness |
 | 33 | Alpha Damascone | 10% DPG | 8 | 0.009 | **2,963** | Rose-ketone — plum-apple brightness (0.8 µL active) |
 | **ROSE SUBTOTAL** | **188** | | | **4,363** | **Accent — 4% of total** |

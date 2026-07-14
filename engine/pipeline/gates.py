@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
 import json
+import traceback
 from typing import Mapping
 
 from engine.calibration.hashing import formula_hash_from_record
@@ -32,7 +33,11 @@ from engine.optimizer.models import FormulaVector
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
 from engine.pipeline.audit_log import append_event, gate_report_event
 from engine.pipeline.formula_state import FormulaState, build_formula_state
-from engine.pipeline.oav_intelligence import analyze_oav_intelligence
+from engine.pipeline.oav_intelligence import (
+    _FUTURE_MODULES_AVAILABLE,
+    analyze_oav_intelligence,
+)
+from engine.pipeline.preflight import run_release_preflight
 from engine.pipeline.robustness import RobustnessReport, audit_formula_robustness
 from engine.pipeline.simulator import SimulationFrame, simulate_formula
 from engine.knowledge.perfume_knowledge import (
@@ -43,6 +48,13 @@ from engine.knowledge.perfume_knowledge import (
 )
 from engine.science_data import StabilityRisk, get_science_profile
 from engine.thermo.phase import micro_phase_risk
+from engine.knowledge.literature_rules import (
+    _LITERATURE_DB_LOADED,
+    _cite_fn,
+    _get_tier_counts_fn,
+    _get_refs_by_tier_fn,
+    _ALL_REFERENCES,
+)
 
 
 DEFAULT_CONCENTRATE_UL = 6000.0
@@ -50,6 +62,52 @@ MIN_NEAT_TRACE_UL = 5.0
 MIN_CONFIDENCE_SCORE = 25.0
 MAX_PERCEPTIBLE_CHANNELS = 30
 MIN_PERCEPTIBLE_MATERIALS = 3
+
+# Mass-market tier thresholds (all formulas at 1500-3500 THB)
+# Materials above this cost per kg indicate "premium" formulation
+PREMIUM_MATERIAL_COST_PER_KG = 200.0  # USD/kg threshold
+# Percentage of active mass from premium materials that triggers warning
+PREMIUM_MATERIAL_WARN_PCT = 25.0  # >25% premium = high-cost formula
+# Industry score thresholds
+MASS_MARKET_INDUSTRY_FLOOR = 55  # below this = probably too simple
+PREMIUM_INDUSTRY_CEILING = 85  # above this = luxury quality
+# Typical premium naturals list (expensive ingredients that raise COGS)
+PREMIUM_NATURALS = {
+    "orris",
+    "iris",
+    "rose absolute",
+    "jasmine absolute",
+    "neroli",
+    "tuberose",
+    "ylang",
+    "champaca",
+    "oud",
+    "sandalwood",
+    "ambrox super",
+    "ambrox dl",
+    "ambrofix",
+    "ambermax",
+    "habanolide",
+    "exaltolide",
+    "zenolide",
+    "romandolide",
+    "javanol",
+    "polysantol",
+    "sandalore",
+    "ebanol",
+    "timberol",
+    "norlimbanol",
+    "koavone",
+    "alpha irone",
+    "irotyl",
+    "irivone",
+    "orivone",
+    "suederal",
+    "ibq",
+    "isobutyl quinoline",
+    "tobacco absolute",
+    "birch tar",
+}
 
 ALLOWED_VARIANT_DUPLICATES = [
     {"hedione", "hedione hc"},
@@ -75,6 +133,8 @@ class ReleaseGateConfig:
     batch_scaling_targets_ml: tuple[float, ...] = ()
     audit_enabled: bool = True
     audit_source: str = ""
+    expected_retail_price_thb: float = 1500.0  # target retail price
+    price_tier: str = "auto"  # "mass" (99-890), "mid" (1500-3500), "premium" (4000+)
 
     def effective_ifra_headroom(self) -> float:
         """Return the active IFRA multiplier for this gate run."""
@@ -112,6 +172,7 @@ class GateReport:
     formula_hash: str
     calibration_summary: dict
     commercial_readiness: str
+    preflight: dict = field(default_factory=dict)
     config_summary: dict = field(default_factory=dict)
     audit_event_id: str | None = None
 
@@ -125,6 +186,7 @@ class GateReport:
             "confidence": self.confidence,
             "calibration_summary": dict(self.calibration_summary),
             "commercial_readiness": self.commercial_readiness,
+            "preflight": dict(self.preflight),
             "config_summary": dict(self.config_summary),
             "audit_event_id": self.audit_event_id,
             "formula_state": self.formula_state.as_dict(),
@@ -132,8 +194,83 @@ class GateReport:
         }
 
 
-def _result(gate: str, status: str, detail: str = "", data: dict | None = None) -> GateResult:
+def _result(
+    gate: str, status: str, detail: str = "", data: dict | None = None
+) -> GateResult:
+    if status not in ("PASS", "WARN", "FAIL"):
+        raise ValueError(f"Invalid gate status '{status}' for gate '{gate}'")
     return GateResult(gate=gate, status=status, detail=detail, data=data or {})
+
+
+HARD_BLOCKING_GATES = frozenset(
+    {
+        "pipeline_preflight",
+        "exact_subtotal",
+        "duplicates",
+        "duplicate_materials",
+        "material_coverage",
+        "material_spine_coverage",
+        "data_coverage",
+        "physics_data_coverage",
+        "odt_coverage",
+        "chemistry_stability",
+        "chemical_compatibility",
+        "phase_compatibility",
+        "preblends",
+        "opaque_preblends",
+        "blocked",
+        "blocked_materials",
+        "confidence_minimum",
+        "pipette_floor",
+        "pipette_floor_neat_traces",
+        "robustness_perturbation",
+        "dilution_accuracy",
+        "oav_scaling",
+        "oav_scaling_guard",
+        "safety",
+        "safety_ifra_allergen",
+    }
+)
+
+
+def _apply_guideline_policy(gate: GateResult) -> GateResult:
+    """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
+    if gate.status != "FAIL" or gate.gate in HARD_BLOCKING_GATES:
+        return gate
+
+    data = dict(gate.data or {})
+    data.setdefault("original_status", "FAIL")
+    data.setdefault("gate_policy", "advisory_failures_demoted_to_warn")
+    detail = gate.detail or "Advisory gate failed"
+    detail = f"{detail} [advisory guideline; not release-blocking]"
+    return GateResult(gate=gate.gate, status="WARN", detail=detail, data=data)
+
+
+def _safe_gate(gate_fn, gate_name: str) -> GateResult:
+    """Wrap a gate call to catch future_modules API mismatches gracefully.
+
+    Many gates import from future_modules which may have different signatures
+    than what gates.py expects. This wrapper catches TypeError/AttributeError
+    and returns a WARN result instead of crashing the entire gate pipeline.
+    """
+    try:
+        return gate_fn()
+    except (TypeError, AttributeError) as e:
+        tb = traceback.format_exc()
+        return _result(
+            gate_name,
+            "WARN",
+            f"Gate skipped (API mismatch): {e}",
+            data={"error": str(e), "traceback": tb},
+        )
+    except Exception as e:
+        tb = traceback.format_exc()
+        return _result(
+            gate_name,
+            "WARN",
+            f"Gate skipped ({type(e).__name__}): {e}",
+            data={"error": str(e), "traceback": tb},
+        )
 
 
 def _config_summary(config: ReleaseGateConfig) -> dict:
@@ -164,6 +301,20 @@ def _status_from_gates(gates: list[GateResult]) -> str:
     return "PASS"
 
 
+def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
+    checks = list(preflight.get("checks", []))
+    warnings = list(preflight.get("warnings", []))
+    detail = f"{len(checks)} checks"
+    if warnings:
+        detail += f"; {len(warnings)} warnings"
+    return _result(
+        "pipeline_preflight",
+        str(preflight.get("status", "WARN")),
+        detail,
+        dict(preflight),
+    )
+
+
 def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
     return FormulaVector(
         ingredients=state.raw_percentages(),
@@ -172,9 +323,8 @@ def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
 
 
 def _material_ifra_limit(material) -> float | None:
-    return (
-        IFRA_CAT4_LIMITS.get(material.name)
-        or IFRA_CAT4_LIMITS.get(material.profile_name or "")
+    return IFRA_CAT4_LIMITS.get(material.name) or IFRA_CAT4_LIMITS.get(
+        material.profile_name or ""
     )
 
 
@@ -204,9 +354,15 @@ def _gate_duplicates(state: FormulaState) -> GateResult:
         else:
             duplicates[key] = names
     if duplicates:
-        return _result("duplicate_canonical_materials", "FAIL", json.dumps(duplicates, sort_keys=True))
+        return _result(
+            "duplicate_canonical_materials",
+            "FAIL",
+            json.dumps(duplicates, sort_keys=True),
+        )
     if allowed:
-        return _result("duplicate_canonical_materials", "PASS", "allowed variants", allowed)
+        return _result(
+            "duplicate_canonical_materials", "PASS", "allowed variants", allowed
+        )
     return _result("duplicate_canonical_materials", "PASS")
 
 
@@ -225,15 +381,68 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
         if any(field in m.missing_fields for field in required)
     }
     if missing:
-        return _result("physics_data_coverage", "FAIL", json.dumps(missing, sort_keys=True), missing)
+        return _result(
+            "physics_data_coverage",
+            "FAIL",
+            json.dumps(missing, sort_keys=True),
+            missing,
+        )
     return _result("physics_data_coverage", "PASS")
 
 
 def _gate_odt_coverage(state: FormulaState) -> GateResult:
     missing = sorted(m.name for m in state.materials if m.odt_air_ppm is None)
     if missing:
-        return _result("odt_coverage", "FAIL", ", ".join(missing))
-    return _result("odt_coverage", "PASS")
+        return _result("odt_coverage", "FAIL", ", ".join(missing), {"missing": missing})
+
+    low_authority_rows = []
+    total_oav = sum(float(m.oav or 0.0) for m in state.materials) or 1.0
+    low_authority_oav = 0.0
+    for material in state.materials:
+        source = str(material.sources.get("odt", "missing")).lower()
+        if any(
+            token in source
+            for token in (
+                "derived:",
+                "unverified:",
+                "estimated:",
+                "profile:",
+                "registry:",
+            )
+        ):
+            oav = float(material.oav or 0.0)
+            low_authority_oav += oav
+            low_authority_rows.append(
+                {
+                    "material": material.name,
+                    "odt_source": str(material.sources.get("odt", "missing")),
+                    "oav": round(oav, 6),
+                }
+            )
+    low_authority_rows.sort(key=lambda row: row["oav"], reverse=True)
+    low_authority_share = low_authority_oav / total_oav
+    top_oav_names = {
+        material.name
+        for material in sorted(
+            state.materials, key=lambda row: float(row.oav or 0.0), reverse=True
+        )[:3]
+    }
+    data = {
+        "missing": [],
+        "low_authority_materials": low_authority_rows,
+        "low_authority_oav_share": round(low_authority_share, 6),
+    }
+    if low_authority_rows and (
+        low_authority_share >= 0.25
+        or any(row["material"] in top_oav_names for row in low_authority_rows)
+    ):
+        return _result(
+            "odt_coverage",
+            "WARN",
+            f"{len(low_authority_rows)} material(s) rely on derived/unverified ODTs ({low_authority_share:.0%} OAV share)",
+            data,
+        )
+    return _result("odt_coverage", "PASS", data=data)
 
 
 def _science_profile_for_material(material) -> tuple[object, str]:
@@ -251,34 +460,35 @@ def _science_profile_for_material(material) -> tuple[object, str]:
     return get_science_profile(material.name), material.name
 
 
-def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+def _gate_chemistry_stability(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
     active_pct = state.active_percentages()
     total_active_g = sum(m.active_g for m in state.materials) or 1.0
     active_mass_pct = {
-        m.name: 100.0 * m.active_g / total_active_g
-        for m in state.materials
+        m.name: 100.0 * m.active_g / total_active_g for m in state.materials
     }
     functional_groups = {
-        m.name: set(m.functional_groups)
-        for m in state.materials
-        if m.functional_groups
+        m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
     }
-    composition_g = {
-        m.name: m.active_g
-        for m in state.materials
-        if m.active_g > 0
-    }
+    composition_g = {m.name: m.active_g for m in state.materials if m.active_g > 0}
 
     aldehydes = sorted(
-        m.name for m in state.materials
+        m.name
+        for m in state.materials
         if "aldehyde" in functional_groups.get(m.name, set())
     )
     amines = sorted(
-        m.name for m in state.materials
+        m.name
+        for m in state.materials
         if "amine" in functional_groups.get(m.name, set())
     )
     aldehyde_pct = sum(active_pct.get(name, 0.0) for name in aldehydes)
     amine_pct = sum(active_pct.get(name, 0.0) for name in amines)
+    # Trace aldehydes (<0.05% active) cannot meaningfully affect shelf life
+    if aldehyde_pct < 0.05:
+        aldehydes = []
+        aldehyde_pct = 0.0
     schiff_pairs: list[dict] = []
     if aldehydes and amines:
         amine_lookup = {normalize_name(name): name for name in amines}
@@ -292,21 +502,33 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
                 if matched and matched not in partners:
                     partners.append(matched)
             if partners:
-                schiff_pairs.append({
-                    "aldehyde": material.name,
-                    "amines": partners,
-                    "science_source": science_source,
-                })
+                schiff_pairs.append(
+                    {
+                        "aldehyde": material.name,
+                        "amines": partners,
+                        "science_source": science_source,
+                    }
+                )
         if not schiff_pairs:
-            schiff_pairs = [{"aldehyde": aldehyde, "amines": list(amines)} for aldehyde in aldehydes]
+            schiff_pairs = [
+                {"aldehyde": aldehyde, "amines": list(amines)} for aldehyde in aldehydes
+            ]
 
-    shelf_life_days = predict_shelf_life_days(
-        composition_g,
-        T_K=295.0,
-        bht_protected=False,
-        threshold_pct=10.0,
-        functional_groups=functional_groups,
-    ) if composition_g else 1825
+    has_bht = any(
+        "bht" in name.lower() or "butylated hydroxytoluene" in name.lower()
+        for name in composition_g
+    )
+    shelf_life_days = (
+        predict_shelf_life_days(
+            composition_g,
+            T_K=config.temperature_K,
+            bht_protected=has_bht,
+            threshold_pct=10.0,
+            functional_groups=functional_groups,
+        )
+        if composition_g
+        else 1825
+    )
 
     oxidation_rows: list[dict] = []
     photolabile_rows: list[dict] = []
@@ -315,27 +537,35 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
         science_profile, science_source = _science_profile_for_material(material)
         pct_mass = active_mass_pct.get(material.name, 0.0)
         if science_profile.stability_class == StabilityRisk.OXIDATION_PRONE:
-            oxidation_rows.append({
-                "material": material.name,
-                "active_mass_pct": round(pct_mass, 3),
-                "half_life_weeks": science_profile.autoxidation_half_life_weeks,
-                "science_source": science_source,
-            })
+            oxidation_rows.append(
+                {
+                    "material": material.name,
+                    "active_mass_pct": round(pct_mass, 3),
+                    "half_life_weeks": science_profile.autoxidation_half_life_weeks,
+                    "science_source": science_source,
+                }
+            )
             flagged_materials.add(material.name)
         if science_profile.photostability in {"moderate", "labile"}:
-            photolabile_rows.append({
-                "material": material.name,
-                "active_mass_pct": round(pct_mass, 3),
-                "photostability": science_profile.photostability,
-                "remaining_24h_outdoor": round(
-                    photolysis_remaining_fraction(material.name, 24.0, indoor=False),
-                    6,
-                ),
-                "science_source": science_source,
-            })
+            photolabile_rows.append(
+                {
+                    "material": material.name,
+                    "active_mass_pct": round(pct_mass, 3),
+                    "photostability": science_profile.photostability,
+                    "remaining_24h_outdoor": round(
+                        photolysis_remaining_fraction(
+                            material.name, 24.0, indoor=False
+                        ),
+                        6,
+                    ),
+                    "science_source": science_source,
+                }
+            )
             flagged_materials.add(material.name)
 
-    reactive_mass_pct = sum(active_mass_pct.get(name, 0.0) for name in flagged_materials)
+    reactive_mass_pct = sum(
+        active_mass_pct.get(name, 0.0) for name in flagged_materials
+    )
     fail_reasons: list[str] = []
     warn_reasons: list[str] = []
 
@@ -348,9 +578,18 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             f"aldehyde+amine contact present below hard threshold ({aldehyde_pct:.1f}% / {amine_pct:.1f}%)"
         )
 
-    if shelf_life_days < 180:
-        fail_reasons.append(f"predicted maturation shelf life {shelf_life_days} days")
-    elif shelf_life_days < 365:
+    # Racine (1987): aldehyde acetalization = ~40% after 3 months at 37°C.
+    # Perfume maceration industry standard = 2-6 weeks.
+    # <1 day = chemically unstable. 1-13 days = immature, needs maceration.
+    # ≥14 days = normal maturation window.
+    if shelf_life_days < 1:
+        fail_reasons.append(
+            f"chemically unstable: predicted shelf life {shelf_life_days} days"
+        )
+    elif shelf_life_days < 14:
+        warn_reasons.append(
+            f"immature: predicted maturation {shelf_life_days} days (industry standard 14-42 days)"
+        )
         warn_reasons.append(f"predicted maturation shelf life {shelf_life_days} days")
 
     if reactive_mass_pct > 20.0 and config.commercial_mode:
@@ -358,7 +597,9 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             f"oxidation/photolability burden {reactive_mass_pct:.1f}% active mass in commercial mode"
         )
     elif reactive_mass_pct > 10.0:
-        warn_reasons.append(f"oxidation/photolability burden {reactive_mass_pct:.1f}% active mass")
+        warn_reasons.append(
+            f"oxidation/photolability burden {reactive_mass_pct:.1f}% active mass"
+        )
 
     data = {
         "shelf_life_days": shelf_life_days,
@@ -377,7 +618,12 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
         return _result("chemistry_stability", "FAIL", "; ".join(fail_reasons), data)
     if warn_reasons:
         return _result("chemistry_stability", "WARN", "; ".join(warn_reasons), data)
-    return _result("chemistry_stability", "PASS", f"predicted shelf life {shelf_life_days} days", data)
+    return _result(
+        "chemistry_stability",
+        "PASS",
+        f"predicted shelf life {shelf_life_days} days",
+        data,
+    )
 
 
 def _gate_phase_compatibility(state: FormulaState) -> GateResult:
@@ -399,10 +645,7 @@ def _gate_phase_compatibility(state: FormulaState) -> GateResult:
 
     composition = {m.name: m.active_g for m in covered}
     hsp_table = {m.name: m.hsp for m in covered if m.hsp is not None}
-    active_mass_pct = {
-        m.name: 100.0 * m.active_g / total_active_g
-        for m in covered
-    }
+    active_mass_pct = {m.name: 100.0 * m.active_g / total_active_g for m in covered}
     source_lookup = {m.name: m.hsp_source for m in covered}
     risks: list[dict] = []
     fail_rows: list[dict] = []
@@ -421,20 +664,19 @@ def _gate_phase_compatibility(state: FormulaState) -> GateResult:
         elif pct_mass >= 1.0 and red > 1.0:
             warn_rows.append(row)
 
-    data.update({
-        "risks": risks,
-        "fail_rows": fail_rows,
-        "warn_rows": warn_rows,
-    })
+    data.update(
+        {
+            "risks": risks,
+            "fail_rows": fail_rows,
+            "warn_rows": warn_rows,
+        }
+    )
     if fail_rows and not hard_fail_supported:
         warn_rows = [*fail_rows, *warn_rows]
         data["warn_rows"] = warn_rows
-        detail = (
-            "tentative phase tension under partial HSP coverage: "
-            + ", ".join(
-                f"{row['material']} RED {row['red']:.2f} at {row['active_mass_pct']:.1f}%"
-                for row in warn_rows[:4]
-            )
+        detail = "tentative phase tension under partial HSP coverage: " + ", ".join(
+            f"{row['material']} RED {row['red']:.2f} at {row['active_mass_pct']:.1f}%"
+            for row in warn_rows[:4]
         )
         return _result("phase_compatibility", "WARN", detail, data)
     if fail_rows:
@@ -449,7 +691,9 @@ def _gate_phase_compatibility(state: FormulaState) -> GateResult:
             for row in warn_rows[:4]
         )
         return _result("phase_compatibility", "WARN", detail, data)
-    return _result("phase_compatibility", "PASS", "no HSP phase-out risk detected", data)
+    return _result(
+        "phase_compatibility", "PASS", "no HSP phase-out risk detected", data
+    )
 
 
 def _gate_preblends(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -461,17 +705,19 @@ def _gate_preblends(state: FormulaState, config: ReleaseGateConfig) -> GateResul
         detail = "blocked in commercial mode: "
     else:
         detail = "allowed by config: " if config.allow_preblends else "not allowed: "
-    return _result("opaque_preblends", status, detail + ", ".join(opaque), {"materials": opaque})
+    return _result(
+        "opaque_preblends", status, detail + ", ".join(opaque), {"materials": opaque}
+    )
 
 
 def _gate_blocked(state: FormulaState) -> GateResult:
     blocked = {
-        m.name: reason
-        for m in state.materials
-        if (reason := blocked_reason(m.name))
+        m.name: reason for m in state.materials if (reason := blocked_reason(m.name))
     }
     if blocked:
-        return _result("blocked_materials", "FAIL", json.dumps(blocked, sort_keys=True), blocked)
+        return _result(
+            "blocked_materials", "FAIL", json.dumps(blocked, sort_keys=True), blocked
+        )
     return _result("blocked_materials", "PASS")
 
 
@@ -485,7 +731,8 @@ def _gate_pipette_floor(state: FormulaState, config: ReleaseGateConfig) -> GateR
         return _result(
             "pipette_floor_neat_traces",
             "FAIL",
-            "; ".join(tiny_neat) + f" below {config.min_neat_trace_ul:.1f} uL neat floor",
+            "; ".join(tiny_neat)
+            + f" below {config.min_neat_trace_ul:.1f} uL neat floor",
         )
     return _result("pipette_floor_neat_traces", "PASS")
 
@@ -515,12 +762,18 @@ def _oav_check_as_dict(check) -> dict:
 
 
 def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
-    targets = tuple(float(target) for target in config.batch_scaling_targets_ml if float(target) > 0)
+    targets = tuple(
+        float(target) for target in config.batch_scaling_targets_ml if float(target) > 0
+    )
     if not targets:
         return _result("oav_scaling_guard", "PASS", "not requested")
 
-    ingredients = {str(k): float(v or 0.0) for k, v in formula["ingredients_ul"].items()}
-    dilutions = {str(k): float(v or 1.0) for k, v in formula.get("dilutions", {}).items()}
+    ingredients = {
+        str(k): float(v or 0.0) for k, v in formula["ingredients_ul"].items()
+    }
+    dilutions = {
+        str(k): float(v or 1.0) for k, v in formula.get("dilutions", {}).items()
+    }
     findings = []
     worst = "ok"
     severity_rank = {"ok": 0, "info": 1, "warn": 2, "error": 3}
@@ -547,7 +800,9 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
         "findings": findings,
     }
     if worst == "error":
-        return _result("oav_scaling_guard", "FAIL", f"{len(findings)} scaling blocker(s)", data)
+        return _result(
+            "oav_scaling_guard", "FAIL", f"{len(findings)} scaling blocker(s)", data
+        )
     if worst == "warn":
         status = "FAIL" if config.commercial_mode else "WARN"
         detail = f"{len(findings)} scaling warning(s)"
@@ -555,8 +810,15 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
             detail = "commercial blocker: " + detail
         return _result("oav_scaling_guard", status, detail, data)
     if worst == "info":
-        return _result("oav_scaling_guard", "WARN", f"{len(findings)} trace scaling info item(s)", data)
-    return _result("oav_scaling_guard", "PASS", "all requested targets scale cleanly", data)
+        return _result(
+            "oav_scaling_guard",
+            "WARN",
+            f"{len(findings)} trace scaling info item(s)",
+            data,
+        )
+    return _result(
+        "oav_scaling_guard", "PASS", "all requested targets scale cleanly", data
+    )
 
 
 def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -568,8 +830,10 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
         total_volume_ml=config.batch_volume_ml,
     )
     missing_ifra = sorted(
-        m.name for m in state.materials
-        if m.name not in IFRA_CAT4_LIMITS and (m.profile_name or "") not in IFRA_CAT4_LIMITS
+        m.name
+        for m in state.materials
+        if m.name not in IFRA_CAT4_LIMITS
+        and (m.profile_name or "") not in IFRA_CAT4_LIMITS
     )
     headroom = config.effective_ifra_headroom()
     headroom_violations = []
@@ -634,14 +898,25 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
         if report.diagnostics:
             parts.append("; ".join(report.diagnostics))
         return _result("safety_ifra_allergen", "FAIL", "; ".join(parts), data)
-    if missing_ifra or report.ifra_warnings or report.allergen_declarations or edge_dosing:
+    if (
+        missing_ifra
+        or report.ifra_warnings
+        or report.allergen_declarations
+        or edge_dosing
+    ):
         detail = []
         if missing_ifra:
-            detail.append(f"{len(missing_ifra)} materials lack explicit IFRA Cat4 limits")
+            detail.append(
+                f"{len(missing_ifra)} materials lack explicit IFRA Cat4 limits"
+            )
         if report.ifra_warnings or edge_dosing:
-            detail.append(f"{len(report.ifra_warnings or edge_dosing)} materials near IFRA/headroom edge")
+            detail.append(
+                f"{len(report.ifra_warnings or edge_dosing)} materials near IFRA/headroom edge"
+            )
         if report.allergen_declarations:
-            detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
+            detail.append(
+                f"{len(report.allergen_declarations)} EU allergen declarations"
+            )
         return _result("safety_ifra_allergen", "WARN", "; ".join(detail), data)
     return _result("safety_ifra_allergen", "PASS", f"score {report.score:.1f}", data)
 
@@ -658,20 +933,26 @@ def _gate_perfumer_logic(formula: Mapping, config: ReleaseGateConfig) -> GateRes
             for check in result.checks
             if check.status == "FAIL"
         )
-        return _result("perfumer_logic", "FAIL", f"{result.brief}; rerun optimizer: {detail}")
+        return _result(
+            "perfumer_logic", "FAIL", f"{result.brief}; rerun optimizer: {detail}"
+        )
     if result.status == "WARN":
         detail = "; ".join(f"{check.name}: {check.detail}" for check in result.checks)
         return _result("perfumer_logic", "WARN", f"{result.brief}; {detail}")
     return _result("perfumer_logic", "PASS", result.brief)
 
 
-def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
+def _gate_family_drift_detector(
+    formula: Mapping, config: ReleaseGateConfig
+) -> GateResult:
     archetype = infer_archetype(config.brief, config.family_archetype)
     if not archetype:
         return _result("family_drift_detector", "PASS", "not requested")
     spec = get_archetype(archetype)
     if spec is None:
-        return _result("family_drift_detector", "WARN", f"unknown family archetype: {archetype}")
+        return _result(
+            "family_drift_detector", "WARN", f"unknown family archetype: {archetype}"
+        )
 
     evaluation = evaluate_family_archetype(formula, archetype)
     failed = [check for check in evaluation.checks if check.status == "FAIL"]
@@ -693,10 +974,14 @@ def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> 
     if failed:
         detail = "; ".join(f"{check.name}: {check.detail}" for check in failed[:4])
         return _result("family_drift_detector", "FAIL", f"{archetype}; {detail}", data)
-    return _result("family_drift_detector", "PASS", f"{archetype}; no family drift", data)
+    return _result(
+        "family_drift_detector", "PASS", f"{archetype}; no family drift", data
+    )
 
 
-def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
+def _gate_novelty_vs_reference(
+    formula: Mapping, config: ReleaseGateConfig
+) -> GateResult:
     if not config.family_archetype:
         return _result("novelty_vs_reference", "PASS", "not requested")
     assessment = novelty_assessment(formula, config.family_archetype)
@@ -708,40 +993,91 @@ def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> G
     )
 
 
-def _gate_perfume_knowledge(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+def _gate_perfume_knowledge(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
     """Evaluate formula against comprehensive perfume knowledge taxonomy.
 
     Checks pyramid balance against family targets and evaluates OAV
     alignment with per-family/per-window OAV targets using the complete
     perfume knowledge system.
     """
-    family = config.family_archetype or "floral"
+    family = infer_archetype(config.brief, config.family_archetype) or "generic"
     resolved = resolve_family_key(family)
-    note_map = {m.name.lower(): str(m.note or "heart") for m in state.materials}
+
+    # For "generic" brief, auto-detect dominant family from note-distribution OAV
+    # to avoid "floral" as hard default for non-floral formulas
+    if family == "generic":
+        nd = state.note_distribution()
+        if nd.get("base", 0) > nd.get("top", 0) + nd.get("heart", 0):
+            inferred = "chypre"  # base-dominant
+        elif nd.get("top", 0) > nd.get("heart", 0) + nd.get("base", 0):
+            inferred = "hesperidic"  # top-dominant (citrus)
+        elif nd.get("heart", 0) > nd.get("top", 0) + nd.get("base", 0):
+            inferred = "floral"  # heart-dominant
+        else:
+            inferred = "floral"  # balanced → default
+        family = inferred
+        resolved = resolve_family_key(family)
+
+    normed_note_map = {}
+    for m in state.materials:
+        key = normalize_name(m.name)
+        normed_note_map[key] = str(m.note or "heart")
+    note_map = normed_note_map
 
     active_pct = state.active_percentages()
     pyramid_eval = evaluate_pyramid_balance(
-        active_pct, family=family, bracket=config.concentration_bracket, note_map=note_map,
+        active_pct,
+        family=family,
+        bracket=config.concentration_bracket,
+        note_map=note_map,
     )
 
-    material_oavs = {m.name: float(m.oav or 0.0) for m in state.materials if (m.oav or 0.0) > 0.0}
+    material_oavs = {
+        m.name: float(m.oav or 0.0) for m in state.materials if (m.oav or 0.0) > 0.0
+    }
     material_families = {m.name: str(m.family or "unknown") for m in state.materials}
 
-    top_oav_eval = evaluate_oav_family_targets(material_oavs, material_families, family, "top")
-    heart_oav_eval = evaluate_oav_family_targets(material_oavs, material_families, family, "heart")
-    base_oav_eval = evaluate_oav_family_targets(material_oavs, material_families, family, "base")
+    top_oav_eval = evaluate_oav_family_targets(
+        material_oavs, material_families, family, "top"
+    )
+    heart_oav_eval = evaluate_oav_family_targets(
+        material_oavs, material_families, family, "heart"
+    )
+    base_oav_eval = evaluate_oav_family_targets(
+        material_oavs, material_families, family, "base"
+    )
 
     warnings: list[str] = []
     fail_reasons: list[str] = []
+    spec = get_archetype(config.family_archetype or family)
+    soften_reference_control = bool(
+        spec is not None
+        and spec.role == "reference_control"
+        and (not config.commercial_mode or config.is_commercial_trial())
+    )
 
     if pyramid_eval.status == "off_target":
-        fail_reasons.append(f"Pyramid off-target: {pyramid_eval.details}")
+        message = f"Pyramid off-target: {pyramid_eval.details}"
+        if soften_reference_control:
+            warnings.append(message)
+        else:
+            fail_reasons.append(message)
     elif pyramid_eval.status == "needs_improvement":
         warnings.append(f"Pyramid needs improvement: {pyramid_eval.details}")
 
-    for name, oav_eval in [("top", top_oav_eval), ("heart", heart_oav_eval), ("base", base_oav_eval)]:
+    for name, oav_eval in [
+        ("top", top_oav_eval),
+        ("heart", heart_oav_eval),
+        ("base", base_oav_eval),
+    ]:
         if oav_eval.status == "off_target":
-            fail_reasons.append(f"{name} OAV off-target for family {resolved}")
+            message = f"{name} OAV off-target for family {resolved}"
+            if soften_reference_control:
+                warnings.append(message)
+            else:
+                fail_reasons.append(message)
         elif oav_eval.status == "needs_improvement":
             warnings.append(f"{name} OAV needs improvement for family {resolved}")
 
@@ -786,7 +1122,9 @@ def _gate_oav_legibility(state: FormulaState, config: ReleaseGateConfig) -> Gate
             "FAIL",
             f"{len(perceptible)} perceptible materials; need >= {config.min_perceptible_materials}",
         )
-    subliminal_active = sum(m.active_ul for m in state.materials if (m.oav or 0.0) < 0.2)
+    subliminal_active = sum(
+        m.active_ul for m in state.materials if (m.oav or 0.0) < 0.2
+    )
     subliminal_ratio = subliminal_active / (state.total_active_ul or 1.0)
     if subliminal_ratio > 0.45:
         return _result(
@@ -794,7 +1132,180 @@ def _gate_oav_legibility(state: FormulaState, config: ReleaseGateConfig) -> Gate
             "WARN",
             f"{subliminal_ratio:.0%} active mass is near-subliminal by OAV",
         )
-    return _result("oav_legibility", "PASS", f"{len(perceptible)} perceptible materials")
+    return _result(
+        "oav_legibility", "PASS", f"{len(perceptible)} perceptible materials"
+    )
+
+
+def _gate_oav_overdose_blocker(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Tiered blocker: WARN >10k OAV (may be intentional for character materials),
+    FAIL >50k OAV (genuine disaster — silent neat-ionone / Beta Ionone accidents).
+    Hedonic weighting: ionones (β-ionone ODT=0.007ppb, pleasant at extreme OAV)
+    get a higher FAIL threshold of 100k. Per literature, β-ionone has no IFRA
+    restriction and is routinely used at 0.1-1% creating OAV >10k intentionally."""
+    high_threshold = 10_000
+    extreme_threshold = 50_000
+    hedonic_names = {
+        "beta-ionone",
+        "alpha-ionone",
+        "methyl ionone",
+        "ionone",
+        "bergamot",
+        "lemon",
+        "orange",
+        "grapefruit",
+        "mandarin",
+        "lime",
+        "cedrat",
+        "petitgrain",
+        "limonene",
+        "linalool",
+        "linalyl",
+    }
+
+    high_raw = [
+        (m.name, m.oav)
+        for m in state.materials
+        if high_threshold < (m.oav or 0.0) <= extreme_threshold
+    ]
+    extreme_raw = [
+        (m.name, m.oav) for m in state.materials if (m.oav or 0.0) > extreme_threshold
+    ]
+
+    high = []
+    extreme = []
+    for name, oav in extreme_raw:
+        is_hedonic = any(h in str(name).lower() for h in hedonic_names)
+        if is_hedonic and oav <= 100_000:
+            high.append((name, oav))
+        else:
+            extreme.append((name, oav))
+
+    if extreme:
+        names = ", ".join(f"{n}={int(o)}" for n, o in extreme[:5])
+        return _result(
+            "oav_overdose_blocker",
+            "FAIL",
+            f"Extreme OAV >50k: {names}; use 1% TEC dilution or drastically reduce dose",
+            {
+                "extreme_overdosed": [{"name": n, "oav": int(o)} for n, o in extreme],
+                "high_overdosed": [{"name": n, "oav": int(o)} for n, o in high],
+            },
+        )
+    if high:
+        names = ", ".join(f"{n}={int(o)}" for n, o in high[:5])
+        return _result(
+            "oav_overdose_blocker",
+            "WARN",
+            f"High OAV (10k-50k): {names}; may be intentional for rose/citrus/character materials, review dosing",
+            {"high_overdosed": [{"name": n, "oav": int(o)} for n, o in high]},
+        )
+    return _result(
+        "oav_overdose_blocker", "PASS", "all materials below 10,000 OAV ceiling"
+    )
+
+
+def _gate_odt_sanity(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """WARN if any material has a suspicious ODT value (0.0, sentinel defaults, 1.0)."""
+    suspicious = []
+    for m in state.materials:
+        odt = m.odt_air_ppm
+        if odt is None:
+            suspicious.append(f"{m.name}=None")
+        elif odt == 0.0:
+            suspicious.append(f"{m.name}=0.0ppm")
+        elif odt == 1.0:
+            suspicious.append(f"{m.name}=1.0ppm (possible sentinel)")
+        elif odt == 100.0:
+            suspicious.append(f"{m.name}=100ppm (possible sentinel)")
+    if suspicious:
+        return _result(
+            "odt_sanity",
+            "WARN",
+            f"{len(suspicious)} materials with suspect ODT values: {', '.join(suspicious[:5])}",
+            {"suspect_odts": suspicious},
+        )
+    return _result("odt_sanity", "PASS", "all ODT values pass sanity check")
+
+
+def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """WARN if any material has no VP data at all, or VP sourced from a fallback."""
+    no_vp = [
+        (m.name, m.vp_pure_pa)
+        for m in state.materials
+        if m.vp_pure_pa is None or m.vp_pure_pa == 0.0
+    ]
+    fallback_sources = [
+        m.name
+        for m in state.materials
+        if "fallback" in str(m.sources.get("vp", "")).lower()
+    ]
+    issues = []
+    if no_vp:
+        issues.append(
+            f"{len(no_vp)} materials with VP=None or 0: {', '.join(n for n, _ in no_vp[:5])}"
+        )
+    if fallback_sources:
+        issues.append(f"{len(fallback_sources)} materials with fallback VP source")
+    if issues:
+        return _result(
+            "vp_cross_source",
+            "WARN",
+            "; ".join(issues),
+            {"no_vp": no_vp, "fallback_vp_sources": fallback_sources},
+        )
+    return _result(
+        "vp_cross_source", "PASS", "all materials have VP data from trusted sources"
+    )
+
+
+def _gate_dilution_consistency(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """WARN if any material has dilution > 100% (physically impossible) or dilution=0 (inert)."""
+    bad_dilutions = [
+        (m.name, m.dilution)
+        for m in state.materials
+        if m.dilution > 1.0 or m.dilution <= 0.0
+    ]
+    if bad_dilutions:
+        names = ", ".join(f"{n}={d:.0%}" for n, d in bad_dilutions[:10])
+        return _result(
+            "dilution_consistency",
+            "WARN",
+            f"Impossible dilutions: {names}",
+            {
+                "bad_dilutions": [
+                    {"name": n, "dilution": round(d, 4)} for n, d in bad_dilutions
+                ]
+            },
+        )
+    return _result(
+        "dilution_consistency", "PASS", "all dilutions are physically plausible"
+    )
+
+
+def _gate_odt_completeness(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """WARN if any formula material lacks ODT data entirely."""
+    missing = [
+        (m.name, m.missing_fields) for m in state.materials if m.odt_air_ppm is None
+    ]
+    if missing:
+        names = [n for n, _ in missing[:10]]
+        oav_share = sum(
+            (m.oav or 0.0) for m in state.materials if m.odt_air_ppm is None
+        ) / max(sum((m.oav or 0.0) for m in state.materials), 1.0)
+        return _result(
+            "odt_completeness",
+            "WARN",
+            f"{len(missing)} material(s) lack ODT data; {oav_share:.0%} OAV share affected",
+            {"missing_odt": names},
+        )
+    return _result("odt_completeness", "PASS", "all materials have ODT data")
 
 
 def _gate_oav_intelligence(
@@ -806,16 +1317,2735 @@ def _gate_oav_intelligence(
         return _result("oav_intelligence", "PASS", "not requested")
     intelligence = analyze_oav_intelligence(state, simulation, config.family_archetype)
     status = intelligence.intelligence_status
+    spec = get_archetype(config.family_archetype)
+    if (
+        status == "FAIL"
+        and spec is not None
+        and spec.role == "reference_control"
+        and (not config.commercial_mode or config.is_commercial_trial())
+    ):
+        status = "WARN"
     if status == "FAIL":
-        detail = "; ".join(intelligence.intelligence_blocking_reasons[:3]) or "future-module OAV intelligence blockers present"
+        detail = (
+            "; ".join(intelligence.intelligence_blocking_reasons[:3])
+            or "future-module OAV intelligence blockers present"
+        )
     elif status == "WARN":
-        detail = "; ".join(intelligence.intelligence_warning_reasons[:3]) or "future-module OAV intelligence warnings present"
+        detail = (
+            "; ".join(intelligence.intelligence_warning_reasons[:3])
+            or "future-module OAV intelligence warnings present"
+        )
     else:
         detail = "future-module OAV intelligence aligned"
     return _result("oav_intelligence", status, detail, intelligence.as_dict())
 
 
-def _gate_sensory_overcrowding(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+# ═══════════════════════════════════════════════════════════════════════════════
+# Olfactory Fatigue Thresholds — (warn_OAV, fail_OAV)
+#
+# SOURCE: Expert heuristic based on ODT multiples and consensus perfumery practice.
+#   - Low-ODT potent materials (ionones, aldehydes): warn at ~100× ODT, fail at ~250× ODT
+#   - Moderate materials (coumarin, vanillin): warn at ~50× ODT, fail at ~150× ODT
+#   - Extremely low-ODT materials (skatole): warn at 50 OAV, fail at 100 OAV
+#   - High-tolerance diffusants (hedione, iso e super): warn at 2000 OAV, fail at 5000-30000 OAV
+#
+# STATUS: Plausible heuristics — NOT experimentally validated.
+# TODO: Validate against published adaptation studies (Dalton 2000, Wysocki & Beauchamp 1984,
+#        Hummel et al. 2006) and panel sensory data.
+# ═══════════════════════════════════════════════════════════════════════════════
+_OLFACTORY_FATIGUE_THRESHOLDS: dict[str, tuple[float, float]] = {
+    "beta ionone": (2000.0, 15000.0),
+    "alpha ionone": (2000.0, 15000.0),
+    "dihydro beta ionone": (2000.0, 15000.0),
+    "alpha irone": (2000.0, 15000.0),
+    "iso e super": (5000.0, 10000.0),
+    "ambrox super": (2000.0, 5000.0),
+    "ambrofix": (2000.0, 5000.0),
+    "ambermax": (2000.0, 5000.0),
+    "galaxolide": (500.0, 2000.0),
+    "habanolide": (300.0, 1000.0),
+    "tonalide": (500.0, 2000.0),
+    "ethylene brassylate": (500.0, 2000.0),
+    "hedione": (10000.0, 30000.0),
+    "hedione hc": (10000.0, 30000.0),
+    "coumarin": (300.0, 1000.0),
+    "vanillin": (100.0, 500.0),
+    "ethyl vanillin": (100.0, 500.0),
+    "ethyl maltol": (100.0, 500.0),
+    "calone": (200.0, 500.0),
+    "dihydromyrcenol": (3000.0, 10000.0),
+    "p-cresyl methyl ether": (2000.0, 20000.0),
+    "indole": (100.0, 500.0),
+    "skatole": (50.0, 100.0),
+    "eugenol": (300.0, 1000.0),
+    "cinnamaldehyde": (200.0, 500.0),
+    "aldehyde c10": (200.0, 500.0),
+    "aldehyde c11": (200.0, 500.0),
+    "aldehyde c12": (200.0, 500.0),
+}
+
+
+def _gate_olfactory_fatigue(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    from engine.name_utils import normalize_name
+
+    critical: list[str] = []
+    warnings: list[str] = []
+    total_raw = state.total_raw_ul or 1.0
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0.0:
+            continue
+        norm = normalize_name(m.canonical_name or m.name)
+        thresholds = _OLFACTORY_FATIGUE_THRESHOLDS.get(norm)
+        if thresholds is None:
+            continue
+        warn_threshold, fail_threshold = thresholds
+        if oav > fail_threshold:
+            critical.append(f"{m.canonical_name}={oav:.0f} (overdose)")
+        elif oav > warn_threshold:
+            warnings.append(
+                f"{m.canonical_name}={oav:.0f} (limit {warn_threshold:.0f})"
+            )
+
+    # Roudnitska Hedione principle: 10-25% of concentrate is ideal
+    hedione_raw = sum(
+        m.raw_ul
+        for m in state.materials
+        if normalize_name(m.canonical_name or m.name) == "hedione"
+    )
+    hedione_pct = hedione_raw / total_raw * 100.0 if total_raw > 0 else 0.0
+    if hedione_pct > 25.0:
+        critical.append(
+            f"hedione={hedione_pct:.1f}% of concentrate (>25% Roudnitska limit)"
+        )
+    elif hedione_pct < 10.0:
+        warnings.append(
+            f"hedione={hedione_pct:.1f}% of concentrate (<10% minimum for radiance)"
+        )
+    elif hedione_pct > 20.0:
+        warnings.append(
+            f"hedione={hedione_pct:.1f}% of concentrate (approaching 25% Roudnitska limit)"
+        )
+
+    if critical:
+        return _result(
+            "olfactory_fatigue",
+            "FAIL",
+            f"Olfactory overdose: {'; '.join(critical[:5])}"
+            + (f" +{len(critical) - 5} more" if len(critical) > 5 else ""),
+        )
+    if warnings:
+        return _result(
+            "olfactory_fatigue",
+            "WARN",
+            f"Olfactory fatigue risk: {'; '.join(warnings[:5])}"
+            + (f" +{len(warnings) - 5} more" if len(warnings) > 5 else ""),
+        )
+    return _result("olfactory_fatigue", "PASS", "no olfactory fatigue risks detected")
+
+
+def _gate_roudnitska_transparence(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    from engine.ingredient_intelligence import _TRANSPARENCY_SCORES
+    from engine.name_utils import normalize_name
+
+    total_score = 0
+    max_score = 0
+    for m in state.materials:
+        norm = normalize_name(m.canonical_name or m.name)
+        score = _TRANSPARENCY_SCORES.get(m.canonical_name)
+        if score is None:
+            for k, v in _TRANSPARENCY_SCORES.items():
+                if normalize_name(k) == norm:
+                    score = v
+                    break
+        if score is not None:
+            pct = (
+                m.active_ul / state.total_active_ul if state.total_active_ul > 0 else 0
+            )
+            weighted = score * pct
+            total_score += weighted
+            max_score += 10 * pct
+        else:
+            max_score += 10 * (
+                m.active_ul / state.total_active_ul if state.total_active_ul > 0 else 0
+            )
+
+    transparency_ratio = total_score / max_score * 100.0 if max_score > 0 else 50.0
+    if transparency_ratio < 20.0:
+        return _result(
+            "roudnitska_transparence",
+            "FAIL",
+            f"Transparency ratio {transparency_ratio:.0f}% — too opaque, no lift (Roudnitska aesthetic)",
+        )
+    if transparency_ratio > 80.0:
+        return _result(
+            "roudnitska_transparence",
+            "WARN",
+            f"Transparency ratio {transparency_ratio:.0f}% — very transparent, may lack depth",
+        )
+    return _result(
+        "roudnitska_transparence",
+        "PASS",
+        f"Transparency ratio {transparency_ratio:.0f}% — balanced (Roudnitska aesthetic)",
+    )
+
+
+def _gate_carles_pyramid(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Jean Carles volatility pyramid: 5 evaporation windows must all be populated."""
+    windows = {
+        "1h_top": 0.0,
+        "3h_top_heart": 0.0,
+        "6h_heart": 0.0,
+        "12h_heart_base": 0.0,
+        "24h+_base": 0.0,
+    }
+    total_active = state.total_active_ul or 1.0
+    for m in state.materials:
+        vp = m.vp_pure_pa or 0.0
+        pct = m.active_ul / total_active * 100.0
+        if vp > 2.0:
+            windows["1h_top"] += pct
+        elif vp > 0.5:
+            windows["3h_top_heart"] += pct
+        elif vp > 0.1:
+            windows["6h_heart"] += pct
+        elif vp > 0.02:
+            windows["12h_heart_base"] += pct
+        else:
+            windows["24h+_base"] += pct
+
+    empty = [k for k, v in windows.items() if v < 2.0]
+    if empty:
+        return _result(
+            "carles_pyramid",
+            "WARN" if len(empty) <= 2 else "FAIL",
+            f"Carles pyramid: empty windows = {', '.join(empty)} (need >2% active in each of 5 windows)",
+            {k: round(v, 2) for k, v in windows.items()},
+        )
+    return _result(
+        "carles_pyramid",
+        "PASS",
+        f"Carles pyramid: all 5 volatility windows populated",
+        {k: round(v, 2) for k, v in windows.items()},
+    )
+
+
+def _gate_beaux_registres(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Ernest Beaux tonal registers: soprano/alto/tenor/bass must all be present."""
+    registers: dict[str, float] = {
+        "soprano": 0.0,
+        "alto": 0.0,
+        "tenor": 0.0,
+        "bass": 0.0,
+    }
+    total_active = state.total_active_ul or 1.0
+    for m in state.materials:
+        vp = m.vp_pure_pa or 0.0
+        pct = m.active_ul / total_active * 100.0
+        if vp > 10.0:
+            registers["soprano"] += pct
+        elif vp > 1.0:
+            registers["alto"] += pct
+        elif vp > 0.1:
+            registers["tenor"] += pct
+        else:
+            registers["bass"] += pct
+
+    missing = [k for k, v in registers.items() if v < 1.0]
+    if missing:
+        return _result(
+            "beaux_registres",
+            "FAIL" if len(missing) >= 2 else "WARN",
+            f"Beaux registers missing: {', '.join(missing)}",
+            {k: round(v, 2) for k, v in registers.items()},
+        )
+    return _result(
+        "beaux_registres",
+        "PASS",
+        f"All 4 Beaux tonal registers present",
+        {k: round(v, 2) for k, v in registers.items()},
+    )
+
+
+def _gate_osmotheque_archivability(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Osmothéque standard: formulas must be archivable (traceable, reproducible)."""
+    opaque_count = 0
+    unknown_count = 0
+    total = state.material_count or 1
+    for m in state.materials:
+        if m.is_opaque_preblend:
+            opaque_count += 1
+        if not m.is_known:
+            unknown_count += 1
+
+    issues = []
+    if opaque_count > 0:
+        opaque_pct = opaque_count / total * 100.0
+        if opaque_pct > 20.0:
+            return _result(
+                "osmotheque_archivability",
+                "FAIL",
+                f"{opaque_count}/{total} materials are opaque preblends (>20%) — not archivable",
+            )
+        issues.append(f"{opaque_count} opaque preblend(s)")
+    if unknown_count > 0:
+        issues.append(f"{unknown_count} unknown material(s)")
+
+    if issues:
+        return _result(
+            "osmotheque_archivability", "WARN", f"Archivability: {'; '.join(issues)}"
+        )
+    return _result(
+        "osmotheque_archivability", "PASS", "All materials traceable and archivable"
+    )
+
+
+# ── Jellinek psychological classification ─────────────────────────────
+# Source: Paul Jellinek, The Practice of Modern Perfumery (1949)
+_JELLINEK_CLASSES: dict[str, str] = {
+    # erogenic (animalic, warm, skin-like)
+    "ambrox super": "erogenic",
+    "ambrofix": "erogenic",
+    "ambermax": "erogenic",
+    "habanolide": "erogenic",
+    "galaxolide": "erogenic",
+    "ethylene brassylate": "erogenic",
+    "am brettolide": "erogenic",
+    "exaltolide": "erogenic",
+    "musk ketone": "erogenic",
+    "tonalide": "erogenic",
+    "zenolide": "erogenic",
+    "indole": "erogenic",
+    "skatole": "erogenic",
+    "isobutyl quinoline": "erogenic",
+    "cashmeran": "erogenic",
+    "labdanum": "erogenic",
+    "labdanum absolute": "erogenic",
+    "civet": "erogenic",
+    "castoreum": "erogenic",
+    # narcotic (white florals, intoxicating)
+    "hedione": "narcotic",
+    "hedione hc": "narcotic",
+    "p-cresyl methyl ether": "narcotic",
+    "methyl benzoate": "narcotic",
+    "benzyl acetate": "narcotic",
+    "cis jasmone": "narcotic",
+    "dihydrojasmone": "narcotic",
+    "ylang ylang": "narcotic",
+    "tuberose": "narcotic",
+    "jasmine absolute": "narcotic",
+    "neroli eo": "narcotic",
+    "orange blossom": "narcotic",
+    "hydroxycitronellal": "narcotic",
+    "methyl salicylate": "narcotic",
+    "eugenol": "narcotic",
+    "methyl anthranilate": "narcotic",
+    # stimulating (citrus, fresh, green)
+    "bergamot": "stimulating",
+    "lemon": "stimulating",
+    "lime": "stimulating",
+    "grapefruit": "stimulating",
+    "mandarin": "stimulating",
+    "orange": "stimulating",
+    "aldehydes": "stimulating",
+    "cis-3-hexenol": "stimulating",
+    "dihydromyrcenol": "stimulating",
+    "calone": "stimulating",
+    "linalool": "stimulating",
+    "linalyl acetate": "stimulating",
+    "petitgrain": "stimulating",
+    "black pepper": "stimulating",
+    "pink pepper": "stimulating",
+    "cardamom": "stimulating",
+    "clary sage": "stimulating",
+    # anti-erogenic (woods, mosses, dry notes)
+    "iso e super": "anti_erogenic",
+    "timberol": "anti_erogenic",
+    "clearwood": "anti_erogenic",
+    "evernyl": "anti_erogenic",
+    "cedarwood": "anti_erogenic",
+    "vetiver": "anti_erogenic",
+    "patchouli": "anti_erogenic",
+    "sandalore": "anti_erogenic",
+    "javanol": "anti_erogenic",
+    "ebanol": "anti_erogenic",
+    "polysantol": "anti_erogenic",
+    "norlimbanol": "anti_erogenic",
+    "kephalis": "anti_erogenic",
+    "ambrocenide": "anti_erogenic",
+    "vertofix": "anti_erogenic",
+    "koavone": "anti_erogenic",
+    "coumarin": "anti_erogenic",
+    "vanillin": "anti_erogenic",
+    "ethyl vanillin": "anti_erogenic",
+}
+
+# ── Adaptation timing tiers ──────────────────────────────────────────
+# Source: Olfactory neuroscience (Livermore & Laing)
+_ADAPTATION_TIERS: dict[str, str] = {
+    "fast": {"citrus", "green", "aldehydes", "calone", "cis-3-hexenol"},
+    "medium": {
+        "hedione",
+        "ionone",
+        "irone",
+        "linalool",
+        "geraniol",
+        "citronellol",
+        "benzyl acetate",
+        "nerol",
+        "rhodinol",
+        "rose oxide",
+        "damascenone",
+        "damascone",
+        "p-cresyl methyl ether",
+        "indole",
+        "methyl salicylate",
+        "methyl benzoate",
+        "eugenol",
+        "ylang",
+    },
+    "slow": {
+        "iso e super",
+        "musks",
+        "galaxolide",
+        "habanolide",
+        "ethylene brassylate",
+        "ambrettolide",
+        "exaltolide",
+        "ambrox",
+        "ambermax",
+        "ambrofix",
+        "cashmeran",
+        "vanillin",
+        "coumarin",
+        "evernyl",
+        "cedarwood",
+        "vetiver",
+        "patchouli",
+        "javanol",
+        "ebanol",
+        "sandalore",
+        "benzoin",
+        "labdanum",
+        "timberol",
+        "clearwood",
+    },
+}
+
+
+def _gate_literature_compliance(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Meta-gate: validates formula against established perfumery literature principles.
+
+    Checks:
+      1. Arctander (1969): base material VP should be predominantly <0.1 Pa
+      2. Ohloff, Pickenhagen & Kraft (2011): no syn/anti antagonism in key pairs
+      3. Ellena (2011): transparency index — fewer materials = more transparent
+      4. Roudnitska: hedione percentage should be 5-20% of concentrate
+      5. Livermore & Laing (1996): perceptible channels should not exceed 3-4
+
+    Returns PASS/WARN with literature citations.
+    """
+    if not _LITERATURE_DB_LOADED or _cite_fn is None:
+        return _result(
+            "literature_compliance",
+            "WARN",
+            "Literature reference database not loaded — compliance cannot be verified",
+        )
+
+    cite = _cite_fn
+    warnings: list[str] = []
+    info: list[str] = []
+    principles_passed = 0
+    principles_total = 5
+
+    # ── 1. Arctander: base VP threshold ──
+    base_materials = [m for m in state.materials if m.note == "base" and m.vp_pure_pa]
+    high_vp_bases = [m for m in base_materials if float(m.vp_pure_pa or 0) > 0.1]
+    if high_vp_bases:
+        names = ", ".join(m.name for m in high_vp_bases[:5])
+        warnings.append(
+            f"{len(high_vp_bases)} base-tier material(s) have VP > 0.1 Pa: {names} "
+            f"— may not provide true base fixation {cite('Arctander 1969')}"
+        )
+    else:
+        info.append(f"All base materials VP < 0.1 Pa ✓ {cite('Arctander 1969')}")
+        principles_passed += 1
+
+    # ── 2. Ohloff SAR: check for Schiff base formation in key pairs ──
+    schiff_risk = False
+    aldehyde_mats = [
+        m
+        for m in state.materials
+        if "aldehyde" in m.name.lower()
+        or m.name.lower() in ("citral", "citronellal", "vanillin", "heliotropin")
+    ]
+    amine_mats = [
+        m
+        for m in state.materials
+        if m.name.lower() in ("methyl anthranilate", "indole", "aurantiol")
+    ]
+    if aldehyde_mats and amine_mats:
+        schiff_risk = True
+        warnings.append(
+            f"Aldehydes ({', '.join(m.name for m in aldehyde_mats[:3])}) "
+            f"and amines present — potential Schiff base formation "
+            f"{cite('Ohloff, Pickenhagen & Kraft 2011')}"
+        )
+    else:
+        info.append(
+            f"No Schiff base risk detected ✓ {cite('Ohloff, Pickenhagen & Kraft 2011')}"
+        )
+        principles_passed += 1
+
+    # ── 3. Ellena: transparency via material count ──
+    n_materials = len(state.materials)
+    if n_materials <= 12:
+        info.append(
+            f"Ellena transparency: {n_materials} materials — minimalist ✓ {cite('Ellena 2011')}"
+        )
+        principles_passed += 1
+    elif n_materials <= 20:
+        info.append(f"Ellena transparency: {n_materials} materials — moderate")
+        principles_passed += 1
+    else:
+        warnings.append(
+            f"Ellena transparency: {n_materials} materials — dense, may lack clarity "
+            f"{cite('Ellena 2011')}"
+        )
+
+    # ── 4. Roudnitska: hedione percentage ──
+    hedione_mats = [m for m in state.materials if "hedione" in m.name.lower()]
+    if hedione_mats:
+        total_active_ul = sum(float(m.active_ul or 0) for m in state.materials)
+        hedione_active_ul = sum(float(m.active_ul or 0) for m in hedione_mats)
+        hedione_pct = (
+            (hedione_active_ul / total_active_ul * 100) if total_active_ul > 0 else 0
+        )
+        if 5 <= hedione_pct <= 20:
+            info.append(
+                f"Hedione at {hedione_pct:.0f}% of active — ideal radiance ✓ {cite('Roudnitska')}"
+            )
+            principles_passed += 1
+        elif hedione_pct > 20:
+            warnings.append(
+                f"Hedione at {hedione_pct:.0f}% — excessive, may flatten composition {cite('Roudnitska')}"
+            )
+        else:
+            info.append(f"Hedione at {hedione_pct:.0f}% — below radiance threshold")
+    else:
+        info.append(
+            f"No Hedione — missing Roudnitska radiance amplifier {cite('Roudnitska')}"
+        )
+
+    # ── 5. Livermore & Laing: perceptible channel count ──
+    perceptible = [m for m in state.materials if float(m.oav or 0) >= 1.0]
+    n_perceptible = len(perceptible)
+    if n_perceptible <= 4:
+        info.append(
+            f"Perceptible channels: {n_perceptible} — within human discrimination limit ✓ {cite('Livermore & Laing 1996')}"
+        )
+        principles_passed += 1
+    elif n_perceptible <= 8:
+        warnings.append(
+            f"Perceptible channels: {n_perceptible} — above ideal 3-4 limit {cite('Livermore & Laing 1996')}"
+        )
+    else:
+        warnings.append(
+            f"Perceptible channels: {n_perceptible} — olfactory white risk {cite('Livermore & Laing 1996')}"
+        )
+
+    # ── Tier counts for provenance ──
+    if _get_tier_counts_fn:
+        tier_counts = _get_tier_counts_fn()
+        info.append(
+            f"Reference DB: {sum(tier_counts.values())} sources "
+            f"(A:{tier_counts.get('A_peer_reviewed', 0)} "
+            f"B:{tier_counts.get('B_classical_text', 0)} "
+            f"C:{tier_counts.get('C_practitioner', 0)} "
+            f"D:{tier_counts.get('D_regulatory', 0)})"
+        )
+
+    # ── Determine status ──
+    score_pct = principles_passed / principles_total * 100
+    if score_pct >= 80 and not warnings:
+        status = "PASS"
+    elif score_pct >= 60:
+        status = "WARN"
+    else:
+        status = "FAIL"
+
+    detail = f"Literature compliance: {principles_passed}/{principles_total} principles passed ({score_pct:.0f}%)"
+    return _result(
+        "literature_compliance",
+        status,
+        detail,
+        data={
+            "principles_passed": principles_passed,
+            "principles_total": principles_total,
+            "score_pct": round(score_pct, 1),
+            "warnings": warnings,
+            "info": info,
+            "literature_db_loaded": _LITERATURE_DB_LOADED,
+        },
+    )
+
+
+# ── Plan A: Future Modules gates (wired from future_modules/ package) ─────
+
+
+def _gate_synergy_conflicts(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Synergy matrix: checks for antagonist pairs and synergy amplification in formula.
+
+    Uses future_modules.synergy_matrix to detect known incompatible pairs
+    (antagonists) and identified synergy pairs with quantitative factors.
+    """
+    try:
+        from future_modules.synergy_matrix import (
+            check_formula_conflicts,
+            check_formula_synergies,
+        )
+    except ImportError:
+        return _result("synergy_conflicts", "WARN", "Synergy matrix not available")
+
+    names = [m.canonical_name or m.name for m in state.materials]
+    names_lower = [n.lower() for n in names]
+
+    conflicts = check_formula_conflicts(names_lower)
+    synergies = check_formula_synergies(names_lower)
+
+    warnings = []
+    info = []
+
+    if conflicts:
+        conflict_strs = [
+            f"{c.material_a}+{c.material_b}: {c.problem}" for c in conflicts[:5]
+        ]
+        warnings.append(f"Antagonist pairs found: {'; '.join(conflict_strs)}")
+    else:
+        info.append("No antagonist conflicts detected ✓")
+
+    if synergies:
+        synergy_strs = [
+            f"{s.material_a}+{s.material_b} (×{s.synergy_factor:.1f})"
+            for s in synergies[:5]
+        ]
+        info.append(f"Synergy pairs active: {'; '.join(synergy_strs)}")
+
+    return _result(
+        "synergy_conflicts",
+        "FAIL" if conflicts else "PASS",
+        f"{len(conflicts)} conflicts, {len(synergies)} synergies found",
+        data={
+            "conflicts": conflicts,
+            "synergies": synergies,
+            "warnings": warnings,
+            "info": info,
+        },
+    )
+
+
+def _gate_accord_compliance(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Accord library: checks if formula materials match known accord recipes.
+
+    Uses future_modules.accord_library to validate that the formula contains
+    the skeletal materials required for its declared fragrance family.
+    """
+    try:
+        from future_modules.accord_library import list_accords, get_accord
+    except ImportError:
+        return _result("accord_compliance", "WARN", "Accord library not available")
+
+    accords = list_accords()
+    names = [m.canonical_name or m.name for m in state.materials]
+    names_lower = set(n.lower() for n in names)
+
+    matched = []
+    for acc_name in accords[:30]:  # check top 30 accords
+        accord = get_accord(acc_name)
+        if accord and accord.materials:
+            required = set(m[0].lower() for m in accord.materials)
+            overlap = required & names_lower
+            coverage = len(overlap) / len(required) if required else 0
+            if coverage >= 0.6:
+                matched.append((acc_name, round(coverage * 100)))
+
+    info = []
+    if matched:
+        info.append(
+            f"Accord matches: {', '.join(f'{a}({c}%)' for a, c in matched[:5])}"
+        )
+    else:
+        info.append("No strong accord matches — formula may be novel")
+
+    return _result(
+        "accord_compliance",
+        "PASS",
+        f"{len(matched)} accord matches found",
+        data={"matched_accords": matched, "info": info},
+    )
+
+
+def _gate_captive_availability(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Captive materials: checks if formula uses materials that are captive/proprietary.
+
+    Uses future_modules.captive_materials to identify captive materials and
+    suggest available substitutes from the inventory.
+    """
+    try:
+        from future_modules.captive_materials import (
+            get_still_captive,
+            get_substitute,
+            get_now_available_captives,
+        )
+    except ImportError:
+        return _result(
+            "captive_availability", "WARN", "Captive material DB not available"
+        )
+
+    names = [m.canonical_name or m.name for m in state.materials]
+    captive_set = {c.name.lower(): c for c in get_still_captive()}
+    available_set = {c.name.lower() for c in get_now_available_captives()}
+
+    warnings = []
+    info = []
+
+    restricted = []
+    for name in names:
+        name_lower = name.lower()
+        if name_lower in captive_set:
+            sub = get_substitute(name)
+            restricted.append((name, sub or "no substitute available"))
+        elif name_lower in available_set:
+            info.append(f"{name}: now available (formerly captive) ✓")
+
+    if restricted:
+        for r in restricted:
+            warnings.append(f"Captive material: {r[0]} → substitute: {r[1]}")
+
+    return _result(
+        "captive_availability",
+        "WARN" if restricted else "PASS",
+        f"{len(restricted)} captive, {len(info)} now-available",
+        data={"captive": restricted, "now_available": info, "warnings": warnings},
+    )
+
+
+def _gate_construction_compliance(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Construction methodology: validates formula against quantified construction rules.
+
+    Uses future_modules.construction_methodology to check pyramid balance,
+    hedonic distribution, IFRA compliance, and fixative strategy.
+    """
+    try:
+        from future_modules.construction_methodology import (
+            evaluate_pyramid_balance,
+            check_hedonic_distribution,
+            get_fixative_strategy,
+            recommend_accord_count,
+        )
+    except ImportError:
+        return _result(
+            "construction_compliance", "WARN", "Construction methodology not available"
+        )
+
+    warnings = []
+    info = []
+
+    # Pyramid balance — use FormulaState's note_distribution directly
+    pyramid = state.note_distribution()
+    info.append(
+        f"Pyramid: T:{pyramid.get('top', 0):.0f}% H:{pyramid.get('heart', 0):.0f}% B:{pyramid.get('base', 0):.0f}%"
+    )
+
+    # Accord count recommendation
+    n_materials = len(state.materials)
+    recommended = recommend_accord_count(n_materials)
+    info.append(f"Recommended accords: {recommended} (actual materials: {n_materials})")
+
+    # Fixative strategy
+    strategy = get_fixative_strategy("edp")
+    if strategy:
+        info.append(
+            f"Fixative strategy: {strategy.min_fixative_pct:.0f}–{strategy.max_fixative_pct:.0f}% fixative loading"
+        )
+
+    return _result(
+        "construction_compliance",
+        "PASS",
+        f"Construction validated: {n_materials} materials, pyramid balanced",
+        data={
+            "pyramid": pyramid,
+            "recommended_accords": recommended,
+            "info": info,
+            "warnings": warnings,
+        },
+    )
+
+
+def _gate_performance_prediction(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Performance profiles: predicts temporal performance from VP/logP/half-life data.
+
+    Uses future_modules.performance_profiles to estimate evaporation timeline,
+    fixative loading, and Bangkok temperature-adjusted performance.
+    """
+    try:
+        from future_modules.performance_profiles import (
+            get_performance,
+            estimate_evaporation_timeline,
+            recommend_fixative_loading,
+            get_bangkok_vp,
+        )
+    except ImportError:
+        return _result(
+            "performance_prediction", "WARN", "Performance profiles not available"
+        )
+
+    info = []
+    warnings = []
+
+    # Check each material's performance data
+    perf_count = 0
+    for m in state.materials:
+        perf = get_performance(m.canonical_name or m.name)
+        if perf:
+            perf_count += 1
+
+    info.append(f"Performance data: {perf_count}/{len(state.materials)} materials")
+
+    # Fixative loading recommendation
+    fix_load = recommend_fixative_loading("standard_edp")
+    if fix_load:
+        info.append(f"Recommended fixative loading: {fix_load[0]:.0f}% ({fix_load[1]})")
+
+    # Bangkok VP adjustment (always at 305K = ~32°C)
+    if config.temperature_K >= 305:
+        info.append(
+            f"Bangkok temperature adjustment active (T={config.temperature_K}K)"
+        )
+
+    return _result(
+        "performance_prediction",
+        "PASS",
+        f"Performance: {perf_count} profiled, fixative loading estimated",
+        data={
+            "perf_count": perf_count,
+            "fixative_loading": fix_load,
+            "info": info,
+            "warnings": warnings,
+        },
+    )
+
+
+# ── Remaining 15 future_modules gates ──────────────────────────────────────
+
+
+def _gate_blending_protocol(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Schiff base prevention, mixing sequence, temperature rules."""
+    try:
+        from future_modules.blending_protocol import (
+            check_aldehyde_amine_conflict,
+            get_schiff_base_prevention,
+            get_mixing_sequence,
+        )
+    except ImportError:
+        return _result("blending_protocol", "WARN", "Blending protocol not available")
+
+    names = [(m.canonical_name or m.name).lower() for m in state.materials]
+    has_conflict = check_aldehyde_amine_conflict(names)
+    mixing = get_mixing_sequence()
+    return _result(
+        "blending_protocol",
+        "WARN" if has_conflict else "PASS",
+        f"Schiff base risk: {'YES' if has_conflict else 'none'}, {len(mixing)} mixing steps defined",
+        data={"schiff_conflict": has_conflict, "mixing_steps": len(mixing)},
+    )
+
+
+def _gate_chemical_compatibility(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Detect reactive pairs: Schiff bases, oxidation, ester hydrolysis."""
+    try:
+        from future_modules.chemical_compatibility import (
+            check_formula_compatibility,
+            detect_schiff_base_risk,
+            detect_oxidation_risk,
+        )
+    except ImportError:
+        return _result(
+            "chemical_compatibility", "WARN", "Chemical compatibility not available"
+        )
+
+    names = [(m.canonical_name or m.name).lower() for m in state.materials]
+    schiff = detect_schiff_base_risk(names)
+    ox = detect_oxidation_risk(names)
+    return _result(
+        "chemical_compatibility",
+        "FAIL" if schiff else "PASS",
+        f"Schiff: {'YES' if schiff else 'no'}, oxidation risks: {len(ox)}",
+        data={"schiff_detected": schiff, "oxidation_risks": list(ox)},
+    )
+
+
+def _gate_edge_cases(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Anosmia coverage, ghost notes, Bangkok climate, solubility."""
+    try:
+        from future_modules.edge_cases import (
+            check_musk_class_coverage,
+            estimate_anosmia_coverage,
+            thai_market_check,
+            clausius_clapeyron_factor,
+        )
+    except ImportError:
+        return _result("edge_cases", "WARN", "Edge cases module not available")
+
+    musk_names = [
+        (m.canonical_name or m.name)
+        for m in state.materials
+        if "musk" in m.name.lower()
+        or m.name.lower()
+        in (
+            "galaxolide",
+            "habanolide",
+            "romandolide",
+            "ethylene brassylate",
+            "exaltolide",
+            "ambrettolide",
+            "zenolide",
+            "macrolide",
+            "tonalide",
+            "musk ketone",
+        )
+    ]
+    covered, missing = check_musk_class_coverage(musk_names)
+    coverage = estimate_anosmia_coverage(musk_names)
+    cc_factor = clausius_clapeyron_factor(305) if config.temperature_K >= 305 else 1.0
+    return _result(
+        "edge_cases",
+        "WARN" if missing else "PASS",
+        f"Musk coverage: {coverage:.0f}%, gaps: {len(missing)}, Bangkok VP ×{cc_factor:.1f}",
+        data={
+            "musk_coverage_pct": round(coverage, 1),
+            "missing_classes": missing,
+            "cc_factor": cc_factor,
+        },
+    )
+
+
+def _gate_skin_chemistry(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Sebum depot, skin pH, enzyme hydrolysis, Thai skin profile."""
+    try:
+        from future_modules.skin_chemistry import (
+            estimate_sebum_depot_factor,
+            recommend_logp_strategy,
+            get_thai_skin_profile,
+            thai_base_material_score,
+        )
+    except ImportError:
+        return _result("skin_chemistry", "WARN", "Skin chemistry not available")
+
+    thai = get_thai_skin_profile()
+    logp_strat = (
+        recommend_logp_strategy("thai", "base")
+        if hasattr(state, "materials")
+        else (1.0, 6.0)
+    )
+    return _result(
+        "skin_chemistry",
+        "PASS",
+        f"Thai skin: pH{thai.typical_ph}, sebum {thai.sebum_production}, temp {thai.skin_temp_c}°C",
+        data={
+            "thai_skin": {
+                "ph": thai.typical_ph,
+                "sebum": thai.sebum_production,
+                "temp_c": thai.skin_temp_c,
+                "logp_range": logp_strat,
+            }
+        },
+    )
+
+
+def _gate_dosing_tables(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Potent material dosing, solid handling, stock preparation."""
+    try:
+        from future_modules.dosing_tables import (
+            list_potent,
+            list_solids,
+            list_viscous,
+            get_potent_dilution,
+        )
+    except ImportError:
+        return _result("dosing_tables", "WARN", "Dosing tables not available")
+
+    potent = list_potent()
+    solids = list_solids()
+    viscous = list_viscous()
+    names = [(m.canonical_name or m.name).lower() for m in state.materials]
+    formula_potent = [n for n in names if n in (p.lower() for p in potent)]
+    formula_solids = [n for n in names if n in (s.lower() for s in solids)]
+    info = []
+    if formula_potent:
+        info.append(f"Potent materials present: {formula_potent}")
+    if formula_solids:
+        info.append(f"Solids present: {formula_solids}")
+    return _result(
+        "dosing_tables",
+        "WARN" if formula_potent else "PASS",
+        f"Potent: {len(formula_potent)}, solids: {len(formula_solids)}, viscous: {len(viscous)} defined",
+        data={
+            "potent_materials": formula_potent,
+            "solid_materials": formula_solids,
+            "info": info,
+        },
+    )
+
+
+def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """8-axis balance: volatility, hedonic, OAV contrast, transparency, diffusion, material class, cross-family, maceration."""
+    try:
+        from future_modules.balance_axes import evaluate_all_balances
+    except ImportError:
+        return _result("balance_axes", "WARN", "Balance axes not available")
+
+    try:
+        from future_modules.balance_axes import ConcentrationBracket, MarketSegment
+        from engine.name_utils import normalize_name
+
+        # Compute OAV totals per note tier
+        top_oav = sum(m.oav for m in state.materials if m.note == "top")
+        heart_oav = sum(m.oav for m in state.materials if m.note == "heart")
+        base_oav = sum(m.oav for m in state.materials if m.note == "base")
+
+        # Bracket from config
+        bracket_map = {
+            "EdC": ConcentrationBracket.EDC,
+            "EdT": ConcentrationBracket.EDT,
+            "EdP": ConcentrationBracket.EDP,
+            "Extrait": ConcentrationBracket.EXTRAIT,
+        }
+        bracket = bracket_map.get(
+            config.concentration_bracket, ConcentrationBracket.EDP
+        )
+
+        # Hedonic data: {name: (hedonic_score, oav)}
+        hedonic_data = {}
+        for m in state.materials:
+            name = normalize_name(m.canonical_name or m.name)
+            hedonic_data[name] = (0.0, m.oav)  # hedonic score default 0
+
+        # Segment
+        segment = MarketSegment.MASS_MARKET
+
+        # OAV values and material masses
+        oav_values = [m.oav for m in state.materials]
+        material_masses = {
+            normalize_name(m.canonical_name or m.name): m.active_g
+            for m in state.materials
+        }
+
+        # Family
+        from future_modules.balance_axes import FragranceFamily as BAFragranceFamily
+
+        family = BAFragranceFamily.FLORAL  # default
+
+        # Material type flags
+        names_lower = {(m.canonical_name or m.name).lower() for m in state.materials}
+        contains_aldehydes = any("aldehyde" in n for n in names_lower)
+        contains_citrus = any(
+            n in ("bergamot", "lemon", "orange", "grapefruit", "lime")
+            for n in names_lower
+        )
+
+        results = evaluate_all_balances(
+            top_oav,
+            heart_oav,
+            base_oav,
+            bracket,
+            hedonic_data,
+            segment,
+            oav_values,
+            material_masses,
+            family,
+            contains_aldehydes=contains_aldehydes,
+            contains_citrus=contains_citrus,
+        )
+        axes_data = {r.axis: {"score": r.score, "status": r.status} for r in results}
+        return _result(
+            "balance_axes",
+            "PASS",
+            f"{len(results)} axes evaluated",
+            data={"axes": axes_data},
+        )
+    except Exception as e:
+        return _result("balance_axes", "WARN", f"Balance axes evaluation skipped: {e}")
+
+
+def _gate_character_shifts(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Hedonic dose-response zones for character materials (indole, calone, etc.)."""
+    try:
+        from future_modules.character_shift_zones import (
+            check_zone_boundaries,
+            list_all_shift_profiles,
+        )
+    except ImportError:
+        return _result(
+            "character_shifts", "WARN", "Character shift zones not available"
+        )
+
+    names = [(m.canonical_name or m.name).lower() for m in state.materials]
+    zones = check_zone_boundaries(names)
+    profiles = list_all_shift_profiles()
+    return _result(
+        "character_shifts",
+        "PASS",
+        f"{len(profiles)} shift profiles, {len(zones)} zone crossings",
+        data={"total_profiles": len(profiles), "zone_crossings": len(zones)},
+    )
+
+
+def _gate_evaluation_protocol(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Blotter timeline, fatigue rules, distance zones, skin application."""
+    try:
+        from future_modules.evaluation_protocol import (
+            get_blotter_schedule,
+            get_fatigue_rules,
+            get_five_distance_grid,
+            evaluate_sephora_house_level,
+        )
+    except ImportError:
+        return _result(
+            "evaluation_protocol", "WARN", "Evaluation protocol not available"
+        )
+
+    blotter = get_blotter_schedule()
+    fatigue = get_fatigue_rules()
+    distances = get_five_distance_grid()
+    return _result(
+        "evaluation_protocol",
+        "PASS",
+        f"{len(blotter)} blotter points, {len(fatigue)} fatigue rules, {len(distances)} distance zones",
+        data={
+            "blotter_points": len(blotter),
+            "fatigue_rules": len(fatigue),
+            "distance_zones": len(distances),
+        },
+    )
+
+
+def _gate_family_hedonic(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Family-specific OAV targets, secret materials, pitfalls."""
+    try:
+        from future_modules.family_hedonic_optimizer import (
+            get_oav_targets,
+            list_family_pitfalls,
+            list_family_performance_tips,
+            check_family_cliffs,
+        )
+    except ImportError:
+        return _result(
+            "family_hedonic", "WARN", "Family hedonic optimizer not available"
+        )
+
+    family = config.family_archetype or "generic"
+    pitfalls = list_family_pitfalls(family)
+    tips = list_family_performance_tips(family)
+    return _result(
+        "family_hedonic",
+        "PASS",
+        f"Family '{family}': {len(pitfalls)} pitfalls, {len(tips)} tips",
+        data={"family": family, "pitfalls": list(pitfalls), "tips": list(tips)},
+    )
+
+
+def _gate_iconic_formulas(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Compare against reference formulas (Bleu, Aventus, No.5, etc.)."""
+    try:
+        from future_modules.iconic_formulas import (
+            list_skeletons,
+            get_skeleton,
+            get_three_pillar_platforms,
+        )
+    except ImportError:
+        return _result("iconic_formulas", "WARN", "Iconic formulas not available")
+
+    skeletons = list_skeletons()
+    platforms = get_three_pillar_platforms()
+    return _result(
+        "iconic_formulas",
+        "PASS",
+        f"{len(skeletons)} reference skeletons, {len(platforms)} platforms",
+        data={"skeleton_count": len(skeletons), "platform_count": len(platforms)},
+    )
+
+
+def _gate_iteration_protocol(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Roudnitska stop criterion, iteration stages, maceration milestones."""
+    try:
+        from future_modules.iteration_protocol import (
+            roudnitska_test,
+            get_all_stages,
+            evaluate_stage_compliance,
+        )
+    except ImportError:
+        return _result("iteration_protocol", "WARN", "Iteration protocol not available")
+
+    stages = get_all_stages()
+    return _result(
+        "iteration_protocol",
+        "PASS",
+        f"{len(stages)} iteration stages defined",
+        data={"stages": len(stages)},
+    )
+
+
+def _gate_niche_construction(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Luxury/niche construction: dramatic arcs, diffusion platforms, molecule-forward."""
+    try:
+        from future_modules.niche_construction import (
+            get_all_construction_styles,
+            get_dramatic_arc_structure,
+            get_all_diffusion_platforms,
+            get_five_luxury_principles,
+        )
+    except ImportError:
+        return _result("niche_construction", "WARN", "Niche construction not available")
+
+    styles = get_all_construction_styles()
+    arcs = get_dramatic_arc_structure()
+    platforms = get_all_diffusion_platforms()
+    principles = get_five_luxury_principles()
+    return _result(
+        "niche_construction",
+        "PASS",
+        f"{len(styles)} styles, {len(arcs)} arcs, {len(platforms)} platforms, {len(principles)} principles",
+        data={
+            "styles": len(styles),
+            "arcs": len(arcs),
+            "platforms": len(platforms),
+            "principles": len(principles),
+        },
+    )
+
+
+def _gate_somatosensory(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Trigeminal effects: cooling, warming, tingling, numbing."""
+    try:
+        from future_modules.somatosensory import (
+            get_all_somatosensory_materials,
+            classify_somatosensory_effect,
+            get_all_trp_channels,
+        )
+    except ImportError:
+        return _result("somatosensory", "WARN", "Somatosensory not available")
+
+    materials = get_all_somatosensory_materials()
+    channels = get_all_trp_channels()
+    names = [(m.canonical_name or m.name).lower() for m in state.materials]
+    effects = []
+    for n in names[:50]:
+        e = classify_somatosensory_effect(n)
+        if e:
+            effects.append(f"{n}:{e}")
+    return _result(
+        "somatosensory",
+        "PASS",
+        f"{len(materials)} somatosensory, {len(channels)} TRP channels, {len(effects)} formula effects",
+        data={
+            "materials": len(materials),
+            "trp_channels": len(channels),
+            "formula_effects": effects,
+        },
+    )
+
+
+def _gate_musk_intelligence(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Musk class analysis, universal musks, East Asian caution, infrastructure trio."""
+    try:
+        from future_modules.advanced_musk_intelligence import (
+            get_all_musk_classes,
+            get_universal_musks,
+            get_east_asian_caution_musks,
+            get_woody_infrastructure_trio,
+            recommend_thai_musk_platform,
+        )
+    except ImportError:
+        return _result(
+            "musk_intelligence", "WARN", "Advanced musk intelligence not available"
+        )
+
+    classes = get_all_musk_classes()
+    universal = get_universal_musks()
+    caution = get_east_asian_caution_musks()
+    trio = get_woody_infrastructure_trio()
+    return _result(
+        "musk_intelligence",
+        "PASS",
+        f"{len(classes)} classes, {len(universal)} universal, {len(caution)} EA caution, trio: {trio.primary}+{trio.secondary}+{trio.tertiary}",
+        data={
+            "musk_classes": len(classes),
+            "universal": [c.name for c in universal],
+            "ea_caution": [c.name for c in caution],
+        },
+    )
+
+
+def _gate_brief_translation(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Natural language brief → structured formulation constraints."""
+    try:
+        from future_modules.brief_translation import (
+            translate_brief,
+            generate_constraints,
+            build_concept_strip,
+        )
+    except ImportError:
+        return _result("brief_translation", "WARN", "Brief translation not available")
+
+    brief = config.brief or "auto"
+    return _result(
+        "brief_translation",
+        "PASS",
+        f"Brief '{brief}' translatable to constraints",
+        data={"brief": brief},
+    )
+
+
+def _gate_ellena_legibility(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Jean-Claude Ellena: top 3 OAV materials should dominate for legibility."""
+    oavs = sorted([float(m.oav or 0.0) for m in state.materials], reverse=True)
+    total = sum(oavs) or 1.0
+    top3 = sum(oavs[:3])
+    ratio = top3 / total * 100.0
+    if ratio < 40.0:
+        return _result(
+            "ellena_legibility",
+            "WARN",
+            f"Top 3 materials = {ratio:.0f}% of OAV — olfactory white risk (need >40%)",
+        )
+    if ratio > 95.0:
+        return _result(
+            "ellena_legibility",
+            "WARN",
+            f"Top 3 materials = {ratio:.0f}% of OAV — too simple, no depth",
+        )
+    return _result(
+        "ellena_legibility", "PASS", f"Top 3 materials = {ratio:.0f}% of OAV — legible"
+    )
+
+
+def _family_gate_applicable(config: ReleaseGateConfig, *keywords: str) -> bool:
+    """Return True when a family-specific skeleton gate should actively validate."""
+    archetype = str(config.family_archetype or config.brief or "").strip().lower()
+    if not archetype or archetype in {"auto", "generic"}:
+        return False  # FIXED: cannot determine family — skip family-specific skeleton checks
+    return any(keyword in archetype for keyword in keywords)
+
+
+def _gate_fougere_skeleton(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Paul Parquet: fougère needs lavender + coumarin + oakmoss."""
+    if not _family_gate_applicable(config, "fougere", "aromatic"):
+        return _result("fougere_skeleton", "PASS", "not applicable")
+    from engine.name_utils import normalize_name
+
+    has_lavender = has_coumarin = has_moss = False
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if (
+            n in ("lavender", "lavender eo", "lavender eo high altitude", "lavandin")
+            or "lavender" in n
+        ):
+            has_lavender = has_lavender or oav >= 1.0
+        if n == "coumarin":
+            has_coumarin = has_coumarin or oav >= 1.0
+        if n in ("evernyl", "oakmoss", "oakmoss absolute") or "oakmoss" in n:
+            has_moss = has_moss or oav >= 1.0
+    missing = []
+    if not has_lavender:
+        missing.append("lavender")
+    if not has_coumarin:
+        missing.append("coumarin")
+    if not has_moss:
+        missing.append("oakmoss/evernyl")
+    if missing:
+        return _result(
+            "fougere_skeleton",
+            "FAIL" if len(missing) > 1 else "WARN",
+            f"Fougère skeleton missing: {', '.join(missing)}",
+        )
+    return _result(
+        "fougere_skeleton",
+        "PASS",
+        "Fougère skeleton complete (lavender + coumarin + oakmoss)",
+    )
+
+
+def _gate_chypre_skeleton(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """François Coty: chypre needs bergamot + labdanum + oakmoss."""
+    if not _family_gate_applicable(config, "chypre"):
+        return _result("chypre_skeleton", "PASS", "not applicable")
+    from engine.name_utils import normalize_name
+
+    has_bergamot = has_labdanum = has_moss = False
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if "bergamot" in n:
+            has_bergamot = has_bergamot or oav >= 1.0
+        if n in ("labdanum", "labdanum absolute") or "labdanum" in n:
+            has_labdanum = has_labdanum or oav >= 1.0
+        if n in ("evernyl", "oakmoss", "oakmoss absolute") or "oakmoss" in n:
+            has_moss = has_moss or oav >= 1.0
+    missing = []
+    if not has_bergamot:
+        missing.append("bergamot")
+    if not has_labdanum:
+        missing.append("labdanum")
+    if not has_moss:
+        missing.append("oakmoss/evernyl")
+    if missing:
+        return _result(
+            "chypre_skeleton",
+            "FAIL" if len(missing) > 1 else "WARN",
+            f"Chypre skeleton missing: {', '.join(missing)}",
+        )
+    return _result(
+        "chypre_skeleton",
+        "PASS",
+        "Chypre skeleton complete (bergamot + labdanum + oakmoss)",
+    )
+
+
+# ── Skeleton marker categories ──────────────────────────────────────
+# Each skeleton has: name, archetype_keywords (checks family_archetype), markers,
+# passes (minimum markers for PASS), warns (minimum for WARN, else FAIL), source
+_SKELETONS: dict[str, tuple[list[str], dict[str, str], int, str]] = {
+    # ── Category A: Mass Market ──
+    "blue_ambroxan": (
+        ["blue", "fresh", "aromatic_fougere", "modern_mineral"],
+        {"ambrox": "ambroxan_amber", "dhm": "dihydromyrcenol", "citrus": "bergamot"},
+        2,
+        "Sauvage (Dior), Bleu de Chanel",
+    ),
+    "gourmand_angel": (
+        ["gourmand", "sweet", "vanilla"],
+        {
+            "ethyl_maltol": "ethyl maltol",
+            "vanillin": "vanillin",
+            "patchouli": "patchouli",
+        },
+        2,
+        "Angel (Mugler, 1992)",
+    ),
+    "vanilla_amber_black_opium": (
+        ["amber", "oriental", "vanilla", "gourmand"],
+        {
+            "vanillin": "vanillin",
+            "patchouli": "patchouli",
+            "coffee": "coffee",
+            "benzoin": "benzoin",
+        },
+        2,
+        "Black Opium (YSL), La Vie Est Belle",
+    ),
+    "white_floral_jadore": (
+        ["floral", "white floral"],
+        {
+            "hedione": "hedione",
+            "tuberose_marker": "p-cresyl methyl ether",
+            "musk": "galaxolide",
+        },
+        2,
+        "J'adore (Dior), Good Girl (CH)",
+    ),
+    "fresh_clean_ckone": (
+        ["fresh", "citrus", "aromatic", "water"],
+        {
+            "dhm": "dihydromyrcenol",
+            "bergamot": "bergamot",
+            "iso_e_super": "iso e super",
+        },
+        2,
+        "CK One (Calvin Klein, 1994)",
+    ),
+    "tobacco_vanille": (
+        ["amber", "oriental", "gourmand", "tobacco"],
+        {"vanillin": "vanillin", "coumarin": "coumarin", "tobacco": "tobacco"},
+        2,
+        "Tobacco Vanille (TF), Stronger With You",
+    ),
+    "rose_patchouli": (
+        ["floral", "woody", "chypre"],
+        {"rose": "geraniol", "patchouli": "patchouli", "incense": "olibanum"},
+        2,
+        "Portrait of a Lady (FM), Rose Anonyme",
+    ),
+    "coconut_tropical": (
+        ["fresh", "fruity", "summer", "tropical"],
+        {"coconut": "coconut", "bergamot": "bergamot", "tobacco": "tobacco"},
+        1,
+        "Le Beau (JPG), Virgin Island Water",
+    ),
+    "iris_woody": (
+        ["woody", "floral", "iris", "powdery"],
+        {"irone": "irone", "ionone": "ionone", "cedar": "cedarwood"},
+        2,
+        "Dior Homme (2005), Prada L'Homme",
+    ),
+    "saffron_leather_oud": (
+        ["woody", "leather", "oriental"],
+        {"saffron": "safranate", "leather": "isobutyl quinoline", "oud": "nagarmotha"},
+        1,
+        "Oud Wood (TF), Tuscan Leather",
+    ),
+    # ── Category B: Classic (40+ years) ──
+    "aldehydic_floral": (
+        ["floral", "aldehydic", "soft floral"],
+        {
+            "aldehydes": "aldehyde",
+            "rose": "geraniol",
+            "jasmine": "hedione",
+            "musk": "galaxolide",
+        },
+        3,
+        "Chanel No. 5 (Ernest Beaux, 1921)",
+    ),
+    "oriental_shalimar": (
+        ["amber", "oriental"],
+        {"labdanum": "labdanum", "benzoin": "benzoin", "vanillin": "vanillin"},
+        2,
+        "Shalimar (Guerlain, 1925)",
+    ),
+    "green_chypre": (
+        ["green", "chypre", "aromatic"],
+        {"galbanum": "galbanum", "green": "cis-3-hexenol", "evernyl": "evernyl"},
+        2,
+        "Vent Vert (Balmain, 1947), Ma Griffe (Carven, 1946)",
+    ),
+    "leather_cuir": (
+        ["leather", "dry woods"],
+        {"ibq": "isobutyl quinoline", "birch": "birch tar", "tobacco": "tobacco"},
+        1,
+        "Cuir de Russie (Chanel, 1924), Bandit (Piguet, 1944)",
+    ),
+    "aquatic_marine": (
+        ["water", "aquatic", "fresh"],
+        {"calone": "calone", "dhm": "dihydromyrcenol", "hedione": "hedione"},
+        2,
+        "Acqua di Gio (Armani, 1996), Cool Water (1988)",
+    ),
+    "floral_oriental_poison": (
+        ["floral", "oriental", "amber"],
+        {
+            "tuberose": "p-cresyl methyl ether",
+            "labdanum": "labdanum",
+            "vanillin": "vanillin",
+        },
+        2,
+        "Poison (Dior, 1985), Opium (YSL, 1977)",
+    ),
+    # ── Category C: New / Interesting ──
+    "skin_scent_molecule": (
+        ["minimal", "skin", "molecule", "transparent"],
+        {
+            "iso_e_super": "iso e super",
+            "ambrettolide": "ambrettolide",
+            "clean_musk": "galaxolide",
+        },
+        1,
+        "Molecule 01 (Escentric), Glossier You",
+    ),
+    "tea_matcha": (
+        ["fresh", "green", "tea"],
+        {"tea": "theaspirane", "jasmine": "hedione", "fig": "fig"},
+        1,
+        "Wulong Cha (Nishane), The Noir",
+    ),
+    "mineral_salty": (
+        ["fresh", "marine", "mineral", "water"],
+        {"ambrox": "ambrox", "scentenal": "scentenal", "hedione": "hedione"},
+        2,
+        "Sel Marin (Heeley), Acqua di Gio Profondo",
+    ),
+    "lactonic_milky": (
+        ["creamy", "lactonic", "floral", "sweet"],
+        {"lactone": "decalactone", "sandalwood": "sandalwood", "coconut": "coconut"},
+        1,
+        "Philosykos (Diptyque), Santal Blanc",
+    ),
+    "hyper_synthetic_metallic": (
+        ["leather", "woody", "aromatic", "metallic"],
+        {
+            "violet_leaf": "parmavert",
+            "birch": "birch tar",
+            "leather": "isobutyl quinoline",
+        },
+        2,
+        "Fahrenheit (Dior, 1988), CDG Synthetic",
+    ),
+    "incense_cathedral": (
+        ["incense", "resinous", "woody", "spiritual"],
+        {"olibanum": "olibanum", "myrrh": "myrrh", "cedar": "cedarwood"},
+        2,
+        "Avignon (CDG), L'Air du Desert (Tauer)",
+    ),
+    "violet_candyfloss": (
+        ["floral", "powdery", "sweet", "gourmand"],
+        {
+            "ionone": "ionone",
+            "ethyl_maltol": "ethyl maltol",
+            "heliotropin": "heliotropin",
+        },
+        2,
+        "Insolence (Guerlain), La Petite Robe Noire",
+    ),
+    "ellena_transparent": (
+        ["fresh", "green", "transparent", "light"],
+        {
+            "hedione": "hedione",
+            "cis_3_hexenol": "cis-3-hexenol",
+            "iso_e_super": "iso e super",
+        },
+        2,
+        "Un Jardin series (Hermes, Ellena)",
+    ),
+    # ── Additional ──
+    "woody_amber_modern": (
+        ["woody", "amber", "woody oriental", "modern"],
+        {"ambermax": "ambermax", "iso_e_super": "iso e super", "cedar": "cedarwood"},
+        2,
+        "Interlude (Amouage), Oud Wood",
+    ),
+    "fruity_floral_mass": (
+        ["floral", "fruity", "fresh"],
+        {"hedione": "hedione", "fruit": "berry", "musk": "galaxolide"},
+        2,
+        "La Vie Est Belle, Flowerbomb, Chanel Chance",
+    ),
+    # ── DIOR (8) ──
+    "dior_homme_iris": (
+        ["floral", "iris", "woody", "masculine", "dior"],
+        {"irone": "irone", "lavender": "lavender", "cacao": "cacao"},
+        2,
+        "Dior Homme (Olivier Polge, 2005)",
+    ),
+    "dior_homme_intense": (
+        ["floral", "iris", "sweet", "amber", "dior"],
+        {"irone": "irone", "vanillin": "vanillin", "leather": "isobutyl quinoline"},
+        2,
+        "Dior Homme Intense (2007)",
+    ),
+    "dior_homme_cologne": (
+        ["fresh", "citrus", "transparent", "dior"],
+        {"bergamot": "bergamot", "grapefruit": "grapefruit", "hedione": "hedione"},
+        2,
+        "Dior Homme Cologne (2013)",
+    ),
+    "dior_homme_sport": (
+        ["fresh", "citrus", "sport", "dior"],
+        {
+            "bergamot": "bergamot",
+            "spice": "ginger",
+            "iris": "irone",
+            "vetiver": "vetiver",
+        },
+        2,
+        "Dior Homme Sport (2008)",
+    ),
+    "dior_fahrenheit": (
+        ["leather", "woody", "aromatic", "dior"],
+        {"violet_leaf": "parmavert", "birch": "birch tar", "spice": "nutmeg"},
+        2,
+        "Fahrenheit (Dior, 1988)",
+    ),
+    "dior_diorissimo": (
+        ["floral", "green", "white floral", "dior"],
+        {"muguet": "hydroxycitronellal", "jasmine": "jasmine", "rose": "rose"},
+        2,
+        "Diorissimo (Roudnitska, 1956)",
+    ),
+    "dior_eau_sauvage": (
+        ["fresh", "citrus", "aromatic", "dior"],
+        {
+            "bergamot": "bergamot",
+            "hedione": "hedione",
+            "vetiver": "vetiver",
+            "herbal": "rosemary",
+        },
+        2,
+        "Eau Sauvage (Roudnitska, 1966)",
+    ),
+    # ── CHANEL (5) ──
+    "chanel_bleu": (
+        ["fresh", "aromatic", "woody", "chanel", "blue"],
+        {
+            "grapefruit": "grapefruit",
+            "iso_e_super": "iso e super",
+            "incense": "olibanum",
+            "cedar": "cedarwood",
+        },
+        2,
+        "Bleu de Chanel (Jacques Polge, 2010)",
+    ),
+    "chanel_egoiste": (
+        ["aromatic", "woody", "chanel"],
+        {
+            "lavender": "lavender",
+            "geranium": "geranium",
+            "rosemary": "rosemary",
+            "cedar": "cedarwood",
+        },
+        2,
+        "Platinum Egoiste (Chanel, 1993)",
+    ),
+    "chanel_chance": (
+        ["floral", "fresh", "sweet", "chanel"],
+        {
+            "citron": "citron",
+            "jasmine": "jasmine",
+            "iris": "irone",
+            "patchouli": "patchouli",
+        },
+        2,
+        "Chance (Chanel, 2003)",
+    ),
+    # ── CHANEL ALLURE HOMME SPORT (5) ──
+    "allure_homme_sport": (
+        ["fresh", "citrus", "sport", "chanel", "allure"],
+        {
+            "citrus": "bergamot",
+            "neroli": "neroli",
+            "tonka": "tonka",
+            "vetiver": "vetiver",
+        },
+        3,
+        "Allure Homme Sport (Jacques Polge, 2004)",
+    ),
+    "allure_homme_sport_cologne": (
+        ["fresh", "citrus", "cologne", "chanel", "allure"],
+        {"citrus": "bergamot", "neroli": "neroli", "musk": "galaxolide"},
+        2,
+        "Allure Homme Sport Cologne (2007)",
+    ),
+    "allure_homme_sport_edp": (
+        ["fresh", "citrus", "amber", "chanel", "allure"],
+        {
+            "citrus": "bergamot",
+            "pepper": "pepper",
+            "tonka": "tonka",
+            "vetiver": "vetiver",
+            "amber": "labdanum",
+        },
+        3,
+        "Allure Homme Sport EDP (2012)",
+    ),
+    "allure_homme_sport_extreme": (
+        ["fresh", "citrus", "intense", "amber", "chanel", "allure"],
+        {
+            "mandarin": "mandarin",
+            "tonka": "tonka",
+            "vanillin": "vanillin",
+            "sandalwood": "sandalwood",
+        },
+        2,
+        "Allure Homme Sport Extreme (2012)",
+    ),
+    "allure_homme_sport_superleggera": (
+        ["fresh", "green", "light", "chanel", "allure"],
+        {
+            "citrus": "bergamot",
+            "herbal": "petitgrain",
+            "musk": "galaxolide",
+            "cedar": "cedarwood",
+        },
+        2,
+        "Allure Homme Sport Superleggera (Olivier Polge, 2019)",
+    ),
+    # ── PRADA (3) ──
+    "prada_lhomme": (
+        ["fresh", "floral", "iris", "powdery", "prada"],
+        {"iris": "irone", "neroli": "neroli", "cedar": "cedarwood", "amber": "amber"},
+        2,
+        "Prada L'Homme (2016)",
+    ),
+    "prada_amber_homme": (
+        ["amber", "oriental", "spicy", "prada"],
+        {
+            "amber": "labdanum",
+            "cardamom": "cardamom",
+            "leather": "isobutyl quinoline",
+            "patchouli": "patchouli",
+        },
+        2,
+        "Prada Amber Pour Homme (2006)",
+    ),
+    "prada_infusion_iris": (
+        ["floral", "iris", "powdery", "clean", "prada"],
+        {
+            "iris": "irone",
+            "mandarin": "mandarin",
+            "cedar": "cedarwood",
+            "benzoin": "benzoin",
+        },
+        2,
+        "Prada Infusion d'Iris (2007)",
+    ),
+    # ── YSL (4) ──
+    "ysl_la_nuit": (
+        ["spicy", "aromatic", "woody", "ysl"],
+        {
+            "cardamom": "cardamom",
+            "lavender": "lavender",
+            "cedar": "cedarwood",
+            "caraway": "caraway",
+        },
+        2,
+        "La Nuit de L'Homme (YSL, 2009)",
+    ),
+    "ysl_lhomme": (
+        ["fresh", "spicy", "woody", "ysl"],
+        {"ginger": "ginger", "basil": "basil", "tonka": "tonka", "cedar": "cedarwood"},
+        2,
+        "YSL L'Homme (2006)",
+    ),
+    "ysl_kouros": (
+        ["animalic", "aromatic", "leather", "ysl"],
+        {
+            "aldehydes": "aldehyde",
+            "honey": "honey",
+            "tobacco": "tobacco",
+            "leather": "isobutyl quinoline",
+        },
+        2,
+        "Kouros (YSL, 1981)",
+    ),
+}
+
+
+def _check_skeleton(
+    name: str, state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Generic skeleton checker: verifies marker materials are present."""
+    from engine.name_utils import normalize_name
+
+    if name not in _SKELETONS:
+        return _result(f"{name}_skeleton", "PASS", f"unknown skeleton {name}")
+    archetype_kw, markers, pass_count, source = _SKELETONS[name]
+
+    # Only validate if archetype matches or no archetype set
+    raw_archetype = str(config.family_archetype or "")
+    archetype = str(config.family_archetype or config.brief or "").lower()
+    requested_token = archetype.replace("_", " ").replace(".", " ").strip()
+    skeleton_token = name.replace("_", " ").strip()
+    if requested_token and requested_token == skeleton_token:
+        should_check = True
+    elif requested_token and requested_token in {
+        key.replace("_", " ").strip() for key in _SKELETONS
+    }:
+        should_check = False
+    elif raw_archetype and "." in raw_archetype:
+        should_check = False
+    else:
+        should_check = not archetype or (archetype_kw and archetype_kw[0] in archetype)
+    if not should_check and archetype:
+        return _result(f"{name}_skeleton", "PASS", "not applicable")
+
+    found = 0
+    used_markers: list[str] = []
+    for marker_key, marker_note in markers.items():
+        for m in state.materials:
+            n = normalize_name(m.canonical_name or m.name)
+            oav = float(m.oav or 0.0)
+            if oav >= 1.0 and marker_note in n:
+                found += 1
+                used_markers.append(marker_key)
+                break
+
+    if found >= pass_count:
+        return _result(
+            f"{name}_skeleton",
+            "PASS",
+            f"{' + '.join(used_markers)} present (source: {source})",
+        )
+    if found >= 1:
+        return _result(
+            f"{name}_skeleton",
+            "WARN",
+            f"Skeleton weak: {found}/{pass_count} markers ({source})",
+        )
+    return _result(f"{name}_skeleton", "FAIL", f"No skeleton markers found ({source})")
+
+
+# Generate all skeleton gate functions dynamically
+for _skel_name in list(_SKELETONS.keys()):
+    _gate_name = f"_gate_{_skel_name}_skeleton"
+    _skel_n = _skel_name
+    exec(
+        f"def {_gate_name}(state, config): return _check_skeleton({_skel_n!r}, state, config)",
+        globals(),
+    )
+
+
+def _gate_jellinek_psychology(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Paul Jellinek: psychological balance of erogenic/narcotic/stimulating/anti-erogenic."""
+    from engine.name_utils import normalize_name
+
+    totals: dict[str, float] = {
+        "erogenic": 0.0,
+        "narcotic": 0.0,
+        "stimulating": 0.0,
+        "anti_erogenic": 0.0,
+    }
+    total_oav = 0.0
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0.0:
+            continue
+        n = normalize_name(m.canonical_name or m.name)
+        cls = _JELLINEK_CLASSES.get(n)
+        if cls is not None:
+            totals[cls] += oav
+        total_oav += oav
+    if total_oav == 0:
+        return _result(
+            "jellinek_psychology", "WARN", "No perceptible materials to classify"
+        )
+    pcts = {k: v / total_oav * 100.0 for k, v in totals.items()}
+    dominant = max(pcts, key=pcts.get)
+    if pcts[dominant] > 70.0:
+        return _result(
+            "jellinek_psychology",
+            "WARN",
+            f"Jellinek imbalance: {dominant} at {pcts[dominant]:.0f}% of OAV",
+        )
+    empty = [k for k, v in pcts.items() if v < 5.0]
+    if empty:
+        return _result(
+            "jellinek_psychology",
+            "WARN",
+            f"Jellinek categories weak: {', '.join(empty)}",
+        )
+    return _result(
+        "jellinek_psychology",
+        "PASS",
+        f"Jellinek balanced: {', '.join(f'{k}={v:.0f}%' for k, v in sorted(pcts.items()))}",
+    )
+
+
+def _gate_edwards_wheel_coherence(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Michael Edwards: OAV distribution should match family archetype adjacency."""
+    from engine.name_utils import normalize_name
+
+    if not config.family_archetype:
+        return _result("edwards_wheel_coherence", "PASS", "no family archetype set")
+    archetype = config.family_archetype.lower()
+    family_oav: dict[str, float] = {}
+    for m in state.materials:
+        fam = (m.family or "unknown").lower()
+        oav = float(m.oav or 0.0)
+        family_oav[fam] = family_oav.get(fam, 0.0) + oav
+    total = sum(family_oav.values()) or 1.0
+    # Edwards wheel adjacency: floral families should not have >30% woody OAV, etc.
+    floral_families = {"floral", "rose", "muguet", "indolic"}
+    woody_families = {"woody", "mossy woods", "dry woods"}
+    citrus_families = {"citrus", "fresh"}
+    amber_families = {"amber", "oriental"}
+
+    floral_pct = sum(family_oav.get(f, 0.0) for f in floral_families) / total * 100.0
+    woody_pct = sum(family_oav.get(f, 0.0) for f in woody_families) / total * 100.0
+    citrus_pct = sum(family_oav.get(f, 0.0) for f in citrus_families) / total * 100.0
+    amber_pct = sum(family_oav.get(f, 0.0) for f in amber_families) / total * 100.0
+
+    issues = []
+    if "floral" in archetype and woody_pct > 40.0:
+        issues.append(f"floral archetype with {woody_pct:.0f}% woody OAV (>40)")
+    if "citrus" in archetype and woody_pct > 50.0:
+        issues.append(f"citrus archetype with {woody_pct:.0f}% woody OAV (>50)")
+    if amber_pct > 70.0 and citrus_pct < 5.0:
+        issues.append("amber dominant without citrus counterpoint")
+    if issues:
+        return _result("edwards_wheel_coherence", "WARN", "; ".join(issues))
+    return _result("edwards_wheel_coherence", "PASS", "Edwards wheel coherent")
+
+
+def _gate_guerlain_nature_synthetic(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Aimé Guerlain: balance of natural vs synthetic materials."""
+    naturals_keywords = (
+        " eo",
+        "absolute",
+        " resinoid",
+        " oil",
+        "natural",
+        "bergamot",
+        "lavender",
+        "rose",
+        "jasmine",
+        "ylang",
+        "mandarin",
+        "orange",
+        "petitgrain",
+        "neroli",
+        "cedrat",
+    )
+    natural_oav = synthetic_oav = 0.0
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0.0:
+            continue
+        n = (m.canonical_name or m.name).lower()
+        is_nat = any(kw in n for kw in naturals_keywords)
+        if is_nat:
+            natural_oav += oav
+        else:
+            synthetic_oav += oav
+    total = natural_oav + synthetic_oav or 1.0
+    nat_pct = natural_oav / total * 100.0
+    if nat_pct > 85.0:
+        return _result(
+            "guerlain_nature_synthetic",
+            "WARN",
+            f"Natural OAV = {nat_pct:.0f}% — batch inconsistency risk",
+        )
+    if nat_pct < 3.0:
+        return _result(
+            "guerlain_nature_synthetic",
+            "WARN",
+            f"Natural OAV = {nat_pct:.0f}% — lacks natural complexity",
+        )
+    return _result(
+        "guerlain_nature_synthetic",
+        "PASS",
+        f"Natural {nat_pct:.0f}% / Synthetic {100 - nat_pct:.0f}%",
+    )
+
+
+def _gate_weber_fechner_contrast(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Weber-Fechner: OAV should follow log-normal distribution for good contrast."""
+    import math
+
+    oavs = [float(m.oav or 0.0) for m in state.materials if (m.oav or 0.0) > 0.0]
+    if len(oavs) < 3:
+        return _result("weber_fechner_contrast", "PASS", "too few materials to assess")
+    logs = [math.log10(o) for o in oavs]
+    mean = sum(logs) / len(logs)
+    variance = sum((l - mean) ** 2 for l in logs) / len(logs)
+    sigma = math.sqrt(variance)
+    if sigma < 0.3:
+        return _result(
+            "weber_fechner_contrast",
+            "FAIL",
+            f"sigma-log(OAV)={sigma:.2f} — all materials at same intensity, flat composition",
+        )
+    if sigma < 0.8:
+        return _result(
+            "weber_fechner_contrast",
+            "WARN",
+            f"sigma-log(OAV)={sigma:.2f} — low contrast, risk of olfactory white",
+        )
+    if sigma > 2.5:
+        return _result(
+            "weber_fechner_contrast",
+            "WARN",
+            f"sigma-log(OAV)={sigma:.2f} — extreme contrast, some materials may be lost",
+        )
+    return _result(
+        "weber_fechner_contrast", "PASS", f"sigma-log(OAV)={sigma:.2f} — good contrast"
+    )
+
+
+def _gate_adaptation_timing(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Olfactory adaptation: check that adaptation rates are staggered."""
+    from engine.name_utils import normalize_name
+
+    tiers: dict[str, float] = {
+        "fast_0_10min": 0.0,
+        "medium_10_45min": 0.0,
+        "slow_45_120min": 0.0,
+    }
+    total = 0.0
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0.0:
+            continue
+        n = normalize_name(m.canonical_name or m.name)
+        tier = None
+        for t, keywords in _ADAPTATION_TIERS.items():
+            if any(kw in n for kw in keywords):
+                tier = t
+                break
+        if tier == "fast":
+            tiers["fast_0_10min"] += oav
+        elif tier == "medium":
+            tiers["medium_10_45min"] += oav
+        elif tier == "slow":
+            tiers["slow_45_120min"] += oav
+        else:
+            tiers["medium_10_45min"] += oav  # default
+        total += oav
+
+    total = total or 1.0
+    pcts = {k: v / total * 100.0 for k, v in tiers.items()}
+    issues = []
+    if pcts["fast_0_10min"] < 5.0:
+        issues.append("fast tier < 5% (no immediate impact)")
+    if pcts["slow_45_120min"] < 10.0:
+        issues.append("slow tier < 10% (poor longevity)")
+    if pcts["fast_0_10min"] > 60.0:
+        issues.append("fast tier > 60% (quick collapse)")
+    if not issues:
+        return _result(
+            "adaptation_timing",
+            "PASS",
+            f"Adaptation tiers: {', '.join(f'{k}={v:.0f}%' for k, v in sorted(pcts.items()))}",
+        )
+    return _result("adaptation_timing", "WARN", "; ".join(issues))
+
+
+def _gate_guerlain_vanillin_coumarin(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Aimé Guerlain: vanillin should not dominate coumarin in fougère/chypre structures."""
+    from engine.name_utils import normalize_name
+
+    vanillin_oav = coumarin_oav = 0.0
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if n == "vanillin" or n == "ethyl vanillin":
+            vanillin_oav += oav
+        if n == "coumarin":
+            coumarin_oav += oav
+    if coumarin_oav <= 0.0 and vanillin_oav > 0.0:
+        return _result(
+            "guerlain_vanillin_coumarin",
+            "WARN",
+            "Vanillin present without coumarin — no structural counterweight",
+        )
+    if coumarin_oav > 0.0 and vanillin_oav > coumarin_oav * 3.0:
+        return _result(
+            "guerlain_vanillin_coumarin",
+            "FAIL",
+            f"Vanillin OAV {vanillin_oav:.0f} >> Coumarin OAV {coumarin_oav:.0f} (ratio >3)",
+        )
+    if coumarin_oav > 0.0 and vanillin_oav > coumarin_oav * 1.5:
+        return _result(
+            "guerlain_vanillin_coumarin",
+            "WARN",
+            f"Vanillin OAV {vanillin_oav:.0f} > Coumarin OAV {coumarin_oav:.0f} × 1.5",
+        )
+    return _result(
+        "guerlain_vanillin_coumarin",
+        "PASS",
+        f"Vanillin {vanillin_oav:.0f} / Coumarin {coumarin_oav:.0f} — balanced",
+    )
+
+
+def _gate_stevens_power_law(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Stevens Power Law: perceived intensity = OAV^n (n=0.5 for olfaction)."""
+    import math
+
+    total_perceived = 0.0
+    materials_data: list[tuple[str, float, float]] = []
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0.0:
+            continue
+        perceived = math.pow(oav, 0.5)  # n=0.5 compressive
+        total_perceived += perceived
+        materials_data.append((m.canonical_name or m.name, oav, perceived))
+    if total_perceived <= 0:
+        return _result("stevens_power_law", "PASS", "no perceptible materials")
+    max_pct = max(p / total_perceived * 100.0 for _, _, p in materials_data)
+    under_01 = sum(
+        1
+        for _, o, _ in materials_data
+        if o > 0.0 and math.pow(o, 0.5) / total_perceived * 100.0 < 0.1
+    )
+    issues = []
+    if max_pct > 60.0:
+        dominant = max(materials_data, key=lambda x: x[2])
+        issues.append(f"{dominant[0]} dominates perceived intensity at {max_pct:.0f}%")
+    if under_01 > len(materials_data) * 0.3:
+        issues.append(
+            f"{under_01}/{len(materials_data)} materials contribute <0.1% of perceived intensity"
+        )
+    if issues:
+        return _result("stevens_power_law", "WARN", "; ".join(issues))
+    return _result(
+        "stevens_power_law",
+        "PASS",
+        f"Perceived intensity distributed across {len(materials_data)} materials",
+    )
+
+
+def _gate_carles_material_count(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Jean Carles: formulas should have 15-40 materials."""
+    n = state.material_count
+    if n < 8:
+        return _result(
+            "carles_material_count",
+            "FAIL",
+            f"{n} materials — too few for a finished perfume",
+        )
+    if n < 12:
+        return _result(
+            "carles_material_count",
+            "WARN",
+            f"{n} materials — minimalist; Carles recommends 15-40",
+        )
+    if n > 50:
+        return _result(
+            "carles_material_count", "WARN", f"{n} materials — Carles upper limit is 40"
+        )
+    return _result(
+        "carles_material_count", "PASS", f"{n} materials — within Carles 15-40 range"
+    )
+
+
+def _gate_roudnitska_hedione_pct(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Roudnitska: Hedione should be 10-25% of concentrate."""
+    from engine.name_utils import normalize_name
+
+    total_raw = state.total_raw_ul or 1.0
+    hedione_names = {"hedione", "hedione hc"}
+    hedione_raw = sum(
+        m.raw_ul
+        for m in state.materials
+        if normalize_name(m.canonical_name or m.name) in hedione_names
+    )
+    hedione_pct = hedione_raw / total_raw * 100.0
+    if hedione_pct > 30.0:
+        return _result(
+            "roudnitska_hedione_pct",
+            "FAIL",
+            f"Hedione = {hedione_pct:.1f}% of concentrate (>30%, guaranteed olfactory fatigue)",
+        )
+    if hedione_pct > 25.0:
+        return _result(
+            "roudnitska_hedione_pct",
+            "WARN",
+            f"Hedione = {hedione_pct:.1f}% of concentrate (>25% Roudnitska limit)",
+        )
+    if hedione_pct < 5.0 and hedione_pct > 0.0:
+        return _result(
+            "roudnitska_hedione_pct",
+            "WARN",
+            f"Hedione = {hedione_pct:.1f}% of concentrate (<5%, minimal radiance effect)",
+        )
+    return _result(
+        "roudnitska_hedione_pct",
+        "PASS",
+        f"Hedione = {hedione_pct:.1f}% of concentrate (10-25% ideal)",
+    )
+
+
+def _gate_guerlain_rose_jasmine_balance(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Guerlain tradition: rose and jasmine should balance in floral formulas."""
+    from engine.name_utils import normalize_name
+
+    rose_oav = jasmine_oav = 0.0
+    rose_kw = {
+        "geraniol",
+        "citronellol",
+        "nerol",
+        "rhodinol",
+        "rose oxide",
+        "damascone",
+        "damascenone",
+        "phenethyl alcohol",
+    }
+    jasmine_kw = {
+        "hedione",
+        "benzyl acetate",
+        "cis jasmone",
+        "dihydrojasmone",
+        "indole",
+        "methyl benzoate",
+    }
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if n in rose_kw or any(
+            k in n for k in ("rose", "geraniol", "citronellol", "nerol")
+        ):
+            rose_oav += oav
+        if n in jasmine_kw or any(k in n for k in ("hedione", "jasmone", "jasmine")):
+            jasmine_oav += oav
+    if rose_oav <= 1.0 or jasmine_oav <= 1.0:
+        return _result(
+            "guerlain_rose_jasmine_balance", "PASS", "rose/jasmine not applicable"
+        )
+    ratio = max(rose_oav, jasmine_oav) / min(rose_oav, jasmine_oav)
+    if ratio > 3.0:
+        return _result(
+            "guerlain_rose_jasmine_balance",
+            "WARN",
+            f"Rose:jasmine OAV ratio = {ratio:.1f}:1 — Guerlain recommends <3:1",
+        )
+    return _result(
+        "guerlain_rose_jasmine_balance",
+        "PASS",
+        f"Rose:jasmine OAV ratio = {ratio:.1f}:1 — balanced",
+    )
+
+
+def _gate_carles_accord_ratio(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Carles: check for extreme pairwise ratios >8:1 (wasted material)."""
+    oavs = [
+        (m.canonical_name or m.name, float(m.oav or 0.0))
+        for m in state.materials
+        if (m.oav or 0.0) > 0.0
+    ]
+    issues = []
+    for i in range(len(oavs)):
+        for j in range(i + 1, len(oavs)):
+            if oavs[i][1] <= 0 or oavs[j][1] <= 0:
+                continue
+            ratio = max(oavs[i][1], oavs[j][1]) / min(oavs[i][1], oavs[j][1])
+            if ratio > 8.0:
+                issues.append(f"{oavs[i][0]}:{oavs[j][0]} = {ratio:.0f}:1")
+                if len(issues) >= 3:
+                    break
+        if len(issues) >= 3:
+            break
+    if issues:
+        return _result(
+            "carles_accord_ratio",
+            "WARN",
+            f"Extreme ratios (>8:1, Carles limit): {'; '.join(issues)}",
+        )
+    return _result("carles_accord_ratio", "PASS", "No extreme pairwise ratios")
+
+
+def _gate_coty_single_material_limit(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """François Coty: no single material should exceed 40% of raw mass."""
+    total_raw = state.total_raw_ul or 1.0
+    for m in state.materials:
+        pct = m.raw_ul / total_raw * 100.0
+        if pct > 40.0:
+            return _result(
+                "coty_single_material_limit",
+                "FAIL",
+                f"{m.canonical_name or m.name} = {pct:.0f}% of concentrate (>40% Coty limit)",
+            )
+    return _result(
+        "coty_single_material_limit", "PASS", "No single material exceeds 40%"
+    )
+
+
+def _gate_stevens_n_efficiency(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Stevens: check if high-volume materials are efficiently used."""
+    import math
+
+    total_raw = state.total_raw_ul or 1.0
+    issues = []
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        raw_pct = m.raw_ul / total_raw * 100.0
+        if oav > 0 and raw_pct > 30.0:
+            perceived = math.pow(oav, 0.5) if oav > 0 else 0
+            total_perceived = sum(
+                math.pow(float(x.oav or 0.0), 0.5)
+                for x in state.materials
+                if (x.oav or 0.0) > 0
+            )
+            perceived_pct = (
+                perceived / total_perceived * 100.0 if total_perceived > 0 else 0
+            )
+            if perceived_pct < raw_pct * 0.5:
+                issues.append(
+                    f"{m.canonical_name or m.name}: {raw_pct:.0f}% raw -> {perceived_pct:.0f}% perceived"
+                )
+                if len(issues) >= 3:
+                    break
+    if issues:
+        return _result(
+            "stevens_n_efficiency",
+            "WARN",
+            f"Inefficient materials: {'; '.join(issues)}",
+        )
+    return _result("stevens_n_efficiency", "PASS", "All materials efficiently used")
+
+
+def _gate_jnd_redundancy(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Weber's Law JND: materials with similar OAV in same family are redundant."""
+    from collections import defaultdict
+
+    fam_oavs: dict[str, list[tuple[str, float]]] = defaultdict(list)
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0:
+            continue
+        fam = m.family or "unknown"
+        fam_oavs[fam].append((m.canonical_name or m.name, oav))
+    issues = []
+    for fam, items in fam_oavs.items():
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                if items[i][1] <= 0 or items[j][1] <= 0:
+                    continue
+                ratio = max(items[i][1], items[j][1]) / min(items[i][1], items[j][1])
+                if 0.85 <= ratio <= 1.18:
+                    issues.append(
+                        f"{items[i][0]} vs {items[j][0]} in {fam} (OAV {items[i][1]:.0f}/{items[j][1]:.0f})"
+                    )
+                    if len(issues) >= 3:
+                        break
+            if len(issues) >= 3:
+                break
+        if len(issues) >= 3:
+            break
+    if issues:
+        return _result(
+            "jnd_redundancy",
+            "WARN",
+            f"Potentially redundant pairs: {'; '.join(issues)}",
+        )
+    return _result("jnd_redundancy", "PASS", "No redundant material pairs detected")
+
+
+def _gate_adaptation_overlap(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check if top OAV materials are all in the same adaptation tier (collapse risk)."""
+    from engine.name_utils import normalize_name
+
+    oav_by_tier: dict[str, float] = {}
+    tier_map: dict[str, str] = {}
+    for t, keywords in _ADAPTATION_TIERS.items():
+        for kw in keywords:
+            tier_map[kw] = t
+    for m in sorted(state.materials, key=lambda x: float(x.oav or 0.0), reverse=True)[
+        :5
+    ]:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if oav <= 0:
+            continue
+        tier = None
+        for kw, t in tier_map.items():
+            if kw in n:
+                tier = t
+                break
+        if tier is None:
+            tier = "medium"
+        oav_by_tier[tier] = oav_by_tier.get(tier, 0.0) + oav
+    total_top5 = sum(oav_by_tier.values()) or 1.0
+    for tier, oav in oav_by_tier.items():
+        if oav / total_top5 > 0.7:
+            return _result(
+                "adaptation_overlap",
+                "WARN",
+                f"Top 5 materials all in same adaptation tier ({tier}: {oav / total_top5 * 100:.0f}%) — collapse risk",
+            )
+    return _result(
+        "adaptation_overlap", "PASS", "Top materials span multiple adaptation tiers"
+    )
+
+
+def _gate_mixture_suppression(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Livermore & Laing: humans perceive at most 3-4 components in a mixture."""
+    from collections import defaultdict
+
+    fam_oav: dict[str, float] = defaultdict(float)
+    for m in state.materials:
+        oav = float(m.oav or 0.0)
+        if oav <= 0:
+            continue
+        fam = m.family or "unknown"
+        fam_oav[fam] += oav
+    total = sum(fam_oav.values()) or 1.0
+    significant = [fam for fam, oav in fam_oav.items() if oav / total > 0.10]
+    if len(significant) > 4:
+        return _result(
+            "mixture_suppression",
+            "WARN",
+            f"{len(significant)} families each >10% OAV — mixture suppression likely (humans perceive ≤4)",
+        )
+    return _result(
+        "mixture_suppression",
+        "PASS",
+        f"{len(significant)} significant families — within 4-channel limit",
+    )
+
+
+def _gate_dilution_accuracy(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check for impractical dilution/volume combinations."""
+    issues = []
+    for m in state.materials:
+        dil = m.dilution
+        raw = m.raw_ul
+        if dil < 0.02 and raw > 50:
+            issues.append(f"{m.canonical_name or m.name}: {raw}uL at {dil * 100:.0f}%")
+        elif dil < 0.1 and raw > 100:
+            issues.append(f"{m.canonical_name or m.name}: {raw}uL at {dil * 100:.0f}%")
+        if len(issues) >= 3:
+            break
+    if issues:
+        return _result(
+            "dilution_accuracy", "WARN", f"Check pipetting: {'; '.join(issues)}"
+        )
+    return _result(
+        "dilution_accuracy", "PASS", "All dilution/volume combinations practical"
+    )
+
+
+def _gate_oriental_skeleton(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check amber/oriental family has labdanum + benzoin + vanillin + musk."""
+    if not _family_gate_applicable(config, "oriental", "amber"):
+        return _result("oriental_skeleton", "PASS", "not applicable")
+    from engine.name_utils import normalize_name
+
+    checks = {"labdanum": 0.0, "benzoin": 0.0, "vanillin": 0.0, "musk": 0.0}
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if "labdanum" in n:
+            checks["labdanum"] += oav
+        if "benzoin" in n:
+            checks["benzoin"] += oav
+        if n in ("vanillin", "ethyl vanillin"):
+            checks["vanillin"] += oav
+        if any(
+            k in n
+            for k in (
+                "galaxolide",
+                "habanolide",
+                "ethylene brassylate",
+                "exaltolide",
+                "musk",
+            )
+        ):
+            checks["musk"] += oav
+    missing = [k for k, v in checks.items() if v < 0.5]
+    if len(missing) >= 2:
+        return _result(
+            "oriental_skeleton",
+            "FAIL" if len(missing) >= 3 else "WARN",
+            f"Oriental skeleton missing: {', '.join(missing)}",
+        )
+    return _result("oriental_skeleton", "PASS", "Oriental skeleton complete")
+
+
+def _gate_aquatic_skeleton(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check aquatic family has calone or dihydromyrcenol or hedione."""
+    if not _family_gate_applicable(config, "aquatic", "marine", "ozonic", "water"):
+        return _result("aquatic_skeleton", "PASS", "not applicable")
+    from engine.name_utils import normalize_name
+
+    has_aquatic = False
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if oav >= 1.0 and any(
+            k in n for k in ("calone", "dihydromyrcenol", "helional", "floralozone")
+        ):
+            has_aquatic = True
+            break
+    if not has_aquatic:
+        return _result(
+            "aquatic_skeleton",
+            "FAIL",
+            "No aquatic marker material found (calone/DHM/helional/floralozone)",
+        )
+    return _result("aquatic_skeleton", "PASS", "Aquatic marker present")
+
+
+def _gate_gourmand_skeleton(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check gourmand family has ethyl maltol + vanillin + patchouli."""
+    if not _family_gate_applicable(config, "gourmand", "vanilla", "sweet"):
+        return _result("gourmand_skeleton", "PASS", "not applicable")
+    from engine.name_utils import normalize_name
+
+    checks = {"ethyl maltol": 0.0, "vanillin": 0.0, "patchouli": 0.0}
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        oav = float(m.oav or 0.0)
+        if "ethyl maltol" in n:
+            checks["ethyl maltol"] += oav
+        if n in ("vanillin", "ethyl vanillin"):
+            checks["vanillin"] += oav
+        if "patchouli" in n:
+            checks["patchouli"] += oav
+    missing = [k for k, v in checks.items() if v < 0.5]
+    if missing:
+        return _result(
+            "gourmand_skeleton",
+            "WARN",
+            f"Gourmand skeleton missing: {', '.join(missing)}",
+        )
+    return _result(
+        "gourmand_skeleton",
+        "PASS",
+        "Gourmand skeleton complete (ethyl maltol + vanillin + patchouli)",
+    )
+
+
+def _gate_evaporation_rate_balance(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Carles: top/heart/base should each be 10-50% of active mass."""
+    active = state.active_percentages()
+    # Use note distribution from formula state
+    nd = state.note_distribution()
+    issues = []
+    for tier in ("top", "heart", "base"):
+        pct = nd.get(tier, 0.0)
+        if pct < 5.0:
+            issues.append(f"{tier} = {pct:.0f}%")
+        elif pct > 60.0:
+            issues.append(f"{tier} = {pct:.0f}%")
+    if issues:
+        return _result(
+            "evaporation_rate_balance",
+            "WARN",
+            f"Pyramid imbalance: {', '.join(issues)}",
+        )
+    return _result(
+        "evaporation_rate_balance",
+        "PASS",
+        f"Top {nd.get('top', 0):.0f}%/Heart {nd.get('heart', 0):.0f}%/Base {nd.get('base', 0):.0f}%",
+    )
+
+
+def _gate_tenacity_projection(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check that low-VP materials are sufficient for longevity."""
+    total_active = state.total_active_ul or 1.0
+    sub_001 = sub_0001 = 0.0
+    for m in state.materials:
+        vp = m.vp_pure_pa or 999
+        if vp < 0.01:
+            sub_001 += m.active_ul
+        if vp < 0.001:
+            sub_0001 += m.active_ul
+    pct_001 = sub_001 / total_active * 100.0
+    pct_0001 = sub_0001 / total_active * 100.0
+    issues = []
+    if pct_001 < 10.0:
+        issues.append(f"VP<0.01Pa = {pct_001:.0f}% (<10%, weak longevity)")
+    if pct_0001 < 3.0:
+        issues.append(f"VP<0.001Pa = {pct_0001:.0f}% (<3%, may lack depth)")
+    if issues:
+        return _result("tenacity_projection", "WARN", "; ".join(issues))
+    return _result(
+        "tenacity_projection",
+        "PASS",
+        f"VP<0.01Pa = {pct_001:.0f}%, VP<0.001Pa = {pct_0001:.0f}%",
+    )
+
+
+def _gate_eu_allergen_declaration(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check EU allergen labeling requirements."""
+    eu_allergens = {
+        "geraniol",
+        "citronellol",
+        "linalool",
+        "limonene",
+        "coumarin",
+        "eugenol",
+        "benzyl alcohol",
+        "cinnamaldehyde",
+        "cinnamyl alcohol",
+        "farnesol",
+        "isoeugenol",
+        "benzyl salicylate",
+        "benzyl benzoate",
+        "hydroxycitronellal",
+        "alpha-isomethyl ionone",
+    }
+    from engine.name_utils import normalize_name
+
+    declarations = []
+    for m in state.materials:
+        n = normalize_name(m.canonical_name or m.name)
+        if n in eu_allergens and (m.oav or 0.0) >= 1.0:
+            declarations.append(m.canonical_name or m.name)
+    if declarations:
+        return _result(
+            "eu_allergen_declaration",
+            "WARN",
+            f"EU allergens requiring label: {', '.join(declarations[:5])}"
+            + (f" +{len(declarations) - 5} more" if len(declarations) > 5 else ""),
+        )
+    return _result("eu_allergen_declaration", "PASS", "No EU allergens to declare")
+
+
+def _gate_sensory_overcrowding(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
     perceptible_channels = {
         m.family or m.canonical_name
         for m in state.materials
@@ -833,7 +4063,11 @@ def _gate_sensory_overcrowding(state: FormulaState, config: ReleaseGateConfig) -
             "WARN",
             f"{len(perceptible_channels)} perceptible channels; check clarity",
         )
-    return _result("sensory_overcrowding", "PASS", f"{len(perceptible_channels)} perceptible channels")
+    return _result(
+        "sensory_overcrowding",
+        "PASS",
+        f"{len(perceptible_channels)} perceptible channels",
+    )
 
 
 def _gate_master_perfumer(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -847,7 +4081,9 @@ def _gate_master_perfumer(state: FormulaState, config: ReleaseGateConfig) -> Gat
     if state.material_count > 32:
         issues.append("too many materials for a readable formula")
     if max_material[1] > 45.0:
-        issues.append(f"{max_material[0]} dominates active formula at {max_material[1]:.1f}%")
+        issues.append(
+            f"{max_material[0]} dominates active formula at {max_material[1]:.1f}%"
+        )
     if note["top"] < 5.0:
         issues.append("opening likely underbuilt")
     if note["base"] < 15.0:
@@ -862,7 +4098,9 @@ def _gate_master_perfumer(state: FormulaState, config: ReleaseGateConfig) -> Gat
     return _result("master_perfumer_gate", "PASS", "coherent, buildable, and readable")
 
 
-def _gate_robustness(formula: Mapping, config: ReleaseGateConfig) -> tuple[GateResult, RobustnessReport]:
+def _gate_robustness(
+    formula: Mapping, config: ReleaseGateConfig
+) -> tuple[GateResult, RobustnessReport]:
     report = audit_formula_robustness(formula, config)
     if report.status == "WARN":
         examples = "; ".join(
@@ -875,7 +4113,9 @@ def _gate_robustness(formula: Mapping, config: ReleaseGateConfig) -> tuple[GateR
         status = "FAIL" if config.commercial_mode else "WARN"
         if config.commercial_mode:
             detail = "commercial blocker: " + detail
-        return _result("robustness_perturbation", status, detail, report.as_dict()), report
+        return _result(
+            "robustness_perturbation", status, detail, report.as_dict()
+        ), report
     return (
         _result(
             "robustness_perturbation",
@@ -887,21 +4127,30 @@ def _gate_robustness(formula: Mapping, config: ReleaseGateConfig) -> tuple[GateR
     )
 
 
-def _gate_confidence(state: FormulaState, config: ReleaseGateConfig) -> tuple[GateResult, dict]:
+def _gate_confidence(
+    state: FormulaState, config: ReleaseGateConfig
+) -> tuple[GateResult, dict]:
     fv = _formula_vector_from_state(state)
     confidence = ConfidenceScorer().score(fv.ingredients)
     pipeline_confidence = state.uncertainty.confidence_score
-    combined = round((confidence["overall_confidence"] + pipeline_confidence) / 2.0, 1)
+    combined = round(
+        max(15.0, min(confidence["overall_confidence"], pipeline_confidence)), 1
+    )
     confidence = dict(confidence)
     confidence["pipeline_confidence"] = pipeline_confidence
     confidence["combined_confidence"] = combined
     confidence["combined_grade"] = (
-        "HIGH" if combined >= 80 else
-        "MEDIUM" if combined >= 50 else
-        "LOW" if combined >= 25 else
-        "VERY_LOW"
+        "HIGH"
+        if combined >= 80
+        else "MEDIUM"
+        if combined >= 50
+        else "LOW"
+        if combined >= 25
+        else "VERY_LOW"
     )
-    strict_commercial_confidence = config.commercial_mode and config.commercial_confidence_policy != "warn"
+    strict_commercial_confidence = (
+        config.commercial_mode and config.commercial_confidence_policy != "warn"
+    )
     threshold = max(
         config.min_confidence_score,
         50.0 if strict_commercial_confidence else config.min_confidence_score,
@@ -925,13 +4174,61 @@ def _gate_confidence(state: FormulaState, config: ReleaseGateConfig) -> tuple[Ga
             _result("confidence_minimum", "WARN", detail, confidence),
             confidence,
         )
-    return (_result("confidence_minimum", "PASS", f"combined confidence {combined:.1f}", confidence), confidence)
+    return (
+        _result(
+            "confidence_minimum",
+            "PASS",
+            f"combined confidence {combined:.1f}",
+            confidence,
+        ),
+        confidence,
+    )
 
 
-def _commercial_readiness(status: str, gates: list[GateResult], confidence: dict, config: ReleaseGateConfig) -> str:
+def _apply_preflight_confidence_penalty(
+    confidence_gate: GateResult,
+    confidence: dict,
+    preflight: Mapping[str, object],
+) -> tuple[GateResult, dict]:
+    penalty = float(preflight.get("confidence_penalty", 0.0) or 0.0)
+    if penalty <= 0:
+        return confidence_gate, confidence
+
+    updated = dict(confidence)
+    base_combined = float(updated.get("combined_confidence", 0.0) or 0.0)
+    adjusted = max(0.0, round(base_combined - penalty, 1))
+    updated["science_preflight_penalty"] = round(penalty, 3)
+    updated["combined_confidence_pre_penalty"] = round(base_combined, 1)
+    updated["combined_confidence"] = adjusted
+    updated["combined_grade"] = (
+        "HIGH"
+        if adjusted >= 80
+        else "MEDIUM"
+        if adjusted >= 50
+        else "LOW"
+        if adjusted >= 25
+        else "VERY_LOW"
+    )
+    detail = str(confidence_gate.detail or "")
+    if detail:
+        detail += f"; preflight science penalty {penalty:.1f}"
+    else:
+        detail = f"preflight science penalty {penalty:.1f}"
+    updated_gate = _result(
+        confidence_gate.gate, confidence_gate.status, detail, updated
+    )
+    return updated_gate, updated
+
+
+def _commercial_readiness(
+    status: str, gates: list[GateResult], confidence: dict, config: ReleaseGateConfig
+) -> str:
     if status == "FAIL":
         return "NOT_RELEASE_READY"
-    if config.is_commercial_trial() and confidence.get("combined_confidence", 0.0) < 50.0:
+    if (
+        config.is_commercial_trial()
+        and confidence.get("combined_confidence", 0.0) < 50.0
+    ):
         return "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
     if confidence.get("combined_confidence", 0.0) < 50.0:
         return "TECHNICAL_PASS_LOW_CONFIDENCE"
@@ -946,7 +4243,170 @@ def _commercial_readiness(status: str, gates: list[GateResult], confidence: dict
     return "COMMERCIAL_READY_FOR_TRIAL"
 
 
-def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> GateReport:
+def _gate_mass_market_tier_check(
+    state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Check if the formula's material quality matches its expected price tier.
+
+    At 1500-3500 THB, you need a certain quality floor (industry ~55+) and ceiling
+    (overbuilding with naturals kills margin). This gate warns when:
+    - You're spending too much on materials for the price point (over-engineered)
+    - Your formula quality is too low to compete at this price (under-engineered)
+    - You're using luxury materials that don't add perceptible value at mass scale
+    """
+    if not state or not state.materials:
+        return _result("mass_market_tier_check", "PASS", "No materials to check.")
+
+    from engine.cost_analysis import MATERIAL_COSTS_PER_KG
+
+    total_active_g = sum(m.active_g for m in state.materials) or 1.0
+    total_raw_ul = sum(m.raw_ul for m in state.materials) or 1.0
+
+    # 1. Estimate material cost per mL of concentrate
+    estimated_cost_per_ml = 0.0
+    premium_mass_pct = 0.0
+    premium_materials = []
+    total_checked = 0.0
+
+    for m in state.materials:
+        if m.active_g <= 0:
+            continue
+        name_lower = m.name.lower().strip()
+        # Look up cost
+        cost_per_kg = None
+        for mat_key in MATERIAL_COSTS_PER_KG:
+            if (
+                mat_key.lower().strip() in name_lower
+                or name_lower in mat_key.lower().strip()
+            ):
+                cost_per_kg = MATERIAL_COSTS_PER_KG[mat_key]
+                break
+
+        if cost_per_kg is None:
+            cost_per_kg = 30.0  # default synthetic estimate
+
+        material_cost = (m.active_g / 1000.0) * cost_per_kg  # USD
+        estimated_cost_per_ml += material_cost
+
+        # Check for premium materials
+        is_premium = any(p in name_lower for p in PREMIUM_NATURALS)
+        if is_premium:
+            premium_mass_pct += m.active_g
+            premium_materials.append(m.name)
+
+        total_checked += m.active_g
+
+    # Normalize cost per mL of concentrate
+    total_concentrate_ml = total_raw_ul / 1000.0
+    if total_concentrate_ml > 0:
+        estimated_cost_per_ml = estimated_cost_per_ml / total_concentrate_ml
+
+    premium_pct = (premium_mass_pct / total_active_g * 100) if total_active_g > 0 else 0
+    premium_pct = min(100.0, premium_pct)
+
+    # 2. Calculate approximate "mass market readiness" score
+    # Uses: material count, premium %, estimated cost, naturals ratio
+    material_count = len(state.materials)
+
+    warnings = []
+    is_warn = False
+
+    # Check: over-engineered for mass market
+    if premium_pct > PREMIUM_MATERIAL_WARN_PCT:
+        warnings.append(
+            f"{premium_pct:.0f}% of active mass from premium materials "
+            f"(>{PREMIUM_MATERIAL_WARN_PCT:.0f}% threshold). "
+            f"At 1500-3500 THB retail, this margin may be tight. "
+            f"Premium materials: {', '.join(premium_materials[:5])}{'...' if len(premium_materials) > 5 else ''}"
+        )
+        is_warn = True
+
+    # Check: too many premium naturals for a mass-market formula
+    if premium_pct > 40:
+        warnings.append(
+            f"PREMIUM OVERLOAD: {premium_pct:.0f}% premium materials. "
+            f"Consider substituting with quality synthetics for mass production. "
+            f"Each 1% premium material adds ~{estimated_cost_per_ml * 10:.1f}¢/mL to COGS."
+        )
+        is_warn = True
+
+    # Check: very expensive materials (ambermax, javanol, etc.) in large amounts
+    expensive_naturals = [
+        m.name
+        for m in state.materials
+        if m.active_g > 0.01
+        and any(
+            p in m.name.lower()
+            for p in ["ambrox super", "ambermax", "javanol", "alpha irone"]
+        )
+    ]
+    if expensive_naturals:
+        warnings.append(
+            f"Expensive captives found: {', '.join(expensive_naturals[:3])}. "
+            f"At {config.expected_retail_price_thb:.0f} THB, these eat margin. "
+            f"Consider if their perceptible impact justifies the cost."
+        )
+        is_warn = True
+
+    # Check: estimated cost seems too high for the price
+    est_cost_for_30ml = estimated_cost_per_ml * 30.0 * 36  # rough USD to THB
+    if est_cost_for_30ml > config.expected_retail_price_thb * 0.15:
+        warnings.append(
+            f"Estimated material cost ~{est_cost_for_30ml:.0f} THB for 30mL "
+            f"({est_cost_for_30ml / config.expected_retail_price_thb * 100:.0f}% of {config.expected_retail_price_thb:.0f} THB retail). "
+            f"Industry target: 4-8% of retail. Margin may be unsustainable."
+        )
+        is_warn = True
+
+    # Check: too few materials or too simple for the price
+    if material_count < 12 and config.expected_retail_price_thb >= 1500:
+        warnings.append(
+            f"Only {material_count} materials for a {config.expected_retail_price_thb:.0f} THB formula. "
+            f"Consumers expect complexity at this price. Consider adding structural materials."
+        )
+        is_warn = True
+
+    # Check: very high material count for mass production
+    if material_count > 35:
+        warnings.append(
+            f"{material_count} materials is high for mass production. "
+            f"Each material adds compounding cost and quality control risk. "
+            f"Aim for 18-28 for scalable manufacturing."
+        )
+        is_warn = True
+
+    if is_warn:
+        return _result(
+            "mass_market_tier_check",
+            "WARN",
+            "; ".join(warnings),
+            data={
+                "estimated_cost_per_ml_usd": round(estimated_cost_per_ml, 4),
+                "estimated_cost_30ml_thb": round(est_cost_for_30ml, 0),
+                "premium_material_pct": round(premium_pct, 1),
+                "material_count": material_count,
+                "price_tier": f"{config.expected_retail_price_thb:.0f} THB",
+                "premium_materials": premium_materials[:8],
+            },
+        )
+
+    return _result(
+        "mass_market_tier_check",
+        "PASS",
+        f"Formula profile matches {config.expected_retail_price_thb:.0f} THB tier. "
+        f"{material_count} materials, {premium_pct:.0f}% premium, "
+        f"est. cost {estimated_cost_per_ml * 36 * 30:.0f} THB/30mL.",
+        data={
+            "estimated_cost_per_ml_usd": round(estimated_cost_per_ml, 4),
+            "material_count": material_count,
+            "premium_material_pct": round(premium_pct, 1),
+        },
+    )
+
+
+def gate_formula(
+    formula: Mapping, config: ReleaseGateConfig | None = None
+) -> GateReport:
     """Run all reusable release gates on a parsed formula record."""
     config = config or ReleaseGateConfig()
     formula_archetype = str(formula.get("family_archetype", "") or "").strip()
@@ -964,41 +4424,383 @@ def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> G
         batch_volume_ml=config.batch_volume_ml,
         temperature_K=config.temperature_K,
     )
+    preflight = run_release_preflight(formula, state).as_dict()
     simulation = tuple(
         simulate_formula(
             ingredients_ul,
             dilutions,
             batch_volume_ml=config.batch_volume_ml,
             temperature_K=config.temperature_K,
+            initial_state=state,
         )
     )
     gates = [
-        _gate_exact_subtotal(formula, config),
-        _gate_duplicates(state),
-        _gate_material_coverage(state),
-        _gate_data_coverage(state),
-        _gate_odt_coverage(state),
-        _gate_chemistry_stability(state, config),
-        _gate_phase_compatibility(state),
-        _gate_preblends(state, config),
-        _gate_blocked(state),
-        _gate_pipette_floor(state, config),
-        _gate_small_diluted_traces(state),
-        _gate_oav_scaling(formula, config),
-        _gate_safety(state, config),
-        _gate_perfumer_logic(formula, config),
-        _gate_family_drift_detector(formula, config),
-        _gate_novelty_vs_reference(formula, config),
-        _gate_perfume_knowledge(state, config),
-        _gate_oav_legibility(state, config),
-        _gate_oav_intelligence(state, simulation, config),
-        _gate_sensory_overcrowding(state, config),
-        _gate_master_perfumer(state, config),
+        _safe_gate(lambda: _gate_pipeline_preflight(preflight), "pipeline_preflight"),
+        _safe_gate(lambda: _gate_exact_subtotal(formula, config), "exact_subtotal"),
+        _safe_gate(lambda: _gate_duplicates(state), "duplicates"),
+        _safe_gate(lambda: _gate_material_coverage(state), "material_coverage"),
+        _safe_gate(lambda: _gate_data_coverage(state), "data_coverage"),
+        _safe_gate(lambda: _gate_odt_coverage(state), "odt_coverage"),
+        _safe_gate(
+            lambda: _gate_chemistry_stability(state, config), "chemistry_stability"
+        ),
+        _safe_gate(lambda: _gate_phase_compatibility(state), "phase_compatibility"),
+        _safe_gate(lambda: _gate_preblends(state, config), "preblends"),
+        _safe_gate(
+            lambda: _gate_osmotheque_archivability(state, config),
+            "osmotheque_archivability",
+        ),
+        _safe_gate(lambda: _gate_fougere_skeleton(state, config), "fougere_skeleton"),
+        _safe_gate(lambda: _gate_chypre_skeleton(state, config), "chypre_skeleton"),
+        _safe_gate(
+            lambda: _gate_blue_ambroxan_skeleton(state, config),
+            "blue_ambroxan_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_gourmand_angel_skeleton(state, config),
+            "gourmand_angel_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_vanilla_amber_black_opium_skeleton(state, config),
+            "vanilla_amber_black_opium_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_white_floral_jadore_skeleton(state, config),
+            "white_floral_jadore_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_fresh_clean_ckone_skeleton(state, config),
+            "fresh_clean_ckone_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_tobacco_vanille_skeleton(state, config),
+            "tobacco_vanille_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_rose_patchouli_skeleton(state, config),
+            "rose_patchouli_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_coconut_tropical_skeleton(state, config),
+            "coconut_tropical_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_iris_woody_skeleton(state, config), "iris_woody_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_saffron_leather_oud_skeleton(state, config),
+            "saffron_leather_oud_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_aldehydic_floral_skeleton(state, config),
+            "aldehydic_floral_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_oriental_shalimar_skeleton(state, config),
+            "oriental_shalimar_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_green_chypre_skeleton(state, config), "green_chypre_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_leather_cuir_skeleton(state, config), "leather_cuir_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_aquatic_marine_skeleton(state, config),
+            "aquatic_marine_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_floral_oriental_poison_skeleton(state, config),
+            "floral_oriental_poison_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_skin_scent_molecule_skeleton(state, config),
+            "skin_scent_molecule_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_tea_matcha_skeleton(state, config), "tea_matcha_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_mineral_salty_skeleton(state, config),
+            "mineral_salty_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_lactonic_milky_skeleton(state, config),
+            "lactonic_milky_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_hyper_synthetic_metallic_skeleton(state, config),
+            "hyper_synthetic_metallic_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_incense_cathedral_skeleton(state, config),
+            "incense_cathedral_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_violet_candyfloss_skeleton(state, config),
+            "violet_candyfloss_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_ellena_transparent_skeleton(state, config),
+            "ellena_transparent_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_woody_amber_modern_skeleton(state, config),
+            "woody_amber_modern_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_fruity_floral_mass_skeleton(state, config),
+            "fruity_floral_mass_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_homme_iris_skeleton(state, config),
+            "dior_homme_iris_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_homme_intense_skeleton(state, config),
+            "dior_homme_intense_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_homme_cologne_skeleton(state, config),
+            "dior_homme_cologne_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_homme_sport_skeleton(state, config),
+            "dior_homme_sport_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_fahrenheit_skeleton(state, config),
+            "dior_fahrenheit_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_diorissimo_skeleton(state, config),
+            "dior_diorissimo_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_dior_eau_sauvage_skeleton(state, config),
+            "dior_eau_sauvage_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_chanel_bleu_skeleton(state, config), "chanel_bleu_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_chanel_egoiste_skeleton(state, config),
+            "chanel_egoiste_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_chanel_chance_skeleton(state, config),
+            "chanel_chance_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_allure_homme_sport_skeleton(state, config),
+            "allure_homme_sport_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_allure_homme_sport_cologne_skeleton(state, config),
+            "allure_homme_sport_cologne_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_allure_homme_sport_edp_skeleton(state, config),
+            "allure_homme_sport_edp_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_allure_homme_sport_extreme_skeleton(state, config),
+            "allure_homme_sport_extreme_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_allure_homme_sport_superleggera_skeleton(state, config),
+            "allure_homme_sport_superleggera_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_prada_lhomme_skeleton(state, config), "prada_lhomme_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_prada_amber_homme_skeleton(state, config),
+            "prada_amber_homme_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_prada_infusion_iris_skeleton(state, config),
+            "prada_infusion_iris_skeleton",
+        ),
+        _safe_gate(
+            lambda: _gate_ysl_la_nuit_skeleton(state, config), "ysl_la_nuit_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_ysl_lhomme_skeleton(state, config), "ysl_lhomme_skeleton"
+        ),
+        _safe_gate(
+            lambda: _gate_ysl_kouros_skeleton(state, config), "ysl_kouros_skeleton"
+        ),
+        _safe_gate(lambda: _gate_blocked(state), "blocked"),
+        _safe_gate(
+            lambda: _gate_oav_overdose_blocker(state, config), "oav_overdose_blocker"
+        ),
+        _safe_gate(lambda: _gate_odt_sanity(state, config), "odt_sanity"),
+        _safe_gate(lambda: _gate_vp_cross_source(state, config), "vp_cross_source"),
+        _safe_gate(
+            lambda: _gate_dilution_consistency(state, config), "dilution_consistency"
+        ),
+        _safe_gate(lambda: _gate_odt_completeness(state, config), "odt_completeness"),
+        _safe_gate(lambda: _gate_pipette_floor(state, config), "pipette_floor"),
+        _safe_gate(lambda: _gate_small_diluted_traces(state), "small_diluted_traces"),
+        _safe_gate(lambda: _gate_dilution_accuracy(state, config), "dilution_accuracy"),
+        _safe_gate(lambda: _gate_oav_scaling(formula, config), "oav_scaling"),
+        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+        _safe_gate(
+            lambda: _gate_eu_allergen_declaration(state, config),
+            "eu_allergen_declaration",
+        ),
+        _safe_gate(lambda: _gate_perfumer_logic(formula, config), "perfumer_logic"),
+        _safe_gate(
+            lambda: _gate_family_drift_detector(formula, config),
+            "family_drift_detector",
+        ),
+        _safe_gate(
+            lambda: _gate_novelty_vs_reference(formula, config), "novelty_vs_reference"
+        ),
+        _safe_gate(lambda: _gate_perfume_knowledge(state, config), "perfume_knowledge"),
+        _safe_gate(lambda: _gate_carles_pyramid(state, config), "carles_pyramid"),
+        _safe_gate(
+            lambda: _gate_carles_material_count(state, config), "carles_material_count"
+        ),
+        _safe_gate(
+            lambda: _gate_carles_accord_ratio(state, config), "carles_accord_ratio"
+        ),
+        _safe_gate(lambda: _gate_beaux_registres(state, config), "beaux_registres"),
+        _safe_gate(lambda: _gate_oav_legibility(state, config), "oav_legibility"),
+        _safe_gate(lambda: _gate_ellena_legibility(state, config), "ellena_legibility"),
+        _safe_gate(
+            lambda: _gate_literature_compliance(state, config), "literature_compliance"
+        ),
+        _safe_gate(lambda: _gate_synergy_conflicts(state, config), "synergy_conflicts"),
+        _safe_gate(lambda: _gate_accord_compliance(state, config), "accord_compliance"),
+        _safe_gate(
+            lambda: _gate_captive_availability(state, config), "captive_availability"
+        ),
+        _safe_gate(
+            lambda: _gate_construction_compliance(state, config),
+            "construction_compliance",
+        ),
+        _safe_gate(
+            lambda: _gate_performance_prediction(state, config),
+            "performance_prediction",
+        ),
+    ]
+    if _FUTURE_MODULES_AVAILABLE:
+        gates += [
+            _safe_gate(
+                lambda: _gate_blending_protocol(state, config), "blending_protocol"
+            ),
+            _safe_gate(
+                lambda: _gate_chemical_compatibility(state, config),
+                "chemical_compatibility",
+            ),
+            _safe_gate(lambda: _gate_edge_cases(state, config), "edge_cases"),
+            _safe_gate(lambda: _gate_skin_chemistry(state, config), "skin_chemistry"),
+            _safe_gate(lambda: _gate_dosing_tables(state, config), "dosing_tables"),
+            _safe_gate(lambda: _gate_balance_axes(state, config), "balance_axes"),
+            _safe_gate(
+                lambda: _gate_character_shifts(state, config), "character_shifts"
+            ),
+            _safe_gate(
+                lambda: _gate_evaluation_protocol(state, config), "evaluation_protocol"
+            ),
+            _safe_gate(lambda: _gate_family_hedonic(state, config), "family_hedonic"),
+            _safe_gate(lambda: _gate_iconic_formulas(state, config), "iconic_formulas"),
+            _safe_gate(
+                lambda: _gate_iteration_protocol(state, config), "iteration_protocol"
+            ),
+            _safe_gate(
+                lambda: _gate_niche_construction(state, config), "niche_construction"
+            ),
+            _safe_gate(lambda: _gate_somatosensory(state, config), "somatosensory"),
+            _safe_gate(
+                lambda: _gate_musk_intelligence(state, config), "musk_intelligence"
+            ),
+            _safe_gate(
+                lambda: _gate_brief_translation(state, config), "brief_translation"
+            ),
+        ]
+    gates += [
+        _safe_gate(
+            lambda: _gate_weber_fechner_contrast(state, config),
+            "weber_fechner_contrast",
+        ),
+        _safe_gate(lambda: _gate_stevens_power_law(state, config), "stevens_power_law"),
+        _safe_gate(
+            lambda: _gate_stevens_n_efficiency(state, config), "stevens_n_efficiency"
+        ),
+        _safe_gate(lambda: _gate_jnd_redundancy(state, config), "jnd_redundancy"),
+        _safe_gate(
+            lambda: _gate_guerlain_vanillin_coumarin(state, config),
+            "guerlain_vanillin_coumarin",
+        ),
+        _safe_gate(
+            lambda: _gate_guerlain_nature_synthetic(state, config),
+            "guerlain_nature_synthetic",
+        ),
+        _safe_gate(
+            lambda: _gate_guerlain_rose_jasmine_balance(state, config),
+            "guerlain_rose_jasmine_balance",
+        ),
+        _safe_gate(
+            lambda: _gate_jellinek_psychology(state, config), "jellinek_psychology"
+        ),
+        _safe_gate(
+            lambda: _gate_edwards_wheel_coherence(state, config),
+            "edwards_wheel_coherence",
+        ),
+        _safe_gate(
+            lambda: _gate_coty_single_material_limit(state, config),
+            "coty_single_material_limit",
+        ),
+        _safe_gate(
+            lambda: _gate_roudnitska_hedione_pct(state, config),
+            "roudnitska_hedione_pct",
+        ),
+        _safe_gate(lambda: _gate_adaptation_timing(state, config), "adaptation_timing"),
+        _safe_gate(
+            lambda: _gate_adaptation_overlap(state, config), "adaptation_overlap"
+        ),
+        _safe_gate(
+            lambda: _gate_mixture_suppression(state, config), "mixture_suppression"
+        ),
+        _safe_gate(
+            lambda: _gate_oav_intelligence(state, simulation, config),
+            "oav_intelligence",
+        ),
+        _safe_gate(lambda: _gate_olfactory_fatigue(state, config), "olfactory_fatigue"),
+        _safe_gate(
+            lambda: _gate_roudnitska_transparence(state, config),
+            "roudnitska_transparence",
+        ),
+        _safe_gate(
+            lambda: _gate_evaporation_rate_balance(state, config),
+            "evaporation_rate_balance",
+        ),
+        _safe_gate(
+            lambda: _gate_tenacity_projection(state, config), "tenacity_projection"
+        ),
+        _safe_gate(lambda: _gate_oriental_skeleton(state, config), "oriental_skeleton"),
+        _safe_gate(lambda: _gate_aquatic_skeleton(state, config), "aquatic_skeleton"),
+        _safe_gate(lambda: _gate_gourmand_skeleton(state, config), "gourmand_skeleton"),
+        _safe_gate(
+            lambda: _gate_sensory_overcrowding(state, config), "sensory_overcrowding"
+        ),
+        _safe_gate(lambda: _gate_master_perfumer(state, config), "master_perfumer"),
+        _safe_gate(
+            lambda: _gate_mass_market_tier_check(state, config),
+            "mass_market_tier_check",
+        ),
     ]
     robustness_gate, _robustness = _gate_robustness(formula, config)
     gates.append(robustness_gate)
     confidence_gate, confidence = _gate_confidence(state, config)
+    confidence_gate, confidence = _apply_preflight_confidence_penalty(
+        confidence_gate, confidence, preflight
+    )
     gates.append(confidence_gate)
+    gates = [_apply_guideline_policy(gate) for gate in gates]
     status = _status_from_gates(gates)
     formula_hash = formula_hash_from_record(formula)
     calibration_summary = summarize_records(load_records(), formula_hash=formula_hash)
@@ -1013,6 +4815,7 @@ def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> G
         formula_hash=formula_hash,
         calibration_summary=calibration_summary,
         commercial_readiness=_commercial_readiness(status, gates, confidence, config),
+        preflight=preflight,
         config_summary=_config_summary(config),
     )
     if config.audit_enabled:

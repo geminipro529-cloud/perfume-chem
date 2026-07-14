@@ -1,10 +1,10 @@
 """Data loading and caching utilities"""
 
 import json
-from pathlib import Path
-from typing import Dict, Any, Optional, List
 import logging
 from functools import lru_cache
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class DataLoader:
             if families_file.exists():
                 with open(families_file, 'r') as f:
                     data = json.load(f)
-                logger.info(f"Loaded fragrance reference data")
+                logger.info("Loaded fragrance reference data")
                 return data
         except Exception as e:
             logger.error(f"Failed to load fragrance_reference.json: {e}")

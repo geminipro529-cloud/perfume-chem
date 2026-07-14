@@ -1,4 +1,12 @@
-from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.pipeline.gates import (
+    ReleaseGateConfig,
+    _apply_guideline_policy,
+    _result,
+    _status_from_gates,
+    gate_formula,
+)
+from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
+from engine.name_utils import normalize_name
 
 
 def _formula(ingredients, dilutions=None, name="Test Formula"):
@@ -11,6 +19,23 @@ def _formula(ingredients, dilutions=None, name="Test Formula"):
         "ingredients_pct": {k: v / total * 100 for k, v in ingredients.items()},
         "body": name,
     }
+
+
+def test_guideline_policy_demotes_advisory_failures_to_warnings():
+    gate = _result("literature_compliance", "FAIL", "too strict")
+    normalized = _apply_guideline_policy(gate)
+
+    assert normalized.status == "WARN"
+    assert normalized.data["original_status"] == "FAIL"
+    assert _status_from_gates([normalized]) == "WARN"
+
+
+def test_guideline_policy_keeps_hard_blockers_failing():
+    gate = _result("safety_ifra_allergen", "FAIL", "unsafe")
+    normalized = _apply_guideline_policy(gate)
+
+    assert normalized.status == "FAIL"
+    assert _status_from_gates([normalized]) == "FAIL"
 
 
 def test_gate_blocks_opaque_preblend_by_default():
@@ -60,6 +85,26 @@ def test_gate_blocks_neat_trace_below_floor():
     assert gates["pipette_floor_neat_traces"].status == "FAIL"
 
 
+def test_gate_warns_when_top_carrier_relies_on_low_authority_odt():
+    formula = _formula(
+        {"Bergamot": 3000.0, "Hedione": 2000.0, "Iso E Super": 1000.0},
+        name="ODT Authority Test",
+    )
+    report = gate_formula(
+        formula,
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
+    )
+
+    gates = {g.gate: g for g in report.gates}
+    assert gates["odt_coverage"].status == "WARN"
+    assert any(
+        row["material"] == "Bergamot"
+        for row in gates["odt_coverage"].data["low_authority_materials"]
+    )
+
+
 def test_chemistry_stability_fails_aldehyde_amine_contact():
     formula = _formula(
         {"Aldehyde C12 MNA": 2000.0, "Indole": 1000.0, "Hedione": 3000.0},
@@ -67,7 +112,9 @@ def test_chemistry_stability_fails_aldehyde_amine_contact():
     )
     report = gate_formula(
         formula,
-        ReleaseGateConfig(expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
     )
 
     gates = {g.gate: g for g in report.gates}
@@ -77,12 +124,19 @@ def test_chemistry_stability_fails_aldehyde_amine_contact():
 
 def test_chemistry_stability_warns_for_citrus_heavy_oxidation_risk():
     formula = _formula(
-        {"D-Limonene": 1500.0, "Linalool": 300.0, "Hedione": 1200.0, "Iso E Super": 3000.0},
+        {
+            "D-Limonene": 1500.0,
+            "Linalool": 300.0,
+            "Hedione": 1200.0,
+            "Iso E Super": 3000.0,
+        },
         name="Citrus Stress Test",
     )
     technical = gate_formula(
         formula,
-        ReleaseGateConfig(expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
     )
     commercial = gate_formula(
         formula,
@@ -107,7 +161,9 @@ def test_chemistry_stability_passes_stable_woody_floral_formula():
     )
     report = gate_formula(
         formula,
-        ReleaseGateConfig(expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
     )
 
     gates = {g.gate: g for g in report.gates}
@@ -116,12 +172,19 @@ def test_chemistry_stability_passes_stable_woody_floral_formula():
 
 def test_phase_compatibility_fails_hsp_incompatible_blend():
     formula = _formula(
-        {"Vanillin": 1800.0, "D-Limonene": 1800.0, "Galaxolide": 1800.0, "Hedione": 600.0},
+        {
+            "Vanillin": 1800.0,
+            "D-Limonene": 1800.0,
+            "Galaxolide": 1800.0,
+            "Hedione": 600.0,
+        },
         name="Phase Clash",
     )
     report = gate_formula(
         formula,
-        ReleaseGateConfig(expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
     )
 
     gates = {g.gate: g for g in report.gates}
@@ -135,8 +198,22 @@ def test_phase_compatibility_warns_when_hsp_coverage_is_thin():
     )
     report = gate_formula(
         formula,
-        ReleaseGateConfig(expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0, brief="generic", audit_enabled=False
+        ),
     )
 
     gates = {g.gate: g for g in report.gates}
     assert gates["phase_compatibility"].status == "WARN"
+
+
+def test_pyramid_balance_uses_normalized_note_map_keys():
+    result = evaluate_pyramid_balance(
+        {"Cedrat FCF oil Sicilian": 100.0},
+        family="citrus",
+        note_map={normalize_name("Cedrat FCF Sicilian"): "top"},
+    )
+
+    assert result.actual_top == 100.0
+    assert result.actual_heart == 0.0
+    assert result.actual_base == 0.0

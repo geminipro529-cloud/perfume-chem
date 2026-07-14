@@ -177,16 +177,18 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Pamzest
-  aliases: []
+  aliases:
+  - pamzest
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  mw_g_mol: 150.0
+  density_25c_g_ml: 0.92
+  logp: 3.0
+  functional_groups:
+  - complex mixture
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 30.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -198,18 +200,25 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 1.0
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 6CN23709
     perfumersworld_price_usd_per_g: 0.5
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
-  families: []
+  families:
+  - citrus / top
   character: null
   notes: null
   provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Para-Cresol
   aliases:
@@ -410,21 +419,21 @@
 - canonical_name: Paradisamide
   aliases:
   - paradisamide
-  cas: null
+  cas: 406488-30-0
   smiles: null
   inchikey: null
-  mw_g_mol: 289.4
+  mw_g_mol: 219.32
   density_25c_g_ml: null
-  logp: 3.5
+  logp: 3.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
+  vp_25c_pa: 0.002
   antoine: null
   dhvap_kj_mol: null
-  kaw_eff: 8.0e-05
+  kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 1.0
   stevens_n: null
   or_targets: []
   trp_targets: null
@@ -493,12 +502,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 154.3
+  mw_g_mol: 192.3
   density_25c_g_ml: null
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 12.0
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.009
@@ -515,7 +524,7 @@
     nasal_pungency: null
   hedonic_valence: 0.55
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4IG05175
@@ -659,7 +668,7 @@
   logp: 4.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.06
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -671,7 +680,7 @@
   trp_targets: null
   hedonic_valence: 0.42
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -909,12 +918,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 197.27
   density_25c_g_ml: null
-  logp: null
+  logp: 3.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.0056
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -926,7 +935,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3RB12753
@@ -1168,7 +1177,7 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 196.3
+  mw_g_mol: 170.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -1185,7 +1194,7 @@
   trp_targets: null
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1256,7 +1265,7 @@
   functional_groups:
   - aromatic alcohol
   chirality: null
-  vp_25c_pa: 11.57
+  vp_25c_pa: 0.116
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.002
@@ -1280,14 +1289,13 @@
   - floral materials
   - rose alcohols
   character: Sweet floral rose material with fresh rosewater and honey facets.
-  notes: TGSC-backed 2-phenylethanol / phenethyl alcohol record. Core rose-body
-    material with broad stability and common high-dose use in floral perfumery.
+  notes: TGSC-backed 2-phenylethanol / phenethyl alcohol record. Core rose-body material
+    with broad stability and common high-dose use in floral perfumery.
   provenance:
     cas: user TGSC paste 2026-05-09
     mw_g_mol: user TGSC paste 2026-05-09
     density_25c_g_ml: user TGSC paste 2026-05-09
-    vp_25c_pa: user TGSC paste 2026-05-09 (0.0868 mmHg @ 25 C converted to 11.57
-      Pa)
+    vp_25c_pa: user TGSC paste 2026-05-09 (0.0868 mmHg @ 25 C converted to 11.57 Pa)
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2126,12 +2134,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 136.23
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2314,7 +2322,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WM16912
@@ -3199,3 +3207,180 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: phenyl ethyl acetate
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 164.2
+  density_25c_g_ml: null
+  logp: 2.3
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 3.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 3.0
+  odt_eth_ppm: 0.03
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: null
+    other: {}
+  families:
+  - floral
+  - aromachemical
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: petitgrain eo paraguay
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 6.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 4.0
+  odt_eth_ppm: 1.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: null
+    other: {}
+  families:
+  - citrus
+  - natural
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: pine eo
+  aliases:
+  - Pine EO
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.2
+  density_25c_g_ml: null
+  logp: 4.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 250.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 30.0
+  odt_eth_ppm: 0.3
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+- canonical_name: Peppermint Essential Oil
+  aliases:
+  - Peppermint Essential Oil (Mentha piperita, India)
+  - peppermint essential oil
+  - peppermint eo
+  - mentha piperita eo
+  cas: 8006-90-4
+  smiles:
+  inchikey:
+  mw_g_mol: 159.0
+  density_25c_g_ml: 0.90
+  logp: 3.1
+  functional_groups:
+  - monoterpenol
+  - ketone
+  - essential oil
+  chirality:
+  vp_25c_pa: 12.0
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.040
+  hsp:
+  odt_air_ppb: 20.0
+  odt_eth_ppm: 4.0
+  stevens_n:
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.5
+    TRPA1: 0.1
+  hedonic_valence: 0.70
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+  families:
+  - green / fresh
+  - natural
+  character: "Crisp herbal-fresh menthol cooling. Powerful menthol-mint with green-herbal lift."
+  notes: "Steam-distilled Mentha piperita herb India. ~45% menthol, ~25% menthone. Fresh/herbal accords, fougere lift."
+  provenance:
+    mw_g_mol: manual:2026-06-15 constituent-weighted average
+    density_25c_g_ml: manual:2026-06-15 typical peppermint EO density
+    logp: manual:2026-06-15 constituent-weighted approximation
+    vp_25c_pa: manual:2026-06-15 constituent-weighted average (menthone-cineole dominated)
+    odt_air_ppb: manual:2026-06-15 estimated from GC-O literature
+    odt_eth_ppm: manual:2026-06-15 estimated from GC-O literature
+    hedonic_valence: manual:2026-06-15 refreshing appeal rating
+    user_in_inventory: inventory.txt
+
+- canonical_name: Peru Balsam Resinoid
+  aliases:
+  - peru balsam resinoid
+  - peru balsam
+  - balsam peru
+  cas: 8007-00-9
+  mw_g_mol: 275.0
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.03
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 30.0
+  odt_eth_ppm: 10.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

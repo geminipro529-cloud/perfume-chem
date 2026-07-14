@@ -1,0 +1,98 @@
+{
+  "$schema": "https://oh-my-openagent.ai/config.json",
+  "disabled_providers": ["anthropic", "google", "github-copilot", "venice", "vercel", "opencode"],
+  "disabled_mcps": ["codegraph"],
+  "disabled_hooks": ["webfetch-redirect-guard", "claude-code-hooks", "auto-update-checker", "legacy-plugin-toast", "fsync-skip-warning", "bash-file-read-guard", "question-label-truncator"],
+  "model_fallback": true,
+  "auto_update": false,
+  "hashline_edit": false,
+  "sisyphus_agent": { "tdd": false, "replace_plan": false, "default_builder_enabled": true, "planner_enabled": true },
+  "default_mode": { "ultrawork": true, "ralph_loop": false },
+  "runtime_fallback": { "enabled": true, "max_fallback_attempts": 3, "cooldown_seconds": 5, "notify_on_fallback": true },
+  "background_task": {
+    "defaultConcurrency": 3,
+    "maxDepth": 3,
+    "maxToolCalls": 40,
+    "staleTimeoutMs": 180000,
+    "messageStalenessTimeoutMs": 120000,
+    "taskTtlMs": 900000,
+    "providerConcurrency": { "deepseek": 4, "openai": 3 },
+    "circuitBreaker": { "enabled": true, "maxToolCalls": 80, "consecutiveThreshold": 12 }
+  },
+  "monitor": {
+    "enabled": true, "live_mode_enabled": true,
+    "max_monitors_per_session": 4, "max_runtime_ms": 2700000,
+    "allowed_commands": ["python", "pytest", "ruff", "mypy", "bash", "powershell"]
+  },
+  "experimental": {
+    "dynamic_context_pruning": { "enabled": true, "notification": "minimal", "turn_protection": { "enabled": true, "turns": 3 }, "strategies": { "deduplication": { "enabled": true }, "supersede_writes": { "enabled": true, "aggressive": false }, "purge_errors": { "enabled": true, "turns": 5 } } },
+    "preemptive_compaction": true,
+    "truncate_all_tool_outputs": true,
+    "max_tools": 30,
+    "safe_hook_creation": true,
+    "model_fallback_title": true,
+    "task_system": true,
+    "plugin_load_timeout_ms": 15000
+  },
+  "categories": {
+    "ultrabrain": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
+    "deep": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "quick": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "artistry": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "unspecified-low": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "unspecified-high": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } }
+  },
+  "agents": {
+    "hephaestus": {
+      "allow_non_gpt_model": true
+    },
+    "prometheus": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "sisyphus-junior": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "oracle": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "metis": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "momus": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "librarian": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "explore": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "multimodal-looker": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "atlas": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "build": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "plan": {
+      "model": "deepseek/deepseek-reasoner",
+      "fallback_models": ["deepseek/deepseek-chat"]
+    },
+    "OpenCode-Builder": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    }
+  }
+}

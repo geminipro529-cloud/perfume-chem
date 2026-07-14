@@ -7,6 +7,7 @@ Phase 3 — Compute OAV, smell strength, anosmic risk with corrected heuristics.
 Phase 4 — Write material_properties.json + audit_flags.json.
 Phase 5 — Print coverage / divergence report.
 """
+
 import json
 import sys
 import time
@@ -20,7 +21,12 @@ import requests
 from engine.ingredient_intelligence import _PROFILES
 from engine.odor_thresholds import ODT_DATA
 from engine.dose_response import HILL_PARAMS, CHARACTER_SHIFT_DATA
-from engine.ifra_safety import IFRA_CAT4_LIMITS, BANNED_MATERIALS, RESTRICTED_MATERIALS, IFRA_SPECIFICATION_ONLY
+from engine.ifra_safety import (
+    IFRA_CAT4_LIMITS,
+    BANNED_MATERIALS,
+    RESTRICTED_MATERIALS,
+    IFRA_SPECIFICATION_ONLY,
+)
 from engine.inventory_parser import parse_inventory
 from engine.name_utils import normalize_name
 
@@ -28,13 +34,25 @@ from engine.name_utils import normalize_name
 # Phase 1 — Indexes from internal modules
 # ═══════════════════════════════════════════════════════════════════════
 
-odt_air_index: dict[str, float | None] = {normalize_name(k): v.get("odt_air") for k, v in ODT_DATA.items()}
-odt_eth_index: dict[str, float | None] = {normalize_name(k): v.get("odt_eth") for k, v in ODT_DATA.items()}
-odt_char_index: dict[str, str | None] = {normalize_name(k): v.get("char") for k, v in ODT_DATA.items()}
-profile_index: dict[str, tuple[str, dict]] = {normalize_name(k): (k, v) for k, v in _PROFILES.items()}
+odt_air_index: dict[str, float | None] = {
+    normalize_name(k): v.get("odt_air") for k, v in ODT_DATA.items()
+}
+odt_eth_index: dict[str, float | None] = {
+    normalize_name(k): v.get("odt_eth") for k, v in ODT_DATA.items()
+}
+odt_char_index: dict[str, str | None] = {
+    normalize_name(k): v.get("char") for k, v in ODT_DATA.items()
+}
+profile_index: dict[str, tuple[str, dict]] = {
+    normalize_name(k): (k, v) for k, v in _PROFILES.items()
+}
 hill_index: dict[str, dict] = {normalize_name(k): v for k, v in HILL_PARAMS.items()}
-charshift_index: dict[str, list] = {normalize_name(k): v for k, v in CHARACTER_SHIFT_DATA.items()}
-ifra_index: dict[str, float] = {normalize_name(k): v for k, v in IFRA_CAT4_LIMITS.items()}
+charshift_index: dict[str, list] = {
+    normalize_name(k): v for k, v in CHARACTER_SHIFT_DATA.items()
+}
+ifra_index: dict[str, float] = {
+    normalize_name(k): v for k, v in IFRA_CAT4_LIMITS.items()
+}
 
 # Known CAS numbers (literature cross-referenced)
 CAS_MAP: dict[str, str] = {
@@ -263,13 +281,28 @@ def check_divergence(field: str, db_val, pub_val) -> dict | None:
             lo = 1e-9
         ratio = max(db_val, pub_val) / lo
         if ratio > 2.0:
-            return {"field": field, "db_value": db_val, "pubchem_value": pub_val, "ratio": round(ratio, 1)}
+            return {
+                "field": field,
+                "db_value": db_val,
+                "pubchem_value": pub_val,
+                "ratio": round(ratio, 1),
+            }
     elif field == "mw":
         if abs(db_val - pub_val) > 0.5:
-            return {"field": field, "db_value": db_val, "pubchem_value": pub_val, "delta": round(abs(db_val - pub_val), 2)}
+            return {
+                "field": field,
+                "db_value": db_val,
+                "pubchem_value": pub_val,
+                "delta": round(abs(db_val - pub_val), 2),
+            }
     elif field == "logp":
         if abs(db_val - pub_val) > 0.5:
-            return {"field": field, "db_value": db_val, "pubchem_value": pub_val, "delta": round(abs(db_val - pub_val), 2)}
+            return {
+                "field": field,
+                "db_value": db_val,
+                "pubchem_value": pub_val,
+                "delta": round(abs(db_val - pub_val), 2),
+            }
     return None
 
 
@@ -278,28 +311,81 @@ def check_divergence(field: str, db_val, pub_val) -> dict | None:
 # ═══════════════════════════════════════════════════════════════════════
 
 TYPICAL_DOSE: dict[str, float] = {
-    "aldehyde c10": 0.5, "aldehyde c11": 0.3, "aldehyde c12 mna": 0.2,
-    "bergamot eo": 5.0, "bergamot fcf": 5.0, "lemon eo": 3.0,
-    "linalool": 3.0, "linalyl acetate": 4.0, "d-limonene": 2.0,
-    "cis-3-hexenol": 0.1, "calone": 0.05, "scentenal": 0.1,
-    "geosmin": 0.001, "triplal": 0.03,
-    "hedione": 8.0, "rose oxide": 0.05, "geraniol": 2.0,
-    "citronellol": 3.0, "phenethyl alcohol": 5.0, "lilial": 2.0,
-    "hydroxycitronellal": 3.0, "indole": 0.1, "alpha ionone": 2.0,
-    "beta ionone": 1.0, "alpha irone": 0.5, "iso e super": 15.0,
-    "cashmeran": 3.0, "galaxolide": 10.0, "habanolide": 3.0,
-    "vanillin": 2.0, "coumarin": 3.0, "ambrox super": 2.0,
-    "patchouli eo": 3.0, "vetiver eo": 2.0, "cedarwood eo": 5.0,
+    "aldehyde c10": 0.5,
+    "aldehyde c11": 0.3,
+    "aldehyde c12 mna": 0.2,
+    "bergamot eo": 5.0,
+    "bergamot fcf": 5.0,
+    "lemon eo": 3.0,
+    "linalool": 3.0,
+    "linalyl acetate": 4.0,
+    "d-limonene": 2.0,
+    "cis-3-hexenol": 0.1,
+    "calone": 0.05,
+    "scentenal": 0.1,
+    "geosmin": 0.001,
+    "triplal": 0.03,
+    "hedione": 8.0,
+    "rose oxide": 0.05,
+    "geraniol": 2.0,
+    "citronellol": 3.0,
+    "phenethyl alcohol": 5.0,
+    "lilial": 2.0,
+    "hydroxycitronellal": 3.0,
+    "indole": 0.1,
+    "alpha ionone": 2.0,
+    "beta ionone": 1.0,
+    "alpha irone": 0.5,
+    "iso e super": 15.0,
+    "cashmeran": 3.0,
+    "galaxolide": 10.0,
+    "habanolide": 3.0,
+    "vanillin": 2.0,
+    "coumarin": 3.0,
+    "ambrox super": 2.0,
+    "patchouli eo": 3.0,
+    "vetiver eo": 2.0,
+    "cedarwood eo": 5.0,
     # Legacy / non-inventory entries
-    "amber core accord": 5.0, "amber xtreme": 5.0, "bacdanol": 3.0,
-    "benzoin resinoid": 3.0, "cedamber": 3.0, "heliotropin": 2.0,
-    "jasmin abs f-tec": 3.0, "labdanum absolute": 3.0,
-    "lavender eo (bontaux sas)": 5.0, "methyl ionone": 3.0,
-    "molecule iris": 2.0, "myrrh eo": 2.0,
-    "patchouli essential oil": 3.0, "pink pepper base": 3.0,
-    "sandalwood fragrance oil": 3.0, "styrax ftec": 2.0,
-    "tonka bean fragrance oil": 3.0, "vertofix coeur": 5.0,
-    "vetiver eo (india)": 2.0, "vetiver essential oil": 2.0,
+    "amber core accord": 5.0,
+    "amber xtreme": 5.0,
+    "bacdanol": 3.0,
+    "benzoin resinoid": 3.0,
+    "cedamber": 3.0,
+    "heliotropin": 2.0,
+    "jasmin abs f-tec": 3.0,
+    "labdanum absolute": 3.0,
+    "lavender eo (bontaux sas)": 5.0,
+    "methyl ionone": 3.0,
+    "molecule iris": 2.0,
+    "myrrh eo": 2.0,
+    "patchouli essential oil": 3.0,
+    "pink pepper base": 3.0,
+    "sandalwood fragrance oil": 3.0,
+    "styrax ftec": 2.0,
+    "tonka bean fragrance oil": 3.0,
+    "vertofix coeur": 5.0,
+    "vetiver eo (india)": 2.0,
+    "vetiver essential oil": 2.0,
+    "cocoa absolute": 3.0,
+    "evernyl 50% in dpg": 6.0,
+    "galbanum eo": 2.0,
+    "immortelle absolute": 3.0,
+    "oakmoss absolute": 2.0,
+    "osmanthus absolute": 3.0,
+    "petitgrain eo paraguay": 4.0,
+    "phenyl ethyl acetate": 5.0,
+    "rose de mai absolute": 3.0,
+    "tonkarome": 4.0,
+    "tuberalia base": 5.0,
+    "tuberose absolute": 3.0,
+    "tuberose absolute (india)": 3.0,
+    # ── Inventory additions 2026-06-14 ──
+    "himalayan cedarwood eo": 5.0,
+    "cassis base 345b": 3.0,
+    "clove eo": 3.0,
+    "anise eo": 4.0,
+    "basil eo": 4.0,
 }
 
 
@@ -307,16 +393,29 @@ def typical_dose_pct(norm_name: str, role: str | None, odt_eth: float | None) ->
     if norm_name in TYPICAL_DOSE:
         return TYPICAL_DOSE[norm_name]
     if odt_eth is not None:
-        if odt_eth < 0.001:   return 0.5
-        elif odt_eth < 0.01:  return 1.0
-        elif odt_eth < 0.1:   return 2.0
-        elif odt_eth < 1.0:   return 3.0
-        elif odt_eth < 10.0:  return 5.0
-        elif odt_eth < 50.0:  return 8.0
-        else:                 return 10.0
+        if odt_eth < 0.001:
+            return 0.5
+        elif odt_eth < 0.01:
+            return 1.0
+        elif odt_eth < 0.1:
+            return 2.0
+        elif odt_eth < 1.0:
+            return 3.0
+        elif odt_eth < 10.0:
+            return 5.0
+        elif odt_eth < 50.0:
+            return 8.0
+        else:
+            return 10.0
     role_map = {
-        "trace": 0.1, "modifier": 1.0, "character": 3.0,
-        "core": 5.0, "radiance": 8.0, "fixative": 5.0, "bridge": 2.0, "volume": 4.0,
+        "trace": 0.1,
+        "modifier": 1.0,
+        "character": 3.0,
+        "core": 5.0,
+        "radiance": 8.0,
+        "fixative": 5.0,
+        "bridge": 2.0,
+        "volume": 4.0,
     }
     return role_map.get(role or "", 3.0)
 
@@ -346,7 +445,9 @@ def anosmic_risk(mw: float | None, odt_air: float | None, or_family: str | None)
         return "unknown"
     is_heavy = mw >= 220
     is_high_threshold = (odt_air or 999) > 10.0
-    is_musk_amber = any(t in (or_family or "").lower() for t in ["musk", "amber", "macrocyclic"])
+    is_musk_amber = any(
+        t in (or_family or "").lower() for t in ["musk", "amber", "macrocyclic"]
+    )
     if (is_heavy and is_high_threshold) or (is_heavy and is_musk_amber):
         return "high — specific anosmia risk (heavy musk/amber, MW≥220)"
     if (odt_air or 999) < 0.01:
@@ -355,13 +456,34 @@ def anosmic_risk(mw: float | None, odt_air: float | None, or_family: str | None)
 
 
 CHAR_TO_FAMILY = {
-    "citrus": "citrus", "freshness": "citrus", "green": "green", "herbal": "aromatic",
-    "floral": "floral", "sweetness": "floral", "indolic": "floral", "powdery": "iris",
-    "woody": "woody", "warmth": "amber", "radiance": "muguet", "musk": "musk",
-    "creamy": "floral", "fatty": "floral", "waxy": "floral", "smoky": "smoky",
-    "spicy": "spice", "earth": "earth", "animalic": "animalic", "fresh": "green",
-    "ozone": "aquatic", "diffusion": "floral", "lift": "citrus", "depth": "woody",
-    "cushion": "musk", "veil": "floral", "halo": "floral", "cocoon": "musk",
+    "citrus": "citrus",
+    "freshness": "citrus",
+    "green": "green",
+    "herbal": "aromatic",
+    "floral": "floral",
+    "sweetness": "floral",
+    "indolic": "floral",
+    "powdery": "iris",
+    "woody": "woody",
+    "warmth": "amber",
+    "radiance": "muguet",
+    "musk": "musk",
+    "creamy": "floral",
+    "fatty": "floral",
+    "waxy": "floral",
+    "smoky": "smoky",
+    "spicy": "spice",
+    "earth": "earth",
+    "animalic": "animalic",
+    "fresh": "green",
+    "ozone": "aquatic",
+    "diffusion": "floral",
+    "lift": "citrus",
+    "depth": "woody",
+    "cushion": "musk",
+    "veil": "floral",
+    "halo": "floral",
+    "cocoon": "musk",
     "skin-effect": "musk",
 }
 
@@ -436,8 +558,12 @@ for inv_name in sorted(inventory_names):
     if profile:
         # Physical chemistry: profile values are authoritative, always overwrite
         for src_field, dst_field in [
-            ("mw", "mw"), ("vp", "vp"), ("clogp", "clp"),
-            ("note", "note"), ("role", "role"), ("texture", "texture"),
+            ("mw", "mw"),
+            ("vp", "vp"),
+            ("clogp", "clp"),
+            ("note", "note"),
+            ("role", "role"),
+            ("texture", "texture"),
         ]:
             val = profile.get(src_field)
             if val is not None:
@@ -481,7 +607,11 @@ for inv_name in sorted(inventory_names):
     or_family_val = entry.get("or_family")
     dose_pct = typical_dose_pct(norm, role_val, odt_eth or entry.get("odt_ethanol_ppm"))
     dose_ppm = dose_pct * 10000
-    oav = dose_ppm / (odt_eth or entry.get("odt_ethanol_ppm") or 1) if (odt_eth or entry.get("odt_ethanol_ppm")) else None
+    oav = (
+        dose_ppm / (odt_eth or entry.get("odt_ethanol_ppm") or 1)
+        if (odt_eth or entry.get("odt_ethanol_ppm"))
+        else None
+    )
     entry["oav_typical"] = round(oav, 1) if oav else None
     entry["oav_dose_pct"] = dose_pct
     entry["smell_strength"] = smell_strength(odt_eth or entry.get("odt_ethanol_ppm"))
@@ -495,19 +625,36 @@ for inv_name in sorted(inventory_names):
     # ── IFRA ─────────────────────────────────────────────────────
     ifra_limit = ifra_index.get(norm) or ifra_index.get(canonical_norm)
     entry["ifra_cat4_limit_pct"] = ifra_limit
-    entry["ifra_banned"] = inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
-    entry["ifra_restricted"] = inv_name in RESTRICTED_MATERIALS or (canonical or "") in RESTRICTED_MATERIALS
+    entry["ifra_banned"] = (
+        inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
+    )
+    entry["ifra_restricted"] = (
+        inv_name in RESTRICTED_MATERIALS or (canonical or "") in RESTRICTED_MATERIALS
+    )
     # IFRA 51st — specification-only standards (not concentration limits)
-    entry["ifra_standard_type"] = "specification" if inv_name in IFRA_SPECIFICATION_ONLY else "restriction"
+    entry["ifra_standard_type"] = (
+        "specification" if inv_name in IFRA_SPECIFICATION_ONLY else "restriction"
+    )
 
     # ── Activity coefficients (UNIFAC estimates for headspace corrections) ─
     ACTIVITY_COEF_OVERRIDES = {
-        "limonene": 3.2, "beta-pinene": 3.0, "d-limonene": 3.2,
-        "linalool": 1.8, "linalyl acetate": 2.1, "citronellol": 1.7,
-        "geraniol": 1.6, "benzyl acetate": 1.2, "hedione": 1.3,
-        "calone": 1.1, "alpha irone": 1.5, "polysantol": 0.7,
-        "benzyl salicylate": 0.8, "galaxolide": 0.7, "ambrox super": 0.6,
-        "vanillin": 0.5, "coumarin": 0.7,
+        "limonene": 3.2,
+        "beta-pinene": 3.0,
+        "d-limonene": 3.2,
+        "linalool": 1.8,
+        "linalyl acetate": 2.1,
+        "citronellol": 1.7,
+        "geraniol": 1.6,
+        "benzyl acetate": 1.2,
+        "hedione": 1.3,
+        "calone": 1.1,
+        "alpha irone": 1.5,
+        "polysantol": 0.7,
+        "benzyl salicylate": 0.8,
+        "galaxolide": 0.7,
+        "ambrox super": 0.6,
+        "vanillin": 0.5,
+        "coumarin": 0.7,
     }
     # Override activity_coef with UNIFAC estimate (always trust UNIFAC over II defaults)
     for key in [canonical_norm, norm]:
@@ -526,7 +673,11 @@ for inv_name in sorted(inventory_names):
     entry["character_shift"] = []
     if cs:
         entry["character_shift"] = [
-            {"max_conc_pct": z.max_conc_pct, "character": z.character, "quality": z.quality}
+            {
+                "max_conc_pct": z.max_conc_pct,
+                "character": z.character,
+                "quality": z.quality,
+            }
             for z in cs
         ]
 
@@ -535,12 +686,24 @@ for inv_name in sorted(inventory_names):
 
     # ── Remaining fields (null if empty) ─────────────────────────
     for null_field in [
-        "cas", "formula_str", "bp", "sar_class", "olfactophore",
-        "arctander_character", "arctander_tenacity",
-        "carles_position", "carles_pairing_rule",
-        "roudnitska_function", "roudnitska_craft_note",
-        "jellinek_axis", "jellinek_quadrant", "jellinek_effect",
-        "max_safe_pct", "stock_form", "handle_as", "avoid",
+        "cas",
+        "formula_str",
+        "bp",
+        "sar_class",
+        "olfactophore",
+        "arctander_character",
+        "arctander_tenacity",
+        "carles_position",
+        "carles_pairing_rule",
+        "roudnitska_function",
+        "roudnitska_craft_note",
+        "jellinek_axis",
+        "jellinek_quadrant",
+        "jellinek_effect",
+        "max_safe_pct",
+        "stock_form",
+        "handle_as",
+        "avoid",
     ]:
         entry.setdefault(null_field, None)
 
@@ -551,7 +714,9 @@ for inv_name in sorted(inventory_names):
         entry["best_with"] = []
 
     if not entry.get("typical_pct_range") and dose_pct > 0:
-        entry["typical_pct_range"] = f"{max(0.01, dose_pct * 0.3):g}–{dose_pct * 2:g}% of concentrate"
+        entry["typical_pct_range"] = (
+            f"{max(0.01, dose_pct * 0.3):g}–{dose_pct * 2:g}% of concentrate"
+        )
     elif not entry.get("typical_pct_range"):
         entry["typical_pct_range"] = None
 
@@ -566,11 +731,18 @@ for inv_name in sorted(inventory_names):
     entry_flags: list[dict] = []
     pc_warnings: list[str] = []
     cas_val = entry.get("cas")
-    if cas_val and cas_val not in ("N/A (proprietary blend)", "Proprietary", "Proprietary mixture", "proprietary", None):
-
+    if cas_val and cas_val not in (
+        "N/A (proprietary blend)",
+        "Proprietary",
+        "Proprietary mixture",
+        "proprietary",
+        None,
+    ):
         # Detect useless CAS (generic proprietaries often have bogus CAS)
         if cas_val.lower().startswith("proprietary"):
-            pc_warnings.append(f"CAS '{cas_val}' is proprietary — PubChem lookup skipped")
+            pc_warnings.append(
+                f"CAS '{cas_val}' is proprietary — PubChem lookup skipped"
+            )
         else:
             pub = fetch_pubchem(cas_val)
             if pub:
@@ -592,7 +764,11 @@ for inv_name in sorted(inventory_names):
                 # ── Auto-override cLogP from PubChem when divergence > 0.5 ──
                 pc_logp = pub.get("logp_pubchem")
                 db_logp = entry.get("clp")
-                if pc_logp is not None and db_logp is not None and abs(db_logp - pc_logp) > 0.5:
+                if (
+                    pc_logp is not None
+                    and db_logp is not None
+                    and abs(db_logp - pc_logp) > 0.5
+                ):
                     flag = check_divergence("logp", db_logp, pc_logp)
                     if flag:
                         flag["name"] = inv_name
@@ -632,7 +808,10 @@ for inv_name in inventory_names:
         inventory_norms.add(normalize_name(c))
 
 for norm_key, mp_entry in existing_index.items():
-    if norm_key not in inventory_norms and normalize_name(mp_entry.get("name", "")) not in seen_names:
+    if (
+        norm_key not in inventory_norms
+        and normalize_name(mp_entry.get("name", "")) not in seen_names
+    ):
         entry = mp_entry.copy()
         entry["in_inventory"] = False
 
@@ -648,8 +827,14 @@ for norm_key, mp_entry in existing_index.items():
 
         if _profile:
             # Physical chemistry: profile values are authoritative, always overwrite
-            for _src, _dst in [("mw", "mw"), ("vp", "vp"), ("clogp", "clp"),
-                               ("note", "note"), ("role", "role"), ("texture", "texture")]:
+            for _src, _dst in [
+                ("mw", "mw"),
+                ("vp", "vp"),
+                ("clogp", "clp"),
+                ("note", "note"),
+                ("role", "role"),
+                ("texture", "texture"),
+            ]:
                 if _profile.get(_src) is not None:
                     entry[_dst] = _profile[_src]
             if _profile.get("activity_coef") and entry.get("activity_coef") is None:
@@ -683,13 +868,19 @@ for norm_key, mp_entry in existing_index.items():
             entry["odor_family"] = infer_odor_family(_profile, _norm)
         if not entry.get("odor_profile"):
             _char = odt_char_index.get(_norm)
-            entry["odor_profile"] = infer_odor_profile(_profile, _char, entry.get("name", ""))
+            entry["odor_profile"] = infer_odor_profile(
+                _profile, _char, entry.get("name", "")
+            )
 
         # IFRA standard type
         if entry.get("ifra_standard_type") is None:
             _ifra_limit = ifra_index.get(_norm)
             entry["ifra_cat4_limit_pct"] = _ifra_limit
-            entry["ifra_standard_type"] = "specification" if entry.get("name", "") in IFRA_SPECIFICATION_ONLY else "restriction"
+            entry["ifra_standard_type"] = (
+                "specification"
+                if entry.get("name", "") in IFRA_SPECIFICATION_ONLY
+                else "restriction"
+            )
 
         # Hill params / character shift
         _hill = hill_index.get(_norm)
@@ -700,7 +891,11 @@ for norm_key, mp_entry in existing_index.items():
         _cs = charshift_index.get(_norm)
         if _cs and not entry.get("character_shift"):
             entry["character_shift"] = [
-                {"max_conc_pct": z.max_conc_pct, "character": z.character, "quality": z.quality}
+                {
+                    "max_conc_pct": z.max_conc_pct,
+                    "character": z.character,
+                    "quality": z.quality,
+                }
                 for z in _cs
             ]
 
@@ -722,38 +917,62 @@ with open("data/knowledge_graph/audit_flags.json", "w", encoding="utf-8") as f:
 # ═══════════════════════════════════════════════════════════════════════
 
 total = len(output)
-print(f"\n{'='*60}")
+print(f"\n{'=' * 60}")
 print(f"  material_properties.json  —  {total} entries written")
 print(f"  audit_flags.json          —  {len(audit_flags)} entries flagged")
-print(f"{'='*60}")
+print(f"{'=' * 60}")
 
 FIELDS = [
-    ("odt", "ODT air (ppb)"), ("odt_ethanol_ppm", "ODT ethanol (ppm)"),
-    ("oav_typical", "OAV (typical dose)"), ("smell_strength", "Smell strength"),
-    ("anosmic_risk", "Anosmic risk"), ("mw", "Molecular weight"),
-    ("vp", "Vapor pressure (Pa)"), ("clp", "cLogP"),
-    ("synergies", "Synergies"), ("note", "Volatility note"),
-    ("role", "Perfumery role"), ("texture", "Texture"),
-    ("or_family", "Odor family (Raoult)"), ("activity_coef", "Activity coeff"),
-    ("hedonic", "Hedonic score"), ("ifra_cat4_limit_pct", "IFRA Cat4 limit"),
-    ("ifra_banned", "IFRA banned"), ("dilution_pct", "Inventory dilution"),
-    ("hill_ec50", "Hill EC50"), ("character_shift", "Character shift zones"),
-    ("cas", "CAS number"), ("formula_str", "Molecular formula"),
-    ("pubchem_cid", "PubChem CID"), ("sar_class", "SAR class"),
-    ("carles_position", "Carles position"), ("arctander_character", "Arctander char"),
+    ("odt", "ODT air (ppb)"),
+    ("odt_ethanol_ppm", "ODT ethanol (ppm)"),
+    ("oav_typical", "OAV (typical dose)"),
+    ("smell_strength", "Smell strength"),
+    ("anosmic_risk", "Anosmic risk"),
+    ("mw", "Molecular weight"),
+    ("vp", "Vapor pressure (Pa)"),
+    ("clp", "cLogP"),
+    ("synergies", "Synergies"),
+    ("note", "Volatility note"),
+    ("role", "Perfumery role"),
+    ("texture", "Texture"),
+    ("or_family", "Odor family (Raoult)"),
+    ("activity_coef", "Activity coeff"),
+    ("hedonic", "Hedonic score"),
+    ("ifra_cat4_limit_pct", "IFRA Cat4 limit"),
+    ("ifra_banned", "IFRA banned"),
+    ("dilution_pct", "Inventory dilution"),
+    ("hill_ec50", "Hill EC50"),
+    ("character_shift", "Character shift zones"),
+    ("cas", "CAS number"),
+    ("formula_str", "Molecular formula"),
+    ("pubchem_cid", "PubChem CID"),
+    ("sar_class", "SAR class"),
+    ("carles_position", "Carles position"),
+    ("arctander_character", "Arctander char"),
 ]
 print(f"\n{'Field':<25} {'Coverage':>10}  {'Status'}")
 print("-" * 60)
 for f, label in FIELDS:
-    count = sum(1 for m in output if m.get(f) is not None and m.get(f) != [] and m.get(f) != "" and m.get(f) != False)
+    count = sum(
+        1
+        for m in output
+        if m.get(f) is not None
+        and m.get(f) != []
+        and m.get(f) != ""
+        and m.get(f) != False
+    )
     pct = round(count / total * 100) if total else 0
     bar = "█" * (pct // 5) + "░" * (20 - pct // 5)
     print(f"  {label:<23} {count:>4}/{total} {bar} {pct}%")
 
 if audit_flags:
-    print(f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json")
+    print(
+        f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json"
+    )
     for a in audit_flags[:5]:
         for f in a["flags"]:
-            print(f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}")
+            print(
+                f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}"
+            )
     if len(audit_flags) > 5:
         print(f"    ... and {len(audit_flags) - 5} more")

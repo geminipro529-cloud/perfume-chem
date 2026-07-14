@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\chatbots\perfume-chem\scripts\formula_release_gate.py", line 359, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\chatbots\perfume-chem\scripts\formula_release_gate.py", line 97, in main
+    raise ValueError(f"No parseable formulas found in {formula_path}")
+ValueError: No parseable formulas found in D:\chatbots\perfume-chem\formulas\GGGB_18_30mL_EDP.md

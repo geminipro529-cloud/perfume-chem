@@ -39,6 +39,38 @@ def _gather_data_coverage() -> dict[str, float]:
     return {field: 100.0 * count / total for field, count in counts.items()}
 
 
+def build_science_audit_contract() -> dict:
+    """Return the machine-readable science audit contract."""
+    cov = _gather_data_coverage()
+    return {
+        "data_coverage_pct": cov,
+        "weaknesses": [{"title": t, "body": b} for t, b in KNOWN_WEAKNESSES],
+        "open_questions": OPEN_QUESTIONS,
+    }
+
+
+def coverage_confidence_penalty(contract: dict | None = None) -> float:
+    """Convert sparse science coverage into a bounded confidence penalty.
+
+    This is intentionally conservative. It should lower trust, not fabricate
+    a hard-fail from incomplete auxiliary science fields.
+    """
+    contract = contract or build_science_audit_contract()
+    coverage = contract.get("data_coverage_pct", {}) or {}
+    penalty = 0.0
+    targets = {
+        "antoine": 20.0,
+        "hsp": 40.0,
+        "ifra": 50.0,
+        "or_targets": 10.0,
+    }
+    for field, target in targets.items():
+        actual = float(coverage.get(field, 0.0) or 0.0)
+        if actual < target:
+            penalty += min(3.0, (target - actual) / max(target, 1.0) * 3.0)
+    return round(min(12.0, penalty), 3)
+
+
 KNOWN_WEAKNESSES = [
     ("Antoine constants",
      "0% of materials have Antoine A/B/C. Phase 1 falls back to single-point VP_25 → "
@@ -93,11 +125,7 @@ def main():
         print(f"  ? {q}")
     print()
     # External-AI feedback contract
-    contract = {
-        "data_coverage_pct": cov,
-        "weaknesses": [{"title": t, "body": b} for t, b in KNOWN_WEAKNESSES],
-        "open_questions": OPEN_QUESTIONS,
-    }
+    contract = build_science_audit_contract()
     out_path = ROOT / "verification_runs" / "science_audit.json"
     out_path.parent.mkdir(exist_ok=True)
     out_path.write_text(json.dumps(contract, indent=2), encoding="utf-8")

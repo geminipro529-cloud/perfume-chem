@@ -21,7 +21,30 @@ IMPORTANT_MATERIAL_FIELDS = {
 NUMERIC_FIELDS = {"mw", "bp", "vp", "clp", "odt"}
 
 # CAS number regex: digits-digits-digit
-CAS_RE = re.compile(r"^\d{2,7}-\d{2}-\d$")
+CAS_RE = re.compile(r"\d{2,7}-\d{2}-\d")
+
+# Known non-CAS values that are valid for perfumery materials
+CAS_VALID_NON_NUMERIC = {
+    "n/a", "na", "proprietary", "proprietary mixture",
+    "supplier-specific", "supplier specific",
+    "not publicly listed",
+}
+
+
+def _is_valid_cas(value: str) -> bool:
+    """Check if a CAS field value is valid — either matches CAS format or is a known non-numeric value."""
+    if not value:
+        return False
+    stripped = value.strip()
+    if not stripped:
+        return False
+    if CAS_RE.search(stripped):
+        return True
+    low = stripped.lower().rstrip(".)]}").lstrip()
+    for valid in CAS_VALID_NON_NUMERIC:
+        if valid in low:
+            return True
+    return False
 
 # Patterns that indicate corruption (filename leaked into data)
 CORRUPTION_PATTERNS = [
@@ -143,7 +166,7 @@ class SchemaValidator:
 
             # CAS validation
             cas = mat.get("cas")
-            if cas and not CAS_RE.match(cas):
+            if cas and not _is_valid_cas(cas):
                 self._issue("warning", fname, i, "cas", f"Invalid CAS format: '{cas}'")
 
             # Numeric field validation

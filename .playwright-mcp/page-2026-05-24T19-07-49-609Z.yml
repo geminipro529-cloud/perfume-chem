@@ -1,0 +1,189 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - link "ข้อเสนอแนะ" [ref=e9] [cursor=pointer]:
+          - /url: //pages.lazada.co.th/wow/gcp/route/lazada/th/upr_1000345_lazada/channel/th/upr-router/th?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/th/trade/feedback
+        - generic [ref=e10] [cursor=pointer]: ช้อปคุ้มกว่าเดิมบนแอป
+        - link "ขายสินค้ากับลาซาด้า" [ref=e12] [cursor=pointer]:
+          - /url: https://sellercenter.lazada.co.th/apps/register/index?gsc=1
+        - generic [ref=e13] [cursor=pointer]: ช่วยเหลือ
+        - generic [ref=e14] [cursor=pointer]: ติดตามสินค้า
+        - link "ลงชื่อเข้าใช้" [ref=e16] [cursor=pointer]:
+          - /url: "#"
+        - link "สมัครสมาชิก" [ref=e18] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=e19] [cursor=pointer]: change language
+      - generic [ref=e21]:
+        - link "โลโก้ ลาซาด้า ช้อปออนไลน์" [ref=e23] [cursor=pointer]:
+          - /url: //www.lazada.co.th/
+          - img "โลโก้ ลาซาด้า ช้อปออนไลน์" [ref=e24]
+        - generic [ref=e28]:
+          - searchbox "ค้นหาในลาซาด้า" [ref=e30]
+          - link "ค้นหา" [ref=e32] [cursor=pointer]:
+            - /url: //www.lazada.co.th/catalog/?q=
+        - generic [ref=e33]:
+          - link:
+            - /url: //cart.lazada.co.th/cart?scm=1003.4.icms-zebra-5001427-2591761.OTHER_5196131821_2267435
+        - link "พิเศษสำหรับลูกค้าใหม่" [ref=e36] [cursor=pointer]:
+          - /url: //ali.lazada.co.th/wow/i/th/THCampaign/appbenefit?spm=a2o4m.home.header.1.1125515fJnfChc&hybrid=1
+          - img "พิเศษสำหรับลูกค้าใหม่" [ref=e37]
+    - generic [ref=e39]:
+      - generic [ref=e41] [cursor=pointer]: หมวดหมู่
+      - navigation [ref=e42]:
+        - link "LazMall LazMall" [ref=e43] [cursor=pointer]:
+          - /url: //pages.lazada.co.th/wow/gcp/route/lazada/th/upr_1000345_lazada/channel/th/upr-router/th?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/th/lazmall-channel/lazmall-channel-pc
+          - img "LazMall" [ref=e45]
+          - generic [ref=e46]: LazMall
+  - generic [ref=e47]:
+    - generic [ref=e49]:
+      - img "error-img" [ref=e51]
+      - generic [ref=e52]: น้องลาซขอโทษ...
+      - heading "ดูเหมือนหน้าที่คุณค้นหาจะไม่มีแล้ว เข้าหน้าหลักเพื่อค้นหาสิ่งที่ต้องการเลย" [level=3] [ref=e54]
+      - generic [ref=e56]: กลับไปยังหน้าแรก
+    - img [ref=e58]
+  - generic [ref=e59]:
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - heading "ศูนย์ดูแลลูกค้า" [level=3] [ref=e63]
+        - list [ref=e64]:
+          - listitem [ref=e65]:
+            - link "ศูนย์ช่วยเหลือ" [ref=e66] [cursor=pointer]:
+              - /url: //www.lazada.co.th/helpcenter/
+          - listitem [ref=e67]:
+            - link "การสั่งซื้อสินค้า" [ref=e68] [cursor=pointer]:
+              - /url: //www.lazada.co.th/helpcenter/orders/
+          - listitem [ref=e69]:
+            - link "การส่งสินค้า" [ref=e70] [cursor=pointer]:
+              - /url: //www.lazada.co.th/helpcenter/shipping-and-delivery/
+          - listitem [ref=e71]:
+            - link "นโยบายของสินค้าต่างประเทศ" [ref=e72] [cursor=pointer]:
+              - /url: //www.lazada.co.th/helpcenter/products-on-lazada/#answer-faq-internationalproduct-ans
+          - listitem [ref=e73]:
+            - link "การคืนสินค้า" [ref=e74] [cursor=pointer]:
+              - /url: //www.lazada.co.th/helpcenter/returns-refunds/#answer-faq-return-ans
+          - listitem [ref=e75]:
+            - link "ติดต่อเรา" [ref=e76] [cursor=pointer]:
+              - /url: //www.lazada.co.th/contact/
+      - generic [ref=e77]:
+        - heading "ลาซาด้า" [level=3] [ref=e78]
+        - list [ref=e79]:
+          - listitem [ref=e80]:
+            - link "เกี่ยวกับลาซาด้า" [ref=e81] [cursor=pointer]:
+              - /url: //group.lazada.com/en/about/
+          - listitem [ref=e82]:
+            - link "Afﬁliate Program" [ref=e83] [cursor=pointer]:
+              - /url: //www.lazada.co.th/affiliate/
+          - listitem [ref=e84]:
+            - link "ร่วมงานกับเรา" [ref=e85] [cursor=pointer]:
+              - /url: //www.lazada.com/work-at-lazada/
+          - listitem [ref=e86]:
+            - link "ข้อตกลงและเงื่อนไข" [ref=e87] [cursor=pointer]:
+              - /url: https://pages.lazada.co.th/wow/gcp/route/lazada/th/upr_1000345_lazada/channel/th/upr-router/th?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/th/central/TermsandConditions
+          - listitem [ref=e88]:
+            - link "นโยบายความเป็นส่วนตัว" [ref=e89] [cursor=pointer]:
+              - /url: https://pages.lazada.co.th/wow/gcp/route/lazada/th/upr_1000345_lazada/channel/th/upr-router/th?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/th/legal/nFQ6ycyNJx
+          - listitem [ref=e90]:
+            - link "ข่าวประชาสัมพันธ์" [ref=e91] [cursor=pointer]:
+              - /url: //www.lazada.co.th/press/
+          - listitem [ref=e92]:
+            - link "ความปลอดภัยกับลาซาด้า" [ref=e93] [cursor=pointer]:
+              - /url: //www.lazada.co.th/security/
+          - listitem [ref=e94]:
+            - link "สินค้ายอดนิยม" [ref=e95] [cursor=pointer]:
+              - /url: //www.lazada.co.th/popular-product/
+          - listitem [ref=e96]:
+            - link "Intellectual Property Protection" [ref=e97] [cursor=pointer]:
+              - /url: https://pages.lazada.co.th/wow/gcp/route/lazada/th/upr_1000345_lazada/channel/th/upr-router/th?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/th/legal/ipr-policy
+      - generic [ref=e98]:
+        - generic:
+          - img "Download the App" [ref=e100]
+          - generic [ref=e101]:
+            - generic [ref=e102]: Always Better
+            - generic [ref=e103]: Download the App
+          - generic [ref=e104]:
+            - link "Apple App Download" [ref=e105] [cursor=pointer]:
+              - /url: https://apps.apple.com/th/app/id785385147?l=th
+              - img "Apple App Download" [ref=e106]
+            - link "Android App Download" [ref=e107] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.lazada.android&hl=th
+              - img "Android App Download" [ref=e108]
+            - link "Huawei App Download" [ref=e109] [cursor=pointer]:
+              - /url: https://appgallery.huawei.com/#/app/C100164557
+              - img "Huawei App Download" [ref=e110]
+    - generic [ref=e112]:
+      - generic [ref=e113]:
+        - heading "วิธีการชำระเงิน" [level=3] [ref=e114]
+        - generic [ref=e115]:
+          - img "cnd" [ref=e117]
+          - img "visa" [ref=e119]
+          - img "ms" [ref=e121]
+          - img "jcb" [ref=e123]
+          - img "UPI" [ref=e125]
+      - generic [ref=e126]:
+        - heading "Delivery Services" [level=3] [ref=e127]
+        - img "LEX" [ref=e128]
+        - img "FLASH" [ref=e129]
+        - img "J&T Express" [ref=e130]
+        - img "TP" [ref=e131]
+        - img "TH Post" [ref=e132]
+      - generic [ref=e133]:
+        - heading "Verified by" [level=3] [ref=e134]
+        - generic [ref=e135]:
+          - link "ISO" [ref=e137] [cursor=pointer]:
+            - /url: https://img.lazcdn.com/us/media/d295573f9cbd9ad441822b9a09845bac-2480-3508.jpg
+            - img "ISO" [ref=e138]
+          - link "PCI DSS" [ref=e140] [cursor=pointer]:
+            - /url: https://img.lazcdn.com/us/media/71a069abbbe4a1df9e7801a60341d402-2480-3508.jpg
+            - img "PCI DSS" [ref=e141]
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - heading "Lazada Southeast Asia" [level=3] [ref=e145]
+        - generic [ref=e146]:
+          - link "id" [ref=e147] [cursor=pointer]:
+            - /url: https://www.lazada.co.id
+            - img "id" [ref=e148]
+          - link "my" [ref=e149] [cursor=pointer]:
+            - /url: https://www.lazada.com.my
+            - img "my" [ref=e150]
+          - link "ph" [ref=e151] [cursor=pointer]:
+            - /url: https://www.lazada.com.ph
+            - img "ph" [ref=e152]
+          - link "sg" [ref=e153] [cursor=pointer]:
+            - /url: https://www.lazada.sg
+            - img "sg" [ref=e154]
+          - link "th" [ref=e155] [cursor=pointer]:
+            - /url: https://www.lazada.co.th
+            - img "th" [ref=e156]
+          - link "vn" [ref=e157] [cursor=pointer]:
+            - /url: https://www.lazada.vn
+            - img "vn" [ref=e158]
+      - generic [ref=e159]:
+        - heading "Follow Us" [level=3] [ref=e160]
+        - generic [ref=e161]:
+          - link "fb" [ref=e162] [cursor=pointer]:
+            - /url: https://www.facebook.com/LazadaThailand
+            - img "fb" [ref=e163]
+          - link "linkin" [ref=e164] [cursor=pointer]:
+            - /url: https://sg.linkedin.com/company/lazada
+            - img "linkin" [ref=e165]
+          - link "yt" [ref=e166] [cursor=pointer]:
+            - /url: https://www.youtube.com/user/LazadaTH
+            - img "yt" [ref=e167]
+          - link "ins" [ref=e168] [cursor=pointer]:
+            - /url: https://www.instagram.com/lazada_th/
+            - img "ins" [ref=e169]
+          - link "tw" [ref=e170] [cursor=pointer]:
+            - /url: https://x.com/LazadaTH
+            - img "tw" [ref=e171]
+          - link "tiktok" [ref=e172] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@lazadath
+            - img "tiktok" [ref=e173]
+          - link "Lazada Blog" [ref=e174] [cursor=pointer]:
+            - /url: https://www.lazada.co.th/blog/
+            - img "Lazada Blog" [ref=e175]
+      - generic [ref=e177]: © Lazada 2026
+  - button "ข้อความ" [ref=e179] [cursor=pointer]:
+    - generic [ref=e180]:
+      - img [ref=e181]
+      - generic [ref=e186]: ข้อความ

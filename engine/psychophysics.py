@@ -1,5 +1,11 @@
 """Psychophysical perception modelling.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+
 Four empirically validated phenomena that constrain how humans
 actually PERCEIVE complex mixtures:
 
@@ -27,10 +33,10 @@ actually PERCEIVE complex mixtures:
    Implications: over-complex formulas lose distinctiveness.
 
 Sources:
-  Laing & Francis (1989) Perception — mixture component identification
-  Livermore & Laing (1996) Chemical Senses — 3-4 component ceiling
+  Laing & Francis (1989) Physiol Behav, 46(5), 809-814 — mixture component identification
+  Livermore & Laing (1996) J Exp Psychol Hum Percept Perform, 22(2), 267-277 — 3-4 component ceiling
   Cain & Polak (1992) Chemical Senses — cross-adaptation
-  Dalton (2000) Psychophysiology — neural adaptation
+  Dalton (2000) Chem Senses, 25(4), 487-492 — neural adaptation
   Keller et al. (2007) Nature — OR7D4 and androstenone
   Jaeger et al. (2013) Current Biology — OR5A1 and beta-ionone
   Weiss et al. (2012) PNAS — olfactory white
@@ -56,7 +62,7 @@ CROSS_ADAPTATION_GROUPS: dict[str, list[str]] = {
         "Ethyl Linalool",        # linalool ether, same terpene alcohol receptor space
         "Neroli EO",             # 25-40% linalool, terpene-rich EO
         "Rose Oxide",            # monoterpene pyranoid, geraniol-derived
-        "Cardamom FTEC",         # terpinyl acetate + 1,8-cineole dominant, terpene receptor space
+        "Cardamom EO",         # terpinyl acetate + 1,8-cineole dominant, terpene receptor space
     ],
     "terpene_ester": [
         "Linalyl Acetate", "Hexyl Acetate",
@@ -99,7 +105,7 @@ CROSS_ADAPTATION_GROUPS: dict[str, list[str]] = {
     # Distinct from vanillic: methylenedioxy ring creates unique receptor binding
     # (CYP2D6 affinity, OR5A1/OR5A2 cross-talk). Sweet-powdery but NOT vanillic.
     "heliotropic_benzodioxole": [
-        "Heliotropin Fleuressence",  # piperonal FTEC, heliotrope-almond
+        "Heliotropal",  # piperonal FTEC, heliotrope-almond
         "Heliotropal",               # piperonal aldehyde, deeper fixative
         "Helional",                  # methylenedioxy muguet, benzodioxole backbone
     ],

@@ -81,7 +81,7 @@
   logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.02
+  vp_25c_pa: 0.0002
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -93,7 +93,7 @@
   trp_targets: null
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3XA09821
@@ -238,7 +238,7 @@
   logp: 2.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5
+  vp_25c_pa: 0.21
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -255,7 +255,7 @@
     nasal_pungency: null
   hedonic_valence: 0.78
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3JJ00218
@@ -370,7 +370,7 @@
   logp: 2.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -382,7 +382,7 @@
   trp_targets: null
   hedonic_valence: 0.62
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3GM00219
@@ -412,12 +412,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 150.13
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.6
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -458,7 +458,7 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.6
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -567,7 +567,7 @@
   logp: 1.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.4
+  vp_25c_pa: 0.08
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -786,12 +786,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 144.21
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 194.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -880,7 +880,7 @@
   trp_targets: null
   hedonic_valence: 0.6
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3OG00230
@@ -903,6 +903,45 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Himalayan Cedarwood EO
+  aliases:
+  - himalayan cedarwood eo
+  - himalayan cedarwood
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 204.4
+  density_25c_g_ml: null
+  logp: 4.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.02
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - woods / amber / structure
+  character: null
+  notes: Cedrus deodara wood oil, Himalayan origin — himachalenes, atlantones, sesquiterpene-rich, warm-balsamic-woody
+  provenance:
+    mw_g_mol: pubchem_cid_11586487
+    vp_25c_pa: estimated
+    kaw_eff: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    logp: pubchem_cid_11586487
+    user_in_inventory: inventory.txt
 - canonical_name: Hindinol
   aliases: []
   cas: null
@@ -1238,7 +1277,7 @@
   logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 2.0
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
@@ -1250,7 +1289,7 @@
   trp_targets: null
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3MC00233
@@ -1308,3 +1347,27 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: heliotropal (piperonal)
+  aliases:
+  - Heliotropal
+  - Piperonal
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 150.1
+  density_25c_g_ml: null
+  logp: 1.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.15
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 1.0
+  odt_eth_ppm: 0.01
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

@@ -1,0 +1,468 @@
+{
+  "capture_date": "2026-05-25",
+  "geography": "Thailand-first",
+  "analysis_modes": [
+    "desk-research market evidence",
+    "literature-backed interpretation"
+  ],
+  "brands": [
+    "MITH Bangkok",
+    "VIBES LAB"
+  ],
+  "literature_frameworks": [
+    {
+      "topic": "sensory_marketing",
+      "implication": "Scent can shape abstract quality and sophistication cues, and service environments often benefit more from scent than plain retail.",
+      "evidence_refs": [
+        "EV-33",
+        "EV-34"
+      ]
+    },
+    {
+      "topic": "assortment_and_portfolio_breadth",
+      "implication": "Breadth can help extension confidence, but excess complexity can create overload if the brand does not simplify decision making.",
+      "evidence_refs": [
+        "EV-35",
+        "EV-36"
+      ]
+    },
+    {
+      "topic": "accessible_luxury_and_masstige",
+      "implication": "Premium-attainable brands can scale through accessibility, but wider availability can weaken distinctiveness if scarcity and symbolic value erode.",
+      "evidence_refs": [
+        "EV-37",
+        "EV-38",
+        "EV-39"
+      ]
+    },
+    {
+      "topic": "premiumness_and_rarity",
+      "implication": "Coherent visual cues support premiumness, and rarity tends to create stronger value than exclusivity theater alone.",
+      "evidence_refs": [
+        "EV-40",
+        "EV-41"
+      ]
+    }
+  ],
+  "dimensions": {
+    "brand_architecture": {
+      "comparability": "asymmetric",
+      "winner": "Tie",
+      "confidence": "medium",
+      "justification": "MITH has a clearer mass-premium consumer house architecture, while VIBES LAB has a sharper scent-as-memory plus scent-branding architecture. Both are coherent, but they are coherent in different business shapes.",
+      "evidence_refs": [
+        "EV-01",
+        "EV-14",
+        "EV-20",
+        "EV-21"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "Made-in-Thailand and friendship language gives the brand a local identity anchor, but the consumer house story is broader than it is singular.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-01",
+            "EV-03"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 4,
+          "justification": "Aromachology, memory, and scent-branding create a distinctive architecture, though the DTC perfume line and B2B platform can blur into two offers for some shoppers.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-14",
+            "EV-20",
+            "EV-21"
+          ]
+        }
+      }
+    },
+    "product_portfolio": {
+      "comparability": "directly comparable",
+      "winner": "MITH Bangkok",
+      "confidence": "high",
+      "justification": "Both brands sell perfume, but MITH has a materially broader product map across fragrance, home scent, and body-adjacent categories at much higher SKU count.",
+      "evidence_refs": [
+        "EV-02",
+        "EV-03",
+        "EV-16",
+        "EV-18",
+        "EV-25"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 5,
+          "justification": "161 listed products and category spread from perfume to home fragrance, body care, and inhalers indicate strong assortment depth.",
+          "evidence_count": 3,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-02",
+            "EV-03",
+            "EV-11"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 3,
+          "justification": "The assortment is curated and coherent, but 13 perfumes plus a few home-scent categories is a smaller offer than MITH's breadth play.",
+          "evidence_count": 3,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-16",
+            "EV-18",
+            "EV-25"
+          ]
+        }
+      }
+    },
+    "olfactory_positioning": {
+      "comparability": "directly comparable",
+      "winner": "VIBES LAB",
+      "confidence": "medium",
+      "justification": "MITH covers familiar wearable families effectively, but VIBES LAB's 'uncommon smells' concept is sharper and more differentiated in narrative and naming.",
+      "evidence_refs": [
+        "EV-06",
+        "EV-07",
+        "EV-15",
+        "EV-23",
+        "EV-27"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "MITH spans musky, tea, gourmand, citrus, floral, woody, and oud directions with some hero-scent clarity, especially around easy-to-wear profiles.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-06",
+            "EV-07",
+            "EV-11"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 5,
+          "justification": "Money, Gasoline, Pencil, and New Car communicate a strong uncommon-memory positioning that stands out immediately.",
+          "evidence_count": 4,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-15",
+            "EV-23",
+            "EV-26",
+            "EV-27"
+          ]
+        }
+      }
+    },
+    "price_ladder": {
+      "comparability": "directly comparable",
+      "winner": "MITH Bangkok",
+      "confidence": "high",
+      "justification": "MITH covers far more price entry points and sizes, while VIBES LAB is more tightly premium with fewer ways in.",
+      "evidence_refs": [
+        "EV-04",
+        "EV-12",
+        "EV-17",
+        "EV-25",
+        "EV-30"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 5,
+          "justification": "Entry pricing starts at 399 THB and scales upward through mid-tier and hero full-bottle price points, supporting broader conversion.",
+          "evidence_count": 2,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-04",
+            "EV-12",
+            "EV-30"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 3,
+          "justification": "A 2,900 THB perfume floor and 1,290 THB home-scent base fit premium positioning, but the ladder is narrower and less accessible.",
+          "evidence_count": 2,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-17",
+            "EV-25"
+          ]
+        }
+      }
+    },
+    "retail_channels": {
+      "comparability": "directly comparable",
+      "winner": "MITH Bangkok",
+      "confidence": "high",
+      "justification": "MITH has materially more physical reach across Bangkok and regional malls; VIBES LAB is selective and premium but much narrower in footprint.",
+      "evidence_refs": [
+        "EV-05",
+        "EV-19",
+        "EV-24"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 5,
+          "justification": "The branch list indicates strong mall coverage and multi-city presence, which increases sampling and impulse-buy access.",
+          "evidence_count": 1,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-05"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 3,
+          "justification": "Emsphere and Gaysorn Amarin are strong premium placements, but the network is intentionally limited.",
+          "evidence_count": 2,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-19",
+            "EV-24"
+          ]
+        }
+      }
+    },
+    "digital_presence": {
+      "comparability": "directly comparable",
+      "winner": "Tie",
+      "confidence": "medium",
+      "justification": "Both brands run functional DTC sites with social extensions. MITH looks stronger on catalog depth and contact surfaces; VIBES LAB looks stronger on integrated business/storytelling surfaces.",
+      "evidence_refs": [
+        "EV-13",
+        "EV-28",
+        "EV-29",
+        "EV-31"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "The site supports multi-category DTC shopping plus Line, Facebook, WeChat, blog, and store discovery, and the official marketplace layer is already scaled.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-13",
+            "EV-29"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 4,
+          "justification": "The site integrates DTC, blog, business funnel, store discovery, and social links in one stack, with an official Thai marketplace layer reinforcing accessibility.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-28",
+            "EV-31"
+          ]
+        }
+      }
+    },
+    "visual_identity": {
+      "comparability": "adjacent",
+      "winner": "VIBES LAB",
+      "confidence": "medium",
+      "justification": "VIBES LAB's concept-first names and consistent memory/addiction language are tighter than MITH's broader family-led catalog presentation.",
+      "evidence_refs": [
+        "EV-06",
+        "EV-07",
+        "EV-15",
+        "EV-27"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 3,
+          "justification": "MITH's identity is serviceable and locally legible, but the wider assortment and category spread loosen visual and conceptual sharpness.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-03",
+            "EV-07"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 5,
+          "justification": "Naming, manifesto language, and product concepts work together as one recognizable world.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-14",
+            "EV-15",
+            "EV-27"
+          ]
+        }
+      }
+    },
+    "campaigns_collabs": {
+      "comparability": "asymmetric",
+      "winner": "VIBES LAB",
+      "confidence": "medium",
+      "justification": "MITH has strong perfumer-collaboration proof; VIBES LAB has stronger brand/client collaboration proof with visible enterprise names.",
+      "evidence_refs": [
+        "EV-08",
+        "EV-22"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "The roster of collaborating perfumers creates status and product-development credibility.",
+          "evidence_count": 1,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-08"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 5,
+          "justification": "Named Thai and multinational clients create stronger social proof because the work is tied to live branded environments.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-21",
+            "EV-22"
+          ]
+        }
+      }
+    },
+    "customer_signal": {
+      "comparability": "adjacent",
+      "winner": "MITH Bangkok",
+      "confidence": "medium",
+      "justification": "MITH has stronger visible public consumer chatter in travel/fragrance communities. VIBES LAB shows editorial pull, but less open consumer review density in the sampled set.",
+      "evidence_refs": [
+        "EV-09",
+        "EV-10",
+        "EV-23",
+        "EV-29",
+        "EV-31"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "The sampled signal shows active discovery, store traffic relevance, recognizability, and real marketplace throughput, even with at least one service complaint.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-09",
+            "EV-10",
+            "EV-29"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 3,
+          "justification": "Editorial enthusiasm exists and official marketplace ratings are strong, but the sampled public consumer-review layer is still thinner than MITH's broader shopper visibility.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-23",
+            "EV-31"
+          ]
+        }
+      }
+    },
+    "strategic_moat": {
+      "comparability": "asymmetric",
+      "winner": "VIBES LAB",
+      "confidence": "high",
+      "justification": "MITH's moat is reach and accessibility. VIBES LAB adds a harder-to-copy B2B scent-branding and subscription-services layer on top of product sales.",
+      "evidence_refs": [
+        "EV-05",
+        "EV-20",
+        "EV-21",
+        "EV-22"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 3,
+          "justification": "Mall reach and local affordability matter, but they are easier to imitate than institutional scent-service relationships.",
+          "evidence_count": 1,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-05"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 5,
+          "justification": "Signature scent projects, subscription service, client integration, and customer-journey work create switching costs and enterprise proof.",
+          "evidence_count": 3,
+          "confidence": "high",
+          "evidence_refs": [
+            "EV-20",
+            "EV-21",
+            "EV-22"
+          ]
+        }
+      }
+    },
+    "execution_quality": {
+      "comparability": "directly comparable",
+      "winner": "Tie",
+      "confidence": "medium",
+      "justification": "MITH executes scale and commercial availability well; VIBES LAB executes concept coherence and premium presentation well. The evidence set supports parity, not dominance.",
+      "evidence_refs": [
+        "EV-02",
+        "EV-05",
+        "EV-16",
+        "EV-19",
+        "EV-28"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 4,
+          "justification": "The catalog, store network, and hero-SKU merchandising suggest strong commercial execution even if brand sprawl is a risk.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-02",
+            "EV-04",
+            "EV-05"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 4,
+          "justification": "The website, selective placements, and integrated B2B-to-DTC story suggest disciplined execution, though at smaller scale.",
+          "evidence_count": 3,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-19",
+            "EV-20",
+            "EV-28"
+          ]
+        }
+      }
+    },
+    "threat_to_us": {
+      "comparability": "asymmetric",
+      "winner": "MITH Bangkok",
+      "confidence": "medium",
+      "justification": "If the target is Thailand consumer fragrance, MITH is the more immediate wallet-and-shelf threat. VIBES LAB is the more structural threat if we expand into premium concept scenting or B2B signature scent services.",
+      "evidence_refs": [
+        "EV-04",
+        "EV-05",
+        "EV-20",
+        "EV-21"
+      ],
+      "scores": {
+        "MITH Bangkok": {
+          "score": 5,
+          "justification": "MITH competes across more price points, has more retail touchpoints, and can absorb a broader range of Thai consumer use cases.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-04",
+            "EV-05"
+          ]
+        },
+        "VIBES LAB": {
+          "score": 4,
+          "justification": "VIBES LAB threatens higher-margin differentiation, premium cultural relevance, and scent-branding adjacency rather than mass consumer reach.",
+          "evidence_count": 2,
+          "confidence": "medium",
+          "evidence_refs": [
+            "EV-20",
+            "EV-21"
+          ]
+        }
+      }
+    }
+  }
+}

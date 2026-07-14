@@ -1,0 +1,205 @@
+## Gate Summary
+
+**85 PASS** / **13 WARN** / **5 FAIL**
+
+  FAIL fougere_skeleton: Foug├¿re skeleton missing: lavender, coumarin, oakmoss/evernyl
+  FAIL chypre_skeleton: Chypre skeleton missing: labdanum, oakmoss/evernyl
+  FAIL perfume_knowledge: top OAV off-target for family floral; heart OAV off-target for family floral; base OAV off-target for family floral
+  FAIL oriental_skeleton: Oriental skeleton missing: labdanum, benzoin, vanillin
+  FAIL aquatic_skeleton: No aquatic marker material found (calone/DHM/helional/floralozone)
+  WARN odt_coverage: 10 material(s) rely on derived/unverified ODTs (68% OAV share)
+  WARN safety_ifra_allergen: 9 materials lack explicit IFRA Cat4 limits; 1 materials near IFRA/headroom edge; 1 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): iso e super:galaxolide = 28885:1; iso e super:ambrox super = 131:1; iso e super:paradisamide = 170422:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 75%) ΓÇö collapse risk
+  WARN olfactory_fatigue: Olfactory fatigue risk: iso e super=6246 (limit 5000); hedione=7.3% of concentrate (<10% minimum for radiance)
+  WARN gourmand_skeleton: Gourmand skeleton missing: ethyl maltol, vanillin, patchouli
+  WARN mass_market_tier_check: Expensive captives found: Javanol. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN robustness_perturbation: 1 fragile perturbation(s) across 40 checks; Methyl Anthranilate up: safety failure under perturbation; IFRA headroom failure: Methyl Anthran
+  WARN confidence_minimum: combined confidence 47.1; preflight science penalty 12.0
+
+## Headspace OAV ΓÇö Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Blood Orange oil Sicilian    |    14017.8 | top   |      massive | 180.000 |  112.1423 |  0.008000 |  0.2000 |  6.28 | Blood Orange Sicilian         
+|   2 | Bergamot FCF oil Sicilian    |    10511.2 | heart |      massive |  40.000 |   63.0674 |  0.006000 |  0.5500 | 15.88 | Bergamot FCF oil Sicilian     
+|   3 | Grapefruit FCF               |     8826.0 | top   |  very strong | 170.000 |   26.4780 |  0.003000 |  0.0500 |  1.57 | Grapefruit FCF                
+|   4 | Iso E Super                  |     6246.1 | base  |  very strong |   0.150 |    0.3123 |  0.000050 |  1.1000 | 20.06 | Iso E Super                   
+|   5 | Javanol                      |     5041.3 | base  |  very strong |   0.100 |    0.0081 |  0.000002 |  0.0400 |  0.81 | Javanol                       
+|   6 | Pamzest                      |     4684.0 | top   |  very strong |  30.000 |    2.3420 |  0.000500 |  0.0276 |  0.79 | Pamzest                       
+|   7 | Linalool                     |     3180.5 | top   |  very strong |  21.300 |    4.7708 |  0.001500 |  0.0700 |  1.94 | Linalool                      
+|   8 | Nerol                        |     2200.4 | top   |  very strong |   2.000 |    1.1002 |  0.000500 |  0.2000 |  5.54 | Nerol                         
+|   9 | Hedione                      |     1506.3 | heart |  very strong |   0.089 |    0.0753 |  0.000050 |  0.4500 |  8.50 | Hedione                       
+|  10 | Nerolin Bromelia             |      102.6 | heart |       strong |   0.500 |    0.3079 |  0.003000 |  0.2500 |  6.20 | Nerolin Bromelia              
+|  11 | Ambrofix                     |       47.7 | base  |     moderate |   0.066 |    0.0143 |  0.000300 |  0.1200 |  2.17 | Ambrox Super                  
+|  12 | Lemonile                     |       33.7 | top   |     moderate |   0.200 |    0.0168 |  0.000500 |  0.0300 |  0.85 | Lemonile                      
+|  13 | Aurantiol                    |       17.3 | heart |     moderate |   0.533 |    0.5183 |  0.030000 |  0.7000 |  9.80 | Aurantiol                     
+|  14 | Cashmeran                    |       12.3 | base  |     moderate |   0.400 |    0.0247 |  0.002000 |  0.0300 |  0.62 | Cashmeran                     
+|  15 | Ethylene Brassylate          |        5.2 | base  |  perceptible |   0.008 |    0.0050 |  0.000970 |  0.4000 |  6.32 | Ethylene Brassylate           
+|  16 | Methyl Anthranilate          |        1.3 | heart | at threshold |   0.030 |    0.0025 |  0.002000 |  0.0300 |  0.85 | Methyl Anthranilate           
+|  17 | Ambrettolide                 |        0.9 | base  | sub-threshold |   0.003 |    0.0001 |  0.000136 |  0.0250 |  0.42 | Ambrettolide                  
+|  18 | Galaxolide                   |        0.2 | base  | sub-threshold |   0.000 |    0.0001 |  0.000310 |  0.4000 |  6.62 | Galaxolide                    
+|  19 | Paradisamide                 |        0.0 | heart | sub-threshold |   0.010 |    0.0003 |  0.008000 |  0.0200 |  0.30 | Paradisamide                  
+|  20 | Habanolide                   |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.002800 |  0.2500 |  4.48 | Habanolide                    
+
+**Materials:** 20 total (6 top, 6 heart, 8 base)
+**Total vapor:** 211.19 ppm
+### Note Distribution
+
+**TOP:** 6 mats, 11.7% active, 58.4% OAV
+  - Blood Orange oil Sicilian    OAV= 14017.8 (massive) VP=180.000Pa
+  - Grapefruit FCF               OAV=  8826.0 (very strong) VP=170.000Pa
+  - Pamzest                      OAV=  4684.0 (very strong) VP=30.000Pa
+  - Linalool                     OAV=  3180.5 (very strong) VP=21.300Pa
+  - Nerol                        OAV=  2200.4 (very strong) VP=2.000Pa
+  - Lemonile                     OAV=    33.7 (moderate) VP=0.200Pa
+**HEART:** 6 mats, 40.4% active, 21.5% OAV
+  - Bergamot FCF oil Sicilian    OAV= 10511.2 (massive) VP=40.000Pa
+  - Hedione                      OAV=  1506.3 (very strong) VP=0.089Pa
+  - Nerolin Bromelia             OAV=   102.6 (strong) VP=0.500Pa
+  - Aurantiol                    OAV=    17.3 (moderate) VP=0.533Pa
+  - Methyl Anthranilate          OAV=     1.3 (at threshold) VP=0.030Pa
+  - Paradisamide                 OAV=     0.0 (sub-threshold) VP=0.010Pa
+**BASE:** 8 mats, 47.8% active, 20.1% OAV
+  - Iso E Super                  OAV=  6246.1 (very strong) VP=0.150Pa
+  - Javanol                      OAV=  5041.3 (very strong) VP=0.100Pa
+  - Ambrofix                     OAV=    47.7 (moderate) VP=0.066Pa
+  - Cashmeran                    OAV=    12.3 (moderate) VP=0.400Pa
+  - Ethylene Brassylate          OAV=     5.2 (perceptible) VP=0.008Pa
+  - Ambrettolide                 OAV=     0.9 (sub-threshold) VP=0.003Pa
+  ... and 2 more
+### OAV by Odor Family
+
+           citrus  67.5% =================================  (5 mats)
+            woody  20.0% ==========  (3 mats)
+           floral   6.8% ===  (5 mats)
+         aromatic   5.6% ==  (1 mats)
+            amber   0.1% =  (1 mats)
+             musk   0.0% =  (4 mats)
+           fruity   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+4/20 materials below perceptible threshold
+  - Galaxolide: OAV=0.22 VP=0.000Pa act=400uL role=Galaxolide [Structural (acceptable)]
+  - Paradisamide: OAV=0.04 VP=0.010Pa act=20uL role=Paradisamide [Structural (acceptable)]
+  - Ambrettolide: OAV=0.93 VP=0.003Pa act=25uL role=Ambrettolide [Structural (acceptable)]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=250uL role=Habanolide [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Iso E Super OAV=6246 dominates headspace ΓÇö may mask subtler notes
+  - Javanol OAV=5041 dominates headspace ΓÇö may mask subtler notes
+  - Bergamot FCF oil Sicilian OAV=10511 dominates headspace ΓÇö may mask subtler notes
+  - Grapefruit FCF OAV=8826 dominates headspace ΓÇö may mask subtler notes
+  - Blood Orange oil Sicilian OAV=14018 dominates headspace ΓÇö may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 11.7/40.4/47.8 | 211.19ppm |   6150 | Blood Orange(14018), Bergamot FCF(10511), Grapefruit F(8826)
+| top          |    300s | 11.3/40.5/48.2 | 199.75ppm |   6115 | Blood Orange(12907), Bergamot FCF(10414), Grapefruit F(8169)
+| heart        |   1800s |  9.8/40.6/49.6 | 152.95ppm |   5972 | Bergamot FCF(9862), Blood Orange(8475), Iso E Super(6599)
+| late_heart   |   7200s |  7.3/39.9/52.8 |  72.04ppm |   5680 | Bergamot FCF(7589), Iso E Super(7250), Javanol(5854)
+| drydown      |  14400s |  6.5/38.5/55.0 |  39.83ppm |   5495 | Iso E Super(7713), Javanol(6231), Bergamot FCF(5022)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) ΓÇö Evap:0%
+  T:11.7% H:40.4% B:47.8%  Vapor:211.19ppm
+  Leaders: Blood Orange oil Sicilian OAV 14018 | Bergamot FCF oil Sicilian OAV 10511 | Grapefruit FCF OAV 8826 | Iso E Super OAV 6246 | Javanol OAV 5041
+
+**TOP** (300.0s) ΓÇö Evap:1%
+  T:11.3% H:40.5% B:48.2%  Vapor:199.75ppm
+  Leaders: Blood Orange oil Sicilian OAV 12907 | Bergamot FCF oil Sicilian OAV 10414 | Grapefruit FCF OAV 8169 | Iso E Super OAV 6312 | Javanol OAV 5094
+
+**HEART** (1800.0s) ΓÇö Evap:3%
+  T:9.8% H:40.6% B:49.6%  Vapor:152.95ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 9862 | Blood Orange oil Sicilian OAV 8475 | Iso E Super OAV 6599 | Grapefruit FCF OAV 5504 | Javanol OAV 5326
+
+**LATE_HEART** (7200.0s) ΓÇö Evap:8%
+  T:7.3% H:39.9% B:52.8%  Vapor:72.04ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 7589 | Iso E Super OAV 7250 | Javanol OAV 5854 | Pamzest OAV 3819 | Linalool OAV 2769
+
+**DRYDOWN** (14400.0s) ΓÇö Evap:11%
+  T:6.5% H:38.5% B:55.0%  Vapor:39.83ppm
+  Leaders: Iso E Super OAV 7713 | Javanol OAV 6231 | Bergamot FCF oil Sicilian OAV 5022 | Pamzest OAV 2853 | Nerol OAV 2601
+## Structural OAV Analysis
+
+**Vapor:** 211 ppm  |  **Active:** 16.5%  |  **Perceptible:** 16/20
+
+### OAV Tiers
+  **massive** (9): Iso E Super(6246), Hedione(1506), Javanol(5041), Linalool(3181), Nerol(2200), Bergamot FCF oil Sicilian(10511), Grapefruit FCF(8826), Pamzest(4684), Blood Orange oil Sicilian(14018)  ! fatigue risk, overload risk
+  **v.strong** (1): Nerolin Bromelia(103)
+  **moderate** (4): Ambrofix(48), Cashmeran(12), Aurantiol(17), Lemonile(34)
+  **perceptible** (1): Ethylene Brassylate(5)
+  **threshold** (1): Methyl Anthranilate(1)
+  **sub** (4): Galaxolide(0), Paradisamide(0), Ambrettolide(1), Habanolide(0)
+
+### Block Balance
+  **Citrus**    33389 (59%)
+  **Floral**    11692 (21%)
+  **Base**      11354 (20%)
+  **Ratio:** 3:1 between strongest/weakest block ΓÇö CITRUS DOMINANT
+
+### Issues
+  ! 4 sub-threshold material(s): Galaxolide, Paradisamide, Ambrettolide, Habanolide
+  ! Missing 'strong' tier (OAV 50-100)
+  ! 9 massive-OAV materials ΓÇö sensory overload likely
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Blood Orange oil Sicilian(massive) + Grapefruit FCF(very strong) + Pamzest(very strong)
+  Heart: Bergamot FCF oil Sicilian(massive) + Hedione(very strong)
+  Base: Iso E Super(very strong) + Javanol(very strong) + Ambrofix(moderate) + Cashmeran(moderate) + Ethylene Brassylate(perceptible)
+
+### 2. Opening (0-5min)
+  Blood Orange oil Sicilian dominates at OAV 14018 (massive).
+  - Blood Orange oil Sicilian OAV=14018 VP=180.0Pa (citrus)
+  - Grapefruit FCF OAV=8826 VP=170.0Pa (citrus)
+  - Pamzest OAV=4684 VP=30.0Pa (citrus)
+  - Linalool OAV=3181 VP=21.3Pa (aromatic)
+  Total vapor: 211.2 ppm
+
+### 3. Heart (30min-2hr)
+  Bergamot FCF oil Sicilian OAV=9862 (very strong)
+  Blood Orange oil Sicilian OAV=8475 (very strong)
+  Iso E Super OAV=6599 (very strong)
+  Grapefruit FCF OAV=5504 (very strong)
+  T:9.8% H:40.6% B:49.6%
+  Vapor: 153.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 55% of headspace
+  - Iso E Super OAV=7713
+  - Javanol OAV=6231
+  - Bergamot FCF oil Sicilian OAV=5022
+  - Pamzest OAV=2853
+  - Nerol OAV=2601
+  - Linalool OAV=2210
+  Vapor: 39.8 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Blood Orange oil Sicilian(14018) + Bergamot FCF oil Sicilian(10511) + Grapefruit FCF(8826) + Iso E Super(6246)
+  OAV by family: citrus67% woody20% floral7% aromatic6%
+
+### 6. Longevity
+  Evaporation: 11% over 4h
+  Vapor: 211.2 > 39.8 ppm
+  Base @ drydown: 55%
+  Est. skin life: 6-8h moderate + 2-4h skin scent
+
+### 7. Balance
+  Pyramid: T:11.7% H:40.4% B:47.8%
+  OAV range: 0.01 to 14018 (sigma-log=1.96)
+  Wide contrast: citrus (OAV 14018) dominates opening before burning off to reveal base.
+    massive: 2
+    sub-threshold: 4
+
+### 8. Flags
+  SUB: Ambrettolide OAV=0.93 role=Ambrettolide
+  SUB: Galaxolide OAV=0.22 role=Galaxolide
+  SUB: Paradisamide OAV=0.04 role=Paradisamide
+  SUB: Habanolide OAV=0.01 role=Habanolide
+

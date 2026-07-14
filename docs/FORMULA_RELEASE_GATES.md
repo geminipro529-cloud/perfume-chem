@@ -17,7 +17,7 @@ This project can generate convincing formulas before the science stack is fully 
 | Confidence floor | LOW confidence cannot be presented as trusted verification. | Implemented as `confidence_minimum` with pipeline uncertainty. |
 | Reproducibility manifest | Verification bundles need git hash, data hashes, random seed, scorer config, and dependency versions. | Partially covered by pipeline audit events; full dependency manifest still missing. |
 | Robustness | Optimized formulas need perturbation checks: small dose changes should not flip class or collapse score. | Implemented as `robustness_perturbation`; WARN in technical mode, blocker in commercial mode. |
-| Perfumer-logic rerun | If the scalar optimum violates the olfactory brief, rerun the optimizer with revised bounds/weights instead of accepting the best numeric score. | Added first-pass `perfumer_logic` gate. |
+| Perfumer-logic rerun | If the scalar optimum violates the olfactory brief, rerun the optimizer with revised bounds/weights instead of accepting the best numeric score. The formula name/concept is the north star — numerical scores are floors, not ceilings. | Added first-pass `perfumer_logic` gate. |
 | Sensory panel | Model-pass formulas remain candidates until blotter/skin reads confirm top, heart, drydown, projection, and acceptability. | `engine.calibration` now stores observed wear-test and panel records. |
 
 ## Gate-First Pipeline
@@ -40,6 +40,9 @@ Generated "Optimized" formulas should include:
 - IFRA headroom, commercial-mode status, robustness repairs, and audit event ID.
 
 ## Immediate Recommendation
+
+> **⚠️ RULE: Optimize for the name, not just the numbers.**  
+> The formula name/concept is the north star. Numerical gates are floors to meet, not ceilings to chase. When in doubt, re-read the formula name and ask: "Does this still smell like its name?"
 
 Use `scripts/formula_release_gate.py` before running the expensive verifier:
 

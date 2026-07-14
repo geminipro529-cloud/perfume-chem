@@ -1,28 +1,29 @@
 """OpenAI service implementation with chemistry validation"""
 
 import json
-from typing import AsyncGenerator, Optional, Dict, Any, List
+from typing import Any, AsyncGenerator, Dict, List, Optional
+
 from openai import AsyncOpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from app.services.ai.base import BaseAIService
-from app.services.ai.prompts.perfume_analysis import (
-    ANALYZE_PERFUME_PROMPT,
-    SUGGEST_MODIFICATIONS_PROMPT,
-    INGREDIENT_PAIRING_PROMPT
-)
-from app.services.context_builder import ContextBuilder
-from app.services.chemistry_validator import ChemistryValidator
 from app.core.config import get_settings
 from app.core.exceptions import AIServiceError
 from app.core.logging import get_logger
+from app.services.ai.base import BaseAIService
+from app.services.ai.prompts.perfume_analysis import (
+    ANALYZE_PERFUME_PROMPT,
+    INGREDIENT_PAIRING_PROMPT,
+    SUGGEST_MODIFICATIONS_PROMPT,
+)
+from app.services.chemistry_validator import ChemistryValidator
+from app.services.context_builder import ContextBuilder
 
 logger = get_logger(__name__)
 
 
 class OpenAIService(BaseAIService):
     """OpenAI API service with retry logic, caching, and chemistry validation"""
-    
+
     def __init__(self, cache: Optional[Any] = None):
         settings = get_settings()
         self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
@@ -31,7 +32,7 @@ class OpenAIService(BaseAIService):
         self.settings = settings
         self.context_builder = ContextBuilder()
         self.validator = ChemistryValidator()
-    
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=10),
@@ -52,7 +53,7 @@ class OpenAIService(BaseAIService):
                 if cached:
                     logger.info("Cache hit for AI completion")
                     return cached
-            
+
             # Call OpenAI API
             response = await self.client.chat.completions.create(
                 model=self.model,
@@ -61,19 +62,19 @@ class OpenAIService(BaseAIService):
                 temperature=temperature,
                 **kwargs
             )
-            
+
             result = response.choices[0].message.content
-            
+
             # Cache the result
             if self.cache and result:
                 await self.cache.set(prompt, result)
-            
+
             return result or ""
-            
+
         except Exception as e:
             logger.error(f"OpenAI API error: {str(e)}")
             raise AIServiceError(f"Failed to get AI completion: {str(e)}", e)
-    
+
     async def stream(
         self,
         prompt: str,
@@ -91,15 +92,15 @@ class OpenAIService(BaseAIService):
                 stream=True,
                 **kwargs
             )
-            
+
             async for chunk in stream:
                 if chunk.choices[0].delta.content:
                     yield chunk.choices[0].delta.content
-                    
+
         except Exception as e:
             logger.error(f"OpenAI streaming error: {str(e)}")
             raise AIServiceError(f"Failed to stream AI completion: {str(e)}", e)
-    
+
     async def analyze_perfume(
         self,
         name: str,
@@ -107,20 +108,20 @@ class OpenAIService(BaseAIService):
         concentration: float = 15.0
     ) -> Dict[str, Any]:
         """Analyze a perfume composition using AI with chemistry validation"""
-        
+
         # Build context for prompt injection
         context = self.context_builder.build_context(
             query=name,
             ingredients=ingredients,
             include_validation=True
         )
-        
+
         # Format ingredients for prompt
         ingredients_str = "\n".join([
             f"- {ing.get('name', 'Unknown')}: {ing.get('percentage', 0)}%"
             for ing in ingredients
         ])
-        
+
         # Build prompt WITH context
         prompt = ANALYZE_PERFUME_PROMPT.substitute(
             name=name,
@@ -132,47 +133,47 @@ class OpenAIService(BaseAIService):
             formulation_context=context.get("similar_formulations", "N/A"),
             validation_context=context.get("validation_context", "No pre-validation")
         )
-        
+
         response = await self.complete(
             prompt,
             max_tokens=2000,
             temperature=0.7
         )
-        
+
         try:
             result = json.loads(response)
-            
+
             # POST-VALIDATION: Check AI output for any suggested formulas
             result = self._post_validate_response(result, ingredients)
-            
+
             return result
         except json.JSONDecodeError:
             # If JSON parsing fails, return raw response
             return {"raw_analysis": response}
-    
+
     def _post_validate_response(
         self,
         result: Dict[str, Any],
         original_ingredients: List[Dict]
     ) -> Dict[str, Any]:
         """Post-validate AI response and add correction suggestions"""
-        
+
         # Check for suggested formula in various possible keys
         formula_keys = ["suggested_formula", "modified_formula", "new_formula", "formula"]
         suggested_formula = None
-        
+
         for key in formula_keys:
             if key in result and isinstance(result[key], list):
                 suggested_formula = result[key]
                 break
-        
+
         # If no suggested formula, validate original ingredients
         if not suggested_formula:
             suggested_formula = original_ingredients
-        
+
         if suggested_formula:
             issues = self.validator.validate_formula(suggested_formula)
-            
+
             if issues:
                 # Add validation issues to result
                 result["validation_issues"] = [
@@ -186,46 +187,46 @@ class OpenAIService(BaseAIService):
                     }
                     for issue in issues
                 ]
-                
+
                 # Count severity levels
                 error_count = sum(1 for i in issues if i.severity.value == "error")
                 warning_count = sum(1 for i in issues if i.severity.value == "warning")
-                
+
                 result["validation_summary"] = {
                     "errors": error_count,
                     "warnings": warning_count,
                     "total_issues": len(issues),
                     "status": "error" if error_count > 0 else ("warning" if warning_count > 0 else "ok")
                 }
-                
+
                 # Auto-correct if there are errors
                 if error_count > 0:
                     corrected, changes = self.validator.auto_correct_formula(suggested_formula)
                     if changes:
                         result["auto_corrected_formula"] = corrected
                         result["corrections_applied"] = changes
-        
+
         return result
-    
+
     async def suggest_modifications(
         self,
         formula: Dict[str, Any],
         goal: str
     ) -> Dict[str, Any]:
         """Suggest modifications to a formula with chemistry validation"""
-        
+
         # Extract ingredients for context building
         ingredients = formula.get("ingredients", [])
-        
+
         # Build context
         context = self.context_builder.build_context(
             query=goal,
             ingredients=ingredients,
             include_validation=True
         )
-        
+
         formula_str = json.dumps(formula, indent=2)
-        
+
         prompt = SUGGEST_MODIFICATIONS_PROMPT.substitute(
             formula=formula_str,
             goal=goal,
@@ -233,37 +234,37 @@ class OpenAIService(BaseAIService):
             inventory_context=context.get("inventory", "N/A"),
             knowledge_context=context.get("relevant_knowledge", "N/A")
         )
-        
+
         response = await self.complete(
             prompt,
             max_tokens=2000,
             temperature=0.7
         )
-        
+
         try:
             result = json.loads(response)
-            
+
             # Post-validate any suggested modifications
             result = self._post_validate_response(result, ingredients)
-            
+
             return result
         except json.JSONDecodeError:
             return {"raw_suggestions": response}
-    
+
     async def suggest_pairings(
         self,
         ingredient: str,
         cas_number: Optional[str] = None
     ) -> Dict[str, Any]:
         """Suggest ingredient pairings with chemistry context"""
-        
+
         # Build context for the ingredient
         context = self.context_builder.build_context(
             query=ingredient,
             ingredients=None,
             include_validation=False
         )
-        
+
         # Get dosage info for the specific ingredient
         dosage_info = self.validator.get_dosage_guidelines(ingredient)
         ingredient_dosage = ""
@@ -273,27 +274,27 @@ class OpenAIService(BaseAIService):
                 f"(typical: {dosage_info.get('typical_percent', 'N/A')}%), "
                 f"Potency: {dosage_info.get('potency', 'unknown')}"
             )
-        
+
         prompt = INGREDIENT_PAIRING_PROMPT.substitute(
             ingredient=ingredient,
             cas_number=cas_number or "N/A",
             dosage_guidelines=ingredient_dosage + "\n\n" + context.get("dosage_guidelines", "N/A"),
             inventory_context=context.get("inventory", "N/A")
         )
-        
+
         response = await self.complete(
             prompt,
             max_tokens=1500,
             temperature=0.7
         )
-        
+
         try:
             result = json.loads(response)
-            
+
             # Add dosage info to result if available
             if dosage_info:
                 result["validated_dosage"] = dosage_info
-            
+
             return result
         except json.JSONDecodeError:
             return {"raw_pairings": response}

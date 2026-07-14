@@ -54,7 +54,7 @@ Pipette directly into the bottle. Wipe or change pipette between each material.
 | 18 | Hedione | neat | 300 µL | jasmine transparency, radiance |
 | 19 | Lavender EO | neat | 100 µL | aromatic-fougere lift |
 | 20 | Linalyl Acetate | neat | 80 µL | floral-citrus column — bergamot's molecular skeleton |
-| 21 | Geraniol | neat | 80 µL | rose-geranium brightness |
+| 21 | Geraniol | 10% in DPG | 80 µL | rose-geranium brightness |
 | 22 | Coumarin | 20% | 80 µL | structural tonka warmth (16 µL active) |
 | 23 | Hedione HC | neat | 50 µL | radiant sparkle (~8× standard Hedione) |
 
@@ -119,7 +119,7 @@ The citrus-pepper top softens after 3–4 weeks ; the woody-amber heart opens fu
 | **Heart** | Hedione | neat | 300 |
 | | Lavender EO | neat | 100 |
 | | Linalyl Acetate | neat | 80 |
-| | Geraniol | neat | 80 |
+| | Geraniol | 10% in DPG | 80 |
 | | Coumarin | 20% | 80 |
 | | Hedione HC | neat | 50 |
 | **Base** | Iso E Super | neat | 850 |

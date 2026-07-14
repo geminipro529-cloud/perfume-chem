@@ -97,7 +97,7 @@ def audit_formula_robustness(formula: Mapping, config) -> RobustnessReport:
     skipped = 0
 
     for material, amount in ingredients_ul.items():
-        step = max(5.0, amount * 0.05)
+        step = max(min(5.0, amount * 0.5), amount * 0.05)
         for direction in ("up", "down"):
             perturbed = _perturb(ingredients_ul, material, step, direction)
             if perturbed is None:
@@ -134,7 +134,9 @@ def _perturb(
     direction: str,
 ) -> dict[str, float] | None:
     rows = dict(ingredients_ul)
-    others = {name: amount for name, amount in rows.items() if name != material and amount > 0}
+    others = {
+        name: amount for name, amount in rows.items() if name != material and amount > 0
+    }
     if not others:
         return None
 
@@ -165,7 +167,9 @@ def _evaluate_perturbation(
     base_top_leader: str | None,
     config,
 ) -> PerturbationResult:
-    top_envelope, top_leader = _top_envelope_and_leader(ingredients_ul, dilutions, config)
+    top_envelope, top_leader = _top_envelope_and_leader(
+        ingredients_ul, dilutions, config
+    )
     drift = _envelope_drift(base_top_envelope, top_envelope)
     safety = score_ifra_compliance(
         dict(ingredients_ul),
@@ -176,13 +180,20 @@ def _evaluate_perturbation(
     logic = evaluate_perfumer_logic(
         formula,
         brief=str(config.brief),
-        family_archetype=str(getattr(config, "family_archetype", "") or formula.get("family_archetype", "")),
+        family_archetype=str(
+            getattr(config, "family_archetype", "")
+            or formula.get("family_archetype", "")
+        ),
     )
 
     headroom_violations = _headroom_violations(ingredients_ul, dilutions, config)
-    safety_failed = bool(safety.ifra_violations or safety.banned_flags or headroom_violations)
+    safety_failed = bool(
+        safety.ifra_violations or safety.banned_flags or headroom_violations
+    )
     brief_failed = logic.status == "FAIL"
-    leader_changed = bool(base_top_leader and top_leader and base_top_leader != top_leader)
+    leader_changed = bool(
+        base_top_leader and top_leader and base_top_leader != top_leader
+    )
     warn = safety_failed or brief_failed or drift > DRIFT_WARN_THRESHOLD
 
     details = []
@@ -235,13 +246,15 @@ def _headroom_violations(
         actual_pct = (active_ul / 1000.0) / batch_volume_ml * 100.0
         effective_limit = limit * headroom
         if actual_pct > effective_limit + 1e-12:
-            violations.append({
-                "material": material,
-                "actual_pct": actual_pct,
-                "limit_pct": limit,
-                "effective_limit_pct": effective_limit,
-                "headroom": headroom,
-            })
+            violations.append(
+                {
+                    "material": material,
+                    "actual_pct": actual_pct,
+                    "limit_pct": limit,
+                    "effective_limit_pct": effective_limit,
+                    "headroom": headroom,
+                }
+            )
     return violations
 
 
@@ -276,7 +289,10 @@ def _envelope_drift(base: Mapping[str, float], changed: Mapping[str, float]) -> 
     denom = sum(abs(float(base.get(family, 0.0))) for family in families)
     if denom <= 1e-12:
         return 0.0
-    delta = sum(abs(float(changed.get(family, 0.0)) - float(base.get(family, 0.0))) for family in families)
+    delta = sum(
+        abs(float(changed.get(family, 0.0)) - float(base.get(family, 0.0)))
+        for family in families
+    )
     return delta / denom
 
 

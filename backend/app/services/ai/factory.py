@@ -5,23 +5,25 @@ Automatically routes to the appropriate AI provider based on model name.
 """
 
 import re
-from typing import Optional, Any
+from typing import Any, Optional
+
 from app.core.config import get_settings
 from app.core.logging import get_logger
 from app.services.ai.base import BaseAIService
-from app.services.ai.cerebras_service import CerebrasService
 from app.services.ai.baseten_service import BasetenService
-from app.services.ai.openai_service import OpenAIService
+from app.services.ai.cerebras_service import CerebrasService
+from app.services.ai.deepseek_service import DeepSeekService
 from app.services.ai.huggingface_service import HuggingFaceService
-from app.services.ai.ollama_service import OllamaService
 from app.services.ai.llama_cpp_service import LlamaCppService
+from app.services.ai.ollama_service import OllamaService
+from app.services.ai.openai_service import OpenAIService
 
 logger = get_logger(__name__)
 
 
 class AIModelDetector:
     """Detect AI provider based on model name"""
-    
+
     # Cerebras model patterns
     CEREBRAS_PATTERNS = [
         r'^llama3\.1-[0-9]+b$',  # llama3.1-8b, llama3.1-70b
@@ -31,7 +33,7 @@ class AIModelDetector:
         r'^mistral-',  # mistral-*
         r'^mixtral-',  # mixtral-*
     ]
-    
+
     # Baseten model patterns
     BASETEN_PATTERNS = [
         r'kimi',  # Kimi K2 models
@@ -39,7 +41,7 @@ class AIModelDetector:
         r'baseten-',  # baseten-*
         r'^bt-',  # bt-* (Baseten shorthand)
     ]
-    
+
     # OpenAI model patterns
     OPENAI_PATTERNS = [
         r'^gpt-',  # gpt-4, gpt-3.5-turbo
@@ -50,7 +52,13 @@ class AIModelDetector:
         r'^babbage-',  # babbage-*
         r'^ada-',  # ada-*
     ]
-    
+
+    # DeepSeek model patterns
+    DEEPSEEK_PATTERNS = [
+        r'^deepseek-',  # deepseek-v4-pro, deepseek-chat, etc.
+        r'^deepseek/deepseek-',  # deepseek/deepseek-v4-pro format
+    ]
+
     # Hugging Face model patterns (models with /, common prefixes)
     HUGGINGFACE_PATTERNS = [
         r'^ehartford/',  # dolphin models
@@ -70,7 +78,7 @@ class AIModelDetector:
         r'^llama3_8b_chat_uncensored$',  # Local Llama 3 8B uncensored
         r'^llama3[-_]8b[-_]',  # Llama 3 8B variants
     ]
-    
+
     # Ollama model patterns (local/remote Ollama models)
     OLLAMA_PATTERNS = [
         r'^hf\.co/',  # Hugging Face models pulled via Ollama
@@ -96,56 +104,62 @@ class AIModelDetector:
     def detect_provider(cls, model_name: str) -> str:
         """
         Detect AI provider based on model name
-        
+
         Args:
             model_name: The model name or ID
-            
+
         Returns:
-            Provider string: "cerebras", "baseten", "openai", 
+            Provider string: "cerebras", "baseten", "openai",
             "huggingface", "ollama", "llamacpp", or "default"
         """
         model_lower = model_name.lower()
-        
+
         # Check Llama.cpp patterns first (most specific)
         for pattern in cls.LLAMA_CPP_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected Llama.cpp model: {model_name}")
                 return "llamacpp"
-        
+
         # Check Cerebras patterns
         for pattern in cls.CEREBRAS_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected Cerebras model: {model_name}")
                 return "cerebras"
-        
+
         # Check Baseten patterns
         for pattern in cls.BASETEN_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected Baseten model: {model_name}")
                 return "baseten"
-        
+
         # Check OpenAI patterns
         for pattern in cls.OPENAI_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected OpenAI model: {model_name}")
                 return "openai"
-        
+
+        # Check DeepSeek patterns
+        for pattern in cls.DEEPSEEK_PATTERNS:
+            if re.search(pattern, model_lower):
+                logger.debug(f"Detected DeepSeek model: {model_name}")
+                return "deepseek"
+
         # Check Hugging Face patterns
         for pattern in cls.HUGGINGFACE_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected Hugging Face model: {model_name}")
                 return "huggingface"
-        
+
         # Check Ollama patterns
         for pattern in cls.OLLAMA_PATTERNS:
             if re.search(pattern, model_lower):
                 logger.debug(f"Detected Ollama model: {model_name}")
                 return "ollama"
-        
+
         # Default to Cerebras (most permissive/free)
         logger.warning(f"Unknown model '{model_name}', defaulting to Cerebras")
         return "cerebras"
-    
+
     @classmethod
     def get_supported_models(cls) -> dict:
         """Get list of supported models by provider"""
@@ -166,6 +180,11 @@ class AIModelDetector:
                 "gpt-3.5-turbo",
                 "o1-preview",
                 "o1-mini"
+            ],
+            "deepseek": [
+                "deepseek-v4-pro (default)",
+                "deepseek-chat",
+                "Any DeepSeek model via OpenAI-compatible API"
             ],
             "huggingface": [
                 "ehartford/dolphin-2.5-mixtral-8x7b (default)",
@@ -199,19 +218,19 @@ def create_ai_service(
 ) -> BaseAIService:
     """
     Create AI service with automatic provider detection
-    
+
     Args:
         model: Model name (e.g., "llama3.1-8b", "gpt-4", "kimi-k2-thinking")
                If None, uses default from settings
         cache: Optional cache instance
         verbose: Enable verbose logging
         force_provider: Force specific provider (overrides auto-detection)
-        
+
     Returns:
         Appropriate AI service instance
     """
     settings = get_settings()
-    
+
     # Determine provider
     if force_provider:
         provider = force_provider.lower()
@@ -223,7 +242,7 @@ def create_ai_service(
         else:
             provider = settings.AI_PROVIDER.lower()
             logger.info(f"Using provider from settings: {provider}")
-    
+
     # Create appropriate service
     if provider == "cerebras":
         # For Cerebras, pass the model parameter if provided
@@ -234,7 +253,7 @@ def create_ai_service(
             verbose=verbose,
             model=service_model
         )
-    
+
     elif provider == "baseten":
         # For Baseten, model is determined by BASETEN_MODEL_ID in settings
         # but we can override if a specific Baseten model is provided
@@ -245,10 +264,10 @@ def create_ai_service(
             logger.info(
                 f"Using configured BASETEN_MODEL_ID: {settings.BASETEN_MODEL_ID}"
             )
-        
+
         logger.info("Creating Baseten service")
         return BasetenService(cache=cache, verbose=verbose)
-    
+
     elif provider == "openai":
         # For OpenAI, we could potentially override the model
         # but for now we use the one from settings
@@ -257,7 +276,7 @@ def create_ai_service(
         # Note: OpenAIService currently doesn't accept model parameter
         # We'll need to update it if we want to support model override
         return OpenAIService(cache=cache)
-    
+
     elif provider == "huggingface":
         # For Hugging Face, pass model if provided
         service_model = model or settings.HF_MODEL
@@ -267,7 +286,7 @@ def create_ai_service(
             verbose=verbose,
             model=service_model
         )
-    
+
     elif provider == "ollama":
         # For Ollama, pass model if provided
         service_model = model or settings.OLLAMA_MODEL
@@ -277,7 +296,7 @@ def create_ai_service(
             verbose=verbose,
             model=service_model
         )
-    
+
     elif provider == "llamacpp":
         # For Llama.cpp, pass model path if provided
         service_model = model or settings.LLAMA_CPP_MODEL_PATH
@@ -291,7 +310,13 @@ def create_ai_service(
             verbose=verbose,
             model=service_model
         )
-    
+
+    elif provider == "deepseek":
+        # For DeepSeek, use model from settings or provided parameter
+        service_model = model or settings.DEEPSEEK_MODEL
+        logger.info(f"Creating DeepSeek service with model: {service_model}")
+        return DeepSeekService(cache=cache)
+
     else:
         # Default to Cerebras
         logger.warning(
@@ -303,7 +328,7 @@ def create_ai_service(
 def get_model_selector() -> dict:
     """
     Get available models for UI model selector
-    
+
     Returns:
         Dictionary of providers and their available models
     """

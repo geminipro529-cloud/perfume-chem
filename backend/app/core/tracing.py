@@ -1,6 +1,7 @@
 """OpenTelemetry tracing configuration"""
 
 import logging
+
 from fastapi import FastAPI
 
 logger = logging.getLogger(__name__)
@@ -17,13 +18,13 @@ def setup_tracing(app: FastAPI) -> None:
 
     try:
         from opentelemetry import trace
-        from opentelemetry.sdk.trace import TracerProvider
-        from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-        from opentelemetry.sdk.resources import Resource, SERVICE_NAME, SERVICE_VERSION
         from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
         from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-        from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
         from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
+        from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+        from opentelemetry.sdk.resources import SERVICE_NAME, SERVICE_VERSION, Resource
+        from opentelemetry.sdk.trace import TracerProvider
+        from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
 
         resource = Resource.create({
             SERVICE_NAME: settings.OTEL_SERVICE_NAME,

@@ -1,26 +1,26 @@
 - canonical_name: F-Fruit Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6FD10042
@@ -30,33 +30,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: F-FRUITY F-TEC
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6FD18011
@@ -66,39 +66,39 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Farnesene
   aliases:
   - farnesene
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
-  supplier: null
+  supplier:
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -106,27 +106,27 @@
 - canonical_name: Farnesol
   aliases:
   - farnesol
-  cas: null
-  smiles: null
-  inchikey: null
+  cas:
+  smiles:
+  inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml: null
-  logp: null
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
+  chirality:
   vp_25c_pa: 0.08
-  antoine: null
-  dhvap_kj_mol: null
+  antoine:
+  dhvap_kj_mol:
   kaw_eff: 0.0004
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0  # SYNCED: matched inventory.txt, 2026-05-30
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3LW00187
@@ -136,8 +136,8 @@
     other: {}
   families:
   - floral materials
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -150,27 +150,27 @@
 - canonical_name: Female Concentratef
   aliases:
   - Female ConcentrateF
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: EM06032
@@ -179,34 +179,34 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Female Factorf
   aliases:
   - Female FactorF
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: EM06033
@@ -215,33 +215,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fennel Sweet Essential Oil
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 7SB00189
@@ -250,33 +250,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fir Essential Oil
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 7KG07758
@@ -285,33 +285,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fixamber
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 3XU22434
@@ -320,33 +320,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fixative 505
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 4UY07514
@@ -362,33 +362,33 @@
         sku: 5UY07860
         price_usd_per_g: 0.26
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fixetal
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 3MX07491
@@ -397,33 +397,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fleurissimo Blender Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ML12398
@@ -433,34 +433,34 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fleurissimo F-TEC
   aliases:
   - FLEURISSIMO F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ML18412
@@ -470,38 +470,40 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Floralozone
   aliases:
   - floralozone
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: 190.3
-  density_25c_g_ml: null
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
+  mw_g_mol: 192.26
+  density_25c_g_ml:
   logp: 3.3
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.431)
+  vp_25c_pa: 0.431
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
   trp_targets:
     TRPM8: 0.1
     TRPA1: 0.05
     TRPV1: 0.0
-    TRPV3: null
-    nasal_pungency: null
+    TRPV3:
+    nasal_pungency:
   hedonic_valence: 0.4
-  ifra_max_pct_edp: null
+  ifra_max_pct_edp:
   user_stock_dilution: 10%
   user_in_inventory: true
   supplier:
@@ -512,8 +514,8 @@
     other: {}
   families:
   - green / fresh / marine
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -530,32 +532,32 @@
 - canonical_name: Florhydral
   aliases:
   - florhydral
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
-  supplier: null
+  supplier:
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -563,27 +565,29 @@
 - canonical_name: Florol
   aliases:
   - florol
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: 170.3
-  density_25c_g_ml: null
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
+  mw_g_mol: 154.25
+  density_25c_g_ml:
   logp: 2.5
   functional_groups: []
-  chirality: null
-  vp_25c_pa: 3.0
-  antoine: null
-  dhvap_kj_mol: null
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.007)
+  vp_25c_pa: 0.007
+  antoine:
+  dhvap_kj_mol:
   kaw_eff: 0.005
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
+  trp_targets:
   hedonic_valence: 0.72
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3ML00192
@@ -593,8 +597,8 @@
     other: {}
   families:
   - floral materials
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -609,27 +613,27 @@
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6JV18248
@@ -639,33 +643,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Flower Bouquet Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6JV10408
@@ -675,34 +679,34 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fougere VERT F-TEC
   aliases:
   - FOUGERE VERT F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6YG18317
@@ -712,33 +716,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fougere Vert Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6YG10384
@@ -748,34 +752,34 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Foundation Course Online WITH THE Perfumery Training KIT K26.fcok
   aliases:
   - FOUNDATION COURSE ONLINE WITH THE PERFUMERY TRAINING KIT K26.FCOK
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: IT26
@@ -784,70 +788,70 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Foundation Course Onlinefcolinef
   aliases:
   - FOUNDATION COURSE ONLINEFCOLINEF
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
-    perfumersworld_sku: null
+    perfumersworld_sku:
     perfumersworld_price_usd_per_g: 0.0
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fragrant RICE F-TEC
   aliases:
   - FRAGRANT RICE F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6EJ18929
@@ -857,33 +861,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fragrant Rice Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6EJ20524
@@ -893,33 +897,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frangipani Absolute
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 8ON00534
@@ -932,34 +936,34 @@
         sku: 5ON09236
         price_usd_per_g: 2.02
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frangipani F-TEC
   aliases:
   - FRANGIPANI F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ON18794
@@ -969,33 +973,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frangipani Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ON09090
@@ -1005,38 +1009,40 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frankincense EO
   aliases:
   - frankincense eo
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: 136.2
-  density_25c_g_ml: null
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 136.2, corrected to 210.0)
+  mw_g_mol: 210.0
+  density_25c_g_ml:
   logp: 4.1
   functional_groups:
   - monoterpene
   - essential oil
-  chirality: null
-  vp_25c_pa: 25.0
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 25.0, corrected to 0.5)
+  vp_25c_pa: 0.5
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
   odt_air_ppb: 25.0
-  odt_eth_ppm: null
-  stevens_n: null
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
   user_stock_dilution: neat
   user_in_inventory: true
-  supplier: null
+  supplier:
   families:
   - resin
   - incense
@@ -1056,27 +1062,27 @@
 - canonical_name: Frankincense F-TEC
   aliases:
   - FRANKINCENSE F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6QK19340
@@ -1086,33 +1092,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frankincense Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6QC09083
@@ -1122,34 +1128,34 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Freesia F-TEC
   aliases:
   - FREESIA F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6LF18321
@@ -1159,33 +1165,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Freesia Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6LF09041
@@ -1195,40 +1201,42 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Freesia HDI
   aliases:
   - freesia hdi
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: 182.3
-  density_25c_g_ml: null
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 182.3, corrected to 170.25)
+  mw_g_mol: 170.25
+  density_25c_g_ml:
   logp: 2.5
   functional_groups: []
-  chirality: null
-  vp_25c_pa: 2.5
-  antoine: null
-  dhvap_kj_mol: null
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 2.5, corrected to 0.02)
+  vp_25c_pa: 0.02
+  antoine:
+  dhvap_kj_mol:
   kaw_eff: 0.004
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
+  trp_targets:
   hedonic_valence: 0.7
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
   user_in_inventory: true
-  supplier: null
+  supplier:
   families:
   - floral materials
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1241,27 +1249,27 @@
     user_in_inventory: inventory.txt
 - canonical_name: Freesia HDL
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6LC07501
@@ -1270,33 +1278,33 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fresh Blackcurrant Leaf
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6FB07709
@@ -1305,34 +1313,34 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: FRESH Blender F-TEC
   aliases:
   - FRESH BLENDER F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6LF18323
@@ -1342,33 +1350,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fresh Blender Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6LF09429
@@ -1378,33 +1386,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fructone B
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 3FG00196
@@ -1413,34 +1421,34 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fruity Ionone F-TEC
   aliases:
   - FRUITY IONONE F-TEC
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6IF18246
@@ -1450,33 +1458,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fruity Jasmine Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6JF09428
@@ -1486,107 +1494,107 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ftecpw30
   aliases:
   - FTECPW30
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
-    perfumersworld_sku: null
+    perfumersworld_sku:
     perfumersworld_price_usd_per_g: 2095.3
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ftecpw60
   aliases:
   - FTECPW60
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
-    perfumersworld_sku: null
+    perfumersworld_sku:
     perfumersworld_price_usd_per_g: 3495.6
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Furaneol
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 5VE09272
@@ -1595,7 +1603,7 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

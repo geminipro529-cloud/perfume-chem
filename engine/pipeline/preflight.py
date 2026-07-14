@@ -1,0 +1,370 @@
+"""Release-pipeline preflight checks.
+
+Preflight is intentionally narrower than the full gate stack. It verifies that
+the pipeline's inputs and runtime doctrine are coherent enough to trust the
+subsequent OAV/gate analysis.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Any, Mapping
+
+from engine.inventory_parser import parse_inventory
+from engine.knowledge.literature_rules import (
+    build_knowledge_rule_quality_contract,
+    build_literature_rule_contract,
+)
+from engine.odt_verifier import verify_entry
+from engine.pipeline.formula_state import FormulaState
+from engine.schema_validator import SchemaValidator
+from engine.science_audit import build_science_audit_contract, coverage_confidence_penalty
+
+
+@dataclass(frozen=True, slots=True)
+class PreflightCheck:
+    name: str
+    status: str
+    detail: str
+    data: dict[str, Any] = field(default_factory=dict)
+
+    def as_dict(self) -> dict[str, Any]:
+        payload = {"check_name": self.name, "status": self.status, "detail": self.detail}
+        if self.data:
+            payload["data"] = dict(self.data)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class PreflightReport:
+    status: str
+    checks: tuple[PreflightCheck, ...]
+    confidence_penalty: float
+    warnings: tuple[str, ...]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "status": self.status,
+            "checks": [check.as_dict() for check in self.checks],
+            "confidence_penalty": round(float(self.confidence_penalty), 3),
+            "warnings": list(self.warnings),
+        }
+
+
+def _status_from_checks(checks: list[PreflightCheck]) -> str:
+    if any(check.status == "FAIL" for check in checks):
+        return "FAIL"
+    if any(check.status == "WARN" for check in checks):
+        return "WARN"
+    return "PASS"
+
+
+def _input_normalization_check(formula: Mapping[str, Any]) -> PreflightCheck:
+    ingredients = formula.get("ingredients_ul", {}) or {}
+    if not ingredients:
+        return PreflightCheck("input_normalization", "FAIL", "No ingredient volumes found.")
+
+    empty_names = sorted(str(name) for name in ingredients if not str(name).strip())
+    negative = {
+        str(name): float(value or 0.0)
+        for name, value in ingredients.items()
+        if float(value or 0.0) < 0
+    }
+    zeroes = sorted(str(name) for name, value in ingredients.items() if float(value or 0.0) == 0.0)
+    if empty_names or negative:
+        detail = []
+        if empty_names:
+            detail.append(f"empty names={len(empty_names)}")
+        if negative:
+            detail.append(f"negative doses={len(negative)}")
+        return PreflightCheck(
+            "input_normalization",
+            "FAIL",
+            "; ".join(detail),
+            {"empty_names": empty_names, "negative_doses": negative},
+        )
+    if zeroes:
+        return PreflightCheck(
+            "input_normalization",
+            "WARN",
+            f"{len(zeroes)} materials carry zero volume entries.",
+            {"zero_volume_materials": zeroes[:20]},
+        )
+    return PreflightCheck("input_normalization", "PASS", f"{len(ingredients)} ingredients parsed.")
+
+
+def _schema_check() -> PreflightCheck:
+    report = SchemaValidator().validate_all()
+    summary = report.summary()
+    if summary["errors"] > 0:
+        return PreflightCheck(
+            "knowledge_graph_schema",
+            "WARN",
+            f"{summary['errors']} schema errors in structured knowledge assets; runtime proceeds with caution.",
+            summary,
+        )
+    if summary["warnings"] > 0:
+        return PreflightCheck(
+            "knowledge_graph_schema",
+            "WARN",
+            f"{summary['warnings']} schema warnings in structured knowledge assets.",
+            summary,
+        )
+    return PreflightCheck("knowledge_graph_schema", "PASS", "Structured knowledge assets validated.", summary)
+
+
+def _literature_check() -> PreflightCheck:
+    contract = build_literature_rule_contract().as_dict()
+    status = contract["status"]
+    if status == "FAIL":
+        detail = "Literature rule contract is not runtime-complete."
+    elif status == "WARN":
+        detail = "Literature rule contract is usable but needs refresh or normalization."
+    else:
+        detail = "Literature rule contract is present and index-aware."
+    return PreflightCheck("literature_rule_contract", status, detail, contract)
+
+
+def _knowledge_rule_quality_check() -> tuple[PreflightCheck, float]:
+    contract = build_knowledge_rule_quality_contract().as_dict()
+    status = contract["status"]
+    if status == "FAIL":
+        detail = "Structured runtime rules are not usable."
+    elif status == "WARN":
+        detail = "Structured runtime rules include degraded or orphan references."
+    else:
+        detail = "Structured runtime rules passed viability screening."
+    penalty = 0.0
+    penalty += min(4.0, float(contract.get("invalid_entries", 0) or 0) * 0.25)
+    penalty += min(2.0, float(contract.get("generic_material_refs", 0) or 0) * 0.01)
+    return (
+        PreflightCheck("knowledge_rule_quality", status, detail, contract),
+        round(penalty, 3),
+    )
+
+
+def _science_check() -> tuple[PreflightCheck, float]:
+    contract = build_science_audit_contract()
+    penalty = coverage_confidence_penalty(contract)
+    status = "PASS"
+    detail = "Science coverage supports deterministic runtime use."
+    if penalty >= 20.0:
+        status = "WARN"
+        detail = f"Sparse science coverage triggers {penalty:.1f} confidence penalty."
+    return (
+        PreflightCheck(
+            "science_coverage",
+            status,
+            detail,
+            {
+                "coverage_pct": contract.get("data_coverage_pct", {}),
+                "known_weaknesses": contract.get("weaknesses", []),
+                "confidence_penalty": round(penalty, 3),
+            },
+        ),
+        penalty,
+    )
+
+
+def _odt_authority_check(state: FormulaState) -> tuple[PreflightCheck, float]:
+    flagged: list[dict[str, Any]] = []
+    tier_counts: dict[str, int] = {}
+    for material in state.materials:
+        entry = verify_entry(material.name, no_network=True)
+        verdict = str(entry.get("verdict", "NO_DATA"))
+        local_vfy = str(entry.get("local_vfy", "UNKNOWN"))
+        tier_counts[local_vfy] = tier_counts.get(local_vfy, 0) + 1
+        if verdict in {"SUGGESTED_CORRECTION", "NO_DATA"} or local_vfy in {"UNVERIFIED", "DERIVED"}:
+            flagged.append({
+                "material": material.name,
+                "verdict": verdict,
+                "local_vfy": local_vfy,
+                "source": entry.get("source", ""),
+                "reason": entry.get("reason", ""),
+            })
+    if not flagged:
+        return (
+            PreflightCheck("odt_authority", "PASS", "ODT authority is acceptable for the parsed materials.", {"tiers": tier_counts}),
+            0.0,
+        )
+    penalty = min(8.0, len(flagged) * 0.75)
+    detail = f"{len(flagged)} materials use derived/unverified or mismatched ODT authority."
+    return (
+        PreflightCheck("odt_authority", "WARN", detail, {"tiers": tier_counts, "flagged_materials": flagged[:25]}),
+        round(penalty, 3),
+    )
+
+
+def _data_authority_check(state: FormulaState) -> tuple[PreflightCheck, float]:
+    material_count = max(1, len(state.materials))
+    odt_authoritative = 0
+    vp_authoritative = 0
+    gamma_heuristic = 0
+    gamma_fallback = 0
+    hsp_present = 0
+    ifra_present = 0
+    heuristic_materials: list[dict[str, Any]] = []
+
+    for material in state.materials:
+        odt_source = str(material.sources.get("odt", "")).lower()
+        vp_source = str(material.sources.get("vp", "")).lower()
+        if any(token in odt_source for token in ("peer_reviewed", "literature:")):
+            odt_authoritative += 1
+        if any(token in vp_source for token in ("data_spine", "registry:")):
+            vp_authoritative += 1
+        gamma_source = str(material.gamma_source or "").lower()
+        if gamma_source.startswith("heuristic:"):
+            gamma_heuristic += 1
+            heuristic_materials.append({"material": material.name, "field": "gamma", "source": material.gamma_source})
+        if gamma_source.startswith("fallback:"):
+            gamma_fallback += 1
+            heuristic_materials.append({"material": material.name, "field": "gamma", "source": material.gamma_source})
+        if material.hsp is not None:
+            hsp_present += 1
+        if material.ifra_limit_pct is not None:
+            ifra_present += 1
+
+    coverage = {
+        "odt_authoritative_pct": round(100.0 * odt_authoritative / material_count, 1),
+        "vp_authoritative_pct": round(100.0 * vp_authoritative / material_count, 1),
+        "gamma_heuristic_pct": round(100.0 * gamma_heuristic / material_count, 1),
+        "gamma_fallback_pct": round(100.0 * gamma_fallback / material_count, 1),
+        "hsp_available_pct": round(100.0 * hsp_present / material_count, 1),
+        "ifra_structured_pct": round(100.0 * ifra_present / material_count, 1),
+    }
+    penalty = 0.0
+    if coverage["odt_authoritative_pct"] < 50.0:
+        penalty += 3.0
+    if coverage["vp_authoritative_pct"] < 80.0:
+        penalty += 2.0
+    if coverage["gamma_fallback_pct"] > 0.0:
+        penalty += 2.0
+    elif coverage["gamma_heuristic_pct"] > 75.0:
+        penalty += 1.5
+    if coverage["ifra_structured_pct"] < 40.0:
+        penalty += 1.0
+
+    if penalty <= 0.0:
+        return (
+            PreflightCheck("data_authority", "PASS", "Authority coverage is adequate for live scoring.", coverage),
+            0.0,
+        )
+    return (
+        PreflightCheck(
+            "data_authority",
+            "WARN",
+            "Live scoring relies on a meaningful amount of heuristic or sparse authority data.",
+            {
+                "coverage": coverage,
+                "heuristic_materials": heuristic_materials[:25],
+            },
+        ),
+        round(min(8.0, penalty), 3),
+    )
+
+
+def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
+    """Verify every formula material's dilution matches what inventory.txt holds.
+
+    A mismatch between the dilution stated in the formula and the stock dilution
+    in inventory leads to incorrect active-mass calculations, OAV errors, and
+    faulty gate conclusions. This check flags any material whose formula dilution
+    differs from ALL available inventory dilutions for that material by more than 5%.
+
+    Uses non-unique inventory so that entries like "Cashmeran (neat)" and
+    "Cashmeran (20%)" are both considered — the formula may rightly use either.
+    """
+    from collections import defaultdict
+
+    # Build a map: name → set of available dilutions (non-unique, so we see ALL stock variants)
+    inv_by_name: dict[str, set[float]] = defaultdict(set)
+    for record in parse_inventory(unique=False, include_solvents=True, include_unavailable=False):
+        inv_by_name[record.name.lower()].add(record.dilution)
+
+    mismatches: list[dict] = []
+    for name, raw_dil in (formula.get("dilutions", {}) or {}).items():
+        formula_dil = float(raw_dil) if raw_dil is not None else 1.0
+        norm = name.lower()
+        available = inv_by_name.get(norm, {1.0})
+        # PASS if any inventory variant matches within tolerance
+        if any(abs(formula_dil - inv_dil) <= 0.05 for inv_dil in available):
+            continue
+        mismatches.append({
+            "material": name,
+            "formula_dilution": round(formula_dil, 4),
+            "inventory_dilutions": sorted(round(d, 4) for d in available),
+        })
+
+    if mismatches:
+        names = sorted(m["material"] for m in mismatches)
+        return PreflightCheck(
+            "dilution_consistency",
+            "WARN",
+            f"{len(mismatches)} material(s) have dilution mismatches with inventory: {', '.join(names)}",
+            {"mismatches": mismatches},
+        )
+    return PreflightCheck("dilution_consistency", "PASS", "All dilutions match inventory stock.")
+
+
+def _state_sanity_check(state: FormulaState) -> PreflightCheck:
+    unknown = sorted(material.name for material in state.materials if not material.is_known)
+    missing_odt = sorted(material.name for material in state.materials if material.odt_air_ppm is None)
+    missing_physics = {
+        material.name: sorted(material.missing_fields)
+        for material in state.materials
+        if material.missing_fields
+    }
+    if unknown or missing_odt:
+        detail = []
+        if unknown:
+            detail.append(f"unknown={len(unknown)}")
+        if missing_odt:
+            detail.append(f"missing_odt={len(missing_odt)}")
+        return PreflightCheck(
+            "material_identity_and_physics",
+            "FAIL",
+            "; ".join(detail),
+            {"unknown_materials": unknown, "missing_odt": missing_odt, "missing_fields": missing_physics},
+        )
+    if missing_physics:
+        return PreflightCheck(
+            "material_identity_and_physics",
+            "WARN",
+            f"{len(missing_physics)} materials have non-critical missing fields.",
+            {"missing_fields": missing_physics},
+        )
+    return PreflightCheck(
+        "material_identity_and_physics",
+        "PASS",
+        f"{len(state.materials)} materials resolved with ODT and core physics data.",
+    )
+
+
+def run_release_preflight(formula: Mapping[str, Any], state: FormulaState) -> PreflightReport:
+    checks: list[PreflightCheck] = []
+    total_penalty = 0.0
+    checks.append(_input_normalization_check(formula))
+    checks.append(_dilution_consistency_check(formula))
+    checks.append(_schema_check())
+    checks.append(_literature_check())
+    knowledge_check, knowledge_penalty = _knowledge_rule_quality_check()
+    checks.append(knowledge_check)
+    total_penalty += knowledge_penalty
+    odt_check, odt_penalty = _odt_authority_check(state)
+    checks.append(odt_check)
+    total_penalty += odt_penalty
+    authority_check, authority_penalty = _data_authority_check(state)
+    checks.append(authority_check)
+    total_penalty += authority_penalty
+    science_check, science_penalty = _science_check()
+    checks.append(science_check)
+    total_penalty += science_penalty
+    checks.append(_state_sanity_check(state))
+
+    warnings = tuple(check.detail for check in checks if check.status == "WARN")
+    return PreflightReport(
+        status=_status_from_checks(checks),
+        checks=tuple(checks),
+        confidence_penalty=round(total_penalty, 3),
+        warnings=warnings,
+    )

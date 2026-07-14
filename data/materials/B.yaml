@@ -74,15 +74,15 @@
 - canonical_name: Bacdanol
   aliases:
   - bacdanol
-  cas: null
+  cas: 68648-33-9
   smiles: null
   inchikey: null
-  mw_g_mol: 208.3
-  density_25c_g_ml: null
+  mw_g_mol: 210.36
+  density_25c_g_ml: 0.866
   logp: 3.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -261,6 +261,46 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Basil EO (India, Ocimum Basilicum)
+  aliases:
+  - basil eo (india, ocimum basilicum)
+  - basil eo (india)
+  - basil eo
+  - sweet basil eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 152.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 8.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - spice / aromatic
+  character: null
+  notes: Ocimum basilicum leaf oil, India origin — methyl chavicol (estragole) chemotype, sweet-herbal-anisic with linalool freshness
+  provenance:
+    mw_g_mol: estimated
+    vp_25c_pa: estimated
+    kaw_eff: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    user_in_inventory: inventory.txt
 - canonical_name: Basil Fleuressence
   aliases: []
   cas: null
@@ -606,12 +646,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 212.24
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.0001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -689,7 +729,7 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.22
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -701,7 +741,7 @@
   trp_targets: null
   hedonic_valence: 0.75
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3JF00052
@@ -801,7 +841,7 @@
   logp: 4.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -813,7 +853,7 @@
   trp_targets: null
   hedonic_valence: 0.35
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1058,7 +1098,7 @@
   logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.03
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -1075,7 +1115,7 @@
     nasal_pungency: null
   hedonic_valence: 0.55
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3ON00060
@@ -1182,12 +1222,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 148.0
+  mw_g_mol: 170.0
   density_25c_g_ml: null
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 40.0
+  vp_25c_pa: 1.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.025
@@ -1204,7 +1244,7 @@
     nasal_pungency: null
   hedonic_valence: 0.78
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1232,12 +1272,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 148.0
+  mw_g_mol: 170.0
   density_25c_g_ml: null
-  logp: null
+  logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 40.0
+  vp_25c_pa: 2.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.025
@@ -1254,7 +1294,7 @@
     nasal_pungency: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 7CL24020
@@ -1392,12 +1432,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 190.3
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.08
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1487,7 +1527,7 @@
   trp_targets: null
   hedonic_valence: 0.7
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 0.01
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3IF00238
@@ -1550,7 +1590,8 @@
   - aromatic
   - top
   character: Pine-green, woody-fresh terpene lift; oxidation-sensitive.
-  notes: PubChem-backed beta-pinene identity; current inventory addition should resolve to this canonical entry.
+  notes: PubChem-backed beta-pinene identity; current inventory addition should resolve
+    to this canonical entry.
   provenance:
     aliases: inventory.txt
     cas: pubchem:Beta-Pinene
@@ -1564,35 +1605,38 @@
     user_in_inventory: inventory.txt
     character: docs/dosing_reference.md
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-- canonical_name: Birch Tar
+- canonical_name: Birch Tar Rectified
   aliases:
   - birch tar
-  cas: null
+  - birch tar rectified
+  - rusian leather
+  - rectified birch tar
+  cas: 8001-88-5
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  mw_g_mol: 124.14
+  density_25c_g_ml: 1.046
+  logp: 1.5
+  functional_groups: [phenol, ether]
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 13.3
   antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
+  dhvap_kj_mol: 56.2
+  kaw_eff: 0.003
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  odt_air_ppb: 2.0
+  odt_eth_ppm: 1.0
+  stevens_n: 0.3
   or_targets: []
   trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  hedonic_valence: -1.5
+  ifra_max_pct_edp: 0.0
+  user_stock_dilution: inventory.txt
+  user_in_inventory: inventory.txt
   supplier: null
-  families: []
-  character: null
-  notes: null
+  families: [leather, smoky]
+  character: pyrogenic Russian leather char — scorched birch bark smoke
+  notes: "IFRA PROHIBITED (CAS 8001-88-5, IFRA 51st). Main components: guaiacol, cresols, catechol, phenol, xylenols. Use at trace levels (0.05-0.15%) for scorched leather effect."
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1681,7 +1725,7 @@
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 6.0
+  vp_25c_pa: 13.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1698,7 +1742,7 @@
     nasal_pungency: null
   hedonic_valence: 0.1
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1791,12 +1835,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 204.35
   density_25c_g_ml: null
-  logp: null
+  logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1931,12 +1975,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 204.35
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2109,12 +2153,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 180.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.1
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2139,15 +2183,15 @@
   aliases:
   - blood orange sicilian
   - Blood Orange oil Sicilian
-  cas: null
+  cas: 8028-48-6
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
-  logp: null
+  density_25c_g_ml: 0.845
+  logp: 4.57
   functional_groups: []
   chirality: null
-  vp_25c_pa: 180.0
+  vp_25c_pa: 3.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.048
@@ -2418,12 +2462,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 204.3
+  mw_g_mol: 176.25
   density_25c_g_ml: null
   logp: 2.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.0
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -2435,7 +2479,7 @@
   trp_targets: null
   hedonic_valence: 0.68
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4MA00067
@@ -2681,28 +2725,32 @@
 - canonical_name: Butylated Hydroxytoluene (BHT) Antioxidant
   aliases:
   - Butylated Hydroxytoluene (BHT) antioxidant
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  - BHT
+  - bht
+  - butylated hydroxytoluene
+  cas: 128-37-0
+  smiles: CC1=CC(C(C)(C)C)=C(O)C(C(C)(C)C)=C1
+  inchikey: NLZUEZXRPGMBCV-UHFFFAOYSA-N
+  mw_g_mol: 220.35
+  density_25c_g_ml: 1.03
+  logp: 5.3
+  functional_groups:
+  - phenol
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 100000.0
+  odt_eth_ppm: 500.0
   stevens_n: null
   or_targets: []
   trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  hedonic_valence: 0.0
+  ifra_max_pct_edp: 100.0
+  user_stock_dilution: 1.0
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 0ZP03359
     perfumersworld_price_usd_per_g: 0.09
@@ -2714,3 +2762,74 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: beta ionone (1% in tec)
+  aliases:
+  - Beta Ionone 1%
+  - Beta Ionone (1%)
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 192.3
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 1.2
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 0.1
+  odt_eth_ppm: 0.001
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+- canonical_name: beta-pinene
+  aliases:
+  - Beta Pinene
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.2
+  density_25c_g_ml: null
+  logp: 4.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 400.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 50.0
+  odt_eth_ppm: 0.5
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+
+- canonical_name: Blue Chamomile EO
+  aliases:
+  - blue chamomile eo
+  - blue chamomile essential oil
+  - chamomile eo
+  cas: 8002-66-2
+  mw_g_mol: 200.0
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 1.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 4.0
+  odt_eth_ppm: 0.4
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

@@ -1,8 +1,9 @@
 """Chemical and ingredient schemas"""
 
-from pydantic import BaseModel, Field, validator
-from typing import Optional, List
 from enum import Enum
+from typing import List, Optional
+
+from pydantic import BaseModel, Field
 
 
 class VolatilityClass(str, Enum):
@@ -32,7 +33,7 @@ class IngredientBase(BaseModel):
     cas_number: Optional[str] = Field(None, pattern=r"^\d{2,7}-\d{2}-\d$")
     odor_description: Optional[str] = None
     volatility: Optional[VolatilityClass] = None
-    
+
     class Config:
         use_enum_values = True
 
@@ -68,7 +69,7 @@ class IngredientResponse(IngredientBase):
     typical_use_min: float
     typical_use_max: float
     cost_per_gram: Optional[float] = None
-    
+
     class Config:
         from_attributes = True
 

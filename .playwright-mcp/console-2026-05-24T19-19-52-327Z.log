@@ -1,0 +1,48 @@
+[     130ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.eveandboy.com/category/356/%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%AB%E0%B8%8D%E0%B8%B4%E0%B8%87:0
+[     217ms] TypeError: Cannot read properties of undefined (reading 'split')
+    at <anonymous>:1:212
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[     219ms] TypeError: Cannot read properties of undefined (reading 'utm_source')
+    at <anonymous>:1:120
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[     224ms] TypeError: Cannot read properties of null (reading 'removeEventListener')
+    at <anonymous>:1:256
+    at https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:867:429
+    at VR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:869:31)
+    at Nd.UR (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:866:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:296:187)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:188:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:249:473)
+    at k.apply (https://www.googletagmanager.com/gtm.js?id=GTM-W9R79NC:225:466)
+[     231ms] [ERROR] [nuxt] error caught during app initialization Hu: Page not found: /category/356/%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%AB%E0%B8%8D%E0%B8%B4%E0%B8%87
+    at Vu (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:19:58958)
+    at https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:31:14344
+    at a (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:19:32601)
+    at Object.runWithContext (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:15:14863)
+    at m_ (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:19:32631)
+    at https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:19:30937
+    at s3.run (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:9:693)
+    at Object.runWithContext (https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:19:30929)
+    at https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:31:14322
+    at https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:27:16715 @ https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:18
+[     267ms] [ERROR] Hydration completed but contains mismatches. @ https://www.eveandboy.com/_nuxt/entry.BzNJJwA0.js:12
+[     409ms] [WARNING] [Meta Pixel] - Duplicate Pixel ID: 1281141270057469. @ https://connect.facebook.net/en_US/fbevents.js:181
+[     668ms] [ERROR] Failed to load resource: the server responded with a status of 422 () @ https://capig.datah04.com/events/9035cdfe6f4676eb1d340e721cd46c4a0a5f81b21e950e285a4977fb7c2adb88:0

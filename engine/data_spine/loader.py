@@ -19,7 +19,7 @@ DEFAULT_DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "materials"
 
 
 def _letter_for(name: str) -> str:
-    """Bucket a name to its A-Z file. Non-alpha leading chars → '_'."""
+    """Bucket a name to its A-Z file. Non-alpha leading chars map to '_'."""
     for ch in name:
         if ch.isalpha():
             return ch.upper()
@@ -39,8 +39,11 @@ def load_materials(data_dir: str | Path | None = None) -> list[Material]:
         for entry in payload:
             try:
                 materials.append(Material.from_dict(entry))
-            except Exception as exc:    # noqa: BLE001
-                print(f"[data_spine] skip {p.name}:{entry.get('canonical_name')!r} → {exc}")
+            except Exception as exc:  # noqa: BLE001
+                label = None
+                if isinstance(entry, dict):
+                    label = entry.get("canonical_name") or entry.get("name")
+                print(f"[data_spine] skip {p.name}:{label!r} -> {exc}")
     return materials
 
 

@@ -12,47 +12,168 @@ from typing import Any, Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, MaterialState
 from engine.pipeline.simulator import SimulationFrame
-from future_modules._shared_types import ConcentrationBracket, FragranceFamily
-from future_modules.balance_axes import (
-    evaluate_diffusion_layers,
-    evaluate_material_class_distribution,
-    evaluate_oav_contrast,
-    evaluate_volatility_balance,
-)
-from future_modules.character_shift_zones import (
-    check_zone_boundaries,
-    get_zone_by_oav,
-)
-from future_modules.family_hedonic_optimizer import (
-    check_family_cliffs,
-    get_cliff_oav,
-    get_oav_targets,
-    list_family_performance_tips,
-    list_family_pitfalls,
-)
-from future_modules.performance_profiles import (
-    estimate_tropical_performance_shift,
-    get_performance,
-)
-from future_modules.synergy_matrix import (
-    get_all_antagonist_pairs,
-    get_all_synergy_pairs,
-    get_synergy_factor,
-)
+
+_FUTURE_MODULES_AVAILABLE = False
+try:
+    from future_modules._shared_types import ConcentrationBracket, FragranceFamily
+    from future_modules.balance_axes import (
+        evaluate_diffusion_layers,
+        evaluate_material_class_distribution,
+        evaluate_oav_contrast,
+        evaluate_volatility_balance,
+    )
+    from future_modules.character_shift_zones import (
+        check_zone_boundaries,
+        get_zone_by_oav,
+    )
+    from future_modules.family_hedonic_optimizer import (
+        check_family_cliffs,
+        get_cliff_oav,
+        get_oav_targets,
+        list_family_performance_tips,
+        list_family_pitfalls,
+    )
+    from future_modules.performance_profiles import (
+        estimate_tropical_performance_shift,
+        get_performance,
+    )
+    from future_modules.synergy_matrix import (
+        get_all_antagonist_pairs,
+        get_all_synergy_pairs,
+        get_synergy_factor,
+    )
+    _FUTURE_MODULES_AVAILABLE = True
+except ImportError:
+    from enum import Enum
+    class FragranceFamily(str, Enum):
+        CITRUS = "citrus"
+        AROMATIC_FOUGERE = "aromatic_fougere"
+        FLORAL_ROSE = "floral_rose"
+        FLORAL_JASMINE = "floral_jasmine"
+        CHYPRE = "chypre"
+        AMBER_ORIENTAL = "amber_oriental"
+        WOODY_AMBER = "woody_amber"
+        GOURMAND = "gourmand"
+        MARINE_AQUATIC = "marine_aquatic"
+        LEATHER = "leather"
+        MUSK = "musk"
+
+    class ConcentrationBracket(str, Enum):
+        EDP = "EdP"
+        EDT = "EdT"
+        EDC = "EdC"
+        EXTRAIT = "Extrait"
+
+    def evaluate_diffusion_layers(*args, **kwargs):
+        return {"axis_name": "diffusion_layers", "score": 0.0, "target_range": None, "status": "degraded", "details": "engine heuristic fallback active"}
+
+    def evaluate_material_class_distribution(*args, **kwargs):
+        return {"axis_name": "material_class_distribution", "score": 0.0, "target_range": None, "status": "degraded", "details": "engine heuristic fallback active"}
+
+    def evaluate_oav_contrast(*args, **kwargs):
+        return {"axis_name": "oav_contrast", "score": 0.0, "target_range": None, "status": "degraded", "details": "engine heuristic fallback active"}
+
+    def evaluate_volatility_balance(*args, **kwargs):
+        return {"axis_name": "volatility_balance", "score": 0.0, "target_range": None, "status": "degraded", "details": "engine heuristic fallback active"}
+
+    def check_zone_boundaries(*args, **kwargs):
+        return True, "engine heuristic fallback active"
+
+    def get_zone_by_oav(*args, **kwargs):
+        return None
+
+    def check_family_cliffs(*args, **kwargs):
+        return {}
+
+    def get_cliff_oav(*args, **kwargs):
+        return None
+
+    def get_oav_targets(*args, **kwargs):
+        return None
+
+    def list_family_performance_tips(*args, **kwargs):
+        return ()
+
+    def list_family_pitfalls(*args, **kwargs):
+        return ()
+
+    def estimate_tropical_performance_shift(*args, **kwargs):
+        return None
+
+    def get_performance(*args, **kwargs):
+        return None
+
+    def get_all_synergy_pairs(*args, **kwargs):
+        return ()
+
+    def get_all_antagonist_pairs(*args, **kwargs):
+        return ()
+
+    def get_synergy_factor(*args, **kwargs):
+        return 1.0
 
 
 _FAMILY_ALIASES: dict[str, FragranceFamily] = {
     "citrus": FragranceFamily.CITRUS,
     "hesperidic": FragranceFamily.CITRUS,
+    "citrus classical": FragranceFamily.CITRUS,
+    "citrus_classical": FragranceFamily.CITRUS,
+    "eau de cologne": FragranceFamily.CITRUS,
+    "dior homme cologne": FragranceFamily.CITRUS,
+    "dior_homme_cologne": FragranceFamily.CITRUS,
+    "citrus aromatic": FragranceFamily.CITRUS,
+    "citrus_aromatic": FragranceFamily.CITRUS,
     "aromatic_fougere": FragranceFamily.AROMATIC_FOUGERE,
     "fougere": FragranceFamily.AROMATIC_FOUGERE,
+    "fougere classical": FragranceFamily.AROMATIC_FOUGERE,
+    "fougere_classical": FragranceFamily.AROMATIC_FOUGERE,
     "floral_rose": FragranceFamily.FLORAL_ROSE,
     "rose": FragranceFamily.FLORAL_ROSE,
+    "floral soliflore": FragranceFamily.FLORAL_ROSE,
+    "floral_soliflore": FragranceFamily.FLORAL_ROSE,
     "floral_jasmine": FragranceFamily.FLORAL_JASMINE,
     "jasmine": FragranceFamily.FLORAL_JASMINE,
+    "floral bouquet": FragranceFamily.FLORAL_JASMINE,
+    "floral_bouquet": FragranceFamily.FLORAL_JASMINE,
+    "floral white": FragranceFamily.FLORAL_JASMINE,
+    "floral_white": FragranceFamily.FLORAL_JASMINE,
+    "white floral": FragranceFamily.FLORAL_JASMINE,
+    "floral muguet": FragranceFamily.FLORAL_JASMINE,
+    "floral_muguet": FragranceFamily.FLORAL_JASMINE,
+    "muguet floral": FragranceFamily.FLORAL_JASMINE,
+    "floral carnation": FragranceFamily.FLORAL_JASMINE,
+    "floral_carnation": FragranceFamily.FLORAL_JASMINE,
+    "carnation floral": FragranceFamily.FLORAL_JASMINE,
+    "floral powdery": FragranceFamily.FLORAL_JASMINE,
+    "floral_powdery": FragranceFamily.FLORAL_JASMINE,
+    "powdery floral": FragranceFamily.FLORAL_JASMINE,
+    "floral green": FragranceFamily.FLORAL_JASMINE,
+    "floral_green": FragranceFamily.FLORAL_JASMINE,
+    "green floral": FragranceFamily.FLORAL_JASMINE,
+    "floral aldehydic": FragranceFamily.FLORAL_JASMINE,
+    "floral_aldehydic": FragranceFamily.FLORAL_JASMINE,
     "chypre": FragranceFamily.CHYPRE,
+    "chypre classical": FragranceFamily.CHYPRE,
+    "chypre_classical": FragranceFamily.CHYPRE,
+    "floral chypre": FragranceFamily.CHYPRE,
+    "chypre_floral": FragranceFamily.CHYPRE,
+    "fruity chypre": FragranceFamily.CHYPRE,
+    "chypre_fruity": FragranceFamily.CHYPRE,
+    "green chypre": FragranceFamily.CHYPRE,
+    "chypre_green": FragranceFamily.CHYPRE,
+    "leather chypre": FragranceFamily.CHYPRE,
+    "chypre_leathery": FragranceFamily.CHYPRE,
     "amber_oriental": FragranceFamily.AMBER_ORIENTAL,
     "oriental": FragranceFamily.AMBER_ORIENTAL,
+    "oriental classical": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_classical": FragranceFamily.AMBER_ORIENTAL,
+    "classic oriental": FragranceFamily.AMBER_ORIENTAL,
+    "soft oriental": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_soft": FragranceFamily.AMBER_ORIENTAL,
+    "soft amber": FragranceFamily.AMBER_ORIENTAL,
+    "floral oriental": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_floral": FragranceFamily.AMBER_ORIENTAL,
+    "floral amber": FragranceFamily.AMBER_ORIENTAL,
     "woody_amber": FragranceFamily.WOODY_AMBER,
     "woody": FragranceFamily.WOODY_AMBER,
     "gourmand": FragranceFamily.GOURMAND,
@@ -100,8 +221,12 @@ def _map_family(archetype: str) -> FragranceFamily | None:
     token = _normalize_token(archetype)
     if token in _FAMILY_ALIASES:
         return _FAMILY_ALIASES[token]
+    if "oriental" in token or token.endswith("amber"):
+        return FragranceFamily.AMBER_ORIENTAL
     if "fougere" in token:
         return FragranceFamily.AROMATIC_FOUGERE
+    if "floral" in token or "muguet" in token or "carnation" in token:
+        return FragranceFamily.FLORAL_JASMINE
     if "jasmine" in token:
         return FragranceFamily.FLORAL_JASMINE
     if "rose" in token:
@@ -118,10 +243,10 @@ def _map_family(archetype: str) -> FragranceFamily | None:
         return FragranceFamily.MARINE_AQUATIC
     if "amber" in token and "woody" in token:
         return FragranceFamily.WOODY_AMBER
-    if "oriental" in token or token.endswith("amber"):
-        return FragranceFamily.AMBER_ORIENTAL
     if "woody" in token:
         return FragranceFamily.WOODY_AMBER
+    if "cologne" in token:
+        return FragranceFamily.CITRUS
     if "citrus" in token or "hesperidic" in token:
         return FragranceFamily.CITRUS
     return None
@@ -158,6 +283,14 @@ def _balance_name(material: MaterialState) -> str:
 
 
 def _serialize_balance(report: Any) -> dict[str, Any]:
+    if isinstance(report, dict):
+        return {
+            "axis_name": report.get("axis_name", "unknown"),
+            "score": round(float(report.get("score", 0.0)), 6),
+            "target_range": list(report["target_range"]) if report.get("target_range") is not None else None,
+            "status": report.get("status", "unavailable"),
+            "details": report.get("details", ""),
+        }
     return {
         "axis_name": report.axis_name,
         "score": round(float(report.score), 6),
@@ -215,12 +348,31 @@ class OAVIntelligenceResult:
         }
 
 
+def _minimal_intelligence_result(family_archetype: str) -> OAVIntelligenceResult:
+    return OAVIntelligenceResult(
+        family_archetype=family_archetype,
+        mapped_family=None,
+        family_target_alignment={"family": None, "pitfalls": (), "performance_tips": (), "materials": []},
+        material_cliff_findings=(),
+        shift_zone_findings=(),
+        balance_reports=(),
+        performance_projection={"materials": [], "warnings": ["engine heuristic fallback active"]},
+        synergy_findings={"positive": (), "antagonists": ()},
+        intelligence_status="WARN",
+        intelligence_blocking_reasons=(),
+        intelligence_warning_reasons=("engine heuristic fallback active; advanced OAV intelligence degraded",),
+        unmapped_materials=(),
+    )
+
+
 def analyze_oav_intelligence(
     state: FormulaState,
     frames: Sequence[SimulationFrame],
     family_archetype: str,
 ) -> OAVIntelligenceResult:
     """Derive secondary OAV intelligence from future_modules without recomputing physics."""
+    if not _FUTURE_MODULES_AVAILABLE:
+        return _minimal_intelligence_result(family_archetype)
     family = _map_family(family_archetype)
     material_oavs = _top_oav_map(state)
     active_pct = state.active_percentages()

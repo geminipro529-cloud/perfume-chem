@@ -108,31 +108,53 @@
 - canonical_name: Labdanum
   aliases:
   - labdanum
+  - Labdanum Resinoid
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 300.0
   density_25c_g_ml: null
-  logp: null
+  logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 1e-05
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.05
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 10.0
+  user_in_inventory: true
   supplier: null
   families: []
   character: null
+- canonical_name: labdanum resinoid
+  aliases:
+  - Labdanum Resinoid
+  mw_g_mol: 300.0
+  logp: 4.5
+  vp_25c_pa: 1e-05
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.05
+  user_stock_dilution: 10.0
+  user_in_inventory: true
+- canonical_name: labdanum resinoid (10% in dpg)
+  aliases:
+  - Labdanum Resinoid 10%
+  - Labdanum Resinoid 10
+  mw_g_mol: 300.0
+  logp: 4.5
+  vp_25c_pa: 1e-05
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.05
+  user_stock_dilution: 10.0
+  user_in_inventory: true
   notes: null
   provenance:
     odt_air_ppb: engine.odor_thresholds
@@ -144,12 +166,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 234.4
+  mw_g_mol: 304.47
   density_25c_g_ml: null
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.03
+  vp_25c_pa: 1e-05
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -260,29 +282,34 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Labdanum Resinoid
-  aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  aliases:
+  - labdanum
+  - cistus resinoid
+  cas: '8016-36-2'
+  smiles:
+  inchikey:
+  mw_g_mol: 300.0
+  density_25c_g_ml: 1.0
+  logp: 5.0
+  functional_groups:
+  - diterpene
+  - resinoid
+  - essential oil
+  chirality:
+  vp_25c_pa: 0.00001
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.00001
+  hsp:
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 2.0
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  trp_targets:
+  hedonic_valence: 0.5
+  ifra_max_pct_edp: 5.0
+  user_stock_dilution: neat
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 2UQ00264
     perfumersworld_price_usd_per_g: 0.68
@@ -296,10 +323,22 @@
       - form: 10.0% in DPG
         sku: 5UQ07566
         price_usd_per_g: 0.12
-  families: []
-  character: null
-  notes: null
+  families:
+  - resinous / balsamic
+  character: Dark, resinous, amber-leather, slightly animalic; Cistus ladanifer hexane extract; provides warm amber depth and tenacity.
+  notes: 'Crude resinoid vs Labdanum Absolute — similar chemistry but less refined; retains more terpenic/higher-boiling fractions. Key odorants include labdanolic acid, ambrinol, sclareol derivatives.'
   provenance:
+    mw_g_mol: manual:2026-06-10 matched to Labdanum Absolute/Labdanum profiles
+    density_25c_g_ml: manual:2026-06-10 resinoid typical density
+    logp: manual:2026-06-10 matched to Labdanum profiles
+    vp_25c_pa: manual:2026-06-10 matched to Labdanum profiles
+    odt_air_ppb: manual:2026-06-10 matched to existing labdanum ODT
+    odt_eth_ppm: manual:2026-06-10 matched to existing labdanum ODT
+    hedonic_valence: manual:2026-06-10 estimated from amber-resinous class
+    ifra_max_pct_edp: manual:2026-06-10 estimated from resinoid restriction
+    user_stock_dilution: inventory.txt
+    user_in_inventory: inventory.txt
+    character: docs/dosing_reference.md
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Lactone F-TEC
   aliases:
@@ -598,12 +637,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 154.3
+  mw_g_mol: 170.0
   density_25c_g_ml: null
   logp: 2.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 20.0
+  vp_25c_pa: 3.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.012
@@ -620,7 +659,7 @@
     nasal_pungency: null
   hedonic_valence: 0.75
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -640,12 +679,13 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
-- canonical_name: Lavender EO (BONTAUX SAS)
+- canonical_name: Lavender EO High Altitude
   aliases:
-  - lavender eo bontaux
+  - lavender eo high altitude
+  - lavender ha
   - bontaux lavender eo
   - lavender eo (bontaux sas)
-  cas: '8000-28-0'
+  cas: 8000-28-0
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
@@ -678,8 +718,11 @@
   supplier: null
   families:
   - spice / aromatic
-  character: Floral-herbaceous with soft honeyed sweetness; less camphoraceous than standard Lavender EO; premier French lavender angustifolia for fine perfumery.
-  notes: Bontoux SAS is a premier French producer of Lavandula angustifolia oils; renowned for particularly fine, well-rounded quality suitable for high-end perfumery; pairs excellently with bergamot, coumarin, and oakmoss materials.
+  character: Floral-herbaceous with soft honeyed sweetness; less camphoraceous than
+    standard Lavender EO; premier French lavender angustifolia for fine perfumery.
+  notes: Bontoux SAS is a premier French producer of Lavandula angustifolia oils;
+    renowned for particularly fine, well-rounded quality suitable for high-end perfumery;
+    pairs excellently with bergamot, coumarin, and oakmoss materials.
   provenance:
     mw_g_mol: manual:2026-05-08 lavender-family EO approximation
     density_25c_g_ml: manual:2026-05-08 lavender EO typical density
@@ -851,7 +894,7 @@
   - ketone
   - essential oil
   chirality: null
-  vp_25c_pa: 24.0
+  vp_25c_pa: 0.3
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -876,7 +919,8 @@
   - lavender
   - top-heart
   character: Camphoraceous lavender; more aromatic and masculine than soft lavender.
-  notes: Natural oil approximated to linalool/camphoraceous lavender physics for gate use.
+  notes: Natural oil approximated to linalool/camphoraceous lavender physics for gate
+    use.
   provenance:
     aliases: inventory.txt
     mw_g_mol: manual:2026-04-29 lavender-family EO approximation
@@ -886,8 +930,6 @@
     user_stock_dilution: inventory.txt
     user_in_inventory: inventory.txt
     character: docs/dosing_reference.md
-  provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Leafovert
   aliases:
   - leafovert
@@ -899,7 +941,7 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 15.0
+  vp_25c_pa: 0.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.01
@@ -916,7 +958,7 @@
     nasal_pungency: null
   hedonic_valence: 0.45
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GI15439
@@ -1020,12 +1062,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1037,7 +1079,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1120,18 +1162,19 @@
 - canonical_name: Lemon FCF Oil Sicilian
   aliases:
   - Lemon FCF oil Sicilian
+  - lemon fcf sicilian
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 136.7
+  density_25c_g_ml: 0.855
+  logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 210.0
   antoine: null
   dhvap_kj_mol: null
-  kaw_eff: null
+  kaw_eff: 0.003
   hsp: null
   odt_air_ppb: null
   odt_eth_ppm: null
@@ -1140,18 +1183,21 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
-  supplier:
-    perfumersworld_sku: 7CC24029
-    perfumersworld_price_usd_per_g: 0.18
-    perfumersworld_form: neat
-    perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - citrus / top
   character: null
-  notes: null
+  notes: 'Cold-pressed Sicilian lemon oil — component-weighted composite: 65% d-limonene (MW136 VP200), 12% beta-pinene (MW136 VP400), 10% gamma-terpinene (MW136 VP100), 3% citral (MW152 VP10). Composite MW136.7 VP210 Pa logP3.5.'
   provenance:
+    mw_g_mol: component_weighted
+    vp_25c_pa: component_weighted
+    logp: component_weighted
+    kaw_eff: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Lemon Fleuressence
   aliases: []
@@ -1301,12 +1347,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 163.26
   density_25c_g_ml: null
-  logp: null
+  logp: 3.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 1.2
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1318,7 +1364,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 0.01
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3CC06770
@@ -1699,12 +1745,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 204.31
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.33
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1918,7 +1964,7 @@
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.5
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1930,7 +1976,7 @@
   trp_targets: null
   hedonic_valence: 0.7
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 6MG22777
@@ -2120,12 +2166,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 136.23
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 190
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2175,7 +2221,7 @@
     nasal_pungency: null
   hedonic_valence: 0.82
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -2276,7 +2322,7 @@
   logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 5.0
+  vp_25c_pa: 17.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.008
@@ -2293,7 +2339,7 @@
     nasal_pungency: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3LF00279
@@ -2501,3 +2547,26 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: lime distilled eo
+  aliases:
+  - Lime Distilled EO
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 136.2
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 200.0
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 20.0
+  odt_eth_ppm: 0.2
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

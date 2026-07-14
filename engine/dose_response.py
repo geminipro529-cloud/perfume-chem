@@ -1,5 +1,11 @@
 """Dose-response modelling and character shift detection.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+
 Most aroma chemicals change their olfactive character at different
 concentrations. This is NOT just intensity — it's qualitative shift:
 
@@ -153,11 +159,8 @@ CHARACTER_SHIFT_DATA: dict[str, list[CharacterZone]] = {
         CharacterZone(2.0,   "rich coumarinic, tobacco warmth",     "positive"),
         CharacterZone(4.0,   "heavy, slightly bitter",              "neutral"),
     ],
-    "Heliotropin Fleuressence": [
-        CharacterZone(0.5,   "soft powder, almond-vanilla",         "positive"),
-        CharacterZone(2.0,   "full cherry-almond, heliotrope",      "positive"),
-        CharacterZone(5.0,   "dense powder, slightly chemical",     "neutral"),
-    ],
+    "Heliotropal": [
+                            ],
     # Heliotropal (piperonal): benzodioxole aldehyde, heliotrope-almond-vanilla.
     # At subliminal doses activates OR5A1/OR5A2 → sweet-powdery subliminal warmth.
     # At moderate doses → full heliotrope character. Overdose → cloying powdery-chemical.

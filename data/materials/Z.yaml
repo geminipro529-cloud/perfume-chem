@@ -1,26 +1,26 @@
 - canonical_name: Z-ZOLVENT F-TEC
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ZZ00449
@@ -30,33 +30,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Z-Zolvent Fleuressence
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 6ZZ00501
@@ -66,33 +66,33 @@
     other: {}
   families:
   - pre-blended
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Z11 HD 8.5
   aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
   user_in_inventory: false
   supplier:
     perfumersworld_sku: 5WU21414
@@ -101,34 +101,36 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Zenolide
   aliases:
   - zenolide
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: 256.3
-  density_25c_g_ml: null
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 256.3, corrected to 254.41)
+  mw_g_mol: 254.41
+  density_25c_g_ml:
   logp: 3.6
   functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.0001)
+  vp_25c_pa: 0.0001
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
   or_targets: []
-  trp_targets: null
+  trp_targets:
   hedonic_valence: 0.65
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3XA22378
@@ -138,8 +140,8 @@
     other: {}
   families:
   - musks
-  character: null
-  notes: null
+  character:
+  notes:
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

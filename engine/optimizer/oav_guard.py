@@ -41,8 +41,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable
 
-from engine.name_utils import normalize_name
-from engine.odor_thresholds import ODT_DATA, MIXTURE_SUPPRESSION_FACTOR
+from engine.odor_thresholds import MIXTURE_SUPPRESSION_FACTOR, lookup_odt_entry
 
 
 # Smallest dose a hobbyist can reliably pipette (1 µL glass syringe floor).
@@ -66,24 +65,14 @@ class OAVCheck:
 
 
 def _lookup_odt(name: str) -> float | None:
-    """Look up ODT (ppm in ethanol) for a material by fuzzy lowercase match."""
-    key = normalize_name(name)
-    best: tuple[int, float | None] = (0, None)
-    for odt_name, data in ODT_DATA.items():
-        nk = normalize_name(odt_name)
-        odt_val = data.get("odt_eth")
-        if odt_val is None:
-            continue
-        score = 0
-        if nk == key:
-            score = 1000  # exact match
-        elif key.startswith(nk):
-            score = len(nk)  # longer prefix = more specific
-        elif nk in key:
-            score = len(nk)
-        if score > best[0]:
-            best = (score, odt_val)
-    return best[1]
+    """Look up ODT (ppm in ethanol) for a material via normalized exact match."""
+    data = lookup_odt_entry(name)
+    if data is None:
+        return None
+    odt_val = data.get("odt_eth")
+    if odt_val is None:
+        return None
+    return float(odt_val)
 
 
 def check_batch_scaling(

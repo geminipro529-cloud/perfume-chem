@@ -1,0 +1,3511 @@
+{
+  "formula_file": "D:\\chatbots\\perfume-chem\\formulas\\mass-market\\T1_Splash_1k_30mL_EdC.md",
+  "overall": "FAIL",
+  "formulas": [
+    {
+      "number": 1,
+      "name": "Tier 1 \u2014 \"Splash\" \u2014 <1,000 THB \u2014 30 mL EdC",
+      "status": "FAIL",
+      "formula_hash": "c77ed6e50498fc15fd259f815dc4c704b8d4ac25a86bac7901a16ad351fe6fab",
+      "gates": [
+        {
+          "gate": "exact_subtotal",
+          "status": "PASS",
+          "detail": "900.0 uL"
+        },
+        {
+          "gate": "duplicate_canonical_materials",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "material_spine_coverage",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "physics_data_coverage",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "odt_coverage",
+          "status": "WARN",
+          "detail": "3 material(s) rely on derived/unverified ODTs (44% OAV share)",
+          "data": {
+            "missing": [],
+            "low_authority_materials": [
+              {
+                "material": "Hedione",
+                "odt_source": "estimated:odor_thresholds.odt_air",
+                "oav": 12616.085554
+              },
+              {
+                "material": "Iso E Super",
+                "odt_source": "estimated:odor_thresholds.odt_air",
+                "oav": 9402.838711
+              },
+              {
+                "material": "Bergamot FCF",
+                "odt_source": "unverified:odor_thresholds.odt_air",
+                "oav": 8999.189505
+              }
+            ],
+            "low_authority_oav_share": 0.436637
+          }
+        },
+        {
+          "gate": "chemistry_stability",
+          "status": "WARN",
+          "detail": "oxidation/photolability burden 20.7% active mass",
+          "data": {
+            "shelf_life_days": 896,
+            "schiff_base": {
+              "aldehydes": [],
+              "amines": [],
+              "aldehyde_active_pct": 0,
+              "amine_active_pct": 0,
+              "pairs": []
+            },
+            "oxidation_prone_materials": [
+              {
+                "material": "Linalool",
+                "active_mass_pct": 11.034,
+                "half_life_weeks": 5,
+                "science_source": "Linalool"
+              }
+            ],
+            "photolabile_materials": [
+              {
+                "material": "Bergamot FCF",
+                "active_mass_pct": 9.655,
+                "photostability": "moderate",
+                "remaining_24h_outdoor": 0.976286,
+                "science_source": "Bergamot FCF"
+              }
+            ],
+            "reactive_material_active_mass_pct": 20.69
+          }
+        },
+        {
+          "gate": "phase_compatibility",
+          "status": "PASS",
+          "detail": "no HSP phase-out risk detected",
+          "data": {
+            "hsp_covered_materials": [
+              "Galaxolide",
+              "Iso E Super",
+              "Hedione",
+              "Linalool"
+            ],
+            "hsp_coverage_active_mass_pct": 83.448,
+            "hard_fail_supported": true,
+            "risks": [
+              {
+                "material": "Linalool",
+                "red": 0.8973,
+                "active_mass_pct": 11.034,
+                "hsp_source": "fallback:science_data.hsp"
+              },
+              {
+                "material": "Iso E Super",
+                "red": 0.4137,
+                "active_mass_pct": 34.483,
+                "hsp_source": "fallback:science_data.hsp"
+              },
+              {
+                "material": "Hedione",
+                "red": 0.3249,
+                "active_mass_pct": 13.793,
+                "hsp_source": "fallback:science_data.hsp"
+              },
+              {
+                "material": "Galaxolide",
+                "red": 0.2472,
+                "active_mass_pct": 24.138,
+                "hsp_source": "fallback:science_data.hsp"
+              }
+            ],
+            "fail_rows": [],
+            "warn_rows": []
+          }
+        },
+        {
+          "gate": "opaque_preblends",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "osmotheque_archivability",
+          "status": "PASS",
+          "detail": "All materials traceable and archivable"
+        },
+        {
+          "gate": "fougere_skeleton",
+          "status": "FAIL",
+          "detail": "Foug\u00e8re skeleton missing: lavender, coumarin, oakmoss/evernyl"
+        },
+        {
+          "gate": "chypre_skeleton",
+          "status": "FAIL",
+          "detail": "Chypre skeleton missing: labdanum, oakmoss/evernyl"
+        },
+        {
+          "gate": "blue_ambroxan_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "gourmand_angel_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "vanilla_amber_black_opium_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "white_floral_jadore_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "fresh_clean_ckone_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "tobacco_vanille_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "rose_patchouli_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "coconut_tropical_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "iris_woody_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "saffron_leather_oud_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "aldehydic_floral_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "oriental_shalimar_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "green_chypre_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "leather_cuir_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "aquatic_marine_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "floral_oriental_poison_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "skin_scent_molecule_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "tea_matcha_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "mineral_salty_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "lactonic_milky_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "hyper_synthetic_metallic_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "incense_cathedral_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "violet_candyfloss_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "ellena_transparent_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "woody_amber_modern_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "fruity_floral_mass_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_homme_iris_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_homme_intense_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_homme_cologne_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_homme_sport_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_fahrenheit_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_diorissimo_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "dior_eau_sauvage_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "chanel_bleu_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "chanel_egoiste_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "chanel_chance_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "allure_homme_sport_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "allure_homme_sport_cologne_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "allure_homme_sport_edp_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "allure_homme_sport_extreme_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "allure_homme_sport_superleggera_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "prada_lhomme_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "prada_amber_homme_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "prada_infusion_iris_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "ysl_la_nuit_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "ysl_lhomme_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "ysl_kouros_skeleton",
+          "status": "PASS",
+          "detail": "not applicable"
+        },
+        {
+          "gate": "blocked_materials",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "pipette_floor_neat_traces",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "small_diluted_traces",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "gate": "dilution_accuracy",
+          "status": "PASS",
+          "detail": "All dilution/volume combinations practical"
+        },
+        {
+          "gate": "oav_scaling_guard",
+          "status": "PASS",
+          "detail": "not requested"
+        },
+        {
+          "gate": "safety_ifra_allergen",
+          "status": "WARN",
+          "detail": "1 EU allergen declarations",
+          "data": {
+            "score": 99.1,
+            "violations": [],
+            "headroom_violations": [],
+            "warnings": [],
+            "diagnostics": [
+              "\u2713 All materials within IFRA Category 4 limits",
+              "\u2139 1 EU fragrance allergen(s) require label declaration: Linalool"
+            ],
+            "edge_dosing": [],
+            "banned": [],
+            "allergen_declarations": [
+              "Linalool"
+            ],
+            "dermal_exposure": [
+              {
+                "material": "Iso E Super",
+                "pct_in_product": 0.833333,
+                "logp": 3.6,
+                "mw_g_mol": 234.4,
+                "logp_source": "registry:data_spine.logp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 0.991973,
+                "effective_exposure_index": 0.826644,
+                "depot_tau_min": 42.0,
+                "sebum_factor": 1.4
+              },
+              {
+                "material": "Galaxolide",
+                "pct_in_product": 0.583333,
+                "logp": 4.8,
+                "mw_g_mol": 258.4,
+                "logp_source": "registry:data_spine.logp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 1.0,
+                "effective_exposure_index": 0.583333,
+                "depot_tau_min": 60.0,
+                "sebum_factor": 2.0
+              },
+              {
+                "material": "Linalool",
+                "pct_in_product": 0.266667,
+                "logp": 2.7,
+                "mw_g_mol": 154.3,
+                "logp_source": "registry:data_spine.logp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 0.967049,
+                "effective_exposure_index": 0.25788,
+                "depot_tau_min": 30.0,
+                "sebum_factor": 1.0
+              },
+              {
+                "material": "Hedione",
+                "pct_in_product": 0.333333,
+                "logp": 2.7,
+                "mw_g_mol": 226.3,
+                "logp_source": "registry:data_spine.logp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 0.711013,
+                "effective_exposure_index": 0.237004,
+                "depot_tau_min": 30.0,
+                "sebum_factor": 1.0
+              },
+              {
+                "material": "Bergamot FCF",
+                "pct_in_product": 0.233333,
+                "logp": 2.5,
+                "mw_g_mol": 148.0,
+                "logp_source": "registry:data_spine.logp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 0.932027,
+                "effective_exposure_index": 0.217473,
+                "depot_tau_min": 30.0,
+                "sebum_factor": 1.0
+              },
+              {
+                "material": "Dihydromyrcenol",
+                "pct_in_product": 0.166667,
+                "logp": 3.47,
+                "mw_g_mol": 156.3,
+                "logp_source": "profile:ingredient_intelligence.clogp",
+                "mw_source": "registry:data_spine.mw",
+                "fraction_into_skin": 0.999992,
+                "effective_exposure_index": 0.166665,
+                "depot_tau_min": 42.0,
+                "sebum_factor": 1.4
+              }
+            ],
+            "uptake_weighted_sensitizers": [],
+            "missing_ifra_limit": [],
+            "headroom": 1.0,
+            "effective_headroom": 1.0,
+            "commercial_mode": false
+          }
+        },
+        {
+          "gate": "eu_allergen_declaration",
+          "status": "WARN",
+          "detail": "EU allergens requiring label: linalool"
+        },
+        {
+          "gate": "perfumer_logic",
+          "status": "WARN",
+          "detail": "generic; perfumer_logic_brief: No brief-specific logic selected."
+        },
+        {
+          "gate": "family_drift_detector",
+          "status": "PASS",
+          "detail": "not requested"
+        },
+        {
+          "gate": "novelty_vs_reference",
+          "status": "PASS",
+          "detail": "not requested"
+        },
+        {
+          "gate": "perfume_knowledge",
+          "status": "FAIL",
+          "detail": "Pyramid off-target: Expected T:20% H:50% B:30%, Actual T:27.6% H:13.8% B:58.6%; top OAV off-target for family floral; heart OAV off-target for family floral",
+          "data": {
+            "family_key": "floral",
+            "bracket": "EdP",
+            "pyramid": {
+              "family_key": "floral",
+              "bracket": "EdP",
+              "target_top": 20,
+              "target_heart": 50,
+              "target_base": 30,
+              "actual_top": 27.59,
+              "actual_heart": 13.79,
+              "actual_base": 58.62,
+              "top_deviation": 0.3793,
+              "heart_deviation": 0.7241,
+              "base_deviation": 0.954,
+              "overall_fit": 0.3142,
+              "status": "off_target",
+              "details": "Expected T:20% H:50% B:30%, Actual T:27.6% H:13.8% B:58.6%"
+            },
+            "oav_targets": {
+              "top": {
+                "family_key": "floral",
+                "time_window": "top",
+                "targets": {
+                  "green": 200,
+                  "citrus": 400,
+                  "fruity": 120
+                },
+                "actuals": {
+                  "musk": 63.08,
+                  "woody": 24923.79,
+                  "floral": 12616.09,
+                  "aromatic": 24436.61,
+                  "citrus": 8999.19
+                },
+                "hits": [
+                  {
+                    "odour_family": "green",
+                    "target_oav": 200,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  },
+                  {
+                    "odour_family": "citrus",
+                    "target_oav": 400,
+                    "actual_oav": 8999.19,
+                    "ratio": 22.498,
+                    "status": "off_target",
+                    "score": 0.0
+                  },
+                  {
+                    "odour_family": "fruity",
+                    "target_oav": 120,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  }
+                ],
+                "overall_fit": 0.0,
+                "status": "off_target"
+              },
+              "heart": {
+                "family_key": "floral",
+                "time_window": "heart",
+                "targets": {
+                  "floral": 800,
+                  "rose": 300,
+                  "muguet": 200
+                },
+                "actuals": {
+                  "musk": 63.08,
+                  "woody": 24923.79,
+                  "floral": 12616.09,
+                  "aromatic": 24436.61,
+                  "citrus": 8999.19
+                },
+                "hits": [
+                  {
+                    "odour_family": "floral",
+                    "target_oav": 800,
+                    "actual_oav": 12616.09,
+                    "ratio": 15.77,
+                    "status": "off_target",
+                    "score": 0.0
+                  },
+                  {
+                    "odour_family": "rose",
+                    "target_oav": 300,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  },
+                  {
+                    "odour_family": "muguet",
+                    "target_oav": 200,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  }
+                ],
+                "overall_fit": 0.0,
+                "status": "off_target"
+              },
+              "base": {
+                "family_key": "floral",
+                "time_window": "base",
+                "targets": {
+                  "musk": 30,
+                  "wood": 25,
+                  "powder": 15
+                },
+                "actuals": {
+                  "musk": 63.08,
+                  "woody": 24923.79,
+                  "floral": 12616.09,
+                  "aromatic": 24436.61,
+                  "citrus": 8999.19
+                },
+                "hits": [
+                  {
+                    "odour_family": "musk",
+                    "target_oav": 30,
+                    "actual_oav": 63.08,
+                    "ratio": 2.103,
+                    "status": "moderate_deviation",
+                    "score": 0.6
+                  },
+                  {
+                    "odour_family": "wood",
+                    "target_oav": 25,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  },
+                  {
+                    "odour_family": "powder",
+                    "target_oav": 15,
+                    "actual_oav": 0.0,
+                    "ratio": 0.0,
+                    "status": "off_target",
+                    "score": 0.0
+                  }
+                ],
+                "overall_fit": 0.2,
+                "status": "off_target"
+              }
+            }
+          }
+        },
+        {
+          "gate": "carles_pyramid",
+          "status": "WARN",
+          "detail": "Carles pyramid: empty windows = 3h_top_heart, 12h_heart_base (need >2% active in each of 5 windows)",
+          "data": {
+            "1h_top": 27.59,
+            "3h_top_heart": 0.0,
+            "6h_heart": 48.28,
+            "12h_heart_base": 0.0,
+            "24h+_base": 24.14
+          }
+        },
+        {
+          "gate": "carles_material_count",
+          "status": "FAIL",
+          "detail": "6 materials \u2014 too few for a finished perfume"
+        },
+        {
+          "gate": "carles_accord_ratio",
+          "status": "WARN",
+          "detail": "Extreme ratios (>8:1, Carles limit): galaxolide:iso e super = 149:1; galaxolide:hedione = 200:1; galaxolide:linalool = 387:1"
+        },
+        {
+          "gate": "beaux_registres",
+          "status": "WARN",
+          "detail": "Beaux registers missing: alto",
+          "data": {
+            "soprano": 27.59,
+            "alto": 0.0,
+            "tenor": 48.28,
+            "bass": 24.14
+          }
+        },
+        {
+          "gate": "oav_legibility",
+          "status": "PASS",
+          "detail": "6 perceptible materials"
+        },
+        {
+          "gate": "ellena_legibility",
+          "status": "PASS",
+          "detail": "Top 3 materials = 74% of OAV \u2014 legible"
+        },
+        {
+          "gate": "weber_fechner_contrast",
+          "status": "PASS",
+          "detail": "sigma-log(OAV)=0.88 \u2014 good contrast"
+        },
+        {
+          "gate": "stevens_power_law",
+          "status": "PASS",
+          "detail": "Perceived intensity distributed across 6 materials"
+        },
+        {
+          "gate": "stevens_n_efficiency",
+          "status": "WARN",
+          "detail": "Inefficient materials: galaxolide: 39% raw -> 1% perceived"
+        },
+        {
+          "gate": "jnd_redundancy",
+          "status": "PASS",
+          "detail": "No redundant material pairs detected"
+        },
+        {
+          "gate": "guerlain_vanillin_coumarin",
+          "status": "PASS",
+          "detail": "Vanillin 0 / Coumarin 0 \u2014 balanced"
+        },
+        {
+          "gate": "guerlain_nature_synthetic",
+          "status": "PASS",
+          "detail": "Natural 13% / Synthetic 87%"
+        },
+        {
+          "gate": "guerlain_rose_jasmine_balance",
+          "status": "PASS",
+          "detail": "rose/jasmine not applicable"
+        },
+        {
+          "gate": "jellinek_psychology",
+          "status": "WARN",
+          "detail": "Jellinek categories weak: erogenic"
+        },
+        {
+          "gate": "edwards_wheel_coherence",
+          "status": "PASS",
+          "detail": "no family archetype set"
+        },
+        {
+          "gate": "coty_single_material_limit",
+          "status": "PASS",
+          "detail": "No single material exceeds 40%"
+        },
+        {
+          "gate": "roudnitska_hedione_pct",
+          "status": "PASS",
+          "detail": "Hedione = 11.1% of concentrate (10-25% ideal)"
+        },
+        {
+          "gate": "adaptation_timing",
+          "status": "WARN",
+          "detail": "fast tier < 5% (no immediate impact)"
+        },
+        {
+          "gate": "adaptation_overlap",
+          "status": "WARN",
+          "detail": "Top 5 materials all in same adaptation tier (medium: 87%) \u2014 collapse risk"
+        },
+        {
+          "gate": "mixture_suppression",
+          "status": "PASS",
+          "detail": "4 significant families \u2014 within 4-channel limit"
+        },
+        {
+          "gate": "oav_intelligence",
+          "status": "PASS",
+          "detail": "not requested"
+        },
+        {
+          "gate": "olfactory_fatigue",
+          "status": "FAIL",
+          "detail": "Olfactory overdose: dihydromyrcenol=15521 (overdose)"
+        },
+        {
+          "gate": "roudnitska_transparence",
+          "status": "WARN",
+          "detail": "Transparency ratio 84% \u2014 very transparent, may lack depth"
+        },
+        {
+          "gate": "evaporation_rate_balance",
+          "status": "PASS",
+          "detail": "Top 28%/Heart 14%/Base 59%"
+        },
+        {
+          "gate": "tenacity_projection",
+          "status": "WARN",
+          "detail": "VP<0.01Pa = 0% (<10%, weak longevity); VP<0.001Pa = 0% (<3%, may lack depth)"
+        },
+        {
+          "gate": "oriental_skeleton",
+          "status": "FAIL",
+          "detail": "Oriental skeleton missing: labdanum, benzoin, vanillin"
+        },
+        {
+          "gate": "aquatic_skeleton",
+          "status": "PASS",
+          "detail": "Aquatic marker present"
+        },
+        {
+          "gate": "gourmand_skeleton",
+          "status": "WARN",
+          "detail": "Gourmand skeleton missing: ethyl maltol, vanillin, patchouli"
+        },
+        {
+          "gate": "sensory_overcrowding",
+          "status": "PASS",
+          "detail": "5 perceptible channels"
+        },
+        {
+          "gate": "master_perfumer_gate",
+          "status": "PASS",
+          "detail": "coherent, buildable, and readable"
+        },
+        {
+          "gate": "robustness_perturbation",
+          "status": "PASS",
+          "detail": "12 subtotal-preserving perturbations stable",
+          "data": {
+            "status": "PASS",
+            "checked": 12,
+            "skipped": 0,
+            "issues": [],
+            "perturbations": [
+              {
+                "material": "Galaxolide",
+                "direction": "up",
+                "delta_ul": 17.5,
+                "status": "PASS",
+                "family_envelope_drift": 0.012128,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Galaxolide",
+                "direction": "down",
+                "delta_ul": 17.5,
+                "status": "PASS",
+                "family_envelope_drift": 0.011839,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Iso E Super",
+                "direction": "up",
+                "delta_ul": 12.5,
+                "status": "PASS",
+                "family_envelope_drift": 0.008485,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Iso E Super",
+                "direction": "down",
+                "delta_ul": 12.5,
+                "status": "PASS",
+                "family_envelope_drift": 0.008633,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Hedione",
+                "direction": "up",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.011424,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Hedione",
+                "direction": "down",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.011513,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Linalool",
+                "direction": "up",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.022222,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Linalool",
+                "direction": "down",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.022645,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Bergamot FCF",
+                "direction": "up",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.014202,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Bergamot FCF",
+                "direction": "down",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.014406,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Dihydromyrcenol",
+                "direction": "up",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.023951,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              },
+              {
+                "material": "Dihydromyrcenol",
+                "direction": "down",
+                "delta_ul": 5.0,
+                "status": "PASS",
+                "family_envelope_drift": 0.024274,
+                "top_leader_changed": false,
+                "safety_failed": false,
+                "brief_failed": false,
+                "detail": "stable within perturbation thresholds"
+              }
+            ]
+          }
+        },
+        {
+          "gate": "confidence_minimum",
+          "status": "PASS",
+          "detail": "combined confidence 58.6",
+          "data": {
+            "data_confidence": 66.7,
+            "pairing_confidence": 73.3,
+            "prediction_confidence": 5.0,
+            "overall_confidence": 50.2,
+            "confidence_grade": "MEDIUM",
+            "per_material": {
+              "Galaxolide": 50.0,
+              "Iso E Super": 100.0,
+              "Hedione": 50.0,
+              "Linalool": 50.0,
+              "Bergamot FCF": 100.0,
+              "Dihydromyrcenol": 50.0
+            },
+            "pipeline_confidence": 67.1,
+            "combined_confidence": 58.6,
+            "combined_grade": "MEDIUM",
+            "required_minimum": 25.0
+          }
+        }
+      ],
+      "confidence": {
+        "data_confidence": 66.7,
+        "pairing_confidence": 73.3,
+        "prediction_confidence": 5.0,
+        "overall_confidence": 50.2,
+        "confidence_grade": "MEDIUM",
+        "per_material": {
+          "Galaxolide": 50.0,
+          "Iso E Super": 100.0,
+          "Hedione": 50.0,
+          "Linalool": 50.0,
+          "Bergamot FCF": 100.0,
+          "Dihydromyrcenol": 50.0
+        },
+        "pipeline_confidence": 67.1,
+        "combined_confidence": 58.6,
+        "combined_grade": "MEDIUM",
+        "required_minimum": 25.0
+      },
+      "calibration_summary": {
+        "formula_records": 0,
+        "wear_observations": 0,
+        "panel_results": 0,
+        "calibration_ready": false,
+        "calibration_practical": false,
+        "mean_intensity_0_10": null,
+        "mean_projection_cm": null,
+        "mean_intensity_bias_0_10": null,
+        "mean_projection_bias_cm": null
+      },
+      "commercial_readiness": "NOT_RELEASE_READY",
+      "config_summary": {
+        "expected_concentrate_ul": 900.0,
+        "batch_volume_ml": 30.0,
+        "temperature_K": 305.0,
+        "brief": "generic",
+        "family_archetype": "",
+        "concentration_bracket": "EdP",
+        "allow_preblends": false,
+        "min_confidence_score": 25.0,
+        "ifra_headroom": 1.0,
+        "effective_ifra_headroom": 1.0,
+        "commercial_mode": false,
+        "commercial_confidence_policy": "block",
+        "commercial_trial": false,
+        "batch_scaling_targets_ml": [],
+        "audit_source": "formulas/mass-market/T1_Splash_1k_30mL_EdC.md"
+      },
+      "audit_event_id": "0d3ca1588f054befb3deaa6f8afff8f1",
+      "formula_state": {
+        "total_raw_ul": 900.0,
+        "total_active_ul": 725.0,
+        "batch_volume_ml": 30.0,
+        "temperature_K": 305.0,
+        "context": "skin",
+        "total_vapor_ppm": 107.291496,
+        "note_distribution": {
+          "top": 27.6,
+          "heart": 13.8,
+          "base": 58.6
+        },
+        "uncertainty": {
+          "relative_uncertainty": 0.329,
+          "confidence_score": 67.1,
+          "confidence_grade": "MEDIUM"
+        },
+        "materials": [
+          {
+            "name": "Galaxolide",
+            "canonical_name": "galaxolide",
+            "raw_ul": 350.0,
+            "dilution": 0.5,
+            "active_ul": 175.0,
+            "active_g": 0.175,
+            "mw_g_mol": 258.4,
+            "moles": 0.0006772445820433437,
+            "mole_fraction": 0.19366279450720147,
+            "logp": 4.8,
+            "vp_pure_pa": 0.01,
+            "gamma": 1.0230865008970518,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 0.0019813379078631754,
+            "vapor_ppm": 0.019554284804965953,
+            "odt_air_ppm": 0.00031,
+            "oav": 63.07833808053533,
+            "intensity": 3.4670816763951193,
+            "family": "musk",
+            "note": "base",
+            "profile_name": "Galaxolide",
+            "registry_name": "Galaxolide",
+            "ifra_limit_pct": 10.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [
+              "lactone"
+            ],
+            "hsp": [
+              17.2,
+              2.8,
+              3.1
+            ],
+            "hsp_source": "fallback:science_data.hsp",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "registry:data_spine.logp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "literature:peer_reviewed.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          },
+          {
+            "name": "Iso E Super",
+            "canonical_name": "iso e super",
+            "raw_ul": 250.0,
+            "dilution": 1.0,
+            "active_ul": 250.0,
+            "active_g": 0.25,
+            "mw_g_mol": 234.4,
+            "moles": 0.0010665529010238908,
+            "mole_fraction": 0.30498821368028317,
+            "logp": 3.6,
+            "vp_pure_pa": 0.15,
+            "gamma": 1.0412890178524172,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 0.04763713162195578,
+            "vapor_ppm": 0.4701419355732127,
+            "odt_air_ppm": 5e-05,
+            "oav": 9402.838711464254,
+            "intensity": 38.842179834856516,
+            "family": "woody",
+            "note": "base",
+            "profile_name": "Iso E Super",
+            "registry_name": "Iso E Super",
+            "ifra_limit_pct": 20.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [
+              "ketone"
+            ],
+            "hsp": [
+              16.8,
+              2.1,
+              2.4
+            ],
+            "hsp_source": "fallback:science_data.hsp",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "registry:data_spine.logp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "estimated:odor_thresholds.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          },
+          {
+            "name": "Hedione",
+            "canonical_name": "hedione",
+            "raw_ul": 100.0,
+            "dilution": 1.0,
+            "active_ul": 100.0,
+            "active_g": 0.1,
+            "mw_g_mol": 226.3,
+            "moles": 0.0004418912947414936,
+            "mole_fraction": 0.1263618864987333,
+            "logp": 2.7,
+            "vp_pure_pa": 0.5,
+            "gamma": 1.0116380058961871,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 0.06391624343942945,
+            "vapor_ppm": 0.6308042777145764,
+            "odt_air_ppm": 5e-05,
+            "oav": 12616.085554291527,
+            "intensity": 52.77015170318914,
+            "family": "floral",
+            "note": "heart",
+            "profile_name": "Hedione",
+            "registry_name": "Hedione",
+            "ifra_limit_pct": 40.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [
+              "ester"
+            ],
+            "hsp": [
+              16.5,
+              4.2,
+              5.8
+            ],
+            "hsp_source": "fallback:science_data.hsp",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "registry:data_spine.logp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "estimated:odor_thresholds.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          },
+          {
+            "name": "Linalool",
+            "canonical_name": "linalool",
+            "raw_ul": 80.0,
+            "dilution": 1.0,
+            "active_ul": 80.0,
+            "active_g": 0.08,
+            "mw_g_mol": 154.3,
+            "moles": 0.0005184705119896305,
+            "mole_fraction": 0.1482602458310478,
+            "logp": 2.7,
+            "vp_pure_pa": 21.3,
+            "gamma": 1.17610052951735,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 3.714058712282104,
+            "vapor_ppm": 36.65490957100522,
+            "odt_air_ppm": 0.0015,
+            "oav": 24436.606380670146,
+            "intensity": 56.9136393282618,
+            "family": "aromatic",
+            "note": "top",
+            "profile_name": "Linalool",
+            "registry_name": "Linalool",
+            "ifra_limit_pct": 15.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [
+              "alcohol",
+              "terpene"
+            ],
+            "hsp": [
+              16.0,
+              3.5,
+              10.2
+            ],
+            "hsp_source": "fallback:science_data.hsp",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "registry:data_spine.logp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "literature:peer_reviewed.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          },
+          {
+            "name": "Bergamot FCF",
+            "canonical_name": "bergamot fcf",
+            "raw_ul": 70.0,
+            "dilution": 1.0,
+            "active_ul": 70.0,
+            "active_g": 0.07,
+            "mw_g_mol": 148.0,
+            "moles": 0.000472972972972973,
+            "mole_fraction": 0.1352499083801645,
+            "logp": 2.5,
+            "vp_pure_pa": 40.0,
+            "gamma": 1.0112866849976154,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 5.471057259680311,
+            "vapor_ppm": 53.9951370311405,
+            "odt_air_ppm": 0.006,
+            "oav": 8999.189505190083,
+            "intensity": 149.55876439982566,
+            "family": "citrus",
+            "note": "top",
+            "profile_name": "Bergamot FCF",
+            "registry_name": "Bergamot FCF",
+            "ifra_limit_pct": 10.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [
+              "ester",
+              "terpene"
+            ],
+            "hsp": null,
+            "hsp_source": "missing",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "registry:data_spine.logp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "unverified:odor_thresholds.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          },
+          {
+            "name": "Dihydromyrcenol",
+            "canonical_name": "dihydromyrcenol",
+            "raw_ul": 50.0,
+            "dilution": 1.0,
+            "active_ul": 50.0,
+            "active_g": 0.05,
+            "mw_g_mol": 156.3,
+            "moles": 0.0003198976327575176,
+            "mole_fraction": 0.0914769511025699,
+            "logp": 3.47,
+            "vp_pure_pa": 17.0,
+            "gamma": 1.0112866849976154,
+            "gamma_source": "heuristic:hansen_distance",
+            "partial_pressure_pa": 1.572660184781517,
+            "vapor_ppm": 15.520949269987831,
+            "odt_air_ppm": 0.001,
+            "oav": 15520.94926998783,
+            "intensity": 47.46432529619375,
+            "family": "woody",
+            "note": "top",
+            "profile_name": "Dihydromyrcenol",
+            "registry_name": "Dihydromyrcenol",
+            "ifra_limit_pct": 50.0,
+            "is_known": true,
+            "is_opaque_preblend": false,
+            "functional_groups": [],
+            "hsp": null,
+            "hsp_source": "missing",
+            "sources": {
+              "mw": "registry:data_spine.mw",
+              "logp": "profile:ingredient_intelligence.clogp",
+              "vp": "registry:data_spine.vp_25c",
+              "gamma": "heuristic:hansen_distance",
+              "odt": "literature:peer_reviewed.odt_air",
+              "ifra": "literature:ifra_safety"
+            },
+            "missing_fields": []
+          }
+        ]
+      },
+      "time_series": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "state": {
+            "total_raw_ul": 900.0,
+            "total_active_ul": 725.0,
+            "batch_volume_ml": 30.0,
+            "temperature_K": 305.0,
+            "context": "skin",
+            "total_vapor_ppm": 107.291496,
+            "note_distribution": {
+              "top": 27.6,
+              "heart": 13.8,
+              "base": 58.6
+            },
+            "uncertainty": {
+              "relative_uncertainty": 0.329,
+              "confidence_score": 67.1,
+              "confidence_grade": "MEDIUM"
+            },
+            "materials": [
+              {
+                "name": "Galaxolide",
+                "canonical_name": "galaxolide",
+                "raw_ul": 350.0,
+                "dilution": 0.5,
+                "active_ul": 175.0,
+                "active_g": 0.175,
+                "mw_g_mol": 258.4,
+                "moles": 0.0006772445820433437,
+                "mole_fraction": 0.19366279450720147,
+                "logp": 4.8,
+                "vp_pure_pa": 0.01,
+                "gamma": 1.0230865008970518,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.0019813379078631754,
+                "vapor_ppm": 0.019554284804965953,
+                "odt_air_ppm": 0.00031,
+                "oav": 63.07833808053533,
+                "intensity": 3.4670816763951193,
+                "family": "musk",
+                "note": "base",
+                "profile_name": "Galaxolide",
+                "registry_name": "Galaxolide",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "lactone"
+                ],
+                "hsp": [
+                  17.2,
+                  2.8,
+                  3.1
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Iso E Super",
+                "canonical_name": "iso e super",
+                "raw_ul": 250.0,
+                "dilution": 1.0,
+                "active_ul": 250.0,
+                "active_g": 0.25,
+                "mw_g_mol": 234.4,
+                "moles": 0.0010665529010238908,
+                "mole_fraction": 0.30498821368028317,
+                "logp": 3.6,
+                "vp_pure_pa": 0.15,
+                "gamma": 1.0412890178524172,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.04763713162195578,
+                "vapor_ppm": 0.4701419355732127,
+                "odt_air_ppm": 5e-05,
+                "oav": 9402.838711464254,
+                "intensity": 38.842179834856516,
+                "family": "woody",
+                "note": "base",
+                "profile_name": "Iso E Super",
+                "registry_name": "Iso E Super",
+                "ifra_limit_pct": 20.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ketone"
+                ],
+                "hsp": [
+                  16.8,
+                  2.1,
+                  2.4
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Hedione",
+                "canonical_name": "hedione",
+                "raw_ul": 100.0,
+                "dilution": 1.0,
+                "active_ul": 100.0,
+                "active_g": 0.1,
+                "mw_g_mol": 226.3,
+                "moles": 0.0004418912947414936,
+                "mole_fraction": 0.1263618864987333,
+                "logp": 2.7,
+                "vp_pure_pa": 0.5,
+                "gamma": 1.0116380058961871,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.06391624343942945,
+                "vapor_ppm": 0.6308042777145764,
+                "odt_air_ppm": 5e-05,
+                "oav": 12616.085554291527,
+                "intensity": 52.77015170318914,
+                "family": "floral",
+                "note": "heart",
+                "profile_name": "Hedione",
+                "registry_name": "Hedione",
+                "ifra_limit_pct": 40.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester"
+                ],
+                "hsp": [
+                  16.5,
+                  4.2,
+                  5.8
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Linalool",
+                "canonical_name": "linalool",
+                "raw_ul": 80.0,
+                "dilution": 1.0,
+                "active_ul": 80.0,
+                "active_g": 0.08,
+                "mw_g_mol": 154.3,
+                "moles": 0.0005184705119896305,
+                "mole_fraction": 0.1482602458310478,
+                "logp": 2.7,
+                "vp_pure_pa": 21.3,
+                "gamma": 1.17610052951735,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 3.714058712282104,
+                "vapor_ppm": 36.65490957100522,
+                "odt_air_ppm": 0.0015,
+                "oav": 24436.606380670146,
+                "intensity": 56.9136393282618,
+                "family": "aromatic",
+                "note": "top",
+                "profile_name": "Linalool",
+                "registry_name": "Linalool",
+                "ifra_limit_pct": 15.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "alcohol",
+                  "terpene"
+                ],
+                "hsp": [
+                  16.0,
+                  3.5,
+                  10.2
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Bergamot FCF",
+                "canonical_name": "bergamot fcf",
+                "raw_ul": 70.0,
+                "dilution": 1.0,
+                "active_ul": 70.0,
+                "active_g": 0.07,
+                "mw_g_mol": 148.0,
+                "moles": 0.000472972972972973,
+                "mole_fraction": 0.1352499083801645,
+                "logp": 2.5,
+                "vp_pure_pa": 40.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 5.471057259680311,
+                "vapor_ppm": 53.9951370311405,
+                "odt_air_ppm": 0.006,
+                "oav": 8999.189505190083,
+                "intensity": 149.55876439982566,
+                "family": "citrus",
+                "note": "top",
+                "profile_name": "Bergamot FCF",
+                "registry_name": "Bergamot FCF",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester",
+                  "terpene"
+                ],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "unverified:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Dihydromyrcenol",
+                "canonical_name": "dihydromyrcenol",
+                "raw_ul": 50.0,
+                "dilution": 1.0,
+                "active_ul": 50.0,
+                "active_g": 0.05,
+                "mw_g_mol": 156.3,
+                "moles": 0.0003198976327575176,
+                "mole_fraction": 0.0914769511025699,
+                "logp": 3.47,
+                "vp_pure_pa": 17.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 1.572660184781517,
+                "vapor_ppm": 15.520949269987831,
+                "odt_air_ppm": 0.001,
+                "oav": 15520.94926998783,
+                "intensity": 47.46432529619375,
+                "family": "woody",
+                "note": "top",
+                "profile_name": "Dihydromyrcenol",
+                "registry_name": "Dihydromyrcenol",
+                "ifra_limit_pct": 50.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "profile:ingredient_intelligence.clogp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              }
+            ]
+          },
+          "dominant_oav": [
+            {
+              "material": "Linalool",
+              "oav": 24436.606,
+              "ppm": 36.65491,
+              "intensity": 56.914,
+              "family": "aromatic"
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15520.949,
+              "ppm": 15.520949,
+              "intensity": 47.464,
+              "family": "woody"
+            },
+            {
+              "material": "Hedione",
+              "oav": 12616.086,
+              "ppm": 0.630804,
+              "intensity": 52.77,
+              "family": "floral"
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9402.839,
+              "ppm": 0.470142,
+              "intensity": 38.842,
+              "family": "woody"
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8999.19,
+              "ppm": 53.995137,
+              "intensity": 149.559,
+              "family": "citrus"
+            },
+            {
+              "material": "Galaxolide",
+              "oav": 63.078,
+              "ppm": 0.019554,
+              "intensity": 3.467,
+              "family": "musk"
+            }
+          ],
+          "receptor_activation": {
+            "OR1A1": 0.9834,
+            "OR2W1": 0.9152,
+            "OR5A1": 0.855,
+            "OR7D4": 0.0129,
+            "OR10G4": 0.0,
+            "OR11H7": 0.0,
+            "OR8B3": 0.0,
+            "OR_WD": 0.9207
+          },
+          "receptor_source": "family_prior_proxy"
+        },
+        {
+          "label": "top",
+          "t_seconds": 300.0,
+          "state": {
+            "total_raw_ul": 897.2075,
+            "total_active_ul": 722.2081,
+            "batch_volume_ml": 30.0,
+            "temperature_K": 305.0,
+            "context": "skin",
+            "total_vapor_ppm": 106.214152,
+            "note_distribution": {
+              "top": 27.3,
+              "heart": 13.8,
+              "base": 58.8
+            },
+            "uncertainty": {
+              "relative_uncertainty": 0.329,
+              "confidence_score": 67.1,
+              "confidence_grade": "MEDIUM"
+            },
+            "materials": [
+              {
+                "name": "Galaxolide",
+                "canonical_name": "galaxolide",
+                "raw_ul": 349.9987,
+                "dilution": 0.5,
+                "active_ul": 174.9993,
+                "active_g": 0.17499933,
+                "mw_g_mol": 258.4,
+                "moles": 0.0006772419958436241,
+                "mole_fraction": 0.19468439870902812,
+                "logp": 4.8,
+                "vp_pure_pa": 0.01,
+                "gamma": 1.0230865008970518,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.001991789802544661,
+                "vapor_ppm": 0.01965743698539019,
+                "odt_air_ppm": 0.00031,
+                "oav": 63.41108704964577,
+                "intensity": 3.4725584099552425,
+                "family": "musk",
+                "note": "base",
+                "profile_name": "Galaxolide",
+                "registry_name": "Galaxolide",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "lactone"
+                ],
+                "hsp": [
+                  17.2,
+                  2.8,
+                  3.1
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Iso E Super",
+                "canonical_name": "iso e super",
+                "raw_ul": 249.9847,
+                "dilution": 1.0,
+                "active_ul": 249.9847,
+                "active_g": 0.2499847,
+                "mw_g_mol": 234.4,
+                "moles": 0.0010664876174226745,
+                "mole_fraction": 0.30657948237530597,
+                "logp": 3.6,
+                "vp_pure_pa": 0.15,
+                "gamma": 1.0412890178524172,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.04788567721444272,
+                "vapor_ppm": 0.47259488985386355,
+                "odt_air_ppm": 5e-05,
+                "oav": 9451.89779707727,
+                "intensity": 38.923116559989786,
+                "family": "woody",
+                "note": "base",
+                "profile_name": "Iso E Super",
+                "registry_name": "Iso E Super",
+                "ifra_limit_pct": 20.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ketone"
+                ],
+                "hsp": [
+                  16.8,
+                  2.1,
+                  2.4
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Hedione",
+                "canonical_name": "hedione",
+                "raw_ul": 99.9798,
+                "dilution": 1.0,
+                "active_ul": 99.9798,
+                "active_g": 0.09997983,
+                "mw_g_mol": 226.3,
+                "moles": 0.00044180215410046436,
+                "mole_fraction": 0.1270033270932338,
+                "logp": 2.7,
+                "vp_pure_pa": 0.5,
+                "gamma": 1.0116380058961871,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.06424069628139012,
+                "vapor_ppm": 0.6340063783014075,
+                "odt_air_ppm": 5e-05,
+                "oav": 12680.12756602815,
+                "intensity": 52.882493116235736,
+                "family": "floral",
+                "note": "heart",
+                "profile_name": "Hedione",
+                "registry_name": "Hedione",
+                "ifra_limit_pct": 40.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester"
+                ],
+                "hsp": [
+                  16.5,
+                  4.2,
+                  5.8
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Linalool",
+                "canonical_name": "linalool",
+                "raw_ul": 79.0378,
+                "dilution": 1.0,
+                "active_ul": 79.0378,
+                "active_g": 0.07903782,
+                "mw_g_mol": 154.3,
+                "moles": 0.0005122347213907575,
+                "mole_fraction": 0.14725033199930587,
+                "logp": 2.7,
+                "vp_pure_pa": 21.3,
+                "gamma": 1.17610052951735,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 3.68875942018657,
+                "vapor_ppm": 36.40522497099995,
+                "odt_air_ppm": 0.0015,
+                "oav": 24270.149980666636,
+                "intensity": 56.75824835996242,
+                "family": "aromatic",
+                "note": "top",
+                "profile_name": "Linalool",
+                "registry_name": "Linalool",
+                "ifra_limit_pct": 15.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "alcohol",
+                  "terpene"
+                ],
+                "hsp": [
+                  16.0,
+                  3.5,
+                  10.2
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Bergamot FCF",
+                "canonical_name": "bergamot fcf",
+                "raw_ul": 68.6173,
+                "dilution": 1.0,
+                "active_ul": 68.6173,
+                "active_g": 0.0686173,
+                "mw_g_mol": 148.0,
+                "moles": 0.00046363041082784617,
+                "mole_fraction": 0.13327822005899412,
+                "logp": 2.5,
+                "vp_pure_pa": 40.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 5.391299573833715,
+                "vapor_ppm": 53.20798987252618,
+                "odt_air_ppm": 0.006,
+                "oav": 8867.998312087697,
+                "intensity": 148.35564667673935,
+                "family": "citrus",
+                "note": "top",
+                "profile_name": "Bergamot FCF",
+                "registry_name": "Bergamot FCF",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester",
+                  "terpene"
+                ],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "unverified:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Dihydromyrcenol",
+                "canonical_name": "dihydromyrcenol",
+                "raw_ul": 49.5892,
+                "dilution": 1.0,
+                "active_ul": 49.5892,
+                "active_g": 0.04958916,
+                "mw_g_mol": 156.3,
+                "moles": 0.000317269086669742,
+                "mole_fraction": 0.0912042397641321,
+                "logp": 3.47,
+                "vp_pure_pa": 17.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 1.5679717659095462,
+                "vapor_ppm": 15.474678173299248,
+                "odt_air_ppm": 0.001,
+                "oav": 15474.678173299248,
+                "intensity": 47.4076742835587,
+                "family": "woody",
+                "note": "top",
+                "profile_name": "Dihydromyrcenol",
+                "registry_name": "Dihydromyrcenol",
+                "ifra_limit_pct": 50.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "profile:ingredient_intelligence.clogp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              }
+            ]
+          },
+          "dominant_oav": [
+            {
+              "material": "Linalool",
+              "oav": 24270.15,
+              "ppm": 36.405225,
+              "intensity": 56.758,
+              "family": "aromatic"
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15474.678,
+              "ppm": 15.474678,
+              "intensity": 47.408,
+              "family": "woody"
+            },
+            {
+              "material": "Hedione",
+              "oav": 12680.128,
+              "ppm": 0.634006,
+              "intensity": 52.882,
+              "family": "floral"
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9451.898,
+              "ppm": 0.472595,
+              "intensity": 38.923,
+              "family": "woody"
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8867.998,
+              "ppm": 53.20799,
+              "intensity": 148.356,
+              "family": "citrus"
+            },
+            {
+              "material": "Galaxolide",
+              "oav": 63.411,
+              "ppm": 0.019657,
+              "intensity": 3.473,
+              "family": "musk"
+            }
+          ],
+          "receptor_activation": {
+            "OR1A1": 0.9832,
+            "OR2W1": 0.9141,
+            "OR5A1": 0.8544,
+            "OR7D4": 0.0129,
+            "OR10G4": 0.0,
+            "OR11H7": 0.0,
+            "OR8B3": 0.0,
+            "OR_WD": 0.9203
+          },
+          "receptor_source": "family_prior_proxy"
+        },
+        {
+          "label": "heart",
+          "t_seconds": 1800.0,
+          "state": {
+            "total_raw_ul": 883.8648,
+            "total_active_ul": 708.8688,
+            "batch_volume_ml": 30.0,
+            "temperature_K": 305.0,
+            "context": "skin",
+            "total_vapor_ppm": 100.943961,
+            "note_distribution": {
+              "top": 26.0,
+              "heart": 14.1,
+              "base": 59.9
+            },
+            "uncertainty": {
+              "relative_uncertainty": 0.329,
+              "confidence_score": 67.1,
+              "confidence_grade": "MEDIUM"
+            },
+            "materials": [
+              {
+                "name": "Galaxolide",
+                "canonical_name": "galaxolide",
+                "raw_ul": 349.992,
+                "dilution": 0.5,
+                "active_ul": 174.996,
+                "active_g": 0.17499599,
+                "mw_g_mol": 258.4,
+                "moles": 0.0006772290649931649,
+                "mole_fraction": 0.19971540261086435,
+                "logp": 4.8,
+                "vp_pure_pa": 0.01,
+                "gamma": 1.0230865008970518,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.002043261324323951,
+                "vapor_ppm": 0.020165421409562803,
+                "odt_air_ppm": 0.00031,
+                "oav": 65.04974648246066,
+                "intensity": 3.4992396159388144,
+                "family": "musk",
+                "note": "base",
+                "profile_name": "Galaxolide",
+                "registry_name": "Galaxolide",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "lactone"
+                ],
+                "hsp": [
+                  17.2,
+                  2.8,
+                  3.1
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Iso E Super",
+                "canonical_name": "iso e super",
+                "raw_ul": 249.9082,
+                "dilution": 1.0,
+                "active_ul": 249.9082,
+                "active_g": 0.2499082,
+                "mw_g_mol": 234.4,
+                "moles": 0.0010661612593517468,
+                "mole_fraction": 0.314411823363915,
+                "logp": 3.6,
+                "vp_pure_pa": 0.15,
+                "gamma": 1.0412890178524172,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.04910903681276981,
+                "vapor_ppm": 0.48466851036535713,
+                "odt_air_ppm": 5e-05,
+                "oav": 9693.370207307142,
+                "intensity": 39.31786433447599,
+                "family": "woody",
+                "note": "base",
+                "profile_name": "Iso E Super",
+                "registry_name": "Iso E Super",
+                "ifra_limit_pct": 20.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ketone"
+                ],
+                "hsp": [
+                  16.8,
+                  2.1,
+                  2.4
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Hedione",
+                "canonical_name": "hedione",
+                "raw_ul": 99.879,
+                "dilution": 1.0,
+                "active_ul": 99.879,
+                "active_g": 0.09987903,
+                "mw_g_mol": 226.3,
+                "moles": 0.00044135672055158,
+                "mole_fraction": 0.13015645620711683,
+                "logp": 2.7,
+                "vp_pure_pa": 0.5,
+                "gamma": 1.0116380058961871,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.06583560890594103,
+                "vapor_ppm": 0.6497469420768914,
+                "odt_air_ppm": 5e-05,
+                "oav": 12994.938841537827,
+                "intensity": 53.430000809378434,
+                "family": "floral",
+                "note": "heart",
+                "profile_name": "Hedione",
+                "registry_name": "Hedione",
+                "ifra_limit_pct": 40.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester"
+                ],
+                "hsp": [
+                  16.5,
+                  4.2,
+                  5.8
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Linalool",
+                "canonical_name": "linalool",
+                "raw_ul": 74.3977,
+                "dilution": 1.0,
+                "active_ul": 74.3977,
+                "active_g": 0.07439773,
+                "mw_g_mol": 154.3,
+                "moles": 0.00048216288362244215,
+                "mole_fraction": 0.1421902269177464,
+                "logp": 2.7,
+                "vp_pure_pa": 21.3,
+                "gamma": 1.17610052951735,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 3.5619990249242734,
+                "vapor_ppm": 35.15419713717517,
+                "odt_air_ppm": 0.0015,
+                "oav": 23436.131424783445,
+                "intensity": 55.96987924389511,
+                "family": "aromatic",
+                "note": "top",
+                "profile_name": "Linalool",
+                "registry_name": "Linalool",
+                "ifra_limit_pct": 15.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "alcohol",
+                  "terpene"
+                ],
+                "hsp": [
+                  16.0,
+                  3.5,
+                  10.2
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Bergamot FCF",
+                "canonical_name": "bergamot fcf",
+                "raw_ul": 62.1029,
+                "dilution": 1.0,
+                "active_ul": 62.1029,
+                "active_g": 0.06210286,
+                "mw_g_mol": 148.0,
+                "moles": 0.0004196138998096725,
+                "mole_fraction": 0.1237444806691063,
+                "logp": 2.5,
+                "vp_pure_pa": 40.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 5.005645825704481,
+                "vapor_ppm": 49.4018833032764,
+                "odt_air_ppm": 0.006,
+                "oav": 8233.647217212732,
+                "intensity": 142.42156059979496,
+                "family": "citrus",
+                "note": "top",
+                "profile_name": "Bergamot FCF",
+                "registry_name": "Bergamot FCF",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester",
+                  "terpene"
+                ],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "unverified:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Dihydromyrcenol",
+                "canonical_name": "dihydromyrcenol",
+                "raw_ul": 47.585,
+                "dilution": 1.0,
+                "active_ul": 47.585,
+                "active_g": 0.04758504,
+                "mw_g_mol": 156.3,
+                "moles": 0.000304446803579602,
+                "mole_fraction": 0.08978161023125109,
+                "logp": 3.47,
+                "vp_pure_pa": 17.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 1.5435140987366684,
+                "vapor_ppm": 15.233299765474152,
+                "odt_air_ppm": 0.001,
+                "oav": 15233.299765474152,
+                "intensity": 47.11048717367161,
+                "family": "woody",
+                "note": "top",
+                "profile_name": "Dihydromyrcenol",
+                "registry_name": "Dihydromyrcenol",
+                "ifra_limit_pct": 50.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "profile:ingredient_intelligence.clogp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              }
+            ]
+          },
+          "dominant_oav": [
+            {
+              "material": "Linalool",
+              "oav": 23436.131,
+              "ppm": 35.154197,
+              "intensity": 55.97,
+              "family": "aromatic"
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15233.3,
+              "ppm": 15.2333,
+              "intensity": 47.11,
+              "family": "woody"
+            },
+            {
+              "material": "Hedione",
+              "oav": 12994.939,
+              "ppm": 0.649747,
+              "intensity": 53.43,
+              "family": "floral"
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9693.37,
+              "ppm": 0.484669,
+              "intensity": 39.318,
+              "family": "woody"
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8233.647,
+              "ppm": 49.401883,
+              "intensity": 142.422,
+              "family": "citrus"
+            },
+            {
+              "material": "Galaxolide",
+              "oav": 65.05,
+              "ppm": 0.020165,
+              "intensity": 3.499,
+              "family": "musk"
+            }
+          ],
+          "receptor_activation": {
+            "OR1A1": 0.982,
+            "OR2W1": 0.9081,
+            "OR5A1": 0.8516,
+            "OR7D4": 0.0133,
+            "OR10G4": 0.0,
+            "OR11H7": 0.0,
+            "OR8B3": 0.0,
+            "OR_WD": 0.9178
+          },
+          "receptor_source": "family_prior_proxy"
+        },
+        {
+          "label": "late_heart",
+          "t_seconds": 7200.0,
+          "state": {
+            "total_raw_ul": 843.3388,
+            "total_active_ul": 668.3548,
+            "batch_volume_ml": 30.0,
+            "temperature_K": 305.0,
+            "context": "skin",
+            "total_vapor_ppm": 83.607395,
+            "note_distribution": {
+              "top": 21.6,
+              "heart": 14.9,
+              "base": 63.5
+            },
+            "uncertainty": {
+              "relative_uncertainty": 0.329,
+              "confidence_score": 67.1,
+              "confidence_grade": "MEDIUM"
+            },
+            "materials": [
+              {
+                "name": "Galaxolide",
+                "canonical_name": "galaxolide",
+                "raw_ul": 349.9679,
+                "dilution": 0.5,
+                "active_ul": 174.984,
+                "active_g": 0.17498396,
+                "mw_g_mol": 258.4,
+                "moles": 0.0006771825159757592,
+                "mole_fraction": 0.2166868169473877,
+                "logp": 4.8,
+                "vp_pure_pa": 0.01,
+                "gamma": 1.0230865008970518,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.0022168935734122285,
+                "vapor_ppm": 0.021879038474337312,
+                "odt_air_ppm": 0.00031,
+                "oav": 70.57754346560424,
+                "intensity": 3.5859147568449576,
+                "family": "musk",
+                "note": "base",
+                "profile_name": "Galaxolide",
+                "registry_name": "Galaxolide",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "lactone"
+                ],
+                "hsp": [
+                  17.2,
+                  2.8,
+                  3.1
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Iso E Super",
+                "canonical_name": "iso e super",
+                "raw_ul": 249.633,
+                "dilution": 1.0,
+                "active_ul": 249.633,
+                "active_g": 0.249633,
+                "mw_g_mol": 234.4,
+                "moles": 0.0010649871969966279,
+                "mole_fraction": 0.3407776786357263,
+                "logp": 3.6,
+                "vp_pure_pa": 0.15,
+                "gamma": 1.0412890178524172,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.053227208143893305,
+                "vapor_ppm": 0.5253117013954434,
+                "odt_air_ppm": 5e-05,
+                "oav": 10506.234027908868,
+                "intensity": 40.60493580473478,
+                "family": "woody",
+                "note": "base",
+                "profile_name": "Iso E Super",
+                "registry_name": "Iso E Super",
+                "ifra_limit_pct": 20.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ketone"
+                ],
+                "hsp": [
+                  16.8,
+                  2.1,
+                  2.4
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Hedione",
+                "canonical_name": "hedione",
+                "raw_ul": 99.517,
+                "dilution": 1.0,
+                "active_ul": 99.517,
+                "active_g": 0.09951698,
+                "mw_g_mol": 226.3,
+                "moles": 0.0004397568750325907,
+                "mole_fraction": 0.1407146747494486,
+                "logp": 2.7,
+                "vp_pure_pa": 0.5,
+                "gamma": 1.0116380058961871,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.07117615648193137,
+                "vapor_ppm": 0.7024540486743783,
+                "odt_air_ppm": 5e-05,
+                "oav": 14049.080973487566,
+                "intensity": 55.20928522984311,
+                "family": "floral",
+                "note": "heart",
+                "profile_name": "Hedione",
+                "registry_name": "Hedione",
+                "ifra_limit_pct": 40.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester"
+                ],
+                "hsp": [
+                  16.5,
+                  4.2,
+                  5.8
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Linalool",
+                "canonical_name": "linalool",
+                "raw_ul": 59.8369,
+                "dilution": 1.0,
+                "active_ul": 59.8369,
+                "active_g": 0.05983687,
+                "mw_g_mol": 154.3,
+                "moles": 0.00038779563862948455,
+                "mole_fraction": 0.12408796827783194,
+                "logp": 2.7,
+                "vp_pure_pa": 21.3,
+                "gamma": 1.17610052951735,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 3.1085204067235828,
+                "vapor_ppm": 30.678711144570272,
+                "odt_air_ppm": 0.0015,
+                "oav": 20452.47409638018,
+                "intensity": 53.00274235414088,
+                "family": "aromatic",
+                "note": "top",
+                "profile_name": "Linalool",
+                "registry_name": "Linalool",
+                "ifra_limit_pct": 15.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "alcohol",
+                  "terpene"
+                ],
+                "hsp": [
+                  16.0,
+                  3.5,
+                  10.2
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Bergamot FCF",
+                "canonical_name": "bergamot fcf",
+                "raw_ul": 43.3663,
+                "dilution": 1.0,
+                "active_ul": 43.3663,
+                "active_g": 0.04336628,
+                "mw_g_mol": 148.0,
+                "moles": 0.00029301542932036646,
+                "mole_fraction": 0.09375992320831757,
+                "logp": 2.5,
+                "vp_pure_pa": 40.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 3.7927264770788183,
+                "vapor_ppm": 37.431300045189424,
+                "odt_air_ppm": 0.006,
+                "oav": 6238.55000753157,
+                "intensity": 122.26327177942197,
+                "family": "citrus",
+                "note": "top",
+                "profile_name": "Bergamot FCF",
+                "registry_name": "Bergamot FCF",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester",
+                  "terpene"
+                ],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "unverified:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Dihydromyrcenol",
+                "canonical_name": "dihydromyrcenol",
+                "raw_ul": 41.0177,
+                "dilution": 1.0,
+                "active_ul": 41.0177,
+                "active_g": 0.04101773,
+                "mw_g_mol": 156.3,
+                "moles": 0.0002624294654957643,
+                "mole_fraction": 0.08397293818128795,
+                "logp": 3.47,
+                "vp_pure_pa": 17.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 1.4436521428086944,
+                "vapor_ppm": 14.247738887823285,
+                "odt_air_ppm": 0.001,
+                "oav": 14247.738887823285,
+                "intensity": 45.866793377913574,
+                "family": "woody",
+                "note": "top",
+                "profile_name": "Dihydromyrcenol",
+                "registry_name": "Dihydromyrcenol",
+                "ifra_limit_pct": 50.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "profile:ingredient_intelligence.clogp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              }
+            ]
+          },
+          "dominant_oav": [
+            {
+              "material": "Linalool",
+              "oav": 20452.474,
+              "ppm": 30.678711,
+              "intensity": 53.003,
+              "family": "aromatic"
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 14247.739,
+              "ppm": 14.247739,
+              "intensity": 45.867,
+              "family": "woody"
+            },
+            {
+              "material": "Hedione",
+              "oav": 14049.081,
+              "ppm": 0.702454,
+              "intensity": 55.209,
+              "family": "floral"
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 10506.234,
+              "ppm": 0.525312,
+              "intensity": 40.605,
+              "family": "woody"
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 6238.55,
+              "ppm": 37.4313,
+              "intensity": 122.263,
+              "family": "citrus"
+            },
+            {
+              "material": "Galaxolide",
+              "oav": 70.578,
+              "ppm": 0.021879,
+              "intensity": 3.586,
+              "family": "musk"
+            }
+          ],
+          "receptor_activation": {
+            "OR1A1": 0.9768,
+            "OR2W1": 0.8822,
+            "OR5A1": 0.8399,
+            "OR7D4": 0.0144,
+            "OR10G4": 0.0,
+            "OR11H7": 0.0,
+            "OR8B3": 0.0,
+            "OR_WD": 0.9078
+          },
+          "receptor_source": "family_prior_proxy"
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 14400.0,
+          "state": {
+            "total_raw_ul": 803.5096,
+            "total_active_ul": 628.5417,
+            "batch_volume_ml": 30.0,
+            "temperature_K": 305.0,
+            "context": "skin",
+            "total_vapor_ppm": 64.43251,
+            "note_distribution": {
+              "top": 16.7,
+              "heart": 15.8,
+              "base": 67.5
+            },
+            "uncertainty": {
+              "relative_uncertainty": 0.329,
+              "confidence_score": 67.1,
+              "confidence_grade": "MEDIUM"
+            },
+            "materials": [
+              {
+                "name": "Galaxolide",
+                "canonical_name": "galaxolide",
+                "raw_ul": 349.9359,
+                "dilution": 0.5,
+                "active_ul": 174.9679,
+                "active_g": 0.17496793,
+                "mw_g_mol": 258.4,
+                "moles": 0.0006771204555962184,
+                "mole_fraction": 0.23633837511863742,
+                "logp": 4.8,
+                "vp_pure_pa": 0.01,
+                "gamma": 1.0230865008970518,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.002417946012278216,
+                "vapor_ppm": 0.023863271771805736,
+                "odt_air_ppm": 0.00031,
+                "oav": 76.97829603808302,
+                "intensity": 3.6805310680747634,
+                "family": "musk",
+                "note": "base",
+                "profile_name": "Galaxolide",
+                "registry_name": "Galaxolide",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "lactone"
+                ],
+                "hsp": [
+                  17.2,
+                  2.8,
+                  3.1
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Iso E Super",
+                "canonical_name": "iso e super",
+                "raw_ul": 249.2665,
+                "dilution": 1.0,
+                "active_ul": 249.2665,
+                "active_g": 0.24926654,
+                "mw_g_mol": 234.4,
+                "moles": 0.0010634237914292901,
+                "mole_fraction": 0.37117155278908226,
+                "logp": 3.6,
+                "vp_pure_pa": 0.15,
+                "gamma": 1.0412890178524172,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.05797452924877501,
+                "vapor_ppm": 0.5721641179252407,
+                "odt_air_ppm": 5e-05,
+                "oav": 11443.282358504814,
+                "intensity": 42.016536092774544,
+                "family": "woody",
+                "note": "base",
+                "profile_name": "Iso E Super",
+                "registry_name": "Iso E Super",
+                "ifra_limit_pct": 20.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ketone"
+                ],
+                "hsp": [
+                  16.8,
+                  2.1,
+                  2.4
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Hedione",
+                "canonical_name": "hedione",
+                "raw_ul": 99.0363,
+                "dilution": 1.0,
+                "active_ul": 99.0363,
+                "active_g": 0.09903629,
+                "mw_g_mol": 226.3,
+                "moles": 0.0004376327649802661,
+                "mole_fraction": 0.15274891744784302,
+                "logp": 2.7,
+                "vp_pure_pa": 0.5,
+                "gamma": 1.0116380058961871,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 0.0772633051248686,
+                "vapor_ppm": 0.7625295349111139,
+                "odt_air_ppm": 5e-05,
+                "oav": 15250.590698222277,
+                "intensity": 57.1452845371132,
+                "family": "floral",
+                "note": "heart",
+                "profile_name": "Hedione",
+                "registry_name": "Hedione",
+                "ifra_limit_pct": 40.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester"
+                ],
+                "hsp": [
+                  16.5,
+                  4.2,
+                  5.8
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "estimated:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Linalool",
+                "canonical_name": "linalool",
+                "raw_ul": 44.7556,
+                "dilution": 1.0,
+                "active_ul": 44.7556,
+                "active_g": 0.04475563,
+                "mw_g_mol": 154.3,
+                "moles": 0.000290055950844621,
+                "mole_fraction": 0.10123952326288566,
+                "logp": 2.7,
+                "vp_pure_pa": 21.3,
+                "gamma": 1.17610052951735,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 2.5361453523441106,
+                "vapor_ppm": 25.02980856002083,
+                "odt_air_ppm": 0.0015,
+                "oav": 16686.539040013886,
+                "intensity": 48.85921752887094,
+                "family": "aromatic",
+                "note": "top",
+                "profile_name": "Linalool",
+                "registry_name": "Linalool",
+                "ifra_limit_pct": 15.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "alcohol",
+                  "terpene"
+                ],
+                "hsp": [
+                  16.0,
+                  3.5,
+                  10.2
+                ],
+                "hsp_source": "fallback:science_data.hsp",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Bergamot FCF",
+                "canonical_name": "bergamot fcf",
+                "raw_ul": 26.8662,
+                "dilution": 1.0,
+                "active_ul": 26.8662,
+                "active_g": 0.02686621,
+                "mw_g_mol": 148.0,
+                "moles": 0.00018152843127614576,
+                "mole_fraction": 0.06335967866731086,
+                "logp": 2.5,
+                "vp_pure_pa": 40.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 2.5629919760791573,
+                "vapor_ppm": 25.294764135989706,
+                "odt_air_ppm": 0.006,
+                "oav": 4215.794022664951,
+                "intensity": 98.55613438729857,
+                "family": "citrus",
+                "note": "top",
+                "profile_name": "Bergamot FCF",
+                "registry_name": "Bergamot FCF",
+                "ifra_limit_pct": 10.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [
+                  "ester",
+                  "terpene"
+                ],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "registry:data_spine.logp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "unverified:odor_thresholds.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              },
+              {
+                "name": "Dihydromyrcenol",
+                "canonical_name": "dihydromyrcenol",
+                "raw_ul": 33.6491,
+                "dilution": 1.0,
+                "active_ul": 33.6491,
+                "active_g": 0.03364908,
+                "mw_g_mol": 156.3,
+                "moles": 0.00021528519535058706,
+                "mole_fraction": 0.07514195271424073,
+                "logp": 3.47,
+                "vp_pure_pa": 17.0,
+                "gamma": 1.0112866849976154,
+                "gamma_source": "heuristic:hansen_distance",
+                "partial_pressure_pa": 1.2918309564987454,
+                "vapor_ppm": 12.749380276326132,
+                "odt_air_ppm": 0.001,
+                "oav": 12749.380276326132,
+                "intensity": 43.872828051051464,
+                "family": "woody",
+                "note": "top",
+                "profile_name": "Dihydromyrcenol",
+                "registry_name": "Dihydromyrcenol",
+                "ifra_limit_pct": 50.0,
+                "is_known": true,
+                "is_opaque_preblend": false,
+                "functional_groups": [],
+                "hsp": null,
+                "hsp_source": "missing",
+                "sources": {
+                  "mw": "registry:data_spine.mw",
+                  "logp": "profile:ingredient_intelligence.clogp",
+                  "vp": "registry:data_spine.vp_25c",
+                  "gamma": "heuristic:hansen_distance",
+                  "odt": "literature:peer_reviewed.odt_air",
+                  "ifra": "literature:ifra_safety"
+                },
+                "missing_fields": []
+              }
+            ]
+          },
+          "dominant_oav": [
+            {
+              "material": "Linalool",
+              "oav": 16686.539,
+              "ppm": 25.029809,
+              "intensity": 48.859,
+              "family": "aromatic"
+            },
+            {
+              "material": "Hedione",
+              "oav": 15250.591,
+              "ppm": 0.76253,
+              "intensity": 57.145,
+              "family": "floral"
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 12749.38,
+              "ppm": 12.74938,
+              "intensity": 43.873,
+              "family": "woody"
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 11443.282,
+              "ppm": 0.572164,
+              "intensity": 42.017,
+              "family": "woody"
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 4215.794,
+              "ppm": 25.294764,
+              "intensity": 98.556,
+              "family": "citrus"
+            },
+            {
+              "material": "Galaxolide",
+              "oav": 76.978,
+              "ppm": 0.023863,
+              "intensity": 3.681,
+              "family": "musk"
+            }
+          ],
+          "receptor_activation": {
+            "OR1A1": 0.9669,
+            "OR2W1": 0.835,
+            "OR5A1": 0.8214,
+            "OR7D4": 0.0157,
+            "OR10G4": 0.0,
+            "OR11H7": 0.0,
+            "OR8B3": 0.0,
+            "OR_WD": 0.8911
+          },
+          "receptor_source": "family_prior_proxy"
+        }
+      ],
+      "scores": {
+        "longevity": 89.5,
+        "sillage": 96.0,
+        "luxury": 42.6,
+        "texture": 82.0,
+        "stacking_depth": 11.0,
+        "skin_performance": 40.7,
+        "hedonic": 84.7,
+        "perceptual_clarity": 85.9,
+        "photorealism": 94.9,
+        "_synergy_applied": {
+          "sillage_boost": 0.2,
+          "photorealism_boost": 0.2,
+          "axis_total_magnitudes": {
+            "depth": 0.0,
+            "texture": 0.0,
+            "hedonic": 0.0,
+            "performance": 0.0,
+            "sillage": 30.0,
+            "complexity": 12.0
+          }
+        },
+        "synergy": 53.9,
+        "arithmetic_total": 67.5,
+        "geometric_total": 57.5,
+        "total": 57.5
+      },
+      "industry_10": {
+        "impact": 58.2,
+        "tenacity": 46.6,
+        "diffusion": 46.0,
+        "bloom": 20.0,
+        "lift": 68.9,
+        "character": 48.5,
+        "balance": 31.4,
+        "temporal_coherence": 88.7,
+        "data_quality": 86.0,
+        "versatility": 61.2,
+        "cost_efficiency": 50.0
+      },
+      "oav_authority": {
+        "status": "WARN",
+        "rank_score": 82.5,
+        "perceptible": 6,
+        "subliminal_mass_pct": 0.0,
+        "total_vapor_ppm": 107.29,
+        "family_drift_pct": 22.4
+      },
+      "oav_table": [
+        {
+          "name": "Linalool",
+          "dilution": 1.0,
+          "raw_ul": 80.0,
+          "active_ul": 80.0,
+          "mw": 154.3,
+          "mf_pct": 14.83,
+          "vp_pa": 21.3,
+          "gamma": 1.18,
+          "vapor_ppm": 36.65491,
+          "odt_air_ppm": 0.0015,
+          "oav": 24436.61,
+          "note": "top"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "dilution": 1.0,
+          "raw_ul": 50.0,
+          "active_ul": 50.0,
+          "mw": 156.3,
+          "mf_pct": 9.15,
+          "vp_pa": 17.0,
+          "gamma": 1.01,
+          "vapor_ppm": 15.520949,
+          "odt_air_ppm": 0.001,
+          "oav": 15520.95,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "dilution": 1.0,
+          "raw_ul": 100.0,
+          "active_ul": 100.0,
+          "mw": 226.3,
+          "mf_pct": 12.64,
+          "vp_pa": 0.5,
+          "gamma": 1.01,
+          "vapor_ppm": 0.630804,
+          "odt_air_ppm": 5e-05,
+          "oav": 12616.09,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "dilution": 1.0,
+          "raw_ul": 250.0,
+          "active_ul": 250.0,
+          "mw": 234.4,
+          "mf_pct": 30.5,
+          "vp_pa": 0.15,
+          "gamma": 1.04,
+          "vapor_ppm": 0.470142,
+          "odt_air_ppm": 5e-05,
+          "oav": 9402.84,
+          "note": "base"
+        },
+        {
+          "name": "Bergamot FCF",
+          "dilution": 1.0,
+          "raw_ul": 70.0,
+          "active_ul": 70.0,
+          "mw": 148.0,
+          "mf_pct": 13.52,
+          "vp_pa": 40.0,
+          "gamma": 1.01,
+          "vapor_ppm": 53.995137,
+          "odt_air_ppm": 0.006,
+          "oav": 8999.19,
+          "note": "top"
+        },
+        {
+          "name": "Galaxolide",
+          "dilution": 0.5,
+          "raw_ul": 350.0,
+          "active_ul": 175.0,
+          "mw": 258.4,
+          "mf_pct": 19.37,
+          "vp_pa": 0.01,
+          "gamma": 1.02,
+          "vapor_ppm": 0.019554,
+          "odt_air_ppm": 0.00031,
+          "oav": 63.08,
+          "note": "base"
+        }
+      ],
+      "time_windows": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "perceptible_materials": 6,
+          "total_vapor_ppm": 107.29,
+          "dominant_leaders": [
+            {
+              "material": "Linalool",
+              "oav": 24436.606
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15520.949
+            },
+            {
+              "material": "Hedione",
+              "oav": 12616.086
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9402.839
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8999.19
+            }
+          ]
+        },
+        {
+          "label": "top",
+          "t_seconds": 300.0,
+          "perceptible_materials": 6,
+          "total_vapor_ppm": 106.21,
+          "dominant_leaders": [
+            {
+              "material": "Linalool",
+              "oav": 24270.15
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15474.678
+            },
+            {
+              "material": "Hedione",
+              "oav": 12680.128
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9451.898
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8867.998
+            }
+          ]
+        },
+        {
+          "label": "heart",
+          "t_seconds": 1800.0,
+          "perceptible_materials": 6,
+          "total_vapor_ppm": 100.94,
+          "dominant_leaders": [
+            {
+              "material": "Linalool",
+              "oav": 23436.131
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 15233.3
+            },
+            {
+              "material": "Hedione",
+              "oav": 12994.939
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 9693.37
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 8233.647
+            }
+          ]
+        },
+        {
+          "label": "late_heart",
+          "t_seconds": 7200.0,
+          "perceptible_materials": 6,
+          "total_vapor_ppm": 83.61,
+          "dominant_leaders": [
+            {
+              "material": "Linalool",
+              "oav": 20452.474
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 14247.739
+            },
+            {
+              "material": "Hedione",
+              "oav": 14049.081
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 10506.234
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 6238.55
+            }
+          ]
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 14400.0,
+          "perceptible_materials": 6,
+          "total_vapor_ppm": 64.43,
+          "dominant_leaders": [
+            {
+              "material": "Linalool",
+              "oav": 16686.539
+            },
+            {
+              "material": "Hedione",
+              "oav": 15250.591
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "oav": 12749.38
+            },
+            {
+              "material": "Iso E Super",
+              "oav": 11443.282
+            },
+            {
+              "material": "Bergamot FCF",
+              "oav": 4215.794
+            }
+          ]
+        }
+      ],
+      "diagnosis": [
+        {
+          "severity": "HIGH",
+          "axis": "lift",
+          "message": "Top notes dominant (69%)",
+          "suggestion": "Consider boosting heart notes to balance"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "bloom",
+          "message": "Linear evolution (20/100)",
+          "detail": "Only 1 dominant leader across all time windows \u2014 the formula does not evolve",
+          "suggestion": "Add a material with different VP that emerges at the heart stage"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "balance",
+          "message": "Pyramid off-target (31/100)",
+          "suggestion": "Adjust top/heart/base ratios to match family target"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "fougere_skeleton",
+          "message": "Foug\u00e8re skeleton missing: lavender, coumarin, oakmoss/evernyl"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "chypre_skeleton",
+          "message": "Chypre skeleton missing: labdanum, oakmoss/evernyl"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "perfume_knowledge",
+          "message": "Pyramid off-target: Expected T:20% H:50% B:30%, Actual T:27.6% H:13.8% B:58.6%; top OAV off-target for family floral; he"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "carles_material_count",
+          "message": "6 materials \u2014 too few for a finished perfume"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "olfactory_fatigue",
+          "message": "Olfactory overdose: dihydromyrcenol=15521 (overdose)"
+        },
+        {
+          "severity": "HIGH",
+          "axis": "gate",
+          "gate": "oriental_skeleton",
+          "message": "Oriental skeleton missing: labdanum, benzoin, vanillin"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "odt_coverage",
+          "message": "3 material(s) rely on derived/unverified ODTs (44% OAV share)"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "chemistry_stability",
+          "message": "oxidation/photolability burden 20.7% active mass"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "safety_ifra_allergen",
+          "message": "1 EU allergen declarations"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "eu_allergen_declaration",
+          "message": "EU allergens requiring label: linalool"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "perfumer_logic",
+          "message": "generic; perfumer_logic_brief: No brief-specific logic selected."
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "carles_pyramid",
+          "message": "Carles pyramid: empty windows = 3h_top_heart, 12h_heart_base (need >2% active in each of 5 windows)"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "carles_accord_ratio",
+          "message": "Extreme ratios (>8:1, Carles limit): galaxolide:iso e super = 149:1; galaxolide:hedione = 200:1; galaxolide:linalool = 3"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "beaux_registres",
+          "message": "Beaux registers missing: alto"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "stevens_n_efficiency",
+          "message": "Inefficient materials: galaxolide: 39% raw -> 1% perceived"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "jellinek_psychology",
+          "message": "Jellinek categories weak: erogenic"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "adaptation_timing",
+          "message": "fast tier < 5% (no immediate impact)"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "adaptation_overlap",
+          "message": "Top 5 materials all in same adaptation tier (medium: 87%) \u2014 collapse risk"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "roudnitska_transparence",
+          "message": "Transparency ratio 84% \u2014 very transparent, may lack depth"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "tenacity_projection",
+          "message": "VP<0.01Pa = 0% (<10%, weak longevity); VP<0.001Pa = 0% (<3%, may lack depth)"
+        },
+        {
+          "severity": "LOW",
+          "axis": "gate",
+          "gate": "gourmand_skeleton",
+          "message": "Gourmand skeleton missing: ethyl maltol, vanillin, patchouli"
+        },
+        {
+          "severity": "LOW",
+          "axis": "synergy_gap",
+          "message": "No depth-tagged synergy pairs matched for this formula",
+          "suggestion": "Add materials that have depth pairing rules to benefit from synergy boosts"
+        },
+        {
+          "severity": "LOW",
+          "axis": "synergy_gap",
+          "message": "No hedonic-tagged synergy pairs matched for this formula",
+          "suggestion": "Add materials that have hedonic pairing rules to benefit from synergy boosts"
+        },
+        {
+          "severity": "LOW",
+          "axis": "synergy_gap",
+          "message": "No performance-tagged synergy pairs matched for this formula",
+          "suggestion": "Add materials that have performance pairing rules to benefit from synergy boosts"
+        },
+        {
+          "severity": "LOW",
+          "axis": "synergy_gap",
+          "message": "No texture-tagged synergy pairs matched for this formula",
+          "suggestion": "Add materials that have texture pairing rules to benefit from synergy boosts"
+        }
+      ]
+    }
+  ]
+}

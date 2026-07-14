@@ -1,5 +1,9 @@
 """Shared material identity overrides for user-confirmed chemistry.
 
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+
 This module is intentionally small and dependency-light so other parts of the
 pipeline can import it without pulling in catalog generation or scoring code.
 
@@ -79,7 +83,7 @@ _IRIS_IDENTITIES: tuple[MaterialIdentity, ...] = (
         chemistry_name="orris hexanone",
         identity_key="orivone",
         cas=("16587-71-6",),
-        aliases=("orris hexanone",),
+        aliases=("orris hexanone", "4-tert-pentylcyclohexanone", "4-tert-amylcyclohexanone", "isopentylcyclohexanone"),
         note="Buttery-metallic orris body.",
     ),
     MaterialIdentity(

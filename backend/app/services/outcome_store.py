@@ -7,7 +7,7 @@ This closes the feedback loop: system predicts → user creates → user rates �
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import select, func, and_
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.knowledge_graph import (

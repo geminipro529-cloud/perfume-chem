@@ -1,4 +1,11 @@
-"""Formulation engine: Blend science and artistry."""
+"""Formulation engine: Blend science and artistry.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- Every perceptibility claim must be backed by OAV.
+"""
 
 from dataclasses import dataclass, field
 from .validator import validate_formula, check_compatibility, get_compounds

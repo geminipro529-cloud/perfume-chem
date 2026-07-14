@@ -1,0 +1,1792 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Complete Formula Portfolio — All Formulas Scored & Positioned</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#07070d;color:#ddd;line-height:1.5}
+.canvas{max-width:1600px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:40px 20px}
+.hero h1{font-size:clamp(24px,4vw,48px);font-weight:900;background:linear-gradient(135deg,#6c5ce7,#e17055,#fdcb6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.hero .sub{font-size:14px;color:#666;margin-top:6px;letter-spacing:3px;text-transform:uppercase}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:20px;flex-wrap:wrap}
+.hero .stats .s{text-align:center}
+.hero .stats .s .n{font-size:28px;font-weight:900;background:linear-gradient(135deg,#6c5ce7,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .stats .s .l{font-size:10px;color:#666;margin-top:2px}
+.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px 0;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px}
+.filters button{padding:6px 14px;border-radius:8px;font-size:10px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#888;transition:all 0.2s;font-family:'Inter',sans-serif}
+.filters button:hover{background:rgba(108,92,231,0.2);color:#a29bfe;border-color:rgba(108,92,231,0.3)}
+.filters button.active{background:rgba(108,92,231,0.25);color:#a29bfe;border-color:#6c5ce7}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:11px}
+thead th{position:sticky;top:0;background:#0a0a12;padding:10px 6px;text-align:left;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid rgba(255,255,255,0.08);z-index:2;font-size:9px}
+tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s}
+tbody tr:hover{background:rgba(108,92,231,0.06)}
+tbody td{padding:8px 6px;vertical-align:middle}
+.bar-mini{height:12px;border-radius:6px;display:inline-block;min-width:4px;transition:width 0.5s}
+.tier-badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:8px;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
+.cell-score{font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+.fam-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.fam-label{font-size:10px}
+.gap-box{background:rgba(0,184,148,0.06);border-left:2px solid #55efc4;padding:2px 6px;border-radius:2px;font-size:9px;color:#aaa}
+.high-beat{color:#55efc4!important}
+.mid-beat{color:#fdcb6e!important}
+.low-beat{color:#e17055!important}
+.name-cell{font-weight:600;color:#fff;font-size:12px;cursor:pointer}
+.name-cell:hover{color:#a29bfe}
+.tooltip{display:none;position:absolute;background:#1a1a2e;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;font-size:10px;max-width:300px;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.section-title{font-size:16px;font-weight:700;padding:20px 0 10px;border-bottom:1px solid rgba(255,255,255,0.06);margin-top:20px}
+.footer{text-align:center;color:#444;font-size:10px;padding:30px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.04)}
+@media(max-width:768px){table{font-size:9px}tbody td{padding:4px 3px}thead th{padding:6px 3px;font-size:7px}}
+</style></head><body>
+<div class="canvas">
+<div class="hero">
+  <h1>COMPLETE FORMULA PORTFOLIO</h1>
+  <div class="sub">127 formulas scored · 7 tiers · 13 families · Industry + Hedonic + Market Fit</div>
+  <div class="stats">
+    <div class="s"><div class="n">127</div><div class="l">Total Formulas</div></div>
+    <div class="s"><div class="n">7</div><div class="l">Tiers</div></div>
+    <div class="s"><div class="n">13</div><div class="l">Families</div></div>
+    <div class="s"><div class="n">17</div><div class="l">High Market Appeal</div></div>
+    <div class="s"><div class="n">15</div><div class="l">Likely Beat Competitors</div></div>
+</div>
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:16px;margin:20px 0;font-size:11px;color:#888;line-height:1.6">
+  <strong style="color:#aaa;">ALL FORMULAS SELL AT 1500-3500 THB.</strong> No tier pricing distinction.<br>
+  <strong style="color:#55efc4;">Market Appeal</strong> = 15 + industry×25% + hedonic×20% + family_rank + value_bonus.
+  <strong>Value bonus:</strong> (industry-50)×0.5. Industry 90 = +20 (premium quality at mid price = market disruptor).<br>
+  <strong style="color:#a29bfe;">Beat Competitors</strong> = 25 + industry×30% + hedonic×20% + quality_adv(industry-60)×0.6 − category_density.
+  A formula scoring 90 at 2000 THB destroys Dior-quality competitors charging 6000+.<br>
+  <strong>Sorted by Market Appeal descending.</strong>
+</div>
+<div class="filters">
+  <button onclick="filterTable('all')" class="active">ALL</button>
+  <button onclick="filterTable('DP')">DESIGNER PRESTIGE</button>
+  <button onclick="filterTable('MM')">MASS MARKET</button>
+  <button onclick="filterTable('TM')">TRUE MASS</button>
+  <button onclick="filterTable('PM')">PREMIUM MASS</button>
+  <button onclick="filterTable('LX')">LUXURY</button>
+  <button onclick="filterTable('M6')">MASS SIX</button>
+  <button onclick="filterTable('SA')">STANDALONE</button>
+</div>
+<div class="table-wrap">
+<table id="formula-table">
+<thead><tr>
+  <th>#</th><th>Name</th><th>Tier</th><th>Family</th>
+  <th>Industry</th><th>Smell</th><th>Luxury</th><th>Synergy</th>
+  <th>Market Appeal</th><th>Beat Competitors</th><th>Analysis</th>
+</tr></thead><tbody>
+<tr class="tier-LX">
+  <td style="color:#555;font-size:10px">1</td>
+  <td class="name-cell">F2 Le Chypre Vert</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#a29bfe">91.0</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">93</td>
+  <td class="cell-score" style="color:#a29bfe">91</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:85%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">85%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">83%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 91/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 76). very high market appeal: Chypre is #1-#3 in Thai market (+12), premium quality at mid price adds massive value (+20). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">2</td>
+  <td class="name-cell">Soie Celeste</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#a29bfe">87.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">92</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:84%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">84%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">73%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Floral is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">3</td>
+  <td class="name-cell">Bleu Carbon Amouage</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">88.0</td>
+  <td class="cell-score" style="color:#55efc4">66</td>
+  <td class="cell-score" style="color:#a29bfe">92</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:84%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">84%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">73%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 88/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 66 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+19). competitive vs Amouage x Sauvage — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">4</td>
+  <td class="name-cell">F1 Le Barbier de Grasse</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#a29bfe">93.0</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">95</td>
+  <td class="cell-score" style="color:#a29bfe">93</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:85%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">85%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 93/100 = luxury-tier quality at 1500-3500 THB price. universally pleasant (hedonic 78). strong market appeal: Fougere has steady Thai demand (+8), premium quality at mid price adds massive value (+22). dominates vs niche — 20pt quality advantage at same price point.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">5</td>
+  <td class="name-cell">Nuage Blanc</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#a29bfe">85.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 74). strong market appeal: Floral is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">6</td>
+  <td class="name-cell">Bleu Carbon 30mL</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Dior Sauvage x Bleu de Chanel — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">7</td>
+  <td class="name-cell">Bleu Carbon Perfected</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 71). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Sauvage x Bleu — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">8</td>
+  <td class="name-cell">Bleu Carbon MAX Complete</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">87.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Sauvage x Bleu — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">9</td>
+  <td class="name-cell">Bleu Carbon v2 Optimized</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Sauvage x Bleu — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">10</td>
+  <td class="name-cell">Bleu Carbon v2 Optimized 30mL</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">83%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Sauvage x Bleu — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">11</td>
+  <td class="name-cell">Bleu Carbon Ellena</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:82%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">82%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">70%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+17). competitive vs Jean-Claude Ellena style — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">12</td>
+  <td class="name-cell">Bleu Carbon Ellena v2</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">85.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:82%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">82%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:71%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">71%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Ellena refined — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">13</td>
+  <td class="name-cell">Bleu Carbon Final</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">85.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:82%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">82%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:71%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">71%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+18). competitive vs Sauvage x Bleu — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">14</td>
+  <td class="name-cell">Bleu Carbon Luxe Aldehyde</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:81%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">81%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">70%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+17). competitive vs Bleu x Chanel No 5 — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">15</td>
+  <td class="name-cell">Bleu Carbon Luxe Aldehyde v2</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">89</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:81%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">81%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">70%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+17). competitive vs Bleu x Chanel — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">16</td>
+  <td class="name-cell">Bleu Carbon 10mL</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">83.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td class="cell-score" style="color:#a29bfe">83</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:80%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">80%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">69%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 83/100 = premium quality at mid-range price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+16). viable vs Sauvage x Bleu but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">17</td>
+  <td class="name-cell">Vetiver Classique V5</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">82.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">80</td>
+  <td class="cell-score" style="color:#a29bfe">82</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:80%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">80%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 82/100 = premium quality at mid-range price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+16). viable vs Guerlain Vetiver but category is crowded.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">18</td>
+  <td class="name-cell">Pink Pearls</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#fdcb6e">78.0</td>
+  <td class="cell-score" style="color:#55efc4">80</td>
+  <td class="cell-score" style="color:#a29bfe">76</td>
+  <td class="cell-score" style="color:#a29bfe">78</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:79%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">79%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">67%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 78/100 = premium quality at mid-range price. universally pleasant (hedonic 80). strong market appeal: Floral is #1-#3 in Thai market (+15), good quality-to-price ratio (+14). viable vs Marc Jacobs Daisy but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">19</td>
+  <td class="name-cell">Cobalt Cedar Air</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#a29bfe">80.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">82</td>
+  <td class="cell-score" style="color:#a29bfe">80</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:79%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">79%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">67%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 80/100 = premium quality at mid-range price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+15). viable vs Bleu de Chanel but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">20</td>
+  <td class="name-cell">Good Girl Gone Bad</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#a29bfe">80.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td class="cell-score" style="color:#a29bfe">80</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:79%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">79%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">67%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 80/100 = premium quality at mid-range price. broadly likeable (hedonic 72). strong market appeal: Floral is #1-#3 in Thai market (+15), premium quality at mid price adds massive value (+15). viable vs Kilian GGGB but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">21</td>
+  <td class="name-cell">Iris Dreamweaver v5</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">90.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">94</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:76%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">76%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:92%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">92%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 90/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+20). dominates vs niche — 18pt quality advantage at same price point.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">22</td>
+  <td class="name-cell">Vetiver Moderne</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">78.0</td>
+  <td class="cell-score" style="color:#55efc4">66</td>
+  <td class="cell-score" style="color:#a29bfe">78</td>
+  <td class="cell-score" style="color:#a29bfe">78</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:76%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">76%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">64%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 78/100 = premium quality at mid-range price. acquired taste (hedonic 66 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+14). viable vs Encre Noire but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">23</td>
+  <td class="name-cell">True Patchouli Chypre</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#a29bfe">82.0</td>
+  <td class="cell-score" style="color:#55efc4">64</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td class="cell-score" style="color:#a29bfe">82</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:76%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">76%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 82/100 = premium quality at mid-range price. acquired taste (hedonic 64 — leather/incense notes). strong market appeal: Chypre is #1-#3 in Thai market (+12), premium quality at mid price adds massive value (+16). competitive vs Coromandel — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">24</td>
+  <td class="name-cell">Jasmin d'Orris (Malle)</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">88.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">91</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:75%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">75%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:91%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">91%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 88/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 74). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+19). dominates vs niche — 17pt quality advantage at same price point.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">25</td>
+  <td class="name-cell">Nuage Suede</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#b2bec3"></span><span class="fam-label">Musk</span></td>
+  <td class="cell-score" style="color:#a29bfe">88.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">92</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:75%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">75%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:90%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">90%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 88/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Musk has steady Thai demand (+5), premium quality at mid price adds massive value (+19). dominates vs niche — 17pt quality advantage at same price point.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">26</td>
+  <td class="name-cell">Orris Damascone</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">87.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:74%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">74%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:89%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">89%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+18). dominates vs niche — 16pt quality advantage at same price point.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">27</td>
+  <td class="name-cell">North Compass</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">74.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:74%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">74%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:62%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">62%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 74/100 = solid mid-market formulation. broadly likeable (hedonic 72). strong market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+12). viable vs Sauvage but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">28</td>
+  <td class="name-cell">Cedre Azure</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">74.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:74%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">74%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:61%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">61%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 74/100 = solid mid-market formulation. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+12). viable vs Bvlgari Aqva but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">29</td>
+  <td class="name-cell">Aperture Iris</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">89</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:88%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">88%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+18). dominates vs niche — 16pt quality advantage at same price point.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">30</td>
+  <td class="name-cell">Noir Obscur</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#a29bfe">83.0</td>
+  <td class="cell-score" style="color:#55efc4">64</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td class="cell-score" style="color:#a29bfe">83</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">73%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 83/100 = premium quality at mid-range price. acquired taste (hedonic 64 — leather/incense notes). strong market appeal: Oriental has steady Thai demand (+8), premium quality at mid price adds massive value (+16). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">31</td>
+  <td class="name-cell">Vol d'Ambre v4</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#a29bfe">82.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td class="cell-score" style="color:#a29bfe">82</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">73%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 82/100 = premium quality at mid-range price. broadly likeable (hedonic 70). strong market appeal: Oriental has steady Thai demand (+8), premium quality at mid price adds massive value (+16). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">32</td>
+  <td class="name-cell">Iris Cacao</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Gourmand</span></td>
+  <td class="cell-score" style="color:#a29bfe">86.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:83%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">83%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Gourmand has steady Thai demand (+5), premium quality at mid price adds massive value (+18). competitive vs niche — solid quality at mid price.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">33</td>
+  <td class="name-cell">Plum Velvet</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">76.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td class="cell-score" style="color:#a29bfe">76</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">69%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 76/100 = premium quality at mid-range price. broadly likeable (hedonic 74). strong market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+13). viable vs Coco Mademoiselle but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">34</td>
+  <td class="name-cell">Demachy DHC Optimized</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#f9ca24"></span><span class="fam-label">Citrus</span></td>
+  <td class="cell-score" style="color:#a29bfe">85.0</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:85%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">85%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 76). strong market appeal: Citrus has steady Thai demand (+5), premium quality at mid price adds massive value (+18). dominates vs Dior Homme Cologne — 15pt quality advantage at same price point.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">35</td>
+  <td class="name-cell">Green Patchouli Cologne</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">78.0</td>
+  <td class="cell-score" style="color:#55efc4">66</td>
+  <td class="cell-score" style="color:#a29bfe">80</td>
+  <td class="cell-score" style="color:#a29bfe">78</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:73%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">73%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">69%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 78/100 = premium quality at mid-range price. acquired taste (hedonic 66 — leather/incense notes). strong market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+14). viable vs Terre d'Hermes but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">36</td>
+  <td class="name-cell">Cobalt</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">70.5</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">72%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:59%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">59%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 70/100 = solid mid-market formulation. broadly likeable (hedonic 74). strong market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+10). viable vs Bleu de Chanel but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">37</td>
+  <td class="name-cell">Aow Phra Nang</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">75.0</td>
+  <td class="cell-score" style="color:#55efc4">79</td>
+  <td class="cell-score" style="color:#a29bfe">71</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">72%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">72%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 75/100 = premium quality at mid-range price. universally pleasant (hedonic 79). strong market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+12). competitive vs D&G Light Blue — solid quality at mid price.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">38</td>
+  <td class="name-cell">Iris Reverie Lactee</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">72%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:86%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">86%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. broadly likeable (hedonic 70). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+17). dominates vs niche — 14pt quality advantage at same price point.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">39</td>
+  <td class="name-cell">Chanel Iris Blanche</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">86</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:72%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">72%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:87%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">87%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. broadly likeable (hedonic 72). strong market appeal: Iris has steady Thai demand (+5), premium quality at mid price adds massive value (+17). dominates vs Chanel 1932 — 14pt quality advantage at same price point.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">40</td>
+  <td class="name-cell">Whispered Skin</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">67.2</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">70%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">56%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 76). strong market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+9). viable vs Cashmere Mist but category is crowded.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">41</td>
+  <td class="name-cell">Velvet Bloom</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#fdcb6e">76.0</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td class="cell-score" style="color:#a29bfe">76</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">70%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">70%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 76/100 = premium quality at mid-range price. universally pleasant (hedonic 78). strong market appeal: Oriental has steady Thai demand (+8), good quality-to-price ratio (+13). competitive vs Black Opium — solid quality at mid price.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">42</td>
+  <td class="name-cell">Cashmere Khao</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">66.6</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">63</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">69%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 72). moderate market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+8). viable vs Cashmere Mist but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">43</td>
+  <td class="name-cell">Tonka Honey</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">74.0</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td class="cell-score" style="color:#a29bfe">71</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">69%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 74/100 = solid mid-market formulation. universally pleasant (hedonic 78). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+12). viable vs DHI but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">44</td>
+  <td class="name-cell">Bois Imperial</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">68.0</td>
+  <td class="cell-score" style="color:#55efc4">65</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">69%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 68/100 = solid mid-market formulation. acquired taste (hedonic 65 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+9). viable vs niche but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">45</td>
+  <td class="name-cell">Incense Cathedral</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#eb2f06"></span><span class="fam-label">Incense</span></td>
+  <td class="cell-score" style="color:#a29bfe">88.0</td>
+  <td class="cell-score" style="color:#55efc4">66</td>
+  <td class="cell-score" style="color:#a29bfe">92</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">69%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:93%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">93%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 88/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 66 — leather/incense notes). moderate market appeal: Incense is niche in Thailand (+0), premium quality at mid price adds massive value (+19). dominates vs niche — 17pt quality advantage at same price point.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">46</td>
+  <td class="name-cell">Mass Market Patchouli Chypre</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">74.0</td>
+  <td class="cell-score" style="color:#55efc4">62</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:69%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">69%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">65%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 74/100 = solid mid-market formulation. acquired taste (hedonic 62 — leather/incense notes). moderate market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+12). viable vs Coromandel lite but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">47</td>
+  <td class="name-cell">Marine Profumo</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">71.1</td>
+  <td class="cell-score" style="color:#55efc4">77</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 71/100 = solid mid-market formulation. broadly likeable (hedonic 77). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+11). viable vs Acqua di Gio but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">48</td>
+  <td class="name-cell">Storm Wave</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">70.3</td>
+  <td class="cell-score" style="color:#55efc4">79</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">67</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 70/100 = solid mid-market formulation. universally pleasant (hedonic 79). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+10). viable vs L'Eau d'Issey but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">49</td>
+  <td class="name-cell">Temple Sandalwood</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">63.7</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td class="cell-score" style="color:#a29bfe">61</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 64/100 = functional mass-market formulation. universally pleasant (hedonic 78). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Tam Dao.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">50</td>
+  <td class="name-cell">Bangkok Compass</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">64.0</td>
+  <td class="cell-score" style="color:#55efc4">79</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td class="cell-score" style="color:#a29bfe">61</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 64/100 = functional mass-market formulation. universally pleasant (hedonic 79). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Sauvage.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">51</td>
+  <td class="name-cell">Vetiver Imperial</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#fdcb6e">67.0</td>
+  <td class="cell-score" style="color:#55efc4">64</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td class="cell-score" style="color:#a29bfe">67</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. acquired taste (hedonic 64 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15), good quality-to-price ratio (+8). faces strong competition from niche.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">52</td>
+  <td class="name-cell">Fougere Herbier</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">76.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td class="cell-score" style="color:#a29bfe">76</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 76/100 = premium quality at mid-range price. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+13). viable vs Drakkar Noir but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">53</td>
+  <td class="name-cell">Love Dont Be Shy</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Gourmand</span></td>
+  <td class="cell-score" style="color:#fdcb6e">78.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">80</td>
+  <td class="cell-score" style="color:#a29bfe">78</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:77%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">77%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 78/100 = premium quality at mid-range price. broadly likeable (hedonic 74). moderate market appeal: Gourmand has steady Thai demand (+5), good quality-to-price ratio (+14). competitive vs Kilian LDBS — solid quality at mid price.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">54</td>
+  <td class="name-cell">Night Gin</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">72.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">68%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">67%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 72/100 = solid mid-market formulation. broadly likeable (hedonic 70). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+11). viable vs Malibu Night but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">55</td>
+  <td class="name-cell">Midnight Coffee</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#fdcb6e">71.7</td>
+  <td class="cell-score" style="color:#55efc4">77</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">69</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">65%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 72/100 = solid mid-market formulation. broadly likeable (hedonic 77). moderate market appeal: Oriental has steady Thai demand (+8), good quality-to-price ratio (+11). viable vs YSL Black Opium but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">56</td>
+  <td class="name-cell">Crimson Velvet</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#fdcb6e">72.2</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">69</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">66%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 72/100 = solid mid-market formulation. universally pleasant (hedonic 78). moderate market appeal: Oriental has steady Thai demand (+8), good quality-to-price ratio (+11). viable vs Hypnotic Poison but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">57</td>
+  <td class="name-cell">Mango Mademoiselle</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">67.2</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">63</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:61%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">61%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 73). moderate market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+9). viable vs Coco Mademoiselle but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">58</td>
+  <td class="name-cell">Suede Rose</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Leather</span></td>
+  <td class="cell-score" style="color:#a29bfe">84.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">84</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:88%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">88%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 84/100 = premium quality at mid-range price. broadly likeable (hedonic 70). moderate market appeal: Leather is niche in Thailand (+0), premium quality at mid price adds massive value (+17). dominates vs niche — 14pt quality advantage at same price point.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">59</td>
+  <td class="name-cell">Eclipse VII</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Leather</span></td>
+  <td class="cell-score" style="color:#a29bfe">87.0</td>
+  <td class="cell-score" style="color:#55efc4">60</td>
+  <td class="cell-score" style="color:#a29bfe">90</td>
+  <td class="cell-score" style="color:#a29bfe">87</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:89%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">89%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. polarizing (hedonic 60 — challenging materials). moderate market appeal: Leather is niche in Thailand (+0), premium quality at mid price adds massive value (+18). dominates vs niche — 16pt quality advantage at same price point.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">60</td>
+  <td class="name-cell">Mineral Profond</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">74.0</td>
+  <td class="cell-score" style="color:#55efc4">62</td>
+  <td class="cell-score" style="color:#a29bfe">76</td>
+  <td class="cell-score" style="color:#a29bfe">74</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">67%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:68%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">68%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 74/100 = solid mid-market formulation. acquired taste (hedonic 62 — leather/incense notes). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+12). viable vs CDG Odeur 71 but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">61</td>
+  <td class="name-cell">Black Vanille</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#fdcb6e">70.5</td>
+  <td class="cell-score" style="color:#55efc4">79</td>
+  <td class="cell-score" style="color:#a29bfe">67</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">65%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 70/100 = solid mid-market formulation. universally pleasant (hedonic 79). moderate market appeal: Oriental has steady Thai demand (+8), good quality-to-price ratio (+10). viable vs TF Tobacco Vanille but category is crowded.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">62</td>
+  <td class="name-cell">Eros</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">71.3</td>
+  <td class="cell-score" style="color:#55efc4">75</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">65%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 71/100 = solid mid-market formulation. broadly likeable (hedonic 75). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+11). viable vs Versace Eros but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">63</td>
+  <td class="name-cell">Lychee Bloom</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">62.5</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">51%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 62/100 = functional mass-market formulation. broadly likeable (hedonic 73). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Chanel Chance.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">64</td>
+  <td class="name-cell">Bua Lotus</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">66.6</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">63</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:60%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">60%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 74). moderate market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+8). viable vs Aerin Honeysuckle but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">65</td>
+  <td class="name-cell">Velvet Patchouli</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#fdcb6e">66.6</td>
+  <td class="cell-score" style="color:#55efc4">75</td>
+  <td class="cell-score" style="color:#a29bfe">63</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:60%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">60%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 75). moderate market appeal: Chypre is #1-#3 in Thai market (+12), good quality-to-price ratio (+8). viable vs Coco Noir but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">66</td>
+  <td class="name-cell">Bai Toey</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">69.0</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">65</td>
+  <td class="cell-score" style="color:#a29bfe">66</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">65%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 69/100 = solid mid-market formulation. broadly likeable (hedonic 73). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+10). viable vs Estee Lauder Pleasures but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">67</td>
+  <td class="name-cell">Cuir Nomade</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Leather</span></td>
+  <td class="cell-score" style="color:#a29bfe">85.0</td>
+  <td class="cell-score" style="color:#55efc4">62</td>
+  <td class="cell-score" style="color:#a29bfe">88</td>
+  <td class="cell-score" style="color:#a29bfe">85</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:87%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div><span class="cell-score high-beat">87%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 62 — leather/incense notes). moderate market appeal: Leather is niche in Thailand (+0), premium quality at mid price adds massive value (+18). dominates vs niche — 15pt quality advantage at same price point.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">68</td>
+  <td class="name-cell">Glacial Field</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">72.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">64%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 72/100 = solid mid-market formulation. broadly likeable (hedonic 70). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+11). viable vs Cool Water but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">69</td>
+  <td class="name-cell">Gin Sec</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">70.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">66%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:66%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">66%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 70/100 = solid mid-market formulation. broadly likeable (hedonic 72). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+10). viable vs Penhaligon's Juniper but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">70</td>
+  <td class="name-cell">Frangipani Veil</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">61.3</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">65%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 61/100 = functional mass-market formulation. broadly likeable (hedonic 74). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from L'Erbolario.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">71</td>
+  <td class="name-cell">Makrut Tropic</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">68.0</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td class="cell-score" style="color:#a29bfe">65</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">65%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">64%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 68/100 = solid mid-market formulation. broadly likeable (hedonic 72). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+9). viable vs AdP Colonia but category is crowded.</td>
+</tr><tr class="tier-M6">
+  <td style="color:#555;font-size:10px">72</td>
+  <td class="name-cell">Surface Calm</td>
+  <td><span class="tier-badge" style="background:rgba(9,132,227,0.15);color:#74b9ff;border:1px solid #74b9ff33">Mass Market Six</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#fdcb6e">70.0</td>
+  <td class="cell-score" style="color:#55efc4">64</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">65%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">64%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 70/100 = solid mid-market formulation. acquired taste (hedonic 64 — leather/incense notes). moderate market appeal: Fresh has steady Thai demand (+10), good quality-to-price ratio (+10). viable vs Light Blue but category is crowded.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">73</td>
+  <td class="name-cell">Mr Sandman</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#fdcb6e">72.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">70</td>
+  <td class="cell-score" style="color:#a29bfe">72</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:65%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">65%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">64%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 72/100 = solid mid-market formulation. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Oriental has steady Thai demand (+8), good quality-to-price ratio (+11). viable vs YSL La Nuit but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">74</td>
+  <td class="name-cell">Mali Garland</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">60.7</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">64%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 61/100 = functional mass-market formulation. broadly likeable (hedonic 72). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Jasmine sambac tradition.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">75</td>
+  <td class="name-cell">Silk Cashmere</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">60.3</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">59</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">64%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:49%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">49%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 70). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Cathy Doll.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">76</td>
+  <td class="name-cell">Cobalt Cedar Air</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">59.7</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:64%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">64%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:49%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">49%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 74). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Bleu de Chanel.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">77</td>
+  <td class="name-cell">Lemongrass Cool</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">67.7</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td class="cell-score" style="color:#a29bfe">65</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:63%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">63%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:62%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">62%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 68/100 = solid mid-market formulation. broadly likeable (hedonic 76). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+9). viable vs Cool Water but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">78</td>
+  <td class="name-cell">Sea Mist</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#fdcb6e">67.0</td>
+  <td class="cell-score" style="color:#55efc4">77</td>
+  <td class="cell-score" style="color:#a29bfe">63</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:63%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">63%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:61%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">61%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 67/100 = solid mid-market formulation. broadly likeable (hedonic 77). moderate market appeal: Fougere has steady Thai demand (+8), good quality-to-price ratio (+8). viable vs Cool Water but category is crowded.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">79</td>
+  <td class="name-cell">Santal Sport Club</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">59.5</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:63%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">63%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:48%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">48%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Santal 33.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">80</td>
+  <td class="name-cell">Cafe Coco</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">61.5</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:62%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">62%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 62/100 = functional mass-market formulation. broadly likeable (hedonic 71). moderate market appeal: Chypre is #1-#3 in Thai market (+12). viable vs Coco Mademoiselle but category is crowded.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">81</td>
+  <td class="name-cell">Green Patchouli Cologne</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">60.2</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:61%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">61%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 70). moderate market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Terre d'Hermes.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">82</td>
+  <td class="name-cell">Rose Cassis Chypre</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">58.7</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td class="cell-score" style="color:#a29bfe">55</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:60%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">60%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 59/100 = functional mass-market formulation. broadly likeable (hedonic 72). moderate market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Armani Si.</td>
+</tr><tr class="tier-SA">
+  <td style="color:#555;font-size:10px">83</td>
+  <td class="name-cell">Seuil du Jour</td>
+  <td><span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3;border:1px solid #b2bec333">Standalone Formula</span></td>
+  <td><span class="fam-dot" style="background:#f9ca24"></span><span class="fam-label">Citrus</span></td>
+  <td class="cell-score" style="color:#fdcb6e">68.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">66</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:60%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">60%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:70%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">70%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 68/100 = solid mid-market formulation. broadly likeable (hedonic 74). moderate market appeal: Citrus has steady Thai demand (+5), good quality-to-price ratio (+9). competitive vs 4711 — solid quality at mid price.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">84</td>
+  <td class="name-cell">Twilight Champaca</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">62.4</td>
+  <td class="cell-score" style="color:#55efc4">75</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">59</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:59%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">59%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:57%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">57%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 62/100 = functional mass-market formulation. broadly likeable (hedonic 75). moderate market appeal: Oriental has steady Thai demand (+8). viable vs Kenzo Amour but category is crowded.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">85</td>
+  <td class="name-cell">Velvet Skin</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">61.3</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:59%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">59%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">56%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 61/100 = functional mass-market formulation. broadly likeable (hedonic 76). moderate market appeal: Oriental has steady Thai demand (+8). viable vs Narciso Rodriguez but category is crowded.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">86</td>
+  <td class="name-cell">Ocean Blue</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">60.1</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:59%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">59%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:57%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">57%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 71). moderate market appeal: Fresh has steady Thai demand (+10). viable vs Acqua di Gio but category is crowded.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">87</td>
+  <td class="name-cell">Silver Neroli Musk</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">54.4</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">50</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:59%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">59%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">46%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 54/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Prada L'Homme.</td>
+</tr><tr class="tier-MM">
+  <td style="color:#555;font-size:10px">88</td>
+  <td class="name-cell">Sticky Rice</td>
+  <td><span class="tier-badge" style="background:rgba(0,184,148,0.15);color:#55efc4;border:1px solid #55efc433">Mass Market Thai</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">60.4</td>
+  <td class="cell-score" style="color:#55efc4">77</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:58%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">58%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 77). moderate market appeal: Oriental has steady Thai demand (+8). viable vs Black Opium but category is crowded.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">89</td>
+  <td class="name-cell">Cashmere Peach Woods</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">53.4</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">49</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:58%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">58%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">46%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 53/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Burberry Her.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">90</td>
+  <td class="name-cell">Dark Tonka Tobacco</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">60.1</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:57%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">57%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 72). moderate market appeal: Oriental has steady Thai demand (+8). faces strong competition from Tobacco Vanille.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">91</td>
+  <td class="name-cell">Suede Moss Night</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">55.1</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">60</td>
+  <td class="cell-score" style="color:#a29bfe">51</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:57%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">57%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:52%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">52%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 55/100 = functional mass-market formulation. broadly likeable (hedonic 71). moderate market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from TF Leather.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">92</td>
+  <td class="name-cell">Aromatic Barbershop Blue</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">60.4</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:57%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">57%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 73). moderate market appeal: Fougere has steady Thai demand (+8). faces strong competition from Platinum Egoiste.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">93</td>
+  <td class="name-cell">Cherry Melt</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">50.1</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">47</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 50/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Mistine Sweet Pink.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">94</td>
+  <td class="name-cell">Baby Powder Veil</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">50.4</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">47</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 50/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Mistine Baby Powder.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">95</td>
+  <td class="name-cell">Mali Cologne</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">49.6</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">47</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 50/100 = functional mass-market formulation. broadly likeable (hedonic 70). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from BSC White Cotton.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">96</td>
+  <td class="name-cell">King of Night</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">49.5</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 50/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Sauvage.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">97</td>
+  <td class="name-cell">Lavender Milk</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">59.5</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">61</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 60/100 = functional mass-market formulation. broadly likeable (hedonic 70). moderate market appeal: Fougere has steady Thai demand (+8). faces strong competition from Cathy Doll.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">98</td>
+  <td class="name-cell">Peony Gold Veil</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">49.0</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">45</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. broadly likeable (hedonic 70). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Miss Dior.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">99</td>
+  <td class="name-cell">Vanilla Silk Bloom</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">58.4</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">59</td>
+  <td class="cell-score" style="color:#a29bfe">54</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:56%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">56%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">54%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 58/100 = functional mass-market formulation. broadly likeable (hedonic 73). moderate market appeal: Oriental has steady Thai demand (+8). faces strong competition from Black Opium.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">100</td>
+  <td class="name-cell">Sandalwood Vanilla</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">49.2</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">55%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). moderate market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from BSC Sandalwood.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">101</td>
+  <td class="name-cell">Ironed Shirt Iris</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">48.2</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">55</td>
+  <td class="cell-score" style="color:#a29bfe">44</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">55%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:45%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">45%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 48/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). moderate market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Dior Homme.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">102</td>
+  <td class="name-cell">Bangkok Amber Blue</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">57.5</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">54</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">55%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 58/100 = functional mass-market formulation. broadly likeable (hedonic 71). moderate market appeal: Oriental has steady Thai demand (+8). faces strong competition from YSL Y.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">103</td>
+  <td class="name-cell">Andaman Blue</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">56.2</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">62</td>
+  <td class="cell-score" style="color:#a29bfe">52</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">55%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 56/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). moderate market appeal: Fresh has steady Thai demand (+10). viable vs Acqua di Gio but category is crowded.</td>
+</tr><tr class="tier-LX">
+  <td style="color:#555;font-size:10px">104</td>
+  <td class="name-cell">Aura Noire</td>
+  <td><span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe;border:1px solid #a29bfe33">Luxury / Niche</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Iris</span></td>
+  <td class="cell-score" style="color:#e17055">64.0</td>
+  <td class="cell-score" style="color:#55efc4">62</td>
+  <td class="cell-score" style="color:#a29bfe">68</td>
+  <td class="cell-score" style="color:#a29bfe">64</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">55%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:67%;background:linear-gradient(90deg,#fdcb6e,#fdcb6e)"></div><span class="cell-score mid-beat">67%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 64/100 = functional mass-market formulation. acquired taste (hedonic 62 — leather/incense notes). moderate market appeal: Iris has steady Thai demand (+5). viable vs niche but category is crowded.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">105</td>
+  <td class="name-cell">Mintless Tonka Club</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">55.7</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">61</td>
+  <td class="cell-score" style="color:#a29bfe">52</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">54%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 56/100 = functional mass-market formulation. broadly likeable (hedonic 74). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from Le Male.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">106</td>
+  <td class="name-cell">Citrus Tailored Musk</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">53.9</td>
+  <td class="cell-score" style="color:#55efc4">70</td>
+  <td class="cell-score" style="color:#a29bfe">59</td>
+  <td class="cell-score" style="color:#a29bfe">50</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:54%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">54%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:55%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">55%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 54/100 = functional mass-market formulation. broadly likeable (hedonic 70). niche market appeal: Fresh has steady Thai demand (+10). viable vs AdP Colonia but category is crowded.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">107</td>
+  <td class="name-cell">Explorer Lite</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">54.1</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">51</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">53%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:52%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">52%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 54/100 = functional mass-market formulation. broadly likeable (hedonic 73). niche market appeal: Oriental has steady Thai demand (+8). faces strong competition from Montblanc Explorer.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">108</td>
+  <td class="name-cell">Rose Noir</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">48.4</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td class="cell-score" style="color:#a29bfe">45</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">53%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 48/100 = functional mass-market formulation. broadly likeable (hedonic 72). niche market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Armani Si.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">109</td>
+  <td class="name-cell">Rugby</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">49.1</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">53%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">51%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. broadly likeable (hedonic 73). niche market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Le Male.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">110</td>
+  <td class="name-cell">Thai Oud</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">53.8</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">51</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:52%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">52%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:52%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">52%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 54/100 = functional mass-market formulation. broadly likeable (hedonic 72). niche market appeal: Oriental has steady Thai demand (+8). faces strong competition from Karmart Oud.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">111</td>
+  <td class="name-cell">Sunday Cologne</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">46.6</td>
+  <td class="cell-score" style="color:#55efc4">72</td>
+  <td class="cell-score" style="color:#a29bfe">53</td>
+  <td class="cell-score" style="color:#a29bfe">44</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">51%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 47/100 = functional mass-market formulation. broadly likeable (hedonic 72). niche market appeal: Fresh has steady Thai demand (+10). faces strong competition from 4711.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">112</td>
+  <td class="name-cell">Aquatic Horizon</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">46.8</td>
+  <td class="cell-score" style="color:#55efc4">73</td>
+  <td class="cell-score" style="color:#a29bfe">54</td>
+  <td class="cell-score" style="color:#a29bfe">44</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">51%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 47/100 = functional mass-market formulation. broadly likeable (hedonic 73). niche market appeal: Fresh has steady Thai demand (+10). faces strong competition from Bvlgari Aqva.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">113</td>
+  <td class="name-cell">Clean Pear Air</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">48.8</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">57</td>
+  <td class="cell-score" style="color:#a29bfe">45</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">51%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:53%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">53%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. broadly likeable (hedonic 71). niche market appeal: Fresh has steady Thai demand (+10). faces strong competition from Chance Eau Tendre.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">114</td>
+  <td class="name-cell">Mango Niao</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#fdcb6e"></span><span class="fam-label">Oriental</span></td>
+  <td class="cell-score" style="color:#e17055">50.6</td>
+  <td class="cell-score" style="color:#55efc4">71</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">48</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">50%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:51%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">51%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 51/100 = functional mass-market formulation. broadly likeable (hedonic 71). niche market appeal: Oriental has steady Thai demand (+8). faces strong competition from BSC Coconut Vanilla.</td>
+</tr><tr class="tier-PM">
+  <td style="color:#555;font-size:10px">115</td>
+  <td class="name-cell">Lavender Skin Cream</td>
+  <td><span class="tier-badge" style="background:rgba(253,203,110,0.15);color:#fdcb6e;border:1px solid #fdcb6e33">Premium Mass 4000+</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">49.9</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">58</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:49%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">49%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 50/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from Mon Guerlain.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">116</td>
+  <td class="name-cell">Ice Blue</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">49.0</td>
+  <td class="cell-score" style="color:#55efc4">68</td>
+  <td class="cell-score" style="color:#a29bfe">56</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:48%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">48%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. acquired taste (hedonic 68 — leather/incense notes). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from Cool Water.</td>
+</tr><tr class="tier-TM">
+  <td style="color:#555;font-size:10px">117</td>
+  <td class="name-cell">Royal Tonka</td>
+  <td><span class="tier-badge" style="background:rgba(225,112,85,0.15);color:#e17055;border:1px solid #e1705533">Thai True Mass</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">48.7</td>
+  <td class="cell-score" style="color:#55efc4">69</td>
+  <td class="cell-score" style="color:#a29bfe">55</td>
+  <td class="cell-score" style="color:#a29bfe">46</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:48%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">48%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:50%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">50%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 49/100 = functional mass-market formulation. acquired taste (hedonic 69 — leather/incense notes). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from DHI.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">118</td>
+  <td class="name-cell">Belle Reverie</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">46%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:33%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">33%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 74). niche market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Lancome La Vie Est Belle.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">119</td>
+  <td class="name-cell">White Bloom</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">75</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">46%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:33%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">33%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 75). niche market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Dior J'adore.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">120</td>
+  <td class="name-cell">Velvet Powder</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#e84393"></span><span class="fam-label">Floral</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">46%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:33%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">33%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 76). niche market appeal: Floral is #1-#3 in Thai market (+15). faces strong competition from Lancome Idole.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">121</td>
+  <td class="name-cell">Cedar Smoke</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#a29bfe"></span><span class="fam-label">Woody</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">75</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:46%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">46%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:33%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">33%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 75). niche market appeal: Woody is #1-#3 in Thai market (+15). faces strong competition from Le Labo Santal 33.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">122</td>
+  <td class="name-cell">Patchouli Absolu</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">79</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:44%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">44%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:39%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">39%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. universally pleasant (hedonic 79). niche market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from TF Patchouli Absolu.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">123</td>
+  <td class="name-cell">Demoiselle</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">77</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:43%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">43%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:38%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">38%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 77). niche market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Coco Mademoiselle.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">124</td>
+  <td class="name-cell">Romance Bouquet</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#55efc4"></span><span class="fam-label">Chypre</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:43%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">43%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:39%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">39%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. universally pleasant (hedonic 78). niche market appeal: Chypre is #1-#3 in Thai market (+12). faces strong competition from Mon Guerlain.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">125</td>
+  <td class="name-cell">Coloniale</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#81ecec"></span><span class="fam-label">Fresh</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">78</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:41%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">41%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:42%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">42%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. universally pleasant (hedonic 78). niche market appeal: Fresh has steady Thai demand (+10). faces strong competition from AdP Colonia.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">126</td>
+  <td class="name-cell">Gentleman</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">74</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:39%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">39%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:38%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">38%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 74). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from Givenchy Gentleman.</td>
+</tr><tr class="tier-DP">
+  <td style="color:#555;font-size:10px">127</td>
+  <td class="name-cell">Legend</td>
+  <td><span class="tier-badge" style="background:rgba(108,92,231,0.15);color:#a29bfe;border:1px solid #a29bfe33">Designer Prestige</span></td>
+  <td><span class="fam-dot" style="background:#74b9ff"></span><span class="fam-label">Fougere</span></td>
+  <td class="cell-score" style="color:#e17055">5.0</td>
+  <td class="cell-score" style="color:#55efc4">76</td>
+  <td class="cell-score" style="color:#a29bfe">0</td>
+  <td class="cell-score" style="color:#a29bfe">2</td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:39%;background:linear-gradient(90deg,#00b894,#55efc4)"></div><span style="font-size:10px;font-weight:700">39%</span></div></td>
+  <td><div style="display:flex;align-items:center;gap:6px"><div class="bar-mini" style="width:38%;background:linear-gradient(90deg,#e17055,#e17055)"></div><span class="cell-score low-beat">38%</span></div></td>
+  <td style="font-size:9px;color:#888;max-width:250px;line-height:1.4">Industry score 5/100 = functional mass-market formulation. broadly likeable (hedonic 76). niche market appeal: Fougere has steady Thai demand (+8). faces strong competition from JPG Le Male.</td>
+</tr></tbody></table></div>
+<script>
+function filterTable(tier) {
+  var rows = document.querySelectorAll('#formula-table tbody tr');
+  var btns = document.querySelectorAll('.filters button');
+  btns.forEach(function(b){b.classList.remove('active')});
+  event.target.classList.add('active');
+  rows.forEach(function(r){
+    if(tier==='all'){r.style.display=''}
+    else{r.style.display=r.classList.contains('tier-'+tier)?'':'none'}
+  });
+}
+</script>
+<div class="section-title" style="color:#55efc4;">Top 10 Formulas by Market Appeal (Thai Market)</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:10px 0">
+
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#1</span>
+    <span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe">Luxury / Niche</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">F2 Le Chypre Vert</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Chypre · Luxury</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">91.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">76</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">83%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 85%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 91/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 76). very high market appeal: Chypre is #1-#3 in Thai market (+12), premium quality at mid price adds mass</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#2</span>
+    <span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe">Luxury / Niche</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Soie Celeste</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Floral · Luxury</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">87.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">72</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">73%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 84%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Floral is #1-#3 in Thai market (+15), premium quality at mid price adds massive</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#3</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon Amouage</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">88.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">66</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">73%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 84%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 88/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 66 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at m</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#4</span>
+    <span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe">Luxury / Niche</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">F1 Le Barbier de Grasse</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Fougere · Luxury</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">93.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">78</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">85%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 93/100 = luxury-tier quality at 1500-3500 THB price. universally pleasant (hedonic 78). strong market appeal: Fougere has steady Thai demand (+8), premium quality at mid price adds mass</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#5</span>
+    <span class="tier-badge" style="background:rgba(162,155,254,0.15);color:#a29bfe">Luxury / Niche</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Nuage Blanc</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Floral · Luxury</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">85.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">74</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 85/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 74). strong market appeal: Floral is #1-#3 in Thai market (+15), premium quality at mid price adds massive</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#6</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon 30mL</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">86.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">72</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 72). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive </div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#7</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon Perfected</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">86.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">71</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 71). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive </div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#8</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon MAX Complete</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">87.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">68</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 87/100 = luxury-tier quality at 1500-3500 THB price. acquired taste (hedonic 68 — leather/incense notes). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at m</div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#9</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon v2 Optimized</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">86.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">70</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive </div>
+</div>
+<div style="background:linear-gradient(145deg,#0e0e1a,#12121e);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:24px;font-weight:900;color:#55efc4;">#10</span>
+    <span class="tier-badge" style="background:rgba(255,255,255,0.06);color:#b2bec3">Standalone Formula</span>
+  </div>
+  <div style="font-size:14px;font-weight:700;color:#fff;margin:6px 0">Bleu Carbon v2 Optimized 30mL</div>
+  <div style="font-size:10px;color:#888;margin-bottom:8px">Woody · Bleu Carbon Series</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin:8px 0">
+    <div><div style="font-size:18px;font-weight:700;color:#a29bfe">86.0</div><div style="font-size:8px;color:#666">Industry</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#55efc4">70</div><div style="font-size:8px;color:#666">Hedonic</div></div>
+    <div><div style="font-size:18px;font-weight:700;color:#fdcb6e">72%</div><div style="font-size:8px;color:#666">Beat Competitors</div></div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <div style="flex:1;padding:4px;background:rgba(0,184,148,0.1);border-radius:4px;text-align:center;font-size:9px;color:#55efc4">Mass Appeal: 83%</div>
+  </div>
+  <div style="font-size:8px;color:#888;line-height:1.4">Industry score 86/100 = luxury-tier quality at 1500-3500 THB price. broadly likeable (hedonic 70). strong market appeal: Woody is #1-#3 in Thai market (+15), premium quality at mid price adds massive </div>
+</div></div>
+<div class="footer">
+  Generated from pipeline scoring + collection analysis · All 390+ formula files analyzed<br>
+  Scores: Industry (10-axis geometric) · Hedonic (pleasantness model) · Market Appeal (family + cultural fit) · Beat Likelihood (competitive gap analysis)
+</div>
+</div></body></html>

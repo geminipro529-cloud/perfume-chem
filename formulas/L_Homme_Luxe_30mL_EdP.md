@@ -1,0 +1,330 @@
+﻿# L'Homme Luxe - 30mL EdP 20%
+
+**Date**: 2026-07-09  
+**Concentration**: 20% EdP, 6,000 uL concentrate + 24 mL ethanol  
+**Batch size**: 30 mL total  
+**Family archetype:** `ysl_lhomme`  
+**Target**: YSL L'Homme EDT DNA as an ultra-polished designer-niche hybrid  
+**Version**: Spiced Silk Luxury v1  
+**Status**: Formula written. Pipeline analysis pending.
+
+---
+
+## Design Lock
+
+This is the super-luxury `L'Homme` build: bright ginger-bergamot recognition, cool cardamom polish, a violet-green silk heart, and a tailored cedar-tonka-musk drydown. The luxury is in the transitions and texture, not in adding unrelated naturals.
+
+| Axis | Kept In Formula | Reason |
+|---|---:|---|
+| Fresh citrus | Bergamot FCF oil Sicilian | Richer bergamot signature than plain FCF |
+| Ginger lift | Ginger EO | Main `L'Homme` recognizer in the opening |
+| Controlled freshness | Dihydromyrcenol, reduced | Fresh lift without turning sport-blue |
+| Cool spice | Cardamom EO | Polished bridge from citrus to cedar |
+| Aromatic green | Basil EO, trace | Repo skeleton marker, below anisic dominance |
+| Violet-green heart | Alpha Isomethyl Ionone + Parmavert | Designer violet-leaf silk without iris drift |
+| Radiant air | Hedione HC + Hedione | Smooth diffusion and expensive transparency |
+| Cedarwood base | Cedarwood oil Virginia + Iso E Super + Vertofix | Literal cedar plus modern tailored halo |
+| Tonka warmth | Tonkarome 20% | Dry tonka warmth without gourmand sweetness |
+| Musk trail | Habanolide + Zenolide + Ambrettolide | 3-axis chord: skin depth + clean projection + naturalistic warmth |
+
+---
+
+## Formula
+
+| # | Ingredient | Dilution | Amount (uL) | Amount (mL) | Role |
+|---|---|---:|---:|---:|---|
+| 1 | Iso E Super | 1.0 | 900 | 0.900 | Abstract cedar skin halo, controlled below old dominance |
+| 2 | Cedarwood oil Virginia | 1.0 | 800 | 0.800 | Real cedar backbone, anchors the YSL skeleton |
+| 3 | Hedione HC | 1.0 | 620 | 0.620 | High-cis radiance, silky floral air |
+| 4 | Tonkarome | 0.20 | 460 | 0.460 | Refined tonka-coumarin warmth |
+| 5 | Bergamot FCF oil Sicilian | 1.0 | 450 | 0.450 | Rich bergamot introduction, natural citrus elegance |
+| 6 | Ambrofix | 0.30 | 330 | 0.330 | Polished ambergris-mineral support |
+| 7 | Alpha Isomethyl Ionone | 1.0 | 320 | 0.320 | Violet-woody L'Homme heart, not iris-powder |
+| 8 | Zenolide | 1.0 | 300 | 0.300 | Clean citrusy-fresh projection musk, transparent outward trail |
+| 9 | Vertofix | 1.0 | 260 | 0.260 | Woody-musky cedar fixative bridge |
+| 10 | Habanolide | 1.0 | 240 | 0.240 | Warm skin musk, intimate silkiness (depth axis) |
+| 11 | Benzyl Benzoate | 1.0 | 224 | 0.224 | Quiet fixative mass, no salicylate cosmetics |
+| 12 | Vetiver EO (India) | 1.0 | 220 | 0.220 | Dry root-wood anchor, below vetiver theme |
+| 13 | Hedione | 1.0 | 160 | 0.160 | Diffusion amplifier and heart lift |
+| 14 | Ginger EO | 1.0 | 150 | 0.150 | Signature warm-cool ginger sparkle |
+| 15 | Parmavert | 1.0 | 140 | 0.140 | Violet leaf-green polish |
+| 16 | Ebanol | 1.0 | 130 | 0.130 | Creamy sandalwood softness under cedar |
+| 17 | Linalyl Acetate | 1.0 | 110 | 0.110 | Bergamot-lavender ester smoothness |
+| 18 | Dihydromyrcenol | 1.0 | 70 | 0.070 | Controlled fresh lift, kept below old overdose |
+| 19 | Ambrettolide (10% in DPG) | 0.10 | 40 | 0.040 | Naturalistic fruity-wine skin warmth, character-echo musk axis |
+| 20 | Farnesol | 1.0 | 40 | 0.040 | Lily-muguet transparent fixative, synergizes with Hedione for neroli-lily depth |
+| 21 | Cardamom EO | 1.0 | 28 | 0.028 | Cool cineolic spice bridge, not La Nuit-heavy |
+| 22 | Basil EO (India, Ocimum Basilicum) | 1.0 | 8 | 0.008 | Aromatic green marker, trace only |
+| | **Total** | | **6000** | **6.000** | |
+
+---
+
+## Layer Summary
+
+| Layer | Materials | Raw uL | % of concentrate |
+|---|---:|---:|---:|
+| Top | 5,14,17,18,21,22 | 816 | 13.6% |
+| Heart | 3,7,13,15,20 | 1280 | 21.3% |
+| Base | 1,2,4,6,8,9,10,11,12,16,19 | 3904 | 65.1% |
+| **Total concentrate** | **22** | **6000** | **100.0%** |
+| Ethanol 96% | | **24000** | **80.0% of finished bottle** |
+| **Finished volume** | | **30000 uL / 30 mL** | **20% EdP** |
+
+---
+
+## Why This Is The Super-Luxury Direction
+
+The old Luxe draft had the right idea but the wrong dominance pattern: Dihydromyrcenol, Hedione, and Iso E Super were too loud, so the fragrance risked smelling like a polished fresh-woody abstraction before it smelled like `L'Homme`.
+
+This version restores hierarchy. Bergamot, ginger, and cardamom speak first. Alpha Isomethyl Ionone and Parmavert give the violet-green designer heart. Cedarwood oil Virginia is pushed high enough to function as real cedar, with Iso E Super as halo rather than the whole identity. Vertofix and Ebanol make the base smoother and more expensive; Tonkarome keeps the tonka register dry and controlled.
+
+---
+
+## Material Rejections
+
+| Rejected | Why |
+|---|---|
+| Rose EO, Geranium EO, Geraniol, Citronellol | Too rosy and species-specific; repeats the Reserve muddiness risk |
+| Osmanthus Absolute, Blue Chamomile EO, Ylang, Tuberose | Beautiful but chemically off-brief for transparent YSL masculine DNA |
+| Clove EO, Eugenol, Isoeugenol | Turns the spice clove-carnation instead of ginger-cardamom |
+| Heavy Alpha Irone | Moves toward Prada/Dior iris rather than YSL L'Homme |
+| Benzyl Salicylate | Too cosmetic-heavy; Benzyl Benzoate fixes more quietly |
+| Galaxolide | Laundry-clean risk; Romandolide + Habanolide is more expensive |
+| Tonka Bean FO | Opaque preblend; Tonkarome is cleaner and more controllable |
+| Black Pepper EO | Roughens the opening and competes with ginger |
+| Azarbre | Smells beautiful, but the pipeline models it at VP 4.3 Pa, too volatile for this base role |
+| Leather, smoke, incense, balsams | Genre-shifting; not daytime L'Homme luxury |
+
+---
+
+## Mixing Order
+
+1. Add 24 mL ethanol to a 30 mL bottle.
+2. Add base materials from largest to smallest. Swirl after the woody block, then after musks.
+3. Add heart materials from largest to smallest. Swirl gently.
+4. Add top materials from largest to smallest. Cap and invert gently.
+5. Rest 2 weeks minimum, 4 weeks preferred. Evaluate on strip at 0 min, 15 min, 2 hr, and 6 hr before skin testing.
+
+---
+
+## Inventory Check
+
+All 20 materials are present in `inventory.txt` as of 2026-07-09. No depleted material is used.
+
+Potential watch item: `Basil EO (India, Ocimum Basilicum)` is anisic/herbal. It is held to 8 uL in 6,000 uL concentrate so it supports the `L'Homme` skeleton without becoming a licorice-herbal note.
+
+---
+
+## Pipeline Analysis
+
+## Gate Summary
+
+**110 PASS** / **19 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 4 warnings
+  WARN odt_coverage: 11 material(s) rely on derived/unverified ODTs (28% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 33.3% active mass across 4 materials
+  WARN safety_ifra_allergen: 10 materials lack explicit IFRA Cat4 limits; 4 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN family_drift_detector: unknown family archetype: ysl_lhomme
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): iso e super:cedarwood virginia = 4172:1; iso e super:tonkarome = 355:1; iso e super:ambrox super = 131:
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ร—157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jnd_redundancy: Potentially redundant pairs: zenolide vs habanolide in musk (OAV 0/0)
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 73%) โ€” collapse risk
+  WARN oav_intelligence: Unmapped family archetype for future-module intelligence: ysl_lhomme; volatility_balance: T:31% H:69% B:0% (target 30:35:35 for EdP); dihydr
+  WARN confidence_minimum: combined confidence 29.4; preflight science penalty 25.9
+
+## Headspace OAV โ€” Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Hedione                      |     5709.6 | heart |  very strong |   0.210 |    0.2855 |  0.000050 |  0.1600 | 13.70 | Hedione                       
+|   2 | Iso E Super                  |     4807.8 | heart |  very strong |   0.150 |    0.2404 |  0.000050 |  0.9000 | 15.26 | Iso E Super                   
+|   3 | Dihydromyrcenol              |     2986.0 | top   |  very strong |  17.000 |    2.9860 |  0.001000 |  0.0700 |  1.78 | Dihydromyrcenol               
+|   4 | Hedione HC                   |     2419.8 | heart |  very strong |   0.089 |    0.1210 |  0.000050 |  0.6200 | 13.70 | Hedione                       
+|   5 | Ginger EO                    |     2162.8 | top   |  very strong |  10.000 |   10.8142 |  0.005000 |  0.1500 |  4.38 | Ginger EO                     
+|   6 | Ebanol                       |     1470.6 | heart |  very strong |   0.890 |    0.3088 |  0.000210 |  0.1300 |  2.34 | Ebanol                        
+|   7 | Linalyl Acetate              |     1424.4 | top   |  very strong |  17.500 |    3.8460 |  0.002700 |  0.1100 |  2.23 | Linalyl Acetate               
+|   8 | Bergamot FCF oil Sicilian    |     1297.7 | heart |  very strong |   2.500 |    7.7862 |  0.006000 |  0.4500 | 10.52 | Bergamot FCF oil Sicilian     
+|   9 | Cardamom EO                  |      613.8 | top   |       strong |  15.000 |    1.7996 |  0.003000 |  0.0260 |  0.61 | Cardamom EO                   
+|  10 | Alpha Isomethyl Ionone       |      395.4 | heart |       strong |   0.400 |    0.3163 |  0.000800 |  0.3200 |  6.16 | Alpha-Isomethyl Ionone        
+|  11 | Basil EO (India, Ocimum Basilicum) |       49.5 | top   |     moderate |   8.000 |    0.2477 |  0.005000 |  0.0080 |  0.21 | Basil EO (India, Ocimum Basili
+|  12 | Vetiver EO (India)           |       41.6 | base  |     moderate |   0.040 |    0.0307 |  0.005000 |  0.2178 |  3.89 | Vetiver EO                    
+|  13 | Ambrofix                     |       36.8 | base  |     moderate |   0.066 |    0.0110 |  0.000300 |  0.0990 |  1.66 | Ambrox Super                  
+|  14 | Tonkarome                    |       13.5 | base  |     moderate |   0.050 |    0.0068 |  0.000500 |  0.0920 |  2.28 | Tonkarome                     
+|  15 | Parmavert                    |        1.9 | top   | at threshold |   0.100 |    0.0286 |  0.015000 |  0.1400 |  2.89 | Parmavert                     
+|  16 | Cedarwood oil Virginia       |        1.2 | base  | at threshold |   0.005 |    0.0173 |  0.015000 |  0.7840 | 14.01 | Cedarwood oil Virginia        
+|  17 | Vertofix                     |        0.8 | base  | sub-threshold |   0.011 |    0.0049 |  0.006300 |  0.2600 |  4.41 | Vertofix                      
+|  18 | Farnesol                     |        0.3 | heart | sub-threshold |   0.080 |    0.0056 |  0.020000 |  0.0400 |  0.71 | Farnesol                      
+|  19 | Ambrettolide (10% in DPG)    |        0.2 | base  | sub-threshold |   0.003 |    0.0000 |  0.000136 |  0.0040 |  0.06 | Ambrettolide                  
+|  20 | Habanolide                   |        0.0 | base  | sub-threshold |   0.000 |    0.0001 |  0.002800 |  0.2400 |  4.00 | Habanolide                    
+|  21 | Zenolide                     |        0.0 | base  | sub-threshold |   0.000 |    0.0001 |  0.003000 |  0.3000 |  4.69 | Zenolide                      
+|  22 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0005 |  0.810000 |  0.2240 |  4.19 | Benzyl Benzoate               
+
+**Materials:** 22 total (6 top, 7 heart, 9 base)
+**Total vapor:** 28.86 ppm
+### Note Distribution
+
+**TOP:** 6 mats, 9.4% active, 30.9% OAV
+  - Dihydromyrcenol              OAV=  2986.0 (very strong) VP=17.000Pa
+  - Ginger EO                    OAV=  2162.8 (very strong) VP=10.000Pa
+  - Linalyl Acetate              OAV=  1424.4 (very strong) VP=17.500Pa
+  - Cardamom EO                  OAV=   613.8 (strong) VP=15.000Pa
+  - Basil EO (India, Ocimum Basilicum) OAV=    49.5 (moderate) VP=8.000Pa
+  - Parmavert                    OAV=     1.9 (at threshold) VP=0.100Pa
+**HEART:** 7 mats, 48.8% active, 68.7% OAV
+  - Hedione                      OAV=  5709.6 (very strong) VP=0.210Pa
+  - Iso E Super                  OAV=  4807.8 (very strong) VP=0.150Pa
+  - Hedione HC                   OAV=  2419.8 (very strong) VP=0.089Pa
+  - Ebanol                       OAV=  1470.6 (very strong) VP=0.890Pa
+  - Bergamot FCF oil Sicilian    OAV=  1297.7 (very strong) VP=2.500Pa
+  - Alpha Isomethyl Ionone       OAV=   395.4 (strong) VP=0.400Pa
+  ... and 1 more
+**BASE:** 9 mats, 41.7% active, 0.4% OAV
+  - Vetiver EO (India)           OAV=    41.6 (moderate) VP=0.040Pa
+  - Ambrofix                     OAV=    36.8 (moderate) VP=0.066Pa
+  - Tonkarome                    OAV=    13.5 (moderate) VP=0.050Pa
+  - Cedarwood oil Virginia       OAV=     1.2 (at threshold) VP=0.005Pa
+  - Vertofix                     OAV=     0.8 (sub-threshold) VP=0.011Pa
+  - Ambrettolide (10% in DPG)    OAV=     0.2 (sub-threshold) VP=0.003Pa
+  ... and 3 more
+### OAV by Odor Family
+
+            woody  39.7% ===================  (6 mats)
+           floral  36.4% ==================  (3 mats)
+            spice  11.8% =====  (2 mats)
+         aromatic   6.3% ===  (2 mats)
+           citrus   5.5% ==  (1 mats)
+            amber   0.2% =  (1 mats)
+         gourmand   0.1% =  (1 mats)
+            green   0.0% =  (1 mats)
+           muguet   0.0% =  (1 mats)
+             musk   0.0% =  (3 mats)
+         fixative   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+6/22 materials below perceptible threshold
+  - Zenolide: OAV=0.02 VP=0.000Pa act=300uL role=Zenolide [Structural (acceptable)]
+  - Vertofix: OAV=0.77 VP=0.011Pa act=260uL role=Vertofix [Structural (acceptable)]
+  - Habanolide: OAV=0.02 VP=0.000Pa act=240uL role=Habanolide [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=224uL role=Benzyl Benzoate [Structural (acceptable)]
+  - Ambrettolide (10% in DPG): OAV=0.21 VP=0.003Pa act=4uL role=Ambrettolide [Structural (acceptable)]
+  - Farnesol: OAV=0.28 VP=0.080Pa act=40uL role=Farnesol [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Hedione OAV=5710 dominates headspace โ€” may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  9.4/48.8/41.7 |  28.86ppm |   6000 | Hedione(5710), Iso E Super(4808), Dihydromyrce(2986)
+| top          |    300s |  9.4/48.9/41.8 |  28.65ppm |   5994 | Hedione(5717), Iso E Super(4814), Dihydromyrce(2966)
+| heart        |   1800s |  9.1/48.9/42.0 |  27.65ppm |   5967 | Hedione(5755), Iso E Super(4845), Dihydromyrce(2866)
+| late_heart   |   7200s |  8.1/49.2/42.7 |  24.39ppm |   5879 | Hedione(5879), Iso E Super(4949), Dihydromyrce(2531)
+| drydown      |  14400s |  7.1/49.4/43.5 |  20.74ppm |   5778 | Hedione(6025), Iso E Super(5069), Hedione HC(2553)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) โ€” Evap:0%
+  T:9.4% H:48.8% B:41.7%  Vapor:28.86ppm
+  Leaders: Hedione OAV 5710 | Iso E Super OAV 4808 | Dihydromyrcenol OAV 2986 | Hedione HC OAV 2420 | Ginger EO OAV 2163
+
+**TOP** (300.0s) โ€” Evap:0%
+  T:9.4% H:48.9% B:41.8%  Vapor:28.65ppm
+  Leaders: Hedione OAV 5717 | Iso E Super OAV 4814 | Dihydromyrcenol OAV 2966 | Hedione HC OAV 2423 | Ginger EO OAV 2138
+
+**HEART** (1800.0s) โ€” Evap:1%
+  T:9.1% H:48.9% B:42.0%  Vapor:27.65ppm
+  Leaders: Hedione OAV 5755 | Iso E Super OAV 4845 | Dihydromyrcenol OAV 2866 | Hedione HC OAV 2439 | Ginger EO OAV 2018
+
+**LATE_HEART** (7200.0s) โ€” Evap:2%
+  T:8.1% H:49.2% B:42.7%  Vapor:24.39ppm
+  Leaders: Hedione OAV 5879 | Iso E Super OAV 4949 | Dihydromyrcenol OAV 2531 | Hedione HC OAV 2492 | Ginger EO OAV 1637
+
+**DRYDOWN** (14400.0s) โ€” Evap:4%
+  T:7.1% H:49.4% B:43.5%  Vapor:20.74ppm
+  Leaders: Hedione OAV 6025 | Iso E Super OAV 5069 | Hedione HC OAV 2553 | Dihydromyrcenol OAV 2135 | Ebanol OAV 1515
+## Structural OAV Analysis
+
+**Vapor:** 29 ppm  |  **Active:** 17.9%  |  **Perceptible:** 16/22
+
+### OAV Tiers
+  **massive** (8): Iso E Super(4808), Hedione HC(2420), Bergamot FCF oil Sicilian(1298), Hedione(5710), Ginger EO(2163), Ebanol(1471), Linalyl Acetate(1424), Dihydromyrcenol(2986)  ! overload risk
+  **v.strong** (2): Alpha Isomethyl Ionone(395), Cardamom EO(614)
+  **moderate** (4): Tonkarome(14), Ambrofix(37), Vetiver EO (India)(42), Basil EO (India, Ocimum Basilicum)(50)
+  **threshold** (2): Cedarwood oil Virginia(1), Parmavert(2)
+  **sub** (6): Zenolide(0), Vertofix(1), Habanolide(0), Benzyl Benzoate(0), Ambrettolide (10% in DPG)(0), Farnesol(0)
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**    16101 (99%)
+  **Base**         94 (1%)
+  **Ratio:** 171:1 between strongest/weakest block
+
+### Issues
+  ! 6 sub-threshold material(s): Zenolide, Vertofix, Habanolide, Benzyl Benzoate, Ambrettolide (10% in DPG), Farnesol
+  ! Missing 'strong' tier (OAV 50-100)
+  ! 8 massive-OAV materials โ€” sensory overload likely
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Dihydromyrcenol(very strong) + Ginger EO(very strong) + Linalyl Acetate(very strong)
+  Heart: Hedione(very strong) + Iso E Super(very strong)
+  Base: Vetiver EO (India)(moderate) + Ambrofix(moderate) + Tonkarome(moderate) + Cedarwood oil Virginia(at threshold) + Vertofix(sub-threshold)
+
+### 2. Opening (0-5min)
+  Dihydromyrcenol dominates at OAV 2986 (very strong).
+  - Dihydromyrcenol OAV=2986 VP=17.0Pa (woody)
+  - Ginger EO OAV=2163 VP=10.0Pa (spice)
+  - Linalyl Acetate OAV=1424 VP=17.5Pa (aromatic)
+  - Cardamom EO OAV=614 VP=15.0Pa (spice)
+  Total vapor: 28.9 ppm
+
+### 3. Heart (30min-2hr)
+  Hedione OAV=5755 (very strong)
+  Iso E Super OAV=4845 (very strong)
+  Dihydromyrcenol OAV=2866 (very strong)
+  Hedione HC OAV=2439 (very strong)
+  T:9.1% H:48.9% B:42.0%
+  Vapor: 27.7 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 44% of headspace
+  - Hedione OAV=6025
+  - Iso E Super OAV=5069
+  - Hedione HC OAV=2553
+  - Dihydromyrcenol OAV=2135
+  - Ebanol OAV=1515
+  - Ginger EO OAV=1234
+  Vapor: 20.7 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Hedione(5710) + Iso E Super(4808) + Dihydromyrcenol(2986) + Hedione HC(2420)
+  OAV by family: woody40% floral36% spice12% aromatic6%
+
+### 6. Longevity
+  Evaporation: 4% over 4h
+  Vapor: 28.9 > 20.7 ppm
+  Base @ drydown: 44%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:9.4% H:48.8% B:41.7%
+  OAV range: 0.00 to 5710 (sigma-log=2.05)
+  Wide contrast: citrus (OAV 5710) dominates opening before burning off to reveal base.
+    sub-threshold: 6
+
+### 8. Flags
+  SUB: Vertofix OAV=0.77 role=Vertofix
+  SUB: Farnesol OAV=0.28 role=Farnesol
+  SUB: Ambrettolide (10% in DPG) OAV=0.21 role=Ambrettolide
+  SUB: Habanolide OAV=0.02 role=Habanolide
+  SUB: Zenolide OAV=0.02 role=Zenolide
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+

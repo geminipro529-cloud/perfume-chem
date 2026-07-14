@@ -57,7 +57,7 @@ Pipette each directly into the 30 mL bottle. Wipe or switch pipettes between mat
 | 22 | Hedione | neat | **200 µL** | jasmine transparency, diffusion |
 | 23 | Hedione HC | neat | **30 µL** | radiance accent (~8× regular; sparing use) |
 | 24 | Lavender EO | neat | 100 µL | aromatic-fougère herbal lift |
-| 25 | Geraniol | neat | **100 µL** | rose-geranium brightness |
+| 25 | Geraniol | 10% in DPG | **100 µL** | rose-geranium brightness |
 | 26 | Coumarin | 20% | **60 µL** | tonka warmth — structural fougere trace (12 µL active) |
 
 **Running total: ~5,095 µL** — swirl gently for 5 seconds.
@@ -114,7 +114,7 @@ Store in a cool, dark place. Invert gently once per week. **Minimum 4 weeks** �
 | | 11 | Hedione | neat | **200** |
 | | 12 | Hedione HC | neat | **30** |
 | | 13 | Lavender EO | neat | 100 |
-| | 14 | Geraniol | neat | **100** |
+| | 14 | Geraniol | 10% in DPG | **100** |
 | | 15 | Coumarin | 20% | **60** |
 | BASE | 16 | Sandalore | neat | 350 |
 | | 17 | Polysantol | neat | **120** |

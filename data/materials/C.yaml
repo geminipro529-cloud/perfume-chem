@@ -106,29 +106,29 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cade Oil Rectified
-  aliases: []
-  cas: null
+  aliases: [cade oil, cade, cade rectified, juniper tar, huile de cade]
+  cas: 8013-10-3
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  mw_g_mol: 200.0
+  density_25c_g_ml: 0.96
+  logp: 3.5
+  functional_groups: [phenol, ether, alkene]
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.01
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 65.0
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
+  odt_air_ppb: 3.0
+  odt_eth_ppm: 0.5
+  stevens_n: 0.45
   or_targets: []
   trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  hedonic_valence: -0.3
+  ifra_max_pct_edp: 0.1
+  user_stock_dilution: 0.01
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 7TW00076
     perfumersworld_price_usd_per_g: 0.75
@@ -139,11 +139,12 @@
       - form: 10.0% in DPG
         sku: 5TW10962
         price_usd_per_g: 0.2
-  families: []
-  character: null
-  notes: null
+  families: [leather, smoky, phenolic, woody]
+  character: dry ashy smoke, juniper-woody, campfire, leathery undertone
+  notes: Rectified juniper wood tar (Juniperus oxycedrus). Destructive distillation then vacuum rectification to remove PAHs. IFRA Standard 119 — crude oil prohibited.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    integrated: 2026-07-05 manual
 - canonical_name: Cade Oil Rectified Oil
   aliases: []
   cas: null
@@ -220,12 +221,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 192.2
+  mw_g_mol: 178.18
   density_25c_g_ml: null
   logp: 1.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 2.0
+  vp_25c_pa: 0.293
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -606,10 +607,10 @@
   aliases:
   - cardamom eo
   - green cardamom eo
-  cas: '8000-66-6'
+  cas: 8000-66-6
   smiles: null
   inchikey: null
-  mw_g_mol: 154.3
+  mw_g_mol: 170.25
   density_25c_g_ml: 0.93
   logp: 2.5
   functional_groups:
@@ -640,8 +641,10 @@
   supplier: null
   families:
   - spice / aromatic
-  character: Spicy, green, slightly camphoraceous, eucalyptus-like, warm; classic cardamom opening with cineolic-clarity.
-  notes: Green cardamom (Elettaria cardamomum) essential oil; 1,8-cineole and α-terpinyl acetate dominant; pairs with rose, bergamot, sandalwood.
+  character: Spicy, green, slightly camphoraceous, eucalyptus-like, warm; classic
+    cardamom opening with cineolic-clarity.
+  notes: Green cardamom (Elettaria cardamomum) essential oil; 1,8-cineole and α-terpinyl
+    acetate dominant; pairs with rose, bergamot, sandalwood.
   provenance:
     mw_g_mol: manual:2026-05-08 cardamom oil cineole-terpinyl approximation
     density_25c_g_ml: manual:2026-05-08 cardamom EO typical density
@@ -735,12 +738,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 170.25
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -923,12 +926,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 218.3
+  mw_g_mol: 220.0
   density_25c_g_ml: null
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.15
+  vp_25c_pa: 0.01
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0006
@@ -940,7 +943,7 @@
   trp_targets: null
   hedonic_valence: 0.3
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1042,7 +1045,7 @@
   logp: 3.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.4
+  vp_25c_pa: 1.2
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -1275,6 +1278,45 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Cassis Base 345B
+  aliases:
+  - cassis base 345b
+  - cassis base 345
+  - cassis 345b
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 160.0
+  density_25c_g_ml: null
+  logp: 2.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - accord bases / other
+  character: null
+  notes: Firmenich blackcurrant specialty base — buchu mercaptan derivatives, cassis-sulfury-green-fruity
+  provenance:
+    mw_g_mol: estimated
+    vp_25c_pa: estimated
+    kaw_eff: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    user_in_inventory: inventory.txt
 - canonical_name: Castoreum F-TEC
   aliases:
   - CASTOREUM F-TEC
@@ -1442,7 +1484,7 @@
   trp_targets: null
   hedonic_valence: 0.55
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -1539,12 +1581,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 204.4
+  mw_g_mol: 222.37
   density_25c_g_ml: 0.98
   logp: 5.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.15
+  vp_25c_pa: 0.005
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -1614,12 +1656,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 234.38
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.35
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1631,7 +1673,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WW00097
@@ -1661,7 +1703,7 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 35.0
+  vp_25c_pa: 2.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.022
@@ -2009,12 +2051,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 204.4
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: 2.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.4
+  vp_25c_pa: 0.03
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.002
@@ -2026,7 +2068,7 @@
   trp_targets: null
   hedonic_valence: 0.6
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -2453,12 +2495,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 132.16
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.05
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2475,7 +2517,7 @@
     nasal_pungency: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -2707,12 +2749,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 134.18
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.03
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2838,13 +2880,16 @@
   trp_targets: null
   hedonic_valence: 0.65
   ifra_max_pct_edp: 3.0
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
   - floral materials
-  character: Natural jasmine-floral, fruity, diffusive, warm-spicy with a celery-seed nuance at strength.
-  notes: TGSC-backed cis-jasmone identity and perfumery profile. Very diffusive jasmine-celery-tea floral; best evaluated at 10% solution or less. Typical fragrance use is trace to low-percent, with IFRA guidance up to 3.0% in fragrance concentrate.
+  character: Natural jasmine-floral, fruity, diffusive, warm-spicy with a celery-seed
+    nuance at strength.
+  notes: TGSC-backed cis-jasmone identity and perfumery profile. Very diffusive jasmine-celery-tea
+    floral; best evaluated at 10% solution or less. Typical fragrance use is trace
+    to low-percent, with IFRA guidance up to 3.0% in fragrance concentrate.
   provenance:
     cas: tgsc:(Z)-jasmone
     smiles: pubchem:Jasmone
@@ -3099,7 +3144,7 @@
   logp: 1.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 120.0
+  vp_25c_pa: 1.4
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.008
@@ -3284,12 +3329,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 152.23
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 3.5
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3301,7 +3346,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4CC00111
@@ -3470,12 +3515,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 154.25
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 40.0
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3487,7 +3532,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4CR00115
@@ -3521,7 +3566,7 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 4.5
+  vp_25c_pa: 0.67
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
@@ -3533,7 +3578,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3RM00116
@@ -4008,7 +4053,7 @@
     nasal_pungency: null
   hedonic_valence: 0.5
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -4215,7 +4260,7 @@
   logp: 4.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.002
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -4227,7 +4272,7 @@
   trp_targets: null
   hedonic_valence: 0.5
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WB13402
@@ -4352,6 +4397,46 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Clove EO (India)
+  aliases:
+  - clove eo (india)
+  - clove eo india
+  - clove eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 164.2
+  density_25c_g_ml: null
+  logp: 2.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 2.5
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: 0.001
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier: null
+  families:
+  - spice / aromatic
+  character: null
+  notes: Eugenia caryophyllata bud oil, India origin — 70-85% eugenol, spicy-phenolic-warm
+  provenance:
+    mw_g_mol: pubchem_cid_3314
+    vp_25c_pa: estimated
+    kaw_eff: estimated
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    logp: pubchem_cid_3314
+    user_in_inventory: inventory.txt
 - canonical_name: Clove Fleuressence
   aliases: []
   cas: null
@@ -5276,12 +5361,12 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 200.0
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.001
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -5356,7 +5441,7 @@
   logp: 1.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5
+  vp_25c_pa: 0.19
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0005
@@ -5602,7 +5687,7 @@
   logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.8
+  vp_25c_pa: 0.52
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -5619,7 +5704,7 @@
     nasal_pungency: null
   hedonic_valence: 0.45
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3MG00134
@@ -5719,28 +5804,29 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cyclimal Aldehyde
-  aliases: []
-  cas: null
+  aliases:
+  - cyclamen aldehyde
+  cas: 103-95-7
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 190.28
   density_25c_g_ml: null
-  logp: null
+  logp: 3.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.52
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 0.76
+  odt_eth_ppm: 0.0025
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 1.0
   user_in_inventory: true
   supplier: null
   families:
@@ -5858,3 +5944,140 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: cocoa absolute
+  aliases: []
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 250.0
+  density_25c_g_ml: null
+  logp: 4.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.01
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.05
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 0.1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: null
+    other: {}
+  families:
+  - gourmand
+  - natural
+  character: null
+  notes: null
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: coumarin (neat powder)
+  aliases:
+  - Coumarin powder
+  - Coumarin neat
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: 146.2
+  density_25c_g_ml: null
+  logp: 1.4
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.19
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 2.0
+  odt_eth_ppm: 0.02
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+- canonical_name: Cassia Essential Oil
+  aliases:
+  - Cassia Essential Oil (Cinnamomum cassia, India)
+  - cassia essential oil
+  - cassia eo
+  - cinnamomum cassia eo
+  cas: 84961-46-6
+  smiles:
+  inchikey:
+  mw_g_mol: 135.0
+  density_25c_g_ml: 1.05
+  logp: 2.0
+  functional_groups:
+  - aldehyde
+  - essential oil
+  chirality:
+  vp_25c_pa: 2.5
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.008
+  hsp:
+  odt_air_ppb: 1.5
+  odt_eth_ppm: 0.2
+  stevens_n:
+  or_targets: []
+  trp_targets:
+    TRPA1: 0.3
+    TRPV1: 0.2
+  hedonic_valence: 0.55
+  ifra_max_pct_edp: 0.5
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+  families:
+  - spice / aromatic
+  - natural
+  character: "Warm sweet-spicy cinnamaldehyde-dominant EO. Rich cinnamon aroma. Powerful skin sensitizer."
+  notes: "Steam-distilled Cinnamomum cassia bark India. ~80% cinnamaldehyde. Spicy oriental use. IFRA restricted — highly dilute for skin."
+  provenance:
+    mw_g_mol: manual:2026-06-15 cinnamaldehyde-dominated mixture
+    density_25c_g_ml: manual:2026-06-15 typical cassia oil density
+    logp: manual:2026-06-15 cinnamaldehyde-dominated approximation
+    vp_25c_pa: manual:2026-06-15 cinnamaldehyde-dominated mixture VP
+    odt_air_ppb: manual:2026-06-15 estimated from cinnamaldehyde ODT
+    odt_eth_ppm: manual:2026-06-15 estimated from cinnamaldehyde ODT
+    hedonic_valence: manual:2026-06-15 polarizing character
+    ifra_max_pct_edp: manual:2026-06-15 cinnamaldehyde IFRA Cat4 limit
+    user_in_inventory: inventory.txt
+
+- canonical_name: Cocoa CO2 Absolute
+  aliases:
+  - cocoa co2 absolute
+  - cocoa co2 abs
+  - cocoa co2 extract
+  cas: 84649-99-0
+  mw_g_mol: 260.0
+  density_25c_g_ml: null
+  logp: 3.5
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.01
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 3.0
+  odt_eth_ppm: 0.5
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true

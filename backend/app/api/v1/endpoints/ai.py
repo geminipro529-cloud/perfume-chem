@@ -1,17 +1,18 @@
 """AI-powered endpoints"""
 
-from fastapi import APIRouter, Depends, HTTPException
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
-from app.schemas.perfume import (
-    AIAnalysisRequest,
-    AIModificationRequest,
-    AIPairingRequest
-)
-from app.services.ai.base import BaseAIService
+from fastapi import APIRouter, Depends, HTTPException
+
 from app.api.deps import get_ai_service, get_model_selector_dep
 from app.core.exceptions import AIServiceError
-from app.services.validation_pipeline import validate_formula, validate_search_query, attach_validation
+from app.schemas.perfume import AIAnalysisRequest, AIModificationRequest, AIPairingRequest
+from app.services.ai.base import BaseAIService
+from app.services.validation_pipeline import (
+    attach_validation,
+    validate_formula,
+    validate_search_query,
+)
 
 router = APIRouter()
 

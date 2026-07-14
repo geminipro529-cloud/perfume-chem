@@ -71,7 +71,7 @@ Pipette directly into the bottle. Wipe or swap pipettes between materials.
 | 26 | Hedione | neat | 400 µL | jasmonate radiance amplifier — volume expander |
 | 27 | α-Isomethyl Ionone | neat | 190 µL | orris-violet radiance — powdery-luxury register |
 | 28 | PEA | neat | 150 µL | rose petal freshness |
-| 29 | Geraniol | neat | 110 µL | rose-geranium brightness |
+| 29 | Geraniol | 10% in DPG | 110 µL | rose-geranium brightness |
 | 30 | Hexyl Salicylate | neat | 100 µL | transparent film fixative — no cosmetic weight |
 | 31 | Oranger Crystals | 10% in DPG | 100 µL | neroli-grape-orange blossom (10 µL active) |
 | 32 | Hedione HC | neat | 80 µL | high-cis jasmonate brilliance (~8× Hedione) |
@@ -194,7 +194,7 @@ Chypre anchor: Evernyl (20 µL) locks the structure — without it, the base col
 | | α-Isomethyl Ionone | neat | 190 |
 | | Benzyl Salicylate | neat | 200 |
 | | PEA | neat | 150 |
-| | Geraniol | neat | 110 |
+| | Geraniol | 10% in DPG | 110 |
 | | Hexyl Salicylate | neat | 100 |
 | | Oranger Crystals | 10% in DPG | 100 |
 | | Hedione HC | neat | 80 |

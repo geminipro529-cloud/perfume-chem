@@ -76,7 +76,7 @@
 | 20 | Phenethyl Alcohol (PEA) | neat | 60 | 0.060 |
 | 21 | Amyl Cinnamic Aldehyde (ACA) | neat | 50 | 0.050 |
 | 22 | Benzyl Acetate | neat | 50 | 0.050 |
-| 23 | Geraniol | neat | 45 | 0.045 |
+| 23 | Geraniol | 10% in DPG | 450 | 0.450 |
 | 24 | Bourgeonal | neat | 35 | 0.035 |
 | 25 | Ylang Comoros Complete EO | neat | 30 | 0.030 |
 | 26 | p-Cresyl Methyl Ether (PCME) | 10 % | 25 | 0.025 |

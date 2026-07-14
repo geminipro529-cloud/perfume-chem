@@ -1,6 +1,7 @@
 """Outcome API endpoints: record, query, and analyze formulation outcomes."""
 
 from typing import Optional
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession

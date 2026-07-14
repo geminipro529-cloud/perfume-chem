@@ -31,8 +31,15 @@ def append_event(event: Mapping, path: str | Path | None = None) -> dict:
 
     out_path = Path(path) if path is not None else default_audit_path()
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    with out_path.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+    try:
+        with out_path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+    except OSError:
+        fallback = DEFAULT_AUDIT_PATH
+        fallback.parent.mkdir(parents=True, exist_ok=True)
+        with fallback.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+        payload["audit_path_fallback"] = str(fallback)
     return payload
 
 

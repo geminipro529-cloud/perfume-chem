@@ -1,0 +1,25 @@
+{
+  "formula_name": "Vetiver Classique V5 — 50 mL EdP",
+  "brief": "vetiver_woody",
+  "expected_concentrate_ul": 10000,
+  "batch_volume_ml": 50,
+  "temperature_K": 305.0,
+  "concentration_bracket": "EdP",
+  "raw_formula": [
+    {"name": "Bergamot FCF oil Sicilian", "percent": 5.0, "dilution": 1.0},
+    {"name": "Cedrat FCF oil Sicilian", "percent": 3.0, "dilution": 1.0},
+    {"name": "Petitgrain EO", "percent": 2.0, "dilution": 1.0},
+    {"name": "Black Pepper EO", "percent": 1.0, "dilution": 1.0},
+    {"name": "Linalool", "percent": 0.5, "dilution": 1.0},
+    {"name": "Lavender EO", "percent": 0.5, "dilution": 1.0},
+    {"name": "Geranium EO", "percent": 15.0, "dilution": 1.0},
+    {"name": "Vetiver EO (India)", "percent": 32.0, "dilution": 1.0},
+    {"name": "Cedarwood oil Virginia", "percent": 17.0, "dilution": 1.0},
+    {"name": "Ambrox Super", "percent": 1.0, "dilution": 1.0},
+    {"name": "Evernyl", "percent": 0.5, "dilution": 1.0},
+    {"name": "Coumarin", "percent": 7.5, "dilution": 0.2},
+    {"name": "Kephalis", "percent": 1.0, "dilution": 1.0},
+    {"name": "Habanolide", "percent": 2.0, "dilution": 1.0},
+    {"name": "Patchouli EO", "percent": 1.0, "dilution": 1.0}
+  ]
+}
