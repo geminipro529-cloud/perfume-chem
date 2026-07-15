@@ -52,6 +52,8 @@ def _parse_dilution(raw_name: str) -> float:
 
 def _parse_status(raw_name: str) -> str:
     upper = raw_name.upper()
+    if "DEPLETED" in upper:
+        return "depleted"
     if "OUT OF STOCK" in upper:
         return "out_of_stock"
     if "RAN OUT" in upper:

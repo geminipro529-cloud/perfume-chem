@@ -59,6 +59,8 @@ _ALIASES: dict[str, str] = {
     "alpha isomethyl ionone (methyl ionone pure)": "alpha-isomethyl ionone",
     "aimi": "alpha-isomethyl ionone",
     "alpha irone (30% in dep)": "alpha irone",
+    "alpha irone (30% w/w in ipm)": "alpha irone",
+    "orris liquid (30%)": "orris liquid",
     # IBQ and FTEC variants
     "ibq": "isobutyl quinoline",
     "isobutyl quinoline (10%)": "isobutyl quinoline",
@@ -95,6 +97,8 @@ _ALIASES: dict[str, str] = {
     "olibanum resinoid absolute": "olibanum resinoid",
     "olibanum resinoid absolute (10%)": "olibanum resinoid",
     "olibanum resinoid absolute - solid": "olibanum resinoid",
+    "olibanum resinoid (viscous)": "olibanum resinoid",
+    "olibanum resinoid (viscous, 3 g)": "olibanum resinoid",
     "dimethyl benzyl carbinyl acetate (dbca)": "dimethyl benzyl carbinyl acetate",
     # ── Inventory aliases 2026-05-23 ──
     "nerolia bromelia": "nerolin bromelia",

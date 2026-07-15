@@ -16,6 +16,8 @@ Reference data:
   - Ylang: Gaydou et al. (1986)
   - Vetiver: Weyerstahl et al. (2000)
   - Labdanum: Weyerstahl et al. (1998)
+  - Orris Liquid: PerfumersWorld SKU 8IQ24653; Shanaida et al. (2020)
+  - Olibanum: PerfumersWorld SKU 2QK21856; Woolley et al. (2012)
 
 Format: (constituent name, weight fraction, MW, VP at 25C Pa, ODT air ppb, gamma)
 """
@@ -33,6 +35,12 @@ _OSMANTHUS_CONSTITUENTS = [
     ("theaspirane", 0.015, 194.27, 0.80, 0.10, 1.2),
     ("phenethyl alcohol", 0.05, 122.16, 0.12, 200.0, 0.7),
     ("hotrienol", 0.02, 152.23, 2.00, 5.00, 1.5),
+]
+
+# Supplier declares 80-85% irone but does not publish an isomer split. The
+# midpoint is modeled as an alpha-irone-equivalent pool; 17.5% remains unknown.
+_ORRIS_LIQUID_CONSTITUENTS = [
+    ("irone pool (alpha-equivalent)", 0.825, 206.32, 0.559, 0.9, 1.3),
 ]
 
 _ROSE_DE_MAI_CONSTITUENTS = [
@@ -191,6 +199,17 @@ _BENZOIN_RESINOID_CONSTITUENTS = [
     ("benzoic acid", 0.05, 122.12, 0.10, 50.0, 0.6),
 ]
 
+# SKU 2QK21856 declares about 30% benzyl benzoate. The terpene fractions are a
+# deliberately partial, conservative Boswellia carteri volatile model; the
+# uncharacterized nonvolatile resin matrix is not normalized into these values.
+_OLIBANUM_RESINOID_CONSTITUENTS = [
+    ("benzyl benzoate", 0.30, 212.24, 0.02, 810.0, 0.7),
+    ("alpha pinene", 0.015, 136.24, 400.0, 20.0, 3.0),
+    ("limonene", 0.006, 136.24, 200.0, 20.0, 3.0),
+    ("myrcene", 0.003, 136.24, 400.0, 10.0, 3.0),
+    ("sabinene", 0.002, 136.24, 300.0, 30.0, 3.0),
+]
+
 _VETIVER_EO_CONSTITUENTS = [
     ("khusimol", 0.15, 220.35, 0.001, 0.50, 0.4),
     ("vetivone", 0.10, 218.33, 0.005, 1.00, 0.5),
@@ -294,6 +313,8 @@ _CASSIS_BASE_345B_CONSTITUENTS = [
 _ABSOLUTE_CONSTITUENTS = {
     # Flower absolutes
     "osmanthus absolute": _OSMANTHUS_CONSTITUENTS,
+    "orris liquid": _ORRIS_LIQUID_CONSTITUENTS,
+    "orris liquid (30%)": _ORRIS_LIQUID_CONSTITUENTS,
     "rose de mai absolute": _ROSE_DE_MAI_CONSTITUENTS,
     "jasmine sambac": _JASMINE_SAMBAC_CONSTITUENTS,
     "jasmine sambac (10% in dpg)": _JASMINE_SAMBAC_CONSTITUENTS,
@@ -317,6 +338,10 @@ _ABSOLUTE_CONSTITUENTS = {
     "labdanum resinoid (10% in dpg)": _LABDANUM_RESINOID_CONSTITUENTS,
     "benzoin resinoid": _BENZOIN_RESINOID_CONSTITUENTS,
     "benzoin resinoid (50% in dpg)": _BENZOIN_RESINOID_CONSTITUENTS,
+    "olibanum resinoid": _OLIBANUM_RESINOID_CONSTITUENTS,
+    "olibanum resinoid (viscous)": _OLIBANUM_RESINOID_CONSTITUENTS,
+    "olibanum resinoid (viscous, 3 g)": _OLIBANUM_RESINOID_CONSTITUENTS,
+    "olibanum resinoid absolute": _OLIBANUM_RESINOID_CONSTITUENTS,
     "vetiver eo (india)": _VETIVER_EO_CONSTITUENTS,
     "vetiver eo": _VETIVER_EO_CONSTITUENTS,
     "cedarwood eo": _CEDARWOOD_EO_CONSTITUENTS,

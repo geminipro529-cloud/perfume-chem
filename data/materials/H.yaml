@@ -1290,7 +1290,7 @@
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
   user_stock_dilution: 1.0
-  user_in_inventory: true
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 3MC00233
     perfumersworld_price_usd_per_g: 0.23
@@ -1300,7 +1300,8 @@
   families:
   - floral materials
   character: null
-  notes: null
+  notes: Depleted 2026-06-15. This aldehyde is distinct from Hydroxycitronellol
+    (CAS 107-74-4).
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1310,8 +1311,60 @@
     stevens_n: engine.odor_thresholds
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
-    user_in_inventory: inventory.txt
+    user_in_inventory: inventory.txt (depleted 2026-06-15)
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Hydroxycitronellol
+  aliases:
+  - hydroxycitronellol
+  - 3,7-Dimethyl-1,7-octanediol
+  - 3,7-Dimethyloctane-1,7-diol
+  - Hydroxyciol
+  cas: 107-74-4
+  smiles: CC(CCCC(C)(C)O)CCO
+  inchikey: FPCCDPXRNNVUOM-UHFFFAOYSA-N
+  mw_g_mol: 174.28
+  density_25c_g_ml: 0.928
+  logp: 1.5
+  functional_groups:
+  - primary alcohol
+  - tertiary alcohol
+  - aliphatic diol
+  chirality: unspecified stereoisomer mixture
+  vp_25c_pa: 0.0736
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 100.0
+  odt_eth_ppm: 20.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: neat
+  user_in_inventory: true
+  supplier: null
+  families:
+  - floral materials
+  - rose
+  - muguet modifier
+  character: Very mild, tenacious clean-sweet rose-peony floral; less green and
+    less muguet-like than hydroxycitronellal.
+  notes: Identity and measured physical values follow the 2024 RIFM assessment.
+    No direct peer-reviewed ODT for CAS 107-74-4 was located; the positive ODT
+    values are conservative class proxies and are tagged DERIVED in ODT_DATA.
+  provenance:
+    cas: https://doi.org/10.1016/j.fct.2023.114281
+    smiles: https://pubchem.ncbi.nlm.nih.gov/compound/249494
+    inchikey: https://pubchem.ncbi.nlm.nih.gov/compound/249494
+    mw_g_mol: https://doi.org/10.1016/j.fct.2023.114281
+    density_25c_g_ml: https://doi.org/10.1016/j.fct.2023.114281
+    logp: RIFM measured log Kow, https://doi.org/10.1016/j.fct.2023.114281
+    vp_25c_pa: RIFM 0.000552 mmHg at 25 C converted with 133.322 Pa/mmHg
+    odt_air_ppb: engine.odor_thresholds (DERIVED, no direct peer ODT located)
+    odt_eth_ppm: engine.odor_thresholds (DERIVED, no direct peer ODT located)
+    user_in_inventory: inventory.txt (added 2026-07-16)
 - canonical_name: Hyssop Essential Oil
   aliases: []
   cas: null

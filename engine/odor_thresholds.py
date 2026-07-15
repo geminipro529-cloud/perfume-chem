@@ -189,6 +189,17 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 15.0,
         "odt_eth": 3.0,
     },
+    "hydroxycitronellol": {
+        "vfy": "DERIVED",
+        "sources": [
+            "Api et al. (2024), Food Chem Toxicol 183:114281 (identity, VP, mild odor)",
+            "Conservative branched-diol class proxy",
+        ],
+        "odt_air": 100.0,
+        "odt_eth": 20.0,
+        "char": "very mild, clean-sweet rose-peony floral",
+        "note": "No direct peer-reviewed ODT for CAS 107-74-4 was located; do not treat as measured.",
+    },
     "immortelle absolute": {
         "odt_air": 1.0,
         "odt_eth": 0.01,
@@ -688,6 +699,17 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 0.5,
         "odt_eth": 0.1,
         "char": "natural orris, buttery-iris",
+    },
+    "orris liquid": {
+        "vfy": "DERIVED",
+        "sources": [
+            "PerfumersWorld SKU 8IQ24653 (80-85% irone supplier declaration)",
+            "Alpha-irone-equivalent fallback",
+        ],
+        "odt_air": 0.9,
+        "odt_eth": 0.16,
+        "char": "powdery violet-orris, lipstick, creamy suede",
+        "note": "Whole-material fallback only; natural composite OAV is authoritative.",
     },
     "violet fleuressence": {
         "odt_air": 0.1,
@@ -2147,6 +2169,16 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Tier B — SCCS/RIFM regulatory data + VP-gradient model",
     },
     "hydroxycitronellal": {"vfy": "PEER_SINGLE", "sources": ["Nagata (2003)"]},
+    "hydroxycitronellol": {
+        "vfy": "DERIVED",
+        "sources": [
+            "Api et al. (2024), Food Chem Toxicol 183:114281",
+            "No direct peer-reviewed ODT located; conservative class proxy",
+        ],
+        "odt_air": 100.0,
+        "odt_eth": 20.0,
+        "note": "Identity and physical properties are peer-reviewed; threshold values are not measured.",
+    },
     "i-iris ftec": {
         "vfy": "DERIVED",
         "sources": [
@@ -2442,6 +2474,15 @@ ODT_VERIFICATION: dict[str, dict] = {
             "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
         ],
         "note": "Auto-tagged by audit 2026-05-11",
+    },
+    "orris liquid": {
+        "vfy": "DERIVED",
+        "sources": [
+            "PerfumersWorld SKU 8IQ24653; alpha-irone-equivalent fallback"
+        ],
+        "odt_air": 0.9,
+        "odt_eth": 0.16,
+        "note": "Composite OAV is authoritative for this natural mixture.",
     },
     "orris ftec": {
         "vfy": "DERIVED",

@@ -609,7 +609,7 @@
   {
     "name": "ALPHA IRONE",
     "alt_name": null,
-    "cas": "79-69-6 (tech. grade); 28555-77-5 (cis-α-irone)",
+    "cas": "79-69-6",
     "formula_str": "C₁₄H₂₂O",
     "mw": 206.33,
     "bp": 268.0,
@@ -629,7 +629,7 @@
     "jellinek_effect": "Creates sense of luxury, intimacy, and costliness. Strong",
     "typical_pct_range": "1-5% of concentrate (= 0.1-0.5% active)",
     "max_safe_pct": "10% of concentrate (= 1% active)",
-    "stock_form": "10% dilution",
+    "stock_form": "30% w/w in IPM",
     "best_with": [
       "Methyl ionone",
       "allyl ionone",
@@ -642,7 +642,7 @@
     "odor_family": "floral iris",
     "odor_profile": "Refined powdery-earthy iris with buttery orris-root depth and violet-woody elegance.",
     "odt_ethanol_ppm": 0.16,
-    "note": "base",
+    "note": "heart",
     "role": "character",
     "texture": "halo",
     "synergies": [
@@ -673,7 +673,7 @@
       "PubChem returned null for CAS 79-69-6 (tech. grade); 28555-77-5 (cis-α-irone)"
     ],
     "ifra_standard_type": "restriction",
-    "in_inventory": false
+    "in_inventory": true
   },
   {
     "name": "Alpha Isomethyl Ionone",
@@ -7081,6 +7081,75 @@
     "ifra_standard_type": "restriction"
   },
   {
+    "name": "Hydroxycitronellol",
+    "alt_name": "3,7-Dimethyl-1,7-octanediol",
+    "cas": "107-74-4",
+    "formula_str": "C10H22O2",
+    "mw": 174.28,
+    "bp": 262.24,
+    "vp": 0.0736,
+    "clp": 1.5,
+    "odt": 100.0,
+    "odt_ethanol_ppm": 20.0,
+    "sar_class": "Branched aliphatic diol",
+    "olfactophore": "Primary and tertiary alcohols on a branched C10 chain",
+    "arctander_character": "Very mild, clean-sweet, tenacious rose-peony floral",
+    "arctander_tenacity": "Heart to base; mild but persistent",
+    "carles_position": "HEART - floral modifier and cushion",
+    "carles_pairing_rule": null,
+    "roudnitska_function": null,
+    "roudnitska_craft_note": null,
+    "jellinek_axis": null,
+    "jellinek_quadrant": null,
+    "jellinek_effect": null,
+    "typical_pct_range": "RIFM fine-fragrance 95th percentile: 0.14% (exposure, not limit)",
+    "max_safe_pct": null,
+    "stock_form": "Neat",
+    "best_with": [
+      "Phenethyl Alcohol",
+      "Citronellol",
+      "Hedione",
+      "Florol"
+    ],
+    "avoid": "Do not confuse with hydroxycitronellal (CAS 107-75-5)",
+    "handle_as": "Mild rose-peony floral cushion",
+    "odor_family": "rose floral",
+    "odor_profile": "Very mild clean-sweet rose-peony floral, less green and less muguet-like than hydroxycitronellal.",
+    "note": "heart",
+    "role": "modifier",
+    "texture": "cushion",
+    "synergies": [
+      "Phenethyl Alcohol",
+      "Citronellol",
+      "Hedione",
+      "Florol"
+    ],
+    "or_family": "rose",
+    "activity_coef": 0.6,
+    "hedonic": 0.64,
+    "oav_typical": 70.0,
+    "oav_dose_pct": 0.14,
+    "smell_strength": "weak",
+    "anosmic_risk": "standard",
+    "ifra_cat4_limit_pct": null,
+    "ifra_banned": false,
+    "ifra_restricted": false,
+    "hill_ec50": null,
+    "hill_n": null,
+    "hill_rmax": null,
+    "character_shift": [],
+    "dilution_pct": 1.0,
+    "pubchem_cid": 249494,
+    "audit_flags": [
+      "ODT DERIVED: no direct peer-reviewed threshold located"
+    ],
+    "oav_effect": "perceptible at the evidence-backed exposure reference",
+    "hill_response": null,
+    "pubchem_warnings": [],
+    "ifra_standard_type": null,
+    "in_inventory": true
+  },
+  {
     "name": "Immortelle Absolute",
     "alt_name": null,
     "mw": 200.0,
@@ -9944,8 +10013,8 @@
   },
   {
     "name": "OLIBANUM RESINOID",
-    "alt_name": "10%",
-    "cas": "89957-98-2 (resinoid)",
+    "alt_name": "Viscous; about 30% benzyl benzoate",
+    "cas": "8016-36-2",
     "formula_str": "C₁₀H₁₆ (pinene), C₂₀H₃₄O₂ (incensole) — mixture",
     "mw": 220.0,
     "bp": 260.0,
@@ -9963,9 +10032,9 @@
     "jellinek_axis": "NARCOTIC → EXALTING (spans both)",
     "jellinek_quadrant": "Center (narcotic depth + exalting uplift = centered meditation)",
     "jellinek_effect": "Meditative, spiritual, calming, centering, sacred.",
-    "typical_pct_range": "2-8% of concentrate (= 20-80% of your 10% solution)",
+    "typical_pct_range": "0.5-40% supplier guidance (not an IFRA maximum)",
     "max_safe_pct": "12% (neat)",
-    "stock_form": "10% solution",
+    "stock_form": "Neat viscous supplier form; 3 g in inventory",
     "best_with": [
       "Myrrh EO (sacred)",
       "labdanum (amber-incense)",
@@ -9985,7 +10054,7 @@
       "Benzoin Resinoid"
     ],
     "or_family": "smoky",
-    "activity_coef": 1.0,
+    "activity_coef": 2.0,
     "hedonic": -0.5,
     "oav_typical": 16666.7,
     "oav_dose_pct": 5.0,
@@ -9998,14 +10067,15 @@
     "hill_n": null,
     "hill_rmax": null,
     "character_shift": [],
-    "dilution_pct": 0.1,
+    "dilution_pct": 1.0,
     "audit_flags": [],
     "oav_effect": "dominant — note dominates blend, shapes the accord",
     "hill_response": null,
     "pubchem_warnings": [
       "PubChem returned null for CAS 89957-98-2 (resinoid)"
     ],
-    "ifra_standard_type": "restriction"
+    "ifra_standard_type": "restriction",
+    "in_inventory": true
   },
   {
     "name": "Orange Peel EO",
@@ -10200,6 +10270,76 @@
     "hill_response": null,
     "pubchem_warnings": [],
     "ifra_standard_type": "restriction"
+  },
+  {
+    "name": "Orris Liquid",
+    "alt_name": "80-85% irone supplier liquid; user stock at 30%",
+    "cas": "8002-73-1",
+    "formula_str": "Natural irone-rich mixture",
+    "mw": 206.32,
+    "bp": null,
+    "vp": 0.559,
+    "clp": 3.2,
+    "odt": 0.9,
+    "odt_ethanol_ppm": 0.16,
+    "sar_class": "Irone-rich natural iris mixture",
+    "olfactophore": "Supplier-declared irone pool; isomer split not published",
+    "arctander_character": "Powdery violet-orris, lipstick, raspberry, carrot, creamy butter and suede",
+    "arctander_tenacity": "Heart to base; long-lasting iris character",
+    "carles_position": "HEART - characterizing iris material",
+    "carles_pairing_rule": null,
+    "roudnitska_function": null,
+    "roudnitska_craft_note": null,
+    "jellinek_axis": null,
+    "jellinek_quadrant": null,
+    "jellinek_effect": null,
+    "typical_pct_range": "0.08-0.8% supplier guidance (not an IFRA maximum)",
+    "max_safe_pct": null,
+    "stock_form": "30% dilution; solvent not recorded",
+    "best_with": [
+      "Alpha Irone",
+      "Orivone",
+      "Carrot Seed EO",
+      "Sandalwood EO"
+    ],
+    "avoid": "Do not treat effective alpha-irone fallback values as a certificate of analysis",
+    "handle_as": "Natural iris character material; composite OAV is authoritative",
+    "odor_family": "floral iris",
+    "odor_profile": "Powdery floral-woody orris with violet, cosmetic, buttery and soft suede facets.",
+    "note": "heart",
+    "role": "character",
+    "texture": "cushion",
+    "synergies": [
+      "Alpha Irone",
+      "Orivone",
+      "Carrot Seed EO",
+      "Sandalwood EO"
+    ],
+    "or_family": "iris",
+    "activity_coef": 1.3,
+    "hedonic": 1.28,
+    "oav_typical": 15000.0,
+    "oav_dose_pct": 0.8,
+    "smell_strength": "moderate-strong",
+    "anosmic_risk": "standard",
+    "ifra_cat4_limit_pct": null,
+    "ifra_banned": false,
+    "ifra_restricted": false,
+    "hill_ec50": null,
+    "hill_n": null,
+    "hill_rmax": null,
+    "character_shift": [],
+    "dilution_pct": 0.3,
+    "audit_flags": [
+      "Natural mixture: formula-state composite OAV is authoritative"
+    ],
+    "oav_effect": "dominant at the upper supplier-guidance dose",
+    "hill_response": null,
+    "pubchem_warnings": [
+      "Mixture CAS; no single-molecule PubChem identity"
+    ],
+    "ifra_standard_type": null,
+    "in_inventory": true
   },
   {
     "name": "Osmanthus Absolute",

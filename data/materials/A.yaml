@@ -1774,11 +1774,12 @@
 - canonical_name: Alpha Irone
   aliases:
   - alpha irone
+  - Alpha Irone (30% w/w in IPM)
   cas: 79-69-6
   smiles: CC1CC=C(C(C1(C)C)/C=C/C(=O)C)C
   inchikey: JZQOJFLIJNRDHK-CMDGGOBGSA-N
   mw_g_mol: 206.32
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.932
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -1794,7 +1795,7 @@
   trp_targets: null
   hedonic_valence: 0.65
   ifra_max_pct_edp: null
-  user_stock_dilution: 30% in DEP
+  user_stock_dilution: 30% in IPM
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 8II00243
@@ -1809,13 +1810,14 @@
   families:
   - iris / violet
   character: Soft warm orris-violet, powdery, berry-tinged, highly diffusive.
-  notes: PubChem-backed single-molecule identity. Supplier usage guidance suggests
-    0.1 to 7% in perfume compounds.
+  notes: PubChem-backed single-molecule identity. The live stock is the user's 30%
+    w/w IPM preparation; supplier usage guidance is not an IFRA maximum.
   provenance:
     cas: pubchem:alpha-Irone
     smiles: pubchem:alpha-Irone
     inchikey: pubchem:alpha-Irone
     mw_g_mol: pubchem:alpha-Irone
+    density_25c_g_ml: https://www.perfumersworld.com/view.php?pro_id=8II00243
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -1823,7 +1825,7 @@
     stevens_n: engine.odor_thresholds
     logp: pubchem:alpha-Irone
     hedonic_valence: engine.hedonic_model
-    user_in_inventory: inventory.txt
+    user_in_inventory: inventory.txt (confirmed 2026-07-16)
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
