@@ -1,301 +1,224 @@
-# Perfume Chemistry API
+# Perfume Chemistry Workbench
 
-AI-powered perfume chemistry and formulation platform with advanced fragrance analysis, formula creation, and IFRA compliance checking.
+Perfume Chemistry is a local-first formulation workbench for deterministic
+bottle arithmetic, ppm/ODT/OAV analysis, evidence-labeled formula diagnostics,
+and advisory release gates.
 
-## Model Setup
+The primary application boundary is
+[`engine.workbench.PerfumeWorkbench`](engine/workbench.py). Language-model
+services are optional renderers and ideation tools; they are not the authority
+for arithmetic, inventory, safety, or scientific classification.
 
-Model IDs, local-path conventions, and env-file lookup rules are documented in [docs/MODEL_LOCATIONS.md](docs/MODEL_LOCATIONS.md).
+## Truth Posture
 
-Short version:
+Every canonical result uses one of six evidence classes:
 
-- Root `.env` is used when you run `python run_api_server.py` from the repo root.
-- `backend/.env` is used when you start Uvicorn from inside `backend/`.
-- `HF_LOCAL_MODEL_PATH` must point to a local Transformers model directory.
-- `LLAMA_CPP_MODEL_PATH` must point to a local `.gguf` file.
-- `OLLAMA_MODEL` is only the served model name, not a repo file path.
+- `EXACT`
+- `LITERATURE_DERIVED`
+- `EMPIRICALLY_CALIBRATED`
+- `HEURISTIC`
+- `SPECULATIVE`
+- `UNKNOWN`
 
-## Features
+Current bottle mass balance is exact for stated inputs. Current headspace and
+temporal evolution are heuristic. Canonical longevity, sillage, and receptor
+activation are withheld rather than guessed.
 
-- 🧪 **Chemical Calculations**: Dilution, concentration, and volume conversions
-- 🤖 **AI-Powered Analysis**: OpenAI-driven perfume composition analysis
-- 📊 **Formula Management**: Create, analyze, and optimize fragrance formulas
-- ✅ **IFRA Compliance**: Automatic safety guideline checking
-- 🎯 **Note Distribution**: Analyze top, heart, and base note balance
-- 💰 **Cost Estimation**: Calculate formula costs
-- 🔍 **Ingredient Database**: Comprehensive chemical compound library
+Read:
 
-## 📦 Inventory
+- [Scientific contract](docs/scientific_contract.md)
+- [Model inventory](docs/model_inventory.md)
+- [Fragrance family reference](docs/fragrance_families_reference.md)
 
-> **⚠️ RULE: Read [`inventory.txt`](inventory.txt) before constructing ANY fragrance.**  
-> Materials, dilutions, and stock levels change. Never assume availability. Verify every material against the live inventory file before dosing.
+## Non-Negotiable Formulation Rules
 
-> **⚠️ RULE: Optimize for the name, not just the numbers.**  
-> When asked to optimize, enhance, or modify a formula, the target is the **name / concept / original brief** of the perfume — not numerical scores. The name is the north star. Numerical gates are floors to meet, not ceilings to chase.
+1. Read [`inventory.txt`](inventory.txt) before constructing or modifying any
+   fragrance. Stock, dilution, and availability are live data.
+2. Preserve raw dose, active dose, ppm, ODT, and OAV. Perceptibility claims
+   require OAV support.
+3. Natural mixtures use composite constituent OAV where covered by the natural
+   decomposition model.
+4. Optimize for the perfume name and brief. Numerical gates are floors, not the
+   creative target.
+5. Missing density, physical data, calibration, or assay evidence remains
+   unavailable and must not be silently defaulted in exact bottle arithmetic.
 
-> **⚠️ RULE: All perfume calculations must use ppm, ODT, and OAV.**  
-> Concentrations are in **ppm** (parts per million w/w in concentrate). Odor detection thresholds are **ODT** (ppm for ethanol solution, ppb for air). Odor Activity Value is **OAV = concentration_ppm / ODT_ppm**. Every formula dose must be convertible to ppm, every threshold check must reference ODT, and every perceptibility claim must be backed by OAV. No exceptions.
+## What Is Canonical
 
-**Current Materials: 104** (Updated 2026-03-09)  
-📄 **[View Full Inventory →](inventory.txt)**
+| Need | Canonical path |
+|---|---|
+| Formula physical state and OAV table | `engine/pipeline/formula_state.py` |
+| Temporal diagnostic frames | `engine/pipeline/simulator.py` |
+| Evidence-labeled application service | `engine/workbench.py` |
+| Exact bottle addition | `engine/bottle_addition.py` |
+| Scientific class vocabulary | `engine/scientific_contract.py` |
+| Release-gate CLI | `scripts/formula_release_gate.py` |
+| FastAPI adapter | `backend/app/api/v1/endpoints/formulas.py` |
 
-### By Category
+## Setup
 
-| Category | Count | Notes |
-|----------|-------|-------|
-| **Citrus / Top Notes** | 14 | Citral, Citronellal, D-Limonene, Linalool, Aldehydes C10-C12, Bergamot, etc. |
-| **Woods / Amber** | 16 | Iso E Super, Ambrox Super 30%, Cedramber, Amber Xtreme, Vertofix Coeur, etc. |
-| **Floral** | 11 | Hedione, Hydroxycitronellal, Phenethyl Alcohol, Heliotropin, Florol, etc. |
-| **Iris / Violet** | 10 | Alpha Irone 10%, Methyl Ionone, Orivone, Molecule Iris, ORRIS F-TEC, etc. |
-| **Musks** | 10 | Galaxolide 100%, Romandolide, Habanolide, Ethylene Brassylate, Exaltolide, etc. |
-| **Green / Fresh** | 8 | Dihydromyrcenol, cis-3-Hexenol, Verdox, Calone 1%, Floralozone, etc. |
-| **Naturals** | 8 | Cedarwood EO, Vetiver EO, Lavender EO, Patchouli EO, Labdanum Abs, etc. |
-| **Sweet / Gourmand** | 7 | Ethyl Maltol, Coumarin 20%, Vanillin, Maple Lactone, Benzoin, etc. |
-| **Accord Bases / FTECs** | 7 | Black Pepper, Blackcurrant, Cardamom, Pink Pepper, Violet Fleuressence, etc. |
-| **Solvents / Carriers** | 5 | Ethanol 96%, DPG, IPM, TEC, DEP |
-| **Leather / Smoky** | 4 | IBQ, Birch Tar, Styrax FTEC, Guaiacol |
-| **Fragrance Oils** | 4 | Jasmine FO, Leather FO, Tonka Bean FO, Sandalwood FO |
+Requirements:
 
-> See [inventory.txt](inventory.txt) for complete list with dilution details.
+- Python 3.11 or newer
+- Poetry 2.x for the backend
+- Docker Compose only if using containers
 
-## Repository Structure
+### Engine
 
-```
-perfume-chem/
-├── engine/                    Core scoring + optimizer + ingredient intelligence
-│   ├── optimizer/             FormulaVector, FormulaScorer, FormulaOptimizer
-│   ├── ingredient_intelligence/  Per-material profiles (10 dimensions)
-│   ├── dose_response/         Hill / Stevens law dose models
-│   ├── hedonic_model/         Pleasantness / liking predictions
-│   ├── psychophysics/         γ(logP) VP weighting, ODT, OAV
-│   ├── confidence.py          Formula confidence scoring
-│   ├── inventory_parser.py    Parses inventory.txt → structured materials
-│   └── chemical_data_validator.py
-│
-├── backend/                   FastAPI service (Poetry project)
-├── frontend/                  UI
-├── run_api_server.py          API entry point
-│
-├── engine/pipeline/            Formula release gates + OAV analysis (replaces pipelines/)
-│
-├── scripts/                   Small utility scripts
-├── knowledge/                 Knowledge base (accord rules, fragrance facts)
-├── data/                      Reference datasets
-├── inventory.txt              ★ Current materials — read before formulating
-│
-├── formulas/                  Shipped formulas
-│   ├── mixing_guides/         10 mL / 30 mL mixing guides
-│   ├── collections/           Luxury / niche / masculine collections
-│   └── reverse_engineering/   Opus V, Dior Homme Intense reconstructions
-│
-├── docs/                      Reference documentation
-│   ├── references/            Scientific reference tables (A–Z)
-│   ├── research/              Methodology + reverse-engineering research
-│   ├── dosing_reference.md
-│   ├── synergy_reference.md
-│   ├── iris_synergy_reference.md
-│   ├── perfumery_hacks_reference.md
-│   ├── fragrance_families_reference.md
-│   └── accord_quick_index.md
-│
-├── output/                    Runtime outputs (gitignored)
-├── verification_runs/         Pipeline verification runs
-└── archive/                   Scratch / experiments (gitignored)
-    ├── scratch/               Throwaway `_*.py` diagnostic scripts
-    ├── outputs/               Loose `*_out.txt` logs
-    ├── json_runs/             Pipeline result JSON
-    └── legacy_opus_v/         Superseded Opus V spreadsheets
-```
-
-### Pipeline Modules (engine/pipeline/)
-
-| Module | Purpose |
-|--------|---------|
-| `engine/pipeline/formula_state.py` | Formula headspace state — OAV, mole fractions, activity coefficients |
-| `engine/pipeline/gates.py` | Release gates — IFRA, pyramid, OAV authority, family drift |
-| `engine/pipeline/simulator.py` | Temporal evolution — 5-window OAV simulation |
-| `engine/pipeline/oav_intelligence.py` | OAV balance reports, performance projection, cliff detection |
-| `engine/pipeline/oav_authority.py` | OAV confidence scoring + data quality assessment |
-| `engine/pipeline/natural_absolute_decomposition.py` | Composite OAV for 35+ natural mixtures |
-| `engine/pipeline/release_scoring.py` | Final release scoring + recommendations |
-| `engine/pipeline/preflight.py` | Pre-gate validation — inventory, data completeness |
-| `engine/pipeline/interventions.py` | Formula interventions — dosing, rebalancing |
-| `engine/pipeline/robustness.py` | Robustness testing — dilution, temperature, aging |
-| `engine/pipeline/audit_log.py` | Pipeline audit logging |
-| `engine/pipeline/analysis.py` | Post-gate analysis formatting |
-
-**Entry point**: `scripts/formula_release_gate.py` — orchestrates all engine/pipeline/ modules.
-
-## Quick Start
-
-### Prerequisites
-
-| Tool | Version | Path |
-|------|---------|------|
-| Python 3.12 | 3.12.0 | `.venv\Scripts\python.exe` |
-| Node.js | 26.3.0 | `C:\Program Files\nodejs\node.exe` |
-| npm | 11.16.0 | `C:\Program Files\nodejs\npm.cmd` |
-| Poetry | 2.4.1 | via `.venv\Scripts\python.exe -m poetry` |
-| GitHub CLI | 2.95.0 | `C:\Program Files\GitHub CLI\gh.exe` |
-| oh-my-opencode | 4.11.1 | `%APPDATA%\npm\oh-my-opencode.cmd` |
-| OpenCode CLI | 1.17.8 | `%APPDATA%\npm\lildax.cmd` (alias: `opencode`) |
-| AST-Grep | 0.43.0 | `%APPDATA%\npm\sg.cmd` |
-| Ollama | — | `D:\ollama\ollama` |
-
-### One-Command Setup
-
-Run the startup script from the repo root:
+Install the lightweight workbench package:
 
 ```powershell
-.\opencode-startup.ps1
-```
-
-This checks/installs: Node.js → npm → `@opencode-ai/cli` → `oh-my-opencode` → Python venv → copies node.exe for CLI wrapper compatibility.
-
-### Manual Setup
-
-#### 1. Python Virtual Environment
-
-```powershell
-# Create venv (one-time)
 python -m venv .venv
+.venv\Scripts\python.exe -m pip install -e .
+```
 
-# Install engine dependencies
-.venv\Scripts\pip install -r requirements.txt
+The root `requirements.txt` contains the larger optional modeling and retrieval
+stack. Install it only when those modules are needed:
 
-# Install backend dependencies
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+### Backend
+
+The backend has an editable Poetry dependency on the root engine package:
+
+```powershell
 cd backend
-..\.venv\Scripts\python -m poetry install
-cd ..
+..\.venv\Scripts\python.exe -m poetry env use ..\.venv\Scripts\python.exe
+..\.venv\Scripts\python.exe -m poetry install --with dev
+..\.venv\Scripts\python.exe -m poetry run uvicorn app.main:app --reload
 ```
 
-#### 2. Node.js + OpenCode CLI
+From a shared environment that already contains backend dependencies, the root
+launcher is also available:
 
 ```powershell
-# Install OpenCode v2 CLI
-C:\Program Files\nodejs\npm.cmd install -g @opencode-ai/cli
-
-# Create 'opencode' alias for 'lildax'
-copy "$env:APPDATA\npm\lildax.cmd" "$env:APPDATA\npm\opencode.cmd"
-
-# Copy node.exe for CLI wrapper (fixes PATH issues)
-copy "C:\Program Files\nodejs\node.exe" "$env:APPDATA\npm\node.exe"
+.venv\Scripts\python.exe run_api_server.py
 ```
 
-#### 3. oh-my-opencode (Agent Harness)
+API documentation is served at `http://localhost:8000/docs`.
+
+### Docker
+
+The Compose build context is the repository root so the backend can install the
+engine path dependency and carry `data/materials` at runtime:
 
 ```powershell
-npm install -g oh-my-opencode
-oh-my-opencode install --no-tui --platform=opencode --claude=no --openai=no --gemini=no --copilot=yes --opencode-zen=no --skip-auth
+docker compose up --build
 ```
 
-#### 4. Environment Variables
+## Formula Analysis API
 
-Copy and edit:
+`POST /api/v1/formulas/analyze-formula` returns:
+
+- canonical `formula_state`
+- full `material_oav_table`
+- note distribution
+- temporal frames
+- evidence class, basis, sources, assumptions, and limitations by claim
+- `null` instead of unsupported longevity, sillage, or receptor predictions
+- advisory validation warnings when applicable
+
+### Concentrate Input
+
+When no row has `role: "solvent"`, percentages describe the concentrate and are
+scaled by `concentration_percent`:
+
+```json
+{
+  "name": "Workbench example",
+  "total_volume_ml": 30,
+  "concentration_percent": 15,
+  "ingredients": [
+    {"name": "Hedione", "percentage": 60, "stock_active_fraction": 1.0},
+    {"name": "Iso E Super", "percentage": 40, "stock_active_fraction": 1.0}
+  ]
+}
+```
+
+When solvent rows are present, all percentages describe the finished product.
+The current aromatic state excludes those rows and discloses the omitted solvent
+matrix as a limitation.
+
+## Exact Bottle Addition API
+
+`POST /api/v1/formulas/calculate-addition` solves the final mass balance while
+accounting for material already in the bottle and mass added by the stock:
+
+```json
+{
+  "bottle": {
+    "total_mass_g": 30.0,
+    "active_material_mass_g": 0.03,
+    "total_mass_standard_uncertainty_g": 0.01,
+    "active_mass_standard_uncertainty_g": 0.001
+  },
+  "stock": {
+    "active_mass_fraction": 0.10,
+    "density_g_ml": 1.0,
+    "active_fraction_standard_uncertainty": 0.001,
+    "density_standard_uncertainty_g_ml": 0.005
+  },
+  "target_active_mass_fraction": 0.002,
+  "pipette": {
+    "minimum_ul": 10,
+    "increment_ul": 5,
+    "maximum_single_step_ul": 200,
+    "standard_uncertainty_ul": 1
+  }
+}
+```
+
+The response includes exact stock mass, propagated standard uncertainty, exact
+volume when density is supplied, a rounded pipette plan when feasible, target
+error in ppm, and before/addition/after mass ledgers. No density means no volume
+plan; a subminimum volume is reported infeasible rather than rounded upward.
+
+## Release Pipeline
+
+Before running a formula, verify inventory, family, and material data as
+described in [`AGENTS.md`](AGENTS.md). Then run:
 
 ```powershell
-copy .env.example .env
-# Edit .env with your API keys
-# See backend/.env.example for full options
+.venv\Scripts\python.exe scripts\formula_release_gate.py `
+  --formula-file formulas\My_Formula_30mL_EDP.md `
+  --expected-concentrate-ul 6000 `
+  --brief generic `
+  --json
 ```
 
-**Key vars in `.env`:**
-- `AI_PROVIDER=deepseek`
-- `DEEPSEEK_API_KEY=sk-...` (already set)
-- `GITHUB_TOKEN=github_pat_...` (for GitHub MCP)
-
-#### 5. Run the API
+Format the complete OAV and temporal analysis with:
 
 ```powershell
-python run_api_server.py
+.venv\Scripts\python.exe scripts\format_pipeline_analysis.py --input output.json
 ```
 
-Or with auto PATH:
+Gate status is advisory. Review the material OAV table, note distribution,
+temporal frames, data provenance, IFRA details, and limitations before making a
+formulation decision.
+
+## Tests
+
+Focused canonical engine tests:
 
 ```powershell
-$env:PATH = "C:\Program Files\nodejs;C:\Program Files\GitHub CLI;.venv\Scripts;$env:PATH"
-python run_api_server.py
+.venv\Scripts\python.exe -m pytest `
+  tests\test_scientific_contract.py `
+  tests\test_bottle_addition.py `
+  tests\test_receptor_evidence_quarantine.py `
+  tests\test_workbench.py -q
 ```
 
-- **API**: http://localhost:8000
-- **Docs**: http://localhost:8000/docs
-- **Health**: http://localhost:8000/health
-
-### Using Docker
+Backend CI order:
 
 ```powershell
-docker compose up -d
-docker compose logs -f
-docker compose down
-```
-
-## OpenCode + oh-my-opencode
-
-This workspace uses **oh-my-opencode** (v4.11.1) as the agent orchestration layer over **OpenCode CLI** (v2, binary: `lildax`).
-
-### Available Commands
-
-| Command | What it does |
-|---------|--------------|
-| `oh-my-opencode --help` | Agent harness help |
-| `omo run <message>` | Run with todo/background task enforcement |
-| `omo doctor` | Check environment health |
-| `lildax serve` | Start OpenCode v2 API server |
-| `lildax --version` | Show version |
-
-### Slash Commands (in OpenCode TUI)
-
-| Command | Arguments | Action |
-|---------|-----------|--------|
-| `/gate` | `<formula> <uL> <brief>` | Run pipeline + analysis |
-| `/audit` | `[brief]` | Historical formula scanning |
-| `/inventory` | — | Read inventory.txt summary |
-| `/lint` | — | `ruff check` + `mypy` |
-| `/test-engine` | — | `pytest tests/` |
-| `/test-backend` | — | `pytest --cov=app` |
-
-## API Endpoints
-
-### Formula Calculations
-
-- `POST /api/v1/formulas/calculate-dilution` - Calculate dilution
-- `GET /api/v1/formulas/drops-to-ml/{drops}` - Convert drops to ml
-- `GET /api/v1/formulas/ml-to-drops/{volume}` - Convert ml to drops
-- `POST /api/v1/formulas/analyze-formula` - Analyze formula properties
-
-### AI Services
-
-- `POST /api/v1/ai/analyze-perfume` - AI perfume analysis
-- `POST /api/v1/ai/suggest-modifications` - Get formula improvement suggestions
-- `POST /api/v1/ai/suggest-pairings` - Get ingredient pairing recommendations
-
-## Development
-
-### Run Tests
-
-```bash
 cd backend
-poetry run pytest
+..\.venv\Scripts\python.exe -m poetry run ruff check app
+..\.venv\Scripts\python.exe -m poetry run mypy app --ignore-missing-imports
+..\.venv\Scripts\python.exe -m poetry run pytest tests -q
 ```
 
-### Run with Coverage
-
-```bash
-poetry run pytest --cov=app --cov-report=html
-```
-
-### Linting
-
-```bash
-poetry run ruff check app
-poetry run black app
-```
-- `suggest` - Get AI recommendations
-- `save` - Export formula
-- `help` - Show all commands
-
-## Rules Engine
-
-Every formula is validated against:
-- **Chemistry**: Solubility, concentration limits, pH compatibility, oxidation risk
-- **IFRA**: Maximum usage levels, restricted materials, prohibited substances
-- **Artistry**: Top/heart/base balance, accord coherence, longevity prediction
+The repository currently has known legacy mypy debt outside the canonical API
+slice. Runtime tests and changed-module type checks are the enforced evidence for
+this workbench increment; see the model inventory for the boundary.
