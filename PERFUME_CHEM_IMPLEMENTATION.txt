@@ -1,0 +1,662 @@
+I’m treating **Sol as the coding agent working directly in your repository**. I would use it as a precise builder and reviewer, not as the scientific brain of the application.
+
+The key strategy is:
+
+> **Spend coding effort first on modules that improve every future answer. Spend scientific-data effort only where it can be validated. Quarantine impressive-looking biology that cannot yet be supported.**
+
+## 1. Use a quality-adjusted cost-benefit score
+
+For every proposed feature, score five factors from 0 to 5:
+
+\[
+\text{Priority} =
+\frac{
+3(\text{truth improvement})+
+2(\text{user value})+
+2(\text{dependency unlock})+
+2(\text{risk reduction})
+}{
+\text{engineering cost}+
+\text{data cost}+
+\text{maintenance cost}
+}
+\]
+
+“Truth improvement” gets the highest weight because an elegant interface delivering incorrect chemistry is an expensive perfume bottle filled with fog.
+
+A rough ranking for this project:
+
+| Work item | Benefit | Cost | Priority |
+|---|---:|---:|---|
+| Unify backend with canonical engine | Extremely high | Medium | Build first |
+| Exact stock and bottle-addition arithmetic | Extremely high | Low-medium | Build first |
+| Unit and uncertainty system | Extremely high | Medium | Build first |
+| Local evidence/provenance database | Very high | Medium | Build early |
+| Deterministic chat orchestration | Very high | Medium | Build early |
+| What-if formula simulation | Very high | Medium | Build early |
+| Personal preference learning | High | Medium-high | Build after outcomes |
+| Better finite-film evaporation model | High | High | Build after calibration data |
+| Universal mood prediction | Low truth value | Very high | Do not build as claimed |
+| Proxy receptor activation scoring | Negative value if misleading | Medium | Quarantine now |
+
+---
+
+# 2. Build it as a sequence of narrow Sol PRs
+
+Do not give Sol one giant instruction such as “make the perfume app scientifically perfect.” That produces architecture soup.
+
+Each PR should have:
+
+- one scientific or software contract,
+- explicit files allowed to change,
+- acceptance tests,
+- forbidden shortcuts,
+- a benchmark before and after,
+- a rollback path.
+
+## PR 0: Establish the truth baseline
+
+**Goal:** Determine exactly what currently works, what is heuristic, and what is broken.
+
+Sol should create:
+
+```text
+docs/scientific_contract.md
+docs/model_inventory.md
+tests/golden/
+tests/dimensional/
+tests/regression/
+```
+
+Every current output receives a classification:
+
+```text
+EXACT
+LITERATURE_DERIVED
+EMPIRICALLY_CALIBRATED
+HEURISTIC
+SPECULATIVE
+UNKNOWN
+```
+
+The current project contains a sophisticated engine, but the normal formula endpoint still uses a basic note-distribution longevity estimate and coarse sillage heuristic.  
+
+### Acceptance gate
+
+No calculation or score may be exposed without a classification and source.
+
+---
+
+## PR 1: Make one canonical application engine
+
+The repository currently has separate root and backend Python environments, with the backend manually inserting the root into `sys.path`. 
+
+Sol should:
+
+1. Package `engine/` properly.
+2. Remove runtime `sys.path` manipulation.
+3. Create one application-facing service:
+
+```python
+class PerfumeWorkbench:
+    def analyze(...)
+    def calculate_addition(...)
+    def diagnose(...)
+    def simulate_change(...)
+    def generate_candidates(...)
+    def record_observation(...)
+```
+
+4. Route all API endpoints through it.
+5. Keep old endpoints only as compatibility wrappers.
+
+### Important rule
+
+`/analyze-formula`, `/optimizer`, and chat must never calculate the same concept independently.
+
+### Acceptance gate
+
+The CLI, API, tests, and chat receive identical results for the same formula and context.
+
+---
+
+## PR 2: Introduce strict units and physical quantities
+
+This should happen before improving headspace calculations.
+
+Use typed quantities for:
+
+- µL and mL,
+- grams,
+- density,
+- molar mass,
+- mole fraction,
+- mass fraction,
+- stock dilution,
+- finished fragrance concentration,
+- vapor pressure,
+- gas-phase ppm,
+- liquid ppm,
+- ODT units,
+- temperature.
+
+A material dose must not be represented by an unqualified `float`.
+
+```python
+@dataclass(frozen=True)
+class StockSolution:
+    material_id: str
+    active_mass_fraction: float
+    solvent_ids: tuple[str, ...]
+    density_g_ml: float | None
+    density_source: EvidenceRef | None
+```
+
+The existing canonical state already preserves a valuable chain:
+
+```text
+raw µL → active µL → mass → moles → mole fraction → headspace → OAV
+```
+
+
+
+Sol should retain that concept, but make every transition dimensionally testable.
+
+### Tests
+
+- percentage scaling invariance,
+- mass conservation,
+- dilution equivalence,
+- neat versus 10% stock equivalence,
+- µL/mL conversion,
+- impossible-unit rejection,
+- round-trip formula serialization.
+
+---
+
+## PR 3: Build the exact real-world addition engine
+
+This is probably the best cost-to-value feature in the whole project.
+
+Create:
+
+```python
+class AdditionSolver:
+    def reach_target_active_fraction(...)
+    def add_active_mass(...)
+    def dilute_existing_bottle(...)
+    def scale_formula(...)
+    def split_into_safe_steps(...)
+```
+
+Input:
+
+```text
+Current bottle mass or volume
+Current formula
+Current previous additions
+Stock concentration
+Stock density
+Desired target
+Pipette minimum
+Pipette increment
+Maximum single-step addition
+```
+
+Output:
+
+```text
+Exact calculated addition
+Pipette-rounded addition
+Resulting bottle volume
+Resulting active concentration
+Error introduced by rounding
+Suggested staged additions
+Reversibility warning
+```
+
+### Critical improvement
+
+Do not calculate an addition as merely:
+
+```python
+batch_volume * requested_percentage
+```
+
+The current helper is intentionally approximate. 
+
+The new solver must include the material already present and the fact that the added stock increases total bottle mass and volume.
+
+### Quality gate
+
+For every recommendation, Sol must generate a before-and-after mass ledger proving conservation.
+
+---
+
+## PR 4: Repair the physical mixture model
+
+The existing `FormulaState` is a strong foundation, but it calculates aromatic mole fractions without fully representing the finished solvent matrix.
+
+Build:
+
+```python
+@dataclass
+class MixtureState:
+    aromatic_components: ...
+    solvent_components: ...
+    finished_concentration: ...
+    application_mass_mg: ...
+    substrate: Literal["blotter", "skin", "fabric", "air"]
+    temperature_k: ...
+    relative_humidity: ...
+```
+
+Then use model tiers:
+
+| Tier | Model | When used |
+|---|---|---|
+| 0 | Bottle arithmetic only | Always available |
+| 1 | Ideal solvent-inclusive estimate | VP and composition available |
+| 2 | Non-ideal activity estimate | Reliable interaction data available |
+| 3 | Empirical correction | Measured outcomes available |
+
+### Quality rule
+
+No silent defaulting to molecular weight, density, vapor pressure, or activity coefficient.
+
+A missing value produces:
+
+```text
+calculation unavailable
+```
+
+or:
+
+```text
+estimated using family prior, high uncertainty
+```
+
+It should not quietly become a confident number.
+
+---
+
+## PR 5: Replace “knowledge files” with evidence records
+
+The local knowledge should be the application’s intellectual engine.
+
+Every claim becomes an independently versioned record:
+
+```python
+EvidenceRecord(
+    subject_id="alpha_irone",
+    predicate="odor_detection_threshold_air",
+    value=...,
+    unit="ppb",
+    matrix="air",
+    temperature_c=...,
+    evidence_type="peer_reviewed_measurement",
+    source=...,
+    confidence=...,
+    uncertainty=...,
+    reviewed_at=...,
+)
+```
+
+Evidence classes:
+
+```text
+Measured property
+Peer-reviewed experimental result
+Supplier technical statement
+Reference-text description
+Perfumer practice rule
+User observation
+Model inference
+Speculative hypothesis
+```
+
+### Cost-saving decision
+
+Use SQLite and FTS5 first.
+
+Do not begin with a large vector database, remote embedding API, or elaborate knowledge service. Most queries are structured:
+
+- material name,
+- property,
+- source quality,
+- application context,
+- family,
+- dilution,
+- inventory availability.
+
+Exact retrieval is cheaper and more trustworthy.
+
+---
+
+## PR 6: Build the local chat orchestrator
+
+The chat should not answer perfume questions directly. It should produce a tool plan.
+
+```python
+@dataclass
+class ToolPlan:
+    intent: str
+    entities: dict
+    required_tools: list[str]
+    missing_inputs: list[str]
+    assumptions: list[str]
+```
+
+Example:
+
+```text
+User:
+“I added 50 µL opoponax and the lavender spice disappeared.”
+
+Plan:
+1. Load bottle history.
+2. Reconstruct current bottle state.
+3. Compare formula before and after addition.
+4. Examine descriptor overlap and likely masking.
+5. Find inventory-valid interventions.
+6. Simulate conservative repair candidates.
+7. Return one-at-a-time testing plan.
+```
+
+The response is built from an evidence packet:
+
+```python
+@dataclass
+class EvidencePacket:
+    calculations: list
+    retrieved_claims: list
+    observations: list
+    candidate_interventions: list
+    tradeoffs: list
+    uncertainty: list
+    assumptions: list
+```
+
+A local language model can phrase that packet. Templates can also phrase it. Neither may invent new calculations or facts.
+
+The current AI routes allow model providers to own analysis, modifications, and pairings.  
+
+Those should become optional rendering endpoints, not reasoning authorities.
+
+---
+
+## PR 7: Build intervention simulation and Pareto ranking
+
+Do not optimize toward one total score. That creates formula oatmeal.
+
+Generate candidate interventions, then preserve tradeoffs:
+
+```text
+Candidate A:
++ radiance
++ spice visibility
+- softer drydown
+- slightly less longevity
+
+Candidate B:
++ lavender definition
++ continuity
+- less diffusion
+
+Candidate C:
++ drydown texture
+- risks further spice suppression
+```
+
+Rank candidates using Pareto dominance rather than collapsing every judgment into one magic score.
+
+The optimizer should respect:
+
+- must preserve,
+- must avoid,
+- inventory,
+- available stock dilution,
+- post-mix versus pre-mix,
+- maximum addition,
+- pipette feasibility,
+- family identity,
+- concept identity,
+- safety limits,
+- uncertainty.
+
+The repository already contains structured intervention modes and observations.  
+
+Sol should connect those structures to the canonical physical state rather than building another recommendation path.
+
+---
+
+## PR 8: Turn experiments into the real hedonic model
+
+The current outcome store already expresses the right cycle:
+
+> system predicts → user creates → user rates → system learns. 
+
+But Sol should replace simple aggregate ratings with a proper sensory protocol.
+
+Record:
+
+```text
+Formula version
+Exact batch state
+Application method
+Blotter/skin/fabric
+Temperature
+Maceration age
+Time since spraying
+Intensity
+Pleasantness
+Similarity to brief
+Specific observations
+Comparison winner
+```
+
+Use pairwise preference data:
+
+```text
+A better than B
+A equal to B
+B better than A
+```
+
+Train a local ranking model before attempting a universal 0-to-100 pleasure score.
+
+### Initial model
+
+Use a regularized Bradley-Terry model or logistic ranking model. It is:
+
+- small,
+- interpretable,
+- cheap to retrain,
+- suitable for limited personal data,
+- able to report uncertainty.
+
+### Quality gate
+
+The personalized model must outperform:
+
+1. always choosing the previous formula,
+2. always choosing the higher current hedonic score,
+3. always choosing the formula with more “pleasant” materials.
+
+Use held-out pairwise tests.
+
+---
+
+## PR 9: Rebuild hedonic analysis honestly
+
+The fixed material valence table can remain only as a weak prior. It currently computes pleasantness largely from mass-weighted predefined values.  
+
+Replace the single hedonic score with:
+
+```text
+Intrinsic molecular prior
+Dose-zone suitability
+Mixture coherence estimate
+Brief compatibility
+Personal preference prediction
+Familiarity association
+Prediction confidence
+```
+
+Never allow a hedonic score to override the stated perfume concept.
+
+A leather, smoke, animalic, or challenging perfume should not be “optimized” into vanilla-floral politeness merely because the table rewards it.
+
+---
+
+## PR 10: Quarantine unsupported receptor biology
+
+Sol should immediately fix the unit mismatch and remove proxy receptor values from production scoring.
+
+The current receptor function expects µM, while the simulator supplies vapor ppm.  
+
+The current family profiles are acknowledged fallbacks because material-specific EC50 information is missing. 
+
+Create two separate surfaces:
+
+```text
+Measured receptor evidence
+Exploratory family hypothesis
+```
+
+The exploratory mode should display a permanent label:
+
+> Not measured receptor activation. Not used for scoring or mood prediction.
+
+That removal increases quality more than adding another sophisticated equation would.
+
+---
+
+# 3. How Sol should operate
+
+## Sol should have four roles
+
+### Builder
+
+Implements only the accepted specification.
+
+### Skeptic
+
+Searches for unit mistakes, hidden defaults, circular scoring, duplicated logic, and unsupported scientific claims.
+
+### Experimental designer
+
+Creates tests that could disprove the implementation.
+
+### Maintainer
+
+Documents migrations, compatibility, and why decisions were made.
+
+Do not ask one Sol session to perform all four simultaneously. Run them as separate passes.
+
+---
+
+# 4. Permanent charter for Sol
+
+:::writing{variant="document" id="48723"}
+You are implementing a local-first perfumery chemistry workbench.
+
+The deterministic application engine is the authority for calculations. Language models are not scientific authorities and may only organize requests or render structured results.
+
+For every change:
+
+1. State the scientific or software contract being implemented.
+2. Identify exact calculations, inputs, outputs, units, assumptions, and failure conditions.
+3. Search the repository for existing implementations before creating a new path.
+4. Use the canonical domain models and application service.
+5. Do not duplicate calculations in API, UI, scripts, or chat layers.
+6. Do not add an empirical constant without documenting its source and intended scope.
+7. Do not silently substitute missing density, molecular weight, vapor pressure, ODT, activity coefficient, or receptor data.
+8. Classify outputs as EXACT, LITERATURE_DERIVED, EMPIRICALLY_CALIBRATED, HEURISTIC, SPECULATIVE, or UNKNOWN.
+9. Attach provenance and uncertainty to scientific outputs.
+10. Preserve raw stock dose, active dose, mass, concentration, and final bottle state separately.
+11. Treat post-mix additions as mass-balance operations that change final bottle volume and composition.
+12. Keep measured receptor evidence separate from family-based hypotheses.
+13. Never present mood, pleasure, receptor, or biochemical effects as established unless supported by appropriate human or experimental evidence.
+14. Generate unit tests, dimensional-analysis tests, regression tests, and adversarial tests.
+15. Compare outputs against the previous baseline and explain all changed behavior.
+16. Keep each pull request narrow and independently reviewable.
+17. Do not optimize a formula merely to increase numerical scores. The perfume brief, intended identity, must-preserve constraints, and user observations are primary.
+18. Finish with a list of remaining limitations and the next dependency unlocked by the change.
+:::
+
+That charter should live in `AGENTS.md` and a shorter copy should appear in the scientific contract.
+
+---
+
+# 5. The quality gates I would enforce
+
+No Sol PR merges unless it passes the applicable gates:
+
+| Gate | Requirement |
+|---|---|
+| Unit safety | No untyped concentration or ambiguous ppm |
+| Conservation | Mass and active material balance |
+| Provenance | Every scientific value has a source class |
+| Uncertainty | Estimates report confidence or range |
+| Single authority | No duplicate calculation paths |
+| Inventory | Recommendations use available stock |
+| Operability | Suggestions respect pipette resolution |
+| Reproducibility | Same inputs produce same scientific result |
+| Regression | Golden formulas do not drift unexplained |
+| Honesty | Speculative biology cannot appear as measured |
+| Personalization | User data separated from universal priors |
+| Brief fidelity | Optimization preserves the perfume’s identity |
+
+---
+
+# 6. Where to spend maximum effort
+
+## Spend heavily
+
+- formula and bottle state correctness,
+- units,
+- stock dilutions,
+- mass balance,
+- provenance,
+- uncertainty,
+- test coverage,
+- outcome collection,
+- personalized preference learning,
+- deterministic intervention simulation.
+
+## Spend moderately
+
+- temporal evaporation estimates,
+- mixture suppression rules,
+- accord grammar,
+- theory lenses,
+- local language rendering.
+
+## Spend almost nothing initially
+
+- remote APIs,
+- universal fragrance mood claims,
+- speculative olfactory genomics,
+- decorative receptor visualizations,
+- giant embedding infrastructure,
+- “luxury,” “magic,” or “pleasure” scores without calibration.
+
+---
+
+# 7. The first work package I would give Sol
+
+The best opening package is:
+
+```text
+PR 0A: Scientific-contract inventory
+PR 0B: Golden formula regression suite
+PR 1: Canonical PerfumeWorkbench service
+PR 2: Typed units and StockSolution
+PR 3: Exact bottle-addition solver
+PR 4: Route /analyze-formula through PerfumeWorkbench
+```
+
+That sequence rapidly converts the project from several interesting engines into one trustworthy application. It also unlocks the most immediately useful experience: discussing an actual bottle, reconstructing what has been added, calculating an exact intervention, and explaining what is known versus inferred.
+
+That is the quality-maximized, cost-controlled path. Build the measuring instruments first, then the perfumer’s brain, then the conversational velvet around it.
