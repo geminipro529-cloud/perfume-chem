@@ -5,6 +5,9 @@ archive/
 __pycache__/
 *.pyc
 *.pyo
+*.egg-info/
+build/
+dist/
 .mypy_cache/
 .pytest_cache/
 

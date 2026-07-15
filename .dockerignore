@@ -1,0 +1,17 @@
+.git
+.github
+.venv
+.worktrees
+**/__pycache__
+**/.mypy_cache
+**/.pytest_cache
+**/.ruff_cache
+**/*.py[cod]
+archive
+output
+tests
+backend/tests
+*.db
+*.log
+*.png
+*.xlsx

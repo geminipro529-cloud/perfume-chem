@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "perfume-chem-engine"
+version = "0.1.0"
+description = "Deterministic, evidence-labeled perfume chemistry workbench"
+requires-python = ">=3.11"
+dependencies = [
+    "PyYAML>=6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["engine*"]
+namespaces = true
