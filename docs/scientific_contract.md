@@ -161,8 +161,20 @@ raw uL -> active uL -> mass -> moles -> mole fraction
 ```
 
 `FormulaState` preserves raw dose, active dose, ppm, odor detection threshold
-(ODT), and odor activity value (OAV). For a monomolecular material with an air
-threshold:
+(ODT), and odor activity value (OAV).
+
+```text
+active_aromatic_concentrate_ppm_i = active_mass_i / sum(active_mass) * 1,000,000
+```
+
+This arithmetic is `EXACT` only when every active row has a sourced density.
+If any density is missing, `active_concentrate_ppm_w_w` is `null` and its
+evidence class is `UNKNOWN`; the 1 g/mL fallback remains available only inside
+the explicitly heuristic headspace model. If a carrier or finished-product
+solvent matrix is omitted, even an exact active-concentrate value is not a
+finished-product regulatory ppm and that omission remains a limitation.
+
+For a monomolecular material with an air threshold:
 
 ```text
 OAV = modeled_vapor_ppm / ODT_air_ppm
@@ -172,6 +184,12 @@ Natural mixtures covered by
 [`natural_absolute_decomposition.py`](../engine/pipeline/natural_absolute_decomposition.py)
 use composite constituent OAV rather than a monomolecular natural-material
 proxy.
+
+Composite OAV estimates olfactory headspace contribution from a documented
+constituent model. It must not be reused as a natural's regulatory constituent,
+allergen, or IFRA composition. Without a versioned source, category, product
+concentration basis, and supplier/batch composition, the canonical workbench
+returns regulatory status `unverified`.
 
 The current headspace result is `HEURISTIC`, even when an individual ODT is
 literature-derived, because:

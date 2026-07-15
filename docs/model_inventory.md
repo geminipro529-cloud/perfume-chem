@@ -1,6 +1,6 @@
 # Model Inventory
 
-Audit date: 2026-07-15
+Audit date: 2026-07-16
 
 This inventory classifies code that can influence perfume calculations or user
 claims. The class describes the current evidence posture, not the sophistication
@@ -12,6 +12,7 @@ or usefulness of the implementation. See
 | Output or component | Code path | Current class | Production status | Main limitation or promotion requirement |
 |---|---|---|---|---|
 | Raw-to-active volume arithmetic | `engine/pipeline/formula_state.py` | `EXACT` | Active | Exact for supplied volumes and active fractions; dispensing accuracy remains an input issue. |
+| Active-aromatic concentrate ppm | `engine/pipeline/formula_state.py` | `EXACT` when every density is known; otherwise `UNKNOWN` | Active or withheld as `null` | Mass-normalized over supplied active aromatic rows. Fallback density may support heuristic headspace, but never exact ppm. It is not finished-product ppm when an omitted carrier matrix exists. |
 | Bottle target mass balance | `engine/bottle_addition.py` | `EXACT` | Active | Exact algebra under no-loss mixing and supplied mass-fraction assumptions. |
 | Pipette increment rounding and staging | `engine/bottle_addition.py` | `EXACT` | Active | Exact discrete plan for the declared profile; not evidence of instrument calibration or operator performance. |
 | Pipette delivery uncertainty | `engine/bottle_addition.py` | `LITERATURE_DERIVED` | Active | Independent random transfer components use variance addition; the declared shared systematic component is treated as fully correlated. Values are user declarations, not inferred calibration data. |
@@ -77,12 +78,45 @@ or usefulness of the implementation. See
 
 1. The complete finished solvent matrix is not yet represented in canonical
    headspace mole fractions.
-2. Density and molecular-weight fallbacks remain in `FormulaState`; their
-   source labels and uncertainty must stay visible.
+2. Density and molecular-weight fallbacks remain available only to keep the
+   heuristic headspace model inspectable. Sources and missing fields stay
+   visible, and mass-fraction ppm is withheld if any density is missing.
 3. Temporal frames are diagnostic approximations, not hours-of-wear claims.
 4. Canonical API longevity, sillage, and receptor values are intentionally
    unavailable rather than guessed.
 5. The backend repository has existing mypy debt outside the canonical API
    slice; passing runtime tests does not imply repository-wide static typing.
-6. Docker configuration is source-backed and package-tested, but image build
-   still requires a host with Docker installed.
+6. Docker verification builds the release Dockerfile directly and polls the
+   running image's `/health` route through HTTP. It still requires a host with
+   Docker installed.
+7. Composite natural OAV must not be reused as IFRA/allergen constituent
+   composition. Regulatory screening needs a versioned source and actual batch
+   or supplier composition.
+
+## Phase 0 Verification Boundary
+
+`scripts/pipeline_audit.py project-verify` is the single completion entry point.
+It records required passes, failures, optional skips, scientific coverage, the
+golden-fixture checksum, Docker status, selected and omitted checks, scope, and
+known legacy limitations. Only the full canonical scope can return `PASS` or
+`PASS_WITH_SKIPS`; successful subsets return `NOT_EVALUATED`.
+
+The blocking static-analysis surface is intentionally bounded:
+
+- Engine Ruff/mypy: the canonical workbench, bottle arithmetic, scientific
+  contract, formula state/simulator, verifier, and audit entry point.
+- Backend mypy: configuration, security, and request/response schemas.
+- Runtime behavior: every root test file belongs to exactly one explicit shard;
+  backend tests run independently through Poetry.
+
+This is an honest debt boundary, not a claim that all legacy modules are lint-
+or type-clean. The shard-manifest regression test fails if a root test file is
+omitted or assigned twice.
+
+Golden cases cover exact arithmetic, diluted-stock equivalence, missing-density
+refusal, missing formula physics, conditional ppm, covered-natural composite
+provenance, an explicit-solvent API input, iris/leather/citrus boundaries, a
+real restricted-material boundary, regulatory `unverified`, and null
+unsupported outputs. Selected vapor-ppm and OAV values are tolerance-locked;
+the fixtures protect software contracts and do not substitute for sensory
+validation.

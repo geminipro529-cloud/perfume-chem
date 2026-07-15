@@ -1,7 +1,13 @@
 """Integration tests for API endpoints"""
 
+import json
+from pathlib import Path
+
 import pytest
 from httpx import AsyncClient
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+GOLDEN_FIXTURE = PROJECT_ROOT / "tests" / "fixtures" / "golden_formula_cases.json"
 
 
 @pytest.mark.asyncio
@@ -66,6 +72,27 @@ async def test_analyze_formula_uses_canonical_workbench(client: AsyncClient, sam
     assert data["estimated_longevity_hours"] is None
     assert data["estimated_sillage"] is None
     assert any("finished-product" in item for item in data["assumptions"])
+
+
+@pytest.mark.asyncio
+async def test_golden_explicit_solvent_case_exercises_api_adapter(client: AsyncClient):
+    fixture = json.loads(GOLDEN_FIXTURE.read_text(encoding="utf-8"))
+    case = next(case for case in fixture["api_cases"] if case["id"] == "explicit_solvent")
+
+    response = await client.post(
+        "/api/v1/formulas/analyze-formula", json=case["request"]
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["formula_state"]["total_raw_ul"] == pytest.approx(
+        case["expected_total_raw_ul"]
+    )
+    assert [row["name"] for row in data["material_oav_table"]] == case[
+        "expected_aromatic_materials"
+    ]
+    assert any("finished-product" in item for item in data["assumptions"])
+    assert any("solvent rows are excluded" in item for item in data["assumptions"])
 
 
 @pytest.mark.asyncio

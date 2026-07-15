@@ -279,14 +279,15 @@ class AdditionSolver:
 
         exact_volume_ul: float | None = None
         volume_uncertainty_ul: float | None = None
-        if stock.density_g_ml is not None:
-            exact_volume_ul = 1000.0 * stock_mass_g / stock.density_g_ml
+        density_g_ml = stock.density_g_ml
+        if density_g_ml is not None:
+            exact_volume_ul = 1000.0 * stock_mass_g / density_g_ml
             volume_uncertainty_ul = hypot(
-                1000.0 * mass_uncertainty_g / stock.density_g_ml,
+                1000.0 * mass_uncertainty_g / density_g_ml,
                 1000.0
                 * stock_mass_g
                 * stock.density_standard_uncertainty_g_ml
-                / stock.density_g_ml**2,
+                / density_g_ml**2,
             )
 
         rounded_volume_ul: float | None = None
@@ -296,7 +297,7 @@ class AdditionSolver:
         pipette_uncertainty_ul: float | None = None
         warnings: list[str] = []
 
-        if exact_volume_ul is None:
+        if density_g_ml is None:
             warnings.append(
                 "Stock density was not supplied; volume and pipette plan are unavailable."
             )
@@ -305,14 +306,16 @@ class AdditionSolver:
                 "No pipette profile was supplied; exact volume is reported without a delivery plan."
             )
         else:
+            assert exact_volume_ul is not None
             rounded_volume_ul, stages, warning = _pipette_plan(
                 exact_volume_ul, request.pipette
             )
             if warning is not None:
                 warnings.append(warning)
             else:
+                assert rounded_volume_ul is not None
                 pipette_feasible = True
-                rounded_mass_g = rounded_volume_ul * stock.density_g_ml / 1000.0
+                rounded_mass_g = rounded_volume_ul * density_g_ml / 1000.0
                 pipette_uncertainty_ul = _combined_pipette_uncertainty(
                     request.pipette,
                     transfer_count=len(stages),

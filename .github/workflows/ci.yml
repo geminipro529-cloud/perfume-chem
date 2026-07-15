@@ -1,67 +1,203 @@
-name: CI/CD Pipeline
+name: Phase 0 Verification
 
 on:
   push:
-    branches: [main, develop]
+    branches: [master]
   pull_request:
-    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.11"
+  OPENAI_API_KEY: test-key
+  SECRET_KEY: test-secret-key-for-ci
 
 jobs:
-  test-backend:
+  backend-lint:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 15
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-      
-      - name: Install dependencies
-        working-directory: ./backend
-        run: |
-          poetry install
-      
-      - name: Run linting
-        working-directory: ./backend
-        run: |
-          poetry run ruff check app
-      
-      - name: Run type checking
-        working-directory: ./backend
-        run: |
-          poetry run mypy app --ignore-missing-imports
-      
-      - name: Run tests
-        working-directory: ./backend
-        env:
-          OPENAI_API_KEY: test-key
-          SECRET_KEY: test-secret-key-for-ci
-        run: |
-          poetry run pytest --cov=app --cov-report=xml --cov-report=term
-      
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./backend/coverage.xml
-          flags: backend
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install "poetry==2.4.1" -e .
+      - working-directory: backend
+        run: poetry install --with dev --no-interaction
+      - run: python scripts/pipeline_audit.py project-verify --only backend-lint --json
 
-  build-docker:
-    needs: test-backend
+  backend-typecheck:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
+    timeout-minutes: 15
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Build Docker image
-        run: |
-          docker compose build
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install "poetry==2.4.1" -e .
+      - working-directory: backend
+        run: poetry install --with dev --no-interaction
+      - run: python scripts/pipeline_audit.py project-verify --only backend-typecheck --json
+
+  backend-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install "poetry==2.4.1" -e .
+      - working-directory: backend
+        run: poetry install --with dev --no-interaction
+      - run: python scripts/pipeline_audit.py project-verify --only backend-tests --json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-junit
+          path: verification_runs/backend.xml
+
+  engine-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest ruff mypy numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only engine-compile --only engine-lint --json
+
+  engine-typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest ruff mypy numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only engine-typecheck --json
+
+  engine-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [truth-core, data-knowledge, gates-families, legacy]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest ruff mypy numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only engine-tests-${{ matrix.shard }} --json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: engine-${{ matrix.shard }}-junit
+          path: verification_runs/engine-${{ matrix.shard }}.xml
+
+  scientific-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only scientific-audit --json
+      - run: python -m engine.science_audit
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: science-audit
+          path: verification_runs/science_audit.json
+
+  material-data-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only material-data-validation --json
+
+  knowledge-rule-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . pytest numpy requests
+      - run: python scripts/pipeline_audit.py project-verify --only knowledge-rule-validation --json
+
+  golden-formula-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install "poetry==2.4.1" -e . pytest numpy requests
+      - working-directory: backend
+        run: poetry install --with dev --no-interaction
+      - run: python scripts/pipeline_audit.py project-verify --only golden-formula-regression --only golden-api-regression --json
+
+  package-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e . build
+      - run: python scripts/pipeline_audit.py project-verify --only package-build --only package-wheel-smoke --json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-distributions
+          path: dist/*
+
+  docker-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: python -m pip install -e .
+      - run: python scripts/pipeline_audit.py project-verify --only docker-build --include-docker --json
+
+  docker-smoke-test:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: python -m pip install -e .
+      - run: python scripts/pipeline_audit.py project-verify --only docker-build --only docker-smoke-test --include-docker --json

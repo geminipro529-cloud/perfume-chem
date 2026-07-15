@@ -111,6 +111,14 @@ class WorkbenchAnalysis:
             },
             "assumptions": list(self.assumptions),
             "limitations": list(self.limitations),
+            "regulatory_assessment": {
+                "status": "unverified",
+                "source_version": None,
+                "reason": (
+                    "No versioned IFRA category certificate and constituent-level "
+                    "natural/preblend composition were supplied to this request."
+                ),
+            },
             "estimated_longevity_hours": None,
             "estimated_sillage": None,
         }
@@ -183,6 +191,13 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
     odt_sources = _unique(
         material.sources.get("odt", "missing") for material in state.materials
     )
+    density_sources = _unique(
+        material.sources.get("density", "missing") for material in state.materials
+    )
+    ppm_is_exact = all(
+        material.active_concentrate_ppm_w_w is not None
+        for material in state.materials
+    )
     headspace = EvidenceDescriptor(
         classification=ScientificClass.HEURISTIC,
         basis=(
@@ -221,6 +236,27 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
             assumptions=("input volumes and stock fractions are supplied setpoints",),
             limitations=(
                 "EXACT classifies arithmetic and does not imply calibrated dispensing accuracy",
+            ),
+        ),
+        "active_concentrate_ppm_w_w": EvidenceDescriptor(
+            classification=(
+                ScientificClass.EXACT if ppm_is_exact else ScientificClass.UNKNOWN
+            ),
+            basis=(
+                "active material mass divided by total active concentrate mass, multiplied by one million"
+                if ppm_is_exact
+                else "mass-fraction ppm withheld because one or more material densities are missing"
+            ),
+            sources=("engine.pipeline.formula_state", *density_sources),
+            assumptions=(
+                "stored 25 C densities and supplied active fractions are applicable",
+            ),
+            limitations=(
+                (
+                    "EXACT classifies arithmetic for stated densities and does not imply density measurement uncertainty is zero"
+                    if ppm_is_exact
+                    else "fallback density may support heuristic headspace calculations but is not accepted for exact mass-fraction ppm"
+                ),
             ),
         ),
         "headspace": headspace,
@@ -266,6 +302,15 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
             ),
             limitations=(
                 "odor-family labels cannot substitute for receptor-specific affinity, efficacy, and mixture data",
+            ),
+        ),
+        "regulatory_assessment": EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="no versioned regulatory assessment is emitted by the canonical workbench",
+            sources=("engine.workbench",),
+            limitations=(
+                "requires product category, concentration basis, source version, and constituent-level composition",
+                "composite natural OAV cannot substitute for regulatory constituent composition",
             ),
         ),
         "estimated_longevity_hours": EvidenceDescriptor(

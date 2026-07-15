@@ -414,11 +414,12 @@ class TestDoseResponseCliffs:
     def test_dose_response_indole_fecal(self, conn: sqlite3.Connection) -> None:
         """Indole at >1% must be dangerous (fecal repulsive)."""
         rows = conn.execute(
-            "SELECT quality, notes FROM dose_response_cliffs WHERE material_name = 'Indole' AND quality = 'dangerous'"
+            "SELECT character, quality, notes FROM dose_response_cliffs WHERE material_name = 'Indole' AND quality = 'dangerous'"
         ).fetchall()
         assert len(rows) >= 1
-        assert any("fecal" in r[0] for r in rows)
-        assert any("sharp cliff" in (r[1] or "") for r in rows)
+        assert any("fecal" in (r[0] or "").lower() for r in rows)
+        assert any(r[1] == "dangerous" for r in rows)
+        assert any("sharp cliff" in (r[2] or "") for r in rows)
 
     def test_dose_response_ambrox_turn(self, conn: sqlite3.Connection) -> None:
         """Ambrox at 5% must be negative (urinous animalic turn)."""

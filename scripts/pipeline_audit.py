@@ -1,5 +1,7 @@
 """Inspect pipeline audit logs and scan historical formula outputs."""
 
+# ruff: noqa: E402 - repository root must be registered before engine imports
+
 from __future__ import annotations
 
 import argparse
@@ -17,6 +19,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from engine.pipeline.audit_log import load_events, summarize_events, suggest_repairs
+from engine.project_verification import (
+    default_verification_report_path,
+    run_project_verification,
+    write_verification_report,
+)
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
@@ -355,6 +362,36 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_project_verify(args: argparse.Namespace) -> int:
+    try:
+        report = run_project_verification(
+            project_root=PROJECT_ROOT,
+            selected=args.only,
+            quick=args.quick,
+            include_docker=args.include_docker,
+        )
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+    output_path = (
+        PROJECT_ROOT / args.output
+        if args.output is not None
+        else default_verification_report_path(PROJECT_ROOT, report)
+    )
+    write_verification_report(report, output_path)
+    payload = report.as_dict()
+    if args.json:
+        _print_json(payload)
+    else:
+        print(f"Completion gate: {payload['completion_gate']}")
+        for check in payload["checks"]:
+            suffix = f" - {check['reason']}" if check.get("reason") else ""
+            print(f"  {check['status']:<7} {check['name']}{suffix}")
+        print(f"Report: {output_path.relative_to(PROJECT_ROOT)}")
+    return 1 if report.completion_gate == "FAIL" else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Review pipeline audit logs and historical formula outputs."
@@ -442,6 +479,37 @@ def main(argv: list[str] | None = None) -> int:
     verify.add_argument("--no-audit", action="store_true")
     verify.add_argument("--json", action="store_true")
     verify.set_defaults(func=_cmd_verify)
+
+    project_verify = sub.add_parser(
+        "project-verify",
+        help="Run bounded Phase 0 repository checks and emit completion evidence.",
+    )
+    project_verify.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        help="Run one named check; repeat to select multiple checks.",
+    )
+    project_verify.add_argument(
+        "--quick",
+        action="store_true",
+        help="Run the canonical truth, science, data, and golden checks only.",
+    )
+    project_verify.add_argument(
+        "--include-docker",
+        action="store_true",
+        help="Run optional Docker build and smoke checks when Docker is available.",
+    )
+    project_verify.add_argument(
+        "--output",
+        default=None,
+        help=(
+            "Repository-relative JSON report path. By default, full evidence uses "
+            "project_verification.json and non-full evidence uses a scope suffix."
+        ),
+    )
+    project_verify.add_argument("--json", action="store_true")
+    project_verify.set_defaults(func=_cmd_project_verify)
 
     args = parser.parse_args(argv)
     return int(args.func(args))

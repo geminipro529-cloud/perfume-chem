@@ -24,11 +24,53 @@ Current bottle mass balance is exact for stated inputs. Current headspace and
 temporal evolution are heuristic. Canonical longevity, sillage, and receptor
 activation are withheld rather than guessed.
 
+This repository is a **Research Preview**. Passing verification means the
+declared software and scientific-truth contracts are internally consistent; it
+does not make modeled headspace a measurement, golden fixtures a sensory panel,
+or the safety screen a regulatory certificate.
+
 Read:
 
 - [Scientific contract](docs/scientific_contract.md)
 - [Model inventory](docs/model_inventory.md)
 - [Fragrance family reference](docs/fragrance_families_reference.md)
+
+## Phase 0 Verification
+
+Run the bounded repository verifier from the root:
+
+```powershell
+.venv\Scripts\python.exe scripts\pipeline_audit.py project-verify --json
+```
+
+For a fast truth-core and scientific-data pass:
+
+```powershell
+.venv\Scripts\python.exe scripts\pipeline_audit.py project-verify --quick --json
+```
+
+Docker is optional locally and is never silently assumed:
+
+```powershell
+.venv\Scripts\python.exe scripts\pipeline_audit.py project-verify --include-docker --json
+```
+
+Completion gates mean:
+
+- `PASS`: the full canonical check set ran and passed without skips.
+- `PASS_WITH_SKIPS`: the full canonical check set passed, but a declared
+  optional environment check was skipped with a reason.
+- `NOT_EVALUATED`: a quick, selected, or custom subset passed; this is useful
+  evidence for that scope but is not a Phase 0 completion claim.
+- `FAIL`: at least one selected required check failed.
+
+Full-scope JSON evidence is written to
+`verification_runs/project_verification.json`; non-full runs use a scope suffix
+so they cannot replace canonical completion evidence. The report lists its
+scope, selected checks, and omitted checks. CI runs the same named checks in
+separate jobs and uploads JUnit, science-audit, package, and distribution artifacts.
+Full legacy Ruff and backend mypy cleanup remain recorded debt;
+canonical truth-core slices are blocking and may not expand their debt.
 
 ## Non-Negotiable Formulation Rules
 
@@ -38,6 +80,8 @@ Read:
    require OAV support.
 3. Natural mixtures use composite constituent OAV where covered by the natural
    decomposition model.
+   Composite OAV is an olfactory headspace model, not constituent composition
+   for IFRA or allergen assessment.
 4. Optimize for the perfume name and brief. Numerical gates are floors, not the
    creative target.
 5. Missing density, physical data, calibration, or assay evidence remains
@@ -223,10 +267,12 @@ Backend CI order:
 ```powershell
 cd backend
 ..\.venv\Scripts\python.exe -m poetry run ruff check app
-..\.venv\Scripts\python.exe -m poetry run mypy app --ignore-missing-imports
+..\.venv\Scripts\python.exe -m poetry run mypy `
+  app/core/config.py app/core/security.py app/schemas --ignore-missing-imports
 ..\.venv\Scripts\python.exe -m poetry run pytest tests -q
 ```
 
-The repository currently has known legacy mypy debt outside the canonical API
-slice. Runtime tests and changed-module type checks are the enforced evidence for
-this workbench increment; see the model inventory for the boundary.
+The repository currently has known legacy Ruff and mypy debt outside the
+canonical engine/API slices. Runtime shards and changed-module static checks are
+the enforced evidence for this Research Preview increment; see the model
+inventory for the exact boundary.

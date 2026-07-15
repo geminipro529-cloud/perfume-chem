@@ -211,8 +211,6 @@ EMOTIONAL_PROFILES: dict[str, dict[str, float]] = {
                              "comforting": 0.30, "grounding": 0.20, "uplifting": 0.0},
     "Ethyl Safranate":      {"calming": 0.10, "energizing": 0.10, "sensual": 0.25,
                              "comforting": 0.20, "grounding": 0.15, "uplifting": 0.05},
-    
-                              "comforting": 0.15, "grounding": 0.10, "uplifting": 0.20},
     "Cardamom EO":          {"calming": 0.05, "energizing": 0.35, "sensual": 0.15,
                               "comforting": 0.10, "grounding": 0.05, "uplifting": 0.25},
     # ── Salicylates ──

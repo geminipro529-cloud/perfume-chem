@@ -9,6 +9,7 @@ def _config(brief="generic"):
         brief=brief,
         allow_preblends=True,
         min_confidence_score=0.0,
+        audit_enabled=False,
     )
 
 
@@ -46,7 +47,7 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     )
 
 
-def test_wrong_brief_candidate_triggers_rerun_callback():
+def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
     bad_raw_pct = {
         "Iso E Super": 25.0,
         "Ambrox Super": 20.0,
@@ -82,9 +83,12 @@ def test_wrong_brief_candidate_triggers_rerun_callback():
     )
     gates = {gate.gate: gate for gate in result.gate_report.gates}
 
-    assert calls
-    assert any(action.gate == "optimizer_rerun" for action in result.repair_actions)
-    assert gates["perfumer_logic"].status != "FAIL"
+    assert calls == []
+    assert not any(action.gate == "optimizer_rerun" for action in result.repair_actions)
+    assert gates["perfumer_logic"].status == "WARN"
+    assert gates["perfumer_logic"].data["original_status"] == "FAIL"
+    assert gates["family_drift_detector"].status == "WARN"
+    assert gates["family_drift_detector"].data["original_status"] == "FAIL"
 
 
 def test_optimized_markdown_requires_embedded_gate_audit():

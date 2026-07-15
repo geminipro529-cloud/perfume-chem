@@ -28,7 +28,7 @@ from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
 from engine.science_data import get_science_profile
 from engine.thermo.activity import gamma
-from engine.thermo.antoine import R_GAS, vp_pa
+from engine.thermo.antoine import vp_pa
 from engine.uncertainty import (
     FieldUncertainty,
     FormulaUncertainty,
@@ -65,7 +65,9 @@ class MaterialState:
     dilution: float
     active_ul: float
     density_g_ml: float
+    density_source: str
     active_g: float
+    active_concentrate_ppm_w_w: float | None
     mw_g_mol: float | None
     moles: float
     mole_fraction: float
@@ -98,7 +100,10 @@ class MaterialState:
             "raw_ul": round(self.raw_ul, 4),
             "dilution": self.dilution,
             "active_ul": round(self.active_ul, 4),
+            "density_g_ml": self.density_g_ml,
+            "density_source": self.density_source,
             "active_g": round(self.active_g, 8),
+            "active_concentrate_ppm_w_w": self.active_concentrate_ppm_w_w,
             "mw_g_mol": self.mw_g_mol,
             "moles": self.moles,
             "mole_fraction": self.mole_fraction,
@@ -190,6 +195,13 @@ class FormulaState:
             mole_inputs[canonical] = mole_inputs.get(canonical, 0.0) + moles
 
         total_moles = sum(mole_inputs.values())
+        total_active_g = sum(
+            new_raw_ul.get(m.name, 0.0) * m.dilution * m.density_g_ml / 1000.0
+            for m in base.materials
+        )
+        all_densities_known = all(
+            m.density_source != "fallback:default_1_g_ml" for m in base.materials
+        )
         mole_fractions = {
             name: (moles / total_moles if total_moles > 0 else 0.0)
             for name, moles in mole_inputs.items()
@@ -226,6 +238,7 @@ class FormulaState:
             )
 
             materials.append(
+                # Exact mass-fraction ppm requires every active material density.
                 MaterialState(
                     name=m.name,
                     canonical_name=m.canonical_name,
@@ -233,7 +246,13 @@ class FormulaState:
                     dilution=m.dilution,
                     active_ul=active_ul,
                     density_g_ml=density,
+                    density_source=m.density_source,
                     active_g=active_g,
+                    active_concentrate_ppm_w_w=(
+                        1e6 * active_g / total_active_g
+                        if all_densities_known and total_active_g > 0
+                        else None
+                    ),
                     mw_g_mol=m.mw_g_mol,
                     moles=moles,
                     mole_fraction=x_i,
@@ -444,7 +463,13 @@ def _build_formula_state_cached(
             (getattr(reg_mat, "logp", None), "registry:data_spine.logp"),
             (getattr(profile, "clogp", None), "profile:ingredient_intelligence.clogp"),
         )
-        density = getattr(reg_mat, "density_25c_g_ml", None) or DEFAULT_DENSITY_G_ML
+        registry_density = getattr(reg_mat, "density_25c_g_ml", None)
+        if registry_density is None:
+            density = DEFAULT_DENSITY_G_ML
+            density_source = "fallback:default_1_g_ml"
+        else:
+            density = float(registry_density)
+            density_source = "registry:data_spine.density_25c"
         active_g = active_ul * density / 1000.0
         moles = active_g / float(mw or DEFAULT_MW_G_MOL) if active_g > 0 else 0.0
         canonical = identity.canonical_name
@@ -476,6 +501,8 @@ def _build_formula_state_cached(
                 dilution,
                 active_ul,
                 active_g,
+                density,
+                density_source,
                 moles,
                 identity,
                 profile,
@@ -491,6 +518,7 @@ def _build_formula_state_cached(
         )
         uncertainty_fields.extend(
             [
+                field_uncertainty(f"{name}.density", density_source),
                 field_uncertainty(
                     f"{name}.mw", mw_source if mw is not None else "missing"
                 ),
@@ -504,6 +532,10 @@ def _build_formula_state_cached(
         name: (moles / total_moles if total_moles > 0 else 0.0)
         for name, moles in mole_inputs.items()
     }
+    total_active_g = sum(row[4] for row in raw_rows)
+    all_densities_known = all(
+        row[6] != "fallback:default_1_g_ml" for row in raw_rows
+    )
 
     materials: list[MaterialState] = []
     for (
@@ -512,6 +544,8 @@ def _build_formula_state_cached(
         dilution,
         active_ul,
         active_g,
+        density,
+        density_source,
         moles,
         identity,
         profile,
@@ -581,6 +615,7 @@ def _build_formula_state_cached(
         missing = tuple(
             field_name
             for field_name, value in (
+                ("density", None if density_source.startswith("fallback:") else density),
                 ("mw", mw),
                 ("logp", logp),
                 ("vp", vp),
@@ -590,6 +625,7 @@ def _build_formula_state_cached(
         )
 
         sources = {
+            "density": density_source,
             "mw": mw_source if mw is not None else "missing",
             "logp": logp_source if logp is not None else "missing",
             "vp": vp_source if vp is not None else "missing",
@@ -598,6 +634,11 @@ def _build_formula_state_cached(
             "ifra": "literature:ifra_safety"
             if ifra_limit is not None
             else "missing_or_unrestricted",
+            "oav_model": (
+                "literature:natural_composite_gc_o"
+                if composite is not None
+                else "heuristic:monomolecular_headspace"
+            ),
         }
         uncertainty_fields.extend(
             [
@@ -614,10 +655,14 @@ def _build_formula_state_cached(
                 raw_ul=raw_ul,
                 dilution=dilution,
                 active_ul=active_ul,
-                density_g_ml=float(
-                    getattr(reg_mat, "density_25c_g_ml", None) or DEFAULT_DENSITY_G_ML
-                ),
+                density_g_ml=density,
+                density_source=density_source,
                 active_g=active_g,
+                active_concentrate_ppm_w_w=(
+                    1e6 * active_g / total_active_g
+                    if all_densities_known and total_active_g > 0
+                    else None
+                ),
                 mw_g_mol=float(mw) if mw is not None else None,
                 moles=moles,
                 mole_fraction=x_i,
