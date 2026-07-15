@@ -39,6 +39,8 @@ information used. Therefore:
 - A value labeled `EXACT` must state that exactness belongs to the equation.
 - User-supplied standard uncertainties are carried separately from algebraic
   rounding error.
+- Claim-level evidence is split when one response combines exact arithmetic
+  with literature-derived uncertainty propagation.
 - Evidence descriptors include `basis`, `sources`, `assumptions`, and
   `limitations`, following the same provenance intent as W3C PROV-O.
 
@@ -98,6 +100,8 @@ Reference: [IUPAC Gold Book: mass fraction](https://goldbook.iupac.org/terms/vie
   The solver does not round upward to the minimum and change the formula.
 - Staged doses contain integer increments and respect the declared maximum
   single-step volume.
+- `standard_uncertainty_ul` is the independent random standard uncertainty of
+  one transfer. `systematic_standard_uncertainty_ul` is shared across transfers.
 
 ISO 8655-2 defines metrological requirements for piston pipettes. This project
 does not claim ISO conformity from a user-entered profile; calibration status
@@ -120,6 +124,32 @@ The combined standard uncertainty is the root-sum-square of each sensitivity
 coefficient multiplied by its declared standard uncertainty. For
 `v = 1000*x/rho`, mass and density components are propagated in the same way.
 The output is zero only when every contributing declared uncertainty is zero.
+
+For a plan with `n` transfers, per-transfer random uncertainty `u_r`, and
+shared systematic uncertainty `u_s`, the delivered-volume standard uncertainty
+is:
+
+```text
+u_plan = sqrt(n*u_r^2 + (n*u_s)^2)
+```
+
+The random terms are treated as independent. The systematic term is treated as
+fully correlated because the same declared instrument effect applies to every
+transfer. The plan uncertainty, density uncertainty, bottle-mass uncertainty,
+active-mass uncertainty, and stock-fraction uncertainty are then propagated by
+first-order sensitivity coefficients into
+`resulting_active_mass_fraction_standard_uncertainty`.
+
+The response evidence therefore separates:
+
+- `stock_mass_arithmetic`: `EXACT`
+- `pipette_plan`: `EXACT` for discrete arithmetic on the declared profile
+- `uncertainty_propagation`: `LITERATURE_DERIVED`
+- `pipette_delivery_uncertainty`: `LITERATURE_DERIVED`
+
+Unmodeled covariance between bottle, composition, or density inputs remains a
+limitation. Zero means no uncertainty was declared; it does not prove exact
+measurement.
 
 ## PPM, ODT, And OAV
 

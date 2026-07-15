@@ -1,5 +1,4 @@
 import pytest
-
 from engine.bottle_addition import AdditionRequest, BottleSnapshot, StockSolution
 from engine.workbench import PerfumeWorkbench, WorkbenchFormulaRequest
 
@@ -29,6 +28,9 @@ def test_workbench_analysis_exposes_canonical_state_and_truth_labels():
     }
     assert payload["evidence"]["temporal_evolution"]["classification"] == "HEURISTIC"
     assert payload["evidence"]["receptor_activation"]["classification"] == "UNKNOWN"
+    assert payload["evidence"]["note_distribution"]["classification"] == "HEURISTIC"
+    assert payload["evidence"]["estimated_longevity_hours"]["classification"] == "UNKNOWN"
+    assert payload["evidence"]["estimated_sillage"]["classification"] == "UNKNOWN"
     assert payload["time_series"][0]["receptor_activation"] is None
     assert payload["estimated_longevity_hours"] is None
     assert payload["estimated_sillage"] is None
@@ -57,7 +59,19 @@ def test_workbench_delegates_exact_addition():
         )
     )
 
-    assert result.evidence.classification.value == "EXACT"
+    assert result.evidence["stock_mass_arithmetic"].classification.value == "EXACT"
+    assert result.evidence["uncertainty_propagation"].classification.value == (
+        "LITERATURE_DERIVED"
+    )
+
+
+def test_workbench_rejects_material_names_that_collide_after_normalization():
+    with pytest.raises(ValueError, match="collide after trimming"):
+        WorkbenchFormulaRequest(
+            formula_name="Collision",
+            ingredients_ul={"Hedione": 60.0, " Hedione ": 40.0},
+            batch_volume_ml=10.0,
+        )
 
 
 @pytest.mark.parametrize(

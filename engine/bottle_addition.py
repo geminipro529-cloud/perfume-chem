@@ -87,12 +87,18 @@ class StockSolution:
 
 @dataclass(frozen=True, slots=True)
 class PipetteProfile:
-    """Declared delivery range and resolution for a pipette."""
+    """Declared delivery range, resolution, and uncertainty for a pipette.
+
+    ``standard_uncertainty_ul`` is the independent random standard uncertainty
+    of one transfer. ``systematic_standard_uncertainty_ul`` is a shared
+    standard uncertainty that is treated as fully correlated across transfers.
+    """
 
     minimum_ul: float
     increment_ul: float
     maximum_single_step_ul: float | None = None
     standard_uncertainty_ul: float = 0.0
+    systematic_standard_uncertainty_ul: float = 0.0
 
     def __post_init__(self) -> None:
         _require_finite("minimum_ul", self.minimum_ul)
@@ -110,6 +116,10 @@ class PipetteProfile:
                     "maximum_single_step_ul must be at least minimum_ul"
                 )
         _require_nonnegative("standard_uncertainty_ul", self.standard_uncertainty_ul)
+        _require_nonnegative(
+            "systematic_standard_uncertainty_ul",
+            self.systematic_standard_uncertainty_ul,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -138,12 +148,13 @@ class AdditionResult:
     rounded_stock_volume_ul: float | None
     rounded_stock_mass_g: float | None
     resulting_active_mass_fraction: float
+    resulting_active_mass_fraction_standard_uncertainty: float | None
     target_error_ppm: float
     pipette_feasible: bool
     staged_additions_ul: tuple[float, ...]
     pipette_standard_uncertainty_ul: float | None
     mass_ledger: dict[str, Any]
-    evidence: EvidenceDescriptor
+    evidence: dict[str, EvidenceDescriptor]
     warnings: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
@@ -159,12 +170,18 @@ class AdditionResult:
             "rounded_stock_volume_ul": self.rounded_stock_volume_ul,
             "rounded_stock_mass_g": self.rounded_stock_mass_g,
             "resulting_active_mass_fraction": self.resulting_active_mass_fraction,
+            "resulting_active_mass_fraction_standard_uncertainty": (
+                self.resulting_active_mass_fraction_standard_uncertainty
+            ),
             "target_error_ppm": self.target_error_ppm,
             "pipette_feasible": self.pipette_feasible,
             "staged_additions_ul": list(self.staged_additions_ul),
             "pipette_standard_uncertainty_ul": self.pipette_standard_uncertainty_ul,
             "mass_ledger": self.mass_ledger,
-            "evidence": self.evidence.as_dict(),
+            "evidence": {
+                claim: descriptor.as_dict()
+                for claim, descriptor in self.evidence.items()
+            },
             "warnings": list(self.warnings),
         }
 
@@ -172,28 +189,62 @@ class AdditionResult:
 class AdditionSolver:
     """Solve one-stock additions without silently inventing physical data."""
 
-    _EVIDENCE = EvidenceDescriptor(
-        classification=ScientificClass.EXACT,
-        basis=(
-            "closed-form conservation of total mass and active-material mass; "
-            "standard uncertainty propagated by first-order sensitivity coefficients"
+    _EVIDENCE = {
+        "stock_mass_arithmetic": EvidenceDescriptor(
+            classification=ScientificClass.EXACT,
+            basis="closed-form conservation of total mass and active-material mass",
+            sources=("https://goldbook.iupac.org/terms/view/M03722",),
+            assumptions=(
+                "target mass fraction is an exact setpoint",
+                "no material is lost during transfer or mixing",
+            ),
+            limitations=(
+                "EXACT classifies the algebra, not the accuracy of measured inputs",
+            ),
         ),
-        sources=(
-            "https://goldbook.iupac.org/terms/view/M03722",
-            "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf",
-            "https://www.iso.org/standard/68797.html",
+        "uncertainty_propagation": EvidenceDescriptor(
+            classification=ScientificClass.LITERATURE_DERIVED,
+            basis="first-order sensitivity-coefficient propagation of declared standard uncertainties",
+            sources=(
+                "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf",
+            ),
+            assumptions=(
+                "bottle mass, active mass, stock fraction, and density inputs are uncorrelated",
+                "the first-order approximation is adequate over the stated uncertainty range",
+            ),
+            limitations=(
+                "covariance must be supplied by a future contract when input measurements share a source",
+                "zero uncertainty means none was declared, not that the input is exact",
+            ),
         ),
-        assumptions=(
-            "target mass fraction is an exact setpoint",
-            "declared input standard uncertainties are uncorrelated",
-            "no material is lost during transfer or mixing",
+        "pipette_plan": EvidenceDescriptor(
+            classification=ScientificClass.EXACT,
+            basis="deterministic rounding and staging within the declared range and increment",
+            sources=("https://www.iso.org/standard/68797.html",),
+            assumptions=("the declared pipette profile applies to the selected tip and liquid",),
+            limitations=(
+                "feasibility is not evidence of calibration, operator technique, or liquid compatibility",
+            ),
         ),
-        limitations=(
-            "EXACT classifies the algebra, not the accuracy of measured inputs",
-            "volume output requires a user-supplied stock density",
-            "pipette feasibility uses the declared range and increment only",
+        "pipette_delivery_uncertainty": EvidenceDescriptor(
+            classification=ScientificClass.LITERATURE_DERIVED,
+            basis=(
+                "independent per-transfer random variance is summed; shared systematic "
+                "standard uncertainty is propagated as fully correlated"
+            ),
+            sources=(
+                "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf",
+                "https://www.iso.org/standard/68797.html",
+            ),
+            assumptions=(
+                "standard_uncertainty_ul is independent between transfers",
+                "systematic_standard_uncertainty_ul is fully correlated between transfers",
+            ),
+            limitations=(
+                "uncertainties are user declarations and are not inferred from the pipette model",
+            ),
         ),
-    )
+    }
 
     def reach_target_active_fraction(self, request: AdditionRequest) -> AdditionResult:
         bottle = request.bottle
@@ -242,6 +293,7 @@ class AdditionSolver:
         rounded_mass_g: float | None = None
         stages: tuple[float, ...] = ()
         pipette_feasible = False
+        pipette_uncertainty_ul: float | None = None
         warnings: list[str] = []
 
         if exact_volume_ul is None:
@@ -261,6 +313,10 @@ class AdditionSolver:
             else:
                 pipette_feasible = True
                 rounded_mass_g = rounded_volume_ul * stock.density_g_ml / 1000.0
+                pipette_uncertainty_ul = _combined_pipette_uncertainty(
+                    request.pipette,
+                    transfer_count=len(stages),
+                )
 
         calculated_ledger = _mass_ledger(request, stock_mass_g)
         rounded_ledger = (
@@ -270,6 +326,18 @@ class AdditionSolver:
         )
         resulting_ledger = rounded_ledger or calculated_ledger
         resulting_fraction = resulting_ledger["after"]["active_mass_fraction"]
+        resulting_fraction_uncertainty = (
+            _resulting_fraction_uncertainty(
+                request,
+                stock_mass_g=rounded_mass_g,
+                pipette_standard_uncertainty_ul=pipette_uncertainty_ul,
+                rounded_volume_ul=rounded_volume_ul,
+            )
+            if rounded_mass_g is not None
+            and rounded_volume_ul is not None
+            and pipette_uncertainty_ul is not None
+            else None
+        )
 
         return AdditionResult(
             exact_stock_mass_g=stock_mass_g,
@@ -279,19 +347,18 @@ class AdditionSolver:
             rounded_stock_volume_ul=rounded_volume_ul,
             rounded_stock_mass_g=rounded_mass_g,
             resulting_active_mass_fraction=resulting_fraction,
+            resulting_active_mass_fraction_standard_uncertainty=(
+                resulting_fraction_uncertainty
+            ),
             target_error_ppm=(resulting_fraction - target) * 1_000_000.0,
             pipette_feasible=pipette_feasible,
             staged_additions_ul=stages,
-            pipette_standard_uncertainty_ul=(
-                request.pipette.standard_uncertainty_ul
-                if pipette_feasible and request.pipette is not None
-                else None
-            ),
+            pipette_standard_uncertainty_ul=pipette_uncertainty_ul,
             mass_ledger={
                 "calculated": calculated_ledger,
                 "pipette_rounded": rounded_ledger,
             },
-            evidence=self._EVIDENCE,
+            evidence=dict(self._EVIDENCE),
             warnings=tuple(warnings),
         )
 
@@ -315,24 +382,85 @@ class AdditionSolver:
             rounded_stock_volume_ul=(0.0 if has_volume and has_pipette else None),
             rounded_stock_mass_g=(0.0 if has_volume and has_pipette else None),
             resulting_active_mass_fraction=current_fraction,
+            resulting_active_mass_fraction_standard_uncertainty=(
+                _current_fraction_uncertainty(request.bottle)
+            ),
             target_error_ppm=(
                 current_fraction - request.target_active_mass_fraction
             )
             * 1_000_000.0,
             pipette_feasible=has_volume and has_pipette,
             staged_additions_ul=(),
-            pipette_standard_uncertainty_ul=(
-                request.pipette.standard_uncertainty_ul
-                if has_volume and has_pipette and request.pipette is not None
-                else None
-            ),
+            pipette_standard_uncertainty_ul=(0.0 if has_volume and has_pipette else None),
             mass_ledger={
                 "calculated": ledger,
                 "pipette_rounded": ledger if has_volume and has_pipette else None,
             },
-            evidence=self._EVIDENCE,
+            evidence=dict(self._EVIDENCE),
             warnings=warnings,
         )
+
+
+def _combined_pipette_uncertainty(
+    pipette: PipetteProfile,
+    *,
+    transfer_count: int,
+) -> float:
+    if transfer_count <= 0:
+        return 0.0
+    random_component = transfer_count**0.5 * pipette.standard_uncertainty_ul
+    systematic_component = (
+        transfer_count * pipette.systematic_standard_uncertainty_ul
+    )
+    return hypot(random_component, systematic_component)
+
+
+def _resulting_fraction_uncertainty(
+    request: AdditionRequest,
+    *,
+    stock_mass_g: float,
+    pipette_standard_uncertainty_ul: float,
+    rounded_volume_ul: float,
+) -> float:
+    bottle = request.bottle
+    stock = request.stock
+    if stock.density_g_ml is None:
+        raise AdditionCalculationError(
+            "density is required to propagate a pipette delivery plan"
+        )
+
+    stock_mass_uncertainty_g = hypot(
+        stock.density_g_ml * pipette_standard_uncertainty_ul / 1000.0,
+        rounded_volume_ul * stock.density_standard_uncertainty_g_ml / 1000.0,
+    )
+    after_total_g = bottle.total_mass_g + stock_mass_g
+    after_active_g = (
+        bottle.active_material_mass_g
+        + stock.active_mass_fraction * stock_mass_g
+    )
+    resulting_fraction = after_active_g / after_total_g
+    return hypot(
+        resulting_fraction
+        / after_total_g
+        * bottle.total_mass_standard_uncertainty_g,
+        bottle.active_mass_standard_uncertainty_g / after_total_g,
+        stock_mass_g
+        / after_total_g
+        * stock.active_fraction_standard_uncertainty,
+        (stock.active_mass_fraction - resulting_fraction)
+        / after_total_g
+        * stock_mass_uncertainty_g,
+    )
+
+
+def _current_fraction_uncertainty(bottle: BottleSnapshot) -> float:
+    current_fraction = bottle.active_material_mass_g / bottle.total_mass_g
+    return hypot(
+        current_fraction
+        / bottle.total_mass_g
+        * bottle.total_mass_standard_uncertainty_g,
+        bottle.active_mass_standard_uncertainty_g / bottle.total_mass_g,
+    )
 
 
 def _same_fraction(left: float, right: float) -> bool:

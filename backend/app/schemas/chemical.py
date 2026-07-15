@@ -108,12 +108,13 @@ class StockSolutionInput(BaseModel):
 
 
 class PipetteProfileInput(BaseModel):
-    """Declared pipette range, resolution, and standard uncertainty."""
+    """Declared pipette range, resolution, and random/systematic uncertainty."""
 
     minimum_ul: float = Field(..., gt=0)
     increment_ul: float = Field(..., gt=0)
     maximum_single_step_ul: Optional[float] = Field(None, gt=0)
     standard_uncertainty_ul: float = Field(0.0, ge=0)
+    systematic_standard_uncertainty_ul: float = Field(0.0, ge=0)
 
 
 class BottleAdditionCalculation(BaseModel):

@@ -108,6 +108,10 @@ engine path dependency and carry `data/materials` at runtime:
 docker compose up --build
 ```
 
+The engine wheel also includes `data/materials`; packaging tests build and
+install a non-editable wheel in isolation to prevent editable-checkout false
+positives.
+
 ## Formula Analysis API
 
 `POST /api/v1/formulas/analyze-formula` returns:
@@ -165,15 +169,19 @@ accounting for material already in the bottle and mass added by the stock:
     "minimum_ul": 10,
     "increment_ul": 5,
     "maximum_single_step_ul": 200,
-    "standard_uncertainty_ul": 1
+    "standard_uncertainty_ul": 1,
+    "systematic_standard_uncertainty_ul": 0.5
   }
 }
 ```
 
 The response includes exact stock mass, propagated standard uncertainty, exact
 volume when density is supplied, a rounded pipette plan when feasible, target
-error in ppm, and before/addition/after mass ledgers. No density means no volume
-plan; a subminimum volume is reported infeasible rather than rounded upward.
+error in ppm, delivered-fraction standard uncertainty, claim-level evidence,
+and before/addition/after mass ledgers. Random uncertainty is combined across
+independent transfers; a declared shared systematic component is propagated as
+fully correlated. No density means no volume plan; a subminimum volume is
+reported infeasible rather than rounded upward.
 
 ## Release Pipeline
 

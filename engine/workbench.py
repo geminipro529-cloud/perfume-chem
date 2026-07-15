@@ -20,7 +20,7 @@ class WorkbenchFormulaRequest:
     ingredients_ul: Mapping[str, float]
     batch_volume_ml: float
     dilutions: Mapping[str, float] | None = None
-    temperature_K: float = 305.0
+    temperature_K: float = 305.0  # noqa: N815 - kelvin unit suffix
     context: str = "skin"
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS
     assumptions: tuple[str, ...] = ()
@@ -30,19 +30,13 @@ class WorkbenchFormulaRequest:
         if not name:
             raise ValueError("formula_name must not be empty")
 
-        ingredients = {
-            str(material).strip(): float(amount)
-            for material, amount in self.ingredients_ul.items()
-        }
+        ingredients = _trimmed_mapping(self.ingredients_ul, "ingredients_ul")
         if not ingredients or any(not material for material in ingredients):
             raise ValueError("ingredients_ul must contain named materials")
         if any(not isfinite(amount) or amount <= 0 for amount in ingredients.values()):
             raise ValueError("ingredient volumes must be finite and greater than zero")
 
-        dilutions = {
-            str(material).strip(): float(fraction)
-            for material, fraction in (self.dilutions or {}).items()
-        }
+        dilutions = _trimmed_mapping(self.dilutions or {}, "dilutions")
         unknown_dilutions = set(dilutions).difference(ingredients)
         if unknown_dilutions:
             raise ValueError(
@@ -56,10 +50,10 @@ class WorkbenchFormulaRequest:
             raise ValueError("dilution fractions must be finite, greater than zero, and at most one")
 
         batch_volume_ml = float(self.batch_volume_ml)
-        temperature_K = float(self.temperature_K)
+        temperature_k = float(self.temperature_K)
         if not isfinite(batch_volume_ml) or batch_volume_ml <= 0:
             raise ValueError("batch_volume_ml must be finite and greater than zero")
-        if not isfinite(temperature_K) or temperature_K <= 0:
+        if not isfinite(temperature_k) or temperature_k <= 0:
             raise ValueError("temperature_K must be finite and greater than zero")
 
         context = self.context.strip()
@@ -84,7 +78,7 @@ class WorkbenchFormulaRequest:
         object.__setattr__(self, "ingredients_ul", ingredients)
         object.__setattr__(self, "dilutions", dilutions)
         object.__setattr__(self, "batch_volume_ml", batch_volume_ml)
-        object.__setattr__(self, "temperature_K", temperature_K)
+        object.__setattr__(self, "temperature_K", temperature_k)
         object.__setattr__(self, "context", context)
         object.__setattr__(self, "windows", windows)
         object.__setattr__(self, "assumptions", tuple(self.assumptions))
@@ -189,6 +183,36 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
     odt_sources = _unique(
         material.sources.get("odt", "missing") for material in state.materials
     )
+    headspace = EvidenceDescriptor(
+        classification=ScientificClass.HEURISTIC,
+        basis=(
+            "modified-Raoult-style partial pressure using odorant-only mole fractions, "
+            "vapor pressure, and activity-coefficient estimates"
+        ),
+        sources=(
+            "engine.pipeline.formula_state",
+            "https://goldbook.iupac.org/terms/view/15349",
+        ),
+        assumptions=(
+            "thermodynamic properties and activity-coefficient fallbacks are applicable",
+            "aromatic active volumes can be converted to mass using available or fallback density",
+        ),
+        limitations=(
+            "the finished ethanol-water-solvent matrix is omitted from liquid-phase mole fractions",
+            "reported vapor ppm is modeled rather than measured headspace concentration",
+            "default density or molecular weight may be used where physical data are missing",
+        ),
+    )
+    temporal = EvidenceDescriptor(
+        classification=ScientificClass.HEURISTIC,
+        basis="exponential material loss scaled by vapor pressure, activity coefficient, and molecular weight",
+        sources=("engine.pipeline.simulator",),
+        assumptions=("a single finite-film loss approximation applies to all materials",),
+        limitations=(
+            "not calibrated against measured skin or blotter evaporation curves",
+            "does not model changing solvent matrix, diffusion, or skin absorption explicitly",
+        ),
+    )
     return {
         "dose_arithmetic": EvidenceDescriptor(
             classification=ScientificClass.EXACT,
@@ -199,26 +223,8 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
                 "EXACT classifies arithmetic and does not imply calibrated dispensing accuracy",
             ),
         ),
-        "headspace": EvidenceDescriptor(
-            classification=ScientificClass.HEURISTIC,
-            basis=(
-                "modified-Raoult-style partial pressure using odorant-only mole fractions, "
-                "vapor pressure, and activity-coefficient estimates"
-            ),
-            sources=(
-                "engine.pipeline.formula_state",
-                "https://goldbook.iupac.org/terms/view/15349",
-            ),
-            assumptions=(
-                "thermodynamic properties and activity-coefficient fallbacks are applicable",
-                "aromatic active volumes can be converted to mass using available or fallback density",
-            ),
-            limitations=(
-                "the finished ethanol-water-solvent matrix is omitted from liquid-phase mole fractions",
-                "reported vapor ppm is modeled rather than measured headspace concentration",
-                "default density or molecular weight may be used where physical data are missing",
-            ),
-        ),
+        "headspace": headspace,
+        "material_oav_table": headspace,
         "threshold_visibility": EvidenceDescriptor(
             classification=ScientificClass.HEURISTIC,
             basis="modeled vapor ppm divided by an air odor-detection threshold in ppm",
@@ -236,16 +242,21 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
                 "OAV is a screening ratio, not a direct prediction of perceived mixture intensity",
             ),
         ),
-        "temporal_evolution": EvidenceDescriptor(
+        "note_distribution": EvidenceDescriptor(
             classification=ScientificClass.HEURISTIC,
-            basis="exponential material loss scaled by vapor pressure, activity coefficient, and molecular weight",
-            sources=("engine.pipeline.simulator",),
-            assumptions=("a single finite-film loss approximation applies to all materials",),
+            basis="normalized active-volume shares grouped by configured top, heart, and base note tiers",
+            sources=("engine.pipeline.formula_state",),
+            assumptions=(
+                "stored note tiers are applicable",
+                "active volume is an appropriate structural weighting basis",
+            ),
             limitations=(
-                "not calibrated against measured skin or blotter evaporation curves",
-                "does not model changing solvent matrix, diffusion, or skin absorption explicitly",
+                "does not account for odor threshold, headspace abundance, or mixture effects",
+                "is not a measured perceptual note pyramid",
             ),
         ),
+        "temporal_evolution": temporal,
+        "time_series": temporal,
         "receptor_activation": EvidenceDescriptor(
             classification=ScientificClass.UNKNOWN,
             basis="no material-specific receptor assay data are applied in production analysis",
@@ -257,7 +268,35 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
                 "odor-family labels cannot substitute for receptor-specific affinity, efficacy, and mixture data",
             ),
         ),
+        "estimated_longevity_hours": EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="no calibrated longevity estimate is emitted by the canonical workbench",
+            sources=("engine.workbench",),
+            limitations=(
+                "requires held-out skin or blotter persistence measurements for the relevant matrix and dose",
+            ),
+        ),
+        "estimated_sillage": EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="no calibrated sillage estimate is emitted by the canonical workbench",
+            sources=("engine.workbench",),
+            limitations=(
+                "requires a defined distance-time protocol and held-out measurements",
+            ),
+        ),
     }
+
+
+def _trimmed_mapping(values: Mapping[str, float], label: str) -> dict[str, float]:
+    normalized: dict[str, float] = {}
+    for raw_material, raw_value in values.items():
+        material = str(raw_material).strip()
+        if material in normalized:
+            raise ValueError(
+                f"{label} material names collide after trimming: {material!r}"
+            )
+        normalized[material] = float(raw_value)
+    return normalized
 
 
 def _unique(values) -> tuple[str, ...]:

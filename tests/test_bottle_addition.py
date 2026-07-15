@@ -1,5 +1,4 @@
 import pytest
-
 from engine.bottle_addition import (
     AdditionCalculationError,
     AdditionRequest,
@@ -171,8 +170,68 @@ def test_standard_uncertainty_is_propagated_from_declared_inputs():
     assert result.exact_stock_mass_standard_uncertainty_g > 0
     assert result.exact_stock_volume_standard_uncertainty_ul is not None
     assert result.exact_stock_volume_standard_uncertainty_ul > 0
-    assert result.evidence.classification.value == "EXACT"
-    assert result.as_dict()["evidence"]["classification"] == "EXACT"
+    assert result.evidence["stock_mass_arithmetic"].classification.value == "EXACT"
+    assert result.evidence["uncertainty_propagation"].classification.value == (
+        "LITERATURE_DERIVED"
+    )
+    assert (
+        result.as_dict()["evidence"]["uncertainty_propagation"]["classification"]
+        == "LITERATURE_DERIVED"
+    )
+
+
+def test_multistep_pipette_uncertainty_combines_random_and_systematic_components():
+    result = AdditionSolver().reach_target_active_fraction(
+        AdditionRequest(
+            bottle=BottleSnapshot(
+                total_mass_g=30.0,
+                active_material_mass_g=0.03,
+                total_mass_standard_uncertainty_g=0.01,
+                active_mass_standard_uncertainty_g=0.001,
+            ),
+            stock=StockSolution(
+                active_mass_fraction=0.10,
+                density_g_ml=1.0,
+                active_fraction_standard_uncertainty=0.001,
+                density_standard_uncertainty_g_ml=0.002,
+            ),
+            target_active_mass_fraction=0.002,
+            pipette=PipetteProfile(
+                minimum_ul=10.0,
+                increment_ul=5.0,
+                maximum_single_step_ul=200.0,
+                standard_uncertainty_ul=1.0,
+                systematic_standard_uncertainty_ul=0.5,
+            ),
+        )
+    )
+
+    assert len(result.staged_additions_ul) == 2
+    assert result.pipette_standard_uncertainty_ul == pytest.approx(3**0.5)
+    assert result.resulting_active_mass_fraction_standard_uncertainty is not None
+    assert result.resulting_active_mass_fraction_standard_uncertainty > 0
+    assert result.evidence["pipette_delivery_uncertainty"].classification.value == (
+        "LITERATURE_DERIVED"
+    )
+
+
+def test_zero_addition_has_zero_plan_uncertainty():
+    result = AdditionSolver().reach_target_active_fraction(
+        AdditionRequest(
+            bottle=BottleSnapshot(total_mass_g=10.0, active_material_mass_g=0.02),
+            stock=StockSolution(active_mass_fraction=0.1, density_g_ml=1.0),
+            target_active_mass_fraction=0.002,
+            pipette=PipetteProfile(
+                minimum_ul=10.0,
+                increment_ul=1.0,
+                standard_uncertainty_ul=1.0,
+                systematic_standard_uncertainty_ul=0.5,
+            ),
+        )
+    )
+
+    assert result.pipette_standard_uncertainty_ul == 0.0
+    assert result.resulting_active_mass_fraction_standard_uncertainty == 0.0
 
 
 @pytest.mark.parametrize(

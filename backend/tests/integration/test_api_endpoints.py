@@ -110,6 +110,8 @@ async def test_calculate_addition_returns_exact_mass_and_pipette_plan(client: As
                 "minimum_ul": 10.0,
                 "increment_ul": 5.0,
                 "maximum_single_step_ul": 200.0,
+                "standard_uncertainty_ul": 1.0,
+                "systematic_standard_uncertainty_ul": 0.5,
             },
         },
     )
@@ -119,7 +121,12 @@ async def test_calculate_addition_returns_exact_mass_and_pipette_plan(client: As
     assert data["exact_stock_mass_g"] == pytest.approx(0.30612244898)
     assert data["rounded_stock_volume_ul"] == 305.0
     assert data["staged_additions_ul"] == [155.0, 150.0]
-    assert data["evidence"]["classification"] == "EXACT"
+    assert data["pipette_standard_uncertainty_ul"] == pytest.approx(3**0.5)
+    assert data["resulting_active_mass_fraction_standard_uncertainty"] > 0
+    assert data["evidence"]["stock_mass_arithmetic"]["classification"] == "EXACT"
+    assert data["evidence"]["uncertainty_propagation"]["classification"] == (
+        "LITERATURE_DERIVED"
+    )
 
 
 @pytest.mark.asyncio
