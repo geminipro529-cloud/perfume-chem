@@ -8,13 +8,10 @@ now, while leaving room for a stricter finite-film/UNIFAC backend later.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
-from engine.receptor.binding import ligands_from_family, or_occupancy
-from engine.biology.genetics import apply_polymorphism  # OR genotype modulation
-from engine.delivery.spray import droplet_distribution  # spray droplet physics
 
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
@@ -31,8 +28,8 @@ class SimulationFrame:
     label: str
     t_seconds: float
     state: FormulaState
-    receptor_activation: dict[str, float] = field(default_factory=dict)
-    receptor_source: str = "family_prior_proxy"
+    receptor_activation: dict[str, float] | None = None
+    receptor_source: str = "unavailable:material_specific_assay_required"
 
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
@@ -57,9 +54,14 @@ class SimulationFrame:
             "t_seconds": self.t_seconds,
             "state": self.state.as_dict(),
             "dominant_oav": self.dominant_oav(),
-            "receptor_activation": {
-                k: round(v, 4) for k, v in self.receptor_activation.items()
-            },
+            "receptor_activation": (
+                {
+                    k: round(v, 4)
+                    for k, v in self.receptor_activation.items()
+                }
+                if self.receptor_activation is not None
+                else None
+            ),
             "receptor_source": self.receptor_source,
         }
 
@@ -87,20 +89,6 @@ def _remaining_raw_ul(state: FormulaState, t_seconds: float) -> dict[str, float]
         dilution = max(m.dilution, 1e-9)
         remaining[m.name] = active_remaining / dilution
     return remaining
-
-
-def _receptor_activation(state: FormulaState) -> dict[str, float]:
-    conc_proxy = {
-        m.name: max(0.0, m.vapor_ppm)
-        for m in state.materials
-        if m.vapor_ppm > 0 and m.family
-    }
-    ligands = {
-        m.name: ligands_from_family(m.name, m.family)
-        for m in state.materials
-        if m.family
-    }
-    return or_occupancy(conc_proxy, ligands)
 
 
 def simulate_formula(
@@ -133,7 +121,6 @@ def simulate_formula(
                 label=label,
                 t_seconds=float(seconds),
                 state=frame_state,
-                receptor_activation=_receptor_activation(frame_state),
             )
         )
     return frames
