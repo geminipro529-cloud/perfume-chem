@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.chemical import FormulaIngredient
 
@@ -25,8 +25,9 @@ class PerfumeCreate(PerfumeBase):
     notes: Optional[str] = None
     tags: Optional[List[str]] = None
 
-    @validator('ingredients')
-    def validate_ingredients_sum(self, v):
+    @field_validator("ingredients")
+    @classmethod
+    def validate_ingredients_sum(cls, v):
         """Ensure ingredients sum to ~100%"""
         if v:
             total = sum(ing.percentage for ing in v)
@@ -67,8 +68,9 @@ class FormulaCreate(FormulaBase):
     ingredients: List[FormulaIngredient]
     notes: Optional[str] = None
 
-    @validator('ingredients')
-    def validate_formula_balance(self, v):
+    @field_validator("ingredients")
+    @classmethod
+    def validate_formula_balance(cls, v):
         """Ensure formula is balanced"""
         total = sum(ing.percentage for ing in v)
         if not (99.0 <= total <= 101.0):

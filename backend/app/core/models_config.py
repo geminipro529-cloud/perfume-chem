@@ -14,7 +14,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 import yaml
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class ModelPurpose(str, Enum):
@@ -143,8 +143,9 @@ class ModelConfig(BaseModel):
     class Config:
         use_enum_values = True
 
-    @validator('last_validated')
-    def validate_date_format(self, v):
+    @field_validator("last_validated")
+    @classmethod
+    def validate_date_format(cls, v):
         """Validate date format is YYYY-MM-DD."""
         from datetime import datetime
         try:
