@@ -5,7 +5,7 @@ This closes the feedback loop: system predicts → user creates → user rates �
 """
 
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional, TypedDict, cast
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -17,6 +17,21 @@ from app.models.knowledge_graph import (
 )
 
 
+class AccuracyStat(TypedDict):
+    """Prediction accuracy summary for one scoring axis."""
+
+    n_samples: int
+    mean_absolute_error: Optional[float]
+
+
+class IngredientPerformance(TypedDict):
+    """Aggregate rating statistics for one ingredient."""
+
+    ingredient: str
+    appearances: int
+    avg_rating: float
+
+
 class OutcomeStore:
     """CRUD + analytics for formulation outcomes."""
 
@@ -25,7 +40,7 @@ class OutcomeStore:
 
     # ── FormulationOutcome CRUD ─────────────────────────────────────
 
-    async def record_outcome(self, data: dict) -> FormulationOutcome:
+    async def record_outcome(self, data: dict[str, Any]) -> FormulationOutcome:
         """Record a new formulation outcome."""
         outcome = FormulationOutcome(**data)
         self.session.add(outcome)
@@ -55,7 +70,9 @@ class OutcomeStore:
         result = await self.session.execute(query)
         return list(result.scalars().all())
 
-    async def update_outcome(self, outcome_id: int, data: dict) -> Optional[FormulationOutcome]:
+    async def update_outcome(
+        self, outcome_id: int, data: dict[str, Any]
+    ) -> Optional[FormulationOutcome]:
         outcome = await self.get_outcome(outcome_id)
         if not outcome:
             return None
@@ -74,7 +91,7 @@ class OutcomeStore:
 
     # ── PairwisePreference CRUD ─────────────────────────────────────
 
-    async def record_preference(self, data: dict) -> PairwisePreference:
+    async def record_preference(self, data: dict[str, Any]) -> PairwisePreference:
         pref = PairwisePreference(**data)
         self.session.add(pref)
         await self.session.commit()
@@ -138,18 +155,20 @@ class OutcomeStore:
 
     # ── Analytics ───────────────────────────────────────────────────
 
-    async def prediction_accuracy(self) -> dict:
+    async def prediction_accuracy(self) -> dict[str, AccuracyStat]:
         """Compare predicted scores vs actual ratings across all outcomes."""
         outcomes = await self.list_outcomes(limit=10000)
         axes = ["longevity", "sillage", "balance", "overall", "complexity"]
-        stats: dict = {}
+        stats: dict[str, AccuracyStat] = {}
 
         for axis in axes:
-            predicted_vals = []
-            actual_vals = []
+            predicted_vals: list[float] = []
+            actual_vals: list[float] = []
             for o in outcomes:
                 predicted = (o.predicted_scores or {}).get(axis)
-                actual = getattr(o, f"rating_{axis}", None)
+                actual = cast(
+                    Optional[float], getattr(o, f"rating_{axis}", None)
+                )
                 if predicted is not None and actual is not None:
                     predicted_vals.append(predicted)
                     actual_vals.append(actual)
@@ -167,7 +186,9 @@ class OutcomeStore:
 
         return stats
 
-    async def top_ingredients(self, min_outcomes: int = 3) -> list[dict]:
+    async def top_ingredients(
+        self, min_outcomes: int = 3
+    ) -> list[IngredientPerformance]:
         """Find ingredients that appear most often in highly-rated formulations."""
         outcomes = await self.list_outcomes(min_rating=7.0, limit=10000)
         ingredient_scores: dict[str, list[float]] = {}
@@ -177,7 +198,7 @@ class OutcomeStore:
             for name in (o.ingredients or {}):
                 ingredient_scores.setdefault(name, []).append(rating)
 
-        results = []
+        results: list[IngredientPerformance] = []
         for name, ratings in ingredient_scores.items():
             if len(ratings) >= min_outcomes:
                 results.append({

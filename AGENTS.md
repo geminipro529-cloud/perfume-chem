@@ -56,9 +56,13 @@ cd backend && poetry run pytest tests/unit/test_xxx.py -k test_name
 pytest tests/test_pipeline_gates.py -k test_gate_blocks
 ```
 
-## CI order (important)
+## Verification order (important)
 
-From `.github/workflows/ci.yml`: `ruff check app` → `mypy app --ignore-missing-imports` → `pytest --cov=app`. Same order applies locally.
+The local pre-push gate runs
+`scripts/pipeline_audit.py project-verify --quick --json`; run the full command
+without `--quick` before merging or publishing a release.
+For backend checks, preserve this order: `ruff check app` ->
+`mypy app --ignore-missing-imports` -> `pytest --cov=app`.
 
 ## Running Formulas Through the Pipeline
 

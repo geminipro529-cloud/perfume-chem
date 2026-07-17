@@ -2,76 +2,71 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import tomllib
+
 import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "ci.yml"
-
-REQUIRED_JOBS = {
-    "backend-lint",
-    "backend-typecheck",
-    "backend-tests",
-    "engine-lint",
-    "engine-typecheck",
-    "engine-tests",
-    "scientific-audit",
-    "material-data-validation",
-    "knowledge-rule-validation",
-    "golden-formula-regression",
-    "package-build",
-    "docker-build",
-    "docker-smoke-test",
-}
+HOOK_CONFIG_PATH = PROJECT_ROOT / ".pre-commit-config.yaml"
 
 
-def _workflow() -> dict:
-    return yaml.load(WORKFLOW_PATH.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
+def _hook_config() -> dict:
+    return yaml.safe_load(HOOK_CONFIG_PATH.read_text(encoding="utf-8"))
 
 
-def test_ci_targets_the_real_release_branch_and_all_pull_requests():
-    workflow = _workflow()
-    triggers = workflow["on"]
-
-    assert triggers["push"]["branches"] == ["master"]
-    assert "pull_request" in triggers
-    assert "workflow_dispatch" in triggers
+def _local_hooks() -> dict[str, dict]:
+    config = _hook_config()
+    local_repository = next(repo for repo in config["repos"] if repo["repo"] == "local")
+    return {hook["id"]: hook for hook in local_repository["hooks"]}
 
 
-def test_ci_exposes_every_phase_zero_required_job():
-    jobs = set(_workflow()["jobs"])
-
-    assert REQUIRED_JOBS <= jobs
+def test_hosted_github_actions_workflow_is_removed():
+    assert not WORKFLOW_PATH.exists()
 
 
-def test_ci_uses_the_single_project_verifier_contract():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+def test_quick_project_verification_runs_before_push():
+    config = _hook_config()
+    hook = _local_hooks()["project-verify-quick"]
 
-    assert "pipeline_audit.py project-verify" in workflow_text
-    assert "--only" in workflow_text
-
-
-def test_ci_pins_python_shards_timeouts_and_junit_evidence():
-    workflow = _workflow()
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-
-    assert workflow["env"]["PYTHON_VERSION"] == "3.11"
-    assert workflow["jobs"]["engine-tests"]["strategy"]["matrix"]["shard"] == [
-        "truth-core",
-        "data-knowledge",
-        "gates-families",
-        "legacy",
-    ]
-    assert all("timeout-minutes" in job for job in workflow["jobs"].values())
-    assert "verification_runs/backend.xml" in workflow_text
-    assert "verification_runs/engine-${{ matrix.shard }}.xml" in workflow_text
-    assert "actions/upload-artifact@v4" in workflow_text
+    assert config["minimum_pre_commit_version"] == "4.4.0"
+    assert config["default_install_hook_types"] == ["pre-push"]
+    assert hook["entry"] == "python scripts/pipeline_audit.py project-verify --quick --json"
+    assert hook["language"] == "unsupported"
+    assert hook["stages"] == ["pre-push", "manual"]
+    assert hook["always_run"] is True
+    assert hook["pass_filenames"] is False
 
 
-def test_ci_smokes_installed_wheel_and_real_container_health():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+def test_full_project_verification_remains_an_explicit_manual_gate():
+    hook = _local_hooks()["project-verify-full"]
 
-    assert "--only package-wheel-smoke" in workflow_text
-    assert "docker compose" not in workflow_text
-    assert "--only docker-build --only docker-smoke-test" in workflow_text
-    assert "health_check" not in workflow_text
+    assert hook["entry"] == "python scripts/pipeline_audit.py project-verify --json"
+    assert hook["stages"] == ["manual"]
+    assert hook["always_run"] is True
+    assert hook["pass_filenames"] is False
+
+
+def test_docker_verification_remains_available_as_an_explicit_manual_gate():
+    hook = _local_hooks()["project-verify-docker"]
+
+    assert hook["entry"].endswith("project-verify --include-docker --json")
+    assert hook["stages"] == ["manual"]
+    assert hook["always_run"] is True
+    assert hook["pass_filenames"] is False
+
+
+def test_root_development_extra_installs_pre_commit():
+    project = tomllib.loads((PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    dependencies = project["project"]["optional-dependencies"]["dev"]
+
+    assert any(requirement.startswith("pre-commit") for requirement in dependencies)
+    assert any(requirement.startswith("build") for requirement in dependencies)
+
+
+def test_readme_documents_installation_and_local_trust_boundary():
+    readme = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+
+    assert "pre-commit install --hook-type pre-push" in readme
+    assert "developer-controlled" in readme

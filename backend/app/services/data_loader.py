@@ -4,7 +4,7 @@ import json
 import logging
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional, TypedDict, cast
 
 logger = logging.getLogger(__name__)
 
@@ -12,19 +12,36 @@ DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 BACKEND_DATA_DIR = Path(__file__).parent.parent.parent / "data"
 KNOWLEDGE_DIR = Path(__file__).parent.parent.parent.parent / "knowledge"
 
+JsonObject = dict[str, Any]
+
+
+class KnowledgeMatch(TypedDict):
+    """A matching line returned by a knowledge-base search."""
+
+    file: str
+    line_number: int
+    content: str
+
+
+class KnowledgeSearchResult(TypedDict):
+    """Structured result from a knowledge-base search."""
+
+    files: list[str]
+    matches: list[KnowledgeMatch]
+
 
 class DataLoader:
     """Load and cache reference data files"""
 
     @staticmethod
     @lru_cache(maxsize=1)
-    def load_compounds() -> Dict[str, Any]:
+    def load_compounds() -> JsonObject:
         """Load chemical compounds database"""
         try:
             compounds_file = DATA_DIR / "compounds.json"
             if compounds_file.exists():
                 with open(compounds_file, 'r') as f:
-                    data = json.load(f)
+                    data = cast(JsonObject, json.load(f))
                 logger.info(f"Loaded {len(data.get('compounds', []))} compounds")
                 return data
         except Exception as e:
@@ -33,13 +50,13 @@ class DataLoader:
 
     @staticmethod
     @lru_cache(maxsize=1)
-    def load_fragrance_families() -> Dict[str, Any]:
+    def load_fragrance_families() -> JsonObject:
         """Load fragrance classification data"""
         try:
             families_file = BACKEND_DATA_DIR / "reference" / "fragrance_reference.json"
             if families_file.exists():
                 with open(families_file, 'r') as f:
-                    data = json.load(f)
+                    data = cast(JsonObject, json.load(f))
                 logger.info("Loaded fragrance reference data")
                 return data
         except Exception as e:
@@ -47,31 +64,31 @@ class DataLoader:
         return {"fragrance_families": [], "concentration_types": []}
 
     @staticmethod
-    def get_compound_by_cas(cas_number: str) -> Optional[Dict[str, Any]]:
+    def get_compound_by_cas(cas_number: str) -> Optional[JsonObject]:
         """Get a compound by CAS number"""
         compounds = DataLoader.load_compounds()
-        for compound in compounds.get("compounds", []):
+        for compound in cast(list[JsonObject], compounds.get("compounds", [])):
             if compound.get("cas") == cas_number:
                 return compound
         return None
 
     @staticmethod
-    def get_compound_by_name(name: str) -> Optional[Dict[str, Any]]:
+    def get_compound_by_name(name: str) -> Optional[JsonObject]:
         """Get a compound by name"""
         compounds = DataLoader.load_compounds()
-        for compound in compounds.get("compounds", []):
-            if compound.get("name").lower() == name.lower():
+        for compound in cast(list[JsonObject], compounds.get("compounds", [])):
+            if cast(str, compound.get("name")).lower() == name.lower():
                 return compound
         return None
 
     @staticmethod
-    def search_compounds(query: str) -> list:
+    def search_compounds(query: str) -> list[JsonObject]:
         """Search compounds by name or scent"""
         compounds = DataLoader.load_compounds()
-        results = []
+        results: list[JsonObject] = []
         query_lower = query.lower()
 
-        for compound in compounds.get("compounds", []):
+        for compound in cast(list[JsonObject], compounds.get("compounds", [])):
             # Search in name
             if query_lower in compound.get("name", "").lower():
                 results.append(compound)
@@ -82,37 +99,38 @@ class DataLoader:
         return results
 
     @staticmethod
-    def get_fragrance_family(family_name: str) -> Optional[Dict[str, Any]]:
+    def get_fragrance_family(family_name: str) -> Optional[JsonObject]:
         """Get fragrance family details"""
         data = DataLoader.load_fragrance_families()
-        for family in data.get("fragrance_families", []):
-            if family.get("name").lower() == family_name.lower():
+        for family in cast(list[JsonObject], data.get("fragrance_families", [])):
+            if cast(str, family.get("name")).lower() == family_name.lower():
                 return family
         return None
 
     @staticmethod
-    def get_concentration_type(conc_type: str) -> Optional[Dict[str, Any]]:
+    def get_concentration_type(conc_type: str) -> Optional[JsonObject]:
         """Get concentration type details (EDP, EDT, etc.)"""
         data = DataLoader.load_fragrance_families()
-        for conc in data.get("concentration_types", []):
-            if conc.get("type").lower() == conc_type.lower():
+        for conc in cast(list[JsonObject], data.get("concentration_types", [])):
+            if cast(str, conc.get("type")).lower() == conc_type.lower():
                 return conc
         return None
 
     @staticmethod
-    def list_fragrance_families() -> list:
+    def list_fragrance_families() -> list[Optional[str]]:
         """Get all fragrance families"""
         data = DataLoader.load_fragrance_families()
-        return [f.get("name") for f in data.get("fragrance_families", [])]
+        families = cast(list[JsonObject], data.get("fragrance_families", []))
+        return [cast(Optional[str], family.get("name")) for family in families]
 
     @staticmethod
-    def list_all_compounds() -> list:
+    def list_all_compounds() -> list[JsonObject]:
         """Get all compounds"""
         compounds = DataLoader.load_compounds()
-        return compounds.get("compounds", [])
+        return cast(list[JsonObject], compounds.get("compounds", []))
 
     @staticmethod
-    def get_statistics() -> Dict[str, Any]:
+    def get_statistics() -> JsonObject:
         """Get data statistics"""
         compounds = DataLoader.load_compounds()
         families = DataLoader.load_fragrance_families()
@@ -132,9 +150,9 @@ class DataLoader:
 
     @staticmethod
     @lru_cache(maxsize=1)
-    def list_knowledge_files() -> List[str]:
+    def list_knowledge_files() -> list[str]:
         """List all markdown knowledge files"""
-        knowledge_files = []
+        knowledge_files: list[str] = []
         if KNOWLEDGE_DIR.exists():
             for md_file in KNOWLEDGE_DIR.glob("**/*.md"):
                 relative_path = md_file.relative_to(KNOWLEDGE_DIR)
@@ -154,9 +172,9 @@ class DataLoader:
         return None
 
     @staticmethod
-    def search_knowledge(query: str) -> Dict[str, List[Dict[str, Any]]]:
+    def search_knowledge(query: str) -> KnowledgeSearchResult:
         """Search through knowledge files for query term"""
-        results = {"files": [], "matches": []}
+        results: KnowledgeSearchResult = {"files": [], "matches": []}
         query_lower = query.lower()
 
         knowledge_files = DataLoader.list_knowledge_files()

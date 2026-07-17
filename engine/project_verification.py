@@ -1,4 +1,4 @@
-"""Bounded, machine-readable verification for the Research Preview baseline."""
+"""Bounded, machine-readable verification for the Laboratory Beta baseline."""
 
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ from urllib.request import urlopen
 import venv
 
 from engine.odor_thresholds import ODT_VERIFICATION
+from engine.release_readiness import ReadinessInput, build_release_readiness
 from engine.science_audit import build_science_audit_contract
 
 
@@ -26,10 +27,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 KNOWN_LEGACY_LIMITATIONS = (
     "Full-engine Ruff cleanup remains legacy debt; the canonical truth-core slice is blocking.",
-    "Full-backend mypy cleanup remains legacy debt; the canonical API contract slice is blocking.",
-    "Headspace omits the finished ethanol-water-solvent matrix and is modeled, not measured.",
+    "Compatibility requests may omit the finished solvent matrix; strict mode requires it, and headspace remains modeled rather than measured.",
     "Temporal evolution is heuristic and is not calibrated to skin or blotter measurements.",
-    "Longevity, sillage, receptor activation, emotion, and preference outputs are unsupported or advisory.",
+    "Longevity, sillage, receptor activation, and emotion outputs remain unsupported; preference fits remain UNKNOWN until held-out validation passes.",
     "Composite natural OAV is olfactory headspace evidence, not regulatory constituent composition.",
 )
 
@@ -39,10 +39,16 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_ci_contract.py",
         "tests/test_engine_compilation.py",
         "tests/test_golden_formula_regression.py",
+        "tests/test_interventions.py",
+        "tests/test_mixture.py",
         "tests/test_oav_authority.py",
         "tests/test_project_verification.py",
+        "tests/test_preference.py",
+        "tests/test_quantities.py",
         "tests/test_receptor_evidence_quarantine.py",
         "tests/test_release_scoring_contract.py",
+        "tests/test_release_readiness.py",
+        "tests/test_safety_assessment.py",
         "tests/test_scientific_contract.py",
         "tests/test_workbench.py",
     ),
@@ -143,6 +149,7 @@ class ProjectVerificationReport:
     selected_checks: tuple[str, ...]
     omitted_checks: tuple[str, ...]
     completion_gate: str
+    release_readiness: dict
 
     @property
     def passed(self) -> tuple[str, ...]:
@@ -169,6 +176,7 @@ class ProjectVerificationReport:
             "selected_checks": list(self.selected_checks),
             "omitted_checks": list(self.omitted_checks),
             "completion_gate": self.completion_gate,
+            "release_readiness": self.release_readiness,
             "checks": [check.as_dict() for check in self.checks],
         }
 
@@ -192,7 +200,7 @@ def _local_tool(project_root: Path, tool: str) -> tuple[str, ...]:
 
 
 def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...]:
-    """Build the canonical Phase 0 checks for local execution and CI."""
+    """Build the canonical Phase 0 checks for repository-owned verification."""
 
     python = sys.executable
     pytest = (python, "-m", "pytest")
@@ -209,6 +217,12 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "check",
                 "engine/workbench.py",
                 "engine/bottle_addition.py",
+                "engine/interventions.py",
+                "engine/mixture.py",
+                "engine/preference.py",
+                "engine/quantities.py",
+                "engine/release_readiness.py",
+                "engine/safety_assessment.py",
                 "engine/scientific_contract.py",
                 "engine/project_verification.py",
                 "engine/pipeline/formula_state.py",
@@ -225,6 +239,12 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "--ignore-missing-imports",
                 "engine/workbench.py",
                 "engine/bottle_addition.py",
+                "engine/interventions.py",
+                "engine/mixture.py",
+                "engine/preference.py",
+                "engine/quantities.py",
+                "engine/release_readiness.py",
+                "engine/safety_assessment.py",
                 "engine/scientific_contract.py",
                 "engine/project_verification.py",
             ),
@@ -258,9 +278,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 + (
                     "run",
                     "mypy",
-                    "app/core/config.py",
-                    "app/core/security.py",
-                    "app/schemas",
+                    "app",
                     "--ignore-missing-imports",
                 ),
                 cwd="backend",
@@ -592,6 +610,18 @@ def run_project_verification(
     else:
         docker_status = "PASS"
 
+    local_release_gate = completion_gate in {"PASS", "PASS_WITH_SKIPS"}
+    release_readiness = build_release_readiness(
+        ReadinessInput(
+            code_checks_passed=local_release_gate,
+            data_contracts_passed=local_release_gate,
+            local_validation_passed=local_release_gate,
+            migration_verified=local_release_gate,
+            backup_restore_verified=local_release_gate,
+            heldout_sensory_validation_passed=False,
+        )
+    ).as_dict()
+
     return ProjectVerificationReport(
         checks=tuple(results),
         known_legacy_limitations=KNOWN_LEGACY_LIMITATIONS,
@@ -602,6 +632,7 @@ def run_project_verification(
         selected_checks=selected_names,
         omitted_checks=omitted_names,
         completion_gate=completion_gate,
+        release_readiness=release_readiness,
     )
 
 

@@ -7,6 +7,7 @@ from app.api.v1.endpoints import (
     enhancements,
     formulas,
     knowledge,
+    lab,
     mixer,
     optimizer,
     outcomes,
@@ -14,6 +15,12 @@ from app.api.v1.endpoints import (
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    lab.router,
+    prefix="/lab",
+    tags=["laboratory"],
+)
 
 api_router.include_router(
     formulas.router,

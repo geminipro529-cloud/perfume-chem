@@ -92,6 +92,7 @@ class MaterialState:
     hsp_source: str = "missing"
     sources: dict[str, str] = field(default_factory=dict)
     missing_fields: tuple[str, ...] = ()
+    active_finished_product_ppm_w_w: float | None = None
 
     def as_dict(self) -> dict:
         return {
@@ -104,6 +105,7 @@ class MaterialState:
             "density_source": self.density_source,
             "active_g": round(self.active_g, 8),
             "active_concentrate_ppm_w_w": self.active_concentrate_ppm_w_w,
+            "active_finished_product_ppm_w_w": self.active_finished_product_ppm_w_w,
             "mw_g_mol": self.mw_g_mol,
             "moles": self.moles,
             "mole_fraction": self.mole_fraction,
@@ -140,6 +142,9 @@ class FormulaState:
     temperature_K: float
     context: str
     uncertainty: FormulaUncertainty
+    matrix_components_moles: tuple[tuple[str, float], ...] = ()
+    matrix_mass_g: float = 0.0
+    matrix_source: str = "omitted"
 
     @property
     def material_count(self) -> int:
@@ -152,6 +157,10 @@ class FormulaState:
     @property
     def total_vapor_ppm(self) -> float:
         return sum(m.vapor_ppm for m in self.materials)
+
+    @property
+    def matrix_moles(self) -> float:
+        return sum(moles for _, moles in self.matrix_components_moles)
 
     def active_percentages(self) -> dict[str, float]:
         total = self.total_active_ul or 1.0
@@ -183,7 +192,7 @@ class FormulaState:
         """
         materials: list[MaterialState] = []
         total_raw = sum(new_raw_ul.values())
-        mole_inputs: dict[str, float] = {}
+        mole_inputs: dict[str, float] = dict(base.matrix_components_moles)
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
             active_ul = raw_ul * m.dilution
@@ -202,6 +211,7 @@ class FormulaState:
         all_densities_known = all(
             m.density_source != "fallback:default_1_g_ml" for m in base.materials
         )
+        finished_mass_g = total_active_g + base.matrix_mass_g
         mole_fractions = {
             name: (moles / total_moles if total_moles > 0 else 0.0)
             for name, moles in mole_inputs.items()
@@ -277,6 +287,13 @@ class FormulaState:
                     hsp_source=m.hsp_source,
                     sources=m.sources,
                     missing_fields=m.missing_fields,
+                    active_finished_product_ppm_w_w=(
+                        1e6 * active_g / finished_mass_g
+                        if all_densities_known
+                        and base.matrix_source == "explicit"
+                        and finished_mass_g > 0
+                        else None
+                    ),
                 )
             )
 
@@ -288,6 +305,9 @@ class FormulaState:
             temperature_K=base.temperature_K,
             context=base.context,
             uncertainty=base.uncertainty,
+            matrix_components_moles=base.matrix_components_moles,
+            matrix_mass_g=base.matrix_mass_g,
+            matrix_source=base.matrix_source,
         )
 
     def as_dict(self) -> dict:
@@ -297,6 +317,9 @@ class FormulaState:
             "batch_volume_ml": self.batch_volume_ml,
             "temperature_K": self.temperature_K,
             "context": self.context,
+            "matrix_moles": self.matrix_moles,
+            "matrix_mass_g": self.matrix_mass_g,
+            "matrix_source": self.matrix_source,
             "total_vapor_ppm": round(self.total_vapor_ppm, 6),
             "note_distribution": self.note_distribution(),
             "uncertainty": {
@@ -436,15 +459,18 @@ def _build_formula_state_cached(
     batch_volume_ml: float,
     temperature_K: float,
     context: str,
+    matrix_mole_items: tuple[tuple[str, float], ...],
+    matrix_mass_g: float,
+    matrix_source: str,
 ) -> FormulaState:
     """Build a canonical physical state from a raw uL formula table."""
     ingredients_ul = dict(ingredient_items)
     dilutions = dict(dilution_items)
 
     raw_rows = []
-    total_moles = 0.0
+    total_moles = sum(moles for _, moles in matrix_mole_items)
     uncertainty_fields: list[FieldUncertainty] = []
-    mole_inputs: dict[str, float] = {}
+    mole_inputs: dict[str, float] = dict(matrix_mole_items)
     hsp_table: dict[str, tuple[float, float, float]] = {}
 
     for name, raw_amount in ingredients_ul.items():
@@ -536,6 +562,7 @@ def _build_formula_state_cached(
     all_densities_known = all(
         row[6] != "fallback:default_1_g_ml" for row in raw_rows
     )
+    finished_mass_g = total_active_g + matrix_mass_g
 
     materials: list[MaterialState] = []
     for (
@@ -687,6 +714,13 @@ def _build_formula_state_cached(
                 hsp_source=hsp_source,
                 sources=sources,
                 missing_fields=missing,
+                active_finished_product_ppm_w_w=(
+                    1e6 * active_g / finished_mass_g
+                    if all_densities_known
+                    and matrix_source == "explicit"
+                    and finished_mass_g > 0
+                    else None
+                ),
             )
         )
 
@@ -698,6 +732,9 @@ def _build_formula_state_cached(
         temperature_K=float(temperature_K),
         context=context,
         uncertainty=combine_uncertainties(uncertainty_fields),
+        matrix_components_moles=matrix_mole_items,
+        matrix_mass_g=matrix_mass_g,
+        matrix_source=matrix_source,
     )
 
 
@@ -708,14 +745,24 @@ def build_formula_state(
     batch_volume_ml: float = 30.0,
     temperature_K: float = DEFAULT_TEMPERATURE_K,
     context: str = "skin",
+    matrix_moles: Mapping[str, float] | None = None,
+    matrix_mass_g: float = 0.0,
+    matrix_source: str = "omitted",
 ) -> FormulaState:
     """Build a canonical physical state from a raw uL formula table."""
+    if matrix_mass_g < 0:
+        raise ValueError("matrix_mass_g must be nonnegative")
+    if matrix_moles and any(value < 0 for value in matrix_moles.values()):
+        raise ValueError("matrix moles must be nonnegative")
     return _build_formula_state_cached(
         _freeze_mapping(ingredients_ul, 0.0),
         _freeze_mapping(dilutions, 1.0),
         float(batch_volume_ml),
         float(temperature_K),
         str(context),
+        _freeze_mapping(matrix_moles, 0.0),
+        float(matrix_mass_g),
+        str(matrix_source),
     )
 
 

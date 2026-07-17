@@ -1,6 +1,6 @@
 """Perfume and formula schemas"""
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -60,6 +60,7 @@ class FormulaBase(BaseModel):
     version: str = "1.0"
     total_volume_ml: Optional[float] = Field(None, gt=0)
     concentration_percent: Optional[float] = Field(None, ge=0, le=100)
+    calculation_mode: Literal["strict", "compatibility"] = "compatibility"
 
 
 class FormulaCreate(FormulaBase):

@@ -16,7 +16,7 @@ Last updated: 2026-01-12
 """
 
 import re
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 from app.core.config import get_settings
 from app.core.logging import get_logger
@@ -147,7 +147,7 @@ class ScientificAIModelDetector:
         Data provenance: Ensures queries don't request synthetic data
         generation and comply with scientific integrity requirements.
         """
-        return validate_scientific_query(model_id, query)
+        return cast(Dict[str, Any], validate_scientific_query(model_id, query))
 
     @classmethod
     def get_scientific_prompt_template(cls, model_id: str, task_type: str) -> str:
@@ -158,7 +158,7 @@ class ScientificAIModelDetector:
         scientific integrity guardrails in the prompt template.
         """
         registry = get_model_registry()
-        return registry.get_scientific_prompt_template(model_id, task_type)
+        return cast(str, registry.get_scientific_prompt_template(model_id, task_type))
 
 
 def create_scientific_ai_service(
@@ -236,6 +236,8 @@ def create_scientific_ai_service(
             )
             logger.info(f"Data provenance: {model_config.data_provenance}")
 
+    service: BaseAIService
+
     # Create appropriate service with scientific guardrails
     if provider == "cerebras":
         service_model = model or settings.CEREBRAS_MODEL
@@ -248,7 +250,7 @@ def create_scientific_ai_service(
             model=service_model
         )
 
-        if model_config and validate_query:
+        if model is not None and model_config and validate_query:
             template = ScientificAIModelDetector.get_scientific_prompt_template(
                 model, "chemical_literature"
             )
@@ -261,7 +263,7 @@ def create_scientific_ai_service(
         logger.info("Creating Baseten service")
         service = BasetenService(cache=cache, verbose=verbose)
 
-        if model_config and validate_query:
+        if model is not None and model_config and validate_query:
             template = ScientificAIModelDetector.get_scientific_prompt_template(
                 model, "chemical_literature"
             )
@@ -275,7 +277,7 @@ def create_scientific_ai_service(
         logger.info(f"Creating OpenAI service with model: {service_model}")
         service = OpenAIService(cache=cache)
 
-        if model_config and validate_query:
+        if model is not None and model_config and validate_query:
             template = ScientificAIModelDetector.get_scientific_prompt_template(
                 model, "chemical_literature"
             )
@@ -293,7 +295,7 @@ def create_scientific_ai_service(
             model=service_model
         )
 
-        if model_config and validate_query:
+        if model is not None and model_config and validate_query:
             template = ScientificAIModelDetector.get_scientific_prompt_template(
                 model, "chemical_literature"
             )
@@ -311,7 +313,7 @@ def create_scientific_ai_service(
             model=service_model
         )
 
-        if model_config and validate_query:
+        if model is not None and model_config and validate_query:
             template = ScientificAIModelDetector.get_scientific_prompt_template(
                 model, "chemical_literature"
             )
@@ -338,7 +340,7 @@ def get_scientific_model_selector() -> Dict[str, Any]:
     models = registry.list_models()
 
     # Group models by purpose for scientific use cases
-    purposes = {
+    purposes: Dict[str, Dict[str, Any]] = {
         "chemical_literature_analysis": {
             "name": "Chemical Literature Analysis",
             "description": "Analysis of GCMS data and chemical compositions",

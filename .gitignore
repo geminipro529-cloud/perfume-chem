@@ -27,6 +27,9 @@ venv/
 
 # Large / temp outputs
 *.png
+.coverage
+coverage.xml
+htmlcov/
 output.txt
 output/
 verification_runs/
@@ -38,9 +41,15 @@ temporal_test_*.png
 Thumbs.db
 .vscode/
 .claude/
+.codex/runtime/
 
 # Node / frontend build
 node_modules/
 frontend/node_modules/
 frontend/dist/
 frontend/build/
+
+# BEGIN oh-my-opencode-slim worktrees
+.slim/worktrees/
+.slim/worktrees.json
+# END oh-my-opencode-slim worktrees

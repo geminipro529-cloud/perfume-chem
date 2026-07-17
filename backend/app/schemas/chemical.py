@@ -86,7 +86,11 @@ class FormulaIngredient(BaseModel):
     ifra_max_level: Optional[float] = None
     volatility: Optional[str] = None
     stock_active_fraction: float = Field(1.0, gt=0, le=1)
+    stock_fraction_basis: Optional[str] = Field(
+        None, pattern="^(mass_fraction|volume_fraction|amount_fraction)$"
+    )
     stock_density_g_ml: Optional[float] = Field(None, gt=0)
+    molar_mass_g_mol: Optional[float] = Field(None, gt=0)
 
 
 class BottleSnapshotInput(BaseModel):

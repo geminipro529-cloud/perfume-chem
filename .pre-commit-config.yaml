@@ -1,0 +1,28 @@
+minimum_pre_commit_version: "4.4.0"
+default_install_hook_types: [pre-push]
+fail_fast: true
+
+repos:
+  - repo: local
+    hooks:
+      - id: project-verify-quick
+        name: Laboratory Beta fast pre-push verification
+        entry: python scripts/pipeline_audit.py project-verify --quick --json
+        language: unsupported
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push, manual]
+      - id: project-verify-full
+        name: Laboratory Beta full verification
+        entry: python scripts/pipeline_audit.py project-verify --json
+        language: unsupported
+        pass_filenames: false
+        always_run: true
+        stages: [manual]
+      - id: project-verify-docker
+        name: Laboratory Beta verification with Docker
+        entry: python scripts/pipeline_audit.py project-verify --include-docker --json
+        language: unsupported
+        pass_filenames: false
+        always_run: true
+        stages: [manual]

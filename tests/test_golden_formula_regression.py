@@ -23,6 +23,9 @@ def _analyze(case: dict) -> dict:
             formula_name=case["formula_name"],
             ingredients_ul=case["ingredients_ul"],
             dilutions=case["dilutions"],
+            stock_fraction_bases={
+                name: "volume_fraction" for name in case["ingredients_ul"]
+            },
             batch_volume_ml=case["batch_volume_ml"],
             windows=(("opening", 0.0), ("heart", 1800.0)),
         )

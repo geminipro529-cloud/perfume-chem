@@ -3,13 +3,29 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import Enum
 from math import isfinite
 from typing import Any, Mapping, Sequence
 
 from engine.bottle_addition import AdditionRequest, AdditionResult, AdditionSolver
+from engine.interventions import InterventionRequest, InterventionResult, rank_interventions
+from engine.mixture import MixtureComponent, MixtureState
+from engine.quantities import ConcentrationBasis
+from engine.safety_assessment import (
+    SafetyAssessmentRequest,
+    SafetyAssessmentResult,
+    assess_safety,
+)
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
 from engine.scientific_contract import EvidenceDescriptor, ScientificClass
+
+
+class CalculationMode(str, Enum):
+    """Whether a request permits disclosed compatibility assumptions."""
+
+    STRICT = "strict"
+    COMPATIBILITY = "compatibility"
 
 
 @dataclass(frozen=True, slots=True)
@@ -24,6 +40,9 @@ class WorkbenchFormulaRequest:
     context: str = "skin"
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS
     assumptions: tuple[str, ...] = ()
+    matrix_components: tuple[MixtureComponent, ...] = ()
+    mode: CalculationMode = CalculationMode.COMPATIBILITY
+    stock_fraction_bases: Mapping[str, ConcentrationBasis | str] | None = None
 
     def __post_init__(self) -> None:
         name = self.formula_name.strip()
@@ -48,6 +67,56 @@ class WorkbenchFormulaRequest:
             for fraction in dilutions.values()
         ):
             raise ValueError("dilution fractions must be finite, greater than zero, and at most one")
+
+        try:
+            mode = CalculationMode(self.mode)
+        except ValueError as exc:
+            raise ValueError("mode must be strict or compatibility") from exc
+        matrix_components = tuple(self.matrix_components)
+        stock_fraction_bases = _normalized_fraction_bases(
+            self.stock_fraction_bases or {}
+        )
+        unknown_bases = set(stock_fraction_bases).difference(ingredients)
+        if unknown_bases:
+            raise ValueError(
+                "stock_fraction_bases contains materials absent from ingredients_ul: "
+                + ", ".join(sorted(unknown_bases))
+            )
+        if mode is CalculationMode.STRICT:
+            missing_dilutions = set(ingredients).difference(dilutions)
+            if missing_dilutions:
+                raise ValueError(
+                    "strict mode requires explicit dilutions for every ingredient: "
+                    + ", ".join(sorted(missing_dilutions))
+                )
+            if not matrix_components:
+                raise ValueError(
+                    "strict mode requires an explicit finished-product matrix"
+                )
+            missing_bases = set(ingredients).difference(stock_fraction_bases)
+            if missing_bases:
+                raise ValueError(
+                    "strict mode requires an explicit stock fraction basis for every ingredient: "
+                    + ", ".join(sorted(missing_bases))
+                )
+            unsupported = {
+                name
+                for name, basis in stock_fraction_bases.items()
+                if basis is not ConcentrationBasis.VOLUME_FRACTION
+            }
+            if unsupported:
+                raise ValueError(
+                    "strict volume-dose analysis currently requires volume_fraction stock bases: "
+                    + ", ".join(sorted(unsupported))
+                )
+            diluted_stocks = {
+                name for name, fraction in dilutions.items() if fraction < 1.0
+            }
+            if diluted_stocks:
+                raise ValueError(
+                    "strict mode requires explicit stock carrier decomposition for diluted stocks: "
+                    + ", ".join(sorted(diluted_stocks))
+                )
 
         batch_volume_ml = float(self.batch_volume_ml)
         temperature_k = float(self.temperature_K)
@@ -82,6 +151,9 @@ class WorkbenchFormulaRequest:
         object.__setattr__(self, "context", context)
         object.__setattr__(self, "windows", windows)
         object.__setattr__(self, "assumptions", tuple(self.assumptions))
+        object.__setattr__(self, "matrix_components", matrix_components)
+        object.__setattr__(self, "mode", mode)
+        object.__setattr__(self, "stock_fraction_bases", stock_fraction_bases)
 
 
 @dataclass(frozen=True, slots=True)
@@ -94,10 +166,12 @@ class WorkbenchAnalysis:
     evidence: dict[str, EvidenceDescriptor]
     assumptions: tuple[str, ...]
     limitations: tuple[str, ...]
+    mixture_state: MixtureState | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "analysis_engine": "engine.workbench.PerfumeWorkbench",
+            "calculation_mode": self.request.mode.value,
             "formula_name": self.request.formula_name,
             "formula_state": self.formula_state.as_dict(),
             "material_oav_table": [
@@ -105,6 +179,7 @@ class WorkbenchAnalysis:
             ],
             "note_distribution": self.formula_state.note_distribution(),
             "time_series": [frame.as_dict() for frame in self.time_series],
+            "mixture_state": _mixture_payload(self.formula_state, self.mixture_state),
             "evidence": {
                 name: descriptor.as_dict()
                 for name, descriptor in self.evidence.items()
@@ -131,12 +206,45 @@ class PerfumeWorkbench:
         self._addition_solver = addition_solver or AdditionSolver()
 
     def analyze(self, request: WorkbenchFormulaRequest) -> WorkbenchAnalysis:
+        mixture_state = (
+            MixtureState.from_components(request.matrix_components)
+            if request.matrix_components
+            else None
+        )
+        matrix_moles = None
+        matrix_mass_g = 0.0
+        matrix_source = "omitted"
+        if mixture_state is not None:
+            matrix_source = "explicit" if mixture_state.complete else "incomplete"
+            if mixture_state.complete:
+                matrix_moles = {
+                    component.name: float(component.moles or 0.0)
+                    for component in mixture_state.components
+                }
+                assert mixture_state.total_mass is not None
+                matrix_mass_g = mixture_state.total_mass.g
+                if any(
+                    fraction < 1.0 for fraction in (request.dilutions or {}).values()
+                ):
+                    matrix_source = "incomplete_stock_carrier"
+        if (
+            request.mode is CalculationMode.STRICT
+            and mixture_state is not None
+            and not mixture_state.complete
+        ):
+            raise ValueError(
+                "strict mode requires density and molar mass for every matrix component: "
+                + ", ".join(mixture_state.missing_inputs)
+            )
         state = build_formula_state(
             request.ingredients_ul,
             request.dilutions,
             batch_volume_ml=request.batch_volume_ml,
             temperature_K=request.temperature_K,
             context=request.context,
+            matrix_moles=matrix_moles,
+            matrix_mass_g=matrix_mass_g,
+            matrix_source=matrix_source,
         )
         frames = tuple(
             simulate_formula(
@@ -149,8 +257,8 @@ class PerfumeWorkbench:
                 initial_state=state,
             )
         )
-        evidence = _evidence_for(state)
-        assumptions = _analysis_assumptions(request)
+        evidence = _evidence_for(state, mixture_state, request)
+        assumptions = _analysis_assumptions(request, mixture_state)
         limitations = _unique(
             limitation
             for descriptor in evidence.values()
@@ -163,13 +271,23 @@ class PerfumeWorkbench:
             evidence=evidence,
             assumptions=assumptions,
             limitations=limitations,
+            mixture_state=mixture_state,
         )
 
     def calculate_addition(self, request: AdditionRequest) -> AdditionResult:
         return self._addition_solver.reach_target_active_fraction(request)
 
+    def assess_safety(self, request: SafetyAssessmentRequest) -> SafetyAssessmentResult:
+        return assess_safety(request)
 
-def _analysis_assumptions(request: WorkbenchFormulaRequest) -> tuple[str, ...]:
+    def rank_interventions(self, request: InterventionRequest) -> InterventionResult:
+        return rank_interventions(request)
+
+
+def _analysis_assumptions(
+    request: WorkbenchFormulaRequest,
+    mixture_state: MixtureState | None,
+) -> tuple[str, ...]:
     assumptions = list(request.assumptions)
     missing_dilutions = set(request.ingredients_ul).difference(request.dilutions or {})
     if missing_dilutions:
@@ -184,24 +302,50 @@ def _analysis_assumptions(request: WorkbenchFormulaRequest) -> tuple[str, ...]:
             "Input microlitre volumes and dilution fractions are treated as supplied setpoints.",
         )
     )
+    if mixture_state is None:
+        assumptions.append("No explicit finished-product solvent matrix was supplied.")
+    elif mixture_state.complete:
+        assumptions.append(
+            "Explicit matrix component mass and amount are included in liquid-phase fractions."
+        )
+    else:
+        assumptions.append(
+            "The supplied matrix is incomplete and is excluded from modeled liquid-phase fractions."
+        )
     return _unique(assumptions)
 
 
-def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
+def _evidence_for(
+    state: FormulaState,
+    mixture_state: MixtureState | None,
+    request: WorkbenchFormulaRequest,
+) -> dict[str, EvidenceDescriptor]:
     odt_sources = _unique(
         material.sources.get("odt", "missing") for material in state.materials
     )
     density_sources = _unique(
         material.sources.get("density", "missing") for material in state.materials
     )
-    ppm_is_exact = all(
+    uses_assumed_dilution = bool(
+        set(request.ingredients_ul).difference(request.dilutions or {})
+    )
+    uses_unqualified_fraction = any(
+        (request.dilutions or {}).get(name, 1.0) < 1.0
+        and name not in (request.stock_fraction_bases or {})
+        for name in request.ingredients_ul
+    )
+    dose_inputs_are_explicit = not uses_assumed_dilution and not uses_unqualified_fraction
+    ppm_is_exact = dose_inputs_are_explicit and all(
         material.active_concentrate_ppm_w_w is not None
         for material in state.materials
     )
+    matrix_is_complete = mixture_state is not None and mixture_state.complete
     headspace = EvidenceDescriptor(
         classification=ScientificClass.HEURISTIC,
         basis=(
-            "modified-Raoult-style partial pressure using odorant-only mole fractions, "
+            "modified-Raoult-style partial pressure using "
+            + ("solvent-inclusive" if matrix_is_complete else "odorant-only")
+            + " mole fractions, "
             "vapor pressure, and activity-coefficient estimates"
         ),
         sources=(
@@ -213,7 +357,11 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
             "aromatic active volumes can be converted to mass using available or fallback density",
         ),
         limitations=(
-            "the finished ethanol-water-solvent matrix is omitted from liquid-phase mole fractions",
+            (
+                "only explicitly supplied matrix components are included; stock-solution carriers may remain unresolved"
+                if matrix_is_complete
+                else "the finished ethanol-water-solvent matrix is omitted from liquid-phase mole fractions"
+            ),
             "reported vapor ppm is modeled rather than measured headspace concentration",
             "default density or molecular weight may be used where physical data are missing",
         ),
@@ -226,26 +374,116 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
         limitations=(
             "not calibrated against measured skin or blotter evaporation curves",
             "does not model changing solvent matrix, diffusion, or skin absorption explicitly",
+            "activity coefficients are frozen at the opening composition for later temporal frames",
         ),
     )
+    if mixture_state is None:
+        finished_mixture = EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="no explicit finished-product matrix was supplied",
+            sources=("engine.mixture",),
+            limitations=("Finished-product mass and amount fractions are unavailable.",),
+        )
+    elif not mixture_state.complete:
+        finished_mixture = EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="matrix arithmetic withheld because required physical inputs are missing",
+            sources=("engine.mixture",),
+            limitations=tuple(
+                f"Missing explicit matrix input: {item}"
+                for item in mixture_state.missing_inputs
+            ),
+        )
+    elif state.matrix_source != "explicit":
+        finished_mixture = EvidenceDescriptor(
+            classification=ScientificClass.UNKNOWN,
+            basis="finished-product arithmetic withheld because diluted-stock carrier composition is unresolved",
+            sources=("engine.mixture", "engine.pipeline.formula_state"),
+            limitations=(
+                "Decompose each diluted stock into active material and named carrier before requesting strict finished-product fractions.",
+            ),
+        )
+    else:
+        finished_ppm_is_exact = (
+            state.matrix_source == "explicit"
+            and dose_inputs_are_explicit
+            and all(
+                (request.dilutions or {}).get(name, 1.0) == 1.0
+                for name in request.ingredients_ul
+            )
+            and all(
+                material.active_finished_product_ppm_w_w is not None
+                for material in state.materials
+            )
+        )
+        finished_mixture = EvidenceDescriptor(
+            classification=(
+                ScientificClass.EXACT
+                if finished_ppm_is_exact
+                else ScientificClass.UNKNOWN
+            ),
+            basis=(
+                "component volume multiplied by supplied density, then divided by supplied molar mass for amount fractions"
+                if finished_ppm_is_exact
+                else "finished-product fractions withheld because one or more odorant densities are missing"
+            ),
+            sources=("engine.mixture", "engine.pipeline.formula_state"),
+            assumptions=("supplied component identities and physical properties apply",),
+            limitations=(
+                "EXACT classifies arithmetic for stated inputs, not measurement or property uncertainty",
+            ),
+        )
+
     return {
         "dose_arithmetic": EvidenceDescriptor(
-            classification=ScientificClass.EXACT,
-            basis="raw active volume equals supplied stock volume multiplied by supplied active fraction",
+            classification=(
+                ScientificClass.HEURISTIC
+                if uses_assumed_dilution or uses_unqualified_fraction
+                else ScientificClass.EXACT
+            ),
+            basis=(
+                "raw active volume uses an assumed or basis-unqualified stock fraction for one or more ingredients"
+                if uses_assumed_dilution or uses_unqualified_fraction
+                else "raw active volume equals supplied stock volume multiplied by supplied active fraction"
+            ),
             sources=("engine.pipeline.formula_state",),
-            assumptions=("input volumes and stock fractions are supplied setpoints",),
+            assumptions=(
+                (
+                    "unspecified stock fractions are treated as neat in compatibility mode"
+                    if uses_assumed_dilution
+                    else (
+                        "one or more supplied stock fractions lack an explicit physical basis"
+                        if uses_unqualified_fraction
+                        else "input volumes and stock fractions are supplied setpoints"
+                    )
+                ),
+            ),
             limitations=(
                 "EXACT classifies arithmetic and does not imply calibrated dispensing accuracy",
             ),
         ),
         "active_concentrate_ppm_w_w": EvidenceDescriptor(
             classification=(
-                ScientificClass.EXACT if ppm_is_exact else ScientificClass.UNKNOWN
+                ScientificClass.EXACT
+                if ppm_is_exact
+                else (
+                    ScientificClass.HEURISTIC
+                    if uses_assumed_dilution or uses_unqualified_fraction
+                    and all(
+                        material.active_concentrate_ppm_w_w is not None
+                        for material in state.materials
+                    )
+                    else ScientificClass.UNKNOWN
+                )
             ),
             basis=(
                 "active material mass divided by total active concentrate mass, multiplied by one million"
                 if ppm_is_exact
-                else "mass-fraction ppm withheld because one or more material densities are missing"
+                else (
+                    "mass-fraction ppm uses an assumed neat stock fraction in compatibility mode"
+                    if uses_assumed_dilution or uses_unqualified_fraction
+                    else "mass-fraction ppm withheld because one or more material densities are missing"
+                )
             ),
             sources=("engine.pipeline.formula_state", *density_sources),
             assumptions=(
@@ -260,6 +498,7 @@ def _evidence_for(state: FormulaState) -> dict[str, EvidenceDescriptor]:
             ),
         ),
         "headspace": headspace,
+        "finished_mixture": finished_mixture,
         "material_oav_table": headspace,
         "threshold_visibility": EvidenceDescriptor(
             classification=ScientificClass.HEURISTIC,
@@ -348,4 +587,58 @@ def _unique(values) -> tuple[str, ...]:
     return tuple(dict.fromkeys(value for value in values if value))
 
 
-__all__ = ["PerfumeWorkbench", "WorkbenchAnalysis", "WorkbenchFormulaRequest"]
+def _normalized_fraction_bases(
+    values: Mapping[str, ConcentrationBasis | str],
+) -> dict[str, ConcentrationBasis]:
+    normalized: dict[str, ConcentrationBasis] = {}
+    for raw_name, raw_basis in values.items():
+        name = str(raw_name).strip()
+        try:
+            basis = ConcentrationBasis(raw_basis)
+        except ValueError as exc:
+            raise ValueError(
+                f"Unsupported stock fraction basis for {name}: {raw_basis}"
+            ) from exc
+        if name in normalized:
+            raise ValueError(
+                f"stock fraction basis names collide after trimming: {name!r}"
+            )
+        normalized[name] = basis
+    return normalized
+
+
+def _mixture_payload(
+    state: FormulaState,
+    mixture_state: MixtureState | None,
+) -> dict[str, Any]:
+    evidence_complete = bool(
+        mixture_state is not None
+        and mixture_state.complete
+        and state.matrix_source == "explicit"
+        and all(
+            material.active_finished_product_ppm_w_w is not None
+            for material in state.materials
+        )
+    )
+    return {
+        "matrix_supplied": mixture_state is not None,
+        "complete": evidence_complete,
+        "matrix_moles": state.matrix_moles,
+        "matrix_mass_g": state.matrix_mass_g,
+        "missing_inputs": (
+            list(mixture_state.missing_inputs) if mixture_state is not None else []
+        ),
+        "matrix_components": (
+            [component.as_dict() for component in mixture_state.components]
+            if mixture_state is not None
+            else []
+        ),
+    }
+
+
+__all__ = [
+    "CalculationMode",
+    "PerfumeWorkbench",
+    "WorkbenchAnalysis",
+    "WorkbenchFormulaRequest",
+]

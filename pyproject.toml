@@ -11,6 +11,12 @@ dependencies = [
     "PyYAML>=6.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "build>=1.2,<2",
+    "pre-commit>=4.4,<5",
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["engine*", "data.materials"]

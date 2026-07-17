@@ -62,6 +62,7 @@ def test_verifier_records_pass_fail_skip_and_completion_gate(tmp_path):
     assert payload["known_legacy_limitations"]
     assert "scientific_data_coverage" in payload
     assert "golden_output_changes" in payload
+    assert "release_readiness" in payload
     assert payload["verification_scope"] == "custom"
     assert payload["selected_checks"] == ["good", "bad", "optional"]
     assert payload["omitted_checks"] == []
@@ -177,6 +178,21 @@ def test_missing_executable_is_reported_as_a_structured_failure(tmp_path):
 def test_package_and_docker_checks_validate_release_artifacts():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 
+    assert specs["backend-typecheck"].command[-4:] == (
+        "run",
+        "mypy",
+        "app",
+        "--ignore-missing-imports",
+    )
+    engine_typecheck = set(specs["engine-typecheck"].command)
+    assert {
+        "engine/interventions.py",
+        "engine/mixture.py",
+        "engine/preference.py",
+        "engine/quantities.py",
+        "engine/release_readiness.py",
+        "engine/safety_assessment.py",
+    } <= engine_typecheck
     assert specs["package-build"].command[-2:] == ("-m", "build")
     assert specs["package-wheel-smoke"].command[1:4] == (
         "-m",

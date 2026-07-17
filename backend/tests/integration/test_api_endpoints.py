@@ -92,7 +92,11 @@ async def test_golden_explicit_solvent_case_exercises_api_adapter(client: AsyncC
         "expected_aromatic_materials"
     ]
     assert any("finished-product" in item for item in data["assumptions"])
-    assert any("solvent rows are excluded" in item for item in data["assumptions"])
+    assert data["mixture_state"]["matrix_supplied"] is True
+    assert data["mixture_state"]["complete"] is False
+    assert data["mixture_state"]["matrix_moles"] > 0
+    assert data["formula_state"]["matrix_source"] == "explicit"
+    assert not any("solvent rows are excluded" in item for item in data["assumptions"])
 
 
 @pytest.mark.asyncio

@@ -1,7 +1,7 @@
 """DeepSeek service implementation with OpenAI-compatible API"""
 
 import json
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, List, Optional, cast
 
 from openai import AsyncOpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -55,7 +55,7 @@ class DeepSeekService(BaseAIService):
                 cached = await self.cache.get(prompt)
                 if cached:
                     logger.info("Cache hit for AI completion")
-                    return cached
+                    return cast(str, cached)
 
             # Call DeepSeek API (OpenAI-compatible)
             response = await self.client.chat.completions.create(
@@ -104,41 +104,99 @@ class DeepSeekService(BaseAIService):
             logger.error(f"DeepSeek streaming error: {str(e)}")
             raise AIServiceError(f"Streaming failed: {str(e)}", e)
 
-    async def analyze_perfume(self, formula_json: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze a perfume formula"""
-        context = await self.context_builder.build_formula_context(formula_json)
-        prompt = ANALYZE_PERFUME_PROMPT.format(
-            formula_json=json.dumps(formula_json, indent=2),
-            context=context
+    async def analyze_perfume(
+        self,
+        name: str,
+        ingredients: list[dict[str, Any]],
+        concentration: float = 15.0,
+    ) -> Dict[str, Any]:
+        """Analyze a perfume formula with the shared chemistry context."""
+        context = self.context_builder.build_context(
+            query=name,
+            ingredients=ingredients,
+            include_validation=True,
+        )
+        ingredients_text = "\n".join(
+            f"- {item.get('name', 'Unknown')}: {item.get('percentage', 0)}%"
+            for item in ingredients
+        )
+        prompt = ANALYZE_PERFUME_PROMPT.substitute(
+            name=name,
+            concentration=concentration,
+            ingredients=ingredients_text,
+            dosage_guidelines=context.get("dosage_guidelines", "N/A"),
+            inventory_context=context.get("inventory", "N/A"),
+            knowledge_context=context.get("relevant_knowledge", "N/A"),
+            formulation_context=context.get("similar_formulations", "N/A"),
+            validation_context=context.get("validation_context", "No pre-validation"),
         )
 
         response = await self.complete(prompt, max_tokens=2000)
-        return {"analysis": response}
+        try:
+            return cast(Dict[str, Any], json.loads(response))
+        except json.JSONDecodeError:
+            return {"raw_analysis": response}
 
     async def suggest_ingredient_pairings(self, ingredients: List[str], context: str = "") -> Dict[str, Any]:
-        """Suggest ingredient pairings"""
-        prompt = INGREDIENT_PAIRING_PROMPT.format(
-            ingredients=", ".join(ingredients),
-            context=context
+        """Backward-compatible plural pairing entry point."""
+        return await self.suggest_pairings(", ".join(ingredients))
+
+    async def suggest_pairings(
+        self,
+        ingredient: str,
+        cas_number: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Suggest ingredient pairings using the shared prompt contract."""
+        context = self.context_builder.build_context(
+            query=ingredient,
+            ingredients=None,
+            include_validation=False,
+        )
+        dosage = self.validator.get_dosage_guidelines(ingredient)
+        dosage_text = json.dumps(dosage, sort_keys=True) if dosage else "N/A"
+        prompt = INGREDIENT_PAIRING_PROMPT.substitute(
+            ingredient=ingredient,
+            cas_number=cas_number or "N/A",
+            dosage_guidelines=f"{dosage_text}\n\n{context.get('dosage_guidelines', 'N/A')}",
+            inventory_context=context.get("inventory", "N/A"),
         )
 
         response = await self.complete(prompt)
-        return {"pairings": response}
+        try:
+            return cast(Dict[str, Any], json.loads(response))
+        except json.JSONDecodeError:
+            return {"raw_pairings": response}
 
-    async def suggest_modifications(self, formula_json: Dict[str, Any], goal: str) -> Dict[str, Any]:
+    async def suggest_modifications(self, formula: Dict[str, Any], goal: str) -> Dict[str, Any]:
         """Suggest formula modifications"""
-        prompt = SUGGEST_MODIFICATIONS_PROMPT.format(
-            formula_json=json.dumps(formula_json, indent=2),
-            goal=goal
+        ingredients = cast(list[dict[str, Any]], formula.get("ingredients", []))
+        context = self.context_builder.build_context(
+            query=goal,
+            ingredients=ingredients,
+            include_validation=True,
+        )
+        prompt = SUGGEST_MODIFICATIONS_PROMPT.substitute(
+            formula=json.dumps(formula, indent=2),
+            goal=goal,
+            dosage_guidelines=context.get("dosage_guidelines", "N/A"),
+            inventory_context=context.get("inventory", "N/A"),
+            knowledge_context=context.get("relevant_knowledge", "N/A"),
         )
 
         response = await self.complete(prompt, max_tokens=2000)
-        return {"suggestions": response}
+        try:
+            return cast(Dict[str, Any], json.loads(response))
+        except json.JSONDecodeError:
+            return {"raw_suggestions": response}
 
     async def validate_chemistry(self, formula_json: Dict[str, Any]) -> Dict[str, Any]:
         """Validate chemistry of a formula"""
-        validation_report = await self.validator.validate_formula(formula_json)
-        return validation_report
+        ingredients = cast(list[dict[str, Any]], formula_json.get("ingredients", []))
+        issues = self.validator.validate_formula(ingredients)
+        return {
+            "issues": [issue.to_dict() for issue in issues],
+            "total_issues": len(issues),
+        }
 
     async def health_check(self) -> Dict[str, Any]:
         """Check if DeepSeek API is available"""

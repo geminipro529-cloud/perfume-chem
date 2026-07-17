@@ -1,3 +1,6 @@
-setx DEEPSEEK_API_KEY "sk-768c227fbe934643b8ca28f2d88ca4b1" /M
-Write-Host "DONE - System-wide DEEPSEEK_API_KEY set."
-pause
+if ([string]::IsNullOrWhiteSpace($env:DEEPSEEK_API_KEY)) {
+    Write-Error "DEEPSEEK_API_KEY is not available in this process. Load it from a secret manager or user environment."
+    exit 1
+}
+
+Write-Output "DEEPSEEK_API_KEY is available in this process; no credential was read from source control."

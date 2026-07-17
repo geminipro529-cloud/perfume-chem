@@ -60,6 +60,8 @@ def _make_stream_tracer(method):
 class BaseAIService(ABC):
     """Abstract base class for AI services"""
 
+    system_prompt: str
+
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         for method_name, make_tracer in (
@@ -88,7 +90,7 @@ class BaseAIService(ABC):
         pass
 
     @abstractmethod
-    async def stream(
+    def stream(
         self,
         prompt: str,
         max_tokens: int = 1000,

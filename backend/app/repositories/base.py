@@ -1,17 +1,20 @@
 """Base repository pattern for database operations"""
 
-from typing import Any, Dict, Generic, List, Optional, Type, TypeVar
+from typing import Any, Dict, Generic, List, Optional, TypeVar, cast
 
 from sqlalchemy import delete, select
+from sqlalchemy.engine import CursorResult
 from sqlalchemy.ext.asyncio import AsyncSession
 
-ModelType = TypeVar("ModelType")
+from app.models.base import BaseModel
+
+ModelType = TypeVar("ModelType", bound=BaseModel)
 
 
 class BaseRepository(Generic[ModelType]):
     """Generic repository providing common database operations"""
 
-    def __init__(self, model: Type[ModelType], session: AsyncSession):
+    def __init__(self, model: type[ModelType], session: AsyncSession):
         self.model = model
         self.session = session
 
@@ -65,8 +68,11 @@ class BaseRepository(Generic[ModelType]):
 
     async def delete(self, id: int) -> bool:
         """Delete an entity by ID"""
-        result = await self.session.execute(
-            delete(self.model).where(self.model.id == id)
+        result = cast(
+            CursorResult[Any],
+            await self.session.execute(
+                delete(self.model).where(self.model.id == id)
+            ),
         )
         await self.session.commit()
         return result.rowcount > 0

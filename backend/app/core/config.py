@@ -1,10 +1,14 @@
 """Application configuration using Pydantic Settings"""
 
 from functools import lru_cache
+from pathlib import Path
 from typing import List, Optional
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_DATABASE_PATH = (PROJECT_ROOT / "perfume_chem.db").resolve()
 
 
 class Settings(BaseSettings):
@@ -20,7 +24,7 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
 
     # Database
-    DATABASE_URL: str = "sqlite+aiosqlite:///./perfume_chem.db"
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{DEFAULT_DATABASE_PATH.as_posix()}"
     DB_POOL_SIZE: int = 5
     DB_MAX_OVERFLOW: int = 10
     DB_ECHO: bool = False
@@ -114,6 +118,24 @@ class Settings(BaseSettings):
             if normalized in {"dev", "development", "debug", "true", "1", "yes", "on"}:
                 return True
         return value
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def resolve_sqlite_database_url(cls, value):
+        text = str(value)
+        prefixes = ("sqlite+aiosqlite:///", "sqlite:///")
+        for prefix in prefixes:
+            if text.startswith(prefix):
+                raw_path = text.removeprefix(prefix)
+                path_text, separator, query = raw_path.partition("?")
+                if path_text == ":memory:" or path_text.startswith("file:"):
+                    return text
+                path = Path(path_text)
+                if not path.is_absolute():
+                    path = PROJECT_ROOT / path
+                resolved = prefix + path.resolve().as_posix()
+                return resolved + (separator + query if separator else "")
+        return text
 
     class Config:
         env_file = ".env"

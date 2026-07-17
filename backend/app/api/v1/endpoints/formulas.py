@@ -9,7 +9,13 @@ from engine.bottle_addition import (
     PipetteProfile,
     StockSolution,
 )
-from engine.workbench import PerfumeWorkbench, WorkbenchFormulaRequest
+from engine.mixture import (
+    MixtureComponent,
+    MixtureRole,
+    known_solvent_physical_data,
+)
+from engine.quantities import Density, MolarMass, Volume
+from engine.workbench import CalculationMode, PerfumeWorkbench, WorkbenchFormulaRequest
 from fastapi import APIRouter, HTTPException
 
 from app.core.exceptions import DilutionCalculationError
@@ -134,8 +140,8 @@ def _to_workbench_request(formula: FormulaCreate) -> WorkbenchFormulaRequest:
         aromatic_basis_ml = batch_volume_ml
         assumptions.append(
             "Explicit solvent rows are present, so percentages are interpreted as "
-            "finished-product volume fractions; solvent rows are excluded from the "
-            "current aromatic FormulaState."
+            "finished-product volume fractions and solvent rows are included in the "
+            "finished liquid matrix when their physical data are available."
         )
         if formula.concentration_percent is not None:
             assumptions.append(
@@ -180,10 +186,55 @@ def _to_workbench_request(formula: FormulaCreate) -> WorkbenchFormulaRequest:
             "consumed by the current headspace model."
         )
 
+    matrix_components: list[MixtureComponent] = []
+    for ingredient in solvent_rows:
+        known = known_solvent_physical_data(ingredient.name)
+        density = (
+            Density.from_g_ml(ingredient.stock_density_g_ml)
+            if ingredient.stock_density_g_ml is not None
+            else (known.density if known is not None else None)
+        )
+        molar_mass = (
+            MolarMass.from_g_mol(ingredient.molar_mass_g_mol)
+            if ingredient.molar_mass_g_mol is not None
+            else (known.molar_mass if known is not None else None)
+        )
+        density_source = (
+            "user_supplied"
+            if ingredient.stock_density_g_ml is not None
+            else (known.source if known is not None else "missing")
+        )
+        molar_mass_source = (
+            "user_supplied"
+            if ingredient.molar_mass_g_mol is not None
+            else (known.source if known is not None else "missing")
+        )
+        matrix_components.append(
+            MixtureComponent(
+                name=ingredient.name,
+                role=MixtureRole.SOLVENT,
+                volume=Volume.from_ml(
+                    batch_volume_ml * ingredient.percentage / 100.0
+                ),
+                density=density,
+                molar_mass=molar_mass,
+                source="explicit_formula_solvent",
+                density_source=density_source,
+                molar_mass_source=molar_mass_source,
+            )
+        )
+
     return WorkbenchFormulaRequest(
         formula_name=formula.name,
         ingredients_ul=raw_ul_by_name,
         dilutions=dilutions,
         batch_volume_ml=batch_volume_ml,
         assumptions=tuple(assumptions),
+        matrix_components=tuple(matrix_components),
+        stock_fraction_bases={
+            ingredient.name: ingredient.stock_fraction_basis
+            for ingredient in aromatic_rows
+            if ingredient.stock_fraction_basis is not None
+        },
+        mode=CalculationMode(formula.calculation_mode),
     )

@@ -1,0 +1,178 @@
+import sqlite3
+from pathlib import Path
+
+import pytest
+from alembic.config import Config
+from sqlalchemy.exc import OperationalError
+
+from app.db_bootstrap import upgrade_database
+
+BACKEND_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _upgrade(database_path: Path, snapshot_directory: Path | None = None):
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option("script_location", str(BACKEND_ROOT / "alembic"))
+    config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
+    return upgrade_database(
+        config,
+        "head",
+        snapshot_directory=snapshot_directory,
+    )
+
+
+def test_migration_preserves_legacy_tables_and_is_idempotent(tmp_path):
+    database_path = tmp_path / "populated.db"
+    connection = sqlite3.connect(database_path)
+    connection.execute("CREATE TABLE materials (id INTEGER PRIMARY KEY, name TEXT)")
+    connection.execute("INSERT INTO materials (name) VALUES ('legacy orris')")
+    connection.commit()
+    connection.close()
+
+    snapshot = _upgrade(database_path, tmp_path / "snapshots")
+    _upgrade(database_path)
+
+    assert snapshot is not None and snapshot.snapshot_path is not None
+    snapshot_connection = sqlite3.connect(snapshot.snapshot_path)
+    try:
+        snapshot_tables = {
+            row[0]
+            for row in snapshot_connection.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'"
+            )
+        }
+        assert "materials" in snapshot_tables
+        assert "lab_materials" not in snapshot_tables
+    finally:
+        snapshot_connection.close()
+
+    connection = sqlite3.connect(database_path)
+    try:
+        tables = {
+            row[0]
+            for row in connection.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        }
+        assert "materials" in tables
+        assert "lab_formula_versions" in tables
+        assert "lab_bottle_events" in tables
+        assert connection.execute("SELECT name FROM materials").fetchone()[0] == "legacy orris"
+        assert connection.execute("SELECT version_num FROM alembic_version").fetchall() == [
+            ("20260717_0001",)
+        ]
+        assert connection.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+    finally:
+        connection.close()
+
+
+def test_migration_installs_append_only_database_guards(tmp_path):
+    database_path = tmp_path / "append-only.db"
+    _upgrade(database_path)
+    connection = sqlite3.connect(database_path)
+    connection.execute("PRAGMA foreign_keys=ON")
+    try:
+        connection.execute(
+            "INSERT INTO lab_formulas (id, name, created_at) VALUES (?, ?, ?)",
+            ("formula-1", "Iris Ledger", "2026-07-16T00:00:00+00:00"),
+        )
+        connection.execute(
+            """INSERT INTO lab_formula_versions
+               (id, formula_id, version_number, brief_json, constraints_json, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)""",
+            (
+                "version-1",
+                "formula-1",
+                1,
+                "{}",
+                "{}",
+                "2026-07-16T00:00:00+00:00",
+            ),
+        )
+        connection.commit()
+
+        with pytest.raises(sqlite3.IntegrityError, match="append-only"):
+            connection.execute(
+                "UPDATE lab_formula_versions SET version_number=2 WHERE id='version-1'"
+            )
+        connection.rollback()
+        with pytest.raises(sqlite3.IntegrityError, match="append-only"):
+            connection.execute("DELETE FROM lab_formula_versions WHERE id='version-1'")
+    finally:
+        connection.close()
+
+
+def test_historical_migration_is_frozen_and_does_not_skip_existing_tables():
+    revision_path = BACKEND_ROOT / "alembic" / "versions" / "20260716_0001_lab_beta.py"
+    source = revision_path.read_text(encoding="utf-8")
+
+    assert "app.models" not in source
+    assert "Base.metadata" not in source
+    assert "checkfirst" not in source
+    for constraint_name in (
+        "uq_lab_bottle_event_id_bottle",
+        "uq_lab_bottle_event_correction",
+        "fk_lab_effect_event_bottle",
+        "uq_lab_effect_id_stock",
+        "uq_lab_inventory_event_effect",
+        "fk_lab_inventory_effect_stock",
+    ):
+        assert constraint_name in source
+
+
+def test_migration_rejects_incompatible_partial_lab_schema(tmp_path):
+    database_path = tmp_path / "partial.db"
+    connection = sqlite3.connect(database_path)
+    connection.execute("CREATE TABLE lab_materials (id TEXT PRIMARY KEY)")
+    connection.commit()
+    connection.close()
+
+    with pytest.raises(OperationalError, match="lab_materials.*already exists"):
+        _upgrade(database_path)
+
+    connection = sqlite3.connect(database_path)
+    try:
+        revisions = connection.execute("SELECT version_num FROM alembic_version").fetchall()
+        assert revisions == []
+    finally:
+        connection.close()
+
+
+def test_migration_freezes_event_effect_inventory_conservation_constraints(tmp_path):
+    database_path = tmp_path / "constraints.db"
+    _upgrade(database_path)
+    connection = sqlite3.connect(database_path)
+    connection.execute("PRAGMA foreign_keys=ON")
+    try:
+
+        def unique_column_sets(table_name):
+            result = set()
+            for index in connection.execute(f"PRAGMA index_list('{table_name}')"):
+                if index[2]:
+                    columns = tuple(
+                        row[2] for row in connection.execute(f"PRAGMA index_info('{index[1]}')")
+                    )
+                    result.add(columns)
+            return result
+
+        def composite_foreign_keys(table_name):
+            grouped = {}
+            for row in connection.execute(f"PRAGMA foreign_key_list('{table_name}')"):
+                grouped.setdefault((row[0], row[2]), []).append((row[1], row[3], row[4]))
+            return {
+                (target, tuple((source, remote) for _, source, remote in sorted(columns)))
+                for (_, target), columns in grouped.items()
+            }
+
+        assert ("id", "bottle_id") in unique_column_sets("lab_bottle_events")
+        assert ("correction_of_event_id",) in unique_column_sets("lab_bottle_events")
+        assert ("id", "stock_solution_id") in unique_column_sets("lab_bottle_event_effects")
+        assert ("event_effect_id",) in unique_column_sets("lab_inventory_movements")
+        assert (
+            "lab_bottle_events",
+            (("event_id", "id"), ("bottle_id", "bottle_id")),
+        ) in composite_foreign_keys("lab_bottle_event_effects")
+        assert (
+            "lab_bottle_event_effects",
+            (("event_effect_id", "id"), ("stock_solution_id", "stock_solution_id")),
+        ) in composite_foreign_keys("lab_inventory_movements")
+    finally:
+        connection.close()

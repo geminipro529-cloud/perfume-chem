@@ -24,18 +24,43 @@ Current bottle mass balance is exact for stated inputs. Current headspace and
 temporal evolution are heuristic. Canonical longevity, sillage, and receptor
 activation are withheld rather than guessed.
 
-This repository is a **Research Preview**. Passing verification means the
-declared software and scientific-truth contracts are internally consistent; it
-does not make modeled headspace a measurement, golden fixtures a sensory panel,
-or the safety screen a regulatory certificate.
+This repository is a **Laboratory Beta**. Passing verification means the
+declared software, persistence, and scientific-truth contracts are internally
+consistent; it does not make modeled headspace a measurement, golden fixtures a
+sensory panel, or the safety screen a regulatory certificate. A scientific
+release remains blocked until held-out sensory validation beats its declared
+baseline.
 
 Read:
 
 - [Scientific contract](docs/scientific_contract.md)
 - [Model inventory](docs/model_inventory.md)
 - [Fragrance family reference](docs/fragrance_families_reference.md)
+- [Laboratory Beta operations](docs/laboratory_beta.md)
 
 ## Phase 0 Verification
+
+Hosted GitHub Actions are intentionally not used. Install the repository-owned
+pre-push gate once in each clone:
+
+```powershell
+.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+pre-commit install --hook-type pre-push
+```
+
+Every `git push` then runs the bounded fast verifier. Run that gate manually
+without pushing:
+
+```powershell
+pre-commit run project-verify-quick --hook-stage manual
+```
+
+Run the complete non-Docker gate before merging or publishing a release:
+
+```powershell
+pre-commit run project-verify-full --hook-stage manual
+```
 
 Run the bounded repository verifier from the root:
 
@@ -67,10 +92,13 @@ Completion gates mean:
 Full-scope JSON evidence is written to
 `verification_runs/project_verification.json`; non-full runs use a scope suffix
 so they cannot replace canonical completion evidence. The report lists its
-scope, selected checks, and omitted checks. CI runs the same named checks in
-separate jobs and uploads JUnit, science-audit, package, and distribution artifacts.
-Full legacy Ruff and backend mypy cleanup remain recorded debt;
-canonical truth-core slices are blocking and may not expand their debt.
+scope, selected checks, and omitted checks. The fast pre-push gate catches
+high-value regressions; the explicit full gate runs every named check and
+preserves JUnit, science-audit, package, and distribution artifacts under
+`verification_runs/` and `dist/`.
+Laboratory Beta readiness and scientific-release readiness are reported as
+separate axes. This evidence is developer-controlled rather than an independent
+hosted attestation, and it never substitutes for held-out sensory evidence.
 
 ## Non-Negotiable Formulation Rules
 
@@ -94,6 +122,13 @@ canonical truth-core slices are blocking and may not expand their debt.
 | Formula physical state and OAV table | `engine/pipeline/formula_state.py` |
 | Temporal diagnostic frames | `engine/pipeline/simulator.py` |
 | Evidence-labeled application service | `engine/workbench.py` |
+| Typed quantity and stock-basis conversion | `engine/quantities.py` |
+| Exact mixture reconstruction | `engine/mixture.py` |
+| Conservative safety assessment | `engine/safety_assessment.py` |
+| Feasible intervention ranking | `engine/interventions.py` |
+| Preference calibration gate | `engine/preference.py` |
+| Laboratory event ledger | `backend/app/services/lab_service.py` |
+| Backup, restore, and export | `backend/app/services/backup_service.py` |
 | Exact bottle addition | `engine/bottle_addition.py` |
 | Scientific class vocabulary | `engine/scientific_contract.py` |
 | Release-gate CLI | `scripts/formula_release_gate.py` |
@@ -131,6 +166,7 @@ The backend has an editable Poetry dependency on the root engine package:
 cd backend
 ..\.venv\Scripts\python.exe -m poetry env use ..\.venv\Scripts\python.exe
 ..\.venv\Scripts\python.exe -m poetry install --with dev
+..\.venv\Scripts\python.exe -m poetry run python -c "from alembic.config import Config; from app.db_bootstrap import upgrade_database; print(upgrade_database(Config('alembic.ini')))"
 ..\.venv\Scripts\python.exe -m poetry run uvicorn app.main:app --reload
 ```
 
@@ -141,7 +177,32 @@ launcher is also available:
 .venv\Scripts\python.exe run_api_server.py
 ```
 
-API documentation is served at `http://localhost:8000/docs`.
+The laboratory interface is served at `http://localhost:8000/app`; API
+documentation is served at `http://localhost:8000/docs`. The bootstrap command
+uses the mandatory backup-before-migration path for file-backed SQLite
+databases. Do not replace it with a direct `alembic upgrade` in operating
+procedures.
+
+## Laboratory Workflow
+
+The local interface supports the complete beta loop without external assets:
+
+1. Register materials and explicitly based stock solutions.
+2. create immutable formula versions and physical bottles.
+3. record append-only additions, transfers, measurements, and compensations.
+4. analyze ppm/ODT/OAV and conservative safety status.
+5. rank only feasible, inventory-backed interventions.
+6. run blinded experiments with applications, timed observations, pairwise
+   comparisons, versioned predictions, and outcomes.
+7. export the full workspace or create, validate, and stage a SQLite backup.
+
+All write commands are request-bound and idempotent. Bottle streams use
+optimistic sequence checks; stock and bottle changes commit in one transaction.
+History is corrected with compensating events rather than mutation. Live
+restore replacement is intentionally unavailable over HTTP and requires a
+stopped server or explicit maintenance mode. See
+[`docs/laboratory_beta.md`](docs/laboratory_beta.md) for the recovery procedure
+and truth boundaries.
 
 ### Docker
 
@@ -262,17 +323,16 @@ Focused canonical engine tests:
   tests\test_workbench.py -q
 ```
 
-Backend CI order:
+Backend verification order:
 
 ```powershell
 cd backend
 ..\.venv\Scripts\python.exe -m poetry run ruff check app
-..\.venv\Scripts\python.exe -m poetry run mypy `
-  app/core/config.py app/core/security.py app/schemas --ignore-missing-imports
-..\.venv\Scripts\python.exe -m poetry run pytest tests -q
+..\.venv\Scripts\python.exe -m poetry run mypy app --ignore-missing-imports
+..\.venv\Scripts\python.exe -m poetry run pytest --cov=app --cov-report=term
 ```
 
-The repository currently has known legacy Ruff and mypy debt outside the
-canonical engine/API slices. Runtime shards and changed-module static checks are
-the enforced evidence for this Research Preview increment; see the model
-inventory for the exact boundary.
+The root project verifier runs the engine shards, backend suite, migration and
+backup checks, scientific audits, package smoke tests, and optional Docker
+checks. Scientific claims remain bounded by the evidence classifications even
+when every software check passes.
