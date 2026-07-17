@@ -1782,8 +1782,7 @@ def suggest_interventions(
                 materials = list(_dedupe(materials))
                 if available_materials is not None:
                     filtered = _best_material_matches(materials, available_materials)
-                    if filtered:
-                        materials = list(filtered)
+                    materials = list(filtered)
                 if not materials:
                     continue
 

@@ -15,6 +15,7 @@ from app.models.lab import (
     LabBottleEventEffect,
     LabExperiment,
     LabFormula,
+    LabFormulaComponent,
     LabFormulaVersion,
     LabInventoryMovement,
     LabMaterial,
@@ -59,6 +60,14 @@ class LabRepository:
 
     async def get_formula_version(self, version_id: str) -> LabFormulaVersion | None:
         return await self.session.get(LabFormulaVersion, version_id)
+
+    async def formula_components(self, version_id: str) -> list[LabFormulaComponent]:
+        result = await self.session.execute(
+            select(LabFormulaComponent)
+            .where(LabFormulaComponent.formula_version_id == version_id)
+            .order_by(LabFormulaComponent.position)
+        )
+        return list(result.scalars())
 
     async def get_experiment(self, experiment_id: str) -> LabExperiment | None:
         return await self.session.get(LabExperiment, experiment_id)

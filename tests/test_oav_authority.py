@@ -4,6 +4,7 @@ from collections import Counter
 from pathlib import Path
 
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
+from engine.pipeline.formula_state import build_formula_state
 
 
 def _request(ingredients, **overrides):
@@ -210,3 +211,27 @@ def test_odt_source_sections_have_no_duplicate_textual_keys():
 
     assert duplicate_keys(odt_data_block) == {}
     assert duplicate_keys(odt_verification_block) == {}
+
+
+def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():
+    state = build_formula_state(
+        {
+            "Bergamot FCF oil Sicilian": 100.0,
+            "Jasmine FO": 100.0,
+            "Lavender EO": 100.0,
+        },
+        batch_volume_ml=10.0,
+    )
+    rows = {row.name: row for row in state.materials}
+
+    for name in ("Bergamot FCF oil Sicilian", "Jasmine FO"):
+        assert rows[name].oav is None
+        assert rows[name].intensity is None
+        assert rows[name].sources["oav_model"] == (
+            "unknown:composite_decomposition_missing"
+        )
+
+    assert rows["Lavender EO"].oav is not None
+    assert rows["Lavender EO"].sources["oav_model"] == (
+        "literature:natural_composite_gc_o"
+    )

@@ -26,6 +26,16 @@ function optionRows(rows, labelKey) {
   return rows.map((row) => `<option value="${escapeHtml(row.id)}">${escapeHtml(row[labelKey] || row.id)}</option>`).join("");
 }
 
+function stockOptionRows() {
+  if (!state.stocks.length) return '<option value="">Create a stock first</option>';
+  return state.stocks.map((stock) => {
+    const material = state.materials.find((item) => item.id === stock.material_id);
+    const name = material?.canonical_name || stock.material_id;
+    const dilution = `${(Number(stock.active_fraction) * 100).toFixed(3).replace(/\.?0+$/, "")}%`;
+    return `<option value="${escapeHtml(stock.id)}">${escapeHtml(name)} | ${escapeHtml(dilution)}</option>`;
+  }).join("");
+}
+
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 }
@@ -38,7 +48,7 @@ function recordList(target, rows, titleKey, detail) {
 
 function updateSelectors() {
   $$('[data-material-select]').forEach((node) => { node.innerHTML = optionRows(state.materials, "canonical_name"); });
-  $$('[data-stock-select]').forEach((node) => { node.innerHTML = optionRows(state.stocks, "id"); });
+  $$('[data-stock-select]').forEach((node) => { node.innerHTML = stockOptionRows(); });
   $$('[data-formula-select]').forEach((node) => { node.innerHTML = optionRows(state.formulas, "name"); });
   $$('[data-bottle-select]').forEach((node) => { node.innerHTML = optionRows(state.bottles, "label"); });
   $$('[data-experiment-select]').forEach((node) => { node.innerHTML = optionRows(state.experiments, "name"); });
@@ -117,7 +127,72 @@ $("#export-workspace").addEventListener("click", async () => {
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
 bindForm("#stock-form", (data) => request("/stocks", { method: "POST", body: JSON.stringify({ ...data, active_fraction: Number(data.active_fraction), initial_mass_g: Number(data.initial_mass_g), density_g_ml: data.density_g_ml ? Number(data.density_g_ml) : null }) }));
 bindForm("#formula-form", (data) => request("/formulas", { method: "POST", body: JSON.stringify(data) }));
-bindForm("#version-form", (data) => request(`/formulas/${data.formula_id}/versions`, { method: "POST", body: JSON.stringify({ brief: { identity: data.identity }, constraints: { must_preserve: ["identity"] }, concentration_fraction: Number(data.concentration_fraction), concentration_basis: "mass_fraction" }) }));
+
+function componentRows() {
+  const rows = $$('[data-component-row]', $("#component-editor"));
+  if (!rows.length) throw new Error("Add at least one stock component.");
+  return rows.map((row) => {
+    const stock = $('[name="component_stock"]', row).value;
+    const mass = Number($('[name="component_mass_g"]', row).value);
+    const volumeValue = $('[name="component_volume_ul"]', row).value;
+    const volume = volumeValue ? Number(volumeValue) : null;
+    if (!stock || !Number.isFinite(mass) || mass <= 0) {
+      throw new Error("Every component needs a stock and a positive mass.");
+    }
+    if (volume !== null && (!Number.isFinite(volume) || volume <= 0)) {
+      throw new Error("Component volume must be blank or a positive number.");
+    }
+    return {
+      stock_solution_id: stock,
+      requested_mass_g: mass,
+      requested_volume_ul: volume,
+      role: $('[name="component_role"]', row).value || null,
+      unit: "g",
+    };
+  });
+}
+
+$("#add-component-row").addEventListener("click", () => {
+  const source = $('[data-component-row]', $("#component-editor"));
+  const row = source.cloneNode(true);
+  $('[name="component_mass_g"]', row).value = "0.1";
+  $('[name="component_volume_ul"]', row).value = "";
+  $('[name="component_role"]', row).value = "";
+  $("#component-editor").append(row);
+  const stockSelect = $('[name="component_stock"]', row);
+  stockSelect.innerHTML = stockOptionRows();
+  stockSelect.selectedIndex = 0;
+});
+
+$("#component-editor").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-remove-component]");
+  if (!button) return;
+  const rows = $$('[data-component-row]', $("#component-editor"));
+  if (rows.length === 1) {
+    notify("A formula version needs at least one component.", true);
+    return;
+  }
+  button.closest("[data-component-row]").remove();
+});
+
+$("#version-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const data = formData(event.currentTarget);
+  try {
+    await request(`/formulas/${data.formula_id}/versions`, {
+      method: "POST",
+      body: JSON.stringify({
+        brief: { identity: data.identity },
+        constraints: { must_preserve: ["identity"] },
+        concentration_fraction: Number(data.concentration_fraction),
+        concentration_basis: "mass_fraction",
+        components: componentRows(),
+      }),
+    });
+    notify("Immutable formula version committed.");
+    await refresh();
+  } catch (error) { notify(error.message, true); }
+});
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: Number(data.initial_mass_g) }) }));
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: crypto.randomUUID() }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
@@ -149,6 +224,59 @@ $("#analysis-form").addEventListener("submit", async (event) => {
   try {
     const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }) });
     $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
+  } catch (error) { notify(error.message, true); }
+});
+
+$("#hypothesis-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const data = formData(event.currentTarget);
+  const splitValues = (value) => value.split(",").map((item) => item.trim()).filter(Boolean);
+  try {
+    const result = await request("/intervention-hypotheses", {
+      method: "POST",
+      body: JSON.stringify({
+        brief_name: data.brief_name,
+        observations: splitValues(data.observations),
+        family: data.family || null,
+        profile: null,
+        mode: data.mode,
+        forbidden_materials: splitValues(data.forbidden_materials),
+        limit: Number(data.limit),
+      }),
+    });
+    $("#hypothesis-output").textContent = JSON.stringify(result, null, 2);
+    notify(`${result.hypotheses.length} inventory-valid hypotheses generated.`);
+  } catch (error) { notify(error.message, true); }
+});
+
+$("#trial-plan-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const data = formData(event.currentTarget);
+  try {
+    const result = await request("/intervention-trials/plan", {
+      method: "POST",
+      body: JSON.stringify({
+        brief_name: data.brief_name,
+        material: data.material,
+        bottle_total_mass_g: Number(data.bottle_total_mass_g),
+        current_material_active_mass_g: Number(data.current_material_active_mass_g),
+        stock_active_mass_fraction: Number(data.stock_active_mass_fraction),
+        stock_density_g_ml: data.stock_density_g_ml ? Number(data.stock_density_g_ml) : null,
+        target_active_ppm_w_w: Number(data.target_active_ppm_w_w),
+        threshold_matrix: data.threshold_matrix,
+        pipette: {
+          minimum_ul: Number(data.pipette_minimum_ul),
+          increment_ul: Number(data.pipette_increment_ul),
+          maximum_single_step_ul: Number(data.pipette_maximum_ul),
+          standard_uncertainty_ul: 0,
+          systematic_standard_uncertainty_ul: 0,
+        },
+        evaluation_attribute: data.evaluation_attribute,
+        evaluation_times_seconds: data.evaluation_times_seconds.split(",").map((item) => Number(item.trim())),
+      }),
+    });
+    $("#trial-plan-output").textContent = JSON.stringify(result, null, 2);
+    notify(`Trial planned at ${result.achieved_active_ppm_w_w.toFixed(3)} ppm w/w.`);
   } catch (error) { notify(error.message, true); }
 });
 

@@ -124,6 +124,12 @@ button[type="submit"] { align-self: start; color: white; background: var(--blue)
 button[type="submit"]:hover { background: var(--blue-bright); transform: translate(-1px, -1px); }
 .quiet-button { color: var(--blue); background: transparent; border: 1px solid var(--blue); }
 .field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.component-fieldset { display: grid; gap: 12px; margin: 0; padding: 14px; border: 1px solid var(--line); }
+.component-fieldset legend { padding: 0 6px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.field-help { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.component-editor { display: grid; gap: 10px; }
+.component-row { display: grid; grid-template-columns: minmax(150px, 2fr) 1fr 1fr 1fr auto; gap: 9px; align-items: end; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.component-row .quiet-button { min-height: 42px; }
 .record-list { display: grid; gap: 8px; }
 .record-row { display: grid; grid-template-columns: minmax(140px, 1fr) 2fr auto; gap: 16px; align-items: center; padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 13px; }
 .record-row strong { color: var(--blue); }
@@ -157,6 +163,7 @@ button[type="submit"]:hover { background: var(--blue-bright); transform: transla
   .split-grid, .three-grid { grid-template-columns: 1fr; }
   .backup-actions { grid-template-columns: 1fr; }
   .field-pair { grid-template-columns: 1fr; }
+  .component-row { grid-template-columns: 1fr 1fr; }
   .record-row { grid-template-columns: 1fr; gap: 4px; }
   h1 { font-size: 42px; }
 }

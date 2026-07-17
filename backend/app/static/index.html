@@ -24,7 +24,8 @@
       <button class="nav-item" data-view="formulas"><span>03</span> Formulas</button>
       <button class="nav-item" data-view="bottles"><span>04</span> Bottles</button>
       <button class="nav-item" data-view="experiments"><span>05</span> Experiments</button>
-      <button class="nav-item" data-view="assistant"><span>06</span> Assistant</button>
+      <button class="nav-item" data-view="perfumery"><span>06</span> Perfumer</button>
+      <button class="nav-item" data-view="assistant"><span>07</span> Assistant</button>
       <div class="rail-note">
         <strong>Evidence first.</strong>
         Unknown is a result, not an error.
@@ -108,6 +109,20 @@
             <label>Formula<select name="formula_id" data-formula-select required></select></label>
             <label>Identity brief<textarea name="identity" required>iris and incense</textarea></label>
             <label>Concentration mass fraction<input name="concentration_fraction" type="number" value="0.2" min="0" max="1" step="0.001"></label>
+            <fieldset class="component-fieldset">
+              <legend>Stock components</legend>
+              <p class="field-help">Record the requested stock mass for every material. These rows become immutable with the version.</p>
+              <div id="component-editor" class="component-editor">
+                <div class="component-row" data-component-row>
+                  <label>Stock<select name="component_stock" data-stock-select required></select></label>
+                  <label>Mass, g<input name="component_mass_g" type="number" value="0.1" min="0.000001" step="0.000001" required></label>
+                  <label>Volume, uL <span>(optional)</span><input name="component_volume_ul" type="number" min="0.000001" step="0.000001"></label>
+                  <label>Role<select name="component_role"><option value="">Unspecified</option><option value="top">Top</option><option value="heart">Heart</option><option value="base">Base</option><option value="support">Support</option><option value="trace">Trace</option></select></label>
+                  <button class="quiet-button remove-component" type="button" data-remove-component>Remove</button>
+                </div>
+              </div>
+              <button class="quiet-button" id="add-component-row" type="button">Add component</button>
+            </fieldset>
             <button type="submit">Add immutable version</button>
           </form>
           <form id="analysis-form" class="panel form-panel">
@@ -181,6 +196,60 @@
           </form>
         </div>
         <div class="panel"><h2>Experiment register</h2><div id="experiment-list" class="record-list"></div></div>
+      </section>
+
+      <section class="view" data-panel="perfumery" aria-labelledby="perfumery-title">
+        <div class="view-heading"><div><p class="eyebrow">Brief-first diagnosis</p><h1 id="perfumery-title">Perfumer workbench</h1></div></div>
+        <div class="split-grid">
+          <form id="hypothesis-form" class="panel form-panel">
+            <p class="panel-index">P1</p><h2>Generate bench hypotheses</h2>
+            <label>Perfume name / concept<input name="brief_name" value="Iris Cathedral" required maxlength="255"></label>
+            <label>Observed issues <span>(comma separated)</span><textarea name="observations" required>too powdery, needs texture</textarea></label>
+            <label>Fragrance family <span>(optional)</span><input name="family" value="iris" placeholder="iris, muguet, amber..."></label>
+            <label>Intervention stage<select name="mode"><option value="post_mix">Post-mix bottle</option><option value="between_mix">Between trials</option><option value="pre_mix">Pre-mix design</option></select></label>
+            <label>Forbidden materials <span>(comma separated)</span><input name="forbidden_materials" placeholder="Materials that violate the brief"></label>
+            <label>Maximum hypotheses<input name="limit" type="number" value="5" min="1" max="20" step="1" required></label>
+            <button type="submit">Generate inventory-valid hypotheses</button>
+          </form>
+          <article class="panel evidence-panel">
+            <p class="panel-index">P2</p><h2>Scientific boundary</h2>
+            <p>These are qualitative directions from the live inventory, not causal diagnoses or dosing instructions.</p>
+            <p>Dose, ppm, ODT/OAV, safety, and brief preservation remain unknown until supplied to their dedicated calculation and trial contracts.</p>
+            <span class="evidence unknown">Smell before accepting</span>
+          </article>
+        </div>
+        <pre id="hypothesis-output" class="output-block" tabindex="0">No hypotheses generated yet.</pre>
+        <div class="split-grid">
+          <form id="trial-plan-form" class="panel form-panel">
+            <p class="panel-index">P3</p><h2>Plan a separate trial aliquot</h2>
+            <label>Perfume name / concept<input name="brief_name" value="Iris Cathedral" required maxlength="255"></label>
+            <label>Inventory material<input name="material" value="Hedione" required maxlength="255"></label>
+            <div class="field-pair">
+              <label>Bottle mass, g<input name="bottle_total_mass_g" type="number" value="10" min="0.001" step="0.001" required></label>
+              <label>Current material mass, g<input name="current_material_active_mass_g" type="number" value="0" min="0" step="0.000001" required></label>
+            </div>
+            <div class="field-pair">
+              <label>Stock active mass fraction<input name="stock_active_mass_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
+              <label>Stock density, g/mL <span>(optional)</span><input name="stock_density_g_ml" type="number" value="1" min="0.000001" step="0.000001"></label>
+            </div>
+            <label>Target active ppm w/w<input name="target_active_ppm_w_w" type="number" value="100" min="0.000001" max="1000000" step="0.000001" required></label>
+            <label>Threshold matrix<select name="threshold_matrix"><option value="unknown">Unknown, withhold OAV</option><option value="ethanol">Ethanol solution</option></select></label>
+            <div class="field-pair">
+              <label>Pipette minimum, µL<input name="pipette_minimum_ul" type="number" value="1" min="0.001" step="0.001" required></label>
+              <label>Pipette increment, µL<input name="pipette_increment_ul" type="number" value="1" min="0.001" step="0.001" required></label>
+            </div>
+            <label>Pipette maximum step, µL<input name="pipette_maximum_ul" type="number" value="1000" min="0.001" step="0.001" required></label>
+            <label>Directional evaluation attribute<input name="evaluation_attribute" value="iris clarity" required maxlength="255"></label>
+            <label>Observation times, seconds<input name="evaluation_times_seconds" value="0, 300, 1800, 7200, 14400" required></label>
+            <button type="submit">Calculate trial plan</button>
+          </form>
+          <article class="panel warning-panel">
+            <p class="panel-index">P4</p><h2>Bench boundary</h2>
+            <p>The planner uses exact mass balance and declared pipette constraints. It prepares a separate candidate aliquot and never mutates the source bottle.</p>
+            <p><strong>Safety remains unverified</strong> until a versioned category-specific screen passes. OAV is withheld unless its matrix and material model are appropriate.</p>
+          </article>
+        </div>
+        <pre id="trial-plan-output" class="output-block" tabindex="0">No trial planned yet.</pre>
       </section>
 
       <section class="view" data-panel="assistant" aria-labelledby="assistant-title">

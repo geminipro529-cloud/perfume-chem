@@ -11,10 +11,13 @@ from app.models.lab import (
     LabApplication,
     LabBottle,
     LabBottleEventEffect,
+    LabFormulaComponent,
+    LabFormulaVersion,
     LabInventoryMovement,
 )
 from app.services.lab_service import (
     AlreadyCompensatedError,
+    FormulaComponentInput,
     IdempotencyConflictError,
     InsufficientStockError,
     LabService,
@@ -54,6 +57,63 @@ async def test_formula_versions_are_sequential_and_immutable(db_session):
     assert second.version_number == 2
     with pytest.raises(ValueError, match="immutable"):
         await service.update_formula_version(first.id, brief={"identity": "changed"})
+
+
+@pytest.mark.asyncio
+async def test_formula_version_components_are_atomic_and_ordered(db_session):
+    service = LabService(db_session)
+    material = await service.create_material("Formula component material")
+    stock = await service.create_stock_solution(
+        material_id=material.id,
+        active_fraction=0.3,
+        fraction_basis="mass_fraction",
+        initial_mass_g=5.0,
+        density_g_ml=0.98,
+    )
+    formula = await service.create_formula("Component formula")
+
+    version = await service.add_formula_version(
+        formula.id,
+        brief={"identity": "component test"},
+        constraints={"must_preserve": ["identity"]},
+        components=(
+            FormulaComponentInput(
+                stock_solution_id=stock.id,
+                requested_mass_g=0.25,
+                requested_volume_ul=255.102041,
+                role="heart",
+            ),
+        ),
+    )
+    components = await service.repository.formula_components(version.id)
+
+    assert [(row.position, row.stock_solution_id) for row in components] == [
+        (1, stock.id)
+    ]
+    assert components[0].requested_mass_g == 0.25
+    assert components[0].unit == "g"
+
+    with pytest.raises(KeyError, match="Unknown stock solution"):
+        await service.add_formula_version(
+            formula.id,
+            brief={"identity": "invalid"},
+            constraints={},
+            components=(
+                FormulaComponentInput(
+                    stock_solution_id="missing-stock",
+                    requested_mass_g=0.1,
+                ),
+            ),
+        )
+
+    version_count = await db_session.scalar(
+        select(func.count()).select_from(LabFormulaVersion)
+    )
+    component_count = await db_session.scalar(
+        select(func.count()).select_from(LabFormulaComponent)
+    )
+    assert version_count == 1
+    assert component_count == 1
 
 
 @pytest.mark.asyncio

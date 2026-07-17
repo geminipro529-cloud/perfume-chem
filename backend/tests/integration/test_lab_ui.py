@@ -11,7 +11,15 @@ async def test_offline_lab_app_and_assets_are_served_without_external_dependenci
     assert css.status_code == 200
     assert javascript.status_code == 200
     assert "Perfume Chem Laboratory" in page.text
-    for view in ("dashboard", "materials", "formulas", "bottles", "experiments", "assistant"):
+    for view in (
+        "dashboard",
+        "materials",
+        "formulas",
+        "bottles",
+        "experiments",
+        "perfumery",
+        "assistant",
+    ):
         assert f'data-view="{view}"' in page.text
     assert 'aria-live="polite"' in page.text
     assert "Evidence posture" in page.text
@@ -20,6 +28,15 @@ async def test_offline_lab_app_and_assets_are_served_without_external_dependenci
     assert "@media (max-width: 760px)" in css.text
     assert "prefers-reduced-motion" in css.text
     assert 'const API = "/api/v1/lab"' in javascript.text
+    assert 'id="hypothesis-form"' in page.text
+    assert 'id="trial-plan-form"' in page.text
+    assert 'id="component-editor"' in page.text
+    assert 'id="add-component-row"' in page.text
+    assert 'data-component-row' in page.text
+    assert 'components: componentRows()' in javascript.text
+    assert 'request("/intervention-hypotheses"' in javascript.text
+    assert 'request("/intervention-trials/plan"' in javascript.text
+    assert "Safety remains unverified" in page.text
     assert "addEventListener" in javascript.text
 
 

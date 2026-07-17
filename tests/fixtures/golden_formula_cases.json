@@ -54,7 +54,7 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Leather FO": {"vapor_ppm": 0.008528367591853868, "oav": 85.28367591853868},
+        "Leather FO": {"vapor_ppm": 0.008528367591853868, "oav": null},
         "Iso E Super": {"vapor_ppm": 1.3113825190716828, "oav": 26227.650381433654}
       }
     },

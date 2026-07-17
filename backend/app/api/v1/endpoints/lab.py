@@ -7,12 +7,17 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, cast
 
+from engine.bottle_addition import BottleSnapshot, PipetteProfile, StockSolution
+from engine.intervention_hypotheses import InterventionHypothesisRequest
+from engine.intervention_trial import InterventionTrialRequest
 from engine.interventions import (
     BriefConstraints,
     CandidateAddition,
     InterventionRequest,
     InventoryStock,
 )
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
 from engine.safety_assessment import SafetyAssessmentStatus
 from engine.workbench import PerfumeWorkbench
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -44,6 +49,8 @@ from app.schemas.lab import (
     ExperimentCreate,
     FormulaVersionCreate,
     InterventionCreate,
+    InterventionHypothesisCreate,
+    InterventionTrialPlanCreate,
     LabFormulaCreate,
     MaterialCreate,
     ObservationCreate,
@@ -59,7 +66,11 @@ from app.schemas.perfume import FormulaCreate
 from app.services.backup_service import BackupService, RestoreSafetyError
 from app.services.lab_assistant import AssistantRequest, build_assistant_packet
 from app.services.lab_export import ImportConflictError, LabExportService
-from app.services.lab_service import LabService, LabTransactionError
+from app.services.lab_service import (
+    FormulaComponentInput,
+    LabService,
+    LabTransactionError,
+)
 
 router = APIRouter()
 workbench = PerfumeWorkbench()
@@ -261,10 +272,19 @@ async def create_formula_version(
     request: FormulaVersionCreate,
     session: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    row = await _service_call(
-        LabService(session).add_formula_version(formula_id, **request.model_dump())
+    payload = request.model_dump(exclude={"components"})
+    components = tuple(
+        FormulaComponentInput(**component.model_dump())
+        for component in request.components
     )
-    return _record(row, "formula_id", "version_number", "brief_json", "constraints_json")
+    row = await _service_call(
+        LabService(session).add_formula_version(
+            formula_id,
+            **payload,
+            components=components,
+        )
+    )
+    return await _formula_version_record(row, session)
 
 
 @router.get("/experiments")
@@ -383,6 +403,72 @@ async def interventions(request: InterventionCreate) -> dict[str, Any]:
         "rejected": [asdict(row) for row in result.rejected],
         "evidence": result.evidence.as_dict(),
     }
+
+
+@router.post("/intervention-hypotheses")
+async def intervention_hypotheses(
+    request: InterventionHypothesisCreate,
+) -> dict[str, object]:
+    inventory = parse_inventory(
+        unique=True,
+        include_solvents=False,
+        include_unavailable=False,
+    )
+    try:
+        result = workbench.generate_intervention_hypotheses(
+            InterventionHypothesisRequest(
+                **request.model_dump(),
+                available_materials=tuple(item.name for item in inventory),
+            )
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return cast(dict[str, object], result.as_dict())
+
+
+@router.post("/intervention-trials/plan")
+async def intervention_trial_plan(
+    request: InterventionTrialPlanCreate,
+) -> dict[str, object]:
+    inventory = parse_inventory(
+        unique=True,
+        include_solvents=False,
+        include_unavailable=False,
+    )
+    available = {normalize_name(item.name): item.name for item in inventory}
+    material = available.get(normalize_name(request.material))
+    if material is None:
+        raise HTTPException(
+            status_code=400,
+            detail=f"material is not in the available inventory: {request.material}",
+        )
+    try:
+        result = workbench.plan_intervention_trial(
+            InterventionTrialRequest(
+                brief_name=request.brief_name,
+                material=material,
+                bottle=BottleSnapshot(
+                    total_mass_g=request.bottle_total_mass_g,
+                    active_material_mass_g=request.current_material_active_mass_g,
+                ),
+                stock=StockSolution(
+                    active_mass_fraction=request.stock_active_mass_fraction,
+                    density_g_ml=request.stock_density_g_ml,
+                ),
+                target_active_ppm_w_w=request.target_active_ppm_w_w,
+                threshold_matrix=request.threshold_matrix,
+                pipette=(
+                    PipetteProfile(**request.pipette.model_dump())
+                    if request.pipette is not None
+                    else None
+                ),
+                evaluation_attribute=request.evaluation_attribute,
+                evaluation_times_seconds=request.evaluation_times_seconds,
+            )
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return cast(dict[str, object], result.as_dict())
 
 
 @router.post("/assistant")
@@ -505,17 +591,7 @@ async def list_formula_versions(
             .order_by(LabFormulaVersion.version_number)
         )
     ).scalars()
-    return [
-        _record(
-            row,
-            "formula_id",
-            "version_number",
-            "brief_json",
-            "constraints_json",
-            "concentration_fraction",
-        )
-        for row in rows
-    ]
+    return [await _formula_version_record(row, session) for row in rows]
 
 
 @router.get("/formulas/{formula_id}/versions/{version_number}")
@@ -534,14 +610,38 @@ async def get_formula_version(
         raise HTTPException(
             status_code=404, detail=f"Version {version_number} not found for formula {formula_id}"
         )
-    return _record(
+    return await _formula_version_record(row, session)
+
+
+async def _formula_version_record(
+    row: LabFormulaVersion,
+    session: AsyncSession,
+) -> dict[str, Any]:
+    components = await LabService(session).repository.formula_components(row.id)
+    payload = _record(
         row,
         "formula_id",
         "version_number",
         "brief_json",
         "constraints_json",
         "concentration_fraction",
+        "concentration_basis",
+        "source_json",
     )
+    payload["composition_status"] = "recorded" if components else "missing"
+    payload["components"] = [
+        _record(
+            component,
+            "stock_solution_id",
+            "position",
+            "requested_mass_g",
+            "requested_volume_ul",
+            "role",
+            "unit",
+        )
+        for component in components
+    ]
+    return payload
 
 
 async def _service_call(awaitable):

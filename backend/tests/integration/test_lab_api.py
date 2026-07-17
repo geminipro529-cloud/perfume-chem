@@ -55,10 +55,47 @@ async def test_lab_api_runs_material_bottle_formula_and_experiment_workflow(clie
             "constraints": {"must_preserve": ["iris"]},
             "concentration_fraction": 0.2,
             "concentration_basis": "mass_fraction",
+            "components": [
+                {
+                    "stock_solution_id": stock_id,
+                    "requested_mass_g": 0.5,
+                    "requested_volume_ul": 510.204082,
+                    "role": "heart",
+                    "unit": "g",
+                }
+            ],
         },
     )
     assert version_response.status_code == 201
-    assert version_response.json()["version_number"] == 1
+    version_payload = version_response.json()
+    assert version_payload["version_number"] == 1
+    assert version_payload["composition_status"] == "recorded"
+    assert len(version_payload["components"]) == 1
+    component = version_payload["components"][0]
+    assert component["stock_solution_id"] == stock_id
+    assert component["position"] == 1
+    assert component["requested_mass_g"] == 0.5
+    assert component["requested_volume_ul"] == 510.204082
+    assert component["role"] == "heart"
+    assert component["unit"] == "g"
+    assert component["created_at"]
+
+    rejected = await client.post(
+        f"/api/v1/lab/formulas/{formula_id}/versions",
+        json={
+            "brief": {"identity": "must roll back"},
+            "constraints": {},
+            "components": [
+                {
+                    "stock_solution_id": "missing-stock",
+                    "requested_mass_g": 0.1,
+                }
+            ],
+        },
+    )
+    assert rejected.status_code == 404
+    versions = await client.get(f"/api/v1/lab/formulas/{formula_id}/versions")
+    assert [row["version_number"] for row in versions.json()] == [1]
 
     experiment_response = await client.post(
         "/api/v1/lab/experiments",
@@ -155,6 +192,92 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
     assert interventions.status_code == 200
     assert interventions.json()["ranked"][0]["material"] == "Alpha Irone"
     assert interventions.json()["evidence"]["classification"] == "HEURISTIC"
+
+    hypotheses = await client.post(
+        "/api/v1/lab/intervention-hypotheses",
+        json={
+            "brief_name": "Iris Cathedral",
+            "observations": ["too woody", "unmapped bottle note"],
+            "family": "muguet",
+            "mode": "post_mix",
+            "forbidden_materials": ["Peonile"],
+            "limit": 3,
+        },
+    )
+    assert hypotheses.status_code == 200
+    hypothesis_payload = hypotheses.json()
+    assert hypothesis_payload["brief_name"] == "Iris Cathedral"
+    assert hypothesis_payload["evidence"]["classification"] == "HEURISTIC"
+    assert hypothesis_payload["unrecognized_observations"] == [
+        "unmapped_bottle_note"
+    ]
+    assert hypothesis_payload["hypotheses"]
+    assert all(
+        "Hydroxycitronellal" not in item["materials"]
+        for item in hypothesis_payload["hypotheses"]
+    )
+    assert all("Peonile" not in item["materials"] for item in hypothesis_payload["hypotheses"])
+    assert all(
+        set(item) == {
+            "signal",
+            "family",
+            "profile",
+            "profile_label",
+            "mode",
+            "action",
+            "materials",
+            "rationale",
+            "rule_match_score",
+            "dose_style",
+            "notes",
+        }
+        for item in hypothesis_payload["hypotheses"]
+    )
+
+    trial = await client.post(
+        "/api/v1/lab/intervention-trials/plan",
+        json={
+            "brief_name": "Iris Cathedral",
+            "material": "Hedione",
+            "bottle_total_mass_g": 10.0,
+            "current_material_active_mass_g": 0.0,
+            "stock_active_mass_fraction": 0.1,
+            "stock_density_g_ml": 1.0,
+            "target_active_ppm_w_w": 100.0,
+            "threshold_matrix": "ethanol",
+            "pipette": {
+                "minimum_ul": 1.0,
+                "increment_ul": 1.0,
+                "maximum_single_step_ul": 1000.0,
+            },
+            "evaluation_attribute": "iris clarity",
+            "evaluation_times_seconds": [0, 300, 1800, 7200, 14400],
+        },
+    )
+    assert trial.status_code == 200
+    trial_payload = trial.json()
+    assert trial_payload["material"] == "Hedione"
+    assert trial_payload["achieved_active_ppm_w_w"] == pytest.approx(99.9000999)
+    assert trial_payload["odt_ethanol_ppm"] == 0.01
+    assert trial_payload["oav"] == pytest.approx(9990.00999)
+    assert trial_payload["safety_status"] == "unverified"
+    assert trial_payload["evaluation_protocol"]["design"] == (
+        "paired_directional_comparison"
+    )
+
+    depleted = await client.post(
+        "/api/v1/lab/intervention-trials/plan",
+        json={
+            "brief_name": "Muguet Study",
+            "material": "Hydroxycitronellal",
+            "bottle_total_mass_g": 10.0,
+            "stock_active_mass_fraction": 0.1,
+            "target_active_ppm_w_w": 100.0,
+            "evaluation_attribute": "muguet body",
+        },
+    )
+    assert depleted.status_code == 400
+    assert "available inventory" in depleted.json()["detail"]
 
     request = {
         "intent": "bottle_status",

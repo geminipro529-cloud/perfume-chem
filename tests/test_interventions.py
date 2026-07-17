@@ -5,6 +5,10 @@ from engine.interventions import (
     InventoryStock,
     rank_interventions,
 )
+from engine.intervention_hypotheses import (
+    InterventionHypothesisRequest,
+    generate_intervention_hypotheses,
+)
 from engine.safety_assessment import SafetyAssessmentStatus
 
 
@@ -113,3 +117,44 @@ def test_interventions_preserve_brief_and_return_only_pareto_candidates():
     rejected = {item.material: item.reasons for item in result.rejected}
     assert "does not preserve required character tags: incense" in rejected["Hedione"]
     assert "Pareto-dominated" in rejected["Orris Liquid"]
+
+
+def test_hypotheses_are_inventory_only_noncausal_and_nonquantitative():
+    result = generate_intervention_hypotheses(
+        InterventionHypothesisRequest(
+            brief_name="Iris Cathedral",
+            observations=("too woody", "unmapped bottle note"),
+            family="muguet",
+            mode="post_mix",
+            available_materials=("Hedione", "Peonile"),
+            forbidden_materials=frozenset({"Peonile"}),
+        )
+    )
+
+    assert result.brief_name == "Iris Cathedral"
+    assert [item.signal for item in result.diagnoses] == ["too_woody"]
+    assert result.unrecognized_observations == ("unmapped_bottle_note",)
+    assert result.hypotheses
+    for hypothesis in result.hypotheses:
+        assert hypothesis.materials == ("Hedione",)
+        assert not hasattr(hypothesis, "requested_active_ppm_w_w")
+        assert not hasattr(hypothesis, "predicted_oav_delta")
+        assert not hasattr(hypothesis, "safety_status")
+    assert result.evidence.classification.value == "HEURISTIC"
+    assert any("causal" in item for item in result.evidence.limitations)
+    assert any("dose" in item for item in result.evidence.limitations)
+
+
+def test_hypotheses_do_not_fall_back_when_inventory_has_no_matching_material():
+    result = generate_intervention_hypotheses(
+        InterventionHypothesisRequest(
+            brief_name="Iris Cathedral",
+            observations=("too woody",),
+            family="muguet",
+            mode="post_mix",
+            available_materials=("Not A Real Stock",),
+        )
+    )
+
+    assert result.diagnoses
+    assert result.hypotheses == ()

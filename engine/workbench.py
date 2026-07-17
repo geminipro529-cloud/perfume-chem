@@ -9,6 +9,16 @@ from typing import Any, Mapping, Sequence
 
 from engine.bottle_addition import AdditionRequest, AdditionResult, AdditionSolver
 from engine.interventions import InterventionRequest, InterventionResult, rank_interventions
+from engine.intervention_hypotheses import (
+    InterventionHypothesisRequest,
+    InterventionHypothesisResult,
+    generate_intervention_hypotheses,
+)
+from engine.intervention_trial import (
+    InterventionTrialRequest,
+    InterventionTrialResult,
+    plan_intervention_trial,
+)
 from engine.mixture import MixtureComponent, MixtureState
 from engine.quantities import ConcentrationBasis
 from engine.safety_assessment import (
@@ -282,6 +292,16 @@ class PerfumeWorkbench:
 
     def rank_interventions(self, request: InterventionRequest) -> InterventionResult:
         return rank_interventions(request)
+
+    def generate_intervention_hypotheses(
+        self, request: InterventionHypothesisRequest
+    ) -> InterventionHypothesisResult:
+        return generate_intervention_hypotheses(request)
+
+    def plan_intervention_trial(
+        self, request: InterventionTrialRequest
+    ) -> InterventionTrialResult:
+        return plan_intervention_trial(request, addition_solver=self._addition_solver)
 
 
 def _analysis_assumptions(

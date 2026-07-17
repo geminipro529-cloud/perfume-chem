@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Sequence
 from contextlib import asynccontextmanager
+from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
+from math import isfinite
 from uuid import uuid4
 
 from sqlalchemy import text
@@ -18,6 +21,7 @@ from app.models.lab import (
     LabBottleEventEffect,
     LabExperiment,
     LabFormula,
+    LabFormulaComponent,
     LabFormulaVersion,
     LabInventoryMovement,
     LabMaterial,
@@ -29,6 +33,39 @@ from app.models.lab import (
     LabStockSolution,
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaComponentInput:
+    """One explicitly based stock dose in an immutable formula version."""
+
+    stock_solution_id: str
+    requested_mass_g: float
+    requested_volume_ul: float | None = None
+    role: str | None = None
+    unit: str = "g"
+
+    def __post_init__(self) -> None:
+        stock_solution_id = self.stock_solution_id.strip()
+        mass = float(self.requested_mass_g)
+        volume = (
+            float(self.requested_volume_ul)
+            if self.requested_volume_ul is not None
+            else None
+        )
+        role = self.role.strip() if self.role else None
+        if not stock_solution_id:
+            raise ValueError("stock_solution_id must not be empty")
+        if not isfinite(mass) or mass <= 0:
+            raise ValueError("requested_mass_g must be finite and greater than zero")
+        if volume is not None and (not isfinite(volume) or volume <= 0):
+            raise ValueError("requested_volume_ul must be finite and greater than zero")
+        if self.unit != "g":
+            raise ValueError("formula component unit must be g")
+        object.__setattr__(self, "stock_solution_id", stock_solution_id)
+        object.__setattr__(self, "requested_mass_g", mass)
+        object.__setattr__(self, "requested_volume_ul", volume)
+        object.__setattr__(self, "role", role)
 
 
 class LabTransactionError(ValueError):
@@ -154,10 +191,20 @@ class LabService:
         concentration_fraction: float | None = None,
         concentration_basis: str | None = None,
         source: dict | None = None,
+        components: Sequence[FormulaComponentInput] = (),
     ) -> LabFormulaVersion:
+        component_rows = tuple(components)
+        stock_ids = [component.stock_solution_id for component in component_rows]
+        if len(stock_ids) != len(set(stock_ids)):
+            raise ValueError("formula components must not repeat a stock solution")
         async with self._transaction():
             if await self.repository.get_formula(formula_id) is None:
                 raise KeyError(f"Unknown formula: {formula_id}")
+            for component in component_rows:
+                if await self.repository.get_stock(component.stock_solution_id) is None:
+                    raise KeyError(
+                        f"Unknown stock solution: {component.stock_solution_id}"
+                    )
             version = LabFormulaVersion(
                 formula_id=formula_id,
                 version_number=await self.repository.next_formula_version(formula_id),
@@ -167,7 +214,20 @@ class LabService:
                 concentration_basis=concentration_basis,
                 source_json=dict(source or {}),
             )
-            return await self.repository.add(version)
+            await self.repository.add(version)
+            for position, component in enumerate(component_rows, start=1):
+                await self.repository.add(
+                    LabFormulaComponent(
+                        formula_version_id=version.id,
+                        stock_solution_id=component.stock_solution_id,
+                        position=position,
+                        requested_mass_g=component.requested_mass_g,
+                        requested_volume_ul=component.requested_volume_ul,
+                        role=component.role,
+                        unit=component.unit,
+                    )
+                )
+            return version
 
     async def update_formula_version(self, _version_id: str, **_changes) -> None:
         raise ValueError("formula versions are immutable; create a new version")

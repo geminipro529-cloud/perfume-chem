@@ -49,6 +49,9 @@ class FormulaVersionResponse(BaseModel):
     brief_json: dict
     constraints_json: dict
     concentration_fraction: float | None = None
+    concentration_basis: str | None = None
+    composition_status: Literal["recorded", "missing"] = "missing"
+    components: list[dict[str, Any]] = Field(default_factory=list)
     created_at: str | None = None
 
 
@@ -85,12 +88,21 @@ class LabFormulaCreate(LabRequest):
     name: str = Field(min_length=1, max_length=255)
 
 
+class FormulaComponentCreate(LabRequest):
+    stock_solution_id: str = Field(min_length=1)
+    requested_mass_g: float = Field(gt=0)
+    requested_volume_ul: float | None = Field(default=None, gt=0)
+    role: str | None = Field(default=None, max_length=80)
+    unit: Literal["g"] = "g"
+
+
 class FormulaVersionCreate(LabRequest):
     brief: dict[str, Any]
     constraints: dict[str, Any]
     concentration_fraction: float | None = Field(default=None, ge=0, le=1)
     concentration_basis: str | None = None
     source: dict[str, Any] = Field(default_factory=dict)
+    components: tuple[FormulaComponentCreate, ...] = ()
 
 
 class ExperimentCreate(LabRequest):
@@ -187,6 +199,40 @@ class InterventionCreate(LabRequest):
     brief: InterventionBriefCreate
     inventory: tuple[InterventionStockCreate, ...]
     candidates: tuple[InterventionCandidateCreate, ...]
+
+
+class InterventionHypothesisCreate(LabRequest):
+    brief_name: str = Field(min_length=1, max_length=255)
+    observations: tuple[str, ...] = Field(min_length=1)
+    family: str | None = None
+    profile: str | None = None
+    mode: Literal["pre_mix", "between_mix", "post_mix"] = "post_mix"
+    forbidden_materials: frozenset[str] = frozenset()
+    limit: int = Field(default=5, ge=1, le=20)
+
+
+class PipetteProfileCreate(LabRequest):
+    minimum_ul: float = Field(gt=0)
+    increment_ul: float = Field(gt=0)
+    maximum_single_step_ul: float | None = Field(default=None, gt=0)
+    standard_uncertainty_ul: float = Field(default=0, ge=0)
+    systematic_standard_uncertainty_ul: float = Field(default=0, ge=0)
+
+
+class InterventionTrialPlanCreate(LabRequest):
+    brief_name: str = Field(min_length=1, max_length=255)
+    material: str = Field(min_length=1, max_length=255)
+    bottle_total_mass_g: float = Field(gt=0)
+    current_material_active_mass_g: float = Field(default=0, ge=0)
+    stock_active_mass_fraction: float = Field(gt=0, le=1)
+    stock_density_g_ml: float | None = Field(default=None, gt=0)
+    target_active_ppm_w_w: float = Field(gt=0, le=1_000_000)
+    threshold_matrix: Literal["ethanol", "unknown"] = "unknown"
+    pipette: PipetteProfileCreate | None = None
+    evaluation_attribute: str = Field(min_length=1, max_length=255)
+    evaluation_times_seconds: tuple[int, ...] = Field(
+        default=(0, 300, 1800, 7200, 14400), min_length=1
+    )
 
 
 __all__ = [name for name in globals() if name.endswith("Create")]

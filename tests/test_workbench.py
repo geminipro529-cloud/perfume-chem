@@ -3,6 +3,8 @@ from engine.bottle_addition import AdditionRequest, BottleSnapshot, StockSolutio
 from engine.mixture import MixtureComponent, MixtureRole
 from engine.quantities import Density, MolarMass, Volume
 from engine.interventions import BriefConstraints, InterventionRequest
+from engine.intervention_hypotheses import InterventionHypothesisRequest
+from engine.intervention_trial import InterventionTrialRequest
 from engine.safety_assessment import SafetyAssessmentRequest
 from engine.workbench import CalculationMode, PerfumeWorkbench, WorkbenchFormulaRequest
 
@@ -140,6 +142,38 @@ def test_workbench_delegates_safety_and_intervention_contracts():
 
     assert safety.status.value == "unverified"
     assert interventions.ranked == ()
+
+
+def test_workbench_delegates_inventory_grounded_hypotheses():
+    result = PerfumeWorkbench().generate_intervention_hypotheses(
+        InterventionHypothesisRequest(
+            brief_name="Iris Cathedral",
+            observations=("needs texture",),
+            family="iris",
+            available_materials=("Heliotropal",),
+        )
+    )
+
+    assert result.brief_name == "Iris Cathedral"
+    assert result.evidence.classification.value == "HEURISTIC"
+    assert all(item.materials == ("Heliotropal",) for item in result.hypotheses)
+
+
+def test_workbench_delegates_intervention_trial_planning():
+    result = PerfumeWorkbench().plan_intervention_trial(
+        InterventionTrialRequest(
+            brief_name="Iris Cathedral",
+            material="Hedione",
+            bottle=BottleSnapshot(total_mass_g=10.0, active_material_mass_g=0.0),
+            stock=StockSolution(active_mass_fraction=0.10),
+            target_active_ppm_w_w=100.0,
+            evaluation_attribute="iris clarity",
+        )
+    )
+
+    assert result.achieved_active_ppm_w_w == pytest.approx(100.0)
+    assert result.oav is None
+    assert result.safety_status.value == "unverified"
 
 
 def test_workbench_rejects_material_names_that_collide_after_normalization():

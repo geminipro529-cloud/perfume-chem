@@ -56,6 +56,17 @@ OPAQUE_PREBLEND_TOKENS = (
     " reconstitution",
 )
 
+NATURAL_MIXTURE_TOKENS = (
+    " eo",
+    " essential oil",
+    " oil",
+    " absolute",
+    " resinoid",
+    " balsam",
+    " extract",
+    " co2",
+)
+
 
 @dataclass(frozen=True, slots=True)
 class MaterialState:
@@ -239,14 +250,19 @@ class FormulaState:
             # with a composite OAV computed from published GC-O constituents.
             # The monomolecular model understates natural OAV by 100-1000x.
             composite = composite_oav(m.canonical_name, active_g, total_moles)
+            requires_composite = m.is_opaque_preblend or _is_natural_mixture(m.name)
             if composite is not None:
                 oav_value = composite
+            elif requires_composite:
+                oav_value = None
             intensity = (
                 perceived_intensity_stevens(oav_value, m.family)
                 if oav_value is not None
                 else None
             )
 
+            sources = dict(m.sources)
+            sources["oav_model"] = _oav_model_source(composite, requires_composite)
             materials.append(
                 # Exact mass-fraction ppm requires every active material density.
                 MaterialState(
@@ -285,7 +301,7 @@ class FormulaState:
                     functional_groups=m.functional_groups,
                     hsp=m.hsp,
                     hsp_source=m.hsp_source,
-                    sources=m.sources,
+                    sources=sources,
                     missing_fields=m.missing_fields,
                     active_finished_product_ppm_w_w=(
                         1e6 * active_g / finished_mass_g
@@ -375,6 +391,19 @@ def _is_opaque_preblend(name: str, profile: MaterialProfile | None) -> bool:
         if any(token in prof_low for token in OPAQUE_PREBLEND_TOKENS):
             return True
     return False
+
+
+def _is_natural_mixture(name: str) -> bool:
+    low = f" {name.lower()} "
+    return any(token in low for token in NATURAL_MIXTURE_TOKENS)
+
+
+def _oav_model_source(composite: float | None, requires_composite: bool) -> str:
+    if composite is not None:
+        return "literature:natural_composite_gc_o"
+    if requires_composite:
+        return "unknown:composite_decomposition_missing"
+    return "heuristic:monomolecular_headspace"
 
 
 def _first_present(*values):
@@ -625,8 +654,12 @@ def _build_formula_state_cached(
 
         # RULE 1b — Natural Absolute Decomposition
         composite = composite_oav(canonical, active_g, total_moles)
+        is_opaque_preblend = _is_opaque_preblend(name, profile)
+        requires_composite = is_opaque_preblend or _is_natural_mixture(name)
         if composite is not None:
             oav_value = composite
+        elif requires_composite:
+            oav_value = None
         family = getattr(profile, "or_family", None) if profile else None
         intensity = (
             perceived_intensity_stevens(oav_value, family)
@@ -661,11 +694,7 @@ def _build_formula_state_cached(
             "ifra": "literature:ifra_safety"
             if ifra_limit is not None
             else "missing_or_unrestricted",
-            "oav_model": (
-                "literature:natural_composite_gc_o"
-                if composite is not None
-                else "heuristic:monomolecular_headspace"
-            ),
+            "oav_model": _oav_model_source(composite, requires_composite),
         }
         uncertainty_fields.extend(
             [
@@ -708,7 +737,7 @@ def _build_formula_state_cached(
                 registry_name=reg_name,
                 ifra_limit_pct=ifra_limit,
                 is_known=identity.is_known,
-                is_opaque_preblend=_is_opaque_preblend(name, profile),
+                is_opaque_preblend=is_opaque_preblend,
                 functional_groups=functional_groups,
                 hsp=hsp,
                 hsp_source=hsp_source,
@@ -766,4 +795,6 @@ def build_formula_state(
     )
 
 
-build_formula_state.cache_clear = _build_formula_state_cached.cache_clear
+build_formula_state.cache_clear = (  # type: ignore[attr-defined]
+    _build_formula_state_cached.cache_clear
+)
