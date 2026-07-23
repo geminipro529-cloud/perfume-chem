@@ -114,19 +114,20 @@ All materials are chosen to preserve the LNDL cardamom-to-coumarin arc while sub
 
 **Concentrate**: 3305→3395 µL (+2.7%) | **Active**: 2942.6→2973.6 µL (+1.1%) | **Concentration**: 27.5%→11.3% v/v (30mL total fill)
 
-<!-- PIPELINE_ANALYSIS_START -->
+---
+
 ## Pipeline Analysis
 
-<!-- pipeline-analysis-manifest: {"analysis_sha256":"934dc41c21cf9e0a37dedd29c27ffe4d84be4cfde682a198c1e0a2da5c23bdf7","artifact_sha256":"4c01a75ba620f464cfefb1f4fe37e521e84c709d6f26aacba14322b36ae45e5e","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_FINISHED_PRODUCT_MATRIX_PROXY"],"quantitative":["WARN"],"stock":["PASS"]},"config_sha256":"6b359b6fa6084bea9a6620a259fa12bce48afe2a79f0f3e6f6034243551b432a","formula_definitions":[{"name":"La Nuit de Bleu Chamomile — 30mL EDP","number":1,"sha256":"b338743ae117a42058254174d524c362229bea01ebbda24846af5c881ad5cc8f"}],"generated_at_utc":"2026-07-22T19:34:55.627885+00:00","inventory_sha256":"9d38c6b69bff8bdbf6ae261d098ab19f7f87d70b9ca80f042a809eba2166e4aa","legacy_formula_hashes_v1":[{"name":"La Nuit de Bleu Chamomile — 30mL EDP","number":1,"sha256":"659adb97867d7aa36f72aa98d1f7e464ee3fa961488e52731118735e55639aed"}],"overall":"FAIL","pipeline_source_sha256":"b40d777923bad9c261711971930243cde5800b541725c14ce3ad32b795009997","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"64c55a2bab2114998e0b4c094ffd4549f5552e7c53a187a8475143adb57b3c9d","semantic_config":{"formula_family_archetypes":["aromatic_fougere"],"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"aromatic_fougere","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":3395,"expected_retail_price_thb":1500,"family_archetype":"","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
+Run-Date: 2026-07-23
+Brief: aromatic_fougere
 
-```text
 # Run Evidence Contract
 
 Formula definition SHA-256: #1 b338743ae117a42058254174d524c362229bea01ebbda24846af5c881ad5cc8f
-Config SHA-256: 6b359b6fa6084bea9a6620a259fa12bce48afe2a79f0f3e6f6034243551b432a
+Config SHA-256: a52633fb5392224a27569420e8c58ee1de6e5fc3387e8025ab1eeaff3dd1f38c
 Inventory SHA-256: 9d38c6b69bff8bdbf6ae261d098ab19f7f87d70b9ca80f042a809eba2166e4aa
 Scientific inputs SHA-256: 64c55a2bab2114998e0b4c094ffd4549f5552e7c53a187a8475143adb57b3c9d
-Pipeline source SHA-256: b40d777923bad9c261711971930243cde5800b541725c14ce3ad32b795009997
+Pipeline source SHA-256: 2f329ef08260e24e403ec99b317496d6fbfee608250adcea0967945e6b08843f
 Exact concentrate ppm w/w: UNAVAILABLE
 Headspace/OAV basis: MODELED_FINISHED_PRODUCT_MATRIX_PROXY
 Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
@@ -138,8 +139,9 @@ Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
 
 ## Gate Summary
 
-**114 PASS** / **28 WARN** / **1 FAIL**
+**113 PASS** / **28 WARN** / **2 FAIL**
 
+  FAIL exact_subtotal: 3395.0 uL parsed; expected 3305.0 uL
   FAIL confidence_minimum: combined confidence 0.0 below 25.0 after preflight science penalty 28.9
   WARN pipeline_preflight: 12 checks; 8 warnings
   WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
@@ -386,5 +388,4 @@ Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
 
 ### Issues
   ! 9 sub-threshold material(s): Benzyl Salicylate, Blue Chamomile EO, Carrot Seed EO, Ethylene Brassylate, Evernyl, Hexyl Salicylate, Methyl Pamplemousse, Tonkarome, Zenolide
-```
-<!-- PIPELINE_ANALYSIS_END -->
+
