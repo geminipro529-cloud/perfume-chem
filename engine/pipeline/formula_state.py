@@ -385,9 +385,10 @@ class FormulaState:
             )
             requires_composite = m.is_opaque_preblend or _is_natural_mixture(m.name)
             if composite is not None:
-                oav_value = composite
-            elif requires_composite:
-                oav_value = None
+                oav_value = composite  # use accurate multi-constituent model
+            # Fall through: unmodeled naturals keep their monomolecular OAV.
+            # Composite decomposition is a better model, but monomolecular
+            # (Raoult-law) is a better estimate than zero.
             intensity = (
                 perceived_intensity_stevens(oav_value, m.family) if oav_value is not None else None
             )
@@ -886,9 +887,10 @@ def _build_formula_state_cached(
         is_opaque_preblend = _is_opaque_preblend(name, profile)
         requires_composite = is_opaque_preblend or _is_natural_mixture(name)
         if composite is not None:
-            oav_value = composite
-        elif requires_composite:
-            oav_value = None
+            oav_value = composite  # use accurate multi-constituent model
+        # Fall through: unmodeled naturals keep their monomolecular OAV.
+        # Composite decomposition is a better model, but monomolecular
+        # (Raoult-law) is a better estimate than zero.
         family = getattr(profile, "or_family", None) if profile else None
         intensity = (
             perceived_intensity_stevens(oav_value, family) if oav_value is not None else None
