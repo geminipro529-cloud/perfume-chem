@@ -1,8 +1,19 @@
 # Checkpoint 1 — Plan v5-R rev3 resume point
 
 **Date:** 2026-07-23  
-**Plan:** plan-v5-r-replan-rev-3-consoli-2026-07-23-approved.md (in `~/.plannotator/plans/`)  
+**Plan:** `.omo/plans/plan-v5-r-replan-rev-3-consolidate.md` (repo-resident copy; original also at `~/.plannotator/plans/`)  
 **Branch:** `codex/add-inventory-materials`
+
+## How to resume in a new OpenCode session
+
+Open a new OpenCode session in this workspace (`D:\chatbots\perfume-chem`), then say:
+
+> Resume Plan v5-R rev3 from checkpoint 1.
+> Read `.omo/start-work/v5-r-checkpoint-1.md` and `.omo/plans/plan-v5-r-replan-rev-3-consolidate.md` first.
+> Start from B3 (Cassis Iris Smoke gating).
+> Remember to read `inventory.txt` before any pipeline gate (RULE 0 enforced by the inventory-guard plugin).
+
+The combined context (~30 KB markdown) reconstructs the plan + state, so the new session can begin B3 without losing decisions or quality bar. Use the deepseek-delegation protocol from plan rev3 §"DeepSeek delegation strategy" for B3/B4/C1-C5 work — mechancial parts delegated, synthesis/writing kept by you (orchestrator).
 
 ## What is DONE (committed)
 
