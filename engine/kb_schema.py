@@ -11,8 +11,8 @@ Usage:
     create_database("data/perfumery_kb.db")
 """
 
-import sqlite3
 import os
+import sqlite3
 
 
 def _create_tables(conn: sqlite3.Connection) -> None:

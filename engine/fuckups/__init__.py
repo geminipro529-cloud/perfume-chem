@@ -11,8 +11,8 @@ Architecture:
   registry.py — persistent store of fuckup entries (JSON-backed)
 """
 
-from .models import FuckupEntry, DetectionWarning, RootCauseCategory
 from .detector import FuckupDetector, scan_formula
+from .models import DetectionWarning, FuckupEntry, RootCauseCategory
 from .registry import FuckupRegistry, get_registry
 
 __all__ = [

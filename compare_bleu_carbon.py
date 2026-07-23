@@ -1,6 +1,7 @@
 """Validate Bleu Carbon v2 — compare against v1 baseline."""
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 if sys.platform == "win32":
@@ -8,20 +9,20 @@ if sys.platform == "win32":
 
 import re
 
+from engine.family_scorer import FamilyAwareScorer
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
-from engine.family_scorer import FamilyAwareScorer
 from engine.pipeline.gates import gate_formula
+
 
 def parse_formula(path_str):
     path = Path(path_str)
     text = path.read_text(encoding="utf-8")
     ingredients_ul = {}
     dilutions = {}
-    
+
     # Parse all table rows — skip summary tables (look for "Role" column or section headers)
     in_summary = False
-    in_formula_section = False
     for line in text.split("\n"):
         if "Summary Table" in line:
             in_summary = True
@@ -30,15 +31,14 @@ def parse_formula(path_str):
             in_summary = False
             continue
         if "Layer A" in line or "Layer B" in line or "Layer C" in line or "TOP" in line or "HEART" in line or "BASE" in line:
-            in_formula_section = True
             continue
         if "Dilution" in line and "Ethanol" in line:
             continue
-            
+
         # Skip summary table rows (4-column format without Active/Role)
         if in_summary:
             continue
-            
+
         # Match 6-column with optional bold on amount: **700**
         m = re.match(r'\|\s*(\d+|[A-Z]\d+)\s*\|\s*\*?\*?(.+?)\*?\*?\s*\|\s*(.+?)\s*\|\s*\*?\*?([\d,.]+)\*?\*?\s*\|\s*([\d,.]+)\s*\|', line)
         if m:
@@ -58,7 +58,7 @@ def parse_formula(path_str):
             ingredients_ul[name] = amount
             dm = re.match(r"(\d+(?:\.\d+)?)\s*%", dil_raw)
             dilutions[name] = float(dm.group(1)) / 100.0 if dm else 1.0
-    
+
     total_ul = sum(ingredients_ul.values())
     pct = {n: (v / total_ul) * 100 for n, v in ingredients_ul.items()}
     return ingredients_ul, dilutions, total_ul, pct
@@ -140,11 +140,11 @@ try:
     passes = [g for g in report.gates if g.status == "PASS"]
     print(f"  STATUS: {report.status} ({len(passes)}P / {len(warnings)}W / {len(failures)}F)")
     if failures:
-        print(f"  FAILURES:")
+        print("  FAILURES:")
         for g in failures:
             print(f"    [{g.status}] {g.gate:<30} {str(g.detail)[:100]}")
     if warnings:
-        print(f"  WARNINGS:")
+        print("  WARNINGS:")
         for g in warnings:
             print(f"    [{g.status}] {g.gate:<30} {str(g.detail)[:100]}")
 except Exception as e:

@@ -31,8 +31,8 @@ from engine.orchestration.brief import (  # noqa: F401
     translate_brief,
 )
 from engine.orchestration.iec_loop import (  # noqa: F401
-    IECHyperparameters,
     IECHistory,
+    IECHyperparameters,
     iec_optimize,
     roudnitska_test,
 )

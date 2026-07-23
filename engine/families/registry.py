@@ -6,8 +6,10 @@ thresholds scattered across the codebase.
 """
 
 from __future__ import annotations
+
 from dataclasses import dataclass, field
 from typing import Mapping
+
 from engine.name_utils import normalize_name
 
 
@@ -177,6 +179,7 @@ ALDEHYDES = (
     "Aldehyde C12 MNA",
 )
 NEROLI_ORANGE_BLOSSOM = (
+    "Neroli EO",
     "Aurantiol",
     "Nerol",
     "Oranger Crystals",
@@ -482,6 +485,8 @@ WOODY_FLORAL_MUSK_MUSKS = (
     "Romandolide",
     "Ethylene Brassylate",
     "Ambrettolide",
+    "Zenolide",
+    "Exaltolide",
     "Musk Ketone",
     "Molecule Iris",
 )
@@ -492,6 +497,7 @@ WOODY_FLORAL_MUSK_IRIS = (
     "Orivone",
     "I-IRIS F-TEC",
     "Methyl Ionone",
+    "Dihydro Beta Ionone",
     "Ultralia",
 )
 
@@ -1713,6 +1719,103 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
         },
         novelty_message="Iris-amber-woody DHI niche DNA: sandalwood-iris backbone, Ambrofix-modern, transparent wood diffusion.",
     ),
+    "iris_amber_woody.prada_lhomme_reference": ArchetypeSpec(
+        key="iris_amber_woody.prada_lhomme_reference",
+        family="iris_amber_woody",
+        label="Clean iris-neroli amber-wood / Prada L'Homme architecture control",
+        role="reference_control",
+        anchors=(
+            _rule("neroli_marker", ("Neroli EO",), minimum=0.10),
+            _rule(
+                "violet_iris_core",
+                (
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Dihydro Beta Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Orris Liquid (30%)",
+                    "Orivone",
+                ),
+                minimum=4.0,
+            ),
+            _rule(
+                "geranium_marker",
+                (
+                    "Geranium EO (Pelargonium graveolens flower oil)",
+                    "Geranium Flower EO",
+                    "Geraniol",
+                    "Rhodinol ex Citronella",
+                ),
+                minimum=0.10,
+            ),
+            _rule(
+                "black_pepper_marker",
+                ("Black Pepper EO", "Black Pepper FTEC"),
+                minimum=0.02,
+            ),
+            _rule(
+                "amber_marker",
+                ("Ambrox Super", "Ambrofix", "Amberwood F", "Cedramber"),
+                minimum=0.75,
+            ),
+            _rule(
+                "cedar_frame",
+                (
+                    "Cedarwood EO",
+                    "Cedarwood oil Virginia",
+                    "Timberol",
+                    "Iso E Super",
+                ),
+                minimum=7.0,
+            ),
+            _rule("patchouli_marker", ("Patchouli EO", "Clearwood"), minimum=0.35),
+            _rule(
+                "clean_musk_chord",
+                (
+                    "Zenolide",
+                    "Ethylene Brassylate",
+                    "Exaltolide (10%)",
+                    "Ambrettolide (10% in DPG)",
+                ),
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_gourmand", GOURMAND + LOUD_FRUIT, maximum=0.75),
+            _rule(
+                "not_leathery_or_smoky",
+                (
+                    "Isobutyl Quinoline (10%)",
+                    "Birch Tar Rectified",
+                    "Guaiacol (10%)",
+                    "Suederal (10%)",
+                ),
+                basis="raw",
+                maximum=0.20,
+            ),
+            _rule("not_marine", MARINE, basis="raw", maximum=0.30),
+            _rule("not_citrus_cologne", CITRUS, maximum=4.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"neroli": 180, "citrus": 120, "spicy": 35},
+            "heart": {"iris": 500, "floral": 350, "muguet": 160, "wood": 80},
+            "base": {"amber": 100, "wood": 140, "musk": 30, "patchouli": 25},
+        },
+        repair_pool={
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 1.5,
+            "Neroli EO": 1.2,
+            "Mayol": 1.0,
+            "Iso E Super": 1.0,
+            "Ethylene Brassylate": 0.9,
+            "Patchouli EO": 0.7,
+        },
+        novelty_reference="Prada L'Homme official note architecture only",
+        novelty_message=(
+            "Clean iris-neroli amber-wood architecture; no formula ratios or sensory-equivalence claim."
+        ),
+    ),
     "iris_coumarin_amber.dhi2011": ArchetypeSpec(
         key="iris_coumarin_amber.dhi2011",
         family="iris_coumarin_amber",
@@ -2094,6 +2197,7 @@ BRIEF_DEFAULTS = {
     "vetiver_woody": "woody.vetiver_classical",
     "floral_aldehydic_amber": "floral_aldehydic_amber.classic",
     "iris_amber_woody": "iris_amber_woody.classic",
+    "prada_lhomme": "iris_amber_woody.prada_lhomme_reference",
     "iris_leather_amber": "iris_leather_amber.classic",
     "dhi_2011": "iris_coumarin_amber.dhi2011",
     "dhi_2025": "iris_ambrox_amber.dhi2025",

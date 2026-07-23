@@ -36,10 +36,9 @@ implemented inline below (Phase 4 will be the production-grade version).
 
 from __future__ import annotations
 
-import math
 import random
 from dataclasses import dataclass, field
-from typing import Callable, Sequence
+from typing import Callable
 
 from future_modules.iteration_protocol import (  # type: ignore[import-not-found]
     EVALUATION_DISTANCES,

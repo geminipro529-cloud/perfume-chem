@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass
 from math import isfinite
-import re
 
 from engine.bottle_addition import (
     AdditionRequest,
@@ -15,6 +15,7 @@ from engine.bottle_addition import (
     StockSolution,
 )
 from engine.material_resolver import resolve_material
+from engine.name_utils import names_match
 from engine.odor_thresholds import (
     lookup_odt_entry,
     odt_collision_names,
@@ -111,6 +112,190 @@ class InterventionTrialResult:
             },
             "warnings": list(self.warnings),
         }
+
+
+@dataclass(frozen=True, slots=True)
+class BatchRescueContext:
+    """Provenance required before calculating an addition-only rescue trial."""
+
+    batch_id: str
+    formula_state_sha256: str
+    immutable_ledger_complete: bool
+    previous_additions_complete: bool
+    observed_defect: str
+    preserve_attributes: tuple[str, ...]
+    stock_identity: str
+    stock_fraction_basis: str
+    stock_fraction_source: str
+    stock_carrier: str
+    stock_density_source: str
+    bottle_mass_source: str
+    product_category: str
+
+    def __post_init__(self) -> None:
+        for field_name in (
+            "batch_id",
+            "formula_state_sha256",
+            "observed_defect",
+            "stock_identity",
+            "stock_fraction_basis",
+            "stock_fraction_source",
+            "stock_carrier",
+            "stock_density_source",
+            "bottle_mass_source",
+            "product_category",
+        ):
+            object.__setattr__(
+                self,
+                field_name,
+                str(getattr(self, field_name) or "").strip(),
+            )
+        object.__setattr__(
+            self,
+            "preserve_attributes",
+            tuple(
+                str(value).strip()
+                for value in self.preserve_attributes
+                if str(value).strip()
+            ),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class BatchRescueReadiness:
+    status: str
+    missing_inputs: tuple[str, ...]
+    source_bottle_addition_authorized: bool
+    separate_aliquot_plan_authorized: bool
+    skin_application_authorized: bool
+    next_action: str
+
+    def as_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class BatchRescuePlan:
+    readiness: BatchRescueReadiness
+    trial: InterventionTrialResult | None
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "readiness": self.readiness.as_dict(),
+            "trial": self.trial.as_dict() if self.trial is not None else None,
+        }
+
+
+def assess_batch_rescue_readiness(
+    context: BatchRescueContext,
+    trial_request: InterventionTrialRequest,
+) -> BatchRescueReadiness:
+    """Fail closed unless the source state and candidate stock are traceable."""
+    missing: list[str] = []
+    if not context.batch_id:
+        missing.append("batch_id")
+    if not re.fullmatch(r"[0-9a-fA-F]{64}", context.formula_state_sha256):
+        missing.append("formula_state_sha256")
+    if not context.immutable_ledger_complete:
+        missing.append("immutable_ledger_complete")
+    if not context.previous_additions_complete:
+        missing.append("previous_additions_complete")
+    if not context.observed_defect:
+        missing.append("observed_defect")
+    if not context.preserve_attributes:
+        missing.append("preserve_attributes")
+    if not context.stock_identity or not names_match(
+        context.stock_identity, trial_request.material
+    ):
+        missing.append("stock_identity_matches_candidate")
+    if context.stock_fraction_basis.casefold() not in {
+        "neat",
+        "mass_fraction",
+        "mass_per_volume",
+        "volume_fraction",
+    }:
+        missing.append("stock_fraction_basis")
+    if not context.stock_fraction_source:
+        missing.append("stock_fraction_source")
+    if (
+        trial_request.stock.active_mass_fraction < 1.0
+        and not context.stock_carrier
+    ):
+        missing.append("stock_carrier")
+    if trial_request.stock.density_g_ml is None:
+        missing.append("stock_density_g_ml")
+    if not context.stock_density_source:
+        missing.append("stock_density_source")
+    if not context.bottle_mass_source:
+        missing.append("bottle_mass_source")
+    if not context.product_category:
+        missing.append("product_category")
+    if trial_request.pipette is None:
+        missing.append("pipette_profile")
+
+    unique_missing = tuple(dict.fromkeys(missing))
+    if unique_missing:
+        return BatchRescueReadiness(
+            status="NEEDS_INPUT",
+            missing_inputs=unique_missing,
+            source_bottle_addition_authorized=False,
+            separate_aliquot_plan_authorized=False,
+            skin_application_authorized=False,
+            next_action=(
+                "Complete the immutable batch and stock record; do not add to "
+                "the source bottle."
+            ),
+        )
+    return BatchRescueReadiness(
+        status="ALIQUOT_INPUTS_READY",
+        missing_inputs=(),
+        source_bottle_addition_authorized=False,
+        separate_aliquot_plan_authorized=True,
+        skin_application_authorized=False,
+        next_action=(
+            "Calculate and prepare a separate coded non-skin aliquot; retain an "
+            "unaltered control and do not modify the source bottle."
+        ),
+    )
+
+
+def plan_finished_batch_rescue(
+    context: BatchRescueContext,
+    trial_request: InterventionTrialRequest,
+    *,
+    addition_solver: AdditionSolver | None = None,
+) -> BatchRescuePlan:
+    """Create an addition-only aliquot trial while keeping the bottle immutable."""
+    readiness = assess_batch_rescue_readiness(context, trial_request)
+    if not readiness.separate_aliquot_plan_authorized:
+        return BatchRescuePlan(readiness=readiness, trial=None)
+
+    trial = plan_intervention_trial(
+        trial_request,
+        addition_solver=addition_solver,
+    )
+    if not trial.addition.pipette_feasible:
+        readiness = BatchRescueReadiness(
+            status="ALIQUOT_PLAN_NOT_MEASURABLE",
+            missing_inputs=("measurable_delivery_plan",),
+            source_bottle_addition_authorized=False,
+            separate_aliquot_plan_authorized=False,
+            skin_application_authorized=False,
+            next_action=(
+                "Prepare a lower-concentration candidate stock or use calibrated "
+                "equipment that can deliver the calculated amount."
+            ),
+        )
+    else:
+        readiness = BatchRescueReadiness(
+            status="ALIQUOT_TRIAL_READY",
+            missing_inputs=(),
+            source_bottle_addition_authorized=False,
+            separate_aliquot_plan_authorized=True,
+            skin_application_authorized=False,
+            next_action=readiness.next_action,
+        )
+    return BatchRescuePlan(readiness=readiness, trial=trial)
 
 
 def plan_intervention_trial(
@@ -313,8 +498,13 @@ def _source_strings(value: object) -> tuple[str, ...]:
 
 
 __all__ = [
+    "BatchRescueContext",
+    "BatchRescuePlan",
+    "BatchRescueReadiness",
     "EvaluationProtocol",
     "InterventionTrialRequest",
     "InterventionTrialResult",
+    "assess_batch_rescue_readiness",
+    "plan_finished_batch_rescue",
     "plan_intervention_trial",
 ]

@@ -148,7 +148,7 @@ Build the reformulated formula file from the adapted existing formula.
   **QA scenarios:**
   - Happy: Formula file parses correctly by pipeline parser → evidence: pipeline gate runs without parse errors
   - Failure: If a material name doesn't match inventory, inventory guard catches it → evidence: inventory guard output
-  - **Evidence:** .omo/evidence/task-1-aventus-chypre-fruity.md
+  - **Evidence:** .omo/evidence/ta[REDACTED_PROVIDER_KEY].md
 
   **Commit:** Y | feat(formulas): add Aventus Chypre Fruity 30mL EdP formula
 
@@ -176,7 +176,7 @@ Build the reformulated formula file from the adapted existing formula.
   **QA scenarios:**
   - Happy: All materials found → inventory guard reports 0 issues
   - Failure: Missing material flagged → fix formula, re-run guard
-  - **Evidence:** .omo/evidence/task-2-aventus-chypre-fruity.txt
+  - **Evidence:** .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
 
   **Commit:** N (verification only)
 
@@ -245,7 +245,7 @@ Build the reformulated formula file from the adapted existing formula.
   **QA scenarios:**
   - Happy: Analysis script runs, all sections produced → evidence: analysis output in chat + appended to formula file
   - Failure: Analysis script errors → check JSON validity, re-run
-  - **Evidence:** .omo/evidence/task-4-aventus-chypre-fruity.md (analysis output)
+  - **Evidence:** .omo/evidence/ta[REDACTED_PROVIDER_KEY].md (analysis output)
 
   **Commit:** Y | docs(formulas): add pipeline analysis to Aventus Chypre Fruity
 
@@ -272,7 +272,7 @@ Build the reformulated formula file from the adapted existing formula.
   **QA scenarios:**
   - Happy: Clear iteration plan with specific µL adjustments → evidence: iteration plan in chat
   - Failure: If formula is perfect on first pass (unlikely), document why no changes needed
-  - **Evidence:** .omo/evidence/task-5-aventus-chypre-fruity.md
+  - **Evidence:** .omo/evidence/ta[REDACTED_PROVIDER_KEY].md
 
   **Commit:** N (analysis only)
 

@@ -1,3 +1,7 @@
+import engine.pipeline.gates as gates_module
+from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
+from engine.name_utils import normalize_name
+from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
 from engine.pipeline.gates import (
     ReleaseGateConfig,
     _apply_guideline_policy,
@@ -5,8 +9,6 @@ from engine.pipeline.gates import (
     _status_from_gates,
     gate_formula,
 )
-from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
-from engine.name_utils import normalize_name
 
 
 def _formula(ingredients, dilutions=None, name="Test Formula"):
@@ -28,6 +30,27 @@ def test_guideline_policy_demotes_advisory_failures_to_warnings():
     assert normalized.status == "WARN"
     assert normalized.data["original_status"] == "FAIL"
     assert _status_from_gates([normalized]) == "WARN"
+
+
+def test_perfumer_logic_routes_registered_nonlegacy_brief_to_its_archetype():
+    formula = _formula(
+        {
+            "Iso E Super": 1800.0,
+            "Hedione": 900.0,
+            "Ethylene Brassylate": 600.0,
+            "Dihydro Beta Ionone": 300.0,
+        },
+        name="Woody Floral Musk",
+    )
+
+    report = evaluate_perfumer_logic(formula, brief="woody_floral_musk")
+
+    assert report.brief == "woody_floral_musk.classic"
+    assert all(check.name != "perfumer_logic_brief" for check in report.checks)
+
+
+def test_jellinek_classification_spells_ambrettolide_correctly():
+    assert gates_module._JELLINEK_CLASSES["ambrettolide"] == "erogenic"
 
 
 def test_guideline_policy_keeps_hard_blockers_failing():

@@ -3,25 +3,24 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
-from hashlib import sha256
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
+import venv
+from dataclasses import dataclass
+from hashlib import sha256
+from pathlib import Path
 from typing import Callable, Iterable, Sequence
 from urllib.error import URLError
 from urllib.request import urlopen
-import venv
 
 from engine.odor_thresholds import ODT_VERIFICATION
 from engine.release_readiness import ReadinessInput, build_release_readiness
 from engine.science_audit import build_science_audit_contract
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -54,6 +53,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_workbench.py",
     ),
     "data-knowledge": (
+        "tests/test_aromachemical_expansion.py",
         "tests/test_data_spine_loader.py",
         "tests/test_ifra_safety.py",
         "tests/test_inventory_material_additions.py",
@@ -61,6 +61,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_kb_query.py",
         "tests/test_literature_rules_contract.py",
         "tests/test_property_estimator.py",
+        "tests/test_range_gap_analysis.py",
         "tests/test_science_audit.py",
         "tests/test_science_kb.py",
     ),
@@ -77,6 +78,8 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_pipeline_part5.py",
         "tests/test_pipeline_preflight.py",
         "tests/test_pipeline_robustness.py",
+        "tests/test_pipeline_scenario_matrix.py",
+        "tests/test_run_evidence_contract.py",
     ),
     "legacy": (
         "tests/test_calibration_feedback.py",
@@ -255,6 +258,15 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "engine/project_verification.py",
             ),
         ),
+        CheckSpec(
+            "formula-artifact-validation",
+            (
+                python,
+                "scripts/pipeline_audit.py",
+                "artifact-verify",
+                "--json",
+            ),
+        ),
     ]
 
     for shard_name, paths in _ENGINE_TEST_SHARDS.items():
@@ -349,7 +361,10 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 ),
                 cwd="backend",
             ),
-            CheckSpec("package-build", (python, "-m", "build")),
+            CheckSpec(
+                "package-build",
+                (python, "-m", "build", "--no-isolation"),
+            ),
             CheckSpec(
                 "package-wheel-smoke",
                 (
@@ -400,11 +415,18 @@ def _tail(value: str, line_count: int = 30) -> str:
 
 
 def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]:
+    verification_temp = project_root / "output" / "verification-temp"
+    verification_temp.mkdir(parents=True, exist_ok=True)
+    pip_cache = project_root / "output" / "verification-pip-cache"
+    pip_cache.mkdir(parents=True, exist_ok=True)
+
     def run(spec: CheckSpec) -> CommandOutcome:
         started = time.monotonic()
-        env = None
+        env = dict(os.environ)
+        env["TEMP"] = str(verification_temp)
+        env["TMP"] = str(verification_temp)
+        env["PIP_CACHE_DIR"] = str(pip_cache)
         if spec.cwd == "backend":
-            env = dict(os.environ)
             env.setdefault("OPENAI_API_KEY", "test-key")
             env.setdefault("SECRET_KEY", "test-secret-key-for-ci")
         try:
@@ -501,6 +523,7 @@ def _select_checks(
             "engine-compile",
             "engine-lint",
             "engine-typecheck",
+            "formula-artifact-validation",
             "scientific-audit",
             "material-data-validation",
             "knowledge-rule-validation",
@@ -678,10 +701,18 @@ def smoke_installed_wheel(dist_dir: Path) -> int:
     with tempfile.TemporaryDirectory(prefix="perfume-chem-wheel-") as temp_name:
         temp_dir = Path(temp_name)
         venv_dir = temp_dir / "venv"
-        venv.EnvBuilder(with_pip=True).create(venv_dir)
+        venv.EnvBuilder(with_pip=True, system_site_packages=True).create(venv_dir)
         python = _wheel_python(venv_dir)
         install = subprocess.run(
-            (str(python), "-m", "pip", "install", str(wheels[-1].resolve())),
+            (
+                str(python),
+                "-m",
+                "pip",
+                "install",
+                "--no-deps",
+                "--no-index",
+                str(wheels[-1].resolve()),
+            ),
             cwd=temp_dir,
             capture_output=True,
             text=True,

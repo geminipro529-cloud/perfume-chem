@@ -1,6 +1,12 @@
 import json
 
-from app.services.lab_assistant import AssistantRequest, build_assistant_packet
+import pytest
+
+from app.services.lab_assistant import (
+    AssistantRequest,
+    build_assistant_packet,
+    classify_chat_intent,
+)
 
 
 def test_supported_assistant_packet_is_byte_stable_and_complete():
@@ -60,3 +66,48 @@ def test_assistant_refuses_unsupported_scientific_claim():
     assert packet.calculations == {}
     assert packet.evidence["assistant_claim"]["classification"] == "UNKNOWN"
     assert "supported intent" in packet.next_action
+
+
+@pytest.mark.parametrize(
+    ("prompt", "expected"),
+    [
+        ("Make Prada L'Homme with my current materials", "reference_formulation"),
+        ("Design a luxury orris version of this fragrance", "reference_formulation"),
+        ("Can you reconstruct a classic aromatic fougere?", "reference_formulation"),
+        ("I want something inspired by Eau Sauvage", "reference_formulation"),
+        ("What ingredient should I buy next?", "purchase_gap_analysis"),
+        ("Which materials should I purchase to extend my range?", "purchase_gap_analysis"),
+        ("What are the next best ingredients?", "purchase_gap_analysis"),
+        ("Which perfume families have I not made?", "family_gap_analysis"),
+        ("What types of perfume are missing from my collection?", "family_gap_analysis"),
+        ("What family should I try next?", "family_gap_analysis"),
+        ("This perfume is weak and has no projection", "performance_diagnosis"),
+        ("Why doesn't this fragrance last?", "performance_diagnosis"),
+        ("The sillage fades too fast", "performance_diagnosis"),
+        ("How do I save this finished batch?", "finished_batch_rescue"),
+        ("How much should I add to fix my perfume?", "finished_batch_rescue"),
+        ("Additions only to an already mixed fragrance", "finished_batch_rescue"),
+        ("Rescue the source bottle without reformulating", "finished_batch_rescue"),
+        ("Is this perfume safe for skin use?", "safety_assessment"),
+        ("Check IFRA and allergens", "safety_assessment"),
+        ("Analyze what is wrong with this formula", "formula_analysis"),
+        ("Diagnose why did my formula fail", "formula_analysis"),
+        ("What does OAV mean in perfume?", "perfume_knowledge_question"),
+        ("Tell me about fragrance evaporation", "perfume_knowledge_question"),
+    ],
+)
+def test_chat_prompts_route_deterministically(prompt, expected):
+    route = classify_chat_intent(prompt)
+
+    assert route is not None
+    assert route.intent == expected
+
+
+def test_chat_request_is_preserved_as_input_not_promoted_to_a_claim():
+    prompt = "What does OAV mean in perfume?"
+    packet = build_assistant_packet(AssistantRequest(intent=prompt))
+
+    assert packet.status == "ready"
+    assert packet.intent == "perfume_knowledge_question"
+    assert packet.facts["chat_request"] == prompt
+    assert packet.evidence["intent_routing"]["classification"] == "EXACT"

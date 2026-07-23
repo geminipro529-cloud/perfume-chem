@@ -44,7 +44,6 @@ from engine.ingredient_intelligence import get_profile
 from engine.name_utils import normalize_name
 from engine.optimizer.oav_guard import _lookup_odt
 
-
 # ── data structures ──────────────────────────────────────────────────────────
 
 @dataclass
@@ -353,7 +352,7 @@ def print_terminal(results: list[FormulaSpec], batch_ml: float) -> None:
             continue
         cov = sum(1 for r in formula.rows if r.odt_ppm is not None)
         no_odt = len(formula.rows) - cov
-        dominant = sum(1 for r in formula.rows if r.oav is not None and r.oav >= 300)
+        sum(1 for r in formula.rows if r.oav is not None and r.oav >= 300)
         max_oav = max((r.oav or 0.0 for r in formula.rows), default=0.0)
 
         print()
@@ -397,8 +396,8 @@ def print_terminal(results: list[FormulaSpec], batch_ml: float) -> None:
           f"{_color_text('dominant >300x', 'dominant')}  "
           f"{_color_text('no ODT data', 'no_odt')}")
     print()
-    print(f"  OAV = ppm(finished product) / ODT(ethanol, ppm)")
-    print(f"  ODT source: engine.odor_thresholds with ingredient_intelligence fallback")
+    print("  OAV = ppm(finished product) / ODT(ethanol, ppm)")
+    print("  ODT source: engine.odor_thresholds with ingredient_intelligence fallback")
     print()
 
 

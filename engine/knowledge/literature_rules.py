@@ -38,11 +38,23 @@ try:
         sys.path.insert(0, str(_repo_root))
     from future_modules.literature_references import (
         ALL_REFERENCES as _ALL_REFS,
+    )
+    from future_modules.literature_references import (
         TOPIC_REFERENCES as _TOPIC_REFS,
+    )
+    from future_modules.literature_references import (
         cite as _cite,
+    )
+    from future_modules.literature_references import (
         get_reference as _get_ref,
-        get_references_by_topic as _get_topic_refs,
+    )
+    from future_modules.literature_references import (
         get_references_by_tier as _get_refs_by_tier,
+    )
+    from future_modules.literature_references import (
+        get_references_by_topic as _get_topic_refs,
+    )
+    from future_modules.literature_references import (
         get_tier_counts as _get_tier_counts,
     )
 

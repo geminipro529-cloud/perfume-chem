@@ -88,6 +88,9 @@ _ALIASES: dict[str, str] = {
     "myristic acid": "myristic acid powder",
     "galaxolide (50% in dep)": "galaxolide",
     "heliotropal (piperonal)": "heliotropal",
+    "heliotropin": "heliotropal",
+    "piperonal": "heliotropal",
+    "cedamber": "cedramber",
     "vanillin (10%)": "vanillin",
     "ethyl vanillin (10%)": "ethyl vanillin",
     "ethyl vanillin (10% in dpg)": "ethyl vanillin",
@@ -124,10 +127,15 @@ _ALIASES: dict[str, str] = {
     "tuberose absolute (india)": "tuberose absolute (india)",
     "tuberose eo": "tuberose absolute (india)",
     "cocoa absolute (10% in tec)": "cocoa absolute",
+    # Cocoa Absolute and Cocoa CO2 Extract are distinct natural mixtures.
+    # Preserve the old inaccurate label only as an alias for the CO2 extract.
+    "cocoa co2 absolute": "cocoa co2 extract",
+    "cocoa co2 abs": "cocoa co2 extract",
     "oakmoss absolute (10% in dpg)": "oakmoss absolute",
     "evernyl (50% in dpg)": "evernyl",
     # ── EO Aliases ──
     "lavender ha": "lavender eo high altitude",
+    "lavender eo ha": "lavender eo high altitude",
     "nagar motha oil": "nagarmortha oil",
     "immortelle absolute (10% in dpg)": "immortelle absolute",
     "rose essential oil (rosa damascena, india)": "rose essential oil",

@@ -9,6 +9,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -51,6 +52,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -87,6 +89,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -124,6 +127,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 190.0
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.05
@@ -178,6 +182,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 1.0
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.002
@@ -225,6 +230,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 0.6
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.001
@@ -271,6 +277,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 1.5, corrected to 0.08)
   vp_25c_pa: 0.08
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.003
@@ -306,6 +313,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -348,6 +356,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.8, corrected to 6.67)
   vp_25c_pa: 6.67
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.003
@@ -394,6 +403,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -429,6 +439,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -465,6 +476,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -499,6 +511,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.003)
   vp_25c_pa: 0.003
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -547,6 +560,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -580,6 +594,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -616,6 +631,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -654,6 +670,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.1)
   vp_25c_pa: 0.1
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -685,6 +702,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -724,6 +742,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -761,6 +780,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.002)
   vp_25c_pa: 0.002
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -793,6 +813,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -830,6 +851,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.02)
   vp_25c_pa: 0.02
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -873,6 +895,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -908,6 +931,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -943,6 +967,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -982,6 +1007,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1017,6 +1043,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1052,6 +1079,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1087,12 +1115,13 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 7.66
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 50.0
-  odt_eth_ppm: 10.0
+  odt_air_ppb: 0.75
+  odt_eth_ppm: 0.15
   stevens_n:
   or_targets: []
   trp_targets:
@@ -1109,8 +1138,8 @@
     mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     vp_25c_pa: 'Chemsrc CAS 1128-08-1: 0.0575 mmHg at 25 C, converted to Pa'
-    odt_air_ppb: 'engineering estimate; aligned with explicit ODT_DATA fallback for medium-impact jasmine ketones'
-    odt_eth_ppm: 'engineering estimate; aligned with explicit ODT_DATA fallback for medium-impact jasmine ketones'
+    odt_air_ppb: engine.odor_thresholds.ODT_DATA
+    odt_eth_ppm: engine.odor_thresholds.ODT_DATA
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
 - canonical_name: Dihydromyrcenol
@@ -1125,6 +1154,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 17.0
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.011
@@ -1171,6 +1201,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1206,6 +1237,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1241,6 +1273,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1276,6 +1309,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1314,6 +1348,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1349,6 +1384,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1384,6 +1420,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1419,6 +1456,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1463,6 +1501,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.01)
   vp_25c_pa: 0.01
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1495,6 +1534,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1530,6 +1570,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1569,6 +1610,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1608,8 +1650,9 @@
   logp: 2.5
   functional_groups: []
   chirality:
-  # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 4.5, corrected to 0.15)
-  vp_25c_pa: 0.15
+  # Vigon SDS rev. 2020-06-08: 0.01 mmHg at 25 C = 1.33322 Pa.
+  vp_25c_pa: 1.33322
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.005
@@ -1639,7 +1682,7 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: Vigon Dynascone SDS rev. 2020-06-08
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

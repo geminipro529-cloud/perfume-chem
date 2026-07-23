@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 import re
+from dataclasses import asdict, dataclass
 
 from engine.intervention_context import InterventionMode
 from engine.intervention_profiles import (
@@ -15,7 +15,6 @@ from engine.intervention_profiles import (
     suggest_interventions,
 )
 from engine.scientific_contract import EvidenceDescriptor, ScientificClass
-
 
 _VALID_MODES: frozenset[str] = frozenset({"pre_mix", "between_mix", "post_mix"})
 

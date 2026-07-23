@@ -14,11 +14,8 @@ Supplement (Gaps 7 + 8). Covers:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Sequence
-
-from ._shared_types import FragranceFamily, NoteTier
-
 
 # ---------------------------------------------------------------------------
 # Construction style continuum

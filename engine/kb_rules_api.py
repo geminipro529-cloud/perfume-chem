@@ -284,8 +284,7 @@ def get_character_shifts(name: str) -> list[dict[str, object]]:
     try:
         cur = conn.cursor()
         cur.execute(
-            "SELECT max_conc_pct, character, quality FROM character_shifts "
-            "WHERE material_name = ?",
+            "SELECT max_conc_pct, character, quality FROM character_shifts WHERE material_name = ?",
             (name,),
         )
         return [_row_to_dict(r) for r in cur.fetchall()]
@@ -332,8 +331,7 @@ def get_iconic_skeleton(family: str) -> dict[str, object] | None:
     try:
         cur = conn.cursor()
         cur.execute(
-            "SELECT marker_materials_json, source_reference "
-            "FROM iconic_skeletons WHERE family = ?",
+            "SELECT marker_materials_json, source_reference FROM iconic_skeletons WHERE family = ?",
             (family,),
         )
         row = cur.fetchone()
@@ -397,10 +395,12 @@ def get_brief_defaults() -> dict[str, str]:
     of an archetype key, mapped to the archetype's family value.
     """
     try:
-        from engine.families.registry import BRIEF_DEFAULTS as _bd  # type: ignore[import-untyped]  # noqa: PLC0415
+        from engine.families.registry import (
+            BRIEF_DEFAULTS as _BD,  # type: ignore[import-untyped]  # noqa: PLC0415
+        )
 
-        if isinstance(_bd, dict):
-            return dict(_bd)
+        if isinstance(_BD, dict):
+            return dict(_BD)
     except (ImportError, AttributeError):
         pass
 

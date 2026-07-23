@@ -21,35 +21,25 @@ Methodologies (from Formulation Intelligence Database, Part II):
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
-from typing import Callable, Mapping, Sequence
+from typing import Mapping, Sequence
 
 from ._shared_types import (
+    BANGKOK_VP_RATIO,
+    FIXATIVE_LOADING,
+    HEDONIC_TARGETS,
+    HEDONIC_WEIGHTS,
+    PYRAMID_OAV_RATIOS,
+    TEXTURE_RATIOS,
     ConcentrationBracket,
     FragranceFamily,
     HedonicCategory,
-    HEDONIC_TARGETS,
-    HEDONIC_WEIGHTS,
     MarketSegment,
-    MethodologyType,
-    MIXTURE_SUPPRESSION_FACTOR,
     MethodologySpec,
-    NoteTier,
-    OAV_PERCEPTUAL_STATUS,
-    OPTIMAL_LOG_OAV_SD,
-    PYRAMID_OAV_RATIOS,
-    TEXTURE_RATIOS,
+    MethodologyType,
     TextureLayer,
-    VP_NOTE_TIERS,
-    FIXATIVE_LOADING,
-    BANGKOK_VP_RATIO,
-    T_BANGKOK,
-    T_SKIN,
     estimate_mixture_suppression,
-    clausius_clapeyron_vp_ratio,
 )
-
 
 # ---------------------------------------------------------------------------
 # Methodology A: Pyramid Construction

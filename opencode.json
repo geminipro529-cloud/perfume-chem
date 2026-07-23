@@ -1,25 +1,40 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "deepseek-reasoner",
+  "model": "deepseek/deepseek-v4-pro",
+  "small_model": "deepseek/deepseek-v4-flash",
+  "enabled_providers": [
+    "deepseek",
+    "deepinfra"
+  ],
   "provider": {
     "deepseek": {
       "options": {
-        "apiKey": "{env:DEEPSEEK_API_KEY}"
+        "apiKey": "{env:PERFUME_DEEPSEEK_API_KEY}",
+        "baseURL": "https://api.deepseek.com/v1"
       }
     },
-    "openai": {
+    "deepinfra": {
       "options": {
-        "apiKey": "{env:OPENAI_API_KEY}"
+        "apiKey": "{env:PERFUME_DEEPINFRA_API_KEY}"
       }
     }
   },
+  "disabled_providers": [
+    "openai",
+    "codex-chatgpt"
+  ],
   "instructions": [
     ".github/copilot-instructions.md"
   ],
   "plugin": [
-    "oh-my-openagent@latest",
+    "oh-my-openagent",
+    "@plannotator/opencode",
+    "opencode-pty",
     ".opencode/plugins/env-guard.js",
-    ".opencode/plugins/inventory-guard.js"
+    ".opencode/plugins/inventory-guard.js",
+    ".opencode/plugins/gate-cache-guard.js",
+    ".opencode/plugins/parallel-runner-guard.js",
+    ".opencode/plugins/provider-tier.js"
   ],
   "compaction": {
     "auto": true,
@@ -61,8 +76,6 @@
       "npx *": "allow",
       "rg *": "allow",
       "sg *": "allow",
-      "oh-my-opencode*": "allow",
-      "omo *": "allow",
       ".\\scripts\\*": "allow",
       "docker compose*": "allow",
       ".venv\\Scripts\\pip*": "allow",
@@ -80,10 +93,16 @@
         ".py",
         ".pyi"
       ]
+    },
+    "pyright": {
+      "command": ["basedpyright-langserver", "--stdio"],
+      "extensions": []
     }
   },
   "formatter": {
-    "ruff": {}
+    "ruff": {
+      "args": ["format", "--config", "pyproject.toml"]
+    }
   },
   "watcher": {
     "ignore": [
@@ -159,13 +178,20 @@
         "@modelcontextprotocol/server-memory"
       ],
       "enabled": true
+    },
+    "perfume_kb": {
+      "type": "local",
+      "command": ["python", ".opencode/mcp/perfume_kb_server.py"],
+      "enabled": true,
+      "timeout": 15000,
+      "environment": {}
     }
   },
   "agent": {
     "agent-citrus-top": {
       "description": "Parses citrus, green, and top-note materials for synergy/pairing rules",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-citrus-top.txt}",
       "permission": {
@@ -176,7 +202,7 @@
     "agent-floral-heart": {
       "description": "Parses floral and heart-note materials for synergy/pairing rules",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-floral-heart.txt}",
       "permission": {
@@ -187,7 +213,7 @@
     "agent-woody-base": {
       "description": "Parses woody, amber, and base-structure materials for synergy/pairing rules",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-woody-base.txt}",
       "permission": {
@@ -198,7 +224,7 @@
     "agent-musk-fixative": {
       "description": "Parses musks, fixatives, gourmand, and leather materials for synergy/pairing rules",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-musk-fixative.txt}",
       "permission": {
@@ -209,7 +235,7 @@
     "agent-spice-aromatic": {
       "description": "Parses spice, aromatic, and specialty materials for synergy/pairing rules",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-spice-aromatic.txt}",
       "permission": {
@@ -218,9 +244,9 @@
       }
     },
     "agent-formula-reviewer": {
-      "description": "Post-formulation quality review โ€” checks material diversity, musk chord, fixative layering, family compliance",
+      "description": "Post-formulation quality review เนโฌโ€ checks material diversity, musk chord, fixative layering, family compliance",
       "mode": "subagent",
-      "model": "deepseek-reasoner",
+      "model": "deepseek/deepseek-v4-pro",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-formula-reviewer.txt}",
       "permission": {
@@ -229,15 +255,48 @@
       }
     },
     "agent-inventory-scout": {
-      "description": "Periodically scans inventory for data completeness โ€” missing ODT, missing profiles, stale VPs, duplicates",
+      "description": "Periodically scans inventory for data completeness — missing ODT, missing profiles, stale VPs, duplicates",
       "mode": "subagent",
-      "model": "deepseek-chat",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.1,
       "prompt": "{file:.opencode/prompts/agent-inventory-scout.txt}",
       "permission": {
         "edit": "deny",
         "bash": "deny"
       }
+    },
+    "agent-deepseek-reader": {
+      "description": "Reads files and extracts structured data — read-only, returns findings in bullet format",
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "agent-deepseek-driver": {
+      "description": "Implements code changes and runs verification — one concrete goal per invocation",
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.1,
+      "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "agent-deepseek-debugger": {
+      "description": "Debug failed tasks and fix root causes — expert surgical code review",
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro",
+      "temperature": 0.0,
+      "prompt": "{file:.opencode/prompts/agent-deepseek-debugger.txt}",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow"
     }
   }
+}
 }

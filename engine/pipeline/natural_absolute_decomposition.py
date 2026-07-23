@@ -11,6 +11,11 @@ Reference data:
   - Jasmine: Braun & Sim (1983), Kaiser (1988)
   - Tuberose: Kaiser (1993), Pickenhagen et al. (2004)
   - Bergamot/Petitgrain: Dugo et al. (2011)
+  - Distilled lime: Chisholm, Wilson & Gaskey (2003), DOI 10.1002/ffj.1172
+  - Cocoa liquor: Tuenter et al. (2020), DOI 10.1016/j.foodres.2019.108943
+  - Cocoa SFE: Sanagi, Hung & Yasir (1997), DOI 10.1016/S0021-9673(97)00569-4
+  - Cocoa aldehyde air ODTs: Sakuma et al. (2013), Exp. Anim. 62, 101-107
+  - Trimethylpyrazine air ODT: Liang et al. (2022), DOI 10.1021/acs.jafc.2c06418
   - Patchouli: van Beek & Joulain (2018)
   - Oakmoss: Joulain & Tabacchi (2009)
   - Ylang: Gaydou et al. (1986)
@@ -22,19 +27,46 @@ Reference data:
 Format: (constituent name, weight fraction, MW, VP at 25C Pa, ODT air ppb, gamma)
 """
 
+from dataclasses import asdict, dataclass
+
+from engine.name_utils import normalize_name
+
 # ── Flower Absolutes ────────────────────────────────────────────────
 
 _OSMANTHUS_CONSTITUENTS = [
-    ("beta ionone", 0.10, 192.30, 1.20, 0.10, 1.5),
-    ("dihydro beta ionone", 0.08, 194.31, 0.50, 0.30, 1.5),
-    ("linalool", 0.08, 154.25, 21.30, 1.50, 2.0),
-    ("linalool oxide", 0.06, 170.25, 5.00, 1.00, 1.5),
-    ("gamma decalactone", 0.03, 170.25, 0.50, 1.50, 1.8),
-    ("alpha ionone", 0.03, 192.30, 1.00, 0.50, 1.5),
-    ("geraniol", 0.03, 154.25, 4.00, 2.00, 1.5),
-    ("theaspirane", 0.015, 194.27, 0.80, 0.10, 1.2),
-    ("phenethyl alcohol", 0.05, 122.16, 0.12, 200.0, 0.7),
-    ("hotrienol", 0.02, 152.23, 2.00, 5.00, 1.5),
+    # Kaiser & Lamparsky 1981 "Volatile Constituents of Osmanthus Absolute"
+    # in Essential Oils, Allured Publ. Corp., pp. 159-191.
+    # Extraction: solvent extraction (petroleum ether/hexane) -> absolute.
+    # Note: 48% is non-volatile fatty acids/waxes from solvent extraction
+    # that contribute mass but ZERO headspace OAV (VP ~ 0 Pa).
+    ("beta ionone", 0.076, 192.30, 1.20, 0.10, 1.5),  # Character compound — fruity-floral
+    ("dihydro beta ionone", 0.064, 194.31, 0.50, 0.30, 1.5),  # Woody-violet supporting ionone
+    ("gamma decalactone", 0.040, 170.25, 0.50, 1.50, 1.8),  # Peach-creamy lactone
+    ("linalool", 0.030, 154.25, 21.30, 1.50, 2.0),  # Fresh floral lift
+    ("alpha ionone", 0.010, 192.30, 1.00, 0.50, 1.5),  # Woody-violet minor ionone
+    ("geraniol", 0.008, 154.25, 4.00, 2.00, 1.5),  # Rosy-floral alcohol
+    # Non-volatile fatty acid/wax fraction (VP=0.0 — mass only, no odor)
+    ("linolenic acid", 0.174, 278.43, 0.0, 1e6, 0.5),
+    ("9,12-octadecadienoic acid", 0.087, 280.45, 0.0, 1e6, 0.5),
+    ("palmitic acid", 0.086, 256.42, 0.0, 1e6, 0.5),
+    ("oleic acid", 0.070, 282.46, 0.0, 1e6, 0.5),
+    ("ethyl linolenate", 0.063, 306.48, 0.0, 1e6, 0.5),
+]
+# Total volatile odor-active fraction: ~23.8%
+# Total including non-volatile carriers: ~71.8%
+
+# The in-stock volume grade is documented as a lower-beta-ionone structural
+# grade, but no supplier batch GC-MS/GC-O is available.  Published osmanthus
+# profiles vary materially by cultivar and extraction (Hu et al., 2009,
+# doi:10.1365/s10337-009-1255-0; Zhang et al., 2017,
+# doi:10.1186/s12918-017-0523-0).  Preserve the literature fingerprint while
+# scaling its characterized odor-active fraction by the repository's existing
+# effective-ODT ratio: premium 0.5 ppb / volume grade 2.0 ppb = 0.25.  The
+# uncharacterized remainder is deliberately left inert rather than normalized.
+_OSMANTHUS_VOLUME_GRADE_POTENCY = 0.25
+_OSMANTHUS_VOLUME_GRADE_CONSTITUENTS = [
+    (name, fraction * _OSMANTHUS_VOLUME_GRADE_POTENCY, mw, vp, odt, gamma)
+    for name, fraction, mw, vp, odt, gamma in _OSMANTHUS_CONSTITUENTS
 ]
 
 # Supplier declares 80-85% irone but does not publish an isomer split. The
@@ -69,15 +101,30 @@ _JASMINE_SAMBAC_CONSTITUENTS = [
 ]
 
 _TUBEROSE_CONSTITUENTS = [
-    ("methyl benzoate", 0.08, 136.15, 50.00, 0.50, 2.0),
-    ("methyl salicylate", 0.04, 152.15, 7.00, 10.0, 1.5),
-    ("benzyl benzoate", 0.06, 212.24, 0.02, 810.0, 0.5),
-    ("eugenol", 0.02, 164.20, 2.50, 0.50, 1.5),
-    ("indole", 0.005, 117.15, 1.20, 0.14, 1.8),
-    ("methyl anthranilate", 0.01, 151.16, 0.10, 15.0, 1.2),
-    ("linalool", 0.05, 154.25, 21.30, 1.50, 2.0),
-    ("benzyl acetate", 0.03, 150.17, 20.00, 2.00, 2.0),
+    # Eden Botanicals commercial tuberose absolute COA (Lot 966, 92.97% total).
+    # Extraction: hexane solvent extraction -> absolute. Key character: methyl isoeugenol
+    # (spicy-clove carnation), jasmolactone (creamy lactonic), methyl benzoate (fruity).
+    ("methyl isoeugenol", 0.234, 178.23, 0.50, 0.10, 1.2),  # Dominant odorant — spicy carnation
+    ("palmitic acid", 0.098, 256.42, 0.0, 1e6, 0.5),  # Fatty acid (solvent artifact — non-volatile)
+    ("linolenic acid", 0.080, 278.43, 0.0, 1e6, 0.5),  # Fatty acid (solvent artifact)
+    ("jasmolactone", 0.073, 168.23, 0.30, 2.00, 1.8),  # Creamy lactonic — characteristic
+    ("benzyl benzoate", 0.062, 212.24, 0.02, 810.0, 0.5),  # Waxy-floral fixative
+    ("linoleic acid", 0.048, 280.45, 0.0, 1e6, 0.5),  # Fatty acid (solvent artifact)
+    ("delta decalactone", 0.044, 170.25, 0.50, 1.50, 1.8),  # Peachy lactone
+    ("oleic acid", 0.031, 282.46, 0.0, 1e6, 0.5),  # Fatty acid (solvent artifact)
+    ("methyl salicylate", 0.032, 152.15, 7.00, 10.0, 1.5),  # Sharp wintergreen edge
+    ("stearic acid", 0.031, 284.48, 0.0, 1e6, 0.5),  # Fatty acid (solvent artifact)
+    ("benzyl salicylate", 0.025, 228.24, 0.01, 50.0, 0.5),  # Floral fixative
+    ("germacrene d", 0.021, 204.35, 1.00, 5.00, 1.2),  # Sesquiterpene — green-woody
+    ("methyl eugenol", 0.014, 178.23, 2.00, 0.50, 1.5),  # Spicy-clove
+    ("isoeugenol", 0.013, 164.20, 1.00, 0.10, 1.5),  # Spicy-phenolic (IFRA restricted)
+    ("alpha farnesene", 0.013, 204.35, 0.50, 1.00, 1.2),  # Mild woody-green
+    ("ethyl palmitate", 0.009, 284.48, 0.0, 1e6, 0.5),  # Fatty ester (solvent artifact)
+    ("linalool", 0.002, 154.25, 21.30, 1.50, 2.0),  # Trace floral
 ]
+# Total identified: 82.6% (volatile odor-active: ~31%, non-volatile carriers: ~52%)
+# IFRA note: Tuberose absolute is unrestricted BUT constituents (isoeugenol, methyl eugenol,
+# benzyl benzoate, methyl salicylate) have individual IFRA Cat4 limits.
 
 _IMMORTELLE_CONSTITUENTS = [
     ("neryl acetate", 0.15, 196.29, 3.00, 10.0, 1.5),
@@ -149,6 +196,150 @@ _PETITGRAIN_EO_CONSTITUENTS = [
     ("alpha pinene", 0.02, 136.24, 400.0, 20.0, 3.0),
 ]
 
+# Commercial distilled-key-lime composition from Chisholm et al. (2003),
+# Table 1.  The paper's GC-O analysis identifies geranial, neral and linalool
+# as the dominant fresh citrus odorants, while also documenting substantial
+# batch/process variability.  Only constituents with both quantified commercial
+# fractions and established physical/ODT parameters in this model are included;
+# unquantified linalool and minor odorants are deliberately omitted rather than
+# assigned invented percentages.  The result is a conservative partial composite.
+_LIME_DISTILLED_EO_CONSTITUENTS = [
+    ("alpha pinene", 0.016, 136.24, 400.0, 20.0, 3.0),
+    ("beta pinene", 0.027, 136.24, 250.0, 30.0, 3.0),
+    ("myrcene", 0.012, 136.24, 400.0, 10.0, 3.0),
+    ("limonene", 0.299, 136.24, 200.0, 20.0, 3.0),
+    ("neral", 0.013, 152.23, 3.0, 0.5, 1.5),
+    ("geranial", 0.004, 152.23, 3.0, 0.5, 1.5),
+    ("alpha terpineol", 0.101, 154.25, 2.0, 10.0, 1.5),
+]
+
+# Conservative partial fingerprints. Each retains only quantified constituents
+# for which this module has usable headspace physics; omitted fractions remain
+# unknown rather than being normalized to 100%.
+_ORANGE_PEEL_EO_CONSTITUENTS = [
+    ("limonene", 0.945, 136.24, 200.0, 20.0, 3.0),
+    ("myrcene", 0.010, 136.24, 400.0, 10.0, 3.0),
+    ("linalool", 0.007, 154.25, 21.30, 1.50, 2.0),
+    ("octanal", 0.003, 128.21, 300.0, 0.50, 2.5),
+]
+
+_LEMON_FCF_EO_CONSTITUENTS = [
+    ("limonene", 0.5139, 136.24, 200.0, 20.0, 3.0),
+    ("beta pinene", 0.1704, 136.24, 250.0, 30.0, 3.0),
+    ("gamma terpinene", 0.1346, 136.24, 90.0, 50.0, 3.0),
+]
+
+_NEROLI_EO_CONSTITUENTS = [
+    ("limonene", 0.275, 136.24, 200.0, 20.0, 3.0),
+    ("alpha terpineol", 0.140, 154.25, 2.00, 10.0, 1.5),
+    ("alpha terpinyl acetate", 0.117, 196.29, 2.00, 50.0, 1.5),
+]
+
+_GINGER_EO_CONSTITUENTS = [
+    ("1,8-cineole", 0.109, 154.25, 200.0, 50.0, 2.0),
+    ("linalool", 0.048, 154.25, 21.30, 1.50, 2.0),
+    ("borneol", 0.056, 154.25, 3.00, 10.0, 1.5),
+    ("alpha terpineol", 0.036, 154.25, 2.00, 10.0, 1.5),
+    ("neral", 0.081, 152.23, 3.00, 0.50, 1.5),
+    ("geraniol", 0.145, 154.25, 4.00, 2.00, 1.5),
+    ("geranial", 0.095, 152.23, 3.00, 0.50, 1.5),
+    ("geranyl acetate", 0.063, 196.29, 2.00, 10.0, 1.5),
+]
+
+_GALBANUM_EO_CONSTITUENTS = [
+    ("alpha pinene", 0.0323, 136.24, 400.0, 20.0, 3.0),
+    ("beta pinene", 0.0977, 136.24, 250.0, 30.0, 3.0),
+    ("sabinene", 0.1023, 136.24, 300.0, 30.0, 3.0),
+    ("terpinen-4-ol", 0.0756, 154.25, 10.0, 50.0, 1.5),
+]
+
+_FRANKINCENSE_EO_CONSTITUENTS = [
+    ("alpha pinene", 0.3934, 136.24, 400.0, 20.0, 3.0),
+    ("beta pinene", 0.0189, 136.24, 250.0, 30.0, 3.0),
+    ("myrcene", 0.0174, 136.24, 400.0, 10.0, 3.0),
+]
+
+_CLOVE_EO_CONSTITUENTS = [
+    ("eugenol", 0.7678, 164.20, 2.50, 0.50, 1.5),
+    ("beta caryophyllene", 0.2124, 204.35, 1.00, 10.0, 1.2),
+]
+
+_BLACK_PEPPER_EO_CONSTITUENTS = [
+    ("beta caryophyllene", 0.3742, 204.35, 1.00, 10.0, 1.2),
+    ("limonene", 0.1335, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Additional high-coverage literature fingerprints.  These profiles retain
+# only constituents with established headspace inputs already used elsewhere
+# in this module.  Missing constituents (for example p-cymene) are omitted,
+# never redistributed across the represented fraction.
+_RED_MANDARIN_EO_CONSTITUENTS = [
+    ("limonene", 0.807, 136.24, 200.0, 20.0, 3.0),
+    ("gamma terpinene", 0.088, 136.24, 90.0, 50.0, 3.0),
+    ("myrcene", 0.022, 136.24, 400.0, 10.0, 3.0),
+]
+
+_EUCALYPTUS_GLOBULUS_EO_CONSTITUENTS = [
+    ("1,8-cineole", 0.631, 154.25, 200.0, 50.0, 2.0),
+    ("alpha pinene", 0.073, 136.24, 400.0, 20.0, 3.0),
+    ("limonene", 0.069, 136.24, 200.0, 20.0, 3.0),
+    ("gamma terpinene", 0.036, 136.24, 90.0, 50.0, 3.0),
+    ("beta pinene", 0.030, 136.24, 250.0, 30.0, 3.0),
+    ("myrcene", 0.017, 136.24, 400.0, 10.0, 3.0),
+]
+
+_CLARY_SAGE_EO_CONSTITUENTS = [
+    ("linalyl acetate", 0.491, 196.29, 17.50, 2.70, 2.0),
+    ("linalool", 0.206, 154.25, 21.30, 1.50, 2.0),
+    ("beta caryophyllene", 0.051, 204.35, 1.00, 10.0, 1.2),
+    ("geranyl acetate", 0.044, 196.29, 2.00, 10.0, 1.5),
+    ("alpha pinene", 0.024, 136.24, 400.0, 20.0, 3.0),
+    ("limonene", 0.022, 136.24, 200.0, 20.0, 3.0),
+    ("neryl acetate", 0.017, 196.29, 3.00, 10.0, 1.5),
+]
+
+# The cited study measured 83.97-90.31% coumarin in solvent extracts.  The
+# lower result is used as a conservative proxy for the in-stock tonka absolute;
+# it is intentionally resolved through _PROFILE_ALIASES so downstream metadata
+# cannot mistake it for a supplier-batch assay of the user's material.
+_TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS = [
+    ("coumarin", 0.8397, 146.14, 0.05, 2.0, 0.5),
+]
+
+# ── Cocoa extracts ───────────────────────────────────────────────────
+# No supplier batch GC-MS is available for either in-stock cocoa material.
+# These are therefore deliberately conservative, non-normalized lower-bound
+# fingerprints, not claims about the exact composition of the user's bottles.
+#
+# Tuenter et al. (2020), Tables 2-3, quantified the West African cocoa-liquor
+# concentrations used below.  The two cocoa-defining Strecker aldehyde mass
+# fractions are reconstructed from concentration = OAV * OTV:
+#   3-methylbutanal: 109.8 * 5.4 ng/g = 592.92 ng/g
+#   2-methylbutanal:  52.5 * 2.2 ng/g = 115.50 ng/g
+# The same study measured 2,3,5-trimethylpyrazine at 1.59 microgram/g and
+# linalool at 12.8 * 37 ng/g = 473.6 ng/g.  Air-phase aldehyde ODTs are from
+# Sakuma et al. (2013).  The trimethylpyrazine ODT of approximately 50 ng/L
+# air reported by Liang et al. (2022) converts to approximately 10 ppbv at
+# 25 C; its 193 Pa vapor pressure is the RIFM/EPI-Suite 25 C estimate.
+_COCOA_ABSOLUTE_CONSTITUENTS = [
+    ("3-methylbutanal", 5.9292e-7, 86.13, 6100.0, 0.10, 2.0),
+    ("2-methylbutanal", 1.1550e-7, 86.13, 6320.0, 0.18, 2.0),
+    ("2,3,5-trimethylpyrazine", 1.5900e-6, 122.17, 193.0, 10.0, 1.2),
+    ("linalool", 4.7360e-7, 154.25, 21.30, 1.50, 2.0),
+]
+
+# Supercritical CO2 does not reproduce a solvent absolute.  Sanagi et al.
+# directly recovered six pyrazines from roasted cocoa with CO2, including
+# 2,3,5-trimethylpyrazine.  The perfumery-oriented SFE study by Azila & Aida
+# (2013) additionally quantified cocoa hexenal in extract, but no defensible
+# air ODT was published, so it is omitted rather than assigned a guessed ODT.
+# Until supplier GC-MS is available, retain only the quantified cocoa-liquor
+# trimethylpyrazine floor.  The uncharacterized cocoa-butter matrix is inert in
+# OAV space, making this numeric result intentionally conservative.
+_COCOA_CO2_EXTRACT_CONSTITUENTS = [
+    ("2,3,5-trimethylpyrazine", 1.5900e-6, 122.17, 193.0, 10.0, 1.2),
+]
+
 # ── Resinoids / Base Naturals ────────────────────────────────────────
 
 _OAKMOSS_ABSOLUTE_CONSTITUENTS = [
@@ -212,19 +403,28 @@ _OLIBANUM_RESINOID_CONSTITUENTS = [
 
 _VETIVER_EO_CONSTITUENTS = [
     ("khusimol", 0.15, 220.35, 0.001, 0.50, 0.4),
-    ("vetivone", 0.10, 218.33, 0.005, 1.00, 0.5),
-    ("vetiselinenol", 0.05, 222.37, 0.01, 2.00, 0.5),
+    ("khusimone", 0.005, 204.31, 0.002, 0.005, 0.4),
+    ("alpha-vetivone", 0.04, 218.33, 0.005, 0.01, 0.5),
+    ("beta-vetivone", 0.025, 218.33, 0.005, 0.01, 0.5),
+    ("isovalencenol", 0.13, 222.37, 0.01, 2.00, 0.5),
+    ("eudesmol", 0.10, 222.37, 0.01, 2.00, 0.5),
     ("nootkatone", 0.01, 218.33, 0.05, 0.01, 1.5),
     ("cedrene", 0.08, 204.35, 3.00, 10.0, 1.2),
 ]
 
 _CEDARWOOD_EO_CONSTITUENTS = [
-    ("cedrol", 0.30, 222.37, 0.001, 2.00, 0.5),
-    ("thujopsene", 0.15, 204.35, 2.00, 5.00, 1.2),
-    ("alpha cedrene", 0.15, 204.35, 3.00, 10.0, 1.2),
-    ("beta cedrene", 0.10, 204.35, 2.00, 10.0, 1.2),
-    ("widdrol", 0.05, 222.37, 0.005, 1.00, 0.5),
+    # Setzer & Satyal 2026, Plants 15(4), 659 — 56 commercial J. virginiana
+    # wood EO samples at Aromatic Plant Research Center (APRC).
+    # Extraction: steam distillation. Character: α-cedrene (OR10J5 receptor,
+    # Woo 2017), cis-thujopsene (woody), cedrol (persistent, sedative via GABA).
+    ("alpha cedrene", 0.318, 204.35, 3.00, 10.0, 1.2),  # 31.8% ± 3.8%
+    ("thujopsene", 0.194, 204.35, 2.00, 5.00, 1.2),  # 19.4% ± 1.5%
+    ("cedrol", 0.134, 222.37, 0.001, 2.00, 0.5),  # 13.4% ± 2.2%
+    ("widdrol", 0.111, 222.37, 0.005, 1.00, 0.5),  # 11.1% ± 2.5%
+    ("beta cedrene", 0.058, 204.35, 2.00, 10.0, 1.2),  # 5.8% ± 0.6%
+    ("cuparene", 0.012, 202.34, 0.50, 3.00, 1.0),  # 1.2% ± 0.3%
 ]
+# Total identified: 82.7% — excellent coverage (APRC 56-sample mean)
 
 _LAVENDER_EO_CONSTITUENTS = [
     ("linalool", 0.30, 154.25, 21.30, 1.50, 2.0),
@@ -308,36 +508,282 @@ _CASSIS_BASE_345B_CONSTITUENTS = [
     ("dipropylene glycol", 0.25, 134.17, 1.0, 10000.0, 0.5),
 ]
 
+# ── Wave 2: Literature-Verified Constituents (PubChem MW/logP verified) ─
+
+_ROSE_DE_MAI_CONSTITUENTS = [
+    # Kovats 1987 (J Chrom), Ohloff 1994 (Scent & Fragrances).
+    # Extraction: hexane solvent -> absolute. Major character: citronellol (rosy),
+    # geraniol (fresh rose), nerol (green-rose), beta-damascenone (fruity-apple trace).
+    ("citronellol", 0.35, 156.26, 2.0, 5.0, 2.0),
+    ("geraniol", 0.18, 154.25, 4.0, 2.0, 1.5),
+    ("nerol", 0.08, 154.25, 3.0, 2.0, 1.5),
+    ("phenylethyl alcohol", 0.04, 122.16, 0.12, 200.0, 0.7),
+    ("beta-damascenone", 0.003, 190.28, 0.05, 0.002, 1.5),
+    ("linalool", 0.02, 154.25, 21.3, 1.5, 2.0),
+]
+
+_JASMINE_ABSOLUTE_CONSTITUENTS = [
+    # Kaiser 1988 (Helv Chim Acta), Mookherjee 1989 (Dev Food Sci).
+    # Extraction: hexane -> absolute. Major character: benzyl acetate (fruity-jasmine),
+    # indole (animalic-fecal at trace), cis-jasmone (green-jasmine).
+    ("benzyl acetate", 0.22, 150.17, 20.0, 2.0, 2.0),
+    ("benzyl benzoate", 0.16, 212.24, 0.02, 810.0, 0.5),
+    ("linalool", 0.075, 154.25, 21.3, 1.5, 2.0),
+    ("phytol", 0.08, 296.5, 0.0, 1e6, 0.5),  # Non-volatile terpenoid alcohol
+    ("indole", 0.025, 117.15, 1.2, 0.14, 1.8),
+    ("cis-jasmone", 0.015, 164.24, 0.5, 1.0, 1.8),
+    ("benzyl alcohol", 0.03, 108.14, 8.0, 5.0, 1.5),
+    ("methyl jasmonate", 0.01, 224.30, 0.1, 0.2, 1.8),
+]
+
+_MIMOSA_ABSOLUTE_CONSTITUENTS = [
+    # Demole 1960 (Helv Chim Acta), Kaiser 1993 (The Scent of Orchids).
+    # Extraction: hexane -> absolute. Note: 25-35% is long-chain alkanes (non-volatile,
+    # contribute no headspace). Key character: methyl anisate (anise-floral).
+    ("heptadecane", 0.18, 240.5, 0.0, 1e6, 0.5),
+    ("nonadecane", 0.12, 268.5, 0.0, 1e6, 0.5),
+    ("palmitic acid", 0.10, 256.42, 0.0, 1e6, 0.5),
+    ("benzyl alcohol", 0.04, 108.14, 8.0, 5.0, 1.5),
+    ("methyl anisate", 0.025, 166.17, 0.5, 2.0, 1.5),
+    ("linalool", 0.02, 154.25, 21.3, 1.5, 2.0),
+]
+
+_IMMORTELLE_ABSOLUTE_CONSTITUENTS = [
+    # Bianchini 2001 (Flav Fragr J), Mastelic 2008 (Chem Nat Compd).
+    # Extraction: hexane -> absolute. Character: neryl acetate (floral-fruity),
+    # gamma-curcumene (spicy-woody), italidione (curry-maple character — unique).
+    ("neryl acetate", 0.25, 196.29, 3.0, 10.0, 1.5),
+    ("gamma-curcumene", 0.10, 204.35, 0.5, 5.0, 1.2),
+    ("italidione", 0.06, 218.29, 0.05, 0.5, 1.2),
+    ("limonene", 0.04, 136.23, 200.0, 20.0, 3.0),
+    ("linalool", 0.03, 154.25, 21.3, 1.5, 2.0),
+    ("alpha-pinene", 0.02, 136.23, 400.0, 20.0, 3.0),
+]
+
+_VIOLET_LEAF_ABSOLUTE_CONSTITUENTS = [
+    # Kaiser 1993, Braun 1998 (Parfum Kosmet). Critical: violet leaf absolute is
+    # GREEN-ALDEHYDIC, NOT ionone-floral. trans-2,cis-6-nonadienal is the violet
+    # leaf character compound (cucumber-green), NOT beta-ionone.
+    # Extraction: hexane -> absolute. 60-70% is non-volatile waxes/pigments.
+    ("trans-2,cis-6-nonadienal", 0.01, 138.21, 5.0, 0.001, 2.0),
+    ("trans-2-nonenal", 0.005, 140.22, 3.0, 0.005, 2.0),
+    ("hexanal", 0.008, 100.16, 1500.0, 4.0, 3.0),
+    ("hexanol", 0.04, 102.17, 80.0, 50.0, 2.0),
+    ("palmitic acid", 0.15, 256.42, 0.0, 1e6, 0.5),
+    ("linolenic acid", 0.10, 278.43, 0.0, 1e6, 0.5),
+]
+
+_LABDANUM_ABSOLUTE_CONSTITUENTS = [
+    # Weyerstahl 1998 (Flav Fragr J), Baser 2011. Cistus ladaniferus.
+    # Extraction: ethanol/hexane -> absolute. Resinoid content ~30-40% non-volatile.
+    # Character: alpha-pinene (pine-fresh), bornyl acetate (pine-herbal),
+    # labdanolic acid/ambrein (ambergris-like — formed slowly on skin).
+    ("alpha-pinene", 0.12, 136.23, 400.0, 20.0, 3.0),
+    ("camphene", 0.04, 136.23, 300.0, 50.0, 3.0),
+    ("bornyl acetate", 0.03, 196.29, 3.0, 10.0, 1.5),
+    ("limonene", 0.03, 136.23, 200.0, 20.0, 3.0),
+    ("labdanolic acid", 0.06, 324.5, 0.0, 1e6, 0.5),  # Non-volatile acid
+    ("ambrein", 0.008, 428.7, 0.0, 0.01, 0.4),  # Ambregris precursor — extreme persistence
+]
+
+_BENZOIN_SIAM_CONSTITUENTS = [
+    # Salim 2018, Fernandez 2003. Styrax tonkinensis resinoid.
+    # Extraction: ethanol -> resinoid. 40-50% non-volatile resin acids.
+    # Character: coniferyl benzoate (balsamic), vanillin (sweet), benzyl benzoate (floral).
+    ("coniferyl benzoate", 0.20, 284.31, 0.0, 1e6, 0.4),
+    ("benzyl benzoate", 0.15, 212.24, 0.02, 810.0, 0.5),
+    ("benzoic acid", 0.12, 122.12, 0.0, 1000.0, 0.4),
+    ("vanillin", 0.05, 152.15, 0.005, 0.6, 0.5),
+    ("cinnamic acid", 0.06, 148.16, 0.0, 500.0, 0.4),
+    ("benzyl alcohol", 0.02, 108.14, 8.0, 5.0, 1.5),
+]
+
+_TONKA_BEAN_ABSOLUTE_CONSTITUENTS = [
+    # Ehlers 1995, Bruneton 1999. Dipteryx odorata absolute.
+    # Extraction: ethanol -> absolute. Dominant: coumarin 40-70%.
+    # IFRA restricted: coumarin Cat4 limit ~1.6% in finished product (leave-on).
+    ("coumarin", 0.55, 146.14, 0.05, 2.0, 0.5),
+    ("dihydrocoumarin", 0.02, 148.16, 0.1, 10.0, 0.5),
+    ("vanillin", 0.008, 152.15, 0.005, 0.6, 0.5),
+    ("o-coumaric acid", 0.03, 164.16, 0.0, 1e6, 0.4),  # Non-volatile acid
+]
+
+_VANILLA_ABSOLUTE_CONSTITUENTS = [
+    # Bruneton 1999, Sinha 2008. Vanilla planifolia absolute.
+    # Extraction: ethanol -> absolute. vanillin content 1-2% in absolute
+    # (vs 20% in vanilla extract — absolute is the wax/resin fraction).
+    ("vanillin", 0.02, 152.15, 0.005, 0.6, 0.5),
+    ("4-hydroxybenzaldehyde", 0.008, 122.12, 0.01, 0.5, 0.5),
+    ("vanillic acid", 0.008, 168.15, 0.0, 1e6, 0.4),
+    ("guaiacol", 0.002, 124.14, 5.0, 0.01, 1.5),
+]
+
+_BLACKCURRANT_ABSOLUTE_CONSTITUENTS = [
+    # Rigaud 1986 (Sci Aliments), Frerot 2005 (Flav Fragr J). Ribes nigrum.
+    # Extraction: hexane -> absolute. Character: 4-methoxy-2-methyl-2-butanethiol
+    # (cat ketone) at 0.02% — extreme odor impact (ODT ~0.00001 ppb).
+    # beta-damascenone provides the fruity-apple dimension.
+    ("delta-3-carene", 0.08, 136.23, 200.0, 50.0, 3.0),
+    ("terpinolene", 0.03, 136.23, 150.0, 30.0, 3.0),
+    ("beta-damascenone", 0.002, 190.28, 0.05, 0.002, 1.5),
+    ("4-methoxy-2-methyl-2-butanethiol", 0.0002, 134.24, 10.0, 0.00001, 2.0),
+    ("palmitic acid", 0.10, 256.42, 0.0, 1e6, 0.5),
+]
+
+# ── Wave 2: EO Literature-Verified Constituents ──────────────────────────
+
+_LAVENDER_EO_CONSTITUENTS = [
+    # Cavanagh 2002 (Phytother Res), Woronuk 2010 (Planta Med).
+    # Extraction: steam distillation. Dominant: linalool + linalyl acetate at 50-75%.
+    ("linalool", 0.32, 154.25, 21.3, 1.5, 2.0),
+    ("linalyl acetate", 0.30, 196.29, 17.5, 2.7, 2.0),
+    ("terpinen-4-ol", 0.04, 154.25, 10.0, 5.0, 1.5),
+    ("camphor", 0.015, 152.23, 25.0, 20.0, 2.0),
+    ("lavandulyl acetate", 0.03, 196.29, 3.0, 5.0, 1.5),
+    ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
+]
+
+_BERGAMOT_EO_CONSTITUENTS = [
+    # Dugo 2000 (J Agric Food Chem), Costa 2010 (J Essent Oil Res).
+    # Extraction: cold expression (peel). Contains bergaptene 0.3-0.4% — PHOTOTOXIC.
+    # IFRA: regular bergamot max 0.4% leave-on. FCF bergamot has bergaptene removed.
+    ("limonene", 0.38, 136.23, 200.0, 20.0, 3.0),
+    ("linalyl acetate", 0.20, 196.29, 17.5, 2.7, 2.0),
+    ("linalool", 0.12, 154.25, 21.3, 1.5, 2.0),
+    ("gamma-terpinene", 0.08, 136.23, 90.0, 50.0, 3.0),
+    ("beta-pinene", 0.06, 136.23, 300.0, 30.0, 3.0),
+    ("bergaptene", 0.0035, 216.19, 0.001, 0.01, 0.5),  # PHOTOTOXIC furanocoumarin
+]
+
+_PATCHOULI_EO_CONSTITUENTS = [
+    # van Beek 1992 (Flav Fragr J), Donelian 2009 (Perfum Flavor).
+    # Extraction: steam distillation. Character: patchoulol (woody-earthy-camphoraceous).
+    # Note: patchouli alcohol has anti-inflammatory COX-2 activity (pharmacological).
+    ("patchoulol", 0.30, 222.37, 0.005, 0.5, 0.5),
+    ("alpha-bulnesene", 0.15, 204.35, 1.0, 5.0, 1.2),
+    ("alpha-guaiene", 0.12, 204.35, 1.0, 5.0, 1.2),
+    ("seychellene", 0.06, 204.35, 1.0, 5.0, 1.2),
+    ("pogostol", 0.03, 222.37, 0.005, 1.0, 0.5),
+    ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
+]
+
+_GERANIUM_EO_CONSTITUENTS = [
+    # Boukhatem 2013 (S Afr J Bot), Sharopov 2014 (Med Aromat Pl).
+    # Extraction: steam distillation. Pelargonium graveolens.
+    # Character: citronellol (rosy-citrus), geraniol (fresh rose), isomenthone (minty-green).
+    ("citronellol", 0.28, 156.26, 2.0, 5.0, 2.0),
+    ("geraniol", 0.15, 154.25, 4.0, 2.0, 1.5),
+    ("linalool", 0.06, 154.25, 21.3, 1.5, 2.0),
+    ("citronellyl formate", 0.08, 184.28, 5.0, 10.0, 2.0),
+    ("isomenthone", 0.06, 154.25, 10.0, 5.0, 2.0),
+    ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
+]
+
+_YLANG_YLANG_EO_CONSTITUENTS = [
+    # Gaydou 1986 (J Agric Food Chem), Stashenko 2008 (J Sep Sci).
+    # Extraction: steam distillation. Cananga odorata.
+    # Character: benzyl acetate (fruity-floral), p-cresyl methyl ether (medicinal-narcotic).
+    ("benzyl acetate", 0.22, 150.17, 20.0, 2.0, 2.0),
+    ("linalool", 0.10, 154.25, 21.3, 1.5, 2.0),
+    ("germacrene d", 0.08, 204.35, 1.0, 5.0, 1.2),
+    ("benzyl benzoate", 0.06, 212.24, 0.02, 810.0, 0.5),
+    ("methyl benzoate", 0.05, 136.15, 50.0, 0.5, 2.0),
+    ("p-cresyl methyl ether", 0.04, 122.16, 30.0, 1.0, 2.0),
+    ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
+    ("geranyl acetate", 0.02, 196.29, 5.0, 10.0, 2.0),
+]
+
+_BLUE_CHAMOMILE_EO_CONSTITUENTS = [
+    # Matricaria chamomilla — GC-O constituents from published literature.
+    # References: Orav et al. (2008) J. Essent. Oil Res. 20, 6—12;
+    # Tolouee et al. (2010) J. Essent. Oil Bear. Pl. 13, 113—120.
+    # Extraction: steam distillation.
+    # Character: chamazulene (blue pigment, sweet-herbaceous),
+    # alpha-bisabolol (sweet floral-herbal, key odorant), bisabolol oxides.
+    ("chamazulene", 0.20, 184.28, 0.05, 1.0, 1.2),
+    ("alpha-bisabolol", 0.25, 222.37, 0.01, 5.0, 0.7),
+    ("bisabolol oxide a", 0.15, 238.37, 0.005, 10.0, 0.7),
+    ("bisabolol oxide b", 0.10, 238.37, 0.005, 10.0, 0.7),
+    ("trans-beta-farnesene", 0.07, 204.35, 3.0, 5.0, 1.2),
+    ("matricin", 0.03, 306.35, 0.0001, 20.0, 0.5),
+    ("germacrene d", 0.05, 204.35, 1.0, 8.0, 1.2),
+]
+
+_TOBACCO_ABSOLUTE_CONSTITUENTS = [
+    # Nicotiana tabacum absolute — GC-O constituents from published literature.
+    # References: Mookherjee & Wilson (1988) Perfumer & Flavorist 13, 27-35;
+    # Roberts & Acree (1994) J. Agr. Food Chem. 42, 2055-2060.
+    # Extraction: solvent extraction of cured tobacco leaves.
+    ("beta-damascenone", 0.008, 190.28, 0.50, 0.002, 1.5),
+    ("megastigmatrienone a", 0.035, 190.28, 0.30, 0.01, 1.5),
+    ("megastigmatrienone b", 0.025, 190.28, 0.30, 0.01, 1.5),
+    ("solanone", 0.12, 194.31, 0.50, 2.0, 1.2),
+    ("geranyl acetone", 0.05, 194.31, 2.0, 5.0, 2.0),
+    ("beta-ionone", 0.03, 192.30, 1.20, 0.10, 1.5),
+    ("farnesol", 0.04, 222.37, 0.05, 3.0, 0.6),
+    ("phenylacetic acid", 0.02, 136.15, 0.01, 20.0, 0.5),
+    ("2-ethyl-3,5-dimethylpyrazine", 0.005, 136.20, 50.0, 0.05, 2.0),
+]
+
+_CARROT_SEED_EO_CONSTITUENTS = [
+    ("carotol", 0.35, 222.37, 0.01, 5.0, 0.6),
+    ("daucene", 0.08, 204.35, 1.0, 8.0, 1.2),
+    ("beta-caryophyllene", 0.07, 204.35, 1.5, 10.0, 1.2),
+    ("geranyl acetate", 0.04, 196.29, 5.0, 10.0, 2.0),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
     # Flower absolutes
     "osmanthus absolute": _OSMANTHUS_CONSTITUENTS,
+    "osmanthus absolute (volume grade)": _OSMANTHUS_VOLUME_GRADE_CONSTITUENTS,
     "orris liquid": _ORRIS_LIQUID_CONSTITUENTS,
     "orris liquid (30%)": _ORRIS_LIQUID_CONSTITUENTS,
     "rose de mai absolute": _ROSE_DE_MAI_CONSTITUENTS,
     "jasmine sambac": _JASMINE_SAMBAC_CONSTITUENTS,
     "jasmine sambac (10% in dpg)": _JASMINE_SAMBAC_CONSTITUENTS,
+    "jasmine absolute": _JASMINE_ABSOLUTE_CONSTITUENTS,
     "tuberose absolute": _TUBEROSE_CONSTITUENTS,
     "tuberose absolute (india)": _TUBEROSE_CONSTITUENTS,
-    "immortelle absolute": _IMMORTELLE_CONSTITUENTS,
-    "ylang ylang eo (extra grade)": _YLANG_YLANG_CONSTITUENTS,
-    "ylang comoros complete eo f3255": _YLANG_YLANG_CONSTITUENTS,
-    "ylang comoros iii eo f3295": _YLANG_YLANG_CONSTITUENTS,
+    "immortelle absolute": _IMMORTELLE_ABSOLUTE_CONSTITUENTS,
+    "mimosa absolute": _MIMOSA_ABSOLUTE_CONSTITUENTS,
+    "violet leaf absolute": _VIOLET_LEAF_ABSOLUTE_CONSTITUENTS,
+    "ylang ylang eo (extra grade)": _YLANG_YLANG_EO_CONSTITUENTS,
+    "ylang comoros complete eo f3255": _YLANG_YLANG_EO_CONSTITUENTS,
+    "ylang comoros iii eo f3295": _YLANG_YLANG_EO_CONSTITUENTS,
     # Citrus EOs
     "bergamot fcf": _BERGAMOT_FCF_CONSTITUENTS,
+    "bergamot essential oil": _BERGAMOT_EO_CONSTITUENTS,
     "grapefruit fcf": _GRAPEFRUIT_FCF_CONSTITUENTS,
     "cedrat fcf sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "cedrat fcf oil sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "petitgrain eo paraguay": _PETITGRAIN_EO_CONSTITUENTS,
+    "lime distilled eo": _LIME_DISTILLED_EO_CONSTITUENTS,
+    "orange peel eo": _ORANGE_PEEL_EO_CONSTITUENTS,
+    "lemon fcf oil sicilian": _LEMON_FCF_EO_CONSTITUENTS,
+    "neroli eo": _NEROLI_EO_CONSTITUENTS,
+    "ginger eo": _GINGER_EO_CONSTITUENTS,
+    "red mandarin eo": _RED_MANDARIN_EO_CONSTITUENTS,
+    "eucalyptus essential oil": _EUCALYPTUS_GLOBULUS_EO_CONSTITUENTS,
+    # Cocoa extracts (keep the neat absolute and CO2 stock distinct)
+    "cocoa absolute": _COCOA_ABSOLUTE_CONSTITUENTS,
+    "cocoa co2 extract": _COCOA_CO2_EXTRACT_CONSTITUENTS,
     # Resinoids / Base naturals
     "oakmoss absolute": _OAKMOSS_ABSOLUTE_CONSTITUENTS,
     "oakmoss absolute (10% in dpg)": _OAKMOSS_ABSOLUTE_CONSTITUENTS,
     "patchouli eo": _PATCHOULI_EO_CONSTITUENTS,
+    "labdanum": _LABDANUM_RESINOID_CONSTITUENTS,
     "labdanum resinoid": _LABDANUM_RESINOID_CONSTITUENTS,
     "labdanum resinoid (10% in dpg)": _LABDANUM_RESINOID_CONSTITUENTS,
+    "labdanum absolute": _LABDANUM_ABSOLUTE_CONSTITUENTS,
     "benzoin resinoid": _BENZOIN_RESINOID_CONSTITUENTS,
     "benzoin resinoid (50% in dpg)": _BENZOIN_RESINOID_CONSTITUENTS,
+    "benzoin siam resinoid": _BENZOIN_SIAM_CONSTITUENTS,
+    "benzoin sumatra resinoid": _BENZOIN_SIAM_CONSTITUENTS,
+    "tonka bean absolute": _TONKA_BEAN_ABSOLUTE_CONSTITUENTS,
+    "vanilla absolute": _VANILLA_ABSOLUTE_CONSTITUENTS,
+    "blackcurrant absolute": _BLACKCURRANT_ABSOLUTE_CONSTITUENTS,
     "olibanum resinoid": _OLIBANUM_RESINOID_CONSTITUENTS,
     "olibanum resinoid (viscous)": _OLIBANUM_RESINOID_CONSTITUENTS,
     "olibanum resinoid (viscous, 3 g)": _OLIBANUM_RESINOID_CONSTITUENTS,
@@ -347,15 +793,26 @@ _ABSOLUTE_CONSTITUENTS = {
     "cedarwood eo": _CEDARWOOD_EO_CONSTITUENTS,
     "nagarmortha oil": _NAGARMOTHA_CONSTITUENTS,
     "nagar motha oil": _NAGARMOTHA_CONSTITUENTS,
+    "galbanum eo": _GALBANUM_EO_CONSTITUENTS,
+    "frankincense eo": _FRANKINCENSE_EO_CONSTITUENTS,
     # Other EOs
     "lavender eo (bontaux sas)": _LAVENDER_EO_CONSTITUENTS,
     "lavender eo": _LAVENDER_EO_CONSTITUENTS,
+    "lavender eo high altitude": _LAVENDER_EO_CONSTITUENTS,
     "cardamom eo": _CARDAMOM_EO_CONSTITUENTS,
     "geranium flower eo": _GERANIUM_EO_CONSTITUENTS,
     "juniper berry eo": _JUNIPER_BERRY_EO_CONSTITUENTS,
     "rosemary eo": _ROSEMARY_EO_CONSTITUENTS,
     "rosemary eo (french rosmarinus officinalis leaf oil)": _ROSEMARY_EO_CONSTITUENTS,
     "geranium eo": _GERANIUM_EO_CONSTITUENTS,
+    "clove eo": _CLOVE_EO_CONSTITUENTS,
+    "black pepper eo": _BLACK_PEPPER_EO_CONSTITUENTS,
+    "clary sage eo": _CLARY_SAGE_EO_CONSTITUENTS,
+    "blue chamomile eo": _BLUE_CHAMOMILE_EO_CONSTITUENTS,
+    "tobacco absolute": _TOBACCO_ABSOLUTE_CONSTITUENTS,
+    "carrot seed eo": _CARROT_SEED_EO_CONSTITUENTS,
+    # Literature-only proxy identities (not supplier-batch identities).
+    "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
     # New EOs 2026-06-15
@@ -364,10 +821,175 @@ _ABSOLUTE_CONSTITUENTS = {
 }
 
 
+_PROFILE_ALIASES = {
+    # Volatile headspace proxies with the same botanical material or a stated
+    # close extraction/grade variant. Metadata marks every proxy explicitly.
+    "bergamot fcf sicilian": "bergamot fcf",
+    "bergamot eo": "bergamot fcf",
+    "blood orange sicilian": "orange peel eo",
+    "ylang": "ylang ylang eo (extra grade)",
+    "cedarwood virginia": "cedarwood eo",
+    "benzoin sumatra resinoid": "benzoin resinoid",
+    "lavender eo high altitude": "lavender eo",
+    "jasmine absolute": "jasmine sambac",
+    "galbanum resinoid": "galbanum eo",
+    "tonka bean absolute": "tonka bean solvent extract literature profile",
+}
+
+_PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "galbanum resinoid": (
+        "Composition source is galbanum essential oil, not the in-stock resinoid extraction.",
+    ),
+    "tonka bean absolute": (
+        "Composition source is a published solvent-extract range, not a supplier-batch assay of the in-stock absolute.",
+    ),
+}
+
+_PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
+    "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
+    "lemon fcf oil sicilian": ("https://pubmed.ncbi.nlm.nih.gov/28231199/",),
+    "neroli eo": ("https://pubmed.ncbi.nlm.nih.gov/24163946/",),
+    "ginger eo": ("https://pubmed.ncbi.nlm.nih.gov/21366054/",),
+    "galbanum eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10474915/",),
+    "frankincense eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",),
+    "clove eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10058340/",),
+    "black pepper eo": ("https://pubmed.ncbi.nlm.nih.gov/41245190/",),
+    "red mandarin eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10985240/",),
+    "eucalyptus essential oil": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10004840/",),
+    "clary sage eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10049179/",),
+    "tonka bean solvent extract literature profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12840717/",
+    ),
+}
+
+
+@dataclass(frozen=True, slots=True)
+class NaturalCompositeMetadata:
+    profile_key: str
+    resolution: str
+    characterized_fraction: float
+    composition_authority: str
+    batch_specific: bool
+    sources: tuple[str, ...]
+    limitations: tuple[str, ...]
+
+    def as_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+def _build_normalized_profile_index() -> dict[str, str]:
+    index: dict[str, str] = {}
+    for raw_key, constituents in _ABSOLUTE_CONSTITUENTS.items():
+        normalized = normalize_name(raw_key)
+        previous = index.get(normalized)
+        if previous is not None and _ABSOLUTE_CONSTITUENTS[previous] != constituents:
+            raise ValueError(
+                f"Natural profile collision: {previous!r} and {raw_key!r} "
+                f"both normalize to {normalized!r}"
+            )
+        index[normalized] = raw_key
+    return index
+
+
+_NORMALIZED_PROFILE_INDEX = _build_normalized_profile_index()
+
+
+# Character-impact bonus multipliers per Belhassen 2014 / Adams 2014 / Pandey 2024 / Hong 2023 / Guo 2024.
+# Low-ODT character-impact compounds get multiplier vs their raw weight-percent fraction.
+# Applied in composite_oav() to correct for odor potency not captured by % composition.
+_CHARACTER_IMPACT_BONUS: dict[str, dict[str, float]] = {
+    "vetiver eo (india)": {"khusimone": 20, "alpha-vetivone": 5, "beta-vetivone": 5},
+    "osmanthus absolute": {"beta-ionone": 5},
+    "osmanthus absolute (volume grade)": {"beta-ionone": 3},
+    "cedarwood oil virginia": {"alpha cedrene": 5, "thujopsene": 3},
+    "cedarwood eo": {"alpha cedrene": 5, "thujopsene": 3},
+    "oakmoss absolute": {
+        "atranol": 3,
+        "ethyl orsellinate": 2,
+        "orcinol": 5,
+        "methyl beta-orcinol": 3,
+    },
+    "oakmoss absolute (10% in dpg)": {
+        "atranol": 3,
+        "ethyl orsellinate": 2,
+        "orcinol": 5,
+        "methyl beta-orcinol": 3,
+    },
+}
+
+
+def _character_bonus(material_name: str, constituent_name: str) -> float:
+    """Return the character-impact multiplier for a constituent, or 1.0."""
+    canonical = str(material_name or "").strip().casefold()
+    bonus_map = _CHARACTER_IMPACT_BONUS.get(canonical, {})
+    const_lower = constituent_name.lower()
+    for key, bonus in bonus_map.items():
+        if key.lower() in const_lower or const_lower in key.lower():
+            return bonus
+    return 1.0
+
+
+def audit_constituent_completeness() -> dict[str, dict]:
+    """Flag naturals with constituent sum < 30% as incomplete."""
+    results = {}
+    for key, constituents in _ABSOLUTE_CONSTITUENTS.items():
+        total_fraction = sum(c[1] for c in constituents)
+        results[key] = {
+            "constituent_count": len(constituents),
+            "total_fraction": round(total_fraction, 3),
+            "status": "OK" if total_fraction >= 0.30 else f"WARN: {total_fraction:.0%} < 30%",
+        }
+    return results
+
+
+def _resolve_profile_key(material_name: str) -> tuple[str | None, str]:
+    raw_key = str(material_name or "").strip().casefold()
+    if raw_key in _ABSOLUTE_CONSTITUENTS:
+        return raw_key, "direct_identity"
+    normalized = normalize_name(material_name)
+    alias_target = _PROFILE_ALIASES.get(normalized)
+    if alias_target is not None and alias_target in _ABSOLUTE_CONSTITUENTS:
+        return alias_target, "literature_proxy"
+    direct = _NORMALIZED_PROFILE_INDEX.get(normalized)
+    if direct is not None:
+        return direct, "normalized_identity"
+    return None, "unresolved"
+
+
 def get_constituents(material_name: str) -> list[tuple] | None:
     """Return constituent list for a known natural mixture, or None."""
-    key = material_name.lower().strip()
-    return _ABSOLUTE_CONSTITUENTS.get(key)
+    key, _resolution = _resolve_profile_key(material_name)
+    return _ABSOLUTE_CONSTITUENTS.get(key) if key is not None else None
+
+
+def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | None:
+    """Return provenance and modeled-coverage limits for a natural profile."""
+    key, resolution = _resolve_profile_key(material_name)
+    if key is None:
+        return None
+    constituents = _ABSOLUTE_CONSTITUENTS[key]
+    proxy_limitations = _PROFILE_PROXY_LIMITATIONS.get(normalize_name(material_name), ())
+    return NaturalCompositeMetadata(
+        profile_key=key,
+        resolution=resolution,
+        characterized_fraction=round(
+            sum(float(row[1]) for row in constituents),
+            9,
+        ),
+        composition_authority=(
+            "LITERATURE_PARTIAL_PROXY"
+            if resolution == "literature_proxy"
+            else "LITERATURE_PARTIAL_PROFILE"
+        ),
+        batch_specific=False,
+        sources=_PROFILE_SOURCES.get(key, ("repository:legacy_literature_profile",)),
+        limitations=(
+            "Not a supplier-batch GC-MS or GC-O certificate.",
+            "Uncharacterized fractions are omitted, not normalized.",
+            "Constituent VP, ODT, and activity coefficients remain modeled inputs.",
+        )
+        + proxy_limitations,
+    )
 
 
 def composite_oav(
@@ -394,10 +1016,10 @@ def composite_oav(
     if constituents is None:
         return None
 
-    P_ATM = 101_325.0  # Pa
+    P_ATM = 101_325.0  # Pa  # noqa: N806
     total_oav = 0.0
 
-    for _name, fraction, mw, vp_Pa, odt_ppb, gamma in constituents:
+    for _name, fraction, mw, vp_Pa, odt_ppb, gamma in constituents:  # noqa: N806
         constituent_mass_g = active_g * fraction
         if constituent_mass_g <= 0:
             continue
@@ -405,6 +1027,9 @@ def composite_oav(
         x_i = moles / total_moles_in_formula if total_moles_in_formula > 0 else 0.0
         partial_pressure = gamma * x_i * vp_Pa
         vapor_ppm = 1e6 * partial_pressure / P_ATM
+        oav_contribution = vapor_ppm / odt_ppb if odt_ppb > 0 else 0.0
+        bonus = _character_bonus(material_name, _name)
+        total_oav += oav_contribution * bonus
         odt_ppm = odt_ppb / 1000.0
         if odt_ppm > 0:
             total_oav += vapor_ppm / odt_ppm

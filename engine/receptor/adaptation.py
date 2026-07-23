@@ -8,9 +8,9 @@
 We track three components per OR; total attenuation = max of the three (the
 slowest one to release dominates recovery).
 """
+
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
 from typing import Mapping
 
@@ -23,9 +23,9 @@ class AdaptationState:
 
     def attenuation(self, or_gene: str) -> float:
         """Combined attenuation ∈ [0,1]. Use max to model dominant slowest pool."""
-        return max(self.fast.get(or_gene, 0.0),
-                   self.med.get(or_gene, 0.0),
-                   self.slow.get(or_gene, 0.0))
+        return max(
+            self.fast.get(or_gene, 0.0), self.med.get(or_gene, 0.0), self.slow.get(or_gene, 0.0)
+        )
 
     def all_attenuations(self) -> dict[str, float]:
         keys = set(self.fast) | set(self.med) | set(self.slow)
@@ -50,7 +50,7 @@ def step_adaptation(
     new = AdaptationState()
     keys = set(state.fast) | set(state.med) | set(state.slow) | set(occupancy)
     for k in keys:
-        R = max(0.0, min(1.0, occupancy.get(k, 0.0)))
+        R = max(0.0, min(1.0, occupancy.get(k, 0.0)))  # noqa: N806
         for label, target in (("fast", new.fast), ("med", new.med), ("slow", new.slow)):
             cur = getattr(state, label).get(k, 0.0)
             tau = _TAU[label]

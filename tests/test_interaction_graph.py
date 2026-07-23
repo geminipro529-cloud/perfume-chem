@@ -6,9 +6,9 @@ functions against the live SQLite database at ``data/perfumery_kb.db``.
 
 from __future__ import annotations
 
-import pytest
 from engine.interaction_graph import (
     F11_INCOMPATIBILITIES,
+    _ensure_f11_seeded,
     add_interaction,
     check_chemical_compatibility,
     get_all_interactions,
@@ -18,9 +18,7 @@ from engine.interaction_graph import (
     get_interaction,
     get_replacements,
     get_synergies,
-    _ensure_f11_seeded,
 )
-
 
 # ── Query tests ────────────────────────────────────────────────────────
 

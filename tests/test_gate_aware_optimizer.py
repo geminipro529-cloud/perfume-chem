@@ -17,7 +17,7 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     raw_pct = {
         "Hedione": 25.0,
         "Iso E Super": 20.0,
-        "Habanolide": 12.0,
+        "Zenolide": 12.0,
         "Bergamot FCF": 10.0,
         "Linalool": 8.0,
         "Lavender EO": 7.0,
@@ -52,7 +52,7 @@ def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
         "Iso E Super": 25.0,
         "Ambrox Super": 20.0,
         "Hedione": 20.0,
-        "Habanolide": 15.0,
+        "Zenolide": 15.0,
         "Vanillin": 10.0,
         "Ethyl Vanillin": 3.0,
         "Bergamot FCF": 7.0,
@@ -66,7 +66,7 @@ def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
         "Evernyl": 0.5,
         "Iso E Super": 25.0,
         "Vetiver EO": 5.0,
-        "Habanolide": 9.5,
+        "Zenolide": 9.5,
     }
     calls = []
 
@@ -101,7 +101,7 @@ def test_optimized_markdown_requires_embedded_gate_audit():
         "Evernyl": 0.5,
         "Iso E Super": 25.0,
         "Vetiver EO": 5.0,
-        "Habanolide": 9.5,
+        "Zenolide": 9.5,
     }
     result = optimize_until_release_ready(
         "Audit Required Fougere",
@@ -121,11 +121,13 @@ def test_optimized_markdown_requires_embedded_gate_audit():
 
 def test_gate_aware_optimizer_records_chemistry_specific_block_actions():
     reactive = {
-        "Aldehyde C10": 20.0,
-        "Indole": 2.0,
-        "Hedione": 38.0,
-        "Iso E Super": 30.0,
-        "Habanolide": 10.0,
+        # Live stocks are Aldehyde C10 1% and Indole 10%; load enough raw
+        # stock for the active mixture to exercise the chemistry blocker.
+        "Aldehyde C10": 70.0,
+        "Indole": 20.0,
+        "Hedione": 5.0,
+        "Iso E Super": 4.0,
+        "Zenolide": 1.0,
     }
     phase_clash = {
         "Vanillin": 30.0,

@@ -1,6 +1,6 @@
 {
   "$schema": "https://oh-my-openagent.ai/config.json",
-  "disabled_providers": ["anthropic", "google", "github-copilot", "venice", "vercel", "opencode"],
+  "disabled_providers": ["anthropic", "google", "github-copilot", "venice", "vercel", "openai", "codex-chatgpt", "opencode", "opencode-go", "openrouter"],
   "disabled_mcps": ["codegraph"],
   "disabled_hooks": ["webfetch-redirect-guard", "claude-code-hooks", "auto-update-checker", "legacy-plugin-toast", "fsync-skip-warning", "bash-file-read-guard", "question-label-truncator"],
   "model_fallback": true,
@@ -10,14 +10,14 @@
   "default_mode": { "ultrawork": true, "ralph_loop": false },
   "runtime_fallback": { "enabled": true, "max_fallback_attempts": 3, "cooldown_seconds": 5, "notify_on_fallback": true },
   "background_task": {
-    "defaultConcurrency": 3,
+    "defaultConcurrency": 15,
     "maxDepth": 3,
-    "maxToolCalls": 40,
-    "staleTimeoutMs": 180000,
+    "maxToolCalls": 120,
+    "staleTimeoutMs": 600000,
     "messageStalenessTimeoutMs": 120000,
     "taskTtlMs": 900000,
-    "providerConcurrency": { "deepseek": 4, "openai": 3 },
-    "circuitBreaker": { "enabled": true, "maxToolCalls": 80, "consecutiveThreshold": 12 }
+    "providerConcurrency": { "deepseek": 2, "openai": 0, "deepinfra": 12 },
+    "circuitBreaker": { "enabled": true, "maxToolCalls": 120, "consecutiveThreshold": 6 }
   },
   "monitor": {
     "enabled": true, "live_mode_enabled": true,
@@ -34,65 +34,71 @@
     "task_system": true,
     "plugin_load_timeout_ms": 15000
   },
-  "categories": {
-    "ultrabrain": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
-    "deep": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "quick": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
-    "artistry": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "unspecified-low": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
-    "unspecified-high": { "model": "deepseek/deepseek-reasoner", "fallback_models": ["deepseek/deepseek-chat"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } }
+"categories": {
+    "reader": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 8000, "thinking": { "type": "enabled", "budgetTokens": 4000 } },
+    "driver": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "engineer": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
+    "ultrabrain": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
+    "deep": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "quick": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "artistry": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "unspecified-low": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "unspecified-high": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "visual-engineering": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 8000, "thinking": { "type": "disabled" } },
+    "writing": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 12000, "thinking": { "type": "enabled", "budgetTokens": 4000 } }
   },
   "agents": {
-    "hephaestus": {
-      "allow_non_gpt_model": true
+    "sisyphus": {
+      "model": "deepinfra/zai-org/GLM-5.2",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "prometheus": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepinfra/zai-org/GLM-5.2",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "sisyphus-junior": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "oracle": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepinfra/zai-org/GLM-5.2",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "metis": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "momus": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "librarian": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "explore": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "multimodal-looker": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "atlas": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "build": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepseek/deepseek-v4-pro",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "plan": {
-      "model": "deepseek/deepseek-reasoner",
-      "fallback_models": ["deepseek/deepseek-chat"]
+      "model": "deepseek/deepseek-v4-pro",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     },
     "OpenCode-Builder": {
-      "model": "deepseek/deepseek-chat",
-      "fallback_models": []
+      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
+      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
     }
   }
 }

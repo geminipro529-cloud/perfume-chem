@@ -42,7 +42,7 @@ Your next move: plan approved. Implementation begins next.
 ## Verification strategy
 > Zero human intervention - all verification is agent-executed.
 - Test decision: TDD + tests-after — each query function gets unit tests, sync script gets round-trip parity tests
-- Evidence: .omo/evidence/task-N-perfumery-ai-engine.<ext>
+- Evidence: .omo/evidence/ta[REDACTED_PROVIDER_KEY].<ext>
 - Key verification: run the L'Homme Luxe pipeline through both the old and new data paths — OAV values must match to 4 decimal places
 
 ## Execution strategy
@@ -91,7 +91,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - engine/name_utils.py — normalize_name, _ALIASES
   - engine/inventory_parser.py — parse_inventory, _canonical_name
   Acceptance criteria: `python -c "import sqlite3; c=sqlite3.connect('data/perfumery_kb.db'); print(c.execute('SELECT COUNT(*) FROM materials').fetchone())"` returns 255+ (all in-inventory materials). `pytest tests/test_kb_migration.py -v` passes all tests. Every material in inventory.txt has a row in the materials table.
-  QA scenarios: happy path = run migration, verify 255+ materials, verify ODT values match ODT_DATA for 10 sample materials. failure path = run migration with a missing source file, verify graceful error message. Evidence .omo/evidence/task-1-perfumery-ai-engine.txt
+  QA scenarios: happy path = run migration, verify 255+ materials, verify ODT values match ODT_DATA for 10 sample materials. failure path = run migration with a missing source file, verify graceful error message. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): SQLite material knowledge base schema + migration from 7 sources
 
 - [ ] 2. Material query API
@@ -102,7 +102,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - data/perfumery_kb.db — the SQLite database from T1
   - engine/name_utils.py — normalize_name for alias resolution
   Acceptance criteria: `python -c "from engine.knowledge_base import get_material; print(get_material('hedione')['vp'])"` returns 0.21 (from YAML, the authoritative source). `pytest tests/test_kb_query.py -v` passes. Every function returns correct data for 10 sample materials cross-referenced against source files.
-  QA scenarios: happy = query Hedione, verify VP=0.21 (YAML authoritative), ODT=0.05ppb, note=heart. failure = query unknown material, get None. alias = query "hedione hc" resolves to the correct profile (there is only "Hedione" in _PROFILES but "Hedione HC" is a separate YAML entry — verify migration handles this). Evidence .omo/evidence/task-2-perfumery-ai-engine.txt
+  QA scenarios: happy = query Hedione, verify VP=0.21 (YAML authoritative), ODT=0.05ppb, note=heart. failure = query unknown material, get None. alias = query "hedione hc" resolves to the correct profile (there is only "Hedione" in _PROFILES but "Hedione HC" is a separate YAML entry — verify migration handles this). Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): material query API with alias resolution
 
 - [ ] 3. Rules DB migration (family archetypes + pyramid + IFRA + fatigue + shifts)
@@ -119,7 +119,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - data/knowledge_graph/theory_rules.json — carles_method, roudnitska_roles, opk_sar, jellinek_map, legendary_book_principles
   - data/knowledge_graph/accords.json — fragrance_families (16), classical_accords (20), modern_niche_types (5), inventory_accord_mapping
   Acceptance criteria: `sqlite3 data/perfumery_kb.db "SELECT COUNT(*) FROM family_archetypes"` returns 35. `SELECT COUNT(*) FROM ifra_limits` returns 97. `SELECT COUNT(*) FROM olfactory_fatigue` returns 28. `SELECT COUNT(*) FROM jellinek_classes` returns 71. `SELECT COUNT(*) FROM iconic_skeletons` returns 47. `pytest tests/test_kb_rules.py -v` passes.
-  QA scenarios: happy = query chypre_classical archetype, verify anchors include bergamot + oakmoss + labdanum. failure = query non-existent archetype, get None. IFRA = query eugenol limit, verify value. Evidence .omo/evidence/task-3-perfumery-ai-engine.txt
+  QA scenarios: happy = query chypre_classical archetype, verify anchors include bergamot + oakmoss + labdanum. failure = query non-existent archetype, get None. IFRA = query eugenol limit, verify value. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): rules engine migration — 30 archetypes, 119 IFRA limits, 40+ gates into SQLite
 
 - [ ] 4. Rules query API
@@ -131,7 +131,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - engine/families/registry.py — ArchetypeSpec structure for API design
   - engine/knowledge/pyramid_targets.py — PyramidRatio, OAV_TARGETS structures
   Acceptance criteria: `python -c "from engine.knowledge_base import get_archetype; a=get_archetype('chypre_classical'); print(a['anchors'][0]['materials'][:3])"` returns the first 3 anchor materials. `pytest tests/test_kb_rules_query.py -v` passes.
-  QA scenarios: happy = query aromatic_fougere archetype, verify anchors contain lavender + coumarin. failure = query non-existent family, get None. cross-family = check chypre × oriental compatibility. Evidence .omo/evidence/task-4-perfumery-ai-engine.txt
+  QA scenarios: happy = query aromatic_fougere archetype, verify anchors contain lavender + coumarin. failure = query non-existent family, get None. cross-family = check chypre × oriental compatibility. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): rules query API — archetypes, IFRA, fatigue, Jellinek, character shifts
 
 - [ ] 5. Interaction graph extension
@@ -147,7 +147,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - data/knowledge_graph/pairing_rules_discovered.json — existing agent findings
   - agent-citrus-top, agent-floral-heart, agent-woody-base, agent-musk-fixative, agent-spice-aromatic — for uncovered pairs
   Acceptance criteria: `SELECT COUNT(*) FROM material_interactions` > 5000. `SELECT COUNT(*) FROM material_interactions WHERE type='clash'` > 20. `pytest tests/test_kb_interactions.py -v` passes.
-  QA scenarios: happy = query interactions for Hedione, verify synergy with florals. clash = query rose × blue chamomile, verify clash flag. coverage = compute pair coverage %, verify > 15%. Evidence .omo/evidence/task-5-perfumery-ai-engine.txt
+  QA scenarios: happy = query interactions for Hedione, verify synergy with florals. clash = query rose × blue chamomile, verify clash flag. coverage = compute pair coverage %, verify > 15%. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): interaction graph — consolidate 3303 rules + discover new pairs + clash detection
 
 - [ ] 6. Fragment-based property estimator
@@ -161,7 +161,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - data/materials/*.yaml — VP and logP values for validation
   - AGENTS.md activity coefficient ranges table
   Acceptance criteria: `python -c "from engine.property_estimator import estimate_vp; print(estimate_vp('CC(=O)OC1=CC=CC=C1C(=O)O'))"` returns a float (aspirin VP estimate). R² of estimated vs actual VP for known materials > 0.6 ( pratiques estimate, not exact). `pytest tests/test_property_estimator.py -v` passes.
-  QA scenarios: happy = estimate VP for benzyl acetate SMILES, compare to known VP. failure = estimate for invalid SMILES, get graceful error. validation = run against all 255 materials, print R². Evidence .omo/evidence/task-6-perfumery-ai-engine.txt
+  QA scenarios: happy = estimate VP for benzyl acetate SMILES, compare to known VP. failure = estimate for invalid SMILES, get graceful error. validation = run against all 255 materials, print R². Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): fragment-based property estimator — Stein-Brown VP, Wildman-Crippen logP, ODT bracketing
 
 - [ ] 7. Formula memory schema + API
@@ -173,7 +173,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - formulas/ — existing formula files to import
   - output.json — pipeline output structure to store
   Acceptance criteria: `python -c "from engine.formula_memory import save_formula; id=save_formula('formulas/L_Homme_Luxe_30mL_EdP.md'); print(id)"` returns an integer. `SELECT COUNT(*) FROM formulas` > 0 after importing one formula. `pytest tests/test_formula_memory.py -v` passes.
-  QA scenarios: happy = save + retrieve L'Homme Luxe formula, verify 22 materials. failure = save non-existent file, get error. search = search formulas containing Hedione, verify results. Evidence .omo/evidence/task-7-perfumery-ai-engine.txt
+  QA scenarios: happy = save + retrieve L'Homme Luxe formula, verify 22 materials. failure = save non-existent file, get error. search = search formulas containing Hedione, verify results. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): formula memory — store formulas, pipeline results, user evaluations
 
 - [ ] 8. Failure registry pattern detector
@@ -185,7 +185,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - .github/copilot-instructions.md "Family-shifting materials" table
   - engine/formula_memory.py — to query past failures
   Acceptance criteria: `python -c "from engine.failure_registry import detect_patterns; print(detect_patterns(1))"` returns a list of warnings. `pytest tests/test_failure_registry.py -v` passes. F2 pattern (Hedione >12%) correctly flags a formula with 700µL Hedione in 6000µL concentrate.
-  QA scenarios: happy = check L'Homme Luxe, verify no F2 flag (Hedione at 160/6000 = 2.7%). trigger = create a test formula with 800µL Hedione in 6000µL concentrate, verify F2 flag. F11 = check formula with blue chamomile + rose, verify incompatibility flag. Evidence .omo/evidence/task-8-perfumery-ai-engine.txt
+  QA scenarios: happy = check L'Homme Luxe, verify no F2 flag (Hedione at 160/6000 = 2.7%). trigger = create a test formula with 800µL Hedione in 6000µL concentrate, verify F2 flag. F11 = check formula with blue chamomile + rose, verify incompatibility flag. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): failure registry pattern detector — 11 encoded patterns + accumulation
 
 - [ ] 9. Agent query API (the "brain" interface)
@@ -199,7 +199,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - engine/failure_registry.py — for pre-formulation checks
   - .github/copilot-instructions.md — material differentiation rules (citrus, musk, sandalwood, amber, wood)
   Acceptance criteria: `python -c "from engine.perfumery_brain import recommend_material; print(recommend_material('projection_musk', 'woody_chypre', {'no_galaxolide': True}))[" returns a ranked list with Zenolide and/or Romandolide. `pytest tests/test_perfumery_brain.py -v` passes.
-  QA scenarios: happy = recommend projection musk for woody chypre, verify Zenolide appears. compatibility = check Hedione × PEA, verify synergy. replace = find replacement for Romandolide, verify Zenolide appears. evaluate = evaluate L'Homme Luxe, verify no F2 flag. family = get guidance for chypre_classical, verify bergamot + oakmoss + labdanum in anchors. Evidence .omo/evidence/task-9-perfumery-ai-engine.txt
+  QA scenarios: happy = recommend projection musk for woody chypre, verify Zenolide appears. compatibility = check Hedione × PEA, verify synergy. replace = find replacement for Romandolide, verify Zenolide appears. evaluate = evaluate L'Homme Luxe, verify no F2 flag. family = get guidance for chypre_classical, verify bergamot + oakmoss + labdanum in anchors. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): agent query API — recommend, compatibility, replace, evaluate, family guidance
 
 - [ ] 10. Sync script + pipeline parity tests
@@ -214,7 +214,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - engine/ifra_safety.py — IFRA_CAT4_LIMITS structure to regenerate
   - scripts/formula_release_gate.py — pipeline entry point for parity test
   Acceptance criteria: `python scripts/rebuild_kb.py` runs without errors. `python scripts/formula_release_gate.py --formula-file formulas/L_Homme_Luxe_30mL_EdP.md --expected-concentrate-ul 6000 --brief generic --json` produces identical OAV values before and after rebuild. `pytest tests/test_kb_parity.py -v` passes — all OAV values match to 4 decimal places.
-  QA scenarios: happy = run rebuild, verify material_properties.json is byte-compatible. parity = run pipeline before and after rebuild, compare OAV values for all 22 materials, verify match. failure = delete DB, run pipeline, verify it falls back to Python dicts (graceful degradation). Evidence .omo/evidence/task-10-perfumery-ai-engine.txt
+  QA scenarios: happy = run rebuild, verify material_properties.json is byte-compatible. parity = run pipeline before and after rebuild, compare OAV values for all 22 materials, verify match. failure = delete DB, run pipeline, verify it falls back to Python dicts (graceful degradation). Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): sync script + pipeline parity tests — zero-regression consolidation
 
 - [ ] 11. Science knowledge base (10 new domains from literature review)
@@ -307,7 +307,7 @@ Wave 6: Sync Script + Pipeline Parity Tests (depends on all above)
   - Escher & Oliveros (1994) "Substantivity of fragrance chemicals on fabrics" JAOCS 71(1)
   - Berthier et al. (2023) "Fixative effect of 2-oxo-2-phenylacetates" Flavour Fragrance J
   Acceptance criteria: `SELECT COUNT(*) FROM or_biophysics` > 10. `SELECT COUNT(*) FROM material_anosmia` > 5. `SELECT COUNT(*) FROM aging_reactions` > 5. `SELECT COUNT(*) FROM dose_response_cliffs` > 5. `SELECT COUNT(*) FROM masking_rules` > 5. `pytest tests/test_science_kb.py -v` passes. Query `get_anosmia_rate('Galaxolide')` returns 30-35.
-  QA scenarios: happy = query indole cliff, verify floral→fecal transition at ~1%. anosmia = query Galaxolide anosmia rate, verify 30-35%. aging = query Schiff base kinetics, verify k=0.00035. climate = query Bangkok profile, verify VP ×2.8. masking = query patchouli masking, verify citrus oxidation. Evidence .omo/evidence/task-11-perfumery-ai-engine.txt
+  QA scenarios: happy = query indole cliff, verify floral→fecal transition at ~1%. anosmia = query Galaxolide anosmia rate, verify 30-35%. aging = query Schiff base kinetics, verify k=0.00035. climate = query Bangkok profile, verify VP ×2.8. masking = query patchouli masking, verify citrus oxidation. Evidence .omo/evidence/ta[REDACTED_PROVIDER_KEY].txt
   Commit: Y | feat(kb): science knowledge base — 10 literature domains: OR biophysics, evaporation kinetics, UNIFAC, skin chemistry, aging, mixture physics, climate, fabric, masking, dose-response cliffs
 
 ## Final verification wave

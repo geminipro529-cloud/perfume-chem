@@ -20,8 +20,10 @@ from dataclasses import dataclass, field
 from typing import Sequence
 
 from engine.ingredient_intelligence import (
-    get_profile, get_all_profiles, DIMENSIONS, MaterialProfile,
-    character_distance, find_similar,
+    DIMENSIONS,
+    MaterialProfile,
+    get_all_profiles,
+    get_profile,
 )
 
 # ── Extended feature dimensions beyond the 12 character dimensions ──

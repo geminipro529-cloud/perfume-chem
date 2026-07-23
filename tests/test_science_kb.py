@@ -15,7 +15,6 @@ import pytest
 
 from engine import science_kb as skb
 
-
 # ── Fixtures ───────────────────────────────────────────────────────────
 
 

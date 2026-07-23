@@ -112,6 +112,19 @@ def test_oav_intelligence_maps_historical_archetypes_to_supported_family_targets
         assert result.as_dict()["mapped_family"] == expected
 
 
+def test_oav_intelligence_maps_woody_floral_musk_before_generic_floral():
+    result = _analyze(
+        {
+            "Hedione": 900.0,
+            "Iso E Super": 1500.0,
+            "Ethylene Brassylate": 500.0,
+        },
+        family_archetype="woody_floral_musk.classic",
+    )
+
+    assert result.as_dict()["mapped_family"] == "woody_amber"
+
+
 def test_gate_formula_exposes_oav_intelligence_gate():
     report = gate_formula(
         {

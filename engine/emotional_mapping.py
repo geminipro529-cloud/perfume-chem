@@ -1,49 +1,21 @@
-"""Emotional / mood mapping via olfactory-limbic pathways.
+"""Quarantined hypotheses for odor-associated mood language.
 
-The olfactory bulb projects directly to the amygdala (emotion) and
-hippocampus (memory) — unique among senses. This means odours trigger
-emotional responses BEFORE conscious identification.
-
-Dimensions modelled:
-  **Calming**     — parasympathetic activation (lavender/linalool: EEG
-                    theta increase, Sayorwan 2012)
-  **Energizing**  — sympathetic activation (citrus/peppermint: EEG
-                    beta increase, Moss et al. 2008)
-  **Sensual**     — dopaminergic reward (musks, vanilla, indole trace:
-                    fMRI nucleus accumbens, Rolls 2004)
-  **Comforting**  — safety/familiarity signal (vanillin, coumarin,
-                    lactones: Proustian association, Herz 2009)
-  **Grounding**   — earth/stability (vetiver, patchouli, cedarwood:
-                    cortisol reduction, Matsubara 2003)
-  **Uplifting**   — euphoric/joyful (neroli, bergamot, hedione:
-                    serotonin pathway, Watanabe 2015)
-
-Scoring:
-  Measures emotional coherence — does the formula tell a consistent
-  emotional story? Mixed signals (calming + energizing in equal
-  measure) create emotional ambiguity (lower score).
-
-Sources:
-  Herz (2009) Chemical Senses — emotion and cognition in perfumery
-  Herz & Cupchik (1995) Memory & Cognition — Proustian memory
-  Arshamian et al. (2020) PNAS — universal odor-emotion associations
-  Sayorwan et al. (2012) Molecules — linalool calming EEG effects
-  Moss et al. (2008) Int J Neuroscience — aromatic plant effects
-  Rolls (2004) Brain Research Reviews — olfactory reward
-  Bensafi et al. (2002) Chemical Senses — autonomic responses to odours
-  Watanabe et al. (2015) Flavour Fragrance J — hedione VNO effect
+The material labels below are legacy, hand-authored priors for designing a
+human self-report study. They are not measurements of a formula, do not infer
+neurotransmitter release, and have no release or dosing authority. Odor
+valence depends substantially on person, context, culture, learning, label,
+mixture interactions, and exposure. A report remains UNKNOWN until a
+pre-registered blinded psychophysical protocol supplies formula-specific
+observations.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-import math
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Emotional Profile Data
-# 6 dimensions, each 0.0–1.0 intensity
-# Based on EEG/fMRI/autonomic studies + Herz(2009) hedonic associations
+# Legacy hypothesis-prior data. The numbers are not validated measurements and
+# must never be emitted as formula truth or used as a release gate.
 # ═══════════════════════════════════════════════════════════════════════════════
 
 EMOTIONAL_PROFILES: dict[str, dict[str, float]] = {
@@ -85,7 +57,7 @@ EMOTIONAL_PROFILES: dict[str, dict[str, float]] = {
                              "comforting": 0.05, "grounding": 0.15, "uplifting": 0.30},
     "Allyl Amyl Glycolate": {"calming": 0.0,  "energizing": 0.40, "sensual": 0.0,
                              "comforting": 0.0,  "grounding": 0.0,  "uplifting": 0.30},
-    # ── Sensual (dopaminergic reward) ──
+    # ── Sensual-language hypothesis priors ──
     "Galaxolide":           {"calming": 0.15, "energizing": 0.0,  "sensual": 0.65,
                              "comforting": 0.30, "grounding": 0.0,  "uplifting": 0.0},
     "Habanolide":           {"calming": 0.10, "energizing": 0.0,  "sensual": 0.70,
@@ -255,26 +227,29 @@ MOOD_DIMS = ["calming", "energizing", "sensual", "comforting", "grounding", "upl
 
 @dataclass
 class EmotionalReport:
-    """Emotional / mood profile analysis."""
-    score: float                      # 0-100 emotional coherence
-    mood_vector: dict[str, float]     # 6-dim weighted emotional profile
-    dominant_mood: str                 # strongest dimension
-    secondary_mood: str               # second strongest
-    emotional_narrative: str          # human-readable mood story
-    coherence: float                  # 0-1 how unified the emotional message is
-    ambiguity: float                  # 0-1 conflicting emotional signals
+    """Evidence-bounded emotional-association report."""
+    score: float | None
+    mood_vector: dict[str, float]
+    dominant_mood: str
+    secondary_mood: str
+    emotional_narrative: str
+    coherence: float | None
+    ambiguity: float | None
     diagnostics: list[str]
+    status: str = "UNKNOWN"
+    evidence_class: str = "HYPOTHESIS_PRIOR_ONLY"
+    release_authority: bool = False
 
 
-def score_emotional(
+def _legacy_score_emotional_unvalidated(
     ingredients: dict[str, float],
     dilutions: dict[str, float] | None = None,
 ) -> EmotionalReport:
-    """Score the emotional coherence of a formula.
+    """Retained research prototype; never call from release or dosing paths.
 
-    A high score means the formula projects a clear, unified mood.
-    A low score means conflicting emotional signals (e.g., calming +
-    energizing in equal measure creates emotional ambiguity).
+    This deterministic arithmetic has no held-out human validation. Keeping it
+    private preserves the historical experiment while preventing accidental
+    promotion to formula truth.
     """
     dilutions = dilutions or {}
     total_active = 0.0
@@ -372,4 +347,37 @@ def score_emotional(
         coherence=round(coherence, 3),
         ambiguity=round(ambiguity, 3),
         diagnostics=diagnostics,
+    )
+
+
+def score_emotional(
+    ingredients: dict[str, float],
+    dilutions: dict[str, float] | None = None,
+) -> EmotionalReport:
+    """Return UNKNOWN until formula-specific human observations are supplied."""
+    del dilutions
+    hypothesis_matches = sorted(
+        name for name in ingredients if name in EMOTIONAL_PROFILES
+    )
+    return EmotionalReport(
+        score=None,
+        mood_vector={},
+        dominant_mood="unknown",
+        secondary_mood="unknown",
+        emotional_narrative=(
+            "No formula-specific blinded self-report evidence is available."
+        ),
+        coherence=None,
+        ambiguity=None,
+        diagnostics=[
+            f"Legacy hypothesis matches: {len(hypothesis_matches)}",
+            (
+                "Required evidence: randomized blinded ratings with context, "
+                "label, dose, and participant provenance."
+            ),
+            (
+                "Brain imaging or receptor activity must not be relabeled as "
+                "neurotransmitter release or consumer emotion."
+            ),
+        ],
     )

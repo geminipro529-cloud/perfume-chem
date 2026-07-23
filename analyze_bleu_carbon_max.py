@@ -1,13 +1,12 @@
 """Bleu Carbon MAX — Complete OAV Analysis with Literature Validation."""
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 if sys.platform == "win32": sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+
 from engine.pipeline.formula_state import build_formula_state
-from engine.odor_thresholds import ODT_DATA
-from engine.ingredient_intelligence import get_profile
-import math
 
 # ═══════════════════════════════════════════════════════════════
 # Final formula after 5mL removal + all additions
@@ -249,12 +248,12 @@ print(f"  Hedonic score: {report.score:.1f}/100")
 for d in report.diagnostics:
     print(f"  {d}")
 
-print(f"\n  Top 5 hedonic contributors (valence × active mass):")
+print("\n  Top 5 hedonic contributors (valence × active mass):")
 for m in report.most_pleasant:
     print(f"    {m['material']:<30} +{m['valence']:+.2f} × {m['amount_uL']:>6.0f} uL = {m['hedonic_contribution']:>7.0f}")
 
 if report.unpleasant_materials:
-    print(f"\n  Unpleasant materials in formula:")
+    print("\n  Unpleasant materials in formula:")
     for m in report.unpleasant_materials:
         print(f"    {m['material']:<30} {m['valence']:+.2f} × {m['amount_uL']:>6.0f} uL")
 
@@ -317,7 +316,7 @@ if ambrofix_oav > 0:
 
 grapefruit_oav = get_oav("grapefruit")
 if grapefruit_oav > 1000:
-    wins.append(f"Grapefruit dominates opening — BdC pink-pith signature verified")
+    wins.append("Grapefruit dominates opening — BdC pink-pith signature verified")
 
 cashmeran_oav = get_oav("cashmeran")
 if cashmeran_oav and cashmeran_oav > 10:
@@ -365,11 +364,11 @@ for w in wins:
     print(f"    ✓ {w}")
 
 if issues:
-    print(f"\n  ISSUES TO ADDRESS:")
+    print("\n  ISSUES TO ADDRESS:")
     for i in issues:
         print(f"    ⚠ {i}")
 else:
-    print(f"\n  No issues detected.")
+    print("\n  No issues detected.")
 
 print(f"\n{SEP}")
 print("  OAV ANALYSIS COMPLETE")

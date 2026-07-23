@@ -33,23 +33,15 @@ not automatically fix the other. See `calculate_logp_retardation()` and
 
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Sequence
 
 from ._shared_types import (
     BANGKOK_VP_RATIO,
     DELTA_H_VAP_DEFAULT,
     NoteTier,
     PerformanceData,
-    R_GAS,
-    T_BANGKOK,
-    T_PARIS,
-    T_SKIN,
     clausius_clapeyron_vp_ratio,
-    get_note_tier_from_vp,
 )
-
 
 # ---------------------------------------------------------------------------
 # Performance database (Part IX)

@@ -8,7 +8,6 @@ from math import isfinite
 from typing import Any, Mapping, Sequence
 
 from engine.bottle_addition import AdditionRequest, AdditionResult, AdditionSolver
-from engine.interventions import InterventionRequest, InterventionResult, rank_interventions
 from engine.intervention_hypotheses import (
     InterventionHypothesisRequest,
     InterventionHypothesisResult,
@@ -19,15 +18,16 @@ from engine.intervention_trial import (
     InterventionTrialResult,
     plan_intervention_trial,
 )
+from engine.interventions import InterventionRequest, InterventionResult, rank_interventions
 from engine.mixture import MixtureComponent, MixtureState
+from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
 from engine.quantities import ConcentrationBasis
 from engine.safety_assessment import (
     SafetyAssessmentRequest,
     SafetyAssessmentResult,
     assess_safety,
 )
-from engine.pipeline.formula_state import FormulaState, build_formula_state
-from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
 from engine.scientific_contract import EvidenceDescriptor, ScientificClass
 
 
@@ -36,6 +36,23 @@ class CalculationMode(str, Enum):
 
     STRICT = "strict"
     COMPATIBILITY = "compatibility"
+
+
+def _stock_basis_name(
+    value: ConcentrationBasis | str | None,
+    *,
+    fraction: float,
+    declared: bool,
+) -> str:
+    if isinstance(value, ConcentrationBasis):
+        return value.value
+    if value is not None:
+        return str(value)
+    # An explicitly declared 100% stock is neat by definition; w/w, w/v, and
+    # v/v distinctions only become material for a fractional stock solution.
+    if declared and fraction == 1.0:
+        return "neat"
+    return "unspecified"
 
 
 @dataclass(frozen=True, slots=True)
@@ -246,9 +263,24 @@ class PerfumeWorkbench:
                 "strict mode requires density and molar mass for every matrix component: "
                 + ", ".join(mixture_state.missing_inputs)
             )
+        fraction_bases = request.stock_fraction_bases or {}
+        stock_specs = {}
+        for name in request.ingredients_ul:
+            fraction = float((request.dilutions or {}).get(name, 1.0))
+            declared = name in (request.dilutions or {})
+            stock_specs[name] = {
+                "fraction": fraction,
+                "fraction_basis": _stock_basis_name(
+                    fraction_bases.get(name),
+                    fraction=fraction,
+                    declared=declared,
+                ),
+                "declared": declared,
+            }
         state = build_formula_state(
             request.ingredients_ul,
             request.dilutions,
+            stock_specs=stock_specs,
             batch_volume_ml=request.batch_volume_ml,
             temperature_K=request.temperature_K,
             context=request.context,

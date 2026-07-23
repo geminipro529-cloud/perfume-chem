@@ -8,7 +8,6 @@ import pytest
 from engine.bottle_addition import AdditionRequest, BottleSnapshot, StockSolution
 from engine.workbench import PerfumeWorkbench, WorkbenchFormulaRequest
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_PATH = PROJECT_ROOT / "tests" / "fixtures" / "golden_formula_cases.json"
 

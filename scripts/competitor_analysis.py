@@ -17,17 +17,16 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Set
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from engine.inventory_parser import parse_inventory
-from engine.odor_thresholds import ODT_DATA, ODT_VERIFICATION
 from engine.ingredient_intelligence import _PROFILES
-
+from engine.inventory_parser import parse_inventory
+from engine.odor_thresholds import ODT_DATA
 
 # ---------------------------------------------------------------------------
 # Data — extracted from competitor research
@@ -309,9 +308,9 @@ def generate_summary_report(profiles: dict, odt_data: dict) -> dict:
     vibes_count = len(vibes_scents)
     mith_categories = sorted(set(s.category for s in mith_scents))
     vibes_categories = sorted(set(s.category for s in vibes_scents))
-    overlap = set(mith_categories) & set(vibes_categories)
-    mith_only = set(mith_categories) - set(vibes_categories)
-    vibes_only = set(vibes_categories) - set(mith_categories)
+    set(mith_categories) & set(vibes_categories)
+    set(mith_categories) - set(vibes_categories)
+    set(vibes_categories) - set(mith_categories)
 
     return {
         "brand_summary": {
@@ -428,9 +427,8 @@ def main():
     args = parser.parse_args()
 
     inv_path = ROOT / "inventory.txt"
-    inv_materials = []
     if inv_path.exists():
-        inv_materials = list(parse_inventory(inv_path))
+        list(parse_inventory(inv_path))
 
     profiles = _PROFILES
     odt_data = ODT_DATA
@@ -496,7 +494,7 @@ def main():
     for brand, pc in report.get("price_corridor", {}).items():
         print(f"  {brand}: {pc['min_per_ml']}-{pc['max_per_ml']} THB/mL  (avg {pc['avg_per_ml']})")
 
-    cat = report.get("category_overlap", {})
+    report.get("category_overlap", {})
     print(f"\n{'-' * 60}")
     print("  STRATEGIC GROUP MAP")
     print(f"{'-' * 60}")
@@ -554,17 +552,17 @@ def main():
     print(f"\n{'-' * 60}")
     print("  STRATEGIC RECOMMENDATIONS")
     print(f"{'-' * 60}")
-    print(f"  MITH:")
-    print(f"    1. Launch B2B scent branding division (hotel/spa packages)")
-    print(f"    2. Prune 45 SKUs to 25 hero SKUs + 5 'Bangkok Stories' concept scents")
-    print(f"    3. Add discovery set (8x2ml at 399 THB)")
-    print(f"  Vibeslab:")
-    print(f"    1. Fix 100ml supply (~2M THB/month latent demand)")
-    print(f"    2. Launch 30ml at 1,900 THB to capture price-sensitive niche")
-    print(f"    3. Body care line in top 3 scents (Money, Skins, Ginza)")
-    print(f"  Both:")
-    print(f"    1. 1,500-2,500 THB gap is a Blue Ocean for either brand")
-    print(f"\n  Full analysis: data/competitor_analysis_mith_vs_vibeslab.md (9 frameworks)")
+    print("  MITH:")
+    print("    1. Launch B2B scent branding division (hotel/spa packages)")
+    print("    2. Prune 45 SKUs to 25 hero SKUs + 5 'Bangkok Stories' concept scents")
+    print("    3. Add discovery set (8x2ml at 399 THB)")
+    print("  Vibeslab:")
+    print("    1. Fix 100ml supply (~2M THB/month latent demand)")
+    print("    2. Launch 30ml at 1,900 THB to capture price-sensitive niche")
+    print("    3. Body care line in top 3 scents (Money, Skins, Ginza)")
+    print("  Both:")
+    print("    1. 1,500-2,500 THB gap is a Blue Ocean for either brand")
+    print("\n  Full analysis: data/competitor_analysis_mith_vs_vibeslab.md (9 frameworks)")
     print(f"\n{'=' * 60}\n")
 
 

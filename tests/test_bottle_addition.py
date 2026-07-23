@@ -1,4 +1,5 @@
 import pytest
+
 from engine.bottle_addition import (
     AdditionCalculationError,
     AdditionRequest,

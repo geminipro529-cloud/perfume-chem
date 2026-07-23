@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from engine.ingredient_catalog import DEFAULT_OUTPUT_PATH, write_ingredient_catalog
+from engine.ingredient_catalog import write_ingredient_catalog
 
 
 def main() -> int:

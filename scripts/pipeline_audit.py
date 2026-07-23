@@ -10,7 +10,6 @@ import json
 import sys
 from pathlib import Path
 
-
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -18,22 +17,25 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.pipeline.audit_log import load_events, summarize_events, suggest_repairs
-from engine.project_verification import (
-    default_verification_report_path,
-    run_project_verification,
-    write_verification_report,
-)
-from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
     build_literature_rule_contract,
 )
 from engine.odor_thresholds import ODT_VERIFICATION
-from engine.science_audit import build_science_audit_contract
+from engine.pipeline.audit_log import load_events, suggest_repairs, summarize_events
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.project_verification import (
+    default_verification_report_path,
+    run_project_verification,
+    write_verification_report,
+)
 from engine.schema_validator import SchemaValidator
+from engine.science_audit import build_science_audit_contract
+from scripts.formula_release_gate import (
+    current_repository_evidence_hashes,
+    validate_pipeline_analysis_artifact,
+)
 from scripts.verify_formula_workflow import parse_formula_markdown
-
 
 DISCONNECTED_MODULE_STATUS = {
     "engine.optimizer.gate_aware": "promote",
@@ -65,16 +67,12 @@ def _data_authority_coverage_report() -> dict:
         "odt_verification_counts": by_vfy,
         "odt_authoritative_pct": round(
             100.0
-            * sum(
-                by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST")
-            )
+            * sum(by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST"))
             / total,
             1,
         ),
         "odt_heuristic_pct": round(
-            100.0
-            * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN"))
-            / total,
+            100.0 * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN")) / total,
             1,
         ),
         "science_coverage_pct": science.get("data_coverage_pct", {}),
@@ -129,9 +127,7 @@ def _is_scratch_formula_path(path: Path) -> bool:
     return path.name.startswith("_")
 
 
-def _matching_formula_paths(
-    pattern: str, *, include_scratch: bool = False
-) -> list[Path]:
+def _matching_formula_paths(pattern: str, *, include_scratch: bool = False) -> list[Path]:
     paths = [Path(path) for path in glob.glob(str(PROJECT_ROOT / pattern), recursive=True)]
     paths = sorted(paths)
     if include_scratch:
@@ -169,7 +165,23 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
         ifra_headroom = 0.8 if commercial_mode else 1.0
 
     reports = []
+    from engine.formula_metadata import pipeline_preflight_guard as _preflight
+
     for path in sorted(paths):
+        preflight = _preflight(str(path), brief=args.brief)
+        if not preflight.ok():
+            reports.append(
+                {
+                    "file": str(path),
+                    "preflight": {
+                        "status": "BLOCKED",
+                        "hard_blocks": preflight.hard_blocks,
+                        "warnings": preflight.warnings,
+                    },
+                    "formulas": [],
+                }
+            )
+            continue
         try:
             formulas = parse_formula_markdown(path)
         except Exception as exc:
@@ -182,9 +194,7 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                 family_archetype=args.family_archetype,
                 allow_preblends=args.allow_preblends,
                 commercial_mode=commercial_mode,
-                commercial_confidence_policy="warn"
-                if args.commercial_trial
-                else "block",
+                commercial_confidence_policy="warn" if args.commercial_trial else "block",
                 ifra_headroom=ifra_headroom,
                 batch_scaling_targets_ml=tuple(args.scaling_target_ml or ()),
                 audit_enabled=not args.no_audit,
@@ -198,17 +208,11 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                     "status": report.status,
                     "commercial_readiness": report.commercial_readiness,
                     "audit_event_id": report.audit_event_id,
-                    "failed_gates": [
-                        gate.gate for gate in report.gates if gate.status == "FAIL"
-                    ],
-                    "warn_gates": [
-                        gate.gate for gate in report.gates if gate.status == "WARN"
-                    ],
+                    "failed_gates": [gate.gate for gate in report.gates if gate.status == "FAIL"],
+                    "warn_gates": [gate.gate for gate in report.gates if gate.status == "WARN"],
                 }
             )
-        reports.append(
-            {"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports}
-        )
+        reports.append({"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports})
 
     if args.json:
         _print_json({"scanned_files": len(paths), "results": reports})
@@ -254,9 +258,7 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     disconnected_modules = _disconnected_module_status_report()
     evidence_posture = _evidence_posture_report()
 
-    formula_paths = _matching_formula_paths(
-        args.glob, include_scratch=args.include_scratch
-    )
+    formula_paths = _matching_formula_paths(args.glob, include_scratch=args.include_scratch)
     formula_paths = sorted(formula_paths)[: max(1, int(args.sample_limit))]
     representative: list[dict] = []
     for path in formula_paths:
@@ -362,6 +364,69 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_artifact_verify(args: argparse.Namespace) -> int:
+    """Validate persisted analysis provenance without re-running formula science."""
+
+    paths = _matching_formula_paths(
+        args.glob,
+        include_scratch=args.include_scratch,
+    )
+    if not paths:
+        payload = {
+            "status": "FAIL",
+            "reason": f"No files matched {args.glob!r}",
+            "files": [],
+        }
+        if args.json:
+            _print_json(payload)
+        else:
+            print(payload["reason"])
+        return 1
+
+    rows = []
+    counts: dict[str, int] = {}
+    repository_hashes = current_repository_evidence_hashes()
+    for path in paths:
+        try:
+            result = validate_pipeline_analysis_artifact(
+                path,
+                repository_hashes=repository_hashes,
+            )
+        except Exception as exc:  # fail closed for persisted evidence validation
+            result = {"status": "TAMPERED", "issues": [f"validator_error:{exc}"]}
+        status = str(result.get("status", "TAMPERED"))
+        counts[status] = counts.get(status, 0) + 1
+        rows.append(
+            {
+                "file": str(path.relative_to(PROJECT_ROOT)),
+                **result,
+            }
+        )
+
+    blocking_statuses = {"STALE", "TAMPERED"}
+    blockers = [row for row in rows if row["status"] in blocking_statuses]
+    overall = "FAIL" if blockers else "WARN" if counts.get("UNBOUND_LEGACY", 0) else "PASS"
+    payload = {
+        "status": overall,
+        "policy": {
+            "blocking": sorted(blocking_statuses),
+            "unbound_legacy_is_current": False,
+            "none_is_current": False,
+        },
+        "counts": dict(sorted(counts.items())),
+        "files": rows,
+    }
+    if args.json:
+        _print_json(payload)
+    else:
+        print(f"Artifact verification: {overall}")
+        for status, count in sorted(counts.items()):
+            print(f"  {status:<15} {count}")
+        for row in blockers:
+            print(f"  BLOCK {row['file']}: {', '.join(row.get('issues', []))}")
+    return 1 if blockers else 0
+
+
 def _cmd_project_verify(args: argparse.Namespace) -> int:
     try:
         report = run_project_verification(
@@ -398,12 +463,23 @@ def main(argv: list[str] | None = None) -> int:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    summarize = sub.add_parser(
-        "summarize", help="Summarize JSONL pipeline audit events."
-    )
+    summarize = sub.add_parser("summarize", help="Summarize JSONL pipeline audit events.")
     summarize.add_argument("--path", default=None)
     summarize.add_argument("--json", action="store_true")
     summarize.set_defaults(func=_cmd_summarize)
+
+    artifact_verify = sub.add_parser(
+        "artifact-verify",
+        help="Validate formula analysis bindings, hashes, and staleness.",
+    )
+    artifact_verify.add_argument("--glob", default="formulas/**/*.md")
+    artifact_verify.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas.",
+    )
+    artifact_verify.add_argument("--json", action="store_true")
+    artifact_verify.set_defaults(func=_cmd_artifact_verify)
 
     scan = sub.add_parser(
         "scan-formulas",
@@ -427,6 +503,7 @@ def main(argv: list[str] | None = None) -> int:
             "floral_aldehydic_amber",
             "woody_floral_musk",
             "gourmand_floral",
+            "prada_lhomme",
         ],
     )
     scan.add_argument("--family-archetype", default="")

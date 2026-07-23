@@ -1,10 +1,15 @@
 from pathlib import Path
 
-from engine.families.registry import all_archetypes
+from engine.families.registry import (
+    WOODY_FLORAL_MUSK_IRIS,
+    WOODY_FLORAL_MUSK_MUSKS,
+    all_archetypes,
+    evaluate_family_archetype,
+    infer_archetype,
+)
 from engine.family_scorer import get_family_weights
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from scripts.verify_formula_workflow import parse_formula_markdown
-
 
 EXPECTED_ARCHETYPES = {
     "aromatic_fougere.classic_reference",
@@ -33,6 +38,7 @@ EXPECTED_ARCHETYPES = {
     "layton_dna.fresh_thai",
     "layton_dna.indoor_amber",
     "layton_dna.night_intense",
+    "iris_amber_woody.prada_lhomme_reference",
 }
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -84,6 +90,41 @@ def test_family_registry_has_required_archetype_specs():
         assert spec.drift_limits
         assert spec.repair_pool
         assert spec.oav_targets
+
+
+def test_woody_floral_musk_recognizes_dihydro_beta_ionone_as_iris_modifier():
+    assert "Dihydro Beta Ionone" in WOODY_FLORAL_MUSK_IRIS
+
+
+def test_woody_floral_musk_recognizes_available_macrocyclic_musks():
+    assert {"Zenolide", "Exaltolide", "Ethylene Brassylate", "Ambrettolide"} <= set(
+        WOODY_FLORAL_MUSK_MUSKS
+    )
+
+
+def test_prada_lhomme_brief_resolves_and_requires_official_architecture_markers():
+    key = "iris_amber_woody.prada_lhomme_reference"
+    assert infer_archetype("prada_lhomme") == key
+    formula = _formula(
+        {
+            "Neroli EO": 50.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 500.0,
+            "Geranium EO (Pelargonium graveolens flower oil)": 20.0,
+            "Black Pepper EO": 5.0,
+            "Ambrofix": 100.0,
+            "Cedarwood oil Virginia": 300.0,
+            "Patchouli EO": 20.0,
+            "Ethylene Brassylate": 200.0,
+            "Zenolide": 200.0,
+        },
+        key,
+        "prada_lhomme",
+    )
+
+    assert evaluate_family_archetype(formula, key).status == "PASS"
+    formula["ingredients_ul"].pop("Patchouli EO")
+    formula["ingredients_pct"].pop("Patchouli EO")
+    assert evaluate_family_archetype(formula, key).status == "FAIL"
 
 
 def test_family_weight_aliases_resolve_dotted_historical_keys():

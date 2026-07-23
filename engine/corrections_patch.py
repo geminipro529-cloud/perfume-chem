@@ -10,7 +10,6 @@ will touch this because it's verified by external cross-check.
 """
 
 import sys
-import os
 
 # ════════════════════════════════════════════════════════════
 # VP CORRECTIONS — verified from external sources
@@ -27,12 +26,12 @@ VP_PATCH = {
     "Norlimbanol Dextro":0.067,    # Vigon SDS: 0.0005 mmHg@25C (DB was 0.001 = 67x)
     "Ethyl Vanillin":   0.019,     # Fisher SDS: 0.00014 mmHg (DB was 0.0002 = 95x)
     "Ethyl maltol":     0.029,     # DirectPCW: 0.000220 mmHg@25C (DB was 0.001 = 29x)
-    
+
     # 🟠 MAJOR (DB was 10-50x wrong)
     "Dynascone":        1.44,      # Firmenich official: 1.44 Pa@20C (DB was 0.15 = 10x)
     "Ambrettolide":     0.003,     # ChemBook/Dupeux 2022: 0.003 Pa@25C (DB was 0.0001 = 30x)
     "Isobutyl Quinoline":0.129,    # ScenTree: 0.00097 mmHg@20C (DB was 0.005 = 26x)
-    
+
     # 🟡 MINOR (DB was 2-10x wrong)
     "Calone":           0.05,      # Firmenich official: 0.05 Pa@20C (DB was 0.293 = 6x HIGH)
     "Cashmeran":        0.40,      # Vigon SDS: 0.003 mmHg@25C (DB was 1.2 = 3x HIGH)
@@ -95,7 +94,7 @@ ODT_PATCH = {
     "helional":         0.1,      # Lotsch et al. 2010 PubMed: 0.097 ppb published
     "methyl nonyl ketone":5.0,    # Lotsch et al. 2009 PubMed: homologous 2-ketone series
     "benzyl benzoate":  810.0,    # Arctander, RIFM, Nagata 2003: published near-odorless
-    
+
     # REGULATORY (Tier B) — from RIFM/SCCS/manufacturer data
     "ethyl linalool":   15.0,     # Linalool homolog; chain = 1.5-2x threshold raise
     "norlimbanol":      0.2,      # Tanaka et al. 2009 J Agric Food Chem: 0.15 ppb (levo)
@@ -115,7 +114,7 @@ ODT_PATCH = {
     "cyclamen aldehyde":0.76,     # Nagata 2003; Devos 1990: published
     "citronellal":      40.0,     # Devos 1990; Nagata 2003: published
     "exaltolide":       3.2,      # ScenTree: published 3.2 ppb for pentadecanolide
-    
+
     # SURROGATE (Tier C) — constituent-weighted or structural analogy
     "bergamot fcf sicilian":15.0, # GC-O linalool 8ppb + linalyl acetate 2.7ppb dominant
     "bergamot fcf":     15.0,     # Same source
@@ -143,7 +142,7 @@ ODT_PATCH = {
     "peru balsam":      30.0,     # Vanillin + eugenol OAV dominant
     "siam benzoin":     40.0,     # Cinnamic ester + benzaldehyde
     "tolu balsam":      35.0,     # Similar to Peru balsam; cinnamic acid fraction higher
-    
+
     # VP-MODEL (Tier D) — estimated from vapor pressure or homologous series
     "kephalis":         50.0,     # Dialkyl ketone MW ~230; 2-ketone series model
     "clearwood":        10.0,     # Patchouli sesquiterpene; patchoulol surrogate 10-15 ppb
@@ -151,7 +150,7 @@ ODT_PATCH = {
     "koavone":          5.0,      # IFF vetiver-woody; VP-model 3-8 ppb
     "farnesene":        100.0,    # C15 sesquiterpene; caryophyllene 80-200 ppb range
     "farnesol":         20.0,     # Van Gemert compilation; VP water-to-air
-    
+
     # BLEND ESTIMATES (Fragrance Oils / Accord Bases)
     "jasmine fo":       2.0,      # BLEND_EST: indole 0.2ppb + benzyl acetate 130ppb + methyl jasmonate 7ppb
     "leather fo":       0.1,      # BLEND_EST: IBQ 0.05ppb + birch tar 2ppb + castoreum
@@ -176,15 +175,14 @@ def apply_corrections(profiles_dict, odt_dict):
             profiles_dict[name]['vp_source'] = VP_SOURCE.get(name, 'External cross-check')
             profiles_dict[name]['vp_flag'] = 'VERIFIED_EXTERNAL'
             count += 1
-    
-    from name_utils import normalize_name
+
     for key, odt in ODT_PATCH.items():
         odt_dict[key] = odt_dict.get(key, {})
         odt_dict[key]['odt_air'] = odt
         odt_dict[key]['odt_source'] = 'Verified external cross-check (2026-05-12)'
         odt_dict[key]['odt_flag'] = 'TARGET_VERIFIED'
         count += 1
-    
+
     return count
 
 if __name__ == '__main__':

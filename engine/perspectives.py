@@ -22,11 +22,9 @@ from __future__ import annotations
 import math
 import re
 from dataclasses import dataclass, field
-from typing import Any
 
-from .ingredient_intelligence import get_profile, DIMENSIONS
+from .ingredient_intelligence import get_profile
 from .optimizer.models import FormulaVector, _lookup_material
-
 
 # ── Material metadata lookups ──────────────────────────────────
 
@@ -750,20 +748,20 @@ class MultiPerspectiveReport:
     def summary_table(self) -> str:
         """Human-readable perspective comparison table."""
         lines = [
-            f"╔══════════════════════════════════════════════════════╗",
+            "╔══════════════════════════════════════════════════════╗",
             f"║  MULTI-PERSPECTIVE REPORT: {self.formula_name:<25s} ║",
-            f"╠══════════════════════════════════════════════════════╣",
+            "╠══════════════════════════════════════════════════════╣",
             f"║  {'Perspective':<16s} │ {'Score':>5s} │ {'Key Insight':<25s} ║",
-            f"╠──────────────────┼───────┼───────────────────────────╣",
+            "╠──────────────────┼───────┼───────────────────────────╣",
         ]
         for p in self.perspectives:
             insight = p.diagnostics[0][:25] if p.diagnostics else ""
             lines.append(
                 f"║  {p.perspective:<16s} │ {p.score:5.1f} │ {insight:<25s} ║"
             )
-        lines.append(f"╠══════════════════════════════════════════════════════╣")
+        lines.append("╠══════════════════════════════════════════════════════╣")
         lines.append(f"║  {'COMPOSITE':16s} │ {self.composite_score:5.1f} │                           ║")
-        lines.append(f"╚══════════════════════════════════════════════════════╝")
+        lines.append("╚══════════════════════════════════════════════════════╝")
         if self.consensus_notes:
             lines.append("")
             lines.append("CONSENSUS NOTES:")

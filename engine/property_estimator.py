@@ -169,10 +169,10 @@ def _count_group_features(smiles: str) -> dict[str, float]:
     feats["ether"] = max(0.0, o_still_unaccounted)
 
     # ── Aliphatic C count (uppercase C) ──
-    all_upper_C = float(len(re.findall(r"C", s)))
+    all_upper_c = float(len(re.findall(r"C", s)))  # noqa: N806
     # Carbons that are part of special functional groups
     c_special = feats["carboxyl"] + feats["ester"] + feats["ketone"] + feats["aldehyde"]
-    feats["aliphatic_c"] = max(0.0, all_upper_C - c_special)
+    feats["aliphatic_c"] = max(0.0, all_upper_c - c_special)
 
     # ── Ring closures  —  count digits, each ring uses 2 stops ──
     n_digits = len(re.findall(r"[1-9]", s))
@@ -332,9 +332,7 @@ def estimate_logp(smiles: str) -> float:
 
     # ── Proximity correction: two H-bond donors within 3 bonds → -0.3 ──
     # Approximate: if we have hydroxyl + carboxyl/amine, apply correction
-    h_bond_donors = (
-        hydroxyl_o + features.get("carboxyl", 0) * 2 + features.get("amine", 0)
-    )
+    h_bond_donors = hydroxyl_o + features.get("carboxyl", 0) * 2 + features.get("amine", 0)
     if h_bond_donors >= 2:
         logp_val -= 0.3
 
@@ -429,10 +427,7 @@ def estimate_activity_coef(chemical_class: str) -> float:
     """
     gamma = _ACTIVITY_COEF.get(chemical_class)
     if gamma is None:
-        msg = (
-            f"Unknown chemical class: {chemical_class!r}. "
-            f"Must be one of {set(_ACTIVITY_COEF)}"
-        )
+        msg = f"Unknown chemical class: {chemical_class!r}. Must be one of {set(_ACTIVITY_COEF)}"
         raise ValueError(msg)
     return gamma
 

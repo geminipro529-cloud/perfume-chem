@@ -1,4 +1,5 @@
-from pathlib import Path
+
+import pytest
 
 from scripts.verify_formula_workflow import parse_formula_markdown
 
@@ -122,3 +123,87 @@ def test_parse_formula_markdown_extracts_family_archetype(tmp_path):
 
     assert len(formulas) == 1
     assert formulas[0]["family_archetype"] == "chypre_classical.coty_reference"
+
+
+def test_parse_formula_markdown_ignores_historical_and_aggregate_rows(tmp_path):
+    formula_path = tmp_path / "edited_batch.md"
+    formula_path.write_text(
+        """# Edited Batch
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---:|---:|
+| ~~Romandolide~~ | ~~neat~~ | ~~300~~ |
+| Zero-dose placeholder | neat | 0 |
+| 450 | neat | 450 |
+| Iris Accord Total | | 900 |
+| Additions Total | | 120 |
+| Fragrance sub-total | | 6000 |
+| Final bottle total | | 30000 |
+| Alpha Irone | 30% w/w in IPM | 100 |
+| Ethylene Brassylate | neat | 350 |
+""",
+        encoding="utf-8",
+    )
+
+    formulas = parse_formula_markdown(formula_path)
+
+    assert len(formulas) == 1
+    assert formulas[0]["ingredients_ul"] == {
+        "Alpha Irone": 100.0,
+        "Ethylene Brassylate": 350.0,
+    }
+
+
+def test_parser_reads_only_explicit_finished_matrix_section(tmp_path):
+    path = tmp_path / "matrix_formula.md"
+    path.write_text(
+        """# Matrix Formula
+
+## Formula
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---:|---:|
+| Hedione | neat | 1000 |
+
+## Finished Matrix Inputs
+
+**Matrix authority:** `explicit`
+
+| Component | Volume uL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| Ethanol | 4000 | 0.785 | 46.0684 | NIST Chemistry WebBook CAS 64-17-5 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(path)[0]
+
+    assert formula["ingredients_ul"] == {"Hedione": 1000.0}
+    assert formula["matrix_source"] == "explicit"
+    assert formula["matrix_mass_g"] == pytest.approx(3.14)
+    assert formula["matrix_moles"]["Ethanol"] == pytest.approx(3.14 / 46.0684)
+
+
+def test_parser_marks_matrix_partial_when_stock_carrier_is_unresolved(tmp_path):
+    path = tmp_path / "partial_matrix_formula.md"
+    path.write_text(
+        """# Partial Matrix Formula
+
+## Formula
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---:|---:|
+| Ambrettolide | 10% in DPG | 100 |
+
+## Finished Matrix Inputs
+
+| Component | Volume uL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| Ethanol | 4000 | 0.785 | 46.0684 | NIST Chemistry WebBook CAS 64-17-5 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(path)[0]
+
+    assert formula["matrix_source"] == "incomplete_stock_carrier"

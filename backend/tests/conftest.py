@@ -1,6 +1,9 @@
 """Test configuration and fixtures"""
 
 import asyncio
+import os
+import tempfile
+from pathlib import Path
 from typing import AsyncGenerator
 
 import pytest
@@ -13,6 +16,16 @@ from sqlalchemy.orm import sessionmaker
 from app.api.deps import get_db
 from app.main import app
 from app.models.base import Base
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+PYTEST_TEMP_ROOT = REPO_ROOT / "output" / "pytest-temp-backend"
+PYTEST_TEMP_ROOT.mkdir(parents=True, exist_ok=True)
+PIP_CACHE_ROOT = REPO_ROOT / "output" / "verification-pip-cache"
+PIP_CACHE_ROOT.mkdir(parents=True, exist_ok=True)
+os.environ["TEMP"] = str(PYTEST_TEMP_ROOT)
+os.environ["TMP"] = str(PYTEST_TEMP_ROOT)
+os.environ["PIP_CACHE_DIR"] = str(PIP_CACHE_ROOT)
+tempfile.tempdir = str(PYTEST_TEMP_ROOT)
 
 # Test database URL
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_perfume_chem.db"

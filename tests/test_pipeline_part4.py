@@ -1,7 +1,6 @@
-from pathlib import Path
 
 from engine.optimizer.gate_aware import max_raw_ul_for_ifra, optimize_until_release_ready
-from engine.pipeline.audit_log import append_event, load_events, summarize_events, suggest_repairs
+from engine.pipeline.audit_log import append_event, load_events, suggest_repairs, summarize_events
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from scripts.formula_release_gate import main as release_gate_main
 

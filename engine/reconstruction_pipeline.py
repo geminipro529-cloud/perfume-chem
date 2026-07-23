@@ -39,72 +39,69 @@ Usage:
 
 from __future__ import annotations
 
-import json
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Optional
 
-# ── Tracing ───────────────────────────────────────────────────────
-from engine.tracing import traced
+from engine.allergen_solver import (
+    AllergenSolverResult,
+    solve_allergen_ratios,
+)
+from engine.captive_availability import (
+    CaptiveAnalysisResult,
+    analyze_captive_availability,
+)
+from engine.cost_analysis import (
+    COGAnalysisResult,
+    analyze_cost_of_goods,
+)
+from engine.ifra_constraints import (
+    IFRAAnalysisResult,
+    compute_ifra_windows,
+)
+from engine.material_interactions import (
+    InteractionAnalysisResult,
+    analyze_material_interactions,
+)
+from engine.molecular_weight_distribution import (
+    MWAnalysisResult,
+    analyze_mw_distribution,
+)
+from engine.odor_thresholds import (
+    ODTAnalysisResult,
+    analyze_odor_thresholds,
+)
+from engine.perfumer_signature import (
+    SignatureAnalysisResult,
+    analyze_perfumer_signature,
+)
+from engine.regulatory_timeline import (
+    RegulatoryAnalysisResult,
+    analyze_regulatory_timeline,
+)
 
 # ── Internal module imports ────────────────────────────────────────
 from engine.reverse_engineer import (
-    EvidencePool,
     EvidenceItem,
+    EvidencePool,
     ReconstructedFormula,
-    reverse_engineer,
+    format_reconstruction_report,
     parse_allergen_list,
     parse_note_pyramid,
     parse_review_consensus,
-    format_reconstruction_report,
-)
-from engine.ifra_constraints import (
-    compute_ifra_windows,
-    format_ifra_report,
-    IFRAAnalysisResult,
-)
-from engine.perfumer_signature import (
-    analyze_perfumer_signature,
-    SignatureAnalysisResult,
-)
-from engine.cost_analysis import (
-    analyze_cost_of_goods,
-    COGAnalysisResult,
-)
-from engine.odor_thresholds import (
-    analyze_odor_thresholds,
-    ODTAnalysisResult,
-)
-from engine.allergen_solver import (
-    solve_allergen_ratios,
-    AllergenSolverResult,
-)
-from engine.material_interactions import (
-    analyze_material_interactions,
-    InteractionAnalysisResult,
-)
-from engine.vapor_pressure_modeling import (
-    analyze_vapor_pressure,
-    VPAnalysisResult,
+    reverse_engineer,
 )
 from engine.temporal_volatility import (
-    analyze_temporal_consistency,
     TemporalAnalysisResult,
-)
-from engine.captive_availability import (
-    analyze_captive_availability,
-    CaptiveAnalysisResult,
-)
-from engine.regulatory_timeline import (
-    analyze_regulatory_timeline,
-    RegulatoryAnalysisResult,
-)
-from engine.molecular_weight_distribution import (
-    analyze_mw_distribution,
-    MWAnalysisResult,
+    analyze_temporal_consistency,
 )
 
+# ── Tracing ───────────────────────────────────────────────────────
+from engine.tracing import traced
+from engine.vapor_pressure_modeling import (
+    VPAnalysisResult,
+    analyze_vapor_pressure,
+)
 
 # ══════════════════════════════════════════════════════════════════════
 # Input specification

@@ -10,7 +10,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 # Resolve paths before anything else
@@ -19,14 +19,20 @@ KG_DIR = PROJECT_ROOT / "data" / "knowledge_graph"
 
 # Adjust sys.path so we can import backend modules
 import sys
+
 sys.path.insert(0, str(PROJECT_ROOT / "backend"))
 
 from app.models.base import Base
+
 # Only import the models we're actually populating (avoid importing
 # existing models that may have issues like reserved column names)
 from app.models.knowledge_graph import (
-    Material, PairingRule, SynergyRule, TheoryFramework,
-    ConfidenceLevel, RuleType,
+    ConfidenceLevel,
+    Material,
+    PairingRule,
+    RuleType,
+    SynergyRule,
+    TheoryFramework,
 )
 
 # Corruption detection patterns

@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from collections import Counter
-from datetime import datetime, timezone
 import json
 import os
+from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 from uuid import uuid4
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_AUDIT_PATH = PROJECT_ROOT / "data" / "pipeline_audit" / "events.jsonl"
@@ -69,6 +68,7 @@ def config_summary(config) -> dict:
         "temperature_K",
         "brief",
         "family_archetype",
+        "concentration_bracket",
         "allow_preblends",
         "min_confidence_score",
         "min_perceptible_materials",
@@ -76,7 +76,13 @@ def config_summary(config) -> dict:
         "ifra_headroom",
         "commercial_mode",
         "commercial_confidence_policy",
+        "quantitative_claim",
+        "matrix_components_moles",
+        "matrix_mass_g",
+        "matrix_source",
         "batch_scaling_targets_ml",
+        "expected_retail_price_thb",
+        "price_tier",
         "audit_source",
     )
     payload = {field: getattr(config, field) for field in fields if hasattr(config, field)}
@@ -127,6 +133,14 @@ def compact_gate(gate) -> dict:
             for key in ("family_archetype", "family", "label", "score", "forbidden_hits", "checks")
             if key in data
         }
+    elif gate_name in {
+        "inventory_stock_contract",
+        "quantitative_authority",
+        "natural_composite_coverage",
+        "reference_claim_contract",
+        "architecture_concentration",
+    }:
+        compact_data = data
     elif gate_name in {"chemistry_stability", "phase_compatibility"}:
         compact_data = data
     elif raw.get("status") != "PASS":
@@ -156,6 +170,17 @@ def gate_report_event(
     warned = [gate["gate"] for gate in gates if gate.get("status") == "WARN"]
     confidence = dict(getattr(report, "confidence", {}) or {})
     event_source = source or getattr(config, "audit_source", "")
+    evidence_gates = {
+        gate["gate"]: gate
+        for gate in gates
+        if gate.get("gate")
+        in {
+            "inventory_stock_contract",
+            "quantitative_authority",
+            "natural_composite_coverage",
+            "reference_claim_contract",
+        }
+    }
     return {
         "event_type": event_type,
         "formula_name": getattr(report, "name", ""),
@@ -174,6 +199,7 @@ def gate_report_event(
         "failed_gates": failed,
         "warn_gates": warned,
         "gates": gates,
+        "run_evidence": evidence_gates,
         "repair_actions": list(repair_actions or []),
     }
 

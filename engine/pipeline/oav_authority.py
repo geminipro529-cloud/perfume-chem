@@ -14,13 +14,24 @@ from typing import Any, Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, MaterialState, build_formula_state
 from engine.pipeline.gates import (
+    GateReport,
+    GateResult,
     ReleaseGateConfig,
-    _gate_odt_coverage,
     _gate_oav_legibility,
     _gate_oav_scaling,
+    _gate_odt_coverage,
 )
 from engine.pipeline.oav_intelligence import OAVIntelligenceResult, analyze_oav_intelligence
-from engine.pipeline.robustness import DRIFT_WARN_THRESHOLD, RobustnessReport, audit_formula_robustness
+from engine.pipeline.preflight import (
+    resolve_inventory_stock_contract,
+    resolved_stock_specs_for_state,
+)
+from engine.pipeline.robustness import (
+    DRIFT_WARN_THRESHOLD,
+    PerturbationResult,
+    RobustnessReport,
+    audit_formula_robustness,
+)
 from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
 
 
@@ -32,17 +43,14 @@ def _formula_record_from_request(request: "OAVAuthorityRequest") -> dict[str, An
         "body": request.formula_name,
         "family_archetype": request.family_archetype,
         "ingredients_ul": {
-            str(name): float(amount or 0.0)
-            for name, amount in request.ingredients_ul.items()
+            str(name): float(amount or 0.0) for name, amount in request.ingredients_ul.items()
         },
         "ingredients_pct": {
             str(name): float(amount or 0.0) / total * 100.0
             for name, amount in request.ingredients_ul.items()
         },
-        "dilutions": {
-            str(name): float(value or 1.0)
-            for name, value in request.dilutions.items()
-        },
+        "dilutions": {str(name): float(value or 1.0) for name, value in request.dilutions.items()},
+        "stock_specs": {str(name): dict(spec or {}) for name, spec in request.stock_specs.items()},
     }
 
 
@@ -84,8 +92,7 @@ def _envelope_drift(base: Mapping[str, float], changed: Mapping[str, float]) -> 
     if denom <= 1e-12:
         return 0.0
     delta = sum(
-        abs(float(changed.get(family, 0.0)) - float(base.get(family, 0.0)))
-        for family in families
+        abs(float(changed.get(family, 0.0)) - float(base.get(family, 0.0))) for family in families
     )
     return delta / denom
 
@@ -94,7 +101,9 @@ def _max_family_drift(frames: Sequence[SimulationFrame]) -> float:
     if not frames:
         return 0.0
     baseline = _family_envelope(frames[0].state)
-    return max((_envelope_drift(baseline, _family_envelope(frame.state)) for frame in frames), default=0.0)
+    return max(
+        (_envelope_drift(baseline, _family_envelope(frame.state)) for frame in frames), default=0.0
+    )
 
 
 def _leaders_changed(frames: Sequence[SimulationFrame]) -> bool:
@@ -116,8 +125,9 @@ class OAVAuthorityRequest:
     formula_name: str
     ingredients_ul: Mapping[str, float]
     dilutions: Mapping[str, float] = field(default_factory=dict)
+    stock_specs: Mapping[str, Mapping[str, object]] = field(default_factory=dict)
     batch_volume_ml: float = 30.0
-    temperature_K: float = 305.0
+    temperature_K: float = 305.0  # noqa: N815
     family_archetype: str = ""
     target_windows: tuple[tuple[str, float], ...] = DEFAULT_WINDOWS
     batch_scaling_targets_ml: tuple[float, ...] = ()
@@ -125,12 +135,16 @@ class OAVAuthorityRequest:
     context: str = "skin"
     min_perceptible_materials: int = 3
     max_perceptible_channels: int = 30
+    matrix_moles: Mapping[str, float] = field(default_factory=dict)
+    matrix_mass_g: float = 0.0
+    matrix_source: str = "omitted"
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "formula_name": self.formula_name,
             "ingredients_ul": {str(k): float(v or 0.0) for k, v in self.ingredients_ul.items()},
             "dilutions": {str(k): float(v or 1.0) for k, v in self.dilutions.items()},
+            "stock_specs": {str(name): dict(spec or {}) for name, spec in self.stock_specs.items()},
             "batch_volume_ml": float(self.batch_volume_ml),
             "temperature_K": float(self.temperature_K),
             "family_archetype": self.family_archetype,
@@ -140,6 +154,9 @@ class OAVAuthorityRequest:
             "context": self.context,
             "min_perceptible_materials": int(self.min_perceptible_materials),
             "max_perceptible_channels": int(self.max_perceptible_channels),
+            "matrix_moles": {str(name): float(value) for name, value in self.matrix_moles.items()},
+            "matrix_mass_g": float(self.matrix_mass_g),
+            "matrix_source": self.matrix_source,
         }
 
 
@@ -276,7 +293,9 @@ class OAVAuthorityResult:
                 "batch_volume_ml": round(float(self.request.batch_volume_ml), 6),
                 "temperature_K": round(float(self.request.temperature_K), 6),
                 "family_archetype": self.request.family_archetype,
-                "batch_scaling_targets_ml": [float(value) for value in self.request.batch_scaling_targets_ml],
+                "batch_scaling_targets_ml": [
+                    float(value) for value in self.request.batch_scaling_targets_ml
+                ],
                 "min_perceptible_materials": int(self.request.min_perceptible_materials),
                 "max_perceptible_channels": int(self.request.max_perceptible_channels),
             },
@@ -349,10 +368,85 @@ def _build_gate_config(request: OAVAuthorityRequest) -> ReleaseGateConfig:
         temperature_K=float(request.temperature_K),
         brief="generic",
         family_archetype=request.family_archetype,
-        batch_scaling_targets_ml=tuple(float(v) for v in request.batch_scaling_targets_ml if float(v) > 0),
+        batch_scaling_targets_ml=tuple(
+            float(v) for v in request.batch_scaling_targets_ml if float(v) > 0
+        ),
         min_perceptible_materials=int(request.min_perceptible_materials),
         max_perceptible_channels=int(request.max_perceptible_channels),
+        matrix_components_moles=tuple(
+            sorted(
+                (str(name), float(value))
+                for name, value in request.matrix_moles.items()
+                if float(value) > 0.0
+            )
+        ),
+        matrix_mass_g=float(request.matrix_mass_g),
+        matrix_source=request.matrix_source,
         audit_enabled=False,
+    )
+
+
+def _gate_map(report: GateReport) -> dict[str, GateResult]:
+    return {gate.gate: gate for gate in report.gates}
+
+
+def _robustness_from_gate(gate: GateResult) -> RobustnessReport:
+    payload = dict(gate.data or {})
+
+    def rows(key: str) -> tuple[PerturbationResult, ...]:
+        return tuple(
+            PerturbationResult(
+                material=str(row.get("material", "")),
+                direction=str(row.get("direction", "")),
+                delta_ul=float(row.get("delta_ul", 0.0) or 0.0),
+                status=str(row.get("status", "WARN")),
+                family_envelope_drift=float(row.get("family_envelope_drift", 0.0) or 0.0),
+                top_leader_changed=bool(row.get("top_leader_changed", False)),
+                safety_failed=bool(row.get("safety_failed", False)),
+                brief_failed=bool(row.get("brief_failed", False)),
+                detail=str(row.get("detail", "")),
+            )
+            for row in list(payload.get(key, []) or [])
+        )
+
+    return RobustnessReport(
+        status=str(payload.get("status", gate.status)),
+        checked=int(payload.get("checked", 0) or 0),
+        skipped=int(payload.get("skipped", 0) or 0),
+        issues=rows("issues"),
+        perturbations=rows("perturbations"),
+    )
+
+
+def _intelligence_from_gate(gate: GateResult) -> OAVIntelligenceResult | None:
+    payload = dict(gate.data or {})
+    if "intelligence_status" not in payload:
+        return None
+    return OAVIntelligenceResult(
+        family_archetype=str(payload.get("family_archetype", "")),
+        mapped_family=(
+            str(payload["mapped_family"]) if payload.get("mapped_family") is not None else None
+        ),
+        family_target_alignment=dict(payload.get("family_target_alignment", {}) or {}),
+        material_cliff_findings=tuple(
+            dict(row) for row in list(payload.get("material_cliff_findings", []) or [])
+        ),
+        shift_zone_findings=tuple(
+            dict(row) for row in list(payload.get("shift_zone_findings", []) or [])
+        ),
+        balance_reports=tuple(dict(row) for row in list(payload.get("balance_reports", []) or [])),
+        performance_projection=dict(payload.get("performance_projection", {}) or {}),
+        synergy_findings=dict(payload.get("synergy_findings", {}) or {}),
+        intelligence_status=str(payload.get("intelligence_status", "PASS")),
+        intelligence_blocking_reasons=tuple(
+            str(value) for value in list(payload.get("intelligence_blocking_reasons", []) or [])
+        ),
+        intelligence_warning_reasons=tuple(
+            str(value) for value in list(payload.get("intelligence_warning_reasons", []) or [])
+        ),
+        unmapped_materials=tuple(
+            str(value) for value in list(payload.get("unmapped_materials", []) or [])
+        ),
     )
 
 
@@ -400,38 +494,79 @@ def _compute_rank_score(
     return max(0.0, min(100.0, score))
 
 
-def analyze_oav_authority(request: OAVAuthorityRequest) -> OAVAuthorityResult:
+def analyze_oav_authority(
+    request: OAVAuthorityRequest,
+    *,
+    gate_report: GateReport | None = None,
+) -> OAVAuthorityResult:
     """Run canonical OAV-first analysis and return an authority verdict surface."""
-    state = build_formula_state(
-        request.ingredients_ul,
-        request.dilutions,
-        batch_volume_ml=float(request.batch_volume_ml),
-        temperature_K=float(request.temperature_K),
-        context=request.context,
-    )
-    frames = simulate_formula(
-        request.ingredients_ul,
-        request.dilutions,
-        batch_volume_ml=float(request.batch_volume_ml),
-        temperature_K=float(request.temperature_K),
-        context=request.context,
-        windows=request.target_windows,
-        initial_state=state,
-    )
+    formula = _formula_record_from_request(request)
+    reused_gates: dict[str, GateResult] = {}
+    if gate_report is None:
+        stock_contract = resolve_inventory_stock_contract(formula)
+        stock_specs = resolved_stock_specs_for_state(formula, stock_contract)
+        state = build_formula_state(
+            request.ingredients_ul,
+            request.dilutions,
+            stock_specs=stock_specs,
+            batch_volume_ml=float(request.batch_volume_ml),
+            temperature_K=float(request.temperature_K),
+            context=request.context,
+            matrix_moles=request.matrix_moles,
+            matrix_mass_g=float(request.matrix_mass_g),
+            matrix_source=request.matrix_source,
+        )
+        frames = simulate_formula(
+            request.ingredients_ul,
+            request.dilutions,
+            batch_volume_ml=float(request.batch_volume_ml),
+            temperature_K=float(request.temperature_K),
+            context=request.context,
+            windows=request.target_windows,
+            initial_state=state,
+        )
+    else:
+        state = gate_report.formula_state
+        frames = list(gate_report.simulation)
+        expected_windows = tuple(
+            (str(label), float(seconds)) for label, seconds in request.target_windows
+        )
+        actual_windows = tuple((frame.label, frame.t_seconds) for frame in frames)
+        if actual_windows != expected_windows:
+            raise ValueError("Gate report simulation windows do not match OAV request")
+        expected_doses = {
+            str(name): float(value or 0.0)
+            for name, value in request.ingredients_ul.items()
+            if float(value or 0.0) > 0.0
+        }
+        actual_doses = {material.name: material.raw_ul for material in state.materials}
+        if actual_doses != expected_doses:
+            raise ValueError("Gate report formula state does not match OAV request doses")
+        reused_gates = _gate_map(gate_report)
     material_rows = tuple(
         OAVMaterialRow.from_material_state(material)
-        for material in sorted(state.materials, key=lambda row: ((row.oav or 0.0), row.name), reverse=True)
+        for material in sorted(
+            state.materials, key=lambda row: ((row.oav or 0.0), row.name), reverse=True
+        )
     )
     time_windows = tuple(OAVTimeWindowSummary.from_frame(frame) for frame in frames)
 
     config = _build_gate_config(request)
-    formula = _formula_record_from_request(request)
-
-    odt_gate = _gate_odt_coverage(state)
-    legibility_gate = _gate_oav_legibility(state, config)
-    scaling_gate = _gate_oav_scaling(formula, config)
-    robustness_report = audit_formula_robustness(formula, config)
-    intelligence = analyze_oav_intelligence(state, frames, request.family_archetype)
+    odt_gate = reused_gates.get("odt_coverage") or _gate_odt_coverage(state)
+    legibility_gate = reused_gates.get("oav_legibility") or _gate_oav_legibility(state, config)
+    scaling_gate = reused_gates.get("oav_scaling") or _gate_oav_scaling(formula, config)
+    robustness_gate = reused_gates.get("robustness_perturbation")
+    robustness_report = (
+        _robustness_from_gate(robustness_gate)
+        if robustness_gate is not None
+        else audit_formula_robustness(formula, config)
+    )
+    intelligence_gate = reused_gates.get("oav_intelligence")
+    intelligence = (
+        _intelligence_from_gate(intelligence_gate) if intelligence_gate is not None else None
+    )
+    if intelligence is None:
+        intelligence = analyze_oav_intelligence(state, frames, request.family_archetype)
 
     odt_coverage = _result_payload(odt_gate)
     oav_legibility = _result_payload(legibility_gate)
@@ -452,7 +587,9 @@ def analyze_oav_authority(request: OAVAuthorityRequest) -> OAVAuthorityResult:
             "ODT coverage incomplete for required materials: " + ", ".join(missing_odt_materials)
         )
     elif odt_coverage.get("status") == "WARN":
-        warning_reasons.append(str(odt_coverage.get("detail", "ODT authority is partially derived")))
+        warning_reasons.append(
+            str(odt_coverage.get("detail", "ODT authority is partially derived"))
+        )
     if oav_legibility.get("status") == "FAIL":
         blocking_reasons.append(str(oav_legibility.get("detail", "OAV legibility failed")))
     elif oav_legibility.get("status") == "WARN":

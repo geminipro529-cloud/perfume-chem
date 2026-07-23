@@ -26,3 +26,30 @@ def test_pipeline_audit_verify_json_runs_for_small_sample(capsys):
     assert "knowledge_rule_quality" in captured
     assert "data_authority_coverage" in captured
     assert "disconnected_module_status" in captured
+
+
+def test_artifact_verify_blocks_stale_or_tampered_bindings(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Bound.md"
+    formula.write_text("# Bound\n", encoding="utf-8")
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "STALE",
+            "issues": ["formula_definition"],
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 1
+    assert '"status": "FAIL"' in captured
+    assert '"STALE": 1' in captured

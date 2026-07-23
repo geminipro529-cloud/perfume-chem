@@ -13,7 +13,6 @@ from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 
-
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("opening", 0.0),
     ("top", 300.0),
@@ -34,7 +33,7 @@ class SimulationFrame:
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
             self.state.materials,
-            key=lambda m: (m.oav or 0.0),
+            key=lambda m: m.oav or 0.0,
             reverse=True,
         )
         return [
@@ -55,10 +54,7 @@ class SimulationFrame:
             "state": self.state.as_dict(),
             "dominant_oav": self.dominant_oav(),
             "receptor_activation": (
-                {
-                    k: round(v, 4)
-                    for k, v in self.receptor_activation.items()
-                }
+                {k: round(v, 4) for k, v in self.receptor_activation.items()}
                 if self.receptor_activation is not None
                 else None
             ),
@@ -66,9 +62,7 @@ class SimulationFrame:
         }
 
 
-def _loss_rate_per_s(
-    vp_pa: float | None, gamma_value: float, mw_g_mol: float | None
-) -> float:
+def _loss_rate_per_s(vp_pa: float | None, gamma_value: float, mw_g_mol: float | None) -> float:
     """Heuristic finite-film loss rate.
 
     The rate scales with headspace escaping tendency (gamma * VP) and inverse
@@ -96,7 +90,7 @@ def simulate_formula(
     dilutions: Mapping[str, float] | None = None,
     *,
     batch_volume_ml: float = 30.0,
-    temperature_K: float = 305.0,
+    temperature_K: float = 305.0,  # noqa: N803
     context: str = "skin",
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS,
     initial_state: FormulaState | None = None,

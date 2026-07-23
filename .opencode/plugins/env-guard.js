@@ -10,6 +10,20 @@ export const EnvGuard = async ({ project, client, $, directory, worktree }) => {
     },
 
     "shell.env": async (input, output) => {
+      // Project-scoped keys are the only provider inputs accepted by OpenCode.
+      if (process.env.PERFUME_DEEPINFRA_API_KEY) {
+        output.env.DEEPINFRA_API_KEY = process.env.PERFUME_DEEPINFRA_API_KEY
+      }
+      if (process.env.PERFUME_DEEPSEEK_API_KEY) {
+        output.env.DEEPSEEK_API_KEY = process.env.PERFUME_DEEPSEEK_API_KEY
+      }
+      if (process.env.OPENCODE_GO_API_KEY) {
+        output.env.OPENCODE_GO_API_KEY = process.env.OPENCODE_GO_API_KEY
+      }
+      // Per-session isolation marker — runner.py refuses to operate if absent.
+      output.env.OPENCODE_SESSION_ID = process.env.OPENCODE_SESSION_ID || "singleton_orphan"
+      output.env.DEEPINFRA_SERVICE_TIER = process.env.DEEPINFRA_SERVICE_TIER || "standard"
+      output.env.DEEPSEEK_SERVICE_TIER = process.env.DEEPSEEK_SERVICE_TIER || "standard"
       output.env.OPENAI_API_KEY = "test-key"
       output.env.SECRET_KEY = "test-secret-key-for-ci"
       output.env.PERFUME_INVENTORY = "inventory.txt"

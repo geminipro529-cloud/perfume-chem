@@ -1,0 +1,15 @@
+{
+  "file": "formulas\\Clair_Obscur_30mL_EdP.md",
+  "stem": "Clair_Obscur_30mL_EdP",
+  "brief_used": "generic",
+  "concentrate_ul": 6000,
+  "status": "ERROR",
+  "elapsed_s": 0.6,
+  "failed_gates": [],
+  "gate_output": {
+    "_error": true,
+    "_error_type": "exit_code",
+    "_exit_code": 1,
+    "_stderr_tail": "PREFLIGHT HARD BLOCK \u2014 gate aborted\n  HARD_BLOCK: INVENTORY_MISSING: 14 materials not in inventory: Immortelle-first opening \u2014 light around the flower, The field \u2014 the reason this exists, Consonance amplification \u2014 the honey parallel, Sharp brightness that survives the opening, Gold leaf on the painting's edge...\n"
+  }
+}

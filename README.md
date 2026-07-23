@@ -307,9 +307,21 @@ Format the complete OAV and temporal analysis with:
 .venv\Scripts\python.exe scripts\format_pipeline_analysis.py --input output.json
 ```
 
-Gate status is advisory. Review the material OAV table, note distribution,
-temporal frames, data provenance, IFRA details, and limitations before making a
-formulation decision.
+The release command now appends a hash-bound `## Pipeline Analysis` artifact to
+the formula by default and verifies the write immediately. Use
+`--no-append-analysis` only for diagnostic/CI output that must not persist.
+Validate all persisted artifacts with:
+
+```powershell
+.venv\Scripts\python.exe scripts\pipeline_audit.py artifact-verify --json
+```
+
+Safety, stock identity, quantitative authority, natural-composite coverage,
+reference claims, math, and data/provenance gates are hard blockers. Aesthetic
+and historical perfumery guidelines remain advisory. Review the material OAV
+table, note distribution, temporal frames, data provenance, IFRA details, and
+limitations before making a formulation decision; modeled OAV is not a
+sensory-likeness percentage.
 
 ## Tests
 

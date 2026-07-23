@@ -12,12 +12,13 @@ from dataclasses import dataclass
 from typing import Callable, Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
-from engine.pipeline.interventions import build_intervention_contract
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
 from engine.pipeline.audit_log import append_event, gate_report_event
 from engine.pipeline.gates import GateReport, ReleaseGateConfig, gate_formula
+from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
-
 
 RawPct = Mapping[str, float]
 StockDilutions = Mapping[str, float]
@@ -116,6 +117,35 @@ def normalize_raw_pct(raw_pct: RawPct) -> dict[str, float]:
         for material, value in positive.items()
         if value > 0
     }
+
+
+def _inventory_stock_dilutions(
+    materials: Sequence[str],
+    explicit: StockDilutions,
+) -> dict[str, float]:
+    """Fill optimizer stock fractions from live, identity-matched inventory."""
+
+    resolved = {str(name): float(value) for name, value in explicit.items()}
+    records = parse_inventory(
+        unique=False,
+        include_solvents=True,
+        include_unavailable=False,
+    )
+    exact: dict[str, list] = {}
+    legacy: dict[str, list] = {}
+    for record in records:
+        exact.setdefault(
+            normalize_name(record.identity_name or record.name), []
+        ).append(record)
+        legacy.setdefault(normalize_name(record.name), []).append(record)
+    for material in materials:
+        if material in resolved:
+            continue
+        normalized = normalize_name(material)
+        candidates = exact.get(normalized) or legacy.get(normalized) or []
+        if candidates:
+            resolved[material] = max(record.dilution for record in candidates)
+    return resolved
 
 
 def raw_pct_to_formula_record(
@@ -570,6 +600,10 @@ def optimize_until_release_ready(
     report: GateReport | None = None
 
     for pass_index in range(1, max_passes + 1):
+        stock_dilutions = _inventory_stock_dilutions(
+            tuple(current),
+            stock_dilutions,
+        )
         formula = raw_pct_to_formula_record(
             name,
             current,
@@ -668,6 +702,7 @@ def optimize_until_release_ready(
         )
         break
 
+    stock_dilutions = _inventory_stock_dilutions(tuple(current), stock_dilutions)
     formula = raw_pct_to_formula_record(
         name,
         current,

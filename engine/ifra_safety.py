@@ -36,7 +36,6 @@ from typing import Any
 from engine.material_resolver import resolve_material
 from engine.skin_compartments import skin_partition
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # IFRA Maximum Use Levels — Category 4: Fine Fragrance
 # Values = max % in FINISHED product (not concentrate)
@@ -425,7 +424,7 @@ def score_ifra_compliance(
                 })
 
         # Check EU allergen declaration threshold
-        name_lower = name.lower()
+        name.lower()
         for allergen_name, allergen_data in EU_FRAGRANCE_ALLERGENS.items():
             mapped = _ALLERGEN_NAME_MAP.get(name, name)
             if mapped.lower() == allergen_name.lower() or name.lower() == allergen_name.lower():

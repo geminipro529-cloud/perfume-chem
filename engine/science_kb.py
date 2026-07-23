@@ -20,7 +20,6 @@ from __future__ import annotations
 import os
 import sqlite3
 
-
 # ── Constants ──────────────────────────────────────────────────────────
 
 _DB_DEFAULT = "data/perfumery_kb.db"

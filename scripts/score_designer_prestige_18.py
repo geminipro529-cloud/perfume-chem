@@ -92,7 +92,6 @@ def parse_formula_rows(rows: list[list[str]]) -> tuple[dict[str, float], dict[st
     total_ul = 0.0
 
     in_formula_table = False
-    cols_layer = -1  # index of "Layer" column if present
     cols_material = -1
     cols_dilution = -1
     cols_ul = -1
@@ -101,7 +100,7 @@ def parse_formula_rows(rows: list[list[str]]) -> tuple[dict[str, float], dict[st
         # Detect formula table header
         if is_formula_header(cells):
             lc = [c.lower().replace("*", "") for c in cells]
-            cols_layer = next((i for i, c in enumerate(lc) if c.strip() == "layer"), -1)
+            next((i for i, c in enumerate(lc) if c.strip() == "layer"), -1)
             cols_material = next((i for i, c in enumerate(lc) if "material" in c), -1)
             cols_dilution = next((i for i, c in enumerate(lc) if "dilution" in c), -1)
             cols_ul = next((i for i, c in enumerate(lc) if "µl" in c or c.strip() == "ul"), -1)
@@ -305,7 +304,7 @@ def main():
     print(f"\nScoring all {len(formulas)} formulas...")
     scored = score_all(formulas)
 
-    print(f"\nWriting results...")
+    print("\nWriting results...")
     OUT_JSON.write_text(json.dumps(scored, indent=2, default=str), encoding="utf-8")
     print(f"  -> wrote {OUT_JSON.relative_to(ROOT)}")
     write_text_report(scored, OUT_TXT)

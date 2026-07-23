@@ -1,6 +1,8 @@
-import yaml
 from pathlib import Path
-from engine.ingredient_intelligence import _PROFILES, _ACTIVITY_COEF_OVERRIDES
+
+import yaml
+
+from engine.ingredient_intelligence import _ACTIVITY_COEF_OVERRIDES, _PROFILES
 from engine.odor_thresholds import ODT_DATA
 
 materials = [
@@ -28,18 +30,18 @@ for name in materials:
     p = _PROFILES.get(name, {})
     n = name.lower()
     odt = ODT_DATA.get(n, {})
-    
+
     mw = y.get('mw_g_mol') or p.get('mw', 'MISS')
     vp = y.get('vp_25c_pa') or p.get('vp', 'MISS')
     lp = y.get('logp') or p.get('clogp', 'MISS')
     oa = odt.get('odt_air', 'MISS')
     oe = odt.get('odt_eth', 'MISS')
     ga = _ACTIVITY_COEF_OVERRIDES.get(n, 'est')
-    
+
     missing = []
     for field, val, label in [('MW', mw, 'MW'), ('VP', vp, 'VP'), ('logP', lp, 'logP'), ('ODT_a', oa, 'ODT_air'), ('ODT_e', oe, 'ODT_eth'), ('γ', ga, 'gamma')]:
         if val == 'MISS':
             missing.append(label)
-    
+
     status = "LOCKED" if not missing else f"MISSING: {', '.join(missing)}"
     print(f"{name:30s} {str(mw):>8s} {str(vp):>12s} {str(lp):>8s} {str(oa):>8s} {str(oe):>8s} {str(ga):>6s}  {status}")

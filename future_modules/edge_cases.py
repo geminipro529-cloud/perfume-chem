@@ -15,27 +15,19 @@ Encodes the edge case database from the Formulation Intelligence Database
 
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Sequence
 
 from ._shared_types import (
+    DELTA_H_VAP_DEFAULT,
     AnosmiaData,
-    BANGKOK_VP_RATIO,
     ConcentrationBracket,
     ConcentrationConversion,
-    DELTA_H_VAP_DEFAULT,
     GhostNoteMaterial,
     NaturalEOData,
-    R_GAS,
     SolubilityData,
     SolubilityRisk,
-    T_BANGKOK,
-    T_PARIS,
-    T_SKIN,
     clausius_clapeyron_vp_ratio,
 )
-
 
 # ---------------------------------------------------------------------------
 # 1. Anosmia Coverage Strategy (Part XII.1)
@@ -56,10 +48,22 @@ ANOSMIA_DATABASE: tuple[AnosmiaData, ...] = (
 
 # Musk class coverage requirements
 MUSK_CLASS_COVERAGE = {
-    "polycyclic": frozenset({"Galaxolide"}),
-    "macrocyclic": frozenset({"Habanolide", "Ambrettolide", "Romandolide", "Nirvanolide"}),
-    "alicyclic": frozenset({"Ethylene Brassylate", "Muscone"}),
-    "terpenic_amber": frozenset({"Ambroxan", "Ambroxide"}),
+    "polycyclic": frozenset({"Galaxolide", "Tonalide"}),
+    "macrocyclic": frozenset(
+        {
+            "Habanolide",
+            "Ambrettolide",
+            "Ethylene Brassylate",
+            "Zenolide",
+            "Exaltolide",
+            "Nirvanolide",
+            "Muscone",
+        }
+    ),
+    "alicyclic": frozenset({"Romandolide", "Helvetolide", "Serenolide"}),
+    "terpenic_amber": frozenset(
+        {"Ambroxan", "Ambrox Super", "Ambrofix", "Ambroxide"}
+    ),
 }
 
 

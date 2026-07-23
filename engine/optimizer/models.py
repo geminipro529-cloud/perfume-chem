@@ -1,12 +1,11 @@
 """Data models for the formula optimizer."""
 
-from dataclasses import dataclass, field
-from functools import lru_cache
 import json
 import re
 import unicodedata
+from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
-
 
 KG_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "knowledge_graph"
 DB_PATH = Path(__file__).resolve().parent.parent.parent / "perfume_chem.db"
@@ -112,7 +111,8 @@ def _profile_material_dict(profile) -> dict:
 
 def _supplement_material_index(db: dict) -> dict:
     """Add alias keys and profile-backed fallback records to the material index."""
-    from ..ingredient_intelligence import get_all_profiles, _ALIASES as PROFILE_ALIASES
+    from ..ingredient_intelligence import _ALIASES as PROFILE_ALIASES
+    from ..ingredient_intelligence import get_all_profiles
     from ..material_identity import resolve_material_identity
     try:
         from ..ingredient_catalog import load_ingredient_catalog_index
@@ -594,6 +594,7 @@ def invalidate_caches():
     _PAIRING_INDEX = None
     _SYNERGY_INDEX = None
     for fn_name in (
+        "_lookup_material",
         "resolve_material_name",
         "classify_roudnitska_roles",
         "material_roudnitska_roles",
@@ -805,6 +806,7 @@ def _get_logp(name: str, mat: dict | None = None) -> float | None:
     return None
 
 
+@lru_cache(maxsize=4096)
 def _lookup_material(name: str) -> dict | None:
     """Find a material in the knowledge graph by name match."""
     from ..material_identity import resolve_material_identity
@@ -1087,7 +1089,7 @@ def _matching_rules_for_material(name: str, index: dict[str, list[dict]]) -> lis
 
 def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, object]:
     """Canonical rule-match analysis for a formula's ingredient set.
-    
+
     Now includes per-axis magnitude-weighted scoring.
     Every rule has 'axis' and 'magnitude' fields."""
     unique_names = [name for name in dict.fromkeys(ingredient_names) if name]

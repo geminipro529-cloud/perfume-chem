@@ -5,9 +5,9 @@ Modules:
   adaptation — three-timescale Ca²⁺/CaMKII/GRK desensitisation
   bulb       — glomerular activation vector + lateral inhibition + novelty
 """
-from .binding import or_occupancy, ORLigand, ORArray
 from .adaptation import AdaptationState, step_adaptation
-from .bulb import glomerular_vector, novelty_score, configural_blur
+from .binding import ORArray, ORLigand, or_occupancy
+from .bulb import configural_blur, glomerular_vector, novelty_score
 
 __all__ = [
     "or_occupancy", "ORLigand", "ORArray",

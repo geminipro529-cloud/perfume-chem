@@ -12,8 +12,7 @@ Bayesian engine.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-
+from dataclasses import dataclass
 
 # ── Perfumer Portfolio Data ──────────────────────────────────────────
 # Material → fraction of compositions where this material appears

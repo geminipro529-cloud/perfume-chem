@@ -4,7 +4,12 @@ Usage:
     python scripts/mcp_call.py pubchem tools/list
     python scripts/mcp_call.py pubchem tools/call '{"name":"pubchem_search_compound_by_identifier","arguments":{"identifierType":"name","identifiers":["rhodinol"]}}'
 """
-import json, subprocess, sys, os, urllib.request, urllib.error
+import json
+import os
+import subprocess
+import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 # Fix Windows encoding
@@ -90,7 +95,7 @@ def main():
     cmd, ctype = _cmd(server_name)
     if not cmd:
         print(f"Unknown MCP server: {server_name}")
-        print(f"Available: pubchem, filesystem, git, fetch, playwright, github, repomap_bin, sequential_thinking, context7, grep")
+        print("Available: pubchem, filesystem, git, fetch, playwright, github, repomap_bin, sequential_thinking, context7, grep")
         sys.exit(1)
 
     if ctype == "remote":

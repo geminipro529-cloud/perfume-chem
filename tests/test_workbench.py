@@ -1,10 +1,11 @@
 import pytest
+
 from engine.bottle_addition import AdditionRequest, BottleSnapshot, StockSolution
-from engine.mixture import MixtureComponent, MixtureRole
-from engine.quantities import Density, MolarMass, Volume
-from engine.interventions import BriefConstraints, InterventionRequest
 from engine.intervention_hypotheses import InterventionHypothesisRequest
 from engine.intervention_trial import InterventionTrialRequest
+from engine.interventions import BriefConstraints, InterventionRequest
+from engine.mixture import MixtureComponent, MixtureRole
+from engine.quantities import Density, MolarMass, Volume
 from engine.safety_assessment import SafetyAssessmentRequest
 from engine.workbench import CalculationMode, PerfumeWorkbench, WorkbenchFormulaRequest
 

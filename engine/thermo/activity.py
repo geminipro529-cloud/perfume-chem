@@ -7,6 +7,7 @@ captures the dominant trend (non-polar solute in polar solvent → γ > 1).
 The fallback is calibrated so γ_EtOH ≈ 1.0–1.1 in 80% EtOH and γ_limonene ≈
 4–7 in the same — matching the literature checkpoints in Phase 1.
 """
+
 from __future__ import annotations
 
 import math
@@ -14,7 +15,6 @@ from functools import lru_cache
 from typing import Mapping, Sequence
 
 try:  # heavy dep, optional
-    from thermo.unifac import UNIFAC_gammas  # type: ignore
     _HAS_THERMO = True
 except Exception:  # pragma: no cover
     _HAS_THERMO = False
@@ -31,25 +31,27 @@ def _hansen_distance_sq(a: Sequence[float], b: Sequence[float]) -> float:
 
 
 @lru_cache(maxsize=4096)
-def _gamma_heuristic(hsp_solute: tuple[float, float, float],
-                     hsp_solvent: tuple[float, float, float],
-                     T_K: float) -> float:
+def _gamma_heuristic(
+    hsp_solute: tuple[float, float, float],
+    hsp_solvent: tuple[float, float, float],
+    T_K: float,  # noqa: N803
+) -> float:
     """Regular-solution-style γ from Hansen distance.
 
     γ ≈ exp( V·(δ_solute − δ_solvent)² / (R·T) ) with a calibration prefactor
     chosen so that limonene-in-EtOH at 298 K returns ~5.
     """
-    Ra2 = _hansen_distance_sq(hsp_solute, hsp_solvent)
+    Ra2 = _hansen_distance_sq(hsp_solute, hsp_solvent)  # noqa: N806
     # Empirical prefactor. Calibrated so limonene-in-EtOH ≈ 5 at 298 K
     # using the *full-mixture* (including-self) average HSP for the solvent.
-    K = 0.0055
+    K = 0.0055  # noqa: N806
     return math.exp(K * Ra2 * 298.15 / T_K)
 
 
 def gamma(
     name: str,
     composition: Mapping[str, float],
-    T_K: float = 298.15,
+    T_K: float = 298.15,  # noqa: N803
     *,
     hsp_table: Mapping[str, tuple[float, float, float]] | None = None,
     smiles_table: Mapping[str, str] | None = None,

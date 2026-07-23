@@ -25,28 +25,27 @@ from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.confidence import ConfidenceScorer
 from engine.chemical_data_validator import blocked_reason
 from engine.chemical_life_graph import build_chemical_life_graph
-from engine.fingerprint import fingerprint_formula, find_similar_materials
+from engine.confidence import ConfidenceScorer
+from engine.fingerprint import find_similar_materials, fingerprint_formula
 from engine.formula_rating import compute_star_ratings
 from engine.formula_recommendations import (
     generate_intervention_recommendations,
     generate_recommendations,
     load_inventory,
 )
+from engine.inventory_parser import parse_stock_specification
 from engine.mixer.instructions import InstructionGenerator
 from engine.mixer.prebonding import PreBondingAnalyzer
-from engine.optimizer.scoring import FormulaScorer
 from engine.optimizer.models import FormulaVector
+from engine.optimizer.scoring import FormulaScorer
 from engine.synergy_graph import SynergyGraph
 from engine.volatility import VolatilityCurveSimulator
-
 
 OUTPUT_ROOT = PROJECT_ROOT / "verification_runs"
 DEFAULT_BATCH_VOLUME_ML = 30.0
@@ -412,20 +411,23 @@ def _install_formula_vector_compatibility() -> None:
         FormulaVector.weighted_volatility_index = _safe_weighted_volatility_index  # type: ignore[method-assign]
 
 
-def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
+def _parse_formula_rows(
+    body: str,
+) -> tuple[dict[str, float], dict[str, float], dict[str, dict[str, object]]]:
     """Parse formula rows from a markdown table. Accepts multiple formats.
-    
+
     Supported:
       | # | Ingredient | Dilution | µL | mL |   (canonical)
       | Ingredient | Dilution | µL |               (no row number)
       | Ingredient | % |                         (percentages, neat)
       | Ingredient | % | Dilution |               (percentages with dilution)
-    
+
     Handles section headers (**Top**, **Heart**, **Base**) and inline dilutions
     like "(10% in DPG)" or "10%".
     """
     ingredients_ul: dict[str, float] = {}
     dilutions: dict[str, float] = {}
+    stock_specs: dict[str, dict[str, object]] = {}
     total_ul_val: float | None = None
 
     def _split_row(line: str) -> list[str]:
@@ -484,11 +486,22 @@ def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
         low = re.sub(r"\s+", " ", name.strip().lower())
         if not low:
             return True
+        if "~~" in low:
+            # Historical formula files retain removed rows with Markdown
+            # strikethrough.  They are audit history, not active doses.
+            return True
         if low in {"#", "ingredient", "material", "component", "layer", "ord"}:
             return True
-        if "subtotal" in low or low == "total" or "batch total" in low:
+        if re.fullmatch(r"[\d.,\s]+(?:u?l|ml|g|%)?", low):
             return True
-        if "ethanol" in low or "concentrate total" in low or "matured concentrate" in low:
+        if re.search(r"\b(?:sub[- ]?total|total)\b", low):
+            return True
+        if (
+            "ethanol" in low
+            or "matured concentrate" in low
+            or "final bottle" in low
+            or "finished bottle" in low
+        ):
             return True
         if low.startswith("—") or low.startswith("-") or low.startswith("top:") or low.startswith("heart:") or low.startswith("base:"):
             return True
@@ -511,6 +524,7 @@ def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
             "what you'll need",
             "equipment",
             "procedure",
+            "finished matrix inputs",
         )
         return any(token in low for token in blocked_tokens)
 
@@ -535,7 +549,7 @@ def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
 
     lines = body.splitlines()
     total_ul_val = _extract_total_concentrate_ul(body)
-    
+
     # First pass: find total concentrate volume
     if total_ul_val is None:
         for line in lines:
@@ -612,24 +626,71 @@ def _parse_formula_rows(body: str) -> tuple[dict[str, float], dict[str, float]]:
             amount_ml = _parse_amount(parts[amount_ml_idx])
             if amount_ml is not None:
                 amount_ul = amount_ml * 1000.0
-        if amount_ul is None:
+        if amount_ul is None or amount_ul <= 0.0:
             continue
 
-        dilution = 1.0
+        dilution_cell = ""
         if dilution_idx is not None and dilution_idx < len(parts):
-            dilution = _parse_dil(parts[dilution_idx])
+            dilution_cell = parts[dilution_idx]
+        stock = parse_stock_specification(dilution_cell)
+        dilution = stock.fraction if stock.declared else _parse_dil(dilution_cell)
 
         ingredients_ul[ingredient] = ingredients_ul.get(ingredient, 0.0) + amount_ul
         if ingredient not in dilutions or dilution != 1.0:
             dilutions[ingredient] = dilution
+        spec = stock.as_dict()
+        previous = stock_specs.get(ingredient)
+        if previous is not None and any(
+            previous.get(key) != spec.get(key)
+            for key in ("fraction", "fraction_basis", "carrier", "declared")
+        ):
+            spec["conflict"] = True
+            spec["variants"] = [previous, stock.as_dict()]
+        stock_specs[ingredient] = spec
 
     # Convert percentages to µL if total_ul is known and values look like pcts
     vals = list(ingredients_ul.values())
     if vals and total_ul_val and all(v < 100 for v in vals):
         for name in list(ingredients_ul):
             ingredients_ul[name] = ingredients_ul[name] * total_ul_val / 100.0
-    
-    return ingredients_ul, dilutions
+
+    return ingredients_ul, dilutions, stock_specs
+
+
+PIPELINE_ANALYSIS_START = "<!-- PIPELINE_ANALYSIS_START -->"
+PIPELINE_ANALYSIS_END = "<!-- PIPELINE_ANALYSIS_END -->"
+_PIPELINE_ANALYSIS_HEADING_RE = re.compile(
+    r"(?m)^##\s+Pipeline Analysis\b[^\r\n]*\r?$"
+)
+_PIPELINE_ANALYSIS_MANIFEST_RE = re.compile(
+    r"<!--\s*pipeline-analysis-manifest:\s*(\{.*?\})\s*-->",
+    flags=re.DOTALL,
+)
+
+
+def split_generated_pipeline_analysis(text: str) -> tuple[str, str]:
+    """Return formula source and its generated artifact without cross-contamination."""
+
+    sentinel_index = text.find(PIPELINE_ANALYSIS_START)
+    if sentinel_index >= 0:
+        return text[:sentinel_index].rstrip(), text[sentinel_index:]
+    heading = _PIPELINE_ANALYSIS_HEADING_RE.search(text)
+    if heading:
+        return text[: heading.start()].rstrip(), text[heading.start() :]
+    return text, ""
+
+
+def parse_pipeline_analysis_manifest(artifact: str) -> dict[str, object] | None:
+    match = _PIPELINE_ANALYSIS_MANIFEST_RE.search(artifact or "")
+    if not match:
+        return None
+    try:
+        parsed = json.loads(match.group(1))
+    except json.JSONDecodeError:
+        return {"manifest_status": "INVALID_JSON"}
+    if not isinstance(parsed, dict):
+        return {"manifest_status": "INVALID_TYPE"}
+    return parsed
 
 
 def _infer_family_archetype(body: str) -> str:
@@ -637,22 +698,190 @@ def _infer_family_archetype(body: str) -> str:
     return match.group(1).strip() if match else ""
 
 
-def _build_formula_record(number: int, name: str, body: str, ingredients_ul: dict[str, float], dilutions: dict[str, float]) -> dict:
+def _parse_finished_matrix(
+    body: str,
+    dilutions: dict[str, float],
+) -> dict[str, object]:
+    """Parse an explicit finished-matrix table without treating solvents as odorants.
+
+    The section is deliberately opt-in.  Free prose such as "top up with
+    ethanol" is not enough to alter physical calculations; every component
+    needs a volume, density, molar mass, and source.
+    """
+
+    heading = re.search(
+        r"(?im)^#{2,6}\s+finished matrix inputs\s*$",
+        body,
+    )
+    if heading is None:
+        return {
+            "matrix_components": [],
+            "matrix_moles": {},
+            "matrix_mass_g": 0.0,
+            "matrix_source": "omitted",
+        }
+    next_heading = re.search(r"(?m)^#{2,6}\s+", body[heading.end() :])
+    end = (
+        heading.end() + next_heading.start()
+        if next_heading is not None
+        else len(body)
+    )
+    section = body[heading.end() : end]
+    authority_match = re.search(
+        r"(?im)^\s*\*\*matrix authority:\*\*\s*`?([a-z0-9_.-]+)`?\s*$",
+        section,
+    )
+    authority = (
+        authority_match.group(1).strip().casefold()
+        if authority_match is not None
+        else "explicit"
+    )
+    allowed_authorities = {
+        "explicit",
+        "declared_volume_proxy",
+        "incomplete_stock_carrier",
+    }
+    if authority not in allowed_authorities:
+        raise ValueError(f"Unsupported finished matrix authority: {authority}")
+
+    def cells(line: str) -> list[str]:
+        parts = [part.strip() for part in line.strip().split("|")]
+        if parts and not parts[0]:
+            parts = parts[1:]
+        if parts and not parts[-1]:
+            parts = parts[:-1]
+        return parts
+
+    def normalized(value: str) -> str:
+        value = value.replace("µ", "u").replace("μ", "u")
+        return re.sub(r"\s+", " ", value.replace("**", "").strip().casefold())
+
+    def number(value: str, label: str) -> float:
+        match = re.search(r"[-+]?\d[\d,\s]*(?:\.\d+)?", value)
+        if match is None:
+            raise ValueError(f"Finished matrix {label} is not numeric: {value!r}")
+        parsed = float(match.group(0).replace(",", "").replace(" ", ""))
+        if parsed <= 0.0:
+            raise ValueError(f"Finished matrix {label} must be greater than zero")
+        return parsed
+
+    lines = section.splitlines()
+    headers: list[str] | None = None
+    components: list[dict[str, object]] = []
+    names: set[str] = set()
+    for index, line in enumerate(lines):
+        if not line.strip().startswith("|"):
+            continue
+        if index + 1 < len(lines) and re.fullmatch(
+            r"\|[\s:\-|]+\|?", lines[index + 1].strip()
+        ):
+            headers = [normalized(cell) for cell in cells(line)]
+            continue
+        if headers is None or re.fullmatch(r"\|[\s:\-|]+\|?", line.strip()):
+            continue
+        row = cells(line)
+        if len(row) != len(headers):
+            raise ValueError("Finished Matrix Inputs row does not match its header")
+        values = dict(zip(headers, row))
+        name = (values.get("component") or values.get("material") or "").strip()
+        if not name:
+            raise ValueError("Finished Matrix Inputs requires a Component column")
+        key = name.casefold()
+        if key in names:
+            raise ValueError(f"Duplicate finished matrix component: {name}")
+        names.add(key)
+        volume_header = next(
+            (header for header in headers if "volume" in header),
+            None,
+        )
+        density_header = next(
+            (header for header in headers if "density" in header),
+            None,
+        )
+        mw_header = next(
+            (header for header in headers if header == "mw g/mol" or "molar mass" in header),
+            None,
+        )
+        source_header = next(
+            (header for header in headers if header == "source"),
+            None,
+        )
+        if not all((volume_header, density_header, mw_header, source_header)):
+            raise ValueError(
+                "Finished Matrix Inputs requires Volume, Density, MW/Molar Mass, and Source columns"
+            )
+        volume = number(values[volume_header], f"{name} volume")
+        if "ml" in volume_header and "ul" not in volume_header:
+            volume *= 1000.0
+        density = number(values[density_header], f"{name} density")
+        molar_mass = number(values[mw_header], f"{name} molar mass")
+        source = values[source_header].replace("**", "").replace("`", "").strip()
+        if not source:
+            raise ValueError(f"Finished matrix component {name} requires a source")
+        mass_g = volume / 1000.0 * density
+        moles = mass_g / molar_mass
+        components.append(
+            {
+                "name": name,
+                "volume_ul": volume,
+                "density_g_ml": density,
+                "molar_mass_g_mol": molar_mass,
+                "mass_g": mass_g,
+                "moles": moles,
+                "source": source,
+            }
+        )
+
+    if not components:
+        raise ValueError("Finished Matrix Inputs section contains no component rows")
+    if authority == "explicit" and any(value < 1.0 for value in dilutions.values()):
+        authority = "incomplete_stock_carrier"
+    return {
+        "matrix_components": components,
+        "matrix_moles": {str(row["name"]): float(row["moles"]) for row in components},
+        "matrix_mass_g": sum(float(row["mass_g"]) for row in components),
+        "matrix_source": authority,
+    }
+
+
+def _build_formula_record(
+    number: int,
+    name: str,
+    body: str,
+    ingredients_ul: dict[str, float],
+    dilutions: dict[str, float],
+    stock_specs: dict[str, dict[str, object]],
+    embedded_analysis: str = "",
+) -> dict:
     total_ul = sum(ingredients_ul.values()) or 1.0
     ingredients_pct = {
         material: round((amount / total_ul) * 100, 4)
         for material, amount in ingredients_ul.items()
     }
     concentrate_ml = round(total_ul / 1000.0, 3)
+    matrix = _parse_finished_matrix(body, dilutions)
     return {
         "number": number,
         "name": name,
         "ingredients_ul": ingredients_ul,
         "ingredients_pct": ingredients_pct,
         "dilutions": dilutions,
+        "stock_specs": stock_specs,
         "concentrate_ml": concentrate_ml,
         "body": body,
         "family_archetype": _infer_family_archetype(body),
+        **matrix,
+        "embedded_analysis": {
+            "present": bool(embedded_analysis),
+            "format": (
+                "bound_v1"
+                if PIPELINE_ANALYSIS_START in embedded_analysis
+                else "legacy_unbound"
+                if embedded_analysis
+                else "none"
+            ),
+            "manifest": parse_pipeline_analysis_manifest(embedded_analysis),
+        },
     }
 
 
@@ -719,7 +948,8 @@ def parse_formula_markdown(path: Path) -> list[dict]:
     - numbered multi-formula files using `## 1. Name`
     - standalone single-formula accord guides with one formula table
     """
-    text = path.read_text(encoding="utf-8")
+    full_text = path.read_text(encoding="utf-8")
+    text, embedded_analysis = split_generated_pipeline_analysis(full_text)
     sections = re.split(r"^##\s+(\d+)\.\s+(.+?)$", text, flags=re.MULTILINE)
     formulas: list[dict] = []
 
@@ -727,21 +957,41 @@ def parse_formula_markdown(path: Path) -> list[dict]:
         number = int(sections[idx])
         name = sections[idx + 1].strip()
         body = sections[idx + 2]
-        ingredients_ul, dilutions = _parse_formula_rows(body)
+        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body)
         if not ingredients_ul:
             continue
-        formulas.append(_build_formula_record(number, name, body, ingredients_ul, dilutions))
+        formulas.append(
+            _build_formula_record(
+                number,
+                name,
+                body,
+                ingredients_ul,
+                dilutions,
+                stock_specs,
+                embedded_analysis,
+            )
+        )
 
     if formulas:
         return formulas
 
-    ingredients_ul, dilutions = _parse_formula_rows(text)
+    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text)
     if not ingredients_ul:
         return []
 
     title_match = re.search(r"^#\s+(.+?)\s*$", text, flags=re.MULTILINE)
     name = title_match.group(1).strip() if title_match else path.stem.replace("_", " ")
-    return [_build_formula_record(1, name, text, ingredients_ul, dilutions)]
+    return [
+        _build_formula_record(
+            1,
+            name,
+            text,
+            ingredients_ul,
+            dilutions,
+            stock_specs,
+            embedded_analysis,
+        )
+    ]
 
 
 def select_formula(formulas: list[dict], formula_number: int | None, formula_name: str | None) -> dict:

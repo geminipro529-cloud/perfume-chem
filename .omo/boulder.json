@@ -1,0 +1,213 @@
+{
+  "active_plan": "D:\\chatbots\\perfume-chem\\.omo\\plans\\lndl-chamomile-complete.md",
+  "started_at": "2026-07-22T15:37:45.147Z",
+  "session_ids": [
+    "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO",
+    "opencode:ses_075857b47ffePMw95YpJvYLnd2",
+    "opencode:ses_07585598affexfBsv3A92cn6KI",
+    "opencode:ses_07584b5bcffek331192SQAhfWj",
+    "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N",
+    "opencode:ses_07579d86bffeUCoGiMMFDa7afZ"
+  ],
+  "plan_name": "lndl-chamomile-complete",
+  "session_origins": {
+    "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO": "direct",
+    "opencode:ses_075857b47ffePMw95YpJvYLnd2": "appended",
+    "opencode:ses_07585598affexfBsv3A92cn6KI": "appended",
+    "opencode:ses_07584b5bcffek331192SQAhfWj": "appended",
+    "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N": "appended",
+    "opencode:ses_07579d86bffeUCoGiMMFDa7afZ": "appended"
+  },
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "**Bergamot phototoxicity** (6.12% > IFRA 2%): Reduce Bergamot FCF oil Sicilian from 180→60 µL. Add Cedrat FCF oil Sicilian 60 µL (phototoxicity-safe, bitter citron) and Methyl Pamplemousse 10% 60 µL (grapefruit-rhubarb, zero phototox). This maintains citrus lift while dropping bergaptene below IFRA.",
+      "session_id": "opencode:ses_07579d86bffeUCoGiMMFDa7afZ",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "started_at": "2026-07-22T15:40:50.668Z",
+      "ended_at": "2026-07-22T15:41:30.775Z",
+      "elapsed_ms": 40107,
+      "status": "completed",
+      "updated_at": "2026-07-22T15:51:30.632Z"
+    },
+    "todo:3": {
+      "task_key": "todo:3",
+      "task_label": "3",
+      "task_title": "Run formula_release_gate with --json to get full pipeline output",
+      "session_id": "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-07-22T15:51:26.744Z"
+    }
+  },
+  "schema_version": 2,
+  "works": {
+    "ruff-cleanup-pipeline-perf-legacy": {
+      "work_id": "ruff-cleanup-pipeline-perf-legacy",
+      "active_plan": ".omo/plans/ruff-cleanup-pipeline-perf.md",
+      "plan_name": "ruff-cleanup-pipeline-perf",
+      "started_at": "2026-07-21T18:21:00.000Z",
+      "updated_at": "2026-07-21T18:51:11.779Z",
+      "session_ids": [
+        "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO",
+        "opencode:ses_07a15d0e4ffe5HTU7unaHIf4LV",
+        "opencode:ses_07a15be51ffenfHuEH4Soo9sqp",
+        "opencode:ses_07a1553f3ffeGnnI5SO6SeVOGP",
+        "opencode:ses_07a14c6e7ffeHIRyuX9pW0Wos2",
+        "opencode:ses_07a11ed62ffe7HVDW3fV5uheXC",
+        "opencode:ses_07a11e6caffeu9HdH9zfDkjvaz",
+        "opencode:ses_07a112cf4ffe1aiUoUH1ppbKWA",
+        "opencode:ses_07a0ee581ffeOf754n7VEZqR29",
+        "opencode:ses_07a0ede7cffer7KNTNJMmrrcjm",
+        "opencode:ses_07a0e3d9bffe3pu1KJl5uHnMp6",
+        "opencode:ses_07a0e2a8effe0LQ7AFIPMzPsPF",
+        "opencode:ses_07a0b45c2ffeGG7M61JtSUuiJi",
+        "opencode:ses_07a0b3a9cffe6oXYJr6vwBnJYQ",
+        "opencode:ses_07a0a9db6ffeG4hQx0KkDLEacQ",
+        "opencode:ses_07a0a484dffe0ohkfpVUKIOpt7",
+        "opencode:ses_07a09d991ffevgIA8YJ8XHRXVX",
+        "opencode:ses_07a094fceffeamjydEIGaSwGOd",
+        "opencode:ses_07a0678b6ffeCfSBHgrJVn6Lyy",
+        "opencode:ses_07a066f13ffehacGBShLsCMe02",
+        "opencode:ses_07a05be9effeZuMaXulR0FOT9T",
+        "opencode:ses_07a05aa9bffeumgXL1WbCokI4x",
+        "opencode:ses_07a03dd0bffeKCc7Bu21j7XD2K",
+        "opencode:ses_07a03d181ffeCyq7a3lINxwzwE",
+        "opencode:ses_07a035314ffequu2b459C31lm8",
+        "opencode:ses_07a025a9effeybtqLnjwSBUwNJ",
+        "opencode:ses_07a008134ffe8zvnGhcEsevUYB",
+        "opencode:ses_07a0076a7ffeQlumB2OwY7r8EL",
+        "opencode:ses_079fd86efffeDNeL3M5E3EUclv"
+      ],
+      "session_origins": {
+        "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO": "direct",
+        "opencode:ses_07a15d0e4ffe5HTU7unaHIf4LV": "appended",
+        "opencode:ses_07a15be51ffenfHuEH4Soo9sqp": "appended",
+        "opencode:ses_07a1553f3ffeGnnI5SO6SeVOGP": "appended",
+        "opencode:ses_07a14c6e7ffeHIRyuX9pW0Wos2": "appended",
+        "opencode:ses_07a11ed62ffe7HVDW3fV5uheXC": "appended",
+        "opencode:ses_07a11e6caffeu9HdH9zfDkjvaz": "appended",
+        "opencode:ses_07a112cf4ffe1aiUoUH1ppbKWA": "appended",
+        "opencode:ses_07a0ee581ffeOf754n7VEZqR29": "appended",
+        "opencode:ses_07a0ede7cffer7KNTNJMmrrcjm": "appended",
+        "opencode:ses_07a0e3d9bffe3pu1KJl5uHnMp6": "appended",
+        "opencode:ses_07a0e2a8effe0LQ7AFIPMzPsPF": "appended",
+        "opencode:ses_07a0b45c2ffeGG7M61JtSUuiJi": "appended",
+        "opencode:ses_07a0b3a9cffe6oXYJr6vwBnJYQ": "appended",
+        "opencode:ses_07a0a9db6ffeG4hQx0KkDLEacQ": "appended",
+        "opencode:ses_07a0a484dffe0ohkfpVUKIOpt7": "appended",
+        "opencode:ses_07a09d991ffevgIA8YJ8XHRXVX": "appended",
+        "opencode:ses_07a094fceffeamjydEIGaSwGOd": "appended",
+        "opencode:ses_07a0678b6ffeCfSBHgrJVn6Lyy": "appended",
+        "opencode:ses_07a066f13ffehacGBShLsCMe02": "appended",
+        "opencode:ses_07a05be9effeZuMaXulR0FOT9T": "appended",
+        "opencode:ses_07a05aa9bffeumgXL1WbCokI4x": "appended",
+        "opencode:ses_07a03dd0bffeKCc7Bu21j7XD2K": "appended",
+        "opencode:ses_07a03d181ffeCyq7a3lINxwzwE": "appended",
+        "opencode:ses_07a035314ffequu2b459C31lm8": "appended",
+        "opencode:ses_07a025a9effeybtqLnjwSBUwNJ": "appended",
+        "opencode:ses_07a008134ffe8zvnGhcEsevUYB": "appended",
+        "opencode:ses_07a0076a7ffeQlumB2OwY7r8EL": "appended",
+        "opencode:ses_079fd86efffeDNeL3M5E3EUclv": "appended"
+      },
+      "worktree_path": null,
+      "task_sessions": {
+        "todo:1": {
+          "task_key": "todo:1",
+          "task_label": "1",
+          "task_title": "Strip `future_modules/__init__.py` to `_shared_types` only — save ~390ms import time",
+          "session_id": "opencode:ses_07a15d0e4ffe5HTU7unaHIf4LV",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-07-21T18:24:58.755Z",
+          "started_at": "2026-07-21T18:24:15.337Z",
+          "status": "completed",
+          "ended_at": "2026-07-21T18:24:58.755Z",
+          "elapsed_ms": 43418
+        },
+        "todo:2": {
+          "task_key": "todo:2",
+          "task_label": "2",
+          "task_title": "Fix remaining ruff N8xx naming violations (20 remaining: 14 N806 + 5 N803 + 1 N815)",
+          "session_id": "opencode:ses_07a0076a7ffeQlumB2OwY7r8EL",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "started_at": "2026-07-21T18:29:06.736Z",
+          "status": "completed",
+          "updated_at": "2026-07-21T18:48:46.814Z",
+          "ended_at": "2026-07-21T18:48:46.814Z",
+          "elapsed_ms": 1180078
+        },
+        "todo:5": {
+          "task_key": "todo:5",
+          "task_label": "5",
+          "task_title": "Fix root scratch script ruff errors — validate/verify scripts (144 errors)",
+          "session_id": "opencode:ses_079fd86efffeDNeL3M5E3EUclv",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-07-21T18:50:01.368Z",
+          "ended_at": "2026-07-21T18:50:01.368Z",
+          "status": "completed"
+        }
+      },
+      "ended_at": "2026-07-21T18:51:11.779Z",
+      "elapsed_ms": 1811779,
+      "status": "completed"
+    },
+    "lndl-chamomile-complete-16780ff8": {
+      "work_id": "lndl-chamomile-complete-16780ff8",
+      "active_plan": "D:\\chatbots\\perfume-chem\\.omo\\plans\\lndl-chamomile-complete.md",
+      "plan_name": "lndl-chamomile-complete",
+      "status": "active",
+      "started_at": "2026-07-22T15:37:45.147Z",
+      "updated_at": "2026-07-22T15:51:30.632Z",
+      "session_ids": [
+        "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO",
+        "opencode:ses_075857b47ffePMw95YpJvYLnd2",
+        "opencode:ses_07585598affexfBsv3A92cn6KI",
+        "opencode:ses_07584b5bcffek331192SQAhfWj",
+        "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N",
+        "opencode:ses_07579d86bffeUCoGiMMFDa7afZ"
+      ],
+      "session_origins": {
+        "opencode:ses_07a2dcac1ffeRuerG0O0Kpq7NO": "direct",
+        "opencode:ses_075857b47ffePMw95YpJvYLnd2": "appended",
+        "opencode:ses_07585598affexfBsv3A92cn6KI": "appended",
+        "opencode:ses_07584b5bcffek331192SQAhfWj": "appended",
+        "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N": "appended",
+        "opencode:ses_07579d86bffeUCoGiMMFDa7afZ": "appended"
+      },
+      "agent": "atlas",
+      "task_sessions": {
+        "todo:1": {
+          "task_key": "todo:1",
+          "task_label": "1",
+          "task_title": "**Bergamot phototoxicity** (6.12% > IFRA 2%): Reduce Bergamot FCF oil Sicilian from 180→60 µL. Add Cedrat FCF oil Sicilian 60 µL (phototoxicity-safe, bitter citron) and Methyl Pamplemousse 10% 60 µL (grapefruit-rhubarb, zero phototox). This maintains citrus lift while dropping bergaptene below IFRA.",
+          "session_id": "opencode:ses_07579d86bffeUCoGiMMFDa7afZ",
+          "agent": "Sisyphus-Junior",
+          "category": "deep",
+          "started_at": "2026-07-22T15:40:50.668Z",
+          "ended_at": "2026-07-22T15:41:30.775Z",
+          "elapsed_ms": 40107,
+          "status": "completed",
+          "updated_at": "2026-07-22T15:51:30.632Z"
+        },
+        "todo:3": {
+          "task_key": "todo:3",
+          "task_label": "3",
+          "task_title": "Run formula_release_gate with --json to get full pipeline output",
+          "session_id": "opencode:ses_0757a0481ffe7wGgFs2o5Yxg7N",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-07-22T15:51:26.744Z"
+        }
+      }
+    }
+  },
+  "active_work_id": "lndl-chamomile-complete-16780ff8",
+  "updated_at": "2026-07-22T15:51:30.632Z",
+  "status": "active",
+  "agent": "atlas"
+}

@@ -11,7 +11,6 @@ Usage:
 
 import json
 import sys
-import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -115,12 +114,12 @@ def print_material_results(material: str, results: list[dict]):
 
     if not results:
         print(f"No pairings found for '{material}'.")
-        print(f"\nConsider running the appropriate pairing discovery agent:")
-        print(f"  - agent-citrus-top (citrus, green, top notes)")
-        print(f"  - agent-floral-heart (floral, heart notes)")
-        print(f"  - agent-woody-base (woody, amber, base)")
-        print(f"  - agent-musk-fixative (musks, fixatives, gourmand)")
-        print(f"  - agent-spice-aromatic (spices, aromatics, specialty)")
+        print("\nConsider running the appropriate pairing discovery agent:")
+        print("  - agent-citrus-top (citrus, green, top notes)")
+        print("  - agent-floral-heart (floral, heart notes)")
+        print("  - agent-woody-base (woody, amber, base)")
+        print("  - agent-musk-fixative (musks, fixatives, gourmand)")
+        print("  - agent-spice-aromatic (spices, aromatics, specialty)")
 
 
 def print_pair_results(a: str, b: str, results: list[dict]):

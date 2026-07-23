@@ -11,10 +11,8 @@ All values are derived from the Formulation Intelligence Database (May 2026).
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from enum import Enum, StrEnum
-from typing import Mapping
-
+from dataclasses import dataclass
+from enum import StrEnum
 
 # ---------------------------------------------------------------------------
 # Enums

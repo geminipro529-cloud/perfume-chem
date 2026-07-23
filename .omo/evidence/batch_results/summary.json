@@ -1,0 +1,245 @@
+{
+  "total_formulas": 5,
+  "passed": 0,
+  "warned": 0,
+  "failed": 0,
+  "errors": 5,
+  "formulas": [
+    {
+      "file": "formulas\\Allure_Extreme_AHSEE_30mL_EdP.md",
+      "stem": "Allure_Extreme_AHSEE_30mL_EdP",
+      "status": "ERROR",
+      "elapsed_s": 1.0,
+      "failed_gates": [],
+      "brief_used": "generic",
+      "concentrate_ul": 4730
+    },
+    {
+      "file": "formulas\\Allure_Homme_Sport_Luxe_30mL_EdP.md",
+      "stem": "Allure_Homme_Sport_Luxe_30mL_EdP",
+      "status": "ERROR",
+      "elapsed_s": 0.9,
+      "failed_gates": [],
+      "brief_used": "generic",
+      "concentrate_ul": 5868
+    },
+    {
+      "file": "formulas\\Angels_Share_GCMS_Luxury_Tribute_10mL_EdP.md",
+      "stem": "Angels_Share_GCMS_Luxury_Tribute_10mL_EdP",
+      "status": "ERROR",
+      "elapsed_s": 1.0,
+      "failed_gates": [],
+      "brief_used": "generic",
+      "concentrate_ul": 3000
+    },
+    {
+      "file": "formulas\\AV_Optimized_30mL_EDP.md",
+      "stem": "AV_Optimized_30mL_EDP",
+      "status": "ERROR",
+      "elapsed_s": 0.9,
+      "failed_gates": [],
+      "brief_used": "generic",
+      "concentrate_ul": 6000
+    },
+    {
+      "file": "formulas\\AV_Optimized_50mL_EDP.md",
+      "stem": "AV_Optimized_50mL_EDP",
+      "status": "ERROR",
+      "elapsed_s": 0.9,
+      "failed_gates": [],
+      "brief_used": "generic",
+      "concentrate_ul": 6000
+    }
+  ],
+  "skipped": [
+    {
+      "file": "formulas\\_Cassis_Bottle_Additions.md",
+      "reason": "stem prefix '_'"
+    },
+    {
+      "file": "formulas\\_OAV_CHECK.md",
+      "reason": "stem prefix '_'"
+    },
+    {
+      "file": "formulas\\_temp_iris_add_check.md",
+      "reason": "stem prefix '_'"
+    },
+    {
+      "file": "formulas\\_temp_tropicale_fix.md",
+      "reason": "stem prefix '_'"
+    },
+    {
+      "file": "formulas\\_V1_Bottle_Analysis.md",
+      "reason": "stem prefix '_'"
+    },
+    {
+      "file": "formulas\\Bleu_Carbon_10mL_EDP.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\Bleu_Luxe_Aldehyde_30mL_EDP.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\Cedre_Azure_30mL_EDP.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\Cedre_Azure_Mass_Market_30mL_EDP.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\classical_study\\Classical_Perfume_Families_Curriculum.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\accord_discovery_formulas.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Cis_Jasmone_Collection_30.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Cis_Jasmone_Collection_Vol_2_30.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Iris_Palette_Ground_Truth.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\luxury_formulas_v2.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\masculine_luxury_formulas.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\niche_discovery_formulas.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\niche_ideas_formulas.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Orris_Damascone_10_Deep_Luxury_30mL.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Orris_Damascone_30_More_Directions.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Orris_Damascone_30_More_Directions_Rated.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Orris_Damascone_Background_Ratings.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Thai_True_Mass_Market_Eighteen_Differentiation_Additions_2026-05-02.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Ylang_Champaca_Jasmone_Luxury_30.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\collections\\Ylang_Sans_Champaca_Formula_Set.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Bleu_Carbon_Boost_Map.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Bleu_Carbon_Current_Bottle_Upgrade.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Bleu_Carbon_Final_Procedure.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Bleu_Carbon_Literature.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Bleu_Carbon_Upgrade_Steps.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\complete\\Iris_Lavender_Lipstick_30mL_EdP_pipeline.md",
+      "reason": "name contains '_pipeline.md'"
+    },
+    {
+      "file": "formulas\\demachy_redux\\DHC_A_ANY_VOLUME.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\demachy_redux\\DHC_A_SUMMARY.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\demachy_redux\\DHC_VERITAS.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\Fougere_Herbier_OOPS_Phase1.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\Jasmin_dOrris_HenryJacques_30mL_EdP_Additions_PostMix.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\mixing_guides\\Champaca_dOr_Moderne_Optimized_30mL_Mixing_Guide.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\mixing_guides\\Porcelaine_Optimized_30mL_Mixing_Guide.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\prep_beta_ionone_1pct.md",
+      "reason": "stem prefix 'prep_'"
+    },
+    {
+      "file": "formulas\\prep_musk_myristic.md",
+      "reason": "stem prefix 'prep_'"
+    },
+    {
+      "file": "formulas\\reverse_engineering\\Amouage_Opus_V_Reverse_Engineering.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\reverse_engineering\\Opus_V_Data_Acquisition_Plan.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\reverse_engineering\\Opus_V_Internet_Smell_Research.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\reverse_engineering\\Opus_V_Iris_Accord_Collection_30.md",
+      "reason": "no formula table detected"
+    },
+    {
+      "file": "formulas\\reverse_engineering\\Opus_V_Iris_Accord_Family_Guide.md",
+      "reason": "no formula table detected"
+    }
+  ],
+  "config": {
+    "brief_override": "generic",
+    "concentrate_ul_override": null,
+    "timeout_s": 60
+  },
+  "elapsed_seconds": 4.8,
+  "rate_f_per_minute": 62.8,
+  "generated_at_utc": "2026-07-21T11:45:25Z",
+  "top_failed_gates": []
+}

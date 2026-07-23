@@ -12,4 +12,5 @@ description: Use before invoking plugins, MCP servers, web research, subagents, 
 5. Choose the cheapest option that still meets the acceptance criteria. Skip lower-value calls.
 6. Use at most one heavy external path at a time; inspect its evidence before escalating.
 7. Plugins are off by default in this project. For a justified CLI-only session, opt in with `codex -c features.plugins=true`.
-8. Never replace fresh completion verification with cached or delegated claims.
+8. Keep Codex on the standard service tier by default; GPT-5.6 Fast mode costs 2.5x credits and needs a concrete latency benefit.
+9. Never replace fresh completion verification with cached or delegated claims.

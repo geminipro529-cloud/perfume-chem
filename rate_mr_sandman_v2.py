@@ -1,14 +1,14 @@
 """Rate Mr. Sandman v2 (refined) across all scoring axes."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
+from engine.hedonic_model import HEDONIC_VALENCE
+from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import ODT_DATA
-from engine.ifra_safety import IFRA_CAT4_LIMITS
-from engine.hedonic_model import HEDONIC_VALENCE
 from engine.perception.oav import oav
 from engine.skin_interaction import SKIN_PHYSCHEM
-from engine.temporal_graph import get_profile as get_temporal
 
 # Refined Mr. Sandman v2 formula
 # Format: name -> (mass_frac_pct_of_concentrate, dilution_pct, note)
@@ -106,29 +106,29 @@ for name, (mass_frac, dilution, note) in sorted(FORMULA_V2.items(), key=lambda x
     active_frac = mass_frac * (dilution / 100.0)
     conc_ppm = active_frac * 10000
     odt = get_odt(name)
-    
+
     if odt and odt > 0:
         oav_val = oav(conc_ppm, odt)
     else:
         oav_val = 0
-    
+
     total_mass += mass_frac
     total_active += active_frac
     total_oav += oav_val
     section_oav[note] += oav_val
     section_mass[note] += mass_frac
     section_active[note] += active_frac
-    
+
     if oav_val > 0 and oav_val < 1:
         materials_below_threshold.append((name, oav_val))
     if oav_val > 50000:
         materials_dominant.append((name, oav_val))
-    
+
     oav_list.append(oav_val)
-    
+
     odt_str = f"{odt:.3f}" if odt else "N/A"
     percept = "EXTREME" if oav_val > 500 else "DOMINANT" if oav_val > 50 else "clear" if oav_val > 5 else "weak" if oav_val > 1 else "SUBLIM" if oav_val > 0 else "N/A"
-    
+
     print(f"  {name:<28} {note:>5} {dilution:>5} {mass_frac:>7.2f} {active_frac:>7.3f} {odt_str:>8} {conc_ppm:>8.0f} {oav_val:>10.0f} {percept:>10}")
 
 print("-" * 100)
@@ -328,7 +328,7 @@ if subst_list:
     skin_score = min(9.0, 3.0 + avg_subst * 8)
 else:
     skin_score = 6.0
-    print(f"  Using default substantivity estimate")
+    print("  Using default substantivity estimate")
 
 print(f"  Skin perf score:     {skin_score:.1f}/10")
 

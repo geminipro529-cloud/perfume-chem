@@ -1,7 +1,12 @@
 import pytest
 
 from engine.bottle_addition import BottleSnapshot, PipetteProfile, StockSolution
-from engine.intervention_trial import InterventionTrialRequest, plan_intervention_trial
+from engine.intervention_trial import (
+    BatchRescueContext,
+    InterventionTrialRequest,
+    plan_finished_batch_rescue,
+    plan_intervention_trial,
+)
 
 
 def _request(material: str = "Hedione", *, matrix: str = "ethanol"):
@@ -64,3 +69,67 @@ def test_trial_plan_rejects_invalid_target_ppm():
             target_active_ppm_w_w=0.0,
             evaluation_attribute="iris clarity",
         )
+
+
+def _rescue_context(**overrides):
+    values = {
+        "batch_id": "batch-001",
+        "formula_state_sha256": "a" * 64,
+        "immutable_ledger_complete": True,
+        "previous_additions_complete": True,
+        "observed_defect": "iris heart is too quiet",
+        "preserve_attributes": ("clean opening", "dry woody base"),
+        "stock_identity": "Hedione",
+        "stock_fraction_basis": "mass_fraction",
+        "stock_fraction_source": "gravimetric preparation record",
+        "stock_carrier": "DPG",
+        "stock_density_source": "measured at 25 C",
+        "bottle_mass_source": "calibrated balance",
+        "product_category": "fine fragrance leave-on",
+    }
+    values.update(overrides)
+    return BatchRescueContext(**values)
+
+
+def test_finished_batch_rescue_only_authorizes_a_separate_aliquot():
+    plan = plan_finished_batch_rescue(_rescue_context(), _request())
+
+    assert plan.readiness.status == "ALIQUOT_TRIAL_READY"
+    assert plan.readiness.separate_aliquot_plan_authorized is True
+    assert plan.readiness.source_bottle_addition_authorized is False
+    assert plan.readiness.skin_application_authorized is False
+    assert plan.trial is not None
+    assert plan.trial.evaluation_protocol.control == "unaltered bottle aliquot"
+
+
+def test_finished_batch_rescue_withholds_dose_when_provenance_is_incomplete():
+    context = _rescue_context(
+        formula_state_sha256="unknown",
+        immutable_ledger_complete=False,
+        previous_additions_complete=False,
+        stock_fraction_basis="unspecified",
+        stock_density_source="",
+    )
+
+    plan = plan_finished_batch_rescue(context, _request())
+
+    assert plan.readiness.status == "NEEDS_INPUT"
+    assert plan.trial is None
+    assert plan.readiness.source_bottle_addition_authorized is False
+    assert {
+        "formula_state_sha256",
+        "immutable_ledger_complete",
+        "previous_additions_complete",
+        "stock_fraction_basis",
+        "stock_density_source",
+    } <= set(plan.readiness.missing_inputs)
+
+
+def test_finished_batch_rescue_rejects_candidate_stock_identity_mismatch():
+    plan = plan_finished_batch_rescue(
+        _rescue_context(stock_identity="Alpha Irone"),
+        _request(material="Hedione"),
+    )
+
+    assert plan.trial is None
+    assert "stock_identity_matches_candidate" in plan.readiness.missing_inputs

@@ -1,0 +1,15 @@
+{
+  "file": "formulas\\AV_Optimized_50mL_EDP.md",
+  "stem": "AV_Optimized_50mL_EDP",
+  "brief_used": "generic",
+  "concentrate_ul": 6000,
+  "status": "ERROR",
+  "elapsed_s": 0.9,
+  "failed_gates": [],
+  "gate_output": {
+    "_error": true,
+    "_error_type": "exit_code",
+    "_exit_code": 1,
+    "_stderr_tail": "PREFLIGHT HARD BLOCK \u2014 gate aborted\n  HARD_BLOCK: INVENTORY_MISSING: 2 materials not in inventory: Oops Fougere Base, 10 000\n"
+  }
+}

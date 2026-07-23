@@ -1,0 +1,15 @@
+{
+  "file": "formulas\\Allure_Homme_Sport_Luxe_30mL_EdP.md",
+  "stem": "Allure_Homme_Sport_Luxe_30mL_EdP",
+  "brief_used": "generic",
+  "concentrate_ul": 5868,
+  "status": "ERROR",
+  "elapsed_s": 0.9,
+  "failed_gates": [],
+  "gate_output": {
+    "_error": true,
+    "_error_type": "exit_code",
+    "_exit_code": 1,
+    "_stderr_tail": "PREFLIGHT HARD BLOCK \u2014 gate aborted\n  HARD_BLOCK: INVENTORY_MISSING: 14 materials not in inventory: 5-musk macrocyclic chord (EB + Romandolide + Ambrettolide + Exaltolide + Musk Ketone), Petitgrain EO Paraguay + Oranger Crystals + Nerolin Bromelia + Aurantiol, Galbanum EO at 0.13%, Ambrettolide (naturalistic fruity-musk) + Exaltolide (skin-fatty intimacy), Blood Orange Sicilian...\n"
+  }
+}

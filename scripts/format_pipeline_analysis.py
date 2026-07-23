@@ -6,18 +6,21 @@ Run: python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
 from __future__ import annotations
 
 import argparse
-import io
 import json
 import math
 import statistics
 import sys
-from pathlib import Path
+
 
 # Force stdout to UTF-8 regardless of the console codepage.
 # Without this, characters like \xd7 (×) crash the script when the
 # console codepage is CP874 (Thai) or anything other than UTF-8.
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+def _configure_cli_stdio() -> None:
+    """Use UTF-8 for CLI output without replacing process-global streams."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="replace")
 
 
 OAV_BRACKETS = [
@@ -32,7 +35,9 @@ OAV_BRACKETS = [
 ]
 
 
-def oav_label(oav: float) -> str:
+def oav_label(oav: float | None) -> str:
+    if oav is None:
+        return "unknown"
     for threshold, label in OAV_BRACKETS:
         if oav >= threshold:
             return label
@@ -54,26 +59,60 @@ def load_pipeline(path):
 
 
 def sort_by_oav(materials):
-    return sorted(materials, key=lambda m: m.get("oav", 0) or 0, reverse=True)
+    return sorted(
+        materials,
+        key=lambda m: (m.get("oav") is not None, float(m.get("oav") or 0.0)),
+        reverse=True,
+    )
+
+
+def _oav_number(material: dict) -> float:
+    value = material.get("oav")
+    return float(value) if value is not None else 0.0
+
+
+def _oav_text(value: float | None, precision: int = 1) -> str:
+    if value is None:
+        return "UNKNOWN"
+    return f"{float(value):.{precision}f}"
+
+
+def _number_text(value, precision: int = 3) -> str:
+    if value is None:
+        return "UNKNOWN"
+    return f"{float(value):.{precision}f}"
+
+
+def _functional_role(material: dict) -> str:
+    return str(material.get("role") or "unspecified")
+
+
+def _requires_perceptibility(material: dict) -> bool:
+    role = _functional_role(material).casefold()
+    texture = str(material.get("texture") or "").casefold()
+    family = str(material.get("family") or "").casefold()
+    return (
+        role in {"character", "radiance"}
+        or any(
+            token in texture for token in ("lift", "diffusion", "projection", "radiance", "halo")
+        )
+        or (family == "musk" and role != "fixative")
+    )
 
 
 def _compute_longevity(ts):
-    """Compute longevity estimate (hours) from temporal time-series data.
+    """Compute an unvalidated longevity proxy from temporal model data.
 
     Uses the ratio of base-note OAV at drydown (4h) vs opening (0s) scaled by 8.0.
-    If base OAV grows as top notes evaporate (ratio > 1), longevity exceeds 8h.
+    This is a reporting heuristic, not a sensory skin-life prediction.
     Returns None when temporal data is missing or base OAV at opening is zero.
     """
     if not ts or len(ts) < 2:
         return None
     opening_mats = ts[0]["state"].get("materials", [])
     drydown_mats = ts[-1]["state"].get("materials", [])
-    base_oav_open = sum(
-        m.get("oav", 0) or 0 for m in opening_mats if m.get("note") == "base"
-    )
-    base_oav_dry = sum(
-        m.get("oav", 0) or 0 for m in drydown_mats if m.get("note") == "base"
-    )
+    base_oav_open = sum(m.get("oav", 0) or 0 for m in opening_mats if m.get("note") == "base")
+    base_oav_dry = sum(m.get("oav", 0) or 0 for m in drydown_mats if m.get("note") == "base")
     if base_oav_open <= 0:
         return None
     return (base_oav_dry / base_oav_open) * 8.0
@@ -85,19 +124,151 @@ def build_gate_summary(formula):
     warned = [g for g in gates if g["status"] == "WARN"]
     failed = [g for g in gates if g["status"] == "FAIL"]
     lines = ["## Gate Summary", ""]
-    lines.append(
-        f"**{len(passed)} PASS** / **{len(warned)} WARN** / **{len(failed)} FAIL**"
-    )
+    lines.append(f"**{len(passed)} PASS** / **{len(warned)} WARN** / **{len(failed)} FAIL**")
     lines.append("")
     for g in failed:
-        lines.append(f"  FAIL {g['gate']}: {str(g.get('detail', ''))[:140]}")
+        lines.append(f"  FAIL {g['gate']}: {str(g.get('detail', ''))}")
     for g in warned:
-        lines.append(f"  WARN {g['gate']}: {str(g.get('detail', ''))[:140]}")
+        lines.append(f"  WARN {g['gate']}: {str(g.get('detail', ''))}")
     lines.append("")
     return lines
 
 
-def build_oav_headspace_table(materials):
+def build_reference_deviation(formula):
+    """Produce a per-contract deviation report from reference_claim_contract data.
+
+    Shows which marker groups pass/fail per detected reference perfume,
+    and flags over-add materials that belong to a different reference's DNA.
+    """
+    gate_map = {gate.get("gate"): gate for gate in formula.get("gates", [])}
+    claim_gate = gate_map.get("reference_claim_contract")
+    if not claim_gate:
+        return []
+
+    claim_data = claim_gate.get("data", {})
+    evaluations = claim_data.get("evaluations", [])
+    over_add_analysis = claim_data.get("over_add_analysis", [])
+    metadata_warning = claim_data.get("metadata_warning", "")
+
+    if not evaluations and not over_add_analysis:
+        return []
+
+    lines = ["## Reference Deviation Report", ""]
+
+    if metadata_warning:
+        lines.append(f"> ⚠️ {metadata_warning}")
+        lines.append(
+            "> Architecture evaluation below is best-effort — "
+            "quantitative similarity cannot be assessed without "
+            "explicit Claim mode and Reference scope metadata."
+        )
+        lines.append("")
+
+    # --- Per-contract evaluation ---
+    for ev in evaluations:
+        display = ev.get("display_name", ev.get("contract_id", "Unknown"))
+        lines.append(f"### {display}")
+        lines.append("")
+
+        scope_error = ev.get("scope_error")
+        if scope_error:
+            lines.append(f"> ❌ Scope error: {scope_error}")
+            lines.append("")
+            continue
+
+        matched = ev.get("matched_groups", {})
+        missing = ev.get("missing_groups", [])
+        all_groups = ev.get("all_group_names", list(matched.keys()) + missing)
+
+        for group_name in all_groups:
+            if group_name in matched:
+                mats = ", ".join(matched[group_name])
+                lines.append(f"| ✅ | **{group_name}** | {mats} |")
+            elif group_name in missing:
+                lines.append(f"| ❌ | **{group_name}** | *MISSING* |")
+
+        lines.append("")
+
+        if ev["status"] == "FAIL":
+            lines.append(f"**Result:** {len(missing)}/{len(all_groups)} marker group(s) missing")
+        else:
+            lines.append(f"**Result:** All {len(all_groups)} marker groups matched")
+        lines.append("")
+
+    # --- Over-add analysis ---
+    if over_add_analysis:
+        lines.append("### Over-Add Materials")
+        lines.append("")
+        lines.append(
+            "Materials present in the formula that match a different "
+            "reference perfume's DNA but NOT the primary target. "
+            "If optimizing for the primary reference, these are "
+            "candidates for removal."
+        )
+        lines.append("")
+        for primary_block in over_add_analysis:
+            primary_name = primary_block.get("primary_display_name", "Unknown")
+            lines.append(f"**Extraneous to {primary_name}:**")
+            lines.append("")
+            for oa in primary_block.get("over_adds", []):
+                source_name = oa.get("source_display_name", "Unknown")
+                for group_name, materials in oa.get("extraneous_groups", {}).items():
+                    mats_str = ", ".join(materials)
+                    lines.append(
+                        f"| ❌ | {mats_str} | "
+                        f"Belongs to **{source_name}** `{group_name}` group "
+                        f"— not in {primary_name} |"
+                    )
+            lines.append("")
+        lines.append(
+            "> ⚠️ These materials waste both formula space and budget if the "
+            "target is the primary reference. They pull the character toward "
+            "a different perfume's DNA."
+        )
+        lines.append("")
+
+    return lines
+
+
+def build_authority_dimensions(formula, manifest=None):
+    gate_map = {gate.get("gate"): gate for gate in formula.get("gates", [])}
+    state = formula.get("formula_state", {})
+    quantitative = state.get("quantitative_authority", {})
+    confidence = formula.get("confidence", {})
+    stock_gate = gate_map.get("inventory_stock_contract", {})
+    claim_gate = gate_map.get("reference_claim_contract", {})
+    claim_data = claim_gate.get("data", {})
+    combined = confidence.get("combined_confidence")
+    if combined is None:
+        combined = confidence.get("overall_confidence")
+    combined_text = "UNKNOWN" if combined is None else f"{float(combined):.1f}/100"
+
+    return [
+        "## Authority Dimensions",
+        "",
+        "| Dimension | Status | Authority |",
+        "|---|---|---|",
+        f"| Inventory stock | {stock_gate.get('status', 'UNKNOWN')} | "
+        f"{stock_gate.get('detail', 'No stock gate result.')} |",
+        "| Quantitative ppm w/w | "
+        f"{quantitative.get('active_concentrate_ppm_w_w', 'UNAVAILABLE')} | "
+        "Exact only when the full declared mass and density chain is available. |",
+        "| Headspace/OAV | "
+        f"{quantitative.get('headspace_oav', state.get('headspace_basis', 'UNKNOWN'))} | "
+        f"{quantitative.get('headspace_model_class', 'HEURISTIC_NOT_MEASURED')}; "
+        "diagnostic model, not measured odor intensity. |",
+        f"| Named reference | {claim_gate.get('status', 'UNKNOWN')} "
+        f"({claim_data.get('scope', 'none')}) | "
+        f"{claim_gate.get('detail', 'No named-reference contract.')} |",
+        "| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | "
+        "Requires blinded bench comparison; no model score supplies this authority. |",
+        f"| Combined confidence | {combined_text} | "
+        "Aggregate diagnostic only; it cannot override any authority dimension above. |",
+        "",
+    ]
+
+
+def _legacy_build_oav_headspace_table(materials):
     lines = ["## Headspace OAV — Opening (0s)", ""]
     h = " | ".join(
         [
@@ -120,7 +291,8 @@ def build_oav_headspace_table(materials):
 
     mats = sort_by_oav(materials)
     for i, m in enumerate(mats, 1):
-        oav = m.get("oav", 0) or 0
+        oav = m.get("oav")
+        oav_text = _oav_text(oav)
         label = oav_label(oav)
         role = (m.get("profile_name", "") or "")[:30]
         vp = float(m.get("vp_pure_pa") or 0.0)
@@ -129,7 +301,7 @@ def build_oav_headspace_table(materials):
         active_g = float(m.get("active_g") or 0.0)
         mole_fraction = float(m.get("mole_fraction") or 0.0)
         lines.append(
-            f"| {i:3d} | {m['name']:28s} | {oav:>10.1f} | {m.get('note', '?'):5s} | {label:>12s}"
+            f"| {i:3d} | {m['name']:28s} | {oav_text:>10s} | {m.get('note', '?'):5s} | {label:>12s}"
             f" | {vp:>7.3f} | {vapor_ppm:>9.4f}"
             f" | {odt_ppm:>9.6f} | {active_g:>7.4f}"
             f" | {mole_fraction * 100:>5.2f} | {role:30s}"
@@ -140,10 +312,49 @@ def build_oav_headspace_table(materials):
     nheart = sum(1 for m in mats if m.get("note") == "heart")
     nbase = sum(1 for m in mats if m.get("note") == "base")
     lines.append("")
-    lines.append(
-        f"**Materials:** {len(mats)} total ({ntop} top, {nheart} heart, {nbase} base)"
-    )
+    lines.append(f"**Materials:** {len(mats)} total ({ntop} top, {nheart} heart, {nbase} base)")
     lines.append(f"**Total vapor:** {total_ppm:.2f} ppm")
+    return lines
+
+
+def build_oav_headspace_table(materials):
+    lines = ["## Headspace OAV — Opening (0s)", ""]
+    lines.append(
+        "| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | "
+        "Vapor ppm | ODT ppm | OAV | Note |"
+    )
+    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|")
+
+    mats = sort_by_oav(materials)
+    for material in mats:
+        dilution = material.get("dilution")
+        dil_text = "UNKNOWN" if dilution is None else f"{float(dilution) * 100:.1f}%"
+        mole_fraction = material.get("mole_fraction")
+        mf_text = "UNKNOWN" if mole_fraction is None else f"{float(mole_fraction) * 100:.3f}"
+        lines.append(
+            f"| {material.get('name', 'UNKNOWN')} | {dil_text} | "
+            f"{_number_text(material.get('raw_ul'), 2)} | "
+            f"{_number_text(material.get('active_ul'), 2)} | "
+            f"{_number_text(material.get('mw_g_mol'), 3)} | {mf_text} | "
+            f"{_number_text(material.get('vp_pure_pa'), 6)} | "
+            f"{_number_text(material.get('gamma'), 3)} | "
+            f"{_number_text(material.get('vapor_ppm'), 6)} | "
+            f"{_number_text(material.get('odt_air_ppm'), 9)} | "
+            f"{_oav_text(material.get('oav'))} | "
+            f"{material.get('note', 'UNKNOWN')} |"
+        )
+
+    total_ppm = sum(material.get("vapor_ppm", 0) or 0 for material in mats)
+    ntop = sum(1 for material in mats if material.get("note") == "top")
+    nheart = sum(1 for material in mats if material.get("note") == "heart")
+    nbase = sum(1 for material in mats if material.get("note") == "base")
+    lines.extend(
+        [
+            "",
+            f"**Materials:** {len(mats)} total ({ntop} top, {nheart} heart, {nbase} base)",
+            f"**Total vapor:** {total_ppm:.2f} ppm",
+        ]
+    )
     return lines
 
 
@@ -161,10 +372,10 @@ def build_note_distribution(materials):
             f"**{tier_name}:** {len(tier)} mats, {act_pct:.1f}% active, {oav_pct:.1f}% OAV"
         )
         for m in tier[:6]:
-            o = m.get("oav", 0) or 0
+            o = m.get("oav")
             vp = float(m.get("vp_pure_pa") or 0.0)
             lines.append(
-                f"  - {m['name']:28s} OAV={o:>8.1f} ({oav_label(o)}) VP={vp:.3f}Pa"
+                f"  - {m['name']:28s} OAV={_oav_text(o):>8s} ({oav_label(o)}) VP={vp:.3f}Pa"
             )
         if len(tier) > 6:
             lines.append(f"  ... and {len(tier) - 6} more")
@@ -172,27 +383,31 @@ def build_note_distribution(materials):
 
 
 def build_subthreshold(materials):
-    sub = [m for m in materials if (m.get("oav", 0) or 0) < 1]
-    high = [m for m in materials if (m.get("oav", 0) or 0) > 5000]
+    sub = [m for m in materials if m.get("oav") is not None and m["oav"] < 1]
+    high = [m for m in materials if m.get("oav") is not None and m["oav"] > 5000]
+    unknown = [m for m in materials if m.get("oav") is None]
     lines = []
     if sub:
         lines.append("### Sub-threshold Materials (OAV < 1)")
-        lines.append(
-            f"{len(sub)}/{len(materials)} materials below perceptible threshold"
-        )
+        lines.append(f"{len(sub)}/{len(materials)} materials below perceptible threshold")
         for m in sub:
             oav = m.get("oav", 0) or 0
-            role = (m.get("profile_name", "") or "")[:20]
+            role = _functional_role(m)
             vp = float(m.get("vp_pure_pa") or 0.0)
             act = m.get("active_ul", 0) or 0
             flag = (
-                "**Needs higher dose**"
-                if "musk" in role.lower()
-                else "Structural (acceptable)"
+                "**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**"
+                if _requires_perceptibility(m)
+                else "STRUCTURAL_OR_FIXATIVE"
             )
             lines.append(
                 f"  - {m['name']}: OAV={oav:.2f} VP={vp:.3f}Pa act={act:.0f}uL role={role} [{flag}]"
             )
+    if unknown:
+        lines.append("### Unknown OAV (not sub-threshold)")
+        for m in unknown:
+            model = (m.get("sources") or {}).get("oav_model", "unknown")
+            lines.append(f"  - {m['name']}: OAV=UNKNOWN model={model}")
     if high:
         lines.append("### High-OAV Flags (>5000)")
         for m in high:
@@ -208,7 +423,7 @@ def build_class_distribution(materials):
     fams = {}
     for m in materials:
         f = m.get("family") or "?"
-        oav = m.get("oav", 0) or 0
+        oav = _oav_number(m)
         if f not in fams:
             fams[f] = {"oav": 0, "names": []}
         fams[f]["oav"] += oav
@@ -256,8 +471,7 @@ def build_temporal(formula):
         )
         if doms:
             lines.append(
-                "  Leaders: "
-                + " | ".join(f"{d['material']} OAV {d['oav']:.0f}" for d in doms[:5])
+                "  Leaders: " + " | ".join(f"{d['material']} OAV {d['oav']:.0f}" for d in doms[:5])
             )
     return lines
 
@@ -275,12 +489,9 @@ def build_perfumer(formula):
     base_m = [m for m in mats if m.get("note") == "base"]
 
     lines.append("### 1. Character")
-    tdesc = " + ".join(f"{m['name']}({oav_label(m.get('oav', 0))})" for m in top_m[:3])
-    hdesc = (
-        " + ".join(f"{m['name']}({oav_label(m.get('oav', 0))})" for m in heart_m[:2])
-        or "(thin)"
-    )
-    bdesc = " + ".join(f"{m['name']}({oav_label(m.get('oav', 0))})" for m in base_m[:5])
+    tdesc = " + ".join(f"{m['name']}({oav_label(m.get('oav'))})" for m in top_m[:3])
+    hdesc = " + ".join(f"{m['name']}({oav_label(m.get('oav'))})" for m in heart_m[:2]) or "(thin)"
+    bdesc = " + ".join(f"{m['name']}({oav_label(m.get('oav'))})" for m in base_m[:5])
     lines.append(f"  Top: {tdesc}")
     lines.append(f"  Heart: {hdesc}")
     lines.append(f"  Base: {bdesc}")
@@ -292,13 +503,13 @@ def build_perfumer(formula):
     if top_m:
         lead = top_m[0]
         lines.append(
-            f"  {lead['name']} dominates at OAV {lead.get('oav', 0):.0f} ({oav_label(lead.get('oav', 0))})."
+            f"  {lead['name']} leads the reported top at OAV {_oav_text(lead.get('oav'), 0)} ({oav_label(lead.get('oav'))})."
         )
         for m in top_m[:4]:
-            o = m.get("oav", 0) or 0
+            o = m.get("oav")
             vp = float(m.get("vp_pure_pa") or 0.0)
             lines.append(
-                f"  - {m['name']} OAV={o:.0f} VP={vp:.1f}Pa ({m.get('family', '?')})"
+                f"  - {m['name']} OAV={_oav_text(o, 0)} VP={vp:.1f}Pa ({m.get('family', '?')})"
             )
     lines.append(f"  Total vapor: {total_vapor:.1f} ppm")
     lines.append("")
@@ -310,8 +521,8 @@ def build_perfumer(formula):
         hm = sort_by_oav(hw["state"].get("materials", []))
         hnd = hw["state"].get("note_distribution", {})
         for m in hm[:4]:
-            o = m.get("oav", 0) or 0
-            if o >= 1:
+            o = m.get("oav")
+            if o is not None and o >= 1:
                 lines.append(f"  {m['name']} OAV={o:.0f} ({oav_label(o)})")
         lines.append(
             f"  T:{hnd.get('top', 0):.1f}% H:{hnd.get('heart', 0):.1f}% B:{hnd.get('base', 0):.1f}%"
@@ -325,24 +536,24 @@ def build_perfumer(formula):
         dw = ts[-1]
         dm = sort_by_oav(dw["state"].get("materials", []))
         dnd = dw["state"].get("note_distribution", {})
-        lines.append(f"  Base dominates at {dnd.get('base', 0):.0f}% of headspace")
+        lines.append(f"  Base share of active note distribution: {dnd.get('base', 0):.0f}%")
         for m in dm[:6]:
-            o = m.get("oav", 0) or 0
-            if o >= 1:
+            o = m.get("oav")
+            if o is not None and o >= 1:
                 lines.append(f"  - {m['name']} OAV={o:.0f}")
         lines.append(f"  Vapor: {dw['state'].get('total_vapor_ppm', 0):.1f} ppm")
     lines.append("")
 
     # Sillage
     lines.append("### 5. Sillage & Diffusion")
-    carriers = [m for m in mats if (m.get("oav", 0) or 0) > 500]
+    carriers = [m for m in mats if m.get("oav") is not None and m["oav"] > 500]
     if carriers:
         cstr = " + ".join(f"{m['name']}({m['oav']:.0f})" for m in carriers[:4])
         lines.append(f"  Primary carriers: {cstr}")
     fams = {}
     for m in mats:
         f = m.get("family", "?")
-        oav = m.get("oav", 0) or 0
+        oav = _oav_number(m)
         fams[f] = fams.get(f, 0) + oav
     tot = sum(fams.values()) or 1
     lines.append(
@@ -358,21 +569,23 @@ def build_perfumer(formula):
     lines.append("### 6. Longevity")
     if ts:
         f = ts[0]["state"]
-        l = ts[-1]["state"]
-        evap = 100 * (1 - l.get("total_raw_ul", 0) / f.get("total_raw_ul", 1))
-        persist = l.get("note_distribution", {}).get("base", 0)
+        last_state = ts[-1]["state"]
+        evap = 100 * (1 - last_state.get("total_raw_ul", 0) / f.get("total_raw_ul", 1))
+        persist = last_state.get("note_distribution", {}).get("base", 0)
         lines.append(f"  Evaporation: {evap:.0f}% over 4h")
         lines.append(
-            f"  Vapor: {f.get('total_vapor_ppm', 0):.1f} > {l.get('total_vapor_ppm', 0):.1f} ppm"
+            f"  Vapor: {f.get('total_vapor_ppm', 0):.1f} > {last_state.get('total_vapor_ppm', 0):.1f} ppm"
         )
         lines.append(f"  Base @ drydown: {persist:.0f}%")
         longevity_hr = _compute_longevity(ts)
         if longevity_hr is not None:
             lines.append(
-                f"  Est. skin life: {longevity_hr:.0f}h moderate + {longevity_hr * 0.5:.0f}h skin scent"
+                "  Heuristic, unvalidated skin-life proxy: "
+                f"{longevity_hr:.0f}h moderate + "
+                f"{longevity_hr * 0.5:.0f}h skin scent; sensory calibration required"
             )
         else:
-            lines.append(f"  Est. skin life: data insufficient")
+            lines.append("  Skin-life proxy: data insufficient")
     lines.append("")
 
     # Balance
@@ -387,12 +600,19 @@ def build_perfumer(formula):
     )
     lines.append(f"  OAV range: {mn:.2f} to {mx:.0f} (sigma-log={ct:.2f})")
     if ct > 1.2:
+        leader = max(
+            (m for m in mats if _oav_number(m) > 0),
+            key=_oav_number,
+            default=None,
+        )
+        leader_text = leader["name"] if leader else "Highest-OAV material"
         lines.append(
-            f"  Wide contrast: citrus (OAV {mx:.0f}) dominates opening before burning off to reveal base."
+            f"  Wide OAV contrast: {leader_text} leads at OAV {mx:.0f}; "
+            "lower-OAV materials may be masked."
         )
     if (nd.get("heart", 0) or 0) < 10:
         lines.append(
-            f"  Thin heart ({nd.get('heart', 0):.1f}%) — top-to-base architecture, authentic for vetiver."
+            f"  Thin active-mass heart ({nd.get('heart', 0):.1f}%); top-to-base architecture."
         )
     for label in [
         "massive",
@@ -406,13 +626,9 @@ def build_perfumer(formula):
         if label == "sub-threshold":
             cnt = sum(1 for o in oavs if o < 1)
         else:
-            th = next((t for t, l in OAV_BRACKETS if l == label), 0)
-            nth = next(
-                (
-                    t
-                    for t, l in OAV_BRACKETS
-                    if l == label and l != "sub-threshold" and False
-                ),
+            th = next((t for t, lb in OAV_BRACKETS if lb == label), 0)
+            next(
+                (t for t, lb in OAV_BRACKETS if lb == label and lb != "sub-threshold" and False),
                 0,
             )
             cnt = sum(
@@ -423,8 +639,8 @@ def build_perfumer(formula):
                 < next(
                     (
                         t
-                        for t, l in OAV_BRACKETS
-                        if l == label and OAV_BRACKETS.index((t, l)) > 0
+                        for t, lb in OAV_BRACKETS
+                        if lb == label and OAV_BRACKETS.index((t, lb)) > 0
                     ),
                     999999,
                 )
@@ -436,10 +652,18 @@ def build_perfumer(formula):
     # Flags
     lines.append("### 8. Flags")
     for m in mats:
-        oav = m.get("oav", 0) or 0
-        if oav < 1:
-            role = m.get("profile_name", "") or ""
-            lines.append(f"  SUB: {m['name']} OAV={oav:.2f} role={role}")
+        oav = m.get("oav")
+        if oav is not None and oav < 1:
+            role = _functional_role(m)
+            functional = (
+                "FUNCTIONAL_UNDERPERFORMANCE"
+                if _requires_perceptibility(m)
+                else "STRUCTURAL_OR_FIXATIVE"
+            )
+            lines.append(f"  SUB: {m['name']} OAV={oav:.2f} role={role} class={functional}")
+        elif oav is None:
+            model = (m.get("sources") or {}).get("oav_model", "unknown")
+            lines.append(f"  UNKNOWN: {m['name']} OAV unavailable ({model})")
     for m in mats:
         if "hedione" in m["name"].lower():
             odt = m.get("odt_air_ppm", 0)
@@ -449,27 +673,21 @@ def build_perfumer(formula):
                 )
     for m in mats:
         if "evernyl" in m["name"].lower():
-            pct = (
-                m.get("active_ul", 0)
-                / formula.get("formula_state", {}).get("total_active_ul", 1)
-                * 100
-            )
-            if pct > 0.5:
+            batch_ul = formula.get("formula_state", {}).get("batch_volume_ml", 30) * 1000
+            pct = m.get("active_ul", 0) / max(batch_ul, 1) * 100
+            if pct > 0.09:
                 lines.append(
-                    f"  IFRA: Evernyl at {pct:.2f}% active — check Cat4 limit (0.1% in product = 0.5% at 20% EdP)"
+                    f"  IFRA: Evernyl at {pct:.2f}% of finished product — check Cat4 limit (0.1%)"
                 )
     # General IFRA check for all restricted materials
     for m in mats:
         limit_pct = m.get("ifra_limit_pct")
         if limit_pct is not None and limit_pct > 0:
-            pct = (
-                m.get("active_ul", 0)
-                / formula.get("formula_state", {}).get("total_active_ul", 1)
-                * 100
-            )
+            batch_ul = formula.get("formula_state", {}).get("batch_volume_ml", 30) * 1000
+            pct = m.get("active_ul", 0) / max(batch_ul, 1) * 100
             if pct > limit_pct * 0.9:
                 lines.append(
-                    f"  IFRA: {m['name']} at {pct:.2f}% active — near/above Cat4 limit ({limit_pct}%)"
+                    f"  IFRA: {m['name']} at {pct:.2f}% of finished product — near/above Cat4 limit ({limit_pct}%)"
                 )
     lines.append("")
     return lines
@@ -489,6 +707,7 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         "perceptible": [],
         "threshold": [],
         "sub": [],
+        "unknown": [],
     }
     total_vapor = sum(float(m.get("vapor_ppm", 0) or 0) for m in materials)
     active = sum(float(m.get("active_ul", 0) or 0) for m in materials)
@@ -496,8 +715,11 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
     bottle_pct = active / max(batch * 1000, 1) * 100
 
     for m in materials:
-        o = float(m.get("oav", 0) or 0)
         name = m.get("name", "")
+        if m.get("oav") is None:
+            tiers["unknown"].append((name, None))
+            continue
+        o = float(m["oav"])
         if o >= 1000:
             tiers["massive"].append((name, o))
         elif o >= 100:
@@ -514,9 +736,9 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
             tiers["sub"].append((name, o))
 
     total_mats = len(materials)
-    perceptible = total_mats - len(tiers["sub"])
+    perceptible = sum(len(tiers[name]) for name in tiers if name not in {"sub", "unknown"})
     lines.append(
-        f"**Vapor:** {total_vapor:.0f} ppm  |  **Active:** {bottle_pct:.1f}%  |  **Perceptible:** {perceptible}/{total_mats}"
+        f"**Vapor:** {total_vapor:.0f} ppm  |  **Active:** {bottle_pct:.1f}%  |  **Perceptible:** {perceptible}/{total_mats}  |  **Unknown:** {len(tiers['unknown'])}"
     )
 
     lines.append("")
@@ -529,13 +751,14 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         "perceptible",
         "threshold",
         "sub",
+        "unknown",
     ]:
         items = tiers[tier_name]
         if not items:
             continue
-        names = ", ".join(f"{n}({o:.0f})" for n, o in items)
+        names = ", ".join(n if o is None else f"{n}({o:.0f})" for n, o in items)
         flags = []
-        if any(o > 10000 for _, o in items):
+        if any(o is not None and o > 10000 for _, o in items):
             flags.append("fatigue risk")
         if tier_name == "massive" and len(items) >= 6:
             flags.append("overload risk")
@@ -549,23 +772,16 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         for m in materials
         if m.get("note") == "top" and "citrus" in (m.get("family", "") or "").lower()
     )
-    base_oav = sum(
-        float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "base"
-    )
-    floral_oav = sum(
-        float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "heart"
-    )
+    base_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "base")
+    floral_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "heart")
     total_block = citrus_oav + base_oav + floral_oav or 1
-    lines.append(
-        f"  **Citrus** {citrus_oav:>8.0f} ({citrus_oav / total_block * 100:.0f}%)"
-    )
-    lines.append(
-        f"  **Floral** {floral_oav:>8.0f} ({floral_oav / total_block * 100:.0f}%)"
-    )
+    lines.append(f"  **Citrus** {citrus_oav:>8.0f} ({citrus_oav / total_block * 100:.0f}%)")
+    lines.append(f"  **Floral** {floral_oav:>8.0f} ({floral_oav / total_block * 100:.0f}%)")
     lines.append(f"  **Base**   {base_oav:>8.0f} ({base_oav / total_block * 100:.0f}%)")
     maxb = max(citrus_oav, base_oav, floral_oav)
-    minb = min(v for v in [citrus_oav, base_oav, floral_oav] if v > 0) or 1
-    ratio = maxb / minb
+    positive_blocks = [v for v in [citrus_oav, base_oav, floral_oav] if v > 0]
+    minb = min(positive_blocks) if positive_blocks else 1
+    ratio = maxb / minb if maxb > 0 else 0
     lines.append(
         f"  **Ratio:** {ratio:.0f}:1 between strongest/weakest block{' — CITRUS DOMINANT' if citrus_oav > floral_oav + base_oav else ''}"
     )
@@ -577,18 +793,18 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         issues.append(
             f"{len(tiers['sub'])} sub-threshold material(s): {', '.join(n for n, _ in tiers['sub'])}"
         )
+    if tiers["unknown"]:
+        issues.append(
+            f"{len(tiers['unknown'])} material(s) have unknown OAV: {', '.join(n for n, _ in tiers['unknown'])}"
+        )
     if not tiers["v.strong"]:
         issues.append("Missing 'very strong' tier (OAV 100-1000)")
     if not tiers["strong"]:
         issues.append("Missing 'strong' tier (OAV 50-100)")
     if citrus_oav > (floral_oav + base_oav) * 2:
-        issues.append(
-            f"Citrus dominates at {citrus_oav / total_block * 100:.0f}% of total OAV"
-        )
+        issues.append(f"Citrus dominates at {citrus_oav / total_block * 100:.0f}% of total OAV")
     if len(tiers["massive"]) >= 8:
-        issues.append(
-            f"{len(tiers['massive'])} massive-OAV materials — sensory overload likely"
-        )
+        issues.append(f"{len(tiers['massive'])} massive-OAV materials — sensory overload likely")
     if issues:
         for issue in issues:
             lines.append(f"  ! {issue}")
@@ -599,6 +815,7 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
 
 
 def main():
+    _configure_cli_stdio()
     p = argparse.ArgumentParser()
     p.add_argument("--input", "-i", required=True)
     args = p.parse_args()
@@ -608,6 +825,10 @@ def main():
     mats = formula.get("formula_state", {}).get("materials", [])
 
     for line in build_gate_summary(formula):
+        print(line)
+    for line in build_reference_deviation(formula):
+        print(line)
+    for line in build_authority_dimensions(formula, data.get("run_evidence_contract")):
         print(line)
     for line in build_oav_headspace_table(mats):
         print(line)

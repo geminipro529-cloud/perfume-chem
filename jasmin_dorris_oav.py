@@ -1,5 +1,6 @@
 """OAV analysis for Jasmin d'Orris Collab — ALL 45 materials."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
 from engine.ingredient_intelligence import get_profile
@@ -98,10 +99,10 @@ def get_odt(name):
     source = ""
 
     if p:
-        if p.odt_ppm: 
+        if p.odt_ppm:
             odt_eth = p.odt_ppm
             source += "PROFILE "
-        if p.odt: 
+        if p.odt:
             odt_air = p.odt
             source += "PROFILE "
 
@@ -113,10 +114,10 @@ def get_odt(name):
             break
 
     if odt_data:
-        if odt_eth is None: 
+        if odt_eth is None:
             odt_eth = odt_data.get("odt_eth")
             source += "ODT "
-        if odt_air is None: 
+        if odt_air is None:
             odt_air = odt_data.get("odt_air")
             source += "ODT "
         if not char:
@@ -124,10 +125,10 @@ def get_odt(name):
 
     if name in ODT_OVERRIDE:
         d = ODT_OVERRIDE[name]
-        if odt_eth is None: 
+        if odt_eth is None:
             odt_eth = d.get("odt_eth")
             source += "OVERRIDE "
-        if odt_air is None: 
+        if odt_air is None:
             odt_air = d.get("odt_air")
             source += "OVERRIDE "
         if not char:
@@ -146,7 +147,7 @@ print("-" * 125)
 prev_note = ""
 total_oav = 0
 total_active_ul = 0
-section_data = {"base": {"oav": 0, "ul": 0, "act": 0}, "heart": {"oav": 0, "ul": 0, "act": 0}, 
+section_data = {"base": {"oav": 0, "ul": 0, "act": 0}, "heart": {"oav": 0, "ul": 0, "act": 0},
                 "structure": {"oav": 0, "ul": 0, "act": 0}, "top": {"oav": 0, "ul": 0, "act": 0}}
 idx = 0
 results = []
@@ -156,10 +157,10 @@ for name, ul, dilution, note in FORMULA:
     active_ul = ul * (dilution / 100.0)
     conc_ppm = (active_ul / TOTAL_CONCENTRATE_UL) * 1_000_000
     edp_ppm = conc_ppm * (EDP_CONC_PCT / 100.0)
-    
+
     total_active_ul += active_ul
     odt_eth, odt_air, char, source = get_odt(name)
-    
+
     if odt_eth and odt_eth > 0:
         oav_val = edp_ppm / odt_eth
         oav_type = "EDP"
@@ -169,12 +170,12 @@ for name, ul, dilution, note in FORMULA:
     else:
         oav_val = 0
         oav_type = "NO ODT"
-    
+
     total_oav += oav_val
     section_data[note]["oav"] += oav_val
     section_data[note]["ul"] += ul
     section_data[note]["act"] += active_ul
-    
+
     if oav_val == 0:
         percept = "NO ODT"
     elif oav_val < 1:
@@ -189,16 +190,16 @@ for name, ul, dilution, note in FORMULA:
         percept = "EXTREME"
     else:
         percept = "MEGA"
-    
+
     results.append((idx, name, note, ul, dilution, active_ul, conc_ppm, edp_ppm, odt_eth, oav_val, percept, odt_air, char, source))
 
 # Print by section
-for section_name, section_label in [("base", "STEP 1 — BASE"), ("heart", "STEP 2 — HEART"), 
+for section_name, section_label in [("base", "STEP 1 — BASE"), ("heart", "STEP 2 — HEART"),
                                        ("structure", "STEP 3 — STRUCTURE"), ("top", "STEP 4 — TOP")]:
     section_results = [r for r in results if r[2] == section_name]
     print(f"\n  --- {section_label} ---")
     print()
-    
+
     for r in section_results:
         idx, name, note, ul, dil, act_ul, conc_ppm, edp_ppm, odt_eth, oav_val, percept, odt_air, char, source = r
         odt_eth_s = f"{odt_eth:.3f}" if odt_eth else "N/A"
@@ -235,7 +236,7 @@ if below:
         print(f"  {r[1]:<28} OAV={r[9]:.2f}  {r[13]}")
 else:
     print("  None — all materials are above OAV = 1")
-    
+
 print()
 print("OAV SCALE:")
 print("  < 1    = Subliminal (below perception threshold)")
@@ -246,4 +247,4 @@ print("  > 500  = Extreme (overpowering)")
 print()
 print(f"  Concentrate: {TOTAL_CONCENTRATE_UL} uL")
 print(f"  EDP strength: {EDP_CONC_PCT}%")
-print(f"  Note: ODT_eth checked against PROFILE → ODT_DATA → OVERRIDE in that order")
+print("  Note: ODT_eth checked against PROFILE → ODT_DATA → OVERRIDE in that order")

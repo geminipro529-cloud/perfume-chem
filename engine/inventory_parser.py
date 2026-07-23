@@ -12,13 +12,12 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INVENTORY_PATH = PROJECT_ROOT / "inventory.txt"
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
-_PERCENT_RE = re.compile(r"\((\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
+_PERCENT_RE = re.compile(r"\(\s*~?\s*(\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
 
 _SOLVENT_CATEGORY_TOKENS = ("solvent", "carrier")
 _SOLVENT_MATERIALS = {
@@ -41,6 +40,32 @@ class InventoryMaterial:
     category: str
     raw_name: str
     status: str
+    fraction_basis: str = "unspecified"
+    carrier: str = ""
+    approximate: bool = False
+    identity_name: str = ""
+
+
+@dataclass(frozen=True)
+class StockSpecification:
+    """One declared stock fraction without pretending unlike bases are equivalent."""
+
+    fraction: float
+    fraction_basis: str
+    carrier: str
+    approximate: bool
+    declared: bool
+    raw: str
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "fraction": self.fraction,
+            "fraction_basis": self.fraction_basis,
+            "carrier": self.carrier,
+            "approximate": self.approximate,
+            "declared": self.declared,
+            "raw": self.raw,
+        }
 
 
 def _parse_dilution(raw_name: str) -> float:
@@ -48,6 +73,72 @@ def _parse_dilution(raw_name: str) -> float:
     if not match:
         return 1.0
     return float(match.group(1)) / 100.0
+
+
+def _normalize_carrier(value: str) -> str:
+    value = re.sub(r"\b\d+\s*:\s*\d+\b", "", value)
+    value = re.sub(r"\s+", " ", value.strip(" .,:;)-").lower())
+    return value
+
+
+def parse_stock_specification(
+    raw: str,
+    *,
+    assume_neat_when_missing: bool = False,
+) -> StockSpecification:
+    """Parse fraction, physical basis, and carrier from inventory/formula text.
+
+    A bare inventory entry means neat by repository convention.  A blank or dash
+    in a formula does not: callers can therefore distinguish an explicit neat
+    declaration from missing stock metadata.
+    """
+
+    text = str(raw or "").strip().replace("**", "").replace("`", "")
+    low = text.lower()
+    missing_tokens = {"", "-", "--", "---", "—", "–", "na", "n/a"}
+    explicit_neat = low in {"neat", "pure", "undiluted"}
+    match = re.search(r"~?\s*(\d+(?:[.,]\d+)?)\s*%", text)
+
+    if explicit_neat or (match is None and assume_neat_when_missing):
+        fraction = 1.0
+        basis = "neat"
+        declared = True
+    elif match is not None:
+        fraction = float(match.group(1).replace(",", ".")) / 100.0
+        if re.search(r"\bw\s*/\s*w\b", low):
+            basis = "mass_fraction"
+        elif re.search(r"\bw\s*/\s*v\b", low):
+            basis = "mass_per_volume"
+        elif re.search(r"\bv\s*/\s*v\b", low):
+            basis = "volume_fraction"
+        else:
+            basis = "unspecified"
+        declared = True
+    else:
+        fraction = 1.0
+        basis = "unspecified"
+        declared = low not in missing_tokens
+
+    carrier_match = re.search(r"\bin\s+([^),;#—–]+)", text, flags=re.IGNORECASE)
+    carrier = _normalize_carrier(carrier_match.group(1)) if carrier_match else ""
+    # A preparation statement such as "30% w/v, 3 g in 10 mL" declares a
+    # concentration denominator, not the identity of a solvent. Treating
+    # "10 mL" as a carrier silently fabricates finished-matrix provenance.
+    if re.fullmatch(
+        r"\d+(?:[.,]\d+)?\s*(?:ml|ul|µl|μl|l)",
+        carrier,
+        flags=re.IGNORECASE,
+    ):
+        carrier = ""
+    approximate = bool("~" in text or re.search(r"\b(?:approx|approximately)\b", low))
+    return StockSpecification(
+        fraction=fraction,
+        fraction_basis=basis,
+        carrier=carrier,
+        approximate=approximate,
+        declared=declared,
+        raw=text,
+    )
 
 
 def _parse_status(raw_name: str) -> str:
@@ -72,6 +163,21 @@ def _canonical_name(raw_name: str) -> str:
     # Remove trailing `# comment` before stripping parenthetical
     clean = re.sub(r"\s*#.*$", "", clean).strip()
     return re.sub(r"\s*\([^)]*\)\s*$", "", clean).strip()
+
+
+def _identity_name(raw_name: str) -> str:
+    """Remove stock preparation text while preserving identity-bearing variants."""
+
+    clean = _strip_status(raw_name)
+    clean = re.sub(r"\s*#.*$", "", clean).strip()
+    parenthetical = re.search(r"\s*\(([^)]*)\)\s*$", clean)
+    if not parenthetical:
+        return clean
+    content = parenthetical.group(1).lower()
+    stock_tokens = ("%", "w/w", "w/v", "v/v", "neat", "dilut", " in dpg", " in dep", " in tec", " in ipm")
+    if any(token in content for token in stock_tokens):
+        return clean[: parenthetical.start()].strip()
+    return clean
 
 
 def _is_solvent(record: InventoryMaterial) -> bool:
@@ -115,12 +221,21 @@ def parse_inventory(
             continue
 
         raw_name = bullet_match.group(1).strip()
+        stock_source = re.sub(r"\s*#.*$", "", raw_name).strip()
+        stock = parse_stock_specification(
+            stock_source,
+            assume_neat_when_missing=True,
+        )
         record = InventoryMaterial(
             name=_canonical_name(raw_name),
-            dilution=_parse_dilution(raw_name),
+            dilution=stock.fraction,
             category=current_category,
             raw_name=raw_name,
             status=_parse_status(raw_name),
+            fraction_basis=stock.fraction_basis,
+            carrier=stock.carrier,
+            approximate=stock.approximate,
+            identity_name=_identity_name(raw_name),
         )
         if not include_unavailable and record.status != "owned":
             continue

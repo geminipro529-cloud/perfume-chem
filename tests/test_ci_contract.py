@@ -1,11 +1,9 @@
 from __future__ import annotations
 
+import tomllib
 from pathlib import Path
 
-import tomllib
-
 import yaml
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "ci.yml"

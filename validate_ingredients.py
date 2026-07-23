@@ -6,20 +6,19 @@ inconsistencies, and missing data.
 """
 
 import sys
-import os
 
 sys.path.insert(0, r"D:\chatbots\perfume-chem")
 
 from pathlib import Path
 
 # ── Parse inventory ──────────────────────────────────────────────────
-from engine.inventory_parser import parse_inventory, inventory_names
+from engine.inventory_parser import parse_inventory
 
 # ── Load all data modules with graceful error handling ────────────────
 modules_loaded = {}
 
 try:
-    from engine.ingredient_intelligence import _PROFILES, get_profile
+    from engine.ingredient_intelligence import _PROFILES
     modules_loaded["ingredient_intelligence"] = True
 except Exception as e:
     print(f"[WARN] Could not import engine.ingredient_intelligence: {e}")
@@ -139,7 +138,7 @@ for mod, ok in modules_loaded.items():
     print(f"  {mod}: {status}")
 
 # ── 2. Inventory coverage ─────────────────────────────────────────────
-print(f"\n--- INVENTORY COVERAGE ---")
+print("\n--- INVENTORY COVERAGE ---")
 print(f"  Total inventory materials (excl. solvents): {len(inv_names)}")
 
 missing_profiles = []
@@ -155,7 +154,7 @@ if missing_profiles:
         print(f"    - {m}")
 
 # ── 3. Cross-system consistency ────────────────────────────────────────
-print(f"\n--- CROSS-SYSTEM CONSISTENCY ---")
+print("\n--- CROSS-SYSTEM CONSISTENCY ---")
 inconsistencies = []
 
 # 3a. MW consistency: ingredient_intelligence vs skin_interaction vs diffusion_model
@@ -281,7 +280,7 @@ for nk, (orig_name, data) in profiles_norm.items():
 print(f"    Checked: {logp_checked}, Issues: {logp_issues}")
 
 # ── 4. Data completeness ────────────────────────────────────────────────
-print(f"\n--- DATA COMPLETENESS ---")
+print("\n--- DATA COMPLETENESS ---")
 
 # 4a. Properties with zero or None values in profiles
 print("\n  [Zero/None Values in _PROFILES]")
@@ -296,12 +295,12 @@ for nk, (orig_name, data) in profiles_norm.items():
 print(f"    Issues: {zero_none_issues}")
 
 # ── 5. Gap report ────────────────────────────────────────────────────────
-print(f"\n--- GAP REPORT: Materials missing from key property systems ---")
+print("\n--- GAP REPORT: Materials missing from key property systems ---")
 
 gaps = 0
 
 # 5a. Inventory -> _PROFILES
-print(f"\n  [Inventory -> _PROFILES]")
+print("\n  [Inventory -> _PROFILES]")
 prof_gap = []
 for mat in inv_names:
     n = normalize(mat)
@@ -315,7 +314,7 @@ if len(prof_gap) > 20:
     print(f"      ... and {len(prof_gap)-20} more")
 
 # 5b. Profiles -> ODT_DATA
-print(f"\n  [Profiles -> ODT_DATA (odor_thresholds)]")
+print("\n  [Profiles -> ODT_DATA (odor_thresholds)]")
 odt_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -329,7 +328,7 @@ if len(odt_gap) > 15:
     print(f"      ... and {len(odt_gap)-15} more")
 
 # 5c. Profiles -> SKIN_PHYSCHEM
-print(f"\n  [Profiles -> SKIN_PHYSCHEM]")
+print("\n  [Profiles -> SKIN_PHYSCHEM]")
 skin_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -343,7 +342,7 @@ if len(skin_gap) > 15:
     print(f"      ... and {len(skin_gap)-15} more")
 
 # 5d. Profiles -> DIFFUSION_DATA
-print(f"\n  [Profiles -> DIFFUSION_DATA]")
+print("\n  [Profiles -> DIFFUSION_DATA]")
 diff_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -357,7 +356,7 @@ if len(diff_gap) > 15:
     print(f"      ... and {len(diff_gap)-15} more")
 
 # 5e. Profiles -> _ODT_LITERATURE (temporal_graph)
-print(f"\n  [Profiles -> _ODT_LITERATURE (temporal_graph)]")
+print("\n  [Profiles -> _ODT_LITERATURE (temporal_graph)]")
 temporal_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -371,7 +370,7 @@ if len(temporal_gap) > 15:
     print(f"      ... and {len(temporal_gap)-15} more")
 
 # 5f. Profiles -> HEDONIC_VALENCE
-print(f"\n  [Profiles -> HEDONIC_VALENCE]")
+print("\n  [Profiles -> HEDONIC_VALENCE]")
 hedonic_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -385,7 +384,7 @@ if len(hedonic_gap) > 15:
     print(f"      ... and {len(hedonic_gap)-15} more")
 
 # 5g. Profiles -> IFRA_CAT4_LIMITS
-print(f"\n  [Profiles -> IFRA_CAT4_LIMITS]")
+print("\n  [Profiles -> IFRA_CAT4_LIMITS]")
 ifra_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -399,7 +398,7 @@ if len(ifra_gap) > 15:
     print(f"      ... and {len(ifra_gap)-15} more")
 
 # 5h. Profiles -> MATERIAL_COSTS_PER_KG
-print(f"\n  [Profiles -> MATERIAL_COSTS_PER_KG]")
+print("\n  [Profiles -> MATERIAL_COSTS_PER_KG]")
 cost_gap = []
 for orig_name, data in _PROFILES.items():
     n = normalize(orig_name)
@@ -413,7 +412,7 @@ if len(cost_gap) > 15:
     print(f"      ... and {len(cost_gap)-15} more")
 
 # ── 6. OAV calculation readiness ─────────────────────────────────────────
-print(f"\n--- OAV CALCULATION READINESS ---")
+print("\n--- OAV CALCULATION READINESS ---")
 oav_ready = 0
 oav_not_ready = []
 for orig_name, data in _PROFILES.items():
@@ -448,7 +447,7 @@ for orig_name, data in _PROFILES.items():
 print(f"  Materials fixable from ODT_DATA (have odt_eth but profile missing odt_ppm): {fixable}")
 
 # ── 7. Specific VP/ODT discrepancies worth flagging ───────────────────────
-print(f"\n--- NOTABLE DISCREPANCIES (>3x ratio or >5% MW diff) ---")
+print("\n--- NOTABLE DISCREPANCIES (>3x ratio or >5% MW diff) ---")
 notable = []
 for kind, name, desc in inconsistencies:
     if kind in ("MW", "VP", "ODT", "LogP"):
@@ -462,7 +461,7 @@ else:
 
 # ── SUMMARY ─────────────────────────────────────────────────────────────
 print(f"\n{'=' * 80}")
-print(f"SUMMARY")
+print("SUMMARY")
 print(f"{'=' * 80}")
 print(f"  Inventory materials checked: {len(inv_names)}")
 print(f"  _PROFILES entries: {len(_PROFILES)}")
@@ -483,7 +482,7 @@ print(f"  Zero/None property values: {zero_none_issues}")
 kind_counts = {}
 for kind, _, _ in inconsistencies:
     kind_counts[kind] = kind_counts.get(kind, 0) + 1
-print(f"\n  Inconsistencies by type:")
+print("\n  Inconsistencies by type:")
 for kind, count in sorted(kind_counts.items(), key=lambda x: -x[1]):
     print(f"    {kind}: {count}")
 

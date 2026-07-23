@@ -37,13 +37,12 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from engine.inventory_parser import InventoryMaterial, parse_inventory
 from engine.ifra_safety import score_ifra_compliance
+from engine.inventory_parser import InventoryMaterial, parse_inventory
 from engine.material_resolver import unknown_materials
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.oav_guard import check_proportional_scaling
 from engine.optimizer.scoring import FormulaScorer
-
 
 MATERIAL_ALIASES = {
     "Ylang Comoros Complete": "Ylang Comoros Complete EO F3255",

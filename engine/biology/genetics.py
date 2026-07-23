@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from typing import Mapping
 
-
 OR_POLYMORPHISMS = {
     "OR7D4": {
         "WT": {"freq": 0.45, "ec50_factor": 1.0,  "label": "urinous"},

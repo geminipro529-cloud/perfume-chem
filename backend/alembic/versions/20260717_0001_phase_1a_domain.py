@@ -1,6 +1,7 @@
 """Add role/unit columns to lab_formula_components, remaining_mass_g to lab_stock_solutions for Phase 1A domain foundation."""
 
 import sqlalchemy as sa
+
 from alembic import op
 
 revision = "20260717_0001"

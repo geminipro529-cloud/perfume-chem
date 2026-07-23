@@ -10,8 +10,8 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 1.0770660905589167, "oav": 21541.32181117833},
-        "Iso E Super": {"vapor_ppm": 0.7438950443591708, "oav": 14877.900887183414}
+        "Hedione": {"vapor_ppm": 0.4855003625347954, "oav": 9710.007250695908},
+        "Iso E Super": {"vapor_ppm": 1.147036565398884, "oav": 22940.73130797768}
       }
     },
     {
@@ -55,7 +55,7 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
         "Leather FO": {"vapor_ppm": 0.008528367591853868, "oav": null},
-        "Iso E Super": {"vapor_ppm": 1.3113825190716828, "oav": 26227.650381433654}
+        "Iso E Super": {"vapor_ppm": 2.0220644189072634, "oav": 40441.28837814527}
       }
     },
     {
@@ -69,7 +69,7 @@
       "expected_composite_materials": ["Bergamot FCF"],
       "expected_material_outputs": {
         "Bergamot FCF": {"vapor_ppm": 20.881639490136124, "oav": 113802.00545362433},
-        "Hedione": {"vapor_ppm": 1.0994728229356885, "oav": 21989.45645871377}
+        "Hedione": {"vapor_ppm": 0.49560046390043944, "oav": 9912.009278008789}
       }
     },
     {
@@ -82,8 +82,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "equivalent_active_case": "simple_aromachemical",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 1.0770660905589167, "oav": 21541.32181117833},
-        "Iso E Super": {"vapor_ppm": 0.7438950443591708, "oav": 14877.900887183414}
+        "Hedione": {"vapor_ppm": 0.4855003625347954, "oav": 9710.007250695908},
+        "Iso E Super": {"vapor_ppm": 1.147036565398884, "oav": 22940.73130797768}
       }
     },
     {
@@ -111,7 +111,7 @@
       "ifra_limit_pct": 0.1,
       "expected_material_outputs": {
         "Evernyl": {"vapor_ppm": 0.006824756807581352, "oav": 22.749189358604507},
-        "Hedione": {"vapor_ppm": 2.0605959330276344, "oav": 41211.918660552685}
+        "Hedione": {"vapor_ppm": 0.9288381477161708, "oav": 18576.762954323414}
       }
     }
   ],

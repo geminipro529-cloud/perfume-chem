@@ -48,6 +48,7 @@ except Exception:  # pragma: no cover - fallback path for future refactors
     format_recommendations = None  # type: ignore[assignment]
     load_inventory = None  # type: ignore[assignment]
 
+from engine.ingredient_intelligence import get_profile
 from engine.intervention_context import (
     BottleAddition,
     BottleState,
@@ -57,8 +58,6 @@ from engine.intervention_context import (
 from engine.optimizer.models import FormulaVector, _lookup_material
 from engine.optimizer.optimizer import FormulaOptimizer
 from engine.optimizer.scoring import FormulaScorer
-from engine.ingredient_intelligence import get_profile
-
 
 MODES = ("pre_mix", "post_mix", "between_mix")
 DEFAULT_BATCH_ML = 30.0
@@ -274,7 +273,7 @@ def _parse_formula_markdown(path: Path) -> list[SourceFormula]:
         )
     ]
 
-    
+
 
 
 def _select_formula(

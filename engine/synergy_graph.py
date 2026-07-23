@@ -22,19 +22,20 @@ Musk compatibility analysis:
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
 from typing import Sequence
 
-from engine.ingredient_intelligence import (
-    get_profile, get_all_profiles, DIMENSIONS, MaterialProfile,
-)
 from engine.fingerprint import (
-    fingerprint_material, cosine_similarity, MaterialFingerprint,
+    cosine_similarity,
+    fingerprint_material,
+)
+from engine.ingredient_intelligence import (
+    DIMENSIONS,
+    get_all_profiles,
+    get_profile,
 )
 from engine.name_utils import normalize_name
 from engine.psychophysics import CROSS_ADAPTATION_GROUPS
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Data Structures
@@ -541,7 +542,7 @@ class SynergyGraph:
                 already_present.append(name)
                 existing_musk_mass += formula_ingredients[name]
 
-        musk_ratio = existing_musk_mass / formula_total_mass if formula_total_mass > 0 else 0
+        existing_musk_mass / formula_total_mass if formula_total_mass > 0 else 0
 
         compatible = []
         too_heavy = []

@@ -1,0 +1,15 @@
+{
+  "file": "formulas\\Allure_Extreme_AHSEE_30mL_EdP.md",
+  "stem": "Allure_Extreme_AHSEE_30mL_EdP",
+  "brief_used": "generic",
+  "concentrate_ul": 4730,
+  "status": "ERROR",
+  "elapsed_s": 1.0,
+  "failed_gates": [],
+  "gate_output": {
+    "_error": true,
+    "_error_type": "exit_code",
+    "_exit_code": 1,
+    "_stderr_tail": "PREFLIGHT HARD BLOCK \u2014 gate aborted\n  HARD_BLOCK: INVENTORY_MISSING: 11 materials not in inventory: Geranium EO + Cardamom EO, Juniper Berry EO + Pine EO (trace), Romandolide + EB + Ambrettolide + Exaltolide, Bergamot FCF Sicilian, Phenyl Ethyl Alcohol (PEA)...\n"
+  }
+}

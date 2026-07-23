@@ -19,10 +19,7 @@ Coverage:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from enum import StrEnum
-from typing import Mapping
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ENUMS — Complete taxonomy
@@ -47,7 +44,7 @@ class PerfumeFamily(StrEnum):
 
 
 class PerfumeSubfamily(StrEnum):
-    """Refined subfamilies within each root family — 77 total."""
+    """Refined subfamilies within each root family — 71 total."""
 
     # ── Citrus subfamilies (6) ──
     CITRUS_CLASSICAL = "citrus_classical"      # eau de cologne: neroli/petitgrain/bergamot
@@ -326,7 +323,7 @@ FAMILY_DESCRIPTIONS: dict[PerfumeFamily, str] = {
     PerfumeFamily.MARINE_AQUATIC: "Ozone, sea spray, calone, watermelon ketone. Born 1990s with New West and Cool Water. Transparent, modern, clean.",
     PerfumeFamily.GOURMAND: "Edible: vanilla, caramel, chocolate, coffee. Food-adjacent comfort. Angel (1992) launched the category. BR540 modernized it.",
     PerfumeFamily.ALDEHYDIC: "Fatty aldehydes C8-C12. Waxy, soapy, sparkling. Chanel No.5 (1921) defined the category.",
-    PerfumeFamily.MUSK: "Macrocyclic and polycyclic musks. Clean laundry, intimate skin, or animalic warmth. Body-heat activated.",
+    PerfumeFamily.MUSK: "Macrocyclic and polycyclic musks. Clean laundry, intimate skin, or animalic warmth. Usually low-volatility and highly substantive.",
 }
 
 SUBFAMILY_DESCRIPTIONS: dict[PerfumeSubfamily, str] = {
@@ -397,8 +394,8 @@ SUBFAMILY_DESCRIPTIONS: dict[PerfumeSubfamily, str] = {
     PerfumeSubfamily.GOURMAND_COFFEE: "Coffee absolute + tonka + vanilla. Roasted gourmand. Intoxicated style.",
     PerfumeSubfamily.GOURMAND_NUTTY: "Heliotropin + coumarin + almond. Marzipan-almond. Lolita Lempicka style.",
     # Musk
-    PerfumeSubfamily.MUSK_CLEAN: "Galaxolide + Habanolide + Romandolide. Laundry musk. Byredo Blanche style.",
-    PerfumeSubfamily.MUSK_SKIN: "Exaltolide + Ethylene Brassylate + Habanolide. Intimate warmth. Musc Ravageur drydown.",
+    PerfumeSubfamily.MUSK_CLEAN: "Diffusive clean white-musk chord with a soft structural musk underneath. Laundry-clean, Byredo Blanche territory.",
+    PerfumeSubfamily.MUSK_SKIN: "Macrocyclic skin musks over Ethylene Brassylate-style depth. Intimate warmth, Musc Ravageur drydown territory.",
     PerfumeSubfamily.MUSK_ANIMALIC: "Civet/castoreum replacers + costus. Dirty warmth. Kiehl's Musk style.",
     PerfumeSubfamily.MUSK_FLORAL: "Musk + rose/jasmine transparency. Musc Rose. Airy, clean floral.",
     PerfumeSubfamily.MUSK_WOODY: "Musk + Iso E Super/Ambrox/Sandalore. Molecule-style woody-musk.",

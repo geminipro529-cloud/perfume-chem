@@ -219,7 +219,6 @@ def optimize(amounts: dict[str, float]) -> OptimizationResult:
     givers = [m for m in all_mats if original[m] > 0.040 and m not in LOCKED_MATERIALS]
     # Receivers: all materials, exclude locked
     receivers = [m for m in all_mats if m not in LOCKED_MATERIALS]
-    mats = all_mats  # for iteration display
 
     history: list[str] = []
 

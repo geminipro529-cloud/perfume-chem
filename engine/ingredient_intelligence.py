@@ -45,9 +45,8 @@ Sources: Arctander, PerfumersWorld ABC, Carles method, Roudnitska aesthetics,
 """
 
 from __future__ import annotations
-import json
+
 import re
-from pathlib import Path
 from dataclasses import dataclass, field
 
 from engine.material_identity import resolve_material_identity
@@ -82,14 +81,10 @@ class MaterialProfile:
     vp: float | None = None
     clogp: float | None = None
     odt: float | None = None  # ppb in air — for temporal diffusion / headspace math
-    odt_ppm: float | None = (
-        None  # ppm in ethanol solution — for OAV math in concentrate
-    )
+    odt_ppm: float | None = None  # ppm in ethanol solution — for OAV math in concentrate
     # Classification
     note: str = "heart"  # top / heart / base
-    role: str = (
-        "modifier"  # character, modifier, fixative, volume, radiance, bridge, trace
-    )
+    role: str = "modifier"  # character, modifier, fixative, volume, radiance, bridge, trace
     texture: str = ""  # skin-effect, diffusion, cushion, lift, cocoon, veil, halo
     # Relationships
     synergies: list[str] = field(default_factory=list)
@@ -98,9 +93,7 @@ class MaterialProfile:
     dilution: float = 1.0  # 1.0 = neat, 0.1 = 10%, etc.
     # Scientific extensions (added per Perplexity consultation 2026-04-23)
     activity_coef: float = 1.0  # γᵢ, Raoult non-ideality. 1.0 = ideal; <1.0 = matrix-suppressed headspace; >1.0 = matrix-boosted.
-    hedonic: float = (
-        0.0  # panel-style pleasantness rating, −5..+5. 0 = neutral / unmeasured.
-    )
+    hedonic: float = 0.0  # panel-style pleasantness rating, −5..+5. 0 = neutral / unmeasured.
     or_family: str | None = (
         None  # olfactory-receptor bin: citrus, rose, muguet, musk, amber, iris, green, aldehydic, gourmand, smoky, animalic, woody, aquatic, aromatic, indolic, ozone
     )
@@ -170,16 +163,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 40.0,
         "clogp": 3.09,
         "synergies": ["Citral", "Hydroxycitronellal", "Geraniol"],
-    },
-    "D-Limonene": {
-        "character": {"freshness": 8, "sweetness": 2, "green": 1},
-        "note": "top",
-        "role": "modifier",
-        "texture": "lift",
-        "mw": 136.23,
-        "vp": 190,
-        "clogp": 4.57,
-        "synergies": ["Linalool", "Bergamot FCF"],
     },
     "Linalool": {
         "character": {"freshness": 7, "floral": 6, "sweetness": 2, "woody": 1},
@@ -295,21 +278,6 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.1,
         "synergies": ["Grapefruit FCF", "Hedione", "Allyl Amyl Glycolate"],
     },
-    "Pamzest": {
-        "character": {"freshness": 9, "green": 3, "sweetness": 1},
-        "note": "top",
-        "role": "character",
-        "texture": "bright-zesty",
-        "mw": 150.0,
-        "vp": 30.0,
-        "clogp": 3.0,
-        "synergies": [
-            "Grapefruit FCF",
-            "Cedrat FCF oil Sicilian",
-            "Dihydromyrcenol",
-            "Methyl Pamplemousse",
-        ],
-    },
     "Bergamot EO": {
         "character": {"freshness": 8, "floral": 3, "sweetness": 2, "green": 2},
         "note": "top",
@@ -320,16 +288,6 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.5,
         "synergies": ["Linalool", "Hedione", "Neroli EO"],
     },
-    "Bergamot FCF": {
-        "character": {"freshness": 8, "floral": 3, "sweetness": 2, "green": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 1.5,
-        "clogp": 3.2,
-        "synergies": ["Linalool", "Hedione", "Iso E Super"],
-    },
     "Bergamot FCF oil Sicilian": {
         "character": {"freshness": 8, "floral": 4, "sweetness": 2, "green": 2},
         "note": "heart",
@@ -339,31 +297,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 2.5,
         "clogp": 3.2,
         "synergies": ["Linalool", "Hedione", "Neroli EO"],
-    },
-    "Grapefruit FCF": {
-        "character": {"freshness": 9, "green": 3, "sweetness": 1},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 136.23,
-        "vp": 1.8,
-        "clogp": 4.2,
-        "synergies": ["Methyl Pamplemousse", "Iso E Super", "Vetiver EO"],
-    },
-    "Pamzest": {
-        "character": {"freshness": 9, "green": 2, "sweetness": 3, "radiance": 3},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 150.0,
-        "vp": 30.0,
-        "clogp": 3.0,
-        "synergies": [
-            "Grapefruit FCF",
-            "Cedrat FCF oil Sicilian",
-            "Dihydromyrcenol",
-            "Methyl Pamplemousse",
-        ],
     },
     "Cedrat FCF oil Sicilian": {
         "character": {"freshness": 7, "green": 4, "sweetness": 1, "woody": 2},
@@ -472,7 +405,7 @@ _PROFILES: dict[str, dict] = {
         "role": "trace",
         "texture": "veil",
         "mw": 178.18,
-        "vp": 0.293,
+        "vp": 0.0965,
         "clogp": 1.4,
         "synergies": ["Floralozone", "Hedione", "Dihydromyrcenol"],
     },
@@ -533,7 +466,7 @@ _PROFILES: dict[str, dict] = {
         "role": "radiance",
         "texture": "halo",
         "mw": 226.31,
-        "vp": 0.210,
+        "vp": 0.09466,
         "clogp": 3.0,
         "synergies": [
             "Benzyl Salicylate",
@@ -650,22 +583,6 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.56,
         "synergies": ["Citronellol", "Phenethyl Alcohol", "Rose Oxide"],
     },
-    "Geranium EO": {
-        "character": {"floral": 6, "freshness": 5, "green": 4, "rose": 5, "minty": 2},
-        "note": "heart",
-        "role": "character",
-        "texture": "lift",
-        "mw": 154.0,
-        "vp": 1.5,
-        "clogp": 3.0,
-        "synergies": [
-            "Lavender EO",
-            "Bergamot FCF",
-            "Coumarin",
-            "Vetiver EO",
-            "Clary Sage EO",
-        ],
-    },
     "Nerol": {
         "character": {
             "floral": 7,
@@ -696,7 +613,7 @@ _PROFILES: dict[str, dict] = {
         "role": "modifier",
         "texture": "diffusion",
         "mw": 156.27,
-        "vp": 0.67,
+        "vp": 2.26,
         "clogp": 3.91,
         "synergies": ["Geraniol", "Phenethyl Alcohol", "Rose Oxide"],
     },
@@ -762,18 +679,10 @@ _PROFILES: dict[str, dict] = {
         "texture": "cushion",
         "mw": 222.28,
         "vp": 0.077,
+        "vp_source": "ECHA registration dossier: 7.7e-5 kPa at 23 C",
+        "vp_flag": "MEASURED_REFERENCE_23C",
         "clogp": 4.87,
         "synergies": ["Hedione", "Benzyl Salicylate", "Paradisamide", "Iso E Super"],
-    },
-    "Benzyl Benzoate": {
-        "character": {"balsamic": 5},
-        "note": "base",
-        "role": "fixative",
-        "texture": "weight",
-        "mw": 212.24,
-        "vp": 0.02,
-        "clogp": 4.0,
-        "synergies": ["Benzyl Salicylate", "Vanillin", "Coumarin"],
     },
     "Benzyl Alcohol": {
         "character": {"floral": 4, "balsamic": 3, "sweet": 2},
@@ -835,16 +744,6 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.9,
         "synergies": ["Lilyreal ND", "Hydroxycitronellal", "DBCA"],
     },
-    "Freesia HDI": {
-        "character": {"floral": 5, "green": 5, "freshness": 4},
-        "note": "heart",
-        "role": "modifier",
-        "texture": "veil",
-        "mw": 170.25,
-        "vp": 0.02,
-        "clogp": 2.8,
-        "synergies": ["Paradisamide", "Lilyreal ND", "DBCA"],
-    },
     "Lilyreal ND": {
         "character": {"floral": 7, "freshness": 3, "sweetness": 1, "powdery": 2},
         "note": "heart",
@@ -895,7 +794,9 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "diffusion",
         "mw": 192.3,
-        "vp": 1.11,
+        "vp": 1.10657,
+        "vp_source": "EP 3141239 B1: 0.00830 Torr at 25 C",
+        "vp_flag": "PATENT_REPORTED_25C",
         "clogp": 3.6,
         "synergies": ["Damascol", "Rose Oxide", "Geraniol", "Hedione"],
     },
@@ -1006,7 +907,11 @@ _PROFILES: dict[str, dict] = {
         "role": "modifier",
         "texture": "cushion",
         "mw": 150.13,
-        "vp": 0.08,
+        "vp": 1.41322,
+        "vp_source": (
+            "RIFM safety assessment (Api et al. 2025): 0.0106 mmHg at 25 C = 1.41322 Pa (EPI Suite)"
+        ),
+        "vp_flag": "RIFM_MODELED_25C",
         "clogp": 0.87,
         "synergies": [
             "Heliotropin Fleuressence",
@@ -1024,16 +929,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 6,
         "clogp": 2.8,
         "synergies": ["Neroli EO", "Bergamot FCF", "Linalool"],
-    },
-    "Neroli EO": {
-        "character": {"floral": 7, "freshness": 6, "sweetness": 2, "green": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 1.2,
-        "clogp": 2.5,
-        "synergies": ["Petitgrain EO", "Bergamot FCF", "Linalool", "Hedione"],
     },
     "Nerolin Bromelia": {
         "character": {
@@ -1068,11 +963,12 @@ _PROFILES: dict[str, dict] = {
             "floral": 7,
             "woody": 4,
             "creamy": 6,
+            "earthy": 5,
             "fruity": 2,
         },
         "note": "heart",
         "role": "character",
-        "texture": "cushion",
+        "texture": "cushion",  # natural orris resinoid: fuller/earthier/rootier than absolute; PerfumersWorld SKU 8IQ24653
         "mw": 206.32,
         "vp": 0.559,
         "clogp": 3.2,
@@ -1254,7 +1150,9 @@ _PROFILES: dict[str, dict] = {
         "role": "volume",
         "texture": "cocoon",
         "mw": 234.38,
-        "vp": 0.231,
+        "vp": 0.23129,
+        "vp_source": "IFF official compendium: 0.001735 mmHg at 23 C",
+        "vp_flag": "SUPPLIER_REFERENCE_23C",
         "clogp": 3.6,  # VERIFIED: PubChem CID=91671, 2026-05-30
         "synergies": ["Hedione", "Ambrox Super", "Cashmeran", "Vertofix Coeur"],
     },
@@ -1270,7 +1168,7 @@ _PROFILES: dict[str, dict] = {
         "role": "volume",
         "texture": "cocoon",
         "mw": 206.32,
-        "vp": 1.2,
+        "vp": 1.242,
         "clogp": 3.3,  # VERIFIED: PubChem CID=92292, 2026-05-30
         "synergies": ["Iso E Super", "Alpha Irone", "Orivone"],
     },
@@ -1293,16 +1191,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 0.002,
         "clogp": 5.0,
         "synergies": ["Cedramber", "Iso E Super"],
-    },
-    "Ambermax": {
-        "character": {"warmth": 7, "sweetness": 4, "woody": 3, "powdery": 2},
-        "note": "base",
-        "role": "volume",
-        "texture": "cushion",
-        "mw": 234.0,
-        "vp": 0.001,
-        "clogp": 4.0,
-        "synergies": ["Ambrox Super", "Labdanum Absolute"],
     },
     "Amber Xtreme": {
         "character": {"warmth": 8, "woody": 4, "sweetness": 3, "radiance": 3},
@@ -1450,6 +1338,16 @@ _PROFILES: dict[str, dict] = {
         "clogp": 4.0,  # VP verified: TGSC 0.049 mmHg @ 25°C = 6.53 Pa
         "synergies": ["Vetiver EO", "Iso E Super"],
     },
+    "Vetiveryl Acetate": {
+        "character": {"woody": 8, "sweetness": 5, "green": 3, "smoky": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",  # semi-synthetic: acetylated vetiverol. Cleaner, sweeter, polished vetiver without the dirt. Khusimyl acetate is primary constituent (~15%). Pairs with vetiver EO for depth+polish.
+        "mw": 262.4,
+        "vp": 0.1,  # sesquiterpene ester mixture; base note ~0.1 Pa
+        "clogp": 4.8,
+        "synergies": ["Vetiver EO", "Iso E Super", "Cedarwood EO", "Sandalore"],
+    },
     "Vertofix Coeur": {
         "character": {"woody": 8, "warmth": 4, "creamy": 2},
         "note": "base",
@@ -1512,8 +1410,11 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "character",
         "texture": "cocoon",
-        "mw": 210.36,
-        "vp": 0.068,
+        "mw": 226.40,
+        "vp": 0.066661,
+        "mw_source": "Vigon Timberol SDS rev. 2018-04-12",
+        "vp_source": ("Vigon Timberol SDS rev. 2018-04-12: 0.0005 mmHg at 25 C"),
+        "vp_flag": "SUPPLIER_SDS_25C",
         "clogp": 4.1,
         "synergies": ["Kephalis", "Cedarwood EO", "Iso E Super"],
     },
@@ -1573,14 +1474,14 @@ _PROFILES: dict[str, dict] = {
         ],
     },
     "Vetiver EO": {
-        "character": {"woody": 7, "green": 5, "smoky": 3, "animalic": 2},
+        "character": {"woody": 7, "green": 5, "smoky": 3, "animalic": 2, "transparent": 3},
         "note": "base",
         "role": "character",
-        "texture": "skin-effect",
+        "texture": "skin-effect",  # 2021 discovery (Groom et al., Angew. Chem.): true smelling principle = (+)-2-epi-ziza-6(13)-en-3-one at 29 pg/L air threshold — 150× more potent than khusimone. Molecule maps structurally onto arborone (Iso E Super key odorant), explaining the shared "aura" pheromone-like effect.
         "mw": 222.37,
         "vp": 0.003,
         "clogp": 4.5,
-        "synergies": ["Iso E Super", "Vetival", "Patchouli EO"],
+        "synergies": ["Iso E Super", "Vetival", "Vetiveryl Acetate", "Patchouli EO"],
     },
     "Nagarmortha Oil": {
         "character": {"woody": 6, "smoky": 5, "earthy": 4, "spicy": 3},
@@ -1691,8 +1592,10 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "halo",
         "mw": 294.30,
-        "vp": 0.00001,
-        "clogp": 3.7,  # VERIFIED: PubChem CID=6669 MW=294.30 XLogP=3.7, VP from IFRA/RIFM ~1e-5 Pa, 2026-05-30
+        "vp": 0.000039997,
+        "vp_source": ("PubChem CID 6669 / Peck & Hornbuckle 2004: 3.00e-7 mmHg at 25 C"),
+        "vp_flag": "PEER_REPORTED_25C",
+        "clogp": 3.7,
         "synergies": ["Galaxolide", "Vanillin"],
     },
     # ═══════════════════════ SWEET / GOURMAND / BALSAMIC ═══════════════════════
@@ -2238,8 +2141,11 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "modifier",
         "texture": "lift",
-        "mw": 156.22,
-        "vp": 0.5,
+        "mw": 140.22,
+        "mw_source": "ECHA identity record for CAS 106-72-9",
+        "vp": 239.0,
+        "vp_source": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
+        "vp_flag": "OECD_104_25C",
         "clogp": 2.5,
         "synergies": ["Floralozone", "Hedione"],
     },
@@ -2656,16 +2562,6 @@ _PROFILES: dict[str, dict] = {
         "synergies": ["Indole", "Jasmine Absolute", "Civet Reconstitution Base"],
     },
     # ═══════════════════════ NEW PROFILES — ADDED 2026-05-08 ═══════════════════════
-    "Black Pepper EO": {
-        "character": {"spicy": 8, "warmth": 4, "woody": 2, "freshness": 1},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 204.35,
-        "vp": 0.3,
-        "clogp": 4.5,
-        "synergies": ["Bergamot FCF", "Cardamom FTEC", "Vetiver EO", "Cedarwood EO"],
-    },
     "Cinnamyl alcohol": {
         "character": {"sweetness": 5, "warmth": 5, "floral": 4, "spicy": 3},
         "note": "heart",
@@ -2675,16 +2571,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 0.03,
         "clogp": 1.9,
         "synergies": ["Benzoin Resinoid", "Eugenol", "Vanillin", "Phenethyl Alcohol"],
-    },
-    "Costus Olifac": {
-        "character": {"animalic": 6, "warmth": 5, "smoky": 3, "woody": 2},
-        "note": "base",
-        "role": "trace",
-        "texture": "skin-effect",
-        "mw": 200.0,
-        "vp": 0.001,
-        "clogp": 3.5,
-        "synergies": ["Indole", "Skatole", "Jasmine Absolute", "Isobutyl Quinoline"],
     },
     "Dihydrojasmone": {
         "character": {"floral": 6, "green": 4, "freshness": 3, "creamy": 3},
@@ -2717,37 +2603,6 @@ _PROFILES: dict[str, dict] = {
         "hedonic": 0.45,
         "synergies": ["Hedione", "Cis Jasmone", "Dihydrojasmone", "Benzyl Acetate"],
     },
-    "Juniper Berry EO": {
-        "character": {"freshness": 7, "green": 5, "spicy": 4, "woody": 3},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 0.5,
-        "clogp": 3.8,
-        "synergies": [
-            "Pine EO",
-            "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
-            "Beta-Pinene",
-            "Bergamot FCF",
-        ],
-    },
-    "Lavender EO High Altitude": {
-        "character": {"freshness": 7, "floral": 5, "green": 4, "woody": 2, "spicy": 1},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 0.5,
-        "clogp": 2.5,
-        "synergies": [
-            "Linalyl Acetate",
-            "Coumarin",
-            "Geraniol",
-            "Terpinyl Acetate",
-            "Bergamot FCF",
-        ],
-    },
     "Lilial": {
         "character": {"floral": 7, "freshness": 5, "green": 4, "powdery": 2},
         "note": "heart",
@@ -2757,16 +2612,6 @@ _PROFILES: dict[str, dict] = {
         "vp": 0.33,
         "clogp": 3.9,
         "synergies": ["Hedione", "Florol", "Hydroxycitronellal", "Nympheal"],
-    },
-    "Lime Distilled EO": {
-        "character": {"freshness": 9, "green": 3, "sweetness": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 1.8,
-        "clogp": 3.5,
-        "synergies": ["Bergamot FCF", "D-Limonene", "Grapefruit FCF", "Hedione"],
     },
     "Oranger Crystals": {
         "character": {"floral": 7, "sweetness": 4, "freshness": 3, "warmth": 2},
@@ -2794,21 +2639,6 @@ _PROFILES: dict[str, dict] = {
             "Labdanum Absolute",
         ],
     },
-    "Pine EO": {
-        "character": {"freshness": 7, "green": 6, "woody": 5, "spicy": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 136.23,
-        "vp": 180.0,
-        "clogp": 4.3,
-        "synergies": [
-            "Beta-Pinene",
-            "Juniper Berry EO",
-            "Cedarwood EO",
-            "Terpinyl Acetate",
-        ],
-    },
     "Rosemary EO (French Rosmarinus Officinalis leaf oil)": {
         "character": {"freshness": 6, "green": 5, "spicy": 4, "woody": 2},
         "note": "top",
@@ -2822,21 +2652,6 @@ _PROFILES: dict[str, dict] = {
             "Spike Lavender EO",
             "Juniper Berry EO",
             "Coumarin",
-        ],
-    },
-    "Spike Lavender EO": {
-        "character": {"freshness": 6, "green": 5, "spicy": 3, "woody": 3, "floral": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 0.3,
-        "clogp": 3.0,
-        "synergies": [
-            "Lavender EO",
-            "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
-            "Coumarin",
-            "Terpinyl Acetate",
         ],
     },
     "Tobacco FTEC": {
@@ -2894,16 +2709,6 @@ _PROFILES: dict[str, dict] = {
             "Patchouli EO",
         ],
     },
-    "Triplal": {
-        "character": {"freshness": 6, "green": 7, "radiance": 4},
-        "note": "top",
-        "role": "trace",
-        "texture": "lift",
-        "mw": 152.23,
-        "vp": 0.5,
-        "clogp": 2.5,
-        "synergies": ["Cyclamen Aldehyde", "Floralozone", "Scentenal", "Hedione"],
-    },
     "Vetikon": {
         "character": {"woody": 7, "freshness": 3, "green": 2, "powdery": 2},
         "note": "base",
@@ -2936,29 +2741,6 @@ _PROFILES: dict[str, dict] = {
             "p-Cresyl Methyl Ether",
         ],
     },
-    "Geranium EO": {
-        "character": {
-            "floral": 8,
-            "green": 5,
-            "rosy": 5,
-            "herbaceous": 3,
-            "freshness": 3,
-        },
-        "note": "heart",
-        "role": "modifier",
-        "texture": "halo",
-        "mw": 157.0,
-        "vp": 2.5,
-        "clogp": 3.2,
-        "cas": "8000-46-2",
-        "synergies": [
-            "Rose Absolute",
-            "Lavender EO",
-            "Bergamot FCF oil Sicilian",
-            "Citronellol",
-            "Geraniol",
-        ],
-    },
     "p-Cresyl Methyl Ether": {
         "character": {"floral": 5, "animalic": 4, "sweetness": 3, "smoky": 2},
         "note": "heart",
@@ -2970,16 +2752,6 @@ _PROFILES: dict[str, dict] = {
         "synergies": ["Ylang Ylang EO", "Indole", "Neroli EO", "Methyl Benzoate"],
     },
     # ═══════════════════════ SOLVENTS / CARRIERS ═══════════════════════
-    "Diethyl Phthalate": {
-        "character": {},
-        "note": "carrier",
-        "role": "solvent",
-        "texture": "",
-        "mw": 222.24,
-        "vp": 0.002,
-        "clogp": 2.42,
-        "synergies": [],
-    },
     "Dipropylene Glycol": {
         "character": {},
         "note": "carrier",
@@ -3021,16 +2793,6 @@ _PROFILES: dict[str, dict] = {
         "synergies": [],
     },
     # ═══════════════════════ CITRUS / TOP ═══════════════════════
-    "Lemon FCF oil Sicilian": {
-        "character": {"freshness": 8, "green": 3, "sweetness": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 2.5,
-        "clogp": 3.0,
-        "synergies": ["Bergamot FCF", "Petitgrain EO", "Linalool"],
-    },
     # ═══════════════════════ LEGACY / VARIANTS ═══════════════════════
     "Heliotropin": {
         "character": {
@@ -3271,16 +3033,6 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.5,
         "synergies": ["Citral", "Bergamot FCF", "Cardamom EO", "Linalool"],
     },
-    "Neroli EO": {
-        "character": {"floral": 7, "freshness": 6, "sweetness": 2, "green": 2},
-        "note": "top",
-        "role": "character",
-        "texture": "lift",
-        "mw": 170.0,
-        "vp": 1.2,
-        "clogp": 2.5,
-        "synergies": ["Petitgrain EO", "Bergamot FCF", "Linalool", "Hedione"],
-    },
     "Tagetes EO": {
         "character": {"green": 7, "herbal": 6, "fruity": 4, "spicy": 2},
         "note": "top",
@@ -3309,7 +3061,24 @@ _PROFILES: dict[str, dict] = {
         "mw": 200.0,
         "vp": 1.0,
         "clogp": 3.5,
-        "synergies": ["Tobacco Absolute", "Evernyl", "Coumarin", "Lavender EO"],
+        "synergies": [
+            "Tobacco Absolute",
+            "Evernyl",
+            "Coumarin",
+            "Lavender EO",
+            "Patchouli EO",
+            "Vetiver EO",
+            "Cedarwood EO",
+            "Cardamom EO",
+            "Sandalwood EO",
+            "Labdanum Absolute",
+            "Kephalis",
+            "Nagarmortha Oil",
+            "Frankincense EO",
+            "Bergamot FCF",
+            "Hedione",
+            "Ethylene Brassylate",
+        ],
     },
     "Mimosa Absolute": {
         "character": {"floral": 7, "powdery": 6, "green": 4, "sweetness": 3},
@@ -3381,7 +3150,7 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.5,
         "synergies": ["Coumarin", "Vanillin", "Benzoin Resinoid", "Tobacco Absolute"],
     },
-    "Cocoa CO2 Absolute": {
+    "Cocoa CO2 Extract": {
         "character": {"sweetness": 7, "warmth": 6, "smoky": 4, "creamy": 4},
         "note": "base",
         "role": "character",
@@ -3505,7 +3274,6 @@ _ALIASES = {
     "Olibanum Resinoid Absolute - Solid": "Olibanum Resinoid",
     "Olibanum Resinoid (Viscous)": "Olibanum Resinoid",
     "Olibanum Resinoid (viscous, 3 g)": "Olibanum Resinoid",
-    "Lavender EO High Altitude": "Lavender EO High Altitude",
     "Lavender EO High Altitude (angustifolia France)": "Lavender EO High Altitude",
     "Lime Distilled": "Lime Distilled EO",
     "Juniper EO": "Juniper Berry EO",
@@ -3513,6 +3281,13 @@ _ALIASES = {
     "PCME": "p-Cresyl Methyl Ether",
     "p-Cresyl Methyl Ether (PCME)": "p-Cresyl Methyl Ether",
     "Cinnamyl alcohol 50% in DPG": "Cinnamyl alcohol",
+    # Chemical/label identity corrections. Heliotropin is the common synonym
+    # for piperonal; Heliotropin Fleuressence remains a distinct commercial
+    # blend. "Cedamber" is a legacy misspelling of IFF Cedramber.
+    "Heliotropin": "Heliotropal",
+    "Piperonal": "Heliotropal",
+    "Cedamber": "Cedramber",
+    "Jasmine Sambac": "Jasmine Sambac Absolute",
 }
 
 
@@ -3531,7 +3306,6 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Calone": 8,
     "Floralozone": 8,
     "Scentenal": 8,
-    "Freesia HDI": 8,
     "Amberwood F": 8,
     "Habanolide": 8,
     "Galaxolide": 7,
@@ -3540,10 +3314,7 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Lilyreal ND": 8,
     "Ultralia": 9,
     # Medium-high (6-7)
-    "Bergamot FCF": 7,
-    "Grapefruit FCF": 7,
     "Cedrat FCF Sicilian": 7,
-    "Pamzest": 7,
     "Benzyl Salicylate": 6,
     "Geraniol": 7,
     "Nerol": 7,
@@ -3568,7 +3339,6 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Ethyl Vanillin": 4,
     "Eugenol": 4,
     "Lavender EO": 6,
-    "Neroli EO": 6,
     "Nerolin Bromelia": 5,
     "Oranger Crystals": 5,
     "Petitgrain EO": 6,
@@ -3580,6 +3350,7 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Myrrh EO": 2,
     "Sandalwood EO": 3,
     "Vetiver EO": 3,
+    "Vetiveryl Acetate": 2,
     "Vanillin": 3,
     "Styrax FTEC": 2,
     "Ylang Comoros Complete EO": 3,
@@ -3588,34 +3359,23 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Indole": 2,
     "Isobutyl Quinoline": 2,
     # ── New profiles — 2026-05-08 ──
-    "Black Pepper EO": 4,
     "Cinnamyl alcohol": 5,
-    "Costus Olifac": 1,
     "Dihydrojasmone": 6,
-    "Juniper Berry EO": 6,
-    "Lavender EO High Altitude": 6,
     "Lilial": 7,
-    "Lime Distilled EO": 8,
-    "Oranger Crystals": 5,
     "Oud Fleuressence": 1,
-    "Pine EO": 5,
     "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 5,
-    "Spike Lavender EO": 5,
     "Tobacco FTEC": 3,
     "Tobacco Fleuressence": 3,
     "Tobacco Absolute": 2,
-    "Triplal": 8,
     "Vetikon": 5,
     "Ylang Ylang EO": 4,
     "p-Cresyl Methyl Ether": 3,
     # ── Solvents ──
-    "Diethyl Phthalate": 5,
     "Dipropylene Glycol": 5,
     "Ethanol": 5,
     "Isopropyl Myristate": 5,
     "Triethyl Citrate": 5,
     # ── New citrus / legacy ──
-    "Lemon FCF oil Sicilian": 7,
     "Heliotropin": 4,
     "Molecule Iris": 5,
     # ── Inventory gap fill 2026-05-23 ──
@@ -3635,7 +3395,6 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Rhodinol ex Citronella": 6,
     "Vertofix": 4,
     "Ginger EO": 0.5,
-    "Neroli EO": 2.0,
     "Tagetes EO": 0.2,
     "Jasmine Sambac Blossoms": 3.0,
     "Blue Chamomile EO": 0.1,
@@ -3645,10 +3404,126 @@ _TRANSPARENCY_SCORES: dict[str, int] = {
     "Isobutavan": 0.5,
     "Allyl Cyclohexyl Propionate": 1.0,
     "Tonka Bean Absolute": 1.0,
-    "Cocoa CO2 Absolute": 1.0,
+    "Cocoa CO2 Extract": 1.0,
     "Peru Balsam Resinoid": 2.0,
     "Opoponax Resinoid": 1.5,
 }
+
+# ── Chemical Family Map for Natural Compatibility (F11) ──────────────────
+# Maps complex naturals to their dominant chemical families.
+# Two naturals that share ZERO families are flagged as potentially incompatible.
+# Families follow structural chemistry taxonomy: same backbone/shared biosynthetic origin.
+_CHEMICAL_FAMILY_MAP: dict[str, list[str]] = {
+    "Anise EO (China)": ["phenylpropanoid", "monoterpenoid"],
+    "Basil EO (India, Ocimum Basilicum)": ["monoterpenoid", "phenylpropanoid"],
+    "Benzoin Resinoid": ["benzenoid", "balsamic"],
+    "Benzoin Sumatra Resinoid": ["benzenoid", "balsamic"],
+    "Bergamot EO": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Bergamot FCF Sicilian": ["monoterpenoid"],
+    "Bitter Orange EO (expressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Blood Orange oil Sicilian": ["monoterpenoid"],
+    "Blue Chamomile EO": ["azulene", "sesquiterpenoid"],
+    "Cade Oil Rectified": ["phenolic_smoky", "sesquiterpenoid"],
+    "Cardamom EO": ["monoterpenoid", "ether"],
+    "Carrot Seed EO": ["sesquiterpenoid", "monoterpenoid"],
+    "Cassia Essential Oil": ["phenylpropanoid", "aldehyde_cinnamic"],
+    "Cedarwood EO": ["sesquiterpenoid"],
+    "Cedarwood oil Virginia": ["sesquiterpenoid"],
+    "Cedrat FCF Sicilian": ["monoterpenoid"],
+    "Champaca Flower EO": ["sesquiterpenoid", "monoterpenoid", "benzenoid"],
+    "Clary Sage EO": ["monoterpenoid", "sesquiterpenoid_ester"],
+    "Clove EO (India)": ["phenylpropanoid", "sesquiterpenoid"],
+    "Cocoa Absolute": ["pyrazine", "fatty_acid", "polyalcohol"],
+    "Cocoa CO2 Extract": ["pyrazine", "fatty_acid", "polyalcohol"],
+    "Cypriol EO": ["sesquiterpenoid"],
+    "Eucalyptus Essential Oil": ["monoterpenoid", "ether_cineole"],
+    "Frankincense EO": ["monoterpenoid", "sesquiterpenoid"],
+    "Galbanum EO": ["monoterpenoid", "aldehydic_green"],
+    "Galbanum Resinoid": ["monoterpenoid", "aldehydic_green"],
+    "Ginger EO": ["monoterpenoid", "sesquiterpenoid"],
+    "Grapefruit EO (expressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Himalayan Cedarwood EO": ["sesquiterpenoid"],
+    "Immortelle Absolute": ["sesquiterpenoid", "diketone"],
+    "Jasmine Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
+    "Jasmine Sambac Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
+    "Jasmine FO": ["benzenoid", "monoterpenoid", "lactone"],
+    "Labdanum Absolute": ["sesquiterpenoid", "balsamic", "amber"],
+    "Labdanum Resinoid": ["sesquiterpenoid", "balsamic", "amber"],
+    "Lavender EO": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Lavender EO (BONTAUX SAS)": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Lemon EO (cold pressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Mimosa Absolute": ["benzenoid", "aldehyde_green"],
+    "Myrrh EO": ["sesquiterpenoid", "ether_furanoid"],
+    "Nagarmortha Oil": ["sesquiterpenoid"],
+    "Oakmoss Absolute": ["depsidic", "phenolic_orcinol", "sesquiterpenoid"],
+    "Olibanum Resinoid": ["monoterpenoid", "sesquiterpenoid"],
+    "Opoponax Resinoid": ["sesquiterpenoid", "balsamic", "amber"],
+    "Orange Peel EO": ["monoterpenoid"],
+    "Orris Butter Absolute": ["ionone", "benzenoid", "ketone"],
+    "Osmanthus Absolute": ["ionone", "lactone", "monoterpenoid", "benzenoid"],
+    "Osmanthus Absolute (volume grade)": ["ionone", "lactone", "monoterpenoid", "benzenoid"],
+    "Oud Oil": ["sesquiterpenoid", "phenolic_smoky"],
+    "Patchouli EO": ["sesquiterpenoid", "alcohol_patchoulol"],
+    "Peppermint Essential Oil": ["monoterpenoid", "alcohol_menthol"],
+    "Peru Balsam Resinoid": ["benzenoid", "balsamic", "ester_cinnamate"],
+    "Petitgrain EO": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Petitgrain EO Paraguay": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Red Mandarin EO": ["monoterpenoid"],
+    "Rose Absolute": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rose Essential Oil": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rose de Mai Absolute": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": [
+        "monoterpenoid",
+        "ketone_camphor",
+        "ether_cineole",
+    ],
+    "Rum Absolute": ["polyalcohol", "fatty_acid", "aldehyde_vanillin"],
+    "Sandalwood EO": ["sesquiterpenoid", "alcohol_santalol"],
+    "Styrax FTEC": ["benzenoid", "balsamic", "aldehyde_cinnamic"],
+    "Tagetes EO": ["monoterpenoid", "ketone_tagetone"],
+    "Tobacco Absolute": ["sesquiterpenoid", "ketone_ionone", "lactone"],
+    "Tonka Bean Absolute": ["coumarin", "benzenoid", "lactone"],
+    "Tuberose Absolute": ["benzenoid", "monoterpenoid", "lactone"],
+    "Tuberose Absolute (India)": ["benzenoid", "monoterpenoid", "lactone"],
+    "Tuberose Absolute (volume grade)": ["benzenoid", "monoterpenoid", "lactone"],
+    "Vetiver EO": ["sesquiterpenoid", "alcohol_khusimol", "ketone_vetivone"],
+    "Ylang Comoros Complete EO F3255": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+    "Ylang Comoros III EO F3295": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+    "Ylang Ylang EO": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+}
+
+# Define incompatible family pairs — when naturals carry these families they clash.
+# Per F11: azulene + benzenoid clashed (Blue Chamomile vs Rose)
+# Per F11: ionone + phenylpropanoid clashed (Osmanthus vs Clove)
+# Per F11: alcohol_terpenoid + aldehyde_green clashed (Geranium vs Violet Leaf)
+_INCOMPATIBLE_FAMILIES: list[tuple[str, str]] = [
+    ("azulene", "benzenoid"),
+    ("ionone", "phenylpropanoid"),
+    ("alcohol_terpenoid", "aldehydic_green"),
+    ("phenylpropanoid", "coumarin"),
+    ("indolic", "pyrazine"),
+    ("phenolic_orcinol", "lactone_indolic"),
+]
+
+
+def check_natural_compatibility(material_names: list[str]) -> list[str] | None:
+    """Return list of incompatible natural pairs, or None if all compatible."""
+    warnings: list[str] = []
+    profiles = [(n, _CHEMICAL_FAMILY_MAP.get(n)) for n in material_names]
+    naturals = [(n, f) for n, f in profiles if f is not None]
+
+    for i in range(len(naturals)):
+        for j in range(i + 1, len(naturals)):
+            ni, fi = naturals[i]
+            nj, fj = naturals[j]
+            for fa, fb in _INCOMPATIBLE_FAMILIES:
+                if fa in fi and fb in fj and not (set(fi) & set(fj)):
+                    warnings.append(
+                        f"{ni} + {nj}: potentially incompatible ({fa} vs {fb}, no shared family)"
+                    )
+                    break
+    return warnings or None
+
 
 for _name, _score in _TRANSPARENCY_SCORES.items():
     if _name in _PROFILES:
@@ -3664,8 +3539,8 @@ del _name, _score  # clean up module namespace
 # Keeping both units avoids the semantic mismatch of comparing a
 # concentrate-level ppm dose to a headspace-ppb threshold.
 try:
-    from engine.odor_thresholds import ODT_DATA as _ODT_SRC
     from engine.name_utils import normalize_name as _nn
+    from engine.odor_thresholds import ODT_DATA as _ODT_SRC
 
     _odt_air_index = {_nn(k): v.get("odt_air") for k, v in _ODT_SRC.items()}
     _odt_eth_index = {_nn(k): v.get("odt_eth") for k, v in _ODT_SRC.items()}
@@ -3675,10 +3550,7 @@ try:
             _odt_air_val = _odt_air_index.get(_key)
             if _odt_air_val is not None:
                 _PROFILES[_pname]["odt"] = _odt_air_val
-        if (
-            "odt_ppm" not in _PROFILES[_pname]
-            or _PROFILES[_pname].get("odt_ppm") is None
-        ):
+        if "odt_ppm" not in _PROFILES[_pname] or _PROFILES[_pname].get("odt_ppm") is None:
             _odt_eth_val = _odt_eth_index.get(_key)
             if _odt_eth_val is not None:
                 _PROFILES[_pname]["odt_ppm"] = _odt_eth_val
@@ -3713,15 +3585,11 @@ except Exception:
 # dimension fallback handles the long tail.
 _OR_FAMILY_OVERRIDES: dict[str, str] = {
     # Citrus
-    "Bergamot FCF": "citrus",
     "Bergamot FCF Sicilian": "citrus",
     "Cedrat FCF Sicilian": "citrus",
     "Blood Orange Sicilian": "citrus",
-    "Grapefruit FCF": "citrus",
     "Red Mandarin EO": "citrus",
     "Methyl Pamplemousse": "citrus",
-    "D-Limonene": "citrus",
-    "Pamzest": "citrus",
     "Lemon EO": "citrus",
     "Lime EO": "citrus",
     "Yuzu FO": "citrus",
@@ -3734,7 +3602,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Lilial": "muguet",
     "Florosa": "muguet",
     "Cyclamen Aldehyde": "muguet",
-    "Freesia HDI": "muguet",
     # Rose
     "Rose Absolute": "rose",
     "Phenethyl Alcohol": "rose",
@@ -3764,7 +3631,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     # Amber
     "Ambrox Super": "amber",
     "Ambrofix": "amber",
-    "Ambermax": "amber",
     "Amber Core": "amber",
     "Cedramber": "amber",
     "Amberwood F": "amber",
@@ -3805,7 +3671,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Vetiveryl Acetate": "woody",
     # Green
     "Scentenal": "green",
-    "Triplal": "green",
     "Leafovert": "green",
     "Parmavert": "green",
     "Dynascone": "green",
@@ -3836,13 +3701,11 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     # Animalic / indolic
     "Indole": "indolic",
     "Civetone": "animalic",
-    "Ambrettolide": "musk",
     # Salicylates — own bin? map to muguet cushion
     "Benzyl Salicylate": "salicylate",
     "Hexyl Salicylate": "salicylate",
     "Amyl Salicylate": "salicylate",
     # Fixative / diffusion carriers
-    "Benzyl Benzoate": "fixative",
     # Aquatic / ozone
     "Calone": "aquatic",
     "Floralozone": "ozone",
@@ -3870,7 +3733,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Farnesol": "muguet",
     "Jasmine Absolute": "floral",
     "Ylang Comoros Complete EO": "floral",
-    "Neroli EO": "floral",
     "Orange Flower Absolute": "floral",
     "Champaca Flower EO": "floral",
     "PEDMC": "floral",
@@ -3925,35 +3787,22 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     # Citrus / aromatic
     "Petitgrain EO": "aromatic",
     # ── New profiles — 2026-05-08 ──
-    "Black Pepper EO": "spice",
     "Cinnamyl alcohol": "gourmand",
-    "Costus Olifac": "animalic",
     "Dihydrojasmone": "floral",
-    "Juniper Berry EO": "aromatic",
-    "Lavender EO High Altitude": "aromatic",
-    "Lilial": "muguet",
-    "Lime Distilled EO": "citrus",
     "Oranger Crystals": "floral",
     "Oud Fleuressence": "smoky",
-    "Pine EO": "aromatic",
-    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": "aromatic",
-    "Spike Lavender EO": "aromatic",
     "Tobacco FTEC": "gourmand",
     "Tobacco Fleuressence": "gourmand",
     "Tobacco Absolute": "gourmand",
-    "Triplal": "green",
     "Vetikon": "woody",
     "Ylang Ylang EO": "floral",
     "p-Cresyl Methyl Ether": "indolic",
     # ── Solvents ──
-    "Diethyl Phthalate": "fixative",
     "Dipropylene Glycol": "fixative",
     "Ethanol": "fixative",
     "Isopropyl Myristate": "fixative",
     "Triethyl Citrate": "fixative",
     # ── New citrus / legacy ──
-    "Lemon FCF oil Sicilian": "citrus",
-    "Heliotropin": "gourmand",
     "Molecule Iris": "iris",
     # ── Inventory gap fill 2026-05-23 ──
     "Aurantiol": "floral",
@@ -3971,7 +3820,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Rhodinol ex Citronella": "rose",
     "Vertofix": "woody",
     "Rose de Mai Absolute": "rose",
-    "Galbanum EO": "green",
     "Osmanthus Absolute": "floral",
     "Tonkarome": "gourmand",
     "Tuberalia base": "floral",
@@ -3989,7 +3837,6 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Eucalyptus Essential Oil": "herbal",
     # ── Batch-added 2026-06-22 ──
     "Ginger EO": "spice",
-    "Neroli EO": "floral",
     "Tagetes EO": "green",
     "Jasmine Sambac Blossoms": "floral",
     "Blue Chamomile EO": "herbal",
@@ -3999,7 +3846,7 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Isobutavan": "gourmand",
     "Allyl Cyclohexyl Propionate": "fruity",
     "Tonka Bean Absolute": "gourmand",
-    "Cocoa CO2 Absolute": "gourmand",
+    "Cocoa CO2 Extract": "gourmand",
     "Peru Balsam Resinoid": "balsamic",
     "Opoponax Resinoid": "balsamic",
 }
@@ -4012,12 +3859,10 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Iso E Super": 0.8,
     "Benzyl Salicylate": 1.3,
     "Hexyl Salicylate": 0.75,
-    "Benzyl Benzoate": 0.7,
     "Benzaldehyde": 2.0,
     "Benzyl Alcohol": 1.5,
     "Ambrox Super": 0.85,
     "Ambrofix": 0.85,
-    "Ambermax": 0.85,
     "Galaxolide": 0.7,
     "Habanolide": 0.85,
     "Ethylene Brassylate": 0.8,
@@ -4033,29 +3878,18 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Eugenol": 1.1,
     "Geosmin": 1.2,
     # Citrus oils — ethanol nearly ideal
-    "Bergamot FCF": 1.0,
     "Bergamot FCF Sicilian": 1.0,
-    "D-Limonene": 1.05,
-    "Grapefruit FCF": 1.0,
     # Aldehydes — slightly boosted
     "C-10 Aldehyde": 1.1,
     "C-11 Aldehyde": 1.1,
     "C-12 Aldehyde": 1.1,
-    "Triplal": 1.15,
     # ── New profiles — 2026-05-08 ──
-    "Black Pepper EO": 1.0,
     "Cinnamyl alcohol": 0.8,
-    "Costus Olifac": 0.9,
     "Dihydrojasmone": 1.0,
-    "Juniper Berry EO": 1.0,
-    "Lavender EO High Altitude": 1.0,
     "Lilial": 0.8,
-    "Lime Distilled EO": 1.05,
     "Oranger Crystals": 0.8,
     "Oud Fleuressence": 0.8,
-    "Pine EO": 1.05,
     "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 1.0,
-    "Spike Lavender EO": 1.0,
     "Tobacco FTEC": 0.7,
     "Tobacco Fleuressence": 0.7,
     "Tobacco Absolute": 0.7,
@@ -4063,14 +3897,11 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Ylang Ylang EO": 0.9,
     "p-Cresyl Methyl Ether": 1.1,
     # ── Solvents ──
-    "Diethyl Phthalate": 1.0,
     "Dipropylene Glycol": 1.0,
     "Ethanol": 1.0,
     "Isopropyl Myristate": 1.0,
     "Triethyl Citrate": 1.0,
     # ── New citrus / legacy ──
-    "Lemon FCF oil Sicilian": 1.05,
-    "Heliotropin": 0.7,
     "Molecule Iris": 0.8,
     # ODT Master Table gamma cross-check 2026-05-19
     "Aldehyde C9": 1.4,
@@ -4081,7 +3912,6 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Amber Xtreme": 1.5,
     "Ambermax": 1.5,
     "Amberwood F": 1.5,
-    "Ambrettolide": 1.5,
     "Anise EO (China)": 1.5,
     "Apritone": 1.5,
     "Azarbre": 1.5,
@@ -4089,10 +3919,8 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Benzoin Resinoid": 1.5,
     "Benzoin Sumatra Resinoid": 1.5,
     "Benzyl Benzoate": 1.3,
-    "Benzyl Salicylate": 1.3,
     "Bergamot EO": 3.0,
     "Birch Tar Rectified": 1.8,
-    "Black Pepper EO": 2.0,
     "Blackcurrant FTEC": 1.5,
     "Blood Orange Sicilian": 3.0,
     "Calone": 1.5,
@@ -4113,17 +3941,13 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Clary Sage EO": 2.0,
     "Clearwood": 1.8,
     "Clove EO (India)": 1.5,
-    "Costus Olifac": 1.5,
-    "Coumarin": 1.2,
     "Cyclamen Aldehyde": 1.3,
     "D-Limonene": 3.0,
     "DBCA": 1.5,
     "Damascol": 1.3,
-    "Diethyl Phthalate": 1.1,
     "Dynascone": 1.5,
     "Ebanol": 1.5,
     "Ethyl Safranate": 1.3,
-    "Exaltolide": 1.5,
     "Frankincense EO": 2.5,
     "Galbanum Resinoid": 1.8,
     "Georgywood": 1.5,
@@ -4141,17 +3965,13 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Jasmine FO": 1.8,
     "Jasmine Sambac Absolute": 1.8,
     "Javanol": 1.5,
-    "Juniper Berry EO": 2.5,
     "Kephalis": 1.5,
     "Koavone": 1.5,
     "Labdanum": 0.6,
     "Labdanum Absolute": 1.5,
     "Lavender EO": 2.0,
     "Lavender EO Bontaux": 2.0,
-    "Lavender EO High Altitude": 2.0,
     "Leather FO": 1.5,
-    "Lemon FCF oil Sicilian": 3.0,
-    "Lime Distilled EO": 3.0,
     "Linalool": 1.8,
     "Macrolide": 1.5,
     "Manzanate": 1.5,
@@ -4161,7 +3981,6 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Musk Ketone": 0.5,
     "Myrrh EO": 2.0,
     "Nerol": 1.8,
-    "Neroli EO": 2.0,
     "Nerolin Bromelia": 1.5,
     "Norlimbanol Dextro": 1.5,
     "Olibanum Resinoid": 2.0,
@@ -4172,12 +3991,10 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "PEDMC": 1.5,
     "Patchouli EO": 2.0,
     "Petitgrain EO": 2.0,
-    "Pine EO": 2.5,
     "Pink Pepper Base": 2.0,
     "Piperonal": 1.3,
     "Polysantol": 1.5,
     "Red Mandarin EO": 3.0,
-    "Romandolide": 1.5,
     "Rose Absolute": 1.8,
     "Rosemary EO": 2.0,
     "Rum Absolute": 1.5,
@@ -4185,29 +4002,25 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Sandalwood FO": 1.5,
     "Scentenal": 1.4,
     "Siam Benzoin": 0.6,
-    "Spike Lavender EO": 2.0,
     "Styrax FTEC": 1.5,
     "Suederal LT": 1.5,
     "Timberol": 1.5,
     "Tonalide": 1.5,
     "Tonka Bean FO": 1.3,
-    "Triplal": 1.4,
     "Vetival": 1.5,
     "Ylang Ylang EO Complete": 2.0,
     "Ylang Ylang EO Extra": 2.0,
     "Ylang Ylang EO Grade I": 2.0,
     "Zenolide": 1.5,
     # Final gamma gap fill 2026-05-19
-    "Bergamot FCF": 3.0,
     "Bergamot FCF oil Sicilian": 3.0,
     "Beta-Pinene": 3.0,
     "Bourgeonal": 1.3,
     "Cedarwood oil Virginia": 2.5,
-    "Nerol": 1.8,
     "Orange Peel EO": 3.0,
-    "Pamzest": 1.0,
     "Sandalwood EO": 2.5,
     "Vetiver EO": 2.0,
+    "Vetiveryl Acetate": 1.5,
     "Ylang Comoros Complete EO F3255": 2.0,
     "Ylang Comoros III EO F3295": 2.0,
     # ── Inventory gap fill 2026-05-23 ──
@@ -4235,7 +4048,6 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Eucalyptus Essential Oil": 3.0,
     # ── Batch-added 2026-06-22 ──
     "Ginger EO": 2.5,
-    "Neroli EO": 2.0,
     "Tagetes EO": 2.5,
     "Jasmine Sambac Blossoms": 1.5,
     "Blue Chamomile EO": 1.8,
@@ -4245,7 +4057,7 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Isobutavan": 0.6,
     "Allyl Cyclohexyl Propionate": 2.0,
     "Tonka Bean Absolute": 0.6,
-    "Cocoa CO2 Absolute": 0.5,
+    "Cocoa CO2 Extract": 0.5,
     "Peru Balsam Resinoid": 0.5,
     "Opoponax Resinoid": 0.6,
 }
@@ -4286,6 +4098,7 @@ _HEDONIC_OVERRIDES: dict[str, float] = {
     "Hexyl Salicylate": 2.5,
     "Patchouli EO": 1.0,
     "Vetiver EO": 1.5,
+    "Vetiveryl Acetate": 1.5,
     # Polarizing / required-in-context only
     "Indole": -1.5,
     "Isobutyl Quinoline": -1.0,
@@ -4301,7 +4114,6 @@ _HEDONIC_OVERRIDES: dict[str, float] = {
     "Scentenal": 1.5,
     # Green
     "Dynascone": 0.5,
-    "Triplal": 0.0,
     "Leafovert": 1.0,
     # Spices
     "Eugenol": 1.5,
@@ -4342,7 +4154,6 @@ _HEDONIC_OVERRIDES: dict[str, float] = {
     "Triethyl Citrate": 0.0,
     # ── New citrus / legacy ──
     "Lemon FCF oil Sicilian": 3.0,
-    "Heliotropin": 3.0,
     "Molecule Iris": 2.5,
     # ── Inventory gap fill 2026-05-23 ──
     "Aurantiol": 3.0,
@@ -4415,9 +4226,7 @@ for _pname, _pdata in _PROFILES.items():
                 + ch.get("powdery", 0)
                 + ch.get("citrus", 0)
             ) / 5.0
-            harsh = (
-                ch.get("smoky", 0) + ch.get("animalic", 0) + ch.get("metallic", 0)
-            ) / 3.0
+            harsh = (ch.get("smoky", 0) + ch.get("animalic", 0) + ch.get("metallic", 0)) / 3.0
             hed = max(-3.0, min(3.0, 0.4 * pleasant - 0.3 * harsh))
         _pdata["hedonic"] = round(hed, 2)
 
@@ -4563,32 +4372,55 @@ def find_similar(name: str, n: int = 5) -> list[tuple[str, float]]:
 _VERIFIED_VP = {
     "Galaxolide": 0.0727,
     "Vanillin": 0.20,
-    "Melonal": 53.0,
+    "Melonal": 239.0,
     "Triplal": 66.1,
     "Alpha Irone": 0.559,
     "Norlimbanol Dextro": 0.067,
     "Ethyl Vanillin": 0.019,
     "Ethyl Maltol": 0.029,
-    "Dynascone": 1.44,
+    "Dynascone": 1.33322,
     "Ambrettolide": 0.003,
     "Isobutyl Quinoline": 0.129,
-    "Calone": 0.05,
-    "Cashmeran": 0.40,
-    "Citronellol": 2.67,
+    "Calone": 0.0965,
+    "Cashmeran": 1.242,
+    "Citronellol": 2.26,
     "Geraniol": 2.67,
     "Nerol": 2.0,
     "Coumarin": 0.133,
     "Habanolide": 0.000053,
     "Ambrofix": 0.066,
-    "Hedione": 0.089,
-    "Hedione HC": 0.089,
+    "Hedione": 0.09466,
+    "Hedione HC": 0.09466,
+}
+
+_VERIFIED_VP_SOURCE = {
+    "Calone": (
+        "RIFM safety assessment (Api et al. 2024): EPI Suite 0.000724 mmHg at 25 C = 0.0965 Pa"
+    ),
+    "Cashmeran": (
+        "IFF official ingredient compendium: "
+        "0.009316 mmHg at 23 C = 1.242 Pa (reference-temperature value)"
+    ),
+    "Citronellol": "ECHA registration dossier: 2.26 Pa at 25 C",
+    "Dynascone": ("Vigon Dynascone SDS rev. 2020-06-08: 0.01 mmHg at 25 C = 1.33322 Pa"),
+    "Habanolide": (
+        "dsm-firmenich official product data: 0.00003 Pa at 20 C; "
+        "0.000053 Pa is a temperature-adjusted 25 C estimate"
+    ),
+    "Hedione": "EP 3141239 B1: 0.000710 Torr at 25 C = 0.09466 Pa",
+    "Hedione HC": ("Hedione pure-component proxy; cis-isomer-specific VP unresolved"),
+    "Melonal": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
 }
 
 for _key, _val in _VERIFIED_VP.items():
     if _key in _PROFILES:
         _PROFILES[_key]["vp"] = _val
-        _PROFILES[_key]["vp_source"] = "VERIFIED external cross-check 2026-05-12"
-        _PROFILES[_key]["vp_flag"] = "VERIFIED_EXTERNAL"
+        _PROFILES[_key]["vp_source"] = _VERIFIED_VP_SOURCE.get(
+            _key, "VERIFIED external cross-check 2026-05-12"
+        )
+        _PROFILES[_key]["vp_flag"] = (
+            "ESTIMATED_FROM_OFFICIAL_20C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
+        )
     else:
         # Attempt to find by normalized name
         from engine.name_utils import normalize_name
@@ -4599,3 +4431,47 @@ for _key, _val in _VERIFIED_VP.items():
                 _PROFILES[_pn]["vp_source"] = "VERIFIED external cross-check 2026-05-12"
                 _PROFILES[_pn]["vp_flag"] = "VERIFIED_EXTERNAL"
                 break
+
+
+def suggest_replacement(missing_name: str, inventory_names: set[str]) -> str:
+    """Suggest an in-inventory replacement for a missing material.
+
+    Matches by odor character or note tier from _PROFILES.
+    Returns "no close match" if nothing found.
+    """
+    from engine.name_utils import normalize_name
+
+    missing_norm = normalize_name(missing_name)
+    missing_profile = get_profile(missing_norm)
+
+    if missing_profile is None:
+        return "no profile data — check inventory manually"
+
+    target_char = missing_profile.character
+    target_note = missing_profile.note
+
+    best_match = ""
+    best_score = 0
+    for name, profile in _PROFILES.items():
+        inv_name = normalize_name(name)
+        if not any(inv_name in inv or inv in inv_name for inv in inventory_names):
+            continue
+        score = 0
+        if isinstance(profile, dict):
+            pchar = profile.get("character", {})
+            pnote = profile.get("note", "")
+        else:
+            pchar = profile.character if hasattr(profile, "character") else {}
+            pnote = profile.note if hasattr(profile, "note") else ""
+        if isinstance(pchar, dict) and isinstance(target_char, dict):
+            # Check character overlap
+            common = set(target_char.keys()) & set(pchar.keys())
+            if common:
+                score += 3
+        if pnote == target_note and target_note:
+            score += 1
+        if score > best_score:
+            best_score = score
+            best_match = name
+
+    return best_match if best_score >= 3 else "no close match — browse inventory by note/character"

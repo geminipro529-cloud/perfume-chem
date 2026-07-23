@@ -24,12 +24,12 @@ if str(PROJECT_ROOT) not in sys.path:
 import pytest  # noqa: E402
 
 from engine.property_estimator import (  # noqa: E402
-    estimate_vp,
-    estimate_logp,
-    estimate_odt,
     estimate_activity_coef,
-    estimate_note_tier,
     estimate_all,
+    estimate_logp,
+    estimate_note_tier,
+    estimate_odt,
+    estimate_vp,
     validate_vp_estimates,
 )
 

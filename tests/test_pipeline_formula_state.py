@@ -67,3 +67,31 @@ def test_formula_state_reuses_cached_result_for_identical_requests():
     )
 
     assert state_a is state_b
+
+
+def test_headspace_basis_distinguishes_concentrate_from_finished_matrix():
+    concentrate = build_formula_state({"Hedione": 1000.0})
+    finished = build_formula_state(
+        {"Hedione": 1000.0},
+        matrix_moles={"Ethanol": 0.4},
+        matrix_mass_g=18.4,
+        matrix_source="explicit",
+    )
+
+    assert concentrate.headspace_basis == "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+    assert finished.headspace_basis == "MODELED_FINISHED_PRODUCT_EXPLICIT_MATRIX"
+    assert finished.materials[0].mole_fraction < concentrate.materials[0].mole_fraction
+    assert finished.materials[0].vapor_ppm < concentrate.materials[0].vapor_ppm
+
+
+def test_diluted_stock_with_partial_matrix_exposes_unresolved_carrier_scope():
+    state = build_formula_state(
+        {"Ambrettolide": 100.0},
+        {"Ambrettolide": 0.1},
+        matrix_moles={"Ethanol": 0.4},
+        matrix_mass_g=18.4,
+        matrix_source="incomplete_stock_carrier",
+    )
+
+    assert state.headspace_basis == "MODELED_FINISHED_PRODUCT_PARTIAL_MATRIX"
+    assert state.stock_carrier_inclusion == "UNRESOLVED"

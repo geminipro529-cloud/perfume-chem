@@ -4,13 +4,14 @@ Inputs at the user-facing layer are wt% / µL. Internally we convert to
 mole fractions, compute γᵢ, evaluate VP via Antoine, return partial pressures
 and vapor-phase concentrations (Pa, mol/m³, ppm, µg/m³).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Mapping
 
-from .antoine import vp_pa, R_GAS
 from .activity import gamma
+from .antoine import R_GAS, vp_pa
 
 
 @dataclass(slots=True)
@@ -32,14 +33,14 @@ def _mw(name: str, mw_table: Mapping[str, float]) -> float:
 
 def headspace_from_wt_pct(
     wt_pct: Mapping[str, float],
-    T_K: float = 305.0,
+    T_K: float = 305.0,  # noqa: N803
     *,
     mw_table: Mapping[str, float] | None = None,
     vp_table: Mapping[str, float] | None = None,
     antoine_table: Mapping[str, tuple[float, float, float]] | None = None,
     dhvap_table: Mapping[str, float] | None = None,
     hsp_table: Mapping[str, tuple[float, float, float]] | None = None,
-    P_atm: float = 101_325.0,
+    P_atm: float = 101_325.0,  # noqa: N803
 ) -> dict[str, HeadspaceComponent]:
     """Compute per-material headspace at temperature T from wt% composition.
 
@@ -68,13 +69,17 @@ def headspace_from_wt_pct(
     for k, xk in x.items():
         ant = antoine_table.get(k)
         if ant is not None:
-            P_pure = vp_pa(T_K, A=ant[0], B=ant[1], C=ant[2])
+            P_pure = vp_pa(T_K, A=ant[0], B=ant[1], C=ant[2])  # noqa: N806
         else:
-            P_pure = vp_pa(
-                T_K,
-                vp_25c_pa=vp_table.get(k),
-                dhvap_kj_mol=dhvap_table.get(k),
-            ) if vp_table.get(k) else 0.0
+            P_pure = (  # noqa: N806
+                vp_pa(
+                    T_K,
+                    vp_25c_pa=vp_table.get(k),
+                    dhvap_kj_mol=dhvap_table.get(k),
+                )
+                if vp_table.get(k)
+                else 0.0
+            )
         gk = gamma(k, x, T_K, hsp_table=hsp_table)
         p_partial = gk * xk * P_pure
         # Ideal gas: c = P / (R T)
@@ -111,5 +116,7 @@ if __name__ == "__main__":
     }
     hs = headspace_from_wt_pct(wt, mw_table=mw, vp_table=vp, hsp_table=hsp)
     for c in hs.values():
-        print(f"{c.name:14s} x={c.mole_fraction:.3f} γ={c.gamma:.2f} "
-              f"P={c.partial_pressure_pa:7.1f} Pa  ppm={c.vapor_ppm:.2f}")
+        print(
+            f"{c.name:14s} x={c.mole_fraction:.3f} γ={c.gamma:.2f} "
+            f"P={c.partial_pressure_pa:7.1f} Pa  ppm={c.vapor_ppm:.2f}"
+        )

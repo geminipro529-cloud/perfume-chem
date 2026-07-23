@@ -1,5 +1,9 @@
 from engine.data_spine.loader import load_materials
-from engine.science_audit import _gather_data_coverage
+from engine.science_audit import (
+    _gather_data_coverage,
+    build_inventory_oav_coverage_audit,
+    build_material_consistency_audit,
+)
 
 
 def test_science_audit_uses_loader_backed_completeness():
@@ -13,3 +17,73 @@ def test_science_audit_uses_loader_backed_completeness():
     supplier_covered = sum(1 for material in materials if material.completeness()["supplier"])
     supplier_pct = 100.0 * supplier_covered / len(materials)
     assert supplier_pct > 75.0
+
+
+def test_material_consistency_audit_distinguishes_reconciled_and_unresolved_truth():
+    audit = build_material_consistency_audit(
+        [
+            "Polysantol",
+            "Melonal",
+            "Spike Lavender EO",
+            "Iso E Super",
+            "Benzyl Benzoate",
+            "Dynascone",
+            "Habanolide",
+        ]
+    )
+
+    assert audit["scope"] == "requested_materials"
+    assert audit["release_authority"] is False
+    conflicts = {
+        (row["material"], row["field"]): row
+        for row in audit["conflicts"]
+    }
+    assert ("Polysantol", "odt_air_ppb") not in conflicts
+    assert ("Benzyl Benzoate", "vp_25c_pa") not in conflicts
+    assert ("Dynascone", "vp_25c_pa") not in conflicts
+    assert ("Habanolide", "vp_25c_pa") not in conflicts
+    assert ("Melonal", "vp_25c_pa") not in conflicts
+    assert ("Spike Lavender EO", "vp_25c_pa") in conflicts
+    assert conflicts[("Spike Lavender EO", "vp_25c_pa")]["status"] == (
+        "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+    )
+
+
+def test_natural_proxy_conflict_reports_composite_runtime_precedence():
+    audit = build_material_consistency_audit(["Lime Distilled EO"])
+    conflicts = {row["field"]: row for row in audit["conflicts"]}
+
+    assert conflicts["vp_25c_pa"]["evidence_class"] == (
+        "NATURAL_MIXTURE_BULK_PROXY"
+    )
+    assert conflicts["vp_25c_pa"]["composite_oav_coverage"] is True
+    assert conflicts["vp_25c_pa"]["runtime_precedence"] == (
+        "natural_composite_constituents"
+    )
+
+
+def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() -> None:
+    audit = build_inventory_oav_coverage_audit()
+    categories = audit["categories"]
+
+    assert audit["scope"] == "live_owned_non_solvent_inventory"
+    assert audit["release_authority"] is False
+    assert audit["oav_available_count"] + audit["oav_unknown_count"] == audit[
+        "material_count"
+    ]
+    assert audit["oav_coverage_pct"] > 85.0
+    assert "Jasmine FO" in categories[
+        "opaque_preblends_without_disclosed_composition"
+    ]
+    assert "Cade Oil Rectified" in categories[
+        "naturals_missing_composite_evidence"
+    ]
+    assert "Red Mandarin EO" not in categories[
+        "naturals_missing_composite_evidence"
+    ]
+    assert "Eucalyptus Essential Oil" not in categories[
+        "naturals_missing_composite_evidence"
+    ]
+    assert "Clary Sage EO" not in categories[
+        "naturals_missing_composite_evidence"
+    ]

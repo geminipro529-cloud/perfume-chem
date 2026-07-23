@@ -84,7 +84,7 @@ def compute_unified_release_scores(
     scores = _numeric_scores_only(raw_scores)
 
     percept = [row for row in oav_result.material_rows if (row.oav or 0.0) >= 1.0]
-    n_percept = len(percept)
+    len(percept)
     oavs = [float(row.oav or 0.0) for row in percept]
     total_oav = sum(oavs) or 1.0
     opening_oav = sum(float(row.oav or 0.0) for row in percept if row.note == "top")

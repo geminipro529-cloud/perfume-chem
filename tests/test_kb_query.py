@@ -7,10 +7,8 @@ database at ``data/perfumery_kb.db``.
 
 from __future__ import annotations
 
-import pytest
-from engine import knowledge_base as kb
 from engine import kb_rules_api as rules
-
+from engine import knowledge_base as kb
 
 # ── Material queries ───────────────────────────────────────────────────
 

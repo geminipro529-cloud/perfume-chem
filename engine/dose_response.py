@@ -35,9 +35,7 @@ Sources:
 from __future__ import annotations
 
 from dataclasses import dataclass
-import math
 from typing import Any
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Character Shift Data
@@ -46,151 +44,151 @@ from typing import Any
 # conc_pct thresholds are % of CONCENTRATE (not finished product)
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 @dataclass
 class CharacterZone:
     """A concentration-dependent character region."""
-    max_conc_pct: float     # upper limit of this zone (% in concentrate)
-    character: str          # olfactive character in this zone
-    quality: str            # "positive", "neutral", "negative", "dangerous"
+
+    max_conc_pct: float  # upper limit of this zone (% in concentrate)
+    character: str  # olfactive character in this zone
+    quality: str  # "positive", "neutral", "negative", "dangerous"
 
 
 CHARACTER_SHIFT_DATA: dict[str, list[CharacterZone]] = {
     # ── Animalics / trace materials ──
     "Indole": [
-        CharacterZone(0.05,  "transparent jasmine-floral lift",     "positive"),
-        CharacterZone(0.2,   "narcotic floral, slightly animalic",  "positive"),
-        CharacterZone(0.5,   "animalic, mothball, ink",             "neutral"),
-        CharacterZone(2.0,   "fecal, skatolic, overwhelming",       "dangerous"),
+        CharacterZone(0.05, "transparent jasmine-floral lift", "positive"),
+        CharacterZone(0.2, "narcotic floral, slightly animalic", "positive"),
+        CharacterZone(0.5, "animalic, mothball, ink", "neutral"),
+        CharacterZone(2.0, "fecal, skatolic, overwhelming", "dangerous"),
     ],
     "Isobutyl Quinoline": [
-        CharacterZone(0.05,  "dirty leather undertone",             "positive"),
-        CharacterZone(0.2,   "dark leather, animalistic",           "positive"),
-        CharacterZone(0.5,   "harsh quinoline, chemical",           "negative"),
+        CharacterZone(0.05, "dirty leather undertone", "positive"),
+        CharacterZone(0.2, "dark leather, animalistic", "positive"),
+        CharacterZone(0.5, "harsh quinoline, chemical", "negative"),
     ],
     "Guaiacol": [
-        CharacterZone(0.03,  "smoky depth, leather warmth",         "positive"),
-        CharacterZone(0.1,   "creosote, phenolic",                  "neutral"),
-        CharacterZone(0.5,   "medicinal, sharp, overwhelming",      "dangerous"),
+        CharacterZone(0.03, "smoky depth, leather warmth", "positive"),
+        CharacterZone(0.1, "creosote, phenolic", "neutral"),
+        CharacterZone(0.5, "medicinal, sharp, overwhelming", "dangerous"),
     ],
     # ── Aldehydes ──
     "Aldehyde C10": [
-        CharacterZone(0.05,  "waxy sparkle, citrus peel",           "positive"),
-        CharacterZone(0.3,   "orange-peel, slightly soapy",         "positive"),
-        CharacterZone(1.0,   "waxy-candle, metallic",               "neutral"),
-        CharacterZone(3.0,   "soapy, tallow, rancid",               "negative"),
+        CharacterZone(0.05, "waxy sparkle, citrus peel", "positive"),
+        CharacterZone(0.3, "orange-peel, slightly soapy", "positive"),
+        CharacterZone(1.0, "waxy-candle, metallic", "neutral"),
+        CharacterZone(3.0, "soapy, tallow, rancid", "negative"),
     ],
     "Aldehyde C11": [
-        CharacterZone(0.05,  "clean, fresh, soapy lift",            "positive"),
-        CharacterZone(0.3,   "waxy, aldehydic body",                "positive"),
-        CharacterZone(1.0,   "heavy waxy, detergent",               "neutral"),
-        CharacterZone(3.0,   "overwhelming, chemical soapy",        "negative"),
+        CharacterZone(0.05, "clean, fresh, soapy lift", "positive"),
+        CharacterZone(0.3, "waxy, aldehydic body", "positive"),
+        CharacterZone(1.0, "heavy waxy, detergent", "neutral"),
+        CharacterZone(3.0, "overwhelming, chemical soapy", "negative"),
     ],
     "Aldehyde C12 MNA": [
-        CharacterZone(0.05,  "metallic sparkle, amber warmth",      "positive"),
-        CharacterZone(0.3,   "amber-metallic, powdery",             "positive"),
-        CharacterZone(1.0,   "soapy, laundry",                      "neutral"),
+        CharacterZone(0.05, "metallic sparkle, amber warmth", "positive"),
+        CharacterZone(0.3, "amber-metallic, powdery", "positive"),
+        CharacterZone(1.0, "soapy, laundry", "neutral"),
     ],
     "Cyclamen Aldehyde": [
-        CharacterZone(0.1,   "green-metallic floral",               "positive"),
-        CharacterZone(0.5,   "cucumber, hyacinth",                  "positive"),
-        CharacterZone(1.5,   "sharp, chemical, metallic overload",  "negative"),
+        CharacterZone(0.1, "green-metallic floral", "positive"),
+        CharacterZone(0.5, "cucumber, hyacinth", "positive"),
+        CharacterZone(1.5, "sharp, chemical, metallic overload", "negative"),
     ],
     "Hydroxycitronellal": [
-        CharacterZone(0.2,   "dewy, fresh linen, transparent",      "positive"),
-        CharacterZone(0.8,   "sweet muguet, slightly waxy",         "positive"),
-        CharacterZone(2.0,   "soapy, detergent-like",               "neutral"),
-        CharacterZone(5.0,   "cloying, chemical laundry",           "negative"),
+        CharacterZone(0.2, "dewy, fresh linen, transparent", "positive"),
+        CharacterZone(0.8, "sweet muguet, slightly waxy", "positive"),
+        CharacterZone(2.0, "soapy, detergent-like", "neutral"),
+        CharacterZone(5.0, "cloying, chemical laundry", "negative"),
     ],
     # ── Musks ──
     "Galaxolide": [
-        CharacterZone(2.0,   "clean musk, subtle skin",             "positive"),
-        CharacterZone(5.0,   "sweet musk, laundry clean",           "positive"),
-        CharacterZone(15.0,  "powdery-sweet, slightly synthetic",   "neutral"),
-        CharacterZone(30.0,  "overwhelming, headache-inducing",     "negative"),
+        CharacterZone(2.0, "clean musk, subtle skin", "positive"),
+        CharacterZone(5.0, "sweet musk, laundry clean", "positive"),
+        CharacterZone(15.0, "powdery-sweet, slightly synthetic", "neutral"),
+        CharacterZone(30.0, "overwhelming, headache-inducing", "negative"),
     ],
     "Ethylene Brassylate": [
-        CharacterZone(3.0,   "subtle musk veil, skin-scent",         "positive"),
-        CharacterZone(8.0,   "powdery musk, gentle fixative",        "positive"),
-        CharacterZone(20.0,  "flat, monotone musk blanket",          "neutral"),
+        CharacterZone(3.0, "subtle musk veil, skin-scent", "positive"),
+        CharacterZone(8.0, "powdery musk, gentle fixative", "positive"),
+        CharacterZone(20.0, "flat, monotone musk blanket", "neutral"),
     ],
     "Musk Ketone": [
-        CharacterZone(0.5,   "powdery, sweet musk, cosmetic",       "positive"),
-        CharacterZone(2.0,   "classic musk, slightly powdery",      "positive"),
-        CharacterZone(5.0,   "heavy, nitro-musk character",         "neutral"),
+        CharacterZone(0.5, "powdery, sweet musk, cosmetic", "positive"),
+        CharacterZone(2.0, "classic musk, slightly powdery", "positive"),
+        CharacterZone(5.0, "heavy, nitro-musk character", "neutral"),
     ],
     # ── Florals ──
     "Hedione": [
-        CharacterZone(3.0,   "radiance amplifier, transparent lift", "positive"),
-        CharacterZone(10.0,  "jasmine-green, full body",            "positive"),
-        CharacterZone(30.0,  "dominant jasmine-hedione character",  "neutral"),
-        CharacterZone(50.0,  "overwhelming, loses nuance",          "negative"),
+        CharacterZone(3.0, "radiance amplifier, transparent lift", "positive"),
+        CharacterZone(10.0, "jasmine-green, full body", "positive"),
+        CharacterZone(30.0, "dominant jasmine-hedione character", "neutral"),
+        CharacterZone(50.0, "overwhelming, loses nuance", "negative"),
     ],
     "Phenethyl Alcohol": [
-        CharacterZone(1.0,   "rose-petal transparency",             "positive"),
-        CharacterZone(3.0,   "full rose, honey undertone",          "positive"),
-        CharacterZone(8.0,   "yeasty, bread-dough, fermented",      "negative"),
+        CharacterZone(1.0, "rose-petal transparency", "positive"),
+        CharacterZone(3.0, "full rose, honey undertone", "positive"),
+        CharacterZone(8.0, "yeasty, bread-dough, fermented", "negative"),
     ],
     # ── Woods ──
     "Iso E Super": [
-        CharacterZone(3.0,   "transparent woody veil, skin-scent",  "positive"),
-        CharacterZone(8.0,   "molecular cocoon, cedar-amber",       "positive"),
-        CharacterZone(20.0,  "dominant abstract-wood, monotone",    "neutral"),
-        CharacterZone(40.0,  "flat, loses all other materials",     "negative"),
+        CharacterZone(3.0, "transparent woody veil, skin-scent", "positive"),
+        CharacterZone(8.0, "molecular cocoon, cedar-amber", "positive"),
+        CharacterZone(20.0, "dominant abstract-wood, monotone", "neutral"),
+        CharacterZone(40.0, "flat, loses all other materials", "negative"),
     ],
     "Cashmeran": [
-        CharacterZone(0.5,   "woody-musky warmth, cashmere",        "positive"),
-        CharacterZone(2.0,   "dense wood-amber, musky",             "positive"),
-        CharacterZone(5.0,   "overwhelming, sweet-chemical",        "negative"),
+        CharacterZone(0.5, "woody-musky warmth, cashmere", "positive"),
+        CharacterZone(2.0, "dense wood-amber, musky", "positive"),
+        CharacterZone(5.0, "overwhelming, sweet-chemical", "negative"),
     ],
     # ── Balsamic / gourmand ──
     "Vanillin": [
-        CharacterZone(0.5,   "warm vanilla sweetness",              "positive"),
-        CharacterZone(2.0,   "rich vanilla, balsamic",              "positive"),
-        CharacterZone(5.0,   "cloying sweet, confectionery",        "neutral"),
-        CharacterZone(10.0,  "synthetic, harsh vanilla",            "negative"),
+        CharacterZone(0.5, "warm vanilla sweetness", "positive"),
+        CharacterZone(2.0, "rich vanilla, balsamic", "positive"),
+        CharacterZone(5.0, "cloying sweet, confectionery", "neutral"),
+        CharacterZone(10.0, "synthetic, harsh vanilla", "negative"),
     ],
     "Ethyl Vanillin": [
-        CharacterZone(0.3,   "intense vanilla, sweeter than vanillin", "positive"),
-        CharacterZone(1.0,   "rich vanilla-cream",                  "positive"),
-        CharacterZone(3.0,   "overpowering sweet, chemical",        "negative"),
+        CharacterZone(0.3, "intense vanilla, sweeter than vanillin", "positive"),
+        CharacterZone(1.0, "rich vanilla-cream", "positive"),
+        CharacterZone(3.0, "overpowering sweet, chemical", "negative"),
     ],
     "Coumarin": [
-        CharacterZone(0.5,   "tonka-hay transparency",              "positive"),
-        CharacterZone(2.0,   "rich coumarinic, tobacco warmth",     "positive"),
-        CharacterZone(4.0,   "heavy, slightly bitter",              "neutral"),
+        CharacterZone(0.5, "tonka-hay transparency", "positive"),
+        CharacterZone(2.0, "rich coumarinic, tobacco warmth", "positive"),
+        CharacterZone(4.0, "heavy, slightly bitter", "neutral"),
     ],
-    "Heliotropal": [
-                            ],
     # Heliotropal (piperonal): benzodioxole aldehyde, heliotrope-almond-vanilla.
     # At subliminal doses activates OR5A1/OR5A2 → sweet-powdery subliminal warmth.
     # At moderate doses → full heliotrope character. Overdose → cloying powdery-chemical.
     # Lower VP than Heliotropin (less volatile), deeper fixative quality.
     "Heliotropal": [
-        CharacterZone(0.5,   "subliminal sweet-almond warmth, powdery depth", "positive"),
-        CharacterZone(2.0,   "full heliotrope, cherry-almond, violet-powder", "positive"),
-        CharacterZone(5.0,   "dense heliotrope powder, starts to dominate",   "neutral"),
-        CharacterZone(10.0,  "cloying sweet-powder, chemical-aldehyde",       "negative"),
+        CharacterZone(0.5, "subliminal sweet-almond warmth, powdery depth", "positive"),
+        CharacterZone(2.0, "full heliotrope, cherry-almond, violet-powder", "positive"),
+        CharacterZone(5.0, "dense heliotrope powder, starts to dominate", "neutral"),
+        CharacterZone(10.0, "cloying sweet-powder, chemical-aldehyde", "negative"),
     ],
     # ── Terpene alcohols ──
     # Ethyl Linalool (3,7-dimethyl-1,6-octadien-3-ol ethyl ether):
     # Cleaner, sharper than linalool — more transparent, less sweet.
     # At moderate dose: crisp floral-citrus lift. Overdose: chemical-etherish.
     "Ethyl Linalool": [
-        CharacterZone(1.0,   "clean citrus-floral, sharper linalool",   "positive"),
-        CharacterZone(3.0,   "transparent terpene-ether, floral body",  "positive"),
-        CharacterZone(8.0,   "chemical-etherish, loses floral quality", "neutral"),
-        CharacterZone(15.0,  "harsh solvent-ether, flat terpenic",      "negative"),
+        CharacterZone(1.0, "clean citrus-floral, sharper linalool", "positive"),
+        CharacterZone(3.0, "transparent terpene-ether, floral body", "positive"),
+        CharacterZone(8.0, "chemical-etherish, loses floral quality", "neutral"),
+        CharacterZone(15.0, "harsh solvent-ether, flat terpenic", "negative"),
     ],
     # ── Green ──
     "Dynascone": [
-        CharacterZone(0.01,  "green galbanum freshness",            "positive"),
-        CharacterZone(0.05,  "intense green, stem-like",            "positive"),
-        CharacterZone(0.2,   "overwhelming green bomb, harsh",      "dangerous"),
+        CharacterZone(0.01, "green galbanum freshness", "positive"),
+        CharacterZone(0.05, "intense green, stem-like", "positive"),
+        CharacterZone(0.2, "overwhelming green bomb, harsh", "dangerous"),
     ],
     "cis-3-Hexenol": [
-        CharacterZone(0.1,   "fresh cut grass, natural green",      "positive"),
-        CharacterZone(0.5,   "crushed leaves, vegetal",             "positive"),
-        CharacterZone(1.5,   "harsh, acetaldehyde-like",            "negative"),
+        CharacterZone(0.1, "fresh cut grass, natural green", "positive"),
+        CharacterZone(0.5, "crushed leaves, vegetal", "positive"),
+        CharacterZone(1.5, "harsh, acetaldehyde-like", "negative"),
     ],
     # ── Fresh/aquatic terpene alcohols ──
     # Dihydromyrcenol is a hydrated myrcene — at low dose the hydroxyl
@@ -199,40 +197,40 @@ CHARACTER_SHIFT_DATA: dict[str, list[CharacterZone]] = {
     # hydrocarbon backbone dominates → petroleum/gasoline/paraffin character.
     # Classic "Cool Water gone bad" inversion.
     "Dihydromyrcenol": [
-        CharacterZone(1.0,   "clean citrus-muguet lift, lime peel", "positive"),
-        CharacterZone(4.0,   "fresh cologne-soapy, lily-of-valley", "positive"),
-        CharacterZone(10.0,  "waxy-terpenic, adaptation residual",  "neutral"),
-        CharacterZone(20.0,  "petroleum/gasoline hydrocarbon backbone exposed", "negative"),
-        CharacterZone(40.0,  "kerosene-paraffin, raw terpenic solvent", "dangerous"),
+        CharacterZone(1.0, "clean citrus-muguet lift, lime peel", "positive"),
+        CharacterZone(4.0, "fresh cologne-soapy, lily-of-valley", "positive"),
+        CharacterZone(10.0, "waxy-terpenic, adaptation residual", "neutral"),
+        CharacterZone(20.0, "petroleum/gasoline hydrocarbon backbone exposed", "negative"),
+        CharacterZone(40.0, "kerosene-paraffin, raw terpenic solvent", "dangerous"),
     ],
     # ── Smoke / leather ──
     "Birch Tar Rectified": [
-        CharacterZone(0.02,  "subtle campfire smoke",               "positive"),
-        CharacterZone(0.1,   "leather-smoke, Russian leather",      "positive"),
-        CharacterZone(0.3,   "overwhelming creosote, tarry",        "dangerous"),
+        CharacterZone(0.02, "subtle campfire smoke", "positive"),
+        CharacterZone(0.1, "leather-smoke, Russian leather", "positive"),
+        CharacterZone(0.3, "overwhelming creosote, tarry", "dangerous"),
     ],
     # ── Ozonic ──
     "Calone": [
-        CharacterZone(0.01,  "watermelon-marine transparency",      "positive"),
-        CharacterZone(0.05,  "marine-ozonic, sea breeze",           "positive"),
-        CharacterZone(0.2,   "synthetic, harsh melon",              "negative"),
+        CharacterZone(0.01, "watermelon-marine transparency", "positive"),
+        CharacterZone(0.05, "marine-ozonic, sea breeze", "positive"),
+        CharacterZone(0.2, "synthetic, harsh melon", "negative"),
     ],
     "Scentenal": [
-        CharacterZone(0.02,  "metallic green ozone, mineral",       "positive"),
-        CharacterZone(0.1,   "intense metal-green, unusual",        "positive"),
-        CharacterZone(0.3,   "aggressive, headache-inducing",       "negative"),
+        CharacterZone(0.02, "metallic green ozone, mineral", "positive"),
+        CharacterZone(0.1, "intense metal-green, unusual", "positive"),
+        CharacterZone(0.3, "aggressive, headache-inducing", "negative"),
     ],
     # ── Spice ──
     "Eugenol": [
-        CharacterZone(0.1,   "warm spice, clove nuance",           "positive"),
-        CharacterZone(0.5,   "clove-spice, dental",                "positive"),
-        CharacterZone(1.5,   "dental office, numbing, harsh",      "negative"),
+        CharacterZone(0.1, "warm spice, clove nuance", "positive"),
+        CharacterZone(0.5, "clove-spice, dental", "positive"),
+        CharacterZone(1.5, "dental office, numbing, harsh", "negative"),
     ],
     # ── Fruity ──
     "Paradisamide": [
-        CharacterZone(0.1,   "tropical-fruity modifier, guava",    "positive"),
-        CharacterZone(0.5,   "passion fruit, cassis, rhubarb",     "positive"),
-        CharacterZone(2.0,   "sulfurous-catty undertone",          "neutral"),
+        CharacterZone(0.1, "tropical-fruity modifier, guava", "positive"),
+        CharacterZone(0.5, "passion fruit, cassis, rhubarb", "positive"),
+        CharacterZone(2.0, "sulfurous-catty undertone", "neutral"),
     ],
 }
 
@@ -243,37 +241,37 @@ CHARACTER_SHIFT_DATA: dict[str, list[CharacterZone]] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 HILL_PARAMS: dict[str, dict[str, float]] = {
-    "Indole":              {"EC50": 0.08, "n": 2.5, "Rmax": 1.0},
-    "Guaiacol":            {"EC50": 0.05, "n": 3.0, "Rmax": 1.0},
-    "Isobutyl Quinoline":  {"EC50": 0.1,  "n": 2.0, "Rmax": 1.0},
-    "Aldehyde C10":        {"EC50": 0.2,  "n": 1.5, "Rmax": 1.0},
-    "Aldehyde C11":        {"EC50": 0.2,  "n": 1.5, "Rmax": 1.0},
-    "Cyclamen Aldehyde":   {"EC50": 0.3,  "n": 1.8, "Rmax": 1.0},
-    "Galaxolide":          {"EC50": 5.0,  "n": 1.2, "Rmax": 1.0},
-    "Iso E Super":         {"EC50": 5.0,  "n": 1.0, "Rmax": 1.0},
-    "Hedione":             {"EC50": 8.0,  "n": 1.0, "Rmax": 1.0},
-    "Vanillin":            {"EC50": 2.0,  "n": 1.5, "Rmax": 1.0},
-    "Coumarin":            {"EC50": 1.5,  "n": 1.3, "Rmax": 1.0},
-    "Dynascone":           {"EC50": 0.03, "n": 3.0, "Rmax": 1.0},
-    "Calone":              {"EC50": 0.03, "n": 3.5, "Rmax": 1.0},
-    "Scentenal":           {"EC50": 0.05, "n": 2.8, "Rmax": 1.0},
+    "Indole": {"EC50": 0.08, "n": 2.5, "Rmax": 1.0},
+    "Guaiacol": {"EC50": 0.05, "n": 3.0, "Rmax": 1.0},
+    "Isobutyl Quinoline": {"EC50": 0.1, "n": 2.0, "Rmax": 1.0},
+    "Aldehyde C10": {"EC50": 0.2, "n": 1.5, "Rmax": 1.0},
+    "Aldehyde C11": {"EC50": 0.2, "n": 1.5, "Rmax": 1.0},
+    "Cyclamen Aldehyde": {"EC50": 0.3, "n": 1.8, "Rmax": 1.0},
+    "Galaxolide": {"EC50": 5.0, "n": 1.2, "Rmax": 1.0},
+    "Iso E Super": {"EC50": 5.0, "n": 1.0, "Rmax": 1.0},
+    "Hedione": {"EC50": 8.0, "n": 1.0, "Rmax": 1.0},
+    "Vanillin": {"EC50": 2.0, "n": 1.5, "Rmax": 1.0},
+    "Coumarin": {"EC50": 1.5, "n": 1.3, "Rmax": 1.0},
+    "Dynascone": {"EC50": 0.03, "n": 3.0, "Rmax": 1.0},
+    "Calone": {"EC50": 0.03, "n": 3.5, "Rmax": 1.0},
+    "Scentenal": {"EC50": 0.05, "n": 2.8, "Rmax": 1.0},
     "Birch Tar Rectified": {"EC50": 0.05, "n": 3.0, "Rmax": 1.0},
-    "cis-3-Hexenol":       {"EC50": 0.3,  "n": 1.5, "Rmax": 1.0},
-    "Eugenol":             {"EC50": 0.3,  "n": 1.8, "Rmax": 1.0},
-    "Phenethyl Alcohol":   {"EC50": 2.0,  "n": 1.2, "Rmax": 1.0},
-    "Cashmeran":           {"EC50": 1.5,  "n": 1.5, "Rmax": 1.0},
-    "Ethyl Vanillin":      {"EC50": 0.8,  "n": 1.8, "Rmax": 1.0},
-    "Paradisamide":        {"EC50": 0.3,  "n": 1.8, "Rmax": 1.0},
-    "Hydroxycitronellal":  {"EC50": 0.5,  "n": 1.5, "Rmax": 1.0},
+    "cis-3-Hexenol": {"EC50": 0.3, "n": 1.5, "Rmax": 1.0},
+    "Eugenol": {"EC50": 0.3, "n": 1.8, "Rmax": 1.0},
+    "Phenethyl Alcohol": {"EC50": 2.0, "n": 1.2, "Rmax": 1.0},
+    "Cashmeran": {"EC50": 1.5, "n": 1.5, "Rmax": 1.0},
+    "Ethyl Vanillin": {"EC50": 0.8, "n": 1.8, "Rmax": 1.0},
+    "Paradisamide": {"EC50": 0.3, "n": 1.8, "Rmax": 1.0},
+    "Hydroxycitronellal": {"EC50": 0.5, "n": 1.5, "Rmax": 1.0},
     # Dihydromyrcenol: gradual dose response, relatively high ODT in
     # concentrate terms. EC50 ~3% conc, gentle slope (n=1.2) — why it's
     # used at 5-15% as a workhorse before the hydrocarbon inversion hits.
-    "Dihydromyrcenol":     {"EC50": 3.0,  "n": 1.2, "Rmax": 1.0},
+    "Dihydromyrcenol": {"EC50": 3.0, "n": 1.2, "Rmax": 1.0},
     # Heliotropal: moderate sensitivity, gentle slope — sweet materials
     # need higher concentrations to trigger character shift
-    "Heliotropal":          {"EC50": 1.5,  "n": 1.5, "Rmax": 1.0},
+    "Heliotropal": {"EC50": 1.5, "n": 1.5, "Rmax": 1.0},
     # Ethyl Linalool: similar profile to linalool but slightly higher threshold
-    "Ethyl Linalool":       {"EC50": 2.0,  "n": 1.3, "Rmax": 1.0},
+    "Ethyl Linalool": {"EC50": 2.0, "n": 1.3, "Rmax": 1.0},
 }
 
 
@@ -286,7 +284,8 @@ for _hp_name, _hp_vals in HILL_PARAMS.items():
 del _hp_name, _hp_vals
 
 # Pre-build normalized indexes for cross-module lookups
-from engine.name_utils import normalize_name as _nn
+from engine.name_utils import normalize_name as _nn  # noqa: E402  # sys.path
+
 _HILL_INDEX: dict[str, dict[str, float]] = {_nn(k): v for k, v in HILL_PARAMS.items()}
 _CHAR_SHIFT_INDEX: dict[str, list[CharacterZone]] = {
     _nn(k): v for k, v in CHARACTER_SHIFT_DATA.items()
@@ -294,25 +293,27 @@ _CHAR_SHIFT_INDEX: dict[str, list[CharacterZone]] = {
 del _nn
 
 
-def _hill_response(conc_pct: float, EC50: float, n: float, Rmax: float = 1.0) -> float:
+def _hill_response(conc_pct: float, ec50: float, n: float, rmax: float = 1.0) -> float:
     """Hill equation sigmoid response."""
     if conc_pct <= 0:
         return 0.0
-    return Rmax * (conc_pct ** n) / (EC50 ** n + conc_pct ** n)
+    return rmax * (conc_pct**n) / (ec50**n + conc_pct**n)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Scoring
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 @dataclass
 class DoseResponseReport:
     """Dose-response analysis with character shift detection."""
-    score: float                      # 0-100 dosing quality
-    overdosed: list[dict[str, Any]]   # materials in negative zone
-    optimal: list[dict[str, Any]]     # materials in positive zone
-    marginal: list[dict[str, Any]]    # materials in neutral zone
-    character_map: dict[str, str]     # material → current character description
+
+    score: float  # 0-100 dosing quality
+    overdosed: list[dict[str, Any]]  # materials in negative zone
+    optimal: list[dict[str, Any]]  # materials in positive zone
+    marginal: list[dict[str, Any]]  # materials in neutral zone
+    character_map: dict[str, str]  # material → current character description
     hill_responses: dict[str, float]  # material → sigmoid response level (0-1)
     diagnostics: list[str]
 
@@ -350,6 +351,7 @@ def score_dose_response(
 
         # Character shift analysis — use normalized index
         from engine.name_utils import normalize_name
+
         norm = normalize_name(name)
         zones = _CHAR_SHIFT_INDEX.get(norm)
         if zones:
@@ -377,16 +379,16 @@ def score_dose_response(
 
             if current_quality == "negative":
                 overdosed.append(info)
-                penalties += 25      # strong penalty — negative zone = character inversion
+                penalties += 25  # strong penalty — negative zone = character inversion
             elif current_quality == "dangerous":
                 overdosed.append(info)
-                penalties += 40      # catastrophic — fecal, kerosene, chemical burn
+                penalties += 40  # catastrophic — fecal, kerosene, chemical burn
             elif current_quality == "positive":
                 optimal.append(info)
                 bonuses += 5
             else:  # neutral
                 marginal.append(info)
-                penalties += 3       # mild penalty — neutral zones waste material
+                penalties += 3  # mild penalty — neutral zones waste material
 
         # Hill equation response level — use normalized index
         hill = _HILL_INDEX.get(norm)
@@ -397,8 +399,12 @@ def score_dose_response(
     # Scoring
     if material_count == 0:
         return DoseResponseReport(
-            score=75.0, overdosed=[], optimal=[], marginal=[],
-            character_map={}, hill_responses={},
+            score=75.0,
+            overdosed=[],
+            optimal=[],
+            marginal=[],
+            character_map={},
+            hill_responses={},
             diagnostics=["No dose-response data for formula materials"],
         )
 
@@ -412,8 +418,7 @@ def score_dose_response(
 
     # Diagnostics
     if overdosed:
-        names = [f"{o['material']} ({o['conc_pct']:.3f}%: {o['character']})"
-                 for o in overdosed]
+        names = [f"{o['material']} ({o['conc_pct']:.3f}%: {o['character']})" for o in overdosed]
         diagnostics.append(f"⚠ OVERDOSED: {'; '.join(names)}")
     if optimal:
         diagnostics.append(f"✓ {len(optimal)} material(s) in optimal character zone")

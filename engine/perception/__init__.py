@@ -1,6 +1,6 @@
 """Perception layer: OAV, mixture, glomerular bulb output."""
-from .oav import oav_profile, perceived_intensity_stevens, mixture_shifted_odt
-from .bulb import glomerular_vector, novelty_score, configural_blur
+from .bulb import configural_blur, glomerular_vector, novelty_score
+from .oav import mixture_shifted_odt, oav_profile, perceived_intensity_stevens
 
 __all__ = [
     "oav_profile",

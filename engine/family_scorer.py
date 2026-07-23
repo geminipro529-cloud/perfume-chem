@@ -20,12 +20,10 @@ Usage:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import ClassVar
 
 from engine.optimizer.models import FormulaVector, ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 from engine.synergy_graph import SynergyGraph
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FAMILY WEIGHT PRESETS

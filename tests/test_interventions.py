@@ -1,13 +1,13 @@
+from engine.intervention_hypotheses import (
+    InterventionHypothesisRequest,
+    generate_intervention_hypotheses,
+)
 from engine.interventions import (
     BriefConstraints,
     CandidateAddition,
     InterventionRequest,
     InventoryStock,
     rank_interventions,
-)
-from engine.intervention_hypotheses import (
-    InterventionHypothesisRequest,
-    generate_intervention_hypotheses,
 )
 from engine.safety_assessment import SafetyAssessmentStatus
 

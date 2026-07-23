@@ -128,3 +128,314 @@ Top with ethanol 96% to 30.00 mL.
 ---
 
 *The Creative Formulas commercial reconstruction uses 78 ingredients at 15-20%. This formula uses 35 at 15.8%. The Chanel allergen label confirms every material choice: limonene (mandarin + bergamot), linalool (linalool + DHMOL), coumarin (Tonkarome + Coumarin), alpha-isomethyl ionone (Methyl Ionone Pure), citral (mandarin + bergamot), geraniol + citronellol (geranium + PEA), cinnamal (cinnamyl alcohol), farnesol (trace florals), hydroxycitronellal (muguet).*
+
+<!-- PIPELINE_ANALYSIS_START -->
+## Pipeline Analysis
+
+<!-- pipeline-analysis-manifest: {"analysis_sha256":"bc84e12653e8901437fa3f6b79587e951ff78c7fb63045133264c365da268fd5","artifact_sha256":"0bc5904b38de6cc761cb6de0488492bf0bf959a79e8cad2153dcabb689ea23eb","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["FAIL"]},"config_sha256":"59455d44382a66f65a960a79d64dbf199de262dd89e81e01454d9384a7b620f9","formula_definitions":[{"name":"Allure Extrême — 30 mL EdP","number":1,"sha256":"e23a7ddbfb1d4dcacabecc84839d0d26f6b6e84912a2bd91fd00011097eaea91"}],"generated_at_utc":"2026-07-21T12:45:48.217753+00:00","inventory_sha256":"0c4218c4533d84f371320c8704e80c9ef87ba95238a1ff501c920fc973d35769","legacy_formula_hashes_v1":[{"name":"Allure Extrême — 30 mL EdP","number":1,"sha256":"5ed9de27356eef0c2141d7df1456d4f162a4267f6e1aebf7e1acee4df436ca05"}],"overall":"FAIL","pipeline_source_sha256":"86133288669356337a72d4d3b54429e83f9d9d21fba2b76cb0f7d0dabd1d1f10","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"7fe5120c1feade976c9abf4080dcdb2337b8364b86e1533874d48f8c2ecd6a87","semantic_config":{"formula_family_archetypes":[""],"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"generic","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":6000,"expected_retail_price_thb":1500,"family_archetype":"","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
+
+```text
+# Run Evidence Contract
+
+Formula definition SHA-256: #1 e23a7ddbfb1d4dcacabecc84839d0d26f6b6e84912a2bd91fd00011097eaea91
+Config SHA-256: 59455d44382a66f65a960a79d64dbf199de262dd89e81e01454d9384a7b620f9
+Inventory SHA-256: 0c4218c4533d84f371320c8704e80c9ef87ba95238a1ff501c920fc973d35769
+Scientific inputs SHA-256: 7fe5120c1feade976c9abf4080dcdb2337b8364b86e1533874d48f8c2ecd6a87
+Pipeline source SHA-256: 86133288669356337a72d4d3b54429e83f9d9d21fba2b76cb0f7d0dabd1d1f10
+Exact concentrate ppm w/w: UNAVAILABLE
+Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
+Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
+Inventory stock authority: FAIL
+Quantitative gate authority: WARN
+Named-reference authority: PASS
+Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
+# Allure Extrême — 30 mL EdP
+
+## Gate Summary
+
+**104 PASS** / **31 WARN** / **8 FAIL**
+
+  FAIL pipeline_preflight: 12 checks; 6 warnings
+  FAIL inventory_stock_contract: 6 material stock contract failure(s): Cinnamyl Alcohol, Hydroxycitronellal, Musk Ketone, Phenyl Ethyl Alcohol (PEA), Romandolide, Vetiver EO India
+  FAIL natural_composite_coverage: Natural mixtures lack required composite GC-O decomposition: Pine EO, Vetiver EO India
+  FAIL exact_subtotal: 4730.0 uL parsed; expected 6000.0 uL
+  FAIL material_spine_coverage: Vetiver EO India
+  FAIL physics_data_coverage: {"Vetiver EO India": ["mw", "logp", "vp", "odt_air_ppm"]}
+  FAIL odt_coverage: Vetiver EO India
+  FAIL confidence_minimum: combined confidence 2.1 below 25.0 after preflight science penalty 25.9
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 27.1% active mass across 7 materials
+  WARN osmotheque_archivability: Archivability: 1 unknown material(s)
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Beta Ionone=34989, Dihydromyrcenol=18676, Red Mandarin EO=27579; validate by controlled dilution/omission trials
+  WARN odt_sanity: 1 materials with suspect ODT values: Vetiver EO India=None
+  WARN vp_cross_source: 1 materials with VP=None or 0: Vetiver EO India; 2 unresolved cross-source VP conflicts
+  WARN odt_completeness: 1 material(s) lack ODT data; 0% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 6 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, coumarin, linalool, vanillin
+  WARN safety_phototoxic: Bergamot FCF Sicilian: 2.09% > IFRA max 2.0% (bergaptene 0.5 ppm); Bergamot FCF Sicilian: 2.09% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Ionone total 6.8% > 5% cap (OR5A1 saturation, F6)
+  WARN oav_physics_gamma: 8 materials with gamma ~1.0: Allyl Amyl Glycolate: 1.000 (silent ideal-solution assumption); Bergamot FCF Sicilian: 1.000 (silent ideal-solution assumption); Beta Ionone: 1.000 (silent ideal-solution assumption); Dihydromyrcenol: 1.000 (silent ideal-solution assumption); Hedione HC: 1.005 (silent ideal-solution assumption)
+  WARN skin_degradation: Patchouli EO: patchoulol -> norpatchoulenol on skin (texture shift over hours). Monitor patchouli character shift; Tonkarome: coumarin glycosides -> coumarin release (IFRA restricted). Check IFRA coumarin limits
+  WARN verify_protocol_aggregate: Verification protocol active — 1/35 materials missing ODT data
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN perfume_knowledge: No explicit family brief/archetype; family-specific pyramid and OAV targets were not evaluated.
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN family_hedonic: Family 'generic' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 1 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, anti_erogenic
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 71%) — collapse risk
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: beta ionone=34989 (high model signal); dihydromyrcenol=18677 (high model signal)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: too many materials for a readable formula
+
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 6 material stock contract failure(s): Cinnamyl Alcohol, Hydroxycitronellal, Musk Ketone, Phenyl Ethyl Alcohol (PEA), Romandolide, Vetiver EO India |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 2.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+
+## Headspace OAV — Opening (0s)
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Beta Ionone | 100.0% | 80.00 | 80.00 | 192.300 | 2.068 | 1.200000 | 1.000 | 0.244925 | 0.000007000 | 34989.3 | heart |
+| Red Mandarin EO | 100.0% | 280.00 | 280.00 | 136.200 | 10.220 | 1.800000 | 3.000 | 5.446478 | 0.005000000 | 27579.8 | top |
+| Dihydromyrcenol | 100.0% | 350.00 | 350.00 | 156.300 | 11.132 | 17.000000 | 1.000 | 18.676653 | 0.001000000 | 18676.7 | top |
+| Juniper Berry EO | 100.0% | 60.00 | 60.00 | 136.200 | 2.190 | 65.000000 | 2.500 | 35.121138 | 0.015000000 | 9097.0 | top |
+| Linalool | 100.0% | 120.00 | 120.00 | 154.300 | 3.866 | 21.300000 | 1.124 | 9.131883 | 0.001500000 | 6087.9 | top |
+| Bergamot FCF Sicilian | 100.0% | 80.00 | 80.00 | 170.000 | 2.339 | 2.500000 | 1.000 | 0.577194 | 0.006000000 | 5667.8 | heart |
+| Iso E Super | 100.0% | 300.00 | 300.00 | 234.400 | 6.362 | 0.231290 | 1.092 | 0.158636 | 0.000050000 | 3172.7 | heart |
+| Frankincense EO | 100.0% | 30.00 | 30.00 | 210.000 | 0.710 | 0.500000 | 2.500 | 0.087610 | 0.008000000 | 2829.5 | heart |
+| Clary Sage EO | 100.0% | 60.00 | 60.00 | 196.300 | 1.519 | 5.000000 | 2.000 | 1.499588 | 0.002000000 | 2531.3 | top |
+| Hedione HC | 100.0% | 500.00 | 500.00 | 226.300 | 10.984 | 0.094660 | 1.005 | 0.103105 | 0.000050000 | 2062.1 | heart |
+| Black Pepper EO | 100.0% | 100.00 | 100.00 | 204.350 | 2.433 | 0.300000 | 2.000 | 0.144051 | 0.002000000 | 1454.5 | top |
+| Ebanol | 100.0% | 80.00 | 80.00 | 220.400 | 1.804 | 0.890000 | 1.500 | 0.237739 | 0.000210000 | 1132.1 | heart |
+| Cardamom EO | 100.0% | 30.00 | 30.00 | 170.250 | 0.815 | 15.000000 | 2.000 | 2.412012 | 0.003000000 | 823.5 | top |
+| Geranium EO | 100.0% | 50.00 | 50.00 | 157.000 | 1.583 | 1.500000 | 1.800 | 0.421867 | 0.000300000 | 427.6 | heart |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 180.00 | 180.00 | 206.330 | 4.337 | 0.400000 | 1.300 | 0.222564 | 0.000800000 | 278.2 | heart |
+| Cedarwood EO | 100.0% | 180.00 | 180.00 | 204.400 | 4.378 | 0.250000 | 2.000 | 0.216024 | 0.015000000 | 97.1 | base |
+| Coumarin | 20.0% | 200.00 | 40.00 | 146.200 | 1.360 | 0.190000 | 1.541 | 0.039299 | 0.000700000 | 56.1 | base |
+| Polysantol | 100.0% | 50.00 | 50.00 | 222.370 | 1.051 | 0.003000 | 1.500 | 0.000467 | 0.000010000 | 46.7 | base |
+| Ambrofix | 30.0% | 120.00 | 36.00 | 236.400 | 0.757 | 0.066000 | 1.033 | 0.005096 | 0.000300000 | 17.0 | base |
+| Helional | 100.0% | 50.00 | 50.00 | 192.200 | 1.293 | 0.010000 | 1.200 | 0.001532 | 0.000100000 | 15.3 | heart |
+| Tonkarome | 20.0% | 350.00 | 70.00 | 160.000 | 2.175 | 0.050000 | 0.600 | 0.006439 | 0.000500000 | 12.9 | base |
+| Romandolide | 100.0% | 220.00 | 220.00 | 270.360 | 4.045 | 0.100000 | 1.500 | 0.059884 | 0.004900000 | 12.2 | base |
+| Patchouli EO | 100.0% | 25.00 | 25.00 | 222.400 | 0.559 | 0.001000 | 1.013 | 0.000056 | 0.003000000 | 5.2 | base |
+| Ethylene Brassylate | 100.0% | 300.00 | 300.00 | 270.400 | 5.515 | 0.008000 | 0.800 | 0.003484 | 0.000970000 | 3.6 | base |
+| Vanillin | 10.0% | 150.00 | 15.00 | 152.200 | 0.490 | 0.200000 | 2.328 | 0.022509 | 0.020000000 | 1.1 | base |
+| Allyl Amyl Glycolate | 10.0% | 30.00 | 3.00 | 158.200 | 0.094 | 0.200000 | 1.000 | 0.001861 | 0.002000000 | 0.9 | top |
+| Cinnamyl Alcohol | 50.0% | 50.00 | 25.00 | 134.180 | 0.926 | 0.030000 | 0.800 | 0.002194 | 0.003000000 | 0.7 | heart |
+| Ambrettolide | 10.0% | 100.00 | 10.00 | 252.400 | 0.197 | 0.003000 | 1.500 | 0.000087 | 0.000136000 | 0.6 | base |
+| Phenyl Ethyl Alcohol (PEA) | 100.0% | 120.00 | 120.00 | 122.170 | 4.976 | 0.116000 | 1.000 | 0.056963 | 0.200000000 | 0.3 | heart |
+| Hydroxycitronellal | 100.0% | 100.00 | 100.00 | 172.300 | 2.885 | 0.005000 | 1.000 | 0.001424 | 0.015000000 | 0.1 | heart |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 4.685 | 0.029860 | 1.300 | 0.017950 | 0.810000000 | 0.0 | base |
+| Exaltolide | 10.0% | 70.00 | 7.00 | 240.400 | 0.145 | 0.000100 | 1.500 | 0.000002 | 0.003200000 | 0.0 | base |
+| Musk Ketone | 10.0% | 40.00 | 4.00 | 294.300 | 0.068 | 0.000040 | 0.500 | 0.000000 | 0.002000000 | 0.0 | base |
+| Pine EO | 100.0% | 15.00 | 15.00 | 136.200 | 0.547 | 250.000000 | 2.500 | 33.770325 | 0.012000000 | UNKNOWN | top |
+| Vetiver EO India | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.491 | UNKNOWN | 1.000 | 0.000000 | UNKNOWN | UNKNOWN | heart |
+
+**Materials:** 35 total (9 top, 13 heart, 13 base)
+**Total vapor:** 108.69 ppm
+
+### Note Distribution
+
+**TOP:** 9 mats, 26.6% active, 56.6% OAV
+  - Red Mandarin EO              OAV= 27579.8 (massive) VP=1.800Pa
+  - Dihydromyrcenol              OAV= 18676.7 (massive) VP=17.000Pa
+  - Juniper Berry EO             OAV=  9097.0 (very strong) VP=65.000Pa
+  - Linalool                     OAV=  6087.9 (very strong) VP=21.300Pa
+  - Clary Sage EO                OAV=  2531.3 (very strong) VP=5.000Pa
+  - Black Pepper EO              OAV=  1454.5 (very strong) VP=0.300Pa
+  ... and 3 more
+**HEART:** 13 mats, 43.2% active, 43.2% OAV
+  - Beta Ionone                  OAV= 34989.3 (massive) VP=1.200Pa
+  - Bergamot FCF Sicilian        OAV=  5667.8 (very strong) VP=2.500Pa
+  - Iso E Super                  OAV=  3172.7 (very strong) VP=0.231Pa
+  - Frankincense EO              OAV=  2829.5 (very strong) VP=0.500Pa
+  - Hedione HC                   OAV=  2062.1 (very strong) VP=0.095Pa
+  - Ebanol                       OAV=  1132.1 (very strong) VP=0.890Pa
+  ... and 7 more
+**BASE:** 13 mats, 30.2% active, 0.2% OAV
+  - Cedarwood EO                 OAV=    97.1 (moderate-strong) VP=0.250Pa
+  - Coumarin                     OAV=    56.1 (moderate-strong) VP=0.190Pa
+  - Polysantol                   OAV=    46.7 (moderate) VP=0.003Pa
+  - Ambrofix                     OAV=    17.0 (moderate) VP=0.066Pa
+  - Tonkarome                    OAV=    12.9 (moderate) VP=0.050Pa
+  - Romandolide                  OAV=    12.2 (moderate) VP=0.100Pa
+  ... and 7 more
+
+### Sub-threshold Materials (OAV < 1)
+8/35 materials below perceptible threshold
+  - Allyl Amyl Glycolate: OAV=0.93 VP=0.200Pa act=3uL role=character [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+  - Ambrettolide: OAV=0.64 VP=0.003Pa act=10uL role=character [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+  - Benzyl Benzoate: OAV=0.02 VP=0.030Pa act=200uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+  - Cinnamyl Alcohol: OAV=0.73 VP=0.030Pa act=25uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Exaltolide: OAV=0.00 VP=0.000Pa act=7uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+  - Hydroxycitronellal: OAV=0.09 VP=0.005Pa act=100uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Musk Ketone: OAV=0.00 VP=0.000Pa act=4uL role=fixative [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+  - Phenyl Ethyl Alcohol (PEA): OAV=0.28 VP=0.116Pa act=120uL role=character [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+### Unknown OAV (not sub-threshold)
+  - Pine EO: OAV=UNKNOWN model=unknown:composite_decomposition_missing
+  - Vetiver EO India: OAV=UNKNOWN model=unknown:composite_decomposition_missing
+### High-OAV Flags (>5000)
+  - Bergamot FCF Sicilian OAV=5668 dominates headspace — may mask subtler notes
+  - Beta Ionone OAV=34989 dominates headspace — may mask subtler notes
+  - Dihydromyrcenol OAV=18677 dominates headspace — may mask subtler notes
+  - Juniper Berry EO OAV=9097 dominates headspace — may mask subtler notes
+  - Linalool OAV=6088 dominates headspace — may mask subtler notes
+  - Red Mandarin EO OAV=27580 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+             iris  29.9% ==============  (1 mats)
+           citrus  28.4% ==============  (2 mats)
+            woody  19.7% =========  (5 mats)
+         aromatic  15.1% =======  (4 mats)
+                ?   2.4% =  (2 mats)
+           floral   2.4% =  (3 mats)
+            spice   1.9% =  (2 mats)
+         gourmand   0.1% =  (4 mats)
+       sandalwood   0.0% =  (1 mats)
+            amber   0.0% =  (1 mats)
+             musk   0.0% =  (5 mats)
+          aquatic   0.0% =  (1 mats)
+            green   0.0% =  (1 mats)
+             rose   0.0% =  (1 mats)
+           muguet   0.0% =  (1 mats)
+         fixative   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 26.6/43.2/30.2 | 108.69ppm |   4730 | Beta Ionone(34989), Red Mandarin(27580), Dihydromyrce(18677)
+| top          |    300s | 26.3/43.4/30.3 |  96.78ppm |   4715 | Beta Ionone(35153), Red Mandarin(27647), Dihydromyrce(18621)
+| heart        |   1800s | 25.2/44.0/30.8 |  65.77ppm |   4657 | Beta Ionone(35762), Red Mandarin(27810), Dihydromyrce(18234)
+| late_heart   |   7200s | 22.8/45.4/31.8 |  40.50ppm |   4527 | Beta Ionone(37027), Red Mandarin(27647), Dihydromyrce(16453)
+| drydown      |  14400s | 20.4/46.7/32.9 |  31.59ppm |   4407 | Beta Ionone(38113), Red Mandarin(26957), Dihydromyrce(14099)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:26.6% H:43.2% B:30.2%  Vapor:108.69ppm
+  Leaders: Beta Ionone OAV 34989 | Red Mandarin EO OAV 27580 | Dihydromyrcenol OAV 18677 | Juniper Berry EO OAV 9097 | Linalool OAV 6088
+
+**TOP** (300.0s) — Evap:0%
+  T:26.3% H:43.4% B:30.3%  Vapor:96.78ppm
+  Leaders: Beta Ionone OAV 35153 | Red Mandarin EO OAV 27647 | Dihydromyrcenol OAV 18621 | Juniper Berry EO OAV 8411 | Linalool OAV 6049
+
+**HEART** (1800.0s) — Evap:2%
+  T:25.2% H:44.0% B:30.8%  Vapor:65.77ppm
+  Leaders: Beta Ionone OAV 35762 | Red Mandarin EO OAV 27810 | Dihydromyrcenol OAV 18234 | Linalool OAV 5823 | Bergamot FCF Sicilian OAV 5771
+
+**LATE_HEART** (7200.0s) — Evap:4%
+  T:22.8% H:45.4% B:31.8%  Vapor:40.50ppm
+  Leaders: Beta Ionone OAV 37027 | Red Mandarin EO OAV 27647 | Dihydromyrcenol OAV 16453 | Bergamot FCF Sicilian OAV 5908 | Linalool OAV 4943
+
+**DRYDOWN** (14400.0s) — Evap:7%
+  T:20.4% H:46.7% B:32.9%  Vapor:31.59ppm
+  Leaders: Beta Ionone OAV 38113 | Red Mandarin EO OAV 26957 | Dihydromyrcenol OAV 14099 | Bergamot FCF Sicilian OAV 5990 | Linalool OAV 3903
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Red Mandarin EO(massive) + Dihydromyrcenol(massive) + Juniper Berry EO(very strong)
+  Heart: Beta Ionone(massive) + Bergamot FCF Sicilian(very strong)
+  Base: Cedarwood EO(moderate-strong) + Coumarin(moderate-strong) + Polysantol(moderate) + Ambrofix(moderate) + Tonkarome(moderate)
+
+### 2. Opening (0-5min)
+  Red Mandarin EO leads the reported top at OAV 27580 (massive).
+  - Red Mandarin EO OAV=27580 VP=1.8Pa (citrus)
+  - Dihydromyrcenol OAV=18677 VP=17.0Pa (woody)
+  - Juniper Berry EO OAV=9097 VP=65.0Pa (aromatic)
+  - Linalool OAV=6088 VP=21.3Pa (aromatic)
+  Total vapor: 108.7 ppm
+
+### 3. Heart (30min-2hr)
+  Beta Ionone OAV=35762 (massive)
+  Red Mandarin EO OAV=27810 (massive)
+  Dihydromyrcenol OAV=18234 (massive)
+  Linalool OAV=5823 (very strong)
+  T:25.2% H:44.0% B:30.8%
+  Vapor: 65.8 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 33%
+  - Beta Ionone OAV=38113
+  - Red Mandarin EO OAV=26957
+  - Dihydromyrcenol OAV=14099
+  - Bergamot FCF Sicilian OAV=5990
+  - Linalool OAV=3903
+  - Iso E Super OAV=3526
+  Vapor: 31.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Beta Ionone(34989) + Red Mandarin EO(27580) + Dihydromyrcenol(18677) + Juniper Berry EO(9097)
+  OAV by family: iris30% citrus28% woody20% aromatic15%
+
+### 6. Longevity
+  Evaporation: 7% over 4h
+  Vapor: 108.7 > 31.6 ppm
+  Base @ drydown: 33%
+  Heuristic, unvalidated skin-life proxy: 9h moderate + 4h skin scent; sensory calibration required
+
+### 7. Balance
+  Pyramid: T:26.6% H:43.2% B:30.2%
+  OAV range: 0.00 to 34989 (sigma-log=2.18)
+  Wide OAV contrast: Beta Ionone leads at OAV 34989; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 8
+
+### 8. Flags
+  SUB: Allyl Amyl Glycolate OAV=0.93 role=character class=FUNCTIONAL_UNDERPERFORMANCE
+  SUB: Cinnamyl Alcohol OAV=0.73 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Ambrettolide OAV=0.64 role=character class=FUNCTIONAL_UNDERPERFORMANCE
+  SUB: Phenyl Ethyl Alcohol (PEA) OAV=0.28 role=character class=FUNCTIONAL_UNDERPERFORMANCE
+  SUB: Hydroxycitronellal OAV=0.09 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.02 role=fixative class=STRUCTURAL_OR_FIXATIVE
+  SUB: Exaltolide OAV=0.00 role=fixative class=STRUCTURAL_OR_FIXATIVE
+  SUB: Musk Ketone OAV=0.00 role=fixative class=FUNCTIONAL_UNDERPERFORMANCE
+  UNKNOWN: Pine EO OAV unavailable (unknown:composite_decomposition_missing)
+  UNKNOWN: Vetiver EO India OAV unavailable (unknown:composite_decomposition_missing)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 109 ppm  |  **Active:** 12.8%  |  **Perceptible:** 25/35  |  **Unknown:** 2
+
+### OAV Tiers
+  **massive** (12): Bergamot FCF Sicilian(5668), Beta Ionone(34989), Black Pepper EO(1454), Clary Sage EO(2531), Dihydromyrcenol(18677), Ebanol(1132), Frankincense EO(2829), Hedione HC(2062), Iso E Super(3173), Juniper Berry EO(9097), Linalool(6088), Red Mandarin EO(27580)  ! fatigue risk, overload risk
+  **v.strong** (3): Alpha Isomethyl Ionone (Methyl Ionone Pure)(278), Cardamom EO(824), Geranium EO(428)
+  **strong** (2): Cedarwood EO(97), Coumarin(56)
+  **moderate** (5): Ambrofix(17), Helional(15), Polysantol(47), Romandolide(12), Tonkarome(13)
+  **perceptible** (1): Patchouli EO(5)
+  **threshold** (2): Ethylene Brassylate(4), Vanillin(1)
+  **sub** (8): Allyl Amyl Glycolate(1), Ambrettolide(1), Benzyl Benzoate(0), Cinnamyl Alcohol(1), Exaltolide(0), Hydroxycitronellal(0), Musk Ketone(0), Phenyl Ethyl Alcohol (PEA)(0)
+  **unknown** (2): Pine EO, Vetiver EO India
+
+### Block Balance
+  **Citrus**    27580 (35%)
+  **Floral**    50576 (65%)
+  **Base**        253 (0%)
+  **Ratio:** 200:1 between strongest/weakest block
+
+### Issues
+  ! 8 sub-threshold material(s): Allyl Amyl Glycolate, Ambrettolide, Benzyl Benzoate, Cinnamyl Alcohol, Exaltolide, Hydroxycitronellal, Musk Ketone, Phenyl Ethyl Alcohol (PEA)
+  ! 2 material(s) have unknown OAV: Pine EO, Vetiver EO India
+  ! 12 massive-OAV materials — sensory overload likely
+```
+<!-- PIPELINE_ANALYSIS_END -->

@@ -36,8 +36,8 @@ Sources:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
 
 from engine.name_utils import normalize_name
 from engine.thermo.antoine import (

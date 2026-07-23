@@ -22,7 +22,6 @@ if str(PROJECT_ROOT) not in sys.path:
 from engine.calibration import ScoreCalibrationPipeline
 from engine.confidence import ConfidenceScorer
 
-
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "verification_runs" / "outcome_intake"
 DEFAULT_LOG_FILE = PROJECT_ROOT / "verification_runs" / "outcome_log.jsonl"
 

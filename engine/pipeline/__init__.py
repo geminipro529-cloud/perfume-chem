@@ -2,7 +2,6 @@
 
 from .formula_state import FormulaState, MaterialState, build_formula_state
 from .gates import GateReport, GateResult, ReleaseGateConfig, gate_formula
-from .oav_intelligence import OAVIntelligenceResult, analyze_oav_intelligence
 from .oav_authority import (
     OAVAuthorityRequest,
     OAVAuthorityResult,
@@ -10,6 +9,7 @@ from .oav_authority import (
     OAVTimeWindowSummary,
     analyze_oav_authority,
 )
+from .oav_intelligence import OAVIntelligenceResult, analyze_oav_intelligence
 from .robustness import RobustnessReport, audit_formula_robustness
 from .simulator import SimulationFrame, simulate_formula
 

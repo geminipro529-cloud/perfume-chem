@@ -18,17 +18,13 @@ can be used as constraints in FormulaOptimizer.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping, Sequence
+from typing import Mapping
 
 from ._shared_types import (
-    ConcentrationBracket,
     FragranceFamily,
-    HedonicCategory,
     MethodologyType,
     NoteTier,
-    TextureLayer,
 )
-
 
 # ---------------------------------------------------------------------------
 # Family-specific hedonic profiles
@@ -355,8 +351,8 @@ MUSK_PROFILE = FamilyHedonicProfile(
         FamilyMaterialTarget("Galaxolide 50%", 20, 60, "Polycyclic musk — OR4D6 receptor, unrestricted Cat4", +3.0, NoteTier.BASE),
         FamilyMaterialTarget("Habanolide", 10, 30, "Macrocyclic — transparent clean musk, anosmia ~5-10%", +3.0, NoteTier.BASE),
         FamilyMaterialTarget("Ambrettolide", 5, 15, "Macrocyclic — milky-musky softness, anosmia ~5%", +3.5, NoteTier.BASE),
-        FamilyMaterialTarget("Ethylene Brassylate", 5, 15, "Alicyclic — cruelty-free muscone substitute", +3.0, NoteTier.BASE),
-        FamilyMaterialTarget("Romandolide", 5, 15, "Macrocyclic — modern soft musk", +3.0, NoteTier.BASE),
+        FamilyMaterialTarget("Ethylene Brassylate", 5, 15, "Macrocyclic — cruelty-free muscone substitute", +3.0, NoteTier.BASE),
+        FamilyMaterialTarget("Romandolide", 5, 15, "Alicyclic — modern soft musk", +3.0, NoteTier.BASE),
         FamilyMaterialTarget("Ambroxan", 10, 30, "Terpenic amber-musk — OR7A17 receptor", +3.0, NoteTier.BASE),
     ),
     secret_materials=(

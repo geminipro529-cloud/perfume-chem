@@ -2,11 +2,13 @@
 """Train odor predictor from DREAM Olfaction Challenge dataset and save to models/."""
 
 from __future__ import annotations
-import sys, json, joblib
+
+import json
+import sys
 from pathlib import Path
-import numpy as np, pandas as pd
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import cross_val_score
+
+import joblib
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -37,8 +39,8 @@ def train_odor_predictor():
     )
 
     # Merge with descriptors
-    desc_idx = desc.set_index("CID")
-    pivot_idx = pivot.index.map(lambda x: x.strip())
+    desc.set_index("CID")
+    pivot.index.map(lambda x: x.strip())
 
     # Train RF on population-average ratings
     # This is a simplified version - full version uses 49-subject population model

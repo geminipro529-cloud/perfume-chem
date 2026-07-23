@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Mapping
 
 
 def potts_guy_log_kp(logp: float, mw_g_mol: float) -> float:

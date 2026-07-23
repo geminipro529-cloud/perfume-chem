@@ -1,9 +1,10 @@
 """Verify Chanel AHS Blanche formula against headspace OAV / ppm / ODT pipeline."""
-import json, sys, math
+import sys
+
 sys.path.insert(0, r"D:\chatbots\perfume-chem")
 
 from engine.pipeline.formula_state import build_formula_state
-from engine.pipeline.gates import gate_formula, ReleaseGateConfig
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.pipeline.simulator import simulate_formula
 
 FORMULA_NAME = "Chanel Allure Homme Sport Blanche"
@@ -175,7 +176,7 @@ report = gate_formula(formula_record, config)
 print(f"\nOverall Status: {report.status}")
 print(f"Commercial Readiness: {report.commercial_readiness}")
 print(f"Confidence: {report.confidence.get('combined_confidence', 0):.1f} ({report.confidence.get('combined_grade', '?')})")
-print(f"\nGate Results:")
+print("\nGate Results:")
 for g in report.gates:
     icon = {"PASS": "[OK]", "WARN": "[!!]", "FAIL": "[XX]"}.get(g.status, "[??]")
     print(f"  {icon} {g.gate:45s} {g.status:5s}  {(g.detail or '')[:90]}")
@@ -273,7 +274,7 @@ for c in checks:
     print(f"    {c}")
 
 # ---- OAV Claim Verification ----
-print(f"\n  OAV CLAIM VERIFICATION (guide vs pipeline):")
+print("\n  OAV CLAIM VERIFICATION (guide vs pipeline):")
 guide_claims = {
     "Dihydromyrcenol": 9449, "Iso E Super": 4440,
     "Red Mandarin EO": 4336, "Cedrat FCF oil Sicilian": 2700,

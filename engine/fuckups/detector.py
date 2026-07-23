@@ -9,18 +9,16 @@ that's actually fine) are cheaper than false negatives (missing a repeat fuckup)
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Mapping
 
 from engine.name_utils import normalize_name
 
 from .models import DetectionWarning
 from .patterns import (
     MaterialRule,
-    CombinationRule,
-    DoseRule,
-    get_all_material_rules,
     get_all_combination_rules,
     get_all_dose_rules,
+    get_all_material_rules,
 )
 
 

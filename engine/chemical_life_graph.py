@@ -13,21 +13,24 @@ clinical data panel: the formula's vitals, imbalances, and opportunities.
 
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
-from engine.ingredient_intelligence import (
-    get_profile, get_all_profiles, DIMENSIONS, MaterialProfile,
-)
 from engine.fingerprint import (
-    fingerprint_formula, FormulaFingerprint,
+    FormulaFingerprint,
+    fingerprint_formula,
+)
+from engine.ingredient_intelligence import (
+    DIMENSIONS,
+    get_all_profiles,
+    get_profile,
 )
 from engine.synergy_graph import (
-    SynergyGraph, SynergyStack, MuskCompatibility,
+    MuskCompatibility,
+    SynergyGraph,
+    SynergyStack,
 )
-from engine.volatility import VolatilityCurveSimulator, VolatilityProfile
-
+from engine.volatility import VolatilityCurveSimulator
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Data Structures

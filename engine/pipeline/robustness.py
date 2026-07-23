@@ -9,7 +9,6 @@ from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
 from engine.pipeline.simulator import simulate_formula
 
-
 DRIFT_WARN_THRESHOLD = 0.25
 
 

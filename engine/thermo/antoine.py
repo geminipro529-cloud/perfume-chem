@@ -4,6 +4,7 @@ Form: log10(P_mmHg) = A - B / (C + T_C)
 Returns Pa. Falls back to Clausius–Clapeyron from VP_25 + ΔHvap when Antoine
 constants are missing on the Material record.
 """
+
 from __future__ import annotations
 
 import math
@@ -14,11 +15,11 @@ MMHG_TO_PA = 133.322_387_415
 
 
 def vp_pa(
-    T_K: float,
+    T_K: float,  # noqa: N803
     *,
-    A: Optional[float] = None,
-    B: Optional[float] = None,
-    C: Optional[float] = None,
+    A: Optional[float] = None,  # noqa: N803
+    B: Optional[float] = None,  # noqa: N803
+    C: Optional[float] = None,  # noqa: N803
     vp_25c_pa: Optional[float] = None,
     dhvap_kj_mol: Optional[float] = None,
 ) -> float:
@@ -29,13 +30,13 @@ def vp_pa(
       2. Clausius–Clapeyron from a known VP_25 + ΔHvap
       3. Last-resort: assume vp_25c_pa is constant (very poor)
     """
-    T_C = T_K - 273.15
+    T_C = T_K - 273.15  # noqa: N806
     if A is not None and B is not None and C is not None:
         log10_p_mmhg = A - B / (C + T_C)
-        return (10.0 ** log10_p_mmhg) * MMHG_TO_PA
+        return (10.0**log10_p_mmhg) * MMHG_TO_PA
     if vp_25c_pa is not None and dhvap_kj_mol is not None:
         # Clausius–Clapeyron, reference T = 298.15 K
-        T_ref = 298.15
+        T_ref = 298.15  # noqa: N806
         dh = dhvap_kj_mol * 1000.0
         return vp_25c_pa * math.exp(-dh / R_GAS * (1.0 / T_K - 1.0 / T_ref))
     if vp_25c_pa is not None:
@@ -53,7 +54,7 @@ def antoine_from_dhvap(vp_25c_pa: float, dhvap_kj_mol: float) -> tuple[float, fl
     """
     p25 = vp_25c_pa / MMHG_TO_PA
     p100 = vp_pa(373.15, vp_25c_pa=vp_25c_pa, dhvap_kj_mol=dhvap_kj_mol) / MMHG_TO_PA
-    C = 230.0
+    C = 230.0  # noqa: N806
     # log10(p) = A - B/(C+T_C); two equations, two unknowns
     log_p25 = math.log10(p25)
     log_p100 = math.log10(p100)
@@ -61,8 +62,8 @@ def antoine_from_dhvap(vp_25c_pa: float, dhvap_kj_mol: float) -> tuple[float, fl
     # subtract: log_p100 - log_p25 = -B/(C+100) + B/(C+25)
     delta = log_p100 - log_p25
     factor = 1.0 / (C + 25.0) - 1.0 / (C + 100.0)
-    B = delta / factor
-    A = log_p25 + B / (C + 25.0)
+    B = delta / factor  # noqa: N806
+    A = log_p25 + B / (C + 25.0)  # noqa: N806
     return (A, B, C)
 
 

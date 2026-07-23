@@ -24,11 +24,9 @@ and published sources. Values marked _RECONSTRUCTED where not officially confirm
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Sequence
+from dataclasses import dataclass
 
-from ._shared_types import FragranceFamily, NoteTier, ConcentrationBracket
-
+from ._shared_types import ConcentrationBracket, FragranceFamily
 
 # ---------------------------------------------------------------------------
 # Structural skeleton dataclass

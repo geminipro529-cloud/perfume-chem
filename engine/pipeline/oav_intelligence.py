@@ -7,8 +7,8 @@ without replacing the engine's physical/OAV computation path.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Mapping, Sequence
+from dataclasses import dataclass
+from typing import Any, Sequence
 
 from engine.pipeline.formula_state import FormulaState, MaterialState
 from engine.pipeline.simulator import SimulationFrame
@@ -175,6 +175,8 @@ _FAMILY_ALIASES: dict[str, FragranceFamily] = {
     "oriental_floral": FragranceFamily.AMBER_ORIENTAL,
     "floral amber": FragranceFamily.AMBER_ORIENTAL,
     "woody_amber": FragranceFamily.WOODY_AMBER,
+    "woody amber": FragranceFamily.WOODY_AMBER,
+    "woody floral musk": FragranceFamily.WOODY_AMBER,
     "woody": FragranceFamily.WOODY_AMBER,
     "gourmand": FragranceFamily.GOURMAND,
     "marine_aquatic": FragranceFamily.MARINE_AQUATIC,
@@ -213,7 +215,12 @@ _BALANCE_NAME_ALIASES: dict[str, str] = {
 
 def _normalize_token(value: str) -> str:
     return " ".join(
-        value.lower().replace("-", " ").replace("_", " ").replace("/", " ").split()
+        value.lower()
+        .replace("-", " ")
+        .replace("_", " ")
+        .replace("/", " ")
+        .replace(".", " ")
+        .split()
     )
 
 
@@ -221,6 +228,10 @@ def _map_family(archetype: str) -> FragranceFamily | None:
     token = _normalize_token(archetype)
     if token in _FAMILY_ALIASES:
         return _FAMILY_ALIASES[token]
+    if "woody" in token and any(
+        qualifier in token for qualifier in ("amber", "floral", "musk")
+    ):
+        return FragranceFamily.WOODY_AMBER
     if "oriental" in token or token.endswith("amber"):
         return FragranceFamily.AMBER_ORIENTAL
     if "fougere" in token:

@@ -17,10 +17,8 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
-import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -30,9 +28,7 @@ from typing import Optional
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-import engine.odor_thresholds as ot
-from engine.odor_thresholds import ODT_DATA, ODT_VERIFICATION, Verification
-
+from engine.odor_thresholds import ODT_DATA, ODT_VERIFICATION  # noqa: E402  # sys.path
 
 # ══════════════════════════════════════════════════════════════════════
 # BUNDLED REFERENCE DATA
@@ -44,81 +40,126 @@ from engine.odor_thresholds import ODT_DATA, ODT_VERIFICATION, Verification
 # Key: {cas_number: (odt_ppb, material_name, notes)}
 LEFFINGWELL_GRAS_1991: dict[str, tuple[float, str, str]] = {
     # CAS         (ODT ppb,  name,                      notes)
-    "78-70-6":    (6.0,      "Linalool",                "Racemic; 0.51 ppb from Elsharif 2015 supersedes"),
-    "115-95-7":   (50.0,     "Linalyl Acetate",         "13.8 ppb from Elsharif 2015 supersedes"),
-    "106-24-1":   (40.0,     "Geraniol",                "2.22 ppb from Elsharif 2016 supersedes"),
-    "97-53-0":    (6.0,      "Eugenol",                 "2.6 ppb from Rychlik 1998 supersedes"),
-    "97-54-1":    (6.0,      "Isoeugenol",              "0.24 ppb from Rychlik 1998 supersedes"),
-    "121-33-5":   (20.0,     "Vanillin",                "0.6 ppb from Rychlik 1998 supersedes"),
-    "121-32-4":   (6.0,      "Ethyl Vanillin",          "0.1 ppb from van Gemert 2011 supersedes"),
-    "120-57-0":   (5.0,      "Heliotropin/Piperonal",   "0.006 ppb from van Gemert 2011 supersedes"),
-    "123-11-5":   (5.0,      "Anisaldehyde",            "0.32 ppb from Devos 1990 supersedes"),
-    "127-41-3":   (0.4,      "Alpha Ionone",            "0.38 ppb from Rychlik 1998 confirms"),
-    "79-77-6":    (0.007,    "Beta Ionone",             "0.007 ppb from Gasser 1990 confirms"),
-    "127-51-5":   (5.0,      "Alpha-Isomethyl Ionone",  "5.0 ppb consistent"),
-    "91-64-5":    (15.0,     "Coumarin",                "3.4 ppb from Rychlik 1998 supersedes"),
-    "120-72-9":   (0.3,      "Indole",                  "0.14 ppb from Rychlik 1998 supersedes"),
-    "5989-27-5":  (60.0,     "d-Limonene",              "60 ppb from Nagata 2003 confirms"),
-    "5392-40-5":  (3.2,      "Citral",                  "3.2 ppb from Devos 1990 confirms"),
-    "106-22-9":   (40.0,     "Citronellol",             "40 ppb from Nagata 2003 confirms"),
-    "106-23-0":   (3.3,      "Citronellal",             "3.3 ppb from Devos 1990 confirms"),
-    "60-12-8":    (0.56,     "Phenethyl Alcohol",       "0.56 ppb from Devos 1990 confirms"),
-    "140-11-4":   (17.0,     "Benzyl Acetate",          "17 ppb from Nagata 2003 confirms"),
-    "103-95-7":   (0.5,      "Cyclamen Aldehyde",       "0.5 ppb from Nagata 2003 confirms"),
-    "119-36-8":   (1.8,      "Methyl Salicylate",       "1.8 ppb from Nagata 2003 confirms"),
-    "134-20-3":   (0.5,      "Methyl Anthranilate",     "0.5 ppb from Nagata 2003 confirms"),
-    "488-10-8":   (1.4,      "cis-Jasmone",             "1.4 ppb from Nagata 2003 confirms"),
-    "107-75-5":   (6.3,      "Hydroxycitronellal",      "6.3 ppb from Nagata 2003 confirms"),
-    "104-55-2":   (1.5,      "Cinnamaldehyde",          "1.5 ppb from Czerny 2008 confirms"),
-    "928-96-1":   (70.0,     "cis-3-Hexenol",           "70 ppb from Nagata 2003 confirms"),
-    "16409-43-1": (0.5,      "Rose Oxide",              "0.5 ppb from Nagata 2003 confirms"),
-    "124-13-0":   (5.7,      "Octanal",                 "5.7 ppb from Nagata 2003"),
-    "124-19-6":   (8.5,      "Nonanal",                 "8.5 ppb from Nagata 2003"),
-    "112-31-2":   (6.2,      "Decanal",                 "6.2 ppb from Nagata 2003"),
-    "112-44-7":   (5.0,      "Undecanal",               "5.0 ppb from Nagata 2003"),
-    "110-41-8":   (11.0,     "C12 MNA",                 "11 ppb from Nagata 2003"),
-    "127-91-3":   (3.0,      "Beta-Pinene",             "3 ppb from van Gemert 2011"),
-    "104-54-1":   (4.0,      "Cinnamyl Alcohol",        "4 ppb from van Gemert 2011"),
-    "6790-58-5":  (0.3,      "Ambroxan/Ambroxide",      "0.3 ppb from van Gemert 2011"),
-    "6790-58-5":  (0.3,      "Ambrox Super",            "0.3 ppb from van Gemert 2011"),
-    "19700-21-1": (0.006,    "Geosmin",                 "6 ppt from Polak & Provasi 1992"),
-    "81-14-1":    (2.0,      "Musk Ketone",             "2.0 ppb from van Gemert 2011"),
-    "33704-61-9": (6.4,      "Cashmeran",               "6.4 ppb from van Gemert 2011"),
-    "1506-02-1":  (64.0,     "Tonalide",                "64 ppb from van Gemert 2011"),
-    "106-02-5":   (1.6,      "Exaltolide",              "1.6 ppb from van Gemert 2011"),
-    "105-95-3":   (0.97,     "Ethylene Brassylate",     "0.97 ppb from RIFM/van Gemert"),
-    "35087-49-1": (0.02,     "gamma-Damascone",         "0.02 ppb from van Gemert 2011"),
-    "23726-93-4": (0.004,    "Damascenone",             "0.004 ppb from Motooka 2015"),
-    "77-53-2":    (0.9,      "Cedrol",                  "0.9 ppb from van Gemert 2011"),
-    "5986-55-0":  (0.8,      "Patchouli Alcohol",       "0.8 ppb from van Gemert 2011"),
-    "115-71-9":   (0.4,      "alpha-Santalol",          "0.4 ppb from van Gemert 2011"),
-    "3407-42-9":  (0.2,      "Sandalore",               "0.2 ppb from van Gemert 2011"),
-    "28219-61-6": (0.55,     "Bacdanol",                "0.55 ppb from van Gemert 2011"),
-    "18479-58-8": (22.0,     "Dihydromyrcenol",         "22 ppb estimated from analogs"),
-    "124-19-6":   (8.5,      "Nonanal",                 "8.5 ppb from Nagata 2003"),
-    "4940-11-8":  (0.3,      "Ethyl Maltol",            "0.3 ppb from van Gemert 2011"),
-    "118-58-1":   (120.0,    "Benzyl Salicylate",       "120 ppb audited value; limited air data"),
-    "120-51-4":   (810.0,    "Benzyl Benzoate",         "810 ppb estimated from limited data"),
-    "1128-08-1":  (10.0,     "Dihydrojasmone",          "10 ppb estimated from jasmone analogs"),
-    "1205-17-0":  (10.0,     "Helional",                "10 ppb limited data"),
+    "78-70-6": (6.0, "Linalool", "Racemic; 0.51 ppb from Elsharif 2015 supersedes"),
+    "115-95-7": (50.0, "Linalyl Acetate", "13.8 ppb from Elsharif 2015 supersedes"),
+    "106-24-1": (40.0, "Geraniol", "2.22 ppb from Elsharif 2016 supersedes"),
+    "97-53-0": (6.0, "Eugenol", "2.6 ppb from Rychlik 1998 supersedes"),
+    "97-54-1": (6.0, "Isoeugenol", "0.24 ppb from Rychlik 1998 supersedes"),
+    "121-33-5": (20.0, "Vanillin", "0.6 ppb from Rychlik 1998 supersedes"),
+    "121-32-4": (6.0, "Ethyl Vanillin", "0.1 ppb from van Gemert 2011 supersedes"),
+    "120-57-0": (5.0, "Heliotropin/Piperonal", "0.006 ppb from van Gemert 2011 supersedes"),
+    "123-11-5": (5.0, "Anisaldehyde", "0.32 ppb from Devos 1990 supersedes"),
+    "127-41-3": (0.4, "Alpha Ionone", "0.38 ppb from Rychlik 1998 confirms"),
+    "79-77-6": (0.007, "Beta Ionone", "0.007 ppb from Gasser 1990 confirms"),
+    "127-51-5": (5.0, "Alpha-Isomethyl Ionone", "5.0 ppb consistent"),
+    "91-64-5": (15.0, "Coumarin", "3.4 ppb from Rychlik 1998 supersedes"),
+    "120-72-9": (0.3, "Indole", "0.14 ppb from Rychlik 1998 supersedes"),
+    "5989-27-5": (60.0, "d-Limonene", "60 ppb from Nagata 2003 confirms"),
+    "5392-40-5": (3.2, "Citral", "3.2 ppb from Devos 1990 confirms"),
+    "106-22-9": (40.0, "Citronellol", "40 ppb from Nagata 2003 confirms"),
+    "106-23-0": (3.3, "Citronellal", "3.3 ppb from Devos 1990 confirms"),
+    "60-12-8": (0.56, "Phenethyl Alcohol", "0.56 ppb from Devos 1990 confirms"),
+    "140-11-4": (17.0, "Benzyl Acetate", "17 ppb from Nagata 2003 confirms"),
+    "103-95-7": (0.5, "Cyclamen Aldehyde", "0.5 ppb from Nagata 2003 confirms"),
+    "119-36-8": (1.8, "Methyl Salicylate", "1.8 ppb from Nagata 2003 confirms"),
+    "134-20-3": (0.5, "Methyl Anthranilate", "0.5 ppb from Nagata 2003 confirms"),
+    "488-10-8": (1.4, "cis-Jasmone", "1.4 ppb from Nagata 2003 confirms"),
+    "107-75-5": (6.3, "Hydroxycitronellal", "6.3 ppb from Nagata 2003 confirms"),
+    "104-55-2": (1.5, "Cinnamaldehyde", "1.5 ppb from Czerny 2008 confirms"),
+    "928-96-1": (70.0, "cis-3-Hexenol", "70 ppb from Nagata 2003 confirms"),
+    "16409-43-1": (0.5, "Rose Oxide", "0.5 ppb from Nagata 2003 confirms"),
+    "124-13-0": (5.7, "Octanal", "5.7 ppb from Nagata 2003"),
+    "124-19-6": (8.5, "Nonanal", "8.5 ppb from Nagata 2003"),
+    "112-31-2": (6.2, "Decanal", "6.2 ppb from Nagata 2003"),
+    "112-44-7": (5.0, "Undecanal", "5.0 ppb from Nagata 2003"),
+    "110-41-8": (11.0, "C12 MNA", "11 ppb from Nagata 2003"),
+    "127-91-3": (3.0, "Beta-Pinene", "3 ppb from van Gemert 2011"),
+    "104-54-1": (4.0, "Cinnamyl Alcohol", "4 ppb from van Gemert 2011"),
+    "6790-58-5": (0.3, "Ambrox Super", "0.3 ppb from van Gemert 2011"),
+    "19700-21-1": (0.006, "Geosmin", "6 ppt from Polak & Provasi 1992"),
+    "81-14-1": (2.0, "Musk Ketone", "2.0 ppb from van Gemert 2011"),
+    "33704-61-9": (6.4, "Cashmeran", "6.4 ppb from van Gemert 2011"),
+    "1506-02-1": (64.0, "Tonalide", "64 ppb from van Gemert 2011"),
+    "106-02-5": (1.6, "Exaltolide", "1.6 ppb from van Gemert 2011"),
+    "105-95-3": (0.97, "Ethylene Brassylate", "0.97 ppb from RIFM/van Gemert"),
+    "35087-49-1": (0.02, "gamma-Damascone", "0.02 ppb from van Gemert 2011"),
+    "23726-93-4": (0.004, "Damascenone", "0.004 ppb from Motooka 2015"),
+    "77-53-2": (0.9, "Cedrol", "0.9 ppb from van Gemert 2011"),
+    "5986-55-0": (0.8, "Patchouli Alcohol", "0.8 ppb from van Gemert 2011"),
+    "115-71-9": (0.4, "alpha-Santalol", "0.4 ppb from van Gemert 2011"),
+    "3407-42-9": (0.2, "Sandalore", "0.2 ppb from van Gemert 2011"),
+    "28219-61-6": (0.55, "Bacdanol", "0.55 ppb from van Gemert 2011"),
+    "18479-58-8": (22.0, "Dihydromyrcenol", "22 ppb estimated from analogs"),
+    "4940-11-8": (0.3, "Ethyl Maltol", "0.3 ppb from van Gemert 2011"),
+    "118-58-1": (120.0, "Benzyl Salicylate", "120 ppb audited value; limited air data"),
+    "120-51-4": (810.0, "Benzyl Benzoate", "810 ppb estimated from limited data"),
+    "1128-08-1": (10.0, "Dihydrojasmone", "10 ppb estimated from jasmone analogs"),
+    "1205-17-0": (10.0, "Helional", "10 ppb limited data"),
 }
 
 # Known proprietary / captive materials — genuinely unpublished ODTs
 PROPRIETARY_MATERIALS: set[str] = {
-    "evernyl", "vertofix", "vertofix coeur", "zenolide", "vetival",
-    "kephalis", "clearwood", "amberwood f", "azarbre", "timberol",
-    "koavone", "vetikon", "suederal", "norlimbanol", "norlimbanol dextro",
-    "ambrocenide", "ambermax", "amber core", "amber core accord",
-    "amber xtreme", "cedramber", "cedamber", "polysantol",
-    "galaxolide", "habanolide", "romandolide", "exaltolide",
-    "macrolide", "nirvanolide", "paradisone", "zenolide",
-    "georgywood", "florhydral", "ultralia", "irotyl", "orivone",
-    "lilyreal", "lilyreal nd", "nympheal", "florol", "mayol",
-    "bourgeonal", "freesia hdi", "peonile", "jessemal",
-    "leafovert", "parmavert", "undecavertol", "dynascone",
-    "scentenal", "floralozone", "melonal", "triplal",
-    "suederal", "costus olifac", "dbca", "aca", "pedmc",
-    "paradisamide", "helional", "ambrettolide",
+    "evernyl",
+    "vertofix",
+    "vertofix coeur",
+    "zenolide",
+    "vetival",
+    "kephalis",
+    "clearwood",
+    "amberwood f",
+    "azarbre",
+    "timberol",
+    "koavone",
+    "vetikon",
+    "suederal",
+    "norlimbanol",
+    "norlimbanol dextro",
+    "ambrocenide",
+    "ambermax",
+    "amber core",
+    "amber core accord",
+    "amber xtreme",
+    "cedramber",
+    "cedamber",
+    "polysantol",
+    "galaxolide",
+    "habanolide",
+    "romandolide",
+    "exaltolide",
+    "macrolide",
+    "nirvanolide",
+    "paradisone",
+    "zenolide",
+    "georgywood",
+    "florhydral",
+    "ultralia",
+    "irotyl",
+    "orivone",
+    "lilyreal",
+    "lilyreal nd",
+    "nympheal",
+    "florol",
+    "mayol",
+    "bourgeonal",
+    "freesia hdi",
+    "peonile",
+    "jessemal",
+    "leafovert",
+    "parmavert",
+    "undecavertol",
+    "dynascone",
+    "scentenal",
+    "floralozone",
+    "melonal",
+    "triplal",
+    "suederal",
+    "costus olifac",
+    "dbca",
+    "aca",
+    "pedmc",
+    "paradisamide",
+    "helional",
+    "ambrettolide",
 }
 
 
@@ -126,14 +167,24 @@ PROPRIETARY_MATERIALS: set[str] = {
 # UTILITY FUNCTIONS
 # ══════════════════════════════════════════════════════════════════════
 
+
 def is_proprietary(name: str) -> bool:
     """Check if a material is a known proprietary/patented captive."""
     key = name.lower().strip()
     if key in PROPRIETARY_MATERIALS:
         return True
     # Also match whole oils and natural absolutes — no single ODT
-    oil_kw = (" eo", " absolute", " resinoid", " ftec", " fo ",
-              "accord", "base", "reconstitution", "fleuressence")
+    oil_kw = (
+        " eo",
+        " absolute",
+        " resinoid",
+        " ftec",
+        " fo ",
+        "accord",
+        "base",
+        "reconstitution",
+        "fleuressence",
+    )
     if any(kw in key for kw in oil_kw):
         return True
     return False
@@ -227,7 +278,7 @@ def bundled_lookup(name: str) -> Optional[dict]:
         odt_ppb, lname, notes = LEFFINGWELL_GRAS_1991[cas]
         return {
             "odt_ppb": odt_ppb,
-            "source": f"Leffingwell GRAS 1991",
+            "source": "Leffingwell GRAS 1991",
             "name": lname,
             "notes": notes,
             "method": "bundled",
@@ -321,7 +372,9 @@ def verify_entry(name: str, no_network: bool = False, tolerance: float = 3.0) ->
     if is_proprietary(name):
         result["verdict"] = "SKIP_PROPRIETARY"
         result["source"] = "Internal tagging"
-        result["reason"] = "Genuinely unpublished — proprietary captive, whole oil, or natural complex"
+        result["reason"] = (
+            "Genuinely unpublished — proprietary captive, whole oil, or natural complex"
+        )
         return result
 
     # 2. Try bundled Leffingwell
@@ -382,6 +435,7 @@ def verify_entry(name: str, no_network: bool = False, tolerance: float = 3.0) ->
 # REPORT GENERATORS
 # ══════════════════════════════════════════════════════════════════════
 
+
 def generate_deepseek_batch(materials: list[str], output_path: Path):
     """Generate a JSONL file of structured prompts for DeepSeek-4 batch API.
 
@@ -425,9 +479,15 @@ def generate_deepseek_batch(materials: list[str], output_path: Path):
     return len(lines)
 
 
-def run_verification(mode: str = "all", n_spot: int = 20, no_network: bool = False,
-                     export_format: str = "table", deepseek_batch: bool = False,
-                     cas_single: str = None, verbose: bool = False):
+def run_verification(
+    mode: str = "all",
+    n_spot: int = 20,
+    no_network: bool = False,
+    export_format: str = "table",
+    deepseek_batch: bool = False,
+    cas_single: str = None,
+    verbose: bool = False,
+):
     """Main verification runner."""
 
     # Collect targets
@@ -439,6 +499,7 @@ def run_verification(mode: str = "all", n_spot: int = 20, no_network: bool = Fal
         targets = [k for k, v in ODT_VERIFICATION.items() if v.get("vfy") == "UNVERIFIED"]
     elif mode == "spot":
         import random
+
         targets = random.sample(list(ODT_DATA.keys()), min(n_spot, len(ODT_DATA)))
     else:
         print(f"Unknown mode: {mode}")
@@ -452,28 +513,33 @@ def run_verification(mode: str = "all", n_spot: int = 20, no_network: bool = Fal
         res = verify_entry(name, no_network=no_network)
         results.append(res)
         if verbose and res["verdict"] == "SUGGESTED_CORRECTION":
-            print(f"  WARNING: {name}: {res['local_odt_ppb']} -> {res['suggested_odt_ppb']} ppb ({res['reason']})")
+            print(
+                f"  WARNING: {name}: {res['local_odt_ppb']} -> {res['suggested_odt_ppb']} ppb ({res['reason']})"
+            )
 
     # Summarize
     from collections import Counter
+
     verdict_counts = Counter(r["verdict"] for r in results)
 
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"ODT VERIFICATION REPORT — mode={mode}, no_network={no_network}")
-    print(f"{'='*70}")
+    print(f"{'=' * 70}")
     print(f"Entries verified: {len(results)}")
     for v in ["CONFIRMED", "SUGGESTED_CORRECTION", "SKIP_PROPRIETARY", "NO_DATA"]:
         print(f"  {v:<25} {verdict_counts.get(v, 0):>5}")
 
     corrections = [r for r in results if r["verdict"] == "SUGGESTED_CORRECTION"]
     if corrections:
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"SUGGESTED CORRECTIONS ({len(corrections)}):")
-        print(f"{'='*70}")
+        print(f"{'=' * 70}")
         for r in sorted(corrections, key=lambda x: x.get("deviation_factor", 0) or 0, reverse=True):
             dev = r.get("deviation_factor")
             dev_str = f"({dev:.0f}x)" if dev else ""
-            print(f"  {r['name']:<35} {r['local_odt_ppb']:>8.4f} -> {r['suggested_odt_ppb']:>8.4f} ppb {dev_str:<8} {r['source']}")
+            print(
+                f"  {r['name']:<35} {r['local_odt_ppb']:>8.4f} -> {r['suggested_odt_ppb']:>8.4f} ppb {dev_str:<8} {r['source']}"
+            )
 
     no_data = [r for r in results if r["verdict"] == "NO_DATA"]
     if no_data:
@@ -483,7 +549,9 @@ def run_verification(mode: str = "all", n_spot: int = 20, no_network: bool = Fal
 
     # DeepSeek batch export
     if deepseek_batch and export_format == "jsonl":
-        unverified_names = [r["name"] for r in results if r["verdict"] in ("NO_DATA", "SUGGESTED_CORRECTION")]
+        unverified_names = [
+            r["name"] for r in results if r["verdict"] in ("NO_DATA", "SUGGESTED_CORRECTION")
+        ]
         if unverified_names:
             output = REPO_ROOT / "output" / "odt_deepseek_batch.jsonl"
             output.parent.mkdir(exist_ok=True)
@@ -502,13 +570,16 @@ def run_verification(mode: str = "all", n_spot: int = 20, no_network: bool = Fal
 # CLI
 # ══════════════════════════════════════════════════════════════════════
 
+
 def main():
     parser = argparse.ArgumentParser(description="Cross-verify ODT database")
     parser.add_argument("--mode", choices=["all", "unverified", "spot", "single"], default="all")
     parser.add_argument("--n", type=int, default=20, help="Sample size for spot check")
     parser.add_argument("--no-network", action="store_true", help="Bundled data only")
     parser.add_argument("--export", choices=["json", "jsonl", "table"], default="table")
-    parser.add_argument("--deepseek-batch", action="store_true", help="Generate DeepSeek batch prompt file")
+    parser.add_argument(
+        "--deepseek-batch", action="store_true", help="Generate DeepSeek batch prompt file"
+    )
     parser.add_argument("--cas", type=str, help="Single CAS number lookup")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()

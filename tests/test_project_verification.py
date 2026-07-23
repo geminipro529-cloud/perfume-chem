@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from hashlib import sha256
 import json
+import sys
+from hashlib import sha256
 from pathlib import Path
 
 import engine.project_verification as project_verification
 from engine.project_verification import (
     CheckSpec,
     CommandOutcome,
+    _default_runner,
     build_check_specs,
     default_verification_report_path,
     engine_test_shards,
     run_project_verification,
     write_verification_report,
 )
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -175,6 +176,23 @@ def test_missing_executable_is_reported_as_a_structured_failure(tmp_path):
     assert report.completion_gate == "FAIL"
 
 
+def test_default_runner_routes_child_temp_inside_project(tmp_path):
+    outcome = _default_runner(tmp_path)(
+        CheckSpec(
+            "temp-contract",
+            (
+                sys.executable,
+                "-c",
+                "import os; print(os.environ['TEMP']); print(os.environ['TMP'])",
+            ),
+        )
+    )
+
+    expected = str(tmp_path / "output" / "verification-temp")
+    assert outcome.returncode == 0
+    assert outcome.stdout.splitlines() == [expected, expected]
+
+
 def test_package_and_docker_checks_validate_release_artifacts():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 
@@ -193,7 +211,11 @@ def test_package_and_docker_checks_validate_release_artifacts():
         "engine/release_readiness.py",
         "engine/safety_assessment.py",
     } <= engine_typecheck
-    assert specs["package-build"].command[-2:] == ("-m", "build")
+    assert specs["package-build"].command[-3:] == (
+        "-m",
+        "build",
+        "--no-isolation",
+    )
     assert specs["package-wheel-smoke"].command[1:4] == (
         "-m",
         "engine.project_verification",

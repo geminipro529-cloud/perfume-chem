@@ -17,10 +17,9 @@ This is the generalized version of the back-calculation done for Opus V.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Optional
 import math
-
+from dataclasses import dataclass
+from typing import Optional
 
 # ── GC-MS composition of natural extracts (% by weight) ────────────
 # Each natural contains a mix of allergens in known proportions.

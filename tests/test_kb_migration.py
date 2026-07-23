@@ -5,7 +5,6 @@
 import os
 import sqlite3
 import tempfile
-from pathlib import Path
 
 import pytest
 
@@ -96,13 +95,13 @@ def test_materials_in_inventory_count(conn: sqlite3.Connection) -> None:
 
 
 def test_hedione_vp(conn: sqlite3.Connection) -> None:
-    """SELECT vp_25c_pa FROM materials WHERE canonical_name='Hedione' returns 0.21."""
+    """Hedione uses the reviewed 0.09466 Pa vapor-pressure authority."""
     row = conn.execute(
         "SELECT vp_25c_pa FROM materials WHERE canonical_name = ?", ("Hedione",)
     ).fetchone()
     assert row is not None, "Hedione not found in materials"
     vp = row[0]
-    assert vp == 0.21, f"Expected Hedione VP=0.21, got {vp}"
+    assert vp == 0.09466, f"Expected Hedione VP=0.09466, got {vp}"
 
 
 def test_hedione_hc_exists(conn: sqlite3.Connection) -> None:
@@ -149,9 +148,9 @@ def test_osmanthus_decomposition(conn: sqlite3.Connection) -> None:
 
 
 def test_family_archetypes_count(conn: sqlite3.Connection) -> None:
-    """SELECT COUNT(*) FROM family_archetypes == 35."""
+    """The knowledge base includes all 36 registered family archetypes."""
     count = conn.execute("SELECT COUNT(*) FROM family_archetypes").fetchone()[0]
-    assert count == 35, f"Expected 35 family archetypes, got {count}"
+    assert count == 36, f"Expected 36 family archetypes, got {count}"
 
 
 def test_archetype_anchors_exist(conn: sqlite3.Connection) -> None:

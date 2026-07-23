@@ -2,6 +2,16 @@
 
 All OpenCode features, MCP servers, commands, skills, agents, plugins, and optimizations configured for this project. Restart OpenCode for changes to take effect.
 
+## Authoritative configuration
+
+This repository has one active OpenCode configuration set:
+
+- `opencode.json` — OpenCode providers, models, plugins, permissions, MCPs, and perfume-specific agents.
+- `.opencode/oh-my-openagent.json` — the one agent-harness configuration required by the locally cached Oh My OpenAgent plugin for Sisyphus, Prometheus, Atlas, and supporting agents. Hephaestus is intentionally absent because this plugin only registers it for GPT models, while this setup is DeepSeek-only.
+- Run `opencode` from the repository root. The existing `.ps1` and `.bat` files are compatibility wrappers only.
+
+Do not create user-level or alternate-XDG copies of these files. OpenCode merges global and project configuration, which makes model and credential precedence difficult to diagnose.
+
 ---
 
 ## 1. Core Config (`opencode.json`)
@@ -10,7 +20,9 @@ All OpenCode features, MCP servers, commands, skills, agents, plugins, and optim
 
 | Key | Value | Why |
 |-----|-------|-----|
-| `model` | (provider default) | No hardcoded model — configure per your provider in `.env`. |
+| `model` | `deepseek/deepseek-v4-pro` | Explicit primary model for Sisyphus and high-effort work. `deepseek/deepseek-v4-flash` is the small/fallback model. |
+| `enabled_providers` | `["deepseek", "deepinfra"]` | Normal OpenCode and VS Code chat can use the native DeepSeek or native DeepInfra provider. DeepSeek V4 Pro remains the startup default; OpenAI, Codex, and other authenticated providers cannot become the main chat route. |
+| `disabled_providers` | `["openai", "opencode", "codex-chatgpt"]` | Defense in depth: OpenCode cannot select OpenAI, OpenCode Zen, or the Codex ChatGPT provider even if credentials exist elsewhere. |
 | `instructions` | `[".github/copilot-instructions.md"]` | Auto-loads perfume formulation rules into EVERY session. No more "please read this file" prompts. |
 | `compaction` | `{"auto": true, "prune": true, "reserved": 12000}` | Pipeline JSON output is ~6000 lines + 473-line AGENTS.md. Without compaction tuning, long formula sessions blow the context window. `prune` removes stale tool outputs. 12K reserved tokens provide generous buffer. |
 | `permission` | `.env` denied, bash asks, pipeline scripts allowed | Security baseline. Blocks reading/writing `.env` files (secrets). Safe bash commands auto-allowed (`git status`, `ruff`, `pytest`, `python scripts/*`). Destructive commands prompt for approval. |
@@ -48,7 +60,21 @@ All OpenCode features, MCP servers, commands, skills, agents, plugins, and optim
 
 | Server | Config | Purpose |
 |--------|--------|---------|
+| `deepluna_read` | Project-local bridge with `deepseek-direct`, Codex orchestration disabled | **Optional read-only DeepLuna evidence.** Available only through `/deepluna`; it uses DeepSeek directly and fails closed if DeepSeek is unavailable. |
+| `deepluna_fast_read` | Project-local bridge with `deepinfra-fast`, Codex orchestration disabled | **Optional read-only DeepLuna Fast evidence.** Available only through `/deepluna-fast`; it uses DeepInfra Priority and fails closed if DeepInfra is unavailable. |
 | `memory` | `npx -y @modelcontextprotocol/server-memory` | **Persistent knowledge graph across sessions.** Remembers formula iterations, material decisions, pipeline results. No more "what did we decide last time?" |
+
+Normal messages never use either bridge: both MCP namespaces are denied at the
+global OpenCode permission layer. The hidden router agents are explicitly
+described as command-only, and the two slash commands select them directly.
+They override only their own READ_ONLY tools. Both bridges set
+`DEEPLUNA_CODEX_ORCHESTRATION=disabled`: no GPT-5.6 Luna fallback is attempted,
+the Sol route/submit tools are not registered, and primary failure is returned
+to OpenCode instead of being sent to Codex. Standard and Fast use separate directories
+under `%LOCALAPPDATA%\Codex\deepseek-orchestrator\projects\perfume-chem`, so
+their cache, failure state, and reader locks cannot affect one another or any
+other bridge instance. Restart OpenCode after changing this boundary because an
+already-running process retains its startup model and MCP configuration.
 
 ### How to use
 
@@ -84,11 +110,29 @@ Type `/` in the TUI to see all available commands. Custom commands take argument
 | `/test-backend` | _none_ | Backend tests with coverage: `poetry run pytest --cov=app` |
 | `/test-engine` | _none_ | Engine tests: `pytest tests/` (pip environment) |
 
+### Optional routing commands
+
+| Command | Arguments | What it does |
+|---------|-----------|--------------|
+| `/deepluna` | `<read-only task>` | Runs one bounded DeepSeek-direct read as an isolated subtask, reports exact provider provenance, and fails closed without Codex fallback. |
+| `/deepluna-fast` | `<read-only task>` | Runs one bounded DeepInfra Priority read, reports exact provider provenance, and fails closed without Codex fallback. |
+
+These commands do not permanently switch the conversation model. Ordinary
+messages before and after them continue through whichever native model is selected.
+Use OpenCode's built-in `/models` command to choose a direct provider model, such
+as `deepinfra/deepseek-ai/DeepSeek-V4-Pro`. This native DeepInfra route does not
+use DeepLuna, its cache, or Luna fallback.
+
+For both routing commands, an unavailable primary provider is a terminal failure.
+OpenCode must not retry the request through Codex, GPT-5.6 Luna, or GPT-5.6 Sol.
+
 ### Examples
 ```
 /gate formulas/My_Formula_30mL_EDP.md 6000 vetiver_woody
 /audit layton_dna
 /lint
+/deepluna inspect the optimizer interfaces and report file:line evidence
+/deepluna-fast locate duplicate ODT entries and return a compact table
 ```
 
 ---
@@ -162,7 +206,8 @@ Agents are also invoked automatically by the Task tool when primary agents deleg
 **What it does:**
 1. **Blocks reading** `.env` files (except `.env.example`) — `tool.execute.before` hook throws error
 2. **Blocks writing** `.env` files — prevents accidental secret leakage
-3. **Injects test env vars** — `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci` into all shell execution environments
+3. **Strips DeepSeek credentials from child shells** — OpenCode authenticates through its credential store, while agent-run commands cannot inherit the key
+4. **Injects test env vars** — `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci` into all shell execution environments
 
 **Why:** Your `AGENTS.md` and CI config reference these test keys. The plugin ensures agents in test mode always have the right environment without manual setup.
 
@@ -173,6 +218,8 @@ Agents are also invoked automatically by the Task tool when primary agents deleg
 ```
 .opencode/
   commands/
+    deepluna.md         One-shot DeepLuna read
+    deepluna-fast.md    One-shot DeepLuna Fast read
     gate.md              /gate <formula> <uL> <brief>
     audit.md             /audit [brief]
     analyze.md           /analyze [json-file]
@@ -180,6 +227,9 @@ Agents are also invoked automatically by the Task tool when primary agents deleg
     lint.md              /lint
     test-backend.md      /test-backend
     test-engine.md       /test-engine
+  agents/
+    deepluna-reader.md       Permission-isolated DeepLuna router
+    deepluna-fast-reader.md  Permission-isolated DeepLuna Fast router
   skills/
     formula-gate/SKILL.md         Full pipeline workflow skill
     material-audit/SKILL.md       4-place material verification skill
@@ -192,6 +242,7 @@ Agents are also invoked automatically by the Task tool when primary agents deleg
     agent-woody-base.txt
     agent-musk-fixative.txt
     agent-spice-aromatic.txt
+  oh-my-openagent.json     Sisyphus, Prometheus, and supporting-agent routing
 
 opencode.json            Core config (modified: +model, +instructions, +compaction,
                           +permission, +lsp, +formatter, +watcher, +memory MCP,
@@ -235,6 +286,28 @@ check geraniol
 /test-engine
 ```
 
+### Provider routing
+
+```text
+# Native DeepSeek conversation (startup default)
+Explain the current optimizer architecture.
+
+# Native DeepInfra conversation
+/models
+# Select deepinfra/deepseek-ai/DeepSeek-V4-Pro, then chat normally.
+
+# One-shot optional delegated reads
+/deepluna inspect engine/optimizer and return file:line evidence
+/deepluna-fast scan tests for duplicate coverage
+```
+
+No switch-back command is needed after `/deepluna` or `/deepluna-fast`; each
+routing command runs as a subtask. To switch native providers, run `/models`
+again and select `deepseek/deepseek-v4-pro` or a DeepInfra model.
+
+The delegated commands are primary-only: `/deepluna` may use DeepSeek and
+`/deepluna-fast` may use DeepInfra. Neither may invoke Codex GPT orchestration.
+
 ---
 
 ## 9. Best Practices
@@ -247,12 +320,18 @@ check geraniol
 6. **Run `/inventory` before formulating** — AGENTS.md Rule 0 compliance
 7. **Permissions protect secrets** — `.env` files are blocked, bash commands require approval for destructive operations
 
-## 10. Windows Launcher Fix
+8. **Use ordinary chat by default** — it stays on the selected native provider (DeepSeek by default, DeepInfra when selected through `/models`); invoke `/deepluna` or `/deepluna-fast` only for an intentional bounded read
 
-If `opencode db` or `opencode models` errors with SQLite write failures on this machine, launch OpenCode through the repo wrapper:
+## 10. Starting OpenCode
+
+Open a terminal in the repository root and run:
 
 ```powershell
-.\scripts\start_opencode.ps1
+opencode
 ```
 
-That wrapper pins `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, `XDG_STATE_HOME`, and `TMPDIR` into `D:\tmp`, which avoids the default user-profile state path problems in this environment.
+In VS Code, close any old OpenCode terminal and use `Ctrl+Shift+Esc` to create a
+new session for this workspace. `Ctrl+Esc` may merely focus an already-running
+session that still has its old provider and MCP configuration.
+
+OpenCode uses its own credential store for DeepSeek authentication. The repository's environment guard removes DeepSeek credential variables from child-tool shells. `scripts/start_opencode.ps1` remains available only as a compatibility wrapper that changes to the repository root and calls the same `opencode` command.

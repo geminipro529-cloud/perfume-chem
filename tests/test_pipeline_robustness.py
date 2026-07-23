@@ -14,7 +14,7 @@ def _fougere_formula(evernyl_ul=20.0):
         "Evernyl": evernyl_ul,
         "Iso E Super": 1500.0,
         "Vetiver EO": 300.0,
-        "Habanolide": 500.0 - evernyl_ul,
+        "Zenolide": 500.0 - evernyl_ul,
     }
     total = sum(ingredients.values())
     return {
@@ -22,7 +22,7 @@ def _fougere_formula(evernyl_ul=20.0):
         "name": "Robust Fougere",
         "body": "aromatic fougere",
         "ingredients_ul": ingredients,
-        "dilutions": {},
+        "dilutions": {name: 1.0 for name in ingredients},
         "ingredients_pct": {name: amount / total * 100 for name, amount in ingredients.items()},
     }
 
