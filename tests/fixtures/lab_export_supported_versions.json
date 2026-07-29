@@ -1,0 +1,38 @@
+{
+  "lab-export-v1": {
+    "extensions": {
+      "org.perfumechem.fixture": {
+        "source": "lab-export-v1"
+      }
+    },
+    "format_revision": "lab-export-v1",
+    "tables": {}
+  },
+  "lab-export-v2": {
+    "extensions": {
+      "org.perfumechem.fixture": {
+        "source": "lab-export-v2"
+      }
+    },
+    "format_revision": "lab-export-v2",
+    "tables": {}
+  },
+  "lab-export-v3": {
+    "extensions": {
+      "org.perfumechem.fixture": {
+        "source": "lab-export-v3"
+      }
+    },
+    "format_revision": "lab-export-v3",
+    "tables": {}
+  },
+  "lab-export-v4": {
+    "extensions": {
+      "org.perfumechem.fixture": {
+        "source": "lab-export-v4"
+      }
+    },
+    "format_revision": "lab-export-v4",
+    "tables": {}
+  }
+}

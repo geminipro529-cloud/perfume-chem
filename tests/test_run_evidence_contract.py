@@ -47,6 +47,7 @@ from scripts.formula_release_gate import (
 from scripts.verify_formula_workflow import (
     PIPELINE_ANALYSIS_START,
     parse_formula_markdown,
+    parse_pipeline_analysis_manifest,
     split_generated_pipeline_analysis,
 )
 
@@ -687,6 +688,70 @@ def test_bound_analysis_becomes_stale_when_an_input_snapshot_changes(tmp_path):
     assert "inventory" in result["stale_issues"]
 
 
+def test_explicit_quarantine_is_nonblocking_but_never_current(tmp_path):
+    path = tmp_path / "quarantined.md"
+    _write_formula(path)
+    _persist_test_artifact(path)
+    source, artifact = split_generated_pipeline_analysis(
+        path.read_text(encoding="utf-8")
+    )
+    source = source.replace(
+        "# Bound Formula",
+        "# Bound Formula\n\n"
+        "**Status:** QUARANTINED — do not mix or release until repaired.",
+    )
+    path.write_text(source + "\n\n" + artifact, encoding="utf-8")
+
+    result = validate_pipeline_analysis_artifact(path)
+
+    assert result["status"] == "QUARANTINED"
+    assert result["artifact_binding_status"] == "STALE"
+    assert result["release_authority"] is False
+    assert result["quarantine_explicit"] is True
+    assert "formula_definition" in result["stale_issues"]
+
+
+def test_explicit_quarantine_without_artifact_remains_nonpromoting(tmp_path):
+    path = tmp_path / "quarantined-no-artifact.md"
+    path.write_text(
+        "# Quarantined\n\n"
+        "**Status**: QUARANTINED — do not mix or release pending repair.\n",
+        encoding="utf-8",
+    )
+
+    result = validate_pipeline_analysis_artifact(path)
+
+    assert result == {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "NONE",
+        "issues": [],
+        "release_authority": False,
+        "quarantine_explicit": True,
+    }
+
+
+def test_quarantine_cannot_hide_artifact_tampering(tmp_path):
+    path = tmp_path / "quarantined-tampered.md"
+    _write_formula(path)
+    _persist_test_artifact(path)
+    text = path.read_text(encoding="utf-8")
+    text = text.replace(
+        "# Bound Formula",
+        "# Bound Formula\n\n"
+        "**Status:** QUARANTINED — do not mix or release until repaired.",
+    )
+    path.write_text(
+        text.replace("diagnostic analysis", "altered analysis"),
+        encoding="utf-8",
+    )
+
+    result = validate_pipeline_analysis_artifact(path)
+
+    assert result["status"] == "TAMPERED"
+    assert result["artifact_binding_status"] == "TAMPERED"
+    assert "analysis_content_hash" in result["integrity_issues"]
+
+
 def test_failed_post_write_verification_rolls_formula_back(tmp_path, monkeypatch):
     path = tmp_path / "rollback.md"
     _write_formula(path)
@@ -736,5 +801,15 @@ def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
     capsys.readouterr()
 
     assert rc in {0, 1}
-    assert validate_pipeline_analysis_artifact(path)["status"] == "CURRENT"
-    assert path.read_text(encoding="utf-8").count(PIPELINE_ANALYSIS_START) == 1
+    validation = validate_pipeline_analysis_artifact(path)
+    assert validation["status"] == "CURRENT"
+    persisted = path.read_text(encoding="utf-8")
+    assert persisted.count(PIPELINE_ANALYSIS_START) == 1
+    _source, artifact = split_generated_pipeline_analysis(persisted)
+    manifest = parse_pipeline_analysis_manifest(artifact)
+    assert manifest is not None
+    assert manifest["binding_schema"] == "formula-artifact-binding-v1"
+    assert manifest["renderer_version"] == "formula-release-gate-v1"
+    assert len(manifest["analysis_input_sha256"]) == 64
+    assert manifest["repository_commit"]
+    assert manifest["canonical_records"][0]["canonical_content_sha256"]

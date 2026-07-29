@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from math import isfinite
+from typing import Generic, Mapping, TypeVar
 
 
 class QuantityError(ValueError):
@@ -308,13 +309,288 @@ class StandardUncertainty:
         }
 
 
+class IncomparabilityReason(str, Enum):
+    """Stable fail-closed reason codes for unsafe quantity comparisons."""
+
+    MISSING_DENSITY = "MISSING_DENSITY"
+    DENSITY_OUTSIDE_VALID_RANGE = "DENSITY_OUTSIDE_VALID_RANGE"
+    UNSPECIFIED_CONCENTRATION_BASIS = "UNSPECIFIED_CONCENTRATION_BASIS"
+    MISSING_ACTIVE_FRACTION = "MISSING_ACTIVE_FRACTION"
+    UNIT_NOT_CONVERTIBLE = "UNIT_NOT_CONVERTIBLE"
+    UNKNOWN_DILUENT = "UNKNOWN_DILUENT"
+    UNCERTAINTY_TOO_LARGE = "UNCERTAINTY_TOO_LARGE"
+
+
+@dataclass(frozen=True, slots=True)
+class DensityConditions:
+    """Temperature applicability range for a measured density."""
+
+    measured_temperature_c: float
+    minimum_temperature_c: float
+    maximum_temperature_c: float
+
+    def __post_init__(self) -> None:
+        measured = _finite(
+            "measured_temperature_c", self.measured_temperature_c
+        )
+        minimum = _finite(
+            "minimum_temperature_c", self.minimum_temperature_c
+        )
+        maximum = _finite(
+            "maximum_temperature_c", self.maximum_temperature_c
+        )
+        if minimum > maximum:
+            raise QuantityError(
+                "minimum density temperature must not exceed maximum"
+            )
+        if not minimum <= measured <= maximum:
+            raise QuantityError(
+                "measured density temperature is outside its valid range"
+            )
+        object.__setattr__(self, "measured_temperature_c", measured)
+        object.__setattr__(self, "minimum_temperature_c", minimum)
+        object.__setattr__(self, "maximum_temperature_c", maximum)
+
+
+T = TypeVar("T")
+
+
+@dataclass(frozen=True, slots=True)
+class ConversionResult(Generic[T]):
+    """A value or one stable reason why conversion is not defensible."""
+
+    value: T | None
+    reason: IncomparabilityReason | None
+
+    def __post_init__(self) -> None:
+        if (self.value is None) == (self.reason is None):
+            raise QuantityError(
+                "conversion result requires exactly one of value or reason"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class CompositionBalance:
+    """Mass accounting for a supplied technical material or stock."""
+
+    raw_mass_g: float
+    technical_active_mass_g: float
+    active_mass_g: float
+    carrier_mass_g: float
+    ethanol_mass_g: float
+    water_mass_g: float
+    other_solvent_mass_g: float
+    unallocated_mass_g: float
+
+    def __post_init__(self) -> None:
+        for field_name in (
+            "raw_mass_g",
+            "technical_active_mass_g",
+            "active_mass_g",
+            "carrier_mass_g",
+            "ethanol_mass_g",
+            "water_mass_g",
+            "other_solvent_mass_g",
+            "unallocated_mass_g",
+        ):
+            object.__setattr__(
+                self,
+                field_name,
+                _nonnegative(field_name, getattr(self, field_name)),
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class VolumeBalance:
+    """Explicit raw, active, carrier, and solvent volume roles."""
+
+    raw_volume: Volume
+    active_volume: Volume
+    carrier_volume: Volume
+    solvent_volume: Volume
+
+
+@dataclass(frozen=True, slots=True)
+class MeasurementResolution:
+    """Smallest reported increment for a measurement and its unit."""
+
+    value: float
+    unit: str
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self, "value", _positive("measurement resolution", self.value)
+        )
+        unit = str(self.unit).strip()
+        if not unit:
+            raise QuantityError("measurement resolution unit must not be empty")
+        object.__setattr__(self, "unit", unit)
+
+
+def convert_mass_to_volume(
+    mass: Mass,
+    *,
+    density: Density | None,
+    conditions: DensityConditions | None = None,
+    requested_temperature_c: float | None = None,
+) -> ConversionResult[Volume]:
+    """Convert mass only when density exists and applies at the requested T."""
+
+    if density is None:
+        return ConversionResult(
+            None, IncomparabilityReason.MISSING_DENSITY
+        )
+    if requested_temperature_c is not None:
+        requested = _finite(
+            "requested_temperature_c", requested_temperature_c
+        )
+        if conditions is not None and not (
+            conditions.minimum_temperature_c
+            <= requested
+            <= conditions.maximum_temperature_c
+        ):
+            return ConversionResult(
+                None,
+                IncomparabilityReason.DENSITY_OUTSIDE_VALID_RANGE,
+            )
+    return ConversionResult(
+        Volume.from_ml(mass.g / density.g_ml),
+        None,
+    )
+
+
+def convert_raw_to_active_mass(
+    raw_mass: Mass,
+    *,
+    active_fraction: float | None,
+    basis: ConcentrationBasis | None,
+    uncertainty: StandardUncertainty | None = None,
+    maximum_relative_uncertainty: float = 0.5,
+) -> ConversionResult[Mass]:
+    """Convert supplied mass to active mass only for a supported mass basis."""
+
+    if basis is None:
+        return ConversionResult(
+            None,
+            IncomparabilityReason.UNSPECIFIED_CONCENTRATION_BASIS,
+        )
+    if active_fraction is None:
+        return ConversionResult(
+            None,
+            IncomparabilityReason.MISSING_ACTIVE_FRACTION,
+        )
+    if basis is not ConcentrationBasis.MASS_FRACTION:
+        return ConversionResult(
+            None,
+            IncomparabilityReason.UNIT_NOT_CONVERTIBLE,
+        )
+    fraction = _nonnegative("active_fraction", active_fraction)
+    if fraction > 1:
+        raise QuantityError("active_fraction must be at most one")
+    maximum = _nonnegative(
+        "maximum_relative_uncertainty", maximum_relative_uncertainty
+    )
+    if uncertainty is not None:
+        if uncertainty.unit != "g":
+            return ConversionResult(
+                None,
+                IncomparabilityReason.UNIT_NOT_CONVERTIBLE,
+            )
+        scale = abs(uncertainty.value)
+        relative = (
+            float("inf")
+            if scale == 0 and uncertainty.standard_uncertainty > 0
+            else uncertainty.standard_uncertainty / max(scale, 1.0e-300)
+        )
+        if relative > maximum:
+            return ConversionResult(
+                None,
+                IncomparabilityReason.UNCERTAINTY_TOO_LARGE,
+            )
+    return ConversionResult(Mass.from_g(raw_mass.g * fraction), None)
+
+
+def partition_raw_mass(
+    raw_mass: Mass,
+    *,
+    active_fraction: float | None,
+    basis: ConcentrationBasis | None,
+    diluent_fractions: Mapping[str, float] | None,
+    technical_active_fraction: float | None = None,
+) -> ConversionResult[CompositionBalance]:
+    """Partition raw stock into active material and named carrier classes."""
+
+    active_result = convert_raw_to_active_mass(
+        raw_mass,
+        active_fraction=active_fraction,
+        basis=basis,
+    )
+    if active_result.reason is not None:
+        return ConversionResult(None, active_result.reason)
+    if diluent_fractions is None:
+        return ConversionResult(
+            None,
+            IncomparabilityReason.UNKNOWN_DILUENT,
+        )
+    active_mass = active_result.value
+    if active_mass is None:  # pragma: no cover - ConversionResult invariant
+        raise AssertionError("successful active conversion has no value")
+    technical_fraction = (
+        active_fraction
+        if technical_active_fraction is None
+        else technical_active_fraction
+    )
+    if technical_fraction is None:  # guarded by conversion above
+        raise AssertionError("active fraction unexpectedly missing")
+    technical_fraction = _nonnegative(
+        "technical_active_fraction", technical_fraction
+    )
+    if technical_fraction > 1:
+        raise QuantityError("technical_active_fraction must be at most one")
+    carrier_mass = raw_mass.g - active_mass.g
+    normalized: dict[str, float] = {}
+    for raw_name, raw_fraction in diluent_fractions.items():
+        name = str(raw_name).strip().casefold().replace("_", "-")
+        fraction = _nonnegative(f"diluent fraction {name}", raw_fraction)
+        normalized[name] = normalized.get(name, 0.0) + fraction
+    allocated_fraction = sum(normalized.values())
+    if allocated_fraction > 1 + 1.0e-12:
+        raise QuantityError("diluent fractions must sum to at most one")
+    ethanol_fraction = normalized.pop("ethanol", 0.0)
+    water_fraction = normalized.pop("water", 0.0)
+    explicit_other_fraction = normalized.pop("other-solvent", 0.0)
+    other_fraction = explicit_other_fraction + sum(normalized.values())
+    unallocated_fraction = max(
+        0.0,
+        1.0 - ethanol_fraction - water_fraction - other_fraction,
+    )
+    return ConversionResult(
+        CompositionBalance(
+            raw_mass_g=raw_mass.g,
+            technical_active_mass_g=raw_mass.g * technical_fraction,
+            active_mass_g=active_mass.g,
+            carrier_mass_g=carrier_mass,
+            ethanol_mass_g=carrier_mass * ethanol_fraction,
+            water_mass_g=carrier_mass * water_fraction,
+            other_solvent_mass_g=carrier_mass * other_fraction,
+            unallocated_mass_g=carrier_mass * unallocated_fraction,
+        ),
+        None,
+    )
+
+
 __all__ = [
     "Concentration",
     "ConcentrationBasis",
+    "CompositionBalance",
+    "ConversionResult",
     "Density",
+    "DensityConditions",
     "Duration",
+    "IncomparabilityReason",
     "LiquidMassConcentration",
     "Mass",
+    "MeasurementResolution",
     "MolarMass",
     "OdorActivityValue",
     "OdorThreshold",
@@ -323,4 +599,8 @@ __all__ = [
     "Temperature",
     "VaporPressure",
     "Volume",
+    "VolumeBalance",
+    "convert_mass_to_volume",
+    "convert_raw_to_active_mass",
+    "partition_raw_mass",
 ]

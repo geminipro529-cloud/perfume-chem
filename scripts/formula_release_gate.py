@@ -8,6 +8,7 @@ import dataclasses
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -51,6 +52,7 @@ from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
 from engine.reference_contracts import detect_reference_claim
+from scripts.format_pipeline_analysis import cli_transport_text
 from scripts.verify_formula_workflow import (
     PIPELINE_ANALYSIS_END,
     PIPELINE_ANALYSIS_START,
@@ -323,7 +325,14 @@ def _append_pipeline_analysis(
         replaced = True
         _verify_pipeline_analysis_artifact(formula_path, manifest, analysis_text)
         validation = validate_pipeline_analysis_artifact(formula_path)
-        if validation.get("status") != "CURRENT":
+        validation_status = validation.get("status")
+        artifact_binding_status = validation.get(
+            "artifact_binding_status",
+            validation_status,
+        )
+        if validation_status not in {"CURRENT", "QUARANTINED"} or (
+            artifact_binding_status != "CURRENT"
+        ):
             raise RuntimeError(
                 "Persisted pipeline artifact is not current: "
                 + ", ".join(str(issue) for issue in validation.get("issues", []))
@@ -351,6 +360,17 @@ def _append_pipeline_analysis(
             rollback_path.unlink()
 
 
+def _explicit_formula_quarantine(formula_source: str) -> bool:
+    """Return whether the source declares a fail-closed lifecycle quarantine."""
+
+    status_declared = re.search(
+        r"(?im)^\*\*Status(?:\*\*:|:\*\*)\s*QUARANTINED\b",
+        formula_source[:4000],
+    )
+    normalized = " ".join(formula_source[:4000].casefold().split())
+    return bool(status_declared) and "do not mix or release" in normalized
+
+
 def validate_pipeline_analysis_artifact(
     formula_path: Path,
     *,
@@ -360,8 +380,17 @@ def validate_pipeline_analysis_artifact(
 
     formula_path = Path(formula_path)
     text = formula_path.read_text(encoding="utf-8", errors="replace")
-    _formula_source, artifact = split_generated_pipeline_analysis(text)
+    formula_source, artifact = split_generated_pipeline_analysis(text)
+    explicitly_quarantined = _explicit_formula_quarantine(formula_source)
     if not artifact:
+        if explicitly_quarantined:
+            return {
+                "status": "QUARANTINED",
+                "artifact_binding_status": "NONE",
+                "issues": [],
+                "release_authority": False,
+                "quarantine_explicit": True,
+            }
         return {"status": "NONE", "issues": []}
     manifest = parse_pipeline_analysis_manifest(artifact)
     if not isinstance(manifest, dict) or manifest.get("manifest_status"):
@@ -392,6 +421,61 @@ def validate_pipeline_analysis_artifact(
     ]
     if manifest.get("formula_definitions") != current_definitions:
         stale_issues.append("formula_definition")
+    if manifest.get("binding_schema") == "formula-artifact-binding-v1":
+        if manifest.get("renderer_version") != "formula-release-gate-v1":
+            integrity_issues.append("renderer_version")
+        bound_records = manifest.get("canonical_records")
+        expected_records = [
+            {
+                "record_id": (
+                    f"formula:{int(row['number'])}:"
+                    + re.sub(
+                        r"[^a-z0-9]+",
+                        "-",
+                        str(row["name"]).casefold(),
+                    ).strip("-")
+                ),
+                "record_version": int(row["number"]),
+                "canonical_content_sha256": row["sha256"],
+            }
+            for row in current_definitions
+        ]
+        if bound_records != expected_records:
+            stale_issues.append("canonical_record_binding")
+        input_fields = {
+            key: manifest.get(key)
+            for key in (
+                "formula_definitions",
+                "semantic_config",
+                "config_sha256",
+                "inventory_sha256",
+                "scientific_inputs_sha256",
+                "pipeline_source_sha256",
+            )
+        }
+        if manifest.get("analysis_input_sha256") != stable_json_hash(
+            input_fields
+        ):
+            integrity_issues.append("analysis_input_hash")
+        generated_at = manifest.get("generated_at_utc")
+        try:
+            parsed_generated_at = datetime.fromisoformat(
+                str(generated_at).replace("Z", "+00:00")
+            )
+        except ValueError:
+            parsed_generated_at = None
+        if (
+            parsed_generated_at is None
+            or parsed_generated_at.tzinfo is None
+            or parsed_generated_at.utcoffset() is None
+        ):
+            integrity_issues.append("generation_timestamp")
+        repository_commit = manifest.get("repository_commit")
+        if repository_commit != "UNAVAILABLE" and not re.fullmatch(
+            r"[0-9a-f]{40,64}",
+            str(repository_commit),
+        ):
+            integrity_issues.append("repository_commit")
     current_hashes = repository_hashes or current_repository_evidence_hashes()
     if manifest.get("inventory_sha256") != current_hashes["inventory_sha256"]:
         stale_issues.append("inventory")
@@ -401,18 +485,42 @@ def validate_pipeline_analysis_artifact(
         stale_issues.append("pipeline_source")
 
     if integrity_issues:
+        artifact_binding_status = "TAMPERED"
         status = "TAMPERED"
     elif stale_issues:
-        status = "STALE"
+        artifact_binding_status = "STALE"
+        status = "QUARANTINED" if explicitly_quarantined else "STALE"
     else:
-        status = "CURRENT"
+        artifact_binding_status = "CURRENT"
+        status = "QUARANTINED" if explicitly_quarantined else "CURRENT"
     return {
         "status": status,
+        "artifact_binding_status": artifact_binding_status,
         "issues": integrity_issues + stale_issues,
         "integrity_issues": integrity_issues,
         "stale_issues": stale_issues,
         "artifact_sha256": manifest.get("artifact_sha256"),
+        "release_authority": False if explicitly_quarantined else None,
+        "quarantine_explicit": explicitly_quarantined,
     }
+
+
+def _repository_commit() -> str:
+    """Return the current commit without exposing environment configuration."""
+
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=PROJECT_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return "UNAVAILABLE"
+    commit = result.stdout.strip().lower()
+    return commit if re.fullmatch(r"[0-9a-f]{40,64}", commit) else "UNAVAILABLE"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -581,6 +689,25 @@ def main(argv: list[str] | None = None) -> int:
     base_analysis_text = render_pipeline_analysis(payload)
     manifest = {
         "schema": "perfume_pipeline_run_evidence_v1",
+        "binding_schema": "formula-artifact-binding-v1",
+        "renderer_version": "formula-release-gate-v1",
+        "analysis_input_sha256": stable_json_hash(run_hashes),
+        "repository_commit": _repository_commit(),
+        "canonical_records": [
+            {
+                "record_id": (
+                    f"formula:{int(row['number'])}:"
+                    + re.sub(
+                        r"[^a-z0-9]+",
+                        "-",
+                        str(row["name"]).casefold(),
+                    ).strip("-")
+                ),
+                "record_version": int(row["number"]),
+                "canonical_content_sha256": row["sha256"],
+            }
+            for row in run_hashes["formula_definitions"]
+        ],
         **run_hashes,
         "legacy_formula_hashes_v1": [
             {
@@ -665,11 +792,15 @@ def main(argv: list[str] | None = None) -> int:
             oa = report.get("oav_authority", {})
             print(f"\n{report['name']}: {report['status']} ({report['commercial_readiness']})")
             print(
-                f"  Score: {s.get('total', 0):.1f}  |  "
-                f"Sillage: {s.get('sillage', 0):.1f}  |  "
-                f"Longevity: {s.get('longevity', 0):.1f}  |  "
-                f"Synergy: {s.get('synergy', 0):.1f}  |  "
-                f"Skin: {s.get('skin_performance', 0):.1f}"
+                f"  Diagnostic index: {s.get('total', 0):.1f}  |  "
+                f"Heuristic sillage index: {s.get('sillage', 0):.1f}  |  "
+                f"Heuristic longevity index: {s.get('longevity', 0):.1f}  |  "
+                f"Synergy index: {s.get('synergy', 0):.1f}  |  "
+                f"Heuristic skin index: {s.get('skin_performance', 0):.1f}"
+            )
+            print(
+                "  Performance authority: uncalibrated diagnostic indices; "
+                "not measured sillage, skin life, or skin outcome"
             )
             print(
                 f"  OAV: {oa.get('status', '?')} (rank={oa.get('rank_score', 0)})  |  "
@@ -681,7 +812,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  {gate['status']}: {gate['gate']}{detail}")
 
     if args.print_analysis:
-        print(analysis_text)
+        print(cli_transport_text(analysis_text))
 
     return 1 if overall == "FAIL" else 0
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from typing import Any, Mapping
@@ -29,6 +30,7 @@ class ImportResult:
 _PLANNING_FORMAT_REVISION = "lab-export-v2"
 _SCIENCE_FORMAT_REVISION = "lab-export-v3"
 _FORMAT_REVISION = "lab-export-v4"
+CURRENT_WRITE_REVISION = _FORMAT_REVISION
 _SUPPORTED_REVISIONS = {
     "lab-export-v1",
     _PLANNING_FORMAT_REVISION,
@@ -104,6 +106,62 @@ _V4_TABLE_ORDER = (
     + _EXECUTION_SUFFIX_TABLE_ORDER
     + _SCIENCE_AUTHORITY_TABLE_ORDER
 )
+_TABLES_BY_REVISION = {
+    "lab-export-v1": _V1_TABLE_ORDER,
+    _PLANNING_FORMAT_REVISION: _V2_TABLE_ORDER,
+    _SCIENCE_FORMAT_REVISION: _V3_TABLE_ORDER,
+    _FORMAT_REVISION: _V4_TABLE_ORDER,
+}
+_NEXT_REVISION = {
+    "lab-export-v1": _PLANNING_FORMAT_REVISION,
+    _PLANNING_FORMAT_REVISION: _SCIENCE_FORMAT_REVISION,
+    _SCIENCE_FORMAT_REVISION: _FORMAT_REVISION,
+}
+_ALLOWED_TOP_LEVEL_FIELDS = {
+    "format_revision",
+    "schema_revision",
+    "ordering_contract",
+    "unit_contract",
+    "provenance_contract",
+    "tables",
+    "extensions",
+}
+
+
+def migrate_export_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
+    """Migrate every supported export through explicit sequential revisions."""
+
+    unknown_fields = set(packet).difference(_ALLOWED_TOP_LEVEL_FIELDS)
+    if unknown_fields:
+        raise ValueError("unknown top-level export field")
+    revision = packet.get("format_revision")
+    if revision not in _SUPPORTED_REVISIONS:
+        if isinstance(revision, str) and revision.startswith("lab-export-v"):
+            raise ValueError(
+                f"unknown future laboratory export revision: {revision}"
+            )
+        raise ValueError("unsupported laboratory export revision")
+    migrated = deepcopy(dict(packet))
+    tables = migrated.get("tables")
+    if not isinstance(tables, Mapping):
+        raise ValueError("laboratory export tables must be an object")
+    allowed_source_tables = _TABLES_BY_REVISION[str(revision)]
+    if set(tables).difference(allowed_source_tables):
+        raise ValueError("laboratory export contains unknown tables")
+    migrated["tables"] = {
+        str(name): deepcopy(rows) for name, rows in tables.items()
+    }
+    while revision != CURRENT_WRITE_REVISION:
+        next_revision = _NEXT_REVISION[str(revision)]
+        for table_name in _TABLES_BY_REVISION[next_revision]:
+            migrated["tables"].setdefault(table_name, [])
+        revision = next_revision
+        migrated["format_revision"] = revision
+    migrated["tables"] = {
+        table_name: migrated["tables"].get(table_name, [])
+        for table_name in _V4_TABLE_ORDER
+    }
+    return migrated
 
 
 class LabExportService:
@@ -591,4 +649,10 @@ def _deserialize_row(table, row: Mapping[str, Any]) -> dict[str, Any]:
     return values
 
 
-__all__ = ["ImportConflictError", "ImportResult", "LabExportService"]
+__all__ = [
+    "CURRENT_WRITE_REVISION",
+    "ImportConflictError",
+    "ImportResult",
+    "LabExportService",
+    "migrate_export_packet",
+]
