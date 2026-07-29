@@ -20,10 +20,12 @@ from app.models.lab import (
     LabInventoryMovement,
     LabMaterial,
     LabPrediction,
+    LabRestriction,
     LabSample,
     LabStockSolution,
 )
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
+from app.repositories.lab_science import LabScienceRepositoryMixin
 
 RecordT = TypeVar("RecordT")
 
@@ -36,7 +38,7 @@ class BottleLedgerState:
     stock_masses_g: dict[str, float]
 
 
-class LabRepository(LabPlanningRepositoryMixin):
+class LabRepository(LabScienceRepositoryMixin, LabPlanningRepositoryMixin):
     """SQLAlchemy queries without transaction ownership or scientific arithmetic."""
 
     def __init__(self, session: AsyncSession) -> None:
@@ -49,6 +51,12 @@ class LabRepository(LabPlanningRepositoryMixin):
 
     async def get_material(self, material_id: str) -> LabMaterial | None:
         return await self.session.get(LabMaterial, material_id)
+
+    async def get_restriction(
+        self,
+        restriction_id: str,
+    ) -> LabRestriction | None:
+        return await self.session.get(LabRestriction, restriction_id)
 
     async def get_stock(self, stock_id: str) -> LabStockSolution | None:
         return await self.session.get(LabStockSolution, stock_id)

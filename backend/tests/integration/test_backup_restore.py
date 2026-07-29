@@ -85,13 +85,13 @@ def test_a2_migrated_backup_manifest_tracks_new_head(tmp_path):
     service = BackupService(
         database_path=database,
         backup_directory=tmp_path / "a2-backups",
-        expected_schema_revision="20260730_0001",
+        expected_schema_revision="20260730_0002",
     )
 
     artifact = service.create_backup(label="a2-planning")
     validation = service.validate_restore(artifact.snapshot_path)
 
-    assert artifact.schema_revision == "20260730_0001"
+    assert artifact.schema_revision == "20260730_0002"
     assert validation.valid is True
 
 

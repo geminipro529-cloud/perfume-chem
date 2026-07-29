@@ -95,9 +95,22 @@ async def test_v2_export_import_is_byte_deterministic_and_idempotent(
     )
     exporter = LabExportService(db_session)
     packet = await exporter.export_planning_workspace()
-    before = await exporter.canonical_bytes()
+    before = json.dumps(
+        packet,
+        ensure_ascii=False,
+        allow_nan=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
     result = await exporter.import_workspace(packet)
-    after = await exporter.canonical_bytes()
+    after_packet = await exporter.export_planning_workspace()
+    after = json.dumps(
+        after_packet,
+        ensure_ascii=False,
+        allow_nan=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
     assert result.inserted == 0
     assert result.skipped == sum(
         len(rows) for rows in packet["tables"].values()

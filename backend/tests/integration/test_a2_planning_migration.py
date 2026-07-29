@@ -299,7 +299,7 @@ def _minimum_rows(connection: sqlite3.Connection) -> None:
 
 def test_a2_planning_migration_upgrades_empty_database(tmp_path):
     database = tmp_path / "empty.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_HEAD)
     assert _revision(database) == A2_HEAD
     assert PLANNING_TABLES <= _tables(database)
     assert _integrity(database) == "ok"
@@ -311,7 +311,7 @@ def test_a2_planning_migration_upgrades_released_schema_copy(tmp_path):
     command.upgrade(config, RELEASED_HEAD)
     _insert_representative_lab_rows(database)
     before = _representative_rows(database)
-    command.upgrade(config, "head")
+    command.upgrade(config, A2_HEAD)
     assert _representative_rows(database) == before
     assert _revision(database) == A2_HEAD
 
@@ -319,7 +319,7 @@ def test_a2_planning_migration_upgrades_released_schema_copy(tmp_path):
 def test_a2_planning_migration_downgrades_to_released_head(tmp_path):
     database = tmp_path / "rollback.db"
     config = _config(database)
-    command.upgrade(config, "head")
+    command.upgrade(config, A2_HEAD)
     command.downgrade(config, RELEASED_HEAD)
     assert not (PLANNING_TABLES & _tables(database))
     assert _revision(database) == RELEASED_HEAD
@@ -329,13 +329,13 @@ def test_a2_planning_migration_downgrades_to_released_head(tmp_path):
 def test_a2_planning_migration_preserves_legacy_tables(tmp_path):
     database = tmp_path / "legacy.db"
     _create_legacy_material(database, "legacy orris")
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_HEAD)
     assert _legacy_material(database) == "legacy orris"
 
 
 def test_a2_planning_migration_installs_append_only_guards(tmp_path):
     database = tmp_path / "append-only.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_HEAD)
     with sqlite3.connect(database) as connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)
@@ -357,7 +357,7 @@ def test_a2_planning_migration_installs_append_only_guards(tmp_path):
 
 def test_a2_planning_database_constraints_reject_invalid_rows(tmp_path):
     database = tmp_path / "constraints.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_HEAD)
     with sqlite3.connect(database) as connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)

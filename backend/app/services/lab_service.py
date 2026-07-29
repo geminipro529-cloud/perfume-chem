@@ -34,6 +34,7 @@ from app.models.lab import (
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
 from app.services.lab_planning import LabPlanningServiceMixin
+from app.services.lab_science import LabScienceServiceMixin
 
 
 @dataclass(frozen=True, slots=True)
@@ -100,7 +101,7 @@ class ConcurrentWriteError(LabTransactionError):
 _LAB_WRITE_LOCK = asyncio.Lock()
 
 
-class LabService(LabPlanningServiceMixin):
+class LabService(LabScienceServiceMixin, LabPlanningServiceMixin):
     """Own transactions while delegating persistence to ``LabRepository``."""
 
     def __init__(self, session: AsyncSession) -> None:

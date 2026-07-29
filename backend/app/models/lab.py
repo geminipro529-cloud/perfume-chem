@@ -413,6 +413,19 @@ from app.models.lab_planning import (  # noqa: E402,F401
     LabTargetHypothesisVersion,
     LabTargetLine,
 )
+from app.models.lab_science import (  # noqa: E402,F401
+    SCIENCE_AUTHORITY_TABLE_NAMES,
+    LabAnalyticalAttachment,
+    LabAnalyticalMethodVersion,
+    LabAnalyticalPeak,
+    LabAnalyticalQCRecord,
+    LabAnalyticalRun,
+    LabClaimAssessmentEvidenceLink,
+    LabClaimAssessmentVersion,
+    LabGCOEvent,
+    LabRegulatoryAssessmentVersion,
+    LabRegulatoryFinding,
+)
 
 LAB_TABLE_NAMES = {
     table.name for table in Base.metadata.sorted_tables if table.name.startswith("lab_")
@@ -431,6 +444,7 @@ APPEND_ONLY_TABLES = {
     "lab_predictions",
     "lab_outcomes",
     *PLANNING_TABLE_NAMES,
+    *SCIENCE_AUTHORITY_TABLE_NAMES,
 }
 
 

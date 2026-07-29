@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Any, Mapping
 
-from sqlalchemy import select, text
+from sqlalchemy import Date, DateTime, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.base import Base
@@ -26,8 +26,13 @@ class ImportResult:
         return {"inserted": self.inserted, "skipped": self.skipped}
 
 
-_FORMAT_REVISION = "lab-export-v2"
-_SUPPORTED_REVISIONS = {"lab-export-v1", _FORMAT_REVISION}
+_PLANNING_FORMAT_REVISION = "lab-export-v2"
+_FORMAT_REVISION = "lab-export-v3"
+_SUPPORTED_REVISIONS = {
+    "lab-export-v1",
+    _PLANNING_FORMAT_REVISION,
+    _FORMAT_REVISION,
+}
 _V1_TABLE_ORDER = (
     "lab_evidence_records",
     "lab_materials",
@@ -66,7 +71,20 @@ _PLANNING_TABLE_ORDER = (
     "lab_build_plan_evidence_links",
     "lab_inventory_reservation_events",
 )
-_TABLE_ORDER = _V1_TABLE_ORDER + _PLANNING_TABLE_ORDER
+_SCIENCE_AUTHORITY_TABLE_ORDER = (
+    "lab_analytical_method_versions",
+    "lab_analytical_runs",
+    "lab_analytical_peaks",
+    "lab_analytical_qc_records",
+    "lab_analytical_attachments",
+    "lab_gco_events",
+    "lab_regulatory_assessment_versions",
+    "lab_regulatory_findings",
+    "lab_claim_assessment_versions",
+    "lab_claim_assessment_evidence_links",
+)
+_V2_TABLE_ORDER = _V1_TABLE_ORDER + _PLANNING_TABLE_ORDER
+_TABLE_ORDER = _V2_TABLE_ORDER + _SCIENCE_AUTHORITY_TABLE_ORDER
 
 
 class LabExportService:
@@ -80,11 +98,13 @@ class LabExportService:
     ) -> dict[str, Any]:
         if format_revision not in _SUPPORTED_REVISIONS:
             raise ValueError("unsupported laboratory export revision")
-        table_order = (
-            _V1_TABLE_ORDER
-            if format_revision == "lab-export-v1"
-            else _TABLE_ORDER
-        )
+        table_order: tuple[str, ...]
+        if format_revision == "lab-export-v1":
+            table_order = _V1_TABLE_ORDER
+        elif format_revision == _PLANNING_FORMAT_REVISION:
+            table_order = _V2_TABLE_ORDER
+        else:
+            table_order = _TABLE_ORDER
         tables: dict[str, list[dict[str, Any]]] = {}
         for table_name in table_order:
             table = Base.metadata.tables[table_name]
@@ -115,7 +135,10 @@ class LabExportService:
             },
             "tables": tables,
         }
-        if format_revision == _FORMAT_REVISION:
+        if format_revision in {
+            _PLANNING_FORMAT_REVISION,
+            _FORMAT_REVISION,
+        }:
             packet["ordering_contract"].update(
                 {
                     "target_versions": [
@@ -173,16 +196,100 @@ class LabExportService:
                     "content_hashes": "stable_json_hash",
                 }
             )
+        if format_revision == _FORMAT_REVISION:
+            packet["ordering_contract"].update(
+                {
+                    "analytical_method_versions": [
+                        "method_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "analytical_runs": ["run_id", "id"],
+                    "analytical_peaks": [
+                        "analytical_run_id",
+                        "retention_time_minutes",
+                        "peak_key",
+                        "id",
+                    ],
+                    "analytical_qc_records": [
+                        "analytical_run_id",
+                        "qc_key",
+                        "id",
+                    ],
+                    "gco_events": [
+                        "analytical_run_id",
+                        "retention_time_minutes",
+                        "event_key",
+                        "id",
+                    ],
+                    "regulatory_assessment_versions": [
+                        "assessment_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "regulatory_findings": [
+                        "regulatory_assessment_version_id",
+                        "finding_key",
+                        "id",
+                    ],
+                    "claim_assessment_versions": [
+                        "claim_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "claim_evidence_links": [
+                        "claim_assessment_version_id",
+                        "role",
+                        "evidence_record_id",
+                        "id",
+                    ],
+                }
+            )
+            packet["unit_contract"].update(
+                {
+                    "retention_time_minutes": "min",
+                    "retention_index": "dimensionless",
+                    "analytical_quantity": "explicit_quantity_unit_and_basis",
+                    "finished_product_concentration": (
+                        "explicit_concentration_basis"
+                    ),
+                }
+            )
+            packet["provenance_contract"].update(
+                {
+                    "analytical_method_evidence": (
+                        "lab_analytical_method_versions.evidence_record_id"
+                    ),
+                    "analytical_attachments": (
+                        "digest_metadata_only_no_embedded_bytes"
+                    ),
+                    "regulatory_source_evidence": (
+                        "lab_regulatory_assessment_versions."
+                        "source_evidence_record_id"
+                    ),
+                    "claim_evidence": (
+                        "lab_claim_assessment_evidence_links"
+                    ),
+                    "legacy_authority_vector": "not_canonical_not_exported",
+                }
+            )
         return packet
 
     async def export_planning_workspace(self) -> dict[str, Any]:
         """Write the complete v2 graph while the legacy endpoint stays v1."""
 
+        return await self.export_workspace(
+            format_revision=_PLANNING_FORMAT_REVISION
+        )
+
+    async def export_science_workspace(self) -> dict[str, Any]:
+        """Write the complete v3 science-authority graph."""
+
         return await self.export_workspace(format_revision=_FORMAT_REVISION)
 
     async def canonical_bytes(self) -> bytes:
         return json.dumps(
-            await self.export_planning_workspace(),
+            await self.export_science_workspace(),
             ensure_ascii=False,
             allow_nan=False,
             sort_keys=True,
@@ -196,11 +303,13 @@ class LabExportService:
         incoming_tables = packet.get("tables")
         if not isinstance(incoming_tables, Mapping):
             raise ValueError("laboratory export tables must be an object")
-        allowed_tables = (
-            _V1_TABLE_ORDER
-            if format_revision == "lab-export-v1"
-            else _TABLE_ORDER
-        )
+        allowed_tables: tuple[str, ...]
+        if format_revision == "lab-export-v1":
+            allowed_tables = _V1_TABLE_ORDER
+        elif format_revision == _PLANNING_FORMAT_REVISION:
+            allowed_tables = _V2_TABLE_ORDER
+        else:
+            allowed_tables = _TABLE_ORDER
         unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
@@ -290,6 +399,50 @@ def _ordering_columns(table_name: str, table):
         )
     if table_name == "lab_inventory_reservation_events":
         return (table.c.reservation_id, table.c.sequence, table.c.id)
+    if table_name == "lab_analytical_method_versions":
+        return (table.c.method_id, table.c.version_number, table.c.id)
+    if table_name == "lab_analytical_runs":
+        return (table.c.run_id, table.c.id)
+    if table_name == "lab_analytical_peaks":
+        return (
+            table.c.analytical_run_id,
+            table.c.retention_time_minutes,
+            table.c.peak_key,
+            table.c.id,
+        )
+    if table_name == "lab_analytical_qc_records":
+        return (table.c.analytical_run_id, table.c.qc_key, table.c.id)
+    if table_name == "lab_analytical_attachments":
+        return (
+            table.c.analytical_run_id,
+            table.c.attachment_kind,
+            table.c.content_sha256,
+            table.c.id,
+        )
+    if table_name == "lab_gco_events":
+        return (
+            table.c.analytical_run_id,
+            table.c.retention_time_minutes,
+            table.c.event_key,
+            table.c.id,
+        )
+    if table_name == "lab_regulatory_assessment_versions":
+        return (table.c.assessment_id, table.c.version_number, table.c.id)
+    if table_name == "lab_regulatory_findings":
+        return (
+            table.c.regulatory_assessment_version_id,
+            table.c.finding_key,
+            table.c.id,
+        )
+    if table_name == "lab_claim_assessment_versions":
+        return (table.c.claim_id, table.c.version_number, table.c.id)
+    if table_name == "lab_claim_assessment_evidence_links":
+        return (
+            table.c.claim_assessment_version_id,
+            table.c.role,
+            table.c.evidence_record_id,
+            table.c.id,
+        )
     return (table.c.id,)
 
 
@@ -300,6 +453,8 @@ def _serialize_row(row: dict[str, Any]) -> dict[str, Any]:
             if value.tzinfo is None:
                 value = value.replace(tzinfo=timezone.utc)
             serialized[str(key)] = value.astimezone(timezone.utc).isoformat()
+        elif isinstance(value, date):
+            serialized[str(key)] = value.isoformat()
         else:
             serialized[str(key)] = value
     return serialized
@@ -311,11 +466,23 @@ def _deserialize_row(table, row: Mapping[str, Any]) -> dict[str, Any]:
         if column.name not in row:
             continue
         value = row[column.name]
-        if value is not None and column.name in {"created_at", "applied_at"}:
+        column_type = column.type
+        implementation = getattr(column_type, "impl", None)
+        is_datetime = isinstance(column_type, DateTime) or isinstance(
+            implementation,
+            DateTime,
+        )
+        is_date = isinstance(column_type, Date) or isinstance(
+            implementation,
+            Date,
+        )
+        if value is not None and is_datetime:
             parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
             if parsed.tzinfo is None:
                 parsed = parsed.replace(tzinfo=timezone.utc)
             value = parsed
+        elif value is not None and is_date:
+            value = date.fromisoformat(str(value))
         values[column.name] = value
     return values
 
