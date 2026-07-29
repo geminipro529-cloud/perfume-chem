@@ -33,6 +33,7 @@ from app.models.lab import (
     LabStockSolution,
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
+from app.services.lab_execution import LabExecutionServiceMixin
 from app.services.lab_planning import LabPlanningServiceMixin
 from app.services.lab_science import LabScienceServiceMixin
 
@@ -101,7 +102,11 @@ class ConcurrentWriteError(LabTransactionError):
 _LAB_WRITE_LOCK = asyncio.Lock()
 
 
-class LabService(LabScienceServiceMixin, LabPlanningServiceMixin):
+class LabService(
+    LabExecutionServiceMixin,
+    LabScienceServiceMixin,
+    LabPlanningServiceMixin,
+):
     """Own transactions while delegating persistence to ``LabRepository``."""
 
     def __init__(self, session: AsyncSession) -> None:
@@ -275,6 +280,28 @@ class LabService(LabScienceServiceMixin, LabPlanningServiceMixin):
         command_id: str,
         measured_volume_ul: float | None = None,
     ) -> LabBottleEvent:
+        async with self._transaction():
+            return await self._add_stock_to_bottle_in_transaction(
+                bottle_id=bottle_id,
+                stock_solution_id=stock_solution_id,
+                mass_g=mass_g,
+                expected_sequence=expected_sequence,
+                command_id=command_id,
+                measured_volume_ul=measured_volume_ul,
+            )
+
+    async def _add_stock_to_bottle_in_transaction(
+        self,
+        *,
+        bottle_id: str,
+        stock_solution_id: str,
+        mass_g: float,
+        expected_sequence: int,
+        command_id: str,
+        measured_volume_ul: float | None = None,
+    ) -> LabBottleEvent:
+        """Apply one stock addition inside the caller's canonical transaction."""
+
         if mass_g <= 0:
             raise ValueError("mass_g must be greater than zero")
         token = _command_token("add-stock", command_id)
@@ -284,64 +311,63 @@ class LabService(LabScienceServiceMixin, LabPlanningServiceMixin):
             "measured_volume_ul": measured_volume_ul,
             "expected_sequence": expected_sequence,
         }
-        async with self._transaction():
-            existing = await self.repository.event_for_command(bottle_id, token)
-            if existing is not None:
-                if existing.payload_json != request_payload:
-                    raise IdempotencyConflictError(
-                        "command identifier was already used for a different request"
-                    )
-                return existing
-            bottle = await self.repository.get_bottle(bottle_id)
-            stock = await self.repository.get_stock(stock_solution_id)
-            if bottle is None:
-                raise KeyError(f"Unknown bottle: {bottle_id}")
-            if stock is None:
-                raise KeyError(f"Unknown stock solution: {stock_solution_id}")
-            current_sequence = await self.repository.latest_sequence(bottle_id)
-            if current_sequence != expected_sequence:
-                raise StaleBottleStreamError(
-                    f"expected sequence {expected_sequence}, current sequence is {current_sequence}"
+        existing = await self.repository.event_for_command(bottle_id, token)
+        if existing is not None:
+            if existing.payload_json != request_payload:
+                raise IdempotencyConflictError(
+                    "command identifier was already used for a different request"
                 )
-            available_g = await self.repository.stock_balance_g(stock_solution_id)
-            if mass_g > available_g + 1e-12:
-                raise InsufficientStockError(
-                    f"requested {mass_g:g} g but only {available_g:g} g is available"
-                )
+            return existing
+        bottle = await self.repository.get_bottle(bottle_id)
+        stock = await self.repository.get_stock(stock_solution_id)
+        if bottle is None:
+            raise KeyError(f"Unknown bottle: {bottle_id}")
+        if stock is None:
+            raise KeyError(f"Unknown stock solution: {stock_solution_id}")
+        current_sequence = await self.repository.latest_sequence(bottle_id)
+        if current_sequence != expected_sequence:
+            raise StaleBottleStreamError(
+                f"expected sequence {expected_sequence}, current sequence is {current_sequence}"
+            )
+        available_g = await self.repository.stock_balance_g(stock_solution_id)
+        if mass_g > available_g + 1e-12:
+            raise InsufficientStockError(
+                f"requested {mass_g:g} g but only {available_g:g} g is available"
+            )
 
-            event = await self.repository.add(
-                LabBottleEvent(
-                    bottle_id=bottle_id,
-                    stream_sequence=current_sequence + 1,
-                    expected_sequence=expected_sequence,
-                    command_id=token,
-                    transaction_id=str(uuid4()),
-                    event_type="add_stock",
-                    payload_json=request_payload,
-                )
+        event = await self.repository.add(
+            LabBottleEvent(
+                bottle_id=bottle_id,
+                stream_sequence=current_sequence + 1,
+                expected_sequence=expected_sequence,
+                command_id=token,
+                transaction_id=str(uuid4()),
+                event_type="add_stock",
+                payload_json=request_payload,
             )
-            effect = await self.repository.add(
-                LabBottleEventEffect(
-                    event_id=event.id,
-                    bottle_id=bottle_id,
-                    stock_solution_id=stock_solution_id,
-                    material_id=stock.material_id,
-                    mass_delta_g=mass_g,
-                    measured_volume_ul=measured_volume_ul,
-                    density_g_ml=stock.density_g_ml,
-                )
+        )
+        effect = await self.repository.add(
+            LabBottleEventEffect(
+                event_id=event.id,
+                bottle_id=bottle_id,
+                stock_solution_id=stock_solution_id,
+                material_id=stock.material_id,
+                mass_delta_g=mass_g,
+                measured_volume_ul=measured_volume_ul,
+                density_g_ml=stock.density_g_ml,
             )
-            await self.repository.add(
-                LabInventoryMovement(
-                    stock_solution_id=stock_solution_id,
-                    event_effect_id=effect.id,
-                    mass_delta_g=-mass_g,
-                    measured_volume_ul=measured_volume_ul,
-                    reason="bottle_addition",
-                )
+        )
+        await self.repository.add(
+            LabInventoryMovement(
+                stock_solution_id=stock_solution_id,
+                event_effect_id=effect.id,
+                mass_delta_g=-mass_g,
+                measured_volume_ul=measured_volume_ul,
+                reason="bottle_addition",
             )
-            stock.remaining_mass_g = available_g - mass_g
-            return event
+        )
+        stock.remaining_mass_g = available_g - mass_g
+        return event
 
     async def transfer_between_bottles(
         self,

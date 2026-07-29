@@ -8,6 +8,7 @@ from app.api.v1.endpoints import (
     formulas,
     knowledge,
     lab,
+    lab_lifecycle,
     lab_planning,
     mixer,
     optimizer,
@@ -21,6 +22,12 @@ api_router.include_router(
     lab_planning.router,
     prefix="/lab/v2",
     tags=["laboratory-planning"],
+)
+
+api_router.include_router(
+    lab_lifecycle.router,
+    prefix="/lab/v2",
+    tags=["laboratory-lifecycle"],
 )
 
 api_router.include_router(

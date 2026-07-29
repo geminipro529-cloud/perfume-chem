@@ -200,7 +200,7 @@ def _minimum_science_rows(connection: sqlite3.Connection) -> None:
 
 def test_a2_science_migration_upgrades_empty_database(tmp_path):
     database = tmp_path / "empty.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_SCIENCE_HEAD)
     assert _revision(database) == A2_SCIENCE_HEAD
     assert SCIENCE_AUTHORITY_TABLES <= _tables(database)
     assert _integrity(database) == "ok"
@@ -215,7 +215,7 @@ def test_a2_science_migration_upgrades_planning_schema_copy(tmp_path):
         _minimum_rows(connection)
         connection.commit()
     before = _planning_counts(database)
-    command.upgrade(config, "head")
+    command.upgrade(config, A2_SCIENCE_HEAD)
     assert _planning_counts(database) == before
     assert _revision(database) == A2_SCIENCE_HEAD
 
@@ -223,7 +223,7 @@ def test_a2_science_migration_upgrades_planning_schema_copy(tmp_path):
 def test_a2_science_migration_downgrades_to_planning_head(tmp_path):
     database = tmp_path / "rollback.db"
     config = _config(database)
-    command.upgrade(config, "head")
+    command.upgrade(config, A2_SCIENCE_HEAD)
     command.downgrade(config, A2_PLANNING_HEAD)
     assert not (SCIENCE_AUTHORITY_TABLES & _tables(database))
     assert _revision(database) == A2_PLANNING_HEAD
@@ -232,7 +232,7 @@ def test_a2_science_migration_downgrades_to_planning_head(tmp_path):
 
 def test_a2_science_migration_installs_append_only_guards(tmp_path):
     database = tmp_path / "append-only.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_SCIENCE_HEAD)
     with sqlite3.connect(database) as connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)
@@ -255,7 +255,7 @@ def test_a2_science_migration_installs_append_only_guards(tmp_path):
 
 def test_a2_science_database_constraints_reject_invalid_rows(tmp_path):
     database = tmp_path / "constraints.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_SCIENCE_HEAD)
     with sqlite3.connect(database) as connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)

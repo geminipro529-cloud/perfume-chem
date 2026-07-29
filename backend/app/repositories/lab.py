@@ -24,6 +24,7 @@ from app.models.lab import (
     LabSample,
     LabStockSolution,
 )
+from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_science import LabScienceRepositoryMixin
 
@@ -38,7 +39,11 @@ class BottleLedgerState:
     stock_masses_g: dict[str, float]
 
 
-class LabRepository(LabScienceRepositoryMixin, LabPlanningRepositoryMixin):
+class LabRepository(
+    LabExecutionRepositoryMixin,
+    LabScienceRepositoryMixin,
+    LabPlanningRepositoryMixin,
+):
     """SQLAlchemy queries without transaction ownership or scientific arithmetic."""
 
     def __init__(self, session: AsyncSession) -> None:

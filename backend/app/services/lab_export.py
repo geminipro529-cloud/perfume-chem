@@ -27,10 +27,12 @@ class ImportResult:
 
 
 _PLANNING_FORMAT_REVISION = "lab-export-v2"
-_FORMAT_REVISION = "lab-export-v3"
+_SCIENCE_FORMAT_REVISION = "lab-export-v3"
+_FORMAT_REVISION = "lab-export-v4"
 _SUPPORTED_REVISIONS = {
     "lab-export-v1",
     _PLANNING_FORMAT_REVISION,
+    _SCIENCE_FORMAT_REVISION,
     _FORMAT_REVISION,
 }
 _V1_TABLE_ORDER = (
@@ -84,7 +86,24 @@ _SCIENCE_AUTHORITY_TABLE_ORDER = (
     "lab_claim_assessment_evidence_links",
 )
 _V2_TABLE_ORDER = _V1_TABLE_ORDER + _PLANNING_TABLE_ORDER
-_TABLE_ORDER = _V2_TABLE_ORDER + _SCIENCE_AUTHORITY_TABLE_ORDER
+_V3_TABLE_ORDER = _V2_TABLE_ORDER + _SCIENCE_AUTHORITY_TABLE_ORDER
+_EXECUTION_PREFIX_TABLE_ORDER = (
+    "lab_bottle_action_proposals",
+    "lab_bottle_action_confirmations",
+)
+_EXECUTION_SUFFIX_TABLE_ORDER = ("lab_bottle_action_commits",)
+_V4_TABLE_ORDER = (
+    tuple(
+        table_name
+        for table_name in _V1_TABLE_ORDER
+        if table_name != "lab_bottle_measurements"
+    )
+    + _PLANNING_TABLE_ORDER
+    + _EXECUTION_PREFIX_TABLE_ORDER
+    + ("lab_bottle_measurements",)
+    + _EXECUTION_SUFFIX_TABLE_ORDER
+    + _SCIENCE_AUTHORITY_TABLE_ORDER
+)
 
 
 class LabExportService:
@@ -103,16 +122,37 @@ class LabExportService:
             table_order = _V1_TABLE_ORDER
         elif format_revision == _PLANNING_FORMAT_REVISION:
             table_order = _V2_TABLE_ORDER
+        elif format_revision == _SCIENCE_FORMAT_REVISION:
+            table_order = _V3_TABLE_ORDER
         else:
-            table_order = _TABLE_ORDER
+            table_order = _V4_TABLE_ORDER
         tables: dict[str, list[dict[str, Any]]] = {}
         for table_name in table_order:
             table = Base.metadata.tables[table_name]
             ordering = _ordering_columns(table_name, table)
-            result = await self.session.execute(select(table).order_by(*ordering))
-            tables[table_name] = [
-                _serialize_row(dict(row._mapping)) for row in result
-            ]
+            statement = select(table)
+            if (
+                table_name == "lab_bottle_measurements"
+                and format_revision != _FORMAT_REVISION
+            ):
+                statement = statement.where(table.c.proposal_id.is_(None))
+            result = await self.session.execute(
+                statement.order_by(*ordering)
+            )
+            rows = [_serialize_row(dict(row._mapping)) for row in result]
+            if (
+                table_name == "lab_bottle_measurements"
+                and format_revision != _FORMAT_REVISION
+            ):
+                for row in rows:
+                    for field in (
+                        "proposal_id",
+                        "method",
+                        "measured_at",
+                        "actor",
+                    ):
+                        row.pop(field, None)
+            tables[table_name] = rows
         packet: dict[str, Any] = {
             "format_revision": format_revision,
             "schema_revision": await self._schema_revision(),
@@ -137,6 +177,7 @@ class LabExportService:
         }
         if format_revision in {
             _PLANNING_FORMAT_REVISION,
+            _SCIENCE_FORMAT_REVISION,
             _FORMAT_REVISION,
         }:
             packet["ordering_contract"].update(
@@ -196,7 +237,10 @@ class LabExportService:
                     "content_hashes": "stable_json_hash",
                 }
             )
-        if format_revision == _FORMAT_REVISION:
+        if format_revision in {
+            _SCIENCE_FORMAT_REVISION,
+            _FORMAT_REVISION,
+        }:
             packet["ordering_contract"].update(
                 {
                     "analytical_method_versions": [
@@ -273,6 +317,34 @@ class LabExportService:
                     "legacy_authority_vector": "not_canonical_not_exported",
                 }
             )
+        if format_revision == _FORMAT_REVISION:
+            packet["ordering_contract"].update(
+                {
+                    "bottle_action_proposals": [
+                        "reservation_id",
+                        "created_at",
+                        "id",
+                    ],
+                    "bottle_action_confirmations": ["proposal_id", "id"],
+                    "bottle_action_measurements": [
+                        "proposal_id",
+                        "quantity_kind",
+                        "id",
+                    ],
+                    "bottle_action_commits": ["proposal_id", "id"],
+                }
+            )
+            packet["unit_contract"]["action_mass"] = "g"
+            packet["provenance_contract"].update(
+                {
+                    "physical_action": "lab_bottle_action_proposals",
+                    "human_confirmation": (
+                        "lab_bottle_action_confirmations"
+                    ),
+                    "physical_measurement": "lab_bottle_measurements",
+                    "atomic_commit": "lab_bottle_action_commits",
+                }
+            )
         return packet
 
     async def export_planning_workspace(self) -> dict[str, Any]:
@@ -285,11 +357,29 @@ class LabExportService:
     async def export_science_workspace(self) -> dict[str, Any]:
         """Write the complete v3 science-authority graph."""
 
+        return await self.export_workspace(
+            format_revision=_SCIENCE_FORMAT_REVISION
+        )
+
+    async def export_execution_workspace(self) -> dict[str, Any]:
+        """Write the complete v4 canonical execution graph."""
+
         return await self.export_workspace(format_revision=_FORMAT_REVISION)
 
     async def canonical_bytes(self) -> bytes:
+        """Preserve the v3 byte contract for existing callers."""
+
         return json.dumps(
             await self.export_science_workspace(),
+            ensure_ascii=False,
+            allow_nan=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+
+    async def canonical_execution_bytes(self) -> bytes:
+        return json.dumps(
+            await self.export_execution_workspace(),
             ensure_ascii=False,
             allow_nan=False,
             sort_keys=True,
@@ -308,8 +398,10 @@ class LabExportService:
             allowed_tables = _V1_TABLE_ORDER
         elif format_revision == _PLANNING_FORMAT_REVISION:
             allowed_tables = _V2_TABLE_ORDER
+        elif format_revision == _SCIENCE_FORMAT_REVISION:
+            allowed_tables = _V3_TABLE_ORDER
         else:
-            allowed_tables = _TABLE_ORDER
+            allowed_tables = _V4_TABLE_ORDER
         unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
@@ -320,7 +412,7 @@ class LabExportService:
         inserted = 0
         skipped = 0
         try:
-            for table_name in _TABLE_ORDER:
+            for table_name in _V4_TABLE_ORDER:
                 rows = incoming_tables.get(table_name, [])
                 if not isinstance(rows, list):
                     raise ValueError(f"export table {table_name} must be an array")
@@ -399,6 +491,18 @@ def _ordering_columns(table_name: str, table):
         )
     if table_name == "lab_inventory_reservation_events":
         return (table.c.reservation_id, table.c.sequence, table.c.id)
+    if table_name == "lab_bottle_action_proposals":
+        return (table.c.reservation_id, table.c.created_at, table.c.id)
+    if table_name == "lab_bottle_action_confirmations":
+        return (table.c.proposal_id, table.c.id)
+    if table_name == "lab_bottle_measurements":
+        return (
+            table.c.proposal_id,
+            table.c.quantity_kind,
+            table.c.id,
+        )
+    if table_name == "lab_bottle_action_commits":
+        return (table.c.proposal_id, table.c.id)
     if table_name == "lab_analytical_method_versions":
         return (table.c.method_id, table.c.version_number, table.c.id)
     if table_name == "lab_analytical_runs":

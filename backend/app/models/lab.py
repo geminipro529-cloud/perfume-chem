@@ -302,14 +302,36 @@ class LabInventoryMovement(LabRecord):
 
 class LabBottleMeasurement(LabRecord):
     __tablename__ = "lab_bottle_measurements"
+    __table_args__ = (
+        UniqueConstraint(
+            "proposal_id",
+            "quantity_kind",
+            name="uq_lab_bottle_measurement_proposal_kind",
+        ),
+        CheckConstraint(
+            "(bottle_event_id IS NOT NULL AND proposal_id IS NULL) OR "
+            "(bottle_event_id IS NULL AND proposal_id IS NOT NULL "
+            "AND method IS NOT NULL AND measured_at IS NOT NULL "
+            "AND actor IS NOT NULL)",
+            name="ck_lab_bottle_measurement_authority",
+        ),
+    )
 
-    bottle_event_id: Mapped[str] = mapped_column(
-        ForeignKey("lab_bottle_events.id", ondelete="RESTRICT"), nullable=False
+    bottle_event_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_bottle_events.id", ondelete="RESTRICT")
+    )
+    proposal_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_bottle_action_proposals.id", ondelete="RESTRICT")
     )
     quantity_kind: Mapped[str] = mapped_column(String(80), nullable=False)
     value: Mapped[float] = mapped_column(Float, nullable=False)
     unit: Mapped[str] = mapped_column(String(40), nullable=False)
     standard_uncertainty: Mapped[float | None] = mapped_column(Float)
+    method: Mapped[str | None] = mapped_column(String(100))
+    measured_at: Mapped[datetime | None] = mapped_column(
+        UTCDateTime(timezone=True)
+    )
+    actor: Mapped[str | None] = mapped_column(String(255))
 
 
 class LabExperiment(LabRecord):
@@ -399,6 +421,12 @@ class LabOutcome(LabRecord):
     outcome_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
 
+from app.models.lab_execution import (  # noqa: E402,F401
+    EXECUTION_TABLE_NAMES,
+    LabBottleActionCommit,
+    LabBottleActionConfirmation,
+    LabBottleActionProposal,
+)
 from app.models.lab_planning import (  # noqa: E402,F401
     PLANNING_TABLE_NAMES,
     LabAcceptedTargetVersion,
@@ -445,6 +473,7 @@ APPEND_ONLY_TABLES = {
     "lab_outcomes",
     *PLANNING_TABLE_NAMES,
     *SCIENCE_AUTHORITY_TABLE_NAMES,
+    *EXECUTION_TABLE_NAMES,
 }
 
 
