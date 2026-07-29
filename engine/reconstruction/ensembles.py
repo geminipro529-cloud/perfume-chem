@@ -45,14 +45,16 @@ def _inline_rank_prior(
     ordered_materials: list[str],
     total_budget: float,
     p: float,
-    N: int,
+    material_count: int,
 ) -> dict[str, float]:
     """Inline power-law rank prior when ``rank_prior`` module is unavailable.
 
     ``q_r = B * pow(r, -p) / sum(pow(i, -p) for i in range(1, N+1))``
     """
-    if N <= 0:
-        raise ReconstructionInputError(f"N must be positive, got {N}")
+    if material_count <= 0:
+        raise ReconstructionInputError(
+            f"N must be positive, got {material_count}"
+        )
     if not ordered_materials:
         raise ReconstructionInputError("ordered_materials cannot be empty")
     if not math.isfinite(total_budget) or total_budget <= 0:
@@ -60,14 +62,16 @@ def _inline_rank_prior(
             f"total budget must be finite and positive, got {total_budget}"
         )
 
-    denom = sum(math.pow(float(k), -p) for k in range(1, N + 1))
+    denom = sum(
+        math.pow(float(k), -p) for k in range(1, material_count + 1)
+    )
     if not math.isfinite(denom) or denom <= 0:
         raise ReconstructionInputError(
             f"normalization denominator must be finite and positive, got {denom}"
         )
     prior: dict[str, float] = {}
     for rank, name in enumerate(ordered_materials, start=1):
-        if rank > N:
+        if rank > material_count:
             break
         q_r = total_budget * math.pow(float(rank), -p) / denom
         prior[name] = round(q_r, 4)
@@ -208,7 +212,7 @@ _VARIANT_SPECS: list[tuple[str, float]] = [
 def generate_ensemble(
     ordered_materials: list[str],
     total_budget: float = 4500.0,
-    N: int = 70,
+    N: int = 70,  # noqa: N803 - public mathematical compatibility
     authority_label: str = TIER_2_ENSEMBLE_CENTER,
 ) -> list[CandidateFamily]:
     """Generate 6 candidate families from the same ordered material list.

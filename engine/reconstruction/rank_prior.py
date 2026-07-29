@@ -156,12 +156,14 @@ def generate_soft_rank_prior(
             f"total budget must be finite and positive, got {config.B}"
         )
 
-    N = config.N
-    B = config.B
+    material_count = config.N
+    total_budget = config.B
     p = config.p
 
     # Compute normalisation denominator Σ(k^(-p) for k=1..N)
-    denom = sum(math.pow(float(k), -p) for k in range(1, N + 1))
+    denom = sum(
+        math.pow(float(k), -p) for k in range(1, material_count + 1)
+    )
     if not math.isfinite(denom) or denom <= 0:
         raise ReconstructionInputError(
             f"normalization denominator must be finite and positive, got {denom}"
@@ -169,9 +171,9 @@ def generate_soft_rank_prior(
 
     prior: dict[str, float] = {}
     for rank, name in enumerate(material_names, start=1):
-        if rank > N:
+        if rank > material_count:
             break
-        q_r = B * math.pow(float(rank), -p) / denom
+        q_r = total_budget * math.pow(float(rank), -p) / denom
         prior[name] = round(q_r, 4)
 
     total = sum(prior.values())
@@ -203,9 +205,14 @@ def generate_candidate_families(
         raise ReconstructionInputError("candidate roster cannot be empty")
 
     results: list[RankPriorResult] = []
-    N = len(material_names)
+    material_count = len(material_names)
     for config in PRESETS.values():
-        adapted = RankPriorConfig(N=N, B=config.B, p=config.p, label=config.label)
+        adapted = RankPriorConfig(
+            N=material_count,
+            B=config.B,
+            p=config.p,
+            label=config.label,
+        )
         results.append(generate_soft_rank_prior(material_names, adapted))
     return results
 

@@ -271,6 +271,26 @@ def test_package_and_docker_checks_validate_release_artifacts():
     assert "health_check" not in " ".join(specs["docker-smoke-test"].command)
 
 
+def test_a1_production_modules_are_linted_and_typechecked():
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+    a1_targets = {
+        "engine/domain_errors.py",
+        "engine/units/concentration.py",
+        "engine/target/formula.py",
+        "engine/reconstruction/anti_compression.py",
+        "engine/bottle/events.py",
+        "engine/reconstruction/rank_prior.py",
+        "engine/reconstruction/ensembles.py",
+        "engine/reconstruction/chassis.py",
+        "engine/reconstruction/recognizer.py",
+        "engine/inventory/stock_model.py",
+        "engine/identity/resolver.py",
+    }
+
+    assert a1_targets <= set(specs["engine-lint"].command)
+    assert a1_targets <= set(specs["engine-typecheck"].command)
+
+
 def test_only_canonical_full_scope_can_pass_with_optional_skips(tmp_path, monkeypatch):
     canonical = (
         CheckSpec("required", ("required",)),

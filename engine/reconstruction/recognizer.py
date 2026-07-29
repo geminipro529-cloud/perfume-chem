@@ -34,7 +34,7 @@ def recognizer_score(
     material_name : str
         Material name (informational, not used in scoring).
     role : str
-        Functional role label (see ``_ROLE_WEIGHTS``).
+        Functional role label (see the role-weight mapping).
     note : str
         Olfactive note (informational, not used in scoring).
     dose_ul : float
@@ -47,7 +47,7 @@ def recognizer_score(
     float
         Score in [0.0, 1.0].  Higher = more central to identity.
     """
-    _ROLE_WEIGHTS: dict[str, float] = {
+    role_weights: dict[str, float] = {
         "character": 0.4,
         "signature": 0.5,
         "modifier": 0.2,
@@ -58,7 +58,7 @@ def recognizer_score(
         "trace": 0.05,
     }
 
-    role_weight = _ROLE_WEIGHTS.get(role, 0.1)
+    role_weight = role_weights.get(role, 0.1)
 
     dose_fraction = dose_ul / total_ul if total_ul > 0.0 else 0.0
     dose_bonus = dose_fraction * 0.3
