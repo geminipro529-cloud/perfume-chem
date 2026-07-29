@@ -57,7 +57,7 @@ def test_migration_preserves_legacy_tables_and_is_idempotent(tmp_path):
         assert "lab_bottle_events" in tables
         assert connection.execute("SELECT name FROM materials").fetchone()[0] == "legacy orris"
         assert connection.execute("SELECT version_num FROM alembic_version").fetchall() == [
-            ("20260717_0001",)
+            ("20260730_0001",)
         ]
         assert connection.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     finally:

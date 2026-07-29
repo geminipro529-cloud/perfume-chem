@@ -58,7 +58,7 @@ class TestPhase1aMigration:
         """Migration downgrade removes the expected columns."""
         config = _alembic_config(db_path)
         command.upgrade(config, "head")
-        command.downgrade(config, "-1")
+        command.downgrade(config, "20260716_0001")
         cols = _columns(db_path, "lab_formula_components")
         assert "role" not in cols, "role should be removed after downgrade"
         assert "unit" not in cols, "unit should be removed after downgrade"

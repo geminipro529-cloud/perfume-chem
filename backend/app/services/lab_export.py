@@ -26,8 +26,9 @@ class ImportResult:
         return {"inserted": self.inserted, "skipped": self.skipped}
 
 
-_FORMAT_REVISION = "lab-export-v1"
-_TABLE_ORDER = (
+_FORMAT_REVISION = "lab-export-v2"
+_SUPPORTED_REVISIONS = {"lab-export-v1", _FORMAT_REVISION}
+_V1_TABLE_ORDER = (
     "lab_evidence_records",
     "lab_materials",
     "lab_material_aliases",
@@ -52,23 +53,48 @@ _TABLE_ORDER = (
     "lab_predictions",
     "lab_outcomes",
 )
+_PLANNING_TABLE_ORDER = (
+    "lab_target_hypothesis_versions",
+    "lab_target_lines",
+    "lab_target_evidence_links",
+    "lab_accepted_target_versions",
+    "lab_formula_version_edges",
+    "lab_inventory_mapping_versions",
+    "lab_inventory_mapping_evidence_links",
+    "lab_build_plan_versions",
+    "lab_build_plan_lines",
+    "lab_build_plan_evidence_links",
+    "lab_inventory_reservation_events",
+)
+_TABLE_ORDER = _V1_TABLE_ORDER + _PLANNING_TABLE_ORDER
 
 
 class LabExportService:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def export_workspace(self) -> dict[str, Any]:
+    async def export_workspace(
+        self,
+        *,
+        format_revision: str = "lab-export-v1",
+    ) -> dict[str, Any]:
+        if format_revision not in _SUPPORTED_REVISIONS:
+            raise ValueError("unsupported laboratory export revision")
+        table_order = (
+            _V1_TABLE_ORDER
+            if format_revision == "lab-export-v1"
+            else _TABLE_ORDER
+        )
         tables: dict[str, list[dict[str, Any]]] = {}
-        for table_name in _TABLE_ORDER:
+        for table_name in table_order:
             table = Base.metadata.tables[table_name]
             ordering = _ordering_columns(table_name, table)
             result = await self.session.execute(select(table).order_by(*ordering))
             tables[table_name] = [
                 _serialize_row(dict(row._mapping)) for row in result
             ]
-        return {
-            "format_revision": _FORMAT_REVISION,
+        packet: dict[str, Any] = {
+            "format_revision": format_revision,
             "schema_revision": await self._schema_revision(),
             "ordering_contract": {
                 "formula_versions": ["formula_id", "version_number", "id"],
@@ -89,10 +115,74 @@ class LabExportService:
             },
             "tables": tables,
         }
+        if format_revision == _FORMAT_REVISION:
+            packet["ordering_contract"].update(
+                {
+                    "target_versions": [
+                        "target_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "target_lines": [
+                        "target_hypothesis_version_id",
+                        "position",
+                        "id",
+                    ],
+                    "mapping_versions": [
+                        "mapping_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "build_plan_versions": [
+                        "plan_id",
+                        "version_number",
+                        "id",
+                    ],
+                    "build_plan_lines": [
+                        "build_plan_version_id",
+                        "position",
+                        "id",
+                    ],
+                    "reservation_events": [
+                        "reservation_id",
+                        "sequence",
+                        "id",
+                    ],
+                }
+            )
+            packet["unit_contract"].update(
+                {
+                    "planning_quantity": (
+                        "explicit_unit_and_concentration_basis"
+                    ),
+                    "reservation_mass_g": "g",
+                }
+            )
+            packet["provenance_contract"].update(
+                {
+                    "target_evidence": "lab_target_evidence_links",
+                    "mapping_evidence": (
+                        "lab_inventory_mapping_evidence_links"
+                    ),
+                    "build_plan_evidence": (
+                        "lab_build_plan_evidence_links"
+                    ),
+                    "inventory_snapshot": (
+                        "lab_build_plan_versions.inventory_snapshot_ref"
+                    ),
+                    "content_hashes": "stable_json_hash",
+                }
+            )
+        return packet
+
+    async def export_planning_workspace(self) -> dict[str, Any]:
+        """Write the complete v2 graph while the legacy endpoint stays v1."""
+
+        return await self.export_workspace(format_revision=_FORMAT_REVISION)
 
     async def canonical_bytes(self) -> bytes:
         return json.dumps(
-            await self.export_workspace(),
+            await self.export_planning_workspace(),
             ensure_ascii=False,
             allow_nan=False,
             sort_keys=True,
@@ -100,12 +190,18 @@ class LabExportService:
         ).encode("utf-8")
 
     async def import_workspace(self, packet: Mapping[str, Any]) -> ImportResult:
-        if packet.get("format_revision") != _FORMAT_REVISION:
+        format_revision = packet.get("format_revision")
+        if format_revision not in _SUPPORTED_REVISIONS:
             raise ValueError("unsupported laboratory export revision")
         incoming_tables = packet.get("tables")
         if not isinstance(incoming_tables, Mapping):
             raise ValueError("laboratory export tables must be an object")
-        unknown = set(incoming_tables).difference(_TABLE_ORDER)
+        allowed_tables = (
+            _V1_TABLE_ORDER
+            if format_revision == "lab-export-v1"
+            else _TABLE_ORDER
+        )
+        unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
 
@@ -174,6 +270,26 @@ def _ordering_columns(table_name: str, table):
         return (table.c.bottle_id, table.c.stream_sequence, table.c.id)
     if table_name == "lab_observations":
         return (table.c.application_id, table.c.elapsed_seconds, table.c.id)
+    if table_name == "lab_target_hypothesis_versions":
+        return (table.c.target_id, table.c.version_number, table.c.id)
+    if table_name == "lab_target_lines":
+        return (
+            table.c.target_hypothesis_version_id,
+            table.c.position,
+            table.c.id,
+        )
+    if table_name == "lab_inventory_mapping_versions":
+        return (table.c.mapping_id, table.c.version_number, table.c.id)
+    if table_name == "lab_build_plan_versions":
+        return (table.c.plan_id, table.c.version_number, table.c.id)
+    if table_name == "lab_build_plan_lines":
+        return (
+            table.c.build_plan_version_id,
+            table.c.position,
+            table.c.id,
+        )
+    if table_name == "lab_inventory_reservation_events":
+        return (table.c.reservation_id, table.c.sequence, table.c.id)
     return (table.c.id,)
 
 

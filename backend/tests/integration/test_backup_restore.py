@@ -8,6 +8,7 @@ from sqlalchemy import event, func, select
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
+from alembic import command
 from app.api.v1.endpoints.lab import _backup_service
 from app.db_bootstrap import build_alembic_config
 from app.models.base import Base
@@ -73,6 +74,25 @@ def test_live_backup_writes_consistent_snapshot_manifest_and_digest(tmp_path):
     manifest = json.loads(artifact.manifest_path.read_text(encoding="utf-8"))
     assert manifest["snapshot_sha256"] == artifact.snapshot_sha256
     assert _value(artifact.snapshot_path) == "original"
+
+
+def test_a2_migrated_backup_manifest_tracks_new_head(tmp_path):
+    database = tmp_path / "a2-lab.db"
+    database_url = f"sqlite+aiosqlite:///{database.as_posix()}"
+    config_path = Path(__file__).resolve().parents[2] / "alembic.ini"
+    config = build_alembic_config(config_path, database_url)
+    command.upgrade(config, "head")
+    service = BackupService(
+        database_path=database,
+        backup_directory=tmp_path / "a2-backups",
+        expected_schema_revision="20260730_0001",
+    )
+
+    artifact = service.create_backup(label="a2-planning")
+    validation = service.validate_restore(artifact.snapshot_path)
+
+    assert artifact.schema_revision == "20260730_0001"
+    assert validation.valid is True
 
 
 def test_restore_validation_rejects_corrupt_digest_and_revision(tmp_path):

@@ -6,6 +6,20 @@ from app.core.config import Settings
 from app.models.base import Base
 from app.models.lab import APPEND_ONLY_TABLES, LAB_TABLE_NAMES
 
+A2_APPEND_ONLY_TABLES = {
+    "lab_target_hypothesis_versions",
+    "lab_target_lines",
+    "lab_target_evidence_links",
+    "lab_accepted_target_versions",
+    "lab_formula_version_edges",
+    "lab_inventory_mapping_versions",
+    "lab_inventory_mapping_evidence_links",
+    "lab_build_plan_versions",
+    "lab_build_plan_lines",
+    "lab_build_plan_evidence_links",
+    "lab_inventory_reservation_events",
+}
+
 
 def test_lab_schema_uses_collision_safe_table_names_and_no_mutable_timestamp():
     assert LAB_TABLE_NAMES
@@ -15,6 +29,10 @@ def test_lab_schema_uses_collision_safe_table_names_and_no_mutable_timestamp():
 
     for name in APPEND_ONLY_TABLES:
         assert "updated_at" not in Base.metadata.tables[name].columns
+
+
+def test_a2_planning_tables_join_the_append_only_contract():
+    assert A2_APPEND_ONLY_TABLES <= APPEND_ONLY_TABLES
 
 
 def test_bottle_stream_has_sequence_and_idempotency_uniqueness():

@@ -399,6 +399,21 @@ class LabOutcome(LabRecord):
     outcome_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
 
+from app.models.lab_planning import (  # noqa: E402,F401
+    PLANNING_TABLE_NAMES,
+    LabAcceptedTargetVersion,
+    LabBuildPlanEvidenceLink,
+    LabBuildPlanLine,
+    LabBuildPlanVersion,
+    LabFormulaVersionEdge,
+    LabInventoryMappingEvidenceLink,
+    LabInventoryMappingVersion,
+    LabInventoryReservationEvent,
+    LabTargetEvidenceLink,
+    LabTargetHypothesisVersion,
+    LabTargetLine,
+)
+
 LAB_TABLE_NAMES = {
     table.name for table in Base.metadata.sorted_tables if table.name.startswith("lab_")
 }
@@ -415,6 +430,7 @@ APPEND_ONLY_TABLES = {
     "lab_pairwise_comparisons",
     "lab_predictions",
     "lab_outcomes",
+    *PLANNING_TABLE_NAMES,
 }
 
 

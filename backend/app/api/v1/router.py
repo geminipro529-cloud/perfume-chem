@@ -8,6 +8,7 @@ from app.api.v1.endpoints import (
     formulas,
     knowledge,
     lab,
+    lab_planning,
     mixer,
     optimizer,
     outcomes,
@@ -15,6 +16,12 @@ from app.api.v1.endpoints import (
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    lab_planning.router,
+    prefix="/lab/v2",
+    tags=["laboratory-planning"],
+)
 
 api_router.include_router(
     lab.router,
