@@ -15,6 +15,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field, replace
 from typing import Mapping
 
+from engine.authority_gates import evaluate_mode_action
 from engine.calibration.hashing import formula_hash_from_record
 from engine.calibration.store import load_records, summarize_records
 from engine.chemical_data_validator import blocked_reason
@@ -141,6 +142,8 @@ class ReleaseGateConfig:
     matrix_components_moles: tuple[tuple[str, float], ...] = ()
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
+    mode: str = "RECONSTRUCTION"
+    action: str = "REPORT"
 
     def effective_ifra_headroom(self) -> float:
         """Return the active IFRA multiplier for this gate run."""
@@ -4657,6 +4660,44 @@ def _gate_mass_market_tier_check(state: FormulaState, config: ReleaseGateConfig)
     )
 
 
+def _gate_mode_protection(state, config):
+    """Block actions inappropriate for current operating mode."""
+    del state
+    mode = str(getattr(config, "mode", "RECONSTRUCTION"))
+
+    # Detect current action — if we can't determine, use the config mode
+    current_action = str(getattr(config, "action", "REPORT"))
+    evaluation = evaluate_mode_action(mode, current_action)
+    reasons = [reason.value for reason in evaluation.reasons]
+
+    if not evaluation.allowed:
+        return GateResult(
+            gate="mode_protection",
+            status="FAIL",
+            detail=(
+                f"Action '{current_action}' is blocked in mode '{mode}': "
+                + ", ".join(reasons)
+            ),
+            data={
+                "mode": mode,
+                "action": current_action,
+                "blocked": True,
+                "reasons": reasons,
+            },
+        )
+
+    return GateResult(
+        gate="mode_protection",
+        status="PASS",
+        detail=f"Mode {mode} — action {current_action} permitted.",
+        data={
+            "mode": mode,
+            "action": current_action,
+            "blocked": False,
+            "reasons": [],
+        },
+    )
+
 def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> GateReport:
     """Run all reusable release gates on a parsed formula record."""
     config = config or ReleaseGateConfig()
@@ -5070,6 +5111,10 @@ def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> G
         _safe_gate(
             lambda: _gate_mass_market_tier_check(state, config),
             "mass_market_tier_check",
+        ),
+        _safe_gate(
+            lambda: _gate_mode_protection(state, config),
+            "mode_protection",
         ),
     ]
     robustness_gate, _robustness = _gate_robustness(formula, config)

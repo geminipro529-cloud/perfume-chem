@@ -240,3 +240,32 @@ def test_pyramid_balance_uses_normalized_note_map_keys():
     assert result.actual_top == 100.0
     assert result.actual_heart == 0.0
     assert result.actual_base == 0.0
+
+
+def test_mode_gate_blocks_physical_commit_during_reconstruction():
+    result = gates_module._gate_mode_protection(
+        None,
+        ReleaseGateConfig(
+            mode="RECONSTRUCTION",
+            action="ATOMIC_COMMIT",
+            audit_enabled=False,
+        ),
+    )
+
+    assert result.status == "FAIL"
+    assert result.data["reasons"] == ["ACTION_NOT_ALLOWED_IN_MODE"]
+
+
+def test_mode_gate_allows_atomic_commit_only_in_live_batch():
+    result = gates_module._gate_mode_protection(
+        None,
+        ReleaseGateConfig(
+            mode="LIVE_BATCH",
+            action="ATOMIC_COMMIT",
+            audit_enabled=False,
+        ),
+    )
+
+    assert result.status == "PASS"
+    assert result.data["mode"] == "LIVE_BATCH"
+    assert result.data["action"] == "ATOMIC_COMMIT"

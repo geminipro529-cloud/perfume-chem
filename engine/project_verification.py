@@ -35,6 +35,7 @@ KNOWN_LEGACY_LIMITATIONS = (
 _ENGINE_TEST_SHARDS = {
     "truth-core": (
         "tests/test_artifact_rebind.py",
+        "tests/test_authority_gates.py",
         "tests/test_bottle_addition.py",
         "tests/test_canonical_hashing.py",
         "tests/test_canonical_quantities.py",
@@ -258,6 +259,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
             + (
                 "check",
                 "engine/workbench.py",
+                "engine/authority_gates.py",
                 "engine/bottle_addition.py",
                 "engine/calibration/hashing.py",
                 "engine/canonical_serialization.py",
@@ -304,6 +306,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "--follow-imports=skip",
                 "--ignore-missing-imports",
                 "engine/workbench.py",
+                "engine/authority_gates.py",
                 "engine/bottle_addition.py",
                 "engine/calibration/hashing.py",
                 "engine/canonical_serialization.py",

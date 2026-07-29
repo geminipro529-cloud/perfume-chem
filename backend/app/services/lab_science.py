@@ -2,12 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date, datetime
 from math import isfinite
 from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
+from engine.authority_gates import (
+    ClaimAuthorityInput,
+    ClaimDecision,
+    GateReason,
+    decision_within_authority,
+    evaluate_claim_authority,
+)
 from engine.calibration.hashing import stable_json_hash
 
 from app.models.lab_science import (
@@ -1262,6 +1269,67 @@ class LabScienceServiceMixin:
                 )
             for link in command.evidence_links:
                 await self._require_evidence(link.evidence_record_id)
+            authority_payload = dict(command.authority)
+            if command.schema_version == "a4-claim-v1":
+                try:
+                    authority_input = ClaimAuthorityInput.from_mapping(
+                        command.claim_type,
+                        authority_payload,
+                    )
+                except ValueError as exc:
+                    raise ScienceAuthorityConflictError(
+                        "CLAIM_AUTHORITY_INPUT_INVALID",
+                        str(exc),
+                    ) from exc
+                authority_input = replace(
+                    authority_input,
+                    contradiction_present=(
+                        authority_input.contradiction_present
+                        or bool(command.conflicts)
+                    ),
+                    human_reviewed=(
+                        command.human_review_state == "APPROVED"
+                    ),
+                    documentary_support=(
+                        authority_input.documentary_support
+                        or bool(command.evidence_links)
+                    ),
+                )
+                authority_evaluation = evaluate_claim_authority(
+                    authority_input
+                )
+                maximum_decision = authority_evaluation.decision
+                reasons = list(authority_evaluation.reasons)
+                if command.missing_evidence:
+                    maximum_decision = ClaimDecision.WITHHOLD_UNKNOWN
+                    if GateReason.EVIDENCE_INCOMPLETE not in reasons:
+                        reasons.append(GateReason.EVIDENCE_INCOMPLETE)
+                if not isinstance(maximum_decision, ClaimDecision):
+                    raise ScienceAuthorityConflictError(
+                        "CLAIM_AUTHORITY_INPUT_INVALID",
+                        "Claim evaluator returned no claim decision.",
+                    )
+                if not decision_within_authority(
+                    command.decision,
+                    maximum_decision,
+                ):
+                    raise ScienceAuthorityConflictError(
+                        "CLAIM_DECISION_EXCEEDS_AUTHORITY",
+                        "Requested claim decision exceeds computed "
+                        f"authority {maximum_decision.value}: "
+                        + ", ".join(reason.value for reason in reasons),
+                    )
+                authority_payload.update(
+                    {
+                        "gate_schema": "a4-claim-authority-v1",
+                        "computed_maximum_decision": (
+                            maximum_decision.value
+                        ),
+                        "computed_reasons": [
+                            reason.value for reason in reasons
+                        ],
+                    }
+                )
             if command.decision == "ALLOW_EXACT":
                 has_direct = any(
                     link.role == "DIRECT" for link in command.evidence_links
@@ -1333,7 +1401,7 @@ class LabScienceServiceMixin:
                 "subject_id": command.subject_id,
                 "policy_version": command.policy_version,
                 "decision": command.decision,
-                "authority": command.authority,
+                "authority": authority_payload,
                 "missing_evidence": command.missing_evidence,
                 "conflicts": command.conflicts,
                 "permitted_wording": command.permitted_wording,
@@ -1355,7 +1423,7 @@ class LabScienceServiceMixin:
                     parent_version_id=parent.id if parent else None,
                     policy_version=command.policy_version,
                     decision=command.decision,
-                    authority_json=dict(command.authority),
+                    authority_json=authority_payload,
                     missing_evidence_json=list(command.missing_evidence),
                     conflicts_json=list(command.conflicts),
                     permitted_wording=command.permitted_wording,

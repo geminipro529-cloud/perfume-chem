@@ -341,6 +341,101 @@ async def test_claim_exact_requires_direct_evidence_no_conflicts_and_review(
 
 
 @pytest.mark.asyncio
+async def test_a4_claim_rejects_decision_above_dimension_authority(db_session):
+    service = LabService(db_session)
+    evidence = await _evidence(service, "a4-overclaim:test")
+    formula_version = await _formula_version(service)
+    authority = {
+        "target_row_coverage_complete": True,
+        "source_coverage_complete": True,
+        "source_independence": False,
+        "identity_resolved": True,
+        "quantity_basis_complete": True,
+        "uncertainty_bounded": True,
+        "contradiction_present": False,
+        "method_validated": True,
+        "analytical_support": True,
+        "sensory_support": True,
+        "model_applicable": True,
+        "safety_complete": True,
+        "family_defined": True,
+        "family_evidence_complete": True,
+        "human_reviewed": True,
+        "scope_defined": True,
+        "exact_evidence": True,
+        "documentary_support": True,
+    }
+    command = ClaimAssessmentInput(
+        schema_version="a4-claim-v1",
+        claim_type="RELEASE",
+        subject_type="FORMULA_VERSION",
+        subject_id=formula_version.id,
+        policy_version="a4-policy-v1",
+        decision="ALLOW_EXACT",
+        authority=authority,
+        missing_evidence=(),
+        conflicts=(),
+        permitted_wording="Scientifically released",
+        forbidden_wording=None,
+        human_review_state="APPROVED",
+        reviewer_pseudonym="reviewer-1",
+        reviewed_at=datetime(2026, 7, 30, 2, 0, tzinfo=timezone.utc),
+        evidence_links=(
+            ClaimEvidenceInput(evidence_record_id=evidence.id, role="DIRECT"),
+        ),
+    )
+
+    with pytest.raises(ScienceAuthorityConflictError) as error:
+        await service.create_claim_assessment_version(command)
+
+    assert error.value.code == "CLAIM_DECISION_EXCEEDS_AUTHORITY"
+
+
+@pytest.mark.asyncio
+async def test_a4_claim_persists_scoped_identity_with_complete_dimensions(
+    db_session,
+):
+    service = LabService(db_session)
+    evidence = await _evidence(service, "a4-scoped:test")
+    formula_version = await _formula_version(service)
+    authority = {
+        "source_coverage_complete": True,
+        "source_independence": True,
+        "identity_resolved": True,
+        "scope_defined": True,
+        "exact_evidence": False,
+        "documentary_support": True,
+    }
+
+    assessment = await service.create_claim_assessment_version(
+        ClaimAssessmentInput(
+            schema_version="a4-claim-v1",
+            claim_type="IDENTITY",
+            subject_type="FORMULA_VERSION",
+            subject_id=formula_version.id,
+            policy_version="a4-policy-v1",
+            decision="ALLOW_SCOPED",
+            authority=authority,
+            missing_evidence=(),
+            conflicts=(),
+            permitted_wording="Identity supported for this formula version",
+            forbidden_wording="Universal identity",
+            human_review_state="APPROVED",
+            reviewer_pseudonym="reviewer-1",
+            reviewed_at=datetime(2026, 7, 30, 2, 5, tzinfo=timezone.utc),
+            evidence_links=(
+                ClaimEvidenceInput(
+                    evidence_record_id=evidence.id,
+                    role="DIRECT",
+                ),
+            ),
+        )
+    )
+
+    assert assessment.decision == "ALLOW_SCOPED"
+
+
+@pytest.mark.asyncio
 async def test_claim_exact_for_analytical_run_requires_passing_qc(db_session):
     service = LabService(db_session)
     evidence = await _evidence(service, "analytical-claim:test")
