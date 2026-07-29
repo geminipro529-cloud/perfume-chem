@@ -11,7 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.domain_errors import ReconstructionInputError
+from engine.domain_errors import LegacyWriteProhibitedError, ReconstructionInputError
 from engine.inventory.stock_model import (
     EXACT_AVAILABLE,
     EXACT_IDENTITY_NOT_IN_STOCK,
@@ -19,7 +19,6 @@ from engine.inventory.stock_model import (
     PROBABLE_GRADE_MATCH,
     UNAVAILABLE,
     UNKNOWN_IDENTITY,
-    ConsumptionRecord,
     InventoryLedger,
     StockItem,
     SubstitutionMapping,
@@ -129,7 +128,7 @@ def test_empty_target_list():
 
 
 def test_consume_updates_amount():
-    """Consuming from a stock item reduces its remaining volume."""
+    """Legacy in-place stock consumption is prohibited."""
     item = StockItem(
         material_id="id1",
         label="Iso E Super",
@@ -137,14 +136,13 @@ def test_consume_updates_amount():
         amount_remaining_ml=100,
     )
     ledger = InventoryLedger([item])
-    record = ledger.consume("id1", amount=30.0, unit="ml")
-    assert record.quantity_before == 100.0
-    assert record.quantity_after == 70.0
-    assert ledger.find_by_material("id1")[0].amount_remaining_ml == 70.0
+    with pytest.raises(LegacyWriteProhibitedError, match="LabService"):
+        ledger.consume("id1", amount=30.0, unit="ml")
+    assert ledger.find_by_material("id1")[0].amount_remaining_ml == 100.0
 
 
 def test_consume_insufficient_stock():
-    """Consuming more than available raises ValueError."""
+    """Legacy consumption is rejected before duplicate balance logic runs."""
     item = StockItem(
         material_id="id1",
         label="Iso E Super",
@@ -152,14 +150,12 @@ def test_consume_insufficient_stock():
         amount_remaining_ml=10,
     )
     ledger = InventoryLedger([item])
-    import pytest
-
-    with pytest.raises(ValueError, match="Insufficient"):
+    with pytest.raises(LegacyWriteProhibitedError, match="LabService"):
         ledger.consume("id1", amount=50.0)
 
 
 def test_consume_ul_conversion():
-    """Consuming in uL correctly converts to ml."""
+    """Legacy unit conversion cannot bypass canonical movement accounting."""
     item = StockItem(
         material_id="id1",
         label="Iso E Super",
@@ -167,16 +163,14 @@ def test_consume_ul_conversion():
         amount_remaining_ml=1.0,
     )
     ledger = InventoryLedger([item])
-    record = ledger.consume("id1", amount=500.0, unit="uL")  # 0.5 ml
-    assert abs(record.quantity_after - 0.5) < 0.001
+    with pytest.raises(LegacyWriteProhibitedError, match="LabService"):
+        ledger.consume("id1", amount=500.0, unit="uL")
 
 
 def test_consume_unknown_stock_id():
-    """Consuming from a non-existent stock_id raises ValueError."""
+    """All legacy consumption fails at the canonical write boundary."""
     ledger = InventoryLedger([])
-    import pytest
-
-    with pytest.raises(ValueError, match="not found"):
+    with pytest.raises(LegacyWriteProhibitedError, match="LabService"):
         ledger.consume("nonexistent", amount=10.0)
 
 

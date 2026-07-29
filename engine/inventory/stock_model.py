@@ -25,7 +25,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Any
 
-from engine.domain_errors import ReconstructionInputError
+from engine.domain_errors import LegacyWriteProhibitedError, ReconstructionInputError
 from engine.identity.resolver import (
     KNOWN_NON_EQUIVALENT,
     IdentityGrade,
@@ -255,21 +255,21 @@ class InventoryLedger:
     """
 
     def __init__(self, stock_items: list[StockItem]) -> None:
-        self._items: list[StockItem] = list(stock_items)
+        self._items: tuple[StockItem, ...] = tuple(stock_items)
 
     def add_stock(self, item: StockItem) -> None:
-        """Add a new stock item to the ledger."""
-        self._items.append(item)
+        """Reject writes to the deprecated in-memory duplicate store."""
+        del item
+        raise LegacyWriteProhibitedError(
+            "InventoryLedger is a read-only projection; create stock through LabService"
+        )
 
     def remove_stock(self, material_id: str) -> StockItem | None:
-        """Remove and return the first stock item matching *material_id*.
-
-        Returns ``None`` when no item with that ID is found.
-        """
-        for i, item in enumerate(self._items):
-            if item.material_id == material_id:
-                return self._items.pop(i)
-        return None
+        """Reject writes to the deprecated in-memory duplicate store."""
+        del material_id
+        raise LegacyWriteProhibitedError(
+            "InventoryLedger is a read-only projection; change stock through LabService"
+        )
 
     def find_by_material(self, name_or_id: str) -> list[StockItem]:
         """Return all stock items whose label or material_id matches.
@@ -314,6 +314,9 @@ class InventoryLedger:
         bottle_event_ref: str = "",
         timestamp: str | None = None,
     ) -> ConsumptionRecord:
+        raise LegacyWriteProhibitedError(
+            "InventoryLedger cannot consume stock; commit a movement through LabService"
+        )
         """Deplete *amount* from the stock item identified by *stock_id*.
 
         Parameters

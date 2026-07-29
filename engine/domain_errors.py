@@ -21,8 +21,15 @@ class EventStreamError(PerfumeChemDomainError):
     code = "INVALID_EVENT_STREAM"
 
 
+class LegacyWriteProhibitedError(PerfumeChemDomainError):
+    """A duplicate legacy ledger was asked to mutate canonical state."""
+
+    code = "LEGACY_WRITE_PROHIBITED"
+
+
 __all__ = [
     "EventStreamError",
+    "LegacyWriteProhibitedError",
     "PerfumeChemDomainError",
     "ReconstructionInputError",
 ]

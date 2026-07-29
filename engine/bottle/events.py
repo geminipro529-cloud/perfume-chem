@@ -13,7 +13,11 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, cast
 
-from engine.domain_errors import EventStreamError, ReconstructionInputError
+from engine.domain_errors import (
+    EventStreamError,
+    LegacyWriteProhibitedError,
+    ReconstructionInputError,
+)
 
 # ── Event type constants ────────────────────────────────────────────────────
 
@@ -209,7 +213,7 @@ class BottleBatch:
     batch_id: str
     batch_name: str = ""
     container_tare_g: float = 0.0
-    _events: list[BottleEvent] = field(default_factory=list)
+    _events: tuple[BottleEvent, ...] = field(default_factory=tuple)
 
     # ── Event management ────────────────────────────────────────────────
 
@@ -219,46 +223,11 @@ class BottleBatch:
         return any(e.event_type == CLOSE_BATCH for e in self._events)
 
     def add_event(self, event: BottleEvent) -> None:
-        """Append an event to the event log.
-
-        Raises
-        ------
-        ValueError
-            If the batch is already closed (a CLOSE_BATCH event exists).
-            Use CORRECT_ENTRY for corrections to closed batches.
-        """
-        for existing in self._events:
-            if existing.event_id == event.event_id:
-                if existing == event:
-                    return
-                raise EventStreamError(
-                    f"conflicting duplicate event_id {event.event_id!r}"
-                )
-        if self.is_closed:
-            raise ValueError(
-                "Batch is closed — cannot add events. Use CORRECT_ENTRY for corrections."
-            )
-        if event.batch_id != self.batch_id:
-            raise ValueError(
-                f"Event batch_id {event.batch_id!r} does not match "
-                f"this batch's batch_id {self.batch_id!r}"
-            )
-        if self._events:
-            previous = self._events[-1]
-            if (previous.sequence is None) != (event.sequence is None):
-                raise EventStreamError(
-                    "event stream cannot mix sequenced and unsequenced events"
-                )
-            if (
-                previous.sequence is not None
-                and event.sequence is not None
-                and event.sequence <= previous.sequence
-            ):
-                raise EventStreamError(
-                    f"stale sequence {event.sequence!r}; "
-                    f"latest sequence is {previous.sequence!r}"
-                )
-        self._events.append(event)
+        """Reject writes to the deprecated in-memory duplicate store."""
+        del event
+        raise LegacyWriteProhibitedError(
+            "BottleBatch is a read-only projection; commit events through LabService"
+        )
 
     def event_count(self) -> int:
         """Return the total number of events in the log."""
@@ -289,7 +258,7 @@ class BottleBatch:
             - _tare_g : float
             - _batch_closed : bool
         """
-        state = compute_replay_state(self._events, container_tare_g=self.container_tare_g)
+        state = compute_replay_state(list(self._events), container_tare_g=self.container_tare_g)
         # Extract only material masses (non-underscore keys) for total calculation.
         material_masses = {k: v for k, v in state.items() if not k.startswith("_")}
         total_mass = sum(cast(list[float], list(material_masses.values())))
@@ -317,11 +286,14 @@ class BottleBatch:
         masses and underscore-prefixed metadata keys (solvent mass, dilution
         history, tare, closed status).
         """
-        return compute_replay_state(self._events, container_tare_g=self.container_tare_g)
+        return compute_replay_state(
+            list(self._events),
+            container_tare_g=self.container_tare_g,
+        )
 
     def current_materials(self) -> dict[str, float]:
         """Return a mapping of material label -> current mass in grams."""
-        state = compute_replay_state(self._events, container_tare_g=self.container_tare_g)
+        state = compute_replay_state(list(self._events), container_tare_g=self.container_tare_g)
         return {k: v for k, v in state.items() if not k.startswith("_")}
 
     def current_total_mass_g(self) -> float:
@@ -336,11 +308,36 @@ class BottleBatch:
     def from_dict(cls, data: dict[str, Any]) -> BottleBatch:
         events_raw = data.get("_events") or data.get("events") or ()
         events = [BottleEvent.from_dict(e) if isinstance(e, dict) else e for e in events_raw]
-        return cls(
+        return cls.from_events(
             batch_id=str(data["batch_id"]),
+            events=events,
             batch_name=str(data.get("batch_name") or ""),
             container_tare_g=float(data.get("container_tare_g", 0.0)),
-            _events=events,
+        )
+
+    @classmethod
+    def from_events(
+        cls,
+        batch_id: str,
+        events: list[BottleEvent],
+        *,
+        batch_name: str = "",
+        container_tare_g: float = 0.0,
+    ) -> BottleBatch:
+        """Hydrate a read-only replay projection from an immutable event copy."""
+        projected = list(events)
+        for event in projected:
+            if event.batch_id != batch_id:
+                raise EventStreamError(
+                    f"Event batch_id {event.batch_id!r} does not match "
+                    f"projection batch_id {batch_id!r}"
+                )
+        _validated_event_stream(projected)
+        return cls(
+            batch_id=batch_id,
+            batch_name=batch_name,
+            container_tare_g=container_tare_g,
+            _events=tuple(projected),
         )
 
 
