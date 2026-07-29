@@ -37,6 +37,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_bottle_addition.py",
         "tests/test_ci_contract.py",
         "tests/test_engine_compilation.py",
+        "tests/test_llm_cache.py",
         "tests/test_golden_formula_regression.py",
         "tests/test_intervention_trial.py",
         "tests/test_interventions.py",
@@ -45,11 +46,13 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_project_verification.py",
         "tests/test_preference.py",
         "tests/test_quantities.py",
+        "tests/test_reconstruction_allergen_authority.py",
         "tests/test_receptor_evidence_quarantine.py",
         "tests/test_release_scoring_contract.py",
         "tests/test_release_readiness.py",
         "tests/test_safety_assessment.py",
         "tests/test_scientific_contract.py",
+        "tests/test_tracing.py",
         "tests/test_workbench.py",
     ),
     "data-knowledge": (
@@ -60,17 +63,21 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_kb_migration.py",
         "tests/test_kb_query.py",
         "tests/test_literature_rules_contract.py",
+        "tests/test_optimizer_determinism.py",
         "tests/test_property_estimator.py",
         "tests/test_range_gap_analysis.py",
         "tests/test_science_audit.py",
         "tests/test_science_kb.py",
     ),
     "gates-families": (
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_a1_audit_contract_gaps.py",
         "tests/test_classical_family_resolution.py",
         "tests/test_family_archetypes.py",
         "tests/test_family_gate_applicability.py",
         "tests/test_gate_aware_optimizer.py",
         "tests/test_oav_intelligence.py",
+        "tests/test_optimizer_thermodynamic_unification.py",
         "tests/test_pipeline_formula_state.py",
         "tests/test_pipeline_gates.py",
         "tests/test_pipeline_interventions.py",
@@ -80,6 +87,29 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_pipeline_robustness.py",
         "tests/test_pipeline_scenario_matrix.py",
         "tests/test_run_evidence_contract.py",
+        "tests/test_accord_graph.py",
+        "tests/test_bottle_events.py",
+        "tests/test_evidence_ledger.py",
+        "tests/test_inventory_stock_model.py",
+        "tests/test_reconstruction_anti_compression.py",
+        "tests/test_reconstruction_bridge.py",
+        "tests/test_reconstruction_chassis.py",
+        "tests/test_reconstruction_ensembles.py",
+        "tests/test_reconstruction_identity.py",
+        "tests/test_reconstruction_quantity.py",
+        "tests/test_reconstruction_rank_prior.py",
+        "tests/test_reconstruction_unknowns.py",
+        "tests/test_target_formula.py",
+        "tests/test_units_concentration.py",
+        "tests/test_sensory_ledger.py",
+        "tests/test_analytical_ledger.py",
+        "tests/test_safety_regulatory.py",
+        "tests/test_reports_generator.py",
+        "tests/test_experiments_planner.py",
+        "tests/test_versioning_formula.py",
+        "tests/test_brand_profiles.py",
+        "tests/test_bottle_console.py",
+        "tests/test_authority_derivation.py",
     ),
     "legacy": (
         "tests/test_calibration_feedback.py",
@@ -193,7 +223,10 @@ def engine_test_shards(project_root: Path = PROJECT_ROOT) -> dict[str, tuple[str
 
 
 def _local_tool(project_root: Path, tool: str) -> tuple[str, ...]:
+    runtime_dir = Path(sys.executable).resolve().parent
     candidates = (
+        runtime_dir / f"{tool}.exe",
+        runtime_dir / tool,
         project_root / ".venv" / "Scripts" / f"{tool}.exe",
         project_root / ".venv" / "bin" / tool,
     )
@@ -308,6 +341,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "run",
                     "pytest",
                     "-q",
+                    "--basetemp=../output/verification-temp/backend-pytest",
                     "--junitxml=../verification_runs/backend.xml",
                 ),
                 cwd="backend",
@@ -363,7 +397,16 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
             ),
             CheckSpec(
                 "package-build",
-                (python, "-m", "build", "--no-isolation"),
+                (
+                    python,
+                    "-m",
+                    "pip",
+                    "wheel",
+                    ".",
+                    "-w",
+                    "dist",
+                    "--no-build-isolation",
+                ),
             ),
             CheckSpec(
                 "package-wheel-smoke",
@@ -548,14 +591,10 @@ def run_project_verification(
     project_root = Path(project_root)
     (project_root / "verification_runs").mkdir(parents=True, exist_ok=True)
     custom_checks = checks is not None
-    available_checks = (
-        tuple(checks) if checks is not None else build_check_specs(project_root)
-    )
+    available_checks = tuple(checks) if checks is not None else build_check_specs(project_root)
     selected_checks = _select_checks(available_checks, selected, quick)
     selected_names = tuple(spec.name for spec in selected_checks)
-    omitted_names = tuple(
-        spec.name for spec in available_checks if spec.name not in selected_names
-    )
+    omitted_names = tuple(spec.name for spec in available_checks if spec.name not in selected_names)
     if selected or quick:
         verification_scope = "partial"
     elif custom_checks:
@@ -629,9 +668,7 @@ def run_project_verification(
     else:
         completion_gate = "PASS"
 
-    docker_results = [
-        result for result in results if result.name.startswith("docker-")
-    ]
+    docker_results = [result for result in results if result.name.startswith("docker-")]
     if not docker_results or all(result.status == "SKIPPED" for result in docker_results):
         docker_status = "SKIPPED"
     elif any(result.status == "FAIL" for result in docker_results):
@@ -665,9 +702,7 @@ def run_project_verification(
     )
 
 
-def write_verification_report(
-    report: ProjectVerificationReport, output_path: Path
-) -> None:
+def write_verification_report(report: ProjectVerificationReport, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
         json.dumps(report.as_dict(), indent=2, ensure_ascii=True) + "\n",
@@ -675,9 +710,7 @@ def write_verification_report(
     )
 
 
-def default_verification_report_path(
-    project_root: Path, report: ProjectVerificationReport
-) -> Path:
+def default_verification_report_path(project_root: Path, report: ProjectVerificationReport) -> Path:
     """Keep targeted evidence from replacing the canonical full-scope report."""
 
     suffix = "" if report.verification_scope == "full" else f"_{report.verification_scope}"
@@ -690,10 +723,32 @@ def _wheel_python(venv_dir: Path) -> Path:
     return venv_dir / "bin" / "python"
 
 
+def _wheel_install_command(
+    python: Path,
+    wheel: Path,
+    dist_dir: Path,
+) -> tuple[str, ...]:
+    """Install the package and declared dependencies from a local wheelhouse."""
+
+    return (
+        str(python),
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--find-links",
+        str(dist_dir.resolve()),
+        str(wheel.resolve()),
+    )
+
+
 def smoke_installed_wheel(dist_dir: Path) -> int:
     """Install the newest built wheel and import it outside the checkout."""
 
-    wheels = sorted(dist_dir.glob("*.whl"), key=lambda path: path.stat().st_mtime)
+    wheels = sorted(
+        dist_dir.glob("perfume_chem_engine-*.whl"),
+        key=lambda path: path.stat().st_mtime,
+    )
     if not wheels:
         print(f"No wheel found in {dist_dir}.", file=sys.stderr)
         return 1
@@ -704,15 +759,7 @@ def smoke_installed_wheel(dist_dir: Path) -> int:
         venv.EnvBuilder(with_pip=True, system_site_packages=True).create(venv_dir)
         python = _wheel_python(venv_dir)
         install = subprocess.run(
-            (
-                str(python),
-                "-m",
-                "pip",
-                "install",
-                "--no-deps",
-                "--no-index",
-                str(wheels[-1].resolve()),
-            ),
+            _wheel_install_command(python, wheels[-1], dist_dir),
             cwd=temp_dir,
             capture_output=True,
             text=True,

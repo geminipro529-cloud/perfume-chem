@@ -10,6 +10,7 @@ from engine.project_verification import (
     CheckSpec,
     CommandOutcome,
     _default_runner,
+    _local_tool,
     build_check_specs,
     default_verification_report_path,
     engine_test_shards,
@@ -18,6 +19,43 @@ from engine.project_verification import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_local_tool_prefers_supported_runtime_environment(tmp_path, monkeypatch):
+    supported_scripts = tmp_path / "supported" / "Scripts"
+    supported_scripts.mkdir(parents=True)
+    supported_python = supported_scripts / "python.exe"
+    supported_tool = supported_scripts / "mypy.exe"
+    supported_python.touch()
+    supported_tool.touch()
+
+    repository_tool = tmp_path / ".venv" / "Scripts" / "mypy.exe"
+    repository_tool.parent.mkdir(parents=True)
+    repository_tool.touch()
+
+    monkeypatch.setattr(project_verification.sys, "executable", str(supported_python))
+
+    assert _local_tool(tmp_path, "mypy") == (str(supported_tool),)
+
+
+def test_wheel_smoke_installs_declared_dependencies_from_local_wheelhouse(tmp_path):
+    from engine.project_verification import _wheel_install_command
+
+    command = _wheel_install_command(
+        Path("python"),
+        tmp_path / "perfume_chem_engine.whl",
+        tmp_path,
+    )
+
+    assert "--no-index" in command
+    assert "--find-links" in command
+    assert str(tmp_path.resolve()) in command
+    assert "--no-deps" not in command
+
+    package_build = {
+        spec.name: spec for spec in build_check_specs(PROJECT_ROOT)
+    }["package-build"].command
+    assert "--no-deps" not in package_build
 
 
 def test_engine_shards_cover_every_test_file_once():
@@ -211,11 +249,9 @@ def test_package_and_docker_checks_validate_release_artifacts():
         "engine/release_readiness.py",
         "engine/safety_assessment.py",
     } <= engine_typecheck
-    assert specs["package-build"].command[-3:] == (
-        "-m",
-        "build",
-        "--no-isolation",
-    )
+    package_build = specs["package-build"].command
+    assert package_build[:3] == (sys.executable, "-m", "pip")
+    assert "wheel" in package_build
     assert specs["package-wheel-smoke"].command[1:4] == (
         "-m",
         "engine.project_verification",
