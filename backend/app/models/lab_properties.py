@@ -160,6 +160,10 @@ class LabPropertyObservation(LabRecord):
             name="ck_lab_property_observation_review_state",
         ),
         CheckConstraint(
+            "length(subject_identity_sha256) = 64",
+            name="ck_lab_property_observation_identity_sha256",
+        ),
+        CheckConstraint(
             "length(content_sha256) = 64",
             name="ck_lab_property_observation_content_sha256",
         ),
@@ -285,6 +289,10 @@ class LabPropertyConflictSet(LabRecord):
             name="ck_lab_property_conflict_materiality",
         ),
         CheckConstraint(
+            "length(requested_identity_sha256) = 64",
+            name="ck_lab_property_conflict_identity_sha256",
+        ),
+        CheckConstraint(
             "length(content_sha256) = 64",
             name="ck_lab_property_conflict_content_sha256",
         ),
@@ -393,6 +401,10 @@ class LabSelectedAssertion(LabRecord):
         CheckConstraint(
             f"authority_state IN ({_quoted(ASSERTION_AUTHORITY_STATES)})",
             name="ck_lab_selected_assertion_authority",
+        ),
+        CheckConstraint(
+            "length(requested_identity_sha256) = 64",
+            name="ck_lab_selected_assertion_identity_sha256",
         ),
         CheckConstraint(
             "length(content_sha256) = 64",

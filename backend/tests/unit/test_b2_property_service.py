@@ -79,12 +79,15 @@ async def _source_and_extraction(
     *,
     digest_character: str = "1",
     scope: str = PROPERTY_SCOPE,
+    independence_group: str | None = None,
 ):
     source = await service.register_source_document(
         _source_input(
             title=f"Property source for {observation_id}",
             artifact_sha256=digest_character * 64,
-            independence_group=f"lineage-{observation_id}",
+            independence_group=(
+                independence_group or f"lineage-{observation_id}"
+            ),
         )
     )
     extraction = await service.record_source_extraction(
@@ -121,6 +124,12 @@ async def test_property_observation_requires_exact_accepted_b1_linkage(db_sessio
     assert staged.value.code == "PROPERTY_EXTRACTION_SCOPE_NOT_ACCEPTED"
 
     await _accept_extraction(service, extraction_id, scope=PROPERTY_SCOPE)
+    with pytest.raises(PropertyAuthorityConflictError) as locator:
+        await service.record_property_observation(
+            replace(command, source_locator={"page": 999})
+        )
+    assert locator.value.code == "PROPERTY_EXTRACTION_LOCATOR_MISMATCH"
+
     created = await service.record_property_observation(command)
 
     assert created.id == "observation-exact"
@@ -572,6 +581,44 @@ async def test_conflict_sets_require_two_unique_existing_observations(db_session
 
 
 @pytest.mark.asyncio
+async def test_conflict_sets_reject_observations_without_a_visible_difference(
+    db_session,
+):
+    service = LabService(db_session)
+    observations = []
+    for observation_id, digest_character in (
+        ("observation-no-conflict-a", "5"),
+        ("observation-no-conflict-b", "6"),
+    ):
+        source, extraction = await _source_and_extraction(
+            service,
+            observation_id,
+            digest_character=digest_character,
+            independence_group="shared-primary-lineage",
+        )
+        observations.append(
+            await service.record_property_observation(
+                _observation_input(
+                    observation_id,
+                    source.id,
+                    extraction.id,
+                    numeric_value=7.0,
+                    method="dynamic headspace",
+                )
+            )
+        )
+
+    with pytest.raises(PropertyAuthorityConflictError) as no_difference:
+        await service.record_property_conflict(
+            _conflict_input(),
+            observation_ids=tuple(
+                observation.id for observation in observations
+            ),
+        )
+    assert no_difference.value.code == "PROPERTY_CONFLICT_NO_DIFFERENCE"
+
+
+@pytest.mark.asyncio
 async def test_unresolved_blocking_conflict_withholds_selected_assertion_authority(
     db_session,
 ):
@@ -705,6 +752,144 @@ async def test_selected_assertion_requires_complete_consistent_candidates(db_ses
                 ),
             ),
         )
+
+
+@pytest.mark.asyncio
+async def test_selected_assertion_conflict_must_match_the_requested_scope(
+    db_session,
+):
+    service = LabService(db_session)
+    first = await _record_observation(
+        service,
+        "observation-scope-a",
+        "7",
+        numeric_value=7.0,
+        method="dynamic headspace",
+    )
+    second = await _record_observation(
+        service,
+        "observation-scope-b",
+        "8",
+        numeric_value=11.0,
+        method="static headspace",
+    )
+    await service.record_property_conflict(
+        _conflict_input(),
+        observation_ids=(first.id, second.id),
+    )
+    first_id = first.id
+    second_id = second.id
+
+    with pytest.raises(PropertyAuthorityConflictError) as identity:
+        await service.record_selected_assertion(
+            _assertion_input(
+                first_id,
+                second_id,
+                requested_identity={
+                    "chemical_name": "Different material",
+                    "cas": "78-70-6",
+                },
+            )
+        )
+    assert identity.value.code == "PROPERTY_ASSERTION_CONFLICT_SCOPE_MISMATCH"
+
+    with pytest.raises(PropertyAuthorityConflictError) as conditions:
+        await service.record_selected_assertion(
+            _assertion_input(
+                first_id,
+                second_id,
+                requested_conditions={
+                    "temperature_k": 310.0,
+                    "matrix": "air",
+                },
+            )
+        )
+    assert conditions.value.code == "PROPERTY_ASSERTION_CONFLICT_SCOPE_MISMATCH"
+
+
+@pytest.mark.asyncio
+async def test_model_and_none_assertions_preserve_explicit_selection_shapes(
+    db_session,
+):
+    service = LabService(db_session)
+    first = await _record_observation(
+        service,
+        "observation-selection-a",
+        "9",
+        numeric_value=7.0,
+        method="dynamic headspace",
+    )
+    second = await _record_observation(
+        service,
+        "observation-selection-b",
+        "a",
+        numeric_value=11.0,
+        method="static headspace",
+    )
+    excluded_candidates = (
+        AssertionCandidateInput(
+            observation_id=first.id,
+            decision="EXCLUDE",
+            rationale="Model selected instead.",
+        ),
+        AssertionCandidateInput(
+            observation_id=second.id,
+            decision="EXCLUDE",
+            rationale="Model selected instead.",
+        ),
+    )
+    with pytest.raises(
+        PropertyAuthorityError,
+        match="selected_model must not be empty",
+    ):
+        _assertion_input(
+            first.id,
+            second.id,
+            conflict_set_id=None,
+            selection_kind="MODEL",
+            selected_observation_id=None,
+            selected_model={},
+            authority_state="ADVISORY_ONLY",
+            candidates=excluded_candidates,
+        )
+
+    model = await service.record_selected_assertion(
+        _assertion_input(
+            first.id,
+            second.id,
+            assertion_id="assertion-model",
+            conflict_set_id=None,
+            selection_kind="MODEL",
+            selected_observation_id=None,
+            selected_model={
+                "model_key": "bounded-property-model",
+                "model_version": "1",
+                "output": {"numeric_value": 8.0, "canonical_unit": "Pa"},
+            },
+            interpolation_state="INTERPOLATED",
+            authority_state="ADVISORY_ONLY",
+            candidates=excluded_candidates,
+        )
+    )
+    none = await service.record_selected_assertion(
+        _assertion_input(
+            first.id,
+            second.id,
+            assertion_id="assertion-none",
+            conflict_set_id=None,
+            selection_kind="NONE",
+            selected_observation_id=None,
+            selected_model=None,
+            interpolation_state="NOT_APPLICABLE",
+            authority_state="WITHHELD_UNKNOWN",
+            candidates=excluded_candidates,
+        )
+    )
+
+    assert model.selected_model_json["model_key"] == "bounded-property-model"
+    assert model.selected_observation_id is None
+    assert none.selected_model_json is None
+    assert none.selected_observation_id is None
 
 
 @pytest.mark.asyncio

@@ -251,6 +251,30 @@ def test_b2_migration_enforces_shapes_foreign_keys_and_append_only_history(tmp_p
             )
         connection.rollback()
 
+        with pytest.raises(sqlite3.IntegrityError):
+            connection.execute(
+                """
+                INSERT INTO lab_property_observations (
+                    id, schema_version, identity_scope, subject_identity_json,
+                    subject_identity_sha256, property_type, value_kind,
+                    numeric_value, original_unit, canonical_unit, method,
+                    source_version_id, extraction_record_id,
+                    source_locator_json, replicate_count, statistic,
+                    uncertainty_interval_json, evidence_class, review_state,
+                    quality_flags_json, applicability_domain_json,
+                    provenance_activity_json, content_sha256, created_at
+                ) VALUES (
+                    'bad-identity-hash', 'v1', 'CHEMICAL_ENTITY', '{}',
+                    'short', 'vapor_pressure', 'NUMERIC', 1.0, 'Pa', 'Pa',
+                    'unknown', 'source-version-2', 'extraction-1', '{}', 1,
+                    'reported', '{}', 'MEASURED', 'STAGED', '[]', '{}', '{}',
+                    ?, CURRENT_TIMESTAMP
+                )
+                """,
+                ("0" * 64,),
+            )
+        connection.rollback()
+
         for table_name in sorted(B2_TABLES | {"lab_material_properties"}):
             if table_name == "lab_material_properties":
                 _minimum_rows(connection)

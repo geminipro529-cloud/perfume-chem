@@ -277,6 +277,10 @@ def upgrade() -> None:
             name="ck_lab_property_observation_review_state",
         ),
         sa.CheckConstraint(
+            "length(subject_identity_sha256) = 64",
+            name="ck_lab_property_observation_identity_sha256",
+        ),
+        sa.CheckConstraint(
             "length(content_sha256) = 64",
             name="ck_lab_property_observation_content_sha256",
         ),
@@ -355,6 +359,10 @@ def upgrade() -> None:
         sa.CheckConstraint(
             f"materiality IN ({_quoted(PROPERTY_CONFLICT_MATERIALITIES)})",
             name="ck_lab_property_conflict_materiality",
+        ),
+        sa.CheckConstraint(
+            "length(requested_identity_sha256) = 64",
+            name="ck_lab_property_conflict_identity_sha256",
         ),
         sa.CheckConstraint(
             "length(content_sha256) = 64",
@@ -480,6 +488,10 @@ def upgrade() -> None:
         sa.CheckConstraint(
             f"authority_state IN ({_quoted(ASSERTION_AUTHORITY_STATES)})",
             name="ck_lab_selected_assertion_authority",
+        ),
+        sa.CheckConstraint(
+            "length(requested_identity_sha256) = 64",
+            name="ck_lab_selected_assertion_identity_sha256",
         ),
         sa.CheckConstraint(
             "length(content_sha256) = 64",

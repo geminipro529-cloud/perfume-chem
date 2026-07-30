@@ -549,6 +549,8 @@ class SelectedAssertionInput:
             if self.selected_model is not None
             else None
         )
+        if selection_kind == "MODEL" and not selected_model:
+            raise PropertyAuthorityError("selected_model must not be empty")
         object.__setattr__(self, "selection_kind", selection_kind)
         object.__setattr__(
             self,
@@ -731,6 +733,11 @@ class LabPropertyServiceMixin:
                     "PROPERTY_EXTRACTION_OBSERVATION_MISMATCH",
                     "The extraction record reserves a different observation.",
                 )
+            if extraction.locator_json != command.source_locator:
+                raise PropertyAuthorityConflictError(
+                    "PROPERTY_EXTRACTION_LOCATOR_MISMATCH",
+                    "The observation locator must equal the accepted extraction locator.",
+                )
             accepted = await self.is_accepted_for_scoped_use(
                 "EXTRACTION_RECORD",
                 extraction.id,
@@ -912,6 +919,11 @@ class LabPropertyServiceMixin:
                 for dimension, values in dimension_values.items()
                 if _different(values)
             ]
+            if not difference_dimensions:
+                raise PropertyAuthorityConflictError(
+                    "PROPERTY_CONFLICT_NO_DIFFERENCE",
+                    "A conflict requires at least one visible difference.",
+                )
             requested_identity, requested_identity_sha256 = _identity(
                 command.requested_identity_scope,
                 command.requested_identity,
@@ -1031,6 +1043,10 @@ class LabPropertyServiceMixin:
                     "PROPERTY_ASSERTION_TYPE_MISMATCH",
                     "Every candidate must match the requested property.",
                 )
+            requested_identity, requested_identity_sha256 = _identity(
+                command.requested_identity_scope,
+                command.requested_identity,
+            )
             conflict = None
             if command.conflict_set_id is not None:
                 conflict = await self.repository.get_property_conflict_set(
@@ -1040,6 +1056,18 @@ class LabPropertyServiceMixin:
                     raise PropertyAuthorityConflictError(
                         "PROPERTY_ASSERTION_CONFLICT_NOT_FOUND",
                         "The selected assertion conflict set does not exist.",
+                    )
+                if (
+                    conflict.requested_identity_sha256
+                    != requested_identity_sha256
+                    or conflict.property_type
+                    != command.requested_property_type
+                    or conflict.requested_conditions_json
+                    != command.requested_conditions
+                ):
+                    raise PropertyAuthorityConflictError(
+                        "PROPERTY_ASSERTION_CONFLICT_SCOPE_MISMATCH",
+                        "The conflict request must match the assertion request.",
                     )
                 conflict_members = (
                     await self.repository.property_conflict_members(
@@ -1085,10 +1113,6 @@ class LabPropertyServiceMixin:
                     "PROPERTY_ASSERTION_SELECTION_INCONSISTENT",
                     "An authorized assertion must select evidence or a model.",
                 )
-            requested_identity, requested_identity_sha256 = _identity(
-                command.requested_identity_scope,
-                command.requested_identity,
-            )
             candidate_payload = [
                 {
                     "observation_id": candidate.observation_id,

@@ -216,12 +216,14 @@ def test_b2_tables_declare_named_database_constraints_and_foreign_keys():
             "ck_lab_property_observation_replicate_count",
             "ck_lab_property_observation_evidence_class",
             "ck_lab_property_observation_review_state",
+            "ck_lab_property_observation_identity_sha256",
             "ck_lab_property_observation_content_sha256",
         },
         "lab_property_conflict_sets": {
             "uq_lab_property_conflict_content_sha256",
             "ck_lab_property_conflict_state",
             "ck_lab_property_conflict_materiality",
+            "ck_lab_property_conflict_identity_sha256",
             "ck_lab_property_conflict_content_sha256",
         },
         "lab_property_conflict_members": {
@@ -233,6 +235,7 @@ def test_b2_tables_declare_named_database_constraints_and_foreign_keys():
             "ck_lab_selected_assertion_selection_shape",
             "ck_lab_selected_assertion_interpolation",
             "ck_lab_selected_assertion_authority",
+            "ck_lab_selected_assertion_identity_sha256",
             "ck_lab_selected_assertion_content_sha256",
         },
         "lab_selected_assertion_candidates": {
