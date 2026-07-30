@@ -1,0 +1,225 @@
+{
+  "schema": "build-b4-knowledge-rule-compiler-gate-v1",
+  "generated_at_utc": "2026-07-30T19:50:44.7333707Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B4",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    "edab5112d69ca34fc96e2af15e7e5ee30f7e34e4",
+    "0b274a4b5ef8648c795e37ebdab1baabc8192b81"
+  ],
+  "implementation_head": "0b274a4b5ef8648c795e37ebdab1baabc8192b81",
+  "alembic_head": "20260731_0008",
+  "environment": {
+    "python": "3.11.15",
+    "pty": false,
+    "ansi_disabled": true,
+    "bytecode_disabled_for_final_pytest": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b4_tables": 6,
+    "append_only_sqlite_triggers_installed": true,
+    "explicit_endpoint_kinds": [
+      "EXACT_IDENTITY",
+      "GROUP",
+      "GENERIC_PROSE",
+      "UNRESOLVED"
+    ],
+    "legacy_source_records": 3381,
+    "legacy_invalid_exact_count": 137,
+    "legacy_duplicate_count": 68,
+    "legacy_cycle_count": 1,
+    "legacy_blocking_count": 0,
+    "legacy_numerical_model_count": 0,
+    "frozen_identity_resolution_labels": 454,
+    "legacy_rows_promoted_by_migration": 0,
+    "production_api_ui_or_optimizer_consumers_connected": 0,
+    "b5_analytical_authority_implemented": false
+  },
+  "commands": [
+    {
+      "name": "pytest_b1_b2_b3_b4_and_compatibility",
+      "command": "python -B -m pytest <canonical>/backend/tests/unit/test_b1_source_schema.py <canonical>/backend/tests/unit/test_b1_source_service.py <canonical>/backend/tests/integration/test_b1_source_migration.py <canonical>/backend/tests/unit/test_b2_property_schema.py <canonical>/backend/tests/unit/test_b2_property_service.py <canonical>/backend/tests/integration/test_b2_property_migration.py <canonical>/backend/tests/unit/test_b3_threshold_schema.py <canonical>/backend/tests/unit/test_b3_threshold_service.py <canonical>/backend/tests/integration/test_b3_threshold_migration.py <canonical>/backend/tests/unit/test_b4_rule_schema.py <canonical>/backend/tests/unit/test_b4_rule_service.py <canonical>/backend/tests/unit/test_b4_legacy_rule_adapter.py <canonical>/backend/tests/integration/test_b4_rule_migration.py <canonical>/backend/tests/integration/test_lab_migration.py <canonical>/backend/tests/integration/test_backup_restore.py --color=no -p no:cacheprovider --basetemp=<writable-temp>/b4-canonical-final-compat",
+      "working_directory": "<writable-evidence>/pytest-cwd",
+      "timeout_seconds": 360,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "129 passed in 139.16s",
+      "stdout_path": "docs/verification/b4/logs/pytest.stdout.txt",
+      "stdout_sha256": "ED23EB6CA998E2DBB70B38740321D3986F0BC8FD5F1B4207E86F37846C56E2B3",
+      "stderr_path": "docs/verification/b4/logs/pytest.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "ruff_b4_exact_paths",
+      "command": "ruff check app/models/lab_rules.py app/repositories/lab_rules.py app/services/lab_rules.py app/adapters/legacy_rules.py alembic/versions/20260731_0008_b4_knowledge_rules.py tests/unit/test_b4_rule_schema.py tests/unit/test_b4_rule_service.py tests/unit/test_b4_legacy_rule_adapter.py tests/integration/test_b4_rule_migration.py --no-cache --output-format concise",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b4/logs/ruff.stdout.txt",
+      "stdout_sha256": "82B3E6A6C090A57601D22943BD23FCA9218D1031DBE5A7B754092F9A156B4F18",
+      "stderr_path": "docs/verification/b4/logs/ruff.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "mypy_b4_modules",
+      "command": "python -B -m mypy app/models/lab_rules.py app/repositories/lab_rules.py app/services/lab_rules.py app/adapters/legacy_rules.py --no-color-output --cache-dir=<writable-cache>",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 240,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "Success: no issues found in 4 source files",
+      "stdout_path": "docs/verification/b4/logs/mypy.stdout.txt",
+      "stdout_sha256": "D9A5631F7D87A741FBECC3236286D1792D22D349FF13846D71CDC9217307BB76",
+      "stderr_path": "docs/verification/b4/logs/mypy.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "excluded_invocations": [
+    {
+      "result": "97 passed, 32 setup errors",
+      "accepted_as_gate_evidence": false,
+      "reason": "The first post-fix pytest process used the read-only canonical directory as its working directory. The repository conftest hardcodes a relative SQLite test database, so all 32 database fixtures failed with 'attempt to write a readonly database'. The unchanged suite was rerun from an isolated writable working directory and passed 129/129."
+    }
+  ],
+  "corpus_regression": {
+    "source_manifest_bound": true,
+    "identity_resolution_snapshot_bound": true,
+    "identity_resolution_snapshot_authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY",
+    "identity_resolution_snapshot_sha256": "51D4A70EE763A2DB3EA97FC86B658599A77D5C8DBE61ADFD310D14627B909014",
+    "identity_resolution_snapshot_labels": 454,
+    "report_sha256": "C49A49DD2BAC5FB0B819E2162FBB60E851A098925F7680EA7C920650B7E75FB7",
+    "compiled_twice_with_equal_report": true,
+    "invalid_exact_nonincrease": true,
+    "reproducibility_defect_found_by_sol": "The same four rule-source hashes produced 137 invalid exact rules under the authoritative resolver and 138 under a stale scratch resolver because resolver outcomes were ambient rather than bound.",
+    "reproducibility_fix": "A committed 454-label non-authoritative resolution snapshot is now an explicit regression input. The stale scratch environment then passed the full 129-test compatibility slice without changing its resolver."
+  },
+  "deepluna": {
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_exact_project_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "provider_calls_enabled": true,
+      "active_or_queued_jobs": 0,
+      "open_or_unknown_reservations": 0
+    },
+    "migration_risk_audit": {
+      "job_id": "DS-29a34bf13ae71b1a7222cb6cadb9cbbf",
+      "status": "PASS",
+      "cost_nano_usd": 2395440,
+      "accepted_as_final_authority": false,
+      "reason": "The packet contradicted itself about the existing B3 downgrade after its required read stopped early. Executable local downgrade tests remained authoritative."
+    },
+    "postimplementation_audit": {
+      "job_id": "DS-5c335f5f0b80291a1ee1890a4391fe56",
+      "status": "PASS",
+      "blocking_findings": 0,
+      "cost_nano_usd": 6673185,
+      "result_packet_sha256": "1E9DDE61E9B4D3AE02285C5C46E2792B9F9F05C6CEF39FF0A04134E24138CC1D",
+      "accepted_as_final_authority": false,
+      "sol_found_defects_after_pass": [
+        "Direct database inserts could create AUTHORITATIVE rules or groups without source-version, extraction, locator, and approved-review provenance.",
+        "A single directed cycle labeled every independent directed rule in the batch as DIRECTED_CYCLE.",
+        "Required compilation-manifest, corpus, report, and raw-payload SHA-256 values accepted null."
+      ]
+    },
+    "sol_independent_reproduction_required": true,
+    "sol_independent_reproduction_complete": true,
+    "postfix_provider_call_required_for_acceptance": false,
+    "final_authority": "canonical source, executable tests, database constraints, frozen inputs, and Sol independent reproduction"
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "mutated_by_b4_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "integrity_check": "ok",
+      "connection_mode": "read-only immutable",
+      "mutated_by_b4_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/app/models/lab.py": "E255280C56A4535E0BEA3D62EDFC439237DFC4F72B4663925F8A26D8B036ABDF",
+    "backend/app/repositories/lab.py": "3F181DE2068C4C53855150C9AB7BD544727C42F461C37A816674BF1D146AF379",
+    "backend/app/services/lab_service.py": "5E6FDCCE38AD4D782E88BEB10F9928EE1EA3196F2BBA462AF47DE82F446EE8F8",
+    "backend/tests/integration/test_lab_migration.py": "4BDE87AE9EF41210BDA59D9BB1FDDB5EAB29A9B5D2F458BA13E3A33BD2AD6C02",
+    "backend/tests/integration/test_backup_restore.py": "1D41098A2DA1EE3F946B9E7E2AEC4A923CD209136AB204DB1319E0C5EC3D7691",
+    "backend/app/models/lab_rules.py": "5D1EC03D18AA1334E159F05386A1A1948934F5079642C40F71C26CC0A0A827D2",
+    "backend/app/repositories/lab_rules.py": "AF3509D72590F6566B25B1999E33366F2227DF2B096E8D33073372B7F7E129E0",
+    "backend/app/services/lab_rules.py": "7BD4E6840A4620181FFE26A91E1E1A830E0EACC50F8964482DEBE68B901D785C",
+    "backend/app/adapters/legacy_rules.py": "3FD4C4053859FF373A415B349515A8FD2112A6B91EE8A0E639AB6810BA3DC734",
+    "backend/alembic/versions/20260731_0008_b4_knowledge_rules.py": "7E4D4CCF56813A9406087BB8DDEAF472C15F17A4EFD30CB350D2B3A6330D7126",
+    "backend/tests/unit/test_b4_rule_schema.py": "290C3589457265EB5897BECDF2077FE1B5A1038494A6814AA76FD8E9BB3CCD85",
+    "backend/tests/unit/test_b4_rule_service.py": "2CA3E94EA3CE9AF5B61251E4B4888548CB11528974BB37FE06E73052ACF2E96B",
+    "backend/tests/unit/test_b4_legacy_rule_adapter.py": "FB348374752CB6B93E9FA075EE7F01AA67A0F6FE4CD032C97719A7754B5F2BB5",
+    "backend/tests/integration/test_b4_rule_migration.py": "334661FFB5DD155CBB12156DB5D8CD7849F7547A7FB080B98BCA86BA72DF09DE",
+    "backend/tests/fixtures/b4_rule_corpus_baseline.json": "6249FC3E6DE3EB50AE753064E741FF68257FFE5A4E446758D479253F805DA6C5",
+    "backend/tests/fixtures/b4_identity_resolution_baseline.json": "51D4A70EE763A2DB3EA97FC86B658599A77D5C8DBE61ADFD310D14627B909014",
+    "docs/superpowers/specs/2026-07-31-build-b4-knowledge-rule-compiler-design.md": "EAA78A1818FE4C66F88ED284A28575A23B9722ACF0F30FFB80F5F55821BFCCAF",
+    "docs/superpowers/plans/2026-07-31-build-b4-knowledge-rule-compiler.md": "F1715B69499068D917AE477EBA375412955EB63BD3C45CFB3C7ED705F06CBE2F"
+  },
+  "exit_gate": {
+    "exact_rules_require_canonical_identity_or_explicit_group": true,
+    "group_membership_is_versioned_and_cycle_checked": true,
+    "generic_and_unresolved_endpoints_cannot_be_authoritative_blocking_or_numerical": true,
+    "only_authoritative_rules_can_block": true,
+    "authoritative_rules_and_groups_require_approved_exact_provenance_at_database_level": true,
+    "numerical_models_require_controlled_matching_support": true,
+    "duplicates_are_retained_but_not_silently_promoted": true,
+    "directed_cycle_diagnostics_apply_only_to_edges_in_cyclic_strongly_connected_components": true,
+    "required_digests_reject_null": true,
+    "runtime_projection_exposes_status_source_scope_uncertainty_contradictions_and_role": true,
+    "legacy_hard_and_numerical_claims_are_not_promoted": true,
+    "full_corpus_inputs_and_identity_resolution_outcomes_are_frozen": true,
+    "invalid_exact_count_does_not_increase": true,
+    "migration_imports_zero_legacy_rules": true,
+    "model_migration_constraint_index_trigger_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "production_consumers_deferred_to_b9": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "legacy_rule_authority": "QUARANTINED_NON_AUTHORITATIVE",
+    "generic_prose_formula_mutation": "PROHIBITED",
+    "numerical_interaction_promotion_without_controlled_evidence": "PROHIBITED",
+    "production_rule_consumption": "DEFERRED_TO_B9"
+  },
+  "known_limitations": [
+    "The 454-label identity-resolution snapshot is a regression fixture, not canonical identity authority and not a runtime registry.",
+    "The full legacy inventory still contains 137 invalid exact records, 68 duplicates, and one directed-cycle diagnostic; those records remain separated from blocking logic.",
+    "No real legacy rule, contradiction, support record, or compilation run is inserted by the migration.",
+    "No production API, UI, optimizer, or recommendation consumer is connected until B9.",
+    "The bounded DeepLuna PASS missed defects later reproduced by Sol, so provider evidence remains supplemental.",
+    "Scientific release remains blocked."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_after_implementation_commits": 105,
+    "untracked_files_after_implementation_commits": 615,
+    "staged_entries_after_implementation_commits": 0,
+    "a0_recovery_archive": "preserved",
+    "b4_scratch_preimplementation_archive": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/outputs/b4-preimplementation-recovery/b4-scratch-targets-20260731_003222.zip",
+    "b4_scratch_preimplementation_archive_sha256": "8FA8058E5C629637ACC4B02C1B8222F9F9FABDFBAB802A1D0798D614F1B29378",
+    "b4_canonical_prepromotion_archive": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/outputs/b4-canonical-prepromotion/20260731_0115/b4-canonical-targets-before-promotion.zip",
+    "b4_canonical_prepromotion_archive_sha256": "73C769BDEC83D5999C1958B7AD732672E16DDE2302139E85FED46AFBC7230C3F",
+    "b4_postfix_prepromotion_archive": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/outputs/b4-canonical-postfix-prepromotion/20260731_022101/b4-canonical-postfix-targets-before-promotion.zip",
+    "b4_postfix_prepromotion_archive_sha256": "1C2BCBD5F8B5D08AAE64890CDAF8705F2C0DF1DCCE572B8D88B7C0E2A29583E8",
+    "b4_resolution_snapshot_prepromotion_archive": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/outputs/b4-resolution-snapshot-prepromotion/20260731_024146/b4-resolution-snapshot-targets-before-promotion.zip",
+    "b4_resolution_snapshot_prepromotion_archive_sha256": "CDC61E1A8E07F85FB975650832BB73F17CF37633AC471D9491D12EA6F289320E",
+    "restore_verification": "Every archived present-path hash matched after separate extraction; absent-path manifests matched."
+  }
+}
