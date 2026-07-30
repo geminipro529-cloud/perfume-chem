@@ -1331,9 +1331,12 @@ class LabScienceServiceMixin:
                     }
                 )
             if command.decision == "ALLOW_EXACT":
-                has_direct = any(
-                    link.role == "DIRECT" for link in command.evidence_links
-                )
+                direct_evidence_ids = {
+                    link.evidence_record_id
+                    for link in command.evidence_links
+                    if link.role == "DIRECT"
+                }
+                has_direct = bool(direct_evidence_ids)
                 if (
                     not has_direct
                     or command.missing_evidence
@@ -1357,6 +1360,35 @@ class LabScienceServiceMixin:
                         raise ScienceAuthorityConflictError(
                             "ANALYTICAL_QC_NOT_ACCEPTED",
                             "Exact analytical authority requires passing QC.",
+                        )
+                    assessment_id = command.authority.get(
+                        "analytical_authority_assessment_id"
+                    )
+                    b5_assessment = (
+                        await self.repository.get_analytical_claim_assessment(
+                            str(assessment_id)
+                        )
+                        if assessment_id is not None
+                        else None
+                    )
+                    expected_b5_claim_type = {
+                        "ANALYTICAL_IDENTITY": "IDENTITY",
+                        "ANALYTICAL_QUANTITY": "QUANTITY",
+                    }.get(command.claim_type)
+                    if (
+                        b5_assessment is None
+                        or b5_assessment.analytical_run_id != command.subject_id
+                        or b5_assessment.decision != "SUPPORTED_FOR_SCOPE"
+                        or b5_assessment.claim_type != expected_b5_claim_type
+                        or b5_assessment.policy_version
+                        != command.policy_version
+                        or b5_assessment.evidence_record_id
+                        not in direct_evidence_ids
+                    ):
+                        raise ScienceAuthorityConflictError(
+                            "ANALYTICAL_B5_AUTHORITY_REQUIRED",
+                            "Exact analytical authority requires a matching "
+                            "supported B5 assessment.",
                         )
             parent = None
             if parent_version_id is None:

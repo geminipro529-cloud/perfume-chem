@@ -33,6 +33,7 @@ from app.models.lab import (
     LabStockSolution,
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
+from app.services.lab_analytical import LabAnalyticalAuthorityServiceMixin
 from app.services.lab_execution import LabExecutionServiceMixin
 from app.services.lab_planning import LabPlanningServiceMixin
 from app.services.lab_properties import LabPropertyServiceMixin
@@ -112,6 +113,7 @@ class LabService(
     LabThresholdServiceMixin,
     LabPropertyServiceMixin,
     LabSourceServiceMixin,
+    LabAnalyticalAuthorityServiceMixin,
     LabScienceServiceMixin,
     LabPlanningServiceMixin,
 ):

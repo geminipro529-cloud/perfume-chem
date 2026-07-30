@@ -24,6 +24,9 @@ from app.models.lab import (
     LabSample,
     LabStockSolution,
 )
+from app.repositories.lab_analytical import (
+    LabAnalyticalAuthorityRepositoryMixin,
+)
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_properties import LabPropertyRepositoryMixin
@@ -52,6 +55,7 @@ class LabRepository(
     LabThresholdRepositoryMixin,
     LabPropertyRepositoryMixin,
     LabSourceRepositoryMixin,
+    LabAnalyticalAuthorityRepositoryMixin,
     LabScienceRepositoryMixin,
     LabPlanningRepositoryMixin,
 ):

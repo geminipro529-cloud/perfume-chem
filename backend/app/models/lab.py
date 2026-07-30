@@ -527,6 +527,17 @@ class LabOutcome(LabRecord):
     outcome_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
 
+from app.models.lab_analytical import (  # noqa: E402,F401
+    ANALYTICAL_AUTHORITY_TABLE_NAMES,
+    LabAnalyticalClaimAssessment,
+    LabAnalyticalMethodAuthority,
+    LabAnalyticalPeakAuthority,
+    LabAnalyticalRunAuthority,
+    LabAnalyticalSequence,
+    LabAnalyticalSequenceEntry,
+    LabGCOEventAuthority,
+    LabMethodValidationRecord,
+)
 from app.models.lab_execution import (  # noqa: E402,F401
     EXECUTION_TABLE_NAMES,
     LabBottleActionCommit,
@@ -614,6 +625,7 @@ APPEND_ONLY_TABLES = {
     *PROPERTY_AUTHORITY_TABLE_NAMES,
     *THRESHOLD_AUTHORITY_TABLE_NAMES,
     *RULE_AUTHORITY_TABLE_NAMES,
+    *ANALYTICAL_AUTHORITY_TABLE_NAMES,  # type: ignore[has-type]
     *EXECUTION_TABLE_NAMES,
 }
 
