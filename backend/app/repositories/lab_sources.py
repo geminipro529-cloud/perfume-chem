@@ -7,6 +7,7 @@ from sqlalchemy import select
 from app.models.lab_sources import (
     LabEvidenceWorkflowEvent,
     LabSourceDocumentVersion,
+    LabSourceExtractionRecord,
 )
 
 
@@ -44,6 +45,57 @@ class LabSourceRepositoryMixin:
             .limit(1)
         )
         return result.scalar_one_or_none()
+
+    async def get_source_extraction(
+        self,
+        extraction_id: str,
+    ) -> LabSourceExtractionRecord | None:
+        return await self.session.get(LabSourceExtractionRecord, extraction_id)
+
+    async def extraction_record_by_hash(
+        self,
+        record_sha256: str,
+    ) -> LabSourceExtractionRecord | None:
+        result = await self.session.execute(
+            select(LabSourceExtractionRecord)
+            .where(LabSourceExtractionRecord.record_sha256 == record_sha256)
+            .limit(1)
+        )
+        return result.scalar_one_or_none()
+
+    async def source_extractions(
+        self,
+        source_version_id: str,
+    ) -> list[LabSourceExtractionRecord]:
+        result = await self.session.execute(
+            select(LabSourceExtractionRecord)
+            .where(
+                LabSourceExtractionRecord.source_version_id
+                == source_version_id
+            )
+            .order_by(
+                LabSourceExtractionRecord.created_at,
+                LabSourceExtractionRecord.id,
+            )
+        )
+        return list(result.scalars())
+
+    async def observation_extractions(
+        self,
+        observation_id: str,
+    ) -> list[LabSourceExtractionRecord]:
+        result = await self.session.execute(
+            select(LabSourceExtractionRecord)
+            .where(
+                LabSourceExtractionRecord.output_observation_id
+                == observation_id
+            )
+            .order_by(
+                LabSourceExtractionRecord.created_at,
+                LabSourceExtractionRecord.id,
+            )
+        )
+        return list(result.scalars())
 
     async def workflow_events(
         self,

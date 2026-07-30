@@ -11,11 +11,13 @@ from uuid import uuid4
 from engine.calibration.hashing import stable_json_hash
 
 from app.models.lab_sources import (
+    EVIDENCE_WORKFLOW_STATES,
     SOURCE_REVIEW_STATES,
     SOURCE_TYPES,
     WORKFLOW_SUBJECT_TYPES,
     LabEvidenceWorkflowEvent,
     LabSourceDocumentVersion,
+    LabSourceExtractionRecord,
 )
 
 if TYPE_CHECKING:
@@ -78,6 +80,13 @@ def _date_or_none(value: date | None, field: str) -> date | None:
     if value is not None and not isinstance(value, date):
         raise SourceAuthorityError(f"{field} must be a date")
     return value
+
+
+def _tuple_text(values: tuple[str, ...], field: str) -> tuple[str, ...]:
+    normalized = tuple(_text(value, field) for value in values)
+    if len(normalized) != len(set(normalized)):
+        raise SourceAuthorityError(f"{field} must not contain duplicates")
+    return normalized
 
 
 def _relative_artifact_path(value: str | None) -> str | None:
@@ -238,6 +247,93 @@ class SourceDocumentInput:
         )
 
 
+@dataclass(frozen=True, slots=True)
+class ExtractionRecordInput:
+    source_version_id: str
+    locator: dict[str, Any]
+    structure_context: dict[str, Any]
+    original_wording: str | None
+    original_value: dict[str, Any] | None
+    parsed_value: dict[str, Any] | None
+    normalization: dict[str, Any]
+    parser_or_model_version: str
+    reviewer_pseudonym: str | None
+    uncertainty: dict[str, Any]
+    ambiguity: tuple[str, ...]
+    output_observation_id: str | None
+    input_sha256: str
+    output_sha256: str
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "source_version_id",
+            _text(self.source_version_id, "source_version_id"),
+        )
+        object.__setattr__(self, "locator", dict(self.locator))
+        object.__setattr__(
+            self,
+            "structure_context",
+            dict(self.structure_context),
+        )
+        original_wording = _optional_text(self.original_wording)
+        original_value = (
+            dict(self.original_value)
+            if self.original_value is not None
+            else None
+        )
+        if original_wording is None and original_value is None:
+            raise SourceAuthorityError(
+                "original wording or original value must be provided"
+            )
+        object.__setattr__(self, "original_wording", original_wording)
+        object.__setattr__(self, "original_value", original_value)
+        object.__setattr__(
+            self,
+            "parsed_value",
+            dict(self.parsed_value) if self.parsed_value is not None else None,
+        )
+        object.__setattr__(
+            self,
+            "normalization",
+            dict(self.normalization),
+        )
+        object.__setattr__(
+            self,
+            "parser_or_model_version",
+            _text(
+                self.parser_or_model_version,
+                "parser_or_model_version",
+            ),
+        )
+        object.__setattr__(
+            self,
+            "reviewer_pseudonym",
+            _optional_text(self.reviewer_pseudonym),
+        )
+        object.__setattr__(self, "uncertainty", dict(self.uncertainty))
+        object.__setattr__(
+            self,
+            "ambiguity",
+            _tuple_text(self.ambiguity, "ambiguity"),
+        )
+        object.__setattr__(
+            self,
+            "output_observation_id",
+            _optional_text(self.output_observation_id),
+        )
+        object.__setattr__(
+            self,
+            "input_sha256",
+            _digest(self.input_sha256, "input_sha256"),
+        )
+        object.__setattr__(
+            self,
+            "output_sha256",
+            _digest(self.output_sha256, "output_sha256"),
+        )
+
+
 def _source_payload(
     *,
     source_id: str,
@@ -274,6 +370,18 @@ def _source_payload(
         "preserved_artifact_path": command.preserved_artifact_path,
         "parent_record_sha256": parent_record_sha256,
     }
+
+
+NORMAL_WORKFLOW = (
+    "STAGED",
+    "PARSED",
+    "IDENTITY_RESOLVED",
+    "UNIT_NORMALIZED",
+    "CONDITION_NORMALIZED",
+    "CONFLICT_CHECKED",
+    "HUMAN_REVIEWED",
+    "ACCEPTED_FOR_SCOPED_USE",
+)
 
 
 class LabSourceServiceMixin:
@@ -390,6 +498,79 @@ class LabSourceServiceMixin:
             )
             return source
 
+    async def record_source_extraction(
+        self,
+        command: ExtractionRecordInput,
+    ) -> LabSourceExtractionRecord:
+        async with self._transaction():
+            source = await self.repository.get_source_document_version(
+                command.source_version_id
+            )
+            if source is None:
+                raise SourceAuthorityConflictError(
+                    "EXTRACTION_SOURCE_NOT_FOUND",
+                    f"Source version not found: {command.source_version_id}.",
+                )
+            payload = {
+                "schema": "lab-source-extraction-v1",
+                "source_version_id": command.source_version_id,
+                "source_record_sha256": source.record_sha256,
+                "locator": command.locator,
+                "structure_context": command.structure_context,
+                "original_wording": command.original_wording,
+                "original_value": command.original_value,
+                "parsed_value": command.parsed_value,
+                "normalization": command.normalization,
+                "parser_or_model_version": command.parser_or_model_version,
+                "reviewer_pseudonym": command.reviewer_pseudonym,
+                "uncertainty": command.uncertainty,
+                "ambiguity": command.ambiguity,
+                "output_observation_id": command.output_observation_id,
+                "input_sha256": command.input_sha256,
+                "output_sha256": command.output_sha256,
+            }
+            record_hash = stable_json_hash(payload)
+            duplicate = await self.repository.extraction_record_by_hash(
+                record_hash
+            )
+            if duplicate is not None:
+                raise SourceAuthorityConflictError(
+                    "EXTRACTION_RECORD_ALREADY_EXISTS",
+                    "An identical immutable extraction record already exists.",
+                )
+            extraction = await self.repository.add(
+                LabSourceExtractionRecord(
+                    source_version_id=command.source_version_id,
+                    locator_json=dict(command.locator),
+                    structure_context_json=dict(command.structure_context),
+                    original_wording=command.original_wording,
+                    original_value_json=(
+                        dict(command.original_value)
+                        if command.original_value is not None
+                        else None
+                    ),
+                    parsed_value_json=(
+                        dict(command.parsed_value)
+                        if command.parsed_value is not None
+                        else None
+                    ),
+                    normalization_json=dict(command.normalization),
+                    parser_or_model_version=command.parser_or_model_version,
+                    reviewer_pseudonym=command.reviewer_pseudonym,
+                    uncertainty_json=dict(command.uncertainty),
+                    ambiguity_json=list(command.ambiguity),
+                    output_observation_id=command.output_observation_id,
+                    input_sha256=command.input_sha256,
+                    output_sha256=command.output_sha256,
+                    record_sha256=record_hash,
+                )
+            )
+            await self._append_initial_workflow_event(
+                subject_type="EXTRACTION_RECORD",
+                subject_id=extraction.id,
+            )
+            return extraction
+
     async def _append_initial_workflow_event(
         self,
         *,
@@ -435,8 +616,184 @@ class LabSourceServiceMixin:
         events = await self.repository.workflow_events(kind, identifier)
         return events[-1].to_state if events else None
 
+    async def transition_evidence_workflow(
+        self,
+        *,
+        subject_type: str,
+        subject_id: str,
+        to_state: str,
+        reviewer_pseudonym: str | None,
+        scopes: tuple[str, ...],
+        reason: str | None,
+    ) -> LabEvidenceWorkflowEvent:
+        kind = _choice(
+            subject_type,
+            "subject_type",
+            WORKFLOW_SUBJECT_TYPES,
+        )
+        identifier = _text(subject_id, "subject_id")
+        target = _choice(
+            to_state,
+            "to_state",
+            EVIDENCE_WORKFLOW_STATES,
+        )
+        reviewer = _optional_text(reviewer_pseudonym)
+        normalized_scopes = _tuple_text(scopes, "scopes")
+        normalized_reason = _optional_text(reason)
+        if target in {
+            "HUMAN_REVIEWED",
+            "ACCEPTED_FOR_SCOPED_USE",
+            "REJECTED",
+            "SUPERSEDED",
+        } and reviewer is None:
+            raise SourceAuthorityError(
+                f"reviewer_pseudonym is required for {target}"
+            )
+        if target == "ACCEPTED_FOR_SCOPED_USE":
+            if not normalized_scopes:
+                raise SourceAuthorityError(
+                    "scopes must not be empty for ACCEPTED_FOR_SCOPED_USE"
+                )
+        elif normalized_scopes:
+            raise SourceAuthorityError(
+                "scopes are permitted only for ACCEPTED_FOR_SCOPED_USE"
+            )
+
+        async with self._transaction():
+            subject = await self._source_workflow_subject(kind, identifier)
+            events = await self.repository.workflow_events(kind, identifier)
+            if subject is None or not events:
+                raise SourceAuthorityConflictError(
+                    "WORKFLOW_SUBJECT_NOT_FOUND",
+                    f"Workflow subject not found: {kind}/{identifier}.",
+                )
+            current = events[-1].to_state
+            self._validate_workflow_transition(current, target)
+            if target == "ACCEPTED_FOR_SCOPED_USE":
+                await self._validate_acceptance(kind, subject)
+            sequence_number = events[-1].sequence_number + 1
+            payload = {
+                "schema": "lab-evidence-workflow-event-v1",
+                "subject_type": kind,
+                "subject_id": identifier,
+                "sequence_number": sequence_number,
+                "from_state": current,
+                "to_state": target,
+                "reviewer_pseudonym": reviewer,
+                "scope": normalized_scopes,
+                "reason": normalized_reason,
+            }
+            return await self.repository.add(
+                LabEvidenceWorkflowEvent(
+                    subject_type=kind,
+                    subject_id=identifier,
+                    sequence_number=sequence_number,
+                    from_state=current,
+                    to_state=target,
+                    reviewer_pseudonym=reviewer,
+                    scope_json=list(normalized_scopes),
+                    reason=normalized_reason,
+                    record_sha256=stable_json_hash(payload),
+                )
+            )
+
+    async def _source_workflow_subject(
+        self,
+        subject_type: str,
+        subject_id: str,
+    ) -> LabSourceDocumentVersion | LabSourceExtractionRecord | None:
+        if subject_type == "SOURCE_VERSION":
+            return await self.repository.get_source_document_version(subject_id)
+        return await self.repository.get_source_extraction(subject_id)
+
+    @staticmethod
+    def _validate_workflow_transition(current: str, target: str) -> None:
+        if current in {"REJECTED", "SUPERSEDED"}:
+            raise SourceAuthorityConflictError(
+                "WORKFLOW_TERMINAL",
+                f"Workflow state {current} is terminal.",
+            )
+        if current == "ACCEPTED_FOR_SCOPED_USE":
+            if target == "SUPERSEDED":
+                return
+            raise SourceAuthorityConflictError(
+                "WORKFLOW_TERMINAL",
+                "Accepted workflow records may only be superseded.",
+            )
+        if target == "REJECTED":
+            return
+        current_index = NORMAL_WORKFLOW.index(current)
+        expected = NORMAL_WORKFLOW[current_index + 1]
+        if target != expected:
+            raise SourceAuthorityConflictError(
+                "WORKFLOW_TRANSITION_INVALID",
+                f"Workflow transition {current} -> {target} is invalid.",
+            )
+
+    async def _validate_acceptance(
+        self,
+        subject_type: str,
+        subject: LabSourceDocumentVersion | LabSourceExtractionRecord,
+    ) -> None:
+        if subject_type == "SOURCE_VERSION":
+            source = subject
+            assert isinstance(source, LabSourceDocumentVersion)
+            complete = bool(
+                source.default_locator_json
+                and source.artifact_sha256
+                and source.independence_group
+            )
+        else:
+            extraction = subject
+            assert isinstance(extraction, LabSourceExtractionRecord)
+            source = await self.repository.get_source_document_version(
+                extraction.source_version_id
+            )
+            complete = bool(
+                source is not None
+                and source.artifact_sha256
+                and extraction.locator_json
+                and (
+                    extraction.original_wording is not None
+                    or extraction.original_value_json is not None
+                )
+                and extraction.output_observation_id
+                and extraction.input_sha256
+                and extraction.output_sha256
+            )
+        if not complete:
+            raise SourceAuthorityConflictError(
+                "WORKFLOW_ACCEPTANCE_INCOMPLETE",
+                "Workflow acceptance requires complete source, locator, "
+                "digest, and observation context.",
+            )
+
+    async def is_accepted_for_scoped_use(
+        self,
+        subject_type: str,
+        subject_id: str,
+        *,
+        required_scope: str,
+    ) -> bool:
+        kind = _choice(
+            subject_type,
+            "subject_type",
+            WORKFLOW_SUBJECT_TYPES,
+        )
+        identifier = _text(subject_id, "subject_id")
+        scope = _text(required_scope, "required_scope")
+        events = await self.repository.workflow_events(kind, identifier)
+        if not events:
+            return False
+        effective = events[-1]
+        return (
+            effective.to_state == "ACCEPTED_FOR_SCOPED_USE"
+            and scope in effective.scope_json
+        )
+
 
 __all__ = [
+    "ExtractionRecordInput",
     "LabSourceServiceMixin",
     "SourceAuthorityConflictError",
     "SourceAuthorityError",
