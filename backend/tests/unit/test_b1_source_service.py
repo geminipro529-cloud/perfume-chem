@@ -437,3 +437,208 @@ async def test_ai_generated_source_and_extraction_are_not_auto_authoritative(
         extraction.id,
         required_scope="threshold_screening",
     )
+
+
+async def _accept_extraction(
+    service: LabService,
+    extraction_id: str,
+    *,
+    scope: str = "threshold_screening",
+) -> None:
+    await _advance_to_human_review(service, extraction_id)
+    await service.transition_evidence_workflow(
+        subject_type="EXTRACTION_RECORD",
+        subject_id=extraction_id,
+        to_state="ACCEPTED_FOR_SCOPED_USE",
+        reviewer_pseudonym="reviewer-1",
+        scopes=(scope,),
+        reason=f"accepted for {scope}",
+    )
+
+
+@pytest.mark.asyncio
+async def test_reconstruction_collapses_repeated_sources_to_one_independence_group(
+    db_session,
+):
+    service = LabService(db_session)
+    primary = await service.register_source_document(
+        _source_input(
+            title="Primary measurement",
+            artifact_sha256="1" * 64,
+            independence_group="primary-lineage",
+        )
+    )
+    review = await service.register_source_document(
+        _source_input(
+            source_type="REVIEW_PAPER",
+            title="Review repeating the primary measurement",
+            artifact_sha256="2" * 64,
+            identifiers={"doi": "10.1000/review"},
+            independence_group="primary-lineage",
+        )
+    )
+    database = await service.register_source_document(
+        _source_input(
+            source_type="AUTHORITATIVE_DATABASE_RECORD",
+            title="Database record derived from the primary measurement",
+            artifact_sha256="3" * 64,
+            identifiers={"accession": "DB-1"},
+            independence_group="primary-lineage",
+        )
+    )
+    await service.add_source_derivation(
+        child_source_version_id=review.id,
+        parent_source_version_id=primary.id,
+        relation="DERIVED_FROM",
+    )
+    await service.add_source_derivation(
+        child_source_version_id=database.id,
+        parent_source_version_id=primary.id,
+        relation="DERIVED_FROM",
+    )
+    review_extraction = await service.record_source_extraction(
+        _extraction_input(
+            review.id,
+            output_observation_id="observation-shared",
+            input_sha256="4" * 64,
+            output_sha256="5" * 64,
+        )
+    )
+    database_extraction = await service.record_source_extraction(
+        _extraction_input(
+            database.id,
+            output_observation_id="observation-shared",
+            parser_or_model_version="database-parser/1",
+            original_wording="Database value 7.0 microgram/m3",
+            input_sha256="6" * 64,
+            output_sha256="7" * 64,
+        )
+    )
+    await _accept_extraction(service, review_extraction.id)
+    await _accept_extraction(service, database_extraction.id)
+
+    graph = await service.reconstruct_observation_derivation(
+        "observation-shared",
+        required_scope="threshold_screening",
+    )
+
+    assert graph["schema"] == "lab-observation-derivation-v1"
+    assert graph["observation_id"] == "observation-shared"
+    assert graph["required_scope"] == "threshold_screening"
+    assert graph["complete"] is True
+    assert graph["independence_groups"] == ["primary-lineage"]
+    assert {edge["relation"] for edge in graph["derivation_links"]} == {
+        "DERIVED_FROM"
+    }
+    assert len(graph["derivation_links"]) == 2
+    assert {source["source_type"] for source in graph["sources"]} == {
+        "PRIMARY_PEER_REVIEWED_PAPER",
+        "REVIEW_PAPER",
+        "AUTHORITATIVE_DATABASE_RECORD",
+    }
+    assert {
+        item["effective_state"] for item in graph["extractions"]
+    } == {"ACCEPTED_FOR_SCOPED_USE"}
+    assert "reliability_score" not in graph
+
+
+@pytest.mark.asyncio
+async def test_derivation_links_reject_self_duplicate_and_cycles(db_session):
+    service = LabService(db_session)
+    primary = await service.register_source_document(
+        _source_input(
+            title="Primary",
+            artifact_sha256="1" * 64,
+            independence_group="lineage-1",
+        )
+    )
+    review = await service.register_source_document(
+        _source_input(
+            source_type="REVIEW_PAPER",
+            title="Review",
+            artifact_sha256="2" * 64,
+            identifiers={"doi": "10.1000/review-2"},
+            independence_group="lineage-1",
+        )
+    )
+    primary_id = primary.id
+    review_id = review.id
+
+    with pytest.raises(SourceAuthorityConflictError) as self_link:
+        await service.add_source_derivation(
+            child_source_version_id=primary_id,
+            parent_source_version_id=primary_id,
+            relation="DERIVED_FROM",
+        )
+    assert self_link.value.code == "SOURCE_DERIVATION_SELF_LINK"
+
+    await service.add_source_derivation(
+        child_source_version_id=review_id,
+        parent_source_version_id=primary_id,
+        relation="DERIVED_FROM",
+    )
+    with pytest.raises(SourceAuthorityConflictError) as duplicate:
+        await service.add_source_derivation(
+            child_source_version_id=review_id,
+            parent_source_version_id=primary_id,
+            relation="DERIVED_FROM",
+        )
+    assert duplicate.value.code == "SOURCE_DERIVATION_DUPLICATE"
+
+    with pytest.raises(SourceAuthorityConflictError) as cycle:
+        await service.add_source_derivation(
+            child_source_version_id=primary_id,
+            parent_source_version_id=review_id,
+            relation="DERIVED_FROM",
+        )
+    assert cycle.value.code == "SOURCE_DERIVATION_CYCLE"
+
+
+@pytest.mark.asyncio
+async def test_reconstruction_is_incomplete_for_missing_staged_or_wrong_scope(
+    db_session,
+):
+    service = LabService(db_session)
+    missing = await service.reconstruct_observation_derivation(
+        "missing-observation",
+        required_scope="threshold_screening",
+    )
+    assert missing == {
+        "schema": "lab-observation-derivation-v1",
+        "observation_id": "missing-observation",
+        "required_scope": "threshold_screening",
+        "complete": False,
+        "sources": [],
+        "derivation_links": [],
+        "extractions": [],
+        "independence_groups": [],
+    }
+
+    source = await service.register_source_document(
+        _source_input(
+            title="Scoped source",
+            artifact_sha256="8" * 64,
+            independence_group="scoped-lineage",
+        )
+    )
+    extraction = await service.record_source_extraction(
+        _extraction_input(
+            source.id,
+            output_observation_id="observation-scoped",
+            input_sha256="9" * 64,
+            output_sha256="a" * 64,
+        )
+    )
+    staged = await service.reconstruct_observation_derivation(
+        "observation-scoped",
+        required_scope="threshold_screening",
+    )
+    assert staged["complete"] is False
+    assert staged["extractions"][0]["effective_state"] == "STAGED"
+
+    await _accept_extraction(service, extraction.id)
+    wrong_scope = await service.reconstruct_observation_derivation(
+        "observation-scoped",
+        required_scope="release",
+    )
+    assert wrong_scope["complete"] is False

@@ -12,10 +12,12 @@ from engine.calibration.hashing import stable_json_hash
 
 from app.models.lab_sources import (
     EVIDENCE_WORKFLOW_STATES,
+    SOURCE_DERIVATION_RELATIONS,
     SOURCE_REVIEW_STATES,
     SOURCE_TYPES,
     WORKFLOW_SUBJECT_TYPES,
     LabEvidenceWorkflowEvent,
+    LabSourceDerivationLink,
     LabSourceDocumentVersion,
     LabSourceExtractionRecord,
 )
@@ -571,6 +573,98 @@ class LabSourceServiceMixin:
             )
             return extraction
 
+    async def add_source_derivation(
+        self,
+        *,
+        child_source_version_id: str,
+        parent_source_version_id: str,
+        relation: str,
+    ) -> LabSourceDerivationLink:
+        child_id = _text(
+            child_source_version_id,
+            "child_source_version_id",
+        )
+        parent_id = _text(
+            parent_source_version_id,
+            "parent_source_version_id",
+        )
+        normalized_relation = _choice(
+            relation,
+            "relation",
+            SOURCE_DERIVATION_RELATIONS,
+        )
+        if child_id == parent_id:
+            raise SourceAuthorityConflictError(
+                "SOURCE_DERIVATION_SELF_LINK",
+                "A source version cannot derive from itself.",
+            )
+        async with self._transaction():
+            child = await self.repository.get_source_document_version(child_id)
+            parent = await self.repository.get_source_document_version(parent_id)
+            if child is None or parent is None:
+                raise SourceAuthorityConflictError(
+                    "SOURCE_DERIVATION_SOURCE_NOT_FOUND",
+                    "Both derivation source versions must exist.",
+                )
+            duplicate = await self.repository.get_source_derivation(
+                child_id,
+                parent_id,
+                normalized_relation,
+            )
+            if duplicate is not None:
+                raise SourceAuthorityConflictError(
+                    "SOURCE_DERIVATION_DUPLICATE",
+                    "The immutable source derivation link already exists.",
+                )
+            if await self._source_derivation_would_cycle(child_id, parent_id):
+                raise SourceAuthorityConflictError(
+                    "SOURCE_DERIVATION_CYCLE",
+                    "The source derivation link would create a cycle.",
+                )
+            payload = {
+                "schema": "lab-source-derivation-v1",
+                "child_source_version_id": child_id,
+                "child_record_sha256": child.record_sha256,
+                "parent_source_version_id": parent_id,
+                "parent_record_sha256": parent.record_sha256,
+                "relation": normalized_relation,
+            }
+            record_hash = stable_json_hash(payload)
+            hash_duplicate = await self.repository.derivation_record_by_hash(
+                record_hash
+            )
+            if hash_duplicate is not None:
+                raise SourceAuthorityConflictError(
+                    "SOURCE_DERIVATION_DUPLICATE",
+                    "The immutable source derivation record already exists.",
+                )
+            return await self.repository.add(
+                LabSourceDerivationLink(
+                    child_source_version_id=child_id,
+                    parent_source_version_id=parent_id,
+                    relation=normalized_relation,
+                    record_sha256=record_hash,
+                )
+            )
+
+    async def _source_derivation_would_cycle(
+        self,
+        child_source_version_id: str,
+        parent_source_version_id: str,
+    ) -> bool:
+        frontier = [parent_source_version_id]
+        visited: set[str] = set()
+        while frontier:
+            current = frontier.pop()
+            if current == child_source_version_id:
+                return True
+            if current in visited:
+                continue
+            visited.add(current)
+            links = await self.repository.parent_derivation_links(current)
+            frontier.extend(link.parent_source_version_id for link in links)
+        return False
+
     async def _append_initial_workflow_event(
         self,
         *,
@@ -746,12 +840,12 @@ class LabSourceServiceMixin:
         else:
             extraction = subject
             assert isinstance(extraction, LabSourceExtractionRecord)
-            source = await self.repository.get_source_document_version(
+            source_record = await self.repository.get_source_document_version(
                 extraction.source_version_id
             )
             complete = bool(
-                source is not None
-                and source.artifact_sha256
+                source_record is not None
+                and source_record.artifact_sha256
                 and extraction.locator_json
                 and (
                     extraction.original_wording is not None
@@ -790,6 +884,191 @@ class LabSourceServiceMixin:
             effective.to_state == "ACCEPTED_FOR_SCOPED_USE"
             and scope in effective.scope_json
         )
+
+    async def reconstruct_observation_derivation(
+        self,
+        observation_id: str,
+        *,
+        required_scope: str,
+    ) -> dict[str, Any]:
+        observation = _text(observation_id, "observation_id")
+        scope = _text(required_scope, "required_scope")
+        extractions = await self.repository.observation_extractions(observation)
+        if not extractions:
+            return {
+                "schema": "lab-observation-derivation-v1",
+                "observation_id": observation,
+                "required_scope": scope,
+                "complete": False,
+                "sources": [],
+                "derivation_links": [],
+                "extractions": [],
+                "independence_groups": [],
+            }
+
+        sources: dict[str, LabSourceDocumentVersion] = {}
+        links: dict[str, LabSourceDerivationLink] = {}
+        source_graph_complete = True
+
+        async def collect_source(version_id: str) -> None:
+            nonlocal source_graph_complete
+            if version_id in sources:
+                return
+            source = await self.repository.get_source_document_version(version_id)
+            if source is None:
+                source_graph_complete = False
+                return
+            sources[source.id] = source
+            parent_links = await self.repository.parent_derivation_links(source.id)
+            for link in parent_links:
+                links[link.id] = link
+                await collect_source(link.parent_source_version_id)
+
+        extraction_rows: list[dict[str, Any]] = []
+        accepted_complete_path = False
+        for extraction in extractions:
+            await collect_source(extraction.source_version_id)
+            events = await self.repository.workflow_events(
+                "EXTRACTION_RECORD",
+                extraction.id,
+            )
+            effective = events[-1] if events else None
+            accepted_for_scope = bool(
+                effective is not None
+                and effective.to_state == "ACCEPTED_FOR_SCOPED_USE"
+                and scope in effective.scope_json
+            )
+            source = sources.get(extraction.source_version_id)
+            extraction_context_complete = bool(
+                source is not None
+                and source.artifact_sha256
+                and extraction.locator_json
+                and (
+                    extraction.original_wording is not None
+                    or extraction.original_value_json is not None
+                )
+                and extraction.output_observation_id == observation
+                and extraction.input_sha256
+                and extraction.output_sha256
+            )
+            accepted_complete_path = (
+                accepted_complete_path
+                or accepted_for_scope and extraction_context_complete
+            )
+            extraction_rows.append(
+                {
+                    "id": extraction.id,
+                    "source_version_id": extraction.source_version_id,
+                    "locator": extraction.locator_json,
+                    "structure_context": extraction.structure_context_json,
+                    "original_wording": extraction.original_wording,
+                    "original_value": extraction.original_value_json,
+                    "parsed_value": extraction.parsed_value_json,
+                    "normalization": extraction.normalization_json,
+                    "parser_or_model_version": (
+                        extraction.parser_or_model_version
+                    ),
+                    "reviewer_pseudonym": extraction.reviewer_pseudonym,
+                    "uncertainty": extraction.uncertainty_json,
+                    "ambiguity": extraction.ambiguity_json,
+                    "output_observation_id": (
+                        extraction.output_observation_id
+                    ),
+                    "input_sha256": extraction.input_sha256,
+                    "output_sha256": extraction.output_sha256,
+                    "record_sha256": extraction.record_sha256,
+                    "effective_state": (
+                        effective.to_state if effective is not None else None
+                    ),
+                    "accepted_scopes": (
+                        effective.scope_json if effective is not None else []
+                    ),
+                    "workflow_events": [
+                        {
+                            "sequence_number": event.sequence_number,
+                            "from_state": event.from_state,
+                            "to_state": event.to_state,
+                            "reviewer_pseudonym": event.reviewer_pseudonym,
+                            "scopes": event.scope_json,
+                            "reason": event.reason,
+                            "record_sha256": event.record_sha256,
+                        }
+                        for event in events
+                    ],
+                }
+            )
+
+        source_rows = [
+            {
+                "id": source.id,
+                "source_id": source.source_id,
+                "version_number": source.version_number,
+                "schema_version": source.schema_version,
+                "source_type": source.source_type,
+                "title": source.title,
+                "authors": source.authors_json,
+                "issuing_organization": source.issuing_organization,
+                "publisher_or_authority": source.publisher_or_authority,
+                "identifiers": source.identifiers_json,
+                "publication_date": _dated(source.publication_date),
+                "revision_date": _dated(source.revision_date),
+                "effective_date": _dated(source.effective_date),
+                "retrieval_date": _dated(source.retrieval_date),
+                "default_locator": source.default_locator_json,
+                "artifact_sha256": source.artifact_sha256,
+                "review_state": source.review_state,
+                "independence_group": source.independence_group,
+                "preserved_artifact_path": source.preserved_artifact_path,
+                "parent_record_sha256": source.parent_record_sha256,
+                "record_sha256": source.record_sha256,
+            }
+            for source in sorted(
+                sources.values(),
+                key=lambda item: (
+                    item.source_id,
+                    item.version_number,
+                    item.id,
+                ),
+            )
+        ]
+        link_rows = [
+            {
+                "id": link.id,
+                "child_source_version_id": link.child_source_version_id,
+                "parent_source_version_id": link.parent_source_version_id,
+                "relation": link.relation,
+                "record_sha256": link.record_sha256,
+            }
+            for link in sorted(
+                links.values(),
+                key=lambda item: (
+                    item.relation,
+                    item.parent_source_version_id,
+                    item.child_source_version_id,
+                    item.id,
+                ),
+            )
+        ]
+        extraction_rows.sort(
+            key=lambda item: (
+                str(item["source_version_id"]),
+                str(item["id"]),
+            )
+        )
+        return {
+            "schema": "lab-observation-derivation-v1",
+            "observation_id": observation,
+            "required_scope": scope,
+            "complete": bool(
+                source_graph_complete and accepted_complete_path
+            ),
+            "sources": source_rows,
+            "derivation_links": link_rows,
+            "extractions": extraction_rows,
+            "independence_groups": sorted(
+                {source.independence_group for source in sources.values()}
+            ),
+        }
 
 
 __all__ = [
