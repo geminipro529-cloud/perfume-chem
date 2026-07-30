@@ -23,6 +23,7 @@ from engine.domain_errors import (
 
 CREATE_BATCH = "CREATE_BATCH"
 TARE_CONTAINER = "TARE_CONTAINER"
+ADD_MATERIAL = "ADD_MATERIAL"
 DOSE_STOCK = "DOSE_STOCK"
 ADD_SOLVENT = "ADD_SOLVENT"
 REMOVE_SAMPLE = "REMOVE_SAMPLE"
@@ -40,6 +41,7 @@ _ALL_EVENT_TYPES = frozenset(
     {
         CREATE_BATCH,
         TARE_CONTAINER,
+        ADD_MATERIAL,
         DOSE_STOCK,
         ADD_SOLVENT,
         REMOVE_SAMPLE,
@@ -54,6 +56,39 @@ _ALL_EVENT_TYPES = frozenset(
         CLOSE_BATCH,
     }
 )
+
+
+@dataclass(frozen=True, slots=True)
+class EventSemantics:
+    """Stable replay semantics for one bottle event type."""
+
+    changes_chemical_contents: bool
+    requires_measurement: bool
+    derived_only: bool = False
+    allowed_after_close: bool = False
+
+
+EVENT_SEMANTICS: dict[str, EventSemantics] = {
+    CREATE_BATCH: EventSemantics(False, False),
+    TARE_CONTAINER: EventSemantics(False, True, allowed_after_close=True),
+    ADD_MATERIAL: EventSemantics(True, True),
+    DOSE_STOCK: EventSemantics(True, True),
+    ADD_SOLVENT: EventSemantics(True, True),
+    REMOVE_SAMPLE: EventSemantics(True, True),
+    TRANSFER: EventSemantics(True, True),
+    DILUTE: EventSemantics(False, False, derived_only=True),
+    MIX: EventSemantics(False, False),
+    REST_START: EventSemantics(False, False),
+    REST_END: EventSemantics(False, False),
+    SAMPLE: EventSemantics(False, False),
+    EVALUATE: EventSemantics(False, False),
+    CORRECT_ENTRY: EventSemantics(
+        True,
+        True,
+        allowed_after_close=True,
+    ),
+    CLOSE_BATCH: EventSemantics(False, False, allowed_after_close=True),
+}
 
 
 # ── Confirmation status constants ───────────────────────────────────────────
@@ -131,6 +166,15 @@ class BottleEvent:
     confirmed_by: str = ""
     correction_ref: str | None = None
     sequence: int | None = None
+    idempotency_key: str | None = None
+    transaction_id: str | None = None
+    related_batch_id: str | None = None
+    source_event_ids: tuple[str, ...] = ()
+    tare_mass_g: float | None = None
+    active_fraction: float | None = None
+    carrier_fraction: float | None = None
+    solvent_fraction: float | None = None
+    unallocated_fraction: float | None = None
 
     def __post_init__(self) -> None:
         if self.event_type not in _ALL_EVENT_TYPES:
@@ -146,6 +190,32 @@ class BottleEvent:
             raise EventStreamError(
                 f"event sequence must be positive, got {self.sequence!r}"
             )
+        if self.event_type == TRANSFER:
+            if not self.transaction_id:
+                raise EventStreamError("TRANSFER requires transaction_id")
+            if not self.related_batch_id:
+                raise EventStreamError("TRANSFER requires related_batch_id")
+        if self.tare_mass_g is not None and self.tare_mass_g < 0:
+            raise EventStreamError("tare_mass_g must be nonnegative")
+        fractions = (
+            self.active_fraction,
+            self.carrier_fraction,
+            self.solvent_fraction,
+            self.unallocated_fraction,
+        )
+        if any(value is not None for value in fractions):
+            normalized = tuple(
+                0.0 if value is None else float(value)
+                for value in fractions
+            )
+            if any(value < 0 or value > 1 for value in normalized):
+                raise EventStreamError(
+                    "composition fractions must be between zero and one"
+                )
+            if abs(sum(normalized) - 1.0) > 1e-9:
+                raise EventStreamError(
+                    "composition fractions must sum to one"
+                )
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -165,6 +235,15 @@ class BottleEvent:
             "confirmed_by": self.confirmed_by,
             "correction_ref": self.correction_ref,
             "sequence": self.sequence,
+            "idempotency_key": self.idempotency_key,
+            "transaction_id": self.transaction_id,
+            "related_batch_id": self.related_batch_id,
+            "source_event_ids": list(self.source_event_ids),
+            "tare_mass_g": self.tare_mass_g,
+            "active_fraction": self.active_fraction,
+            "carrier_fraction": self.carrier_fraction,
+            "solvent_fraction": self.solvent_fraction,
+            "unallocated_fraction": self.unallocated_fraction,
         }
 
     @classmethod
@@ -192,6 +271,49 @@ class BottleEvent:
             confirmed_by=str(data.get("confirmed_by") or ""),
             correction_ref=str(data["correction_ref"]) if data.get("correction_ref") else None,
             sequence=int(data["sequence"]) if data.get("sequence") is not None else None,
+            idempotency_key=(
+                str(data["idempotency_key"])
+                if data.get("idempotency_key")
+                else None
+            ),
+            transaction_id=(
+                str(data["transaction_id"])
+                if data.get("transaction_id")
+                else None
+            ),
+            related_batch_id=(
+                str(data["related_batch_id"])
+                if data.get("related_batch_id")
+                else None
+            ),
+            source_event_ids=tuple(
+                str(value) for value in data.get("source_event_ids", ())
+            ),
+            tare_mass_g=(
+                float(data["tare_mass_g"])
+                if data.get("tare_mass_g") is not None
+                else None
+            ),
+            active_fraction=(
+                float(data["active_fraction"])
+                if data.get("active_fraction") is not None
+                else None
+            ),
+            carrier_fraction=(
+                float(data["carrier_fraction"])
+                if data.get("carrier_fraction") is not None
+                else None
+            ),
+            solvent_fraction=(
+                float(data["solvent_fraction"])
+                if data.get("solvent_fraction") is not None
+                else None
+            ),
+            unallocated_fraction=(
+                float(data["unallocated_fraction"])
+                if data.get("unallocated_fraction") is not None
+                else None
+            ),
         )
 
     def to_json(self) -> str:
@@ -563,15 +685,50 @@ def _validated_event_stream(events: list[BottleEvent]) -> list[BottleEvent]:
             "event stream cannot mix sequenced and unsequenced events"
         )
     if all(has_sequences):
-        previous_sequence = 0
+        first_sequence = unique[0].sequence
+        assert first_sequence is not None
+        previous_sequence = first_sequence - 1
         for event in unique:
             assert event.sequence is not None
-            if event.sequence <= previous_sequence:
+            if event.sequence != previous_sequence + 1:
                 raise EventStreamError(
-                    f"stale sequence {event.sequence!r}; "
-                    f"latest sequence is {previous_sequence!r}"
+                    "stale sequence or non-contiguous event stream: "
+                    "sequence must be contiguous; "
+                    f"expected {previous_sequence + 1!r}, "
+                    f"got {event.sequence!r}"
                 )
             previous_sequence = event.sequence
+
+    idempotency_keys: set[str] = set()
+    closed = False
+    for event in unique:
+        if event.idempotency_key:
+            if event.idempotency_key in idempotency_keys:
+                raise EventStreamError(
+                    f"duplicate idempotency key {event.idempotency_key!r}"
+                )
+            idempotency_keys.add(event.idempotency_key)
+        semantics = EVENT_SEMANTICS[event.event_type]
+        if (
+            closed
+            and event.confirmation == COMMITTED
+            and not semantics.allowed_after_close
+        ):
+            raise EventStreamError(
+                f"event {event.event_type!r} is blocked after batch is closed"
+            )
+        if event.event_type == CLOSE_BATCH and event.confirmation == COMMITTED:
+            closed = True
+        if event.event_type == DILUTE:
+            if _resolve_mass(event) is not None:
+                raise EventStreamError(
+                    "DILUTE is derived-only and cannot carry mass"
+                )
+            for source_id in event.source_event_ids:
+                if source_id not in by_id:
+                    raise EventStreamError(
+                        f"DILUTE references missing source event {source_id!r}"
+                    )
 
     correction_refs: dict[str, str] = {}
     for event in unique:
@@ -668,9 +825,17 @@ def compute_replay_state(
 
     materials: dict[str, float] = {}
     corrections: dict[str, float] = {}
+    composition_mass_g: dict[str, float] = {
+        "active": 0.0,
+        "carrier": 0.0,
+        "solvent": 0.0,
+        "unallocated": 0.0,
+    }
     solvent_mass_g: float = 0.0
-    dilution_history: list[tuple[float, float, float]] = []
+    dilution_history: list[dict[str, object]] = []
     batch_closed: bool = False
+    tare_g = float(container_tare_g)
+    applied_event_count = 0
 
     # Build a map from CORRECT_ENTRY event_id -> resolved original event_id.
     # Follow chains of CORRECT_ENTRY -> CORRECT_ENTRY to find the ultimate
@@ -708,17 +873,24 @@ def compute_replay_state(
                 correction_trace.setdefault(target, []).append(event.event_id)
 
     # Second pass: apply events, respecting corrections.
-    # Only CONFIRMED, MEASURED, and COMMITTED events affect state.
-    # PROPOSED events are suggestions that have not been executed.
+    # Only COMMITTED events affect physical state. Proposals, confirmations,
+    # and measurements remain immutable lifecycle evidence.
     for event in validated_events:
-        if event.confirmation == PROPOSED:
+        if event.confirmation != COMMITTED:
             continue
+        applied_event_count += 1
 
-        if event.event_type == DOSE_STOCK:
+        if event.event_type in {ADD_MATERIAL, DOSE_STOCK}:
             mass = corrections.get(event.event_id, _resolve_mass(event))
             if mass is not None:
                 label = event.stock_label or "unknown"
                 materials[label] = materials.get(label, 0.0) + mass
+                fractions = _composition_fractions(event)
+                for role, fraction in fractions.items():
+                    contribution = mass * fraction
+                    composition_mass_g[role] += contribution
+                    if role == "solvent":
+                        solvent_mass_g += contribution
 
         elif event.event_type == REMOVE_SAMPLE:
             mass = corrections.get(event.event_id, _resolve_mass(event))
@@ -735,26 +907,33 @@ def compute_replay_state(
             mass = corrections.get(event.event_id, _resolve_mass(event))
             if mass is not None:
                 solvent_mass_g += mass
+                composition_mass_g["solvent"] += mass
 
         elif event.event_type == DILUTE:
-            mass = corrections.get(event.event_id, _resolve_mass(event))
-            if mass is not None:
-                total_odorant = sum(v for v in materials.values() if v > 0)
-                conc_before = (
-                    total_odorant / (total_odorant + solvent_mass_g)
-                    if (total_odorant + solvent_mass_g) > 0
-                    else 1.0
-                )
-                solvent_mass_g += mass
-                conc_after = (
-                    total_odorant / (total_odorant + solvent_mass_g)
-                    if (total_odorant + solvent_mass_g) > 0
-                    else 1.0
-                )
-                dilution_history.append((mass, conc_before, conc_after))
+            total_active = composition_mass_g["active"]
+            total_physical = sum(composition_mass_g.values())
+            concentration = (
+                total_active / total_physical
+                if total_physical > 0
+                else 0.0
+            )
+            dilution_history.append(
+                {
+                    "event_id": event.event_id,
+                    "source_event_ids": event.source_event_ids,
+                    "concentration_fraction": concentration,
+                }
+            )
 
         elif event.event_type == CLOSE_BATCH:
             batch_closed = True
+
+        elif event.event_type == TARE_CONTAINER:
+            if event.tare_mass_g is None:
+                raise EventStreamError(
+                    "TARE_CONTAINER requires tare_mass_g"
+                )
+            tare_g = event.tare_mass_g
 
         # TRANSFER: TODO — multi-batch transfer requires atomic source +
         # destination batch access. In single-batch scope this is a no-op.
@@ -764,14 +943,20 @@ def compute_replay_state(
     # Build result dict with material masses and metadata.
     result: dict[str, Any] = {k: v for k, v in materials.items() if v > 0}
     result["_solvent_mass_g"] = solvent_mass_g
+    result["_composition_mass_g"] = composition_mass_g
     result["_dilution_history"] = dilution_history
-    result["_tare_g"] = container_tare_g
+    result["_derived_concentration_fraction"] = (
+        composition_mass_g["active"] / sum(composition_mass_g.values())
+        if sum(composition_mass_g.values()) > 0
+        else 0.0
+    )
+    result["_tare_g"] = tare_g
     result["_batch_closed"] = batch_closed
     result["_correction_trace"] = {
         event_id: tuple(correction_ids)
         for event_id, correction_ids in correction_trace.items()
     }
-    result["_applied_event_count"] = len(validated_events)
+    result["_applied_event_count"] = applied_event_count
     return result
 
 
@@ -789,6 +974,38 @@ def _resolve_mass(event: BottleEvent) -> float | None:
     return event.intended_mass_g
 
 
+def _composition_fractions(event: BottleEvent) -> dict[str, float]:
+    """Resolve stock composition while preserving legacy read compatibility."""
+
+    declared = (
+        event.active_fraction,
+        event.carrier_fraction,
+        event.solvent_fraction,
+        event.unallocated_fraction,
+    )
+    if any(value is not None for value in declared):
+        return {
+            "active": float(event.active_fraction or 0.0),
+            "carrier": float(event.carrier_fraction or 0.0),
+            "solvent": float(event.solvent_fraction or 0.0),
+            "unallocated": float(event.unallocated_fraction or 0.0),
+        }
+    if event.concentration is not None:
+        active = float(event.concentration)
+        return {
+            "active": active,
+            "carrier": 1.0 - active,
+            "solvent": 0.0,
+            "unallocated": 0.0,
+        }
+    return {
+        "active": 0.0,
+        "carrier": 0.0,
+        "solvent": 0.0,
+        "unallocated": 1.0,
+    }
+
+
 def _find_event(batch: BottleBatch, event_id: str) -> BottleEvent:
     """Find an event by ID in the batch's event log.
 
@@ -801,6 +1018,7 @@ def _find_event(batch: BottleBatch, event_id: str) -> BottleEvent:
 
 
 __all__ = [
+    "ADD_MATERIAL",
     "ADD_SOLVENT",
     "BottleBatch",
     "BottleEvent",
@@ -812,6 +1030,8 @@ __all__ = [
     "DILUTE",
     "DOSE_STOCK",
     "EVALUATE",
+    "EVENT_SEMANTICS",
+    "EventSemantics",
     "MEASURED",
     "MIX",
     "PROPOSED",

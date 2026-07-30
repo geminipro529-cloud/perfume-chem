@@ -37,6 +37,9 @@ class BottleLedgerState:
     stream_sequence: int
     total_mass_g: float
     stock_masses_g: dict[str, float]
+    solvent_mass_g: float
+    tare_mass_g: float | None
+    is_closed: bool
 
 
 class LabRepository(
@@ -135,6 +138,31 @@ class LabRepository(
         )
         return list(result.scalars())
 
+    async def events_for_bottle(
+        self,
+        bottle_id: str,
+    ) -> list[LabBottleEvent]:
+        result = await self.session.execute(
+            select(LabBottleEvent)
+            .where(LabBottleEvent.bottle_id == bottle_id)
+            .order_by(
+                LabBottleEvent.stream_sequence,
+                LabBottleEvent.id,
+            )
+        )
+        return list(result.scalars())
+
+    async def bottle_is_closed(self, bottle_id: str) -> bool:
+        result = await self.session.execute(
+            select(func.count())
+            .select_from(LabBottleEvent)
+            .where(
+                LabBottleEvent.bottle_id == bottle_id,
+                LabBottleEvent.event_type == "CLOSE_BATCH",
+            )
+        )
+        return int(result.scalar_one()) > 0
+
     async def correction_for_event(self, event_id: str) -> LabBottleEvent | None:
         result = await self.session.execute(
             select(LabBottleEvent).where(
@@ -159,6 +187,18 @@ class LabRepository(
             select(LabInventoryMovement).where(
                 LabInventoryMovement.event_effect_id == effect_id
             )
+        )
+        return result.scalar_one_or_none()
+
+    async def inventory_movement_for_event(
+        self,
+        event_id: str,
+    ) -> LabInventoryMovement | None:
+        result = await self.session.execute(
+            select(LabInventoryMovement)
+            .where(LabInventoryMovement.bottle_event_id == event_id)
+            .order_by(LabInventoryMovement.created_at, LabInventoryMovement.id)
+            .limit(1)
         )
         return result.scalar_one_or_none()
 
@@ -198,11 +238,39 @@ class LabRepository(
             for stock_id, mass_g in stock_result
             if abs(float(mass_g)) > 1e-12
         }
+        events = await self.events_for_bottle(bottle_id)
+        tare_mass_g: float | None = None
+        is_closed = False
+        solvent_event_ids: list[str] = []
+        for event in events:
+            if event.event_type == "TARE_CONTAINER":
+                value = event.payload_json.get("tare_mass_g")
+                tare_mass_g = float(value) if value is not None else None
+            elif event.event_type == "CLOSE_BATCH":
+                is_closed = True
+            elif event.event_type == "ADD_SOLVENT":
+                solvent_event_ids.append(event.id)
+        solvent_mass_g = 0.0
+        if solvent_event_ids:
+            solvent_result = await self.session.execute(
+                select(
+                    func.coalesce(
+                        func.sum(LabBottleEventEffect.mass_delta_g),
+                        0.0,
+                    )
+                ).where(
+                    LabBottleEventEffect.event_id.in_(solvent_event_ids)
+                )
+            )
+            solvent_mass_g = float(solvent_result.scalar_one())
         return BottleLedgerState(
             bottle_id=bottle_id,
             stream_sequence=sequence,
             total_mass_g=float(total_result.scalar_one()),
             stock_masses_g=stock_masses,
+            solvent_mass_g=solvent_mass_g,
+            tare_mass_g=tare_mass_g,
+            is_closed=is_closed,
         )
 
 

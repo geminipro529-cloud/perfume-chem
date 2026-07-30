@@ -13,9 +13,11 @@ from app.api.v1.endpoints.lab import _backup_service
 from app.db_bootstrap import build_alembic_config
 from app.models.base import Base
 from app.models.lab import LabBottleEvent, LabMaterial
+from app.models.lab_planning import LabInventoryReservationEvent
 from app.services.backup_service import BackupService, RestoreSafetyError
 from app.services.lab_export import ImportConflictError, LabExportService
 from app.services.lab_service import LabService
+from tests.a2_planning_fixtures import _approved_plan
 
 
 def _database(path, value: str, revision: str = "20260716_0001") -> None:
@@ -85,13 +87,13 @@ def test_a2_migrated_backup_manifest_tracks_new_head(tmp_path):
     service = BackupService(
         database_path=database,
         backup_directory=tmp_path / "a2-backups",
-        expected_schema_revision="20260730_0003",
+        expected_schema_revision="20260730_0004",
     )
 
     artifact = service.create_backup(label="a2-planning")
     validation = service.validate_restore(artifact.snapshot_path)
 
-    assert artifact.schema_revision == "20260730_0003"
+    assert artifact.schema_revision == "20260730_0004"
     assert validation.valid is True
 
 
@@ -156,6 +158,93 @@ def test_restore_stages_while_running_and_applies_only_in_maintenance_mode(tmp_p
     assert _value(database) == "old"
     assert result.pre_restore_backup.snapshot_path.exists()
     assert _value(result.pre_restore_backup.snapshot_path) == "current"
+
+
+@pytest.mark.asyncio
+async def test_a5_backup_restores_active_stream_and_open_reservation_replay(
+    tmp_path,
+):
+    database = tmp_path / "a5-active.db"
+    database_url = f"sqlite+aiosqlite:///{database.as_posix()}"
+    config_path = Path(__file__).resolve().parents[2] / "alembic.ini"
+    config = build_alembic_config(config_path, database_url)
+    command.upgrade(config, "head")
+    engine = create_async_engine(database_url)
+
+    @event.listens_for(engine.sync_engine, "connect")
+    def _source_foreign_keys(connection, _record):
+        connection.execute("PRAGMA foreign_keys=ON")
+
+    factory = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+    async with factory() as session:
+        service, approved, line, stock = await _approved_plan(session)
+        reservation = await service.reserve_inventory(
+            build_plan_version_id=approved.id,
+            build_plan_line_id=line.id,
+            stock_solution_id=stock.id,
+            reserved_mass_g=1.0,
+            idempotency_key="a5-backup-reservation",
+            actor="planner",
+            rationale="Open during backup",
+        )
+        bottle = await service.create_bottle("A5 active stream")
+        await service.add_stock_to_bottle(
+            bottle_id=bottle.id,
+            stock_solution_id=stock.id,
+            mass_g=0.25,
+            expected_sequence=1,
+            command_id="a5-backup-addition",
+        )
+        expected_replay = await service.reconstruct_bottle(bottle.id)
+        bottle_id = bottle.id
+        stock_id = stock.id
+        reservation_id = reservation.reservation_id
+        await session.commit()
+    await engine.dispose()
+
+    backup_service = BackupService(
+        database_path=database,
+        backup_directory=tmp_path / "a5-backups",
+        expected_schema_revision="20260730_0004",
+    )
+    artifact = backup_service.create_backup(label="active-stream")
+
+    mutate_engine = create_async_engine(database_url)
+    async with AsyncSession(mutate_engine) as session:
+        service = LabService(session)
+        await service.add_stock_to_bottle(
+            bottle_id=bottle_id,
+            stock_solution_id=stock_id,
+            mass_g=0.1,
+            expected_sequence=2,
+            command_id="post-backup-addition",
+        )
+    await mutate_engine.dispose()
+
+    staged = backup_service.stage_restore(artifact.snapshot_path)
+    backup_service.apply_staged_restore(staged, maintenance_mode=True)
+
+    restored_engine = create_async_engine(database_url)
+    async with AsyncSession(restored_engine) as session:
+        service = LabService(session)
+        restored_replay = await service.reconstruct_bottle(bottle_id)
+        latest_reservation = (
+            await session.execute(
+                select(LabInventoryReservationEvent)
+                .where(
+                    LabInventoryReservationEvent.reservation_id
+                    == reservation_id
+                )
+                .order_by(
+                    LabInventoryReservationEvent.sequence.desc()
+                )
+                .limit(1)
+            )
+        ).scalar_one()
+    await restored_engine.dispose()
+
+    assert restored_replay == expected_replay
+    assert latest_reservation.state == "RESERVED"
 
 
 @pytest.mark.asyncio

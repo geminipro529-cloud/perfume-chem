@@ -10,7 +10,7 @@ from uuid import uuid4
 
 from engine.calibration.hashing import stable_json_hash
 
-from app.models.lab import LabEvidenceRecord
+from app.models.lab import LabEvidenceRecord, LabInventoryMovement, LabStockSolution
 from app.models.lab_planning import (
     UNAVAILABLE_INVENTORY_STATUSES,
     LabAcceptedTargetVersion,
@@ -568,6 +568,30 @@ class LabPlanningServiceMixin:
         session: AsyncSession
 
         def _transaction(self) -> AbstractAsyncContextManager[None]: ...
+
+        async def _append_inventory_movement(
+            self,
+            *,
+            stock: LabStockSolution,
+            movement_type: str,
+            raw_quantity: float,
+            balance_before: float,
+            balance_after: float,
+            actor: str,
+            transaction_id: str,
+            idempotency_key: str,
+            reason: str,
+            mass_delta_g: float,
+            event_effect_id: str | None = None,
+            build_plan_line_id: str | None = None,
+            reservation_event_id: str | None = None,
+            bottle_event_id: str | None = None,
+            admin_cause: str | None = None,
+            correction_of_movement_id: str | None = None,
+            reversal_of_movement_id: str | None = None,
+            measured_volume_ul: float | None = None,
+            standard_uncertainty: float | None = None,
+        ) -> LabInventoryMovement: ...
 
     async def _require_evidence_links(
         self,
@@ -1347,7 +1371,8 @@ class LabPlanningServiceMixin:
                     "BUILD_PLAN_LINE_MISMATCH",
                     "Build plan line does not belong to the selected plan version.",
                 )
-            if await self.repository.get_stock(stock_solution_id) is None:
+            stock = await self.repository.get_stock(stock_solution_id)
+            if stock is None:
                 raise PlanningConflictError(
                     "STOCK_SOLUTION_NOT_FOUND",
                     f"Stock solution not found: {stock_solution_id}.",
@@ -1383,6 +1408,23 @@ class LabPlanningServiceMixin:
                     actor=actor,
                     rationale=rationale,
                 )
+            )
+            physical_balance = await self.repository.stock_balance_g(
+                stock_solution_id
+            )
+            await self._append_inventory_movement(
+                stock=stock,
+                movement_type="RESERVATION",
+                raw_quantity=mass,
+                balance_before=physical_balance,
+                balance_after=physical_balance,
+                actor=actor,
+                transaction_id=event.reservation_id,
+                idempotency_key=f"movement:reservation:{event.id}",
+                reason="inventory_reservation",
+                mass_delta_g=0.0,
+                build_plan_line_id=line.id,
+                reservation_event_id=event.id,
             )
             active_line_ids = (
                 await self.repository.active_reserved_build_line_ids(plan.id)
@@ -1459,7 +1501,7 @@ class LabPlanningServiceMixin:
                     f"Reservation cannot transition from {current.state} "
                     f"to {next_state}.",
                 )
-            return await self.repository.add(
+            event = await self.repository.add(
                 LabInventoryReservationEvent(
                     reservation_id=current.reservation_id,
                     sequence=current.sequence + 1,
@@ -1475,6 +1517,35 @@ class LabPlanningServiceMixin:
                     rationale=rationale,
                 )
             )
+            if next_state in {"RELEASED", "CANCELLED"}:
+                stock = await self.repository.get_stock(
+                    current.stock_solution_id
+                )
+                if stock is None:
+                    raise PlanningConflictError(
+                        "STOCK_SOLUTION_NOT_FOUND",
+                        "Reservation stock solution no longer exists.",
+                    )
+                physical_balance = await self.repository.stock_balance_g(
+                    stock.id
+                )
+                await self._append_inventory_movement(
+                    stock=stock,
+                    movement_type="RESERVATION_RELEASE",
+                    raw_quantity=current.reserved_mass_g,
+                    balance_before=physical_balance,
+                    balance_after=physical_balance,
+                    actor=actor,
+                    transaction_id=event.reservation_id,
+                    idempotency_key=(
+                        f"movement:reservation-release:{event.id}"
+                    ),
+                    reason="inventory_reservation_release",
+                    mass_delta_g=0.0,
+                    build_plan_line_id=current.build_plan_line_id,
+                    reservation_event_id=event.id,
+                )
+            return event
 
 
 __all__ = [

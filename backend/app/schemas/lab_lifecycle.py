@@ -219,6 +219,9 @@ class BottleReplayResponse(LifecycleResponse):
     stream_sequence: int
     total_mass_g: float
     stock_masses_g: dict[str, float]
+    solvent_mass_g: float
+    tare_mass_g: float | None
+    is_closed: bool
 
 
 class AnalyticalResultResponse(LifecycleResponse):

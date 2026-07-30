@@ -279,6 +279,8 @@ class LabService(
         expected_sequence: int,
         command_id: str,
         measured_volume_ul: float | None = None,
+        standard_uncertainty: float | None = None,
+        actor: str = "system",
     ) -> LabBottleEvent:
         async with self._transaction():
             return await self._add_stock_to_bottle_in_transaction(
@@ -288,6 +290,8 @@ class LabService(
                 expected_sequence=expected_sequence,
                 command_id=command_id,
                 measured_volume_ul=measured_volume_ul,
+                standard_uncertainty=standard_uncertainty,
+                actor=actor,
             )
 
     async def _add_stock_to_bottle_in_transaction(
@@ -299,17 +303,31 @@ class LabService(
         expected_sequence: int,
         command_id: str,
         measured_volume_ul: float | None = None,
+        standard_uncertainty: float | None = None,
+        actor: str = "system",
+        build_plan_line_id: str | None = None,
+        reservation_event_id: str | None = None,
+        event_type: str = "ADD_MATERIAL",
     ) -> LabBottleEvent:
         """Apply one stock addition inside the caller's canonical transaction."""
 
         if mass_g <= 0:
             raise ValueError("mass_g must be greater than zero")
+        if standard_uncertainty is not None and standard_uncertainty < 0:
+            raise ValueError("standard_uncertainty must be nonnegative")
+        actor = actor.strip()
+        if not actor:
+            raise ValueError("actor must not be empty")
+        if event_type not in {"ADD_MATERIAL", "ADD_SOLVENT"}:
+            raise ValueError(f"unsupported addition event_type: {event_type}")
         token = _command_token("add-stock", command_id)
         request_payload = {
             "stock_solution_id": stock_solution_id,
             "mass_g": mass_g,
             "measured_volume_ul": measured_volume_ul,
+            "standard_uncertainty": standard_uncertainty,
             "expected_sequence": expected_sequence,
+            "event_type": event_type,
         }
         existing = await self.repository.event_for_command(bottle_id, token)
         if existing is not None:
@@ -324,6 +342,8 @@ class LabService(
             raise KeyError(f"Unknown bottle: {bottle_id}")
         if stock is None:
             raise KeyError(f"Unknown stock solution: {stock_solution_id}")
+        if await self.repository.bottle_is_closed(bottle_id):
+            raise LabTransactionError("bottle is closed")
         current_sequence = await self.repository.latest_sequence(bottle_id)
         if current_sequence != expected_sequence:
             raise StaleBottleStreamError(
@@ -342,7 +362,7 @@ class LabService(
                 expected_sequence=expected_sequence,
                 command_id=token,
                 transaction_id=str(uuid4()),
-                event_type="add_stock",
+                event_type=event_type,
                 payload_json=request_payload,
             )
         )
@@ -357,17 +377,195 @@ class LabService(
                 density_g_ml=stock.density_g_ml,
             )
         )
-        await self.repository.add(
-            LabInventoryMovement(
-                stock_solution_id=stock_solution_id,
-                event_effect_id=effect.id,
-                mass_delta_g=-mass_g,
-                measured_volume_ul=measured_volume_ul,
-                reason="bottle_addition",
-            )
+        await self._append_inventory_movement(
+            stock=stock,
+            movement_type="CONSUMPTION",
+            raw_quantity=mass_g,
+            balance_before=available_g,
+            balance_after=available_g - mass_g,
+            actor=actor,
+            transaction_id=event.transaction_id,
+            idempotency_key=f"movement:{event.id}",
+            reason="bottle_addition",
+            mass_delta_g=-mass_g,
+            event_effect_id=effect.id,
+            bottle_event_id=event.id,
+            build_plan_line_id=build_plan_line_id,
+            reservation_event_id=reservation_event_id,
+            measured_volume_ul=measured_volume_ul,
+            standard_uncertainty=standard_uncertainty,
         )
         stock.remaining_mass_g = available_g - mass_g
         return event
+
+    async def add_solvent_to_bottle(
+        self,
+        *,
+        bottle_id: str,
+        stock_solution_id: str,
+        mass_g: float,
+        expected_sequence: int,
+        command_id: str,
+        measured_volume_ul: float | None = None,
+        standard_uncertainty: float | None = None,
+        actor: str = "system",
+    ) -> LabBottleEvent:
+        """Append a solvent addition without classifying it as odorant mass."""
+
+        async with self._transaction():
+            return await self._add_stock_to_bottle_in_transaction(
+                bottle_id=bottle_id,
+                stock_solution_id=stock_solution_id,
+                mass_g=mass_g,
+                expected_sequence=expected_sequence,
+                command_id=command_id,
+                measured_volume_ul=measured_volume_ul,
+                standard_uncertainty=standard_uncertainty,
+                actor=actor,
+                event_type="ADD_SOLVENT",
+            )
+
+    async def _append_inventory_movement(
+        self,
+        *,
+        stock: LabStockSolution,
+        movement_type: str,
+        raw_quantity: float,
+        balance_before: float,
+        balance_after: float,
+        actor: str,
+        transaction_id: str,
+        idempotency_key: str,
+        reason: str,
+        mass_delta_g: float,
+        event_effect_id: str | None = None,
+        build_plan_line_id: str | None = None,
+        reservation_event_id: str | None = None,
+        bottle_event_id: str | None = None,
+        admin_cause: str | None = None,
+        correction_of_movement_id: str | None = None,
+        reversal_of_movement_id: str | None = None,
+        measured_volume_ul: float | None = None,
+        standard_uncertainty: float | None = None,
+    ) -> LabInventoryMovement:
+        return await self.repository.add(
+            LabInventoryMovement(
+                stock_solution_id=stock.id,
+                event_effect_id=event_effect_id,
+                build_plan_line_id=build_plan_line_id,
+                reservation_event_id=reservation_event_id,
+                bottle_event_id=bottle_event_id,
+                movement_type=movement_type,
+                raw_quantity=raw_quantity,
+                active_quantity=raw_quantity * stock.active_fraction,
+                unit="g",
+                basis="mass",
+                balance_before=balance_before,
+                balance_after=balance_after,
+                standard_uncertainty=standard_uncertainty,
+                actor=actor,
+                transaction_id=transaction_id,
+                idempotency_key=idempotency_key,
+                admin_cause=admin_cause,
+                correction_of_movement_id=correction_of_movement_id,
+                reversal_of_movement_id=reversal_of_movement_id,
+                mass_delta_g=mass_delta_g,
+                measured_volume_ul=measured_volume_ul,
+                reason=reason,
+            )
+        )
+
+    async def _append_bottle_metadata_event(
+        self,
+        *,
+        bottle_id: str,
+        event_type: str,
+        expected_sequence: int,
+        command_id: str,
+        actor: str,
+        payload: dict,
+    ) -> LabBottleEvent:
+        actor = actor.strip()
+        if not actor:
+            raise ValueError("actor must not be empty")
+        token = _command_token(event_type.lower(), command_id)
+        request_payload = {
+            **payload,
+            "actor": actor,
+            "expected_sequence": expected_sequence,
+        }
+        async with self._transaction():
+            existing = await self.repository.event_for_command(
+                bottle_id,
+                token,
+            )
+            if existing is not None:
+                if existing.payload_json != request_payload:
+                    raise IdempotencyConflictError(
+                        "command identifier was already used for a different request"
+                    )
+                return existing
+            if await self.repository.get_bottle(bottle_id) is None:
+                raise KeyError(f"Unknown bottle: {bottle_id}")
+            current_sequence = await self.repository.latest_sequence(bottle_id)
+            if current_sequence != expected_sequence:
+                raise StaleBottleStreamError(
+                    f"expected sequence {expected_sequence}, "
+                    f"current sequence is {current_sequence}"
+                )
+            if (
+                event_type == "CLOSE_BATCH"
+                and await self.repository.bottle_is_closed(bottle_id)
+            ):
+                raise LabTransactionError("bottle is already closed")
+            return await self.repository.add(
+                LabBottleEvent(
+                    bottle_id=bottle_id,
+                    stream_sequence=current_sequence + 1,
+                    expected_sequence=expected_sequence,
+                    command_id=token,
+                    transaction_id=str(uuid4()),
+                    event_type=event_type,
+                    payload_json=request_payload,
+                )
+            )
+
+    async def tare_bottle(
+        self,
+        *,
+        bottle_id: str,
+        tare_mass_g: float,
+        expected_sequence: int,
+        command_id: str,
+        actor: str,
+    ) -> LabBottleEvent:
+        if tare_mass_g < 0:
+            raise ValueError("tare_mass_g must be nonnegative")
+        return await self._append_bottle_metadata_event(
+            bottle_id=bottle_id,
+            event_type="TARE_CONTAINER",
+            expected_sequence=expected_sequence,
+            command_id=command_id,
+            actor=actor,
+            payload={"tare_mass_g": tare_mass_g},
+        )
+
+    async def close_bottle(
+        self,
+        *,
+        bottle_id: str,
+        expected_sequence: int,
+        command_id: str,
+        actor: str,
+    ) -> LabBottleEvent:
+        return await self._append_bottle_metadata_event(
+            bottle_id=bottle_id,
+            event_type="CLOSE_BATCH",
+            expected_sequence=expected_sequence,
+            command_id=command_id,
+            actor=actor,
+            payload={},
+        )
 
     async def transfer_between_bottles(
         self,
@@ -375,6 +573,7 @@ class LabService(
         source_bottle_id: str,
         destination_bottle_id: str,
         mass_g: float,
+        measured_loss_g: float = 0.0,
         source_expected_sequence: int,
         destination_expected_sequence: int,
         command_id: str,
@@ -383,12 +582,17 @@ class LabService(
             raise ValueError("source and destination bottles must differ")
         if mass_g <= 0:
             raise ValueError("mass_g must be greater than zero")
+        if measured_loss_g < 0 or measured_loss_g >= mass_g:
+            raise ValueError(
+                "measured_loss_g must be nonnegative and less than mass_g"
+            )
         source_command = _command_token("transfer-source", command_id)
         destination_command = _command_token("transfer-destination", command_id)
         request_payload = {
             "source_bottle_id": source_bottle_id,
             "destination_bottle_id": destination_bottle_id,
             "mass_g": mass_g,
+            "measured_loss_g": measured_loss_g,
             "source_expected_sequence": source_expected_sequence,
             "destination_expected_sequence": destination_expected_sequence,
         }
@@ -417,6 +621,10 @@ class LabService(
                 raise StaleBottleStreamError("source bottle stream is stale")
             if destination_sequence != destination_expected_sequence:
                 raise StaleBottleStreamError("destination bottle stream is stale")
+            if await self.repository.bottle_is_closed(source_bottle_id):
+                raise LabTransactionError("source bottle is closed")
+            if await self.repository.bottle_is_closed(destination_bottle_id):
+                raise LabTransactionError("destination bottle is closed")
             source_state = await self.repository.reconstruct_bottle(source_bottle_id)
             if mass_g > source_state.total_mass_g + 1e-12:
                 raise InsufficientBottleMassError("transfer exceeds source bottle mass")
@@ -429,7 +637,7 @@ class LabService(
                     expected_sequence=source_expected_sequence,
                     command_id=source_command,
                     transaction_id=transaction_id,
-                    event_type="transfer_out",
+                    event_type="TRANSFER",
                     payload_json=request_payload,
                 )
             )
@@ -440,7 +648,7 @@ class LabService(
                     expected_sequence=destination_expected_sequence,
                     command_id=destination_command,
                     transaction_id=transaction_id,
-                    event_type="transfer_in",
+                    event_type="TRANSFER",
                     payload_json=request_payload,
                 )
             )
@@ -451,6 +659,9 @@ class LabService(
                 transferred_stock_mass += portion
                 stock = await self.repository.get_stock(stock_id)
                 material_id = stock.material_id if stock is not None else None
+                destination_portion = portion * (
+                    (mass_g - measured_loss_g) / mass_g
+                )
                 await self.repository.add(
                     LabBottleEventEffect(
                         event_id=source_event.id,
@@ -466,11 +677,14 @@ class LabService(
                         bottle_id=destination_bottle_id,
                         stock_solution_id=stock_id,
                         material_id=material_id,
-                        mass_delta_g=portion,
+                        mass_delta_g=destination_portion,
                     )
                 )
             unassigned_mass = mass_g - transferred_stock_mass
             if unassigned_mass > 1e-12:
+                destination_unassigned = unassigned_mass * (
+                    (mass_g - measured_loss_g) / mass_g
+                )
                 await self.repository.add(
                     LabBottleEventEffect(
                         event_id=source_event.id,
@@ -482,7 +696,7 @@ class LabService(
                     LabBottleEventEffect(
                         event_id=destination_event.id,
                         bottle_id=destination_bottle_id,
-                        mass_delta_g=unassigned_mass,
+                        mass_delta_g=destination_unassigned,
                     )
                 )
             return source_event, destination_event
@@ -494,6 +708,7 @@ class LabService(
         event_id: str,
         expected_sequence: int,
         command_id: str,
+        actor: str = "system",
     ) -> LabBottleEvent:
         token = _command_token(f"compensate:{event_id}", command_id)
         async with self._transaction():
@@ -507,12 +722,13 @@ class LabService(
             original = await self.repository.get_event(event_id)
             if original is None or original.bottle_id != bottle_id:
                 raise KeyError(f"Unknown bottle event: {event_id}")
-            if original.event_type == "compensate":
+            if original.event_type in {"compensate", "CORRECT_ENTRY"}:
                 raise ValueError("compensating events cannot themselves be compensated")
 
             originals = (
                 await self.repository.events_for_transaction(original.transaction_id)
-                if original.event_type in {"transfer_out", "transfer_in"}
+                if original.event_type
+                in {"transfer_out", "transfer_in", "TRANSFER"}
                 else [original]
             )
             for item in originals:
@@ -542,17 +758,22 @@ class LabService(
                         expected_sequence=current_sequence,
                         command_id=_command_token(f"compensate:{item.id}", command_id),
                         transaction_id=correction_transaction_id,
-                        event_type="compensate",
+                        event_type="CORRECT_ENTRY",
                         correction_of_event_id=item.id,
                         payload_json={
                             "correction_of_event_id": item.id,
                             "correction_of_transaction_id": original.transaction_id,
+                            "actor": actor,
                         },
                     )
                 )
                 if item.id == event_id:
                     selected_correction = correction
-                await self._reverse_event_effects(item.id, correction)
+                await self._reverse_event_effects(
+                    item.id,
+                    correction,
+                    actor=actor,
+                )
             assert selected_correction is not None
             return selected_correction
 
@@ -560,6 +781,8 @@ class LabService(
         self,
         event_id: str,
         correction: LabBottleEvent,
+        *,
+        actor: str,
     ) -> None:
         for original_effect in await self.repository.effects_for_event(event_id):
             inverse_effect = await self.repository.add(
@@ -581,18 +804,38 @@ class LabService(
                 original_effect.id
             )
             if original_movement is not None:
-                await self.repository.add(
-                    LabInventoryMovement(
-                        stock_solution_id=original_movement.stock_solution_id,
-                        event_effect_id=inverse_effect.id,
-                        mass_delta_g=-original_movement.mass_delta_g,
-                        measured_volume_ul=(
-                            -original_movement.measured_volume_ul
-                            if original_movement.measured_volume_ul is not None
-                            else None
-                        ),
-                        reason="compensating_event",
+                stock = await self.repository.get_stock(
+                    original_movement.stock_solution_id
+                )
+                if stock is None:
+                    raise KeyError(
+                        "Unknown stock solution: "
+                        f"{original_movement.stock_solution_id}"
                     )
+                before = await self.repository.stock_balance_g(stock.id)
+                delta = -original_movement.mass_delta_g
+                await self._append_inventory_movement(
+                    stock=stock,
+                    movement_type="REVERSAL",
+                    raw_quantity=abs(delta),
+                    balance_before=before,
+                    balance_after=before + delta,
+                    actor=actor,
+                    transaction_id=correction.transaction_id,
+                    idempotency_key=f"movement:{correction.id}:{inverse_effect.id}",
+                    reason="compensating_event",
+                    mass_delta_g=delta,
+                    event_effect_id=inverse_effect.id,
+                    bottle_event_id=correction.id,
+                    reversal_of_movement_id=original_movement.id,
+                    measured_volume_ul=(
+                        -original_movement.measured_volume_ul
+                        if original_movement.measured_volume_ul is not None
+                        else None
+                    ),
+                    standard_uncertainty=(
+                        original_movement.standard_uncertainty
+                    ),
                 )
 
     async def reconstruct_bottle(self, bottle_id: str) -> BottleLedgerState:
@@ -605,6 +848,10 @@ class LabService(
         self,
         stock_solution_id: str,
         remaining_mass_g: float,
+        *,
+        actor: str = "administrator",
+        command_id: str | None = None,
+        standard_uncertainty: float | None = None,
     ) -> LabStockSolution:
         """Record an append-only adjustment while keeping the projection synchronized."""
 
@@ -617,14 +864,24 @@ class LabService(
             current_balance = await self.repository.stock_balance_g(stock_solution_id)
             adjustment = remaining_mass_g - current_balance
             if abs(adjustment) > 1e-12:
-                await self.repository.add(
-                    LabInventoryMovement(
-                        stock_solution_id=stock_solution_id,
-                        event_effect_id=None,
-                        mass_delta_g=adjustment,
-                        measured_volume_ul=None,
-                        reason="manual_reconciliation",
-                    )
+                transaction_id = str(uuid4())
+                await self._append_inventory_movement(
+                    stock=stock,
+                    movement_type="ADJUSTMENT",
+                    raw_quantity=abs(adjustment),
+                    balance_before=current_balance,
+                    balance_after=remaining_mass_g,
+                    actor=actor,
+                    transaction_id=transaction_id,
+                    idempotency_key=(
+                        f"reconcile:{command_id}"
+                        if command_id
+                        else f"reconcile:{transaction_id}"
+                    ),
+                    reason="manual_reconciliation",
+                    mass_delta_g=adjustment,
+                    admin_cause="manual_reconciliation",
+                    standard_uncertainty=standard_uncertainty,
                 )
             stock.remaining_mass_g = remaining_mass_g
             return stock

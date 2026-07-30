@@ -19,7 +19,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.lab import LabRecord, UTCDateTime
 
-ACTION_TYPES = ("ADD_STOCK",)
+ACTION_TYPES = ("ADD_STOCK", "ADD_MATERIAL", "ADD_SOLVENT")
 CONFIRMATION_DECISIONS = ("CONFIRMED", "REJECTED")
 
 

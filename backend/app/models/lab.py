@@ -23,6 +23,21 @@ from sqlalchemy.types import TypeDecorator
 
 from app.models.base import Base
 
+INVENTORY_MOVEMENT_TYPES = (
+    "RESERVATION",
+    "RESERVATION_RELEASE",
+    "CONSUMPTION",
+    "RETURN",
+    "ADJUSTMENT",
+    "TRANSFER",
+    "CORRECTION",
+    "REVERSAL",
+)
+
+
+def _quoted(values: tuple[str, ...]) -> str:
+    return ", ".join(f"'{value}'" for value in values)
+
 
 def _uuid() -> str:
     return str(uuid4())
@@ -285,16 +300,93 @@ class LabInventoryMovement(LabRecord):
     __tablename__ = "lab_inventory_movements"
     __table_args__ = (
         UniqueConstraint("event_effect_id", name="uq_lab_inventory_event_effect"),
+        UniqueConstraint(
+            "idempotency_key",
+            name="uq_lab_inventory_movement_idempotency",
+        ),
+        UniqueConstraint(
+            "correction_of_movement_id",
+            name="uq_lab_inventory_movement_correction",
+        ),
+        UniqueConstraint(
+            "reversal_of_movement_id",
+            name="uq_lab_inventory_movement_reversal",
+        ),
         ForeignKeyConstraint(
             ["event_effect_id", "stock_solution_id"],
             ["lab_bottle_event_effects.id", "lab_bottle_event_effects.stock_solution_id"],
             name="fk_lab_inventory_effect_stock",
             ondelete="RESTRICT",
         ),
+        CheckConstraint(
+            f"movement_type IN ({_quoted(INVENTORY_MOVEMENT_TYPES)})",
+            name="ck_lab_inventory_movement_type",
+        ),
+        CheckConstraint(
+            "raw_quantity >= 0 AND active_quantity >= 0 "
+            "AND active_quantity <= raw_quantity "
+            "AND (standard_uncertainty IS NULL "
+            "OR standard_uncertainty >= 0)",
+            name="ck_lab_inventory_movement_quantities",
+        ),
+        CheckConstraint(
+            "balance_before >= 0 AND balance_after >= 0",
+            name="ck_lab_inventory_movement_balances",
+        ),
+        CheckConstraint(
+            "NOT (correction_of_movement_id IS NOT NULL "
+            "AND reversal_of_movement_id IS NOT NULL) "
+            "AND ((movement_type = 'CORRECTION' "
+            "AND correction_of_movement_id IS NOT NULL) "
+            "OR (movement_type != 'CORRECTION' "
+            "AND correction_of_movement_id IS NULL)) "
+            "AND ((movement_type = 'REVERSAL' "
+            "AND reversal_of_movement_id IS NOT NULL) "
+            "OR (movement_type != 'REVERSAL' "
+            "AND reversal_of_movement_id IS NULL))",
+            name="ck_lab_inventory_movement_reference",
+        ),
+        CheckConstraint(
+            "build_plan_line_id IS NOT NULL "
+            "OR reservation_event_id IS NOT NULL "
+            "OR bottle_event_id IS NOT NULL "
+            "OR event_effect_id IS NOT NULL "
+            "OR admin_cause IS NOT NULL",
+            name="ck_lab_inventory_movement_cause",
+        ),
     )
 
     stock_solution_id: Mapped[str] = mapped_column(String(36), nullable=False)
     event_effect_id: Mapped[str | None] = mapped_column(String(36))
+    build_plan_line_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_build_plan_lines.id", ondelete="RESTRICT")
+    )
+    reservation_event_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_inventory_reservation_events.id", ondelete="RESTRICT")
+    )
+    bottle_event_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_bottle_events.id", ondelete="RESTRICT")
+    )
+    movement_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    raw_quantity: Mapped[float] = mapped_column(Float, nullable=False)
+    active_quantity: Mapped[float] = mapped_column(Float, nullable=False)
+    unit: Mapped[str] = mapped_column(String(40), nullable=False)
+    basis: Mapped[str] = mapped_column(String(80), nullable=False)
+    balance_before: Mapped[float] = mapped_column(Float, nullable=False)
+    balance_after: Mapped[float] = mapped_column(Float, nullable=False)
+    standard_uncertainty: Mapped[float | None] = mapped_column(Float)
+    actor: Mapped[str] = mapped_column(String(255), nullable=False)
+    transaction_id: Mapped[str] = mapped_column(
+        String(64), nullable=False, index=True
+    )
+    idempotency_key: Mapped[str] = mapped_column(String(255), nullable=False)
+    admin_cause: Mapped[str | None] = mapped_column(Text)
+    correction_of_movement_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_inventory_movements.id", ondelete="RESTRICT")
+    )
+    reversal_of_movement_id: Mapped[str | None] = mapped_column(
+        ForeignKey("lab_inventory_movements.id", ondelete="RESTRICT")
+    )
     mass_delta_g: Mapped[float] = mapped_column(Float, nullable=False)
     measured_volume_ul: Mapped[float | None] = mapped_column(Float)
     reason: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -479,5 +571,6 @@ APPEND_ONLY_TABLES = {
 
 __all__ = [name for name in globals() if name.startswith("Lab")] + [
     "APPEND_ONLY_TABLES",
+    "INVENTORY_MOVEMENT_TYPES",
     "LAB_TABLE_NAMES",
 ]

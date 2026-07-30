@@ -135,7 +135,7 @@ def _execution_rows(connection: sqlite3.Connection) -> None:
 
 def test_a2_execution_migration_upgrades_empty_database(tmp_path):
     database = tmp_path / "empty.db"
-    command.upgrade(_config(database), "head")
+    command.upgrade(_config(database), A2_EXECUTION_HEAD)
     assert _revision(database) == A2_EXECUTION_HEAD
     assert EXECUTION_TABLES <= _tables(database)
     assert _integrity(database) == "ok"

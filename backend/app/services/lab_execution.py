@@ -214,12 +214,17 @@ def bottle_state_payload(state: BottleLedgerState) -> dict[str, Any]:
             stock_id: state.stock_masses_g[stock_id]
             for stock_id in sorted(state.stock_masses_g)
         },
+        "solvent_mass_g": state.solvent_mass_g,
+        "tare_mass_g": state.tare_mass_g,
+        "is_closed": state.is_closed,
     }
 
 
 def structured_bottle_state_diff(
     before: BottleLedgerState,
     after: BottleLedgerState,
+    *,
+    line_delta: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if before.bottle_id != after.bottle_id:
         raise ExecutionDomainError(
@@ -236,8 +241,12 @@ def structured_bottle_state_diff(
         )
         for stock_id in stock_ids
     }
-    return {
-        "schema_version": "a2-bottle-state-diff-v1",
+    result = {
+        "schema_version": (
+            "a5-bottle-state-diff-v1"
+            if line_delta is not None
+            else "a2-bottle-state-diff-v1"
+        ),
         "bottle_id": before.bottle_id,
         "from_sequence": before.stream_sequence,
         "to_sequence": after.stream_sequence,
@@ -250,6 +259,9 @@ def structured_bottle_state_diff(
         "before": bottle_state_payload(before),
         "after": bottle_state_payload(after),
     }
+    if line_delta is not None:
+        result["line_delta"] = dict(line_delta)
+    return result
 
 
 class LabExecutionServiceMixin:
@@ -270,6 +282,11 @@ class LabExecutionServiceMixin:
             expected_sequence: int,
             command_id: str,
             measured_volume_ul: float | None = None,
+            standard_uncertainty: float | None = None,
+            actor: str = "system",
+            build_plan_line_id: str | None = None,
+            reservation_event_id: str | None = None,
+            event_type: str = "ADD_MATERIAL",
         ) -> LabBottleEvent: ...
 
     async def propose_bottle_action(
@@ -522,6 +539,14 @@ class LabExecutionServiceMixin:
                     "MEASUREMENT_EXCEEDS_RESERVATION",
                     "Measured mass exceeds the active reservation.",
                 )
+            line = await self.repository.get_build_plan_line(
+                reservation.build_plan_line_id
+            )
+            if line is None:
+                raise ExecutionConflictError(
+                    "BUILD_PLAN_LINE_NOT_FOUND",
+                    "Reserved build-plan line no longer exists.",
+                )
             before = await self.repository.reconstruct_bottle(
                 proposal.bottle_id
             )
@@ -538,11 +563,57 @@ class LabExecutionServiceMixin:
                 expected_sequence=proposal.expected_sequence,
                 command_id=f"action-proposal:{proposal.id}",
                 measured_volume_ul=None,
+                standard_uncertainty=measurement.standard_uncertainty,
+                actor=actor,
+                build_plan_line_id=line.id,
+                reservation_event_id=reservation.id,
+                event_type=(
+                    "ADD_SOLVENT"
+                    if proposal.action_type == "ADD_SOLVENT"
+                    else "ADD_MATERIAL"
+                ),
             )
             after = await self.repository.reconstruct_bottle(
                 proposal.bottle_id
             )
-            state_diff = structured_bottle_state_diff(before, after)
+            movement = await self.repository.inventory_movement_for_event(
+                event.id
+            )
+            if movement is None:
+                raise ExecutionConflictError(
+                    "INVENTORY_MOVEMENT_MISSING",
+                    "Committed bottle event has no inventory movement.",
+                )
+            state_diff = structured_bottle_state_diff(
+                before,
+                after,
+                line_delta={
+                    "target_line_id": line.target_line_id,
+                    "target_identity": line.target_identity,
+                    "target_quantity": line.planned_raw_quantity,
+                    "selected_stock_quantity": movement.balance_before,
+                    "planned_raw_quantity": line.planned_raw_quantity,
+                    "planned_active_quantity": (
+                        line.planned_active_quantity
+                    ),
+                    "reserved_quantity": reservation.reserved_mass_g,
+                    "committed_quantity": measurement.value,
+                    "unit": line.unit,
+                    "basis": line.concentration_basis,
+                    "standard_uncertainty": (
+                        measurement.standard_uncertainty
+                    ),
+                    "density_source": line.density_source,
+                    "comparable": True,
+                    "incomparability_reason": None,
+                    "substitution_state": line.substitution_class,
+                    "preserved_functions": list(
+                        line.preserved_functions_json
+                    ),
+                    "lost_functions": list(line.lost_functions_json),
+                    "action_state": "COMMITTED",
+                },
+            )
             reservation_payload = {
                 "schema": "a2-reservation-command-v1",
                 "operation": "TRANSITION",
