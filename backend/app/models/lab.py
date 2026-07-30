@@ -555,6 +555,15 @@ from app.models.lab_properties import (  # noqa: E402,F401
     LabSelectedAssertion,
     LabSelectedAssertionCandidate,
 )
+from app.models.lab_rules import (  # noqa: E402,F401
+    RULE_AUTHORITY_TABLE_NAMES,
+    LabKnowledgeRule,
+    LabRuleCompilationRun,
+    LabRuleContradiction,
+    LabRuleGroup,
+    LabRuleGroupMember,
+    LabRuleSupportEvidence,
+)
 from app.models.lab_science import (  # noqa: E402,F401
     SCIENCE_AUTHORITY_TABLE_NAMES,
     LabAnalyticalAttachment,
@@ -604,6 +613,7 @@ APPEND_ONLY_TABLES = {
     *SOURCE_AUTHORITY_TABLE_NAMES,
     *PROPERTY_AUTHORITY_TABLE_NAMES,
     *THRESHOLD_AUTHORITY_TABLE_NAMES,
+    *RULE_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
 
