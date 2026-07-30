@@ -448,7 +448,10 @@ class TestA15EmptyReconstructionInputs:
 
 
 class TestA16IdentityVsStockAvailability:
-    """A1.6 — Two independent enums (gap: currently a single flat enum).
+    """A1.6 — Identity and inventory authority remain independent.
+
+    Legacy flat status constants remain as compatibility projections, while the
+    canonical mapping exposes independent identity and inventory enum fields.
     A resolved material absent from inventory is NOT unknown identity.
     An ambiguous name must NOT be converted to confident canonical."""
 
@@ -492,8 +495,11 @@ class TestA16IdentityVsStockAvailability:
         assert results[0].status == EXACT_AVAILABLE
 
     def test_identity_resolution_and_stock_availability_are_separate_concerns(self):
-        """Documenting the current single-enum gap.  The plan requires two
-        independent enums (IdentityResolutionStatus, InventoryMatchStatus)."""
+        """Legacy compatibility statuses remain distinct and non-ambiguous.
+
+        The authoritative independent enum fields are contracted separately in
+        ``tests/test_a1_authoritative_contracts.py``.
+        """
         from engine.inventory.stock_model import (
             EXACT_AVAILABLE,
             EXACT_IDENTITY_NOT_IN_STOCK,
