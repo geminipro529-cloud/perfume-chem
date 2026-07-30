@@ -30,6 +30,9 @@ from app.repositories.lab_analytical import (
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_properties import LabPropertyRepositoryMixin
+from app.repositories.lab_regulatory import (
+    LabRegulatoryAuthorityRepositoryMixin,
+)
 from app.repositories.lab_rules import LabRuleRepositoryMixin
 from app.repositories.lab_science import LabScienceRepositoryMixin
 from app.repositories.lab_sources import LabSourceRepositoryMixin
@@ -54,6 +57,7 @@ class LabRepository(
     LabRuleRepositoryMixin,
     LabThresholdRepositoryMixin,
     LabPropertyRepositoryMixin,
+    LabRegulatoryAuthorityRepositoryMixin,
     LabSourceRepositoryMixin,
     LabAnalyticalAuthorityRepositoryMixin,
     LabScienceRepositoryMixin,

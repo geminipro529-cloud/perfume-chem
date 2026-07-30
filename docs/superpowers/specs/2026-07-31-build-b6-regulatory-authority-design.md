@@ -227,7 +227,7 @@ An A2 assessment reference, including an A2 `PASS`, is copied only as
 historical context. It never changes the B6 result and is insufficient without
 the complete B6 graph.
 
-### `lab_regulatory_findings`
+### `lab_regulatory_authority_findings`
 
 One immutable finding binds a snapshot to one exact rule and records:
 
