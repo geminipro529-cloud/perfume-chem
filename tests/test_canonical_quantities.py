@@ -1,3 +1,5 @@
+import random
+
 import pytest
 
 from engine.quantities import (
@@ -108,6 +110,48 @@ def test_partition_separates_active_carrier_and_named_solvents():
     assert result.value.ethanol_mass_g == pytest.approx(6)
     assert result.value.water_mass_g == pytest.approx(1.6)
     assert result.value.other_solvent_mass_g == pytest.approx(0.4)
+
+
+def test_partition_raw_mass_seeded_property_fuzz_conserves_every_role():
+    rng = random.Random(20260730)
+
+    for _case in range(512):
+        raw_mass_g = 10 ** rng.uniform(-6, 3)
+        active_fraction = rng.random()
+        allocation_budget = rng.random()
+        weights = [rng.random() for _ in range(3)]
+        weight_total = sum(weights)
+        diluent_fractions = {
+            "ethanol": allocation_budget * weights[0] / weight_total,
+            "water": allocation_budget * weights[1] / weight_total,
+            "other-solvent": allocation_budget * weights[2] / weight_total,
+        }
+
+        result = partition_raw_mass(
+            Mass.from_g(raw_mass_g),
+            active_fraction=active_fraction,
+            basis=ConcentrationBasis.MASS_FRACTION,
+            diluent_fractions=diluent_fractions,
+        )
+
+        assert result.reason is None
+        assert result.value is not None
+        balance = result.value
+        assert balance.active_mass_g + balance.carrier_mass_g == pytest.approx(
+            balance.raw_mass_g,
+            rel=1e-12,
+            abs=1e-12,
+        )
+        assert (
+            balance.ethanol_mass_g
+            + balance.water_mass_g
+            + balance.other_solvent_mass_g
+            + balance.unallocated_mass_g
+        ) == pytest.approx(
+            balance.carrier_mass_g,
+            rel=1e-12,
+            abs=1e-12,
+        )
 
 
 def test_volume_roles_and_measurement_resolution_are_distinct():

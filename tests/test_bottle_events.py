@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import random
+
+import pytest
+
 from engine.bottle.events import (
     ADD_MATERIAL,
     ADD_SOLVENT,
@@ -87,6 +91,90 @@ def test_correction_cycle_detected():
 
     with pytest.raises(ValueError):
         compute_replay_state([e1, e2])
+
+
+def test_correction_chain_seeded_fuzz_is_deterministic_and_cycle_safe():
+    rng = random.Random(20260730)
+
+    for case_index in range(128):
+        chain_length = rng.randint(1, 40)
+        stock_label = f"Fuzz material {case_index}"
+        original_id = f"case-{case_index}-original"
+        original_mass = round(rng.uniform(0.0001, 25.0), 9)
+        events = [
+            BottleEvent(
+                event_id=original_id,
+                batch_id=f"fuzz-batch-{case_index}",
+                event_type=DOSE_STOCK,
+                timestamp="2026-07-30T00:00:00Z",
+                stock_label=stock_label,
+                measured_mass_g=original_mass,
+                confirmation=COMMITTED,
+                sequence=1,
+                idempotency_key=f"case-{case_index}-command-0",
+            )
+        ]
+        previous_id = original_id
+        expected_mass = original_mass
+        correction_ids: list[str] = []
+        for offset in range(1, chain_length + 1):
+            correction_id = f"case-{case_index}-correction-{offset}"
+            expected_mass = round(rng.uniform(0.0001, 25.0), 9)
+            events.append(
+                BottleEvent(
+                    event_id=correction_id,
+                    batch_id=f"fuzz-batch-{case_index}",
+                    event_type=CORRECT_ENTRY,
+                    timestamp=f"2026-07-30T00:00:{offset:02d}Z",
+                    stock_label=stock_label,
+                    measured_mass_g=expected_mass,
+                    confirmation=COMMITTED,
+                    correction_ref=previous_id,
+                    sequence=offset + 1,
+                    idempotency_key=f"case-{case_index}-command-{offset}",
+                )
+            )
+            correction_ids.append(correction_id)
+            previous_id = correction_id
+
+        first = compute_replay_state(events)
+        second = compute_replay_state(events)
+
+        assert first == second
+        assert first[stock_label] == pytest.approx(expected_mass)
+        assert first["_correction_trace"][original_id] == tuple(correction_ids)
+        assert first["_applied_event_count"] == chain_length + 1
+
+    for case_index in range(32):
+        first_id = f"cycle-{case_index}-a"
+        second_id = f"cycle-{case_index}-b"
+        cyclic = [
+            BottleEvent(
+                event_id=first_id,
+                batch_id=f"cycle-batch-{case_index}",
+                event_type=CORRECT_ENTRY,
+                timestamp="2026-07-30T00:00:01Z",
+                measured_mass_g=1.0,
+                confirmation=COMMITTED,
+                correction_ref=second_id,
+                sequence=1,
+                idempotency_key=f"cycle-{case_index}-command-a",
+            ),
+            BottleEvent(
+                event_id=second_id,
+                batch_id=f"cycle-batch-{case_index}",
+                event_type=CORRECT_ENTRY,
+                timestamp="2026-07-30T00:00:02Z",
+                measured_mass_g=2.0,
+                confirmation=COMMITTED,
+                correction_ref=first_id,
+                sequence=2,
+                idempotency_key=f"cycle-{case_index}-command-b",
+            ),
+        ]
+
+        with pytest.raises(ValueError, match="cycle"):
+            compute_replay_state(cyclic)
 
 
 def test_add_solvent_tracks_separately():
