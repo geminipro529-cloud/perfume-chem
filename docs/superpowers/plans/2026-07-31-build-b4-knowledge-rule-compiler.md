@@ -59,8 +59,10 @@ Add `backend/app/adapters/legacy_rules.py` and tests that:
 
 Generate and verify
 `backend/tests/fixtures/b4_rule_corpus_baseline.json` from the deterministic
-compiler result. Add a non-increase test for invalid exact rules and
-non-promotion tests for generic and numerical legacy claims.
+compiler result. Freeze the exact raw-label resolution outcomes as a separate,
+explicitly non-authoritative regression input so unrelated resolver drift
+cannot silently change the baseline. Add a non-increase test for invalid exact
+rules and non-promotion tests for generic and numerical legacy claims.
 
 ## Task 5: Add the reversible migration
 
@@ -84,6 +86,7 @@ In the scratch clone:
 - run Ruff on exact B4 paths;
 - run scoped mypy;
 - compile the full 3,381-record source corpus twice and compare reports;
+- verify the committed identity-resolution snapshot digest and label coverage;
 - verify invalid-exact non-increase;
 - verify model/migration table, column, constraint, index, and trigger parity;
 - verify downgrade/re-upgrade and protected database hashes.

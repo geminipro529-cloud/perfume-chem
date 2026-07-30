@@ -19,6 +19,12 @@
       "sha256": "4237619f7fdddbfc15b373c42f40e2d30fc587537ac8f782b2111d6f61f53b90"
     }
   },
+  "identity_resolution_snapshot": {
+    "path": "backend/tests/fixtures/b4_identity_resolution_baseline.json",
+    "sha256": "51d4a70ee763a2db3ea97fc86b658599a77d5c8dbe61adfd310d14627b909014",
+    "labels": 454,
+    "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY"
+  },
   "total_records": 3381,
   "invalid_exact_count_ceiling": 137,
   "blocking_count": 0,

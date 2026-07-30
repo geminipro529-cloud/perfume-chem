@@ -35,6 +35,12 @@ will not be reused. Existing generic-label detection and exact material
 resolution may inform inventory diagnostics, but neither may decide canonical
 authority.
 
+Because resolver state changes inventory diagnostics, the B4 regression also
+freezes the 454 raw-label resolution outcomes used to generate its baseline.
+That snapshot is a test input only, is explicitly non-authoritative, and never
+becomes a runtime identity registry. Updating it requires an intentional
+baseline review rather than an implicit dependency on mutable resolver state.
+
 ## Canonical model
 
 ### Versioned groups
@@ -148,6 +154,10 @@ legacy payload. They do not become numerical rule parameters.
 The compiler accepts explicit identity and group resolutions plus raw
 candidates. It never reaches into mutable global registries while deciding
 authority.
+
+The full-corpus regression supplies the committed non-authoritative resolution
+snapshot as an explicit input. This makes the two compilation runs
+reproducible even when unrelated working-tree resolver code differs.
 
 Diagnostics have stable ordering and codes for:
 

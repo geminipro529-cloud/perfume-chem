@@ -16,6 +16,16 @@ CORPUS_PATHS = (
     "data/knowledge_graph/pairing_rules_discovered.json",
     "data/knowledge_graph/synergy_matrix.json",
 )
+IDENTITY_SNAPSHOT_PATH = (
+    ROOT
+    / "backend"
+    / "tests"
+    / "fixtures"
+    / "b4_identity_resolution_baseline.json"
+)
+IDENTITY_SNAPSHOT_RAW = IDENTITY_SNAPSHOT_PATH.read_bytes()
+IDENTITY_SNAPSHOT = json.loads(IDENTITY_SNAPSHOT_RAW.decode("utf-8"))
+FROZEN_IDENTITIES = IDENTITY_SNAPSHOT["identity_resolution_by_raw_label"]
 
 
 def _source(path: str) -> LegacyRuleSource:
@@ -33,6 +43,12 @@ def _identity(label: str) -> str | None:
     if not resolved.is_known:
         return None
     return sha256(resolved.canonical_name.encode("utf-8")).hexdigest()
+
+
+def _frozen_identity(label: str) -> str | None:
+    if label not in FROZEN_IDENTITIES:
+        raise AssertionError(f"missing B4 frozen identity resolution for {label!r}")
+    return FROZEN_IDENTITIES[label]
 
 
 def test_legacy_adapter_never_promotes_hard_or_numeric_claims():
@@ -106,11 +122,11 @@ def test_full_legacy_corpus_inventory_is_complete_and_deterministic():
 
     first = inventory_legacy_rule_corpus(
         sources,
-        identity_resolver=_identity,
+        identity_resolver=_frozen_identity,
     )
     second = inventory_legacy_rule_corpus(
         tuple(reversed(sources)),
-        identity_resolver=_identity,
+        identity_resolver=_frozen_identity,
     )
 
     assert first.total_records == 3381
@@ -140,9 +156,16 @@ def test_frozen_corpus_baseline_prevents_invalid_exact_rule_increase():
     sources = tuple(_source(path) for path in CORPUS_PATHS)
     report = inventory_legacy_rule_corpus(
         sources,
-        identity_resolver=_identity,
+        identity_resolver=_frozen_identity,
     )
 
+    snapshot_expected = baseline["identity_resolution_snapshot"]
+    assert sha256(IDENTITY_SNAPSHOT_RAW).hexdigest() == snapshot_expected["sha256"]
+    assert len(FROZEN_IDENTITIES) == snapshot_expected["labels"]
+    assert IDENTITY_SNAPSHOT["authority"] == snapshot_expected["authority"]
+    assert IDENTITY_SNAPSHOT["source_corpus_sha256"] == {
+        source.path: source.source_sha256 for source in sources
+    }
     assert report.total_records == baseline["total_records"]
     assert report.invalid_exact_count <= baseline["invalid_exact_count_ceiling"]
     assert report.blocking_count == baseline["blocking_count"] == 0
