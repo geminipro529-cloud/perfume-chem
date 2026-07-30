@@ -1,0 +1,411 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-30",
+  "build": "A",
+  "title": "Canonical Convergence and Reconstruction Hardening",
+  "decision": "PASS_WITH_SKIPS",
+  "authority": {
+    "repository": "D:\\chatbots\\perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "baseline_commit": "2e46e4ce5795014e92924102c38c1358d7a9fdca",
+    "full_verifier_source_commit": "cbb0dbd9d1f2a0c5023adc35dd81da9902c77bd8",
+    "post_verifier_documentation_commit": "68f7024",
+    "working_tree_is_part_of_tested_state": true,
+    "head_alone_is_sufficient_recovery_evidence": false,
+    "dirty_state_at_report_checkpoint": {
+      "tracked_dirty_paths": 105,
+      "untracked_files": 505,
+      "staged_paths": 0
+    }
+  },
+  "recovery": {
+    "package": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\outputs\\a2-slice1-preimplementation-recovery\\perfume-chem-a0-20260729T194130Z",
+    "path_preserving": true,
+    "structurally_verified": true,
+    "objects": [
+      {
+        "kind": "committed_repository_bundle",
+        "sha256": "95A88496568B5C7382F03F251B9C5F9EBF306D682B059865CE6302E0C55560E7"
+      },
+      {
+        "kind": "tracked_worktree_binary_patch",
+        "sha256": "C84B4AB871BC6E3F2112BA305EF39902AF19345E2575A26680BF9DD3FF506054"
+      },
+      {
+        "kind": "tracked_worktree_byte_exact_overlay_zip",
+        "sha256": "4A5F20232DFC63DEA597A0570185157C95FCA2270CBF5C65281EB77F63A47E0D"
+      },
+      {
+        "kind": "untracked_all_path_preserving_zip",
+        "sha256": "F819DF4C4B421202255954DBE7380B3951C641BF4DBC1579D329BB634C2E7EB4"
+      },
+      {
+        "kind": "sensitive_ignored_local_only_zip",
+        "sha256": "01BBC4F0D71F9EB0222F56B0BB471C048D8B5A995D894AD72B778434D721DB02",
+        "contents_redacted": true,
+        "transmitted": false
+      }
+    ]
+  },
+  "original_findings": [
+    {
+      "id": "A1.1",
+      "name": "diluent_aware_concentration_and_category_conservation",
+      "reproduction": "REPRODUCED",
+      "disposition": "FIXED",
+      "summary": "Inactive stock mass was assigned generically, causing a conservation gap and misclassifying ethanol or unknown diluent.",
+      "implementation": [
+        "engine/units/concentration.py",
+        "engine/quantities.py"
+      ],
+      "tests": [
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_canonical_quantities.py"
+      ]
+    },
+    {
+      "id": "A1.2",
+      "name": "target_row_preservation",
+      "reproduction": "PARTIAL",
+      "disposition": "FIXED",
+      "summary": "Core fields survived, but strict all-field round trip and unknown-field policy were incomplete.",
+      "implementation": [
+        "engine/target/formula.py"
+      ],
+      "tests": [
+        "tests/test_a1_authoritative_contracts.py"
+      ]
+    },
+    {
+      "id": "A1.3",
+      "name": "twelve_axis_anti_compression",
+      "reproduction": "REPRODUCED",
+      "disposition": "FIXED",
+      "summary": "The compatibility surface used booleans and did not represent missing evidence independently as UNKNOWN.",
+      "implementation": [
+        "engine/reconstruction/anti_compression.py"
+      ],
+      "tests": [
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_reconstruction_anti_compression.py"
+      ]
+    },
+    {
+      "id": "A1.4",
+      "name": "chained_correction_replay",
+      "reproduction": "REPRODUCED",
+      "disposition": "FIXED",
+      "summary": "Missing-reference and cross-stream strictness were absent from earlier compatibility behavior.",
+      "implementation": [
+        "engine/bottle/events.py"
+      ],
+      "tests": [
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_bottle_events.py"
+      ],
+      "seeded_fuzz": {
+        "valid_chains": 128,
+        "cycle_cases": 32,
+        "max_chain_length": 40,
+        "seed": 20260730
+      }
+    },
+    {
+      "id": "A1.5",
+      "name": "empty_reconstruction_inputs",
+      "reproduction": "REPRODUCED",
+      "disposition": "FIXED",
+      "summary": "Public entry points returned empty projections instead of stable pre-normalization domain errors.",
+      "implementation": [
+        "engine/domain_errors.py",
+        "engine/reconstruction/anti_compression.py",
+        "engine/reconstruction/ensembles.py",
+        "engine/reconstruction/rank_prior.py",
+        "engine/reconstruction/recognizer.py",
+        "engine/target/formula.py"
+      ],
+      "tests": [
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_a1_authoritative_contracts.py"
+      ]
+    },
+    {
+      "id": "A1.6",
+      "name": "identity_resolution_vs_stock_availability",
+      "reproduction": "REPRODUCED",
+      "disposition": "FIXED",
+      "summary": "Earlier flat compatibility statuses conflated identity and stock state.",
+      "implementation": [
+        "engine/identity/resolver.py",
+        "engine/inventory/stock_model.py"
+      ],
+      "tests": [
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_inventory_stock_model.py"
+      ]
+    }
+  ],
+  "canonical_architecture": {
+    "accepted_target_is_distinct_from_build_plan": true,
+    "ai_can_confirm_physical_measurement": false,
+    "bottle_and_stock_state_are_replayed_projections": true,
+    "bottle_events_and_inventory_movements_are_append_only": true,
+    "physical_commit_is_atomic": true,
+    "reports_are_projections": true,
+    "legacy_write_paths_are_one_way": true,
+    "legacy_write_ast_violations": 0,
+    "canonical_persistence_roots": [
+      "backend/app/models",
+      "backend/app/repositories",
+      "backend/app/services"
+    ]
+  },
+  "migration_chain": {
+    "linear": true,
+    "all_build_a_revisions_have_upgrade": true,
+    "all_build_a_revisions_have_downgrade": true,
+    "revisions": [
+      "20260716_0001",
+      "20260717_0001",
+      "20260730_0001",
+      "20260730_0002",
+      "20260730_0003",
+      "20260730_0004"
+    ]
+  },
+  "independent_diff_review": {
+    "range": "2e46e4ce5795014e92924102c38c1358d7a9fdca..68f7024",
+    "changed_path_count": 128,
+    "changed_by_top_level": {
+      "backend": 55,
+      "docs": 19,
+      "engine": 29,
+      "scripts": 2,
+      "tests": 23
+    },
+    "changed_files_over_1_mib": 0,
+    "tracked_repository_files_over_5_mib": 7,
+    "large_tracked_files_changed_in_build_a": 0,
+    "high_confidence_secret_pattern_matches": 0,
+    "forbidden_shallow_deserializer_matches": 0,
+    "legacy_api_mounted_and_tested": true,
+    "versioned_api_mounted_and_tested": true,
+    "golden_artifacts_regenerated": false,
+    "stale_a1_comment_corrected": true,
+    "expected_values_rubber_stamped": false
+  },
+  "inventory_drift": {
+    "inventory_file_modified_by_build_a": false,
+    "inventory_sha256": "6cab4998523dfbd224cb8be7973d977a706d9fc56f8d1f0c84e31e806f509c66",
+    "available_entry_count": 208,
+    "test_reconciliations_are_preserved_dirty_work": true
+  },
+  "verification": {
+    "canonical_report": "verification_runs/a6-project-verification.json",
+    "canonical_report_sha256": "B4C2ECCAB4C4C4741EE85F739D9F585B9356354AB15EFA2A3A9C55DDBB939677",
+    "completion_gate": "PASS_WITH_SKIPS",
+    "required_passed": 19,
+    "required_failed": 0,
+    "optional_skipped": [
+      "docker-build",
+      "docker-smoke-test"
+    ],
+    "direct_full_root": {
+      "passed": 1062,
+      "failed": 0,
+      "duration_seconds": 92.09
+    },
+    "engine_shards": {
+      "truth_core": 189,
+      "data_knowledge": 225,
+      "gates_families": 580,
+      "legacy": 68,
+      "total": 1062
+    },
+    "backend_tests": {
+      "passed": 291,
+      "failed": 0
+    },
+    "engine_mypy_source_files": 33,
+    "backend_mypy_source_files": 86,
+    "scientific_audit_tests": 22,
+    "material_validation_tests": 79,
+    "knowledge_rule_tests": 76,
+    "golden_formula_tests": 13,
+    "golden_api_tests": 1,
+    "golden_api_deselected": 8,
+    "golden_fixture_sha256": "0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec",
+    "golden_fixture_changed": false,
+    "focused_a1_comment_check_passed": 39
+  },
+  "protected_database_state": {
+    "knowledge_db": {
+      "path": "data/perfumery_kb.db",
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "integrity_check": "ok",
+      "restored_after_direct_suite": true,
+      "restored_after_canonical_verifier": true
+    },
+    "canonical_db": {
+      "path": "perfume_chem.db",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "expected_zero_byte_file": true
+    }
+  },
+  "release_readiness": {
+    "laboratory_beta_status": "ready",
+    "scientific_release_status": "blocked",
+    "code": "ready",
+    "data": "ready",
+    "validation": "blocked",
+    "infrastructure": "ready",
+    "external_blockers": [
+      "held-out sensory validation is still required"
+    ]
+  },
+  "known_limitations": [
+    "Full-engine Ruff cleanup outside the blocking truth-core slice remains legacy debt.",
+    "Backend remaining_mass_g assignments are compatibility projections after append-only movement writes.",
+    "Engine-only single-batch transfer replay is limited; backend cross-stream transaction service is authoritative.",
+    "Strict solvent-matrix mode is required for authority and headspace remains modeled rather than measured.",
+    "Temporal evolution is heuristic and not calibrated to skin or blotter measurements.",
+    "Longevity, sillage, receptor activation, emotion, and preference-fit claims remain unsupported or UNKNOWN.",
+    "Composite-natural OAV is olfactory headspace evidence, not regulatory constituent composition.",
+    "Docker build and smoke were not exercised.",
+    "The accepted state is the source checkpoint plus preserved dirty overlay and evidence, not HEAD alone."
+  ],
+  "changed_paths": [
+    "backend/alembic/env.py",
+    "backend/alembic/versions/20260730_0001_a2_planning_core.py",
+    "backend/alembic/versions/20260730_0002_a2_science_authority.py",
+    "backend/alembic/versions/20260730_0003_a2_execution_lifecycle.py",
+    "backend/alembic/versions/20260730_0004_a5_inventory_operations.py",
+    "backend/app/adapters/__init__.py",
+    "backend/app/adapters/lab_legacy.py",
+    "backend/app/api/v1/endpoints/lab_lifecycle.py",
+    "backend/app/api/v1/endpoints/lab_planning.py",
+    "backend/app/api/v1/router.py",
+    "backend/app/models/lab.py",
+    "backend/app/models/lab_execution.py",
+    "backend/app/models/lab_planning.py",
+    "backend/app/models/lab_science.py",
+    "backend/app/repositories/lab.py",
+    "backend/app/repositories/lab_execution.py",
+    "backend/app/repositories/lab_planning.py",
+    "backend/app/repositories/lab_science.py",
+    "backend/app/schemas/lab_lifecycle.py",
+    "backend/app/schemas/lab_planning.py",
+    "backend/app/services/lab_execution.py",
+    "backend/app/services/lab_export.py",
+    "backend/app/services/lab_planning.py",
+    "backend/app/services/lab_science.py",
+    "backend/app/services/lab_service.py",
+    "backend/app/verification/__init__.py",
+    "backend/app/verification/legacy_write_guard.py",
+    "backend/tests/a2_planning_fixtures.py",
+    "backend/tests/integration/test_a2_execution_export.py",
+    "backend/tests/integration/test_a2_execution_lifecycle.py",
+    "backend/tests/integration/test_a2_execution_migration.py",
+    "backend/tests/integration/test_a2_lifecycle_api.py",
+    "backend/tests/integration/test_a2_planning_api.py",
+    "backend/tests/integration/test_a2_planning_export.py",
+    "backend/tests/integration/test_a2_planning_migration.py",
+    "backend/tests/integration/test_a2_planning_transactions.py",
+    "backend/tests/integration/test_a2_science_export.py",
+    "backend/tests/integration/test_a2_science_migration.py",
+    "backend/tests/integration/test_a2_science_transactions.py",
+    "backend/tests/integration/test_a3_export_migration.py",
+    "backend/tests/integration/test_a5_operations_migration.py",
+    "backend/tests/integration/test_a5_operations_transactions.py",
+    "backend/tests/integration/test_backup_restore.py",
+    "backend/tests/integration/test_lab_migration.py",
+    "backend/tests/unit/test_a2_execution_schema.py",
+    "backend/tests/unit/test_a2_legacy_adapters.py",
+    "backend/tests/unit/test_a2_legacy_write_closure.py",
+    "backend/tests/unit/test_a2_legacy_write_guard.py",
+    "backend/tests/unit/test_a2_planning_schema.py",
+    "backend/tests/unit/test_a2_planning_service.py",
+    "backend/tests/unit/test_a2_science_schema.py",
+    "backend/tests/unit/test_a2_science_service.py",
+    "backend/tests/unit/test_a5_operations_schema.py",
+    "backend/tests/unit/test_lab_schema.py",
+    "backend/tests/unit/test_phase1a_migration.py",
+    "docs/superpowers/plans/2026-07-30-a1r-verifier-coverage-repair.md",
+    "docs/superpowers/plans/2026-07-30-a2-slice1-canonical-planning-core.md",
+    "docs/superpowers/plans/2026-07-30-a2-slice2-science-authority-persistence.md",
+    "docs/superpowers/plans/2026-07-30-a2-slice3-one-way-legacy-adapters.md",
+    "docs/superpowers/plans/2026-07-30-a2-slice4-lifecycle-api.md",
+    "docs/superpowers/plans/2026-07-30-a3-canonical-boundaries.md",
+    "docs/superpowers/plans/2026-07-30-a4-authority-gates.md",
+    "docs/superpowers/plans/2026-07-30-a5-bottle-inventory-operations.md",
+    "docs/superpowers/specs/2026-07-30-a1r-a2-staged-convergence-design.md",
+    "docs/superpowers/specs/2026-07-30-a4-authority-gates-design.md",
+    "docs/superpowers/specs/2026-07-30-a5-bottle-inventory-operations-design.md",
+    "docs/verification/a2_exit_gate.md",
+    "docs/verification/a2_slice1/README.md",
+    "docs/verification/a2_slice2/README.md",
+    "docs/verification/a2_slice3/README.md",
+    "docs/verification/a2_slice3/legacy_domain_deprecation.md",
+    "docs/verification/a2_slice4/README.md",
+    "docs/verification/a3_exit_gate.md",
+    "docs/verification/a4_exit_gate.md",
+    "engine/analytical/__init__.py",
+    "engine/analytical/ledger.py",
+    "engine/authority_gates.py",
+    "engine/bottle/events.py",
+    "engine/calibration/hashing.py",
+    "engine/canonical_serialization.py",
+    "engine/domain_errors.py",
+    "engine/evidence/__init__.py",
+    "engine/evidence/ledger.py",
+    "engine/identity/resolver.py",
+    "engine/inventory/operations.py",
+    "engine/inventory/stock_model.py",
+    "engine/pipeline/gates.py",
+    "engine/project_verification.py",
+    "engine/provenance.py",
+    "engine/quantities.py",
+    "engine/reconstruction/anti_compression.py",
+    "engine/reconstruction/chassis.py",
+    "engine/reconstruction/ensembles.py",
+    "engine/reconstruction/rank_prior.py",
+    "engine/reconstruction/recognizer.py",
+    "engine/safety/__init__.py",
+    "engine/safety/regulatory.py",
+    "engine/sensory/__init__.py",
+    "engine/sensory/ledger.py",
+    "engine/target/formula.py",
+    "engine/units/concentration.py",
+    "engine/versioning/__init__.py",
+    "engine/versioning/formula_version.py",
+    "scripts/formula_release_gate.py",
+    "scripts/rebind_formula_artifact.py",
+    "tests/fixtures/lab_export_supported_versions.json",
+    "tests/test_a1_audit_contract_gaps.py",
+    "tests/test_a1_authoritative_contracts.py",
+    "tests/test_analytical_ledger.py",
+    "tests/test_artifact_rebind.py",
+    "tests/test_authority_derivation.py",
+    "tests/test_authority_gates.py",
+    "tests/test_bottle_console.py",
+    "tests/test_bottle_events.py",
+    "tests/test_canonical_hashing.py",
+    "tests/test_canonical_quantities.py",
+    "tests/test_canonical_serialization.py",
+    "tests/test_evidence_ledger.py",
+    "tests/test_inventory_operations.py",
+    "tests/test_inventory_stock_model.py",
+    "tests/test_pipeline_gates.py",
+    "tests/test_project_verification.py",
+    "tests/test_provenance_model.py",
+    "tests/test_reconstruction_anti_compression.py",
+    "tests/test_run_evidence_contract.py",
+    "tests/test_safety_regulatory.py",
+    "tests/test_sensory_ledger.py",
+    "tests/test_versioning_formula.py"
+  ]
+}
