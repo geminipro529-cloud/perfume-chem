@@ -8,6 +8,7 @@ from sqlalchemy.exc import OperationalError
 from app.db_bootstrap import upgrade_database
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
+B1_HEAD = "20260730_0005"
 
 
 def _upgrade(database_path: Path, snapshot_directory: Path | None = None):
@@ -57,7 +58,7 @@ def test_migration_preserves_legacy_tables_and_is_idempotent(tmp_path):
         assert "lab_bottle_events" in tables
         assert connection.execute("SELECT name FROM materials").fetchone()[0] == "legacy orris"
         assert connection.execute("SELECT version_num FROM alembic_version").fetchall() == [
-            ("20260730_0004",)
+            (B1_HEAD,)
         ]
         assert connection.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     finally:

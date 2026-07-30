@@ -19,6 +19,8 @@ from app.services.lab_export import ImportConflictError, LabExportService
 from app.services.lab_service import LabService
 from tests.a2_planning_fixtures import _approved_plan
 
+B1_HEAD = "20260730_0005"
+
 
 def _database(path, value: str, revision: str = "20260716_0001") -> None:
     connection = sqlite3.connect(path)
@@ -87,13 +89,13 @@ def test_a2_migrated_backup_manifest_tracks_new_head(tmp_path):
     service = BackupService(
         database_path=database,
         backup_directory=tmp_path / "a2-backups",
-        expected_schema_revision="20260730_0004",
+        expected_schema_revision=B1_HEAD,
     )
 
     artifact = service.create_backup(label="a2-planning")
     validation = service.validate_restore(artifact.snapshot_path)
 
-    assert artifact.schema_revision == "20260730_0004"
+    assert artifact.schema_revision == B1_HEAD
     assert validation.valid is True
 
 
@@ -205,7 +207,7 @@ async def test_a5_backup_restores_active_stream_and_open_reservation_replay(
     backup_service = BackupService(
         database_path=database,
         backup_directory=tmp_path / "a5-backups",
-        expected_schema_revision="20260730_0004",
+        expected_schema_revision=B1_HEAD,
     )
     artifact = backup_service.create_backup(label="active-stream")
 
