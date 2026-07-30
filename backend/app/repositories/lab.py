@@ -27,6 +27,7 @@ from app.models.lab import (
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_science import LabScienceRepositoryMixin
+from app.repositories.lab_sources import LabSourceRepositoryMixin
 
 RecordT = TypeVar("RecordT")
 
@@ -44,6 +45,7 @@ class BottleLedgerState:
 
 class LabRepository(
     LabExecutionRepositoryMixin,
+    LabSourceRepositoryMixin,
     LabScienceRepositoryMixin,
     LabPlanningRepositoryMixin,
 ):
