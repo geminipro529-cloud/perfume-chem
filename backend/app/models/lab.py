@@ -126,6 +126,20 @@ class LabMaterialProperty(LabRecord):
     evidence_id: Mapped[str] = mapped_column(
         ForeignKey("lab_evidence_records.id", ondelete="RESTRICT"), nullable=False
     )
+    authority_state: Mapped[str] = mapped_column(
+        String(40),
+        default="LEGACY_HEURISTIC",
+        server_default=text("'LEGACY_HEURISTIC'"),
+        nullable=False,
+    )
+    authority_reason: Mapped[str] = mapped_column(
+        Text,
+        default="Pre-B2 scalar property without canonical observation lineage.",
+        server_default=text(
+            "'Pre-B2 scalar property without canonical observation lineage.'"
+        ),
+        nullable=False,
+    )
 
 
 class LabRestriction(LabRecord):
@@ -533,6 +547,14 @@ from app.models.lab_planning import (  # noqa: E402,F401
     LabTargetHypothesisVersion,
     LabTargetLine,
 )
+from app.models.lab_properties import (  # noqa: E402,F401
+    PROPERTY_AUTHORITY_TABLE_NAMES,
+    LabPropertyConflictMember,
+    LabPropertyConflictSet,
+    LabPropertyObservation,
+    LabSelectedAssertion,
+    LabSelectedAssertionCandidate,
+)
 from app.models.lab_science import (  # noqa: E402,F401
     SCIENCE_AUTHORITY_TABLE_NAMES,
     LabAnalyticalAttachment,
@@ -560,6 +582,7 @@ LAB_TABLE_NAMES = {
 
 APPEND_ONLY_TABLES = {
     "lab_evidence_records",
+    "lab_material_properties",
     "lab_formula_versions",
     "lab_formula_components",
     "lab_bottle_events",
@@ -573,6 +596,7 @@ APPEND_ONLY_TABLES = {
     *PLANNING_TABLE_NAMES,
     *SCIENCE_AUTHORITY_TABLE_NAMES,
     *SOURCE_AUTHORITY_TABLE_NAMES,
+    *PROPERTY_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
 

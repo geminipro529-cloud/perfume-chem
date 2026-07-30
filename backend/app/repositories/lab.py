@@ -26,6 +26,7 @@ from app.models.lab import (
 )
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
+from app.repositories.lab_properties import LabPropertyRepositoryMixin
 from app.repositories.lab_science import LabScienceRepositoryMixin
 from app.repositories.lab_sources import LabSourceRepositoryMixin
 
@@ -45,6 +46,7 @@ class BottleLedgerState:
 
 class LabRepository(
     LabExecutionRepositoryMixin,
+    LabPropertyRepositoryMixin,
     LabSourceRepositoryMixin,
     LabScienceRepositoryMixin,
     LabPlanningRepositoryMixin,
