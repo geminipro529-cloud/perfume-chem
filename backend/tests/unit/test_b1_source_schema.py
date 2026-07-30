@@ -1,0 +1,201 @@
+from sqlalchemy import CheckConstraint, ForeignKeyConstraint, UniqueConstraint
+
+import app.models.lab  # noqa: F401
+from app.models.base import Base
+from app.models.lab import APPEND_ONLY_TABLES, LAB_TABLE_NAMES
+from app.models.lab_sources import (
+    EVIDENCE_WORKFLOW_STATES,
+    SOURCE_AUTHORITY_TABLE_NAMES,
+    SOURCE_DERIVATION_RELATIONS,
+    SOURCE_TYPES,
+    WORKFLOW_SUBJECT_TYPES,
+)
+
+REQUIRED_SOURCE_TYPES = {
+    "AUTHENTICATED_FORMULA_OR_DOSSIER",
+    "PRIMARY_PEER_REVIEWED_PAPER",
+    "REVIEW_PAPER",
+    "STANDARD",
+    "REGULATION_OR_OFFICIAL_GUIDANCE",
+    "AUTHORITATIVE_DATABASE_RECORD",
+    "SUPPLIER_COA",
+    "SUPPLIER_SPECIFICATION",
+    "SUPPLIER_SDS",
+    "SUPPLIER_IFRA_CERTIFICATE",
+    "SUPPLIER_ALLERGEN_DECLARATION",
+    "PATENT",
+    "LOCAL_ANALYTICAL_EXPERIMENT",
+    "LOCAL_SENSORY_EXPERIMENT",
+    "EXPERT_NOTE",
+    "SECONDARY_RECONSTRUCTION",
+    "COMMUNITY_OBSERVATION",
+    "AI_GENERATED_HYPOTHESIS",
+}
+REQUIRED_WORKFLOW_STATES = {
+    "STAGED",
+    "PARSED",
+    "IDENTITY_RESOLVED",
+    "UNIT_NORMALIZED",
+    "CONDITION_NORMALIZED",
+    "CONFLICT_CHECKED",
+    "HUMAN_REVIEWED",
+    "ACCEPTED_FOR_SCOPED_USE",
+    "REJECTED",
+    "SUPERSEDED",
+}
+B1_TABLES = {
+    "lab_source_document_versions",
+    "lab_source_derivation_links",
+    "lab_source_extraction_records",
+    "lab_evidence_workflow_events",
+}
+
+
+def _named_constraints(table_name: str, constraint_type: type) -> set[str]:
+    return {
+        str(constraint.name)
+        for constraint in Base.metadata.tables[table_name].constraints
+        if isinstance(constraint, constraint_type)
+    }
+
+
+def test_b1_tables_are_canonical_append_only_and_complete():
+    assert set(SOURCE_TYPES) == REQUIRED_SOURCE_TYPES
+    assert set(EVIDENCE_WORKFLOW_STATES) == REQUIRED_WORKFLOW_STATES
+    assert set(SOURCE_DERIVATION_RELATIONS) == {
+        "DERIVED_FROM",
+        "REPRODUCES",
+        "CITES",
+        "INCORPORATES",
+    }
+    assert set(WORKFLOW_SUBJECT_TYPES) == {
+        "SOURCE_VERSION",
+        "EXTRACTION_RECORD",
+    }
+    assert SOURCE_AUTHORITY_TABLE_NAMES == B1_TABLES
+    assert B1_TABLES <= LAB_TABLE_NAMES
+    assert B1_TABLES <= APPEND_ONLY_TABLES
+    for table_name in B1_TABLES:
+        assert "updated_at" not in Base.metadata.tables[table_name].columns
+
+
+def test_b1_tables_expose_the_required_source_and_extraction_fields():
+    source_columns = set(
+        Base.metadata.tables["lab_source_document_versions"].columns.keys()
+    )
+    assert {
+        "source_id",
+        "version_number",
+        "schema_version",
+        "source_type",
+        "title",
+        "authors_json",
+        "issuing_organization",
+        "container_title",
+        "publisher_or_authority",
+        "identifiers_json",
+        "publication_date",
+        "revision_date",
+        "effective_date",
+        "retrieval_date",
+        "edition_or_amendment",
+        "default_locator_json",
+        "artifact_sha256",
+        "license_or_reuse_restriction",
+        "language",
+        "original_unit",
+        "original_terminology",
+        "reviewer_pseudonym",
+        "review_state",
+        "supersedes_version_id",
+        "independence_group",
+        "preserved_artifact_path",
+        "parent_record_sha256",
+        "record_sha256",
+    } <= source_columns
+
+    extraction_columns = set(
+        Base.metadata.tables["lab_source_extraction_records"].columns.keys()
+    )
+    assert {
+        "source_version_id",
+        "locator_json",
+        "structure_context_json",
+        "original_wording",
+        "original_value_json",
+        "parsed_value_json",
+        "normalization_json",
+        "parser_or_model_version",
+        "reviewer_pseudonym",
+        "uncertainty_json",
+        "ambiguity_json",
+        "output_observation_id",
+        "input_sha256",
+        "output_sha256",
+        "record_sha256",
+    } <= extraction_columns
+
+
+def test_b1_tables_declare_named_checks_uniqueness_and_foreign_keys():
+    expected = {
+        "lab_source_document_versions": {
+            "uq_lab_source_document_version",
+            "uq_lab_source_document_record_sha256",
+            "ck_lab_source_version_positive",
+            "ck_lab_source_type",
+            "ck_lab_source_review_state",
+            "ck_lab_source_artifact_sha256",
+            "ck_lab_source_record_sha256",
+            "ck_lab_source_version_chain",
+        },
+        "lab_source_derivation_links": {
+            "uq_lab_source_derivation_link",
+            "uq_lab_source_derivation_record_sha256",
+            "ck_lab_source_derivation_relation",
+            "ck_lab_source_derivation_not_self",
+            "ck_lab_source_derivation_record_sha256",
+        },
+        "lab_source_extraction_records": {
+            "uq_lab_source_extraction_record_sha256",
+            "ck_lab_source_extraction_input_sha256",
+            "ck_lab_source_extraction_output_sha256",
+            "ck_lab_source_extraction_record_sha256",
+        },
+        "lab_evidence_workflow_events": {
+            "uq_lab_evidence_workflow_sequence",
+            "uq_lab_evidence_workflow_record_sha256",
+            "ck_lab_evidence_workflow_sequence_positive",
+            "ck_lab_evidence_workflow_subject_type",
+            "ck_lab_evidence_workflow_from_state",
+            "ck_lab_evidence_workflow_to_state",
+            "ck_lab_evidence_workflow_transition_changes_state",
+            "ck_lab_evidence_workflow_record_sha256",
+        },
+    }
+    for table_name, required in expected.items():
+        named = _named_constraints(
+            table_name,
+            (CheckConstraint, UniqueConstraint),
+        )
+        assert required <= named
+
+    source_fks = _named_constraints(
+        "lab_source_document_versions",
+        ForeignKeyConstraint,
+    )
+    assert "fk_lab_source_document_supersedes" in source_fks
+
+    derivation_fks = _named_constraints(
+        "lab_source_derivation_links",
+        ForeignKeyConstraint,
+    )
+    assert {
+        "fk_lab_source_derivation_child",
+        "fk_lab_source_derivation_parent",
+    } <= derivation_fks
+
+    extraction_fks = _named_constraints(
+        "lab_source_extraction_records",
+        ForeignKeyConstraint,
+    )
+    assert "fk_lab_source_extraction_source" in extraction_fks

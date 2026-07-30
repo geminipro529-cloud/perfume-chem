@@ -546,6 +546,13 @@ from app.models.lab_science import (  # noqa: E402,F401
     LabRegulatoryAssessmentVersion,
     LabRegulatoryFinding,
 )
+from app.models.lab_sources import (  # noqa: E402,F401
+    SOURCE_AUTHORITY_TABLE_NAMES,
+    LabEvidenceWorkflowEvent,
+    LabSourceDerivationLink,
+    LabSourceDocumentVersion,
+    LabSourceExtractionRecord,
+)
 
 LAB_TABLE_NAMES = {
     table.name for table in Base.metadata.sorted_tables if table.name.startswith("lab_")
@@ -565,6 +572,7 @@ APPEND_ONLY_TABLES = {
     "lab_outcomes",
     *PLANNING_TABLE_NAMES,
     *SCIENCE_AUTHORITY_TABLE_NAMES,
+    *SOURCE_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
 
