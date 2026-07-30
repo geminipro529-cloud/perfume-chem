@@ -1,0 +1,221 @@
+{
+  "schema": "build-b5-analytical-authority-gate-v1",
+  "generated_at_utc": "2026-07-30T22:06:57.9091141Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B5",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    "40751831f65da8de464d45fbd3ceb4b53d53536d"
+  ],
+  "implementation_head": "40751831f65da8de464d45fbd3ceb4b53d53536d",
+  "alembic_head": "20260731_0009",
+  "environment": {
+    "python": "3.11.15",
+    "pty": false,
+    "ansi_disabled": true,
+    "explicit_timeouts": true,
+    "stdout_stderr_separated": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b5_tables": 8,
+    "append_only_sqlite_triggers_per_table": 2,
+    "legacy_rows_promoted_by_migration": 0,
+    "primary_subject_types": 6,
+    "identity_authority_states": 6,
+    "quantitation_states": 3,
+    "stable_missing_requirement_codes": 17,
+    "stable_qualification_codes": 1,
+    "production_api_ui_optimizer_consumers_connected": 0,
+    "b6_regulatory_authority_implemented": false
+  },
+  "commands": [
+    {
+      "name": "pytest_a2_science_b1_b2_b3_b4_b5_and_compatibility",
+      "command": "python -m pytest <canonical>/backend/tests/unit/test_a2_science_schema.py <canonical>/backend/tests/unit/test_a2_science_service.py <canonical>/backend/tests/integration/test_a2_science_migration.py <canonical>/backend/tests/integration/test_a2_science_export.py <canonical>/backend/tests/integration/test_a2_science_transactions.py <canonical>/backend/tests/unit/test_b1_source_schema.py <canonical>/backend/tests/unit/test_b1_source_service.py <canonical>/backend/tests/integration/test_b1_source_migration.py <canonical>/backend/tests/unit/test_b2_property_schema.py <canonical>/backend/tests/unit/test_b2_property_service.py <canonical>/backend/tests/integration/test_b2_property_migration.py <canonical>/backend/tests/unit/test_b3_legacy_threshold_adapter.py <canonical>/backend/tests/unit/test_b3_threshold_schema.py <canonical>/backend/tests/unit/test_b3_threshold_service.py <canonical>/backend/tests/integration/test_b3_threshold_migration.py <canonical>/backend/tests/unit/test_b4_legacy_rule_adapter.py <canonical>/backend/tests/unit/test_b4_rule_schema.py <canonical>/backend/tests/unit/test_b4_rule_service.py <canonical>/backend/tests/integration/test_b4_rule_migration.py <canonical>/backend/tests/unit/test_b5_analytical_schema.py <canonical>/backend/tests/unit/test_b5_analytical_service.py <canonical>/backend/tests/integration/test_b5_analytical_migration.py <canonical>/backend/tests/integration/test_b5_analytical_e2e.py <canonical>/backend/tests/integration/test_lab_migration.py <canonical>/backend/tests/integration/test_backup_restore.py --color=no -q --basetemp=<writable-temp>/b5full",
+      "working_directory": "<canonical>",
+      "timeout_seconds": 600,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "248 passed in 249.32s",
+      "prior_accepted_count": 236,
+      "new_regression_cases": 12,
+      "stdout_path": "docs/verification/b5/logs/pytest.stdout.txt",
+      "stdout_sha256": "79C6CF3A579699F35563C627A3316979D3BF60AC5302CC5BB931BB2F38E68662",
+      "stderr_path": "docs/verification/b5/logs/pytest.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "ruff_b5_exact_paths",
+      "command": "ruff check app/models/lab.py app/models/lab_analytical.py app/repositories/lab.py app/repositories/lab_analytical.py app/services/lab_service.py app/services/lab_science.py app/services/lab_analytical.py alembic/versions/20260731_0009_b5_analytical_authority.py tests/unit/test_b5_analytical_schema.py tests/unit/test_b5_analytical_service.py tests/integration/test_b5_analytical_migration.py tests/integration/test_b5_analytical_e2e.py tests/integration/test_lab_migration.py tests/integration/test_backup_restore.py --no-cache --output-format concise",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 240,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b5/logs/ruff.stdout.txt",
+      "stdout_sha256": "AF352A86840AD0AF3D37EA0D9197F868363A6DAC6B1C2EF5D2722F6B41D2D9AF",
+      "stderr_path": "docs/verification/b5/logs/ruff.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "mypy_b5_modules_and_a2_bridge",
+      "command": "python -B -m mypy app/models/lab_analytical.py app/repositories/lab_analytical.py app/services/lab_analytical.py app/services/lab_science.py --ignore-missing-imports --no-color-output --no-pretty --cache-dir=<writable-cache>",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 240,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "Success: no issues found in 4 source files",
+      "stdout_path": "docs/verification/b5/logs/mypy.stdout.txt",
+      "stdout_sha256": "9A7B872E16546A06AC5ACC5FF3C02A07FE75B22D8102DE9D27434123534C9400",
+      "stderr_path": "docs/verification/b5/logs/mypy.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "tdd_evidence": {
+    "post_audit_authority_regressions": {
+      "red_result": "13 failed, 75 passed in 115.77s",
+      "green_result": "88 passed in 112.67s",
+      "red_log_root": "output/verification-temp/b5-postaudit-red-20260731_045300",
+      "green_log_root": "output/verification-temp/b5-postaudit-green1-20260731_050000"
+    },
+    "general_calibration_scope_regression": {
+      "red_result": "1 failed in 2.49s",
+      "green_result": "1 passed in 1.89s",
+      "red_log_root": "output/verification-temp/b5-calibration-scope-red-20260731_051400",
+      "green_log_root": "output/verification-temp/b5-calibration-scope-green-20260731_051500"
+    }
+  },
+  "deepluna": {
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_exact_project_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_or_queued_jobs": 0,
+      "open_or_unknown_reservations": 0
+    },
+    "legacy_bypass_review": {
+      "job_id": "DS-76cea2b9f1bc4250e38d5f2580e33623",
+      "status": "PASS",
+      "accepted_as_final_authority": false,
+      "sol_disposition": "The reported A2 exact-claim bypass was independently reproduced, fixed, and regression-tested."
+    },
+    "postimplementation_audit": {
+      "job_id": "DS-ae24d8b17460b62519ec7c04a3efa92b",
+      "status": "PASS",
+      "terminal_state": "PASS",
+      "cost_nano_usd": 9917775,
+      "accepted_as_final_authority": false,
+      "stdout_path": "docs/verification/b5/logs/deepluna.stdout.txt",
+      "stdout_sha256": "3DFC11A7D19508064CFE0BB8F977E8F56EF7B94D6356121B1F9378FAD0B2DC60",
+      "stderr_path": "docs/verification/b5/logs/deepluna.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "positive_claims_reproduced_by_sol": 3,
+      "sol_reproduction_result": "3 passed in 4.82s",
+      "sol_reproduction_stdout_path": "docs/verification/b5/logs/deepluna-sol-reproduction.stdout.txt",
+      "sol_reproduction_stdout_sha256": "562B003AACDB9EBD6503C8207917C93223B6811765B36771476F9C76ABCB6100"
+    },
+    "sol_found_post_audit_defects": [
+      "A supported B5 assessment could authorize an A2 exact claim with a different analytical claim type, policy version, or direct evidence record.",
+      "Peak and claim applicability could be self-consistently false instead of matching the selected validation, A2 analyte, and run method.",
+      "Claim evaluation selected method validation by matrix digest without requiring claim-specific identity or quantity acceptance criteria.",
+      "Required authority-critical method values accepted empty objects and arrays as placeholders.",
+      "Method-validation source artifact digests lacked a database-level length constraint.",
+      "The nominal matching HS-SPME path compared against a different matrix digest than the selected validation.",
+      "Non-HS calibrated quantities did not verify declared matrix, analyte, and method calibration identifiers."
+    ],
+    "postfix_provider_call_required_for_acceptance": false,
+    "postfix_provider_call_omitted_reason": "The B5 Fast stage had reached its two-call cap. Sol completed fail-closed local RED/GREEN, compatibility, static, migration, and database verification.",
+    "final_authority": "canonical source, executable tests, database constraints, reproducible artifacts, and Sol independent reproduction"
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "mutated_by_b5_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "integrity_check": "ok",
+      "connection_mode": "read-only immutable",
+      "mutated_by_b5_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/alembic/versions/20260731_0009_b5_analytical_authority.py": "1D0B6D887BB4FC4E2EAED3C377AA74710B617C6754CF8FA9A608C48BDF52A52F",
+    "backend/app/models/lab.py": "7425223A025B1CA953829BB98D89F1718413BCB6939E8EA442866689C120D04E",
+    "backend/app/models/lab_analytical.py": "A30714224B42504C291CCCC86816F7B8EA8CBC8464780D2A865845F4FBD885F4",
+    "backend/app/repositories/lab.py": "992908B2EDEFB09AA3C887441C832BA5A9F47989B3AAB757E211E13431AFE8D6",
+    "backend/app/repositories/lab_analytical.py": "6590041C403E9C969D38BD483AC702043D8DFF8A1E5B9027E4F0E774F9C51FDA",
+    "backend/app/services/lab_analytical.py": "5C72FB4D2FCBCEF775A4908C1C3D231FB037B81B7F95FD055BC926FE3E3CDB90",
+    "backend/app/services/lab_science.py": "DC24F40739FBD2D8249F8E9AD39206F2B1636B3E8A1C45957D5653EE78248DCD",
+    "backend/app/services/lab_service.py": "F29AE59089B1B55C105AE2745ABDCF6CFD58BF7E96AB3BAE852CF12EFB7397A5",
+    "backend/tests/integration/test_b5_analytical_e2e.py": "BB751120BFD4A65F7AC6A64AF7E38110028ACE0D60CF144194D3008512E1D121",
+    "backend/tests/integration/test_b5_analytical_migration.py": "2CB72E07A959E4FD16EF1DD8842602AAA9055350EACA870A258CFB1ED073F10E",
+    "backend/tests/integration/test_backup_restore.py": "50DC59DF1DC369397F01CD99A3D4D58759F104E773F39E09826E832D72F6FDE3",
+    "backend/tests/integration/test_lab_migration.py": "A12C8851941CEF10A458C216BA2749192CD67B4CD777419EE7913A1F5FD14F7D",
+    "backend/tests/unit/test_b5_analytical_schema.py": "04AE8536C24ED02CC9625B626B4B06554F10472E85A6CD3BDFFE75013B505370",
+    "backend/tests/unit/test_b5_analytical_service.py": "3F849891744D71F8BDAEE378D9E9BE7AFA7ADB9EB345B1ADA854B9D2C44E7CF0",
+    "docs/superpowers/plans/2026-07-31-build-b5-analytical-authority.md": "B669A9459902AA40622B3FBCB24EFBF8F8AA994D6E815ECC73A895124BC2A3F6",
+    "docs/superpowers/specs/2026-07-31-build-b5-analytical-authority-design.md": "D84EFAA2925AA6CD95AA2C3204008E920117EA04828ACDAE0AEB52D3F6E3E5E2"
+  },
+  "exit_gate": {
+    "method_authority_is_versioned_source_bound_and_hash_bound": true,
+    "method_validation_is_claim_specific_scope_specific_and_digest_constrained": true,
+    "sequence_run_primary_subject_and_raw_files_are_exactly_bound": true,
+    "six_state_identity_authority_is_fail_closed": true,
+    "calibrated_quantity_matches_a2_peak_validation_matrix_analyte_and_method": true,
+    "hs_spme_requires_complete_conditions_and_matching_calibration_scope": true,
+    "gco_cannot_confer_exact_identity": true,
+    "blocking_qc_withholds_result_as_sql_null": true,
+    "qualifying_qc_caps_result_at_advisory": true,
+    "claim_applicability_is_compared_to_canonical_records": true,
+    "a2_exact_claim_requires_matching_b5_run_type_policy_and_direct_evidence": true,
+    "migration_imports_zero_legacy_rows": true,
+    "model_migration_constraint_index_fk_trigger_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "end_to_end_supported_blocking_and_qualifying_paths_pass": true,
+    "production_consumers_deferred_to_b9": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "legacy_analytical_rows_promoted": 0,
+    "area_percent_as_formula_weight_percent": "PROHIBITED",
+    "gco_exact_identity": "PROHIBITED",
+    "production_analytical_consumption": "DEFERRED_TO_B9",
+    "next_phase": "B6"
+  },
+  "known_limitations": [
+    "B5 records establish bounded analytical authority only for their exact method, validation, run, peak, matrix, analyte, policy, evidence, and review scope.",
+    "No legacy analytical row is backfilled or promoted by migration.",
+    "No production API, UI, optimizer, or release consumer is connected until B9.",
+    "The bounded DeepLuna PASS missed authority defects later reproduced by Sol, so provider evidence remains supplemental.",
+    "Build B remains incomplete until B6 through B10 pass.",
+    "Scientific release remains blocked."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_after_implementation_commit": 105,
+    "untracked_files_after_implementation_commit": 673,
+    "staged_entries_after_implementation_commit": 0,
+    "a0_recovery_archive": "preserved",
+    "b5_scratch_preimplementation_archive": "D:/chatbots/perfume-chem/outputs/b5-preimplementation-recovery/20260731_031302/b5-scratch-targets-before-implementation.zip",
+    "b5_scratch_preimplementation_archive_sha256": "053DDB7F45B14D93CE8B8D0AE4831F3441507B2115295982B3BAF80096211B0D",
+    "b5_canonical_prepromotion_archive": "D:/chatbots/perfume-chem/outputs/b5-canonical-prepromotion-recovery/20260731_045000/b5-canonical-targets-before-promotion.zip",
+    "b5_canonical_prepromotion_archive_sha256": "EF0712C7FCEB4E8664DB62E0833C1AC2006690BC1DED2B7209FA58C86D38B06E",
+    "b5_post_audit_prefix_archive": "D:/chatbots/perfume-chem/outputs/b5-postaudit-prefix-recovery/20260731_044705/b5-postaudit-targets-before-hardening.zip",
+    "b5_post_audit_prefix_archive_sha256": "499F71B8924F8AC62D9A17D52983A6ACD70281CB500F836356E60EE8DEAF6B4B",
+    "restore_verification": "Every archive was extracted to a separate path and every archived file hash matched its source."
+  }
+}
