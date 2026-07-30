@@ -538,6 +538,11 @@ from app.models.lab_analytical import (  # noqa: E402,F401
     LabGCOEventAuthority,
     LabMethodValidationRecord,
 )
+from app.models.lab_claims import (  # noqa: E402,F401
+    CLAIM_AUTHORITY_TABLE_NAMES,
+    LabClaimAuthoritySupportLink,
+    LabClaimAuthorityVersion,
+)
 from app.models.lab_execution import (  # noqa: E402,F401
     EXECUTION_TABLE_NAMES,
     LabBottleActionCommit,
@@ -637,6 +642,7 @@ APPEND_ONLY_TABLES = {
     *RULE_AUTHORITY_TABLE_NAMES,
     *REGULATORY_AUTHORITY_TABLE_NAMES,
     *ANALYTICAL_AUTHORITY_TABLE_NAMES,  # type: ignore[has-type]
+    *CLAIM_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
 
