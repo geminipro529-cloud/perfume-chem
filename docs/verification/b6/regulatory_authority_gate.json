@@ -1,0 +1,171 @@
+{
+  "schema_version": "perfume-chem-b6-gate-v1",
+  "build": "B6",
+  "title": "Safety and regulatory authority",
+  "status": "PASS",
+  "exit_gate_passed": true,
+  "recorded_local_date": "2026-07-31",
+  "timezone": "Asia/Bangkok",
+  "branch": "codex/add-inventory-materials",
+  "preimplementation_commit": "ddea825e9e5478c124ffa7c8098c44a49b45a035",
+  "migration": {
+    "revision": "20260731_0010",
+    "down_revision": "20260731_0009",
+    "head": "20260731_0010",
+    "tables": [
+      "lab_regulatory_source_versions",
+      "lab_regulatory_rule_versions",
+      "lab_supplier_document_bindings",
+      "lab_regulatory_composition_profiles",
+      "lab_regulatory_composition_entries",
+      "lab_regulatory_snapshot_versions",
+      "lab_regulatory_authority_findings"
+    ],
+    "backfill_rows": 0,
+    "append_only": true
+  },
+  "result_states": [
+    "PASS_FOR_DECLARED_SCOPE",
+    "FAIL",
+    "UNKNOWN",
+    "NOT_EVALUATED"
+  ],
+  "runtime": {
+    "python": "3.11.15",
+    "node": "v26.3.0"
+  },
+  "official_source_checks": [
+    {
+      "checked_on": "2026-07-31",
+      "authority": "IFRA",
+      "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-52nd-amendment-consultation-closed",
+      "finding": "52nd Amendment consultation closed 2026-06-12; formal notification expected near end November 2026",
+      "recorded_status": "CONSULTATION",
+      "enforced": false
+    },
+    {
+      "checked_on": "2026-07-31",
+      "authority": "European Union",
+      "url": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj/eng",
+      "finding": "0.001% leave-on and 0.01% rinse-off declaration thresholds with inclusive 2026-07-31 placement and 2028-07-31 availability transition ends"
+    }
+  ],
+  "verification": [
+    {
+      "name": "b6_exact",
+      "exit_code": 0,
+      "tests_passed": 30,
+      "duration_seconds": 42.72,
+      "stdout": "logs/pytest_b6.stdout.txt",
+      "stderr": "logs/pytest_b6.stderr.txt"
+    },
+    {
+      "name": "b1_b6_compatibility_migration_backup",
+      "exit_code": 0,
+      "tests_passed": 266,
+      "duration_seconds": 239.16,
+      "stdout": "logs/pytest_compat.stdout.txt",
+      "stderr": "logs/pytest_compat.stderr.txt",
+      "historical_first_run": {
+        "tests_passed": 263,
+        "tests_failed": 3,
+        "cause": "two stale CURRENT_HEAD test constants expected 20260731_0009",
+        "focused_reproduction_after_fix": "3 passed"
+      }
+    },
+    {
+      "name": "ruff_exact_scope",
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout": "logs/ruff.stdout.txt",
+      "stderr": "logs/ruff.stderr.txt"
+    },
+    {
+      "name": "mypy_b6_modules",
+      "exit_code": 0,
+      "result": "Success: no issues found in 3 source files",
+      "stdout": "logs/mypy.stdout.txt",
+      "stderr": "logs/mypy.stderr.txt"
+    },
+    {
+      "name": "alembic_heads",
+      "exit_code": 0,
+      "result": "20260731_0010 (head)",
+      "stdout": "logs/alembic_heads.stdout.txt",
+      "stderr": "logs/alembic_heads.stderr.txt"
+    }
+  ],
+  "recovery_archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-b6-prewrite-20260731T052656+0700.tar",
+    "bytes": 102200320,
+    "sha256": "67742cc6f30a979811df359675e108af0cc6cdb0d1f571cf29d89faad61e6bbf",
+    "files_verified": 455,
+    "nonruntime_dirty_untracked_files": 452,
+    "excluded_runtime_prefixes": [
+      ".deepluna-home/"
+    ],
+    "restorable_path_preserving": true
+  },
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "before_bytes": 0,
+      "after_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "opened_for_migration": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "before_bytes": 2084864,
+      "after_bytes": 2084864,
+      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "quick_check_read_only": true
+    }
+  ],
+  "deepluna": {
+    "exact_project": "perfume-chem",
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_orchestration": false,
+    "preimplementation_audit": "PASS",
+    "final_audit": {
+      "job_id": "DS-e8a76a9cb4582878df4b0aab4448d3ab",
+      "status": "PASS",
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "provider_calls": 1,
+      "prompt_tokens": 78488,
+      "completion_tokens": 746,
+      "total_tokens": 79234,
+      "measured_spend_delta_usd": 0.0107973,
+      "sol_reproduction": {
+        "b6_tests_passed": 30,
+        "compatibility_tests_passed": 266
+      }
+    }
+  },
+  "log_digests": {
+    "alembic_heads.stdout.txt": "82e7a1b9031ef8fde0c8b3cdb61f7b67aed0dd8e1e31fbd9f6aa702057102907",
+    "mypy.stdout.txt": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
+    "pytest_b6.stdout.txt": "2bc1142e4df69850a32f2b4e1ce16d9bbfb63a8a759cc9512dc3ed750e437413",
+    "pytest_compat.stdout.txt": "d4b7e6a50383f1f8b5f4287abf769e77a9f46304e1928536c7448bab45538666",
+    "ruff.stdout.txt": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "protected_kb_quick_check.stdout.txt": "9f2a59a60e65fbcd5a3e1b7248adf92890ce3a32b19e43fb4751c2657196de13",
+    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authority_statement": "B6 is a scoped regulatory screening authority, not legal advice, an IFRA certificate, or a legal certificate.",
+  "residual_limits": [
+    "Only explicitly registered exact source, rule, supplier, and composition versions are evaluated.",
+    "Source-currentness must be refreshed for later evaluation dates.",
+    "Production API and UI routing are not part of B6.",
+    "Unrelated tracked and untracked work remains outside B6 staging scope."
+  ]
+}
