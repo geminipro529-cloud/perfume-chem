@@ -29,6 +29,7 @@ from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_properties import LabPropertyRepositoryMixin
 from app.repositories.lab_science import LabScienceRepositoryMixin
 from app.repositories.lab_sources import LabSourceRepositoryMixin
+from app.repositories.lab_thresholds import LabThresholdRepositoryMixin
 
 RecordT = TypeVar("RecordT")
 
@@ -46,6 +47,7 @@ class BottleLedgerState:
 
 class LabRepository(
     LabExecutionRepositoryMixin,
+    LabThresholdRepositoryMixin,
     LabPropertyRepositoryMixin,
     LabSourceRepositoryMixin,
     LabScienceRepositoryMixin,

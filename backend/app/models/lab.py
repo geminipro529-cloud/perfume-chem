@@ -575,6 +575,12 @@ from app.models.lab_sources import (  # noqa: E402,F401
     LabSourceDocumentVersion,
     LabSourceExtractionRecord,
 )
+from app.models.lab_thresholds import (  # noqa: E402,F401
+    THRESHOLD_AUTHORITY_TABLE_NAMES,
+    LabLegacyThresholdRecord,
+    LabOAVAssessment,
+    LabThresholdObservationContext,
+)
 
 LAB_TABLE_NAMES = {
     table.name for table in Base.metadata.sorted_tables if table.name.startswith("lab_")
@@ -597,6 +603,7 @@ APPEND_ONLY_TABLES = {
     *SCIENCE_AUTHORITY_TABLE_NAMES,
     *SOURCE_AUTHORITY_TABLE_NAMES,
     *PROPERTY_AUTHORITY_TABLE_NAMES,
+    *THRESHOLD_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
 
