@@ -9,6 +9,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
 from hashlib import sha256
+from typing import Protocol
 
 from app.schemas.lab_reporting import (
     SCIENCE_EVIDENCE_CLASSES,
@@ -634,6 +635,12 @@ class _ProjectionContext:
     sequence_entries: dict[str, tuple[dict[str, object], ...]]
     regulatory_snapshot_by_id: dict[str, object]
     claim_by_id: dict[str, object]
+
+
+class ScienceSnapshotRepository(Protocol):
+    """Minimal read contract used by the reporting service."""
+
+    async def snapshot(self) -> dict[str, tuple[object, ...]]: ...
 
 
 def _record_id(row: object) -> str:
@@ -1313,8 +1320,28 @@ def render_science_report_markdown(report: ScienceAuthorityReport) -> str:
     return "\n".join(lines)
 
 
+class ScienceReportingService:
+    """Read one canonical snapshot and expose its non-promoting report."""
+
+    def __init__(self, repository: ScienceSnapshotRepository) -> None:
+        self._repository = repository
+
+    async def authority_report(
+        self,
+        view: ScienceView,
+    ) -> ScienceAuthorityReport:
+        snapshot = await self._repository.snapshot()
+        return build_science_report(snapshot, view)
+
+    async def markdown_report(self, view: ScienceView) -> str:
+        report = await self.authority_report(view)
+        return render_science_report_markdown(report)
+
+
 __all__ = [
     "REPORT_COLLECTION_KEYS",
+    "ScienceReportingService",
+    "ScienceSnapshotRepository",
     "build_science_report",
     "render_science_report_markdown",
 ]
