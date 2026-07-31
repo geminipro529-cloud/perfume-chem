@@ -4,17 +4,26 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from math import isfinite
+from typing import TYPE_CHECKING, Any
+from uuid import uuid4
 
 from app.models.lab_backfill import (
     BACKFILL_DASHBOARD_DIMENSIONS,
     BACKFILL_EVIDENCE_CLASSES,
     BACKFILL_GAP_STATES,
     BACKFILL_REQUIREMENT_TYPES,
+    BACKFILL_SIGNAL_TYPES,
+    LabBackfillCampaignVersion,
+    LabBackfillDashboardCell,
+    LabBackfillGapItem,
+    LabBackfillMaterialPriority,
+    LabBackfillPrioritySignalLink,
 )
 
 BACKFILL_PRIORITY_DIMENSIONS = (
@@ -56,6 +65,276 @@ _BANNED_DASHBOARD_KEYS = {
     "COVERAGE_SCORE",
     "CONFIDENCE_PERCENT",
 }
+_ACCEPTED_GAP_STATES = {"ACCEPTED_EXACT", "ACCEPTED_SCOPED"}
+_SIGNAL_FOREIGN_KEYS = (
+    "stock_solution_id",
+    "formula_component_id",
+    "oav_assessment_id",
+    "knowledge_rule_id",
+    "regulatory_snapshot_version_id",
+    "analytical_sequence_entry_id",
+    "composition_entry_id",
+    "prediction_id",
+)
+_REQUIREMENT_CLAIM_TYPES = {
+    "EXACT_IDENTITY": {"EXACT_CHEMICAL_IDENTITY"},
+    "GRADE_IDENTITY": {"GRADE_IDENTITY"},
+    "MOLECULAR_WEIGHT": {"PROPERTY_VALUE"},
+    "DENSITY": {"PROPERTY_VALUE"},
+    "VAPOR_PRESSURE": {"PROPERTY_VALUE"},
+    "CONTEXTUAL_THRESHOLD": {"THRESHOLD"},
+    "SAFETY_DOCUMENTATION": {"REGULATORY_SCREENING"},
+    "RETENTION_INDEX": {"ANALYTICAL_IDENTIFICATION"},
+    "ANALYTICAL_REFERENCE": {
+        "ANALYTICAL_IDENTIFICATION",
+        "ANALYTICAL_QUANTITATION",
+    },
+    "NATURAL_LOT_COMPOSITION": {"NATURAL_CONSTITUENT_PROFILE"},
+}
+
+
+def _required_text(value: str, name: str) -> str:
+    normalized = value.strip()
+    if not normalized:
+        raise ValueError(f"{name} must not be blank")
+    return normalized
+
+
+def _utc(value: datetime, name: str) -> datetime:
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise ValueError(f"{name} must be timezone-aware")
+    return value.astimezone(timezone.utc)
+
+
+class BackfillConflictError(ValueError):
+    """Fail-closed B8 campaign or reconstruction error."""
+
+    def __init__(self, code: str, message: str) -> None:
+        self.code = code
+        super().__init__(message)
+
+
+@dataclass(frozen=True, slots=True)
+class BackfillSignalCommand:
+    signal_type: str
+    source_id: str
+    operational_status: str | None = None
+    normalized_sensitivity: float | None = None
+
+    def __post_init__(self) -> None:
+        signal_type = _required_text(
+            self.signal_type,
+            "signal_type",
+        ).upper()
+        source_id = _required_text(self.source_id, "source_id")
+        if signal_type not in BACKFILL_SIGNAL_TYPES:
+            raise ValueError("unknown B8 signal type")
+        status = (
+            _required_text(self.operational_status, "operational_status").upper()
+            if self.operational_status is not None
+            else None
+        )
+        expected_status = {
+            "ACTIVE_FORMULA": "ACTIVE",
+            "SHIPPED_FORMULA": "SHIPPED",
+            "REFERENCE_FORMULA": "REFERENCE",
+        }.get(signal_type)
+        if expected_status is not None and status != expected_status:
+            raise ValueError(
+                f"{signal_type} requires operational_status={expected_status}"
+            )
+        if expected_status is None and status is not None:
+            raise ValueError(
+                "operational_status is only valid for formula-status signals"
+            )
+        sensitivity = self.normalized_sensitivity
+        if signal_type == "MODEL_SENSITIVITY":
+            normalized = _normalized_number(
+                sensitivity,
+                name="normalized_sensitivity",
+                maximum=Decimal("1"),
+            )
+            if normalized is None:
+                raise ValueError(
+                    "MODEL_SENSITIVITY requires normalized_sensitivity"
+                )
+            sensitivity = float(normalized)
+        elif sensitivity is not None:
+            raise ValueError(
+                "normalized_sensitivity is only valid for MODEL_SENSITIVITY"
+            )
+        object.__setattr__(self, "signal_type", signal_type)
+        object.__setattr__(self, "source_id", source_id)
+        object.__setattr__(self, "operational_status", status)
+        object.__setattr__(self, "normalized_sensitivity", sensitivity)
+
+
+@dataclass(frozen=True, slots=True)
+class BackfillGapCommand:
+    requirement_type: str
+    state: str
+    evidence_class: str
+    claim_authority_version_id: str | None
+    applicability_scope: Mapping[str, object]
+    conflicts: tuple[str, ...] = ()
+    missing_requirements: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        requirement = _required_text(
+            self.requirement_type,
+            "requirement_type",
+        ).upper()
+        state = _required_text(self.state, "state").upper()
+        evidence_class = _required_text(
+            self.evidence_class,
+            "evidence_class",
+        ).upper()
+        if requirement not in BACKFILL_REQUIREMENT_TYPES:
+            raise ValueError("unknown B8 requirement type")
+        if state not in BACKFILL_GAP_STATES:
+            raise ValueError("unknown B8 gap state")
+        if evidence_class not in BACKFILL_EVIDENCE_CLASSES:
+            raise ValueError("unknown B8 evidence class")
+        authority_id = (
+            _required_text(
+                self.claim_authority_version_id,
+                "claim_authority_version_id",
+            )
+            if self.claim_authority_version_id is not None
+            else None
+        )
+        if state in _ACCEPTED_GAP_STATES and authority_id is None:
+            raise ValueError("accepted B8 gaps require B7 authority")
+        if state not in _ACCEPTED_GAP_STATES and authority_id is not None:
+            raise ValueError("unaccepted B8 gaps cannot carry B7 authority")
+        scope = dict(self.applicability_scope)
+        if not scope:
+            raise ValueError("applicability_scope must not be empty")
+        conflicts = tuple(
+            sorted(
+                {
+                    _required_text(item, "conflict")
+                    for item in self.conflicts
+                }
+            )
+        )
+        missing = tuple(
+            sorted(
+                {
+                    _required_text(item, "missing_requirement")
+                    for item in self.missing_requirements
+                }
+            )
+        )
+        if state in _ACCEPTED_GAP_STATES and (conflicts or missing):
+            raise ValueError("accepted B8 gaps cannot retain blockers")
+        object.__setattr__(self, "requirement_type", requirement)
+        object.__setattr__(self, "state", state)
+        object.__setattr__(self, "evidence_class", evidence_class)
+        object.__setattr__(self, "claim_authority_version_id", authority_id)
+        object.__setattr__(self, "applicability_scope", scope)
+        object.__setattr__(self, "conflicts", conflicts)
+        object.__setattr__(self, "missing_requirements", missing)
+
+
+@dataclass(frozen=True, slots=True)
+class BackfillMaterialCommand:
+    material_id: str
+    chemical_family: str | None
+    signals: tuple[BackfillSignalCommand, ...]
+    gaps: tuple[BackfillGapCommand, ...]
+
+    def __post_init__(self) -> None:
+        material_id = _required_text(self.material_id, "material_id")
+        family = (
+            _required_text(self.chemical_family, "chemical_family")
+            if self.chemical_family is not None
+            else None
+        )
+        signals = tuple(self.signals)
+        signal_types = tuple(item.signal_type for item in signals)
+        if len(signal_types) != len(set(signal_types)):
+            raise ValueError("duplicate B8 signal type")
+        formula_status_count = sum(
+            signal_type
+            in {"ACTIVE_FORMULA", "SHIPPED_FORMULA", "REFERENCE_FORMULA"}
+            for signal_type in signal_types
+        )
+        if formula_status_count > 1:
+            raise ValueError("conflicting B8 formula operational statuses")
+        gaps = tuple(self.gaps)
+        requirements = tuple(item.requirement_type for item in gaps)
+        if len(requirements) != len(set(requirements)):
+            raise ValueError("duplicate B8 gap requirement")
+        if set(requirements) != set(BACKFILL_REQUIREMENT_TYPES):
+            raise ValueError("B8 material must classify every requirement")
+        object.__setattr__(self, "material_id", material_id)
+        object.__setattr__(self, "chemical_family", family)
+        object.__setattr__(
+            self,
+            "signals",
+            tuple(sorted(signals, key=lambda item: item.signal_type)),
+        )
+        object.__setattr__(
+            self,
+            "gaps",
+            tuple(
+                sorted(
+                    gaps,
+                    key=lambda item: BACKFILL_REQUIREMENT_TYPES.index(
+                        item.requirement_type
+                    ),
+                )
+            ),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CreateBackfillCampaignCommand:
+    campaign_key: str
+    name: str
+    purpose: str
+    as_of_utc: datetime
+    reviewer_pseudonym: str
+    reviewed_at: datetime
+    materials: tuple[BackfillMaterialCommand, ...]
+    parent_version_id: str | None = None
+
+    def __post_init__(self) -> None:
+        campaign_key = _required_text(self.campaign_key, "campaign_key")
+        name = _required_text(self.name, "name")
+        purpose = _required_text(self.purpose, "purpose")
+        reviewer = _required_text(
+            self.reviewer_pseudonym,
+            "reviewer_pseudonym",
+        )
+        as_of = _utc(self.as_of_utc, "as_of_utc")
+        reviewed = _utc(self.reviewed_at, "reviewed_at")
+        if reviewed < as_of:
+            raise ValueError("reviewed_at cannot precede as_of_utc")
+        materials = tuple(self.materials)
+        if not materials:
+            raise ValueError("B8 campaign requires at least one material")
+        material_ids = tuple(item.material_id for item in materials)
+        if len(material_ids) != len(set(material_ids)):
+            raise ValueError("duplicate B8 campaign material")
+        parent_id = (
+            _required_text(self.parent_version_id, "parent_version_id")
+            if self.parent_version_id is not None
+            else None
+        )
+        object.__setattr__(self, "campaign_key", campaign_key)
+        object.__setattr__(self, "name", name)
+        object.__setattr__(self, "purpose", purpose)
+        object.__setattr__(self, "reviewer_pseudonym", reviewer)
+        object.__setattr__(self, "as_of_utc", as_of)
+        object.__setattr__(self, "reviewed_at", reviewed)
+        object.__setattr__(
+            self,
+            "materials",
+            tuple(sorted(materials, key=lambda item: item.material_id)),
+        )
+        object.__setattr__(self, "parent_version_id", parent_id)
 
 
 def _canonical_json(value: object) -> str:
@@ -486,12 +765,1394 @@ def build_backfill_dashboard(
     return tuple(cells)
 
 
+@dataclass(frozen=True, slots=True)
+class _ResolvedBackfillSignal:
+    command: BackfillSignalCommand
+    evidence_class: str
+    foreign_keys: Mapping[str, str | None]
+    signal_value: Mapping[str, object]
+    applicability: Mapping[str, object]
+    limitations: tuple[str, ...]
+    upstream_content_sha256: str
+
+
+@dataclass(frozen=True, slots=True)
+class _ResolvedBackfillGap:
+    command: BackfillGapCommand
+    projection: BackfillGapProjection
+    applicability_scope_sha256: str
+    source_references: tuple[Mapping[str, object], ...]
+    upstream_content_sha256: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class _ResolvedBackfillBundle:
+    command: BackfillMaterialCommand
+    canonical_name: str
+    signals: tuple[_ResolvedBackfillSignal, ...]
+    gaps: tuple[_ResolvedBackfillGap, ...]
+    projection: ResolvedBackfillMaterial
+
+
+def _signal_foreign_keys(
+    selected_key: str,
+    source_id: str,
+) -> dict[str, str | None]:
+    if selected_key not in _SIGNAL_FOREIGN_KEYS:
+        raise ValueError("unknown B8 signal foreign key")
+    return {
+        key: source_id if key == selected_key else None
+        for key in _SIGNAL_FOREIGN_KEYS
+    }
+
+
+def _signal_source_id(row: LabBackfillPrioritySignalLink) -> str:
+    values = [
+        str(getattr(row, key))
+        for key in _SIGNAL_FOREIGN_KEYS
+        if getattr(row, key) is not None
+    ]
+    if len(values) != 1:
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_SHAPE_MISMATCH",
+            "A persisted B8 signal must have exactly one typed source.",
+        )
+    return values[0]
+
+
+def _signal_vector(
+    signals: Sequence[_ResolvedBackfillSignal],
+) -> BackfillSignalVector:
+    current_inventory: bool | None = None
+    active_or_shipped: bool | None = None
+    high_dose: float | None = None
+    potent_trace: float | None = None
+    regulatory_or_family: int | None = None
+    analytical_standard: bool | None = None
+    natural_constituent: bool | None = None
+    model_sensitivity: float | None = None
+    for resolved in signals:
+        signal_type = resolved.command.signal_type
+        value = resolved.signal_value
+        if signal_type == "CURRENT_INVENTORY":
+            current_inventory = bool(value["positive_balance"])
+        elif signal_type in {"ACTIVE_FORMULA", "SHIPPED_FORMULA"}:
+            active_or_shipped = True
+        elif signal_type == "REFERENCE_FORMULA":
+            if active_or_shipped is None:
+                active_or_shipped = False
+        elif signal_type == "HIGH_DOSE_STRUCTURE":
+            high_dose = _object_float(value["active_mass_share"])
+        elif signal_type == "POTENT_TRACE":
+            potent_trace = _object_float(value["potency_priority"])
+        elif signal_type in {"REGULATORY_DRIVER", "FAMILY_DRIVER"}:
+            regulatory_or_family = (
+                (regulatory_or_family or 0)
+                + _object_int(value["driver_count"])
+            )
+        elif signal_type == "ANALYTICAL_STANDARD":
+            analytical_standard = True
+        elif signal_type == "NATURAL_CONSTITUENT":
+            natural_constituent = True
+        elif signal_type == "MODEL_SENSITIVITY":
+            model_sensitivity = _object_float(
+                value["normalized_sensitivity"]
+            )
+    return BackfillSignalVector(
+        current_inventory=current_inventory,
+        active_or_shipped_formula=active_or_shipped,
+        high_dose_structure=high_dose,
+        potent_trace=potent_trace,
+        regulatory_or_family_driver=regulatory_or_family,
+        analytical_standard=analytical_standard,
+        natural_constituent=natural_constituent,
+        model_sensitivity=model_sensitivity,
+    )
+
+
+def _object_float(value: object) -> float:
+    if isinstance(value, bool) or not isinstance(
+        value,
+        (int, float, str, Decimal),
+    ):
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_VALUE_INVALID",
+            "A B8 numeric signal value is invalid.",
+        )
+    try:
+        normalized = float(value)
+    except ValueError as exc:
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_VALUE_INVALID",
+            "A B8 numeric signal value is invalid.",
+        ) from exc
+    if not isfinite(normalized):
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_VALUE_INVALID",
+            "A B8 numeric signal value must be finite.",
+        )
+    return normalized
+
+
+def _object_int(value: object) -> int:
+    normalized = _object_float(value)
+    if not normalized.is_integer():
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_VALUE_INVALID",
+            "A B8 count signal must be an integer.",
+        )
+    return int(normalized)
+
+
+def _signal_vector_json(
+    vector: BackfillSignalVector,
+    *,
+    chemical_family: str | None,
+    evidence_class: str,
+) -> dict[str, object]:
+    return {
+        "current_inventory": vector.current_inventory,
+        "active_or_shipped_formula": vector.active_or_shipped_formula,
+        "high_dose_structure": vector.high_dose_structure,
+        "potent_trace": vector.potent_trace,
+        "regulatory_or_family_driver": (
+            vector.regulatory_or_family_driver
+        ),
+        "analytical_standard": vector.analytical_standard,
+        "natural_constituent": vector.natural_constituent,
+        "model_sensitivity": vector.model_sensitivity,
+        "chemical_family": chemical_family,
+        "evidence_class": evidence_class,
+    }
+
+
+def _material_evidence_class(
+    gaps: Sequence[_ResolvedBackfillGap],
+) -> str:
+    classes = {gap.command.evidence_class for gap in gaps}
+    if len(classes) == 1:
+        return next(iter(classes))
+    return "UNKNOWN"
+
+
+def _input_snapshot_payload(
+    bundles: Sequence[_ResolvedBackfillBundle],
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-input-v1",
+        "materials": [
+            {
+                "material_id": bundle.command.material_id,
+                "canonical_name": bundle.canonical_name,
+                "chemical_family": bundle.command.chemical_family,
+                "signals": [
+                    {
+                        "signal_type": signal.command.signal_type,
+                        "source_id": signal.command.source_id,
+                        "operational_status": (
+                            signal.command.operational_status
+                        ),
+                        "normalized_sensitivity": (
+                            signal.command.normalized_sensitivity
+                        ),
+                        "upstream_content_sha256": (
+                            signal.upstream_content_sha256
+                        ),
+                    }
+                    for signal in bundle.signals
+                ],
+                "gaps": [
+                    {
+                        "requirement_type": gap.command.requirement_type,
+                        "state": gap.command.state,
+                        "evidence_class": gap.command.evidence_class,
+                        "claim_authority_version_id": (
+                            gap.command.claim_authority_version_id
+                        ),
+                        "applicability_scope": dict(
+                            gap.command.applicability_scope
+                        ),
+                        "conflicts": list(gap.command.conflicts),
+                        "missing_requirements": list(
+                            gap.command.missing_requirements
+                        ),
+                        "upstream_content_sha256": (
+                            gap.upstream_content_sha256
+                        ),
+                    }
+                    for gap in bundle.gaps
+                ],
+            }
+            for bundle in bundles
+        ],
+    }
+
+
+def _signal_row_payload(
+    *,
+    campaign_key: str,
+    version_number: int,
+    material_id: str,
+    position: int,
+    signal: _ResolvedBackfillSignal,
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-signal-v1",
+        "campaign_key": campaign_key,
+        "version_number": version_number,
+        "material_id": material_id,
+        "position": position,
+        "signal_type": signal.command.signal_type,
+        "source_id": signal.command.source_id,
+        "evidence_class": signal.evidence_class,
+        "signal_value": dict(signal.signal_value),
+        "applicability": dict(signal.applicability),
+        "limitations": list(signal.limitations),
+        "upstream_content_sha256": signal.upstream_content_sha256,
+    }
+
+
+def _gap_row_payload(
+    *,
+    campaign_key: str,
+    version_number: int,
+    material_id: str,
+    position: int,
+    gap: _ResolvedBackfillGap,
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-gap-v1",
+        "campaign_key": campaign_key,
+        "version_number": version_number,
+        "material_id": material_id,
+        "position": position,
+        "requirement_type": gap.command.requirement_type,
+        "state": gap.command.state,
+        "evidence_class": gap.command.evidence_class,
+        "claim_authority_version_id": (
+            gap.command.claim_authority_version_id
+        ),
+        "applicability_scope": dict(gap.command.applicability_scope),
+        "applicability_scope_sha256": gap.applicability_scope_sha256,
+        "conflicts": list(gap.command.conflicts),
+        "missing_requirements": list(gap.command.missing_requirements),
+        "source_references": [
+            dict(reference) for reference in gap.source_references
+        ],
+        "upstream_content_sha256": gap.upstream_content_sha256,
+    }
+
+
+def _priority_source_references(
+    bundle: _ResolvedBackfillBundle,
+) -> list[dict[str, object]]:
+    references: list[dict[str, object]] = [
+        {
+            "kind": signal.command.signal_type,
+            "source_id": signal.command.source_id,
+            "upstream_content_sha256": signal.upstream_content_sha256,
+        }
+        for signal in bundle.signals
+    ]
+    references.extend(
+        {
+            "kind": gap.command.requirement_type,
+            "source_id": gap.command.claim_authority_version_id,
+            "upstream_content_sha256": gap.upstream_content_sha256,
+        }
+        for gap in bundle.gaps
+        if gap.upstream_content_sha256 is not None
+    )
+    return references
+
+
+def _priority_row_payload(
+    *,
+    campaign_key: str,
+    version_number: int,
+    ranked: RankedBackfillMaterial,
+    signal_vector_json: Mapping[str, object],
+    source_references: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-priority-v1",
+        "campaign_key": campaign_key,
+        "version_number": version_number,
+        "material_id": ranked.material_id,
+        "rank": ranked.rank,
+        "primary_priority_class": ranked.primary_priority_class,
+        "signal_vector": dict(signal_vector_json),
+        "rank_key": list(ranked.rank_key),
+        "rank_key_sha256": ranked.rank_key_sha256,
+        "critical_unresolved_gap_count": (
+            ranked.critical_unresolved_gap_count
+        ),
+        "total_unresolved_gap_count": ranked.total_unresolved_gap_count,
+        "source_references": [
+            dict(reference) for reference in source_references
+        ],
+    }
+
+
+def _dashboard_row_payload(
+    *,
+    campaign_key: str,
+    version_number: int,
+    cell: BackfillDashboardProjection,
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-dashboard-cell-v1",
+        "campaign_key": campaign_key,
+        "version_number": version_number,
+        "dimension": cell.dimension,
+        "dimension_key": cell.dimension_key,
+        "material_count": cell.material_count,
+        "requirements_total": cell.requirements_total,
+        "accepted_exact_count": cell.accepted_exact_count,
+        "accepted_scoped_count": cell.accepted_scoped_count,
+        "weak_count": cell.weak_count,
+        "conflicted_count": cell.conflicted_count,
+        "unknown_count": cell.unknown_count,
+        "missing_count": cell.missing_count,
+        "not_applicable_count": cell.not_applicable_count,
+    }
+
+
+def _campaign_row_payload(
+    *,
+    campaign_key: str,
+    version_number: int,
+    name: str,
+    purpose: str,
+    as_of_utc: datetime,
+    priority_policy_sha256: str,
+    input_snapshot_sha256: str,
+    counts: Mapping[str, int],
+    reviewer_pseudonym: str,
+    reviewed_at: datetime,
+    parent_sha256: str | None,
+    child_hashes: Mapping[str, Sequence[str]],
+) -> dict[str, object]:
+    return {
+        "schema": "lab-backfill-campaign-v1",
+        "campaign_key": campaign_key,
+        "version_number": version_number,
+        "name": name,
+        "purpose": purpose,
+        "as_of_utc": as_of_utc.isoformat(),
+        "priority_policy_version": "b8-priority-v1",
+        "priority_policy": BACKFILL_PRIORITY_POLICY,
+        "priority_policy_sha256": priority_policy_sha256,
+        "input_snapshot_sha256": input_snapshot_sha256,
+        **dict(counts),
+        "release_authority": False,
+        "reviewer_pseudonym": reviewer_pseudonym,
+        "reviewed_at": reviewed_at.isoformat(),
+        "parent_sha256": parent_sha256,
+        "child_hashes": {
+            key: list(values) for key, values in child_hashes.items()
+        },
+    }
+
+
+class LabBackfillServiceMixin:
+    """Atomic B8 campaign creation and deterministic reconstruction."""
+
+    repository: Any
+
+    if TYPE_CHECKING:
+
+        def _transaction(self) -> Any: ...
+
+        async def reconstruct_claim_authority(
+            self,
+            version_id: str,
+        ) -> dict[str, Any]: ...
+
+    async def _resolve_backfill_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        if command.signal_type != "CURRENT_INVENTORY":
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_NOT_IMPLEMENTED",
+                f"B8 signal resolution is unavailable: {command.signal_type}.",
+            )
+        stock = await self.repository.get_stock(command.source_id)
+        if stock is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 inventory stock source does not exist.",
+            )
+        if stock.material_id != material_id:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B8 inventory stock belongs to another material.",
+            )
+        balance_g = float(
+            await self.repository.stock_balance_g(command.source_id)
+        )
+        if not isfinite(balance_g) or balance_g <= 0:
+            raise BackfillConflictError(
+                "BACKFILL_INVENTORY_NOT_POSITIVE",
+                "Current-inventory priority requires a positive balance.",
+            )
+        stock_snapshot = {
+            "schema": "lab-stock-snapshot-v1",
+            "stock_solution_id": stock.id,
+            "created_at": stock.created_at.isoformat(),
+            "material_id": stock.material_id,
+            "supplier": stock.supplier,
+            "lot_number": stock.lot_number,
+            "active_fraction": float(stock.active_fraction),
+            "fraction_basis": stock.fraction_basis,
+            "density_g_ml": (
+                float(stock.density_g_ml)
+                if stock.density_g_ml is not None
+                else None
+            ),
+            "solvent_name": stock.solvent_name,
+            "initial_mass_g": float(stock.initial_mass_g),
+            "remaining_mass_g": (
+                float(stock.remaining_mass_g)
+                if stock.remaining_mass_g is not None
+                else None
+            ),
+            "source": stock.source_json,
+            "reconstructed_balance_g": balance_g,
+        }
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="UNKNOWN",
+            foreign_keys=_signal_foreign_keys(
+                "stock_solution_id",
+                stock.id,
+            ),
+            signal_value={
+                "positive_balance": True,
+                "balance_g": balance_g,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+            },
+            limitations=(
+                "OPERATIONAL_INVENTORY_SIGNAL_NOT_SCIENTIFIC_AUTHORITY",
+            ),
+            upstream_content_sha256=_sha(stock_snapshot),
+        )
+
+    async def _resolve_backfill_gap(
+        self,
+        *,
+        material_id: str,
+        command: BackfillGapCommand,
+    ) -> _ResolvedBackfillGap:
+        scoped_material = command.applicability_scope.get("material_id")
+        if scoped_material is not None and str(scoped_material) != material_id:
+            raise BackfillConflictError(
+                "BACKFILL_GAP_MATERIAL_MISMATCH",
+                "The B8 gap scope belongs to another material.",
+            )
+        authority_hash: str | None = None
+        source_references: tuple[Mapping[str, object], ...] = ()
+        if command.state in _ACCEPTED_GAP_STATES:
+            authority_id = str(command.claim_authority_version_id)
+            try:
+                authority = await self.reconstruct_claim_authority(
+                    authority_id
+                )
+            except ValueError as exc:
+                raise BackfillConflictError(
+                    "BACKFILL_B7_RECONSTRUCTION_FAILED",
+                    "The proposed B7 authority did not reconstruct.",
+                ) from exc
+            expected_decision = (
+                "ALLOW_EXACT"
+                if command.state == "ACCEPTED_EXACT"
+                else "ALLOW_SCOPED"
+            )
+            if authority["decision"] != expected_decision:
+                raise BackfillConflictError(
+                    "BACKFILL_B7_DECISION_MISMATCH",
+                    "The B7 decision does not match the accepted gap state.",
+                )
+            if (
+                authority["subject_type"] != "MATERIAL"
+                or authority["subject_id"] != material_id
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_B7_SUBJECT_MISMATCH",
+                    "The B7 authority does not govern this material.",
+                )
+            if authority["claim_type"] not in _REQUIREMENT_CLAIM_TYPES[
+                command.requirement_type
+            ]:
+                raise BackfillConflictError(
+                    "BACKFILL_B7_CLAIM_TYPE_MISMATCH",
+                    "The B7 claim type cannot resolve this requirement.",
+                )
+            if (
+                command.applicability_scope.get("identity_scope")
+                != authority["identity_scope"]
+                or command.applicability_scope.get("condition_scope")
+                != authority["condition_scope"]
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_B7_SCOPE_MISMATCH",
+                    "The B8 applicability scope differs from B7 authority.",
+                )
+            authority_hash = str(authority["content_sha256"])
+            source_references = tuple(
+                dict(reference)
+                for reference in authority["source_references"]
+            )
+        return _ResolvedBackfillGap(
+            command=command,
+            projection=BackfillGapProjection(
+                requirement_type=command.requirement_type,
+                state=command.state,
+                evidence_class=command.evidence_class,
+            ),
+            applicability_scope_sha256=_sha(
+                dict(command.applicability_scope)
+            ),
+            source_references=source_references,
+            upstream_content_sha256=authority_hash,
+        )
+
+    async def _resolve_backfill_material(
+        self,
+        command: BackfillMaterialCommand,
+        *,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillBundle:
+        material = await self.repository.get_material(command.material_id)
+        if material is None:
+            raise BackfillConflictError(
+                "BACKFILL_MATERIAL_NOT_FOUND",
+                f"B8 material not found: {command.material_id}.",
+            )
+        signals = tuple(
+            [
+                await self._resolve_backfill_signal(
+                    material_id=command.material_id,
+                    command=signal,
+                    as_of_utc=as_of_utc,
+                )
+                for signal in command.signals
+            ]
+        )
+        gaps = tuple(
+            [
+                await self._resolve_backfill_gap(
+                    material_id=command.material_id,
+                    command=gap,
+                )
+                for gap in command.gaps
+            ]
+        )
+        vector = _signal_vector(signals)
+        evidence_class = _material_evidence_class(gaps)
+        projection = ResolvedBackfillMaterial(
+            material_id=command.material_id,
+            canonical_name=material.canonical_name,
+            chemical_family=command.chemical_family,
+            evidence_class=evidence_class,
+            signal_vector=vector,
+            gaps=tuple(gap.projection for gap in gaps),
+        )
+        return _ResolvedBackfillBundle(
+            command=command,
+            canonical_name=material.canonical_name,
+            signals=signals,
+            gaps=gaps,
+            projection=projection,
+        )
+
+    async def _backfill_parent(
+        self,
+        command: CreateBackfillCampaignCommand,
+    ) -> tuple[LabBackfillCampaignVersion | None, int]:
+        latest = await self.repository.latest_backfill_campaign_version(
+            command.campaign_key
+        )
+        if command.parent_version_id is None:
+            if latest is not None:
+                raise BackfillConflictError(
+                    "BACKFILL_CAMPAIGN_EXISTS",
+                    "An existing B8 campaign key requires its latest parent.",
+                )
+            return None, 1
+        parent = await self.repository.get_backfill_campaign_version(
+            command.parent_version_id
+        )
+        if parent is None:
+            raise BackfillConflictError(
+                "BACKFILL_PARENT_NOT_FOUND",
+                "The B8 parent campaign version does not exist.",
+            )
+        if parent.campaign_key != command.campaign_key:
+            raise BackfillConflictError(
+                "BACKFILL_PARENT_CAMPAIGN_MISMATCH",
+                "The B8 parent belongs to another campaign key.",
+            )
+        if latest is None or latest.id != parent.id:
+            raise BackfillConflictError(
+                "BACKFILL_PARENT_NOT_LATEST",
+                "A B8 revision must use the latest parent.",
+            )
+        parent_priorities = (
+            await self.repository.backfill_material_priorities(parent.id)
+        )
+        if {row.material_id for row in parent_priorities} != {
+            material.material_id for material in command.materials
+        }:
+            raise BackfillConflictError(
+                "BACKFILL_SCOPE_CHANGED",
+                "A B8 revision cannot change its material scope.",
+            )
+        return parent, parent.version_number + 1
+
+    async def create_backfill_campaign(
+        self,
+        command: CreateBackfillCampaignCommand,
+    ) -> LabBackfillCampaignVersion:
+        async with self._transaction():
+            parent, version_number = await self._backfill_parent(command)
+            bundles = tuple(
+                [
+                    await self._resolve_backfill_material(
+                        material,
+                        as_of_utc=command.as_of_utc,
+                    )
+                    for material in command.materials
+                ]
+            )
+            ranked = rank_backfill_materials(
+                [bundle.projection for bundle in bundles]
+            )
+            bundle_by_material = {
+                bundle.command.material_id: bundle for bundle in bundles
+            }
+            dashboard = build_backfill_dashboard(ranked)
+            policy_sha256 = backfill_policy_hash()
+            input_snapshot_sha256 = _sha(
+                _input_snapshot_payload(bundles)
+            )
+
+            priority_rows: list[LabBackfillMaterialPriority] = []
+            signal_rows: list[LabBackfillPrioritySignalLink] = []
+            gap_rows: list[LabBackfillGapItem] = []
+            priority_hashes: list[str] = []
+            signal_hashes: list[str] = []
+            gap_hashes: list[str] = []
+            for ranked_material in ranked:
+                bundle = bundle_by_material[ranked_material.material_id]
+                priority_id = str(uuid4())
+                vector_json = _signal_vector_json(
+                    ranked_material.signal_vector,
+                    chemical_family=ranked_material.chemical_family,
+                    evidence_class=ranked_material.evidence_class,
+                )
+                source_references = _priority_source_references(bundle)
+                priority_payload = _priority_row_payload(
+                    campaign_key=command.campaign_key,
+                    version_number=version_number,
+                    ranked=ranked_material,
+                    signal_vector_json=vector_json,
+                    source_references=source_references,
+                )
+                priority_hash = _sha(priority_payload)
+                priority_hashes.append(priority_hash)
+                priority_rows.append(
+                    LabBackfillMaterialPriority(
+                        id=priority_id,
+                        campaign_version_id="pending",
+                        material_id=ranked_material.material_id,
+                        rank=ranked_material.rank,
+                        primary_priority_class=(
+                            ranked_material.primary_priority_class
+                        ),
+                        signal_vector_json=vector_json,
+                        rank_key_json=list(ranked_material.rank_key),
+                        rank_key_sha256=ranked_material.rank_key_sha256,
+                        critical_unresolved_gap_count=(
+                            ranked_material.critical_unresolved_gap_count
+                        ),
+                        total_unresolved_gap_count=(
+                            ranked_material.total_unresolved_gap_count
+                        ),
+                        source_references_json=source_references,
+                        content_sha256=priority_hash,
+                    )
+                )
+                for position, signal in enumerate(bundle.signals, start=1):
+                    signal_payload = _signal_row_payload(
+                        campaign_key=command.campaign_key,
+                        version_number=version_number,
+                        material_id=ranked_material.material_id,
+                        position=position,
+                        signal=signal,
+                    )
+                    signal_hash = _sha(signal_payload)
+                    signal_hashes.append(signal_hash)
+                    signal_rows.append(
+                        LabBackfillPrioritySignalLink(
+                            material_priority_id=priority_id,
+                            position=position,
+                            signal_type=signal.command.signal_type,
+                            evidence_class=signal.evidence_class,
+                            signal_value_json=dict(signal.signal_value),
+                            applicability_json=dict(signal.applicability),
+                            limitations_json=list(signal.limitations),
+                            upstream_content_sha256=(
+                                signal.upstream_content_sha256
+                            ),
+                            content_sha256=signal_hash,
+                            **dict(signal.foreign_keys),
+                        )
+                    )
+                for position, gap in enumerate(bundle.gaps, start=1):
+                    gap_payload = _gap_row_payload(
+                        campaign_key=command.campaign_key,
+                        version_number=version_number,
+                        material_id=ranked_material.material_id,
+                        position=position,
+                        gap=gap,
+                    )
+                    gap_hash = _sha(gap_payload)
+                    gap_hashes.append(gap_hash)
+                    gap_rows.append(
+                        LabBackfillGapItem(
+                            material_priority_id=priority_id,
+                            position=position,
+                            requirement_type=gap.command.requirement_type,
+                            state=gap.command.state,
+                            evidence_class=gap.command.evidence_class,
+                            claim_authority_version_id=(
+                                gap.command.claim_authority_version_id
+                            ),
+                            applicability_scope_json=dict(
+                                gap.command.applicability_scope
+                            ),
+                            applicability_scope_sha256=(
+                                gap.applicability_scope_sha256
+                            ),
+                            conflicts_json=list(gap.command.conflicts),
+                            conflict_count=len(gap.command.conflicts),
+                            missing_requirements_json=list(
+                                gap.command.missing_requirements
+                            ),
+                            missing_requirement_count=len(
+                                gap.command.missing_requirements
+                            ),
+                            source_references_json=[
+                                dict(reference)
+                                for reference in gap.source_references
+                            ],
+                            upstream_content_sha256=(
+                                gap.upstream_content_sha256
+                            ),
+                            content_sha256=gap_hash,
+                        )
+                    )
+
+            dashboard_rows: list[LabBackfillDashboardCell] = []
+            dashboard_hashes: list[str] = []
+            for cell in dashboard:
+                payload = _dashboard_row_payload(
+                    campaign_key=command.campaign_key,
+                    version_number=version_number,
+                    cell=cell,
+                )
+                cell_hash = _sha(payload)
+                dashboard_hashes.append(cell_hash)
+                dashboard_rows.append(
+                    LabBackfillDashboardCell(
+                        campaign_version_id="pending",
+                        dimension=cell.dimension,
+                        dimension_key=cell.dimension_key,
+                        material_count=cell.material_count,
+                        requirements_total=cell.requirements_total,
+                        accepted_exact_count=cell.accepted_exact_count,
+                        accepted_scoped_count=cell.accepted_scoped_count,
+                        weak_count=cell.weak_count,
+                        conflicted_count=cell.conflicted_count,
+                        unknown_count=cell.unknown_count,
+                        missing_count=cell.missing_count,
+                        not_applicable_count=cell.not_applicable_count,
+                        content_sha256=cell_hash,
+                    )
+                )
+
+            state_counts = _state_counts(
+                [
+                    gap.projection
+                    for bundle in bundles
+                    for gap in bundle.gaps
+                ]
+            )
+            counts = {
+                "material_count": len(bundles),
+                "signal_count": len(signal_rows),
+                "gap_count": len(gap_rows),
+                "dashboard_cell_count": len(dashboard_rows),
+                "accepted_exact_count": state_counts["ACCEPTED_EXACT"],
+                "accepted_scoped_count": state_counts["ACCEPTED_SCOPED"],
+                "weak_count": state_counts["WEAK"],
+                "conflicted_count": state_counts["CONFLICTED"],
+                "unknown_count": state_counts["UNKNOWN"],
+                "missing_count": state_counts["MISSING"],
+                "not_applicable_count": state_counts["NOT_APPLICABLE"],
+            }
+            child_hashes = {
+                "priorities": priority_hashes,
+                "signals": signal_hashes,
+                "gaps": gap_hashes,
+                "dashboard_cells": dashboard_hashes,
+            }
+            parent_sha256 = parent.content_sha256 if parent else None
+            campaign_payload = _campaign_row_payload(
+                campaign_key=command.campaign_key,
+                version_number=version_number,
+                name=command.name,
+                purpose=command.purpose,
+                as_of_utc=command.as_of_utc,
+                priority_policy_sha256=policy_sha256,
+                input_snapshot_sha256=input_snapshot_sha256,
+                counts=counts,
+                reviewer_pseudonym=command.reviewer_pseudonym,
+                reviewed_at=command.reviewed_at,
+                parent_sha256=parent_sha256,
+                child_hashes=child_hashes,
+            )
+            campaign_hash = _sha(campaign_payload)
+            if (
+                await self.repository.backfill_campaign_by_hash(
+                    campaign_hash
+                )
+                is not None
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_CAMPAIGN_ALREADY_EXISTS",
+                    "An identical B8 campaign version already exists.",
+                )
+            campaign_id = str(uuid4())
+            campaign = LabBackfillCampaignVersion(
+                id=campaign_id,
+                campaign_key=command.campaign_key,
+                version_number=version_number,
+                parent_version_id=parent.id if parent else None,
+                name=command.name,
+                purpose=command.purpose,
+                as_of_utc=command.as_of_utc,
+                priority_policy_version="b8-priority-v1",
+                priority_policy_json=json.loads(
+                    _canonical_json(BACKFILL_PRIORITY_POLICY)
+                ),
+                priority_policy_sha256=policy_sha256,
+                input_snapshot_sha256=input_snapshot_sha256,
+                **counts,
+                release_authority=False,
+                reviewer_pseudonym=command.reviewer_pseudonym,
+                reviewed_at=command.reviewed_at,
+                content_sha256=campaign_hash,
+                parent_sha256=parent_sha256,
+            )
+            await self.repository.add(campaign)
+            for priority_row in priority_rows:
+                priority_row.campaign_version_id = campaign_id
+                await self.repository.add(priority_row)
+            for signal_row in signal_rows:
+                await self.repository.add(signal_row)
+            for gap_row in gap_rows:
+                await self.repository.add(gap_row)
+            for dashboard_row in dashboard_rows:
+                dashboard_row.campaign_version_id = campaign_id
+                await self.repository.add(dashboard_row)
+            return campaign
+
+    async def reconstruct_backfill_campaign(
+        self,
+        version_id: str,
+    ) -> dict[str, object]:
+        campaign = await self.repository.get_backfill_campaign_version(
+            _required_text(version_id, "version_id")
+        )
+        if campaign is None:
+            raise BackfillConflictError(
+                "BACKFILL_CAMPAIGN_NOT_FOUND",
+                f"B8 campaign version not found: {version_id}.",
+            )
+        if (
+            campaign.priority_policy_version != "b8-priority-v1"
+            or campaign.priority_policy_json != BACKFILL_PRIORITY_POLICY
+            or campaign.priority_policy_sha256 != backfill_policy_hash()
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_POLICY_DRIFT",
+                "The persisted B8 priority policy does not match code.",
+            )
+        parent = None
+        if campaign.parent_version_id is not None:
+            parent = await self.repository.get_backfill_campaign_version(
+                campaign.parent_version_id
+            )
+            if (
+                parent is None
+                or parent.content_sha256 != campaign.parent_sha256
+                or parent.version_number + 1 != campaign.version_number
+                or parent.campaign_key != campaign.campaign_key
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_PARENT_HASH_MISMATCH",
+                    "The persisted B8 parent chain does not reconstruct.",
+                )
+
+        priorities = await self.repository.backfill_material_priorities(
+            campaign.id
+        )
+        bundles: list[_ResolvedBackfillBundle] = []
+        stored_by_material = {row.material_id: row for row in priorities}
+        reconstructed_signals: dict[
+            str,
+            list[dict[str, object]],
+        ] = {}
+        for priority in priorities:
+            material = await self.repository.get_material(
+                priority.material_id
+            )
+            if material is None:
+                raise BackfillConflictError(
+                    "BACKFILL_MATERIAL_NOT_FOUND",
+                    "A persisted B8 material no longer resolves.",
+                )
+            stored_signals = (
+                await self.repository.backfill_priority_signals(priority.id)
+            )
+            signals: list[_ResolvedBackfillSignal] = []
+            signal_payloads: list[dict[str, object]] = []
+            for stored_signal in stored_signals:
+                source_id = _signal_source_id(stored_signal)
+                signal_command = BackfillSignalCommand(
+                    signal_type=stored_signal.signal_type,
+                    source_id=source_id,
+                    operational_status=stored_signal.applicability_json.get(
+                        "operational_status"
+                    ),
+                    normalized_sensitivity=(
+                        stored_signal.signal_value_json.get(
+                            "normalized_sensitivity"
+                        )
+                        if stored_signal.signal_type == "MODEL_SENSITIVITY"
+                        else None
+                    ),
+                )
+                signal_resolved = await self._resolve_backfill_signal(
+                    material_id=priority.material_id,
+                    command=signal_command,
+                    as_of_utc=campaign.as_of_utc,
+                )
+                payload = _signal_row_payload(
+                    campaign_key=campaign.campaign_key,
+                    version_number=campaign.version_number,
+                    material_id=priority.material_id,
+                    position=stored_signal.position,
+                    signal=signal_resolved,
+                )
+                if (
+                    stored_signal.evidence_class
+                    != signal_resolved.evidence_class
+                    or stored_signal.signal_value_json
+                    != dict(signal_resolved.signal_value)
+                    or stored_signal.applicability_json
+                    != dict(signal_resolved.applicability)
+                    or stored_signal.limitations_json
+                    != list(signal_resolved.limitations)
+                    or stored_signal.upstream_content_sha256
+                    != signal_resolved.upstream_content_sha256
+                    or stored_signal.content_sha256 != _sha(payload)
+                    or any(
+                        getattr(stored_signal, key)
+                        != signal_resolved.foreign_keys[key]
+                        for key in _SIGNAL_FOREIGN_KEYS
+                    )
+                ):
+                    raise BackfillConflictError(
+                        "BACKFILL_SIGNAL_HASH_MISMATCH",
+                        "A persisted B8 signal does not reconstruct.",
+                    )
+                signals.append(signal_resolved)
+                signal_payloads.append(
+                    {
+                        **payload,
+                        "content_sha256": stored_signal.content_sha256,
+                    }
+                )
+            reconstructed_signals[priority.material_id] = signal_payloads
+
+            stored_gaps = await self.repository.backfill_gap_items(
+                priority.id
+            )
+            gaps: list[_ResolvedBackfillGap] = []
+            for stored_gap in stored_gaps:
+                gap_command = BackfillGapCommand(
+                    requirement_type=stored_gap.requirement_type,
+                    state=stored_gap.state,
+                    evidence_class=stored_gap.evidence_class,
+                    claim_authority_version_id=(
+                        stored_gap.claim_authority_version_id
+                    ),
+                    applicability_scope=(
+                        stored_gap.applicability_scope_json
+                    ),
+                    conflicts=tuple(stored_gap.conflicts_json),
+                    missing_requirements=tuple(
+                        stored_gap.missing_requirements_json
+                    ),
+                )
+                gap_resolved = await self._resolve_backfill_gap(
+                    material_id=priority.material_id,
+                    command=gap_command,
+                )
+                payload = _gap_row_payload(
+                    campaign_key=campaign.campaign_key,
+                    version_number=campaign.version_number,
+                    material_id=priority.material_id,
+                    position=stored_gap.position,
+                    gap=gap_resolved,
+                )
+                if (
+                    stored_gap.applicability_scope_sha256
+                    != gap_resolved.applicability_scope_sha256
+                    or stored_gap.source_references_json
+                    != [
+                        dict(reference)
+                        for reference in gap_resolved.source_references
+                    ]
+                    or stored_gap.upstream_content_sha256
+                    != gap_resolved.upstream_content_sha256
+                    or stored_gap.conflict_count
+                    != len(gap_resolved.command.conflicts)
+                    or stored_gap.missing_requirement_count
+                    != len(gap_resolved.command.missing_requirements)
+                    or stored_gap.content_sha256 != _sha(payload)
+                ):
+                    raise BackfillConflictError(
+                        "BACKFILL_GAP_HASH_MISMATCH",
+                        "A persisted B8 gap does not reconstruct.",
+                    )
+                gaps.append(gap_resolved)
+            family_value = priority.signal_vector_json.get(
+                "chemical_family"
+            )
+            family = str(family_value) if family_value is not None else None
+            vector = _signal_vector(signals)
+            evidence_class = _material_evidence_class(gaps)
+            bundles.append(
+                _ResolvedBackfillBundle(
+                    command=BackfillMaterialCommand(
+                        material_id=priority.material_id,
+                        chemical_family=family,
+                        signals=tuple(signal.command for signal in signals),
+                        gaps=tuple(gap.command for gap in gaps),
+                    ),
+                    canonical_name=material.canonical_name,
+                    signals=tuple(signals),
+                    gaps=tuple(gaps),
+                    projection=ResolvedBackfillMaterial(
+                        material_id=priority.material_id,
+                        canonical_name=material.canonical_name,
+                        chemical_family=family,
+                        evidence_class=evidence_class,
+                        signal_vector=vector,
+                        gaps=tuple(gap.projection for gap in gaps),
+                    ),
+                )
+            )
+
+        ranked = rank_backfill_materials(
+            [bundle.projection for bundle in bundles]
+        )
+        bundle_by_material = {
+            bundle.command.material_id: bundle for bundle in bundles
+        }
+        priority_hashes: list[str] = []
+        for ranked_material in ranked:
+            stored = stored_by_material.get(ranked_material.material_id)
+            if stored is None:
+                raise BackfillConflictError(
+                    "BACKFILL_PRIORITY_MISSING",
+                    "A reconstructed B8 priority row is missing.",
+                )
+            bundle = bundle_by_material[ranked_material.material_id]
+            vector_json = _signal_vector_json(
+                ranked_material.signal_vector,
+                chemical_family=ranked_material.chemical_family,
+                evidence_class=ranked_material.evidence_class,
+            )
+            source_references = _priority_source_references(bundle)
+            payload = _priority_row_payload(
+                campaign_key=campaign.campaign_key,
+                version_number=campaign.version_number,
+                ranked=ranked_material,
+                signal_vector_json=vector_json,
+                source_references=source_references,
+            )
+            expected_hash = _sha(payload)
+            priority_hashes.append(expected_hash)
+            if (
+                stored.rank != ranked_material.rank
+                or stored.primary_priority_class
+                != ranked_material.primary_priority_class
+                or stored.signal_vector_json != vector_json
+                or stored.rank_key_json != list(ranked_material.rank_key)
+                or stored.rank_key_sha256
+                != ranked_material.rank_key_sha256
+                or stored.critical_unresolved_gap_count
+                != ranked_material.critical_unresolved_gap_count
+                or stored.total_unresolved_gap_count
+                != ranked_material.total_unresolved_gap_count
+                or stored.source_references_json != source_references
+                or stored.content_sha256 != expected_hash
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_PRIORITY_HASH_MISMATCH",
+                    "A persisted B8 priority does not reconstruct.",
+                )
+
+        dashboard = build_backfill_dashboard(ranked)
+        stored_dashboard = await self.repository.backfill_dashboard_cells(
+            campaign.id
+        )
+        dashboard_by_key = {
+            (row.dimension, row.dimension_key): row
+            for row in stored_dashboard
+        }
+        dashboard_hashes: list[str] = []
+        for cell in dashboard:
+            stored = dashboard_by_key.get(
+                (cell.dimension, cell.dimension_key)
+            )
+            payload = _dashboard_row_payload(
+                campaign_key=campaign.campaign_key,
+                version_number=campaign.version_number,
+                cell=cell,
+            )
+            expected_hash = _sha(payload)
+            dashboard_hashes.append(expected_hash)
+            expected_values = (
+                cell.material_count,
+                cell.requirements_total,
+                cell.accepted_exact_count,
+                cell.accepted_scoped_count,
+                cell.weak_count,
+                cell.conflicted_count,
+                cell.unknown_count,
+                cell.missing_count,
+                cell.not_applicable_count,
+            )
+            if stored is None or (
+                (
+                    stored.material_count,
+                    stored.requirements_total,
+                    stored.accepted_exact_count,
+                    stored.accepted_scoped_count,
+                    stored.weak_count,
+                    stored.conflicted_count,
+                    stored.unknown_count,
+                    stored.missing_count,
+                    stored.not_applicable_count,
+                )
+                != expected_values
+                or stored.content_sha256 != expected_hash
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_DASHBOARD_HASH_MISMATCH",
+                    "A persisted B8 dashboard cell does not reconstruct.",
+                )
+        if len(stored_dashboard) != len(dashboard):
+            raise BackfillConflictError(
+                "BACKFILL_DASHBOARD_COUNT_MISMATCH",
+                "The B8 dashboard contains unexpected cells.",
+            )
+
+        all_signal_rows = [
+            row
+            for priority in priorities
+            for row in await self.repository.backfill_priority_signals(
+                priority.id
+            )
+        ]
+        all_gap_rows = [
+            row
+            for priority in priorities
+            for row in await self.repository.backfill_gap_items(priority.id)
+        ]
+        state_counts = _state_counts(
+            [
+                gap.projection
+                for bundle in bundles
+                for gap in bundle.gaps
+            ]
+        )
+        counts = {
+            "material_count": len(bundles),
+            "signal_count": len(all_signal_rows),
+            "gap_count": len(all_gap_rows),
+            "dashboard_cell_count": len(stored_dashboard),
+            "accepted_exact_count": state_counts["ACCEPTED_EXACT"],
+            "accepted_scoped_count": state_counts["ACCEPTED_SCOPED"],
+            "weak_count": state_counts["WEAK"],
+            "conflicted_count": state_counts["CONFLICTED"],
+            "unknown_count": state_counts["UNKNOWN"],
+            "missing_count": state_counts["MISSING"],
+            "not_applicable_count": state_counts["NOT_APPLICABLE"],
+        }
+        if any(getattr(campaign, key) != value for key, value in counts.items()):
+            raise BackfillConflictError(
+                "BACKFILL_CAMPAIGN_COUNT_MISMATCH",
+                "The B8 campaign counts do not reconcile.",
+            )
+        input_snapshot_sha256 = _sha(_input_snapshot_payload(bundles))
+        if campaign.input_snapshot_sha256 != input_snapshot_sha256:
+            raise BackfillConflictError(
+                "BACKFILL_INPUT_HASH_MISMATCH",
+                "The B8 input snapshot does not reconstruct.",
+            )
+        signal_hashes = [
+            row.content_sha256
+            for row in sorted(
+                all_signal_rows,
+                key=lambda item: (
+                    stored_by_material[
+                        next(
+                            priority.material_id
+                            for priority in priorities
+                            if priority.id == item.material_priority_id
+                        )
+                    ].rank,
+                    item.position,
+                ),
+            )
+        ]
+        gap_hashes = [
+            row.content_sha256
+            for row in sorted(
+                all_gap_rows,
+                key=lambda item: (
+                    stored_by_material[
+                        next(
+                            priority.material_id
+                            for priority in priorities
+                            if priority.id == item.material_priority_id
+                        )
+                    ].rank,
+                    item.position,
+                ),
+            )
+        ]
+        child_hashes = {
+            "priorities": priority_hashes,
+            "signals": signal_hashes,
+            "gaps": gap_hashes,
+            "dashboard_cells": dashboard_hashes,
+        }
+        campaign_payload = _campaign_row_payload(
+            campaign_key=campaign.campaign_key,
+            version_number=campaign.version_number,
+            name=campaign.name,
+            purpose=campaign.purpose,
+            as_of_utc=campaign.as_of_utc,
+            priority_policy_sha256=campaign.priority_policy_sha256,
+            input_snapshot_sha256=input_snapshot_sha256,
+            counts=counts,
+            reviewer_pseudonym=campaign.reviewer_pseudonym,
+            reviewed_at=campaign.reviewed_at,
+            parent_sha256=campaign.parent_sha256,
+            child_hashes=child_hashes,
+        )
+        if campaign.content_sha256 != _sha(campaign_payload):
+            raise BackfillConflictError(
+                "BACKFILL_CAMPAIGN_HASH_MISMATCH",
+                "The persisted B8 campaign does not reconstruct.",
+            )
+        return {
+            **campaign_payload,
+            "version_id": campaign.id,
+            "content_sha256": campaign.content_sha256,
+            "materials": [
+                {
+                    "material_id": ranked_material.material_id,
+                    "canonical_name": ranked_material.canonical_name,
+                    "rank": ranked_material.rank,
+                    "primary_priority_class": (
+                        ranked_material.primary_priority_class
+                    ),
+                    "signals": reconstructed_signals[
+                        ranked_material.material_id
+                    ],
+                    "gaps": [
+                        {
+                            "requirement_type": gap.command.requirement_type,
+                            "state": gap.command.state,
+                            "evidence_class": (
+                                gap.command.evidence_class
+                            ),
+                            "content_sha256": next(
+                                row.content_sha256
+                                for row in all_gap_rows
+                                if (
+                                    row.material_priority_id
+                                    == stored_by_material[
+                                        ranked_material.material_id
+                                    ].id
+                                    and row.requirement_type
+                                    == gap.command.requirement_type
+                                )
+                            ),
+                        }
+                        for gap in bundle_by_material[
+                            ranked_material.material_id
+                        ].gaps
+                    ],
+                }
+                for ranked_material in ranked
+            ],
+            "dashboard_cells": [
+                {
+                    **_dashboard_row_payload(
+                        campaign_key=campaign.campaign_key,
+                        version_number=campaign.version_number,
+                        cell=cell,
+                    ),
+                    "content_sha256": dashboard_by_key[
+                        (cell.dimension, cell.dimension_key)
+                    ].content_sha256,
+                }
+                for cell in dashboard
+            ],
+            "integrity_verified": True,
+        }
+
+
 __all__ = [
     "BACKFILL_PRIORITY_DIMENSIONS",
     "BACKFILL_PRIORITY_POLICY",
+    "BackfillConflictError",
     "BackfillDashboardProjection",
     "BackfillGapProjection",
+    "BackfillGapCommand",
+    "BackfillMaterialCommand",
+    "BackfillSignalCommand",
     "BackfillSignalVector",
+    "CreateBackfillCampaignCommand",
+    "LabBackfillServiceMixin",
     "RankedBackfillMaterial",
     "ResolvedBackfillMaterial",
     "backfill_policy_hash",

@@ -34,6 +34,7 @@ from app.models.lab import (
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
 from app.services.lab_analytical import LabAnalyticalAuthorityServiceMixin
+from app.services.lab_backfill import LabBackfillServiceMixin
 from app.services.lab_claims import LabClaimAuthorityServiceMixin
 from app.services.lab_execution import LabExecutionServiceMixin
 from app.services.lab_planning import LabPlanningServiceMixin
@@ -111,6 +112,7 @@ _LAB_WRITE_LOCK = asyncio.Lock()
 
 class LabService(
     LabExecutionServiceMixin,
+    LabBackfillServiceMixin,
     LabRuleServiceMixin,
     LabThresholdServiceMixin,
     LabPropertyServiceMixin,
