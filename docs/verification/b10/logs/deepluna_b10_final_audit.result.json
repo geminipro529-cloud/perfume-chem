@@ -1,0 +1,64 @@
+{
+  "schema_version": "perfume-chem-deepluna-read-audit-result-v1",
+  "recorded_at_utc": "2026-07-31T16:50:19.128Z",
+  "project_id": "perfume-chem",
+  "readiness": {
+    "status": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "provider_calls_enabled": true,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0
+  },
+  "contract": {
+    "task_id": "build-b10-final-evidence-audit-20260731-v1",
+    "allowed_file_count": 25,
+    "required_read_count": 25,
+    "commands_allowed": 0,
+    "tier": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 1
+  },
+  "job": {
+    "job_id": "DS-547b23606efdb8742eefde8f5e19211a",
+    "status": "PASS",
+    "subscriber_state": "TERMINAL",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "cache_hit": false,
+    "scope_deviation": false,
+    "architecture_uncertainty": false,
+    "scientific_uncertainty": false
+  },
+  "provider_usage_delta": {
+    "profile_id": "deepinfra-fast",
+    "provider": "deepinfra",
+    "route": "deepinfra-priority",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "runs": 1,
+    "api_calls": 1,
+    "prompt_tokens": 53196,
+    "completion_tokens": 693,
+    "total_tokens": 53889,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false
+  },
+  "positive_findings": [
+    "The JSON report records the correct B10 inventory verification status PASS with all checks true, matching the captured log.",
+    "The JSON report records the correct protected state verification status PASS with all database files byte-identical, matching the captured log.",
+    "The JSON report records the correct project verifier completion gate PASS_WITH_SKIPS with 19 mandatory checks passed, matching the captured seal log."
+  ],
+  "negative_findings": [],
+  "residual_risks": [],
+  "unresolved_material_findings": 0,
+  "recommended_next_action": "Sol independently verifies and decides the gate.",
+  "provider_role": "SUPPLEMENTAL_READ_ONLY_NO_FINAL_AUTHORITY",
+  "raw_record_sha256": "cb3cc025a308a4e0f7d0feb78672d1d3953a37937f18ac8a63aa40634cedb874"
+}

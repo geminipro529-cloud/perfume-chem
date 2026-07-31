@@ -1,0 +1,31 @@
+{
+  "name": "mypy_b10_final",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-m",
+    "mypy",
+    "--explicit-package-bases",
+    "--follow-imports=skip",
+    "--ignore-missing-imports",
+    "--no-color-output",
+    "--no-pretty",
+    "--cache-dir=output\\mypy-cache-b10-final",
+    "engine/project_verification.py",
+    "engine/interaction_graph.py",
+    "engine/knowledge_base.py",
+    "engine/kb_rules_api.py",
+    "engine/property_estimator.py",
+    "engine/science_kb.py"
+  ],
+  "started_at_utc": "2026-07-31T16:41:48.213Z",
+  "finished_at_utc": "2026-07-31T16:41:52.117Z",
+  "duration_seconds": 3.904,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\mypy_b10_final.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\mypy_b10_final.stderr.txt"
+}

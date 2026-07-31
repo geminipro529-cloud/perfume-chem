@@ -1,0 +1,21 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______________ test_scientific_data_authority_report_contract ________________
+
+    def test_scientific_data_authority_report_contract() -> None:
+>       payload, markdown = _load_reports()
+
+tests\test_scientific_data_authority_report.py:92:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _load_reports() -> tuple[dict[str, object], str]:
+>       assert REPORT_JSON.is_file(), f"missing required report: {REPORT_JSON}"
+E       AssertionError: missing required report: D:\chatbots\perfume-chem\docs\verification\scientific_data_authority_report.json
+E       assert False
+E        +  where False = <bound method Path.is_file of WindowsPath('D:/chatbots/perfume-chem/docs/verification/scientific_data_authority_report.json')>()
+E        +    where <bound method Path.is_file of WindowsPath('D:/chatbots/perfume-chem/docs/verification/scientific_data_authority_report.json')> = WindowsPath('D:/chatbots/perfume-chem/docs/verification/scientific_data_authority_report.json').is_file
+
+tests\test_scientific_data_authority_report.py:83: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_scientific_data_authority_report.py::test_scientific_data_authority_report_contract
+1 failed in 1.11s
