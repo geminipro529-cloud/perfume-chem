@@ -1,4 +1,4 @@
-from sqlalchemy import CheckConstraint, ForeignKeyConstraint, UniqueConstraint
+from sqlalchemy import CheckConstraint, UniqueConstraint
 
 from app.models.lab import APPEND_ONLY_TABLES, LAB_TABLE_NAMES
 from app.models.lab_backfill import (

@@ -538,6 +538,14 @@ from app.models.lab_analytical import (  # noqa: E402,F401
     LabGCOEventAuthority,
     LabMethodValidationRecord,
 )
+from app.models.lab_backfill import (  # noqa: E402,F401
+    BACKFILL_TABLE_NAMES,
+    LabBackfillCampaignVersion,
+    LabBackfillDashboardCell,
+    LabBackfillGapItem,
+    LabBackfillMaterialPriority,
+    LabBackfillPrioritySignalLink,
+)
 from app.models.lab_claims import (  # noqa: E402,F401
     CLAIM_AUTHORITY_TABLE_NAMES,
     LabClaimAuthoritySupportLink,
@@ -642,6 +650,7 @@ APPEND_ONLY_TABLES = {
     *RULE_AUTHORITY_TABLE_NAMES,
     *REGULATORY_AUTHORITY_TABLE_NAMES,
     *ANALYTICAL_AUTHORITY_TABLE_NAMES,  # type: ignore[has-type]
+    *BACKFILL_TABLE_NAMES,
     *CLAIM_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
 }
