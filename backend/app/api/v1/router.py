@@ -10,6 +10,7 @@ from app.api.v1.endpoints import (
     lab,
     lab_lifecycle,
     lab_planning,
+    lab_reporting,
     mixer,
     optimizer,
     outcomes,
@@ -17,6 +18,12 @@ from app.api.v1.endpoints import (
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    lab_reporting.router,
+    prefix="/lab/science",
+    tags=["laboratory-science"],
+)
 
 api_router.include_router(
     lab_planning.router,
