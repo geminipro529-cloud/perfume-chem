@@ -27,6 +27,7 @@ from app.models.lab import (
 from app.repositories.lab_analytical import (
     LabAnalyticalAuthorityRepositoryMixin,
 )
+from app.repositories.lab_claims import LabClaimAuthorityRepositoryMixin
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_properties import LabPropertyRepositoryMixin
@@ -60,6 +61,7 @@ class LabRepository(
     LabRegulatoryAuthorityRepositoryMixin,
     LabSourceRepositoryMixin,
     LabAnalyticalAuthorityRepositoryMixin,
+    LabClaimAuthorityRepositoryMixin,
     LabScienceRepositoryMixin,
     LabPlanningRepositoryMixin,
 ):

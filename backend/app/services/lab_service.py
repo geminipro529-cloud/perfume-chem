@@ -34,6 +34,7 @@ from app.models.lab import (
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
 from app.services.lab_analytical import LabAnalyticalAuthorityServiceMixin
+from app.services.lab_claims import LabClaimAuthorityServiceMixin
 from app.services.lab_execution import LabExecutionServiceMixin
 from app.services.lab_planning import LabPlanningServiceMixin
 from app.services.lab_properties import LabPropertyServiceMixin
@@ -116,6 +117,7 @@ class LabService(
     LabRegulatoryAuthorityServiceMixin,
     LabSourceServiceMixin,
     LabAnalyticalAuthorityServiceMixin,
+    LabClaimAuthorityServiceMixin,
     LabScienceServiceMixin,
     LabPlanningServiceMixin,
 ):
