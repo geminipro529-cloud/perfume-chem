@@ -58,3 +58,46 @@ async def test_bottle_addition_default_mass_is_valid_for_its_html_step(client):
         '<input name="mass_g" type="number" value="0.1" min="0.001" step="0.001" required>'
         in page.text
     )
+
+
+@pytest.mark.asyncio
+async def test_science_authority_view_preserves_labels_modes_and_unknowns(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    assert page.status_code == 200
+    assert 'data-view="science"' in page.text
+    assert 'data-panel="science"' in page.text
+    assert 'id="science-view-mode"' in page.text
+    assert '<option value="strict">Strict science</option>' in page.text
+    assert '<option value="exploratory">Exploratory science</option>' in page.text
+    assert 'id="science-summary"' in page.text
+    assert 'id="science-sections"' in page.text
+    assert 'id="science-json-download"' in page.text
+    assert 'id="science-markdown-download"' in page.text
+    assert "Strict-withheld records remain visible" in page.text
+    assert "READ_ONLY_NON_PROMOTING" in page.text
+
+    evidence_classes = (
+        "MEASURED",
+        "LITERATURE_DERIVED",
+        "SUPPLIER_PROVIDED",
+        "EMPIRICALLY_CALIBRATED",
+        "MODEL_ESTIMATED",
+        "HEURISTIC",
+        "SPECULATIVE",
+        "UNKNOWN",
+    )
+    for label in evidence_classes:
+        assert f'data-evidence-class="{label}"' in page.text
+        assert f"evidence-{label.lower().replace('_', '-')}" in css.text
+
+    assert 'request(`/science/authority?view=${view}`)' in javascript.text
+    assert 'scienceSections.replaceChildren(fragment)' in javascript.text
+    assert "textContent" in javascript.text
+    assert "strict_reason_codes" in javascript.text
+    assert "evidence_class" in javascript.text
+    assert "/api/v1/lab/science/report.md?view=" in javascript.text
+    assert "confidence percentage" not in page.text.casefold()
+    assert "confidence percentage" not in javascript.text.casefold()
