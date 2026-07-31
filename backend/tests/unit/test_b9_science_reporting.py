@@ -14,7 +14,6 @@ from app.services.lab_reporting import (
     render_science_report_markdown,
 )
 
-
 NOW = datetime(2026, 7, 31, 3, 0, tzinfo=timezone.utc)
 
 
