@@ -91,6 +91,11 @@ _REQUIREMENT_CLAIM_TYPES = {
     },
     "NATURAL_LOT_COMPOSITION": {"NATURAL_CONSTITUENT_PROFILE"},
 }
+_REQUIREMENT_PROPERTY_TYPES = {
+    "MOLECULAR_WEIGHT": {"MOLECULAR_WEIGHT", "MOLECULAR_MASS"},
+    "DENSITY": {"DENSITY"},
+    "VAPOR_PRESSURE": {"VAPOR_PRESSURE"},
+}
 
 
 def _required_text(value: str, name: str) -> str:
@@ -1175,12 +1180,76 @@ class LabBackfillServiceMixin:
         material_id: str,
         command: BackfillSignalCommand,
         as_of_utc: datetime,
+        reviewer_pseudonym: str,
+        reviewed_at: datetime,
     ) -> _ResolvedBackfillSignal:
-        if command.signal_type != "CURRENT_INVENTORY":
-            raise BackfillConflictError(
-                "BACKFILL_SIGNAL_NOT_IMPLEMENTED",
-                f"B8 signal resolution is unavailable: {command.signal_type}.",
+        if command.signal_type == "CURRENT_INVENTORY":
+            return await self._resolve_inventory_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
             )
+        if command.signal_type in {
+            "ACTIVE_FORMULA",
+            "SHIPPED_FORMULA",
+            "REFERENCE_FORMULA",
+            "HIGH_DOSE_STRUCTURE",
+        }:
+            return await self._resolve_formula_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+                reviewer_pseudonym=reviewer_pseudonym,
+                reviewed_at=reviewed_at,
+            )
+        if command.signal_type == "MODEL_SENSITIVITY":
+            return await self._resolve_model_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        if command.signal_type == "POTENT_TRACE":
+            return await self._resolve_potent_trace_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        if command.signal_type == "FAMILY_DRIVER":
+            return await self._resolve_family_driver_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        if command.signal_type == "REGULATORY_DRIVER":
+            return await self._resolve_regulatory_driver_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        if command.signal_type == "ANALYTICAL_STANDARD":
+            return await self._resolve_analytical_standard_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        if command.signal_type == "NATURAL_CONSTITUENT":
+            return await self._resolve_natural_constituent_signal(
+                material_id=material_id,
+                command=command,
+                as_of_utc=as_of_utc,
+            )
+        raise BackfillConflictError(
+            "BACKFILL_SIGNAL_NOT_IMPLEMENTED",
+            f"B8 signal resolution is unavailable: {command.signal_type}.",
+        )
+
+    async def _resolve_inventory_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
         stock = await self.repository.get_stock(command.source_id)
         if stock is None:
             raise BackfillConflictError(
@@ -1246,6 +1315,676 @@ class LabBackfillServiceMixin:
             upstream_content_sha256=_sha(stock_snapshot),
         )
 
+    async def _resolve_formula_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+        reviewer_pseudonym: str,
+        reviewed_at: datetime,
+    ) -> _ResolvedBackfillSignal:
+        component = await self.repository.get_formula_component(
+            command.source_id
+        )
+        if component is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 formula component source does not exist.",
+            )
+        stock = await self.repository.get_stock(
+            component.stock_solution_id
+        )
+        if stock is None:
+            raise BackfillConflictError(
+                "BACKFILL_FORMULA_STOCK_NOT_FOUND",
+                "The B8 formula component stock does not exist.",
+            )
+        if stock.material_id != material_id:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B8 formula component belongs to another material.",
+            )
+        formula_version = await self.repository.get_formula_version(
+            component.formula_version_id
+        )
+        if formula_version is None:
+            raise BackfillConflictError(
+                "BACKFILL_FORMULA_VERSION_NOT_FOUND",
+                "The B8 formula version does not exist.",
+            )
+        components = await self.repository.formula_components(
+            formula_version.id
+        )
+        if not components or not any(
+            item.id == component.id for item in components
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_FORMULA_INCOMPLETE",
+                "The B8 formula component set is incomplete.",
+            )
+        component_snapshots: list[dict[str, object]] = []
+        total_active_mass = 0.0
+        component_active_mass = 0.0
+        for item in components:
+            item_stock = await self.repository.get_stock(
+                item.stock_solution_id
+            )
+            requested_mass = float(item.requested_mass_g)
+            if (
+                item_stock is None
+                or item.unit != "g"
+                or not isfinite(requested_mass)
+                or requested_mass <= 0
+                or not 0 < float(item_stock.active_fraction) <= 1
+            ):
+                raise BackfillConflictError(
+                    "BACKFILL_FORMULA_INCOMPLETE",
+                    "High-dose priority requires complete active-mass inputs.",
+                )
+            active_mass = requested_mass * float(
+                item_stock.active_fraction
+            )
+            total_active_mass += active_mass
+            if item.id == component.id:
+                component_active_mass = active_mass
+            component_snapshots.append(
+                {
+                    "component_id": item.id,
+                    "stock_solution_id": item.stock_solution_id,
+                    "material_id": item_stock.material_id,
+                    "position": item.position,
+                    "requested_mass_g": requested_mass,
+                    "requested_volume_ul": item.requested_volume_ul,
+                    "role": item.role,
+                    "unit": item.unit,
+                    "active_fraction": float(
+                        item_stock.active_fraction
+                    ),
+                }
+            )
+        if total_active_mass <= 0 or component_active_mass <= 0:
+            raise BackfillConflictError(
+                "BACKFILL_FORMULA_INCOMPLETE",
+                "The B8 formula has no positive active-mass denominator.",
+            )
+        active_mass_share = component_active_mass / total_active_mass
+        formula_snapshot = {
+            "schema": "lab-formula-component-snapshot-v1",
+            "formula_version_id": formula_version.id,
+            "formula_id": formula_version.formula_id,
+            "version_number": formula_version.version_number,
+            "brief": formula_version.brief_json,
+            "constraints": formula_version.constraints_json,
+            "concentration_fraction": (
+                float(formula_version.concentration_fraction)
+                if formula_version.concentration_fraction is not None
+                else None
+            ),
+            "concentration_basis": (
+                formula_version.concentration_basis
+            ),
+            "source": formula_version.source_json,
+            "components": component_snapshots,
+        }
+        status_signal = command.signal_type in {
+            "ACTIVE_FORMULA",
+            "SHIPPED_FORMULA",
+            "REFERENCE_FORMULA",
+        }
+        signal_value: dict[str, object]
+        limitations: tuple[str, ...]
+        applicability = {
+            "material_id": material_id,
+            "formula_version_id": formula_version.id,
+            "as_of_utc": as_of_utc.isoformat(),
+            "operational_status": command.operational_status,
+            "reviewer_pseudonym": (
+                reviewer_pseudonym if status_signal else None
+            ),
+            "reviewed_at": (
+                reviewed_at.isoformat() if status_signal else None
+            ),
+        }
+        if status_signal:
+            signal_value = {
+                "declared_status": str(command.operational_status),
+                "reviewed_local_record": True,
+            }
+            limitations = (
+                "LOCAL_RECORD_FORMULA_STATUS_NOT_SCIENTIFIC_AUTHORITY",
+            )
+        else:
+            signal_value = {
+                "active_mass_share": active_mass_share,
+                "component_active_mass_g": component_active_mass,
+                "formula_active_mass_g": total_active_mass,
+            }
+            limitations = (
+                "FORMULA_DOSE_IS_A_PLANNING_SIGNAL_NOT_EVIDENCE_QUALITY",
+            )
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="UNKNOWN",
+            foreign_keys=_signal_foreign_keys(
+                "formula_component_id",
+                component.id,
+            ),
+            signal_value=signal_value,
+            applicability=applicability,
+            limitations=limitations,
+            upstream_content_sha256=_sha(formula_snapshot),
+        )
+
+    async def _resolve_model_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        prediction = await self.repository.get_prediction(command.source_id)
+        if prediction is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 model prediction source does not exist.",
+            )
+        if prediction.status.upper() not in {
+            "COMPUTED",
+            "COMPLETE",
+            "READY",
+            "SUCCEEDED",
+        }:
+            raise BackfillConflictError(
+                "BACKFILL_MODEL_NOT_COMPUTED",
+                "Model sensitivity requires a completed prediction.",
+            )
+        sensitivity_map = prediction.prediction_json.get(
+            "normalized_sensitivity_by_material"
+        )
+        if not isinstance(sensitivity_map, dict) or (
+            material_id not in sensitivity_map
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_MODEL_MATERIAL_MISSING",
+                "The model prediction lacks exact material sensitivity.",
+            )
+        stored_sensitivity = _normalized_number(
+            sensitivity_map[material_id],
+            name="normalized_sensitivity",
+            maximum=Decimal("1"),
+        )
+        requested_sensitivity = _normalized_number(
+            command.normalized_sensitivity,
+            name="normalized_sensitivity",
+            maximum=Decimal("1"),
+        )
+        if (
+            stored_sensitivity is None
+            or requested_sensitivity is None
+            or stored_sensitivity != requested_sensitivity
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_MODEL_SENSITIVITY_MISMATCH",
+                "Caller sensitivity differs from the model record.",
+            )
+        prediction_snapshot = {
+            "schema": "lab-prediction-snapshot-v1",
+            "prediction_id": prediction.id,
+            "created_at": prediction.created_at.isoformat(),
+            "experiment_id": prediction.experiment_id,
+            "sample_id": prediction.sample_id,
+            "model_key": prediction.model_key,
+            "model_version": prediction.model_version,
+            "status": prediction.status,
+            "prediction": prediction.prediction_json,
+            "evidence_id": prediction.evidence_id,
+        }
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="MODEL_ESTIMATED",
+            foreign_keys=_signal_foreign_keys(
+                "prediction_id",
+                prediction.id,
+            ),
+            signal_value={
+                "normalized_sensitivity": float(stored_sensitivity),
+                "model_key": prediction.model_key,
+                "model_version": prediction.model_version,
+                "status": prediction.status,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+            },
+            limitations=(
+                "MODEL_SENSITIVITY_IS_MODEL_ESTIMATED_NOT_MEASURED",
+            ),
+            upstream_content_sha256=_sha(prediction_snapshot),
+        )
+
+    async def _resolve_potent_trace_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        assessment = await self.repository.get_oav_assessment(
+            command.source_id
+        )
+        if assessment is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 OAV assessment source does not exist.",
+            )
+        if (
+            not assessment.strict_science_mode
+            or assessment.status != "COMPUTED"
+            or assessment.mismatch_count != 0
+            or assessment.oav_value is None
+            or not isfinite(float(assessment.oav_value))
+            or float(assessment.oav_value) <= 0
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_OAV_NOT_STRICT",
+                "Potent-trace priority requires a strict computed B3 OAV.",
+            )
+        concentration = await self.repository.get_property_observation(
+            assessment.concentration_observation_id
+        )
+        if concentration is None:
+            raise BackfillConflictError(
+                "BACKFILL_OAV_CONCENTRATION_NOT_FOUND",
+                "The B3 OAV concentration observation does not exist.",
+            )
+        identity = concentration.subject_identity_json
+        if (
+            not isinstance(identity, dict)
+            or str(identity.get("material_id")) != material_id
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B3 OAV concentration belongs to another material.",
+            )
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="LITERATURE_DERIVED",
+            foreign_keys=_signal_foreign_keys(
+                "oav_assessment_id",
+                assessment.id,
+            ),
+            signal_value={
+                "potency_priority": float(assessment.oav_value),
+                "oav_value": float(assessment.oav_value),
+                "status": assessment.status,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+                "requested_endpoint": assessment.requested_endpoint,
+                "requested_route": assessment.requested_route,
+                "input_snapshot": assessment.input_snapshot_json,
+            },
+            limitations=(
+                "OAV_IS_CONTEXT_SPECIFIC_AND_NOT_AN_ODOR_QUALITY_SCORE",
+            ),
+            upstream_content_sha256=_sha(
+                {
+                    "schema": "lab-b8-oav-source-v1",
+                    "assessment_content_sha256": (
+                        assessment.content_sha256
+                    ),
+                    "concentration_observation_id": concentration.id,
+                    "concentration_evidence_class": (
+                        concentration.evidence_class
+                    ),
+                    "material_id": material_id,
+                }
+            ),
+        )
+
+    async def _resolve_family_driver_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        rule = await self.repository.get_knowledge_rule(command.source_id)
+        if rule is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 family-rule source does not exist.",
+            )
+        if (
+            rule.status != "AUTHORITATIVE"
+            or rule.review_state != "APPROVED"
+            or rule.runtime_role != "BLOCKING"
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_RULE_NOT_AUTHORITATIVE",
+                "Family-driver priority requires an approved blocking rule.",
+            )
+        matrix_context = rule.matrix_context_json
+        material_ids = (
+            matrix_context.get("material_ids")
+            if isinstance(matrix_context, dict)
+            else None
+        )
+        bound_by_context = (
+            isinstance(matrix_context, dict)
+            and str(matrix_context.get("material_id")) == material_id
+        ) or (
+            isinstance(material_ids, list)
+            and material_id in {str(item) for item in material_ids}
+        )
+        identity_hash = _sha({"material_id": material_id})
+        bound_by_identity = identity_hash in {
+            rule.subject_identity_scope_sha256,
+            rule.object_identity_scope_sha256,
+        }
+        if not bound_by_context and not bound_by_identity:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B4 family rule is not bound to this material.",
+            )
+        evidence_class = (
+            rule.evidence_class
+            if rule.evidence_class in BACKFILL_EVIDENCE_CLASSES
+            else "UNKNOWN"
+        )
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class=evidence_class,
+            foreign_keys=_signal_foreign_keys(
+                "knowledge_rule_id",
+                rule.id,
+            ),
+            signal_value={
+                "driver_count": 1,
+                "runtime_role": rule.runtime_role,
+                "relation": rule.relation,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+                "matrix_context": matrix_context,
+            },
+            limitations=(
+                "RULE_APPLIES_ONLY_WITHIN_ITS_EXACT_B4_DOMAIN",
+            ),
+            upstream_content_sha256=_sha(
+                {
+                    "schema": "lab-b8-family-rule-source-v1",
+                    "rule_content_sha256": rule.content_sha256,
+                    "material_id": material_id,
+                }
+            ),
+        )
+
+    async def _resolve_regulatory_driver_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        snapshot = (
+            await self.repository.get_regulatory_snapshot_version(
+                command.source_id
+            )
+        )
+        if snapshot is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 regulatory snapshot source does not exist.",
+            )
+        if snapshot.result_state != "PASS_FOR_DECLARED_SCOPE":
+            raise BackfillConflictError(
+                "BACKFILL_REGULATORY_NOT_PASSING",
+                "Regulatory priority requires a passing exact B6 snapshot.",
+            )
+        if snapshot.subject_type != "FORMULA_VERSION":
+            raise BackfillConflictError(
+                "BACKFILL_REGULATORY_SUBJECT_UNSUPPORTED",
+                "B8 material binding currently requires a formula snapshot.",
+            )
+        formula_version = await self.repository.get_formula_version(
+            snapshot.subject_id
+        )
+        if formula_version is None:
+            raise BackfillConflictError(
+                "BACKFILL_FORMULA_VERSION_NOT_FOUND",
+                "The B6 regulatory formula version does not exist.",
+            )
+        components = await self.repository.formula_components(
+            formula_version.id
+        )
+        matched_components: list[str] = []
+        for component in components:
+            stock = await self.repository.get_stock(
+                component.stock_solution_id
+            )
+            if stock is not None and stock.material_id == material_id:
+                matched_components.append(component.id)
+        if not matched_components:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B6 regulatory formula does not contain this material.",
+            )
+        driver_count = max(1, len(snapshot.rule_version_ids_json))
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="LITERATURE_DERIVED",
+            foreign_keys=_signal_foreign_keys(
+                "regulatory_snapshot_version_id",
+                snapshot.id,
+            ),
+            signal_value={
+                "driver_count": driver_count,
+                "result_state": snapshot.result_state,
+                "rule_count": len(snapshot.rule_version_ids_json),
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+                "formula_version_id": formula_version.id,
+                "component_ids": sorted(matched_components),
+                "jurisdiction": snapshot.jurisdiction,
+                "product_category": snapshot.product_category,
+                "use_classification": snapshot.use_classification,
+            },
+            limitations=(
+                "REGULATORY_RESULT_APPLIES_ONLY_TO_DECLARED_B6_SCOPE",
+            ),
+            upstream_content_sha256=_sha(
+                {
+                    "schema": "lab-b8-regulatory-source-v1",
+                    "snapshot_content_sha256": snapshot.content_sha256,
+                    "material_id": material_id,
+                    "component_ids": sorted(matched_components),
+                }
+            ),
+        )
+
+    async def _resolve_analytical_standard_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        entry = await self.repository.get_analytical_sequence_entry(
+            command.source_id
+        )
+        if entry is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 analytical sequence-entry source does not exist.",
+            )
+        if str(entry.level_json.get("material_id")) != material_id:
+            raise BackfillConflictError(
+                "BACKFILL_ANALYTICAL_MATERIAL_MISMATCH",
+                "The B5 analytical entry is not bound to this material.",
+            )
+        accepted_roles = {
+            "CALIBRATION_STANDARD",
+            "INTERNAL_STANDARD",
+            "SPIKE",
+            "RI_STANDARD",
+            "CONTROL",
+        }
+        if entry.role not in accepted_roles:
+            raise BackfillConflictError(
+                "BACKFILL_ANALYTICAL_ROLE_INVALID",
+                "The B5 entry is not an analytical-standard role.",
+            )
+        sequence = await self.repository.get_analytical_sequence(
+            entry.sequence_id
+        )
+        if sequence is None or sequence.status == "CANCELLED":
+            raise BackfillConflictError(
+                "BACKFILL_ANALYTICAL_SEQUENCE_INVALID",
+                "The B5 analytical sequence is absent or cancelled.",
+            )
+        sequence_entries = (
+            await self.repository.analytical_sequence_entries(sequence.id)
+        )
+        if (
+            sequence.entry_count != len(sequence_entries)
+            or not any(item.id == entry.id for item in sequence_entries)
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_ANALYTICAL_SEQUENCE_INVALID",
+                "The B5 sequence entry set does not reconcile.",
+            )
+        method = (
+            await self.repository.get_analytical_method_authority(
+                sequence.method_authority_id
+            )
+        )
+        if method is None or method.status not in {
+            "VERIFIED",
+            "VALIDATED_FOR_SCOPE",
+        }:
+            raise BackfillConflictError(
+                "BACKFILL_ANALYTICAL_METHOD_INVALID",
+                "The B5 analytical method is not verified for use.",
+            )
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class="UNKNOWN",
+            foreign_keys=_signal_foreign_keys(
+                "analytical_sequence_entry_id",
+                entry.id,
+            ),
+            signal_value={
+                "standard_role": entry.role,
+                "sequence_status": sequence.status,
+                "method_status": method.status,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+                "level": entry.level_json,
+                "sequence_id": sequence.id,
+                "method_authority_id": method.id,
+            },
+            limitations=(
+                "ANALYTICAL_STANDARD_USE_IS_NOT_ITSELF_A_MEASUREMENT_CLAIM",
+            ),
+            upstream_content_sha256=_sha(
+                {
+                    "schema": "lab-b8-analytical-standard-source-v1",
+                    "entry_content_sha256": entry.content_sha256,
+                    "sequence_content_sha256": sequence.content_sha256,
+                    "method_content_sha256": method.content_sha256,
+                }
+            ),
+        )
+
+    async def _resolve_natural_constituent_signal(
+        self,
+        *,
+        material_id: str,
+        command: BackfillSignalCommand,
+        as_of_utc: datetime,
+    ) -> _ResolvedBackfillSignal:
+        entry = await self.repository.get_regulatory_composition_entry(
+            command.source_id
+        )
+        if entry is None:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_SOURCE_NOT_FOUND",
+                "The B8 natural-composition entry source does not exist.",
+            )
+        if entry.material_id != material_id:
+            raise BackfillConflictError(
+                "BACKFILL_SIGNAL_MATERIAL_MISMATCH",
+                "The B6 composition entry belongs to another material.",
+            )
+        profile = (
+            await self.repository.get_regulatory_composition_profile(
+                entry.composition_profile_id
+            )
+        )
+        if (
+            profile is None
+            or profile.origin != "NATURAL"
+            or profile.completeness != "COMPLETE"
+        ):
+            raise BackfillConflictError(
+                "BACKFILL_NATURAL_PROFILE_INCOMPLETE",
+                "Natural priority requires a complete B6 natural profile.",
+            )
+        fraction = float(entry.fraction)
+        if not isfinite(fraction) or fraction <= 0 or fraction > 1:
+            raise BackfillConflictError(
+                "BACKFILL_NATURAL_FRACTION_INVALID",
+                "The B6 natural constituent fraction is invalid.",
+            )
+        evidence_class = (
+            "SUPPLIER_PROVIDED"
+            if profile.supplier_document_binding_id is not None
+            else "UNKNOWN"
+        )
+        return _ResolvedBackfillSignal(
+            command=command,
+            evidence_class=evidence_class,
+            foreign_keys=_signal_foreign_keys(
+                "composition_entry_id",
+                entry.id,
+            ),
+            signal_value={
+                "fraction": fraction,
+                "fraction_basis": entry.fraction_basis,
+                "profile_completeness": profile.completeness,
+            },
+            applicability={
+                "material_id": material_id,
+                "as_of_utc": as_of_utc.isoformat(),
+                "operational_status": None,
+                "composition_profile_id": profile.id,
+                "natural_stock_solution_id": profile.stock_solution_id,
+            },
+            limitations=(
+                "NATURAL_COMPOSITION_IS_PROFILE_AND_LOT_SCOPE_SPECIFIC",
+            ),
+            upstream_content_sha256=_sha(
+                {
+                    "schema": "lab-b8-natural-constituent-source-v1",
+                    "entry_content_sha256": entry.content_sha256,
+                    "profile_content_sha256": profile.content_sha256,
+                }
+            ),
+        )
+
     async def _resolve_backfill_gap(
         self,
         *,
@@ -1281,13 +2020,15 @@ class LabBackfillServiceMixin:
                     "BACKFILL_B7_DECISION_MISMATCH",
                     "The B7 decision does not match the accepted gap state.",
                 )
+            authority_identity_scope = authority["identity_scope"]
             if (
-                authority["subject_type"] != "MATERIAL"
-                or authority["subject_id"] != material_id
+                not isinstance(authority_identity_scope, dict)
+                or str(authority_identity_scope.get("material_id"))
+                != material_id
             ):
                 raise BackfillConflictError(
                     "BACKFILL_B7_SUBJECT_MISMATCH",
-                    "The B7 authority does not govern this material.",
+                    "The B7 identity scope does not govern this material.",
                 )
             if authority["claim_type"] not in _REQUIREMENT_CLAIM_TYPES[
                 command.requirement_type
@@ -1296,6 +2037,21 @@ class LabBackfillServiceMixin:
                     "BACKFILL_B7_CLAIM_TYPE_MISMATCH",
                     "The B7 claim type cannot resolve this requirement.",
                 )
+            expected_property_types = _REQUIREMENT_PROPERTY_TYPES.get(
+                command.requirement_type
+            )
+            if expected_property_types is not None:
+                claim_payload = authority["claim_payload"]
+                property_type = (
+                    str(claim_payload.get("property_type", "")).upper()
+                    if isinstance(claim_payload, dict)
+                    else ""
+                )
+                if property_type not in expected_property_types:
+                    raise BackfillConflictError(
+                        "BACKFILL_B7_PROPERTY_MISMATCH",
+                        "The B7 property subtype cannot resolve this gap.",
+                    )
             if (
                 command.applicability_scope.get("identity_scope")
                 != authority["identity_scope"]
@@ -1330,6 +2086,8 @@ class LabBackfillServiceMixin:
         command: BackfillMaterialCommand,
         *,
         as_of_utc: datetime,
+        reviewer_pseudonym: str,
+        reviewed_at: datetime,
     ) -> _ResolvedBackfillBundle:
         material = await self.repository.get_material(command.material_id)
         if material is None:
@@ -1343,6 +2101,8 @@ class LabBackfillServiceMixin:
                     material_id=command.material_id,
                     command=signal,
                     as_of_utc=as_of_utc,
+                    reviewer_pseudonym=reviewer_pseudonym,
+                    reviewed_at=reviewed_at,
                 )
                 for signal in command.signals
             ]
@@ -1429,6 +2189,8 @@ class LabBackfillServiceMixin:
                     await self._resolve_backfill_material(
                         material,
                         as_of_utc=command.as_of_utc,
+                        reviewer_pseudonym=command.reviewer_pseudonym,
+                        reviewed_at=command.reviewed_at,
                     )
                     for material in command.materials
                 ]
@@ -1757,6 +2519,8 @@ class LabBackfillServiceMixin:
                     material_id=priority.material_id,
                     command=signal_command,
                     as_of_utc=campaign.as_of_utc,
+                    reviewer_pseudonym=campaign.reviewer_pseudonym,
+                    reviewed_at=campaign.reviewed_at,
                 )
                 payload = _signal_row_payload(
                     campaign_key=campaign.campaign_key,
