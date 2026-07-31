@@ -1,0 +1,246 @@
+{
+  "recorded_at_utc": "2026-07-30T23:41:40.723Z",
+  "project_id": "perfume-chem",
+  "readiness": {
+    "activation": {
+      "production_eligible": true,
+      "runtime_accepted": true,
+      "windows_acl": "PROVEN"
+    },
+    "budget": {
+      "next_call_estimate_nano_usd": 1,
+      "open_reserved_nano_usd": 0,
+      "project_ceiling_nano_usd": 1000000000,
+      "spent_nano_usd": 107507790,
+      "unknown_reservations": 0
+    },
+    "capabilities": [
+      "accounting-policy-transition-v1",
+      "batch-dag-v1",
+      "detach-without-cancel-v1",
+      "durable-sol-head-producer-v1",
+      "durable-mutation-replay-v1",
+      "max-one-shot-v1",
+      "normalized-result-packet-v1",
+      "origin-bound-session-v1",
+      "public-identities-v1",
+      "runtime-build-identity-v1",
+      "sol-head-v1",
+      "typed-rpc-v1"
+    ],
+    "capacity": {
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "read_limit": 5,
+      "write_limit": 1
+    },
+    "circuits": {
+      "provider_calls_enabled": true,
+      "unavailable_pools": 0
+    },
+    "migration": {
+      "attestation_id": "4d8b8e361979330399b09a623ade8907fac6830152c60c692e3732d3590d1f7f",
+      "attested": true,
+      "operational_imports": 0,
+      "source_set_hash": "e494c157d9e710fd370f656ef02bbfc9bd2bf85e0c108bcc2887516f84b84808",
+      "unresolved_collisions": 0
+    },
+    "origin_id": 58,
+    "process_boot_id": "DI-23592d14d1e5fab29d2bd6817e7a6012",
+    "process_started_at_ms": 1785438285609,
+    "project_id": "perfume-chem",
+    "protocol_version": 3,
+    "readiness": "READY",
+    "reason_codes": [],
+    "rpc_schema_version": 2,
+    "runtime_build_hash": "d834b83640a6c23a639d6ecc745a607bf0f251b2934d6f15ffe907a3f01fa4e2",
+    "runtime_mode": "CANDIDATE_V2",
+    "schema_version": 1,
+    "server_release": "0.9.9",
+    "store_schema_version": 5
+  },
+  "submission": {
+    "cache_hit": false,
+    "coalesced": false,
+    "evidence_verdict": "UNRESOLVED",
+    "execution_status": "INCOMPLETE",
+    "job_id": "DS-f4ac6cf7f5dce29740ee81de03b42135",
+    "schema_version": 1,
+    "status": "QUEUED"
+  },
+  "terminal_status": {
+    "cache_hit": false,
+    "evidence_verdict": "MIXED",
+    "execution_status": "ACCEPTED",
+    "job_id": "DS-f4ac6cf7f5dce29740ee81de03b42135",
+    "result_packet": {
+      "architecture_uncertainty": false,
+      "cache_hit": false,
+      "evidence_verdict": "MIXED",
+      "execution_status": "ACCEPTED",
+      "negative_findings": [
+        "Claim types 'grade identity', 'property value', 'threshold', 'above-threshold screening', 'analytical identification', 'analytical quantitation', 'natural constituent profile', 'kn",
+        "The evaluate_claim_authority gate accepts caller-supplied booleans (e.g., source_coverage_complete, identity_resolved) without verifying them against actual data; a malicious or er",
+        "The evaluate_claim_authority gate uses a single maximum decision (ALLOW_EXACT > ALLOW_SCOPED > ADVISORY_ONLY > WITHHOLD_UNKNOWN > BLOCK) without considering per-dimension or per-"
+      ],
+      "positive_findings": [
+        "The A2/A4 generic gate (evaluate_claim_authority) correctly enforces contradiction_present โ’ BLOCK, and requires all per-claim-type required dimensions before allowing any decision",
+        "The B2-B6 authority tables (LabAnalyticalPeakAuthority, LabGCOEventAuthority, LabAnalyticalClaimAssessment, LabSelectedAssertion, LabRegulatoryCompositionProfile, LabRegulatoryComn"
+      ],
+      "recommended_next_action": "Sol should decide whether to add missing claim types to _CLAIM_REQUIREMENTS, cross-validate caller-supplied booleans against actual data, and replace the single maximum decision model with a per-dimension or per-claim-type decision model.",
+      "residual_risks": [
+        "Caller-supplied booleans in ClaimAuthorityInput are not cross-validated against actual data; a malicious or erroneous caller can over-promote a claim.",
+        "The single maximum/average decision model (ALLOW_EXACT > ALLOW_SCOPED > ADVISORY_ONLY > WITHHOLD_UNKNOWN > BLOCK) does not capture per-dimension or per-claim-type nuance; a claim",
+        "Missing claim types (grade identity, property value, threshold, above-threshold screening, analytical identification, analytical quantitation, natural constituent profile, knowledg"
+      ],
+      "result_protocol": 3,
+      "schema_version": 1,
+      "scientific_uncertainty": false,
+      "scope_deviation": false,
+      "status": "PASS",
+      "summary": "Read-only audit of A2/A4 generic gate and B2-B6 authority tables for Build B7 claim-specific scientific authority. The reuse matrix identifies safe canonical fields (content_sha256, reviewer_pseudonym, reviewed_at, FK patterns) and caller-asserted booleans (all 18 ClaimAuthorityInput fields). The claim-type gap matrix shows 11 required claim types; only 7 are defined in _CLAIM_REQUIREMENTS (EXACT_MASS_BALANCE, IDENTITY, ACTIVE_CONCENTRATION, ABOVE_THRESHOLD_LIKELIHOOD, SENSORY_INTENSITY, TARGET_SIMILARITY, FAMILY_PRESERVATION, REGULATORY_SCREEN, RELEASE). Missing: grade identity, property-any,"
+    },
+    "schema_version": 1,
+    "status": "PASS",
+    "subscriber_state": "TERMINAL"
+  },
+  "metrics": {
+    "process_name": "DeepLuna Fast",
+    "version": "0.9.9",
+    "cumulative_budget_safe": true,
+    "daemon_active": true,
+    "check_dl": {
+      "activation": {
+        "production_eligible": true,
+        "runtime_accepted": true,
+        "windows_acl": "PROVEN"
+      },
+      "budget": {
+        "next_call_estimate_nano_usd": 1,
+        "open_reserved_nano_usd": 0,
+        "project_ceiling_nano_usd": 1000000000,
+        "spent_nano_usd": 113264190,
+        "unknown_reservations": 0
+      },
+      "capabilities": [
+        "accounting-policy-transition-v1",
+        "batch-dag-v1",
+        "detach-without-cancel-v1",
+        "durable-sol-head-producer-v1",
+        "durable-mutation-replay-v1",
+        "max-one-shot-v1",
+        "normalized-result-packet-v1",
+        "origin-bound-session-v1",
+        "public-identities-v1",
+        "runtime-build-identity-v1",
+        "sol-head-v1",
+        "typed-rpc-v1"
+      ],
+      "capacity": {
+        "active_reads": 0,
+        "active_writes": 0,
+        "queued": 0,
+        "read_limit": 5,
+        "write_limit": 1
+      },
+      "circuits": {
+        "provider_calls_enabled": true,
+        "unavailable_pools": 0
+      },
+      "migration": {
+        "attestation_id": "4d8b8e361979330399b09a623ade8907fac6830152c60c692e3732d3590d1f7f",
+        "attested": true,
+        "operational_imports": 0,
+        "source_set_hash": "e494c157d9e710fd370f656ef02bbfc9bd2bf85e0c108bcc2887516f84b84808",
+        "unresolved_collisions": 0
+      },
+      "origin_id": 58,
+      "process_boot_id": "DI-23592d14d1e5fab29d2bd6817e7a6012",
+      "process_started_at_ms": 1785438285609,
+      "project_id": "perfume-chem",
+      "protocol_version": 3,
+      "readiness": "READY",
+      "reason_codes": [],
+      "rpc_schema_version": 2,
+      "runtime_build_hash": "d834b83640a6c23a639d6ecc745a607bf0f251b2934d6f15ffe907a3f01fa4e2",
+      "runtime_mode": "CANDIDATE_V2",
+      "schema_version": 1,
+      "server_release": "0.9.9",
+      "store_schema_version": 5
+    },
+    "active_primary_profile": "deepinfra-fast",
+    "jobs": {
+      "total": 27,
+      "statuses": {
+        "QUEUED": 0,
+        "RUNNING": 0,
+        "TERMINAL": 27
+      },
+      "cache_hits": 0
+    },
+    "cache": {
+      "entries": 0,
+      "bytes": 0,
+      "retention_days": 30,
+      "max_bytes": 268435456
+    },
+    "providers": {
+      "primary": {
+        "profile_id": "deepinfra-fast",
+        "provider": "deepinfra",
+        "route": "deepinfra-priority",
+        "model": "deepseek-ai/DeepSeek-V4-Flash",
+        "service_tier": "priority",
+        "runs": 21,
+        "api_calls": 21,
+        "prompt_tokens": 693978,
+        "completion_tokens": 18242,
+        "total_tokens": 712220,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 693978
+      },
+      "luna": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "glm": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "local": {
+        "runs": 0,
+        "commands": 0,
+        "writes": 0,
+        "failures": 0
+      }
+    },
+    "batches": {
+      "provider_transmissions": 0,
+      "queued_batches": 0,
+      "queued_nodes": 0,
+      "reserved_nano_usd": 0,
+      "running_batches": 0,
+      "running_nodes": 0,
+      "schema_version": 1,
+      "spent_nano_usd": 0,
+      "terminal_batches": 0,
+      "terminal_nodes": 0,
+      "total_batches": 0,
+      "total_nodes": 0,
+      "unknown_transmissions": 0,
+      "waiting_nodes": 0
+    },
+    "codex_orchestration_enabled": false
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "schema_version": "perfume-chem-b7-gate-v1",
+  "build": "B7",
+  "title": "Per-claim evidence authority",
+  "status": "PASS",
+  "exit_gate_passed": true,
+  "recorded_local_date": "2026-07-31",
+  "timezone": "Asia/Bangkok",
+  "branch": "codex/add-inventory-materials",
+  "preimplementation_commit": "0c4b7496dcf71e5ad5d8cd60414086e22beade61",
+  "implementation_commit_before_report": "ff1542a02f3564f602ecf7f2ae1e93e4f6e103b9",
+  "migration": {
+    "revision": "20260731_0011",
+    "down_revision": "20260731_0010",
+    "head": "20260731_0011",
+    "tables": [
+      "lab_claim_authority_versions",
+      "lab_claim_authority_support_links"
+    ],
+    "backfill_rows": 0,
+    "append_only": true
+  },
+  "claim_types": [
+    "EXACT_CHEMICAL_IDENTITY",
+    "GRADE_IDENTITY",
+    "PROPERTY_VALUE",
+    "THRESHOLD",
+    "ABOVE_THRESHOLD_SCREENING",
+    "ANALYTICAL_IDENTIFICATION",
+    "ANALYTICAL_QUANTITATION",
+    "NATURAL_CONSTITUENT_PROFILE",
+    "KNOWLEDGE_RULE_RECOMMENDATION",
+    "REGULATORY_SCREENING",
+    "FORMULA_OR_MODEL_COMPARISON"
+  ],
+  "decisions": [
+    "ALLOW_EXACT",
+    "ALLOW_SCOPED",
+    "ADVISORY_ONLY",
+    "WITHHOLD_UNKNOWN",
+    "BLOCK"
+  ],
+  "support_roles": [
+    "SUPPORTING",
+    "CONTRADICTING",
+    "LIMITATION"
+  ],
+  "support_kinds": [
+    "PROPERTY_ASSERTION",
+    "OAV_ASSESSMENT",
+    "KNOWLEDGE_RULE",
+    "ANALYTICAL_ASSESSMENT",
+    "COMPOSITION_PROFILE",
+    "REGULATORY_SNAPSHOT"
+  ],
+  "authority_contract": {
+    "typed_canonical_support_only": true,
+    "caller_authority_booleans_ignored": true,
+    "critical_dimensions_averaged": false,
+    "code_owned_policy_hash": true,
+    "direct_upstream_hash": true,
+    "support_link_hashes": true,
+    "authority_hash": true,
+    "revision_lineage_checked": true,
+    "claim_scope_immutable": true,
+    "release_authority": false
+  },
+  "defects_closed": [
+    {
+      "finding": "A PARTIAL natural composition profile could be treated as authoritative and promoted to ALLOW_SCOPED.",
+      "resolution": "Natural profile authority now requires completeness COMPLETE, with a focused negative regression test."
+    },
+    {
+      "finding": "The initial final audit found missing explicit coverage for speculative or unknown evidence, LIMITATION support, and missing required fields.",
+      "resolution": "All three paths were locally reproduced, covered, and included in the final exact and compatibility runs."
+    }
+  ],
+  "runtime": {
+    "python": "3.11.15",
+    "node": "v26.3.0"
+  },
+  "verification": [
+    {
+      "name": "b7_exact",
+      "exit_code": 0,
+      "tests_passed": 58,
+      "duration_seconds": 61.58,
+      "stdout": "logs/pytest_b7.stdout.txt",
+      "stderr": "logs/pytest_b7.stderr.txt"
+    },
+    {
+      "name": "a2_b7_compatibility_migration_backup",
+      "exit_code": 0,
+      "tests_passed": 324,
+      "duration_seconds": 308.91,
+      "stdout": "logs/pytest_compat.stdout.txt",
+      "stderr": "logs/pytest_compat.stderr.txt",
+      "historical_runs": [
+        {
+          "tests_passed": 317,
+          "tests_failed": 3,
+          "cause": "stale CURRENT_HEAD expectations for 20260731_0010"
+        },
+        {
+          "scope": "three focused failures after CURRENT_HEAD correction",
+          "tests_passed": 3,
+          "tests_failed": 0
+        },
+        {
+          "scope": "then-current complete suite before post-audit test additions",
+          "tests_passed": 320,
+          "tests_failed": 0
+        }
+      ]
+    },
+    {
+      "name": "ruff_exact_scope",
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout": "logs/ruff.stdout.txt",
+      "stderr": "logs/ruff.stderr.txt"
+    },
+    {
+      "name": "mypy_b7_modules",
+      "exit_code": 0,
+      "result": "Success: no issues found in 3 source files",
+      "stdout": "logs/mypy.stdout.txt",
+      "stderr": "logs/mypy.stderr.txt"
+    },
+    {
+      "name": "alembic_heads",
+      "exit_code": 0,
+      "result": "20260731_0011 (head)",
+      "stdout": "logs/alembic_heads.stdout.txt",
+      "stderr": "logs/alembic_heads.stderr.txt"
+    }
+  ],
+  "recovery_archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-b7-prewrite-20260731T064410+0700.tar",
+    "bytes": 97275904,
+    "sha256": "2d487c8b1b681eccc267bb2957d1e6ad03f62621801773a612188165256397dd",
+    "tar_entries": 407,
+    "files_hash_verified": 405,
+    "preexisting_nonruntime_dirty_untracked_files_preserved": 397,
+    "excluded_runtime_prefixes": [
+      ".deepluna-home/",
+      ".cheapluna-home/"
+    ],
+    "restorable_path_preserving": true
+  },
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "before_bytes": 0,
+      "after_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "opened_for_migration": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "before_bytes": 2084864,
+      "after_bytes": 2084864,
+      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "quick_check_read_only": true,
+      "main_database_content_unchanged": true,
+      "runtime_sidecar_note": "The read-only quick check touched the existing untracked SHM sidecar timestamp."
+    }
+  ],
+  "deepluna": {
+    "exact_project": "perfume-chem",
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": false,
+    "preimplementation_audit": {
+      "job_id": "DS-f4ac6cf7f5dce29740ee81de03b42135",
+      "status": "PASS",
+      "log": "logs/deepluna_gap_audit.json"
+    },
+    "initial_final_audit": {
+      "job_id": "DS-da6d3036641b2403b402da06803018b5",
+      "status": "PASS_WITH_TEST_GAPS_CLOSED_LOCALLY",
+      "log": "logs/deepluna_final_audit_initial.json"
+    },
+    "final_audit": {
+      "job_id": "DS-e4aa7a0fa84b0e7e7a9d2b40fab75eb4",
+      "status": "PASS",
+      "residual_risks": [],
+      "scope_deviation": false,
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "provider_calls": 1,
+      "prompt_tokens": 72815,
+      "completion_tokens": 854,
+      "total_tokens": 73669,
+      "measured_spend_delta_usd": 0.010060605,
+      "log": "logs/deepluna_final_audit_pass.json",
+      "sol_reproduction": {
+        "b7_tests_passed": 58,
+        "compatibility_tests_passed": 324,
+        "ruff_passed": true,
+        "mypy_passed": true
+      }
+    }
+  },
+  "log_digests": {
+    "alembic_heads.stdout.txt": "056bb79603dcf2ec03672d61437ea4ff2cbdfe128097789a98b87afbb08e68fd",
+    "deepluna_gap_audit.json": "4cbc03905a16b7b1f43ed27266c586676c11abf5de74c6802ade2927268c72db",
+    "deepluna_final_audit_initial.json": "345cbeb25d088f42e6d95c5896243718e8932c45297a57c2abaf0cfe2f11ca14",
+    "deepluna_final_audit_pass.json": "dd0b8f6be90c189dad3f54a85dd79dc5f412b8513a65e38f6ae69c70ad80f7d4",
+    "mypy.stdout.txt": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
+    "protected_database_hashes.json": "6f312561fad403819b3ac9e47d6fb5ad4bd901d75bf186ffce7382e0f39c046a",
+    "protected_kb_quick_check.stdout.txt": "9f2a59a60e65fbcd5a3e1b7248adf92890ce3a32b19e43fb4751c2657196de13",
+    "pytest_b7.stdout.txt": "2ac3c628abb3ed7757eea58881cd2c09d1028df8832e0a241750d8870b02bd54",
+    "pytest_compat.stdout.txt": "cfe78d4d0475f85ae077d8f4b45ed66c337da3be9286a0485fbbe29c740a3e03",
+    "recovery_archive_check.json": "bc0c590677594fd7cd8a636f7e802730c4ee4014628e35ef0b704e828bbedd54",
+    "ruff.stdout.txt": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authority_statement": "B7 is per-claim evidence authority over exact canonical versions and immutable scopes; it is not release authority, legal advice, a safety certificate, or proof of real-world performance.",
+  "residual_limits": [
+    "Only explicit canonical version IDs and exact immutable claim scopes are evaluated.",
+    "Missing evidence is withheld rather than inferred.",
+    "Production API and UI routing are not part of B7.",
+    "Unrelated tracked and untracked work remains outside B7 staging scope."
+  ]
+}
