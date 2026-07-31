@@ -1,0 +1,17 @@
+{
+  "schema_version": "perfume-chem-recovery-archive-check-v1",
+  "archive_path": "D:\\.backups\\perfume-chem\\build-b9-prewrite-20260731T094431+0700.tar",
+  "archive_bytes": 97126400,
+  "archive_sha256": "24d6a306025f6ec43cfc751590ae6ec8c0cab3b28e89894011d3ff37ca838118",
+  "tar_entries": 404,
+  "files_hash_verified": 402,
+  "preexisting_nonruntime_dirty_untracked_files_preserved": 397,
+  "excluded_runtime_path_count": 501,
+  "absent_planned_path_count": 10,
+  "branch": "codex/add-inventory-materials",
+  "head": "ca8731a3cd6d59ef9de38f29add2c42f6d5eb07e",
+  "manifest_hash_entries_valid": true,
+  "extraction_verified": true,
+  "restorable_path_preserving": true,
+  "final_hash_recheck_passed": true
+}

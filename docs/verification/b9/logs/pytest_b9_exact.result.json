@@ -1,0 +1,25 @@
+{
+  "name": "pytest_b9_exact",
+  "cwd": "D:\\chatbots\\perfume-chem\\backend",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests\\unit\\test_b9_science_reporting.py",
+    "tests\\integration\\test_b9_science_reporting_api.py",
+    "tests\\integration\\test_lab_ui.py::test_science_authority_view_preserves_labels_modes_and_unknowns",
+    "--color=no",
+    "-q",
+    "--basetemp=..\\output\\pytest-temp-backend\\b9-exact-final"
+  ],
+  "started_at_utc": "2026-07-31T03:10:15.632Z",
+  "finished_at_utc": "2026-07-31T03:10:25.821Z",
+  "duration_seconds": 10.188,
+  "timeout_seconds": 240,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b9\\logs\\pytest_b9_exact.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b9\\logs\\pytest_b9_exact.stderr.txt"
+}

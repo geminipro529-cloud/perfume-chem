@@ -1,0 +1,338 @@
+{
+  "schema_version": "perfume-chem-b9-gate-v1",
+  "build": "B9",
+  "title": "API, UI, and science-authority reporting",
+  "status": "PASS",
+  "exit_gate_passed": true,
+  "recorded_local_date": "2026-07-31",
+  "timezone": "Asia/Bangkok",
+  "branch": "codex/add-inventory-materials",
+  "preimplementation_commit": "ca8731a3cd6d59ef9de38f29add2c42f6d5eb07e",
+  "implementation_commit_before_report": "596a90eaa4b7a6492137d15a77d7f006e16f6035",
+  "implementation_commits": [
+    {
+      "sha": "7ca8e24eeacd22b5de424078f67213197420c4c8",
+      "subject": "docs: freeze Build B9 science reporting design"
+    },
+    {
+      "sha": "8eac6b22cb78472e43bdd6328489317b9f7e70d7",
+      "subject": "docs: plan Build B9 science reporting"
+    },
+    {
+      "sha": "69f831398db925fd64ee3708a805eca735d6b1a5",
+      "subject": "test: define Build B9 science report contract"
+    },
+    {
+      "sha": "cc6e4aa3e67312e97a6646c5c514fd149f4d9191",
+      "subject": "feat: define Build B9 science report contract"
+    },
+    {
+      "sha": "5033ba3f55e1010adb6e06358d1ac6759444cc35",
+      "subject": "test: require Build B9 canonical report projection"
+    },
+    {
+      "sha": "5caf755108d76fdf2135a47bd92420e6efba590e",
+      "subject": "feat: project canonical Build B science authority"
+    },
+    {
+      "sha": "d8b431ba513de20ff91166df7cacd10f6be0ca4b",
+      "subject": "test: define Build B9 science authority API"
+    },
+    {
+      "sha": "91da2b1a09602a0864c212f33ad809271cead969",
+      "subject": "feat: expose Build B9 science authority API"
+    },
+    {
+      "sha": "6e5db3631f4feae43670bad33e54ea5763aa05b8",
+      "subject": "test: define Build B9 science authority UI"
+    },
+    {
+      "sha": "596a90eaa4b7a6492137d15a77d7f006e16f6035",
+      "subject": "feat: add Build B9 science authority UI"
+    }
+  ],
+  "migration": {
+    "added": false,
+    "head": "20260731_0012",
+    "production_database_migrated": false,
+    "production_database_backfilled": false
+  },
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/lab/science/authority?view=strict|exploratory",
+      "media_type": "application/json",
+      "mutates_state": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/lab/science/report.md?view=strict|exploratory",
+      "media_type": "text/markdown",
+      "mutates_state": false
+    }
+  ],
+  "report_contract": {
+    "schema_version": "lab-science-authority-report-v1",
+    "authority_state": "READ_ONLY_NON_PROMOTING",
+    "views": [
+      "strict",
+      "exploratory"
+    ],
+    "canonical_model_collections": 25,
+    "published_sections": 20,
+    "section_keys": [
+      "source_documents",
+      "source_extractions",
+      "property_observations",
+      "selected_assertions",
+      "property_conflict_sets",
+      "contextual_thresholds",
+      "oav_assessments",
+      "knowledge_rules",
+      "rule_contradictions",
+      "analytical_methods",
+      "analytical_method_validation",
+      "analytical_sequences",
+      "analytical_runs",
+      "analytical_peaks",
+      "gc_o_events",
+      "analytical_claim_assessments",
+      "regulatory_snapshots",
+      "regulatory_findings",
+      "claim_authority_decisions",
+      "claim_authority_support"
+    ],
+    "supporting_parent_collections": [
+      "source_workflow_events",
+      "property_conflict_members",
+      "selected_assertion_candidates",
+      "rule_support_evidence",
+      "analytical_sequence_entries"
+    ],
+    "evidence_classes": [
+      "MEASURED",
+      "LITERATURE_DERIVED",
+      "SUPPLIER_PROVIDED",
+      "EMPIRICALLY_CALIBRATED",
+      "MODEL_ESTIMATED",
+      "HEURISTIC",
+      "SPECULATIVE",
+      "UNKNOWN"
+    ],
+    "strict_included_plus_withheld_equals_total": true,
+    "strict_withheld_records_visible": true,
+    "strict_reason_codes_visible": true,
+    "exploratory_retains_strict_eligibility": true,
+    "exploratory_promotes_authority": false,
+    "numeric_aggregation_forbidden": true,
+    "confidence_or_coverage_score_emitted": false,
+    "deterministic_sha256": true,
+    "release_authority": false
+  },
+  "serialization_contract": {
+    "explicit_per_collection_allowlists": true,
+    "generic_orm_dump": false,
+    "source_locators_preserved": true,
+    "provenance_preserved": true,
+    "blocked_fields": [
+      "preserved_artifact_path",
+      "raw_source_path",
+      "database_path",
+      "database_url",
+      "environment",
+      "credentials",
+      "secrets",
+      "confidence",
+      "confidence_percent",
+      "confidence_percentage",
+      "coverage",
+      "coverage_score",
+      "overall_score"
+    ],
+    "record_provided_ui_values_inserted_with_text_content": true
+  },
+  "ui_contract": {
+    "dependency_free_static_view": true,
+    "navigation_view": "science",
+    "strict_and_exploratory_selector": true,
+    "json_download": true,
+    "markdown_download": true,
+    "all_eight_labels_visible": true,
+    "strict_withheld_partition_visible": true,
+    "unknowns_visible": true,
+    "read_only_non_promoting_boundary_visible": true
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "python_path": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "node": "v26.3.0"
+  },
+  "verification": [
+    {
+      "name": "b9_exact",
+      "exit_code": 0,
+      "test_files": 3,
+      "tests_passed": 9,
+      "pytest_duration_seconds": 5.88,
+      "wrapper_duration_seconds": 10.188,
+      "timeout_seconds": 240,
+      "timed_out": false,
+      "stdout": "logs/pytest_b9_exact.stdout.txt",
+      "stderr": "logs/pytest_b9_exact.stderr.txt",
+      "result": "logs/pytest_b9_exact.result.json"
+    },
+    {
+      "name": "a2_through_b9_compatibility",
+      "exit_code": 0,
+      "test_files": 60,
+      "tests_passed": 462,
+      "pytest_duration_seconds": 523.51,
+      "wrapper_duration_seconds": 529.611,
+      "timeout_seconds": 900,
+      "timed_out": false,
+      "stdout": "logs/pytest_a2_b9_compat.stdout.txt",
+      "stderr": "logs/pytest_a2_b9_compat.stderr.txt",
+      "result": "logs/pytest_a2_b9_compat.result.json"
+    },
+    {
+      "name": "ruff_exact_scope",
+      "exit_code": 0,
+      "result_text": "All checks passed!",
+      "ansi_detected": false,
+      "stdout": "logs/ruff_b9.stdout.txt",
+      "stderr": "logs/ruff_b9.stderr.txt",
+      "result": "logs/ruff_b9.result.json"
+    },
+    {
+      "name": "mypy_b9_modules",
+      "exit_code": 0,
+      "result_text": "Success: no issues found in 4 source files",
+      "stdout": "logs/mypy_b9.stdout.txt",
+      "stderr": "logs/mypy_b9.stderr.txt",
+      "result": "logs/mypy_b9.result.json"
+    },
+    {
+      "name": "node_javascript_syntax",
+      "exit_code": 0,
+      "stdout": "logs/node_check_b9.stdout.txt",
+      "stderr": "logs/node_check_b9.stderr.txt",
+      "result": "logs/node_check_b9.result.json"
+    },
+    {
+      "name": "alembic_heads",
+      "exit_code": 0,
+      "result_text": "20260731_0012 (head)",
+      "stdout": "logs/alembic_heads_b9.stdout.txt",
+      "stderr": "logs/alembic_heads_b9.stderr.txt",
+      "result": "logs/alembic_heads_b9.result.json"
+    },
+    {
+      "name": "knowledge_database_quick_check",
+      "exit_code": 0,
+      "result_text": "ok",
+      "mode": "read_only_immutable",
+      "stdout": "logs/kb_quick_check_readonly.stdout.txt",
+      "stderr": "logs/kb_quick_check_readonly.stderr.txt",
+      "result": "logs/kb_quick_check_readonly.result.json"
+    }
+  ],
+  "negative_path_coverage": [
+    "invalid science view rejected with 422",
+    "empty canonical database returns all twenty sections without invented records",
+    "heuristic evidence remains visible but strict-withheld",
+    "exploratory mode retains the same record and its false strict eligibility",
+    "source document and extraction locators round-trip exactly",
+    "score-like and local-path fields are absent recursively",
+    "API reads leave canonical B1 and B2 row counts unchanged",
+    "JSON and Markdown render deterministically",
+    "UI contains all eight labels and both view modes",
+    "UI renders record-provided values with DOM textContent"
+  ],
+  "recovery_archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-b9-prewrite-20260731T094431+0700.tar",
+    "bytes": 97126400,
+    "sha256": "24d6a306025f6ec43cfc751590ae6ec8c0cab3b28e89894011d3ff37ca838118",
+    "tar_entries": 404,
+    "files_hash_verified": 402,
+    "preexisting_nonruntime_dirty_untracked_files_preserved": 397,
+    "excluded_runtime_path_count": 501,
+    "absent_planned_path_count": 10,
+    "restorable_path_preserving": true,
+    "log": "logs/recovery_archive_check.json"
+  },
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "before_bytes": 0,
+      "after_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "opened_for_migration": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "before_bytes": 2084864,
+      "after_bytes": 2084864,
+      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "quick_check_read_only_immutable": true,
+      "main_database_content_unchanged": true
+    }
+  ],
+  "deepluna": {
+    "exact_project": "perfume-chem",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": false,
+    "preimplementation_audit": {
+      "job_id": "DS-a135a09a9756d541f0a602054852c339",
+      "status": "PASS",
+      "provider_calls": 1,
+      "prompt_tokens": 108527,
+      "completion_tokens": 708,
+      "total_tokens": 109235,
+      "log": "logs/deepluna_gap_audit.json"
+    },
+    "final_audit": {
+      "job_id": "DS-44810686be33907accaa5cfa39f91fb5",
+      "status": "PASS",
+      "negative_findings": [],
+      "defects": [],
+      "residual_risks": [],
+      "scope_deviation": false,
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "provider_calls": 1,
+      "prompt_tokens": 69119,
+      "completion_tokens": 704,
+      "total_tokens": 69823,
+      "maximum_estimated_cost_usd": 0.07,
+      "log": "logs/deepluna_final_audit_pass.json"
+    }
+  },
+  "log_digests": {
+    "alembic_heads_b9.stdout.txt": "d05fb8ba33c0532876896596b90490ab3399322d0feb211337ab4d64bd5f79c7",
+    "deepluna_final_audit_pass.json": "8549829ffaa7d3b0ad113a767ba96d168a9ca18f4abd18750412fe30b9a0b698",
+    "deepluna_gap_audit.json": "7edc96acecafe345f763e4374d94f1e092b2a7be9baf48b7415c8618e4b12a6c",
+    "kb_quick_check_readonly.stdout.txt": "48efca0d0107ab83e6b6084e5f4029a734cfdf11277beda14d7c1bb564269e27",
+    "mypy_b9.stdout.txt": "d9a5631f7d87a741fbecc3236286d1792d22d349ff13846d71cdc9217307bb76",
+    "node_check_b9.result.json": "8eed27857f2509716b4e0fce1968772441483033fb049c8f1a36a3120448cf88",
+    "protected_database_hashes.json": "54a6587ced5789a6aaae336bcf8d3a4c3078d82a5148c0a152e1d4dc056fbcfe",
+    "pytest_a2_b9_compat.stdout.txt": "6d04488f469822070050f5f698e6cb18f58517ee85a96c934699487d4d47800c",
+    "pytest_b9_exact.stdout.txt": "a01f0e710fbd42d212dfe52261d74b235e0ef3e5161fba26bad93067e3b41282",
+    "recovery_archive_check.json": "aadde0bb8fcdd69ed9f54d326221a82e643fb816fdf60d6673f8c21fab98fc83",
+    "ruff_b9.stdout.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authority_statement": "B9 is read-only presentation authority over canonical stored Build B records. It cannot create evidence, promote a claim, authorize release, provide legal approval, certify safety, or prove real-world performance.",
+  "residual_limits": [
+    "The report reflects canonical records already stored by Build B services; it does not create or refresh external scientific evidence.",
+    "Exploratory mode changes presentation partitioning only and remains READ_ONLY_NON_PROMOTING.",
+    "No production database was migrated or populated; database-backed verification used isolated temporary test databases.",
+    "The dependency-free static UI is covered by endpoint, markup-contract, and JavaScript-syntax tests; this gate does not claim a cross-browser visual matrix.",
+    "Unrelated tracked and untracked work remains outside B9 staging scope."
+  ]
+}
