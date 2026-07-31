@@ -12,6 +12,7 @@ from app.services.lab_backfill import (
     BACKFILL_PRIORITY_DIMENSIONS,
     BACKFILL_PRIORITY_POLICY,
     BackfillConflictError,
+    BackfillGapCommand,
     BackfillGapProjection,
     BackfillSignalCommand,
     BackfillSignalVector,
@@ -484,3 +485,56 @@ async def test_b8_scientific_signal_resolvers_fail_closed():
                 reviewed_at=now,
             )
         assert error.value.code == expected_code
+
+
+class _GapHarness(LabBackfillServiceMixin):
+    def __init__(self, authority):
+        self.authority = authority
+        self.repository = SimpleNamespace()
+
+    async def reconstruct_claim_authority(self, _version_id):
+        return self.authority
+
+
+@pytest.mark.asyncio
+async def test_b8_property_gap_rejects_wrong_b7_property_subtype():
+    identity_scope = {
+        "material_id": "material",
+        "identity_scope": "CHEMICAL_ENTITY",
+    }
+    condition_scope = {"temperature_k": 298.15}
+    authority = {
+        "decision": "ALLOW_EXACT",
+        "subject_type": "FORMULA_VERSION",
+        "subject_id": "formula-version",
+        "claim_type": "PROPERTY_VALUE",
+        "claim_payload": {
+            "property_type": "VAPOR_PRESSURE",
+            "value": 12.0,
+            "unit": "Pa",
+        },
+        "identity_scope": identity_scope,
+        "condition_scope": condition_scope,
+        "content_sha256": "a" * 64,
+        "source_references": [],
+    }
+    harness = _GapHarness(authority)
+    command = BackfillGapCommand(
+        requirement_type="DENSITY",
+        state="ACCEPTED_EXACT",
+        evidence_class="MEASURED",
+        claim_authority_version_id="authority",
+        applicability_scope={
+            "material_id": "material",
+            "identity_scope": identity_scope,
+            "condition_scope": condition_scope,
+        },
+    )
+
+    with pytest.raises(BackfillConflictError) as error:
+        await harness._resolve_backfill_gap(
+            material_id="material",
+            command=command,
+        )
+
+    assert error.value.code == "BACKFILL_B7_PROPERTY_MISMATCH"
