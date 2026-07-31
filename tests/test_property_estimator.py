@@ -23,6 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import pytest  # noqa: E402
 
+from engine import property_estimator as property_estimator  # noqa: E402
 from engine.property_estimator import (  # noqa: E402
     estimate_activity_coef,
     estimate_all,
@@ -257,6 +258,14 @@ class TestDatabaseValidation:
     These are integration-style tests that require the KB database.
     They verify the estimator achieves a minimum R² on log₁₀(VP).
     """
+
+    def test_validation_database_connection_is_read_only(self) -> None:
+        """Validation queries must not open the repository KB for writing."""
+        connection = property_estimator._get_kb_read_connection()
+        try:
+            assert connection.execute("PRAGMA query_only").fetchone()[0] == 1
+        finally:
+            connection.close()
 
     def test_vp_validation_r_squared(self) -> None:
         """VP estimates must achieve R² > 0.2 against DB materials.

@@ -10,6 +10,15 @@ from __future__ import annotations
 from engine import kb_rules_api as rules
 from engine import knowledge_base as kb
 
+
+def test_query_connections_are_explicitly_read_only() -> None:
+    for module in (kb, rules):
+        connection = module._get_conn()
+        try:
+            assert connection.execute("PRAGMA query_only").fetchone()[0] == 1
+        finally:
+            connection.close()
+
 # ── Material queries ───────────────────────────────────────────────────
 
 

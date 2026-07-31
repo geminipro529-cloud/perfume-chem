@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import os
 import sqlite3
+from pathlib import Path
 
 # ── Constants ──────────────────────────────────────────────────────────
 
@@ -28,11 +29,18 @@ _DB_DEFAULT = "data/perfumery_kb.db"
 # ── Helpers ────────────────────────────────────────────────────────────
 
 
-def _get_conn(db_path: str) -> sqlite3.Connection:
+def _get_conn(db_path: str, *, writable: bool = False) -> sqlite3.Connection:
     abs_path = os.path.abspath(db_path)
-    conn = sqlite3.connect(abs_path)
+    if writable:
+        conn = sqlite3.connect(abs_path)
+        conn.execute("PRAGMA journal_mode=WAL")
+    else:
+        conn = sqlite3.connect(
+            f"file:{Path(abs_path).as_posix()}?mode=ro&immutable=1",
+            uri=True,
+        )
+        conn.execute("PRAGMA query_only = ON")
     conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA journal_mode=WAL")
     return conn
 
 
@@ -554,7 +562,7 @@ def populate_science_kb(db_path: str = _DB_DEFAULT) -> str:
     from engine.kb_schema import create_database
 
     create_database(abs_path)
-    conn = _get_conn(abs_path)
+    conn = _get_conn(abs_path, writable=True)
 
     try:
         _populate_or_biophysics(conn)
@@ -579,9 +587,13 @@ def populate_science_kb(db_path: str = _DB_DEFAULT) -> str:
 # ═══════════════════════════════════════════════════════════════════════
 
 
-def _query(sql: str, params: tuple = (), db_path: str = _DB_DEFAULT) -> list[dict]:
+def _query(
+    sql: str,
+    params: tuple = (),
+    db_path: str | None = None,
+) -> list[dict]:
     """Execute a SELECT and return results as list of dicts."""
-    conn = _get_conn(db_path)
+    conn = _get_conn(db_path or _DB_DEFAULT)
     try:
         rows = conn.execute(sql, params).fetchall()
         return _rows_to_dicts(rows)
@@ -589,9 +601,13 @@ def _query(sql: str, params: tuple = (), db_path: str = _DB_DEFAULT) -> list[dic
         conn.close()
 
 
-def _query_one(sql: str, params: tuple = (), db_path: str = _DB_DEFAULT) -> dict | None:
+def _query_one(
+    sql: str,
+    params: tuple = (),
+    db_path: str | None = None,
+) -> dict | None:
     """Execute a SELECT and return a single dict or None."""
-    conn = _get_conn(db_path)
+    conn = _get_conn(db_path or _DB_DEFAULT)
     try:
         row = conn.execute(sql, params).fetchone()
         return _row_to_dict(row)
@@ -736,9 +752,9 @@ def get_dose_response_cliffs(material: str) -> list[dict]:
 # ── Summary ────────────────────────────────────────────────────────────
 
 
-def get_all_science(db_path: str = _DB_DEFAULT) -> dict:
+def get_all_science(db_path: str | None = None) -> dict:
     """Return a summary dict with row counts for each science domain."""
-    conn = _get_conn(db_path)
+    conn = _get_conn(db_path or _DB_DEFAULT)
     try:
         tables = [
             "or_biophysics",

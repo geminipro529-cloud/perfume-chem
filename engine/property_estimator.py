@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import math
 import re
+import sqlite3
 from pathlib import Path
 from typing import Any
 
@@ -97,6 +98,17 @@ _ACTIVITY_COEF: dict[str, float] = {
 # ── Local DB path (for validation) ──
 _PROJECT_ROOT = Path(__file__).resolve().parents[1]
 _KB_PATH = _PROJECT_ROOT / "data" / "perfumery_kb.db"
+
+
+def _get_kb_read_connection() -> sqlite3.Connection:
+    """Open the validation database without creating SQLite sidecars."""
+
+    connection = sqlite3.connect(
+        f"file:{_KB_PATH.as_posix()}?mode=ro&immutable=1",
+        uri=True,
+    )
+    connection.execute("PRAGMA query_only = ON")
+    return connection
 
 
 # ===================================================================
@@ -622,19 +634,19 @@ def _estimate_mw(smiles: str, add_implicit_h: bool = True) -> float:
 
 def _load_db_materials() -> list[dict[str, Any]]:
     """Load materials that have both SMILES and VP from the KB database."""
-    import sqlite3
-
     if not _KB_PATH.exists():
         return []
 
-    conn = sqlite3.connect(str(_KB_PATH))
-    cursor = conn.execute(
-        "SELECT canonical_name, vp_25c_pa, logp, smiles "
-        "FROM materials "
-        "WHERE vp_25c_pa > 0 AND logp IS NOT NULL AND smiles IS NOT NULL"
-    )
-    rows = cursor.fetchall()
-    conn.close()
+    conn = _get_kb_read_connection()
+    try:
+        cursor = conn.execute(
+            "SELECT canonical_name, vp_25c_pa, logp, smiles "
+            "FROM materials "
+            "WHERE vp_25c_pa > 0 AND logp IS NOT NULL AND smiles IS NOT NULL"
+        )
+        rows = cursor.fetchall()
+    finally:
+        conn.close()
 
     results: list[dict[str, Any]] = []
     seen: set[str] = set()

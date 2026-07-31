@@ -23,11 +23,16 @@ def db_path() -> str:
     """Create a fresh science-KB database for testing."""
     tmp = tempfile.mktemp(suffix=".db", prefix="science_kb_test_")
     result = skb.populate_science_kb(tmp)
-    yield result
+    previous_default = skb._DB_DEFAULT
+    skb._DB_DEFAULT = result
     try:
-        os.remove(result)
-    except OSError:
-        pass
+        yield result
+    finally:
+        skb._DB_DEFAULT = previous_default
+        try:
+            os.remove(result)
+        except OSError:
+            pass
 
 
 @pytest.fixture(scope="module")
@@ -37,6 +42,47 @@ def conn(db_path: str) -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     yield conn
     conn.close()
+
+
+def test_query_connection_is_read_only(db_path: str) -> None:
+    connection = skb._get_conn(db_path)
+    try:
+        assert connection.execute("PRAGMA query_only").fetchone()[0] == 1
+    finally:
+        connection.close()
+
+
+def test_query_api_honors_runtime_database_default(db_path: str) -> None:
+    marker = "__isolated_science_kb__"
+    connection = sqlite3.connect(db_path)
+    try:
+        connection.execute(
+            "INSERT INTO climate_profiles "
+            "(profile_name, temperature_c, humidity_pct, vp_multiplier, "
+            "longevity_factor, notes) VALUES (?, ?, ?, ?, ?, ?)",
+            (marker, 20.0, 50.0, 1.0, 1.0, "test isolation marker"),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    previous_default = skb._DB_DEFAULT
+    skb._DB_DEFAULT = db_path
+    try:
+        result = skb.get_climate_profile(marker)
+    finally:
+        skb._DB_DEFAULT = previous_default
+        connection = sqlite3.connect(db_path)
+        try:
+            connection.execute(
+                "DELETE FROM climate_profiles WHERE profile_name = ?",
+                (marker,),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+    assert result is not None
+    assert result["profile_name"] == marker
 
 
 # ── Domain 1: OR biophysics ───────────────────────────────────────────

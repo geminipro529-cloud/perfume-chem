@@ -15,7 +15,11 @@ _DB_PATH = Path(__file__).resolve().parents[1] / "data" / "perfumery_kb.db"
 
 def _get_conn() -> sqlite3.Connection:
     """Open a read-only connection to the knowledge database."""
-    conn = sqlite3.connect(str(_DB_PATH))
+    conn = sqlite3.connect(
+        f"file:{_DB_PATH.as_posix()}?mode=ro&immutable=1",
+        uri=True,
+    )
+    conn.execute("PRAGMA query_only = ON")
     conn.row_factory = sqlite3.Row
     return conn
 
