@@ -12,7 +12,7 @@ def _write_inventory(path):
             (
                 "--- Aromachemicals ---",
                 "- Iso-E-Super",
-                "- Iso E Super (50% in DPG)",
+                "- Iso-E-Super (50% in DPG)",
                 "- Missing Material",
                 "- Gone Material [OUT OF STOCK]",
                 "--- Solvents / Carriers ---",
@@ -29,7 +29,7 @@ def _write_scientific_inventory(path):
         "schema_version": "scientific-truth-inventory-v1",
         "summary": {
             "material_count": 3,
-            "material_property_observation_count": 4,
+            "material_property_observation_count": 5,
         },
         "material_property_observations": [
             {
@@ -69,6 +69,18 @@ def _write_scientific_inventory(path):
                 "content_sha256": "c" * 64,
             },
             {
+                "subject_id": "iso e super",
+                "property_type": "boiling_point",
+                "current_value": None,
+                "evidence_class": "UNKNOWN",
+                "authority_label": "UNKNOWN",
+                "review_state": "LEGACY_UNREVIEWED",
+                "conflict_set": None,
+                "affects_blocking_gate": False,
+                "claim_impacts": ["property_value"],
+                "content_sha256": "e" * 64,
+            },
+            {
                 "subject_id": "Not In Inventory",
                 "property_type": "density",
                 "current_value": 0.88,
@@ -101,14 +113,18 @@ def test_b8_projection_is_alias_aware_fail_closed_and_stratified(tmp_path):
 
     counts = projection["inventory_counts"]
     assert counts["raw_entries"] == 5
-    assert counts["alias_unique_fragrance"] == 3
-    assert counts["duplicate_alias_entries"] == 1
+    assert counts["unique_normalized"] == 4
+    assert counts["unique_fragrance"] == 3
+    assert counts["duplicate_canonical_entries"] == 1
     assert counts["owned_unique_fragrance"] == 2
     assert counts["unavailable_unique_fragrance"] == 1
     assert counts["matched_owned_materials"] == 1
     assert counts["unmatched_owned_materials"] == 1
     assert counts["matched_unavailable_materials"] == 1
     assert projection["unmatched_owned_materials"] == ["Missing Material"]
+    assert projection["matched_owned_materials"][0][
+        "scientific_subject_id"
+    ] == "Iso E Super"
 
     property_rows = {
         row["property_type"]: row for row in projection["property_gaps"]
