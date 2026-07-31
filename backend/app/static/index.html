@@ -26,6 +26,7 @@
       <button class="nav-item" data-view="experiments"><span>05</span> Experiments</button>
       <button class="nav-item" data-view="perfumery"><span>06</span> Perfumer</button>
       <button class="nav-item" data-view="assistant"><span>07</span> Assistant</button>
+      <button class="nav-item" data-view="science"><span>08</span> Science</button>
       <div class="rail-note">
         <strong>Evidence first.</strong>
         Unknown is a result, not an error.
@@ -268,6 +269,54 @@
           </article>
         </div>
         <pre id="assistant-output" class="output-block" tabindex="0">No packet built yet.</pre>
+      </section>
+
+      <section class="view" data-panel="science" aria-labelledby="science-title">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Canonical evidence ledger</p>
+            <h1 id="science-title">Science authority</h1>
+          </div>
+          <button class="quiet-button" id="science-refresh" type="button">Refresh report</button>
+        </div>
+
+        <div class="science-toolbar panel">
+          <label>
+            Evidence view
+            <select id="science-view-mode">
+              <option value="strict">Strict science</option>
+              <option value="exploratory">Exploratory science</option>
+            </select>
+          </label>
+          <div class="science-downloads" aria-label="Science report downloads">
+            <a class="quiet-button" id="science-json-download" href="/api/v1/lab/science/authority?view=strict" download>Download JSON</a>
+            <a class="quiet-button" id="science-markdown-download" href="/api/v1/lab/science/report.md?view=strict" download>Download Markdown</a>
+          </div>
+        </div>
+
+        <article class="panel science-boundary">
+          <p class="panel-index">S1</p>
+          <h2>Authority boundary</h2>
+          <p><strong>READ_ONLY_NON_PROMOTING</strong> — this report cannot release, select, or promote a scientific claim.</p>
+          <p>Strict-withheld records remain visible with their reason codes. Exploratory mode changes the partition, never the underlying authority or provenance.</p>
+          <p>Evidence classes remain separate and are never flattened into a numeric score.</p>
+        </article>
+
+        <div class="science-legend panel" aria-label="Evidence class legend">
+          <span class="evidence evidence-measured" data-evidence-class="MEASURED">MEASURED</span>
+          <span class="evidence evidence-literature-derived" data-evidence-class="LITERATURE_DERIVED">LITERATURE_DERIVED</span>
+          <span class="evidence evidence-supplier-provided" data-evidence-class="SUPPLIER_PROVIDED">SUPPLIER_PROVIDED</span>
+          <span class="evidence evidence-empirically-calibrated" data-evidence-class="EMPIRICALLY_CALIBRATED">EMPIRICALLY_CALIBRATED</span>
+          <span class="evidence evidence-model-estimated" data-evidence-class="MODEL_ESTIMATED">MODEL_ESTIMATED</span>
+          <span class="evidence evidence-heuristic" data-evidence-class="HEURISTIC">HEURISTIC</span>
+          <span class="evidence evidence-speculative" data-evidence-class="SPECULATIVE">SPECULATIVE</span>
+          <span class="evidence evidence-unknown" data-evidence-class="UNKNOWN">UNKNOWN</span>
+        </div>
+
+        <div id="science-summary" class="metric-grid" aria-live="polite"></div>
+        <div id="science-sections" class="science-sections" aria-live="polite">
+          <p class="empty">Open this view to load the canonical science authority report.</p>
+        </div>
       </section>
     </main>
   </div>
