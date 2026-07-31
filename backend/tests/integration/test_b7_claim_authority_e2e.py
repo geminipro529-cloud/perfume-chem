@@ -1856,3 +1856,113 @@ async def test_blocking_analytical_qc_failure_is_withheld(db_session):
 
     assert authority.decision == "WITHHOLD_UNKNOWN"
     assert "QC_FAILED_BLOCKING" in authority.missing_requirements_json
+
+
+async def _property_evidence_authority(
+    db_session,
+    *,
+    label: str,
+    evidence_class: str,
+    role: str = "SUPPORTING",
+    payload: dict | None = None,
+):
+    subject = await _formula_subject(db_session, label)
+    legacy = await _legacy_claim(
+        db_session,
+        claim_type="PROPERTY_VALUE",
+        subject_type="FORMULA_VERSION",
+        subject_id=subject.id,
+        label=label,
+    )
+    identity = {
+        "identity_scope": "CHEMICAL_ENTITY",
+        "chemical_name": "Linalool",
+        "identifier": "78-70-6",
+    }
+    conditions = {"temperature_k": 298.15, "phase": "LIQUID"}
+    assertion, _ = await _property_assertion(
+        db_session,
+        label=f"{label}-source",
+        identity_scope=identity,
+        identity_scope_name="CHEMICAL_ENTITY",
+        property_type="DENSITY",
+        value=0.85,
+        unit="g/mL",
+        conditions=conditions,
+        evidence_class=evidence_class,
+        standard_uncertainty=0.05,
+    )
+    return await LabService(db_session).create_claim_authority_version(
+        _command(
+            legacy,
+            payload=payload
+            or {
+                "property_type": "DENSITY",
+                "value": 0.85,
+                "unit": "g/mL",
+            },
+            identity_scope=identity,
+            condition_scope=conditions,
+            supports=(
+                ClaimAuthoritySupportInput(
+                    "PROPERTY_ASSERTION",
+                    assertion.id,
+                    role=role,
+                ),
+            ),
+        )
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("evidence_class", ("SPECULATIVE", "UNKNOWN"))
+async def test_nonpromoting_property_evidence_never_authorizes_exactness(
+    db_session,
+    evidence_class,
+):
+    authority = await _property_evidence_authority(
+        db_session,
+        label=f"nonpromoting-{evidence_class.casefold()}",
+        evidence_class=evidence_class,
+    )
+
+    assert authority.decision == "ADVISORY_ONLY"
+    assert "EVIDENCE_CLASS_NOT_PROMOTING" in (
+        authority.missing_requirements_json
+    )
+    assert authority.release_authority is False
+
+
+@pytest.mark.asyncio
+async def test_limitation_support_without_promoting_support_is_withheld(
+    db_session,
+):
+    authority = await _property_evidence_authority(
+        db_session,
+        label="limitation-only",
+        evidence_class="MEASURED",
+        role="LIMITATION",
+    )
+
+    assert authority.decision == "WITHHOLD_UNKNOWN"
+    assert "LIMITATION_SUPPORT" in authority.missing_requirements_json
+    assert "SUPPORTING_OBSERVATION_MISSING" in (
+        authority.missing_requirements_json
+    )
+
+
+@pytest.mark.asyncio
+async def test_missing_required_property_field_is_withheld_end_to_end(
+    db_session,
+):
+    authority = await _property_evidence_authority(
+        db_session,
+        label="missing-unit-integration",
+        evidence_class="MEASURED",
+        payload={"property_type": "DENSITY", "value": 0.85},
+    )
+
+    assert authority.decision == "WITHHOLD_UNKNOWN"
+    assert "REQUIRED_FIELD_MISSING:unit" in (
+        authority.missing_requirements_json
+    )
