@@ -3,6 +3,12 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
+import pytest
+
+from app.repositories.lab_reporting import (
+    REPORT_MODEL_COLLECTIONS,
+    ScienceReportRepository,
+)
 from app.schemas.lab_reporting import (
     SCIENCE_EVIDENCE_CLASSES,
     SCIENCE_SECTION_KEYS,
@@ -10,6 +16,7 @@ from app.schemas.lab_reporting import (
 )
 from app.services.lab_reporting import (
     REPORT_COLLECTION_KEYS,
+    ScienceReportingService,
     build_science_report,
     render_science_report_markdown,
 )
@@ -413,3 +420,249 @@ def test_b9_report_and_markdown_are_deterministic_and_preserve_locators():
     assert "Specification" in markdown_a
     assert "confidence percentage" not in markdown_a.casefold()
     assert "%" not in markdown_a
+
+
+def test_b9_repository_has_exact_read_only_collection_map():
+    assert tuple(REPORT_MODEL_COLLECTIONS) == REPORT_COLLECTION_KEYS
+    assert len(REPORT_MODEL_COLLECTIONS) == 25
+    assert not hasattr(ScienceReportRepository, "add")
+    assert not hasattr(ScienceReportRepository, "delete")
+    assert not hasattr(ScienceReportRepository, "commit")
+
+
+@pytest.mark.asyncio
+async def test_b9_service_reads_one_snapshot_and_uses_exact_parent_links():
+    source = _row(
+        "source-a",
+        source_id="source-a",
+        version_number=1,
+        schema_version="lab-source-document-v1",
+        source_type="PRIMARY_PEER_REVIEWED_PAPER",
+        title="Canonical source",
+        authors_json=["Researcher"],
+        issuing_organization=None,
+        container_title="Journal",
+        publisher_or_authority="Publisher",
+        identifiers_json={"doi": "10.1000/a"},
+        publication_date=None,
+        revision_date=None,
+        effective_date=None,
+        retrieval_date=None,
+        edition_or_amendment=None,
+        default_locator_json={"page": 4},
+        artifact_sha256="1" * 64,
+        license_or_reuse_restriction=None,
+        language="en",
+        original_unit=None,
+        original_terminology=None,
+        reviewer_pseudonym="reviewer",
+        review_state="REVIEWED",
+        supersedes_version_id=None,
+        independence_group="source-a",
+        parent_record_sha256=None,
+        record_sha256="2" * 64,
+    )
+    extraction = _row(
+        "extraction-a",
+        source_version_id=source.id,
+        locator_json={"page": 4, "row": "Linalool"},
+        structure_context_json={},
+        original_value_json={"value": 7.0, "unit": "Pa"},
+        parsed_value_json={"value": 7.0, "unit": "Pa"},
+        normalization_json={},
+        parser_or_model_version="manual-v1",
+        reviewer_pseudonym="reviewer",
+        uncertainty_json={},
+        ambiguity_json=[],
+        output_observation_id="observation-a",
+        input_sha256="3" * 64,
+        output_sha256="4" * 64,
+        record_sha256="5" * 64,
+    )
+    staged = _row(
+        "event-1",
+        subject_id=extraction.id,
+        sequence_number=1,
+        to_state="STAGED",
+    )
+    accepted = _row(
+        "event-2",
+        subject_id=extraction.id,
+        sequence_number=2,
+        to_state="ACCEPTED_FOR_SCOPED_USE",
+    )
+    rule_a = _row(
+        "rule-a",
+        rule_key="rule-a",
+        version=1,
+        subject_kind="EXACT_IDENTITY",
+        subject_raw_label="Linalool",
+        relation="REINFORCES",
+        object_kind="EXACT_IDENTITY",
+        object_raw_label="Lavender",
+        directionality="DIRECTED",
+        matrix_context_json={},
+        dose_domain_json={},
+        temporal_domain_json={},
+        expected_effect_json={},
+        attribute="floral lift",
+        rationale="Controlled comparison",
+        source_document_version_id=source.id,
+        source_extraction_id=extraction.id,
+        source_locator="page 4",
+        evidence_class="CONTROLLED_EXPERIMENT",
+        uncertainty_json={},
+        review_state="APPROVED",
+        status="SUPPORTED",
+        runtime_role="ADVISORY",
+        numerical_model_ref=None,
+        supersedes_rule_id=None,
+        raw_json_pointer="/rules/0",
+        raw_payload_sha256="6" * 64,
+        compiler_diagnostics_json=[],
+        subject_identity_scope_sha256="7" * 64,
+        subject_group_id=None,
+        object_identity_scope_sha256="8" * 64,
+        object_group_id=None,
+        content_sha256="9" * 64,
+    )
+    rule_b = _clone(
+        rule_a,
+        "rule-b",
+        rule_key="rule-b",
+        relation="MASKS",
+        raw_json_pointer="/rules/1",
+        raw_payload_sha256="a" * 64,
+        content_sha256="b" * 64,
+    )
+    contradiction = _row(
+        "contradiction-a",
+        rule_id=rule_a.id,
+        contradictory_rule_id=rule_b.id,
+        reason_code="OPPOSITE_DIRECTION",
+        rationale="The scoped effects conflict.",
+        blocking=True,
+        content_sha256="c" * 64,
+    )
+    support = _row(
+        "rule-support-a",
+        rule_id=rule_a.id,
+        support_kind="TEST_ARTIFACT",
+        reference_id="test-a",
+        controlled=True,
+        matrix_context_sha256=None,
+        dose_domain_sha256=None,
+        uncertainty_json={},
+        review_state="APPROVED",
+        content_sha256="d" * 64,
+    )
+    claim = _row(
+        "claim-a",
+        authority_id="authority-a",
+        version_number=1,
+        parent_version_id=None,
+        legacy_claim_assessment_version_id="legacy-a",
+        schema_version="lab-claim-authority-v1",
+        policy_version="b7-v1",
+        policy_sha256="e" * 64,
+        policy_json={},
+        claim_type="KNOWLEDGE_RULE_RECOMMENDATION",
+        subject_type="MATERIAL",
+        subject_id="material-a",
+        claim_payload_json={"rule_id": rule_a.id},
+        identity_scope_json={"material_id": "material-a"},
+        identity_scope_sha256="f" * 64,
+        condition_scope_json={},
+        condition_scope_sha256="0" * 64,
+        claim_scope_sha256="1" * 64,
+        decision="ALLOW_SCOPED",
+        dimension_results_json={},
+        supporting_observations_json=[],
+        conflicts_json=[],
+        missing_requirements_json=[],
+        source_references_json=[{"source_version_id": source.id}],
+        uncertainty_json={},
+        permitted_wording="Supported for the declared scope.",
+        forbidden_wording="Universal recommendation.",
+        blocker_count=0,
+        conflict_count=0,
+        missing_requirement_count=0,
+        critical_unknown_count=0,
+        support_count=1,
+        source_reference_count=1,
+        release_authority=False,
+        upstream_hashes_json={},
+        reviewer_pseudonym="reviewer",
+        reviewed_at=NOW,
+        content_sha256="2" * 64,
+        parent_sha256=None,
+    )
+    claim_support = _row(
+        "claim-support-a",
+        claim_authority_version_id=claim.id,
+        support_kind="KNOWLEDGE_RULE",
+        role="SUPPORTING",
+        property_assertion_id=None,
+        oav_assessment_id=None,
+        knowledge_rule_id=rule_a.id,
+        analytical_assessment_id=None,
+        composition_profile_id=None,
+        regulatory_snapshot_version_id=None,
+        upstream_content_sha256=rule_a.content_sha256,
+        derived_facts_json={},
+        source_references_json=[{"source_version_id": source.id}],
+        content_sha256="3" * 64,
+    )
+    orphan_support = _clone(
+        claim_support,
+        "claim-support-orphan",
+        claim_authority_version_id="missing-claim",
+        content_sha256="4" * 64,
+    )
+
+    class FakeRepository:
+        calls = 0
+
+        async def snapshot(self):
+            self.calls += 1
+            return _snapshot(
+                source_documents=(source,),
+                source_extractions=(extraction,),
+                source_workflow_events=(accepted, staged),
+                knowledge_rules=(rule_b, rule_a),
+                rule_contradictions=(contradiction,),
+                rule_support_evidence=(support,),
+                claim_authority_decisions=(claim,),
+                claim_authority_support=(orphan_support, claim_support),
+            )
+
+    repository = FakeRepository()
+    service = ScienceReportingService(repository)
+    report = await service.authority_report(ScienceView.STRICT)
+
+    assert repository.calls == 1
+    assert [
+        record.id for record in _section(report, "source_extractions").included
+    ] == [extraction.id]
+    rule_records = _section(report, "knowledge_rules")
+    assert rule_records.included == ()
+    assert {record.id for record in rule_records.withheld} == {
+        rule_a.id,
+        rule_b.id,
+    }
+    projected_rule_a = next(
+        record for record in rule_records.withheld if record.id == rule_a.id
+    )
+    assert projected_rule_a.evidence_class == "MEASURED"
+    assert projected_rule_a.facts["support_evidence_ids"] == [support.id]
+    assert "RULE_BLOCKING_CONTRADICTION" in projected_rule_a.strict_reason_codes
+    support_records = _section(report, "claim_authority_support")
+    assert [record.id for record in support_records.included] == [
+        claim_support.id
+    ]
+    assert [record.id for record in support_records.withheld] == [
+        orphan_support.id
+    ]
+    assert support_records.withheld[0].strict_reason_codes == (
+        "CLAIM_PARENT_MISSING",
+    )
