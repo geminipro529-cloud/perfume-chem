@@ -75,6 +75,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_range_gap_analysis.py",
         "tests/test_science_audit.py",
         "tests/test_science_kb.py",
+        "tests/test_scientific_data_authority_report.py",
         "tests/test_scientific_truth_inventory.py",
     ),
     "gates-families": (
