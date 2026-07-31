@@ -1,0 +1,344 @@
+{
+  "schema_version": "perfume-chem-b8-gate-v1",
+  "build": "B8",
+  "title": "Prioritized scientific-data backfill",
+  "status": "PASS",
+  "exit_gate_passed": true,
+  "recorded_local_date": "2026-07-31",
+  "timezone": "Asia/Bangkok",
+  "branch": "codex/add-inventory-materials",
+  "preimplementation_commit": "3c160e3266a9288791d8680e23145903976bc2d8",
+  "implementation_commit_before_report": "3cb554f1ab242ec6c517329504867fe5b502ba70",
+  "implementation_commits": [
+    {
+      "sha": "6465f3a7b950509c92cd8ee1f527b9be40e05d90",
+      "subject": "docs: freeze Build B8 prioritized backfill design"
+    },
+    {
+      "sha": "2e10918372dfae192147c7f612b8ce3ee2e41b6d",
+      "subject": "docs: plan Build B8 prioritized backfill"
+    },
+    {
+      "sha": "ae0553dcd310ad14e056d4a44f5ac4e250d37bf6",
+      "subject": "test: define Build B8 backfill authority contract"
+    },
+    {
+      "sha": "3c7c40e4bf57b751c66db2d2caaa82ebc895ad03",
+      "subject": "feat: add Build B8 prioritized backfill schema"
+    },
+    {
+      "sha": "99ab3d2c27416527a8b9da04a8fc47e2a9518474",
+      "subject": "test: define Build B8 campaign persistence contract"
+    },
+    {
+      "sha": "787d15afb648ea5e332d1d4ee0322cdec4f72561",
+      "subject": "feat: persist Build B8 backfill campaigns"
+    },
+    {
+      "sha": "670f845fb4f80d957aee5885566a7cebfa912394",
+      "subject": "test: require Build B8 typed lineage and B7 promotion"
+    },
+    {
+      "sha": "1e1653ac9b7ef6c70eb7d7b7a0d8c6b2d45251cb",
+      "subject": "test: define Build B8 scientific signal resolvers"
+    },
+    {
+      "sha": "4db0b3febfb2832d0d609c15451593bde4013b07",
+      "subject": "test: reject Build B8 property subtype confusion"
+    },
+    {
+      "sha": "657c3d666f5cf440413a1f0fe23b38fe6013af01",
+      "subject": "feat: enforce Build B8 backfill evidence lineage"
+    },
+    {
+      "sha": "02bb8751c44638e9a75f7637419844fe12e7d9f9",
+      "subject": "test: define Build B8 workspace projection contract"
+    },
+    {
+      "sha": "3cb554f1ab242ec6c517329504867fe5b502ba70",
+      "subject": "feat: project Build B8 current inventory gaps"
+    }
+  ],
+  "migration": {
+    "revision": "20260731_0012",
+    "down_revision": "20260731_0011",
+    "head": "20260731_0012",
+    "tables": [
+      "lab_backfill_campaign_versions",
+      "lab_backfill_material_priorities",
+      "lab_backfill_priority_signal_links",
+      "lab_backfill_gap_items",
+      "lab_backfill_dashboard_cells"
+    ],
+    "backfill_rows": 0,
+    "append_only": true
+  },
+  "priority_signal_types": [
+    "CURRENT_INVENTORY",
+    "ACTIVE_FORMULA",
+    "SHIPPED_FORMULA",
+    "REFERENCE_FORMULA",
+    "HIGH_DOSE_STRUCTURE",
+    "POTENT_TRACE",
+    "REGULATORY_DRIVER",
+    "FAMILY_DRIVER",
+    "ANALYTICAL_STANDARD",
+    "NATURAL_CONSTITUENT",
+    "MODEL_SENSITIVITY"
+  ],
+  "requirement_types": [
+    "EXACT_IDENTITY",
+    "GRADE_IDENTITY",
+    "MOLECULAR_WEIGHT",
+    "DENSITY",
+    "VAPOR_PRESSURE",
+    "CONTEXTUAL_THRESHOLD",
+    "SAFETY_DOCUMENTATION",
+    "RETENTION_INDEX",
+    "ANALYTICAL_REFERENCE",
+    "NATURAL_LOT_COMPOSITION"
+  ],
+  "gap_states": [
+    "MISSING",
+    "UNKNOWN",
+    "WEAK",
+    "CONFLICTED",
+    "ACCEPTED_SCOPED",
+    "ACCEPTED_EXACT",
+    "NOT_APPLICABLE"
+  ],
+  "dashboard_dimensions": [
+    "EVIDENCE_CLASS",
+    "PROPERTY",
+    "CURRENT_INVENTORY",
+    "ACTIVE_FORMULA",
+    "CHEMICAL_FAMILY",
+    "REGULATORY_IMPACT",
+    "MODEL_SENSITIVITY"
+  ],
+  "authority_contract": {
+    "ranking_method": "STRICT_LEXICOGRAPHIC",
+    "priority_policy_code_owned": true,
+    "priority_policy_hash": true,
+    "caller_inflated_priority_rejected": true,
+    "typed_canonical_signal_resolution": true,
+    "accepted_gaps_require_exact_b7_reconstruction": true,
+    "decision_scope_material_identity_and_property_subtype_checked": true,
+    "campaign_parent_chain_checked": true,
+    "campaign_creation_atomic": true,
+    "campaign_reconstruction_deterministic": true,
+    "aggregate_coverage_score": false,
+    "release_authority": false
+  },
+  "defects_closed": [
+    {
+      "finding": "Caller-supplied signal weights could have become an unreviewed source of priority.",
+      "resolution": "All eleven signal types resolve through typed canonical records and nonfinite or out-of-range values fail closed."
+    },
+    {
+      "finding": "An accepted property gap could have reused a B7 PROPERTY_VALUE decision for the wrong property subtype.",
+      "resolution": "Requirement-specific claim type and property subtype checks now reject mismatched authority."
+    },
+    {
+      "finding": "A stale campaign parent or cross-material signal could produce an invalid partial snapshot.",
+      "resolution": "Latest-parent checks and one-transaction atomic creation reject both cases."
+    },
+    {
+      "finding": "Case-only inventory aliases could make workspace projection ordering depend on input order.",
+      "resolution": "Casefold ties now use a deterministic secondary key; two independent processes produced byte-identical JSON."
+    },
+    {
+      "finding": "Canonical migration and backup tests still expected migration head 20260731_0011.",
+      "resolution": "The initial run reproduced three stale-head failures; only the two CURRENT_HEAD constants changed to 20260731_0012, after which all twelve focused cases and the full compatibility gate passed."
+    },
+    {
+      "finding": "The first Ruff evidence rerun used an unsupported --no-color option.",
+      "resolution": "The capture was replaced with the supported --color never invocation; exit was zero with no ANSI bytes."
+    }
+  ],
+  "runtime": {
+    "python": "3.11.15",
+    "python_path": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "node": "v26.3.0"
+  },
+  "verification": [
+    {
+      "name": "b8_exact",
+      "exit_code": 0,
+      "tests_passed": 30,
+      "pytest_duration_seconds": 16.6,
+      "wrapper_duration_seconds": 21.06,
+      "timeout_seconds": 900,
+      "timed_out": false,
+      "stdout": "logs/pytest_b8_exact.stdout.txt",
+      "stderr": "logs/pytest_b8_exact.stderr.txt",
+      "result": "logs/pytest_b8_exact.result.json"
+    },
+    {
+      "name": "b8_workspace_projection",
+      "exit_code": 0,
+      "tests_passed": 2,
+      "pytest_duration_seconds": 0.05,
+      "wrapper_duration_seconds": 0.644,
+      "timeout_seconds": 300,
+      "timed_out": false,
+      "stdout": "logs/pytest_b8_projection.stdout.txt",
+      "stderr": "logs/pytest_b8_projection.stderr.txt",
+      "result": "logs/pytest_b8_projection.result.json"
+    },
+    {
+      "name": "a2_through_b8_compatibility",
+      "exit_code": 0,
+      "test_files": 55,
+      "tests_passed": 439,
+      "pytest_duration_seconds": 447.12,
+      "wrapper_duration_seconds": 453.399,
+      "timeout_seconds": 900,
+      "timed_out": false,
+      "stdout": "logs/pytest_a2_b8_compat.stdout.txt",
+      "stderr": "logs/pytest_a2_b8_compat.stderr.txt",
+      "result": "logs/pytest_a2_b8_compat.result.json"
+    },
+    {
+      "name": "ruff_exact_scope",
+      "exit_code": 0,
+      "result_text": "All checks passed!",
+      "ansi_detected": false,
+      "stdout": "logs/ruff_b8.stdout.txt",
+      "stderr": "logs/ruff_b8.stderr.txt",
+      "result": "logs/ruff_b8.result.json"
+    },
+    {
+      "name": "mypy_b8_modules",
+      "exit_code": 0,
+      "result_text": "Success: no issues found in 3 source files",
+      "stdout": "logs/mypy_b8.stdout.txt",
+      "stderr": "logs/mypy_b8.stderr.txt",
+      "result": "logs/mypy_b8.result.json"
+    },
+    {
+      "name": "alembic_heads",
+      "exit_code": 0,
+      "result_text": "20260731_0012 (head)",
+      "stdout": "logs/alembic_heads_b8.stdout.txt",
+      "stderr": "logs/alembic_heads_b8.stderr.txt",
+      "result": "logs/alembic_heads_b8.result.json"
+    },
+    {
+      "name": "knowledge_database_quick_check",
+      "exit_code": 0,
+      "result_text": "ok",
+      "mode": "read_only_immutable",
+      "stdout": "logs/kb_quick_check_readonly.stdout.txt",
+      "stderr": "logs/kb_quick_check_readonly.stderr.txt",
+      "result": "logs/kb_quick_check_readonly.result.json"
+    }
+  ],
+  "recovery_archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-b8-prewrite-20260731T081641+0700.tar",
+    "bytes": 97180160,
+    "sha256": "e6e6ce1ece19c0cf698c77b21a32d12c641f4af14cb8c082610f83f2e7d7ff4f",
+    "tar_entries": 404,
+    "files_hash_verified": 402,
+    "preexisting_nonruntime_dirty_untracked_files_preserved": 397,
+    "excluded_runtime_path_count": 481,
+    "absent_planned_path_count": 14,
+    "restorable_path_preserving": true,
+    "log": "logs/recovery_archive_check.json"
+  },
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "before_bytes": 0,
+      "after_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "opened_for_migration": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "before_bytes": 2084864,
+      "after_bytes": 2084864,
+      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "quick_check_read_only_immutable": true,
+      "main_database_content_unchanged": true
+    }
+  ],
+  "workspace_projection": {
+    "path": "current_inventory_gap_projection.json",
+    "schema_version": "b8-workspace-backfill-projection-v1",
+    "authority_state": "PLANNING_ONLY_NON_PROMOTING",
+    "sha256": "e04a3daf31e09d13d5cf377fa13a4c31d4d7c5d52a36320890039493bccb94fe",
+    "byte_deterministic_across_two_processes": true,
+    "raw_entries": 232,
+    "unique_normalized": 216,
+    "unique_fragrance": 211,
+    "owned_unique_fragrance": 208,
+    "unavailable_unique_fragrance": 3,
+    "duplicate_canonical_entries": 16,
+    "matched_owned_materials": 196,
+    "unmatched_owned_materials": 12,
+    "matched_unavailable_materials": 2,
+    "property_requirements_total": 4048,
+    "dashboard_cells": 30,
+    "legacy_promotion_count": 0
+  },
+  "deepluna": {
+    "exact_project": "perfume-chem",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": false,
+    "preimplementation_audit": {
+      "job_id": "DS-30ef482e3b3a9bd2152c84b28e1c07f5",
+      "status": "PASS",
+      "provider_calls": 1,
+      "prompt_tokens": 64193,
+      "completion_tokens": 761,
+      "total_tokens": 64954,
+      "measured_spend_delta_usd": 0.008871525,
+      "log": "logs/deepluna_gap_audit.json"
+    },
+    "final_audit": {
+      "job_id": "DS-a18df7187bed3044a0954faccf921ebb",
+      "status": "PASS",
+      "negative_findings": [],
+      "residual_risks": [],
+      "scope_deviation": false,
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "provider_calls": 1,
+      "prompt_tokens": 107016,
+      "completion_tokens": 798,
+      "total_tokens": 107814,
+      "measured_spend_delta_usd": 0.01466262,
+      "maximum_estimated_cost_usd": 0.07,
+      "log": "logs/deepluna_final_audit_pass.json"
+    }
+  },
+  "log_digests": {
+    "alembic_heads_b8.stdout.txt": "d05fb8ba33c0532876896596b90490ab3399322d0feb211337ab4d64bd5f79c7",
+    "deepluna_final_audit_pass.json": "7c0e198495895e8096cefb1f4ee30364e2e5875a272ce98ce80b70b61fadc585",
+    "deepluna_gap_audit.json": "ad001cc3c8089647ca44dec314f30308c91fbe2791cd5c5a28f183c5f1e23068",
+    "kb_quick_check_readonly.stdout.txt": "48efca0d0107ab83e6b6084e5f4029a734cfdf11277beda14d7c1bb564269e27",
+    "mypy_b8.stdout.txt": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
+    "protected_database_hashes.json": "54a6587ced5789a6aaae336bcf8d3a4c3078d82a5148c0a152e1d4dc056fbcfe",
+    "pytest_a2_b8_compat.stdout.txt": "89c08f3cf9e1a3aea783bbb5d83f8b4de6211a16590c5c52579fa3d540ac0411",
+    "pytest_b8_exact.stdout.txt": "e4ed6b20a1ca4c38d2541a46874000245eeeca2d5e4e44f1568b188c2d656e7b",
+    "pytest_b8_projection.stdout.txt": "0ec6a8ddce91f1cfefcb222cad948630ded5ca27fb1c40266359581544a761ac",
+    "recovery_archive_check.json": "a03f014871ae18629c5376d06492c1f1939a6870c0b1f8c6f47228671b64e980",
+    "ruff_b8.stdout.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authority_statement": "B8 is planning authority for prioritized scientific-data backfill. It does not create B1-B7 evidence authority, release authority, legal approval, a safety certificate, or proof of real-world performance.",
+  "residual_limits": [
+    "The frozen workspace projection cannot prove active-formula, chemical-family, or model-sensitivity signals and labels those dimensions UNKNOWN.",
+    "Legacy and unreviewed values remain weak, unknown, conflicted, or missing and are never promoted.",
+    "B8 creates empty append-only campaign structures and a non-promoting projection; no production database was migrated or backfilled.",
+    "Public API, UI, and strict-versus-exploratory presentation are deferred to B9.",
+    "Unrelated tracked and untracked work remains outside B8 staging scope."
+  ]
+}

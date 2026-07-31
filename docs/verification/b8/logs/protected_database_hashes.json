@@ -1,0 +1,33 @@
+{
+  "schema_version": "perfume-chem-protected-database-check-v1",
+  "read_only": true,
+  "databases": [
+    {
+      "path": "perfume_chem.db",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content_unchanged": true,
+      "wal_exists": false,
+      "shm_exists": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "content_unchanged": true,
+      "quick_check": "ok",
+      "quick_check_mode": "read_only_immutable",
+      "wal": {
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "shm": {
+        "exists": true,
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    }
+  ],
+  "protected_database_migrations_run": false
+}

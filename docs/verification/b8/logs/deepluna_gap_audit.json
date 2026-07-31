@@ -1,0 +1,30 @@
+{
+  "schema_version": "perfume-chem-deepluna-audit-v1",
+  "phase": "B8_PREIMPLEMENTATION",
+  "recorded_at_utc": "2026-07-31T01:12:38.838Z",
+  "project_id": "perfume-chem",
+  "readiness": "READY",
+  "runtime_mode": "CANDIDATE_V2",
+  "server_release": "0.9.9",
+  "job_id": "DS-30ef482e3b3a9bd2152c84b28e1c07f5",
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "provider_calls": 1,
+  "prompt_tokens": 64193,
+  "completion_tokens": 761,
+  "total_tokens": 64954,
+  "measured_spend_delta_usd": 0.008871525,
+  "summary": "Read-only inventory of Build B8 prerequisites completed. All required files were inspected; B1-B7 canonical inputs, schema invariants, missing inputs, implementation tradeoffs, and negative-test seams were mapped. No files changed and Sol retained design authority.",
+  "design_risks_carried_into_implementation": [
+    "Never promote a value that cannot reconstruct through accepted B1-B7 evidence.",
+    "Do not flatten stratified gaps into a single aggregate coverage score.",
+    "Version and parent-hash campaign snapshots so stale revisions fail closed."
+  ],
+  "scope_deviation": false,
+  "files_changed": []
+}

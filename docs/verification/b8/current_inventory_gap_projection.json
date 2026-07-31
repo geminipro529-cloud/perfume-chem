@@ -1,0 +1,1498 @@
+{
+  "authority_state": "PLANNING_ONLY_NON_PROMOTING",
+  "dashboard_cells": [
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "dimension": "ACTIVE_FORMULA",
+      "dimension_key": "UNKNOWN",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4048,
+      "unknown_count": 278,
+      "weak_count": 1012
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "dimension": "CHEMICAL_FAMILY",
+      "dimension_key": "UNKNOWN",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4048,
+      "unknown_count": 278,
+      "weak_count": 1012
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "dimension": "CURRENT_INVENTORY",
+      "dimension_key": "OWNED_MATCHED",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4048,
+      "unknown_count": 278,
+      "weak_count": 1012
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "dimension": "CURRENT_INVENTORY",
+      "dimension_key": "OWNED_UNMATCHED",
+      "material_count": 12,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 0,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "dimension": "CURRENT_INVENTORY",
+      "dimension_key": "UNAVAILABLE",
+      "material_count": 3,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 0,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "dimension": "EVIDENCE_CLASS",
+      "dimension_key": "LITERATURE_DERIVED",
+      "material_count": 10,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 28,
+      "unknown_count": 28,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "dimension": "EVIDENCE_CLASS",
+      "dimension_key": "SUPPLIER_PROVIDED",
+      "material_count": 7,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 9,
+      "unknown_count": 9,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "dimension": "EVIDENCE_CLASS",
+      "dimension_key": "UNKNOWN",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4011,
+      "unknown_count": 241,
+      "weak_count": 1012
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "dimension": "MODEL_SENSITIVITY",
+      "dimension_key": "UNKNOWN",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4048,
+      "unknown_count": 278,
+      "weak_count": 1012
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "dimension": "PROPERTY",
+      "dimension_key": "ANTOINE",
+      "material_count": 195,
+      "missing_count": 210,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 25,
+      "dimension": "PROPERTY",
+      "dimension_key": "CAS",
+      "material_count": 195,
+      "missing_count": 155,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 15,
+      "weak_count": 21
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 15,
+      "dimension": "PROPERTY",
+      "dimension_key": "DENSITY_25C_G_ML",
+      "material_count": 195,
+      "missing_count": 178,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 10,
+      "weak_count": 13
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 8,
+      "dimension": "PROPERTY",
+      "dimension_key": "DHVAP_KJ_MOL",
+      "material_count": 195,
+      "missing_count": 207,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 1
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 12,
+      "dimension": "PROPERTY",
+      "dimension_key": "HEDONIC_VALENCE",
+      "material_count": 183,
+      "missing_count": 90,
+      "not_applicable_count": 0,
+      "requirements_total": 195,
+      "unknown_count": 2,
+      "weak_count": 91
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "dimension": "PROPERTY",
+      "dimension_key": "HSP",
+      "material_count": 195,
+      "missing_count": 210,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 10,
+      "dimension": "PROPERTY",
+      "dimension_key": "IFRA_MAX_PCT_EDP",
+      "material_count": 183,
+      "missing_count": 178,
+      "not_applicable_count": 0,
+      "requirements_total": 195,
+      "unknown_count": 3,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "dimension": "PROPERTY",
+      "dimension_key": "INCHIKEY",
+      "material_count": 190,
+      "missing_count": 188,
+      "not_applicable_count": 0,
+      "requirements_total": 203,
+      "unknown_count": 5,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 15,
+      "dimension": "PROPERTY",
+      "dimension_key": "KAW_EFF",
+      "material_count": 195,
+      "missing_count": 113,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 88
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "LOGP",
+      "material_count": 195,
+      "missing_count": 52,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 93,
+      "weak_count": 44
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "MW_G_MOL",
+      "material_count": 195,
+      "missing_count": 7,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 41,
+      "weak_count": 141
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "ODT_AIR_PPB",
+      "material_count": 195,
+      "missing_count": 136,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 17,
+      "weak_count": 36
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "ODT_ETH_PPM",
+      "material_count": 195,
+      "missing_count": 138,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 15,
+      "weak_count": 36
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "dimension": "PROPERTY",
+      "dimension_key": "OR_TARGETS",
+      "material_count": 195,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 210
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "dimension": "PROPERTY",
+      "dimension_key": "SMILES",
+      "material_count": 190,
+      "missing_count": 188,
+      "not_applicable_count": 0,
+      "requirements_total": 203,
+      "unknown_count": 5,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 11,
+      "dimension": "PROPERTY",
+      "dimension_key": "STEVENS_N",
+      "material_count": 195,
+      "missing_count": 204,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 1
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 12,
+      "dimension": "PROPERTY",
+      "dimension_key": "TRP_TARGETS",
+      "material_count": 195,
+      "missing_count": 169,
+      "not_applicable_count": 0,
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 35
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "USER_STOCK_DILUTION",
+      "material_count": 195,
+      "missing_count": 16,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 43,
+      "weak_count": 130
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "dimension": "PROPERTY",
+      "dimension_key": "VP_25C_PA",
+      "material_count": 195,
+      "missing_count": 7,
+      "not_applicable_count": 0,
+      "requirements_total": 218,
+      "unknown_count": 29,
+      "weak_count": 153
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 178,
+      "dimension": "REGULATORY_IMPACT",
+      "dimension_key": "BLOCKING_GATE",
+      "material_count": 195,
+      "missing_count": 1184,
+      "not_applicable_count": 0,
+      "requirements_total": 1905,
+      "unknown_count": 154,
+      "weak_count": 389
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 134,
+      "dimension": "REGULATORY_IMPACT",
+      "dimension_key": "NON_BLOCKING",
+      "material_count": 195,
+      "missing_count": 1262,
+      "not_applicable_count": 0,
+      "requirements_total": 2143,
+      "unknown_count": 124,
+      "weak_count": 623
+    }
+  ],
+  "evidence_class_gaps": [
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "evidence_class": "LITERATURE_DERIVED",
+      "material_count": 10,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 28,
+      "unknown_count": 28,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 0,
+      "evidence_class": "SUPPLIER_PROVIDED",
+      "material_count": 7,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "requirements_total": 9,
+      "unknown_count": 9,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 312,
+      "evidence_class": "UNKNOWN",
+      "material_count": 195,
+      "missing_count": 2446,
+      "not_applicable_count": 0,
+      "requirements_total": 4011,
+      "unknown_count": 241,
+      "weak_count": 1012
+    }
+  ],
+  "input_hashes": {
+    "inventory_sha256": "6cab4998523dfbd224cb8be7973d977a706d9fc56f8d1f0c84e31e806f509c66",
+    "scientific_inventory_sha256": "fdfe1de2f51ecf2ae03014c27a3c13c594c2dbf1020dba9a31bffed487d08ca8"
+  },
+  "inventory_counts": {
+    "duplicate_canonical_entries": 16,
+    "matched_owned_materials": 196,
+    "matched_unavailable_materials": 2,
+    "owned_unique_fragrance": 208,
+    "raw_entries": 232,
+    "raw_fragrance_entries": 227,
+    "unavailable_unique_fragrance": 3,
+    "unique_fragrance": 211,
+    "unique_normalized": 216,
+    "unmatched_owned_materials": 12
+  },
+  "legacy_promotion_count": 0,
+  "limitations": [
+    "B0 legacy and unreviewed values remain weak, unknown, or missing.",
+    "Active formula, chemical family, and model sensitivity are unknown because these two frozen inputs cannot prove them.",
+    "This projection cannot create B1-B7 authority or authorize release."
+  ],
+  "matched_owned_materials": [
+    {
+      "inventory_name": "2-Acetyl Pyrazine",
+      "scientific_subject_id": "2-Acetyl Pyrazine"
+    },
+    {
+      "inventory_name": "Adoxal",
+      "scientific_subject_id": "Adoxal"
+    },
+    {
+      "inventory_name": "Aldehyde C10",
+      "scientific_subject_id": "Aldehyde C10"
+    },
+    {
+      "inventory_name": "Aldehyde C11 undecylenic",
+      "scientific_subject_id": "Aldehyde C11 Undecylenic"
+    },
+    {
+      "inventory_name": "Aldehyde C12 MNA",
+      "scientific_subject_id": "Aldehyde C12 MNA"
+    },
+    {
+      "inventory_name": "Allyl Amyl Glycolate",
+      "scientific_subject_id": "Allyl Amyl Glycolate"
+    },
+    {
+      "inventory_name": "Allyl Cyclohexyl Propionate",
+      "scientific_subject_id": "Allyl Cyclohexyl Propionate"
+    },
+    {
+      "inventory_name": "Alpha Damascone",
+      "scientific_subject_id": "Alpha Damascone"
+    },
+    {
+      "inventory_name": "Alpha Ionone",
+      "scientific_subject_id": "Alpha Ionone"
+    },
+    {
+      "inventory_name": "Alpha Irone",
+      "scientific_subject_id": "Alpha Irone"
+    },
+    {
+      "inventory_name": "Alpha Isomethyl Ionone",
+      "scientific_subject_id": "Alpha Isomethyl Ionone"
+    },
+    {
+      "inventory_name": "Ambermax",
+      "scientific_subject_id": "Ambermax"
+    },
+    {
+      "inventory_name": "Amberwood F",
+      "scientific_subject_id": "Amberwood F"
+    },
+    {
+      "inventory_name": "Ambrettolide",
+      "scientific_subject_id": "Ambrettolide"
+    },
+    {
+      "inventory_name": "Ambrofix",
+      "scientific_subject_id": "Ambrofix"
+    },
+    {
+      "inventory_name": "Ambrox Super",
+      "scientific_subject_id": "Ambrox Super"
+    },
+    {
+      "inventory_name": "Amyl Cinnamic Aldehyde",
+      "scientific_subject_id": "Amyl Cinnamic Aldehyde (ACA)"
+    },
+    {
+      "inventory_name": "Anisaldehyde",
+      "scientific_subject_id": "Anisaldehyde"
+    },
+    {
+      "inventory_name": "Anise EO",
+      "scientific_subject_id": "Anise EO (China)"
+    },
+    {
+      "inventory_name": "Apritone",
+      "scientific_subject_id": "Apritone"
+    },
+    {
+      "inventory_name": "Aurantiol",
+      "scientific_subject_id": "Aurantiol"
+    },
+    {
+      "inventory_name": "Azarbre",
+      "scientific_subject_id": "Azarbre"
+    },
+    {
+      "inventory_name": "Basil EO",
+      "scientific_subject_id": "Basil EO (India, Ocimum Basilicum)"
+    },
+    {
+      "inventory_name": "Benzaldehyde",
+      "scientific_subject_id": "Benzaldehyde"
+    },
+    {
+      "inventory_name": "Benzoin Sumatra Resinoid",
+      "scientific_subject_id": "Benzoin Sumatra Resinoid"
+    },
+    {
+      "inventory_name": "Benzyl Acetate",
+      "scientific_subject_id": "Benzyl Acetate"
+    },
+    {
+      "inventory_name": "Benzyl Alcohol",
+      "scientific_subject_id": "Benzyl Alcohol"
+    },
+    {
+      "inventory_name": "Benzyl Benzoate",
+      "scientific_subject_id": "Benzyl Benzoate"
+    },
+    {
+      "inventory_name": "Benzyl Salicylate",
+      "scientific_subject_id": "Benzyl Salicylate"
+    },
+    {
+      "inventory_name": "Beta Ionone",
+      "scientific_subject_id": "Beta Ionone"
+    },
+    {
+      "inventory_name": "Beta-Pinene",
+      "scientific_subject_id": "beta-pinene"
+    },
+    {
+      "inventory_name": "BHT",
+      "scientific_subject_id": "Butylated Hydroxytoluene (BHT) Antioxidant"
+    },
+    {
+      "inventory_name": "Birch Tar Rectified",
+      "scientific_subject_id": "Birch Tar Rectified"
+    },
+    {
+      "inventory_name": "Black Agarwood Artificial",
+      "scientific_subject_id": "Black Agarwood Artificial"
+    },
+    {
+      "inventory_name": "Black Pepper EO",
+      "scientific_subject_id": "Black Pepper EO"
+    },
+    {
+      "inventory_name": "Blackcurrant Absolute",
+      "scientific_subject_id": "Blackcurrant Absolute"
+    },
+    {
+      "inventory_name": "Blood Orange oil Sicilian",
+      "scientific_subject_id": "Blood Orange Sicilian"
+    },
+    {
+      "inventory_name": "Blue Chamomile EO",
+      "scientific_subject_id": "Blue Chamomile EO"
+    },
+    {
+      "inventory_name": "Bourgeonal",
+      "scientific_subject_id": "Bourgeonal"
+    },
+    {
+      "inventory_name": "Cade Oil Rectified",
+      "scientific_subject_id": "Cade Oil Rectified"
+    },
+    {
+      "inventory_name": "Calone",
+      "scientific_subject_id": "Calone"
+    },
+    {
+      "inventory_name": "Cardamom EO",
+      "scientific_subject_id": "Cardamom EO"
+    },
+    {
+      "inventory_name": "Carrot Seed EO",
+      "scientific_subject_id": "Carrot Seed EO"
+    },
+    {
+      "inventory_name": "Cashmeran",
+      "scientific_subject_id": "Cashmeran"
+    },
+    {
+      "inventory_name": "Cassia Essential Oil",
+      "scientific_subject_id": "Cassia Essential Oil"
+    },
+    {
+      "inventory_name": "Cassis Base 345B",
+      "scientific_subject_id": "Cassis Base 345B"
+    },
+    {
+      "inventory_name": "Castoreum Synthetic",
+      "scientific_subject_id": "Castoreum Synthetic"
+    },
+    {
+      "inventory_name": "Cedarwood EO",
+      "scientific_subject_id": "Cedarwood EO"
+    },
+    {
+      "inventory_name": "Cedarwood oil Virginia",
+      "scientific_subject_id": "Cedarwood Virginia EO"
+    },
+    {
+      "inventory_name": "Cedramber",
+      "scientific_subject_id": "Cedramber"
+    },
+    {
+      "inventory_name": "Cedrat FCF oil Sicilian",
+      "scientific_subject_id": "Cedrat FCF Sicilian"
+    },
+    {
+      "inventory_name": "Champaca Flower EO",
+      "scientific_subject_id": "Champaca Flower EO"
+    },
+    {
+      "inventory_name": "Champignol",
+      "scientific_subject_id": "Champignol"
+    },
+    {
+      "inventory_name": "Cinnamaldehyde",
+      "scientific_subject_id": "Cinnamaldehyde"
+    },
+    {
+      "inventory_name": "Cis Jasmone",
+      "scientific_subject_id": "Cis Jasmone"
+    },
+    {
+      "inventory_name": "Citral",
+      "scientific_subject_id": "Citral"
+    },
+    {
+      "inventory_name": "Citronellal",
+      "scientific_subject_id": "Citronellal"
+    },
+    {
+      "inventory_name": "Citronellol",
+      "scientific_subject_id": "Citronellol"
+    },
+    {
+      "inventory_name": "Clary Sage EO",
+      "scientific_subject_id": "Clary Sage EO"
+    },
+    {
+      "inventory_name": "Clove EO",
+      "scientific_subject_id": "Clove EO (India)"
+    },
+    {
+      "inventory_name": "Cocoa Absolute",
+      "scientific_subject_id": "Cocoa Absolute"
+    },
+    {
+      "inventory_name": "Cocoa CO2 Extract",
+      "scientific_subject_id": "Cocoa CO2 Extract"
+    },
+    {
+      "inventory_name": "Coffee Absolute Grasse",
+      "scientific_subject_id": "Coffee Absolute Grasse"
+    },
+    {
+      "inventory_name": "Coriander Essential Oil",
+      "scientific_subject_id": "Coriander Essential Oil"
+    },
+    {
+      "inventory_name": "Costus Olifac",
+      "scientific_subject_id": "Costus Olifac"
+    },
+    {
+      "inventory_name": "Coumarin",
+      "scientific_subject_id": "Coumarin"
+    },
+    {
+      "inventory_name": "Cyclamen Aldehyde",
+      "scientific_subject_id": "Cyclamen Aldehyde"
+    },
+    {
+      "inventory_name": "D-Limonene",
+      "scientific_subject_id": "D-Limonene"
+    },
+    {
+      "inventory_name": "Damascenone",
+      "scientific_subject_id": "Damascenone"
+    },
+    {
+      "inventory_name": "Damascol",
+      "scientific_subject_id": "Damascol"
+    },
+    {
+      "inventory_name": "Damascone Beta",
+      "scientific_subject_id": "Beta Damascone"
+    },
+    {
+      "inventory_name": "Delta Decalactone",
+      "scientific_subject_id": "Delta Decalactone"
+    },
+    {
+      "inventory_name": "Dihydro Beta Ionone",
+      "scientific_subject_id": "Dihydro Beta Ionone"
+    },
+    {
+      "inventory_name": "Dihydrojasmone",
+      "scientific_subject_id": "Dihydrojasmone"
+    },
+    {
+      "inventory_name": "Dihydromyrcenol",
+      "scientific_subject_id": "Dihydromyrcenol"
+    },
+    {
+      "inventory_name": "Dimethyl Benzyl Carbinyl Acetate",
+      "scientific_subject_id": "Dimethyl Benzyl Carbinyl Acetate"
+    },
+    {
+      "inventory_name": "Dynascone",
+      "scientific_subject_id": "Dynascone"
+    },
+    {
+      "inventory_name": "Ebanol",
+      "scientific_subject_id": "Ebanol"
+    },
+    {
+      "inventory_name": "Ethyl 2-Methylbutyrate",
+      "scientific_subject_id": "Ethyl 2-Methylbutyrate"
+    },
+    {
+      "inventory_name": "Ethyl Maltol",
+      "scientific_subject_id": "Ethyl Maltol"
+    },
+    {
+      "inventory_name": "Ethyl Safranate",
+      "scientific_subject_id": "Ethyl Safranate"
+    },
+    {
+      "inventory_name": "Ethyl Vanillin",
+      "scientific_subject_id": "Ethyl Vanillin"
+    },
+    {
+      "inventory_name": "Eucalyptus Essential Oil",
+      "scientific_subject_id": "Eucalyptus Essential Oil"
+    },
+    {
+      "inventory_name": "Eugenol",
+      "scientific_subject_id": "Eugenol"
+    },
+    {
+      "inventory_name": "Evernyl",
+      "scientific_subject_id": "Evernyl"
+    },
+    {
+      "inventory_name": "Exaltolide",
+      "scientific_subject_id": "Exaltolide"
+    },
+    {
+      "inventory_name": "Farnesol",
+      "scientific_subject_id": "Farnesol"
+    },
+    {
+      "inventory_name": "Floralozone",
+      "scientific_subject_id": "Floralozone"
+    },
+    {
+      "inventory_name": "Florol",
+      "scientific_subject_id": "Florol"
+    },
+    {
+      "inventory_name": "Freesia HDI",
+      "scientific_subject_id": "Freesia HDI"
+    },
+    {
+      "inventory_name": "Galaxolide",
+      "scientific_subject_id": "Galaxolide"
+    },
+    {
+      "inventory_name": "Galbanum EO",
+      "scientific_subject_id": "galbanum eo"
+    },
+    {
+      "inventory_name": "Gamma Decalactone",
+      "scientific_subject_id": "Gamma Decalactone"
+    },
+    {
+      "inventory_name": "Gamma Undecalactone",
+      "scientific_subject_id": "Gamma Undecalactone"
+    },
+    {
+      "inventory_name": "Geosmin",
+      "scientific_subject_id": "Geosmin"
+    },
+    {
+      "inventory_name": "Geraniol",
+      "scientific_subject_id": "Geraniol"
+    },
+    {
+      "inventory_name": "Geranium EO",
+      "scientific_subject_id": "Geranium EO"
+    },
+    {
+      "inventory_name": "Geranium Flower EO",
+      "scientific_subject_id": "Geranium EO"
+    },
+    {
+      "inventory_name": "Ginger EO",
+      "scientific_subject_id": "Ginger EO"
+    },
+    {
+      "inventory_name": "Grapefruit FCF oil Sicilian",
+      "scientific_subject_id": "Grapefruit FCF Oil Sicilian"
+    },
+    {
+      "inventory_name": "Guaiacol",
+      "scientific_subject_id": "Guaiacol"
+    },
+    {
+      "inventory_name": "Hedione",
+      "scientific_subject_id": "Hedione"
+    },
+    {
+      "inventory_name": "Helional",
+      "scientific_subject_id": "Helional"
+    },
+    {
+      "inventory_name": "Heliotropal",
+      "scientific_subject_id": "Heliotropal"
+    },
+    {
+      "inventory_name": "Hexyl Acetate",
+      "scientific_subject_id": "Hexyl Acetate"
+    },
+    {
+      "inventory_name": "Hexyl Salicylate",
+      "scientific_subject_id": "Hexyl Salicylate"
+    },
+    {
+      "inventory_name": "Himalayan Cedarwood EO",
+      "scientific_subject_id": "Himalayan Cedarwood EO"
+    },
+    {
+      "inventory_name": "Hydroxycitronellol",
+      "scientific_subject_id": "Hydroxycitronellol"
+    },
+    {
+      "inventory_name": "Immortelle Absolute",
+      "scientific_subject_id": "Immortelle Absolute"
+    },
+    {
+      "inventory_name": "Indole",
+      "scientific_subject_id": "Indole"
+    },
+    {
+      "inventory_name": "Irotyl",
+      "scientific_subject_id": "Irotyl"
+    },
+    {
+      "inventory_name": "Iso E Super",
+      "scientific_subject_id": "Iso E Super"
+    },
+    {
+      "inventory_name": "Isobutavan",
+      "scientific_subject_id": "Isobutavan"
+    },
+    {
+      "inventory_name": "Isobutyl Quinoline",
+      "scientific_subject_id": "Isobutyl Quinoline"
+    },
+    {
+      "inventory_name": "Isoeugenol",
+      "scientific_subject_id": "Isoeugenol"
+    },
+    {
+      "inventory_name": "Jasmine Absolute",
+      "scientific_subject_id": "Jasmine Absolute"
+    },
+    {
+      "inventory_name": "Jasmine Sambac Blossoms",
+      "scientific_subject_id": "Jasmine Sambac Blossoms"
+    },
+    {
+      "inventory_name": "Javanol",
+      "scientific_subject_id": "Javanol"
+    },
+    {
+      "inventory_name": "Jessemal",
+      "scientific_subject_id": "jessemal (jasmonyl)"
+    },
+    {
+      "inventory_name": "Juniper Berry EO",
+      "scientific_subject_id": "juniper berry eo"
+    },
+    {
+      "inventory_name": "Kephalis",
+      "scientific_subject_id": "Kephalis"
+    },
+    {
+      "inventory_name": "Koavone",
+      "scientific_subject_id": "Koavone"
+    },
+    {
+      "inventory_name": "Labdanum Resinoid",
+      "scientific_subject_id": "Labdanum"
+    },
+    {
+      "inventory_name": "Leafovert",
+      "scientific_subject_id": "Leafovert"
+    },
+    {
+      "inventory_name": "Leather FO",
+      "scientific_subject_id": "Leather FO"
+    },
+    {
+      "inventory_name": "Lemon FCF oil Sicilian",
+      "scientific_subject_id": "Lemon FCF Oil Sicilian"
+    },
+    {
+      "inventory_name": "Lemonile",
+      "scientific_subject_id": "Lemonile"
+    },
+    {
+      "inventory_name": "Lilial",
+      "scientific_subject_id": "Lilial"
+    },
+    {
+      "inventory_name": "Lilyreal ND",
+      "scientific_subject_id": "Lilyreal ND"
+    },
+    {
+      "inventory_name": "Lime Distilled EO",
+      "scientific_subject_id": "lime distilled eo"
+    },
+    {
+      "inventory_name": "Linalool",
+      "scientific_subject_id": "Linalool"
+    },
+    {
+      "inventory_name": "Linalyl Acetate",
+      "scientific_subject_id": "Linalyl Acetate"
+    },
+    {
+      "inventory_name": "Maple Lactone",
+      "scientific_subject_id": "Maple Lactone"
+    },
+    {
+      "inventory_name": "Mayol",
+      "scientific_subject_id": "Mayol"
+    },
+    {
+      "inventory_name": "Melonal",
+      "scientific_subject_id": "Melonal"
+    },
+    {
+      "inventory_name": "Methyl Anthranilate",
+      "scientific_subject_id": "Methyl Anthranilate"
+    },
+    {
+      "inventory_name": "Methyl Benzoate",
+      "scientific_subject_id": "Methyl Benzoate"
+    },
+    {
+      "inventory_name": "Methyl Nonyl Ketone",
+      "scientific_subject_id": "Methyl Nonyl Ketone"
+    },
+    {
+      "inventory_name": "Methyl Pamplemousse",
+      "scientific_subject_id": "Methyl Pamplemousse"
+    },
+    {
+      "inventory_name": "Methyl Salicylate",
+      "scientific_subject_id": "Methyl Salicylate"
+    },
+    {
+      "inventory_name": "Mimosa Absolute",
+      "scientific_subject_id": "Mimosa Absolute"
+    },
+    {
+      "inventory_name": "Nagarmortha Oil",
+      "scientific_subject_id": "nagarmortha oil"
+    },
+    {
+      "inventory_name": "Nerol",
+      "scientific_subject_id": "Nerol"
+    },
+    {
+      "inventory_name": "Neroli EO",
+      "scientific_subject_id": "Neroli EO"
+    },
+    {
+      "inventory_name": "Nerolin Bromelia",
+      "scientific_subject_id": "Nerolin Bromelia"
+    },
+    {
+      "inventory_name": "Norlimbanol Dextro",
+      "scientific_subject_id": "Norlimbanol Dextro"
+    },
+    {
+      "inventory_name": "Nympheal",
+      "scientific_subject_id": "Nympheal"
+    },
+    {
+      "inventory_name": "Oakmoss Absolute",
+      "scientific_subject_id": "oakmoss absolute"
+    },
+    {
+      "inventory_name": "Olibanum Resinoid",
+      "scientific_subject_id": "Olibanum Resinoid"
+    },
+    {
+      "inventory_name": "Opoponax Resinoid",
+      "scientific_subject_id": "Opoponax Resinoid"
+    },
+    {
+      "inventory_name": "Orange Peel EO",
+      "scientific_subject_id": "Orange Peel EO"
+    },
+    {
+      "inventory_name": "Oranger Crystals",
+      "scientific_subject_id": "Oranger Crystals"
+    },
+    {
+      "inventory_name": "Orivone",
+      "scientific_subject_id": "Orivone"
+    },
+    {
+      "inventory_name": "Orris Liquid",
+      "scientific_subject_id": "Orris Liquid"
+    },
+    {
+      "inventory_name": "Osmanthus Absolute",
+      "scientific_subject_id": "Osmanthus Absolute (volume grade)"
+    },
+    {
+      "inventory_name": "Pamzest",
+      "scientific_subject_id": "Pamzest"
+    },
+    {
+      "inventory_name": "Paradisamide",
+      "scientific_subject_id": "Paradisamide"
+    },
+    {
+      "inventory_name": "Parmavert",
+      "scientific_subject_id": "Parmavert"
+    },
+    {
+      "inventory_name": "Peonile",
+      "scientific_subject_id": "Peonile"
+    },
+    {
+      "inventory_name": "Peppermint Essential Oil",
+      "scientific_subject_id": "Peppermint Essential Oil"
+    },
+    {
+      "inventory_name": "Peru Balsam Resinoid",
+      "scientific_subject_id": "Peru Balsam Resinoid"
+    },
+    {
+      "inventory_name": "Petitgrain EO Paraguay",
+      "scientific_subject_id": "petitgrain eo paraguay"
+    },
+    {
+      "inventory_name": "Phenethyl Alcohol",
+      "scientific_subject_id": "Phenethyl Alcohol"
+    },
+    {
+      "inventory_name": "Phenyl Ethyl Acetate",
+      "scientific_subject_id": "Phenyl Ethyl Acetate"
+    },
+    {
+      "inventory_name": "Phenyl Ethyl Dimethyl Carbinol",
+      "scientific_subject_id": "Phenyl Ethyl Dimethyl Carbinol"
+    },
+    {
+      "inventory_name": "Pine EO",
+      "scientific_subject_id": "pine eo"
+    },
+    {
+      "inventory_name": "Polysantol",
+      "scientific_subject_id": "Polysantol"
+    },
+    {
+      "inventory_name": "Raspberry Ketone",
+      "scientific_subject_id": "Raspberry Ketone"
+    },
+    {
+      "inventory_name": "Rhodinol ex Citronella",
+      "scientific_subject_id": "Rhodinol Ex Citronella"
+    },
+    {
+      "inventory_name": "Rose Essential Oil",
+      "scientific_subject_id": "Rose Essential Oil"
+    },
+    {
+      "inventory_name": "Rose Oxide",
+      "scientific_subject_id": "Rose Oxide"
+    },
+    {
+      "inventory_name": "Rosemary EO",
+      "scientific_subject_id": "Rosemary EO (French Rosmarinus Officinalis leaf oil)"
+    },
+    {
+      "inventory_name": "Safraleine",
+      "scientific_subject_id": "Safraleine"
+    },
+    {
+      "inventory_name": "Sandalore",
+      "scientific_subject_id": "Sandalore"
+    },
+    {
+      "inventory_name": "Scentenal",
+      "scientific_subject_id": "Scentenal"
+    },
+    {
+      "inventory_name": "Siam Benzoin",
+      "scientific_subject_id": "Siam Benzoin"
+    },
+    {
+      "inventory_name": "Skatole",
+      "scientific_subject_id": "Skatole"
+    },
+    {
+      "inventory_name": "Spike Lavender EO",
+      "scientific_subject_id": "spike lavender eo"
+    },
+    {
+      "inventory_name": "Suederal",
+      "scientific_subject_id": "Suederal"
+    },
+    {
+      "inventory_name": "Tagetes EO",
+      "scientific_subject_id": "Tagetes EO"
+    },
+    {
+      "inventory_name": "Terpinyl Acetate",
+      "scientific_subject_id": "Terpinyl Acetate"
+    },
+    {
+      "inventory_name": "Timberol",
+      "scientific_subject_id": "Timberol"
+    },
+    {
+      "inventory_name": "Tobacco Absolute",
+      "scientific_subject_id": "Tobacco Absolute"
+    },
+    {
+      "inventory_name": "Tonka Bean Absolute",
+      "scientific_subject_id": "Tonka Bean Absolute"
+    },
+    {
+      "inventory_name": "Tonkarome",
+      "scientific_subject_id": "Tonkarome"
+    },
+    {
+      "inventory_name": "Triplal",
+      "scientific_subject_id": "Triplal"
+    },
+    {
+      "inventory_name": "Tuberose Absolute",
+      "scientific_subject_id": "Tuberose Absolute (volume grade)"
+    },
+    {
+      "inventory_name": "Ultralia",
+      "scientific_subject_id": "Ultralia"
+    },
+    {
+      "inventory_name": "Undecavertol",
+      "scientific_subject_id": "Undecavertol"
+    },
+    {
+      "inventory_name": "Vanillin",
+      "scientific_subject_id": "Vanillin"
+    },
+    {
+      "inventory_name": "Verdox",
+      "scientific_subject_id": "Verdox"
+    },
+    {
+      "inventory_name": "Vetival",
+      "scientific_subject_id": "Vetival"
+    },
+    {
+      "inventory_name": "Violet Leaf Absolute",
+      "scientific_subject_id": "Violet Leaf Absolute"
+    },
+    {
+      "inventory_name": "Ylang Comoros Complete EO F3255",
+      "scientific_subject_id": "Ylang Comoros Complete EO"
+    },
+    {
+      "inventory_name": "Ylang Comoros III EO F3295",
+      "scientific_subject_id": "Ylang Comoros III EO F3295"
+    },
+    {
+      "inventory_name": "Zenolide",
+      "scientific_subject_id": "Zenolide"
+    }
+  ],
+  "property_gaps": [
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "material_count": 195,
+      "missing_count": 210,
+      "not_applicable_count": 0,
+      "property_type": "antoine",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 25,
+      "material_count": 195,
+      "missing_count": 155,
+      "not_applicable_count": 0,
+      "property_type": "cas",
+      "requirements_total": 216,
+      "unknown_count": 15,
+      "weak_count": 21
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 15,
+      "material_count": 195,
+      "missing_count": 178,
+      "not_applicable_count": 0,
+      "property_type": "density_25c_g_ml",
+      "requirements_total": 216,
+      "unknown_count": 10,
+      "weak_count": 13
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 8,
+      "material_count": 195,
+      "missing_count": 207,
+      "not_applicable_count": 0,
+      "property_type": "dhvap_kj_mol",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 1
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 12,
+      "material_count": 183,
+      "missing_count": 90,
+      "not_applicable_count": 0,
+      "property_type": "hedonic_valence",
+      "requirements_total": 195,
+      "unknown_count": 2,
+      "weak_count": 91
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "material_count": 195,
+      "missing_count": 210,
+      "not_applicable_count": 0,
+      "property_type": "hsp",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 0
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 10,
+      "material_count": 183,
+      "missing_count": 178,
+      "not_applicable_count": 0,
+      "property_type": "ifra_max_pct_edp",
+      "requirements_total": 195,
+      "unknown_count": 3,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "material_count": 190,
+      "missing_count": 188,
+      "not_applicable_count": 0,
+      "property_type": "inchikey",
+      "requirements_total": 203,
+      "unknown_count": 5,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 15,
+      "material_count": 195,
+      "missing_count": 113,
+      "not_applicable_count": 0,
+      "property_type": "kaw_eff",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 88
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 52,
+      "not_applicable_count": 0,
+      "property_type": "logp",
+      "requirements_total": 218,
+      "unknown_count": 93,
+      "weak_count": 44
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 7,
+      "not_applicable_count": 0,
+      "property_type": "mw_g_mol",
+      "requirements_total": 218,
+      "unknown_count": 41,
+      "weak_count": 141
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 136,
+      "not_applicable_count": 0,
+      "property_type": "odt_air_ppb",
+      "requirements_total": 218,
+      "unknown_count": 17,
+      "weak_count": 36
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 138,
+      "not_applicable_count": 0,
+      "property_type": "odt_eth_ppm",
+      "requirements_total": 218,
+      "unknown_count": 15,
+      "weak_count": 36
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "material_count": 195,
+      "missing_count": 0,
+      "not_applicable_count": 0,
+      "property_type": "or_targets",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 210
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 6,
+      "material_count": 190,
+      "missing_count": 188,
+      "not_applicable_count": 0,
+      "property_type": "smiles",
+      "requirements_total": 203,
+      "unknown_count": 5,
+      "weak_count": 4
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 11,
+      "material_count": 195,
+      "missing_count": 204,
+      "not_applicable_count": 0,
+      "property_type": "stevens_n",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 1
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 12,
+      "material_count": 195,
+      "missing_count": 169,
+      "not_applicable_count": 0,
+      "property_type": "trp_targets",
+      "requirements_total": 216,
+      "unknown_count": 0,
+      "weak_count": 35
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 16,
+      "not_applicable_count": 0,
+      "property_type": "user_stock_dilution",
+      "requirements_total": 218,
+      "unknown_count": 43,
+      "weak_count": 130
+    },
+    {
+      "accepted_exact_count": 0,
+      "accepted_scoped_count": 0,
+      "conflicted_count": 29,
+      "material_count": 195,
+      "missing_count": 7,
+      "not_applicable_count": 0,
+      "property_type": "vp_25c_pa",
+      "requirements_total": 218,
+      "unknown_count": 29,
+      "weak_count": 153
+    }
+  ],
+  "schema_version": "b8-workspace-backfill-projection-v1",
+  "scientific_inventory_summary": {
+    "code_constant_count": 238,
+    "knowledge_rule_count": 3381,
+    "material_count": 1262,
+    "material_property_observation_count": 23869,
+    "source_digest_count": 997
+  },
+  "unavailable_materials": [
+    "Macrolide",
+    "Musk Ketone",
+    "Tonalide"
+  ],
+  "unmatched_owned_materials": [
+    "Aldehyde C-18",
+    "Allyl Ionone",
+    "Cinnamyl alcohol 50% in DPG",
+    "Indian Vetiver EO",
+    "Jasmine Sambac",
+    "Lavender EO",
+    "Lavender EO High Altitude",
+    "p-Cresyl Methyl Ether (PCME)",
+    "Patchouli EO",
+    "Tuberose Base",
+    "Vertofix",
+    "Vetikon"
+  ]
+}
