@@ -63,6 +63,7 @@ _ENGINE_TEST_SHARDS = {
     ),
     "data-knowledge": (
         "tests/test_aromachemical_expansion.py",
+        "tests/test_b8_backfill_dashboard.py",
         "tests/test_data_spine_loader.py",
         "tests/test_ifra_safety.py",
         "tests/test_inventory_material_additions.py",
@@ -74,6 +75,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_range_gap_analysis.py",
         "tests/test_science_audit.py",
         "tests/test_science_kb.py",
+        "tests/test_scientific_truth_inventory.py",
     ),
     "gates-families": (
         "tests/test_a1_authoritative_contracts.py",
