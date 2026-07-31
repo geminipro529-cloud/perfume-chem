@@ -69,9 +69,16 @@ F11_INCOMPATIBILITIES: list[dict[str, str | float]] = [
 ]
 
 
-def _get_conn() -> sqlite3.Connection:
-    """Open a read-only connection to the knowledge database."""
-    conn = sqlite3.connect(str(_DB_PATH))
+def _get_conn(*, writable: bool = False) -> sqlite3.Connection:
+    """Open an immutable query connection or an explicit writable connection."""
+
+    if writable:
+        conn = sqlite3.connect(str(_DB_PATH))
+    else:
+        conn = sqlite3.connect(
+            f"file:{_DB_PATH.as_posix()}?mode=ro&immutable=1",
+            uri=True,
+        )
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -86,7 +93,7 @@ def _ensure_f11_seeded() -> None:
 
     Idempotent — checks for existing entries before inserting.
     """
-    conn = _get_conn()
+    conn = _get_conn(writable=True)
     try:
         cur = conn.cursor()
         insert_sql = """
@@ -246,7 +253,7 @@ def add_interaction(
     context : str
         Machine-readable context tag (e.g. ``'chemical_family_incompatibility'``).
     """
-    conn = _get_conn()
+    conn = _get_conn(writable=True)
     try:
         cur = conn.cursor()
         cur.execute(
@@ -256,7 +263,10 @@ def add_interaction(
             (material_a, material_b, type_, effect, magnitude, source, context),
         )
         conn.commit()
-        return int(cur.lastrowid)
+        row_id = cur.lastrowid
+        if row_id is None:
+            raise RuntimeError("SQLite did not return an interaction row id.")
+        return row_id
     finally:
         conn.close()
 
@@ -358,8 +368,8 @@ def check_chemical_compatibility(material_a: str, material_b: str) -> dict:
 
     # 1. Check hardcoded F11 rules (always available)
     for rule in F11_INCOMPATIBILITIES:
-        rule_a = rule["material_a"].lower()
-        rule_b = rule["material_b"].lower()
+        rule_a = str(rule["material_a"]).lower()
+        rule_b = str(rule["material_b"]).lower()
         if (a_lower == rule_a and b_lower == rule_b) or (
             a_lower == rule_b and b_lower == rule_a
         ):
@@ -391,7 +401,3 @@ def check_chemical_compatibility(material_a: str, material_b: str) -> dict:
         conn.close()
 
     return {"compatible": True, "reason": None, "source": None}
-
-
-# ── Auto-seed F11 rules on module import ──────────────────────────────
-_ensure_f11_seeded()

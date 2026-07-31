@@ -1,11 +1,18 @@
 """Tests for the interaction graph query API (:mod:`engine.interaction_graph`).
 
 Verifies query, insert, analysis, and F11 chemical-incompatibility
-functions against the live SQLite database at ``data/perfumery_kb.db``.
+functions against an isolated copy of ``data/perfumery_kb.db``.
 """
 
 from __future__ import annotations
 
+from hashlib import sha256
+from pathlib import Path
+from shutil import copy2
+
+import pytest
+
+import engine.interaction_graph as interaction_graph
 from engine.interaction_graph import (
     F11_INCOMPATIBILITIES,
     _ensure_f11_seeded,
@@ -19,6 +26,25 @@ from engine.interaction_graph import (
     get_replacements,
     get_synergies,
 )
+
+_REPOSITORY_DATABASE = (
+    Path(__file__).resolve().parents[1] / "data" / "perfumery_kb.db"
+)
+
+
+@pytest.fixture(autouse=True)
+def _isolated_interaction_database(tmp_path, monkeypatch):
+    baseline_sha256 = sha256(_REPOSITORY_DATABASE.read_bytes()).hexdigest()
+    isolated_database = tmp_path / "perfumery_kb.db"
+    copy2(_REPOSITORY_DATABASE, isolated_database)
+    monkeypatch.setattr(interaction_graph, "_DB_PATH", isolated_database)
+    yield
+    assert sha256(_REPOSITORY_DATABASE.read_bytes()).hexdigest() == baseline_sha256
+
+
+def test_mutation_tests_do_not_target_repository_database() -> None:
+    assert interaction_graph._DB_PATH.resolve() != _REPOSITORY_DATABASE.resolve()
+
 
 # ── Query tests ────────────────────────────────────────────────────────
 
