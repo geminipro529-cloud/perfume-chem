@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import cast
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -24,23 +26,31 @@ class LabClaimAuthorityRepositoryMixin:
         self,
         authority_id: str,
     ) -> LabClaimAuthorityVersion | None:
-        return await self.session.scalar(
-            select(LabClaimAuthorityVersion)
-            .where(LabClaimAuthorityVersion.authority_id == authority_id)
-            .order_by(
-                LabClaimAuthorityVersion.version_number.desc(),
-                LabClaimAuthorityVersion.id,
+        return cast(
+            LabClaimAuthorityVersion | None,
+            await self.session.scalar(
+                select(LabClaimAuthorityVersion)
+                .where(
+                    LabClaimAuthorityVersion.authority_id == authority_id
+                )
+                .order_by(
+                    LabClaimAuthorityVersion.version_number.desc(),
+                    LabClaimAuthorityVersion.id,
+                )
+                .limit(1)
             )
-            .limit(1)
         )
 
     async def claim_authority_by_hash(
         self,
         content_sha256: str,
     ) -> LabClaimAuthorityVersion | None:
-        return await self.session.scalar(
-            select(LabClaimAuthorityVersion).where(
-                LabClaimAuthorityVersion.content_sha256 == content_sha256
+        return cast(
+            LabClaimAuthorityVersion | None,
+            await self.session.scalar(
+                select(LabClaimAuthorityVersion).where(
+                    LabClaimAuthorityVersion.content_sha256 == content_sha256
+                )
             )
         )
 
