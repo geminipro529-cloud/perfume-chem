@@ -262,6 +262,8 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
             ruff
             + (
                 "check",
+                "--color",
+                "never",
                 "engine/workbench.py",
                 "engine/authority_gates.py",
                 "engine/bottle_addition.py",
@@ -374,7 +376,8 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
         (
             CheckSpec(
                 "backend-lint",
-                poetry + ("run", "ruff", "check", "app"),
+                poetry
+                + ("run", "ruff", "check", "--color", "never", "app"),
                 cwd="backend",
             ),
             CheckSpec(

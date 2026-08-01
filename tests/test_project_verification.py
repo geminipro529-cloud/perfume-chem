@@ -271,6 +271,15 @@ def test_package_and_docker_checks_validate_release_artifacts():
     assert "health_check" not in " ".join(specs["docker-smoke-test"].command)
 
 
+def test_ruff_checks_explicitly_disable_ansi_color():
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+
+    for check_name in ("engine-lint", "backend-lint"):
+        command = specs[check_name].command
+        color_index = command.index("--color")
+        assert command[color_index + 1] == "never"
+
+
 def test_a1_production_modules_are_linted_and_typechecked():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
     a1_targets = {
