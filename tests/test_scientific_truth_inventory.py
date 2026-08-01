@@ -14,6 +14,8 @@ from scripts.scientific_truth_inventory import build_inventory, write_inventory
 def miniature_repo(tmp_path: Path) -> Path:
     (tmp_path / "data" / "materials").mkdir(parents=True)
     (tmp_path / "data" / "knowledge_graph").mkdir(parents=True)
+    (tmp_path / "data" / "perfumery_kb.db-wal").write_bytes(b"transient-wal")
+    (tmp_path / "data" / "perfumery_kb.db-shm").write_bytes(b"transient-shm")
     (tmp_path / "engine").mkdir()
     (tmp_path / "scripts").mkdir()
     (tmp_path / "docs" / "verification" / "b0").mkdir(parents=True)
@@ -103,6 +105,10 @@ def test_inventory_is_deterministic_scoped_and_claim_aware(miniature_repo: Path)
     assert all(".env" not in item["path"] for item in first["source_digests"])
     assert all("__pycache__" not in item["path"] for item in first["source_digests"])
     assert all("wheel-smoke" not in item["path"] for item in first["source_digests"])
+    assert {
+        "data/perfumery_kb.db-wal",
+        "data/perfumery_kb.db-shm",
+    }.isdisjoint(item["path"] for item in first["source_digests"])
     assert {
         "scripts/scientific_truth_inventory.py",
         "tests/test_scientific_truth_inventory.py",

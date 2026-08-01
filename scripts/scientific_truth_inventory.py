@@ -179,6 +179,8 @@ def _is_generated_or_metadata(path: Path, repo_root: Path) -> bool:
         return True
     if path.suffix.casefold() in {".pyc", ".pyo"}:
         return True
+    if relative_posix.endswith((".db-wal", ".db-shm")):
+        return True
     if relative_posix.startswith(
         ("verification_runs/wheel-smoke/", "docs/verification/b0/")
     ):
