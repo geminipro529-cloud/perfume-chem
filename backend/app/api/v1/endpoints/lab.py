@@ -11,6 +11,7 @@ from engine.bottle_addition import BottleSnapshot, PipetteProfile, StockSolution
 from engine.intervention_hypotheses import InterventionHypothesisRequest
 from engine.intervention_trial import InterventionTrialRequest
 from engine.interventions import (
+    VERSIONED_FINISHED_PRODUCT_SAFETY,
     BriefConstraints,
     CandidateAddition,
     InterventionRequest,
@@ -150,17 +151,12 @@ async def add_material_alias(
     request: AliasCreate,
     session: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    material = await LabService(session).repository.get_material(material_id)
-    if material is None:
-        raise HTTPException(status_code=404, detail=f"Material not found: {material_id}")
-    alias = LabMaterialAlias(
-        material_id=material_id,
-        alias=request.alias,
-        normalized_alias=request.alias.lower().strip(),
+    alias = await _service_call(
+        LabService(session).create_material_alias(
+            material_id,
+            request.alias,
+        )
     )
-    session.add(alias)
-    await session.commit()
-    await session.refresh(alias)
     return _record(alias, "alias", "normalized_alias", "material_id")
 
 
@@ -402,6 +398,13 @@ async def interventions(request: InterventionCreate) -> dict[str, Any]:
         "ranked": [asdict(row) for row in result.ranked],
         "rejected": [asdict(row) for row in result.rejected],
         "evidence": result.evidence.as_dict(),
+        "safety_authority": {
+            "client_declared_status_authoritative": False,
+            "required_authority": VERSIONED_FINISHED_PRODUCT_SAFETY,
+            "formula_state_binding_required": True,
+            "achieved_dose_coverage_required": True,
+            "public_request_can_authorize_skin_use": False,
+        },
     }
 
 

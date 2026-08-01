@@ -53,3 +53,39 @@ def test_guard_rejects_adapter_mutation_and_transaction_authority(tmp_path):
         "ADAPTER_TRANSACTION_AUTHORITY",
         "ADAPTER_TRANSACTION_CALL",
     }
+
+
+def test_guard_rejects_endpoint_owned_transaction_calls(tmp_path):
+    app_root = tmp_path / "app"
+    endpoints = app_root / "api" / "v1" / "endpoints"
+    endpoints.mkdir(parents=True)
+    (endpoints / "bad.py").write_text(
+        "\n".join(
+            [
+                "async def bad(session, record):",
+                "    session.add(record)",
+                "    await session.flush()",
+                "    await session.commit()",
+                "    await session.refresh(record)",
+                "    await session.rollback()",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    violations = scan_legacy_write_paths(app_root)
+
+    assert [item.code for item in violations] == [
+        "ENDPOINT_TRANSACTION_CALL",
+        "ENDPOINT_TRANSACTION_CALL",
+        "ENDPOINT_TRANSACTION_CALL",
+        "ENDPOINT_TRANSACTION_CALL",
+        "ENDPOINT_TRANSACTION_CALL",
+    ]
+    assert [item.detail for item in violations] == [
+        "session.add",
+        "session.flush",
+        "session.commit",
+        "session.refresh",
+        "session.rollback",
+    ]

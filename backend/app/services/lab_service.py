@@ -25,6 +25,7 @@ from app.models.lab import (
     LabFormulaVersion,
     LabInventoryMovement,
     LabMaterial,
+    LabMaterialAlias,
     LabObservation,
     LabOutcome,
     LabPairwiseComparison,
@@ -160,6 +161,25 @@ class LabService(
             raise ValueError("canonical_name must not be empty")
         async with self._transaction():
             return await self.repository.add(LabMaterial(canonical_name=name))
+
+    async def create_material_alias(
+        self,
+        material_id: str,
+        alias: str,
+    ) -> LabMaterialAlias:
+        alias_text = alias.strip()
+        if not alias_text:
+            raise ValueError("alias must not be empty")
+        async with self._transaction():
+            if await self.repository.get_material(material_id) is None:
+                raise KeyError(f"Unknown material: {material_id}")
+            return await self.repository.add(
+                LabMaterialAlias(
+                    material_id=material_id,
+                    alias=alias_text,
+                    normalized_alias=alias_text.lower(),
+                )
+            )
 
     async def create_stock_solution(
         self,

@@ -34,6 +34,14 @@ FORBIDDEN_ADAPTER_IMPORTS = {
     ("app.services.lab_service", "LabService"),
 }
 
+FORBIDDEN_ENDPOINT_TRANSACTION_CALLS = {
+    "add",
+    "commit",
+    "flush",
+    "refresh",
+    "rollback",
+}
+
 
 @dataclass(frozen=True, slots=True)
 class LegacyWriteViolation:
@@ -53,6 +61,7 @@ def scan_legacy_write_paths(app_root: Path) -> tuple[LegacyWriteViolation, ...]:
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         relative = path.relative_to(root).as_posix()
         is_adapter = relative.startswith("adapters/")
+        is_endpoint = relative.startswith("api/") and "/endpoints/" in relative
         for node in ast.walk(tree):
             if isinstance(node, ast.ImportFrom):
                 names = {alias.name for alias in node.names}
@@ -90,6 +99,22 @@ def scan_legacy_write_paths(app_root: Path) -> tuple[LegacyWriteViolation, ...]:
                         node.lineno,
                         "ADAPTER_LEGACY_MUTATION",
                         node.func.attr,
+                    )
+                )
+            elif (
+                is_endpoint
+                and isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name)
+                and node.func.value.id in {"db", "session"}
+                and node.func.attr in FORBIDDEN_ENDPOINT_TRANSACTION_CALLS
+            ):
+                violations.append(
+                    LegacyWriteViolation(
+                        relative,
+                        node.lineno,
+                        "ENDPOINT_TRANSACTION_CALL",
+                        f"{node.func.value.id}.{node.func.attr}",
                     )
                 )
             elif (
