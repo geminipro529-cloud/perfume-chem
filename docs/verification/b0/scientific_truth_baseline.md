@@ -1,6 +1,6 @@
 # B0 Scientific Truth Baseline
 
-Date: 2026-07-30
+Date: 2026-08-02
 
 Build: B — Scientific Data Authority and Analytical Validation
 
@@ -11,9 +11,10 @@ Decision: **PASS**
 ## Authority
 
 This baseline was generated from the exact
-`D:\chatbots\perfume-chem` working tree at Build A boundary commit
-`9f160b6cdc04a5f1ce6f3351612a435c145e1ac7`, including the preserved dirty
-overlay. Historical reports are compatibility evidence only.
+`D:\chatbots\perfume-chem` working tree after the final Build A boundary commit
+`073ee8eaf66bd97a4894063c2f3ffc01c874e7b2`. Generation ran at B0 repair head
+`eb980e6`, including the preserved dirty overlay. Historical B0-B10 reports are
+compatibility evidence only.
 
 No scientific value was promoted because a test passed or because it appeared
 in a better-shaped file.
@@ -25,28 +26,30 @@ Full inventory:
 
 - schema: `scientific-truth-inventory-v1`
 - compressed SHA-256:
-  `FDFE1DE2F51ECF2AE03014C27A3C13C594C2DBF1020DBA9A31BFFED487D08CA8`
+  `3F287B86C29E645D879E3B2AF59DDCF53D059C11509ECF85576A7C126F9DAEBC`
 - decompressed JSON SHA-256:
-  `955269451E42C9F8452624AE0C0FC4245591EBA54FA0A00F7B805AD6E08707F2`
-- compressed bytes: 1,499,508
-- decompressed bytes: 26,142,842
-- secret, credential, generated-cache, wheel-smoke, and embedded-Git paths: 0
+  `1EB930343B33DB9A60395567FA97748C428B416D46447BECA9991448B4F7B779`
+- compressed bytes: 1,506,865
+- decompressed bytes: 26,221,111
+- secret, credential, generated-cache, SQLite-sidecar, wheel-smoke, B0-output,
+  and embedded-Git paths: 0
 
 The scanner and its tests are:
 
 - `scripts/scientific_truth_inventory.py`
 - `tests/test_scientific_truth_inventory.py`
 
-Focused scanner verification: **3 passed**.
+Scanner verification: **3 passed**; Ruff: **PASS**. Two independent full-tree
+generations were byte-identical.
 
 ## Inventory summary
 
 | Item | Count |
 |---|---:|
-| source/content digests | 997 |
+| source/content digests | 1,043 |
 | material rows | 1,262 |
 | material-property cells | 23,869 |
-| scientific code constants | 238 |
+| scientific code constants | 300 |
 | structured/advisory knowledge rules | 3,381 |
 | material-property conflict sets | 226 |
 
@@ -87,9 +90,9 @@ Selected non-null coverage:
 ## High-impact baseline findings
 
 1. `engine/odor_thresholds.py` contains a 301-entry `ODT_DATA` table and a
-   separate 276-entry `ODT_VERIFICATION` table. Runtime consumers span formula
-   analysis, migration, optimization, validation, and reports. Context is not a
-   first-class threshold observation.
+   separate 276-entry `ODT_VERIFICATION` table. Many consumers still read these
+   legacy surfaces directly; their values remain non-authoritative unless a
+   current B3 contextual gate accepts them.
 2. `MIXTURE_SUPPRESSION_FACTOR = 5.0` is a global legacy code parameter used by
    formula analysis, OAV guards, and temporal volatility code. It is not a
    measured universal constant.
@@ -104,11 +107,9 @@ Selected non-null coverage:
 6. The 3,381 extracted knowledge rules are predominantly advisory legacy
    records. Generic, poetic, or unresolved references cannot become exact
    identities or numerical formula mutations.
-7. Build A persistence already provides analytical methods, runs, peaks, QC
-   rows, attachments, GC-O events, regulatory assessments, and claim
-   assessments. It does not yet provide complete source-document,
-   extraction-record, observation, selected-assertion, contextual-threshold, or
-   method-validation authority.
+7. Historical B1-B9 typed authority implementations and reports are present in
+   the inherited tree. They remain unaccepted compatibility inputs until their
+   gates are independently reproduced in strict order.
 8. The in-memory evidence and analytical ledgers are read-only compatibility
    projections. Canonical writes already route through `LabService`.
 9. Existing GC-MS identity states are too coarse for B5, and a fixed “four of
@@ -135,7 +136,7 @@ Selected preserved digests:
 | `tests/fixtures/golden_formula_cases.json` | `193C0BFA868C1C0A4E92F75AE6B1B4FA99C3268C3F6C5C9C3EBB404FE3C4BEB7` |
 | `tests/fixtures/golden_formula_cases.sha256` | `C16FC7419B77F7BAC52D0642698E21FE44252C129B6D6A1C175AD4CD3B86287B` |
 
-The full set of 997 path/size/SHA records is in the compressed inventory.
+The full set of 1,043 path/size/SHA records is in the compressed inventory.
 
 ## Before-migration runtime call graph
 
@@ -170,20 +171,20 @@ The full item-to-consumer links and claim-impact counts are machine-readable.
 
 | Claim | Inventoried inputs |
 |---|---:|
-| identity | 5,023 |
+| identity | 5,025 |
 | quantity | 2,527 |
 | mass-volume conversion | 3,785 |
-| threshold screening | 2,564 |
+| threshold screening | 2,587 |
 | headspace prediction | 10,112 |
 | sensory intensity | 2,516 |
 | formula similarity | 1 |
 | natural authenticity | 74 |
-| analytical identification | 9 |
-| analytical quantitation | 46 |
-| safety/compliance screening | 2,533 |
+| analytical identification | 38 |
+| analytical quantitation | 75 |
+| safety/compliance screening | 2,556 |
 | family classification | 3,403 |
-| intervention recommendation | 5,892 |
-| release | 1,245 |
+| intervention recommendation | 5,896 |
+| release | 1,285 |
 
 Counts are references/impact links, not distinct authoritative values.
 
@@ -202,16 +203,48 @@ Counts are references/impact links, not distinct authoritative values.
 | knowledge JSON and SQLite rules | yes | compile into exact group/identity schema; invalid rules quarantined | advisory unless promoted by evidence |
 | golden formula/API fixtures | yes | unchanged unless separately reviewed and relocked | regression only |
 
+## Protected database state
+
+Both SQLite files were inspected read-only with immutable connections:
+
+| Path | Bytes | SHA-256 | `quick_check` | Alembic rows |
+|---|---:|---|---|---:|
+| `data/perfumery_kb.db` | 2,084,864 | `5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1` | `ok` | 0 |
+| `perfume_chem.db` | 12,288 | `02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E` | `ok` | 0 |
+
+No migration or write was performed against either protected file.
+
+## Reproduced defect and repair
+
+The fresh scanner initially included `data/perfumery_kb.db-wal` and
+`data/perfumery_kb.db-shm` as source evidence. The focused regression failed for
+that exact reason. Commit `eb980e6` excludes both transient sidecar classes; the
+regression and full scanner suite now pass, Ruff is clean, and two full-tree
+outputs are byte-identical with zero sidecar entries.
+
+DeepLuna Fast audit `DS-5f2065755e51abc684bfb387ba590ed2` independently
+identified the same missing exclusion under `FLASH` / `NO_LUNA`; Sol reproduced
+and accepted the root cause locally. The prior three-artifact B0 set is preserved
+in the path-restorable archive
+`outputs/b0-authoritative-recovery/20260802T060025/b0-artifacts-before-refresh.zip`
+with SHA-256
+`70CBBBDC93EF0B387417279B13818D40855FEB27DB0F998C5B055669C3EACF8A`.
+
+Final Fast review `DS-8f323c479ecabfd38987e8403cabc134` returned
+`PASS` / `POSITIVE` / `ACCEPTED` with no negative findings, no scope deviation,
+and no architecture or scientific uncertainty. Sol accepted it only after the
+local report-to-artifact, scanner, Ruff, and protected-database checks passed.
+
 ## B0 exit-gate review
 
 - scientific input inventory: complete and machine-readable;
 - runtime consumers: linked for data files and code constants;
-- source digest baseline: complete for 997 allowlisted inputs;
+- source digest baseline: complete for 1,043 allowlisted inputs;
 - legacy science behavior and fixtures: frozen by hash;
 - known heuristics and conflicts: recorded;
 - compatibility matrix: complete;
 - claim-impact map: complete;
-- secret-bearing paths: excluded;
-- migrations/backfills performed: none.
+- secret-bearing and transient SQLite paths: excluded;
+- migrations/backfills performed during B0: none.
 
 Phase B0 exits **PASS**. B1 may begin from this reviewed baseline.

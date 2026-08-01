@@ -1,28 +1,29 @@
 {
   "schema_version": "b0-scientific-truth-baseline-v1",
-  "generated_at": "2026-07-30",
+  "generated_at": "2026-08-02",
   "phase": "B0",
   "decision": "PASS",
   "authority": {
     "repository": "D:\\chatbots\\perfume-chem",
-    "build_a_boundary_commit": "9f160b6cdc04a5f1ce6f3351612a435c145e1ac7",
+    "build_a_boundary_commit": "073ee8eaf66bd97a4894063c2f3ffc01c874e7b2",
+    "generation_head_before_report": "eb980e6",
     "working_tree_overlay_in_scope": true,
     "historical_reports_are_authority": false
   },
   "full_inventory": {
     "path": "docs/verification/b0/scientific_truth_inventory.json.gz",
     "schema_version": "scientific-truth-inventory-v1",
-    "compressed_sha256": "FDFE1DE2F51ECF2AE03014C27A3C13C594C2DBF1020DBA9A31BFFED487D08CA8",
-    "decompressed_sha256": "955269451E42C9F8452624AE0C0FC4245591EBA54FA0A00F7B805AD6E08707F2",
-    "compressed_bytes": 1499508,
-    "decompressed_bytes": 26142842,
+    "compressed_sha256": "3F287B86C29E645D879E3B2AF59DDCF53D059C11509ECF85576A7C126F9DAEBC",
+    "decompressed_sha256": "1EB930343B33DB9A60395567FA97748C428B416D46447BECA9991448B4F7B779",
+    "compressed_bytes": 1506865,
+    "decompressed_bytes": 26221111,
     "forbidden_or_generated_path_count": 0
   },
   "inventory_summary": {
-    "source_digest_count": 997,
+    "source_digest_count": 1043,
     "material_count": 1262,
     "material_property_observation_count": 23869,
-    "code_constant_count": 238,
+    "code_constant_count": 300,
     "knowledge_rule_count": 3381,
     "material_property_conflict_set_count": 226
   },
@@ -55,20 +56,20 @@
     "vp_25c_pa": 286
   },
   "claim_impact_map": {
-    "analytical_identification": 9,
-    "analytical_quantitation": 46,
+    "analytical_identification": 38,
+    "analytical_quantitation": 75,
     "family_classification": 3403,
     "formula_similarity": 1,
     "headspace_prediction": 10112,
-    "identity": 5023,
-    "intervention_recommendation": 5892,
+    "identity": 5025,
+    "intervention_recommendation": 5896,
     "mass_volume_conversion": 3785,
     "natural_authenticity": 74,
     "quantity": 2527,
-    "release": 1245,
-    "safety_compliance_screening": 2533,
+    "release": 1285,
+    "safety_compliance_screening": 2556,
     "sensory_intensity": 2516,
-    "threshold_screening": 2564
+    "threshold_screening": 2587
   },
   "selected_source_digests": {
     "verification_runs/science_audit.json": "569C4DD700DC7AA6525861875530866D3636DD1A42FD48CBEE64C0A005739B0A",
@@ -86,7 +87,7 @@
     {
       "id": "B0-F1",
       "status": "CONFIRMED",
-      "finding": "ODT_DATA has 301 entries and ODT_VERIFICATION has 276 entries without first-class context observations."
+      "finding": "ODT_DATA has 301 entries and ODT_VERIFICATION has 276 entries with many direct legacy consumers; those values remain non-authoritative unless a current B3 contextual gate accepts them."
     },
     {
       "id": "B0-F2",
@@ -116,12 +117,12 @@
     {
       "id": "B0-F7",
       "status": "CONFIRMED",
-      "finding": "Build A science persistence lacks complete source-document, extraction, observation, selected-assertion, contextual-threshold, and method-validation authority."
+      "finding": "Historical B1-B9 typed authority implementations and reports are present in the inherited tree but remain unaccepted compatibility inputs until their gates are independently reproduced in order."
     },
     {
       "id": "B0-F8",
       "status": "CONFIRMED",
-      "finding": "Fixed-score analytical QC and coarse identity states are insufficient for claim-specific analytical authority."
+      "finding": "Fixed-score analytical QC and coarse legacy identity states remain compatibility surfaces and cannot substitute for a currently verified claim-specific B5 authority path."
     }
   ],
   "compatibility_matrix": [
@@ -186,6 +187,52 @@
       "authority": "regression_only"
     }
   ],
+  "protected_database_state": {
+    "data/perfumery_kb.db": {
+      "bytes": 2084864,
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_versions": []
+    },
+    "perfume_chem.db": {
+      "bytes": 12288,
+      "sha256": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_versions": []
+    },
+    "inspection_mode": "read_only_immutable"
+  },
+  "scanner_repair": {
+    "defect": "SQLite WAL and SHM sidecars were included as scientific source digests.",
+    "root_cause": "The generated-or-metadata filter did not reject .db-wal or .db-shm paths under data.",
+    "fix_commit": "eb980e6",
+    "focused_red": "1 failed because both sidecars entered source_digests",
+    "focused_green": "1 passed",
+    "scanner_suite": "3 passed",
+    "ruff": "PASS",
+    "double_generation_byte_identical": true,
+    "deepluna_job_id": "DS-5f2065755e51abc684bfb387ba590ed2",
+    "deepluna_route": "FLASH",
+    "deepluna_fallback_policy": "NO_LUNA"
+  },
+  "recovery": {
+    "archive": "outputs/b0-authoritative-recovery/20260802T060025/b0-artifacts-before-refresh.zip",
+    "archive_sha256": "70CBBBDC93EF0B387417279B13818D40855FEB27DB0F998C5B055669C3EACF8A",
+    "path_preserving_restore_verified": true,
+    "restored_file_hashes_match": true
+  },
+  "independent_review": {
+    "job_id": "DS-8f323c479ecabfd38987e8403cabc134",
+    "status": "PASS",
+    "evidence_verdict": "POSITIVE",
+    "execution_status": "ACCEPTED",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "provider_calls": 1,
+    "negative_findings": [],
+    "scope_deviation": false,
+    "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION"
+  },
   "exit_gate": {
     "scientific_inventory_complete": true,
     "runtime_consumers_linked": true,
@@ -195,7 +242,7 @@
     "compatibility_matrix_complete": true,
     "claim_impact_map_complete": true,
     "secret_paths_excluded": true,
-    "migrations_or_backfills_performed": false,
+    "migrations_or_backfills_performed_during_b0": false,
     "passed": true
   }
 }
