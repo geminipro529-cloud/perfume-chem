@@ -61,6 +61,23 @@ def test_aqueous_ethanol_components_are_accounted_separately() -> None:
     assert result.classified_total == pytest.approx(result.total_raw_ul)
 
 
+@pytest.mark.parametrize("carrier", ["DPG", "DEP", "TEC", "IPM"])
+def test_each_declared_carrier_dilution_allocates_inactive_fraction(
+    carrier: str,
+) -> None:
+    from engine.units.concentration import compute_active_accounting
+
+    result = compute_active_accounting(
+        [(f"Declared odorant 10% in {carrier}", 100.0, 0.10)]
+    )
+
+    assert result.odorant_active_ul == pytest.approx(10.0)
+    assert result.carrier_ul == pytest.approx(90.0)
+    assert result.solvent_ul == pytest.approx(0.0)
+    assert result.unallocated_ul == pytest.approx(0.0)
+    assert result.classified_total == pytest.approx(result.total_raw_ul)
+
+
 @pytest.mark.parametrize(
     "stocks",
     [
@@ -155,25 +172,9 @@ def test_target_row_round_trip_preserves_authoritative_fields() -> None:
     restored = TargetMaterial.from_dict(material.as_dict())
 
     assert restored.as_dict() == material.as_dict()
-    for field in (
-        "row_id",
-        "canonical_identity",
-        "source_name",
-        "supplier_grade",
-        "evidence_links",
-        "identity_confidence",
-        "quantity_confidence",
-        "active_amount_median",
-        "active_amount_p05",
-        "active_amount_p95",
-        "active_amount_unit",
-        "concentration_basis",
-        "source_record",
-        "provenance",
-        "notes",
-        "extensions",
-    ):
-        assert material.as_dict()[field] == row[field]
+    material_dict = material.as_dict()
+    for field, expected in row.items():
+        assert material_dict[field] == expected
 
 
 def test_target_row_unknown_fields_are_rejected_or_namespaced() -> None:
@@ -295,6 +296,184 @@ def test_one_stock_cannot_satisfy_distinct_target_identities() -> None:
                 ("target-identity-b", "stock-001"),
             ]
         )
+
+
+@pytest.mark.parametrize(
+    ("field", "left_value", "right_value"),
+    [
+        ("stereochemistry", "R", "S"),
+        ("natural_origin", "Haiti", "India"),
+        ("chemotype", "linalool", "camphor"),
+    ],
+)
+def test_same_cas_does_not_hide_declared_identity_dimension_differences(
+    field: str,
+    left_value: str,
+    right_value: str,
+) -> None:
+    from engine.reconstruction.anti_compression import EvidenceMatch, audit_formula
+
+    profiles = {
+        "Material A": {"cas": "123-45-6", field: left_value},
+        "Material B": {"cas": "123-45-6", field: right_value},
+    }
+
+    checks = audit_formula(["Material A", "Material B"], profiles.__getitem__)[
+        "Material A<->Material B"
+    ]
+    chemical_axis = next(
+        check for check in checks if check.criterion_name == "chemical_scaffold_isomer"
+    )
+
+    assert chemical_axis.result is EvidenceMatch.DIFFER
+
+
+def test_same_cas_and_grade_do_not_hide_declared_lot_difference() -> None:
+    from engine.reconstruction.anti_compression import EvidenceMatch, audit_formula
+
+    profiles = {
+        "Material A": {
+            "cas": "123-45-6",
+            "stereochemistry": "declared mixture",
+            "supplier_grade": "standard",
+            "supplier_product": "P-1",
+            "lot": "L-1",
+        },
+        "Material B": {
+            "cas": "123-45-6",
+            "stereochemistry": "declared mixture",
+            "supplier_grade": "standard",
+            "supplier_product": "P-1",
+            "lot": "L-2",
+        },
+    }
+
+    checks = audit_formula(["Material A", "Material B"], profiles.__getitem__)[
+        "Material A<->Material B"
+    ]
+    supplier_axis = next(
+        check for check in checks if check.criterion_name == "supplier_grade"
+    )
+
+    assert supplier_axis.result is EvidenceMatch.DIFFER
+
+
+@pytest.mark.parametrize(
+    ("right_profile", "expected"),
+    [
+        (
+            {"cas": "123-45-6", "stereochemistry": "R"},
+            "MATCH",
+        ),
+        (
+            {"cas": "123-45-6"},
+            "UNKNOWN",
+        ),
+    ],
+)
+def test_chemical_axis_requires_conclusive_declared_isomer_evidence(
+    right_profile: dict[str, str],
+    expected: str,
+) -> None:
+    from engine.reconstruction.anti_compression import EvidenceMatch, audit_formula
+
+    profiles = {
+        "Material A": {"cas": "123-45-6", "stereochemistry": "R"},
+        "Material B": right_profile,
+    }
+    checks = audit_formula(["Material A", "Material B"], profiles.__getitem__)[
+        "Material A<->Material B"
+    ]
+    chemical_axis = next(
+        check for check in checks if check.criterion_name == "chemical_scaffold_isomer"
+    )
+
+    assert chemical_axis.result is EvidenceMatch(expected)
+
+
+@pytest.mark.parametrize(
+    ("right_profile", "expected"),
+    [
+        (
+            {"supplier_grade": "standard", "supplier_product": "P-1", "lot": "L-1"},
+            "MATCH",
+        ),
+        (
+            {"supplier_grade": "standard", "supplier_product": "P-1"},
+            "UNKNOWN",
+        ),
+    ],
+)
+def test_supplier_axis_requires_conclusive_declared_lot_evidence(
+    right_profile: dict[str, str],
+    expected: str,
+) -> None:
+    from engine.reconstruction.anti_compression import EvidenceMatch, audit_formula
+
+    profiles = {
+        "Material A": {
+            "supplier_grade": "standard",
+            "supplier_product": "P-1",
+            "lot": "L-1",
+        },
+        "Material B": right_profile,
+    }
+    checks = audit_formula(["Material A", "Material B"], profiles.__getitem__)[
+        "Material A<->Material B"
+    ]
+    supplier_axis = next(
+        check for check in checks if check.criterion_name == "supplier_grade"
+    )
+
+    assert supplier_axis.result is EvidenceMatch(expected)
+
+
+@pytest.mark.parametrize(
+    ("field", "left_value", "right_value"),
+    [
+        ("cas", "123-45-6", "654-32-1"),
+        ("stereoisomer", "R", "S"),
+        ("trade_grade", "grade-a", "grade-b"),
+        ("supplier_product", "P-1", "P-2"),
+        ("lot", "L-1", "L-2"),
+        ("stock_solution", "neat", "10% in DPG"),
+        ("physical_dose", "100 mg", "10 mg active"),
+    ],
+)
+def test_equivalence_scope_reports_each_declared_difference(
+    field: str,
+    left_value: str,
+    right_value: str,
+) -> None:
+    from engine.reconstruction.anti_compression import (
+        EQUIVALENCE_SCOPE_QUESTIONS,
+        EvidenceMatch,
+        evaluate_equivalence_scopes,
+    )
+
+    fields = (
+        "cas",
+        "stereoisomer",
+        "trade_grade",
+        "supplier_product",
+        "lot",
+        "stock_solution",
+        "physical_dose",
+    )
+    left = {name: f"same-{name}" for name in fields}
+    right = dict(left)
+    left[field] = left_value
+    right[field] = right_value
+
+    results = evaluate_equivalence_scopes(
+        left,
+        right,
+        functionally_substitutable=False,
+    )
+    question = EQUIVALENCE_SCOPE_QUESTIONS[fields.index(field)]
+
+    assert results[question] is EvidenceMatch.DIFFER
+    assert results["functionally substitutable?"] is EvidenceMatch.DIFFER
 
 
 def _event(
@@ -424,25 +603,52 @@ def test_all_public_reconstruction_entry_points_reject_empty_inputs() -> None:
     from engine.bottle.events import compute_replay_state
     from engine.domain_errors import ReconstructionInputError
     from engine.inventory.stock_model import InventoryLedger, map_target_to_inventory
-    from engine.reconstruction.anti_compression import audit_formula
+    from engine.reconstruction.anti_compression import audit_formula, restore_from_roster
     from engine.reconstruction.chassis import create_chassis_from_csv_rows
-    from engine.reconstruction.rank_prior import generate_candidate_families
+    from engine.reconstruction.ensembles import (
+        generate_ensemble,
+        scale_uncertainty_to_ensemble,
+    )
+    from engine.reconstruction.quantity_inference import reconcile_total
+    from engine.reconstruction.rank_prior import (
+        RankPriorConfig,
+        generate_candidate_families,
+        generate_soft_rank_prior,
+    )
     from engine.reconstruction.recognizer import score_all_materials
     from engine.target.formula import create_target_from_rows
 
     calls = [
-        lambda: audit_formula([]),
-        lambda: map_target_to_inventory([], InventoryLedger([])),
-        lambda: compute_replay_state([]),
-        lambda: create_target_from_rows([]),
-        lambda: create_chassis_from_csv_rows([]),
-        lambda: generate_candidate_families([]),
-        lambda: score_all_materials([]),
+        ("audit_formula", lambda: audit_formula([])),
+        ("map_target_to_inventory", lambda: map_target_to_inventory([], InventoryLedger([]))),
+        ("compute_replay_state", lambda: compute_replay_state([])),
+        ("create_target_from_rows", lambda: create_target_from_rows([])),
+        ("create_chassis_from_csv_rows", lambda: create_chassis_from_csv_rows([])),
+        ("generate_candidate_families", lambda: generate_candidate_families([])),
+        (
+            "generate_soft_rank_prior",
+            lambda: generate_soft_rank_prior([], RankPriorConfig(N=1, B=1.0)),
+        ),
+        ("generate_ensemble", lambda: generate_ensemble([])),
+        ("score_all_materials", lambda: score_all_materials([])),
+        ("restore_from_roster.compressed", lambda: restore_from_roster([], ["A"])),
+        ("restore_from_roster.full_roster", lambda: restore_from_roster(["A"], [])),
+        (
+            "scale_uncertainty_to_ensemble",
+            lambda: scale_uncertainty_to_ensemble({}, {}),
+        ),
+        ("reconcile_total", lambda: reconcile_total({}, 1.0)),
     ]
 
-    for call in calls:
-        with pytest.raises(ReconstructionInputError):
+    missing_domain_errors: list[str] = []
+    for name, call in calls:
+        try:
             call()
+        except ReconstructionInputError:
+            continue
+        missing_domain_errors.append(name)
+
+    assert missing_domain_errors == []
 
 
 def test_rank_prior_rejects_zero_budget_before_math() -> None:
@@ -472,6 +678,14 @@ def test_normalization_denominator_zero_raises_domain_error(monkeypatch) -> None
             ["A"],
             rank_prior.RankPriorConfig(N=1, B=1.0, p=0.65),
         )
+
+
+def test_quantity_reconciliation_rejects_zero_normalization_denominator() -> None:
+    from engine.domain_errors import ReconstructionInputError
+    from engine.reconstruction.quantity_inference import reconcile_total
+
+    with pytest.raises(ReconstructionInputError, match="normalization denominator"):
+        reconcile_total({"A": 0.0}, 100.0)
 
 
 def test_identity_and_inventory_statuses_are_independent_enums() -> None:
@@ -599,6 +813,41 @@ def test_functional_substitute_does_not_promote_identity() -> None:
 
     assert mapping.identity_status is IdentityResolutionStatus.EXACT
     assert mapping.inventory_status is InventoryAvailabilityStatus.FUNCTIONAL_SUBSTITUTE_AVAILABLE
+
+
+def test_ambiguous_identity_remains_ambiguous_without_suitable_stock() -> None:
+    from engine.inventory.stock_model import (
+        IdentityResolutionStatus,
+        InventoryAvailabilityStatus,
+        InventoryLedger,
+        map_target_to_inventory,
+    )
+
+    mapping = map_target_to_inventory(
+        ["Iso E Super / Timbersilk"],
+        InventoryLedger([]),
+    )[0]
+
+    assert mapping.identity_status is IdentityResolutionStatus.AMBIGUOUS
+    assert mapping.inventory_status is InventoryAvailabilityStatus.NO_SUITABLE_STOCK
+
+
+def test_not_technically_required_is_an_inventory_status_only() -> None:
+    from engine.inventory.stock_model import (
+        IdentityResolutionStatus,
+        InventoryAvailabilityStatus,
+        InventoryLedger,
+        InventoryTarget,
+        map_target_to_inventory,
+    )
+
+    mapping = map_target_to_inventory(
+        [InventoryTarget(name="Iso E Super", technically_required=False)],
+        InventoryLedger([]),
+    )[0]
+
+    assert mapping.identity_status is IdentityResolutionStatus.EXACT
+    assert mapping.inventory_status is InventoryAvailabilityStatus.NOT_TECHNICALLY_REQUIRED
 
 
 def test_same_cas_different_supplier_grade_or_lot_is_not_stock_equivalent() -> None:

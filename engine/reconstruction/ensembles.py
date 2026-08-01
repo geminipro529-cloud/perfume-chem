@@ -337,6 +337,9 @@ def scale_uncertainty_to_ensemble(
     list[dict[str, float]]
         Two dicts: ``[low_variant, high_variant]``.
     """
+    if not base_doses:
+        raise ReconstructionInputError("base dose target cannot be empty")
+
     low: dict[str, float] = {}
     high: dict[str, float] = {}
 

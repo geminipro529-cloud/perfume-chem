@@ -305,24 +305,60 @@ class TestA13AntiCompression:
         assert should_merge("A", "B", []) is False
 
     def test_neat_and_dilution_are_different_stocks(self):
-        from engine.reconstruction.anti_compression import audit_formula
+        from engine.reconstruction.anti_compression import (
+            EvidenceMatch,
+            audit_formula,
+            should_merge,
+        )
 
         results = audit_formula(["Iso E Super", "Iso E Super 10% in DPG"])
-        assert len(results) > 0
+        checks = results["Iso E Super<->Iso E Super 10% in DPG"]
+        roster_axis = next(
+            check for check in checks if check.criterion_name == "source_roster_identity"
+        )
+        assert roster_axis.result is EvidenceMatch.DIFFER
+        assert not should_merge("Iso E Super", "Iso E Super 10% in DPG", checks)
 
     def test_audit_detects_cas_similarity_as_not_mergeable(self):
-        from engine.reconstruction.anti_compression import audit_formula
+        from engine.reconstruction.anti_compression import (
+            EvidenceMatch,
+            audit_formula,
+            should_merge,
+        )
 
-        results = audit_formula(["Hedione", "Hedione HC"])
-        assert len(results) > 0
+        profiles = {
+            "Hedione": {
+                "cas": "24851-98-7",
+                "stereochemistry": "declared mixture",
+                "supplier_grade": "standard",
+            },
+            "Hedione HC": {
+                "cas": "24851-98-7",
+                "stereochemistry": "declared mixture",
+                "supplier_grade": "HC",
+            },
+        }
+
+        results = audit_formula(["Hedione", "Hedione HC"], profiles.__getitem__)
+        checks = results["Hedione<->Hedione HC"]
+        grade_axis = next(
+            check for check in checks if check.criterion_name == "supplier_grade"
+        )
+        assert grade_axis.result is EvidenceMatch.DIFFER
+        assert not should_merge("Hedione", "Hedione HC", checks)
 
     def test_compression_check_three_valued(self):
-        from engine.reconstruction.anti_compression import CompressionCheck
+        from engine.reconstruction.anti_compression import CompressionCheck, EvidenceMatch
 
         check = CompressionCheck("texture", True, "ok", "A", "B")
         assert check.passed is True
+        assert check.result is EvidenceMatch.MATCH
         check_fail = CompressionCheck("texture", False, "differ", "A", "B")
         assert check_fail.passed is False
+        assert check_fail.result is EvidenceMatch.DIFFER
+        check_unknown = CompressionCheck("texture", None, "unknown", "A", "B")
+        assert check_unknown.passed is False
+        assert check_unknown.result is EvidenceMatch.UNKNOWN
 
 
 # ═══════════════════════════════════════════════════════════════════════════

@@ -247,6 +247,12 @@ _DEFAULT_PROFILE: dict[str, Any] = {
     "receptor": None,
     "supplier_grade": None,
     "stereochemistry": None,
+    "natural_origin": None,
+    "chemotype": None,
+    "supplier": None,
+    "supplier_product": None,
+    "nominal_purity": None,
+    "lot": None,
     "synergy_partners": None,
     "accord_contexts": None,
     "dose_range_min": None,
@@ -272,20 +278,56 @@ def _default_get_profile(name: str) -> dict[str, Any]:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
+def _compare_declared_dimensions(
+    pa: dict[str, Any],
+    pb: dict[str, Any],
+    fields: tuple[str, ...],
+) -> tuple[EvidenceMatch, str]:
+    """Compare only declared identity dimensions without treating absence as a match."""
+
+    matched: list[str] = []
+    incomplete: list[str] = []
+    different: list[str] = []
+    for field_name in fields:
+        left = pa.get(field_name)
+        right = pb.get(field_name)
+        left_known = left is not None and left != ""
+        right_known = right is not None and right != ""
+        if not left_known and not right_known:
+            continue
+        if not left_known or not right_known:
+            incomplete.append(field_name)
+        elif left != right:
+            different.append(field_name)
+        else:
+            matched.append(field_name)
+
+    if different:
+        return EvidenceMatch.DIFFER, "declared dimensions differ: " + ", ".join(different)
+    if incomplete:
+        return EvidenceMatch.UNKNOWN, "one-sided declared dimensions: " + ", ".join(incomplete)
+    if matched:
+        return EvidenceMatch.MATCH, "declared dimensions match: " + ", ".join(matched)
+    return EvidenceMatch.UNKNOWN, "no declared dimensions"
+
+
 def _check_same_cas(a: str, b: str, pa: dict[str, Any], pb: dict[str, Any]) -> CompressionCheck:
-    """Check: same chemical scaffold and isomer profile (CAS match)."""
+    """Check chemical scaffold plus declared stereo/natural identity dimensions."""
     cas_a = pa.get("cas")
     cas_b = pb.get("cas")
-    if cas_a is not None and cas_b is not None:
-        result = EvidenceMatch.MATCH if cas_a == cas_b else EvidenceMatch.DIFFER
-        detail = (
-            f"CAS {cas_a} == {cas_b}"
-            if result is EvidenceMatch.MATCH
-            else f"CAS {cas_a} != {cas_b}"
-        )
-    else:
+    if cas_a is None or cas_a == "" or cas_b is None or cas_b == "":
         result = EvidenceMatch.UNKNOWN
         detail = "insufficient CAS evidence"
+    elif cas_a != cas_b:
+        result = EvidenceMatch.DIFFER
+        detail = f"CAS {cas_a} != {cas_b}"
+    else:
+        result, dimension_detail = _compare_declared_dimensions(
+            pa,
+            pb,
+            ("stereochemistry", "natural_origin", "chemotype"),
+        )
+        detail = f"CAS {cas_a} matches; {dimension_detail}"
     return CompressionCheck(
         criterion_name="chemical_scaffold_isomer",
         result=result,
@@ -298,19 +340,19 @@ def _check_same_cas(a: str, b: str, pa: dict[str, Any], pb: dict[str, Any]) -> C
 def _check_same_supplier_grade(
     a: str, b: str, pa: dict[str, Any], pb: dict[str, Any]
 ) -> CompressionCheck:
-    """Check: same supplier, grade, and nominal purity."""
-    grade_a = pa.get("supplier_grade")
-    grade_b = pb.get("supplier_grade")
-    result = _scope_result(grade_a, grade_b)
-    detail = (
-        "insufficient supplier-grade evidence"
-        if result is EvidenceMatch.UNKNOWN
-        else (
-            f"both supplier_grade={grade_a}"
-            if result is EvidenceMatch.MATCH
-            else f"supplier_grade={grade_a} vs {grade_b}"
-        )
+    """Check supplier, product, grade, purity, and lot when declared."""
+    result, dimension_detail = _compare_declared_dimensions(
+        pa,
+        pb,
+        (
+            "supplier",
+            "supplier_product",
+            "supplier_grade",
+            "nominal_purity",
+            "lot",
+        ),
     )
+    detail = f"supplier identity: {dimension_detail}"
     return CompressionCheck(
         criterion_name="supplier_grade",
         result=result,
@@ -710,6 +752,11 @@ def restore_from_roster(
         order).  Any roster entries not present in *compressed* are
         appended at the end.
     """
+    if not compressed:
+        raise ReconstructionInputError("compressed roster cannot be empty")
+    if not full_roster:
+        raise ReconstructionInputError("full identity roster cannot be empty")
+
     result: list[str] = []
     seen: set[str] = set()
 
