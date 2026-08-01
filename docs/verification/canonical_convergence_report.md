@@ -26,7 +26,7 @@ artifact verification, recovery proof, and collected evidence.
 | upstream | `origin/codex/add-inventory-materials` |
 | local divergence | ahead 90, behind 0 |
 | committed Build A paths | 29, including these two final reports |
-| preserved post-report worktree | 104 unrelated tracked changes, 1,065 non-ignored untracked paths, 0 staged paths |
+| preserved post-report worktree | 104 unrelated tracked changes, 1,075 non-ignored untracked paths, 0 staged paths |
 
 The tested state is the final source SHA plus the preserved dirty overlay.
 Neither the SHA alone nor a clean checkout represents all files exercised by
