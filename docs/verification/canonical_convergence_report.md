@@ -1,223 +1,271 @@
-# Build A Canonical Convergence Report
+# Build A canonical convergence report
 
-Date: 2026-07-30
+Date: 2026-08-02
 
-Build: A — Canonical Convergence and Reconstruction Hardening
+Build: A - Canonical convergence and reconstruction hardening
 
 Decision: **PASS_WITH_SKIPS**
 
-Laboratory Beta: **READY**
+Product status: **Laboratory Beta**
 
 Scientific release: **BLOCKED**
 
-## Authority and scope
+## Authority and tested state
 
-This report is an independent reconciliation of the actual
-`D:\chatbots\perfume-chem` working tree. Historical project and GLM reports were
-used only as hypotheses. Acceptance is based on repository state, executable
-tests, database constraints, reproducible artifacts, and the evidence listed
-below.
+This report independently reconciles the actual
+`D:\chatbots\perfume-chem` repository. Historical project, GLM, and earlier
+Build A reports were treated as leads only. Acceptance is based on the current
+repository, executable tests, migration structure, database constraints,
+artifact verification, recovery proof, and collected evidence.
 
-The tested Build A source checkpoint is:
-
-- branch: `codex/add-inventory-materials`
-- A0 baseline commit: `2e46e4ce5795014e92924102c38c1358d7a9fdca`
-- full-verifier source commit: `cbb0dbd9d1f2a0c5023adc35dd81da9902c77bd8`
-- post-verifier documentation-consistency commit: `68f7024`
-- committed Build A paths reviewed: 128
-- full path list: `canonical_convergence_report.json`
-
-The verifier ran against the authoritative dirty working tree. It is therefore
-incorrect to treat the commit SHA alone as a restorable representation of the
-tested state. At the report checkpoint the preserved workspace contained 105
-tracked dirty paths, 505 untracked files, and no staged files. These were not
-cleaned, reset, or silently absorbed into Build A commits.
-
-## Recovery boundary
-
-The pre-implementation state remains recoverable at:
-
-`C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\outputs\a2-slice1-preimplementation-recovery\perfume-chem-a0-20260729T194130Z`
-
-The package contains path-preserving and independently hashed recovery media:
-
-| Object | SHA-256 |
+| Field | Authoritative value |
 |---|---|
-| committed repository bundle | `95A88496568B5C7382F03F251B9C5F9EBF306D682B059865CE6302E0C55560E7` |
-| tracked binary patch | `C84B4AB871BC6E3F2112BA305EF39902AF19345E2575A26680BF9DD3FF506054` |
-| tracked byte-exact overlay ZIP | `4A5F20232DFC63DEA597A0570185157C95FCA2270CBF5C65281EB77F63A47E0D` |
-| all-untracked path-preserving ZIP | `F819DF4C4B421202255954DBE7380B3951C641BF4DBC1579D329BB634C2E7EB4` |
-| local-only sensitive/ignored ZIP | `01BBC4F0D71F9EB0222F56B0BB471C048D8B5A995D894AD72B778434D721DB02` |
+| A0 baseline SHA | `0fa0adff1533ffca1ad74e6e6904b1afc1b1d435` |
+| final tested source SHA | `f6ba7c3bf5a4a644b5ac03fc09fd447b67247f4d` |
+| branch | `codex/add-inventory-materials` |
+| upstream | `origin/codex/add-inventory-materials` |
+| local divergence | ahead 90, behind 0 |
+| committed Build A paths | 29, including these two final reports |
+| preserved post-report worktree | 104 unrelated tracked changes, 1,065 non-ignored untracked paths, 0 staged paths |
 
-The bundle and archives were structurally verified. Sensitive archive contents
-remain local-only and are not displayed or transmitted.
+The tested state is the final source SHA plus the preserved dirty overlay.
+Neither the SHA alone nor a clean checkout represents all files exercised by
+the verifier. No worktree cleanup, reset, migration, artifact rebinding, or
+secret-file inspection was performed.
 
-## Canonical architecture after convergence
+## Recovery and rollback
 
-The converged truth path is:
+The A0 path-preserving recovery package remains the rollback authority:
 
-1. source evidence and evidence claims remain versioned records;
-2. identity resolution and inventory availability are separate typed decisions;
-3. an accepted target formula is immutable and distinct from a measurable build
-   plan;
-4. build-plan versions and inventory reservations are persisted before physical
-   execution;
-5. AI actors may propose actions but cannot confirm measurements;
-6. confirmed actions commit append-only bottle events and inventory movements in
-   one database transaction;
-7. bottle and stock state are replayed projections, not editable authority;
-8. analytical, sensory, regulatory, and release records retain independent
-   claim-specific authority;
-9. reports and Markdown are projections, never canonical records.
+- complete source archive: 4,366 files, SHA-256
+  `4b1a4c325d1d69c5d54535b6ad14acda9872698c8bf00f9847753c0bdadb223b`;
+- source manifest SHA-256
+  `8e05bf58670d2bdb452c16961e0c78cb8b270d5479274463294535111e2f606a`;
+- all-refs Git bundle SHA-256
+  `4d10101200fa321a1f44923f989c62ec35814fcc6ab8100d8b1504dfa89506ef`;
+- formula/fixture archive: 535 artifacts, zero mismatches, SHA-256
+  `e58681bf79e34677d17c341d08701d9444dc2e3ac52c7e793eab7c5bb5b2772c`;
+- proven clean restore: `C:\A0S_full_20260801_011431`, zero source or
+  restore mismatches.
 
-Canonical persisted models, repositories, and services live under
-`backend/app/models`, `backend/app/repositories`, and `backend/app/services`.
-The engine domain objects are typed calculation and replay projections. Legacy
-interfaces are one-way adapters into canonical services and are guarded against
-direct writes.
+Restoration instructions are in
+`docs/verification/a0_restoration_instructions_2026-08-01.md`. Ignored
+secret-bearing files were excluded and never opened.
 
-## Six original defect dispositions
+Every subsequently edited tracked evidence or source set was also archived
+outside Git and restore-verified. The final pre-report archive is
+`a6_pre_final_reports_20260802_045811.tar`, SHA-256
+`5238cc7f1710f71acc3a957d99b52e5dbaf71706fca410afbdce63fb8cdca952`,
+with three of three restored files matching. The pre-ANSI-fix source/report
+archive is `a6_pre_ansi_fix_20260802_051831.tar`, SHA-256
+`dbd38350bec18169b1ba2223e08d74368b9475358626914d7062310d04ad4625`,
+also with zero mismatches.
 
-| ID | Finding | Independent reproduction | Final disposition | Fix and executable contract |
-|---|---|---|---|---|
-| A1.1 | Diluent-aware concentration and category conservation | **REPRODUCED.** Inactive stock mass was assigned generically, producing a conservation gap and misclassifying ethanol or unknown diluent. | **FIXED.** Declared composition and diluent role now partition active, carrier, ethanol, water, other solvent, and unallocated mass conservatively. | `engine/units/concentration.py`, `engine/quantities.py`; `tests/test_a1_audit_contract_gaps.py`, `tests/test_a1_authoritative_contracts.py`, `tests/test_canonical_quantities.py` |
-| A1.2 | Target-row preservation | **PARTIAL.** Several fields survived already, but the strict all-field round trip and unknown-field policy were not complete executable contracts. | **FIXED.** Accepted fields round-trip; strict mode rejects unknowns and permissive mode preserves versioned extensions. | `engine/target/formula.py`; authoritative target-row tests in `tests/test_a1_authoritative_contracts.py` |
-| A1.3 | Twelve-axis anti-compression | **REPRODUCED.** The compatibility surface used booleans and did not make missing evidence independently authoritative as `UNKNOWN`. | **FIXED.** Twelve named axes use `MATCH`, `DIFFER`, or `UNKNOWN`; merge requires all conclusive matches and scoped equivalence is explicit. | `engine/reconstruction/anti_compression.py`; anti-compression tests in both A1 contract files |
-| A1.4 | Chained correction replay | **REPRODUCED.** Missing-reference and cross-stream strictness were absent from the earlier compatibility behavior. | **FIXED.** Immutable chains reject missing/cross-stream references, cycles, conflicting retries, and stale sequences; latest valid correction wins with a trace to the original. | `engine/bottle/events.py`; A1 correction contracts plus 128 seeded chains and 32 seeded cycles in `tests/test_bottle_events.py` |
-| A1.5 | Empty reconstruction inputs | **REPRODUCED.** Public entry points returned empty projections instead of the required stable pre-normalization domain error. | **FIXED.** Empty rosters, targets, ordered events, zero budgets, and zero denominators fail before mathematical normalization. | `engine/domain_errors.py` and reconstruction entry points; A1 empty-input contracts |
-| A1.6 | Identity resolution versus stock availability | **REPRODUCED.** Earlier flat compatibility statuses conflated identity and stock state. | **FIXED.** Canonical mappings expose independent `IdentityResolutionStatus` and `InventoryMatchStatus`; legacy flat constants remain non-authoritative projections. | `engine/identity/resolver.py`, `engine/inventory/stock_model.py`; authoritative identity/inventory tests |
+Rollback means restoring into a new directory from the A0 bundle/archive, then
+applying only explicitly selected Build A commits. An active database must be
+validated, staged, and restored in maintenance mode; it must never be blindly
+overwritten.
 
-The untracked `docs/verification/a1_exit_gate.md` is preserved as historical
-workspace material, but it is not the final authority: it reports obsolete
-939-test and single-enum-gap conclusions. The contracts and completed A6
-verifier supersede those statements.
+## Canonical architecture and truth path
+
+The one persisted Laboratory Beta path is:
+
+1. immutable evidence/source records;
+2. explicit identity resolution, independent of stock availability;
+3. immutable target hypothesis and accepted target version;
+4. immutable inventory mapping and measurable build-plan version;
+5. append-only inventory reservation;
+6. software proposal, human confirmation, and measured action;
+7. one transaction committing bottle event and inventory movement;
+8. deterministic bottle and stock replay projections;
+9. claim-specific analytical, sensory, regulatory, and release assessments;
+10. reports and artifacts as bound projections, never canonical records.
+
+Canonical persisted models, repositories, and transaction-owning services live
+under `backend/app/models`, `backend/app/repositories`, and
+`backend/app/services`. Engine records are typed calculation, gating, and replay
+domains. The ADR and import/call/persistence graph assign each legacy or
+duplicate surface a disposition. The endpoint transaction scanner and legacy
+write-closure tests report zero violations; adapters remain one-way and cannot
+own canonical writes.
+
+Target, inventory mapping, build plan, reservation, bottle event, and inventory
+movement remain separate records. AI may propose but cannot confirm physical
+execution or self-release.
+
+## Six original defects
+
+| ID | Reproduction | Disposition | Fix and executable evidence |
+|---|---|---|---|
+| A1.1 diluent-aware concentration | Reproduced inactive-stock category loss and misclassification. | **FIXED** | Active, carrier, ethanol, water, other solvent, and unallocated quantities conserve exactly; A1 and canonical-quantity tests pass. |
+| A1.2 target-row preservation | Reproduced incomplete all-field and unknown-field contracts. | **FIXED** | Typed rows preserve every accepted field; strict unknowns reject and namespaced extensions round-trip. |
+| A1.3 twelve-axis anti-compression | Reproduced boolean/missing-evidence compression. | **FIXED** | Twelve independent `MATCH`/`DIFFER`/`UNKNOWN` axes and scoped equivalence prevent unsupported merging. |
+| A1.4 chained correction replay | Reproduced missing-reference, cross-stream, cycle, and stale-sequence gaps. | **FIXED** | Immutable correction chains reject invalid references/cycles/conflicts and deterministically trace latest replacement to original. |
+| A1.5 empty reconstruction inputs | Reproduced empty rosters, empty uncertainty targets, and zero normalization acceptance. | **FIXED** | Public entry points and quantity reconciliation raise stable `ReconstructionInputError` before mathematical normalization. |
+| A1.6 identity versus inventory | Reproduced conflated identity and stock statuses. | **FIXED** | Independent typed identity and availability decisions preserve ambiguity, substitutions, and no-stock states. |
+
+The final A1 pair passes 97 contracts. A2 closes the last independently
+reproduced endpoint-owned write: the material-alias route now delegates to
+`LabService`, while an AST guard rejects endpoint `add`, `flush`, `commit`,
+`refresh`, and `rollback` calls. The full A2 suite passes 83 tests.
+
+A3, A4, and A5 production implementations already existed in the A0 tree and
+were not assumed correct. Fresh focused tests, source inspection, database
+checks, and bounded Fast audits independently accepted typed serialization,
+quantities/hashing/provenance/artifact binding; eleven mode and claim gates;
+and atomic bottle/inventory operations. Their current evidence is in
+`a3_exit_gate.md`, `a4_exit_gate.md`, and `a5_exit_gate.md`.
 
 ## Independent diff review
 
-The committed range `2e46e4c..68f7024` contains 128 paths:
+The committed Build A range plus these reports contains 29 paths: 4 backend, 4
+engine, 3 test, and 18 architecture/plan/evidence files. Every path was
+enumerated and reviewed.
 
-| Area | Paths |
-|---|---:|
-| backend | 55 |
-| docs | 19 |
-| engine | 29 |
-| scripts | 2 |
-| tests | 23 |
+- no changed file exceeds 1 MiB;
+- high-confidence added-line secret scan found zero matches;
+- ignored environment and credential files were never opened;
+- no duplicate SQLAlchemy `__tablename__` value exists;
+- no forbidden shallow `cls(**filtered)` deserialization path exists;
+- no endpoint-owned transaction call remains;
+- six legacy-write guard/closure tests pass;
+- changed assertions strengthen missing contracts or preserve complete row
+  equality; no expected value was merely changed to mirror output;
+- public legacy and versioned Laboratory Beta API surfaces remain in the full
+  backend/API suite;
+- no release artifact or golden fixture was regenerated;
+- source and phase-report claims reconcile with live tests and database state.
 
-Review results:
+Alembic has one linear 14-revision chain, no branch, and head
+`20260731_0012`. Every revision defines both `upgrade()` and `downgrade()`.
+This authoritative Build A run created no migration and did not migrate the
+default root database. Later Build B-named revisions were already present at
+A0 and receive no scientific promotion from this Build A decision.
 
-- every path is listed in the JSON companion report;
-- no Build A changed file exceeds 1 MiB;
-- seven tracked repository files exceed 5 MiB, but none changed in Build A;
-- high-confidence scans found zero committed private-key markers or literal
-  credential patterns;
-- the legacy-write AST guard found zero direct legacy write violations;
-- no forbidden shallow `cls(**filtered)` deserialization path remains;
-- public legacy `/api/v1/lab/*` routes remain mounted and tested;
-- versioned `/api/v1/lab/v2/*` planning, execution, science, replay, diff, and
-  release-review routes are mounted and integration-tested;
-- the migration chain is linear and every Build A revision has upgrade and
-  downgrade logic:
-  `20260716_0001 -> 20260717_0001 -> 20260730_0001 -> 0002 -> 0003 -> 0004`;
-- migrations include the declared constraints and trigger-level invariants;
-- generated and golden artifacts were not silently regenerated;
-- the golden fixture SHA-256 remained
-  `0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec`;
-- stale A1 compatibility comments were corrected after review and the 39-test
-  focused file passed.
+## Risk-based coverage
 
-No reviewed expected value was changed merely to match implementation output.
-Inventory-dependent tests were reconciled to the actual current inventory
-semantics while `inventory.txt` itself remained untouched. The current inventory
-hash is `6cab4998523dfbd224cb8be7973d977a706d9fc56f8d1f0c84e31e806f509c66`
-with 208 available entries. These inventory test reconciliations remain part of
-the preserved dirty workspace and were not swept into Build A commits.
+All A6 categories map to executable tests in the canonical shards/backend
+suite: the six original defects; quantity conservation; unit conversion;
+typed/versioned serialization; canonical hash stability; migration
+upgrade/downgrade; event state machines; seeded correction chains and cycles;
+concurrency and rollback; API contracts; report/artifact projection;
+backup/restore/export/import; target-to-bottle lifecycle; and negative claim
+gates. The JSON companion records representative test files for each category.
 
-## Verification evidence
+## Final canonical verifier
 
-Canonical verifier report:
-`verification_runs/a6-project-verification.json`
+Command: supported Python 3.11.15 running
+`scripts/pipeline_audit.py project-verify --json` without a PTY, with separate
+stdout/stderr capture and an explicit 30-minute timeout.
 
-Report SHA-256:
-`B4C2ECCAB4C4C4741EE85F739D9F585B9356354AB15EFA2A3A9C55DDBB939677`
+Final machine report: `verification_runs/project_verification.json`
 
-| Gate | Result |
+| Evidence | Result |
 |---|---|
-| direct full root suite | **1062 passed** in 92.09 s |
-| engine truth-core shard | **189 passed** |
-| engine data/knowledge shard | **225 passed** |
-| engine gates/families shard | **580 passed** |
-| engine legacy shard | **68 passed** |
-| engine shard total | **1062 passed** |
-| backend suite | **291 passed** |
-| engine Ruff blocking slice | **PASS** |
-| engine MyPy | **PASS**, 33 source files |
-| backend Ruff | **PASS** |
-| backend MyPy | **PASS**, 86 source files |
-| scientific audit | **22 passed** |
-| material validation | **79 passed** |
-| knowledge rules | **76 passed** |
-| golden formula regression | **13 passed** |
-| golden API regression | **1 passed**, 8 deselected |
-| package build | **PASS** |
-| wheel smoke | **PASS** |
-| formula artifact validation | **PASS** |
-| required verifier checks | **19 passed, 0 failed** |
-| Docker build/smoke | **SKIPPED**, optional and not requested by the canonical command |
+| completion gate | `PASS_WITH_SKIPS` |
+| required checks | 19 passed, 0 failed, 0 omitted |
+| optional checks | Docker build and smoke skipped because not requested |
+| engine shards | 190 truth-core + 235 data/knowledge + 602 gates/families + 69 legacy = 1,096 |
+| backend suite | 630 passed |
+| combined canonical tests | 1,726 passed |
+| engine/backend Ruff | PASS |
+| engine/backend MyPy | 33 / 116 source files, PASS |
+| scientific audit | 22 passed |
+| material validation | 80 passed |
+| knowledge rules | 77 passed |
+| golden formula/API | 13 passed / 1 passed with 8 deselected |
+| package build/wheel smoke | PASS / PASS |
+| artifact validation | PASS with non-promoting warnings detailed below |
+| golden fixture lock | PASS, `0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec` |
+| elapsed | 823.2 seconds |
+| report SHA-256 | `030046c26417dd23cb3208e0a46224d9a052bc75263ccd9b59fc63f3099d2350` |
+| stdout SHA-256 | `7e4f05d2c48a1565ef974845e0e9ec308d8020ca7d384c58b2b6acadccf569df` |
+| stderr | empty, SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| ANSI markers | zero in report, stdout, and stderr |
 
-The current `Y_LHomme_Luxe_30mL_EDT.md` artifact correctly remains
-`QUARANTINED` and `STALE` with `release_authority=false`; a passing artifact
-validator does not promote it.
+The first A6 full run passed but exposed escaped Ruff color codes inside its
+JSON evidence. A new regression test failed as expected, both Ruff commands
+were given explicit `--color never`, 16 verifier tests plus Ruff and exact MyPy
+passed, and the complete verifier was rerun. Only the ANSI-clean second run is
+final authority.
+
+The current artifact verifier exits 0 with status `WARN`: 452 `NONE`, 14
+explicitly `QUARANTINED`, 49 `UNBOUND_LEGACY`, and zero blocking unquarantined
+`STALE` or `TAMPERED` files. Its JSON SHA-256 is
+`3e5eadb78c598d2c751ce8a7fa8919f3be26a2da7afc7cd5874c8f0ef6247e2d`;
+stderr is empty. A passing artifact check does not promote quarantined or
+legacy-unbound output.
 
 ## Protected database state
 
-After the direct suite and again after the canonical verifier, the knowledge
-database was restored byte-for-byte from the verified recovery candidate:
+After the final verifier, both files are byte-identical to the pre-A6 state and
+pass read-only SQLite `PRAGMA quick_check`:
 
-- `data/perfumery_kb.db` SHA-256:
-  `5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1`
-- read-only immutable SQLite `PRAGMA integrity_check`: `ok`
-- `perfume_chem.db` SHA-256:
-  `E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855`
-  (expected zero-byte canonical file)
+- `data/perfumery_kb.db`: 2,084,864 bytes, SHA-256
+  `5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1`;
+- `perfume_chem.db`: 12,288 bytes, SHA-256
+  `02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e`.
 
-## Known limitations and deprecated projections
+The default root database contains only an empty `alembic_version` table. It is
+an observed backed-up pre-startup state, not migration authority. No migration
+was applied.
 
-- Full-engine Ruff cleanup outside the blocking truth-core slice remains legacy
-  debt.
-- `remaining_mass_g` assignments in the backend are compatibility projections
-  performed after append-only movement writes; they are not stock authority.
-- Engine-only single-batch transfer replay remains a limited projection; atomic
-  cross-stream transfer authority is the backend transaction service.
-- Solvent-matrix compatibility can be omitted in compatibility requests; strict
-  mode requires it. Headspace is modeled rather than measured.
-- Temporal evolution remains heuristic and is not calibrated to skin or blotter
-  measurements.
-- Longevity, sillage, receptor activation, emotion, and preference-fit claims
-  remain unsupported or `UNKNOWN`.
-- Composite-natural OAV is olfactory headspace evidence, not regulatory
-  constituent composition.
-- Docker was not exercised by this verifier run.
-- The exact accepted state is the source checkpoint plus the preserved dirty
-  overlay and verifier evidence, not a clean-checkout claim.
+## Acceptance matrix
 
-## Release and boundary decision
+| Gate | Decision |
+|---|---|
+| A0 recoverable authoritative baseline | PASS |
+| A1 six executable reconstruction contracts | PASS |
+| A2 canonical persistence and migration boundary | PASS |
+| A3 serialization, quantity, hash, provenance, artifact binding | PASS |
+| A4 operating modes and claim/action gates | PASS |
+| A5 bottle and inventory operations | PASS |
+| A6 independent review and canonical verification | PASS_WITH_SKIPS |
+| Laboratory Beta software status | READY |
+| scientific/product release | BLOCKED |
 
-Build A satisfies its canonical-convergence gate:
+## Limitations and deprecated paths
 
-- one persisted truth path is defined;
-- legacy write paths are one-way and guarded;
-- planning, execution, science, and inventory migrations are constrained and
-  reversible;
-- event replay, correction chains, rollback, concurrency, API, import/export,
-  backup/restore, hashing, serialization, and negative claim gates are covered;
-- all required verifier checks pass;
-- protected databases are restored and verified;
-- the recovery package is restorable and path-preserving;
-- known limitations remain explicit.
+- Docker build/smoke were not requested in the canonical command; they are the
+  only skipped checks.
+- Held-out sensory validation has not passed. Scientific/product release,
+  certification, blanket similarity, and preference claims remain blocked.
+- The root application database is intentionally unmigrated; startup migration
+  and any restore require the documented safety workflow.
+- Artifact `WARN`, quarantine, and legacy-unbound states are non-promoting.
+- Legacy adapters and compatibility fields are projections only. They cannot
+  own writes or outrank canonical replay.
+- Existing Build B/C/D-named code, migrations, reports, or historical claims in
+  the A0 overlay are not accepted by Build A and must be independently
+  reverified in strict order.
+- The dirty overlay remains necessary to reproduce the tested state and is
+  preserved rather than absorbed or cleaned.
 
-Therefore Build A exits **PASS_WITH_SKIPS** and Build B may begin.
+## DeepLuna Fast final audit
 
-This decision authorizes Laboratory Beta operation only. Scientific release
-remains **BLOCKED** because held-out sensory validation has not passed. No Build
-A software result can substitute for Build B, C, or D evidence.
+A fresh exact-project check returned `READY` for `project_id=perfume-chem`,
+runtime `CANDIDATE_V2`, server 0.9.9, with no active, queued, open-reserved, or
+unknown-reserved work. Bounded read-only final audit job
+`DS-d3c82263dd3cea7cb6496005b9022604` used route `FLASH`, fallback policy
+`NO_LUNA`, and one allowed provider call.
+
+The job returned `PASS`, execution status `ACCEPTED`, and evidence verdict
+`POSITIVE`, with no negative findings, scope deviation, architecture
+uncertainty, or acceptance-blocking gap. It reconciled the Markdown report,
+JSON report, A0 recovery evidence, machine verifier, and ANSI regression
+contract. Its residual risks were exactly the three already declared here:
+optional Docker skips, missing held-out sensory validation, and non-promoting
+artifact warnings. DeepLuna supplied bounded review evidence only; Sol retained
+and exercised final authority.
+
+## Exit decision
+
+Build A satisfies the canonical convergence criteria: recovery is proven; one
+persisted truth path and canonical build plan exist; serialization is typed;
+legacy dual writes fail closed; target, inventory, build, and bottle remain
+separate; physical writes are atomic and replayable; critical gates fail
+closed; artifacts are bound; and every known limitation is explicit.
+
+Build A remains **Laboratory Beta**. Scientific release remains **BLOCKED**.
+This report is sealed and must now be presented at the Build A boundary. No
+Build B work begins in this run.
