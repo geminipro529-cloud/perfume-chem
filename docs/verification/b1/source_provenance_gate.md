@@ -4,7 +4,8 @@ Decision: **PASS**
 
 Implementation authority: commit
 `448f69cb9cf23e9e59f7960e77b378ae8e09725a` on
-`codex/add-inventory-materials`.
+`codex/add-inventory-materials`. Current verification began at Build B0 seal
+`59637597706569360220e0354716ceeb4e4837ca`.
 
 This gate covers Build B Phase B1 only. It does not claim that any migrated
 scientific value is true, that a claim may be released, or that later Build B
@@ -27,9 +28,10 @@ authority work is complete.
 - Explicit derivation links reject self-links, duplicates, and cycles.
   Reconstruction returns deterministic source, extraction, workflow, digest,
   and independence-group evidence without inventing a reliability score.
-- Alembic head is `20260730_0005`. The migration creates four append-only
-  tables, performs no backfill, preserves representative A5 schema/rows, and
-  downgrades/re-upgrades cleanly.
+- B1 owns revision `20260730_0005`; the current linear repository head is
+  `20260731_0012`. The B1 migration creates four append-only tables, performs no
+  backfill, preserves representative A5 schema/rows, and
+  downgrades/re-upgrades cleanly in disposable databases.
 
 ## Fresh verification
 
@@ -39,18 +41,16 @@ timeouts. Stdout and stderr are preserved separately under
 
 | Gate | Result | Stdout SHA-256 | Stderr SHA-256 |
 |---|---:|---|---|
-| B1 plus compatibility pytest | 64 passed in 74.10 s | `408DEC0F...EA3748` | empty-file SHA |
+| B1 plus compatibility pytest | 45 passed in 48.85 s | `277B5CE9...D0AB7` | empty-file SHA |
 | Ruff | all checks passed | `AF352A86...D2D9AF` | empty-file SHA |
 | Mypy, three B1 modules | no issues | `F6AF9A42...8259C` | empty-file SHA |
 
 The full hashes and exact paths are in
 `source_provenance_gate.json`.
 
-Compatibility coverage includes the B1 schema/service/migration tests,
-laboratory schema, prior A2 science schema/service, A5 migration,
-backup/restore, and general migration behavior. The three stale current-head
-expectations found during RED verification were updated from `0004` to `0005`;
-historical A5 tests remain pinned to `0004`.
+Compatibility coverage includes the current B1 schema/service/migration tests,
+general laboratory migration behavior, and backup/restore. Historical counts
+were not reused; the live five-file selection produced the 45-test result above.
 
 ## B1 exit decision
 
@@ -72,12 +72,16 @@ migrated set without promoting any legacy value.
   implementation.
 - No production scientific consumer is connected to B1 acceptance.
 - `LabEvidenceRecord` remains a compatibility record and is not promoted.
-- Canonical `perfume_chem.db` remains zero bytes with SHA-256
-  `E3B0C442...B855`.
+- Canonical `perfume_chem.db` is a valid 12,288-byte SQLite file with SHA-256
+  `02B64BE8...A0DA5`, `quick_check=ok`, and zero Alembic rows.
 - `data/perfumery_kb.db` remains 2,084,864 bytes with SHA-256
   `5A779F9D...3FE1`; a byte-identical copy reports SQLite integrity `ok`.
-- Existing work remains preserved: 105 tracked dirty paths, 505 untracked
+- Existing work remains preserved: 105 tracked dirty paths, 1,122 untracked
   files, and zero staged entries before this report commit.
+
+The previous reports and six logs were archived and restore-verified at
+`outputs/b1-authoritative-recovery/20260802T061536/` and
+`outputs/b1-log-recovery/20260802T061609/` before replacement.
 
 ## Limitations and claim boundary
 
@@ -88,6 +92,11 @@ migrated set without promoting any legacy value.
 - No literature assertion was newly ingested, verified, selected, or promoted.
 - Claim-specific authority remains B7.
 - Scientific release remains **BLOCKED**.
+
+DeepLuna Fast review `DS-1e8e104e048d82ab80098c5b5ec7d403` returned
+`PASS` / `POSITIVE` / `ACCEPTED`, no negative findings, and no scope deviation.
+It identified report staleness only; Sol accepted that conclusion after the
+current 45-test, Ruff, mypy, migration-head, hash, and database checks passed.
 
 B2 must not infer scientific authority from this B1 PASS. It may proceed only
 under its own observation-first exit gate.
