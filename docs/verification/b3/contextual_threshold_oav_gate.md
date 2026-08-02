@@ -2,126 +2,127 @@
 
 Decision: **PASS**
 
-Implementation authority: `3a61de2acd9a658ebba4600c29ffe22cff02b7cc`.
+This report independently re-verifies Build B Phase B3 against the current
+authoritative checkout. Historical reports and agent claims are notes only;
+current executable tests, source and migration constraints, protected state,
+restored artifacts, and the reconciled final audit decide the gate.
 
-This gate covers Build B Phase B3 only. It does not compile rule packs (B4),
-expand analytical or regulatory authority (B5-B6), implement claim
-sufficiency (B7), backfill decision-value data (B8), connect API/UI consumers
-(B9), or run the Build B release audit (B10).
+## Authority and scope
+
+- B3 implementation authority: `3a61de2acd9a658ebba4600c29ffe22cff02b7cc`.
+- Verification head before this report:
+  `1688a132758814d9e0e5f37ae5ccc123c3d59767`.
+- B3 phase revision: `20260730_0007`.
+- Current single repository Alembic head: `20260731_0012`.
+
+This gate covers contextual threshold and screening-OAV authority only. Rule
+compilation remains B4; analytical, regulatory, claim, backfill, and API/report
+authority remain B5-B9.
 
 ## Implemented canonical contract
 
-- Three append-only tables store a one-to-one contextual specialization of a
-  B2 threshold observation, deterministic OAV assessments, and quarantined
-  legacy threshold records.
-- Threshold context preserves identity, grade, purity, stereochemistry,
-  endpoint, route, medium, matrix and composition, basis, apparatus,
-  temperature, humidity, population, training, sample size, psychophysical
-  procedure and statistic, typed value, unit, uncertainty, source, locator,
+- Three append-only tables store contextual threshold specialization,
+  deterministic OAV assessments, and quarantined legacy threshold records.
+- Threshold context preserves exact identity, grade, purity, stereochemistry,
+  endpoint, route, medium, matrix composition, basis, apparatus, temperature,
+  humidity, assessor population and training, sample size, psychophysical
+  procedure, statistic, typed value, unit, uncertainty, source, locator,
   evidence class, and quality flags.
-- Conversion is allowed only within an explicitly supported compatible unit
-  convention. A solution threshold never becomes an air threshold by
-  conversion alone.
-- OAV is computed only when concentration and threshold are compatible across
-  identity, basis, medium and matrix, endpoint, route, conditions, model
-  applicability, authority, and unit convention.
-- Every incompatible path is fail-closed with a stable ordered subset of:
-  `MISSING_THRESHOLD`, `IDENTITY_SCOPE_MISMATCH`,
+- Conversion requires an explicitly supported compatible convention and every
+  required input. A solution threshold never becomes an air threshold through
+  unit conversion alone.
+- OAV is computed only when concentration and threshold match identity, basis,
+  medium/matrix, endpoint, route, conditions, model applicability, authority,
+  and unit convention.
+- Every incompatible path fails closed with an ordered subset of the ten stable
+  codes: `MISSING_THRESHOLD`, `IDENTITY_SCOPE_MISMATCH`,
   `THRESHOLD_MEDIUM_MISMATCH`, `THRESHOLD_ENDPOINT_MISMATCH`,
   `THRESHOLD_ROUTE_MISMATCH`, `THRESHOLD_UNIT_INCOMPARABLE`,
   `THRESHOLD_MATRIX_UNSPECIFIED`, `THRESHOLD_AUTHORITY_TOO_LOW`,
   `CONCENTRATION_NOT_COMPARABLE`, and
   `MODEL_OUTSIDE_APPLICABILITY_DOMAIN`.
-- A supplied threshold assertion must exist, and both its requested and
-  applicability context IDs must equal the unique context attached to the
-  selected threshold observation.
-- Computed OAV is screening evidence only. It cannot authorize exact
-  intensity, percentage contribution, pleasantness, similarity, family,
-  longevity, sillage, skin performance, release, or deletion below OAV 1.
-- The migration creates no observations, assertions, assessments, or legacy
-  imports. The explicit adapter preserves the original legacy verification
-  status and produces quarantine commands without promotion.
+- A supplied assertion must exist. Its selected observation and both context
+  identifiers must match the unique threshold context.
+- Strict-science mode has no heuristic fallback. Computed OAV is screening
+  evidence only and cannot authorize exact intensity, percentage contribution,
+  pleasantness, similarity, family, longevity, sillage, skin performance,
+  release, or deletion below OAV 1.
+- The migration creates no observation, assertion, assessment, or legacy
+  import. The explicit adapter preserves the original verification status and
+  produces quarantine commands without promotion.
 
-## Fresh verification
+## Current deterministic verification
 
 All commands ran non-interactively under supported Python 3.11.15 with ANSI
-disabled, explicit timeouts, and separate stdout/stderr logs under
-`docs/verification/b3/logs/`.
+disabled, explicit timeouts, external writable temp/cache state, and separate
+stdout/stderr logs under `docs/verification/b3/logs/`.
 
-| Gate | Result | Stdout SHA-256 | Stderr SHA-256 |
+| Gate | Result | Stdout SHA-256 | Stderr |
 |---|---:|---|---|
-| B1+B2+B3+compatibility pytest | 100 passed in 92.39 s | `E9292AD4...B06E48` | empty-file SHA |
-| Ruff, exact B3 paths | all checks passed | `AF352A86...D2D9AF` | empty-file SHA |
-| Mypy, four B3 modules | no issues | `9A7B872E...C9400` | empty-file SHA |
-| DeepLuna Fast assertion-context delta | PASS | `4C7EFB1E...AC8535` | empty-file SHA |
+| B1+B2+B3+compatibility pytest | 100 passed in 211.26 s | `7E1AFD7A...7324E14` | empty |
+| Ruff, exact B3 paths | all checks passed | `82B3E6A6...56B4F18` | empty |
+| Mypy, four B3 modules | no issues | `D9A5631F...07BB76` | empty |
 
-The exact commands, complete hashes, environment boundary, and path hashes are
-in `contextual_threshold_oav_gate.json`.
+The cumulative suite includes B1-B3 schemas and services, all three phase
+migrations, downgrade/re-upgrade behavior, current-head migration coverage,
+and backup/restore. Every command exited zero, and all current logs are free of
+ANSI escapes.
 
-The protected root `perfume_chem.db` remains zero bytes with SHA-256
-`E3B0C442...B855`. `data/perfumery_kb.db` remains 2,084,864 bytes with
-SHA-256 `5A779F9D...3FE1`; an immutable read-only SQLite connection reports
-integrity `ok`.
+## Protected database and migration state
 
-## Independent review and DeepLuna boundary
+| Database | Bytes | SHA-256 before and after | `quick_check` | Alembic rows |
+|---|---:|---|---|---:|
+| `perfume_chem.db` | 12,288 | `02B64BE8...0DA5E` | `ok` | 0 |
+| `data/perfumery_kb.db` | 2,084,864 | `5A779F9D...63FE1` | `ok` | 0 |
 
-The first bounded Fast-only audit
-(`DS-46ee2ccab1c3fbd3829728c78360841f`) returned PASS. Sol did not accept that
-packet as authority and independently found three defects: assertion context
-IDs could disagree with the selected observation context, a supplied missing
-assertion ID could silently degrade to a missing-threshold result, and model
-metadata omitted four indexes created by the migration.
+Both databases were inspected through immutable read-only SQLite connections;
+their hashes were unchanged by the gate. The phase revision is intentionally
+distinguished from the current linear repository head `20260731_0012`.
 
-RED tests reproduced each defect. The implementation now rejects a missing
-assertion, withholds authority for either context mismatch, and declares all
-four indexes in both model metadata and the migration. The authoritative
-100-test slice then passed. A second bounded Fast-only delta audit
-(`DS-d21fe93a9d16d6b9fc523043cfac45c9`) passed the assertion-context fix;
-Sol independently verified the index parity with executable schema tests.
+## DeepLuna boundary and reconciliation
 
-DeepLuna remained Fast-only and advisory. No Luna fallback or Codex subagent
-was used.
+- Route is Fast-only `FLASH` with `NO_LUNA`; Codex subagents used: zero.
+- Fresh exact-project health was `READY` on runtime `CANDIDATE_V2`, release
+  `0.9.9`, with no active/queued work or reserved/unknown accounting.
+- Current bounded gap audit `DS-e69a5d0b601e4298bd76d19cb3fde602`
+  returned PASS / POSITIVE / ACCEPTED with no negative finding or scope
+  deviation. Sol independently reproduced its implementation claims with the
+  current 100-test gate and direct source/migration inspection.
+- Historical Fast audits remain supplemental. The initial historical PASS
+  missed three defects later found and reproduced by Sol.
+- Final report audit `DS-41cc36cf491df51c4172fc56212dd5dc`
+  returned PASS / POSITIVE / ACCEPTED with one `FLASH` call, no cache hit, no
+  negative finding, and no scope deviation. Sol reconciled all findings against
+  the current tests, source, migration, protected state, and hashes; no report
+  correction was required.
+- The normalized audit receipt is
+  `docs/verification/b3/logs/deepluna-final-audit.json`, SHA-256
+  `821C3C22CEBD5DD58EC9897233A482C8DA92FAEB006E5D277EA3731A73FA956B`.
 
-## B3 exit decision
+## Recovery and dirty-work preservation
 
-The master gate requires that any context mismatch withhold OAV and that OAV
-never unlock a stronger claim.
+The complete prior B3 report/log tree is preserved at
+`outputs/b3-authoritative-recovery/20260802T065815/b3-evidence-before-refresh.zip`,
+SHA-256 `E6AF3364A48C72941F116A0C354329DF67D3CD365CCE6D1B715446C8F6675F18`.
+The archive contains all 14 files; a separate extraction reproduced every
+path and SHA-256 exactly.
 
-All ten mismatch codes are executable, deterministically ordered, and produce
-no OAV. Full compatibility is required before computation. The persisted
-assessment exposes a screening-only permitted-use surface and explicit
-prohibited claims. Strict-science mode has no heuristic fallback, legacy
-status is never upgraded, and the migration promotes zero legacy values.
-Therefore B3 passes without claiming that any threshold value is scientifically
-true or that any formula is release-ready.
+Before report editing, 107 tracked paths were dirty. The expected pre-commit
+state is 109 tracked dirty paths, 1,199 untracked files, and zero staged
+entries. No cleanup, reset, database mutation, or unrelated edit was performed.
+Dirty legacy `engine/odor_thresholds.py`,
+`engine/pipeline/oav_intelligence.py`, `tests/test_oav_authority.py`, and
+`tests/test_oav_intelligence.py` remain untouched and non-authoritative.
 
-## Protected state and recovery
+## Exit decision and claim boundary
 
-- The A0 full recovery package remains preserved.
-- The scratch preimplementation archive is
-  `outputs/b3-preimplementation-recovery/b3-scratch-targets-20260730_230738.zip`
-  in the Codex evidence workspace, SHA-256 `03D3992B...E5BE`.
-- The canonical prepromotion archive is
-  `outputs/b3-prepromotion-recovery/canonical-b3-targets-prepromotion-20260730_232612.zip`,
-  SHA-256 `A06B61FB...29DC`.
-- Both archives were extracted separately. Every present path matched its
-  source hash, and the absent-path manifest matched.
-- After the implementation commit, the pre-existing worktree still had 105
-  tracked dirty paths, 585 untracked files, and zero staged entries. Only the
-  exact 16 B3 implementation/spec paths were committed.
-- Dirty legacy `engine/odor_thresholds.py`,
-  `engine/pipeline/oav_intelligence.py`, `tests/test_oav_authority.py`, and
-  `tests/test_oav_intelligence.py` were not modified by B3.
+The local B3 gate passes: all ten context mismatches withhold OAV, and a
+computed OAV exposes screening-only permitted use plus explicit stronger-claim
+prohibitions. Strict science has no silent fallback, supplied missing
+assertions are rejected, observation/assertion contexts must match, legacy
+status is never upgraded, and migration promotes zero legacy values.
 
-## Limitations and claim boundary
-
-- B3 promotes no real literature threshold observation.
-- The legacy adapter is explicit quarantine machinery, not an automatic
-  Alembic backfill. Decision-value ingestion remains B8.
-- No production API, UI, or legacy-engine consumer is connected until B9.
-- The first DeepLuna PASS missed defects later found by Sol; provider evidence
-  remains supplemental to canonical source, tests, database constraints, and
-  reproducible artifacts.
-- Scientific release remains **BLOCKED**.
-
-B4 may begin under its own RED tests and exit gate.
+Final B3 decision is **PASS**. Scientific release remains **BLOCKED**. This gate
+does not establish the scientific truth of any threshold value or make any
+formula release-ready. B4 may begin only after this exact B3 evidence set is
+committed without unrelated paths.
