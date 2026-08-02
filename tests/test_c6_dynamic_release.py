@@ -35,6 +35,7 @@ from engine.physics.matrix_environment import (
     MatrixComponent,
     MatrixComponentRole,
     MatrixComposition,
+    MatrixMissingField,
     MatrixQuantityBasis,
     MatrixStage,
 )
@@ -52,7 +53,6 @@ from engine.physics.model_interface import (
     VersionedModelRouter,
 )
 from engine.physics.properties import UncertaintyDescriptor, UncertaintyKind
-
 
 CODE_COMMIT = "a" * 40
 IMPLEMENTATION_SHA256 = "b" * 64
@@ -81,16 +81,21 @@ def matrix(
     unit: str = "mg",
     stage: MatrixStage = MatrixStage.APPLICATION_FILM,
 ) -> MatrixComposition:
+    component_values = (
+        {"component:ethanol": 0.8, "component:active": 0.2}
+        if basis is MatrixQuantityBasis.MASS_FRACTION
+        else {"component:ethanol": 8.0, "component:active": 2.0}
+    )
     definitions = {
         "component:ethanol": (
             "Ethanol",
             MatrixComponentRole.ETHANOL,
-            8.0,
+            component_values["component:ethanol"],
         ),
         "component:active": (
             "Active",
             MatrixComponentRole.ACTIVE_FRAGRANCE,
-            2.0,
+            component_values["component:active"],
         ),
     }
     components = tuple(
@@ -105,7 +110,7 @@ def matrix(
         )
         for component_id in component_order
     )
-    total_mass = 10.0 if basis is MatrixQuantityBasis.MASS else 1.0
+    total_mass = 10.0
     total_mass_unit = unit if basis is MatrixQuantityBasis.MASS else "mg"
     return MatrixComposition(
         matrix_id="matrix:c6:formula-17",
@@ -224,12 +229,8 @@ def component_parameters(
         sealed_transfer_rate_s_minus_1=(0.08 if active else 0.20) if sealed else None,
         diffusion_coefficient_m2_s=None if sealed else (1e-12 if active else 4e-12),
         mass_transfer_coefficient_m_s=None if sealed else (1e-5 if active else 2e-5),
-        sorption_rate_s_minus_1=(
-            0.0 if sealed or open_surface else (0.04 if active else 0.01)
-        ),
-        desorption_rate_s_minus_1=(
-            0.0 if sealed or open_surface else (0.01 if active else 0.005)
-        ),
+        sorption_rate_s_minus_1=(0.0 if sealed or open_surface else (0.04 if active else 0.01)),
+        desorption_rate_s_minus_1=(0.0 if sealed or open_surface else (0.01 if active else 0.005)),
         sink_rate_s_minus_1=0.0 if sealed else (0.02 if active else 0.05),
         matrix_feedback_exponent=feedback,
         relative_parameter_uncertainty=uncertainty,
@@ -255,6 +256,10 @@ def substrate_model(
         calibration_receipt_sha256=None,
         cross_substrate_transfer_allowed=False,
         reference_temperature_k=TEMPERATURE_K,
+        reference_airflow_m_s=(
+            0.0 if kind is ApplicationEnvironmentKind.SEALED_EQUILIBRIUM_VIAL else 0.2
+        ),
+        reference_relative_humidity=0.50,
         temperature_coefficient_per_k=0.01,
         airflow_sensitivity_s_m=0.50,
         humidity_sensitivity=0.20,
@@ -443,8 +448,10 @@ def test_component_parameters_fail_closed(field: str, value: object, match: str)
         "component:active",
         ApplicationEnvironmentKind.OPEN_LIQUID_SURFACE,
     )
+    payload = baseline.to_mapping()
+    payload[field] = value
     with pytest.raises(DynamicReleaseContractError, match=match):
-        replace(baseline, **{field: value})
+        DynamicComponentParameters.from_mapping(payload)
 
 
 def test_substrate_model_enforces_geometry_specific_parameters() -> None:
@@ -539,12 +546,8 @@ def test_release_is_unvalidated_simulation_only_and_never_oav_authority() -> Non
     *_, adapter, _, _ = executable_case()
     release = adapter.release
     assert release.selector.family is ModelFamily.DYNAMIC_SEMI_EMPIRICAL_MODEL
-    assert release.selector.model_version.startswith(
-        f"{C6_MODEL_VERSION}:open_liquid_surface:"
-    )
-    assert adapter.input_set.substrate_model.content_sha256[:16] in (
-        release.selector.model_version
-    )
+    assert release.selector.model_version.startswith(f"{C6_MODEL_VERSION}:open_liquid_surface:")
+    assert adapter.input_set.substrate_model.content_sha256[:16] in (release.selector.model_version)
     assert release.availability is ModelAvailability.AVAILABLE
     assert release.evidence_class is ModelEvidenceClass.UNVALIDATED
     assert release.may_feed_oav_screening is False
@@ -578,13 +581,9 @@ def test_sealed_analytic_transfer_conserves_mass_and_reports_concentration() -> 
     by_id = {item.component_id: item for item in final.components}
     ethanol_rate = 0.20 * 0.90 * 1.2
     expected_ethanol_gas = 8.0 * (1.0 - math.exp(-ethanol_rate))
-    assert by_id["component:ethanol"].gas_mass_mg == pytest.approx(
-        expected_ethanol_gas
-    )
+    assert by_id["component:ethanol"].gas_mass_mg == pytest.approx(expected_ethanol_gas)
     assert final.total_sink_mass_mg == 0.0
-    assert final.gas_concentration_mg_m3 == pytest.approx(
-        final.total_gas_mass_mg / 10e-6
-    )
+    assert final.gas_concentration_mg_m3 == pytest.approx(final.total_gas_mass_mg / 10e-6)
     assert final.max_abs_mass_error_mg <= MASS_TOLERANCE_MG
 
 
@@ -607,6 +606,31 @@ def test_every_frame_is_nonnegative_and_mass_conservative(scenario: RateScenario
             assert component_state.sorbed_mass_mg >= 0.0
             assert component_state.sink_mass_mg >= 0.0
             assert component_state.mass_balance_abs_error_mg <= MASS_TOLERANCE_MG
+
+
+def test_per_step_closure_guard_rejects_sub_output_tolerance_leak(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    matrix_value, environment_value, inputs, _, _, _ = executable_case(
+        ApplicationEnvironmentKind.OPEN_LIQUID_SURFACE,
+        duration_s=1.0,
+        time_step_s=1.0,
+    )
+    original_clean_mass = dynamic_release_module._clean_mass
+    leak_applied = False
+
+    def leaking_clean_mass(value: float, field_name: str) -> float:
+        nonlocal leak_applied
+        cleaned = original_clean_mass(value, field_name)
+        if field_name == "condensed mass" and not leak_applied and cleaned > 1e-7:
+            leak_applied = True
+            return cleaned - 1e-7
+        return cleaned
+
+    monkeypatch.setattr(dynamic_release_module, "_clean_mass", leaking_clean_mass)
+
+    with pytest.raises(DynamicReleaseContractError, match="failed after transition"):
+        simulate_dynamic_release(matrix_value, environment_value, inputs)
 
 
 def test_bounded_hazard_prevents_negative_mass_under_extreme_rates() -> None:
@@ -653,7 +677,13 @@ def test_explicit_sink_and_substrate_compartments_are_accounted() -> None:
     final = simulation.scenario(RateScenario.NOMINAL).frames[-1]
     assert final.total_sink_mass_mg > 0.0
     assert final.total_sorbed_mass_mg > 0.0
-    assert final.total_condensed_mass_mg + final.total_gas_mass_mg + final.total_sorbed_mass_mg + final.total_sink_mass_mg == pytest.approx(10.0)
+    assert (
+        final.total_condensed_mass_mg
+        + final.total_gas_mass_mg
+        + final.total_sorbed_mass_mg
+        + final.total_sink_mass_mg
+        == pytest.approx(10.0)
+    )
 
 
 def test_solvent_loss_changes_film_matrix_and_later_release_rate() -> None:
@@ -686,9 +716,7 @@ def test_uncertainty_propagates_as_nonstatistical_sensitivity_envelope() -> None
     )
     simulation = simulate_dynamic_release(matrix_value, environment_value, inputs)
     assert {item.scenario for item in simulation.scenarios} == set(RateScenario)
-    finals = {
-        item.scenario: item.frames[-1].total_sink_mass_mg for item in simulation.scenarios
-    }
+    finals = {item.scenario: item.frames[-1].total_sink_mass_mg for item in simulation.scenarios}
     assert len(set(finals.values())) == 3
     assert len(simulation.sensitivity_envelope) == len(simulation.scenarios[0].frames)
     for envelope in simulation.sensitivity_envelope:
@@ -832,6 +860,40 @@ def test_incompatible_context_abstains_fail_closed(case: str) -> None:
     assert result.status is ModelResultStatus.ABSTAINED
     assert result.output is None
     assert result.applicability.state is ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN
+
+
+def test_missing_matrix_temperature_abstains_fail_closed() -> None:
+    kind = ApplicationEnvironmentKind.OPEN_LIQUID_SURFACE
+    matrix_value = replace(
+        matrix(),
+        temperature=None,
+        completeness=CompositionCompleteness.PARTIAL,
+        missing_fields=(MatrixMissingField.TEMPERATURE,),
+    )
+    environment_value = environment(kind)
+    inputs = input_set(
+        matrix_value=matrix_value,
+        environment_value=environment_value,
+        kind=kind,
+    )
+    adapter = DynamicReleaseAdapter(
+        input_set=inputs,
+        code_commit=CODE_COMMIT,
+        implementation_sha256=IMPLEMENTATION_SHA256,
+    )
+    request = request_for(
+        adapter,
+        inputs,
+        matrix_value=matrix_value,
+        environment_value=environment_value,
+    )
+
+    result = VersionedModelRouter((adapter,)).predict_dynamic_release(request)
+
+    assert result.status is ModelResultStatus.ABSTAINED
+    assert result.output is None
+    assert result.applicability.state is ApplicabilityState.INSUFFICIENT_INPUT
+    assert "matrix:temperature" in result.missing_inputs
 
 
 def test_router_uncertainty_operation_returns_same_bound_simulation() -> None:

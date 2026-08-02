@@ -212,6 +212,27 @@ PUBLIC_C5_NAMES = {
     "lock_model",
     "release_held_out",
 }
+PUBLIC_C6_NAMES = {
+    "C6_INPUT_ROLE",
+    "C6_MODEL_VERSION",
+    "PERMITTED_C6_OUTPUT_LABELS",
+    "ComponentCompartmentState",
+    "DynamicComponentParameters",
+    "DynamicParameterAuthority",
+    "DynamicReleaseAdapter",
+    "DynamicReleaseContractError",
+    "DynamicReleaseInputSet",
+    "DynamicReleaseSimulation",
+    "DynamicTrajectoryFrame",
+    "InitialCompartmentMass",
+    "PhysicalProcessLayer",
+    "PhysicalTrajectoryLabel",
+    "RateScenario",
+    "ScenarioTrajectory",
+    "SensitivityEnvelopeFrame",
+    "SubstrateModelParameters",
+    "simulate_dynamic_release",
+}
 
 
 def digest(character: str) -> str:
@@ -1661,6 +1682,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         | PUBLIC_C3_NAMES
         | PUBLIC_C4_NAMES
         | PUBLIC_C5_NAMES
+        | PUBLIC_C6_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()
