@@ -1,20 +1,26 @@
 {
+  "schema_version": "perfume-chem-command-evidence-v2",
   "name": "alembic_heads_b8",
-  "cwd": "D:\\chatbots\\perfume-chem\\backend",
-  "command": [
-    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
-    "-m",
-    "alembic",
-    "heads"
-  ],
-  "started_at_utc": "2026-07-31T02:24:06.943Z",
-  "finished_at_utc": "2026-07-31T02:24:08.079Z",
-  "duration_seconds": 1.135,
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": "backend",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "command": ["-B", "-m", "alembic", "heads"],
+  "non_pty": true,
   "timeout_seconds": 120,
   "timed_out": false,
   "exit_code": 0,
-  "signal": null,
-  "spawn_error": null,
-  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b8\\logs\\alembic_heads_b8.stdout.txt",
-  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b8\\logs\\alembic_heads_b8.stderr.txt"
+  "duration_seconds": 1.56,
+  "result_text": "20260731_0012 (head)",
+  "stdout": {
+    "path": "logs/alembic_heads_b8.stdout.txt",
+    "bytes": 22,
+    "sha256": "d05fb8ba33c0532876896596b90490ab3399322d0feb211337ab4d64bd5f79c7"
+  },
+  "stderr": {
+    "path": "logs/alembic_heads_b8.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
 }

@@ -1,0 +1,18 @@
+{
+  "schema_version": "perfume-chem-deepluna-review-v1",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-32ea809bd7db053cc21132e84f1161e8",
+  "worker_status": "PASS",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "codex_subagents_used": false,
+  "sol_disposition": "REJECTED",
+  "rejection_reasons": [
+    "The worker repeated the historical 439-test compatibility count although current stdout proves 440.",
+    "The worker claimed there were no stale fields although the reports retained historical projection hashes, inventory counts, archive identity, protected database size, dates, and timings.",
+    "The worker treated historical DeepLuna receipts as sufficient for the current refresh."
+  ],
+  "accepted_findings": [],
+  "authority_statement": "Worker output is advisory evidence only. Sol rejected its unsupported PASS and rebuilt the package from current local evidence."
+}

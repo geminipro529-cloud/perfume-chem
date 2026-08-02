@@ -1,23 +1,38 @@
 {
+  "schema_version": "perfume-chem-command-evidence-v2",
   "name": "pytest_b8_projection",
-  "cwd": "D:\\chatbots\\perfume-chem",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": ".",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
   "command": [
-    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-B",
     "-m",
     "pytest",
-    "tests\\test_b8_backfill_dashboard.py",
+    "tests/test_b8_backfill_dashboard.py",
     "--color=no",
     "-q",
-    "--basetemp=output\\pytest-temp\\b8-dashboard-final"
+    "--basetemp=<external>/pytest-projection-temp"
   ],
-  "started_at_utc": "2026-07-31T02:15:10.834Z",
-  "finished_at_utc": "2026-07-31T02:15:11.479Z",
-  "duration_seconds": 0.644,
+  "environment": {
+    "non_pty": true,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
+  },
   "timeout_seconds": 300,
   "timed_out": false,
   "exit_code": 0,
-  "signal": null,
-  "spawn_error": null,
-  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b8\\logs\\pytest_b8_projection.stdout.txt",
-  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b8\\logs\\pytest_b8_projection.stderr.txt"
+  "tests_passed": 2,
+  "pytest_duration_seconds": 0.53,
+  "stdout": {
+    "path": "logs/pytest_b8_projection.stdout.txt",
+    "bytes": 100,
+    "sha256": "e4f3f5c44fecf04b4f167146e45a69b8b2a1741ead6ec228f18ad3b542bc9954"
+  },
+  "stderr": {
+    "path": "logs/pytest_b8_projection.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
 }

@@ -1,0 +1,46 @@
+{
+  "schema_version": "perfume-chem-deepluna-review-v1",
+  "recorded_at_utc": "2026-08-02T03:04:40Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-f7c89f252169cb53ce950fcc1b693c01",
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "service_tier": "priority",
+  "provider_calls": 1,
+  "prompt_tokens": 37145,
+  "completion_tokens": 755,
+  "total_tokens": 37900,
+  "prompt_cache_hit_tokens": 0,
+  "measured_spend_delta_nano_usd": 5218425,
+  "measured_spend_delta_usd": 0.005218425,
+  "unknown_reservations_after": 0,
+  "open_reserved_nano_usd_after": 0,
+  "negative_findings": [],
+  "residual_risks": [
+    "The workspace projection cannot prove active-formula, chemical-family, or model-sensitivity signals and labels those dimensions UNKNOWN.",
+    "Legacy and unreviewed values remain weak, unknown, conflicted, or missing and are never promoted.",
+    "B8 creates empty append-only campaign structures and a non-promoting projection; no protected production database was migrated or backfilled."
+  ],
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": false,
+  "scope_deviation": false,
+  "coverage_statement": "All 23 required current reads were covered and mutually consistent; historical stale facts were not treated as current.",
+  "post_audit_local_correction": {
+    "finding": "The refreshed report and archive receipt transcribed one archive SHA-256 segment as e96bddc instead of the verified e96bbdc.",
+    "scope": "evidence metadata only",
+    "archive_bytes_changed": false,
+    "corrected_paths": [
+      "docs/verification/b8/logs/recovery_archive_check.json",
+      "docs/verification/b8/prioritized_backfill_gate.json",
+      "docs/verification/b8/prioritized_backfill_gate.md"
+    ],
+    "local_reverification_required": true
+  },
+  "sol_disposition": "ACCEPTED_AFTER_LOCAL_RECONCILIATION_AND_HASH_CORRECTION",
+  "codex_subagents_used": false,
+  "authority_statement": "This receipt is bounded advisory validation. Sol owns the post-audit archive-byte check, metadata correction, current hashes, counts, reports, source scope, and exit-gate authority."
+}

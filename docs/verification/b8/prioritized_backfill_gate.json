@@ -1,64 +1,29 @@
 {
-  "schema_version": "perfume-chem-b8-gate-v1",
+  "schema_version": "perfume-chem-b8-gate-v2",
   "build": "B8",
   "title": "Prioritized scientific-data backfill",
   "status": "PASS",
   "exit_gate_passed": true,
-  "recorded_local_date": "2026-07-31",
+  "recorded_local_date": "2026-08-02",
   "timezone": "Asia/Bangkok",
   "branch": "codex/add-inventory-materials",
-  "preimplementation_commit": "3c160e3266a9288791d8680e23145903976bc2d8",
-  "implementation_commit_before_report": "3cb554f1ab242ec6c517329504867fe5b502ba70",
-  "implementation_commits": [
-    {
-      "sha": "6465f3a7b950509c92cd8ee1f527b9be40e05d90",
-      "subject": "docs: freeze Build B8 prioritized backfill design"
-    },
-    {
-      "sha": "2e10918372dfae192147c7f612b8ce3ee2e41b6d",
-      "subject": "docs: plan Build B8 prioritized backfill"
-    },
-    {
-      "sha": "ae0553dcd310ad14e056d4a44f5ac4e250d37bf6",
-      "subject": "test: define Build B8 backfill authority contract"
-    },
-    {
-      "sha": "3c7c40e4bf57b751c66db2d2caaa82ebc895ad03",
-      "subject": "feat: add Build B8 prioritized backfill schema"
-    },
-    {
-      "sha": "99ab3d2c27416527a8b9da04a8fc47e2a9518474",
-      "subject": "test: define Build B8 campaign persistence contract"
-    },
-    {
-      "sha": "787d15afb648ea5e332d1d4ee0322cdec4f72561",
-      "subject": "feat: persist Build B8 backfill campaigns"
-    },
-    {
-      "sha": "670f845fb4f80d957aee5885566a7cebfa912394",
-      "subject": "test: require Build B8 typed lineage and B7 promotion"
-    },
-    {
-      "sha": "1e1653ac9b7ef6c70eb7d7b7a0d8c6b2d45251cb",
-      "subject": "test: define Build B8 scientific signal resolvers"
-    },
-    {
-      "sha": "4db0b3febfb2832d0d609c15451593bde4013b07",
-      "subject": "test: reject Build B8 property subtype confusion"
-    },
-    {
-      "sha": "657c3d666f5cf440413a1f0fe23b38fe6013af01",
-      "subject": "feat: enforce Build B8 backfill evidence lineage"
-    },
-    {
-      "sha": "02bb8751c44638e9a75f7637419844fe12e7d9f9",
-      "subject": "test: define Build B8 workspace projection contract"
-    },
-    {
-      "sha": "3cb554f1ab242ec6c517329504867fe5b502ba70",
-      "subject": "feat: project Build B8 current inventory gaps"
-    }
-  ],
+  "current_reverification_baseline_commit": "428684fa987b673856fd533e2dba617cf0705e6e",
+  "current_tested_source_commit": "428684fa987b673856fd533e2dba617cf0705e6e",
+  "historical_implementation_head": "3cb554f1ab242ec6c517329504867fe5b502ba70",
+  "historical_report_commit": "ca8731a",
+  "current_evidence_commit": null,
+  "current_scope": {
+    "production_code_changed": false,
+    "migration_changed": false,
+    "reproduced_b8_defects": [],
+    "refreshed_paths": [
+      "docs/verification/b8/current_inventory_gap_projection.json",
+      "docs/verification/b8/prioritized_backfill_gate.json",
+      "docs/verification/b8/prioritized_backfill_gate.md",
+      "docs/verification/b8/logs/"
+    ],
+    "preserved_overlay_cleaned": false
+  },
   "migration": {
     "revision": "20260731_0012",
     "down_revision": "20260731_0011",
@@ -71,7 +36,8 @@
       "lab_backfill_dashboard_cells"
     ],
     "backfill_rows": 0,
-    "append_only": true
+    "append_only": true,
+    "protected_database_migrations_run": false
   },
   "priority_signal_types": [
     "CURRENT_INVENTORY",
@@ -119,7 +85,7 @@
   "authority_contract": {
     "ranking_method": "STRICT_LEXICOGRAPHIC",
     "priority_policy_code_owned": true,
-    "priority_policy_hash": true,
+    "priority_policy_hash_recorded": true,
     "caller_inflated_priority_rejected": true,
     "typed_canonical_signal_resolution": true,
     "accepted_gaps_require_exact_b7_reconstruction": true,
@@ -130,161 +96,173 @@
     "aggregate_coverage_score": false,
     "release_authority": false
   },
-  "defects_closed": [
-    {
-      "finding": "Caller-supplied signal weights could have become an unreviewed source of priority.",
-      "resolution": "All eleven signal types resolve through typed canonical records and nonfinite or out-of-range values fail closed."
-    },
-    {
-      "finding": "An accepted property gap could have reused a B7 PROPERTY_VALUE decision for the wrong property subtype.",
-      "resolution": "Requirement-specific claim type and property subtype checks now reject mismatched authority."
-    },
-    {
-      "finding": "A stale campaign parent or cross-material signal could produce an invalid partial snapshot.",
-      "resolution": "Latest-parent checks and one-transaction atomic creation reject both cases."
-    },
-    {
-      "finding": "Case-only inventory aliases could make workspace projection ordering depend on input order.",
-      "resolution": "Casefold ties now use a deterministic secondary key; two independent processes produced byte-identical JSON."
-    },
-    {
-      "finding": "Canonical migration and backup tests still expected migration head 20260731_0011.",
-      "resolution": "The initial run reproduced three stale-head failures; only the two CURRENT_HEAD constants changed to 20260731_0012, after which all twelve focused cases and the full compatibility gate passed."
-    },
-    {
-      "finding": "The first Ruff evidence rerun used an unsupported --no-color option.",
-      "resolution": "The capture was replaced with the supported --color never invocation; exit was zero with no ANSI bytes."
-    }
-  ],
+  "implementation_file_digests": {
+    "backend/app/models/lab.py": "c9260a03e4bda2d7814a94c3f49170674f53e9fee597aa882268d29c9e224925",
+    "backend/app/models/lab_backfill.py": "4fe7065a7a008f00fd4cad2b704f25b23e966a98ce8870113028fcec9aec10ea",
+    "backend/app/repositories/lab.py": "4a45df4f47fa1a87082c23dbf4fe43f8b15ca4cc8f10b032fdafb9f0e5e16280",
+    "backend/app/repositories/lab_backfill.py": "d58399811023bbb7109f3bb8f60de0109762ecaa5d0948802d925fea4b1ed92f",
+    "backend/app/services/lab_service.py": "646cab2cfcb2a83dce2577175ed23a4f7409e21d0fb826d8abaa586d156d096f",
+    "backend/app/services/lab_backfill.py": "2239e7840b5b4f7de6abca790292b8625b61a7f07ba37bb1ca252ce3de05327f",
+    "backend/alembic/versions/20260731_0012_b8_prioritized_backfill.py": "6bcd0fb645ca7ab7f33aeed948311c8d13af0e821b6d8a235b58ddfe2a5ab5ff",
+    "backend/tests/unit/test_b8_backfill_schema.py": "570f9f69a37a532b3c8aeca348c235c9503241cbf806de0e34669e481d4b0173",
+    "backend/tests/unit/test_b8_backfill_service.py": "f706f983d72f143f1b1b22261c894500dfd6d1e4e30e8fac06c00c499b6641f4",
+    "backend/tests/integration/test_b8_backfill_migration.py": "0cd3432b5b62ca2a42bc50ce10d0913a468454b89a9b3fde024c9cb79191d552",
+    "backend/tests/integration/test_b8_backfill_e2e.py": "df4b066a7d9ecc1fc1bd41466ac6fa3212da6b2905b2fadff105ff642a0ebde9",
+    "scripts/b8_backfill_dashboard.py": "23242bbfdbcd6d48dd1036e2645b85f0f3aee3dc2e5c068fefd2a2db52923d07",
+    "tests/test_b8_backfill_dashboard.py": "c79f546b7d089755e71bb0811f143e77e7e108d93f626c6af75d94ab846d513f"
+  },
+  "post_implementation_delta": {
+    "changed_phase_file": "backend/app/services/lab_service.py",
+    "commit": "f941ad8",
+    "change": "A2 canonical material-alias write path",
+    "b8_contract_change": false,
+    "covered_by_current_cumulative_gate": true
+  },
   "runtime": {
     "python": "3.11.15",
-    "python_path": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
-    "node": "v26.3.0"
+    "python_path": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+    "node": "v26.3.0",
+    "non_pty": true,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
   },
   "verification": [
     {
       "name": "b8_exact",
       "exit_code": 0,
       "tests_passed": 30,
-      "pytest_duration_seconds": 16.6,
-      "wrapper_duration_seconds": 21.06,
+      "pytest_duration_seconds": 30.05,
+      "wrapper_duration_seconds": 38.69,
       "timeout_seconds": 900,
       "timed_out": false,
-      "stdout": "logs/pytest_b8_exact.stdout.txt",
-      "stderr": "logs/pytest_b8_exact.stderr.txt",
       "result": "logs/pytest_b8_exact.result.json"
     },
     {
       "name": "b8_workspace_projection",
       "exit_code": 0,
       "tests_passed": 2,
-      "pytest_duration_seconds": 0.05,
-      "wrapper_duration_seconds": 0.644,
+      "pytest_duration_seconds": 0.53,
       "timeout_seconds": 300,
       "timed_out": false,
-      "stdout": "logs/pytest_b8_projection.stdout.txt",
-      "stderr": "logs/pytest_b8_projection.stderr.txt",
       "result": "logs/pytest_b8_projection.result.json"
     },
     {
       "name": "a2_through_b8_compatibility",
       "exit_code": 0,
       "test_files": 55,
-      "tests_passed": 439,
-      "pytest_duration_seconds": 447.12,
-      "wrapper_duration_seconds": 453.399,
+      "tests_passed": 440,
+      "pytest_duration_seconds": 742.50,
+      "wrapper_duration_seconds": 752.17,
       "timeout_seconds": 900,
       "timed_out": false,
-      "stdout": "logs/pytest_a2_b8_compat.stdout.txt",
-      "stderr": "logs/pytest_a2_b8_compat.stderr.txt",
+      "historical_tests_passed": 439,
+      "count_delta": 1,
+      "count_delta_source": "f941ad8 added test_guard_rejects_endpoint_owned_transaction_calls",
+      "b8_scope_drift": false,
       "result": "logs/pytest_a2_b8_compat.result.json"
     },
     {
       "name": "ruff_exact_scope",
       "exit_code": 0,
+      "duration_seconds": 0.70,
       "result_text": "All checks passed!",
       "ansi_detected": false,
-      "stdout": "logs/ruff_b8.stdout.txt",
-      "stderr": "logs/ruff_b8.stderr.txt",
       "result": "logs/ruff_b8.result.json"
     },
     {
       "name": "mypy_b8_modules",
       "exit_code": 0,
+      "duration_seconds": 35.79,
       "result_text": "Success: no issues found in 3 source files",
-      "stdout": "logs/mypy_b8.stdout.txt",
-      "stderr": "logs/mypy_b8.stderr.txt",
       "result": "logs/mypy_b8.result.json"
     },
     {
       "name": "alembic_heads",
       "exit_code": 0,
+      "duration_seconds": 1.56,
       "result_text": "20260731_0012 (head)",
-      "stdout": "logs/alembic_heads_b8.stdout.txt",
-      "stderr": "logs/alembic_heads_b8.stderr.txt",
       "result": "logs/alembic_heads_b8.result.json"
     },
     {
       "name": "knowledge_database_quick_check",
       "exit_code": 0,
+      "duration_seconds": 0.35,
       "result_text": "ok",
       "mode": "read_only_immutable",
-      "stdout": "logs/kb_quick_check_readonly.stdout.txt",
-      "stderr": "logs/kb_quick_check_readonly.stderr.txt",
       "result": "logs/kb_quick_check_readonly.result.json"
-    }
-  ],
-  "recovery_archive": {
-    "path": "D:\\.backups\\perfume-chem\\build-b8-prewrite-20260731T081641+0700.tar",
-    "bytes": 97180160,
-    "sha256": "e6e6ce1ece19c0cf698c77b21a32d12c641f4af14cb8c082610f83f2e7d7ff4f",
-    "tar_entries": 404,
-    "files_hash_verified": 402,
-    "preexisting_nonruntime_dirty_untracked_files_preserved": 397,
-    "excluded_runtime_path_count": 481,
-    "absent_planned_path_count": 14,
-    "restorable_path_preserving": true,
-    "log": "logs/recovery_archive_check.json"
-  },
-  "protected_databases": [
-    {
-      "path": "perfume_chem.db",
-      "before_bytes": 0,
-      "after_bytes": 0,
-      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "opened_for_migration": false
-    },
-    {
-      "path": "data/perfumery_kb.db",
-      "before_bytes": 2084864,
-      "after_bytes": 2084864,
-      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
-      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
-      "quick_check": "ok",
-      "quick_check_read_only_immutable": true,
-      "main_database_content_unchanged": true
     }
   ],
   "workspace_projection": {
     "path": "current_inventory_gap_projection.json",
     "schema_version": "b8-workspace-backfill-projection-v1",
     "authority_state": "PLANNING_ONLY_NON_PROMOTING",
-    "sha256": "e04a3daf31e09d13d5cf377fa13a4c31d4d7c5d52a36320890039493bccb94fe",
+    "bytes": 39695,
+    "sha256": "8c62d33452e894fc9e869f9c1a4f6b52e7f9db60326e2e8c059a0cb31ed45a7d",
     "byte_deterministic_across_two_processes": true,
-    "raw_entries": 232,
-    "unique_normalized": 216,
-    "unique_fragrance": 211,
-    "owned_unique_fragrance": 208,
-    "unavailable_unique_fragrance": 3,
-    "duplicate_canonical_entries": 16,
-    "matched_owned_materials": 196,
-    "unmatched_owned_materials": 12,
-    "matched_unavailable_materials": 2,
-    "property_requirements_total": 4048,
+    "input_hashes": {
+      "inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
+      "scientific_inventory_sha256": "3f287b86c29e645d879e3b2af59ddcf53d059c11509ecf85576a7c126f9daebc"
+    },
+    "inventory_counts": {
+      "raw_entries": 234,
+      "raw_fragrance_entries": 229,
+      "unique_normalized": 218,
+      "unique_fragrance": 213,
+      "owned_unique_fragrance": 210,
+      "unavailable_unique_fragrance": 3,
+      "duplicate_canonical_entries": 16,
+      "matched_owned_materials": 197,
+      "unmatched_owned_materials": 13,
+      "matched_unavailable_materials": 2
+    },
+    "property_gap_rows": 19,
+    "property_requirements_total": 4067,
+    "gap_totals": {
+      "accepted_exact": 0,
+      "accepted_scoped": 0,
+      "conflicted": 312,
+      "missing": 2457,
+      "not_applicable": 0,
+      "unknown": 278,
+      "weak": 1020
+    },
     "dashboard_cells": 30,
-    "legacy_promotion_count": 0
+    "legacy_promotion_count": 0,
+    "secret_like_match_count": 0,
+    "banned_aggregate_key_count": 0,
+    "absolute_windows_path_count": 0,
+    "regeneration_result": "logs/projection_regeneration.result.json"
   },
+  "recovery_archive": {
+    "path": "outputs/b8-authoritative-recovery/20260802T092149/b8-evidence-before-refresh.zip",
+    "bytes": 23853,
+    "sha256": "0c8c2339b5978cd641ff3057258e3d2fa867dd0c45e96bbdc6cc063f467da3e7",
+    "file_entries": 28,
+    "unsafe_entries": 0,
+    "restore_hash_matches": 28,
+    "restore_mismatches": 0,
+    "restorable_path_preserving": true,
+    "log": "logs/recovery_archive_check.json"
+  },
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok",
+      "content_unchanged_from_b7": true,
+      "opened_for_migration": false
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "quick_check_read_only_immutable": true,
+      "content_unchanged_from_b7": true,
+      "opened_for_migration": false
+    }
+  ],
   "deepluna": {
     "exact_project": "perfume-chem",
     "runtime_mode": "CANDIDATE_V2",
@@ -292,53 +270,45 @@
     "route": "FLASH",
     "fallback_policy": "NO_LUNA",
     "codex_subagents_used": false,
-    "preimplementation_audit": {
-      "job_id": "DS-30ef482e3b3a9bd2152c84b28e1c07f5",
-      "status": "PASS",
-      "provider_calls": 1,
-      "prompt_tokens": 64193,
-      "completion_tokens": 761,
-      "total_tokens": 64954,
-      "measured_spend_delta_usd": 0.008871525,
-      "log": "logs/deepluna_gap_audit.json"
+    "historical_receipts_current_authority": false,
+    "current_preaudit": {
+      "job_id": "DS-32ea809bd7db053cc21132e84f1161e8",
+      "worker_status": "PASS",
+      "sol_disposition": "REJECTED",
+      "log": "logs/deepluna_current_preaudit_rejected.json"
     },
-    "final_audit": {
-      "job_id": "DS-a18df7187bed3044a0954faccf921ebb",
+    "current_final_audit": {
+      "job_id": "DS-f7c89f252169cb53ce950fcc1b693c01",
       "status": "PASS",
+      "evidence_verdict": "POSITIVE",
       "negative_findings": [],
-      "residual_risks": [],
       "scope_deviation": false,
-      "provider": "deepinfra",
-      "model": "deepseek-ai/DeepSeek-V4-Flash",
-      "provider_calls": 1,
-      "prompt_tokens": 107016,
-      "completion_tokens": 798,
-      "total_tokens": 107814,
-      "measured_spend_delta_usd": 0.01466262,
-      "maximum_estimated_cost_usd": 0.07,
-      "log": "logs/deepluna_final_audit_pass.json"
+      "post_audit_local_hash_correction": true,
+      "sol_disposition": "ACCEPTED_AFTER_LOCAL_RECONCILIATION_AND_HASH_CORRECTION",
+      "log": "logs/deepluna_current_final_audit_pass.json"
     }
   },
-  "log_digests": {
-    "alembic_heads_b8.stdout.txt": "d05fb8ba33c0532876896596b90490ab3399322d0feb211337ab4d64bd5f79c7",
-    "deepluna_final_audit_pass.json": "7c0e198495895e8096cefb1f4ee30364e2e5875a272ce98ce80b70b61fadc585",
-    "deepluna_gap_audit.json": "ad001cc3c8089647ca44dec314f30308c91fbe2791cd5c5a28f183c5f1e23068",
-    "kb_quick_check_readonly.stdout.txt": "48efca0d0107ab83e6b6084e5f4029a734cfdf11277beda14d7c1bb564269e27",
-    "mypy_b8.stdout.txt": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
-    "protected_database_hashes.json": "54a6587ced5789a6aaae336bcf8d3a4c3078d82a5148c0a152e1d4dc056fbcfe",
-    "pytest_a2_b8_compat.stdout.txt": "89c08f3cf9e1a3aea783bbb5d83f8b4de6211a16590c5c52579fa3d540ac0411",
-    "pytest_b8_exact.stdout.txt": "e4ed6b20a1ca4c38d2541a46874000245eeeca2d5e4e44f1568b188c2d656e7b",
-    "pytest_b8_projection.stdout.txt": "0ec6a8ddce91f1cfefcb222cad948630ded5ca27fb1c40266359581544a761ac",
-    "recovery_archive_check.json": "a03f014871ae18629c5376d06492c1f1939a6870c0b1f8c6f47228671b64e980",
-    "ruff_b8.stdout.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
-    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  "evidence_digests": {
+    "logs/pytest_b8_exact.result.json": "25039a2028be81b3715cbbcb7504a621b38c892b1be32767a2b346f7e38c2fea",
+    "logs/pytest_b8_projection.result.json": "6c157cc87b3eca1722ae05111b2b5a18a31ff3a2b26705b802c3469f88f310e1",
+    "logs/pytest_a2_b8_compat.result.json": "cfc052c4245f965f091a16f6b3c8d2991eb243053f829217e09e709d9e748baf",
+    "logs/ruff_b8.result.json": "446118cb906bf04583ef8fefebb6e2d195de7e75fc457a691ce385c4c961771b",
+    "logs/mypy_b8.result.json": "f6b01b9c5f3fbcd6fda7dccbe218c87c4bf18b112960e0e7f8feea73f6474994",
+    "logs/alembic_heads_b8.result.json": "0dfc645a8cf5294143e023e57439c896fe66d23c5a28a455a62f7588142ba6cf",
+    "logs/kb_quick_check_readonly.result.json": "f9190c8b378e8ad303f540757b891a417d45adc4e318d0b37962c647c1fa79b3",
+    "logs/protected_database_hashes.json": "9679b795e7658395942f9ebf3bf148418b3bf04f13236d5d03251eee2b56d118",
+    "logs/recovery_archive_check.json": "2f28e229ae137606b10ab06cd31056e88fecbfde80317903cfd4452ce77bfe74",
+    "logs/projection_regeneration.result.json": "a4696a6462621139e1e17894bd795e1bba482e11c52d6cdad8ff237bfc1487fe",
+    "logs/deepluna_current_preaudit_rejected.json": "6766d3ddfb2c405598af8680639a38214c04b0db543f030c8177f2eb7e30f810",
+    "logs/deepluna_current_final_audit_pass.json": "56c5372030854d7e946ddf0f8b68734fe88486b7401b1fedef3ab67f06bed6e1"
   },
   "authority_statement": "B8 is planning authority for prioritized scientific-data backfill. It does not create B1-B7 evidence authority, release authority, legal approval, a safety certificate, or proof of real-world performance.",
   "residual_limits": [
-    "The frozen workspace projection cannot prove active-formula, chemical-family, or model-sensitivity signals and labels those dimensions UNKNOWN.",
+    "The workspace projection cannot prove active-formula, chemical-family, or model-sensitivity signals and labels those dimensions UNKNOWN.",
     "Legacy and unreviewed values remain weak, unknown, conflicted, or missing and are never promoted.",
-    "B8 creates empty append-only campaign structures and a non-promoting projection; no production database was migrated or backfilled.",
+    "B8 creates empty append-only campaign structures and a non-promoting projection; no protected production database was migrated or backfilled.",
     "Public API, UI, and strict-versus-exploratory presentation are deferred to B9.",
     "Unrelated tracked and untracked work remains outside B8 staging scope."
-  ]
+  ],
+  "next_phase_authorized": true
 }
