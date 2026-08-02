@@ -869,7 +869,7 @@ def test_c2_types_are_explicitly_exported_from_engine_physics() -> None:
     assert PublicMatrixMissingField is MatrixMissingField
     assert PublicMatrixQuantityBasis is MatrixQuantityBasis
     assert PublicMatrixStage is MatrixStage
-    assert set(physics.__all__) == PUBLIC_C1_NAMES | PUBLIC_C2_NAMES
+    assert PUBLIC_C1_NAMES | PUBLIC_C2_NAMES <= set(physics.__all__)
     assert len(physics.__all__) == len(set(physics.__all__))
 
 

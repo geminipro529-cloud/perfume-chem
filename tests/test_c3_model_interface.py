@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import ast
 from copy import deepcopy
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -89,6 +91,74 @@ ANSWER_PRODUCING_OPERATIONS = (
     ModelOperation.ESTIMATE_PARTITION_COEFFICIENT,
     ModelOperation.PROPAGATE_UNCERTAINTY,
 )
+PUBLIC_C1_NAMES = {
+    "AuthorityState",
+    "CanonicalScope",
+    "ClaimGrade",
+    "ExtrapolationPolicy",
+    "InterpolationState",
+    "MissingDataReason",
+    "PropertyConditions",
+    "PropertyDatum",
+    "PropertyIdentity",
+    "PropertyRequest",
+    "PropertySelectionResult",
+    "PropertySelectionService",
+    "PropertyValueKind",
+    "SelectedPropertyAssertion",
+    "SelectionKind",
+    "SelectionStatus",
+    "SourceReference",
+    "TemperatureRange",
+    "ThermophysicalContractError",
+    "ThermophysicalProperty",
+    "UncertaintyDescriptor",
+    "UncertaintyKind",
+    "VaporPressureCoefficient",
+    "VaporPressureEquationType",
+    "VaporPressurePoint",
+    "VaporPressureRepresentation",
+    "selected_assertion_from_b2_reconstruction",
+}
+PUBLIC_C2_NAMES = {
+    "ApplicationEnvironment",
+    "ApplicationEnvironmentKind",
+    "CompositionCompleteness",
+    "DeclaredQuantity",
+    "EnvironmentField",
+    "MatrixAwareModelRequest",
+    "MatrixComponent",
+    "MatrixComponentRole",
+    "MatrixComposition",
+    "MatrixEnvironmentContractError",
+    "MatrixMissingField",
+    "MatrixQuantityBasis",
+    "MatrixStage",
+}
+PUBLIC_C3_NAMES = {
+    "ApplicabilityContext",
+    "ApplicabilityDomain",
+    "ApplicabilityResult",
+    "ApplicabilityState",
+    "DomainRange",
+    "FallbackDisclosure",
+    "ModelAvailability",
+    "ModelComparisonResult",
+    "ModelComputation",
+    "ModelEvidenceClass",
+    "ModelFamily",
+    "ModelInputReference",
+    "ModelInterfaceContractError",
+    "ModelOperation",
+    "ModelOutput",
+    "ModelRelease",
+    "ModelResultStatus",
+    "ModelSelector",
+    "VersionedModelAdapter",
+    "VersionedModelRequest",
+    "VersionedModelResult",
+    "VersionedModelRouter",
+}
 
 
 def digest(character: str) -> str:
@@ -1453,3 +1523,191 @@ def test_comparison_mapping_rejects_nested_and_top_level_tampering() -> None:
 
     with pytest.raises(ModelInterfaceContractError, match="unknown fields"):
         ModelComparisonResult.from_mapping({**payload, "winner": "1.0.0"})
+
+
+def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
+    import engine.physics as physics
+    from engine.physics import ApplicabilityContext as PublicApplicabilityContext
+    from engine.physics import ApplicabilityDomain as PublicApplicabilityDomain
+    from engine.physics import ApplicabilityResult as PublicApplicabilityResult
+    from engine.physics import ApplicabilityState as PublicApplicabilityState
+    from engine.physics import DomainRange as PublicDomainRange
+    from engine.physics import FallbackDisclosure as PublicFallbackDisclosure
+    from engine.physics import ModelAvailability as PublicModelAvailability
+    from engine.physics import ModelComparisonResult as PublicModelComparisonResult
+    from engine.physics import ModelComputation as PublicModelComputation
+    from engine.physics import ModelEvidenceClass as PublicModelEvidenceClass
+    from engine.physics import ModelFamily as PublicModelFamily
+    from engine.physics import ModelInputReference as PublicModelInputReference
+    from engine.physics import (
+        ModelInterfaceContractError as PublicModelInterfaceContractError,
+    )
+    from engine.physics import ModelOperation as PublicModelOperation
+    from engine.physics import ModelOutput as PublicModelOutput
+    from engine.physics import ModelRelease as PublicModelRelease
+    from engine.physics import ModelResultStatus as PublicModelResultStatus
+    from engine.physics import ModelSelector as PublicModelSelector
+    from engine.physics import VersionedModelAdapter as PublicVersionedModelAdapter
+    from engine.physics import VersionedModelRequest as PublicVersionedModelRequest
+    from engine.physics import VersionedModelResult as PublicVersionedModelResult
+    from engine.physics import VersionedModelRouter as PublicVersionedModelRouter
+
+    public_bindings = {
+        "ApplicabilityContext": PublicApplicabilityContext,
+        "ApplicabilityDomain": PublicApplicabilityDomain,
+        "ApplicabilityResult": PublicApplicabilityResult,
+        "ApplicabilityState": PublicApplicabilityState,
+        "DomainRange": PublicDomainRange,
+        "FallbackDisclosure": PublicFallbackDisclosure,
+        "ModelAvailability": PublicModelAvailability,
+        "ModelComparisonResult": PublicModelComparisonResult,
+        "ModelComputation": PublicModelComputation,
+        "ModelEvidenceClass": PublicModelEvidenceClass,
+        "ModelFamily": PublicModelFamily,
+        "ModelInputReference": PublicModelInputReference,
+        "ModelInterfaceContractError": PublicModelInterfaceContractError,
+        "ModelOperation": PublicModelOperation,
+        "ModelOutput": PublicModelOutput,
+        "ModelRelease": PublicModelRelease,
+        "ModelResultStatus": PublicModelResultStatus,
+        "ModelSelector": PublicModelSelector,
+        "VersionedModelAdapter": PublicVersionedModelAdapter,
+        "VersionedModelRequest": PublicVersionedModelRequest,
+        "VersionedModelResult": PublicVersionedModelResult,
+        "VersionedModelRouter": PublicVersionedModelRouter,
+    }
+    direct_bindings = {
+        "ApplicabilityContext": ApplicabilityContext,
+        "ApplicabilityDomain": ApplicabilityDomain,
+        "ApplicabilityResult": ApplicabilityResult,
+        "ApplicabilityState": ApplicabilityState,
+        "DomainRange": DomainRange,
+        "FallbackDisclosure": FallbackDisclosure,
+        "ModelAvailability": ModelAvailability,
+        "ModelComparisonResult": ModelComparisonResult,
+        "ModelComputation": ModelComputation,
+        "ModelEvidenceClass": ModelEvidenceClass,
+        "ModelFamily": ModelFamily,
+        "ModelInputReference": ModelInputReference,
+        "ModelInterfaceContractError": ModelInterfaceContractError,
+        "ModelOperation": ModelOperation,
+        "ModelOutput": ModelOutput,
+        "ModelRelease": ModelRelease,
+        "ModelResultStatus": ModelResultStatus,
+        "ModelSelector": ModelSelector,
+        "VersionedModelAdapter": VersionedModelAdapter,
+        "VersionedModelRequest": VersionedModelRequest,
+        "VersionedModelResult": VersionedModelResult,
+        "VersionedModelRouter": VersionedModelRouter,
+    }
+
+    assert public_bindings == direct_bindings
+    assert set(physics.__all__) == PUBLIC_C1_NAMES | PUBLIC_C2_NAMES | PUBLIC_C3_NAMES
+    assert len(physics.__all__) == len(set(physics.__all__))
+    assert "does not evaluate" in (physics.__doc__ or "").lower()
+    assert "does not authorize scientific release" in (physics.__doc__ or "").lower()
+
+
+def test_c3_module_has_no_runtime_equation_or_persistence_dependency() -> None:
+    source_path = Path(__file__).resolve().parents[1] / "engine" / "physics" / "model_interface.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"), filename=str(source_path))
+    imported_modules: set[str] = set()
+    prohibited_calls: set[str] = set()
+    scientific_math_calls: set[str] = set()
+    scientific_arithmetic: set[str] = set()
+    numeric_coefficient_assignments: set[str] = set()
+
+    forbidden_import_prefixes = (
+        "backend",
+        "sqlalchemy",
+        "engine.persistence",
+        "engine.database",
+        "engine.repositories",
+        "engine.workbench",
+        "engine.optimizer",
+        "engine.mixture",
+        "engine.solvent_matrix",
+        "engine.headspace",
+        "engine.thermo",
+        "engine.temporal",
+        "engine.property_estimator",
+        "engine.vapor_pressure_modeling",
+        "engine.diffusion_model",
+        "engine.hedonic_model",
+        "future_modules",
+    )
+    forbidden_call_names = {
+        "connect",
+        "create_engine",
+        "dump",
+        "execute",
+        "fit",
+        "open",
+        "read_sql",
+        "save",
+        "to_sql",
+        "urlopen",
+        "write",
+        "write_bytes",
+        "write_text",
+        "writelines",
+    }
+    scientific_operator_types = (
+        ast.Div,
+        ast.FloorDiv,
+        ast.MatMult,
+        ast.Mod,
+        ast.Mult,
+        ast.Pow,
+    )
+    coefficient_tokens = (
+        "activity",
+        "antoine",
+        "coefficient",
+        "diffusion",
+        "henry",
+        "partition",
+        "raoult",
+    )
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imported_modules.update(alias.name for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module is not None:
+            imported_modules.add(node.module)
+        elif isinstance(node, ast.Call):
+            if isinstance(node.func, ast.Name):
+                call_name = node.func.id
+            elif isinstance(node.func, ast.Attribute):
+                call_name = node.func.attr
+                if isinstance(node.func.value, ast.Name) and node.func.value.id == "math":
+                    if call_name != "isfinite":
+                        scientific_math_calls.add(call_name)
+            else:
+                call_name = ""
+            if call_name in forbidden_call_names:
+                prohibited_calls.add(call_name)
+        elif isinstance(node, ast.BinOp) and isinstance(
+            node.op,
+            scientific_operator_types,
+        ):
+            scientific_arithmetic.add(type(node.op).__name__)
+        elif isinstance(node, (ast.Assign, ast.AnnAssign)):
+            value = node.value
+            if not isinstance(value, ast.Constant) or not isinstance(
+                value.value,
+                (int, float),
+            ):
+                continue
+            targets = node.targets if isinstance(node, ast.Assign) else (node.target,)
+            for target in targets:
+                if isinstance(target, ast.Name) and any(
+                    token in target.id.casefold() for token in coefficient_tokens
+                ):
+                    numeric_coefficient_assignments.add(target.id)
+
+    assert not any(module.startswith(forbidden_import_prefixes) for module in imported_modules)
+    assert prohibited_calls == set()
+    assert scientific_math_calls == set()
+    assert scientific_arithmetic == set()
+    assert numeric_coefficient_assignments == set()

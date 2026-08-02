@@ -40,6 +40,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_c0_physical_model_inventory.py",
         "tests/test_c1_thermophysical_contracts.py",
         "tests/test_c2_matrix_environment.py",
+        "tests/test_c3_model_interface.py",
         "tests/test_canonical_hashing.py",
         "tests/test_canonical_quantities.py",
         "tests/test_canonical_serialization.py",
