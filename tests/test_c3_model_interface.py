@@ -168,6 +168,50 @@ PUBLIC_C4_NAMES = {
     "UnavailableEquilibriumAdapter",
     "withheld_equilibrium_adapters",
 }
+PUBLIC_C5_NAMES = {
+    "AcceptanceCriterion",
+    "B5AuthorityReceipt",
+    "B5MethodBinding",
+    "C5_INVENTORY_SHA256",
+    "CalibrationMatrixComponent",
+    "CalibrationObservation",
+    "CalibrationProgram",
+    "CalibrationProgramContractError",
+    "Comparator",
+    "EmpiricalAssessment",
+    "EmpiricalStatus",
+    "EvaluationDecision",
+    "EvaluationPlan",
+    "EvaluationReport",
+    "EvidenceOrigin",
+    "ExperimentalProtocol",
+    "GroupedMetricSummary",
+    "HeldOutRelease",
+    "LEAKAGE_DIMENSIONS",
+    "MaterialPanelEntry",
+    "MatrixAvailability",
+    "MatrixPanelEntry",
+    "MetricName",
+    "MetricScale",
+    "MetricSummary",
+    "ModelLockReceipt",
+    "ObservationDescriptor",
+    "ObservationOutcome",
+    "ObservationState",
+    "Partition",
+    "REQUIRED_GROUP_DIMENSIONS",
+    "REQUIRED_METRICS",
+    "ReportAuthority",
+    "SplitAssignment",
+    "SplitManifest",
+    "assess_empirical_readiness",
+    "build_c5_program",
+    "evaluate_real_held_out",
+    "evaluate_simulation_smoke",
+    "import_real_measurements_jsonl",
+    "lock_model",
+    "release_held_out",
+}
 
 
 def digest(character: str) -> str:
@@ -1612,7 +1656,11 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
 
     assert public_bindings == direct_bindings
     assert set(physics.__all__) == (
-        PUBLIC_C1_NAMES | PUBLIC_C2_NAMES | PUBLIC_C3_NAMES | PUBLIC_C4_NAMES
+        PUBLIC_C1_NAMES
+        | PUBLIC_C2_NAMES
+        | PUBLIC_C3_NAMES
+        | PUBLIC_C4_NAMES
+        | PUBLIC_C5_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()

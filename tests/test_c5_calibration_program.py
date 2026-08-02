@@ -27,6 +27,7 @@ from engine.physics.calibration_program import (
     EvaluationPlan,
     EvidenceOrigin,
     ExperimentalProtocol,
+    HeldOutRelease,
     MatrixAvailability,
     MetricName,
     MetricScale,
@@ -46,7 +47,6 @@ from engine.physics.calibration_program import (
     lock_model,
     release_held_out,
 )
-
 
 ROOT = Path(__file__).resolve().parents[1]
 UTC = timezone.utc
@@ -319,7 +319,7 @@ def _released_real_set(
     CalibrationProgram,
     EvaluationPlan,
     ModelLockReceipt,
-    object,
+    HeldOutRelease,
 ]:
     program = _program()
     protocol = _protocol(program)
@@ -458,11 +458,10 @@ def test_protocol_rejects_incomplete_or_nonphysical_fields(
 
 
 def test_protocol_requires_passed_hs_spme_b5_binding() -> None:
-    binding = replace(_method_binding(), validation_decision="INCOMPLETE")
     with pytest.raises(CalibrationProgramContractError, match="validation_decision"):
-        replace(_protocol(), method_binding=binding)
+        replace(_method_binding(), validation_decision="INCOMPLETE")
     with pytest.raises(CalibrationProgramContractError, match="technique"):
-        replace(_protocol(), method_binding=replace(_method_binding(), technique="GCMS"))
+        replace(_method_binding(), technique="GCMS")
 
 
 def test_protocol_hash_is_deterministic_and_mapping_round_trips() -> None:
@@ -511,6 +510,7 @@ def test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch() -> N
             program=program,
             protocols=(protocol,),
         )
+    assert real.b5_receipt is not None
     mismatched = replace(
         real,
         b5_receipt=replace(
@@ -681,6 +681,7 @@ def test_simulation_smoke_metrics_are_exact_but_never_empirical() -> None:
     assert report.overall.calibration_intercept == pytest.approx(0.0)
     assert report.overall.prediction_interval_coverage == pytest.approx(1.0)
     assert report.overall.baseline_rmse == pytest.approx(math.log10(2.0))
+    assert report.overall.rmse_improvement_vs_baseline is not None
     assert report.overall.rmse_improvement_vs_baseline > 0.0
     assert {group.dimension for group in report.groups} == set(REQUIRED_GROUP_DIMENSIONS)
 
