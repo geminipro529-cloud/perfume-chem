@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import ast
+from copy import deepcopy
 from dataclasses import FrozenInstanceError, replace
+from pathlib import Path
 
 import pytest
 
@@ -12,6 +15,7 @@ from engine.physics.matrix_environment import (
     CompositionCompleteness,
     DeclaredQuantity,
     EnvironmentField,
+    MatrixAwareModelRequest,
     MatrixComponent,
     MatrixComponentRole,
     MatrixComposition,
@@ -83,6 +87,51 @@ REQUIRED_ENVIRONMENT_FIELDS = {
     "sampling_method",
     "vessel_volume",
     "headspace_volume",
+}
+FORMULA_SHA256 = "a" * 64
+PUBLIC_C1_NAMES = {
+    "AuthorityState",
+    "CanonicalScope",
+    "ClaimGrade",
+    "ExtrapolationPolicy",
+    "InterpolationState",
+    "MissingDataReason",
+    "PropertyConditions",
+    "PropertyDatum",
+    "PropertyIdentity",
+    "PropertyRequest",
+    "PropertySelectionResult",
+    "PropertySelectionService",
+    "PropertyValueKind",
+    "SelectedPropertyAssertion",
+    "SelectionKind",
+    "SelectionStatus",
+    "SourceReference",
+    "TemperatureRange",
+    "ThermophysicalContractError",
+    "ThermophysicalProperty",
+    "UncertaintyDescriptor",
+    "UncertaintyKind",
+    "VaporPressureCoefficient",
+    "VaporPressureEquationType",
+    "VaporPressurePoint",
+    "VaporPressureRepresentation",
+    "selected_assertion_from_b2_reconstruction",
+}
+PUBLIC_C2_NAMES = {
+    "ApplicationEnvironment",
+    "ApplicationEnvironmentKind",
+    "CompositionCompleteness",
+    "DeclaredQuantity",
+    "EnvironmentField",
+    "MatrixAwareModelRequest",
+    "MatrixComponent",
+    "MatrixComponentRole",
+    "MatrixComposition",
+    "MatrixEnvironmentContractError",
+    "MatrixMissingField",
+    "MatrixQuantityBasis",
+    "MatrixStage",
 }
 
 
@@ -199,6 +248,20 @@ def sealed_vial_environment() -> ApplicationEnvironment:
         uncertainty=unknown("environment uncertainty not measured"),
         missing_fields=(),
         not_applicable_fields=(EnvironmentField.FILM_THICKNESS,),
+    )
+
+
+def model_request(
+    *,
+    matrix: MatrixComposition | None = None,
+    environment: ApplicationEnvironment | None = None,
+) -> MatrixAwareModelRequest:
+    return MatrixAwareModelRequest(
+        purpose="c2 distinguishability contract test",
+        formula_id="formula:17",
+        formula_sha256=FORMULA_SHA256,
+        matrix=matrix or exact_matrix(),
+        environment=environment or blotter_environment(),
     )
 
 
@@ -645,3 +708,197 @@ def test_environment_parser_rejects_unknown_fields() -> None:
     payload = blotter_environment().to_mapping()
     with pytest.raises(MatrixEnvironmentContractError, match="unknown fields"):
         ApplicationEnvironment.from_mapping({**payload, "apparatus_note": "vial"})
+
+
+def test_same_formula_in_different_matrix_or_environment_changes_request() -> None:
+    baseline = model_request()
+    changed_matrix = model_request(matrix=exact_matrix(ethanol_fraction=0.75))
+    changed_environment = model_request(
+        environment=replace(
+            blotter_environment(),
+            substrate="cotton fabric lot C-2",
+        )
+    )
+    assert (
+        len(
+            {
+                baseline.content_sha256,
+                changed_matrix.content_sha256,
+                changed_environment.content_sha256,
+            }
+        )
+        == 3
+    )
+
+
+def test_request_serialization_embeds_both_snapshots_and_hashes() -> None:
+    request = model_request()
+    payload = request.to_mapping()
+    matrix_payload = payload["matrix"]
+    environment_payload = payload["environment"]
+    assert isinstance(matrix_payload, dict)
+    assert isinstance(environment_payload, dict)
+    assert payload["matrix_sha256"] == request.matrix.content_sha256
+    assert payload["environment_sha256"] == request.environment.content_sha256
+    assert matrix_payload["content_sha256"] == request.matrix.content_sha256
+    assert environment_payload["content_sha256"] == request.environment.content_sha256
+    assert MatrixAwareModelRequest.from_mapping(payload) == request
+
+
+@pytest.mark.parametrize("field_name", ["purpose", "formula_id"])
+def test_request_requires_nonblank_purpose_and_formula_id(field_name: str) -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match=field_name):
+        replace(model_request(), **{field_name: " "})
+
+
+@pytest.mark.parametrize(
+    "digest",
+    ["A" * 64, "a" * 63, "g" * 64, "sha256:" + "a" * 64],
+)
+def test_request_requires_lowercase_sha256_formula_hash(digest: str) -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match="formula_sha256"):
+        replace(model_request(), formula_sha256=digest)
+
+
+def test_request_requires_typed_matrix_and_environment() -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match="matrix"):
+        replace(model_request(), matrix="matrix")  # type: ignore[arg-type]
+    with pytest.raises(MatrixEnvironmentContractError, match="environment"):
+        replace(
+            model_request(),
+            environment="environment",  # type: ignore[arg-type]
+        )
+
+
+def test_request_parser_rejects_mismatched_repeated_context_hashes() -> None:
+    payload = model_request().to_mapping()
+    with pytest.raises(MatrixEnvironmentContractError, match="matrix_sha256"):
+        MatrixAwareModelRequest.from_mapping({**payload, "matrix_sha256": "b" * 64})
+    with pytest.raises(MatrixEnvironmentContractError, match="environment_sha256"):
+        MatrixAwareModelRequest.from_mapping({**payload, "environment_sha256": "b" * 64})
+
+
+def test_request_parser_rejects_nested_tampering() -> None:
+    payload = deepcopy(model_request().to_mapping())
+    matrix_payload = payload["matrix"]
+    assert isinstance(matrix_payload, dict)
+    components = matrix_payload["components"]
+    assert isinstance(components, list)
+    first_component = components[0]
+    assert isinstance(first_component, dict)
+    quantity = first_component["quantity"]
+    assert isinstance(quantity, dict)
+    quantity["value"] = 0.7
+    with pytest.raises(MatrixEnvironmentContractError, match="content_sha256"):
+        MatrixAwareModelRequest.from_mapping(payload)
+
+
+def test_request_parser_rejects_schema_key_and_hash_tampering() -> None:
+    payload = model_request().to_mapping()
+    with pytest.raises(MatrixEnvironmentContractError, match="schema"):
+        MatrixAwareModelRequest.from_mapping({**payload, "schema": "c2-request-v0"})
+    missing = dict(payload)
+    del missing["purpose"]
+    with pytest.raises(MatrixEnvironmentContractError, match="missing fields"):
+        MatrixAwareModelRequest.from_mapping(missing)
+    with pytest.raises(MatrixEnvironmentContractError, match="unknown fields"):
+        MatrixAwareModelRequest.from_mapping({**payload, "timestamp": "now"})
+    with pytest.raises(MatrixEnvironmentContractError, match="content_sha256"):
+        MatrixAwareModelRequest.from_mapping({**payload, "purpose": "tampered"})
+
+
+def test_request_round_trip_hash_is_reproducible() -> None:
+    request = model_request()
+    restored = MatrixAwareModelRequest.from_mapping(request.to_mapping())
+    assert restored == request
+    assert restored.content_sha256 == request.content_sha256
+
+
+def test_c2_types_are_explicitly_exported_from_engine_physics() -> None:
+    import engine.physics as physics
+    from engine.physics import (
+        ApplicationEnvironment as PublicApplicationEnvironment,
+    )
+    from engine.physics import (
+        ApplicationEnvironmentKind as PublicApplicationEnvironmentKind,
+    )
+    from engine.physics import (
+        CompositionCompleteness as PublicCompositionCompleteness,
+    )
+    from engine.physics import (
+        DeclaredQuantity as PublicDeclaredQuantity,
+    )
+    from engine.physics import (
+        EnvironmentField as PublicEnvironmentField,
+    )
+    from engine.physics import (
+        MatrixAwareModelRequest as PublicMatrixAwareModelRequest,
+    )
+    from engine.physics import (
+        MatrixComponent as PublicMatrixComponent,
+    )
+    from engine.physics import (
+        MatrixComponentRole as PublicMatrixComponentRole,
+    )
+    from engine.physics import (
+        MatrixComposition as PublicMatrixComposition,
+    )
+    from engine.physics import (
+        MatrixEnvironmentContractError as PublicMatrixEnvironmentContractError,
+    )
+    from engine.physics import (
+        MatrixMissingField as PublicMatrixMissingField,
+    )
+    from engine.physics import (
+        MatrixQuantityBasis as PublicMatrixQuantityBasis,
+    )
+    from engine.physics import (
+        MatrixStage as PublicMatrixStage,
+    )
+
+    assert PublicApplicationEnvironment is ApplicationEnvironment
+    assert PublicApplicationEnvironmentKind is ApplicationEnvironmentKind
+    assert PublicCompositionCompleteness is CompositionCompleteness
+    assert PublicDeclaredQuantity is DeclaredQuantity
+    assert PublicEnvironmentField is EnvironmentField
+    assert PublicMatrixAwareModelRequest is MatrixAwareModelRequest
+    assert PublicMatrixComponent is MatrixComponent
+    assert PublicMatrixComponentRole is MatrixComponentRole
+    assert PublicMatrixComposition is MatrixComposition
+    assert PublicMatrixEnvironmentContractError is MatrixEnvironmentContractError
+    assert PublicMatrixMissingField is MatrixMissingField
+    assert PublicMatrixQuantityBasis is MatrixQuantityBasis
+    assert PublicMatrixStage is MatrixStage
+    assert set(physics.__all__) == PUBLIC_C1_NAMES | PUBLIC_C2_NAMES
+    assert len(physics.__all__) == len(set(physics.__all__))
+
+
+def test_c2_module_has_no_runtime_or_estimator_dependency() -> None:
+    source_path = Path("engine/physics/matrix_environment.py")
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+    imported_modules: set[str] = set()
+    public_functions: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imported_modules.update(alias.name for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module is not None:
+            imported_modules.add(node.module)
+        elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if not node.name.startswith("_"):
+                public_functions.add(node.name)
+
+    forbidden_prefixes = (
+        "backend",
+        "sqlalchemy",
+        "engine.mixture",
+        "engine.solvent_matrix",
+        "engine.workbench",
+        "engine.headspace",
+        "engine.property_estimator",
+    )
+    assert not any(module.startswith(forbidden_prefixes) for module in imported_modules)
+    assert not {
+        name
+        for name in public_functions
+        if any(token in name for token in ("evaluate", "predict", "estimate"))
+    }

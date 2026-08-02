@@ -893,6 +893,109 @@ class ApplicationEnvironment:
         return environment
 
 
+@dataclass(frozen=True, slots=True)
+class MatrixAwareModelRequest:
+    """A traceable model request that cannot omit matrix or environment context."""
+
+    purpose: str
+    formula_id: str
+    formula_sha256: str
+    matrix: MatrixComposition
+    environment: ApplicationEnvironment
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "purpose", _nonblank(self.purpose, "purpose"))
+        object.__setattr__(
+            self,
+            "formula_id",
+            _nonblank(self.formula_id, "formula_id"),
+        )
+        object.__setattr__(
+            self,
+            "formula_sha256",
+            _sha256(self.formula_sha256, "formula_sha256"),
+        )
+        if not isinstance(self.matrix, MatrixComposition):
+            raise MatrixEnvironmentContractError("matrix must be a MatrixComposition")
+        if not isinstance(self.environment, ApplicationEnvironment):
+            raise MatrixEnvironmentContractError("environment must be an ApplicationEnvironment")
+        object.__setattr__(
+            self,
+            "content_sha256",
+            stable_json_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c2-matrix-aware-model-request-v1",
+            "purpose": self.purpose,
+            "formula_id": self.formula_id,
+            "formula_sha256": self.formula_sha256,
+            "matrix_sha256": self.matrix.content_sha256,
+            "environment_sha256": self.environment.content_sha256,
+            "matrix": self.matrix.to_mapping(),
+            "environment": self.environment.to_mapping(),
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, Any]) -> MatrixAwareModelRequest:
+        normalized = _mapping(payload, "matrix-aware model request")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "purpose",
+                "formula_id",
+                "formula_sha256",
+                "matrix_sha256",
+                "environment_sha256",
+                "matrix",
+                "environment",
+                "content_sha256",
+            },
+            "matrix-aware model request",
+        )
+        if normalized["schema"] != "c2-matrix-aware-model-request-v1":
+            raise MatrixEnvironmentContractError(
+                "matrix-aware model request schema must be c2-matrix-aware-model-request-v1"
+            )
+        matrix = MatrixComposition.from_mapping(_mapping(normalized["matrix"], "matrix"))
+        environment = ApplicationEnvironment.from_mapping(
+            _mapping(normalized["environment"], "environment")
+        )
+        matrix_sha256 = _sha256(
+            normalized["matrix_sha256"],
+            "matrix_sha256",
+        )
+        if matrix_sha256 != matrix.content_sha256:
+            raise MatrixEnvironmentContractError("matrix_sha256 does not match the embedded matrix")
+        environment_sha256 = _sha256(
+            normalized["environment_sha256"],
+            "environment_sha256",
+        )
+        if environment_sha256 != environment.content_sha256:
+            raise MatrixEnvironmentContractError(
+                "environment_sha256 does not match the embedded environment"
+            )
+        request = cls(
+            purpose=normalized["purpose"],
+            formula_id=normalized["formula_id"],
+            formula_sha256=normalized["formula_sha256"],
+            matrix=matrix,
+            environment=environment,
+        )
+        expected_hash = _sha256(normalized["content_sha256"], "content_sha256")
+        if expected_hash != request.content_sha256:
+            raise MatrixEnvironmentContractError(
+                "matrix-aware model request content_sha256 does not match canonical content"
+            )
+        return request
+
+
 def _validate_relative_humidity(quantity: DeclaredQuantity) -> None:
     if quantity.value < 0.0:
         raise MatrixEnvironmentContractError("relative_humidity must be non-negative")
@@ -908,6 +1011,7 @@ __all__ = [
     "CompositionCompleteness",
     "DeclaredQuantity",
     "EnvironmentField",
+    "MatrixAwareModelRequest",
     "MatrixComponent",
     "MatrixComponentRole",
     "MatrixComposition",

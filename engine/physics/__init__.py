@@ -1,9 +1,25 @@
-"""C1 evidence contracts and selection.
+"""Build C evidence and physical-context contracts.
 
-This package represents condition-aware thermophysical evidence. It does not evaluate
-thermodynamic equations and does not authorize scientific release.
+This package represents condition-aware thermophysical evidence and versioned
+matrix/application context. It does not evaluate thermodynamic equations.
+It does not authorize scientific release.
 """
 
+from engine.physics.matrix_environment import (
+    ApplicationEnvironment,
+    ApplicationEnvironmentKind,
+    CompositionCompleteness,
+    DeclaredQuantity,
+    EnvironmentField,
+    MatrixAwareModelRequest,
+    MatrixComponent,
+    MatrixComponentRole,
+    MatrixComposition,
+    MatrixEnvironmentContractError,
+    MatrixMissingField,
+    MatrixQuantityBasis,
+    MatrixStage,
+)
 from engine.physics.properties import (
     CanonicalScope,
     ClaimGrade,
@@ -39,12 +55,25 @@ from engine.physics.vapor_pressure import (
 )
 
 __all__ = [
+    "ApplicationEnvironment",
+    "ApplicationEnvironmentKind",
     "AuthorityState",
     "CanonicalScope",
     "ClaimGrade",
+    "CompositionCompleteness",
+    "DeclaredQuantity",
+    "EnvironmentField",
     "ExtrapolationPolicy",
     "InterpolationState",
     "MissingDataReason",
+    "MatrixAwareModelRequest",
+    "MatrixComponent",
+    "MatrixComponentRole",
+    "MatrixComposition",
+    "MatrixEnvironmentContractError",
+    "MatrixMissingField",
+    "MatrixQuantityBasis",
+    "MatrixStage",
     "PropertyConditions",
     "PropertyDatum",
     "PropertyIdentity",

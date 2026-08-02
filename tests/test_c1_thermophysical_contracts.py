@@ -1336,9 +1336,9 @@ PUBLIC_C1_NAMES = {
 }
 
 
-def test_engine_physics_publishes_only_the_c1_contract_boundary() -> None:
+def test_engine_physics_preserves_the_complete_c1_contract_boundary() -> None:
     physics = importlib.import_module("engine.physics")
-    assert set(physics.__all__) == PUBLIC_C1_NAMES
+    assert PUBLIC_C1_NAMES <= set(physics.__all__)
     assert all(hasattr(physics, name) for name in PUBLIC_C1_NAMES)
     assert "does not evaluate" in (physics.__doc__ or "").lower()
     assert "does not authorize scientific release" in (physics.__doc__ or "").lower()
