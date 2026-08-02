@@ -1,6 +1,6 @@
 {
   "schema_version": "perfume-chem-scientific-data-authority-report-v1",
-  "generated_at_local": "2026-07-31T23:40:00+07:00",
+  "generated_at_local": "2026-08-02T13:53:07+07:00",
   "build": "B",
   "phase": "B10",
   "status": "PASS",
@@ -10,19 +10,19 @@
   "git_checkpoints": [
     {
       "role": "build_b_baseline_gate",
-      "commit_sha": "9a8f11db77b40bb37a1f02bbc4cf440fae93e711"
+      "commit_sha": "59637597706569360220e0354716ceeb4e4837ca"
     },
     {
       "role": "final_runtime_implementation",
-      "commit_sha": "596a90eaa4b7a6492137d15a77d7f006e16f6035"
+      "commit_sha": "428684fa987b673856fd533e2dba617cf0705e6e"
     },
     {
       "role": "final_pre_b10_gate",
-      "commit_sha": "1a27b480b3946e94b984d26d689ac3ff22c25302"
+      "commit_sha": "a9c5e733c5ae74f78e37788afab82d63fe868416"
     },
     {
       "role": "b10_report_input",
-      "commit_sha": "2ababd37aa0a6e9a38c0666cfc98066c9f6b6b12"
+      "commit_sha": "d34af7289be2944d9c0a884089359dd62b53da4b"
     }
   ],
   "evidence_classes": [
@@ -39,11 +39,11 @@
     "frozen_b0_inventory": {
       "path": "docs/verification/b0/scientific_truth_inventory.json.gz",
       "schema_version": "scientific-truth-inventory-v1",
-      "source_digest_count": 997,
-      "compressed_bytes": 1499508,
-      "compressed_sha256": "fdfe1de2f51ecf2ae03014c27a3c13c594c2dbf1020dba9a31bffed487d08ca8",
-      "decompressed_bytes": 26142842,
-      "decompressed_sha256": "955269451e42c9f8452624ae0c0fc4245591eba54fa0a00f7b805ad6e08707f2",
+      "source_digest_count": 1043,
+      "compressed_bytes": 1506865,
+      "compressed_sha256": "3f287b86c29e645d879e3b2af59ddcf53d059c11509ecf85576a7c126f9daebc",
+      "decompressed_bytes": 26221111,
+      "decompressed_sha256": "1eb930343b33db9a60395567fa97748c428b416d46447beca9991448b4f7b779",
       "forbidden_or_generated_path_count": 0
     },
     "b1_canonical_contract": {
@@ -59,7 +59,7 @@
   "observation_inventory": {
     "legacy_material_rows": 1262,
     "legacy_property_observations": 23869,
-    "legacy_code_constants": 238,
+    "legacy_code_constants": 300,
     "legacy_knowledge_rules": 3381,
     "legacy_property_conflict_sets": 226,
     "legacy_authority_labels": {
@@ -91,7 +91,29 @@
       "vp_25c_pa": 286
     },
     "canonical_observations_promoted_by_build_b_migrations": 0,
-    "interpretation": "Legacy inventory counts describe frozen existing data, not canonical migrated scientific authority."
+    "current_working_tree": {
+      "material_rows": 1263,
+      "material_row_delta_from_b0": 1,
+      "inventory_raw_entries": 234,
+      "unique_normalized_entries": 218,
+      "unique_fragrance_entries": 213,
+      "available_fragrance_count": 210,
+      "duplicate_canonical_entries": 16,
+      "magnolia_eo": {
+        "source_label": "Magnolia EO",
+        "identity_authority": "UNKNOWN",
+        "unknown_dimensions": [
+          "species",
+          "plant_part",
+          "supplier",
+          "stock_strength",
+          "amount"
+        ],
+        "canonical_kb_promoted": false,
+        "quarantine_category": "naturals_missing_composite_evidence"
+      }
+    },
+    "interpretation": "Frozen B0 counts remain the scientific baseline. The one-row live delta is a source-level, identity-unknown inventory observation and is not a canonical migrated assertion."
   },
   "migrated_data": {
     "canonical_tables_created": 40,
@@ -517,35 +539,55 @@
     "required_scientific_matrix": {
       "test_files": 20,
       "tests_passed": 274,
-      "pytest_duration_seconds": 331.27,
-      "wrapper_duration_seconds": 337.72,
+      "pytest_duration_seconds": 425.11,
+      "wrapper_duration_seconds": 448.562,
       "timeout_seconds": 900,
       "timed_out": false,
-      "log": "docs/verification/b10/logs/pytest_b10_required.stdout.txt"
+      "log": "docs/verification/b10/logs/pytest_b10_required_current_final.stdout.txt"
     },
     "full_project_run": {
       "mandatory_checks": 19,
       "wrapper_exit_code": 0,
       "timed_out": false,
-      "wrapper_duration_seconds": 787.08,
-      "report_sha256": "1dbfd3666a32f82a84dbc044bafd661939923b65c16a39eadf2b888d8da33b9d",
-      "log": "docs/verification/b10/logs/project_verification_full_seal.json",
+      "wrapper_duration_seconds": 840.593,
+      "report_sha256": "2bae4f68dfa17fb9fb7d37f003429bd7df6f5682721ccd82672d3338b49433bb",
+      "log": "docs/verification/b10/logs/project_verification_full_final_source.json",
       "engine_shards": {
-        "truth_core": 189,
-        "data_knowledge": 235,
-        "gates_families": 580,
+        "truth_core": 191,
+        "data_knowledge": 236,
+        "gates_families": 602,
         "legacy": 69
       },
-      "backend_tests": 629,
-      "final_post_isolation_rerun_required_before_seal": false,
+      "backend_tests": 630,
+      "backend_timeout_seconds": 1200,
+      "failed_attempts_before_pass": 2,
+      "failed_attempt_evidence": [
+        "docs/verification/b10/logs/project_verification_full_current_failed_inventory.json",
+        "docs/verification/b10/logs/project_verification_full_current_failed_timeout.json"
+      ],
+      "final_source_frozen": true,
+      "final_post_repairs_rerun_required_before_seal": true,
       "protected_state_byte_identical_after_run": true
+    },
+    "package_verification": {
+      "status": "PASS",
+      "checks_passed": 22,
+      "files_scanned": 153,
+      "json_files_parsed": 63,
+      "json_parse_failures": 0,
+      "ansi_files": 0,
+      "sensitive_value_shape_hits": 0,
+      "recovery_archives_verified": 4,
+      "log": "docs/verification/b10/logs/b10_final_package_post_full.stdout.txt"
     }
   },
   "protected_state": {
     "perfume_chem.db": {
-      "bytes": 0,
-      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "bytes": 12288,
+      "before_sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "after_sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok",
+      "mode": "READ_ONLY_IMMUTABLE"
     },
     "data/perfumery_kb.db": {
       "bytes": 2084864,
@@ -566,22 +608,48 @@
     }
   },
   "recovery": {
-    "workspace_archive": {
-      "path": "D:\\.backups\\perfume-chem\\build-b10-prewrite-20260731T103332+0700.tar",
-      "bytes": 97277440,
-      "sha256": "8b52d5545bca4039dcbc1704a5e33d0cf593c2836e55db10aa90d8d272f81675",
-      "workspace_files": 412,
-      "archive_metadata_entries": 2,
-      "tar_list_exit_code": 0,
-      "unsafe_path_entries": 0
-    },
-    "protected_database_supplement": {
-      "path": "D:\\.backups\\perfume-chem\\build-b10-prewrite-protected-databases-supplement-20260731T113100+0700.tar",
-      "bytes": 2120704,
-      "sha256": "42b2f1dc31ce6e5afec89bc395c94221bd5959abaff09186c21f1117dba233d6",
-      "entries": 4,
-      "extraction_hashes_match": true
-    }
+    "archives": [
+      {
+        "id": "b10_evidence_before_refresh",
+        "path": "outputs/b10-authoritative-recovery/20260802T111154/b10-evidence-before-refresh.zip",
+        "bytes": 59811,
+        "sha256": "2dcfeed4be62846fcfbba8440f76b57820bb8da5b511cec008faf810e4c23920",
+        "archive_entries": 53,
+        "restored_files": 53,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_verifier_outputs_before_run",
+        "path": "outputs/b10-authoritative-recovery/20260802T111154/b10-verifier-outputs-before-run.zip",
+        "bytes": 17489486,
+        "sha256": "cbb2df5a08450dbdb1216863e751a683ddeafdd8debad5132249ecfce01d43bc",
+        "archive_entries": 2645,
+        "restored_files": 2645,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_inventory_kb_before_repair",
+        "path": "outputs/b10-authoritative-recovery/20260802T120500/b10-inventory-kb-before-repair.zip",
+        "bytes": 331178,
+        "sha256": "c9a7294dd5507afbc9a5f90f4ec17e1ca020c622e5da7bc18e4701b5fc7a56d6",
+        "archive_entries": 9,
+        "restored_files": 8,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_verifier_defects_before_repair",
+        "path": "outputs/b10-authoritative-recovery/20260802T055514Z/b10-verifier-defects-before-repair.zip",
+        "bytes": 15775,
+        "sha256": "64efb1452c2e73a0363730dc70643aebbd26965c7614bf6b6458d75bdb4ae90f",
+        "archive_entries": 4,
+        "restored_files": 3,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      }
+    ]
   },
   "defects_closed": [
     {
@@ -603,6 +671,26 @@
       "id": "B10-D4",
       "finding": "After interaction writes were isolated, live read paths in the material, rule, property-validation, and science-KB APIs still opened the repository database in writable WAL mode and removed pre-existing sidecars.",
       "resolution": "All repository KB query paths now use explicit immutable read-only connections; science-KB population remains explicitly writable, its tests dynamically target a temporary database, all four engine shards pass independently, and every protected file remains byte-identical."
+    },
+    {
+      "id": "B10-D5",
+      "finding": "The historical B10 report and inventory helper described an obsolete B0 artifact and expected obsolete B1-B7 gate field locations.",
+      "resolution": "The historical helper failure was preserved as rejected evidence. A fresh read-only verifier now checks the sealed B0 digests and current gate schemas while separating the frozen 1,262-row baseline from the 1,263-row live source tree."
+    },
+    {
+      "id": "B10-D6",
+      "finding": "The live inventory gained Bergamot FCF oil Sicilian and an identity-unknown Magnolia EO label after fixed-count and unresolved-natural regression snapshots were written.",
+      "resolution": "Bergamot resolves through an existing exact alias; Magnolia is a new source-level observation with chemistry fields withheld. Exact inventory counts were refreshed to 210 and Magnolia remains in the unresolved-natural quarantine."
+    },
+    {
+      "id": "B10-D7",
+      "finding": "A complete disposable KB rebuild represented Magnolia deterministically but also changed 86 common material rows and multiple whole-table populations relative to the protected canonical KB.",
+      "resolution": "Two disposable builds were byte-identical and preserved Magnolia unknowns, but the broad unrelated logical drift blocked canonical replacement. The protected KB remained byte-identical and Magnolia was not promoted into it."
+    },
+    {
+      "id": "B10-D8",
+      "finding": "The backend suite completed 630 tests but the verifier killed its wrapper at the historical 900-second ceiling after 959.328 seconds.",
+      "resolution": "A RED verifier-contract test fixed the backend timeout at 1,200 seconds. The selected backend check then passed 630 tests and the final full verifier passed with no failures."
     }
   ],
   "build_b_completion": [
@@ -649,7 +737,7 @@
     {
       "criterion": "full_verification_passes",
       "status": "SATISFIED",
-      "evidence": "The post-isolation canonical non-Docker seal verifier reports PASS_WITH_SKIPS with 19 mandatory checks passed, no failures, 1,073 engine tests, 629 backend tests, and byte-identical protected state."
+      "evidence": "The final-source canonical non-Docker verifier reports PASS_WITH_SKIPS with 19 mandatory checks passed, no failures, 1,098 engine tests, 630 backend tests, and byte-identical protected state."
     },
     {
       "criterion": "no_scientific_release_claim_is_made",
@@ -674,6 +762,8 @@
   },
   "remaining_unknowns": [
     "No Build B migration promoted a real literature observation, threshold, analytical record, regulatory record, or knowledge rule; production canonical tables remain intentionally empty.",
+    "Magnolia EO remains an observed inventory label only: species, plant part, supplier, stock strength, amount, composition, and exact identity are unknown.",
+    "The protected knowledge DB has not been rebuilt from current source files because the reproducible disposable candidate contains broad unrelated logical drift; Magnolia is therefore not a canonical KB row.",
     "Most frozen legacy observations remain UNKNOWN, UNATTRIBUTED_LEGACY, or LEGACY_HEURISTIC and cannot support stronger claims.",
     "Legacy ODT values remain non-contextual unless explicitly adapted through B1-B3 with exact provenance and context.",
     "The B4 corpus retains quarantined invalid exact rules, duplicates, and one directed-cycle diagnostic.",
@@ -682,17 +772,26 @@
     "Docker build and smoke checks were optional and not executed by the non-Docker B10 gate."
   ],
   "independent_review": {
-    "preimplementation_job_id": "DS-3a4f108a7c83663fddec08618d92948d",
+    "preimplementation_job_id": "DS-d5e23b4ea2e909c4e58e24b1bf2496f8",
     "preimplementation_result": "PASS",
-    "final_review_job_id": "DS-547b23606efdb8742eefde8f5e19211a",
+    "final_review_job_id": "DS-204c549decc18c3c19787a9bc69b4592",
     "final_review_status": "PASS",
     "final_review_route": "DEEPINFRA_PRIORITY_DEEPSEEK_V4_FLASH",
     "final_review_provider_calls": 1,
-    "final_review_prompt_tokens": 53196,
-    "final_review_completion_tokens": 693,
+    "final_review_prompt_tokens": 87754,
+    "final_review_completion_tokens": 923,
     "final_review_luna_calls": 0,
     "final_review_scope_deviation": false,
-    "sanitized_evidence": "docs/verification/b10/logs/deepluna_b10_final_audit.result.json",
+    "sanitized_evidence": "docs/verification/b10/logs/deepluna_b10_current_final_audit.result.json",
+    "postseal_review_job_id": "DS-b5b28b7a2921c6132dda946a78a84f1d",
+    "postseal_review_status": "PASS",
+    "postseal_review_route": "DEEPINFRA_PRIORITY_DEEPSEEK_V4_FLASH",
+    "postseal_review_provider_calls": 1,
+    "postseal_review_prompt_tokens": 48080,
+    "postseal_review_completion_tokens": 885,
+    "postseal_review_luna_calls": 0,
+    "postseal_review_scope_deviation": false,
+    "postseal_sanitized_evidence": "docs/verification/b10/logs/deepluna_b10_postseal_final_audit.result.json",
     "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION",
     "provider_role": "SUPPLEMENTAL_READ_ONLY_NO_FINAL_AUTHORITY"
   }

@@ -153,3 +153,64 @@ def test_scientific_data_authority_report_contract() -> None:
         '"token"',
     ):
         assert credential_key not in serialized
+
+
+def test_scientific_data_authority_report_uses_current_b10_evidence() -> None:
+    payload, markdown = _load_reports()
+
+    assert [row["commit_sha"] for row in payload["git_checkpoints"]] == [
+        "59637597706569360220e0354716ceeb4e4837ca",
+        "428684fa987b673856fd533e2dba617cf0705e6e",
+        "a9c5e733c5ae74f78e37788afab82d63fe868416",
+        "d34af7289be2944d9c0a884089359dd62b53da4b",
+    ]
+
+    frozen = payload["source_inventory"]["frozen_b0_inventory"]
+    assert frozen["source_digest_count"] == 1043
+    assert frozen["compressed_sha256"] == (
+        "3f287b86c29e645d879e3b2af59ddcf53d059c11509ecf85576a7c126f9daebc"
+    )
+    assert payload["observation_inventory"]["legacy_code_constants"] == 300
+    current = payload["observation_inventory"]["current_working_tree"]
+    assert current["material_rows"] == 1263
+    assert current["material_row_delta_from_b0"] == 1
+    assert current["available_fragrance_count"] == 210
+    assert current["magnolia_eo"]["identity_authority"] == "UNKNOWN"
+    assert current["magnolia_eo"]["canonical_kb_promoted"] is False
+
+    verifier = payload["verifier"]
+    assert verifier["required_scientific_matrix"]["tests_passed"] == 274
+    assert verifier["required_scientific_matrix"]["pytest_duration_seconds"] == 425.11
+    assert verifier["full_project_run"]["engine_shards"] == {
+        "truth_core": 191,
+        "data_knowledge": 236,
+        "gates_families": 602,
+        "legacy": 69,
+    }
+    assert verifier["full_project_run"]["backend_tests"] == 630
+    assert verifier["full_project_run"]["failed_attempts_before_pass"] == 2
+    assert verifier["package_verification"]["status"] == "PASS"
+    assert verifier["package_verification"]["checks_passed"] == 22
+    assert verifier["package_verification"]["sensitive_value_shape_hits"] == 0
+
+    protected = payload["protected_state"]
+    assert protected["perfume_chem.db"]["bytes"] == 12288
+    assert protected["perfume_chem.db"]["quick_check"] == "ok"
+    assert all(row["before_sha256"] == row["after_sha256"] for row in protected.values())
+
+    assert len(payload["recovery"]["archives"]) == 4
+    assert all(row["restore_verified"] is True for row in payload["recovery"]["archives"])
+    assert {row["id"] for row in payload["defects_closed"]} >= {
+        "B10-D5",
+        "B10-D6",
+        "B10-D7",
+        "B10-D8",
+    }
+    review = payload["independent_review"]
+    assert review["final_review_job_id"] == "DS-204c549decc18c3c19787a9bc69b4592"
+    assert review["final_review_status"] == "PASS"
+    assert review["final_review_provider_calls"] == 1
+    assert review["final_review_luna_calls"] == 0
+    assert review["final_review_scope_deviation"] is False
+    assert "Magnolia EO" in markdown
+    assert "630 backend tests" in markdown

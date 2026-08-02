@@ -1,0 +1,19 @@
+{
+  "name": "b10_authority_inventory_current_reproduction",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_b10_authority_inventory.py",
+    "D:\\chatbots\\perfume-chem"
+  ],
+  "started_at_utc": "2026-08-02T06:46:24.539Z",
+  "finished_at_utc": "2026-08-02T06:46:32.327Z",
+  "duration_seconds": 7.787,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 1,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_report_refresh_20260802\\b10_authority_inventory_current_reproduction.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_report_refresh_20260802\\b10_authority_inventory_current_reproduction.stderr.txt"
+}

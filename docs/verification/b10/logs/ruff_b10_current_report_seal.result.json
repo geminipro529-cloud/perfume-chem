@@ -1,0 +1,21 @@
+{
+  "name": "ruff_b10_current_report_seal",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\ruff.exe",
+    "check",
+    "--color",
+    "never",
+    "tests/test_scientific_data_authority_report.py"
+  ],
+  "started_at_utc": "2026-08-02T07:08:51.820Z",
+  "finished_at_utc": "2026-08-02T07:08:51.879Z",
+  "duration_seconds": 0.058,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_package_current_20260802\\ruff_b10_current_report_seal.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_package_current_20260802\\ruff_b10_current_report_seal.stderr.txt"
+}
