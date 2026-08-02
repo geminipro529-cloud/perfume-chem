@@ -1,11 +1,11 @@
 # Build C7 lot-aware natural-material gate
 
-Decision: **PENDING_EXACT_COMMIT_REPLAY**
+Decision: **PASS**
 
-The C7 implementation `ce78c450b6eeebe06180ae7e46030bff6da41747` has passed the local, mutation,
-DeepLuna Fast, Sol-reconciliation, scope, archive, protected-state, and
-log-hygiene gates. C8 remains closed until this evidence is committed and the
-same matrix passes against that exact evidence commit.
+Evidence commit `be8f4509c4c2b37f5176bd2e3a8732bf29266e6e` replayed successfully at that exact commit.
+C8 software work is open. C5 empirical status remains `BLOCKED_PENDING_DATA`:
+no actual instrument or natural-lot dataset was added, and empirical promotion
+is not allowed.
 
 ## Implemented authority
 
@@ -23,33 +23,34 @@ same matrix passes against that exact evidence commit.
   projections are separate and basis-preserving.
 - Aging snapshots version state without changing lot identity.
 
-## Executable evidence
+## Exact-commit evidence
 
-- C7 focused: 49 passed.
-- C6/C5/C4/C3/C2/C1/C0 compatibility: 53 / 38 / 41 / 105 / 79 / 96 / 24 passed.
-- Complete root suite: 1,583 passed.
-- Dependency invariant, pip check, Ruff check/format, basedpyright, and mypy: passed.
-- Four mutations were killed and restored byte-for-byte; source SHA-256 returned
-  to `7e5e7774b8952f84af70b6f6a758573346e05ddd9d41c5e89e40b08929f8d29d`.
-- Scope is exactly seven C7 paths with no production, database, migration,
-  scientific-artifact, or legacy-natural path.
-- The 118,324,736-byte path-preserving archive reverified with
-  all 429 pre-existing dirty/untracked files
-  preserved and zero mismatches.
-- Protected database/WAL/SHM hashes and immutable quick checks are unchanged.
-- All 92 captured log files are UTF-8, ANSI-free,
-  and free of credential-shaped matches; stdout/stderr are separate.
+- The passing replay ran 24 jobs with zero failures, zero timeouts, and zero
+  stderr bytes.
+- C7 focused: 49 passed; complete root suite: 1,583 passed.
+- C6/C5/C4/C3/C2/C1/C0 compatibility, dependency isolation, pip, Ruff,
+  basedpyright, mypy, archive, scope, evidence, log hygiene, empirical-boundary,
+  and protected-state checks all passed.
+- All passing-attempt files are strict UTF-8, ANSI-free, and contain no
+  credential-shaped matches.
+- Protected database/WAL/SHM hashes and immutable database checks are unchanged.
+
+## Replay transparency
+
+Attempt 1 is preserved. Its only failed job requested a nonexistent pytest node
+and exited 4 before running a test; the 1,583-test root suite in that same
+attempt passed. The corrected exact node passed in isolation and in attempt 2.
+No production failure is inferred from the selector error.
 
 ## DeepLuna Fast and Sol reconciliation
 
-Fresh exact-project health was `READY`. Job `DS-396c637bd50078cadd3e2d1c8ed61cde` completed
-PASS/POSITIVE/COMPLETE with one DeepInfra Priority Flash call, `NO_LUNA`, no
-negative findings, no scope deviation, and no Luna/GLM/Codex fallback. Sol
-independently reproduced 34 gate-bearing tests. Postflight reservations are
-zero. Provider findings are advisory only.
+The C7 audit used DeepInfra Priority DeepSeek V4 Flash with `NO_LUNA`, one
+provider call, no fallback, no scope deviation, and no negative findings. Sol
+independently reproduced the gate-bearing behavior and accepted only locally
+verified evidence. Provider findings remained advisory.
 
-## Current boundary
+## Boundary
 
-C7 is a software authority contract; no actual natural-lot dataset was added or
-validated. C5 empirical status remains `BLOCKED_PENDING_DATA`. C8 is closed
-until the exact evidence-commit replay and final Sol decision pass.
+C8 is open for software work only. Actual natural-lot data, calibrated
+composition claims, regulatory projection release, and empirical promotion
+remain blocked until governed data and the applicable later gates pass.
