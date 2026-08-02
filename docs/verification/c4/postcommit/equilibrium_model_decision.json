@@ -1,0 +1,43 @@
+{
+  "schema": "build-c4-equilibrium-model-decision-v1",
+  "recorded_at": "2026-08-03T00:38:30.6002850+07:00",
+  "decision": "PASS",
+  "evidence_commit": "30a03dfd0c61f23cfa3bfc71d42038f5ae903ebe",
+  "exact_commit_replay": "docs/verification/c4/postcommit/exact-commit-replay.json",
+  "authoritative_exit_behaviors": {
+    "transparent_ideal_calculation": "PASS",
+    "exact_cross_phase_binding": "PASS",
+    "fail_closed_applicability": "PASS",
+    "advanced_models_withheld": "PASS",
+    "no_oav_or_accuracy_promotion": "PASS",
+    "no_production_or_persistence_change": "PASS"
+  },
+  "other_required_gates": {
+    "focused_and_compatibility_tests": "PASS",
+    "complete_root_suite": "PASS",
+    "c0_standalone_verifier": "PASS",
+    "static_checks": "PASS",
+    "mutation_checks": "PASS",
+    "dependency_check": "PASS",
+    "recovery_archive": "PASS",
+    "protected_state": "PASS",
+    "scope": "PASS",
+    "log_hygiene": "PASS",
+    "deepluna_final_audit": "PASS",
+    "sol_reconciliation": "PASS",
+    "exact_commit_replay": "PASS"
+  },
+  "authority": {
+    "canonical_repository_and_executable_evidence_are_authoritative": true,
+    "provider_claims_are_authoritative": false,
+    "sol_is_final_acceptor": true
+  },
+  "limitations": [
+    "C4 establishes only a transparent ideal Raoult comparison baseline.",
+    "C4 implements no nonideal model and validates no prediction accuracy.",
+    "C4 does not propagate uncertainty or authorize OAV use.",
+    "C4 changes no production caller and creates no persistence or migration.",
+    "C4 PASS is not Build C completion and does not authorize scientific release."
+  ],
+  "c5_open": true
+}

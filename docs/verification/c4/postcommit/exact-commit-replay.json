@@ -1,0 +1,83 @@
+{
+  "schema": "build-c4-exact-commit-replay-v1",
+  "recorded_at": "2026-08-03T00:38:30.6002850+07:00",
+  "evidence_commit": "30a03dfd0c61f23cfa3bfc71d42038f5ae903ebe",
+  "implementation_head": "bd31ee586c4ded92e571ecf6bb8379e6013b790c",
+  "phase_parent": "2fef4916ed3259f839599e8c9aeedf00261e5350",
+  "replay": {
+    "metadata_path": "docs/verification/c4/postcommit/replay-final/replay-metadata.stdout.json",
+    "metadata_sha256": "4d0f9b87b769216195ff2048e030c8b74fa34645b05fddac3c0f60b488c7ca7f",
+    "job_count": 19,
+    "failed_job_count": 0,
+    "timed_out_job_count": 0,
+    "nonempty_stderr_count": 0,
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "status": "PASS"
+  },
+  "tests": {
+    "c4_focused": "41 passed",
+    "c3_compatibility": "105 passed",
+    "c2_compatibility": "79 passed",
+    "c1_compatibility": "96 passed",
+    "c0_compatibility": "24 passed",
+    "complete_root": "1443 passed",
+    "dependency_invariant": "1 passed"
+  },
+  "c0_standalone_verifier": {
+    "status": "PASS",
+    "implementation_count": 48,
+    "call_edge_count": 29,
+    "fixture_count": 24
+  },
+  "static": {
+    "ruff_check": "PASS",
+    "ruff_format": "PASS",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "no issues"
+  },
+  "recovery_archive": {
+    "status": "PASS",
+    "sha256": "0008fc9784ded2567ae3ba5cfd7f3123e2db4c88349e83c80fea5a9b3e353424",
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "preserved_dirty_or_untracked_count": 429
+  },
+  "protected_state": {
+    "status": "PASS",
+    "before_after_identical": true,
+    "matches_c2_baseline": true,
+    "database_quick_checks_ok": true
+  },
+  "scope": {
+    "status": "PASS",
+    "implementation_path_count": 9,
+    "evidence_commit_path_count": 76,
+    "evidence_paths_scoped_to_c4": true,
+    "migration_path_count": 0,
+    "database_path_count": 0,
+    "scientific_artifact_path_count": 0,
+    "production_caller_path_count": 0,
+    "compatibility_or_legacy_path_count": 0
+  },
+  "evidence_validation": {
+    "status": "PASS",
+    "mode_at_replay": "precommit",
+    "log_manifest_entries_verified": 71,
+    "protected_database_count": 2
+  },
+  "replay_manifest": {
+    "path": "docs/verification/c4/postcommit/replay-manifest.json",
+    "bytes": 11324,
+    "sha256": "1f72512dd67673ef805842945cebed238caa86dd7683965dafb3a0142d3bf1d2",
+    "covered_file_count": 40,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "matched_values_recorded": false
+  },
+  "status": "PASS"
+}

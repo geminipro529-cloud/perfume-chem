@@ -1,6 +1,6 @@
 # Build C4 equilibrium-model gate
 
-Decision: **PENDING**. The local implementation, evidence matrix, final DeepLuna Fast audit, and Sol reconciliation are green. The evidence commit and exact-commit replay are not yet complete, so C5 remains closed.
+Decision: **PASS**. The local implementation, evidence matrix, final DeepLuna Fast audit, Sol reconciliation, evidence commit, and exact-commit replay are green. C5 is open.
 
 ## Accepted executable boundary
 
@@ -42,4 +42,4 @@ DeepLuna Fast is exact-project READY on `perfume-chem`, Fast-only through DeepIn
 
 ## Remaining limitations
 
-C4 does not evaluate vapor-pressure equations, propagate uncertainty, implement nonideal models, validate predictive accuracy, authorize OAV use, switch production callers, create persistence, or complete Build C. C5 stays closed until the evidence commit and exact-commit replay pass.
+C4 does not evaluate vapor-pressure equations, propagate uncertainty, implement nonideal models, validate predictive accuracy, authorize OAV use, switch production callers, create persistence, or complete Build C. The sealed evidence commit `30a03dfd0c61f23cfa3bfc71d42038f5ae903ebe` replayed all 19 jobs successfully, so C5 is now open.
