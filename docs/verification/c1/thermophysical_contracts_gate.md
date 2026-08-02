@@ -1,16 +1,19 @@
 # Build C1 Thermophysical Contracts Gate
 
-Decision: **PENDING POST-COMMIT**
+Decision: **PASS**
 
-The current C1 executable/static evidence and final exact-project DeepLuna Fast
-audit are green, but this report does not yet pass the phase. The evidence-only
-commit and post-commit verification remain required. C2 is closed.
+The C1 executable/static evidence, evidence-only commit, post-commit matrix,
+protected-state check, scope reconciliation, and final exact-project DeepLuna
+Fast audit are green. C1 passes and C2 may now begin. This does not complete
+Build C or authorize scientific release.
 
 ## Authority and scope
 
 - Phase parent: `fddc07c12d914b8de9f81f2ecbb5c9423a6880a6`.
 - Verification head before this report:
   `8c29acd6aaed4a1324ee925b743ce131f9875d15`.
+- Evidence commit:
+  `49349802de6960940e368fe7d23bab37ffe92bc9`.
 - Branch: `codex/add-inventory-materials`.
 - Scope: Build C, Phase C1 only.
 
@@ -62,6 +65,29 @@ codes, durations, and log hashes are in
 `E829BA36...58716D`. A strict scan of 37 current log files found zero invalid
 UTF-8 files, zero ANSI escape bytes, and zero credential-shaped matches; matched
 values were never recorded.
+
+## Evidence commit and post-commit verification
+
+Commit `49349802de6960940e368fe7d23bab37ffe92bc9` added 42 paths, all under
+`docs/verification/c1`. Its parent is the implementation verification head
+`8c29acd6aaed4a1324ee925b743ce131f9875d15`; the index had zero staged paths
+before the post-commit receipt was created.
+
+The fresh non-PTY post-commit matrix against `4934980` passed:
+
+- Root C1+C0 tests: 120 passed in 2.79 seconds.
+- Backend B1+B2 compatibility tests: 48 passed in 43.12 seconds.
+- Root and backend Ruff checks: passed.
+- BasedPyright: 0 errors, 0 warnings, 0 notes.
+- Scoped backend mypy: no issues in one source file.
+- All six stderr captures were empty; ANSI was disabled and timeouts were
+  explicit.
+
+The machine receipt is `docs/verification/c1/postcommit/summary.json`, 9,985
+bytes, SHA-256 `9BE1DC87...A3EEC58`. Protected database hashes and SQLite
+`quick_check` results remained unchanged and `ok`; the scope/protected receipt
+is `docs/verification/c1/postcommit/protected-state-and-scope.json`, 869 bytes,
+SHA-256 `FD57D0D4...1C5E31B`.
 
 ## Protected state and recovery
 
@@ -149,6 +175,5 @@ gate passes.
   measurements, models, or perfume performance.
 - Scientific release remains **BLOCKED**.
 
-Current C1 decision remains **PENDING POST-COMMIT**. Only C1 evidence paths may
-now be committed. C1 passes only after the post-commit verifier is green; until
-then C2 remains closed.
+Current C1 decision is **PASS**. C2 is open, but Build C remains incomplete and
+scientific release remains blocked.

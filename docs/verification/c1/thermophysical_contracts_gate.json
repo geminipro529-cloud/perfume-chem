@@ -1,8 +1,8 @@
 {
   "schema": "build-c1-thermophysical-contracts-gate-v1",
-  "generated_at": "2026-08-02T18:26:08+07:00",
-  "decision": "PENDING_POSTCOMMIT",
-  "decision_reason": "Local executable evidence and the final exact-project DeepLuna audit are green; the evidence commit and post-commit verification remain pending.",
+  "generated_at": "2026-08-02T18:49:49.5587580+07:00",
+  "decision": "PASS",
+  "decision_reason": "The C1 implementation contract, evidence commit, post-commit matrix, protected-state check, scope reconciliation, and final exact-project DeepLuna audit all passed.",
   "build": "C",
   "phase": "C1",
   "branch": "codex/add-inventory-materials",
@@ -234,6 +234,38 @@
     "credential_shaped_matches": 0,
     "matched_values_recorded": false
   },
+  "gate_evidence_commit": {
+    "commit": "49349802de6960940e368fe7d23bab37ffe92bc9",
+    "parent": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+    "subject": "test(c1): seal thermophysical contract gate",
+    "path_count": 42,
+    "all_paths_under_docs_verification_c1": true,
+    "index_staged_path_count_before_postcommit_receipt": 0
+  },
+  "post_commit_verification": {
+    "verified_commit": "49349802de6960940e368fe7d23bab37ffe92bc9",
+    "summary_path": "docs/verification/c1/postcommit/summary.json",
+    "summary_bytes": 9985,
+    "summary_sha256": "9be1dc8781868033bc9a0bf1d33e760ebf6359c3bcdc6a2ff2876dadba3eec58",
+    "protected_state_and_scope_path": "docs/verification/c1/postcommit/protected-state-and-scope.json",
+    "protected_state_and_scope_bytes": 869,
+    "protected_state_and_scope_sha256": "fd57d0d43b85649b22c2f8399dc6a3f14bc2df5280279970f9b13422f1c5e31b",
+    "command_count": 6,
+    "root_tests": "120 passed in 2.79s",
+    "backend_compatibility_tests": "48 passed in 43.12s",
+    "ruff_root": "All checks passed!",
+    "ruff_backend": "All checks passed!",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "Success: no issues found in 1 source file",
+    "all_stderr_empty": true,
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "protected_state_preserved": true,
+    "commit_scope_evidence_only": true,
+    "passed": true
+  },
   "protected_state": {
     "before_log": {
       "path": "docs/verification/c1/logs/protected-state-before.stdout.txt",
@@ -441,14 +473,14 @@
     "scope_closed": true,
     "final_deepluna_audit_passed": true,
     "sol_final_reconciliation_complete": true,
-    "gate_evidence_committed": false,
-    "post_commit_verification_passed": false,
-    "passed": false
+    "gate_evidence_committed": true,
+    "post_commit_verification_passed": true,
+    "passed": true
   },
   "claim_boundary": {
-    "c1_contract_gate": "PENDING_POSTCOMMIT",
+    "c1_contract_gate": "PASS",
     "build_c_complete": false,
-    "c2_open": false,
+    "c2_open": true,
     "scientific_release": "BLOCKED",
     "final_authority": "canonical repository state, executable tests, database constraints, reproducible artifacts, and collected experimental evidence"
   },
