@@ -1,0 +1,28 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________ test_router_abstains_on_tampered_or_extra_input_reference __________
+
+    def test_router_abstains_on_tampered_or_extra_input_reference() -> None:
+        inputs, adapter, _, router = executable_case()
+        bad_reference = ModelInputReference(
+            role=C4_INPUT_ROLE,
+            input_id=inputs.input_set_id,
+            content_sha256="d" * 64,
+        )
+        extra_reference = ModelInputReference(
+            role="unrelated",
+            input_id="unrelated:v1",
+            content_sha256="e" * 64,
+        )
+        for references in ((bad_reference,), (inputs.to_model_input_reference(), extra_reference)):
+            request = request_for(adapter, inputs, input_references=references)
+            result = router.predict_equilibrium_headspace(request)
+>           assert result.status is ModelResultStatus.ABSTAINED
+E           AssertionError: assert <ModelResultStatus.COMPUTED: 'COMPUTED'> is <ModelResultStatus.ABSTAINED: 'ABSTAINED'>
+E            +  where <ModelResultStatus.COMPUTED: 'COMPUTED'> = VersionedModelResult(status=<ModelResultStatus.COMPUTED: 'COMPUTED'>, operation=<ModelOperation.PREDICT_EQUILIBRIUM_HE...onideal prediction'), fallback=None, content_sha256='f9ab8156c3b5ea8f5eb1155c7f0f0d7fc8c491bf7203e42f4d9e0e96bb815b88').status
+E            +  and   <ModelResultStatus.ABSTAINED: 'ABSTAINED'> = ModelResultStatus.ABSTAINED
+
+tests\test_c4_equilibrium_models.py:673: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c4_equilibrium_models.py::test_router_abstains_on_tampered_or_extra_input_reference
+1 failed in 0.53s
