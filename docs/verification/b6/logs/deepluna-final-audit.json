@@ -1,0 +1,36 @@
+{
+  "schema": "perfume-chem-b6-deepluna-final-audit-receipt-v1",
+  "recorded_at_utc": "2026-08-02T01:43:14.154Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-9008c70e11660085e9fe922c986cc9f5",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model_family": "DeepSeek V4 Flash",
+  "provider_calls": 1,
+  "prompt_tokens_delta": 13492,
+  "completion_tokens_delta": 709,
+  "total_tokens_delta": 14201,
+  "spent_delta_nano_usd": 2012850,
+  "cache_hit": false,
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "negative_findings": [],
+  "scope_deviation": false,
+  "report_corrections_required": 0,
+  "positive_findings": [
+    "JSON decision PENDING_FINAL_AUDIT matched the Markdown status and fail-closed exit gate.",
+    "The implementation commit matched between JSON and Markdown.",
+    "The verification checkpoint matched between JSON and Markdown.",
+    "All required report and stdout-log reads were covered and internally consistent.",
+    "No numerical mismatch, unsafe legal or certificate claim, or self-authorization of B7 was found."
+  ],
+  "residual_risks": [
+    "Official-source observations can become stale and must be refreshed for later evaluation dates.",
+    "External-source interpretation and final acceptance remain Sol-owned."
+  ],
+  "source_result_sha256": "20CA4CE9F1B9CE15D8AD5648F1FE977644C9BC407E9FBB99CD8CCE43356DD532",
+  "sensitive_values": "REDACTED_NOT_COLLECTED",
+  "final_authority": "Sol local reproduction and canonical repository evidence"
+}

@@ -1,171 +1,352 @@
 {
-  "schema_version": "perfume-chem-b6-gate-v1",
-  "build": "B6",
-  "title": "Safety and regulatory authority",
-  "status": "PASS",
-  "exit_gate_passed": true,
-  "recorded_local_date": "2026-07-31",
-  "timezone": "Asia/Bangkok",
+  "schema": "build-b6-regulatory-authority-gate-v2",
+  "generated_at_utc": "2026-08-02T01:45:01.0221572Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B6",
   "branch": "codex/add-inventory-materials",
-  "preimplementation_commit": "ddea825e9e5478c124ffa7c8098c44a49b45a035",
-  "migration": {
-    "revision": "20260731_0010",
-    "down_revision": "20260731_0009",
-    "head": "20260731_0010",
-    "tables": [
-      "lab_regulatory_source_versions",
-      "lab_regulatory_rule_versions",
-      "lab_supplier_document_bindings",
-      "lab_regulatory_composition_profiles",
-      "lab_regulatory_composition_entries",
-      "lab_regulatory_snapshot_versions",
-      "lab_regulatory_authority_findings"
-    ],
-    "backfill_rows": 0,
-    "append_only": true
-  },
-  "result_states": [
-    "PASS_FOR_DECLARED_SCOPE",
-    "FAIL",
-    "UNKNOWN",
-    "NOT_EVALUATED"
+  "implementation_commits": [
+    "26137df654b8f2fdb729280678fd8c1ef2355eb0"
   ],
-  "runtime": {
+  "implementation_head": "26137df654b8f2fdb729280678fd8c1ef2355eb0",
+  "preimplementation_commit": "ddea825e9e5478c124ffa7c8098c44a49b45a035",
+  "verification_head_before_report": "2e5724fe1075498477e22e2a6657ecc264c570c2",
+  "phase_revision": "20260731_0010",
+  "repository_alembic_head": "20260731_0012",
+  "environment": {
     "python": "3.11.15",
-    "node": "v26.3.0"
+    "node": "v26.3.0",
+    "pty": false,
+    "ansi_disabled": true,
+    "explicit_timeouts": true,
+    "stdout_stderr_separate": true,
+    "repository_log_encoding": "UTF-8 without BOM; raw PowerShell captures preserved in external run directory",
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b6_tables": 7,
+    "result_states": [
+      "PASS_FOR_DECLARED_SCOPE",
+      "FAIL",
+      "UNKNOWN",
+      "NOT_EVALUATED"
+    ],
+    "migration_backfill_rows": 0,
+    "phase_owned_implementation_delta_since_commit": 0,
+    "legacy_a2_rows_promoted": 0,
+    "production_api_ui_consumers_added_by_b6": 0
   },
   "official_source_checks": [
     {
-      "checked_on": "2026-07-31",
+      "checked_on": "2026-08-02",
       "authority": "IFRA",
       "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-52nd-amendment-consultation-closed",
-      "finding": "52nd Amendment consultation closed 2026-06-12; formal notification expected near end November 2026",
+      "finding": "The 52nd Amendment consultation closed on 2026-06-12 and formal Notification was expected near the end of November 2026.",
       "recorded_status": "CONSULTATION",
-      "enforced": false
+      "enforced_by_b6": false
     },
     {
-      "checked_on": "2026-07-31",
+      "checked_on": "2026-08-02",
+      "authority": "IFRA",
+      "url": "https://ifrafragrance.org/initiatives-positions/safe-use-fragrance-science/ifra-standards",
+      "finding": "The latest formally published amendment remains the 51st; IFRA Standards are a voluntary product-stewardship system distinct from law, and an IFRA certificate is established by the fragrance-mixture manufacturer for an exact mixture and use scope.",
+      "recorded_status": "CURRENT_PUBLISHED_SOURCE",
+      "enforced_by_b6": true
+    },
+    {
+      "checked_on": "2026-08-02",
       "authority": "European Union",
       "url": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj/eng",
-      "finding": "0.001% leave-on and 0.01% rinse-off declaration thresholds with inclusive 2026-07-31 placement and 2028-07-31 availability transition ends"
+      "finding": "Regulation (EU) 2023/1545 states 0.001% leave-on and 0.01% rinse-off declaration thresholds. Its transition permits placement on the Union market through 2026-07-31 and making available through 2028-07-31.",
+      "action_state_on_2026_08_02": {
+        "placement_on_union_market_transition": "ENDED",
+        "making_available_transition": "ACTIVE_THROUGH_2028_07_31"
+      }
     }
   ],
-  "verification": [
+  "commands": [
     {
-      "name": "b6_exact",
+      "name": "pytest_b6_focused",
+      "command": "python -B -m pytest -p no:cacheprovider --color=no --basetemp=<external-writable-temp>/pytest-b6-temp <canonical>/backend/tests/unit/test_b6_regulatory_schema.py <canonical>/backend/tests/unit/test_b6_regulatory_service.py <canonical>/backend/tests/integration/test_b6_regulatory_migration.py <canonical>/backend/tests/integration/test_b6_regulatory_e2e.py -q",
+      "working_directory": "<external-writable-temp>/pytest-cwd",
+      "timeout_enforced": true,
       "exit_code": 0,
-      "tests_passed": 30,
-      "duration_seconds": 42.72,
-      "stdout": "logs/pytest_b6.stdout.txt",
-      "stderr": "logs/pytest_b6.stderr.txt"
+      "timed_out": false,
+      "result": "30 passed in 86.61s (0:01:26)",
+      "stdout_path": "docs/verification/b6/logs/pytest_b6.stdout.txt",
+      "stdout_bytes": 112,
+      "stdout_sha256": "0A847C1CAF85BAF2E52F90B51B34ADF60360C01EBEF7D2B74AD687C1D82CF1DE",
+      "stderr_path": "docs/verification/b6/logs/pytest_b6.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
     },
     {
-      "name": "b1_b6_compatibility_migration_backup",
+      "name": "pytest_a2_b1_b2_b3_b4_b5_b6_compatibility_migration_backup",
+      "command": "python -B -m pytest -p no:cacheprovider --color=no --basetemp=<external-writable-temp>/pytest-compat-temp <canonical>/backend/tests/unit/test_a2_science_schema.py <canonical>/backend/tests/unit/test_a2_science_service.py <canonical>/backend/tests/integration/test_a2_science_migration.py <canonical>/backend/tests/unit/test_b1_source_schema.py <canonical>/backend/tests/unit/test_b1_source_service.py <canonical>/backend/tests/integration/test_b1_source_migration.py <canonical>/backend/tests/unit/test_b2_property_schema.py <canonical>/backend/tests/unit/test_b2_property_service.py <canonical>/backend/tests/integration/test_b2_property_migration.py <canonical>/backend/tests/unit/test_b3_threshold_schema.py <canonical>/backend/tests/unit/test_b3_threshold_service.py <canonical>/backend/tests/integration/test_b3_threshold_migration.py <canonical>/backend/tests/unit/test_b4_rule_schema.py <canonical>/backend/tests/unit/test_b4_rule_service.py <canonical>/backend/tests/integration/test_b4_rule_migration.py <canonical>/backend/tests/unit/test_b5_analytical_schema.py <canonical>/backend/tests/unit/test_b5_analytical_service.py <canonical>/backend/tests/integration/test_b5_analytical_migration.py <canonical>/backend/tests/integration/test_b5_analytical_e2e.py <canonical>/backend/tests/unit/test_b6_regulatory_schema.py <canonical>/backend/tests/unit/test_b6_regulatory_service.py <canonical>/backend/tests/integration/test_b6_regulatory_migration.py <canonical>/backend/tests/integration/test_b6_regulatory_e2e.py <canonical>/backend/tests/integration/test_lab_migration.py <canonical>/backend/tests/integration/test_backup_restore.py -q",
+      "working_directory": "<external-writable-temp>/pytest-cwd",
+      "timeout_enforced": true,
       "exit_code": 0,
-      "tests_passed": 266,
-      "duration_seconds": 239.16,
-      "stdout": "logs/pytest_compat.stdout.txt",
-      "stderr": "logs/pytest_compat.stderr.txt",
-      "historical_first_run": {
-        "tests_passed": 263,
-        "tests_failed": 3,
-        "cause": "two stale CURRENT_HEAD test constants expected 20260731_0009",
-        "focused_reproduction_after_fix": "3 passed"
-      }
+      "timed_out": false,
+      "result": "266 passed in 469.43s (0:07:49)",
+      "stdout_path": "docs/verification/b6/logs/pytest_compat.stdout.txt",
+      "stdout_bytes": 357,
+      "stdout_sha256": "705DF875C4AA214A09F73CF391488BD6DFD7F4051F6954ECE4812479DB850E4D",
+      "stderr_path": "docs/verification/b6/logs/pytest_compat.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
     },
     {
-      "name": "ruff_exact_scope",
+      "name": "ruff_b6_exact_paths",
+      "command": "python -m ruff check app/models/lab.py app/models/lab_regulatory.py app/repositories/lab.py app/repositories/lab_regulatory.py app/services/lab_service.py app/services/lab_regulatory.py alembic/versions/20260731_0010_b6_regulatory_authority.py tests/unit/test_b6_regulatory_schema.py tests/unit/test_b6_regulatory_service.py tests/integration/test_b6_regulatory_migration.py tests/integration/test_b6_regulatory_e2e.py tests/integration/test_lab_migration.py tests/integration/test_backup_restore.py",
+      "working_directory": "<canonical>/backend",
+      "timeout_enforced": true,
       "exit_code": 0,
+      "timed_out": false,
       "result": "All checks passed!",
-      "stdout": "logs/ruff.stdout.txt",
-      "stderr": "logs/ruff.stderr.txt"
+      "stdout_path": "docs/verification/b6/logs/ruff.stdout.txt",
+      "stdout_bytes": 20,
+      "stdout_sha256": "A4443AFDCFB6D7363ADB285762515CCF7CF50473B1A05C20C1A50F6BED4D26B0",
+      "stderr_path": "docs/verification/b6/logs/ruff.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
     },
     {
       "name": "mypy_b6_modules",
+      "command": "python -m mypy app/models/lab_regulatory.py app/repositories/lab_regulatory.py app/services/lab_regulatory.py",
+      "working_directory": "<canonical>/backend",
+      "timeout_enforced": true,
       "exit_code": 0,
+      "timed_out": false,
       "result": "Success: no issues found in 3 source files",
-      "stdout": "logs/mypy.stdout.txt",
-      "stderr": "logs/mypy.stderr.txt"
-    },
-    {
-      "name": "alembic_heads",
-      "exit_code": 0,
-      "result": "20260731_0010 (head)",
-      "stdout": "logs/alembic_heads.stdout.txt",
-      "stderr": "logs/alembic_heads.stderr.txt"
+      "stdout_path": "docs/verification/b6/logs/mypy.stdout.txt",
+      "stdout_bytes": 44,
+      "stdout_sha256": "281A094C39385B4D7B53E5DB635F52158036861433C2A4975B9039E77A627A24",
+      "stderr_path": "docs/verification/b6/logs/mypy.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
     }
   ],
-  "recovery_archive": {
-    "path": "D:\\.backups\\perfume-chem\\build-b6-prewrite-20260731T052656+0700.tar",
-    "bytes": 102200320,
-    "sha256": "67742cc6f30a979811df359675e108af0cc6cdb0d1f571cf29d89faad61e6bbf",
-    "files_verified": 455,
-    "nonruntime_dirty_untracked_files": 452,
-    "excluded_runtime_prefixes": [
-      ".deepluna-home/"
-    ],
-    "restorable_path_preserving": true
+  "migration_verification": {
+    "phase_revision": "20260731_0010",
+    "current_linear_head": "20260731_0012",
+    "head_count": 1,
+    "alembic_heads_output": "20260731_0012 (head)",
+    "phase_migration_test_in_focused_and_cumulative_gates": true,
+    "downgrade_reupgrade_test_in_focused_and_cumulative_gates": true,
+    "backup_restore_test_in_cumulative_gate": true,
+    "migration_imports_zero_legacy_rows": true
   },
-  "protected_databases": [
-    {
-      "path": "perfume_chem.db",
-      "before_bytes": 0,
-      "after_bytes": 0,
-      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "opened_for_migration": false
-    },
-    {
-      "path": "data/perfumery_kb.db",
-      "before_bytes": 2084864,
-      "after_bytes": 2084864,
-      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
-      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
-      "quick_check": "ok",
-      "quick_check_read_only": true
-    }
-  ],
   "deepluna": {
-    "exact_project": "perfume-chem",
-    "readiness": "READY",
-    "runtime_mode": "CANDIDATE_V2",
-    "server_release": "0.9.9",
     "route": "FLASH",
     "fallback_policy": "NO_LUNA",
-    "codex_orchestration": false,
-    "preimplementation_audit": "PASS",
-    "final_audit": {
-      "job_id": "DS-e8a76a9cb4582878df4b0aab4448d3ab",
+    "codex_subagents_used": 0,
+    "fresh_pre_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "current_gap_audit": {
+      "job_id": "DS-ac4f843d8d218582d5744da72f374f6e",
       "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 4062015,
       "negative_findings": 0,
       "scope_deviation": false,
-      "provider": "deepinfra",
-      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "accepted_as_supplemental_evidence": true,
+      "sol_local_reproduction_complete": true
+    },
+    "excluded_resume_audit": {
+      "job_id": "DS-785c7ddcfb833884a770173a6e102cb7",
+      "status": "FAIL",
+      "execution_status": "INCOMPLETE",
+      "evidence_verdict": "UNRESOLVED",
+      "provider_calls": 0,
+      "spent_delta_nano_usd": 0,
+      "accepted_as_gate_evidence": false,
+      "reason": "Local admission rejected packed evidence estimated at 36058 input tokens against an 18000-token ceiling; no provider transmission occurred and no retry or fallback was used."
+    },
+    "final_report_audit": {
+      "job_id": "DS-9008c70e11660085e9fe922c986cc9f5",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
       "provider_calls": 1,
-      "prompt_tokens": 78488,
-      "completion_tokens": 746,
-      "total_tokens": 79234,
-      "measured_spend_delta_usd": 0.0107973,
-      "sol_reproduction": {
-        "b6_tests_passed": 30,
-        "compatibility_tests_passed": 266
+      "prompt_tokens_delta": 13492,
+      "completion_tokens_delta": 709,
+      "total_tokens_delta": 14201,
+      "spent_delta_nano_usd": 2012850,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "report_corrections_required": 0,
+      "receipt_path": "docs/verification/b6/logs/deepluna-final-audit.json",
+      "receipt_bytes": 1556,
+      "receipt_sha256": "BE34D87E3CB2D2929B38D07B97462F463C2A5A4C26F7D5F566DA7D6FCE775F9B",
+      "accepted_as_supplemental_evidence": true,
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0
+    },
+    "fresh_post_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "historical_audits": [
+      {
+        "job_id": "DS-e8a76a9cb4582878df4b0aab4448d3ab",
+        "status": "PASS",
+        "accepted_as_current_final_authority": false,
+        "reason": "Historical 2026-07-31 audit preceded the current independent verification and stale report replacement."
       }
+    ],
+    "final_authority": "canonical repository state, executable tests, protected database constraints, reproducible artifacts, current official-source observations, and Sol local acceptance"
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256_before_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "sha256_after_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "mutated_by_b6_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256_before_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "sha256_after_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "connection_mode": "read-only immutable",
+      "mutated_by_b6_verification": false
     }
   },
-  "log_digests": {
-    "alembic_heads.stdout.txt": "82e7a1b9031ef8fde0c8b3cdb61f7b67aed0dd8e1e31fbd9f6aa702057102907",
-    "mypy.stdout.txt": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
-    "pytest_b6.stdout.txt": "2bc1142e4df69850a32f2b4e1ce16d9bbfb63a8a759cc9512dc3ed750e437413",
-    "pytest_compat.stdout.txt": "d4b7e6a50383f1f8b5f4287abf769e77a9f46304e1928536c7448bab45538666",
-    "ruff.stdout.txt": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
-    "protected_kb_quick_check.stdout.txt": "9f2a59a60e65fbcd5a3e1b7248adf92890ce3a32b19e43fb4751c2657196de13",
-    "empty_stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  "file_hashes": {
+    "backend/alembic/versions/20260731_0010_b6_regulatory_authority.py": "1BC69F367D00955169BB8A7D422331A82BADBD188028C4A8497F0BEE065E8D48",
+    "backend/app/models/lab.py": "C9260A03E4BDA2D7814A94C3F49170674F53E9FEE597AA882268D29C9E224925",
+    "backend/app/models/lab_regulatory.py": "BD97418379DABDB9C522DEEAF564BA9A69932969A110146EEF0C0EBBA95B71A9",
+    "backend/app/repositories/lab.py": "4A45DF4F47FA1A87082C23DBF4FE43F8B15CA4CC8F10B032FDAFB9F0E5E16280",
+    "backend/app/repositories/lab_regulatory.py": "6BF1355DC8651D097CC51908010E8DC4529FD033C3E8CB890A2C99A75801663B",
+    "backend/app/services/lab_service.py": "646CAB2CFCB2A83DCE2577175ED23A4F7409E21D0FB826D8ABAA586D156D096F",
+    "backend/app/services/lab_regulatory.py": "1F61897C777DCDCF0A026C12D8339196809C4AE0367D41CC8525A367D7DABD96",
+    "backend/tests/unit/test_b6_regulatory_schema.py": "9B25C0BE2B9A2044DEA07A57CE9EB5A20FF99F2F15F8C083F4857FB61A8CAA53",
+    "backend/tests/unit/test_b6_regulatory_service.py": "ACBE6E519348B887EC62818AA95E198208D2CF92EA494A10F3781DEE40F77F93",
+    "backend/tests/integration/test_b6_regulatory_migration.py": "9F70F51541AA17D43A75F97BA4C8D79350DEEB4CB3A2BCE4DF7EB8D03C10FBFC",
+    "backend/tests/integration/test_b6_regulatory_e2e.py": "74602E4BD4C82BEE59F1458EF6CC13490E6FA3F4DEFCA48BD65024F8BCFCE003",
+    "backend/tests/integration/test_lab_migration.py": "441A62F5E2D109D9304D180488F305D0FCCB7D97D8D32FBDF8DF9DEAB2B33C7B",
+    "backend/tests/integration/test_backup_restore.py": "721DC49A3491CCB74C4E987AD4EF476D81E252AC680A7F851B6046B0E404A003",
+    "docs/superpowers/plans/2026-07-31-build-b6-regulatory-authority.md": "899A860F6E9A9E0F4587D25356DA922191172580FFEB0CE39278A105FA0EBDFE",
+    "docs/superpowers/specs/2026-07-31-build-b6-regulatory-authority-design.md": "3BE1BBC1E11AF01EA26A5D0646E3A9C3DD2C3DB852704ED172214051C441AA3E"
   },
-  "authority_statement": "B6 is a scoped regulatory screening authority, not legal advice, an IFRA certificate, or a legal certificate.",
-  "residual_limits": [
-    "Only explicitly registered exact source, rule, supplier, and composition versions are evaluated.",
-    "Source-currentness must be refreshed for later evaluation dates.",
-    "Production API and UI routing are not part of B6.",
-    "Unrelated tracked and untracked work remains outside B6 staging scope."
-  ]
+  "log_digests": {
+    "alembic_heads.stdout.txt": "D05FB8BA33C0532876896596B90490AB3399322D0FEB211337AB4D64BD5F79C7",
+    "alembic_heads.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "deepluna-final-audit.json": "BE34D87E3CB2D2929B38D07B97462F463C2A5A4C26F7D5F566DA7D6FCE775F9B",
+    "mypy.stdout.txt": "281A094C39385B4D7B53E5DB635F52158036861433C2A4975B9039E77A627A24",
+    "mypy.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "node_version.stdout.txt": "2C6E919D1934DEE14561704B5159BCF51B55CFA5B7A1A7C9E29345C16E22C420",
+    "node_version.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "protected_kb_quick_check.stdout.txt": "9F2A59A60E65FBCD5A3E1B7248ADF92890CE3A32B19E43FB4751C2657196DE13",
+    "protected_kb_quick_check.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "pytest_b6.stdout.txt": "0A847C1CAF85BAF2E52F90B51B34ADF60360C01EBEF7D2B74AD687C1D82CF1DE",
+    "pytest_b6.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "pytest_compat.stdout.txt": "705DF875C4AA214A09F73CF391488BD6DFD7F4051F6954ECE4812479DB850E4D",
+    "pytest_compat.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "python_version.stdout.txt": "D901007B84BFC7EB172BA21B077C642DF7D6285CA37E9634F913F8DFB8F7B898",
+    "python_version.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "ruff.stdout.txt": "A4443AFDCFB6D7363ADB285762515CCF7CF50473B1A05C20C1A50F6BED4D26B0",
+    "ruff.stderr.txt": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "recovery_archive": {
+    "purpose": "complete B6 report and log tree before current refresh",
+    "path": "outputs/b6-authoritative-recovery/20260802T081549/b6-evidence-before-refresh.zip",
+    "bytes": 11930,
+    "sha256": "50A9CA495AA67C489E78D5D283705C0A1ADBA6A9C65D9081DB56ED4A099A6486",
+    "path_preserving": true,
+    "file_count": 18,
+    "unsafe_member_count": 0,
+    "restore_verification": "all 18 extracted files matched their archived SHA-256"
+  },
+  "exit_gate": {
+    "official_sources_are_dated_versioned_and_scope_bound": true,
+    "current_future_draft_consultation_watchlist_and_superseded_states_are_distinct": true,
+    "draft_consultation_watchlist_and_superseded_rules_are_not_enforced": true,
+    "eu_thresholds_and_action_specific_transition_dates_are_tested": true,
+    "unknown_or_partial_natural_composition_is_unknown_not_pass": true,
+    "known_failure_outranks_unknown_composition": true,
+    "supplier_documents_require_exact_product_grade_version_and_lot_scope": true,
+    "only_pass_for_declared_scope_receives_scoped_wording": true,
+    "certificate_and_legal_conformity_claims_are_prohibited": true,
+    "legacy_a2_pass_does_not_promote_to_b6_authority": true,
+    "migration_imports_zero_legacy_rows": true,
+    "model_migration_constraint_index_fk_trigger_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "focused_and_cumulative_tests_pass": true,
+    "local_gate_passed": true,
+    "final_audit_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "authority": "scoped regulatory screening only",
+    "legal_advice": "PROHIBITED",
+    "ifra_certificate_claim": "PROHIBITED",
+    "legal_certificate_claim": "PROHIBITED",
+    "scientific_release": "BLOCKED",
+    "next_phase": "B7_ONLY_AFTER_B6_FINAL_AUDIT_AND_EVIDENCE_COMMIT"
+  },
+  "known_limitations": [
+    "B6 evaluates only explicitly registered exact source, rule, supplier, composition, formula, use, jurisdiction, and evaluation-date scope.",
+    "Current-source observations must be refreshed for later evaluation dates.",
+    "A missing, partial, stale, proxy-mismatched, or unknown natural composition cannot support PASS_FOR_DECLARED_SCOPE.",
+    "No B6 result is legal advice, an IFRA certificate, or a certificate of legal conformity.",
+    "No production API, UI, optimizer, or release consumer is added by B6.",
+    "Build B remains incomplete until B7 through B10 independently pass."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_before_report_edit": 107,
+    "untracked_files_before_report_edit": 1281,
+    "staged_entries_before_report_edit": 0,
+    "tracked_dirty_paths_before_report_commit": 109,
+    "untracked_files_before_report_commit": 1292,
+    "staged_entries_before_report_commit": 0,
+    "worktree_cleaned_or_reset": false,
+    "a0_recovery_archive": "preserved",
+    "b6_restore_verification": "all 18 archived path hashes matched after extraction",
+    "historical_b6_archives_preserved": true
+  },
+  "historical_notes": {
+    "prior_report_recorded_local_date": "2026-07-31",
+    "prior_report_alembic_head": "20260731_0010",
+    "prior_report_focused_result": "30 passed in 42.72s",
+    "prior_report_compatibility_result": "266 passed in 239.16s",
+    "prior_report_canonical_database_bytes": 0,
+    "prior_report_final_audit_job": "DS-e8a76a9cb4582878df4b0aab4448d3ab",
+    "authority": "historical notes only; replaced by current executable, protected-state, artifact, and official-source evidence"
+  }
 }
