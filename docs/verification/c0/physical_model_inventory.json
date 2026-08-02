@@ -332,7 +332,7 @@
       "runtime_status": "ABSENT",
       "disposition": "Remain WITHHELD until C1 adds a versioned equation form with coefficients, units, range, source, and validation.",
       "source_sha256": {},
-      "absence_query": {"roots": ["engine", "scripts", "backend/app"], "pattern": "(?i)\\bdippr(?:_style)?\\b", "extensions": [".py"]}
+      "absence_query": {"roots": ["engine", "scripts", "backend/app"], "pattern": "(?i)\\bdippr(?:_style)?\\b", "extensions": [".py"], "exclude_paths": ["engine/physics/vapor_pressure.py"]}
     },
     {
       "id": "C0-PM-018",

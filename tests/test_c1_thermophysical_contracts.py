@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import ast
+import importlib
 import math
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -1300,3 +1303,80 @@ def test_absent_assertion_is_expected_missing_evidence_not_an_exception() -> Non
     result = PropertySelectionService.select(_property_request(), assertion)
     assert result.status is SelectionStatus.WITHHELD
     assert result.missing_reason is MissingDataReason.ASSERTION_ABSENT
+
+
+PUBLIC_C1_NAMES = {
+    "AuthorityState",
+    "CanonicalScope",
+    "ClaimGrade",
+    "ExtrapolationPolicy",
+    "InterpolationState",
+    "MissingDataReason",
+    "PropertyConditions",
+    "PropertyDatum",
+    "PropertyIdentity",
+    "PropertyRequest",
+    "PropertySelectionResult",
+    "PropertySelectionService",
+    "PropertyValueKind",
+    "SelectedPropertyAssertion",
+    "SelectionKind",
+    "SelectionStatus",
+    "SourceReference",
+    "TemperatureRange",
+    "ThermophysicalContractError",
+    "ThermophysicalProperty",
+    "UncertaintyDescriptor",
+    "UncertaintyKind",
+    "VaporPressureCoefficient",
+    "VaporPressureEquationType",
+    "VaporPressurePoint",
+    "VaporPressureRepresentation",
+    "selected_assertion_from_b2_reconstruction",
+}
+
+
+def test_engine_physics_publishes_only_the_c1_contract_boundary() -> None:
+    physics = importlib.import_module("engine.physics")
+    assert set(physics.__all__) == PUBLIC_C1_NAMES
+    assert all(hasattr(physics, name) for name in PUBLIC_C1_NAMES)
+    assert "does not evaluate" in (physics.__doc__ or "").lower()
+    assert "does not authorize scientific release" in (physics.__doc__ or "").lower()
+
+
+def test_engine_physics_has_no_backend_legacy_or_equation_evaluator_dependency() -> None:
+    root = Path(__file__).resolve().parents[1]
+    source_paths = (
+        root / "engine" / "physics" / "properties.py",
+        root / "engine" / "physics" / "vapor_pressure.py",
+        root / "engine" / "physics" / "selection.py",
+    )
+    prohibited_import_prefixes = (
+        "backend",
+        "sqlalchemy",
+        "engine.uncertainty",
+        "engine.property_estimator",
+        "engine.properties",
+    )
+    prohibited_function_names = {
+        "evaluate",
+        "predict_pressure",
+        "estimate_vapor_pressure",
+    }
+
+    for path in source_paths:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        imported_modules: set[str] = set()
+        function_names: set[str] = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported_modules.update(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module is not None:
+                imported_modules.add(node.module)
+            elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                function_names.add(node.name)
+        assert not any(
+            module.startswith(prohibited_import_prefixes)
+            for module in imported_modules
+        ), path
+        assert function_names.isdisjoint(prohibited_function_names), path
