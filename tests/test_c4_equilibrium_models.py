@@ -5,8 +5,9 @@ import math
 from dataclasses import replace
 from pathlib import Path
 
-import engine.physics.equilibrium as equilibrium_module
 import pytest
+
+import engine.physics.equilibrium as equilibrium_module
 from engine.physics.equilibrium import (
     C4_INPUT_ROLE,
     EquilibriumModelContractError,
@@ -15,7 +16,6 @@ from engine.physics.equilibrium import (
     SelectedNumericPropertyInput,
     withheld_equilibrium_adapters,
 )
-
 from engine.physics.matrix_environment import (
     ApplicationEnvironment,
     ApplicationEnvironmentKind,
