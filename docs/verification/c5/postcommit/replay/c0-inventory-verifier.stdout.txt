@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "implementation_count": 48,
+  "call_edge_count": 29,
+  "fixture_count": 24,
+  "classifications": [
+    "DISCONNECTED_LEGACY",
+    "EMPIRICALLY_CALIBRATED_MODEL",
+    "EXACT_PHYSICAL_ARITHMETIC",
+    "HEURISTIC",
+    "LITERATURE_DERIVED_MODEL",
+    "MEASURED_LOOKUP",
+    "STUB",
+    "UNSUPPORTED"
+  ]
+}

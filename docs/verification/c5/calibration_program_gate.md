@@ -1,10 +1,10 @@
 # Build C5 calibration-program gate
 
-Decision: **PENDING**
+Decision: **PASS**
 
-The C5 software and protocol harness is locally green, but this record has not
-yet been sealed in an evidence commit and replayed at that exact commit. C6
-therefore remains closed until those final evidence steps pass.
+The C5 software and protocol harness, evidence commit
+`4a0700fb8d250d416141e2cc2ce46d287e5eecf9`, and exact-commit replay are
+green. C6 is open.
 
 The empirical result is a separate, deliberate block:
 `BLOCKED_PENDING_DATA`. No actual GC-MS/HS-SPME instrument dataset was found,
@@ -60,6 +60,9 @@ is promoted. Passing the software gate does not change that status.
 - All 76 captured log files are UTF-8, ANSI-free, and free of credential-shaped
   matches; stdout and stderr were captured separately and every matrix stderr
   file is empty.
+- The exact evidence commit replay passed all 21 bounded jobs, including 38 C5
+  focused tests and the complete 1,481-test root suite, with zero failures,
+  timeouts, stderr bytes, ANSI escapes, or credential-shaped matches.
 
 ## Actual-data check
 
@@ -79,6 +82,6 @@ tests and the actual-data absence check. Postflight reservations are zero.
 ## Current boundary
 
 C5's reproducible harness, leak controls, and prespecified metric machinery are
-green. Empirical calibration remains blocked pending real, B5-bound instrument
-data. C6 remains closed until the evidence commit and exact-commit replay pass;
-this pending record makes no claim that either has happened.
+green, and the evidence commit replay passed. C6 is open. Empirical calibration
+remains `BLOCKED_PENDING_DATA` pending real, B5-bound instrument data; this
+software-gate decision does not report empirical metrics or promote a model.

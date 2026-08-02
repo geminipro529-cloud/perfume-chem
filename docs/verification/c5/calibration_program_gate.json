@@ -2,9 +2,9 @@
   "schema": "build-c5-calibration-program-gate-v1",
   "phase_parent": "085512ec620fd5a8f192fc6298a6fa1acce2d7b0",
   "verified_implementation_head": "052bbdffcba0d7dc163fd6ef625bef1717cf32eb",
-  "evidence_commit": null,
-  "decision": "PENDING",
-  "decision_reason": "Local software and protocol evidence is green, but the evidence commit and exact-commit replay are not yet sealed. Empirical calibration separately remains BLOCKED_PENDING_DATA.",
+  "evidence_commit": "4a0700fb8d250d416141e2cc2ce46d287e5eecf9",
+  "decision": "PASS",
+  "decision_reason": "The C5 software, protocol, evidence commit, and exact-commit replay are green, so C6 may open. Empirical calibration separately remains BLOCKED_PENDING_DATA because no actual instrument data exist.",
   "contract_surface": {
     "source_path": "engine/physics/calibration_program.py",
     "source_sha256": "1b772b755426f82544f834797778df2704b03c1b5e3d17b91e1037dcad001501",
@@ -199,6 +199,22 @@
     "glm_runs": 0,
     "codex_workers_used": 0
   },
+  "postcommit_replay": {
+    "status": "PASS",
+    "exact_commit": "4a0700fb8d250d416141e2cc2ce46d287e5eecf9",
+    "metadata_path": "docs/verification/c5/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "d57d1460f273416f0f11a5b2576779ac65c97b8698124717901edac81bd96142",
+    "replay_manifest_path": "docs/verification/c5/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "b215bd7fbd043a485e9a08e3e4c5dd08d98167fd4721d712c163ab9a98f867cb",
+    "job_count": 21,
+    "failed_job_count": 0,
+    "timeout_count": 0,
+    "stderr_bytes": 0,
+    "focused_test_count": 38,
+    "root_test_count": 1481,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0
+  },
   "authoritative_exit_behaviors": {
     "representative_material_domain_coverage": "PASS",
     "matrix_panel_with_explicit_source_holds": "PASS",
@@ -226,10 +242,10 @@
     "no_empirical_authority_without_real_data": true,
     "final_deepluna_audit_pass": true,
     "sol_reconciliation_pass": true,
-    "evidence_committed": false,
-    "exact_commit_replay_pass": false,
-    "postcommit_decision_recorded": false,
-    "all_required_green": false,
-    "c6_open": false
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c6_open": true
   }
 }
