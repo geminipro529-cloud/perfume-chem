@@ -237,7 +237,11 @@ confidence or credible interval. The C3 uncertainty descriptor remains
 ## Versioned C3 release
 
 `DynamicReleaseAdapter` uses `ModelFamily.DYNAMIC_SEMI_EMPIRICAL_MODEL` and
-supports `PREDICT_DYNAMIC_RELEASE` plus `PROPAGATE_UNCERTAINTY`. The release is:
+supports `PREDICT_DYNAMIC_RELEASE` plus `PROPAGATE_UNCERTAINTY`. Its selector
+version combines the stable `c6-conservative-compartment-v1` implementation
+prefix, exact substrate kind, and exact substrate-parameter hash prefix. Two
+different substrate or coefficient releases therefore cannot collide in the C3
+router. The release is:
 
 - available for simulation;
 - evidence class `UNVALIDATED`;

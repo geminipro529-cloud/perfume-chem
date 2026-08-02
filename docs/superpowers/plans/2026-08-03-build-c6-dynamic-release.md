@@ -97,7 +97,8 @@ reproducibility subsets until green.
 Implement `DynamicReleaseAdapter` with an immutable C3 release:
 
 - family `DYNAMIC_SEMI_EMPIRICAL_MODEL`;
-- version `c6-conservative-compartment-v1`;
+- selector version composed from `c6-conservative-compartment-v1`, the exact
+  substrate kind, and the substrate-parameter hash prefix;
 - operations `PREDICT_DYNAMIC_RELEASE` and `PROPAGATE_UNCERTAINTY`;
 - evidence `UNVALIDATED`;
 - OAV authority false;

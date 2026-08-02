@@ -539,7 +539,12 @@ def test_release_is_unvalidated_simulation_only_and_never_oav_authority() -> Non
     *_, adapter, _, _ = executable_case()
     release = adapter.release
     assert release.selector.family is ModelFamily.DYNAMIC_SEMI_EMPIRICAL_MODEL
-    assert release.selector.model_version == C6_MODEL_VERSION
+    assert release.selector.model_version.startswith(
+        f"{C6_MODEL_VERSION}:open_liquid_surface:"
+    )
+    assert adapter.input_set.substrate_model.content_sha256[:16] in (
+        release.selector.model_version
+    )
     assert release.availability is ModelAvailability.AVAILABLE
     assert release.evidence_class is ModelEvidenceClass.UNVALIDATED
     assert release.may_feed_oav_screening is False
