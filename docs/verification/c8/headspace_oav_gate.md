@@ -1,56 +1,49 @@
-# Build C8 headspace OAV and interaction-authority gate
+# Build C8 headspace OAV, interaction, and sensomics gate
 
-Decision: **PENDING_EXACT_COMMIT_REPLAY**
+Decision: **PASS**
 
-Implementation `511504f1fd3e1c195a909dbab31836398d608dd5` passed the local, mutation, DeepLuna
-Fast, Sol-reconciliation, scope, archive, protected-state, and log-hygiene
-gates. C9 remains closed until this evidence is committed and the same matrix
-passes against that exact evidence commit.
+Evidence commit `b0e5ed3b0c69d2c23c9cb1ae4f6c6bada1e6e0db` replayed successfully at that exact commit.
+C9 software work is open. C5 empirical status remains `BLOCKED_PENDING_DATA`:
+no actual instrument dataset was added, and empirical promotion is not allowed.
 
 ## Implemented authority
 
-- OAV is computed only from an admissible measured or in-domain predicted gas
-  concentration and a context-compatible, unit-matched detection threshold
-  with bounded uncertainty.
-- Failed preconditions produce answerless abstention. OAV is screening, not
-  exact intensity, percent contribution, similarity, or preference.
-- Interaction records preserve identities, bounded concentrations, context,
-  method, assessor population, source, uncertainty, and applicable ranges.
-- Observation-only and uncalibrated-generic records cannot carry numerical
-  effects. Authorized calibrated effects are exposed but never applied by C8.
-- The exact eight-stage sensomics sequence gates candidate prioritization and
-  tested-context recombination or material-effect claims.
+- OAV calculation requires measured gas evidence or an in-domain prediction,
+  an authoritative detection threshold, exact context and unit compatibility,
+  and bounded uncertainty.
+- Abstentions are answerless. OAV is bounded ratio screening, not exact
+  perceived intensity, percent contribution, similarity, preference, sillage,
+  longevity, or release evidence.
+- Interaction evidence uses a closed six-kind vocabulary. Generic or
+  observation-only numeric effects are forbidden; calibrated authorization
+  exposes but never applies an effect.
+- The eight-stage sensomics sequence is ordered. Candidate prioritization
+  requires five completed stages, while tested-context effect claims require
+  the complete sequence.
+- Five software claims are permitted and eight sensory or consumer claims are
+  explicitly withheld.
 
-## Executable evidence
+## Exact-commit evidence
 
-- C8 focused: 78 passed.
-- C7/C6/C5/C4/C3/C2/C1/C0 compatibility: 49 / 53 / 38 / 41 / 105 / 79 / 96 / 24 passed.
-- Complete root suite: 1,661 passed.
-- Dependency isolation, inventory verifier, pip check, Ruff check/format,
-  basedpyright, and mypy: passed.
-- Four mutations were killed and restored byte-for-byte; source SHA-256 returned
-  to `8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1`.
-- Scope is exactly seven C8 paths with no production, database, migration,
-  scientific-artifact, or legacy OAV/interaction path.
-- The 118,328,832-byte path-preserving archive reverified with
-  all 429 pre-existing dirty/untracked files
-  preserved and zero mismatches.
-- Protected database/WAL/SHM hashes and immutable quick checks are unchanged.
-- All 127 captured log files are UTF-8, ANSI-free,
-  and free of credential-shaped matches; stdout/stderr are separate.
+- The replay ran 32 jobs with zero failures, zero timeouts, and zero stderr
+  bytes.
+- C8 focused: 78 passed; complete root suite: 1,661 passed.
+- C7/C6/C5/C4/C3/C2/C1/C0 compatibility, dependency isolation, pip, Ruff,
+  basedpyright, mypy, mutation evidence, archive, scope, evidence, log hygiene,
+  empirical-boundary, and protected-state checks all passed.
+- All replay files are strict UTF-8, ANSI-free, and contain no
+  credential-shaped matches.
+- Protected database/WAL/SHM hashes and immutable database checks are unchanged.
 
 ## DeepLuna Fast and Sol reconciliation
 
-Fresh exact-project health was `READY`. Job
-`DS-d54912b0cee881229783207149823ebe` completed PASS/POSITIVE with one
-DeepInfra Priority Flash call, `NO_LUNA`, no negative findings, and no fallback.
-Sol independently reproduced every worker-positive finding. Postflight queue,
-active lanes, and reservations are zero. Provider findings are advisory only.
+The sealed C8 audit used DeepInfra Priority DeepSeek V4 Flash with `NO_LUNA`,
+one provider call, no fallback, no scope deviation, and no negative findings.
+Sol independently reproduced the gate-bearing behavior and accepted only
+locally verified evidence. Provider findings remained advisory.
 
-## Current boundary
+## Boundary
 
-C8 is a software authority contract. It validates no threshold table,
-interaction dataset, sensory study, production formula, exact intensity,
-longevity, sillage, or preference claim. C5 empirical status remains
-`BLOCKED_PENDING_DATA`. C9 is closed until exact-commit replay and final Sol
-decision pass.
+C9 is open for software work only. Empirical calibration, production use,
+sensory equivalence, consumer claims, and scientific release remain blocked
+until governed data and the applicable later gates pass.

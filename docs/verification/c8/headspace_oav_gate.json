@@ -1,36 +1,60 @@
 {
-  "schema": "build-c8-headspace-oav-gate-v1",
-  "phase_parent": "cae5b2652e58181a95f4dd1618057041b14d645f",
-  "verified_implementation_head": "511504f1fd3e1c195a909dbab31836398d608dd5",
-  "evidence_commit": null,
-  "decision": "PENDING_EXACT_COMMIT_REPLAY",
-  "decision_reason": "Local, mutation, DeepLuna Fast, Sol-reconciliation, scope, archive, protected-state, and log-hygiene gates are green. C9 remains closed until this evidence is committed and replayed at that exact commit.",
+  "actual_data_boundary": {
+    "actual_instrument_data_found": false,
+    "empirical_promotion_allowed": false,
+    "evidence_path": "docs/verification/c8/logs/final/c5-empirical-boundary.stdout.txt",
+    "evidence_sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453",
+    "status": "BLOCKED_PENDING_DATA"
+  },
   "contract_surface": {
+    "database_or_migration_changed": false,
+    "engine_physics_total_export_count": 206,
+    "legacy_oav_or_interaction_path_changed": false,
+    "production_caller_changed": false,
+    "public_c8_symbol_count": 39,
     "source_path": "engine/physics/headspace_oav.py",
     "source_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
-    "test_sha256": "a7621b2169aa62029ab85a7b6236046970c85e9f1c9fcf43692c61a0d25a45a3",
-    "public_c8_symbol_count": 39,
-    "engine_physics_total_export_count": 206,
-    "production_caller_changed": false,
-    "database_or_migration_changed": false,
-    "legacy_oav_or_interaction_path_changed": false
+    "test_sha256": "a7621b2169aa62029ab85a7b6236046970c85e9f1c9fcf43692c61a0d25a45a3"
   },
-  "oav_authority": {
-    "gas_origin_values": [
-      "MEASURED",
-      "PREDICTED"
-    ],
-    "computed_claim": "ABOVE_THRESHOLD_SCREENING",
-    "detection_threshold_required": true,
-    "context_match_required": true,
-    "unit_match_required": true,
-    "bounded_uncertainty_required": true,
-    "out_of_domain_prediction_abstains": true,
-    "abstention_is_answerless": true,
-    "oav_is_exact_intensity": false,
-    "oav_is_percent_contribution": false
+  "decision": "PASS",
+  "decision_reason": "The C8 implementation and evidence commit replayed without test failures, timeouts, stderr output, ANSI escapes, credential-shaped evidence, scope widening, or protected-state drift. OAV remains bounded screening, generic numeric interaction adjustments remain forbidden, and empirical promotion remains blocked pending governed instrument data.",
+  "deepluna": {
+    "codex_workers_used": 0,
+    "fallback_policy": "NO_LUNA",
+    "final_audit_path": "docs/verification/c8/deepluna-final-audit.json",
+    "final_audit_sha256": "fc1ab7fb899f04806a3ddc4c30a89da1c76adea95dc37e8653a5c2e2803e0d41",
+    "glm_runs": 0,
+    "job_id": "DS-d54912b0cee881229783207149823ebe",
+    "locally_reproduced": true,
+    "luna_runs": 0,
+    "negative_finding_count": 0,
+    "postflight_open_reserved_nano_usd": 0,
+    "postflight_unknown_reservations": 0,
+    "provider_calls": 1,
+    "route": "FLASH",
+    "status": "PASS"
+  },
+  "evidence_commit": "b0e5ed3b0c69d2c23c9cb1ae4f6c6bada1e6e0db",
+  "exit_gate": {
+    "all_required_green": true,
+    "c9_open": true,
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "final_deepluna_audit_pass": true,
+    "full_local_and_mutation_gates_pass": true,
+    "no_forbidden_path_change": true,
+    "oav_abstentions_answerless": true,
+    "oav_preconditions_fail_closed": true,
+    "postcommit_decision_recorded": true,
+    "sensomics_order_enforced": true,
+    "sol_reconciliation_pass": true,
+    "uncalibrated_numeric_interactions_withheld": true,
+    "unsupported_claims_withheld": true
   },
   "interaction_authority": {
+    "authorization_applies_multiplier": false,
+    "context_calibration_required": true,
+    "generic_numeric_adjustment_allowed": false,
     "kinds": [
       "ADDITIVE",
       "SYNERGISTIC",
@@ -39,151 +63,43 @@
       "QUALITATIVE_TRANSFORMATION",
       "UNKNOWN"
     ],
-    "generic_numeric_adjustment_allowed": false,
-    "observation_only_numeric_adjustment_allowed": false,
-    "context_calibration_required": true,
-    "authorization_applies_multiplier": false
-  },
-  "sensomics_authority": {
-    "ordered_stage_count": 8,
-    "candidate_prioritization_requires_stages": 5,
-    "tested_context_effect_requires_stages": 8,
-    "permitted_claims": [
-      "PREDICTED_EQUILIBRIUM_HEADSPACE",
-      "PREDICTED_PHYSICAL_RELEASE",
-      "ABOVE_THRESHOLD_SCREENING",
-      "CANDIDATE_ODORANT_PRIORITIZATION",
-      "EXPERIMENT_SELECTION"
-    ],
-    "withheld_claims": [
-      "EXACT_PERCEIVED_INTENSITY",
-      "PERCENT_MIXTURE_CONTRIBUTION",
-      "PLEASANTNESS",
-      "TARGET_SIMILARITY",
-      "FAMILY_IDENTITY",
-      "LONGEVITY",
-      "SILLAGE",
-      "CONSUMER_PREFERENCE"
-    ]
-  },
-  "actual_data_boundary": {
-    "status": "BLOCKED_PENDING_DATA",
-    "actual_instrument_data_found": false,
-    "empirical_promotion_allowed": false,
-    "evidence_path": "docs/verification/c8/logs/final/c5-empirical-boundary.stdout.txt",
-    "evidence_sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
-  },
-  "verification": {
-    "matrix_metadata_path": "docs/verification/c8/logs/final/gate-run-metadata.stdout.json",
-    "matrix_metadata_sha256": "8676e5cc8935bd377e7aefbc27975d4fe4c6e6e3e45eef237bb5acb04f8379c3",
-    "matrix_job_count": 31,
-    "matrix_failed_job_count": 0,
-    "matrix_timeout_count": 0,
-    "matrix_stderr_bytes": 0,
-    "tests": {
-      "c8_focused": {
-        "passed": 78,
-        "failed": 0
-      },
-      "c7_compatibility": {
-        "passed": 49,
-        "failed": 0
-      },
-      "c6_compatibility": {
-        "passed": 53,
-        "failed": 0
-      },
-      "c5_compatibility": {
-        "passed": 38,
-        "failed": 0
-      },
-      "c4_compatibility": {
-        "passed": 41,
-        "failed": 0
-      },
-      "c3_compatibility": {
-        "passed": 105,
-        "failed": 0
-      },
-      "c2_compatibility": {
-        "passed": 79,
-        "failed": 0
-      },
-      "c1_compatibility": {
-        "passed": 96,
-        "failed": 0
-      },
-      "c0_compatibility": {
-        "passed": 24,
-        "failed": 0
-      },
-      "complete_root": {
-        "passed": 1661,
-        "failed": 0
-      },
-      "dependency_invariant": {
-        "passed": 1,
-        "failed": 0
-      }
-    },
-    "pip_check": "PASS",
-    "ruff_check": "PASS",
-    "ruff_format": "PASS",
-    "basedpyright": "PASS",
-    "mypy": "PASS",
-    "c0_inventory_verifier": {
-      "status": "PASS",
-      "implementation_count": 48,
-      "call_edge_count": 29,
-      "fixture_count": 24,
-      "classifications": [
-        "DISCONNECTED_LEGACY",
-        "EMPIRICALLY_CALIBRATED_MODEL",
-        "EXACT_PHYSICAL_ARITHMETIC",
-        "HEURISTIC",
-        "LITERATURE_DERIVED_MODEL",
-        "MEASURED_LOOKUP",
-        "STUB",
-        "UNSUPPORTED"
-      ]
-    },
-    "scope_verification": "PASS",
-    "mutation_verification": "PASS",
-    "archive_verification": "PASS",
-    "protected_state_verification": "PASS",
-    "log_manifest": {
-      "path": "docs/verification/c8/logs/log-manifest.json",
-      "bytes": 35046,
-      "sha256": "b2d08b2cfeb1cad754cec4c6b3c59fcd227186fa3981b4afdc4d55e439c5a13a",
-      "covered_file_count": 127,
-      "ansi_escape_bytes": 0,
-      "credential_shaped_matches": 0
-    }
+    "observation_only_numeric_adjustment_allowed": false
   },
   "mutation_evidence": {
-    "predicted_domain_guard_caught": true,
-    "bounded_uncertainty_guard_caught": true,
-    "generic_numeric_effect_guard_caught": true,
-    "unsupported_claim_guard_caught": true,
-    "all_restored_tests_pass": true,
     "all_mutation_stderr_empty": true,
     "all_mutations_timed_out": false,
+    "all_restored_tests_pass": true,
+    "bounded_uncertainty_guard_caught": true,
     "failed_harness_attempts_preserved": 3,
+    "generic_numeric_effect_guard_caught": true,
+    "predicted_domain_guard_caught": true,
+    "restoration_verified": true,
     "source_sha256_before_and_after": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
-    "restoration_verified": true
+    "unsupported_claim_guard_caught": true
   },
-  "recovery_archive": {
-    "path": "D:/.backups/perfume-chem/build-c8-prewrite-20260803T043741+0700.tar",
-    "bytes": 118328832,
-    "sha256": "09fc1acf0d90f586e420f2eff5e9534f823f0d81292d4ba792eaefd3de9c5f5f",
-    "manifest_file_count": 432,
-    "dirty_or_untracked_count": 429,
-    "unsafe_member_count": 0,
-    "duplicate_member_count": 0,
-    "archive_content_mismatch_count": 0,
-    "current_preserved_work_mismatch_count": 0,
-    "path_preserving": true,
-    "restorable": true
+  "oav_authority": {
+    "abstention_is_answerless": true,
+    "bounded_uncertainty_required": true,
+    "computed_claim": "ABOVE_THRESHOLD_SCREENING",
+    "context_match_required": true,
+    "detection_threshold_required": true,
+    "gas_origin_values": [
+      "MEASURED",
+      "PREDICTED"
+    ],
+    "oav_is_exact_intensity": false,
+    "oav_is_percent_contribution": false,
+    "out_of_domain_prediction_abstains": true,
+    "unit_match_required": true
+  },
+  "phase_parent": "cae5b2652e58181a95f4dd1618057041b14d645f",
+  "postcommit_replay": {
+    "attempt_count": 1,
+    "c9_open": true,
+    "exact_commit": "b0e5ed3b0c69d2c23c9cb1ae4f6c6bada1e6e0db",
+    "passing_attempt": 1,
+    "passing_job_count": 32,
+    "status": "PASS"
   },
   "protected_state": {
     "before_after_identical": true,
@@ -217,41 +133,138 @@
       }
     }
   },
-  "deepluna": {
-    "final_audit_path": "docs/verification/c8/deepluna-final-audit.json",
-    "final_audit_sha256": "fc1ab7fb899f04806a3ddc4c30a89da1c76adea95dc37e8653a5c2e2803e0d41",
-    "status": "PASS",
-    "job_id": "DS-d54912b0cee881229783207149823ebe",
-    "provider_calls": 1,
-    "route": "FLASH",
-    "fallback_policy": "NO_LUNA",
-    "negative_finding_count": 0,
-    "locally_reproduced": true,
-    "postflight_open_reserved_nano_usd": 0,
-    "postflight_unknown_reservations": 0,
-    "luna_runs": 0,
-    "glm_runs": 0,
-    "codex_workers_used": 0
+  "recovery_archive": {
+    "archive_content_mismatch_count": 0,
+    "bytes": 118328832,
+    "current_preserved_work_mismatch_count": 0,
+    "dirty_or_untracked_count": 429,
+    "duplicate_member_count": 0,
+    "manifest_file_count": 432,
+    "path": "D:/.backups/perfume-chem/build-c8-prewrite-20260803T043741+0700.tar",
+    "path_preserving": true,
+    "restorable": true,
+    "sha256": "09fc1acf0d90f586e420f2eff5e9534f823f0d81292d4ba792eaefd3de9c5f5f",
+    "unsafe_member_count": 0
   },
-  "postcommit_replay": {
-    "status": "PENDING",
-    "exact_commit": null,
-    "c9_open": false
+  "schema": "build-c8-headspace-oav-gate-v1",
+  "sensomics_authority": {
+    "candidate_prioritization_requires_stages": 5,
+    "ordered_stage_count": 8,
+    "permitted_claims": [
+      "PREDICTED_EQUILIBRIUM_HEADSPACE",
+      "PREDICTED_PHYSICAL_RELEASE",
+      "ABOVE_THRESHOLD_SCREENING",
+      "CANDIDATE_ODORANT_PRIORITIZATION",
+      "EXPERIMENT_SELECTION"
+    ],
+    "tested_context_effect_requires_stages": 8,
+    "withheld_claims": [
+      "EXACT_PERCEIVED_INTENSITY",
+      "PERCENT_MIXTURE_CONTRIBUTION",
+      "PLEASANTNESS",
+      "TARGET_SIMILARITY",
+      "FAMILY_IDENTITY",
+      "LONGEVITY",
+      "SILLAGE",
+      "CONSUMER_PREFERENCE"
+    ]
   },
-  "exit_gate": {
-    "oav_preconditions_fail_closed": true,
-    "oav_abstentions_answerless": true,
-    "uncalibrated_numeric_interactions_withheld": true,
-    "sensomics_order_enforced": true,
-    "unsupported_claims_withheld": true,
-    "no_forbidden_path_change": true,
-    "full_local_and_mutation_gates_pass": true,
-    "final_deepluna_audit_pass": true,
-    "sol_reconciliation_pass": true,
-    "evidence_committed": false,
-    "exact_commit_replay_pass": false,
-    "postcommit_decision_recorded": false,
-    "all_required_green": false,
-    "c9_open": false
-  }
+  "verification": {
+    "archive_verification": "PASS",
+    "basedpyright": "PASS",
+    "c0_inventory_verifier": {
+      "call_edge_count": 29,
+      "classifications": [
+        "DISCONNECTED_LEGACY",
+        "EMPIRICALLY_CALIBRATED_MODEL",
+        "EXACT_PHYSICAL_ARITHMETIC",
+        "HEURISTIC",
+        "LITERATURE_DERIVED_MODEL",
+        "MEASURED_LOOKUP",
+        "STUB",
+        "UNSUPPORTED"
+      ],
+      "fixture_count": 24,
+      "implementation_count": 48,
+      "status": "PASS"
+    },
+    "log_manifest": {
+      "ansi_escape_bytes": 0,
+      "bytes": 35046,
+      "covered_file_count": 127,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c8/logs/log-manifest.json",
+      "sha256": "b2d08b2cfeb1cad754cec4c6b3c59fcd227186fa3981b4afdc4d55e439c5a13a"
+    },
+    "matrix_failed_job_count": 0,
+    "matrix_job_count": 31,
+    "matrix_metadata_path": "docs/verification/c8/logs/final/gate-run-metadata.stdout.json",
+    "matrix_metadata_sha256": "8676e5cc8935bd377e7aefbc27975d4fe4c6e6e3e45eef237bb5acb04f8379c3",
+    "matrix_stderr_bytes": 0,
+    "matrix_timeout_count": 0,
+    "mutation_verification": "PASS",
+    "mypy": "PASS",
+    "pip_check": "PASS",
+    "postcommit": {
+      "decision_receipt": {
+        "path": "docs/verification/c8/postcommit/headspace_oav_decision.json",
+        "sha256": "e20bd9851aa49cea7d6d786913c8dd7222dd8c2f53213b696b67fd7d0298c558"
+      },
+      "exact_commit_replay_receipt": {
+        "path": "docs/verification/c8/postcommit/exact-commit-replay.json",
+        "sha256": "b1234f3b9bfcdcb1dca59fcd2d7d9afe9732c2cf6d34c41a658e97a378215218"
+      }
+    },
+    "protected_state_verification": "PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS",
+    "scope_verification": "PASS",
+    "tests": {
+      "c0_compatibility": {
+        "failed": 0,
+        "passed": 24
+      },
+      "c1_compatibility": {
+        "failed": 0,
+        "passed": 96
+      },
+      "c2_compatibility": {
+        "failed": 0,
+        "passed": 79
+      },
+      "c3_compatibility": {
+        "failed": 0,
+        "passed": 105
+      },
+      "c4_compatibility": {
+        "failed": 0,
+        "passed": 41
+      },
+      "c5_compatibility": {
+        "failed": 0,
+        "passed": 38
+      },
+      "c6_compatibility": {
+        "failed": 0,
+        "passed": 53
+      },
+      "c7_compatibility": {
+        "failed": 0,
+        "passed": 49
+      },
+      "c8_focused": {
+        "failed": 0,
+        "passed": 78
+      },
+      "complete_root": {
+        "failed": 0,
+        "passed": 1661
+      },
+      "dependency_invariant": {
+        "failed": 0,
+        "passed": 1
+      }
+    }
+  },
+  "verified_implementation_head": "511504f1fd3e1c195a909dbab31836398d608dd5"
 }

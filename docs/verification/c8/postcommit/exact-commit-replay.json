@@ -1,0 +1,33 @@
+{
+  "actual_instrument_data_present": false,
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "b0e5ed3b0c69d2c23c9cb1ae4f6c6bada1e6e0db",
+  "implementation_head": "511504f1fd3e1c195a909dbab31836398d608dd5",
+  "replay": {
+    "ansi_disabled": true,
+    "attempt": 1,
+    "c7_compatibility_passed": 49,
+    "c8_focused_passed": 78,
+    "complete_root_passed": 1661,
+    "dependency_invariant_passed": 1,
+    "failed_job_count": 0,
+    "job_count": 32,
+    "metadata_path": "docs/verification/c8/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "9572f1b6b37ad994c0af6f18ad36317664383f42f9ac8bbc2d0694d09f4f04d4",
+    "non_pty": true,
+    "sensitive_environment_values_removed_without_logging": true,
+    "stderr_bytes": 0,
+    "timeout_count": 0
+  },
+  "replay_manifest": {
+    "ansi_escape_bytes": 0,
+    "bytes": 18014,
+    "covered_file_count": 66,
+    "credential_shaped_matches": 0,
+    "path": "docs/verification/c8/postcommit/replay-manifest.json",
+    "sha256": "6e05b62d8e326071bb330bbe9eab7cc3ed667d4fb4ba73da344e09e40fb90e1d"
+  },
+  "schema": "build-c8-exact-commit-replay-v1",
+  "status": "PASS"
+}
