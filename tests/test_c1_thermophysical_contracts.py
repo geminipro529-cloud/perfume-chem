@@ -18,6 +18,12 @@ from engine.physics.properties import (
     UncertaintyDescriptor,
     UncertaintyKind,
 )
+from engine.physics.vapor_pressure import (
+    ExtrapolationPolicy,
+    TemperatureRange,
+    VaporPressureEquationType,
+    VaporPressureRepresentation,
+)
 
 REQUIRED_PROPERTIES = {
     "vapor_pressure",
@@ -487,3 +493,253 @@ def test_unknown_uncertainty_factory_never_invents_a_number() -> None:
         "kind": "UNKNOWN",
         "reason": "measurement uncertainty absent",
     }
+
+
+REQUIRED_VAPOR_EQUATION_TYPES = {
+    "MEASURED_TABLE",
+    "ANTOINE",
+    "WAGNER",
+    "DIPPR_STYLE",
+    "CLAUSIUS_CLAPEYRON",
+    "OTHER_DECLARED_FORM",
+}
+
+
+def _identity_payload() -> dict:
+    return {
+        "identity_scope": "CHEMICAL_ENTITY",
+        "subject_identity": {
+            "chemical_name": "Linalool",
+            "cas": "78-70-6",
+        },
+    }
+
+
+def _standard_uncertainty_payload() -> dict:
+    return {
+        "schema": "c1-uncertainty-v1",
+        "kind": "STANDARD_UNCERTAINTY",
+        "value": 0.5,
+        "unit": "Pa",
+    }
+
+
+def _model_source_payload() -> dict:
+    return {
+        "source_id": "NIST-WEBBOOK-78-70-6",
+        "locator": {
+            "table": "Antoine Equation Parameters",
+            "retrieved": "2026-08-02",
+        },
+    }
+
+
+def _antoine_payload() -> dict:
+    return {
+        "schema": "c1-vapor-pressure-representation-v1",
+        "model_id": "linalool-antoine-nist",
+        "model_version": "1",
+        "identity": _identity_payload(),
+        "equation_type": "ANTOINE",
+        "equation_convention": "log10(P/bar) = A - B / (T/K + C)",
+        "coefficients": [
+            {"name": "A", "value": 4.11, "unit": "1"},
+            {"name": "B", "value": 1500.0, "unit": "K"},
+            {"name": "C", "value": -50.0, "unit": "K"},
+        ],
+        "pressure_unit": "bar",
+        "temperature_unit": "K",
+        "valid_temperature_range": {"lower_k": 350.0, "upper_k": 500.0},
+        "phase_assumption": "liquid-vapor equilibrium",
+        "purity_assumption": {"minimum_fraction": 0.99},
+        "source": _model_source_payload(),
+        "measured_points": [],
+        "fit_evidence": {
+            "fit_data": "source table",
+            "residuals_reported": False,
+        },
+        "uncertainty": _standard_uncertainty_payload(),
+        "extrapolation_policy": "FORBID",
+    }
+
+
+def _measured_table_payload() -> dict:
+    payload = _antoine_payload()
+    payload.update(
+        {
+            "model_id": "linalool-measured-table",
+            "equation_type": "MEASURED_TABLE",
+            "equation_convention": "tabulated pressure at declared temperature",
+            "coefficients": [],
+            "pressure_unit": "Pa",
+            "valid_temperature_range": {
+                "lower_k": 298.15,
+                "upper_k": 308.15,
+            },
+            "measured_points": [
+                {
+                    "temperature_k": 298.15,
+                    "pressure": 7.0,
+                    "pressure_unit": "Pa",
+                },
+                {
+                    "temperature_k": 308.15,
+                    "pressure": 12.0,
+                    "pressure_unit": "Pa",
+                },
+            ],
+            "fit_evidence": None,
+            "extrapolation_policy": "ADVISORY_ONLY_WITH_WARNING",
+        }
+    )
+    return payload
+
+
+def test_vapor_pressure_equation_vocabulary_is_exact() -> None:
+    assert {
+        item.value for item in VaporPressureEquationType
+    } == REQUIRED_VAPOR_EQUATION_TYPES
+    assert {item.value for item in ExtrapolationPolicy} == {
+        "FORBID",
+        "ADVISORY_ONLY_WITH_WARNING",
+    }
+
+
+def test_vapor_pressure_equation_model_preserves_every_declared_field() -> None:
+    representation = VaporPressureRepresentation.from_mapping(_antoine_payload())
+
+    assert representation.model_id == "linalool-antoine-nist"
+    assert representation.model_version == "1"
+    assert representation.identity.identity_scope == "CHEMICAL_ENTITY"
+    assert representation.equation_type is VaporPressureEquationType.ANTOINE
+    assert representation.equation_convention.startswith("log10")
+    assert [coefficient.name for coefficient in representation.coefficients] == [
+        "A",
+        "B",
+        "C",
+    ]
+    assert representation.pressure_unit == "bar"
+    assert representation.temperature_unit == "K"
+    assert representation.valid_temperature_range.contains(350.0)
+    assert representation.valid_temperature_range.contains(500.0)
+    assert not representation.valid_temperature_range.contains(349.99)
+    assert representation.phase_assumption == "liquid-vapor equilibrium"
+    assert representation.purity_assumption.to_mapping() == {
+        "minimum_fraction": 0.99
+    }
+    assert representation.source.model_source_id == "NIST-WEBBOOK-78-70-6"
+    assert representation.fit_evidence is not None
+    assert representation.uncertainty.kind is UncertaintyKind.STANDARD_UNCERTAINTY
+    assert representation.extrapolation_policy is ExtrapolationPolicy.FORBID
+    assert len(representation.content_sha256) == 64
+
+
+def test_vapor_pressure_representation_hash_is_mapping_order_independent() -> None:
+    payload = _antoine_payload()
+    reversed_payload = dict(reversed(tuple(payload.items())))
+
+    left = VaporPressureRepresentation.from_mapping(payload)
+    right = VaporPressureRepresentation.from_mapping(reversed_payload)
+
+    assert left.content_sha256 == right.content_sha256
+    assert left.to_mapping() == right.to_mapping()
+
+
+def test_measured_table_requires_points_and_forbids_coefficients() -> None:
+    representation = VaporPressureRepresentation.from_mapping(
+        _measured_table_payload()
+    )
+
+    assert representation.equation_type is VaporPressureEquationType.MEASURED_TABLE
+    assert representation.coefficients == ()
+    assert len(representation.measured_points) == 2
+    assert representation.fit_evidence is None
+
+
+@pytest.mark.parametrize(
+    "mutator,match",
+    (
+        (lambda payload: payload.update(coefficients=[]), "coefficients"),
+        (
+            lambda payload: payload.update(
+                coefficients=[
+                    {"name": "A", "value": 4.1, "unit": "1"},
+                    {"name": "A", "value": 4.2, "unit": "1"},
+                ]
+            ),
+            "unique",
+        ),
+        (
+            lambda payload: payload["coefficients"][0].update(unit=" "),
+            "unit",
+        ),
+        (
+            lambda payload: payload["coefficients"][0].update(value=math.nan),
+            "finite",
+        ),
+        (
+            lambda payload: payload.update(temperature_unit="degC"),
+            "temperature_unit",
+        ),
+        (
+            lambda payload: payload.update(equation_convention=" "),
+            "equation_convention",
+        ),
+        (
+            lambda payload: payload.update(phase_assumption=" "),
+            "phase_assumption",
+        ),
+        (
+            lambda payload: payload.update(purity_assumption={}),
+            "purity_assumption",
+        ),
+        (
+            lambda payload: payload["valid_temperature_range"].update(
+                lower_k=500.0, upper_k=350.0
+            ),
+            "temperature range",
+        ),
+        (lambda payload: payload.update(unexpected=True), "unknown fields"),
+    ),
+)
+def test_equation_representations_reject_ambiguous_or_invalid_shapes(
+    mutator, match
+) -> None:
+    payload = _antoine_payload()
+    mutator(payload)
+    with pytest.raises(ThermophysicalContractError, match=match):
+        VaporPressureRepresentation.from_mapping(payload)
+
+
+@pytest.mark.parametrize(
+    "mutator,match",
+    (
+        (lambda payload: payload.update(measured_points=[]), "measured_points"),
+        (
+            lambda payload: payload.update(
+                coefficients=[{"name": "A", "value": 1.0, "unit": "1"}]
+            ),
+            "forbids coefficients",
+        ),
+        (
+            lambda payload: payload["measured_points"][0].update(pressure=0.0),
+            "pressure",
+        ),
+        (
+            lambda payload: payload["measured_points"][0].update(
+                pressure_unit="bar"
+            ),
+            "pressure_unit",
+        ),
+    ),
+)
+def test_measured_tables_reject_missing_or_inconsistent_points(mutator, match) -> None:
+    payload = _measured_table_payload()
+    mutator(payload)
+    with pytest.raises(ThermophysicalContractError, match=match):
+        VaporPressureRepresentation.from_mapping(payload)
+
+
+def test_temperature_range_rejects_nonphysical_bounds() -> None:
+    with pytest.raises(ThermophysicalContractError, match="temperature range"):
+        TemperatureRange(lower_k=0.0, upper_k=300.0)
