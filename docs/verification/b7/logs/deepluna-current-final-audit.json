@@ -1,0 +1,33 @@
+{
+  "schema": "perfume-chem-b7-deepluna-final-audit-receipt-v1",
+  "recorded_at_utc": "2026-08-02T02:16:30.349Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-2929cefabadbb69e51b37656d0c60957",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model_family": "DeepSeek V4 Flash",
+  "provider_calls": 1,
+  "prompt_tokens_delta": 16134,
+  "completion_tokens_delta": 648,
+  "total_tokens_delta": 16782,
+  "spent_delta_nano_usd": 2353050,
+  "cache_hit": false,
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "negative_findings": [],
+  "scope_deviation": false,
+  "report_corrections_required": 0,
+  "positive_findings": [
+    "JSON and Markdown agree on PENDING_FINAL_AUDIT status.",
+    "JSON and Markdown agree on implementation head ff1542a02f3564f602ecf7f2ae1e93e4f6e103b9.",
+    "JSON and Markdown agree on current Alembic head 20260731_0012.",
+    "All required report, log, protected-state, recovery, and gap-audit receipt reads were internally consistent.",
+    "The package did not self-authorize B8 and contained no unsupported release, legal, safety, or performance claim."
+  ],
+  "residual_risks": [],
+  "source_result_sha256": "3ACEF3FB6BBA466E167A6CABC1BD045596FBEB921BE581693E18C4BC9C818E04",
+  "sensitive_values": "REDACTED_NOT_COLLECTED",
+  "final_authority": "Sol local reproduction and canonical repository evidence"
+}

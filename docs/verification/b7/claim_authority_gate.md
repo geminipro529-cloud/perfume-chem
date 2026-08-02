@@ -2,23 +2,26 @@
 
 Status: **PASS**
 
-Recorded: 2026-07-31 (Asia/Bangkok)
+Recorded: 2026-08-02 (Asia/Bangkok)
 
 Branch: `codex/add-inventory-materials`
 
-Pre-implementation checkpoint: `0c4b7496dcf71e5ad5d8cd60414086e22beade61`
+Implementation head: `ff1542a02f3564f602ecf7f2ae1e93e4f6e103b9`
 
-Verified implementation checkpoint before this report:
-`ff1542a02f3564f602ecf7f2ae1e93e4f6e103b9`
+Verification checkpoint before this report:
+`2d5136a3f1afca2458cc403423eb68db4afb2642`
 
-## Outcome
+## Current outcome
 
-Build B7 now converts exact canonical B2-B6 evidence versions into an
-append-only, reconstructable, per-claim authority decision. The service does
-not accept caller-supplied authority booleans, does not average critical
-dimensions, and does not promote an unknown or incomplete support chain.
+The local B7 gate, bounded final report audit, and Sol postflight are green.
+The exact B7 evidence commit remains the seal required before B8 begins.
 
-The decision vocabulary is exactly:
+B7 converts exact canonical B2-B6 evidence versions into an append-only,
+reconstructable, claim-specific authority decision. It never trusts caller
+authority booleans, never averages away a critical failure or unknown, and
+never promotes incomplete or context-mismatched support.
+
+The exact decision vocabulary is:
 
 - `ALLOW_EXACT`
 - `ALLOW_SCOPED`
@@ -26,223 +29,173 @@ The decision vocabulary is exactly:
 - `WITHHOLD_UNKNOWN`
 - `BLOCK`
 
-Every persisted decision records the exact claim type and scope, code-owned
-policy version and hash, direct upstream version and hash, support links,
-decision reason, bounded wording, and authority hash. Reconstruction verifies
-those links and hashes rather than trusting the stored decision label.
+Every decision preserves supporting observations, conflicts, limitations,
+missing requirements, source references, uncertainty, and permitted and
+forbidden language. `release_authority` is always false. B7 is not release
+authority, legal advice, a safety certificate, or proof of real-world
+performance.
 
-`release_authority` is always false. B7 does not certify release, legal
-compliance, safety, or real-world performance.
+## Claim and sufficiency coverage
 
-## Implemented authority graph
+The current implementation has code-owned policies for all eleven required
+claim types:
 
-The additive migration `20260731_0011` creates two empty append-only tables:
+1. exact chemical identity
+2. grade identity
+3. property value
+4. threshold
+5. above-threshold screening
+6. analytical identification
+7. analytical quantitation
+8. natural constituent profile
+9. knowledge-rule recommendation
+10. regulatory screening
+11. formula or model comparison
+
+Each policy evaluates required fields, accepted evidence classes, identity and
+condition scope, minimum coverage, source independence, contradictions,
+uncertainty, method validation, model applicability, safety, and wording.
+Typed support links preserve `SUPPORTING`, `CONTRADICTING`, and `LIMITATION`
+roles against exact B2-B6 canonical versions.
+
+The migration `20260731_0011` creates two empty append-only tables and imports
+zero legacy rows:
 
 1. `lab_claim_authority_versions`
 2. `lab_claim_authority_support_links`
 
-The supported claim types are:
+Policy, direct-upstream, link, and authority hashes make each result
+reconstructable. Revision lineage preserves claim type, subject, identity,
+condition, and claim scope. Stronger evidence upgrades only that scoped claim.
 
-1. `EXACT_CHEMICAL_IDENTITY`
-2. `GRADE_IDENTITY`
-3. `PROPERTY_VALUE`
-4. `THRESHOLD`
-5. `ABOVE_THRESHOLD_SCREENING`
-6. `ANALYTICAL_IDENTIFICATION`
-7. `ANALYTICAL_QUANTITATION`
-8. `NATURAL_CONSTITUENT_PROFILE`
-9. `KNOWLEDGE_RULE_RECOMMENDATION`
-10. `REGULATORY_SCREENING`
-11. `FORMULA_OR_MODEL_COMPARISON`
+## Historical defects rechecked
 
-Support links use the roles `SUPPORTING`, `CONTRADICTING`, and `LIMITATION`
-and the kinds `PROPERTY_ASSERTION`, `OAV_ASSESSMENT`, `KNOWLEDGE_RULE`,
-`ANALYTICAL_ASSESSMENT`, `COMPOSITION_PROFILE`, and
-`REGULATORY_SNAPSHOT`.
+The historical implementation once allowed a `PARTIAL` natural profile to
+promote to `ALLOW_SCOPED`. It also initially lacked explicit integration tests
+for speculative or unknown evidence, `LIMITATION`-only support, and missing
+required fields. The current focused gate includes all four fail-closed paths
+and passes them; no current production-code change was required.
 
-The service:
+## Current executable evidence
 
-- resolves typed canonical B2-B6 support rather than generic row IDs;
-- ignores caller authority booleans and applies deterministic code-owned
-  policies;
-- requires exact claim scope and exact version IDs;
-- blocks or withholds when a required upstream dimension is contradictory,
-  speculative, unknown, stale, incomplete, or missing;
-- preserves limitations as explicit support links;
-- requires a `COMPLETE` authoritative natural profile before scoped
-  promotion;
-- enforces scoped revision lineage through the latest B7 parent and latest A2
-  chain while keeping claim scope immutable;
-- hashes the policy, direct upstream evidence, links, and final authority row;
-  and
-- reconstructs and verifies every hash and lineage edge.
-
-## Defects found and closed
-
-The first implementation treated a `PARTIAL` natural composition profile as
-authoritative and could issue `ALLOW_SCOPED`. A focused negative test
-reproduced the defect; the service now requires profile completeness
-`COMPLETE`.
-
-The first DeepLuna final audit found three residual test-coverage gaps:
-speculative/unknown evidence, `LIMITATION` support, and missing required
-fields at the integration boundary. Those paths were reproduced locally,
-covered with negative tests, and included in the final 58-test and 324-test
-runs. A second bounded DeepLuna Fast audit reported `PASS` with no residual
-risks.
-
-## Verification evidence
-
-Supported runtime:
+Supported runtime and migration state:
 
 - Python `3.11.15`
 - Node `v26.3.0`
-- Alembic head `20260731_0011`
+- phase revision `20260731_0011`
+- single current Alembic head `20260731_0012`
+- non-PTY execution, ANSI disabled, explicit timeouts, and separate stdout and
+  stderr captures
 
-Exact B7 gate:
+Focused B7 schema, service, migration, and end-to-end gate:
 
-```powershell
-python -m pytest tests/unit/test_b7_claim_authority_schema.py tests/unit/test_b7_claim_authority_service.py tests/integration/test_b7_claim_authority_migration.py tests/integration/test_b7_claim_authority_e2e.py --color=no -q --basetemp=../output/pytest-temp-backend/b7-exact-final
+```text
+58 passed in 124.72s (0:02:04)
 ```
 
-Final result: `58 passed in 61.58s`, exit `0`.
+Exit code was `0`; stderr is empty.
 
-Captured streams:
+Cumulative 29-file A2 through B7 compatibility, migration, and backup/restore
+gate:
 
-- `logs/pytest_b7.stdout.txt`
-- `logs/pytest_b7.stderr.txt`
-
-A2 through B7 compatibility, migration, and backup/restore gate:
-
-```powershell
-python -m pytest <A2 and B1-B7 schema/service/migration/e2e suites> tests/integration/test_lab_migration.py tests/integration/test_backup_restore.py --color=no -q --basetemp=../output/pytest-temp-backend/b7-compat-final
+```text
+324 passed in 612.11s (0:10:12)
 ```
 
-Final-state result: `324 passed in 308.91s`, exit `0`.
-
-The first compatibility run produced `317 passed, 3 failed`; all three
-failures were stale `CURRENT_HEAD` expectations for `20260731_0010` in the
-canonical migration and backup/restore tests. After advancing those constants
-to `20260731_0011`, the three focused cases passed and the then-current full
-suite passed `320` tests. The additional post-audit negative tests increased
-the final complete suite to `324`, all passing.
+Exit code was `0`; stderr is empty.
 
 Static gates:
 
-```powershell
-python -m ruff check <B7 models/repository/service/migration/tests and shared registrations> --no-cache --no-fix --output-format concise
-python -B -m mypy app/models/lab_claims.py app/repositories/lab_claims.py app/services/lab_claims.py --ignore-missing-imports --no-color-output --no-pretty --cache-dir=../output/mypy-cache-b7-final
-```
+- Ruff over 13 B7/shared-registration paths: `All checks passed!`, exit `0`
+- mypy over the B7 model, repository, and service: `Success: no issues found
+  in 3 source files`, exit `0`
 
-Results:
+Accepted streams are stored under `docs/verification/b7/logs/` as UTF-8
+without BOM. The raw PowerShell captures remain outside the repository, and
+the JSON report binds every accepted stream hash.
 
-- Ruff: `All checks passed!`, exit `0`
-- mypy: `Success: no issues found in 3 source files`, exit `0`
+## Migration and protected database proof
 
-Migration and recovery assertions covered by executable tests include:
+Executable tests cover prior-head upgrade, two empty B7 tables, exact typed
+foreign keys, constraints, indexes, append-only guards, zero prior-row import,
+downgrade/re-upgrade, reconstruction, lineage, scope immutability, current-head
+tracking, and backup/restore.
 
-- prior-head to B7 upgrade with zero backfill and no reinterpretation;
-- both empty B7 tables and current head;
-- downgrade and re-upgrade;
-- foreign keys, uniqueness, check constraints, and SQLite append-only guards;
-- exact typed support and direct-upstream hash verification;
-- revision lineage and scope immutability;
-- database integrity; and
-- backup creation, validation, staged restore, activation, and replay.
-
-## Pre-write recovery archive
-
-Restorable path-preserving archive:
-
-`D:\.backups\perfume-chem\build-b7-prewrite-20260731T064410+0700.tar`
-
-- bytes: `97275904`
-- SHA-256:
-  `2d487c8b1b681eccc267bb2957d1e6ad03f62621801773a612188165256397dd`
-- `405` archived files restored and re-hashed successfully
-- `407` archive entries including the manifest and absent-planned-path list
-- preserves `397` pre-existing non-runtime dirty/untracked files
-- excludes only live scheduler/runtime state under `.deepluna-home/` and
-  `.cheapluna-home/`
-
-The archive is a verified backup, not merely a file-hash inventory.
-
-## Protected database proof
-
-Before and after implementation and verification:
+Current repository migration state is the later linear head `20260731_0012`;
+B7 remains revision `20260731_0011` in that chain.
 
 | Path | Bytes | SHA-256 | Integrity |
 |---|---:|---|---|
-| `perfume_chem.db` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` | unchanged empty placeholder; not opened for migration |
-| `data/perfumery_kb.db` | 2084864 | `5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1` | main database unchanged; read-only `PRAGMA quick_check`: `ok` |
+| `perfume_chem.db` | 12288 | `02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E` | `quick_check=ok`; no Alembic rows |
+| `data/perfumery_kb.db` | 2084864 | `5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1` | immutable read-only `quick_check=ok`; no Alembic rows |
 
-No migration or verifier was run against either protected database. The
-read-only SQLite integrity check touched the existing untracked SHM runtime
-sidecar timestamp; it did not change the main database content hash.
+Both protected databases remained byte-identical before and after the gate.
+No migration was applied to either database.
 
-## DeepLuna use
+## Recovery and worktree preservation
 
-Fresh exact-project checks returned `READY`, runtime `CANDIDATE_V2`, release
-`0.9.9`, with zero active reads/writes, zero queue, zero open reservation, and
-provider calls enabled.
+The complete prior B7 report/log tree was archived before refresh:
 
-A bounded pre-implementation FLASH/`NO_LUNA` gap audit passed:
+`outputs/b7-authoritative-recovery/20260802T084938/b7-evidence-before-refresh-verified.zip`
 
-- job: `DS-f4ac6cf7f5dce29740ee81de03b42135`
-- result: `PASS`
+- bytes: `20049`
+- SHA-256:
+  `0F23D3E41EDCF05E403B5417FA91BB3F44D89BB7BA12116AEE68B57102B6C3DA`
+- path-preserving files: `19`
+- unsafe archive members: `0`
+- restore verification: `19/19` extracted files matched source SHA-256
 
-The first final static audit passed the implementation but identified the
-three negative-path coverage gaps recorded above:
+Two wrapper diagnostics are excluded from backup evidence. The first stopped
+before creating a file because the ZIP enum assembly was unavailable. The
+second created only a 22-byte empty ZIP shell before discovering that Windows
+PowerShell lacks `Path.GetRelativePath`. Both touched no B7 evidence; the
+distinct verified archive above is the accepted backup.
 
-- job: `DS-da6d3036641b2403b402da06803018b5`
+Before the report edit, the preserved overlay had 109 tracked dirty paths,
+1,308 untracked files, and zero staged entries. No cleanup, reset, migration,
+artifact regeneration, or production-code edit was performed. The eight
+phase-owned B7 implementation/test paths have no delta from `ff1542a`.
 
-After local reproduction and closure, a fresh exact-project check preceded a
-second bounded DeepLuna Fast call using
-`deepseek-ai/DeepSeek-V4-Flash` through the FLASH route with `NO_LUNA`, one
-attempt, and no fallback:
+## DeepLuna use and authority boundary
 
-- job: `DS-e4aa7a0fa84b0e7e7a9d2b40fab75eb4`
-- provider calls: `1`
-- prompt tokens: `72815`
-- completion tokens: `854`
-- total tokens: `73669`
-- measured spend delta: `$0.010060605`
-- result: `PASS`
-- residual risks: none
-- scope deviation: false
+A fresh exact-project check returned `READY` for `perfume-chem`, runtime
+`CANDIDATE_V2`, release `0.9.9`, with zero active reads/writes, an empty queue,
+zero open or unknown reservations, and provider calls enabled.
 
-DeepLuna remained advisory. Sol independently reran the exact 58-test gate,
-the complete 324-test compatibility gate, Ruff, mypy, migration-head,
-archive-restoration, and protected-database checks before acceptance.
+The bounded gap audit `DS-2a94046a19579e81ee17fee5448e68dd`
+returned `PASS/POSITIVE/ACCEPTED` and correctly identified the contract's
+eleven claim types, five decisions, typed support, and fail-closed tests. Its
+recommendation that no current-evidence gaps existed was rejected: the worker
+was deliberately restricted to historical documents and did not inspect the
+current Alembic head, protected databases, executable tests, or worktree. Sol
+found and replaced the stale 2026-07-31 head, duration, and zero-byte database
+claims through local verification.
 
-## Captured log digests
+The final report audit `DS-2929cefabadbb69e51b37656d0c60957`
+returned `PASS/POSITIVE/ACCEPTED` with one Fast provider call, no negative
+findings, no scope deviation, and no required correction. Its measured usage
+was 16,134 prompt tokens, 648 completion tokens, and 2,353,050 nano-USD. The
+redacted receipt is
+`docs/verification/b7/logs/deepluna-current-final-audit.json` (1,412 bytes;
+SHA-256
+`AD27CA0FF992E1E9AC54CF42924FAAD2890453F6B658AAFDE19D460C769357F4`).
 
-| Log | Bytes | SHA-256 |
-|---|---:|---|
-| `alembic_heads.stdout.txt` | 22 | `056bb79603dcf2ec03672d61437ea4ff2cbdfe128097789a98b87afbb08e68fd` |
-| `deepluna_gap_audit.json` | 9040 | `4cbc03905a16b7b1f43ed27266c586676c11abf5de74c6802ade2927268c72db` |
-| `deepluna_final_audit_initial.json` | 8585 | `345cbeb25d088f42e6d95c5896243718e8932c45297a57c2abaf0cfe2f11ca14` |
-| `deepluna_final_audit_pass.json` | 7851 | `dd0b8f6be90c189dad3f54a85dd79dc5f412b8513a65e38f6ae69c70ad80f7d4` |
-| `mypy.stdout.txt` | 44 | `281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24` |
-| `protected_database_hashes.json` | 519 | `6f312561fad403819b3ac9e47d6fb5ad4bd901d75bf186ffce7382e0f39c046a` |
-| `protected_kb_quick_check.stdout.txt` | 4 | `9f2a59a60e65fbcd5a3e1b7248adf92890ce3a32b19e43fb4751c2657196de13` |
-| `pytest_b7.stdout.txt` | 112 | `2ac3c628abb3ed7757eea58881cd2c09d1028df8832e0a241750d8870b02bd54` |
-| `pytest_compat.stdout.txt` | 438 | `cfe78d4d0475f85ae077d8f4b45ed66c337da3be9286a0485fbbe29c740a3e03` |
-| `recovery_archive_check.json` | 299 | `bc0c590677594fd7cd8a636f7e802730c4ee4014628e35ef0b704e828bbedd54` |
-| `ruff.stdout.txt` | 20 | `a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0` |
+A fresh post-provider check again returned exact-project `READY` with zero
+active reads/writes, an empty queue, and zero open or unknown reservations.
+DeepLuna remains supplemental; Sol retains architecture, scope, provenance,
+security, and final acceptance.
 
-Every captured stderr file is empty and has the empty-file SHA-256
-`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+## Exit gate
 
-## Residual limits and gate state
+The B7 evidence package passes its substantive exit gate:
 
-- B7 evaluates only explicit canonical version IDs and exact immutable claim
-  scopes; it does not infer missing evidence.
-- B7 is not release authority, legal advice, a safety certificate, or evidence
-  of real-world performance.
-- Production API/UI routing is outside B7.
-- Unrelated tracked and untracked work remains outside B7 staging scope and
-  is preserved.
+1. fresh exact-project DeepLuna preflight and postflight are `READY`;
+2. the bounded Fast-only report audit returned accepted positive evidence;
+3. Sol reproduced every final-audit finding and rejected the earlier gap
+   audit's unsupported current-state conclusion;
+4. focused, cumulative, lint, typing, migration, database, report, log, source,
+   and archive checks pass; and
+5. no production code or protected database changed during reverification.
 
-The Build B7 exit gate passes. This permits B8 planning, but does not imply
-that Build B or the complete A-D program is finished.
+The exact B7 evidence paths must now be committed with no unrelated staging.
+B8 must not begin before that seal commit exists.

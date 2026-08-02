@@ -1,8 +1,29 @@
 {
-    "Path":  "D:\\.backups\\perfume-chem\\build-b7-prewrite-20260731T064410+0700.tar",
-    "Bytes":  97275904,
-    "Sha256":  "2d487c8b1b681eccc267bb2957d1e6ad03f62621801773a612188165256397dd",
-    "TarEntries":  407,
-    "FilesHashVerified":  405,
-    "RestorablePathPreserving":  true
+  "schema": "perfume-chem-b7-recovery-archive-check-v2",
+  "generated_at_utc": "2026-08-02T02:10:19.2796480Z",
+  "accepted_archive": {
+    "path": "outputs/b7-authoritative-recovery/20260802T084938/b7-evidence-before-refresh-verified.zip",
+    "bytes": 20049,
+    "sha256": "0F23D3E41EDCF05E403B5417FA91BB3F44D89BB7BA12116AEE68B57102B6C3DA",
+    "path_preserving": true,
+    "file_count": 19,
+    "unsafe_member_count": 0,
+    "restored_hash_matches": 19,
+    "restored_hash_mismatches": 0
+  },
+  "excluded_diagnostics": [
+    {
+      "accepted_as_backup": false,
+      "artifact_created": false,
+      "reason": "The first wrapper stopped before ZIP creation because the core ZIP enum assembly was not loaded."
+    },
+    {
+      "path": "outputs/b7-authoritative-recovery/20260802T084938/b7-evidence-before-refresh.zip",
+      "bytes": 22,
+      "sha256": "8739C76E681F900923B900C9DF0EF75CF421D39CABB54650C4B9AD19B6A76D85",
+      "accepted_as_backup": false,
+      "reason": "An unavailable Path.GetRelativePath API stopped the wrapper after it created an empty ZIP shell."
+    }
+  ],
+  "status": "PASS"
 }

@@ -1,14 +1,27 @@
-[
+{
+  "schema": "perfume-chem-b7-protected-database-state-v2",
+  "generated_at_utc": "2026-08-02T02:10:19.2796480Z",
+  "read_only": true,
+  "databases": [
     {
-        "Path":  "D:\\chatbots\\perfume-chem\\perfume_chem.db",
-        "Bytes":  0,
-        "Sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "LastWriteTimeUtc":  "2026-07-17T08:17:13.0456132Z"
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256_before_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "sha256_after_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "mutated_by_b7_verification": false
     },
     {
-        "Path":  "D:\\chatbots\\perfume-chem\\data\\perfumery_kb.db",
-        "Bytes":  2084864,
-        "Sha256":  "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
-        "LastWriteTimeUtc":  "2026-07-29T22:07:09.4000405Z"
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256_before_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "sha256_after_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "connection_mode": "read-only immutable",
+      "mutated_by_b7_verification": false
     }
-]
+  ],
+  "status": "PASS"
+}
