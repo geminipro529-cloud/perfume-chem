@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from math import isfinite
 from typing import TYPE_CHECKING, Any
 
+from engine.calibration.hashing import stable_json_hash
+
 from app.models.lab_properties import (
     ASSERTION_AUTHORITY_STATES,
     ASSERTION_CANDIDATE_DECISIONS,
@@ -24,7 +26,6 @@ from app.models.lab_properties import (
     LabSelectedAssertion,
     LabSelectedAssertionCandidate,
 )
-from engine.calibration.hashing import stable_json_hash
 
 if TYPE_CHECKING:
     from contextlib import AbstractAsyncContextManager

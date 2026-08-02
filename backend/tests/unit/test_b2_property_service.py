@@ -1,6 +1,8 @@
 from dataclasses import replace
 
 import pytest
+from sqlalchemy import func, select
+
 from app.models.lab_properties import LabPropertyObservation
 from app.services.lab_properties import (
     AssertionCandidateInput,
@@ -11,8 +13,6 @@ from app.services.lab_properties import (
     SelectedAssertionInput,
 )
 from app.services.lab_service import LabService
-from sqlalchemy import func, select
-
 from tests.unit.test_b1_source_service import (
     _accept_extraction,
     _extraction_input,
