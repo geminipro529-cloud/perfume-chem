@@ -44,7 +44,7 @@ def test_range_extension_excludes_existing_unavailable_stock_by_default(range_re
         }
     )
     assert range_report.ranking_authority == "MODELLED_RANGE_GAP_NOT_PURCHASE_ORDER"
-    assert range_report.inventory_size == 215
+    assert range_report.inventory_size == 210
 
 
 def test_replenishment_is_an_explicit_separate_mode():

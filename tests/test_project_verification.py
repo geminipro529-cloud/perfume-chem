@@ -271,6 +271,12 @@ def test_package_and_docker_checks_validate_release_artifacts():
     assert "health_check" not in " ".join(specs["docker-smoke-test"].command)
 
 
+def test_backend_suite_timeout_has_full_run_margin():
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+
+    assert specs["backend-tests"].timeout_seconds == 1200
+
+
 def test_ruff_checks_explicitly_disable_ansi_color():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 

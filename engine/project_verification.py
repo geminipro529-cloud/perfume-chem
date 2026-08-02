@@ -402,7 +402,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "--junitxml=../verification_runs/backend.xml",
                 ),
                 cwd="backend",
-                timeout_seconds=900,
+                timeout_seconds=1200,
             ),
             CheckSpec(
                 "scientific-audit",

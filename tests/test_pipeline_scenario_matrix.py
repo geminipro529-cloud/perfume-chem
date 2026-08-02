@@ -195,6 +195,7 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Carrot Seed EO",
         "Champaca Flower EO",
         "Himalayan Cedarwood EO",
+        "Magnolia EO",
         "Mimosa Absolute",
         "Opoponax Resinoid",
         "Peppermint Essential Oil",
