@@ -1,6 +1,6 @@
 # Build C4 equilibrium-model implementation plan
 
-Design: `docs/superpowers/specs/2026-08-02-build-c4-equilibrium-models-design.md`  
+Design: `docs/superpowers/specs/2026-08-02-build-c4-equilibrium-models-design.md`
 Phase parent: `2fef4916ed3259f839599e8c9aeedf00261e5350`
 
 ## Preconditions

@@ -1,7 +1,7 @@
 # Build C4 equilibrium-model design
 
-Status: accepted by Sol on 2026-08-02  
-Phase parent: `2fef4916ed3259f839599e8c9aeedf00261e5350`  
+Status: accepted by Sol on 2026-08-02
+Phase parent: `2fef4916ed3259f839599e8c9aeedf00261e5350`
 Authoritative requirement: `D:\.prompts\perfume chem\SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.md`, C4.1-C4.6 and the C4 exit gate
 
 ## Decision
