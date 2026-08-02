@@ -1,0 +1,38 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_per_step_closure_guard_rejects_sub_output_tolerance_leak ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B65D11410>
+
+    def test_per_step_closure_guard_rejects_sub_output_tolerance_leak(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        matrix_value, environment_value, inputs, _, _, _ = executable_case(
+            ApplicationEnvironmentKind.OPEN_LIQUID_SURFACE,
+            duration_s=1.0,
+            time_step_s=1.0,
+        )
+        original_clean_mass = dynamic_release_module._clean_mass
+        leak_applied = False
+    
+        def leaking_clean_mass(value: float, field_name: str) -> float:
+            nonlocal leak_applied
+            cleaned = original_clean_mass(value, field_name)
+            if field_name == "condensed mass" and not leak_applied and cleaned > 1e-7:
+                leak_applied = True
+                return cleaned - 1e-7
+            return cleaned
+    
+        monkeypatch.setattr(dynamic_release_module, "_clean_mass", leaking_clean_mass)
+    
+>       with pytest.raises(DynamicReleaseContractError, match="failed after transition"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'failed after transition'
+E         Actual message: 'component mass balance failed for component:active'
+
+tests\test_c6_dynamic_release.py:632: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c6_dynamic_release.py::test_per_step_closure_guard_rejects_sub_output_tolerance_leak - AssertionError: Regex pattern did not match.
+  Expected regex: 'failed after transition'
+  Actual message: 'component mass balance failed for component:active'
+1 failed in 0.60s

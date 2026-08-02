@@ -1,0 +1,29 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________ test_cross_substrate_request_abstains_before_compute _____________
+
+    def test_cross_substrate_request_abstains_before_compute() -> None:
+        matrix_value, _, inputs, adapter, _, router = executable_case(
+            ApplicationEnvironmentKind.BLOTTER
+        )
+        skin_environment = environment(ApplicationEnvironmentKind.SKIN)
+        request = request_for(
+            adapter,
+            inputs,
+            matrix_value=matrix_value,
+            environment_value=skin_environment,
+        )
+        result = router.predict_dynamic_release(request)
+        assert result.status is ModelResultStatus.ABSTAINED
+        assert result.output is None
+        assert result.applicability.state is ApplicabilityState.INSUFFICIENT_INPUT
+        assert "environment:content_binding" in result.missing_inputs
+>       assert "substrate_model:exact_kind_binding" in result.missing_inputs
+E       AssertionError: assert 'substrate_model:exact_kind_binding' in ('environment:content_binding',)
+E        +  where ('environment:content_binding',) = VersionedModelResult(status=<ModelResultStatus.ABSTAINED: 'ABSTAINED'>, operation=<ModelOperation.PREDICT_DYNAMIC_RELE...istance', 'sillage'), fallback=None, content_sha256='f5d17bbbab5316d522b402501ea2dec95db73bf2b563ec09a22509745e72ae93').missing_inputs
+
+tests\test_c6_dynamic_release.py:795: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c6_dynamic_release.py::test_cross_substrate_request_abstains_before_compute - AssertionError: assert 'substrate_model:exact_kind_binding' in ('environment:content_binding',)
+ +  where ('environment:content_binding',) = VersionedModelResult(status=<ModelResultStatus.ABSTAINED: 'ABSTAINED'>, operation=<ModelOperation.PREDICT_DYNAMIC_RELE...istance', 'sillage'), fallback=None, content_sha256='f5d17bbbab5316d522b402501ea2dec95db73bf2b563ec09a22509745e72ae93').missing_inputs
+1 failed in 0.65s

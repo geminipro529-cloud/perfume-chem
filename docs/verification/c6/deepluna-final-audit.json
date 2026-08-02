@@ -1,0 +1,88 @@
+{
+  "schema": "build-c6-deepluna-final-audit-v1",
+  "status": "PASS",
+  "implementation_head": "5b51ab31ddc28b48efa78944b314919f226262b2",
+  "audit_record": {
+    "scratch_path": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/work/c6_final_audit_result_20260803.json",
+    "bytes": 11820,
+    "sha256": "bb9794f7af062365e09a49b3bdf17a8a3442eed45b554572106b5b74ed84fbe6"
+  },
+  "preflight": {
+    "project_id": "perfume-chem",
+    "project_scope": "project",
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_sha256": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "spent_nano_usd": 481478553
+  },
+  "job": {
+    "job_id": "DS-377cfe1ca9f9da6474cf225a2048fb27",
+    "durable_job_id": "DJ-40e4ad15-d307-4a12-b83f-1290c0d9800f",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "coverage_status": "COMPLETE",
+    "cache_hit": false,
+    "route": "FLASH",
+    "provider": "deepinfra",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "provider_calls": 1,
+    "prompt_tokens": 84282,
+    "completion_tokens": 744,
+    "total_tokens": 85026,
+    "cost_nano_usd": 11578950
+  },
+  "provider_findings": {
+    "positive_finding_count": 3,
+    "negative_finding_count": 0,
+    "residual_risk_count": 0,
+    "scope_deviation": false,
+    "verified_topics": [
+      "physical process layers remain separate from sensory and temporal layers",
+      "only three physical simulation labels are permitted",
+      "parameter authority remains SIMULATION_ONLY_UNCALIBRATED",
+      "mass is nonnegative and closes across condensed gas sorbed and sink compartments",
+      "bounded hazards and solvent feedback are explicit",
+      "the three-scenario envelope is deterministic and nonstatistical",
+      "substrate C2 context and C3 input bindings are exact and fail closed",
+      "legacy dynamic database migration production and sensory runtimes are absent",
+      "captured tests mutation scope archive log and protected-state evidence pass",
+      "C5 empirical status remains BLOCKED_PENDING_DATA"
+    ]
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "provider_findings_advisory_only": true,
+    "negative_findings_reproduced": 0,
+    "gate_bearing_findings_reproduced": true,
+    "targeted_reproduction_test_count": 18,
+    "targeted_reproduction_log": "docs/verification/c6/logs/final/deepluna-sol-reproduction.stdout.txt",
+    "empirical_status": "BLOCKED_PENDING_DATA",
+    "empirical_metrics_present": false,
+    "empirical_promotion_allowed": false
+  },
+  "postflight": {
+    "readiness": "READY",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "spent_nano_usd": 493057503,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "primary_provider_runs": 94,
+    "primary_provider_calls": 94,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false
+  },
+  "passed": true
+}

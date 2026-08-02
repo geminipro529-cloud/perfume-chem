@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "substrate-kind-binding-caught",
+    "target":  "tests/test_c6_dynamic_release.py::test_cross_substrate_request_abstains_before_compute",
+    "expected_exit_code":  1,
+    "exit_code":  1,
+    "timed_out":  false,
+    "duration_ms":  1513,
+    "started_at_utc":  "2026-08-02T19:30:52.4815470+00:00",
+    "stdout_sha256":  "a949e7ca08b426d7cc53ce0faaa4970cc27501676cd22f5b95f774e74d24ca73",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

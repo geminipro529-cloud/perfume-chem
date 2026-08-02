@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "sensory-label-caught",
+    "target":  "tests/test_c6_dynamic_release.py::test_process_layers_and_output_labels_are_closed_and_separate",
+    "expected_exit_code":  1,
+    "exit_code":  1,
+    "timed_out":  false,
+    "duration_ms":  1462,
+    "started_at_utc":  "2026-08-02T19:31:52.6868112+00:00",
+    "stdout_sha256":  "5eb516a41e43914b939d3450ed6e7cb4767a5f2f1e66da52a0c9a1656701af29",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}
