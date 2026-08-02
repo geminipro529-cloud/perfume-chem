@@ -26,6 +26,8 @@ from engine.physics.model_interface import (
     DomainRange,
     FallbackDisclosure,
     ModelAvailability,
+    ModelComparisonResult,
+    ModelComputation,
     ModelEvidenceClass,
     ModelFamily,
     ModelInputReference,
@@ -35,8 +37,10 @@ from engine.physics.model_interface import (
     ModelRelease,
     ModelResultStatus,
     ModelSelector,
+    VersionedModelAdapter,
     VersionedModelRequest,
     VersionedModelResult,
+    VersionedModelRouter,
 )
 from engine.physics.properties import (
     CanonicalScope,
@@ -79,6 +83,12 @@ REQUIRED_EVIDENCE_CLASSES = {
     "LEGACY_HEURISTIC",
     "UNVALIDATED",
 }
+ANSWER_PRODUCING_OPERATIONS = (
+    ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
+    ModelOperation.PREDICT_DYNAMIC_RELEASE,
+    ModelOperation.ESTIMATE_PARTITION_COEFFICIENT,
+    ModelOperation.PROPAGATE_UNCERTAINTY,
+)
 
 
 def digest(character: str) -> str:
@@ -305,12 +315,14 @@ def versioned_request(
     *,
     operation: ModelOperation = ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
     requested_model: ModelSelector | None = None,
+    request_id: str = "request:c3:formula-17:ideal-raoult",
+    context: MatrixAwareModelRequest | None = None,
 ) -> VersionedModelRequest:
     return VersionedModelRequest(
-        request_id="request:c3:formula-17:ideal-raoult",
+        request_id=request_id,
         operation=operation,
         requested_model=requested_model or selector(),
-        context=matrix_context(),
+        context=context or matrix_context(),
         applicability_context=applicability_context(),
         input_references=(
             input_reference(),
@@ -410,6 +422,74 @@ def versioned_result(
         forbidden_claim_wording=resolved_model.forbidden_claim_wording,
         fallback=fallback,
     )
+
+
+def routing_release(
+    *,
+    version: str = "1.0.0",
+    availability: ModelAvailability = ModelAvailability.AVAILABLE,
+) -> ModelRelease:
+    baseline = replace(
+        release(model_selector=selector(version=version)),
+        supported_operations=ANSWER_PRODUCING_OPERATIONS,
+    )
+    if availability is ModelAvailability.AVAILABLE:
+        return baseline
+    return replace(
+        baseline,
+        availability=ModelAvailability.UNAVAILABLE,
+        unavailable_reason="implementation is not validated for execution",
+        evidence_class=ModelEvidenceClass.UNVALIDATED,
+        may_feed_oav_screening=False,
+    )
+
+
+class RecordingAdapter:
+    """Deterministic call-counting adapter; never scientific evidence."""
+
+    def __init__(
+        self,
+        model_release: ModelRelease,
+        *,
+        state: ApplicabilityState = ApplicabilityState.IN_DOMAIN,
+        computation: ModelComputation | None = None,
+    ) -> None:
+        self._release = model_release
+        self.state = state
+        self.applicability_calls = 0
+        self.compute_calls = 0
+        self.computation = computation or ModelComputation(
+            output=model_output(),
+            uncertainty=interval_uncertainty(),
+            warnings=("ADAPTER_COMPUTE_WARNING",),
+        )
+
+    @property
+    def release(self) -> ModelRelease:
+        return self._release
+
+    def evaluate_applicability(
+        self,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult:
+        self.applicability_calls += 1
+        return applicability_result(
+            state=self.state,
+            request=request,
+            model_release=self.release,
+        )
+
+    def compute(
+        self,
+        request: VersionedModelRequest,
+        applicability: ApplicabilityResult,
+    ) -> ModelComputation:
+        del request, applicability
+        self.compute_calls += 1
+        return self.computation
+
+    def simulate_release_drift(self, model_release: ModelRelease) -> None:
+        self._release = model_release
 
 
 def test_c3_closed_vocabularies_are_exact() -> None:
@@ -977,3 +1057,399 @@ def test_result_parser_rejects_nested_and_top_level_tampering() -> None:
         VersionedModelResult.from_mapping({**baseline, "winner": "ideal"})
     with pytest.raises(ModelInterfaceContractError, match="schema"):
         VersionedModelResult.from_mapping({**baseline, "schema": "c3-model-result-v0"})
+
+
+def route_request(
+    router: VersionedModelRouter,
+    request: VersionedModelRequest,
+) -> VersionedModelResult:
+    if request.operation is ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE:
+        return router.predict_equilibrium_headspace(request)
+    if request.operation is ModelOperation.PREDICT_DYNAMIC_RELEASE:
+        return router.predict_dynamic_release(request)
+    if request.operation is ModelOperation.ESTIMATE_PARTITION_COEFFICIENT:
+        return router.estimate_partition_coefficient(request)
+    if request.operation is ModelOperation.PROPAGATE_UNCERTAINTY:
+        return router.propagate_uncertainty(request)
+    raise AssertionError(f"unsupported test operation: {request.operation.value}")
+
+
+def test_versioned_model_adapter_is_runtime_checkable() -> None:
+    adapter = RecordingAdapter(routing_release())
+    assert isinstance(adapter, VersionedModelAdapter)
+    assert not isinstance(object(), VersionedModelAdapter)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"coefficient_set_sha256": digest("1")},
+        {"code_commit": "1" * 40},
+        {"training_data_sha256": digest("2")},
+        {"applicability_domain": replace(domain(), domain_version="2")},
+    ],
+)
+def test_router_rejects_duplicate_selectors_despite_release_drift(
+    changes: dict[str, object],
+) -> None:
+    baseline = routing_release()
+    changed = replace(baseline, **changes)
+    assert changed.selector == baseline.selector
+    assert changed.content_sha256 != baseline.content_sha256
+    with pytest.raises(ModelInterfaceContractError, match="duplicate.*selector"):
+        VersionedModelRouter((RecordingAdapter(baseline), RecordingAdapter(changed)))
+
+
+def test_router_accepts_same_family_with_new_explicit_version() -> None:
+    first = RecordingAdapter(routing_release(version="1.0.0"))
+    second = RecordingAdapter(routing_release(version="2.0.0"))
+    router = VersionedModelRouter((first, second))
+
+    request = versioned_request(requested_model=second.release.selector)
+    result = router.evaluate_applicability(request)
+
+    assert result.request_sha256 == request.content_sha256
+    assert first.applicability_calls == 0
+    assert second.applicability_calls == 1
+
+
+def test_unknown_selector_fails_closed_without_silent_fallback() -> None:
+    known = RecordingAdapter(routing_release())
+    router = VersionedModelRouter((known,))
+    request = versioned_request(requested_model=selector(version="99.0.0"))
+
+    with pytest.raises(ModelInterfaceContractError, match="not registered"):
+        router.predict_equilibrium_headspace(request)
+
+    assert known.applicability_calls == 0
+    assert known.compute_calls == 0
+
+
+@pytest.mark.parametrize(
+    ("method_name", "wrong_operation"),
+    [
+        ("predict_equilibrium_headspace", ModelOperation.PREDICT_DYNAMIC_RELEASE),
+        ("predict_dynamic_release", ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE),
+        (
+            "estimate_partition_coefficient",
+            ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
+        ),
+        ("propagate_uncertainty", ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE),
+    ],
+)
+def test_answer_methods_reject_requests_for_other_operations(
+    method_name: str,
+    wrong_operation: ModelOperation,
+) -> None:
+    adapter = RecordingAdapter(routing_release())
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(
+        operation=wrong_operation,
+        requested_model=adapter.release.selector,
+    )
+
+    with pytest.raises(ModelInterfaceContractError, match="operation"):
+        getattr(router, method_name)(request)
+
+    assert adapter.applicability_calls == 0
+    assert adapter.compute_calls == 0
+
+
+def test_router_rejects_operation_not_supported_by_exact_release() -> None:
+    adapter = RecordingAdapter(release())
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(
+        operation=ModelOperation.PREDICT_DYNAMIC_RELEASE,
+        requested_model=adapter.release.selector,
+    )
+
+    with pytest.raises(ModelInterfaceContractError, match="does not support"):
+        router.predict_dynamic_release(request)
+
+    assert adapter.applicability_calls == 0
+    assert adapter.compute_calls == 0
+
+
+def test_evaluate_applicability_resolves_only_exact_release() -> None:
+    first = RecordingAdapter(
+        routing_release(version="1.0.0"),
+        state=ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+    )
+    second = RecordingAdapter(
+        routing_release(version="2.0.0"),
+        state=ApplicabilityState.NEAR_DOMAIN_WITH_WARNING,
+    )
+    router = VersionedModelRouter((first, second))
+    request = versioned_request(requested_model=second.release.selector)
+
+    result = router.evaluate_applicability(request)
+
+    assert result.state is ApplicabilityState.NEAR_DOMAIN_WITH_WARNING
+    assert result.domain_sha256 == second.release.applicability_domain.content_sha256
+    assert first.applicability_calls == 0
+    assert second.applicability_calls == 1
+    assert first.compute_calls == second.compute_calls == 0
+
+
+@pytest.mark.parametrize(
+    "state",
+    [
+        ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+        ApplicabilityState.INSUFFICIENT_INPUT,
+        ApplicabilityState.MODEL_NOT_VALIDATED,
+    ],
+)
+def test_router_abstains_without_compute_for_noncomputable_states(
+    state: ApplicabilityState,
+) -> None:
+    adapter = RecordingAdapter(routing_release(), state=state)
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(requested_model=adapter.release.selector)
+
+    try:
+        result = router.predict_equilibrium_headspace(request)
+    finally:
+        assert adapter.applicability_calls == 1
+        assert adapter.compute_calls == 0
+
+    assert result.status is ModelResultStatus.ABSTAINED
+    assert result.applicability.state is state
+    assert result.output is None
+    assert result.may_feed_oav_screening is False
+    assert result.fallback is None
+
+
+def test_unavailable_release_returns_not_validated_without_adapter_calls() -> None:
+    adapter = RecordingAdapter(routing_release(availability=ModelAvailability.UNAVAILABLE))
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(requested_model=adapter.release.selector)
+
+    result = router.predict_equilibrium_headspace(request)
+
+    assert result.status is ModelResultStatus.ABSTAINED
+    assert result.applicability.state is ApplicabilityState.MODEL_NOT_VALIDATED
+    assert result.applicability.reasons == (adapter.release.unavailable_reason,)
+    assert result.evidence_class is ModelEvidenceClass.UNVALIDATED
+    assert adapter.applicability_calls == 0
+    assert adapter.compute_calls == 0
+
+
+def test_near_domain_computes_and_preserves_all_warnings() -> None:
+    adapter = RecordingAdapter(
+        routing_release(),
+        state=ApplicabilityState.NEAR_DOMAIN_WITH_WARNING,
+    )
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(requested_model=adapter.release.selector)
+
+    result = router.predict_equilibrium_headspace(request)
+
+    assert result.status is ModelResultStatus.COMPUTED
+    assert result.warnings == (
+        "ADAPTER_COMPUTE_WARNING",
+        "NEAR_TEMPERATURE_BOUNDARY",
+    )
+    assert result.fallback is None
+    assert adapter.applicability_calls == 1
+    assert adapter.compute_calls == 1
+
+
+def test_computed_result_carries_exact_immutable_release_snapshot() -> None:
+    model_release = routing_release()
+    adapter = RecordingAdapter(model_release)
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(requested_model=model_release.selector)
+
+    result = router.predict_equilibrium_headspace(request)
+
+    assert result.bound_model is model_release
+    assert result.bound_model.content_sha256 == model_release.content_sha256
+    assert result.to_mapping()["bound_model"] == model_release.to_mapping()
+
+
+def test_adding_new_release_cannot_change_prior_result_mapping_or_hash() -> None:
+    first_release = routing_release(version="1.0.0")
+    request = versioned_request(requested_model=first_release.selector)
+    initial = VersionedModelRouter(
+        (RecordingAdapter(first_release),)
+    ).predict_equilibrium_headspace(request)
+
+    expanded = VersionedModelRouter(
+        (
+            RecordingAdapter(first_release),
+            RecordingAdapter(routing_release(version="2.0.0")),
+        )
+    ).predict_equilibrium_headspace(request)
+
+    assert expanded.to_mapping() == initial.to_mapping()
+    assert expanded.content_sha256 == initial.content_sha256
+
+
+@pytest.mark.parametrize(
+    ("method_name", "operation"),
+    [
+        (
+            "predict_equilibrium_headspace",
+            ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
+        ),
+        ("predict_dynamic_release", ModelOperation.PREDICT_DYNAMIC_RELEASE),
+        (
+            "estimate_partition_coefficient",
+            ModelOperation.ESTIMATE_PARTITION_COEFFICIENT,
+        ),
+        ("propagate_uncertainty", ModelOperation.PROPAGATE_UNCERTAINTY),
+    ],
+)
+def test_no_answer_method_creates_fallback_disclosure(
+    method_name: str,
+    operation: ModelOperation,
+) -> None:
+    adapter = RecordingAdapter(routing_release())
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(
+        operation=operation,
+        requested_model=adapter.release.selector,
+    )
+
+    result = getattr(router, method_name)(request)
+
+    assert result.fallback is None
+    assert result.requested_model == result.bound_model.selector
+
+
+def test_router_rejects_adapter_release_drift_after_registration() -> None:
+    adapter = RecordingAdapter(routing_release())
+    router = VersionedModelRouter((adapter,))
+    request = versioned_request(requested_model=adapter.release.selector)
+    adapter.simulate_release_drift(replace(adapter.release, coefficient_set_sha256=digest("1")))
+
+    with pytest.raises(ModelInterfaceContractError, match="release drift"):
+        router.predict_equilibrium_headspace(request)
+
+    assert adapter.applicability_calls == 0
+    assert adapter.compute_calls == 0
+
+
+def test_compare_models_returns_complete_unranked_snapshots() -> None:
+    first = RecordingAdapter(routing_release(version="1.0.0"))
+    second = RecordingAdapter(routing_release(version="2.0.0"))
+    router = VersionedModelRouter((first, second))
+    context = matrix_context()
+    first_result = router.predict_equilibrium_headspace(
+        versioned_request(
+            requested_model=first.release.selector,
+            request_id="request:c3:comparison:first",
+            context=context,
+        )
+    )
+    second_result = router.predict_equilibrium_headspace(
+        versioned_request(
+            requested_model=second.release.selector,
+            request_id="request:c3:comparison:second",
+            context=context,
+        )
+    )
+
+    comparison = router.compare_models(
+        "comparison:c3:ideal-versions",
+        (second_result, first_result),
+    )
+    payload = comparison.to_mapping()
+
+    assert comparison.operation is ModelOperation.COMPARE_MODELS
+    assert comparison.compared_operation is ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE
+    assert comparison.results == (first_result, second_result)
+    assert payload["results"] == [
+        first_result.to_mapping(),
+        second_result.to_mapping(),
+    ]
+    assert {"score", "rank", "winner", "default_model"}.isdisjoint(payload)
+    assert ModelComparisonResult.from_mapping(payload) == comparison
+
+
+def test_compare_models_rejects_incomplete_or_incompatible_sets() -> None:
+    first = RecordingAdapter(routing_release(version="1.0.0"))
+    second = RecordingAdapter(routing_release(version="2.0.0"))
+    router = VersionedModelRouter((first, second))
+    context = matrix_context()
+    first_result = router.predict_equilibrium_headspace(
+        versioned_request(
+            requested_model=first.release.selector,
+            request_id="request:c3:comparison:first",
+            context=context,
+        )
+    )
+    second_result = router.predict_equilibrium_headspace(
+        versioned_request(
+            requested_model=second.release.selector,
+            request_id="request:c3:comparison:second",
+            context=context,
+        )
+    )
+    different_operation = router.propagate_uncertainty(
+        versioned_request(
+            operation=ModelOperation.PROPAGATE_UNCERTAINTY,
+            requested_model=second.release.selector,
+            request_id="request:c3:comparison:uncertainty",
+            context=context,
+        )
+    )
+    different_context = replace(
+        context,
+        formula_id="formula:18",
+        formula_sha256=digest("1"),
+    )
+    mismatched_context_result = router.predict_equilibrium_headspace(
+        versioned_request(
+            requested_model=second.release.selector,
+            request_id="request:c3:comparison:different-context",
+            context=different_context,
+        )
+    )
+
+    with pytest.raises(ModelInterfaceContractError, match="at least two"):
+        router.compare_models("comparison:one", (first_result,))
+    with pytest.raises(ModelInterfaceContractError, match="unique.*selector"):
+        router.compare_models("comparison:duplicate", (first_result, first_result))
+    with pytest.raises(ModelInterfaceContractError, match="same operation"):
+        router.compare_models(
+            "comparison:operation-mismatch",
+            (first_result, different_operation),
+        )
+    with pytest.raises(ModelInterfaceContractError, match="context hash"):
+        router.compare_models(
+            "comparison:context-mismatch",
+            (first_result, mismatched_context_result),
+        )
+    assert second_result.request.context.content_sha256 == context.content_sha256
+
+
+def test_comparison_mapping_rejects_nested_and_top_level_tampering() -> None:
+    first = RecordingAdapter(routing_release(version="1.0.0"))
+    second = RecordingAdapter(routing_release(version="2.0.0"))
+    router = VersionedModelRouter((first, second))
+    first_result = router.predict_equilibrium_headspace(
+        versioned_request(requested_model=first.release.selector)
+    )
+    second_result = router.predict_equilibrium_headspace(
+        versioned_request(requested_model=second.release.selector)
+    )
+    payload = router.compare_models(
+        "comparison:c3:tamper-check",
+        (first_result, second_result),
+    ).to_mapping()
+
+    nested = deepcopy(payload)
+    nested_results = nested["results"]
+    assert isinstance(nested_results, list)
+    first_payload = nested_results[0]
+    assert isinstance(first_payload, dict)
+    first_payload["status"] = "ABSTAINED"
+    with pytest.raises(
+        ModelInterfaceContractError,
+        match="ABSTAINED|content_sha256",
+    ):
+        ModelComparisonResult.from_mapping(nested)
+
+    with pytest.raises(ModelInterfaceContractError, match="unknown fields"):
+        ModelComparisonResult.from_mapping({**payload, "winner": "1.0.0"})

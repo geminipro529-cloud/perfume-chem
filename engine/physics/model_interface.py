@@ -11,7 +11,8 @@ import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, TypeVar
+from types import MappingProxyType
+from typing import Any, Protocol, TypeVar, runtime_checkable
 
 from engine.calibration.hashing import stable_json_hash
 from engine.physics.matrix_environment import (
@@ -1659,6 +1660,450 @@ class VersionedModelResult:
         return result
 
 
+@dataclass(frozen=True, slots=True)
+class ModelComputation:
+    """Typed adapter output with no routing or scientific authority."""
+
+    output: ModelOutput
+    uncertainty: UncertaintyDescriptor
+    warnings: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.output, ModelOutput):
+            raise ModelInterfaceContractError("output must be a ModelOutput")
+        _uncertainty_mapping(self.uncertainty)
+        object.__setattr__(
+            self,
+            "warnings",
+            _strings(self.warnings, "warnings"),
+        )
+
+
+@runtime_checkable
+class VersionedModelAdapter(Protocol):
+    """Runtime boundary for one exact immutable model release."""
+
+    @property
+    def release(self) -> ModelRelease: ...
+
+    def evaluate_applicability(
+        self,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult: ...
+
+    def compute(
+        self,
+        request: VersionedModelRequest,
+        applicability: ApplicabilityResult,
+    ) -> ModelComputation: ...
+
+
+@dataclass(frozen=True, slots=True)
+class ModelComparisonResult:
+    comparison_id: str
+    compared_operation: ModelOperation
+    results: tuple[VersionedModelResult, ...]
+    operation: ModelOperation = field(
+        init=False,
+        default=ModelOperation.COMPARE_MODELS,
+    )
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        comparison_id = _nonblank(self.comparison_id, "comparison_id")
+        compared_operation = _direct_enum(
+            ModelOperation,
+            self.compared_operation,
+            "compared_operation",
+        )
+        if compared_operation not in _COMPUTATION_OPERATIONS:
+            raise ModelInterfaceContractError(
+                "compared_operation must be an answer-producing operation"
+            )
+        if not isinstance(self.results, Sequence):
+            raise ModelInterfaceContractError("results must be a sequence")
+        results = tuple(self.results)
+        if len(results) < 2:
+            raise ModelInterfaceContractError("model comparison requires at least two results")
+        if any(not isinstance(item, VersionedModelResult) for item in results):
+            raise ModelInterfaceContractError("results must contain VersionedModelResult values")
+        if any(item.operation is not compared_operation for item in results):
+            raise ModelInterfaceContractError(
+                "model comparison results must use the same operation"
+            )
+        if any(
+            item.fallback is not None or item.requested_model != item.bound_model.selector
+            for item in results
+        ):
+            raise ModelInterfaceContractError(
+                "model comparison requires explicit exact model bindings"
+            )
+        selectors = tuple(item.requested_model for item in results)
+        if len(selectors) != len(set(selectors)):
+            raise ModelInterfaceContractError("model comparison requires unique explicit selectors")
+        context_hashes = {item.request.context.content_sha256 for item in results}
+        if len(context_hashes) != 1:
+            raise ModelInterfaceContractError(
+                "model comparison results must share the same C2 context hash"
+            )
+        results = tuple(
+            sorted(
+                results,
+                key=lambda item: (
+                    item.requested_model.family.value,
+                    item.requested_model.model_version.casefold(),
+                    item.requested_model.model_version,
+                    item.requested_model.content_sha256,
+                ),
+            )
+        )
+        object.__setattr__(self, "comparison_id", comparison_id)
+        object.__setattr__(self, "compared_operation", compared_operation)
+        object.__setattr__(self, "results", results)
+        object.__setattr__(self, "operation", ModelOperation.COMPARE_MODELS)
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-model-comparison-result-v1",
+            "comparison_id": self.comparison_id,
+            "operation": self.operation.value,
+            "compared_operation": self.compared_operation.value,
+            "results": [item.to_mapping() for item in self.results],
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {
+            **self._content_mapping(),
+            "content_sha256": self.content_sha256,
+        }
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> ModelComparisonResult:
+        normalized = _mapping(payload, "model comparison result")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "comparison_id",
+                "operation",
+                "compared_operation",
+                "results",
+                "content_sha256",
+            },
+            "model comparison result",
+        )
+        if normalized["schema"] != "c3-model-comparison-result-v1":
+            raise ModelInterfaceContractError(
+                "model comparison result schema must be c3-model-comparison-result-v1"
+            )
+        if (
+            _enum_value(
+                ModelOperation,
+                normalized["operation"],
+                "operation",
+            )
+            is not ModelOperation.COMPARE_MODELS
+        ):
+            raise ModelInterfaceContractError(
+                "model comparison result operation must be compare_models"
+            )
+        raw_results = normalized["results"]
+        if isinstance(raw_results, (str, bytes)) or not isinstance(
+            raw_results,
+            Sequence,
+        ):
+            raise ModelInterfaceContractError("results must be a sequence")
+        result = cls(
+            comparison_id=normalized["comparison_id"],
+            compared_operation=_enum_value(
+                ModelOperation,
+                normalized["compared_operation"],
+                "compared_operation",
+            ),
+            results=tuple(
+                VersionedModelResult.from_mapping(_mapping(item, "comparison result"))
+                for item in raw_results
+            ),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "model comparison result content_sha256 does not match canonical content"
+            )
+        return result
+
+
+@dataclass(frozen=True, slots=True)
+class _RegisteredAdapter:
+    adapter: VersionedModelAdapter
+    release: ModelRelease
+
+
+class VersionedModelRouter:
+    """Exact-selector router with mandatory applicability abstention."""
+
+    __slots__ = ("_registrations",)
+
+    _registrations: Mapping[ModelSelector, _RegisteredAdapter]
+
+    def __init__(
+        self,
+        adapters: Sequence[VersionedModelAdapter],
+    ) -> None:
+        if isinstance(adapters, (str, bytes)) or not isinstance(
+            adapters,
+            Sequence,
+        ):
+            raise ModelInterfaceContractError("adapters must be a sequence")
+        if not adapters:
+            raise ModelInterfaceContractError("adapters must not be empty")
+        registrations: dict[ModelSelector, _RegisteredAdapter] = {}
+        for adapter in adapters:
+            if not isinstance(adapter, VersionedModelAdapter):
+                raise ModelInterfaceContractError("adapters must implement VersionedModelAdapter")
+            model_release = adapter.release
+            if not isinstance(model_release, ModelRelease):
+                raise ModelInterfaceContractError("adapter release must be a ModelRelease")
+            if model_release.selector in registrations:
+                raise ModelInterfaceContractError(
+                    "duplicate model selector registration is forbidden"
+                )
+            registrations[model_release.selector] = _RegisteredAdapter(
+                adapter=adapter,
+                release=model_release,
+            )
+        self._registrations = MappingProxyType(registrations)
+
+    @staticmethod
+    def _request(value: object) -> VersionedModelRequest:
+        if not isinstance(value, VersionedModelRequest):
+            raise ModelInterfaceContractError("request must be a VersionedModelRequest")
+        return value
+
+    def _resolve(
+        self,
+        selector: ModelSelector,
+    ) -> _RegisteredAdapter:
+        registration = self._registrations.get(selector)
+        if registration is None:
+            raise ModelInterfaceContractError("requested model selector is not registered")
+        if registration.adapter.release != registration.release:
+            raise ModelInterfaceContractError("adapter release drift detected after registration")
+        return registration
+
+    @staticmethod
+    def _ensure_supported(
+        model_release: ModelRelease,
+        operation: ModelOperation,
+    ) -> None:
+        if operation not in model_release.supported_operations:
+            raise ModelInterfaceContractError(f"model release does not support {operation.value}")
+
+    @staticmethod
+    def _not_validated(
+        model_release: ModelRelease,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult:
+        return ApplicabilityResult(
+            state=ApplicabilityState.MODEL_NOT_VALIDATED,
+            domain_sha256=model_release.applicability_domain.content_sha256,
+            request_sha256=request.content_sha256,
+            reasons=(model_release.unavailable_reason or "model release is unavailable",),
+            missing_inputs=(),
+            warnings=(),
+        )
+
+    @staticmethod
+    def _validate_applicability_binding(
+        applicability: object,
+        model_release: ModelRelease,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult:
+        if not isinstance(applicability, ApplicabilityResult):
+            raise ModelInterfaceContractError(
+                "adapter applicability must be an ApplicabilityResult"
+            )
+        if applicability.request_sha256 != request.content_sha256:
+            raise ModelInterfaceContractError(
+                "adapter applicability request hash does not match the request"
+            )
+        if applicability.domain_sha256 != model_release.applicability_domain.content_sha256:
+            raise ModelInterfaceContractError(
+                "adapter applicability domain hash does not match the release"
+            )
+        return applicability
+
+    def _evaluate_registered(
+        self,
+        registration: _RegisteredAdapter,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult:
+        model_release = registration.release
+        if model_release.availability is ModelAvailability.UNAVAILABLE:
+            return self._not_validated(model_release, request)
+        self._ensure_supported(model_release, request.operation)
+        return self._validate_applicability_binding(
+            registration.adapter.evaluate_applicability(request),
+            model_release,
+            request,
+        )
+
+    @staticmethod
+    def _abstained_result(
+        model_release: ModelRelease,
+        request: VersionedModelRequest,
+        applicability: ApplicabilityResult,
+    ) -> VersionedModelResult:
+        return VersionedModelResult(
+            status=ModelResultStatus.ABSTAINED,
+            operation=request.operation,
+            requested_model=request.requested_model,
+            bound_model=model_release,
+            request=request,
+            output=None,
+            uncertainty=UncertaintyDescriptor.unknown(
+                f"computation abstained: {applicability.state.value}"
+            ),
+            applicability=applicability,
+            missing_inputs=applicability.missing_inputs,
+            warnings=applicability.warnings,
+            evidence_class=model_release.evidence_class,
+            may_feed_oav_screening=False,
+            permitted_claim_wording=model_release.permitted_claim_wording,
+            forbidden_claim_wording=model_release.forbidden_claim_wording,
+            fallback=None,
+        )
+
+    @staticmethod
+    def _computed_result(
+        model_release: ModelRelease,
+        request: VersionedModelRequest,
+        applicability: ApplicabilityResult,
+        computation: ModelComputation,
+    ) -> VersionedModelResult:
+        warnings = tuple(
+            sorted(
+                set(applicability.warnings) | set(computation.warnings),
+                key=lambda item: (item.casefold(), item),
+            )
+        )
+        return VersionedModelResult(
+            status=ModelResultStatus.COMPUTED,
+            operation=request.operation,
+            requested_model=request.requested_model,
+            bound_model=model_release,
+            request=request,
+            output=computation.output,
+            uncertainty=computation.uncertainty,
+            applicability=applicability,
+            missing_inputs=applicability.missing_inputs,
+            warnings=warnings,
+            evidence_class=model_release.evidence_class,
+            may_feed_oav_screening=model_release.may_feed_oav_screening,
+            permitted_claim_wording=model_release.permitted_claim_wording,
+            forbidden_claim_wording=model_release.forbidden_claim_wording,
+            fallback=None,
+        )
+
+    def _execute(
+        self,
+        expected_operation: ModelOperation,
+        request: VersionedModelRequest,
+    ) -> VersionedModelResult:
+        request = self._request(request)
+        if request.operation is not expected_operation:
+            raise ModelInterfaceContractError(
+                f"request operation must be {expected_operation.value}"
+            )
+        registration = self._resolve(request.requested_model)
+        applicability = self._evaluate_registered(registration, request)
+        if applicability.state in {
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+        }:
+            return self._abstained_result(
+                registration.release,
+                request,
+                applicability,
+            )
+        computation = registration.adapter.compute(request, applicability)
+        if not isinstance(computation, ModelComputation):
+            raise ModelInterfaceContractError("adapter compute must return a ModelComputation")
+        return self._computed_result(
+            registration.release,
+            request,
+            applicability,
+            computation,
+        )
+
+    def predict_equilibrium_headspace(
+        self,
+        request: VersionedModelRequest,
+    ) -> VersionedModelResult:
+        return self._execute(
+            ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
+            request,
+        )
+
+    def predict_dynamic_release(
+        self,
+        request: VersionedModelRequest,
+    ) -> VersionedModelResult:
+        return self._execute(
+            ModelOperation.PREDICT_DYNAMIC_RELEASE,
+            request,
+        )
+
+    def estimate_partition_coefficient(
+        self,
+        request: VersionedModelRequest,
+    ) -> VersionedModelResult:
+        return self._execute(
+            ModelOperation.ESTIMATE_PARTITION_COEFFICIENT,
+            request,
+        )
+
+    def evaluate_applicability(
+        self,
+        request: VersionedModelRequest,
+    ) -> ApplicabilityResult:
+        request = self._request(request)
+        registration = self._resolve(request.requested_model)
+        return self._evaluate_registered(registration, request)
+
+    def propagate_uncertainty(
+        self,
+        request: VersionedModelRequest,
+    ) -> VersionedModelResult:
+        return self._execute(
+            ModelOperation.PROPAGATE_UNCERTAINTY,
+            request,
+        )
+
+    def compare_models(
+        self,
+        comparison_id: str,
+        results: Sequence[VersionedModelResult],
+    ) -> ModelComparisonResult:
+        return ModelComparisonResult(
+            comparison_id=comparison_id,
+            compared_operation=(
+                results[0].operation
+                if results and isinstance(results[0], VersionedModelResult)
+                else ModelOperation.COMPARE_MODELS
+            ),
+            results=tuple(results),
+        )
+
+
 __all__ = [
     "ApplicabilityContext",
     "ApplicabilityDomain",
@@ -1667,6 +2112,8 @@ __all__ = [
     "DomainRange",
     "FallbackDisclosure",
     "ModelAvailability",
+    "ModelComparisonResult",
+    "ModelComputation",
     "ModelEvidenceClass",
     "ModelFamily",
     "ModelInputReference",
@@ -1678,4 +2125,6 @@ __all__ = [
     "ModelSelector",
     "VersionedModelRequest",
     "VersionedModelResult",
+    "VersionedModelAdapter",
+    "VersionedModelRouter",
 ]
