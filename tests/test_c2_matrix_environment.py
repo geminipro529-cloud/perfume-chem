@@ -7,8 +7,11 @@ from dataclasses import FrozenInstanceError, replace
 import pytest
 
 from engine.physics.matrix_environment import (
+    ApplicationEnvironment,
+    ApplicationEnvironmentKind,
     CompositionCompleteness,
     DeclaredQuantity,
+    EnvironmentField,
     MatrixComponent,
     MatrixComponentRole,
     MatrixComposition,
@@ -54,6 +57,32 @@ REQUIRED_MATRIX_MISSING_FIELDS = {
     "relative_humidity",
     "total_mass",
     "total_volume",
+}
+REQUIRED_ENVIRONMENT_KINDS = {
+    "SEALED_EQUILIBRIUM_VIAL",
+    "OPEN_LIQUID_SURFACE",
+    "BLOTTER",
+    "SKIN",
+    "SKIN_SURROGATE",
+    "FABRIC",
+    "CREAM_OR_EMULSION",
+    "SOAP_OR_CLEANSER",
+    "OTHER_PRODUCT_MATRIX",
+}
+REQUIRED_ENVIRONMENT_FIELDS = {
+    "dose",
+    "area",
+    "film_thickness",
+    "geometry",
+    "substrate",
+    "temperature",
+    "relative_humidity",
+    "airflow",
+    "equilibration_or_drying_time",
+    "sampling_time",
+    "sampling_method",
+    "vessel_volume",
+    "headspace_volume",
 }
 
 
@@ -118,6 +147,58 @@ def exact_matrix(
         phase_assumptions=("single liquid phase",),
         completeness=CompositionCompleteness.EXACT,
         missing_fields=(),
+    )
+
+
+def blotter_environment() -> ApplicationEnvironment:
+    return ApplicationEnvironment(
+        environment_id="environment:blotter:standard-1",
+        environment_version="1",
+        kind=ApplicationEnvironmentKind.BLOTTER,
+        dose=q(0.05, "mL"),
+        area=q(5.0, "cm2"),
+        film_thickness=None,
+        geometry="1 cm application line on paper blotter",
+        substrate="cellulose fragrance blotter lot B-17",
+        temperature=q(298.15, "K"),
+        relative_humidity=q(50.0, "%"),
+        airflow=q(0.1, "m/s"),
+        equilibration_or_drying_time=q(60.0, "s"),
+        sampling_time=q(300.0, "s"),
+        sampling_method="dynamic headspace at blotter centerline",
+        vessel_volume=None,
+        headspace_volume=None,
+        uncertainty=unknown("environment uncertainty not measured"),
+        missing_fields=(),
+        not_applicable_fields=(
+            EnvironmentField.FILM_THICKNESS,
+            EnvironmentField.VESSEL_VOLUME,
+            EnvironmentField.HEADSPACE_VOLUME,
+        ),
+    )
+
+
+def sealed_vial_environment() -> ApplicationEnvironment:
+    return ApplicationEnvironment(
+        environment_id="environment:sealed-vial:spme-1",
+        environment_version="1",
+        kind=ApplicationEnvironmentKind.SEALED_EQUILIBRIUM_VIAL,
+        dose=q(0.01, "mL"),
+        area=q(1.0, "cm2"),
+        film_thickness=None,
+        geometry="2 mL crimp vial with flat liquid surface",
+        substrate="borosilicate glass vial lot V-4",
+        temperature=q(298.15, "K"),
+        relative_humidity=q(50.0, "%"),
+        airflow=q(0.0, "m/s"),
+        equilibration_or_drying_time=q(3600.0, "s"),
+        sampling_time=q(3600.0, "s"),
+        sampling_method="SPME fiber exposed in sealed headspace",
+        vessel_volume=q(2.0, "mL"),
+        headspace_volume=q(1.0, "mL"),
+        uncertainty=unknown("environment uncertainty not measured"),
+        missing_fields=(),
+        not_applicable_fields=(EnvironmentField.FILM_THICKNESS,),
     )
 
 
@@ -403,3 +484,164 @@ def test_matrix_parser_rejects_unknown_fields() -> None:
     payload = exact_matrix().to_mapping()
     with pytest.raises(MatrixEnvironmentContractError, match="unknown fields"):
         MatrixComposition.from_mapping({**payload, "label": "ethanol solution"})
+
+
+def test_c2_environment_vocabulary_is_closed() -> None:
+    assert {item.value for item in ApplicationEnvironmentKind} == REQUIRED_ENVIRONMENT_KINDS
+    assert {item.value for item in EnvironmentField} == REQUIRED_ENVIRONMENT_FIELDS
+
+
+def test_environment_requires_every_absent_field_to_be_classified() -> None:
+    environment = blotter_environment()
+    with pytest.raises(MatrixEnvironmentContractError, match="classified"):
+        replace(
+            environment,
+            not_applicable_fields=(EnvironmentField.FILM_THICKNESS,),
+        )
+
+
+def test_environment_absence_classifications_are_disjoint() -> None:
+    environment = blotter_environment()
+    with pytest.raises(MatrixEnvironmentContractError, match="overlap"):
+        replace(
+            environment,
+            missing_fields=(EnvironmentField.HEADSPACE_VOLUME,),
+        )
+
+
+def test_present_environment_field_cannot_be_classified_absent() -> None:
+    environment = blotter_environment()
+    with pytest.raises(MatrixEnvironmentContractError, match="present"):
+        replace(
+            environment,
+            not_applicable_fields=(
+                *environment.not_applicable_fields,
+                EnvironmentField.DOSE,
+            ),
+        )
+
+
+def test_environment_rejects_unknown_classification_type() -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match="EnvironmentField"):
+        replace(
+            blotter_environment(),
+            missing_fields=("headspace_volume",),  # type: ignore[arg-type]
+        )
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "dose",
+        "area",
+        "film_thickness",
+        "relative_humidity",
+        "airflow",
+        "equilibration_or_drying_time",
+        "sampling_time",
+        "vessel_volume",
+        "headspace_volume",
+    ],
+)
+def test_environment_rejects_negative_physical_quantities(field_name: str) -> None:
+    environment = sealed_vial_environment()
+    with pytest.raises(MatrixEnvironmentContractError, match=field_name):
+        replace(environment, **{field_name: q(-1.0, "declared-unit")})
+
+
+@pytest.mark.parametrize("field_name", ["geometry", "substrate", "sampling_method"])
+def test_environment_rejects_blank_present_text(field_name: str) -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match=field_name):
+        replace(blotter_environment(), **{field_name: " "})
+
+
+@pytest.mark.parametrize("field_name", ["environment_id", "environment_version"])
+def test_environment_requires_nonblank_identity_and_version(field_name: str) -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match=field_name):
+        replace(blotter_environment(), **{field_name: " "})
+
+
+def test_environment_requires_closed_kind_and_uncertainty() -> None:
+    with pytest.raises(MatrixEnvironmentContractError, match="kind"):
+        replace(blotter_environment(), kind="BLOTTER")  # type: ignore[arg-type]
+    with pytest.raises(MatrixEnvironmentContractError, match="uncertainty"):
+        replace(
+            blotter_environment(),
+            uncertainty="unknown",  # type: ignore[arg-type]
+        )
+
+
+def test_environment_context_changes_identity() -> None:
+    baseline = blotter_environment()
+    variants = (
+        replace(baseline, kind=ApplicationEnvironmentKind.FABRIC),
+        replace(baseline, substrate="cotton fabric lot C-2"),
+        replace(baseline, dose=q(0.1, "mL")),
+        replace(baseline, relative_humidity=q(65.0, "%")),
+        replace(baseline, airflow=q(0.2, "m/s")),
+        replace(baseline, sampling_time=q(600.0, "s")),
+        replace(baseline, sampling_method="static headspace sample"),
+        replace(sealed_vial_environment(), vessel_volume=q(5.0, "mL")),
+        replace(sealed_vial_environment(), headspace_volume=q(3.0, "mL")),
+    )
+    hashes = {baseline.content_sha256, *(item.content_sha256 for item in variants)}
+    assert len(hashes) == 1 + len(variants)
+
+
+def test_environment_classification_order_does_not_change_identity() -> None:
+    baseline = blotter_environment()
+    reordered = replace(
+        baseline,
+        not_applicable_fields=tuple(reversed(baseline.not_applicable_fields)),
+    )
+    assert reordered.not_applicable_fields == baseline.not_applicable_fields
+    assert reordered.content_sha256 == baseline.content_sha256
+
+
+@pytest.mark.parametrize(
+    ("field_name", "environment_field"),
+    [
+        ("vessel_volume", EnvironmentField.VESSEL_VOLUME),
+        ("headspace_volume", EnvironmentField.HEADSPACE_VOLUME),
+        ("sampling_time", EnvironmentField.SAMPLING_TIME),
+        ("sampling_method", EnvironmentField.SAMPLING_METHOD),
+    ],
+)
+@pytest.mark.parametrize("classification", ["missing", "not_applicable"])
+def test_sealed_vial_requires_apparatus_and_sampling_fields(
+    field_name: str,
+    environment_field: EnvironmentField,
+    classification: str,
+) -> None:
+    environment = sealed_vial_environment()
+    changes: dict[str, object] = {field_name: None}
+    if classification == "missing":
+        changes["missing_fields"] = (environment_field,)
+    else:
+        changes["not_applicable_fields"] = (
+            *environment.not_applicable_fields,
+            environment_field,
+        )
+    with pytest.raises(MatrixEnvironmentContractError, match="sealed"):
+        replace(environment, **changes)
+
+
+def test_environment_round_trip_is_stable_and_detects_tampering() -> None:
+    environment = blotter_environment()
+    payload = environment.to_mapping()
+    assert ApplicationEnvironment.from_mapping(payload) == environment
+    reordered = dict(payload)
+    classifications = payload["not_applicable_fields"]
+    assert isinstance(classifications, list)
+    reordered["not_applicable_fields"] = list(reversed(classifications))
+    assert ApplicationEnvironment.from_mapping(reordered) == environment
+    tampered = dict(payload)
+    tampered["substrate"] = "untested substrate"
+    with pytest.raises(MatrixEnvironmentContractError, match="content_sha256"):
+        ApplicationEnvironment.from_mapping(tampered)
+
+
+def test_environment_parser_rejects_unknown_fields() -> None:
+    payload = blotter_environment().to_mapping()
+    with pytest.raises(MatrixEnvironmentContractError, match="unknown fields"):
+        ApplicationEnvironment.from_mapping({**payload, "apparatus_note": "vial"})

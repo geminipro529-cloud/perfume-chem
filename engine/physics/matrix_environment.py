@@ -66,6 +66,34 @@ class MatrixMissingField(str, Enum):
     TOTAL_VOLUME = "total_volume"
 
 
+class ApplicationEnvironmentKind(str, Enum):
+    SEALED_EQUILIBRIUM_VIAL = "SEALED_EQUILIBRIUM_VIAL"
+    OPEN_LIQUID_SURFACE = "OPEN_LIQUID_SURFACE"
+    BLOTTER = "BLOTTER"
+    SKIN = "SKIN"
+    SKIN_SURROGATE = "SKIN_SURROGATE"
+    FABRIC = "FABRIC"
+    CREAM_OR_EMULSION = "CREAM_OR_EMULSION"
+    SOAP_OR_CLEANSER = "SOAP_OR_CLEANSER"
+    OTHER_PRODUCT_MATRIX = "OTHER_PRODUCT_MATRIX"
+
+
+class EnvironmentField(str, Enum):
+    DOSE = "dose"
+    AREA = "area"
+    FILM_THICKNESS = "film_thickness"
+    GEOMETRY = "geometry"
+    SUBSTRATE = "substrate"
+    TEMPERATURE = "temperature"
+    RELATIVE_HUMIDITY = "relative_humidity"
+    AIRFLOW = "airflow"
+    EQUILIBRATION_OR_DRYING_TIME = "equilibration_or_drying_time"
+    SAMPLING_TIME = "sampling_time"
+    SAMPLING_METHOD = "sampling_method"
+    VESSEL_VOLUME = "vessel_volume"
+    HEADSPACE_VOLUME = "headspace_volume"
+
+
 _FRACTION_BASES = {
     MatrixQuantityBasis.MASS_FRACTION,
     MatrixQuantityBasis.VOLUME_FRACTION,
@@ -565,6 +593,306 @@ class MatrixComposition:
         return matrix
 
 
+@dataclass(frozen=True, slots=True)
+class ApplicationEnvironment:
+    """One versioned application or sampling environment snapshot."""
+
+    environment_id: str
+    environment_version: str
+    kind: ApplicationEnvironmentKind
+    dose: DeclaredQuantity | None
+    area: DeclaredQuantity | None
+    film_thickness: DeclaredQuantity | None
+    geometry: str | None
+    substrate: str | None
+    temperature: DeclaredQuantity | None
+    relative_humidity: DeclaredQuantity | None
+    airflow: DeclaredQuantity | None
+    equilibration_or_drying_time: DeclaredQuantity | None
+    sampling_time: DeclaredQuantity | None
+    sampling_method: str | None
+    vessel_volume: DeclaredQuantity | None
+    headspace_volume: DeclaredQuantity | None
+    uncertainty: UncertaintyDescriptor
+    missing_fields: tuple[EnvironmentField, ...]
+    not_applicable_fields: tuple[EnvironmentField, ...]
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "environment_id",
+            _nonblank(self.environment_id, "environment_id"),
+        )
+        object.__setattr__(
+            self,
+            "environment_version",
+            _nonblank(self.environment_version, "environment_version"),
+        )
+        if not isinstance(self.kind, ApplicationEnvironmentKind):
+            raise MatrixEnvironmentContractError("kind must be an ApplicationEnvironmentKind")
+
+        quantity_fields = (
+            "dose",
+            "area",
+            "film_thickness",
+            "temperature",
+            "relative_humidity",
+            "airflow",
+            "equilibration_or_drying_time",
+            "sampling_time",
+            "vessel_volume",
+            "headspace_volume",
+        )
+        for field_name in quantity_fields:
+            value = getattr(self, field_name)
+            if value is not None and not isinstance(value, DeclaredQuantity):
+                raise MatrixEnvironmentContractError(
+                    f"{field_name} must be a DeclaredQuantity or null"
+                )
+        nonnegative_fields = tuple(
+            field_name for field_name in quantity_fields if field_name != "temperature"
+        )
+        for field_name in nonnegative_fields:
+            value = getattr(self, field_name)
+            if value is not None and value.value < 0.0:
+                raise MatrixEnvironmentContractError(f"{field_name} must be non-negative")
+        if self.relative_humidity is not None:
+            _validate_relative_humidity(self.relative_humidity)
+
+        for field_name in ("geometry", "substrate", "sampling_method"):
+            value = getattr(self, field_name)
+            if value is not None:
+                object.__setattr__(
+                    self,
+                    field_name,
+                    _nonblank(value, field_name),
+                )
+        _uncertainty_mapping(self.uncertainty)
+
+        missing = self._normalize_classification(
+            self.missing_fields,
+            "missing_fields",
+        )
+        not_applicable = self._normalize_classification(
+            self.not_applicable_fields,
+            "not_applicable_fields",
+        )
+        object.__setattr__(self, "missing_fields", missing)
+        object.__setattr__(self, "not_applicable_fields", not_applicable)
+        missing_set = set(missing)
+        not_applicable_set = set(not_applicable)
+        overlap = missing_set & not_applicable_set
+        if overlap:
+            raise MatrixEnvironmentContractError(
+                "missing_fields and not_applicable_fields must not overlap"
+            )
+
+        field_values = self._field_values()
+        if set(field_values) != set(EnvironmentField):
+            raise MatrixEnvironmentContractError(
+                "environment field map does not match the closed vocabulary"
+            )
+        absent = {name for name, value in field_values.items() if value is None}
+        classified = missing_set | not_applicable_set
+        present_classified = classified - absent
+        if present_classified:
+            raise MatrixEnvironmentContractError(
+                "present environment fields cannot be classified absent"
+            )
+        if classified != absent:
+            raise MatrixEnvironmentContractError(
+                "every absent environment field must be classified exactly once"
+            )
+
+        if self.kind is ApplicationEnvironmentKind.SEALED_EQUILIBRIUM_VIAL:
+            required = {
+                EnvironmentField.VESSEL_VOLUME,
+                EnvironmentField.HEADSPACE_VOLUME,
+                EnvironmentField.SAMPLING_TIME,
+                EnvironmentField.SAMPLING_METHOD,
+            }
+            absent_required = required & absent
+            if absent_required:
+                raise MatrixEnvironmentContractError(
+                    "sealed equilibrium vial requires vessel/headspace volumes "
+                    "and sampling time/method"
+                )
+
+        object.__setattr__(
+            self,
+            "content_sha256",
+            stable_json_hash(self._content_mapping()),
+        )
+
+    @staticmethod
+    def _normalize_classification(
+        values: tuple[EnvironmentField, ...],
+        field_name: str,
+    ) -> tuple[EnvironmentField, ...]:
+        normalized = tuple(values)
+        if any(not isinstance(item, EnvironmentField) for item in normalized):
+            raise MatrixEnvironmentContractError(
+                f"{field_name} must contain EnvironmentField values"
+            )
+        if len(normalized) != len(set(normalized)):
+            raise MatrixEnvironmentContractError(f"{field_name} must not contain duplicates")
+        return tuple(sorted(normalized, key=lambda item: item.value))
+
+    def _field_values(self) -> dict[EnvironmentField, object | None]:
+        return {
+            EnvironmentField.DOSE: self.dose,
+            EnvironmentField.AREA: self.area,
+            EnvironmentField.FILM_THICKNESS: self.film_thickness,
+            EnvironmentField.GEOMETRY: self.geometry,
+            EnvironmentField.SUBSTRATE: self.substrate,
+            EnvironmentField.TEMPERATURE: self.temperature,
+            EnvironmentField.RELATIVE_HUMIDITY: self.relative_humidity,
+            EnvironmentField.AIRFLOW: self.airflow,
+            EnvironmentField.EQUILIBRATION_OR_DRYING_TIME: (self.equilibration_or_drying_time),
+            EnvironmentField.SAMPLING_TIME: self.sampling_time,
+            EnvironmentField.SAMPLING_METHOD: self.sampling_method,
+            EnvironmentField.VESSEL_VOLUME: self.vessel_volume,
+            EnvironmentField.HEADSPACE_VOLUME: self.headspace_volume,
+        }
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c2-application-environment-v1",
+            "environment_id": self.environment_id,
+            "environment_version": self.environment_version,
+            "kind": self.kind.value,
+            "dose": _optional_quantity_mapping(self.dose),
+            "area": _optional_quantity_mapping(self.area),
+            "film_thickness": _optional_quantity_mapping(self.film_thickness),
+            "geometry": self.geometry,
+            "substrate": self.substrate,
+            "temperature": _optional_quantity_mapping(self.temperature),
+            "relative_humidity": _optional_quantity_mapping(self.relative_humidity),
+            "airflow": _optional_quantity_mapping(self.airflow),
+            "equilibration_or_drying_time": _optional_quantity_mapping(
+                self.equilibration_or_drying_time
+            ),
+            "sampling_time": _optional_quantity_mapping(self.sampling_time),
+            "sampling_method": self.sampling_method,
+            "vessel_volume": _optional_quantity_mapping(self.vessel_volume),
+            "headspace_volume": _optional_quantity_mapping(self.headspace_volume),
+            "uncertainty": _uncertainty_mapping(self.uncertainty),
+            "missing_fields": [item.value for item in self.missing_fields],
+            "not_applicable_fields": [item.value for item in self.not_applicable_fields],
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, Any]) -> ApplicationEnvironment:
+        normalized = _mapping(payload, "application environment")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "environment_id",
+                "environment_version",
+                "kind",
+                "dose",
+                "area",
+                "film_thickness",
+                "geometry",
+                "substrate",
+                "temperature",
+                "relative_humidity",
+                "airflow",
+                "equilibration_or_drying_time",
+                "sampling_time",
+                "sampling_method",
+                "vessel_volume",
+                "headspace_volume",
+                "uncertainty",
+                "missing_fields",
+                "not_applicable_fields",
+                "content_sha256",
+            },
+            "application environment",
+        )
+        if normalized["schema"] != "c2-application-environment-v1":
+            raise MatrixEnvironmentContractError(
+                "application environment schema must be c2-application-environment-v1"
+            )
+        raw_missing = normalized["missing_fields"]
+        raw_not_applicable = normalized["not_applicable_fields"]
+        if not isinstance(raw_missing, (list, tuple)):
+            raise MatrixEnvironmentContractError("missing_fields must be a list")
+        if not isinstance(raw_not_applicable, (list, tuple)):
+            raise MatrixEnvironmentContractError("not_applicable_fields must be a list")
+        try:
+            uncertainty = UncertaintyDescriptor.from_mapping(
+                _mapping(normalized["uncertainty"], "uncertainty")
+            )
+        except ValueError as exc:
+            raise MatrixEnvironmentContractError(str(exc)) from exc
+        environment = cls(
+            environment_id=normalized["environment_id"],
+            environment_version=normalized["environment_version"],
+            kind=_enum_from_value(
+                ApplicationEnvironmentKind,
+                normalized["kind"],
+                "kind",
+            ),
+            dose=_optional_quantity_from_mapping(normalized["dose"], "dose"),
+            area=_optional_quantity_from_mapping(normalized["area"], "area"),
+            film_thickness=_optional_quantity_from_mapping(
+                normalized["film_thickness"],
+                "film_thickness",
+            ),
+            geometry=normalized["geometry"],
+            substrate=normalized["substrate"],
+            temperature=_optional_quantity_from_mapping(
+                normalized["temperature"],
+                "temperature",
+            ),
+            relative_humidity=_optional_quantity_from_mapping(
+                normalized["relative_humidity"],
+                "relative_humidity",
+            ),
+            airflow=_optional_quantity_from_mapping(
+                normalized["airflow"],
+                "airflow",
+            ),
+            equilibration_or_drying_time=_optional_quantity_from_mapping(
+                normalized["equilibration_or_drying_time"],
+                "equilibration_or_drying_time",
+            ),
+            sampling_time=_optional_quantity_from_mapping(
+                normalized["sampling_time"],
+                "sampling_time",
+            ),
+            sampling_method=normalized["sampling_method"],
+            vessel_volume=_optional_quantity_from_mapping(
+                normalized["vessel_volume"],
+                "vessel_volume",
+            ),
+            headspace_volume=_optional_quantity_from_mapping(
+                normalized["headspace_volume"],
+                "headspace_volume",
+            ),
+            uncertainty=uncertainty,
+            missing_fields=tuple(
+                _enum_from_value(EnvironmentField, item, "missing_fields") for item in raw_missing
+            ),
+            not_applicable_fields=tuple(
+                _enum_from_value(EnvironmentField, item, "not_applicable_fields")
+                for item in raw_not_applicable
+            ),
+        )
+        expected_hash = _sha256(normalized["content_sha256"], "content_sha256")
+        if expected_hash != environment.content_sha256:
+            raise MatrixEnvironmentContractError(
+                "application environment content_sha256 does not match canonical content"
+            )
+        return environment
+
+
 def _validate_relative_humidity(quantity: DeclaredQuantity) -> None:
     if quantity.value < 0.0:
         raise MatrixEnvironmentContractError("relative_humidity must be non-negative")
@@ -575,8 +903,11 @@ def _validate_relative_humidity(quantity: DeclaredQuantity) -> None:
 
 
 __all__ = [
+    "ApplicationEnvironment",
+    "ApplicationEnvironmentKind",
     "CompositionCompleteness",
     "DeclaredQuantity",
+    "EnvironmentField",
     "MatrixComponent",
     "MatrixComponentRole",
     "MatrixComposition",
