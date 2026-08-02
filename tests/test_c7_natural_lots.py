@@ -742,6 +742,8 @@ def test_every_unresolved_fraction_kind_remains_visible(
 
 
 def test_unresolved_disclosure_cannot_be_omitted_or_misstated() -> None:
+    with pytest.raises(NaturalLotContractError, match="unresolved"):
+        replace(profile(), unresolved=None)  # type: ignore[arg-type]
     with pytest.raises(NaturalLotContractError, match="PRESENT"):
         UnresolvedFractionDisclosure(
             state=UnresolvedDisclosureState.PRESENT,
