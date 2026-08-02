@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c7-mutation-result-v1",
+    "name":  "regulatory-withholding-restored",
+    "target":  "tests/test_c7_natural_lots.py::test_three_projection_families_are_separate_and_basis_preserving",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1276,
+    "started_at_utc":  "2026-08-02T20:52:13.2294586+00:00",
+    "stdout_sha256":  "69de30081207b2e691c89921084505ee58d1a75b0250ca65c87b22f3265c0d99",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

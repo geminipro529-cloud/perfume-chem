@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c7-mutation-result-v1",
+    "name":  "unresolved-disclosure-restored",
+    "target":  "tests/test_c7_natural_lots.py::test_unresolved_disclosure_cannot_be_omitted_or_misstated",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1267,
+    "started_at_utc":  "2026-08-02T20:52:10.4513682+00:00",
+    "stdout_sha256":  "291b5bc97d346c2bc2d55883a10bd5eb5a8e1f6d386e45ab29998613470592e3",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}
