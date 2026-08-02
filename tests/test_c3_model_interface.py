@@ -233,6 +233,45 @@ PUBLIC_C6_NAMES = {
     "SubstrateModelParameters",
     "simulate_dynamic_release",
 }
+PUBLIC_C7_NAMES = {
+    "C7_COMPOSITION_PRECEDENCE",
+    "PERMITTED_CONSTITUENT_BASES",
+    "AnalyticalRunReference",
+    "AuthenticityAssessment",
+    "AuthenticityDecision",
+    "AuthenticityDeviation",
+    "AuthenticityReferenceRange",
+    "CalibrationState",
+    "CensoringState",
+    "CompositionAuthority",
+    "ConstituentBasis",
+    "ConstituentObservation",
+    "IdentityConfidence",
+    "LotAgingObservation",
+    "NaturalCompositionCompleteness",
+    "NaturalCompositionProfile",
+    "NaturalCompositionRequest",
+    "NaturalCompositionSelection",
+    "NaturalLotContractError",
+    "NaturalMaterialLot",
+    "NaturalProjection",
+    "NaturalSelectionStatus",
+    "ObservationOrigin",
+    "ProjectionEntry",
+    "ProjectionFamily",
+    "ProjectionStatus",
+    "ReviewState",
+    "SourceDocumentKind",
+    "SourceDocumentReference",
+    "UnresolvedDisclosureState",
+    "UnresolvedFractionDisclosure",
+    "UnresolvedFractionKind",
+    "UnresolvedFractionObservation",
+    "assess_authenticity_profile",
+    "build_natural_projection",
+    "select_natural_composition",
+    "validate_aging_series",
+}
 
 
 def digest(character: str) -> str:
@@ -1621,10 +1660,12 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
     from engine.physics import ModelRelease as PublicModelRelease
     from engine.physics import ModelResultStatus as PublicModelResultStatus
     from engine.physics import ModelSelector as PublicModelSelector
+    from engine.physics import NaturalSelectionStatus as PublicNaturalSelectionStatus
     from engine.physics import VersionedModelAdapter as PublicVersionedModelAdapter
     from engine.physics import VersionedModelRequest as PublicVersionedModelRequest
     from engine.physics import VersionedModelResult as PublicVersionedModelResult
     from engine.physics import VersionedModelRouter as PublicVersionedModelRouter
+    from engine.physics.natural_lots import SelectionStatus as DirectNaturalSelectionStatus
 
     public_bindings = {
         "ApplicabilityContext": PublicApplicabilityContext,
@@ -1676,6 +1717,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
     }
 
     assert public_bindings == direct_bindings
+    assert PublicNaturalSelectionStatus is DirectNaturalSelectionStatus
     assert set(physics.__all__) == (
         PUBLIC_C1_NAMES
         | PUBLIC_C2_NAMES
@@ -1683,6 +1725,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         | PUBLIC_C4_NAMES
         | PUBLIC_C5_NAMES
         | PUBLIC_C6_NAMES
+        | PUBLIC_C7_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()

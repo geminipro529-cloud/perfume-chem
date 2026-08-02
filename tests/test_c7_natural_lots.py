@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import ast
+from collections.abc import Callable
 from dataclasses import replace
 from datetime import date, datetime, timezone
 from pathlib import Path
 
 import pytest
+
 from engine.physics.natural_lots import (
     C7_COMPOSITION_PRECEDENCE,
     PERMITTED_CONSTITUENT_BASES,
@@ -827,7 +829,16 @@ def test_unknown_profile_has_no_answer_bearing_observations() -> None:
     )
     assert unknown.observations == ()
     with pytest.raises(NaturalLotContractError, match="UNKNOWN"):
-        replace(unknown, observations=(area_observation(source_lot_id=None),))
+        replace(
+            unknown,
+            observations=(
+                area_observation(
+                    source_lot_id=None,
+                    origin=ObservationOrigin.GENERIC_PROXY,
+                    analytical_run_id=None,
+                ),
+            ),
+        )
 
 
 def test_profile_round_trip_rejects_nested_and_top_level_tampering() -> None:
@@ -886,12 +897,11 @@ def test_selection_uses_exact_six_level_precedence() -> None:
     ),
 )
 def test_selection_discloses_every_fallback(
-    candidate_factory: object,
+    candidate_factory: Callable[[], NaturalCompositionProfile],
     authority: CompositionAuthority,
     rank: int,
     steps: int,
 ) -> None:
-    assert callable(candidate_factory)
     selected = select_natural_composition(request(), (candidate_factory(),))
     assert selected.status is SelectionStatus.SELECTED
     assert selected.selected_authority is authority
@@ -902,8 +912,39 @@ def test_selection_discloses_every_fallback(
 
 
 def test_selection_requires_exact_lot_supplier_and_proxy_scope_matches() -> None:
-    wrong_lot = replace(relative_profile(), lot_id="other")
-    wrong_batch = replace(supplier_profile(), supplier_lot="batch-99")
+    wrong_lot = profile(
+        profile_id="profile-wrong-lot",
+        authority=CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE,
+        observations=(area_observation(source_lot_id="other"),),
+        unresolved=present_unresolved(
+            unresolved_observation(source_lot_id="other"),
+        ),
+        lot_id="other",
+        source_documents=(source_document(document_id="doc-wrong-lot", subject_lot_id="other"),),
+    )
+    wrong_batch = profile(
+        profile_id="profile-wrong-batch",
+        authority=CompositionAuthority.SUPPLIER_BATCH_SPECIFIC,
+        observations=(
+            constituent(
+                source_lot_id="batch-99",
+                origin=ObservationOrigin.SUPPLIER_BATCH_REPORTED,
+                analytical_run_id=None,
+            ),
+        ),
+        unresolved=UnresolvedFractionDisclosure(
+            state=UnresolvedDisclosureState.NOT_REPORTED,
+            observations=(),
+            review_method_id=None,
+            source_ids=("supplier:example",),
+            limitations=("supplier document did not disclose unknown fraction",),
+        ),
+        lot_id=None,
+        supplier_lot="batch-99",
+        source_documents=(
+            source_document(document_id="doc-wrong-batch", subject_lot_id="batch-99"),
+        ),
+    )
     wrong_species = replace(
         specific_literature_profile(),
         botanical_species="Lavandula latifolia",
