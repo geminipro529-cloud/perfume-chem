@@ -1,10 +1,11 @@
 # Build C2 Matrix and Application-Environment Gate
 
-Decision: **PENDING**
+Decision: **PASS**
 
-C2 is locally implementation-complete but is not yet accepted. The final
-DeepLuna Fast audit and Sol reconciliation passed. The evidence commit and
-post-commit verification remain open. C3 is closed.
+C2 is accepted. The matrix and application-environment contract, evidence-only
+seal commit, final DeepLuna Fast audit, Sol reconciliation, and postcommit
+verification all passed. C3 is open; Build C and scientific release remain
+incomplete.
 
 ## Implemented boundary
 
@@ -86,7 +87,7 @@ assertion, and the three-entry verifier shard manifest. It changed no migration,
 database, generated scientific artifact, production physical caller,
 `MixtureState`, or `SolventLedger` path.
 
-## DeepLuna and remaining gate
+## DeepLuna and acceptance
 
 The fresh exact-project preflight was `READY` for project `perfume-chem`, release
 0.9.9, runtime build
@@ -109,8 +110,21 @@ scope, archive, protected-state, and captured-log evidence. The audit is
 supplemental; canonical repository state and locally reproduced executable
 evidence remain authoritative.
 
-Until the evidence is committed and the committed tree passes post-commit
-verification, C2 remains PENDING and C3 remains closed.
+The evidence-only seal is commit
+`dba6f856d099d5abd6250b9feb5df75cf20bde36`, whose 71 changed paths are all
+under `docs/verification/c2`. Its parent is the verified implementation commit
+`193d5546fa1bebbfd16c152f4f2fc80dec053987`.
+
+Postcommit replay against that exact evidence commit passed all 14 bounded
+commands: C2 79, C1 96, C0 24, complete root 1,297, Ruff check and format,
+basedpyright, and mypy. All stderr streams are empty, no command timed out, and
+the postcommit capture contains zero ANSI bytes, invalid UTF-8 files, or
+credential-pattern matches. The archive re-hashed correctly, both SQLite quick
+checks returned `ok`, and all 429 pre-existing dirty/untracked files still match
+their prewrite bytes.
+
+C2 therefore passes and C3 is open. This decision does not complete Build C or
+authorize scientific release.
 
 ## Limitations
 

@@ -1,0 +1,57 @@
+{
+  "schema": "c2-postcommit-summary-v1",
+  "recorded_at": "2026-08-02T20:13:24.9223908+07:00",
+  "status": "PASS",
+  "verified_commit": "dba6f856d099d5abd6250b9feb5df75cf20bde36",
+  "verified_parent": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+  "verified_subject": "test(c2): seal matrix environment gate",
+  "commit_scope": {
+    "path_count": 71,
+    "all_paths_under_docs_verification_c2": true,
+    "out_of_scope_path_count": 0,
+    "index_staged_path_count_before_decision": 0,
+    "evidence_only": true
+  },
+  "capture": {
+    "metadata_path": "docs/verification/c2/postcommit/gate-run-metadata.stdout.json",
+    "metadata_bytes": 24693,
+    "metadata_sha256": "03254c6859a308d313733d94cd0066c30f20bbb6da95516c9726df9cbdea1a29",
+    "metadata_stderr_bytes": 0,
+    "command_count": 14,
+    "captured_file_count": 30,
+    "all_commands_passed": true,
+    "all_stderr_empty": true,
+    "timeout_count": 0,
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "external_pytest_temp": true
+  },
+  "results": {
+    "c2_focused": "79 passed in 0.43s",
+    "c1_compatibility": "96 passed in 0.42s",
+    "c0_compatibility": "24 passed in 2.58s",
+    "root_full": "1297 passed in 50.46s",
+    "ruff_check": "All checks passed",
+    "ruff_format": "3 files already formatted",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "Success: no issues found in 1 source file"
+  },
+  "integrity": {
+    "ansi_escape_bytes": 0,
+    "invalid_utf8_file_count": 0,
+    "credential_pattern_match_count": 0,
+    "archive_sha256_verified": true,
+    "preserved_dirty_or_untracked_file_count": 429,
+    "preserved_dirty_or_untracked_mismatch_count": 0,
+    "protected_database_mismatch_count": 0,
+    "sqlite_quick_checks": "ok"
+  },
+  "decision": {
+    "c2_pass": true,
+    "c3_open": true,
+    "build_c_complete": false,
+    "scientific_release_authorized": false
+  }
+}

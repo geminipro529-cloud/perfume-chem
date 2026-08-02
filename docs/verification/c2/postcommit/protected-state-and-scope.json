@@ -1,0 +1,42 @@
+{
+  "schema": "c2-postcommit-protected-state-and-scope-v1",
+  "recorded_at": "2026-08-02T20:13:24.9223908+07:00",
+  "verified_commit": "dba6f856d099d5abd6250b9feb5df75cf20bde36",
+  "verified_parent": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+  "verified_subject": "test(c2): seal matrix environment gate",
+  "commit_path_count": 71,
+  "all_commit_paths_under_docs_verification_c2": true,
+  "out_of_scope_commit_path_count": 0,
+  "index_staged_path_count": 0,
+  "archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-c2-prewrite-20260802T190634+0700.tar",
+    "bytes": 118417920,
+    "sha256": "35325c26d526619623ce1c2f05c72484ad8377ed534f488b4191a2e7e649d023",
+    "hash_verified": true,
+    "restorable": true
+  },
+  "preserved_dirty_or_untracked_file_count": 429,
+  "preserved_dirty_or_untracked_mismatch_count": 0,
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok",
+      "unchanged": true
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "unchanged": true
+    }
+  ],
+  "forbidden_commit_path_count": 0,
+  "migration_path_count": 0,
+  "database_path_count": 0,
+  "production_physical_caller_path_count": 0,
+  "legacy_matrix_or_ledger_path_count": 0,
+  "passed": true
+}
