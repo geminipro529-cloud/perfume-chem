@@ -16,11 +16,14 @@ from typing import Any, TypeVar
 from engine.calibration.hashing import stable_json_hash
 from engine.physics.matrix_environment import (
     ApplicationEnvironmentKind,
+    DeclaredQuantity,
+    MatrixAwareModelRequest,
     MatrixStage,
 )
 from engine.physics.properties import (
     CanonicalScope,
     ThermophysicalProperty,
+    UncertaintyDescriptor,
 )
 
 
@@ -845,16 +848,834 @@ class ModelRelease:
         return result
 
 
+@dataclass(frozen=True, slots=True)
+class ApplicabilityContext:
+    identity_ids: tuple[str, ...]
+    chemical_classes: tuple[str, ...]
+    functional_groups: tuple[str, ...]
+    concentration: DeclaredQuantity | None
+    phase_behavior: str | None
+    available_properties: tuple[ThermophysicalProperty, ...]
+    training_calibration_tags: tuple[str, ...]
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "identity_ids",
+            _strings(self.identity_ids, "identity_ids"),
+        )
+        object.__setattr__(
+            self,
+            "chemical_classes",
+            _strings(self.chemical_classes, "chemical_classes"),
+        )
+        object.__setattr__(
+            self,
+            "functional_groups",
+            _strings(self.functional_groups, "functional_groups"),
+        )
+        if self.concentration is not None and not isinstance(self.concentration, DeclaredQuantity):
+            raise ModelInterfaceContractError("concentration must be a DeclaredQuantity or None")
+        phase_behavior = self.phase_behavior
+        if phase_behavior is not None:
+            phase_behavior = _nonblank(phase_behavior, "phase_behavior")
+        object.__setattr__(self, "phase_behavior", phase_behavior)
+        object.__setattr__(
+            self,
+            "available_properties",
+            _enums(
+                self.available_properties,
+                ThermophysicalProperty,
+                "available_properties",
+            ),
+        )
+        object.__setattr__(
+            self,
+            "training_calibration_tags",
+            _strings(
+                self.training_calibration_tags,
+                "training_calibration_tags",
+            ),
+        )
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-applicability-context-v1",
+            "identity_ids": list(self.identity_ids),
+            "chemical_classes": list(self.chemical_classes),
+            "functional_groups": list(self.functional_groups),
+            "concentration": (
+                None if self.concentration is None else self.concentration.to_mapping()
+            ),
+            "phase_behavior": self.phase_behavior,
+            "available_properties": [item.value for item in self.available_properties],
+            "training_calibration_tags": list(self.training_calibration_tags),
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> ApplicabilityContext:
+        normalized = _mapping(payload, "applicability context")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "identity_ids",
+                "chemical_classes",
+                "functional_groups",
+                "concentration",
+                "phase_behavior",
+                "available_properties",
+                "training_calibration_tags",
+                "content_sha256",
+            },
+            "applicability context",
+        )
+        if normalized["schema"] != "c3-applicability-context-v1":
+            raise ModelInterfaceContractError(
+                "applicability context schema must be c3-applicability-context-v1"
+            )
+        raw_concentration = normalized["concentration"]
+        result = cls(
+            identity_ids=tuple(normalized["identity_ids"]),
+            chemical_classes=tuple(normalized["chemical_classes"]),
+            functional_groups=tuple(normalized["functional_groups"]),
+            concentration=(
+                None
+                if raw_concentration is None
+                else DeclaredQuantity.from_mapping(_mapping(raw_concentration, "concentration"))
+            ),
+            phase_behavior=normalized["phase_behavior"],
+            available_properties=_parsed_enums(
+                normalized["available_properties"],
+                ThermophysicalProperty,
+                "available_properties",
+            ),
+            training_calibration_tags=tuple(normalized["training_calibration_tags"]),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability context content_sha256 does not match canonical content"
+            )
+        return result
+
+
+@dataclass(frozen=True, slots=True)
+class ApplicabilityResult:
+    state: ApplicabilityState
+    domain_sha256: str
+    request_sha256: str
+    reasons: tuple[str, ...]
+    missing_inputs: tuple[str, ...]
+    warnings: tuple[str, ...]
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        state = _direct_enum(ApplicabilityState, self.state, "state")
+        domain_sha256 = _sha256(self.domain_sha256, "domain_sha256")
+        request_sha256 = _sha256(self.request_sha256, "request_sha256")
+        reasons = _strings(self.reasons, "reasons")
+        missing_inputs = _strings(self.missing_inputs, "missing_inputs")
+        warnings = _strings(self.warnings, "warnings")
+        if state is ApplicabilityState.NEAR_DOMAIN_WITH_WARNING and not warnings:
+            raise ModelInterfaceContractError("NEAR_DOMAIN_WITH_WARNING requires a warning")
+        if (
+            state
+            in {
+                ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+                ApplicabilityState.MODEL_NOT_VALIDATED,
+            }
+            and not reasons
+        ):
+            raise ModelInterfaceContractError(f"{state.value} requires a reason")
+        if state is ApplicabilityState.INSUFFICIENT_INPUT and not missing_inputs:
+            raise ModelInterfaceContractError("INSUFFICIENT_INPUT requires missing_inputs")
+        if (
+            state
+            in {
+                ApplicabilityState.IN_DOMAIN,
+                ApplicabilityState.NEAR_DOMAIN_WITH_WARNING,
+            }
+            and missing_inputs
+        ):
+            raise ModelInterfaceContractError(f"{state.value} cannot declare missing_inputs")
+        object.__setattr__(self, "state", state)
+        object.__setattr__(self, "domain_sha256", domain_sha256)
+        object.__setattr__(self, "request_sha256", request_sha256)
+        object.__setattr__(self, "reasons", reasons)
+        object.__setattr__(self, "missing_inputs", missing_inputs)
+        object.__setattr__(self, "warnings", warnings)
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-applicability-result-v1",
+            "state": self.state.value,
+            "domain_sha256": self.domain_sha256,
+            "request_sha256": self.request_sha256,
+            "reasons": list(self.reasons),
+            "missing_inputs": list(self.missing_inputs),
+            "warnings": list(self.warnings),
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> ApplicabilityResult:
+        normalized = _mapping(payload, "applicability result")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "state",
+                "domain_sha256",
+                "request_sha256",
+                "reasons",
+                "missing_inputs",
+                "warnings",
+                "content_sha256",
+            },
+            "applicability result",
+        )
+        if normalized["schema"] != "c3-applicability-result-v1":
+            raise ModelInterfaceContractError(
+                "applicability result schema must be c3-applicability-result-v1"
+            )
+        result = cls(
+            state=_enum_value(
+                ApplicabilityState,
+                normalized["state"],
+                "state",
+            ),
+            domain_sha256=normalized["domain_sha256"],
+            request_sha256=normalized["request_sha256"],
+            reasons=tuple(normalized["reasons"]),
+            missing_inputs=tuple(normalized["missing_inputs"]),
+            warnings=tuple(normalized["warnings"]),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability result content_sha256 does not match canonical content"
+            )
+        return result
+
+
+@dataclass(frozen=True, slots=True)
+class ModelInputReference:
+    role: str
+    input_id: str
+    content_sha256: str
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "role", _nonblank(self.role, "role"))
+        object.__setattr__(
+            self,
+            "input_id",
+            _nonblank(self.input_id, "input_id"),
+        )
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _sha256(self.content_sha256, "content_sha256"),
+        )
+
+    def to_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-model-input-reference-v1",
+            "role": self.role,
+            "input_id": self.input_id,
+            "content_sha256": self.content_sha256,
+        }
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> ModelInputReference:
+        normalized = _mapping(payload, "model input reference")
+        _exact_keys(
+            normalized,
+            {"schema", "role", "input_id", "content_sha256"},
+            "model input reference",
+        )
+        if normalized["schema"] != "c3-model-input-reference-v1":
+            raise ModelInterfaceContractError(
+                "model input reference schema must be c3-model-input-reference-v1"
+            )
+        return cls(
+            role=normalized["role"],
+            input_id=normalized["input_id"],
+            content_sha256=normalized["content_sha256"],
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class VersionedModelRequest:
+    request_id: str
+    operation: ModelOperation
+    requested_model: ModelSelector
+    context: MatrixAwareModelRequest
+    applicability_context: ApplicabilityContext
+    input_references: tuple[ModelInputReference, ...]
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "request_id",
+            _nonblank(self.request_id, "request_id"),
+        )
+        operation = _direct_enum(ModelOperation, self.operation, "operation")
+        if operation in {
+            ModelOperation.EVALUATE_APPLICABILITY,
+            ModelOperation.COMPARE_MODELS,
+        }:
+            raise ModelInterfaceContractError(
+                "a versioned model request must name an answer-producing operation"
+            )
+        if not isinstance(self.requested_model, ModelSelector):
+            raise ModelInterfaceContractError("requested_model must be a ModelSelector")
+        if not isinstance(self.context, MatrixAwareModelRequest):
+            raise ModelInterfaceContractError("context must be a MatrixAwareModelRequest")
+        if not isinstance(self.applicability_context, ApplicabilityContext):
+            raise ModelInterfaceContractError(
+                "applicability_context must be an ApplicabilityContext"
+            )
+        if not isinstance(self.input_references, Sequence):
+            raise ModelInterfaceContractError("input_references must be a sequence")
+        references = tuple(self.input_references)
+        if not references:
+            raise ModelInterfaceContractError("input_references must not be empty")
+        if any(not isinstance(item, ModelInputReference) for item in references):
+            raise ModelInterfaceContractError(
+                "input_references must contain ModelInputReference values"
+            )
+        keys = tuple((item.role, item.input_id) for item in references)
+        if len(keys) != len(set(keys)):
+            raise ModelInterfaceContractError(
+                "input_references contains duplicate role/input_id entries"
+            )
+        references = tuple(
+            sorted(
+                references,
+                key=lambda item: (
+                    item.role.casefold(),
+                    item.role,
+                    item.input_id.casefold(),
+                    item.input_id,
+                ),
+            )
+        )
+        object.__setattr__(self, "operation", operation)
+        object.__setattr__(self, "input_references", references)
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-versioned-model-request-v1",
+            "request_id": self.request_id,
+            "operation": self.operation.value,
+            "requested_model": self.requested_model.to_mapping(),
+            "context": self.context.to_mapping(),
+            "applicability_context": self.applicability_context.to_mapping(),
+            "input_references": [item.to_mapping() for item in self.input_references],
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> VersionedModelRequest:
+        normalized = _mapping(payload, "versioned model request")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "request_id",
+                "operation",
+                "requested_model",
+                "context",
+                "applicability_context",
+                "input_references",
+                "content_sha256",
+            },
+            "versioned model request",
+        )
+        if normalized["schema"] != "c3-versioned-model-request-v1":
+            raise ModelInterfaceContractError(
+                "versioned model request schema must be c3-versioned-model-request-v1"
+            )
+        raw_references = normalized["input_references"]
+        if isinstance(raw_references, (str, bytes)) or not isinstance(raw_references, Sequence):
+            raise ModelInterfaceContractError("input_references must be a sequence")
+        result = cls(
+            request_id=normalized["request_id"],
+            operation=_enum_value(
+                ModelOperation,
+                normalized["operation"],
+                "operation",
+            ),
+            requested_model=ModelSelector.from_mapping(
+                _mapping(normalized["requested_model"], "requested_model")
+            ),
+            context=MatrixAwareModelRequest.from_mapping(
+                _mapping(normalized["context"], "context")
+            ),
+            applicability_context=ApplicabilityContext.from_mapping(
+                _mapping(
+                    normalized["applicability_context"],
+                    "applicability_context",
+                )
+            ),
+            input_references=tuple(
+                ModelInputReference.from_mapping(_mapping(item, "input reference"))
+                for item in raw_references
+            ),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "versioned model request content_sha256 does not match canonical content"
+            )
+        return result
+
+
+@dataclass(frozen=True, slots=True)
+class ModelOutput:
+    quantity: str
+    unit: str
+    payload: CanonicalScope
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "quantity",
+            _nonblank(self.quantity, "quantity"),
+        )
+        object.__setattr__(self, "unit", _nonblank(self.unit, "unit"))
+        object.__setattr__(self, "payload", _scope(self.payload, "payload"))
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-model-output-v1",
+            "quantity": self.quantity,
+            "unit": self.unit,
+            "payload": self.payload.to_mapping(),
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, Any]) -> ModelOutput:
+        normalized = _mapping(payload, "model output")
+        _exact_keys(
+            normalized,
+            {"schema", "quantity", "unit", "payload", "content_sha256"},
+            "model output",
+        )
+        if normalized["schema"] != "c3-model-output-v1":
+            raise ModelInterfaceContractError("model output schema must be c3-model-output-v1")
+        result = cls(
+            quantity=normalized["quantity"],
+            unit=normalized["unit"],
+            payload=CanonicalScope.from_mapping(_mapping(normalized["payload"], "payload")),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "model output content_sha256 does not match canonical content"
+            )
+        return result
+
+
+@dataclass(frozen=True, slots=True)
+class FallbackDisclosure:
+    requested_model: ModelSelector
+    reason_unavailable: str
+    fallback_model: ModelSelector
+    authority_downgrade: str
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.requested_model, ModelSelector):
+            raise ModelInterfaceContractError("requested_model must be a ModelSelector")
+        if not isinstance(self.fallback_model, ModelSelector):
+            raise ModelInterfaceContractError("fallback_model must be a ModelSelector")
+        if self.requested_model == self.fallback_model:
+            raise ModelInterfaceContractError("requested and fallback model selectors must differ")
+        object.__setattr__(
+            self,
+            "reason_unavailable",
+            _nonblank(self.reason_unavailable, "reason_unavailable"),
+        )
+        object.__setattr__(
+            self,
+            "authority_downgrade",
+            _nonblank(self.authority_downgrade, "authority_downgrade"),
+        )
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping()),
+        )
+
+    def _content_mapping(self) -> dict[str, object]:
+        return {
+            "schema": "c3-fallback-disclosure-v1",
+            "requested_model": self.requested_model.to_mapping(),
+            "reason_unavailable": self.reason_unavailable,
+            "fallback_model": self.fallback_model.to_mapping(),
+            "authority_downgrade": self.authority_downgrade,
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> FallbackDisclosure:
+        normalized = _mapping(payload, "fallback disclosure")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "requested_model",
+                "reason_unavailable",
+                "fallback_model",
+                "authority_downgrade",
+                "content_sha256",
+            },
+            "fallback disclosure",
+        )
+        if normalized["schema"] != "c3-fallback-disclosure-v1":
+            raise ModelInterfaceContractError(
+                "fallback disclosure schema must be c3-fallback-disclosure-v1"
+            )
+        result = cls(
+            requested_model=ModelSelector.from_mapping(
+                _mapping(normalized["requested_model"], "requested_model")
+            ),
+            reason_unavailable=normalized["reason_unavailable"],
+            fallback_model=ModelSelector.from_mapping(
+                _mapping(normalized["fallback_model"], "fallback_model")
+            ),
+            authority_downgrade=normalized["authority_downgrade"],
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "fallback disclosure content_sha256 does not match canonical content"
+            )
+        return result
+
+
+def _uncertainty_mapping(value: UncertaintyDescriptor) -> dict[str, Any]:
+    if not isinstance(value, UncertaintyDescriptor):
+        raise ModelInterfaceContractError("uncertainty must be an UncertaintyDescriptor")
+    return value.payload.to_mapping()
+
+
+@dataclass(frozen=True, slots=True)
+class VersionedModelResult:
+    status: ModelResultStatus
+    operation: ModelOperation
+    requested_model: ModelSelector
+    bound_model: ModelRelease
+    request: VersionedModelRequest
+    output: ModelOutput | None
+    uncertainty: UncertaintyDescriptor
+    applicability: ApplicabilityResult
+    missing_inputs: tuple[str, ...]
+    warnings: tuple[str, ...]
+    evidence_class: ModelEvidenceClass
+    may_feed_oav_screening: bool
+    permitted_claim_wording: tuple[str, ...]
+    forbidden_claim_wording: tuple[str, ...]
+    fallback: FallbackDisclosure | None
+    content_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        status = _direct_enum(ModelResultStatus, self.status, "status")
+        operation = _direct_enum(ModelOperation, self.operation, "operation")
+        if not isinstance(self.requested_model, ModelSelector):
+            raise ModelInterfaceContractError("requested_model must be a ModelSelector")
+        if not isinstance(self.bound_model, ModelRelease):
+            raise ModelInterfaceContractError("bound_model must be a ModelRelease")
+        if not isinstance(self.request, VersionedModelRequest):
+            raise ModelInterfaceContractError("request must be a VersionedModelRequest")
+        if operation is not self.request.operation:
+            raise ModelInterfaceContractError("result operation must match the request operation")
+        if self.requested_model != self.request.requested_model:
+            raise ModelInterfaceContractError("result requested_model must match the request")
+        if self.output is not None and not isinstance(self.output, ModelOutput):
+            raise ModelInterfaceContractError("output must be a ModelOutput or None")
+        uncertainty_mapping = _uncertainty_mapping(self.uncertainty)
+        if not isinstance(self.applicability, ApplicabilityResult):
+            raise ModelInterfaceContractError("applicability must be an ApplicabilityResult")
+        if self.applicability.request_sha256 != self.request.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability request hash must match the result request"
+            )
+        if self.applicability.domain_sha256 != self.bound_model.applicability_domain.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability domain hash must match the bound model domain"
+            )
+        missing_inputs = _strings(self.missing_inputs, "missing_inputs")
+        warnings = _strings(self.warnings, "warnings")
+        if missing_inputs != self.applicability.missing_inputs:
+            raise ModelInterfaceContractError(
+                "result missing_inputs must match applicability missing_inputs"
+            )
+        if not set(self.applicability.warnings).issubset(warnings):
+            raise ModelInterfaceContractError("result warnings must include applicability warnings")
+        evidence_class = _direct_enum(
+            ModelEvidenceClass,
+            self.evidence_class,
+            "evidence_class",
+        )
+        if evidence_class is not self.bound_model.evidence_class:
+            raise ModelInterfaceContractError("result evidence_class must match the bound model")
+        may_feed_oav = _boolean(
+            self.may_feed_oav_screening,
+            "may_feed_oav_screening",
+        )
+        if may_feed_oav and not self.bound_model.may_feed_oav_screening:
+            raise ModelInterfaceContractError("result cannot exceed the bound model OAV authority")
+        permitted = _strings(
+            self.permitted_claim_wording,
+            "permitted_claim_wording",
+            require_nonempty=True,
+        )
+        forbidden = _strings(
+            self.forbidden_claim_wording,
+            "forbidden_claim_wording",
+            require_nonempty=True,
+        )
+        if permitted != self.bound_model.permitted_claim_wording:
+            raise ModelInterfaceContractError("permitted claim wording must match the bound model")
+        if forbidden != self.bound_model.forbidden_claim_wording:
+            raise ModelInterfaceContractError("forbidden claim wording must match the bound model")
+        if self.fallback is not None and not isinstance(self.fallback, FallbackDisclosure):
+            raise ModelInterfaceContractError("fallback must be a FallbackDisclosure or None")
+        if self.bound_model.selector == self.requested_model:
+            if self.fallback is not None:
+                raise ModelInterfaceContractError(
+                    "fallback must be absent when the requested model is bound"
+                )
+        else:
+            if self.fallback is None:
+                raise ModelInterfaceContractError(
+                    "a changed bound model requires fallback disclosure"
+                )
+            if self.fallback.requested_model != self.requested_model:
+                raise ModelInterfaceContractError(
+                    "fallback requested model must match the result requested model"
+                )
+            if self.fallback.fallback_model != self.bound_model.selector:
+                raise ModelInterfaceContractError(
+                    "fallback model must match the bound model selector"
+                )
+        noncomputable_states = {
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+        }
+        if status is ModelResultStatus.COMPUTED:
+            if self.output is None:
+                raise ModelInterfaceContractError("a COMPUTED result requires output")
+            if self.applicability.state in noncomputable_states:
+                raise ModelInterfaceContractError(
+                    f"a COMPUTED result cannot use {self.applicability.state.value}"
+                )
+            if self.bound_model.availability is ModelAvailability.UNAVAILABLE:
+                raise ModelInterfaceContractError(
+                    "a COMPUTED result requires an available bound model"
+                )
+        else:
+            if self.output is not None:
+                raise ModelInterfaceContractError("an ABSTAINED result must not contain output")
+            if may_feed_oav:
+                raise ModelInterfaceContractError("an ABSTAINED result cannot feed OAV screening")
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "operation", operation)
+        object.__setattr__(self, "missing_inputs", missing_inputs)
+        object.__setattr__(self, "warnings", warnings)
+        object.__setattr__(self, "evidence_class", evidence_class)
+        object.__setattr__(self, "may_feed_oav_screening", may_feed_oav)
+        object.__setattr__(self, "permitted_claim_wording", permitted)
+        object.__setattr__(self, "forbidden_claim_wording", forbidden)
+        object.__setattr__(
+            self,
+            "content_sha256",
+            _uncertainty_free_hash(self._content_mapping(uncertainty_mapping)),
+        )
+
+    def _content_mapping(
+        self,
+        uncertainty_mapping: Mapping[str, Any] | None = None,
+    ) -> dict[str, object]:
+        return {
+            "schema": "c3-versioned-model-result-v1",
+            "status": self.status.value,
+            "operation": self.operation.value,
+            "requested_model": self.requested_model.to_mapping(),
+            "bound_model": self.bound_model.to_mapping(),
+            "request": self.request.to_mapping(),
+            "output": None if self.output is None else self.output.to_mapping(),
+            "uncertainty": (
+                _uncertainty_mapping(self.uncertainty)
+                if uncertainty_mapping is None
+                else dict(uncertainty_mapping)
+            ),
+            "applicability": self.applicability.to_mapping(),
+            "missing_inputs": list(self.missing_inputs),
+            "warnings": list(self.warnings),
+            "evidence_class": self.evidence_class.value,
+            "may_feed_oav_screening": self.may_feed_oav_screening,
+            "permitted_claim_wording": list(self.permitted_claim_wording),
+            "forbidden_claim_wording": list(self.forbidden_claim_wording),
+            "fallback": (None if self.fallback is None else self.fallback.to_mapping()),
+        }
+
+    def to_mapping(self) -> dict[str, object]:
+        return {**self._content_mapping(), "content_sha256": self.content_sha256}
+
+    @classmethod
+    def from_mapping(
+        cls,
+        payload: Mapping[str, Any],
+    ) -> VersionedModelResult:
+        normalized = _mapping(payload, "versioned model result")
+        _exact_keys(
+            normalized,
+            {
+                "schema",
+                "status",
+                "operation",
+                "requested_model",
+                "bound_model",
+                "request",
+                "output",
+                "uncertainty",
+                "applicability",
+                "missing_inputs",
+                "warnings",
+                "evidence_class",
+                "may_feed_oav_screening",
+                "permitted_claim_wording",
+                "forbidden_claim_wording",
+                "fallback",
+                "content_sha256",
+            },
+            "versioned model result",
+        )
+        if normalized["schema"] != "c3-versioned-model-result-v1":
+            raise ModelInterfaceContractError(
+                "versioned model result schema must be c3-versioned-model-result-v1"
+            )
+        raw_output = normalized["output"]
+        raw_fallback = normalized["fallback"]
+        result = cls(
+            status=_enum_value(
+                ModelResultStatus,
+                normalized["status"],
+                "status",
+            ),
+            operation=_enum_value(
+                ModelOperation,
+                normalized["operation"],
+                "operation",
+            ),
+            requested_model=ModelSelector.from_mapping(
+                _mapping(normalized["requested_model"], "requested_model")
+            ),
+            bound_model=ModelRelease.from_mapping(
+                _mapping(normalized["bound_model"], "bound_model")
+            ),
+            request=VersionedModelRequest.from_mapping(_mapping(normalized["request"], "request")),
+            output=(
+                None
+                if raw_output is None
+                else ModelOutput.from_mapping(_mapping(raw_output, "output"))
+            ),
+            uncertainty=UncertaintyDescriptor.from_mapping(
+                _mapping(normalized["uncertainty"], "uncertainty")
+            ),
+            applicability=ApplicabilityResult.from_mapping(
+                _mapping(normalized["applicability"], "applicability")
+            ),
+            missing_inputs=tuple(normalized["missing_inputs"]),
+            warnings=tuple(normalized["warnings"]),
+            evidence_class=_enum_value(
+                ModelEvidenceClass,
+                normalized["evidence_class"],
+                "evidence_class",
+            ),
+            may_feed_oav_screening=normalized["may_feed_oav_screening"],
+            permitted_claim_wording=tuple(normalized["permitted_claim_wording"]),
+            forbidden_claim_wording=tuple(normalized["forbidden_claim_wording"]),
+            fallback=(
+                None
+                if raw_fallback is None
+                else FallbackDisclosure.from_mapping(_mapping(raw_fallback, "fallback"))
+            ),
+        )
+        if _sha256(normalized["content_sha256"], "content_sha256") != result.content_sha256:
+            raise ModelInterfaceContractError(
+                "versioned model result content_sha256 does not match canonical content"
+            )
+        return result
+
+
 __all__ = [
+    "ApplicabilityContext",
     "ApplicabilityDomain",
+    "ApplicabilityResult",
     "ApplicabilityState",
     "DomainRange",
+    "FallbackDisclosure",
     "ModelAvailability",
     "ModelEvidenceClass",
     "ModelFamily",
+    "ModelInputReference",
     "ModelInterfaceContractError",
     "ModelOperation",
+    "ModelOutput",
     "ModelRelease",
     "ModelResultStatus",
     "ModelSelector",
+    "VersionedModelRequest",
+    "VersionedModelResult",
 ]

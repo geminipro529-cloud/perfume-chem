@@ -6,23 +6,43 @@ from dataclasses import replace
 import pytest
 
 from engine.physics.matrix_environment import (
+    ApplicationEnvironment,
     ApplicationEnvironmentKind,
+    CompositionCompleteness,
+    DeclaredQuantity,
+    EnvironmentField,
+    MatrixAwareModelRequest,
+    MatrixComponent,
+    MatrixComponentRole,
+    MatrixComposition,
+    MatrixQuantityBasis,
     MatrixStage,
 )
 from engine.physics.model_interface import (
+    ApplicabilityContext,
     ApplicabilityDomain,
+    ApplicabilityResult,
     ApplicabilityState,
     DomainRange,
+    FallbackDisclosure,
     ModelAvailability,
     ModelEvidenceClass,
     ModelFamily,
+    ModelInputReference,
     ModelInterfaceContractError,
     ModelOperation,
+    ModelOutput,
     ModelRelease,
     ModelResultStatus,
     ModelSelector,
+    VersionedModelRequest,
+    VersionedModelResult,
 )
-from engine.physics.properties import CanonicalScope, ThermophysicalProperty
+from engine.physics.properties import (
+    CanonicalScope,
+    ThermophysicalProperty,
+    UncertaintyDescriptor,
+)
 
 REQUIRED_OPERATIONS = {
     "predict_equilibrium_headspace",
@@ -159,6 +179,236 @@ def release(
             "Measured headspace concentration.",
             "Validated nonideal perfume prediction.",
         ),
+    )
+
+
+def unknown(reason: str = "not quantified") -> UncertaintyDescriptor:
+    return UncertaintyDescriptor.unknown(reason)
+
+
+def quantity(value: float, unit: str) -> DeclaredQuantity:
+    return DeclaredQuantity(value=value, unit=unit)
+
+
+def matrix_component(
+    component_id: str,
+    name: str,
+    role: MatrixComponentRole,
+    fraction: float,
+) -> MatrixComponent:
+    return MatrixComponent(
+        component_id=component_id,
+        name=name,
+        role=role,
+        basis=MatrixQuantityBasis.MASS_FRACTION,
+        quantity=quantity(fraction, "1"),
+        source_reference=f"formula-declaration:{component_id}:v1",
+        uncertainty=unknown(),
+    )
+
+
+def exact_matrix() -> MatrixComposition:
+    return MatrixComposition(
+        matrix_id="matrix:formula-17:finished",
+        matrix_version="1",
+        stage=MatrixStage.FINISHED_PERFUME,
+        components=(
+            matrix_component(
+                "cas:64-17-5",
+                "ethanol",
+                MatrixComponentRole.ETHANOL,
+                0.8,
+            ),
+            matrix_component(
+                "formula:active-fragrance",
+                "active fragrance",
+                MatrixComponentRole.ACTIVE_FRAGRANCE,
+                0.2,
+            ),
+        ),
+        temperature=quantity(298.15, "K"),
+        pressure=quantity(101325.0, "Pa"),
+        relative_humidity=None,
+        gas_comparison=False,
+        total_mass=quantity(25.0, "g"),
+        total_volume=quantity(30.0, "mL"),
+        uncertainty=unknown("matrix uncertainty not measured"),
+        phase_assumptions=("single liquid phase",),
+        completeness=CompositionCompleteness.EXACT,
+        missing_fields=(),
+    )
+
+
+def sealed_vial_environment() -> ApplicationEnvironment:
+    return ApplicationEnvironment(
+        environment_id="environment:sealed-vial:spme-1",
+        environment_version="1",
+        kind=ApplicationEnvironmentKind.SEALED_EQUILIBRIUM_VIAL,
+        dose=quantity(0.01, "mL"),
+        area=quantity(1.0, "cm2"),
+        film_thickness=None,
+        geometry="2 mL crimp vial with flat liquid surface",
+        substrate="borosilicate glass vial lot V-4",
+        temperature=quantity(298.15, "K"),
+        relative_humidity=quantity(50.0, "%"),
+        airflow=quantity(0.0, "m/s"),
+        equilibration_or_drying_time=quantity(3600.0, "s"),
+        sampling_time=quantity(3600.0, "s"),
+        sampling_method="SPME fiber exposed in sealed headspace",
+        vessel_volume=quantity(2.0, "mL"),
+        headspace_volume=quantity(1.0, "mL"),
+        uncertainty=unknown("environment uncertainty not measured"),
+        missing_fields=(),
+        not_applicable_fields=(EnvironmentField.FILM_THICKNESS,),
+    )
+
+
+def matrix_context() -> MatrixAwareModelRequest:
+    return MatrixAwareModelRequest(
+        purpose="c3 model-interface contract test",
+        formula_id="formula:17",
+        formula_sha256=digest("7"),
+        matrix=exact_matrix(),
+        environment=sealed_vial_environment(),
+    )
+
+
+def applicability_context() -> ApplicabilityContext:
+    return ApplicabilityContext(
+        identity_ids=("material:water", "material:ethanol"),
+        chemical_classes=("water", "alcohol"),
+        functional_groups=("hydroxyl",),
+        concentration=quantity(0.1, "mole_fraction"),
+        phase_behavior="single liquid phase",
+        available_properties=(
+            ThermophysicalProperty.MOLECULAR_WEIGHT,
+            ThermophysicalProperty.VAPOR_PRESSURE,
+        ),
+        training_calibration_tags=("transparent-baseline",),
+    )
+
+
+def input_reference(
+    *,
+    role: str = "property_snapshot",
+    input_id: str = "property-snapshot:formula-17:v1",
+    content_sha256: str = digest("8"),
+) -> ModelInputReference:
+    return ModelInputReference(
+        role=role,
+        input_id=input_id,
+        content_sha256=content_sha256,
+    )
+
+
+def versioned_request(
+    *,
+    operation: ModelOperation = ModelOperation.PREDICT_EQUILIBRIUM_HEADSPACE,
+    requested_model: ModelSelector | None = None,
+) -> VersionedModelRequest:
+    return VersionedModelRequest(
+        request_id="request:c3:formula-17:ideal-raoult",
+        operation=operation,
+        requested_model=requested_model or selector(),
+        context=matrix_context(),
+        applicability_context=applicability_context(),
+        input_references=(
+            input_reference(),
+            input_reference(
+                role="formula_state",
+                input_id="formula-state:17:v1",
+                content_sha256=digest("9"),
+            ),
+        ),
+    )
+
+
+def applicability_result(
+    *,
+    state: ApplicabilityState = ApplicabilityState.IN_DOMAIN,
+    request: VersionedModelRequest | None = None,
+    model_release: ModelRelease | None = None,
+) -> ApplicabilityResult:
+    resolved_request = request or versioned_request()
+    resolved_release = model_release or release()
+    reasons: tuple[str, ...] = ("all declared bounds satisfied",)
+    missing_inputs: tuple[str, ...] = ()
+    warnings: tuple[str, ...] = ()
+    if state is ApplicabilityState.NEAR_DOMAIN_WITH_WARNING:
+        reasons = ("temperature is within the declared warning margin",)
+        warnings = ("NEAR_TEMPERATURE_BOUNDARY",)
+    elif state is ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN:
+        reasons = ("matrix stage is outside the declared domain",)
+    elif state is ApplicabilityState.INSUFFICIENT_INPUT:
+        reasons = ("a required property is absent",)
+        missing_inputs = ("property:vapor_pressure",)
+    elif state is ApplicabilityState.MODEL_NOT_VALIDATED:
+        reasons = ("model has no applicable validation record",)
+    return ApplicabilityResult(
+        state=state,
+        domain_sha256=resolved_release.applicability_domain.content_sha256,
+        request_sha256=resolved_request.content_sha256,
+        reasons=reasons,
+        missing_inputs=missing_inputs,
+        warnings=warnings,
+    )
+
+
+def interval_uncertainty() -> UncertaintyDescriptor:
+    return UncertaintyDescriptor.from_mapping(
+        {
+            "schema": "c1-uncertainty-v1",
+            "kind": "INTERVAL",
+            "interval_type": "CONFIDENCE",
+            "coverage_probability": 0.95,
+            "lower": 9.0,
+            "upper": 11.0,
+            "unit": "Pa",
+        }
+    )
+
+
+def model_output() -> ModelOutput:
+    return ModelOutput(
+        quantity="component partial pressure",
+        unit="Pa",
+        payload=CanonicalScope.from_mapping({"components": {"material:ethanol": 10.0}}),
+    )
+
+
+def versioned_result(
+    *,
+    status: ModelResultStatus = ModelResultStatus.COMPUTED,
+    state: ApplicabilityState = ApplicabilityState.IN_DOMAIN,
+    request: VersionedModelRequest | None = None,
+    bound_model: ModelRelease | None = None,
+    fallback: FallbackDisclosure | None = None,
+) -> VersionedModelResult:
+    resolved_request = request or versioned_request()
+    resolved_model = bound_model or release(model_selector=resolved_request.requested_model)
+    applicability = applicability_result(
+        state=state,
+        request=resolved_request,
+        model_release=resolved_model,
+    )
+    return VersionedModelResult(
+        status=status,
+        operation=resolved_request.operation,
+        requested_model=resolved_request.requested_model,
+        bound_model=resolved_model,
+        request=resolved_request,
+        output=model_output() if status is ModelResultStatus.COMPUTED else None,
+        uncertainty=interval_uncertainty(),
+        applicability=applicability,
+        missing_inputs=applicability.missing_inputs,
+        warnings=applicability.warnings,
+        evidence_class=resolved_model.evidence_class,
+        may_feed_oav_screening=(
+            resolved_model.may_feed_oav_screening if status is ModelResultStatus.COMPUTED else False
+        ),
+        permitted_claim_wording=resolved_model.permitted_claim_wording,
+        forbidden_claim_wording=resolved_model.forbidden_claim_wording,
+        fallback=fallback,
     )
 
 
@@ -400,3 +650,330 @@ def test_model_selector_requires_closed_typed_identity(
 ) -> None:
     with pytest.raises(ModelInterfaceContractError):
         replace(selector(), **changes)
+
+
+def test_applicability_context_is_canonical_and_hash_bound() -> None:
+    baseline = applicability_context()
+    reordered = replace(
+        baseline,
+        identity_ids=tuple(reversed(baseline.identity_ids)),
+        chemical_classes=tuple(reversed(baseline.chemical_classes)),
+        available_properties=tuple(reversed(baseline.available_properties)),
+    )
+    assert reordered == baseline
+    assert ApplicabilityContext.from_mapping(baseline.to_mapping()) == baseline
+
+    variants = (
+        replace(baseline, identity_ids=("material:ethanol",)),
+        replace(baseline, chemical_classes=("alcohol",)),
+        replace(baseline, functional_groups=("hydroxyl", "ether")),
+        replace(baseline, concentration=quantity(0.2, "mole_fraction")),
+        replace(baseline, phase_behavior="two liquid phases"),
+        replace(
+            baseline,
+            available_properties=(ThermophysicalProperty.VAPOR_PRESSURE,),
+        ),
+        replace(baseline, training_calibration_tags=("measured-domain",)),
+    )
+    assert all(item.content_sha256 != baseline.content_sha256 for item in variants)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"identity_ids": ("material:ethanol", "material:ethanol")},
+        {"chemical_classes": ("alcohol", "alcohol")},
+        {"functional_groups": ("hydroxyl", "hydroxyl")},
+        {
+            "available_properties": (
+                ThermophysicalProperty.VAPOR_PRESSURE,
+                ThermophysicalProperty.VAPOR_PRESSURE,
+            )
+        },
+        {"training_calibration_tags": ("baseline", "baseline")},
+    ],
+)
+def test_applicability_context_rejects_duplicate_entries(
+    changes: dict[str, object],
+) -> None:
+    with pytest.raises(ModelInterfaceContractError, match="duplicate"):
+        replace(applicability_context(), **changes)
+
+
+@pytest.mark.parametrize(
+    ("state", "changes", "message"),
+    [
+        (
+            ApplicabilityState.NEAR_DOMAIN_WITH_WARNING,
+            {"warnings": ()},
+            "warning",
+        ),
+        (
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            {"reasons": ()},
+            "reason",
+        ),
+        (
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            {"missing_inputs": ()},
+            "missing_inputs",
+        ),
+        (
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+            {"reasons": ()},
+            "reason",
+        ),
+    ],
+)
+def test_applicability_result_enforces_state_shape(
+    state: ApplicabilityState,
+    changes: dict[str, object],
+    message: str,
+) -> None:
+    baseline = applicability_result(state=state)
+    with pytest.raises(ModelInterfaceContractError, match=message):
+        replace(baseline, **changes)
+
+
+def test_applicability_result_round_trip_rejects_tampering() -> None:
+    baseline = applicability_result(state=ApplicabilityState.NEAR_DOMAIN_WITH_WARNING)
+    payload = baseline.to_mapping()
+    assert ApplicabilityResult.from_mapping(payload) == baseline
+    with pytest.raises(ModelInterfaceContractError, match="content_sha256"):
+        ApplicabilityResult.from_mapping({**payload, "reasons": ["tampered reason"]})
+    with pytest.raises(ModelInterfaceContractError, match="unknown fields"):
+        ApplicabilityResult.from_mapping({**payload, "score": 0.5})
+
+
+def test_versioned_request_embeds_complete_c2_context_and_inputs() -> None:
+    request = versioned_request()
+    payload = request.to_mapping()
+    context = payload["context"]
+    assert isinstance(context, dict)
+    assert context["formula_sha256"] == request.context.formula_sha256
+    assert context["matrix_sha256"] == request.context.matrix.content_sha256
+    assert context["environment_sha256"] == request.context.environment.content_sha256
+    assert context["matrix"] == request.context.matrix.to_mapping()
+    assert context["environment"] == request.context.environment.to_mapping()
+    input_references = payload["input_references"]
+    assert isinstance(input_references, list)
+    input_pairs: list[tuple[object, object]] = []
+    for item in input_references:
+        assert isinstance(item, dict)
+        input_pairs.append((item["role"], item["input_id"]))
+    assert input_pairs == [
+        ("formula_state", "formula-state:17:v1"),
+        ("property_snapshot", "property-snapshot:formula-17:v1"),
+    ]
+    assert VersionedModelRequest.from_mapping(payload) == request
+
+
+def test_versioned_request_rejects_duplicate_inputs_and_tampering() -> None:
+    reference = input_reference()
+    with pytest.raises(ModelInterfaceContractError, match="duplicate"):
+        replace(
+            versioned_request(),
+            input_references=(reference, reference),
+        )
+
+    payload = deepcopy(versioned_request().to_mapping())
+    references = payload["input_references"]
+    assert isinstance(references, list)
+    first_reference = references[0]
+    assert isinstance(first_reference, dict)
+    first_reference["content_sha256"] = digest("0")
+    with pytest.raises(ModelInterfaceContractError, match="content_sha256"):
+        VersionedModelRequest.from_mapping(payload)
+
+    with pytest.raises(ModelInterfaceContractError, match="unknown fields"):
+        VersionedModelRequest.from_mapping(
+            {**versioned_request().to_mapping(), "default_model": True}
+        )
+
+
+@pytest.mark.parametrize(
+    ("changes", "message"),
+    [
+        ({"role": " "}, "role"),
+        ({"input_id": " "}, "input_id"),
+        ({"content_sha256": "A" * 64}, "content_sha256"),
+    ],
+)
+def test_model_input_reference_is_strict(
+    changes: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(ModelInterfaceContractError, match=message):
+        replace(input_reference(), **changes)
+
+
+def test_model_output_is_explicit_and_tamper_evident() -> None:
+    baseline = model_output()
+    payload = baseline.to_mapping()
+    assert payload["quantity"] == "component partial pressure"
+    assert payload["unit"] == "Pa"
+    assert ModelOutput.from_mapping(payload) == baseline
+    assert replace(baseline, unit="kPa").content_sha256 != baseline.content_sha256
+    assert (
+        replace(
+            baseline,
+            payload=CanonicalScope.from_mapping({"components": {"material:ethanol": 11.0}}),
+        ).content_sha256
+        != baseline.content_sha256
+    )
+    with pytest.raises(ModelInterfaceContractError, match="content_sha256"):
+        ModelOutput.from_mapping({**payload, "quantity": "tampered"})
+
+
+def test_computed_result_exposes_every_authoritative_field() -> None:
+    result = versioned_result()
+    payload = result.to_mapping()
+    assert payload["status"] == "COMPUTED"
+    assert payload["operation"] == "predict_equilibrium_headspace"
+    assert payload["requested_model"] == result.requested_model.to_mapping()
+    assert payload["bound_model"] == result.bound_model.to_mapping()
+    assert payload["request"] == result.request.to_mapping()
+    assert result.output is not None
+    assert payload["output"] == result.output.to_mapping()
+    assert payload["uncertainty"] == result.uncertainty.payload.to_mapping()
+    assert payload["applicability"] == result.applicability.to_mapping()
+    assert payload["missing_inputs"] == []
+    assert payload["evidence_class"] == "THEORETICAL_BASELINE"
+    assert payload["may_feed_oav_screening"] is True
+    assert payload["permitted_claim_wording"]
+    assert payload["forbidden_claim_wording"]
+    assert payload["fallback"] is None
+    assert VersionedModelResult.from_mapping(payload) == result
+
+
+@pytest.mark.parametrize(
+    "state",
+    [
+        ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+        ApplicabilityState.INSUFFICIENT_INPUT,
+        ApplicabilityState.MODEL_NOT_VALIDATED,
+    ],
+)
+def test_non_applicable_states_reject_computed_results(
+    state: ApplicabilityState,
+) -> None:
+    with pytest.raises(ModelInterfaceContractError, match="COMPUTED"):
+        versioned_result(state=state)
+
+
+def test_abstained_result_has_no_output_and_cannot_feed_oav() -> None:
+    result = versioned_result(
+        status=ModelResultStatus.ABSTAINED,
+        state=ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+    )
+    assert result.output is None
+    assert result.may_feed_oav_screening is False
+    payload = result.to_mapping()
+    assert payload["output"] is None
+    assert VersionedModelResult.from_mapping(payload) == result
+    with pytest.raises(ModelInterfaceContractError, match="output"):
+        replace(result, output=model_output())
+    with pytest.raises(ModelInterfaceContractError, match="OAV"):
+        replace(result, may_feed_oav_screening=True)
+
+
+def test_result_rejects_request_model_or_domain_mismatch() -> None:
+    result = versioned_result()
+    with pytest.raises(ModelInterfaceContractError, match="operation"):
+        replace(result, operation=ModelOperation.PREDICT_DYNAMIC_RELEASE)
+    with pytest.raises(ModelInterfaceContractError, match="request"):
+        replace(
+            result,
+            applicability=replace(
+                result.applicability,
+                request_sha256=digest("0"),
+            ),
+        )
+    with pytest.raises(ModelInterfaceContractError, match="domain"):
+        replace(
+            result,
+            applicability=replace(
+                result.applicability,
+                domain_sha256=digest("0"),
+            ),
+        )
+
+
+def test_result_requires_complete_fallback_disclosure_for_model_change() -> None:
+    request = versioned_request()
+    fallback_selector = ModelSelector(
+        family=ModelFamily.LEGACY_HEURISTIC_ADAPTER,
+        model_version="legacy-1",
+    )
+    fallback_model = replace(
+        release(model_selector=fallback_selector),
+        evidence_class=ModelEvidenceClass.LEGACY_HEURISTIC,
+        may_feed_oav_screening=False,
+        permitted_claim_wording=("Legacy diagnostic comparison only.",),
+        forbidden_claim_wording=("Canonical physical prediction.",),
+    )
+    with pytest.raises(ModelInterfaceContractError, match="fallback"):
+        versioned_result(request=request, bound_model=fallback_model)
+
+    disclosure = FallbackDisclosure(
+        requested_model=request.requested_model,
+        reason_unavailable="requested implementation unavailable",
+        fallback_model=fallback_selector,
+        authority_downgrade="canonical request downgraded to legacy diagnostic",
+    )
+    result = versioned_result(
+        request=request,
+        bound_model=fallback_model,
+        fallback=disclosure,
+    )
+    assert result.bound_model.selector == fallback_selector
+    assert VersionedModelResult.from_mapping(result.to_mapping()) == result
+    with pytest.raises(ModelInterfaceContractError, match="requested"):
+        replace(
+            result,
+            fallback=replace(disclosure, requested_model=fallback_selector),
+        )
+    with pytest.raises(ModelInterfaceContractError, match="fallback model"):
+        replace(
+            result,
+            fallback=replace(disclosure, fallback_model=request.requested_model),
+        )
+
+
+def test_fallback_disclosure_rejects_same_selector_and_tampering() -> None:
+    requested = selector()
+    with pytest.raises(ModelInterfaceContractError, match="differ"):
+        FallbackDisclosure(
+            requested_model=requested,
+            reason_unavailable="not available",
+            fallback_model=requested,
+            authority_downgrade="screening only",
+        )
+    disclosure = FallbackDisclosure(
+        requested_model=requested,
+        reason_unavailable="not available",
+        fallback_model=ModelSelector(
+            family=ModelFamily.LEGACY_HEURISTIC_ADAPTER,
+            model_version="legacy-1",
+        ),
+        authority_downgrade="screening only",
+    )
+    payload = disclosure.to_mapping()
+    assert FallbackDisclosure.from_mapping(payload) == disclosure
+    with pytest.raises(ModelInterfaceContractError, match="content_sha256"):
+        FallbackDisclosure.from_mapping({**payload, "authority_downgrade": "tampered"})
+
+
+def test_result_parser_rejects_nested_and_top_level_tampering() -> None:
+    payload = deepcopy(versioned_result().to_mapping())
+    bound_model = payload["bound_model"]
+    assert isinstance(bound_model, dict)
+    bound_model["parameter_set_version"] = "tampered"
+    with pytest.raises(ModelInterfaceContractError, match="content_sha256"):
+        VersionedModelResult.from_mapping(payload)
+
+    baseline = versioned_result().to_mapping()
+    with pytest.raises(ModelInterfaceContractError, match="unknown fields"):
+        VersionedModelResult.from_mapping({**baseline, "winner": "ideal"})
+    with pytest.raises(ModelInterfaceContractError, match="schema"):
+        VersionedModelResult.from_mapping({**baseline, "schema": "c3-model-result-v0"})
