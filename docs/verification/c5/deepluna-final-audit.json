@@ -1,0 +1,86 @@
+{
+  "schema": "build-c5-deepluna-final-audit-v1",
+  "status": "PASS",
+  "implementation_head": "052bbdffcba0d7dc163fd6ef625bef1717cf32eb",
+  "audit_record": {
+    "scratch_path": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/work/c5_final_audit_result_20260803.json",
+    "bytes": 11846,
+    "sha256": "495c6060ebfb2d42b3681a9b54529529ee2f085c5a016917e683016095e80a93"
+  },
+  "preflight": {
+    "project_id": "perfume-chem",
+    "project_scope": "project",
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_sha256": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "spent_nano_usd": 467123868
+  },
+  "job": {
+    "job_id": "DS-851f9e989084233e4e4e3363208056f8",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "cache_hit": false,
+    "route": "FLASH",
+    "provider": "deepinfra",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "provider_calls": 1,
+    "prompt_tokens": 73429,
+    "completion_tokens": 734,
+    "total_tokens": 74163,
+    "cost_nano_usd": 10111095
+  },
+  "provider_findings": {
+    "positive_finding_count": 3,
+    "negative_finding_count": 0,
+    "residual_risk_count": 0,
+    "scope_deviation": false,
+    "verified_topics": [
+      "simulation is rejected by the real importer and cannot gain empirical promotion",
+      "all six prespecified leakage dimensions are checked across partitions",
+      "held-out release requires the matching model lock and a later timestamp",
+      "required overall and grouped metrics exclude R-squared authority",
+      "no-data empirical status is BLOCKED_PENDING_DATA with no metrics or promotion",
+      "B5 method and receipt scope is fail-closed",
+      "legacy calibration and analytical ledgers are not imported",
+      "captured local tests, scope, archive, and protected-state evidence pass"
+    ]
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "provider_findings_advisory_only": true,
+    "negative_findings_reproduced": 0,
+    "gate_bearing_findings_reproduced": true,
+    "targeted_reproduction_test_count": 11,
+    "targeted_reproduction_log": "docs/verification/c5/logs/final/deepluna-sol-reproduction.stdout.txt",
+    "actual_data_absence_reverified": true,
+    "actual_data_absence_log": "docs/verification/c5/logs/final/actual-data-absence.stdout.txt",
+    "empirical_status": "BLOCKED_PENDING_DATA",
+    "empirical_metrics_present": false,
+    "empirical_promotion_allowed": false
+  },
+  "postflight": {
+    "readiness": "READY",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "spent_nano_usd": 477234963,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "primary_provider_runs": 91,
+    "primary_provider_calls": 91,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false
+  },
+  "passed": true
+}

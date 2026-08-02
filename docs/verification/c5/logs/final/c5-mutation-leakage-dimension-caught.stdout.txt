@@ -1,0 +1,23 @@
+.....F                                                                   [100%]
+================================== FAILURES ===================================
+_ test_split_rejects_each_cross_partition_leakage_dimension[measurement_session_id] _
+
+dimension = 'measurement_session_id'
+
+    @pytest.mark.parametrize("dimension", LEAKAGE_DIMENSIONS)
+    def test_split_rejects_each_cross_partition_leakage_dimension(dimension: str) -> None:
+        assignments = list(_assignments())
+        source = assignments[0]
+        target = assignments[2]
+        leaking_descriptor = replace(
+            target.descriptor,
+            **{dimension: getattr(source.descriptor, dimension)},
+        )
+        assignments[2] = replace(target, descriptor=leaking_descriptor)
+>       with pytest.raises(CalibrationProgramContractError, match=dimension):
+E       Failed: DID NOT RAISE CalibrationProgramContractError
+
+tests\test_c5_calibration_program.py:591: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c5_calibration_program.py::test_split_rejects_each_cross_partition_leakage_dimension[measurement_session_id] - Failed: DID NOT RAISE CalibrationProgramContractError
+1 failed, 5 passed in 0.56s
