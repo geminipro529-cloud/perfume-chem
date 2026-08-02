@@ -19,9 +19,9 @@ from engine.authority_gates import evaluate_mode_action
 from engine.calibration.hashing import formula_hash_from_record
 from engine.calibration.store import load_records, summarize_records
 from engine.chemical_data_validator import blocked_reason
-from engine.chemistry.maturation import predict_shelf_life_days
 from engine.chemistry.photochem import photolysis_remaining_fraction
 from engine.confidence import ConfidenceScorer
+from engine.evidence.unsupported_science import AgingClaim, assess_aging_claim
 from engine.families.registry import (
     evaluate_family_archetype,
     get_archetype,
@@ -480,8 +480,6 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
     }
-    composition_g = {m.name: m.active_g for m in state.materials if m.active_g > 0}
-
     aldehydes = sorted(
         m.name for m in state.materials if "aldehyde" in functional_groups.get(m.name, set())
     )
@@ -490,7 +488,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     )
     aldehyde_pct = sum(active_pct.get(name, 0.0) for name in aldehydes)
     amine_pct = sum(active_pct.get(name, 0.0) for name in amines)
-    # Trace aldehydes (<0.05% active) cannot meaningfully affect shelf life
+    # Ignore trace aldehydes below the explicit contact-risk screening threshold.
     if aldehyde_pct < 0.05:
         aldehydes = []
         aldehyde_pct = 0.0
@@ -518,22 +516,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             schiff_pairs = [
                 {"aldehyde": aldehyde, "amines": list(amines)} for aldehyde in aldehydes
             ]
-
-    has_bht = any(
-        "bht" in name.lower() or "butylated hydroxytoluene" in name.lower()
-        for name in composition_g
-    )
-    shelf_life_days = (
-        predict_shelf_life_days(
-            composition_g,
-            t_k=config.temperature_K,
-            bht_protected=has_bht,
-            threshold_pct=10.0,
-            functional_groups=functional_groups,
-        )
-        if composition_g
-        else 1825
-    )
+    aging_claim = assess_aging_claim(AgingClaim.SHELF_LIFE)
 
     oxidation_rows: list[dict] = []
     photolabile_rows: list[dict] = []
@@ -579,18 +562,6 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             f"aldehyde+amine contact present below hard threshold ({aldehyde_pct:.1f}% / {amine_pct:.1f}%)"
         )
 
-    # Racine (1987): aldehyde acetalization = ~40% after 3 months at 37°C.
-    # Perfume maceration industry standard = 2-6 weeks.
-    # <1 day = chemically unstable. 1-13 days = immature, needs maceration.
-    # ≥14 days = normal maturation window.
-    if shelf_life_days < 1:
-        fail_reasons.append(f"chemically unstable: predicted shelf life {shelf_life_days} days")
-    elif shelf_life_days < 14:
-        warn_reasons.append(
-            f"immature: predicted maturation {shelf_life_days} days (industry standard 14-42 days)"
-        )
-        warn_reasons.append(f"predicted maturation shelf life {shelf_life_days} days")
-
     if reactive_mass_pct > 20.0 and config.commercial_mode:
         fail_reasons.append(
             f"oxidation/photolability burden {reactive_mass_pct:.1f}% active mass in commercial mode"
@@ -599,7 +570,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
         warn_reasons.append(f"oxidation/photolability burden {reactive_mass_pct:.1f}% active mass")
 
     data = {
-        "shelf_life_days": shelf_life_days,
+        "aging_claim": aging_claim.as_mapping(),
         "schiff_base": {
             "aldehydes": aldehydes,
             "amines": amines,
@@ -618,7 +589,8 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     return _result(
         "chemistry_stability",
         "PASS",
-        f"predicted shelf life {shelf_life_days} days",
+        "explicit reaction, oxidation, and photolability hazards screened; "
+        "aging, maturation, and shelf life remain UNKNOWN",
         data,
     )
 

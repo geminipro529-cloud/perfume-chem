@@ -24,12 +24,12 @@ from engine.evidence.unsupported_science import (
     AssayParameter,
     AssayParameterRole,
     BuildDValidationReceipt,
-    C10Use,
     C9AssessmentStatus,
     C9ClaimDecision,
     C9ContractError,
     C9EvidenceReference,
     C9LegacySurfaceRecord,
+    C10Use,
     ConcentrationResponsePoint,
     LegacyDisposition,
     MetricComparator,
@@ -45,7 +45,6 @@ from engine.evidence.unsupported_science import (
     get_c9_legacy_surface,
 )
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
-
 
 PUBLIC_C9_NAMES = (
     "C9_AGING_PROCESSES",
@@ -319,16 +318,14 @@ def test_adaptation_context_requires_every_c9_dimension() -> None:
         "nervous_system_level",
         "stimulus_protocol",
     ):
-        kwargs: dict[str, object] = {
-            "species": "Homo sapiens",
-            "preparation": "awake panel",
-            "nervous_system_level": "whole person",
-            "stimulus_protocol": "fixed pulses",
-            "timescale_seconds": 90.0,
-        }
-        kwargs[field_name] = ""
         with pytest.raises(C9ContractError, match=field_name):
-            AdaptationContext(**kwargs)
+            AdaptationContext(
+                species="" if field_name == "species" else "Homo sapiens",
+                preparation="" if field_name == "preparation" else "awake panel",
+                nervous_system_level="" if field_name == "nervous_system_level" else "whole person",
+                stimulus_protocol="" if field_name == "stimulus_protocol" else "fixed pulses",
+                timescale_seconds=90.0,
+            )
 
     with pytest.raises(C9ContractError, match="timescale_seconds"):
         _adaptation_context(timescale_seconds=0.0)
@@ -431,20 +428,18 @@ def test_aging_evidence_rejects_nonphysical_time_and_temperature() -> None:
         ("duration_days", 0.0),
         ("duration_days", math.inf),
     ):
-        kwargs: dict[str, object] = {
-            "process": AgingProcess.OXIDATION,
-            "subject_identity": "Formula C9",
-            "matrix": "ethanol-water",
-            "temperature_k": 298.15,
-            "duration_days": 28.0,
-            "protocol": "sealed vial",
-            "endpoint": "peroxide marker",
-            "source": _source(),
-            "applicability": "recorded lot only",
-        }
-        kwargs[field_name] = bad_value
         with pytest.raises(C9ContractError, match=field_name):
-            AgingEvidence(**kwargs)
+            AgingEvidence(
+                process=AgingProcess.OXIDATION,
+                subject_identity="Formula C9",
+                matrix="ethanol-water",
+                temperature_k=bad_value if field_name == "temperature_k" else 298.15,
+                duration_days=bad_value if field_name == "duration_days" else 28.0,
+                protocol="sealed vial",
+                endpoint="peroxide marker",
+                source=_source(),
+                applicability="recorded lot only",
+            )
 
 
 def test_unsupported_outcome_vocabulary_is_exact() -> None:
@@ -625,11 +620,16 @@ def test_legacy_surface_registry_is_exact_and_forbids_numeric_authority() -> Non
 
     assert get_c9_legacy_surface("C0-PM-022").disposition is LegacyDisposition.CAPABILITY_BOUNDARY
     assert get_c9_legacy_surface("C0-PM-023").c10_use is C10Use.CAPABILITY_BOUNDARY_ONLY
-    assert get_c9_legacy_surface("C0-PM-032").disposition is LegacyDisposition.NARROW_ARITHMETIC_ONLY
+    assert (
+        get_c9_legacy_surface("C0-PM-032").disposition is LegacyDisposition.NARROW_ARITHMETIC_ONLY
+    )
     assert get_c9_legacy_surface("C0-PM-032").c10_use is C10Use.CALIBRATED_MODEL_REQUIRED
     assert get_c9_legacy_surface("C0-PM-044").disposition is LegacyDisposition.CANONICAL_ABSTENTION
     assert get_c9_legacy_surface("C0-PM-044").c10_use is C10Use.ABSTENTION_ONLY
-    assert get_c9_legacy_surface("C0-PM-047").disposition is LegacyDisposition.QUARANTINED_LEGACY_FIXTURE
+    assert (
+        get_c9_legacy_surface("C0-PM-047").disposition
+        is LegacyDisposition.QUARANTINED_LEGACY_FIXTURE
+    )
 
     forbidden_ids = set(expected_ids) - {"C0-PM-022", "C0-PM-023", "C0-PM-032", "C0-PM-044"}
     assert all(
