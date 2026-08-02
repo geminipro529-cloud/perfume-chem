@@ -478,15 +478,15 @@
       "source": [],
       "inputs": [],
       "outputs": [],
-      "conditions": ["no executable interface or import found"],
+      "conditions": ["no executable COSMO-RS calculation or import found", "Build C4 contains only an explicit unavailable-release declaration"],
       "consumers": [],
-      "evidence_labels": ["ABSENT"],
+      "evidence_labels": ["ABSENT_EXECUTABLE", "C4_WITHHELD_DECLARATION"],
       "tests": ["tests/test_c0_physical_model_inventory.py"],
       "claim_impact": "The repository cannot claim COSMO-RS activity or partition prediction.",
-      "runtime_status": "ABSENT",
+      "runtime_status": "WITHHELD_DECLARATION",
       "disposition": "Remain WITHHELD unless a later evidence-gated phase adds a licensed/versioned interface and validation.",
       "source_sha256": {},
-      "absence_query": {"roots": ["engine", "scripts", "backend/app"], "pattern": "(?i)\\bcosmo[-_ ]?rs\\b", "extensions": [".py"], "exclude_paths": ["scripts/verify_c0_physical_model_inventory.py"]}
+      "absence_query": {"roots": ["engine", "scripts", "backend/app"], "pattern": "(?i)\\bcosmo[-_ ]?rs\\b", "extensions": [".py"], "exclude_paths": ["engine/physics/equilibrium.py", "scripts/verify_c0_physical_model_inventory.py"]}
     },
     {
       "id": "C0-PM-027",

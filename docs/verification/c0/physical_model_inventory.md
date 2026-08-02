@@ -68,7 +68,7 @@ not implement or activate it.
 | C0-PM-023 | UNIFAC | group catalogue | `STUB` | data only | not algorithm activation |
 | C0-PM-024 | Hansen/phase | RED and bloom rules | `HEURISTIC` | canonical advisory gate | retain as screening only |
 | C0-PM-025 | Hansen/phase | pairwise HSP distance | `EXACT_PHYSICAL_ARITHMETIC` | advisory helper | input authority still bounds claim |
-| C0-PM-026 | COSMO-RS | interface/import | `UNSUPPORTED` | absent | withhold |
+| C0-PM-026 | COSMO-RS | interface/import | `UNSUPPORTED` | explicit C4 withheld declaration; no executable calculation/import | withhold |
 | C0-PM-027 | dose response | character-zone Hill scorer | `HEURISTIC` | optimizer advisory | no receptor/sensory promotion |
 | C0-PM-028 | psychophysics | suppression/adaptation scorer | `HEURISTIC` | optimizer advisory | require C9 evidence |
 | C0-PM-029 | psychophysics | OAV target/cliff rules | `HEURISTIC` | canonical advisory | keep separate from measurements |
@@ -95,7 +95,8 @@ not implement or activate it.
 ## Unsupported and inactive capabilities
 
 - DIPPR-style vapor-pressure equations: no executable Python implementation.
-- COSMO-RS: no executable Python interface or import.
+- COSMO-RS: C4 has an explicit unavailable-release declaration, but no
+  executable calculation/import or evidence package.
 - UNIFAC: group data and capability reporting exist, but no active algorithm,
   complete subgroup/parameter assignment, or perfume-domain validation.
 - calibrated equilibrium headspace: no current model has held-out measured
