@@ -1,0 +1,30 @@
+{
+  "schema": "build-c2-recovery-archive-verification-v1",
+  "recorded_at": "2026-08-02T19:49:57.2757734+07:00",
+  "repository_head_at_archive": "e6c6d5bed3a41362e21bf07752a98fd952781a59",
+  "archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-c2-prewrite-20260802T190634+0700.tar",
+    "bytes": 118417920,
+    "sha256": "35325c26d526619623ce1c2f05c72484ad8377ed534f488b4191a2e7e649d023",
+    "manifest_file_count": 444,
+    "dirty_or_untracked_manifest_file_count": 429,
+    "excluded_runtime_path_count": 1203,
+    "excluded_runtime_prefixes": [
+      ".deepluna-home/",
+      ".cheapluna-home/"
+    ]
+  },
+  "verification": {
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "content_hashes_verified": true,
+    "restorable": true
+  },
+  "notes": [
+    "The archive contains file bytes plus an embedded path-preserving manifest; it is not a hash-list-only backup.",
+    "Excluded DeepLuna runtime paths are recorded scheduler/cache state and were not treated as repository work."
+  ]
+}
