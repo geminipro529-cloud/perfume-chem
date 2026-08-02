@@ -2,126 +2,132 @@
 
 Decision: **PASS**
 
-Implementation authority:
-`40751831f65da8de464d45fbd3ceb4b53d53536d`.
+This report independently re-verifies Build B Phase B5 against the current
+authoritative checkout. Historical reports and agent claims are notes only;
+current executable tests, source and migration constraints, protected state,
+restored artifacts, and the reconciled final audit decide the gate.
 
-This gate covers Build B Phase B5 only. It does not implement regulatory
-authority (B6), claim sufficiency (B7), decision-value backfill (B8),
-production consumers (B9), or the Build B release audit (B10).
+## Authority and scope
+
+- B5 implementation authority:
+  `40751831f65da8de464d45fbd3ceb4b53d53536d`.
+- Verification head before this report:
+  `cc6cc950df23a0d332636cf4e3b85a74de4db529`.
+- B5 phase revision: `20260731_0009`.
+- Current single repository Alembic head: `20260731_0012`.
+
+The B5-owned analytical model, repository, service, migration, and four test
+files are unchanged since the implementation commit. Shared laboratory files
+have later-phase hashes and are verified as part of the current cumulative
+gate. This phase does not implement B6-B10.
 
 ## Implemented canonical contract
 
-- Eight zero-backfill, append-only tables bind analytical methods,
-  claim-specific validation, ordered sequences, one primary run subject,
-  vendor and open raw files, peak identity/quantity authority, GC-O events,
-  and persisted claim decisions.
+- Eight append-only tables bind immutable analytical methods, claim-specific
+  validation, ordered sequences, one primary run subject, vendor and open raw
+  files, peak identity and quantity authority, GC-O events, and persisted claim
+  decisions.
 - Required method objects reject missing, unknown, non-finite, blank, empty
   object, and empty array placeholders. Method and validation provenance
   digests are database-constrained.
-- A supported claim selects a matching `PASS` validation with a nonempty
-  acceptance criterion for the requested identity or quantity claim.
-- Peak and claim applicability are exact three-key objects and are checked
-  against the selected validation scope, A2 analyte, and run method rather
-  than trusted as caller declarations.
-- Calibrated quantities match the preserved A2 quantity, response factor,
-  unit, basis, working range, uncertainty, matrix, analyte, and method.
-  HS-SPME additionally requires complete extraction conditions.
-- Blocking QC persists a withheld decision with SQL `NULL` result; qualifying
-  QC persists advisory-only authority. GC-O cannot promote exact identity.
-- An A2 exact analytical claim now requires the exact supported B5 run,
-  mapped claim type, policy version, and direct evidence record.
+- Supported claims select a matching PASS validation with nonempty criteria for
+  the requested identity or quantity claim.
+- Peak and claim applicability are exact matrix/analyte/method scopes checked
+  against canonical validation, A2 analyte, and run method records.
+- Calibrated quantities preserve A2 quantity, response factor, unit, basis,
+  working range, uncertainty, matrix, analyte, and method. HS-SPME additionally
+  requires complete extraction conditions and matching calibration scope.
+- Blocking QC persists a withheld result as SQL NULL; qualifying QC caps the
+  result at advisory. GC-O cannot confer exact identity.
+- An A2 exact analytical claim requires the exact supported B5 run, mapped
+  claim type, policy version, and direct evidence record.
 
-## Fresh canonical verification
+## Current deterministic verification
 
-All accepted commands ran non-interactively under supported Python 3.11.15,
-with ANSI disabled, explicit timeouts, and separate stdout/stderr logs under
-`docs/verification/b5/logs/`.
+All accepted commands ran non-interactively under supported Python 3.11.15
+with ANSI disabled, explicit timeouts, external writable temp/cache state, and
+separate stdout/stderr logs under `docs/verification/b5/logs/`.
 
 | Gate | Result | Stdout SHA-256 | Stderr |
 |---|---:|---|---|
-| A2 science + B1-B5 compatibility pytest | 248 passed in 249.32 s | `79C6CF3A...68662` | empty |
-| Ruff, exact B5 paths | all checks passed | `AF352A86...2D9AF` | empty |
-| Mypy, four B5/A2 bridge modules | no issues | `9A7B872E...C9400` | empty |
+| A2 science + B1-B5 compatibility pytest | 248 passed in 349.74 s | `603F4A3D...A79DB1` | empty |
+| Ruff, exact B5 paths | all checks passed | `A4443AFD...D26B0` | empty |
+| Mypy, four B5/A2 bridge modules | no issues | `D9A5631F...7BB76` | empty |
 
-The reconstructed prior gate contained 236 tests. Twelve new regression cases
-cover the post-audit defects. The main RED run produced 13 expected failures
-and 75 passes; its unchanged GREEN counterpart passed 88/88. A separate
-general calibration-scope test was also observed RED and then GREEN.
+The accepted 25-file suite returned direct exit code zero and covers A2
+science persistence/export/transactions, B1-B5 schemas and services, every
+phase migration through B5, B5 supported/blocking/qualifying end-to-end twins,
+current-head migration coverage, and backup/restore.
 
-The protected root `perfume_chem.db` remains zero bytes with SHA-256
-`E3B0C442...B855`. `data/perfumery_kb.db` remains 2,084,864 bytes with
-SHA-256 `5A779F9D...3FE1`; an immutable read-only SQLite connection reports
-integrity `ok`.
+PowerShell's raw UTF-16LE captures remain preserved in the external accepted
+run directory. The repository evidence copies are the same text normalized to
+UTF-8 without BOM so Git and bounded readers treat them as text.
 
-## Independent review and DeepLuna boundary
+Three launch attempts are excluded transparently: one PowerShell wrapper
+terminated before tests and left empty logs; one complete 248-pass run failed
+to expose the child exit property; and one malformed inline basetemp argument
+returned pytest usage exit 4 without running tests. A five-test wrapper probe
+then returned direct exit zero before the unchanged accepted full rerun.
 
-DeepLuna remained Fast-only (`FLASH`, `NO_LUNA`) and no Codex subagent was
-used. Job `DS-76cea2b9f1bc4250e38d5f2580e33623` identified the legacy A2 exact
-claim bypass; Sol reproduced and closed it.
+## Protected database and migration state
 
-The final advisory audit
-`DS-ae24d8b17460b62519ec7c04a3efa92b` returned PASS and positively reported
-three migration properties. Sol reproduced those properties with 3/3 tests.
-The audit nevertheless missed seven authority defects:
+| Database | Bytes | SHA-256 before and after | `quick_check` | Alembic rows |
+|---|---:|---|---|---:|
+| `perfume_chem.db` | 12,288 | `02B64BE8...0DA5E` | `ok` | 0 |
+| `data/perfumery_kb.db` | 2,084,864 | `5A779F9D...63FE1` | `ok` | 0 |
 
-- mismatched claim type, policy, or direct evidence could reuse a supported
-  B5 assessment;
-- self-consistent false applicability could pass;
-- validation selection ignored claim-specific acceptance criteria;
-- required policy objects accepted empty collection placeholders;
-- validation source digests lacked a database constraint;
-- the nominal matching HS-SPME path used the wrong matrix digest; and
-- non-HS calibration identifiers were not compared with canonical scope.
+Both databases were inspected through immutable read-only SQLite connections;
+their hashes were unchanged. The B5 phase revision is intentionally
+distinguished from current linear head `20260731_0012`.
 
-Each defect was closed under local RED/GREEN evidence. No third provider call
-was made because the B5 Fast stage had reached its two-call cap. DeepLuna
-evidence remains supplemental; canonical source, tests, constraints,
-reproducible artifacts, and Sol's independent verification are final
-authority.
+## DeepLuna boundary and reconciliation
 
-## B5 exit decision
+- Route is Fast-only `FLASH` with `NO_LUNA`; Codex subagents used: zero.
+- Fresh exact-project health was `READY` on CANDIDATE_V2/release 0.9.9 with no
+  active or queued work and zero reserved or unknown accounting.
+- Current high-risk audit `DS-1793498b9b079fe95226659f8cd5059a`
+  returned PASS / POSITIVE / ACCEPTED with no negative finding or scope
+  deviation. Sol independently reproduced the relevant claims through the
+  current 248-test gate and direct source, migration, hash, and database checks.
+- Historical Fast PASS packets remain supplemental; one missed seven authority
+  defects later reproduced and fixed by Sol.
 
-The end-to-end gate proves:
+Final report audit `DS-d27821a338c0d79720f0df5038bdc9f7` returned
+PASS / POSITIVE / ACCEPTED with one Fast call, no cache hit, no negative
+finding, no scope deviation, and no required correction. Sol reconciled it
+against current logs, source constraints, migration behavior, protected
+databases, and hashes. The normalized receipt is
+`docs/verification/b5/logs/deepluna-final-audit.json`, SHA-256
+`BDF0D215637985B069C3D45BF6804B3F9534E80D3CB47922EE831C5E19FE5303`.
+
+## Recovery and dirty-work preservation
+
+The complete prior B5 report/log tree is preserved at
+`outputs/b5-authoritative-recovery/20260802T074522/b5-evidence-before-refresh.zip`,
+SHA-256 `72F6471154DFEDAA0C58DABC8CE1C2F9851679933343B0FCC6912E36D5EA3935`.
+The archive contains all 12 files; separate extraction reproduced every path
+and SHA-256 exactly.
+
+Before report editing, 105 tracked paths were dirty, 1,250 files were
+untracked, and zero entries were staged. No cleanup, reset, database mutation,
+or unrelated edit was performed.
+
+## Exit decision and claim boundary
+
+The local B5 gate is green end to end:
 
 ```text
 method authority
 -> claim-specific validation
--> acquired ordered sequence
+-> ordered sequence
 -> exact run subject and raw files
 -> required QC
 -> A2 peak
--> B5 identity/calibrated quantity authority
--> persisted supported, advisory, or withheld assessment
+-> B5 identity or calibrated quantity authority
+-> supported, advisory, or withheld assessment
 -> exactly matching A2 analytical claim bridge
 ```
 
-Supported, blocking-QC, and qualifying-QC migrated-database paths pass.
-Migration creates eight empty tables, installs update/delete guards, preserves
-prior rows, downgrades only B5, and re-upgrades empty. Model/migration columns,
-checks, indexes, unique constraints, foreign keys, and triggers agree.
-
-Therefore B5 passes without promoting legacy analytical rows, equating area
-percent with formula weight percent, treating GC-O as exact identity, or
-connecting production consumers.
-
-## Protected state and recovery
-
-- The A0 full recovery package remains preserved.
-- Three path-preserving B5 archives cover scratch preimplementation,
-  canonical prepromotion, and the post-audit hardening prefix.
-- Archive SHA-256 values are recorded in the machine-readable report.
-- Every archive was extracted separately and every archived path hash matched.
-- After the implementation commit, the pre-existing worktree still had 105
-  tracked dirty paths, 673 untracked files, and zero staged entries.
-
-## Limitations and claim boundary
-
-- B5 authority is valid only for the exact method, validation, run, peak,
-  matrix, analyte, policy, evidence, and review scope.
-- No legacy analytical row is backfilled or promoted.
-- No production API, UI, optimizer, or release consumer is connected before
-  B9.
-- Build B remains incomplete until B6 through B10 pass.
-- Scientific release remains **BLOCKED**.
-
-B6 may begin under its own RED tests and exit gate.
+Final B5 decision is **PASS**. Scientific release remains **BLOCKED**. B6 may
+begin only after the exact B5 evidence set is committed without unrelated
+paths.
