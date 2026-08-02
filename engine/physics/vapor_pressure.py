@@ -14,6 +14,7 @@ from engine.physics.properties import (
     SourceReference,
     ThermophysicalContractError,
     UncertaintyDescriptor,
+    UncertaintyKind,
     _exact_keys,
     _finite,
     _mapping,
@@ -189,6 +190,16 @@ class VaporPressureRepresentation:
         if self.source.source_kind != "MODEL_DECLARATION":
             raise ThermophysicalContractError(
                 "vapor-pressure model source must be a model declaration"
+            )
+        uncertainty_payload = self.uncertainty.payload.to_mapping()
+        if self.uncertainty.kind in {
+            UncertaintyKind.STANDARD_UNCERTAINTY,
+            UncertaintyKind.INTERVAL,
+            UncertaintyKind.EMPIRICAL_DISTRIBUTION,
+            UncertaintyKind.BOUNDED_RANGE,
+        } and uncertainty_payload["unit"] != pressure_unit:
+            raise ThermophysicalContractError(
+                "vapor-pressure uncertainty unit must match pressure_unit"
             )
 
         coefficients = tuple(self.coefficients)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 
 import pytest
 
@@ -17,6 +18,15 @@ from engine.physics.properties import (
     ThermophysicalProperty,
     UncertaintyDescriptor,
     UncertaintyKind,
+)
+from engine.physics.selection import (
+    AuthorityState,
+    InterpolationState,
+    MissingDataReason,
+    PropertyRequest,
+    PropertySelectionService,
+    SelectionKind,
+    selected_assertion_from_b2_reconstruction,
 )
 from engine.physics.vapor_pressure import (
     ExtrapolationPolicy,
@@ -558,7 +568,12 @@ def _antoine_payload() -> dict:
             "fit_data": "source table",
             "residuals_reported": False,
         },
-        "uncertainty": _standard_uncertainty_payload(),
+        "uncertainty": {
+            "schema": "c1-uncertainty-v1",
+            "kind": "STANDARD_UNCERTAINTY",
+            "value": 0.005,
+            "unit": "bar",
+        },
         "extrapolation_policy": "FORBID",
     }
 
@@ -589,6 +604,7 @@ def _measured_table_payload() -> dict:
                 },
             ],
             "fit_evidence": None,
+            "uncertainty": _standard_uncertainty_payload(),
             "extrapolation_policy": "ADVISORY_ONLY_WITH_WARNING",
         }
     )
@@ -694,6 +710,10 @@ def test_measured_table_requires_points_and_forbids_coefficients() -> None:
             "purity_assumption",
         ),
         (
+            lambda payload: payload["uncertainty"].update(unit="Pa"),
+            "uncertainty unit",
+        ),
+        (
             lambda payload: payload["valid_temperature_range"].update(
                 lower_k=500.0, upper_k=350.0
             ),
@@ -743,3 +763,540 @@ def test_measured_tables_reject_missing_or_inconsistent_points(mutator, match) -
 def test_temperature_range_rejects_nonphysical_bounds() -> None:
     with pytest.raises(ThermophysicalContractError, match="temperature range"):
         TemperatureRange(lower_k=0.0, upper_k=300.0)
+
+
+def _b2_observation(
+    observation_id: str = "observation-a",
+    *,
+    numeric_value: float = 7.0,
+) -> dict:
+    return {
+        "id": observation_id,
+        "identity_scope": "CHEMICAL_ENTITY",
+        "subject_identity": _identity_payload()["subject_identity"],
+        "property_type": "vapor_pressure",
+        "value_kind": "NUMERIC",
+        "numeric_value": numeric_value,
+        "categorical_value": None,
+        "interval_lower": None,
+        "interval_upper": None,
+        "distribution": None,
+        "censoring_qualifier": None,
+        "censoring_limit": None,
+        "original_unit": "Pa",
+        "canonical_unit": "Pa",
+        "temperature_k": 298.15,
+        "pressure_pa": 101325.0,
+        "relative_humidity_percent": 50.0,
+        "matrix": "air",
+        "phase": "gas",
+        "purity_fraction": 0.99,
+        "method": "published measurement",
+        "source_version_id": f"source-{observation_id}",
+        "extraction_record_id": f"extraction-{observation_id}",
+        "source_locator": {"page": 12, "table": "2", "row": "Linalool"},
+        "replicate_count": 3,
+        "statistic": "mean",
+        "standard_uncertainty": 0.5,
+        "uncertainty_interval": {"coverage_factor": 2},
+        "evidence_class": "MEASURED",
+        "review_state": "REVIEWED",
+        "applicability_domain": {"matrix": "air"},
+        "provenance_activity": {"actor": "reviewer-1"},
+        "content_sha256": ("b" if observation_id.endswith("a") else "c") * 64,
+    }
+
+
+def _b2_reconstruction() -> dict:
+    return {
+        "schema": "lab-selected-assertion-reconstruction-v1",
+        "assertion": {
+            "id": "assertion-vapor-pressure",
+            "requested_identity": _identity_payload(),
+            "requested_property_type": "vapor_pressure",
+            "requested_conditions": {
+                "temperature_k": 298.15,
+                "matrix": "air",
+            },
+            "selection_policy_version": "b2-reviewed-source-selection-v1",
+            "selection_kind": "OBSERVATION",
+            "selected_observation_id": "observation-a",
+            "selected_model": None,
+            "interpolation_state": "EXACT",
+            "propagated_uncertainty": _standard_uncertainty_payload(),
+            "applicability": {
+                "applicable": True,
+                "required_scope": "property:vapor_pressure",
+            },
+            "authority_state": "AUTHORIZED_FOR_SCOPED_PROPERTY",
+            "permitted_claim_wording": "Reviewed value at the stated conditions.",
+            "content_sha256": "a" * 64,
+        },
+        "candidates": [
+            {
+                "observation": _b2_observation(),
+                "decision": "INCLUDE",
+                "rationale": "Exact condition match.",
+                "derivation": {"complete": True},
+            },
+            {
+                "observation": _b2_observation(
+                    "observation-b", numeric_value=11.0
+                ),
+                "decision": "EXCLUDE",
+                "rationale": "Visible conflicting candidate.",
+                "derivation": {"complete": True},
+            },
+        ],
+        "conflict": None,
+        "complete": True,
+    }
+
+
+def _property_request(
+    *,
+    identity: dict | None = None,
+    property_type: ThermophysicalProperty = ThermophysicalProperty.VAPOR_PRESSURE,
+    conditions: dict | None = None,
+    claim_grade: ClaimGrade = ClaimGrade.RELEASE_GRADE,
+    allow_advisory: bool = False,
+    allow_extrapolation: bool = False,
+) -> PropertyRequest:
+    return PropertyRequest(
+        identity=PropertyIdentity.from_mapping(identity or _identity_payload()),
+        property_type=property_type,
+        conditions=PropertyConditions.from_mapping(
+            conditions
+            or {
+                "temperature_k": 298.15,
+                "matrix": "air",
+            }
+        ),
+        claim_grade=claim_grade,
+        allow_advisory=allow_advisory,
+        allow_extrapolation=allow_extrapolation,
+    )
+
+
+def _select(payload: dict, request: PropertyRequest | None = None):
+    assertion = selected_assertion_from_b2_reconstruction(payload)
+    return PropertySelectionService.select(request or _property_request(), assertion)
+
+
+def test_b2_adapter_and_exact_authorized_selection_preserve_evidence() -> None:
+    payload = _b2_reconstruction()
+    assertion = selected_assertion_from_b2_reconstruction(payload)
+
+    assert assertion is not None
+    assert assertion.selection_kind is SelectionKind.OBSERVATION
+    assert assertion.interpolation_state is InterpolationState.EXACT
+    assert assertion.authority_state is AuthorityState.AUTHORIZED_FOR_SCOPED_PROPERTY
+    assert assertion.datum is not None
+    assert assertion.datum.numeric_value == 7.0
+    assert assertion.source is not None
+    assert assertion.source.source_version_id == "source-observation-a"
+    assert assertion.conflict_visible is False
+
+    result = PropertySelectionService.select(_property_request(), assertion)
+    assert result.status is SelectionStatus.SELECTED
+    assert result.datum is assertion.datum
+    assert result.model is None
+    assert result.canonical_unit == "Pa"
+    assert result.source is assertion.source
+    assert result.conditions == assertion.requested_conditions
+    assert result.uncertainty.kind is UncertaintyKind.STANDARD_UNCERTAINTY
+    assert result.interpolation_state is InterpolationState.EXACT
+    assert result.applicability.to_mapping()["applicable"] is True
+    assert result.authority_state is AuthorityState.AUTHORIZED_FOR_SCOPED_PROPERTY
+    assert result.missing_reason is None
+    assert result.warnings == ()
+    assert result.request_sha256 == _property_request().content_sha256
+    assert result.assertion_sha256 == "a" * 64
+
+
+def test_explicitly_uncertain_interpolation_selects() -> None:
+    payload = _b2_reconstruction()
+    payload["assertion"]["interpolation_state"] = "INTERPOLATED"
+    payload["assertion"]["propagated_uncertainty"] = {
+        "schema": "c1-uncertainty-v1",
+        "kind": "BOUNDED_RANGE",
+        "lower": 6.0,
+        "upper": 8.0,
+        "unit": "Pa",
+    }
+
+    result = _select(payload)
+
+    assert result.status is SelectionStatus.SELECTED
+    assert result.interpolation_state is InterpolationState.INTERPOLATED
+    assert result.uncertainty.kind is UncertaintyKind.BOUNDED_RANGE
+
+
+def test_interpolation_without_explicit_uncertainty_withholds() -> None:
+    payload = _b2_reconstruction()
+    payload["assertion"]["interpolation_state"] = "INTERPOLATED"
+    payload["assertion"]["propagated_uncertainty"] = {}
+
+    result = _select(payload)
+
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.INTERPOLATION_UNCERTAINTY_MISSING
+    assert result.datum is None
+    assert result.model is None
+
+
+@pytest.mark.parametrize(
+    "property_request,reason",
+    (
+        (
+            _property_request(
+                identity={
+                    "identity_scope": "CHEMICAL_ENTITY",
+                    "subject_identity": {
+                        "chemical_name": "Geraniol",
+                        "cas": "106-24-1",
+                    },
+                }
+            ),
+            MissingDataReason.IDENTITY_MISMATCH,
+        ),
+        (
+            _property_request(property_type=ThermophysicalProperty.DENSITY),
+            MissingDataReason.PROPERTY_MISMATCH,
+        ),
+        (
+            _property_request(
+                conditions={"temperature_k": 300.0, "matrix": "air"}
+            ),
+            MissingDataReason.CONDITIONS_MISMATCH,
+        ),
+    ),
+)
+def test_request_scope_mismatch_withholds(property_request, reason) -> None:
+    result = _select(_b2_reconstruction(), property_request)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is reason
+
+
+@pytest.mark.parametrize(
+    "mutator,reason",
+    (
+        (
+            lambda payload: payload["candidates"][0]["observation"].update(
+                subject_identity={
+                    "chemical_name": "Geraniol",
+                    "cas": "106-24-1",
+                }
+            ),
+            MissingDataReason.IDENTITY_MISMATCH,
+        ),
+        (
+            lambda payload: payload["candidates"][0]["observation"].update(
+                property_type="density"
+            ),
+            MissingDataReason.PROPERTY_MISMATCH,
+        ),
+        (
+            lambda payload: payload["candidates"][0]["observation"].update(
+                temperature_k=300.0
+            ),
+            MissingDataReason.CONDITIONS_MISMATCH,
+        ),
+    ),
+)
+def test_selected_observation_must_match_the_exact_request(mutator, reason) -> None:
+    payload = _b2_reconstruction()
+    mutator(payload)
+    result = _select(payload)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is reason
+
+
+@pytest.mark.parametrize(
+    "authority,grade,allow_advisory,expected_status,reason",
+    (
+        (
+            "ADVISORY_ONLY",
+            ClaimGrade.RELEASE_GRADE,
+            False,
+            SelectionStatus.WITHHELD,
+            MissingDataReason.ADVISORY_NOT_ALLOWED,
+        ),
+        (
+            "ADVISORY_ONLY",
+            ClaimGrade.EXPLORATORY,
+            False,
+            SelectionStatus.WITHHELD,
+            MissingDataReason.ADVISORY_NOT_ALLOWED,
+        ),
+        (
+            "ADVISORY_ONLY",
+            ClaimGrade.EXPLORATORY,
+            True,
+            SelectionStatus.ADVISORY,
+            None,
+        ),
+        (
+            "WITHHELD_CONFLICT",
+            ClaimGrade.EXPLORATORY,
+            True,
+            SelectionStatus.WITHHELD,
+            MissingDataReason.WITHHELD_AUTHORITY,
+        ),
+        (
+            "WITHHELD_UNKNOWN",
+            ClaimGrade.EXPLORATORY,
+            True,
+            SelectionStatus.WITHHELD,
+            MissingDataReason.WITHHELD_AUTHORITY,
+        ),
+    ),
+)
+def test_authority_is_never_silently_upgraded(
+    authority, grade, allow_advisory, expected_status, reason
+) -> None:
+    payload = _b2_reconstruction()
+    payload["assertion"]["authority_state"] = authority
+    request = _property_request(
+        claim_grade=grade,
+        allow_advisory=allow_advisory,
+    )
+
+    result = _select(payload, request)
+
+    assert result.status is expected_status
+    assert result.missing_reason is reason
+
+
+def test_none_selection_and_not_applicable_evidence_withhold() -> None:
+    none_payload = _b2_reconstruction()
+    none_payload["assertion"].update(
+        selection_kind="NONE",
+        selected_observation_id=None,
+        interpolation_state="NOT_APPLICABLE",
+    )
+    not_applicable = _b2_reconstruction()
+    not_applicable["assertion"]["applicability"]["applicable"] = False
+
+    none_result = _select(none_payload)
+    applicability_result = _select(not_applicable)
+
+    assert none_result.missing_reason is MissingDataReason.NO_SELECTION
+    assert applicability_result.missing_reason is MissingDataReason.NOT_APPLICABLE
+
+
+@pytest.mark.parametrize(
+    "mutator,reason",
+    (
+        (
+            lambda payload: payload["assertion"].update(
+                selected_observation_id="missing-observation"
+            ),
+            MissingDataReason.SELECTED_OBSERVATION_MISSING,
+        ),
+        (
+            lambda payload: payload["candidates"][0]["observation"].update(
+                source_version_id=None
+            ),
+            MissingDataReason.SOURCE_MISSING,
+        ),
+        (
+            lambda payload: payload["candidates"][0]["observation"].update(
+                canonical_unit=" "
+            ),
+            MissingDataReason.UNIT_MISSING,
+        ),
+    ),
+)
+def test_missing_selected_evidence_withholds_with_exact_reason(mutator, reason) -> None:
+    payload = _b2_reconstruction()
+    mutator(payload)
+    result = _select(payload)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is reason
+
+
+def test_free_form_selected_model_is_unsupported_evidence_not_an_exception() -> None:
+    payload = _b2_reconstruction()
+    payload["assertion"].update(
+        selection_kind="MODEL",
+        selected_observation_id=None,
+        selected_model={
+            "model_key": "legacy-bounded-property-model",
+            "output": {"numeric_value": 8.0, "canonical_unit": "Pa"},
+        },
+    )
+
+    result = _select(payload)
+
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.UNSUPPORTED_MODEL_SCHEMA
+
+
+def test_selector_withholds_if_an_adapted_model_value_is_missing() -> None:
+    payload = _model_reconstruction(
+        interpolation_state="EXACT",
+        extrapolation_policy="FORBID",
+    )
+    assertion = selected_assertion_from_b2_reconstruction(payload)
+    assert assertion is not None
+    corrupted = replace(
+        assertion,
+        model=None,
+        adaptation_missing_reason=None,
+    )
+
+    result = PropertySelectionService.select(_property_request(), corrupted)
+
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.UNSUPPORTED_MODEL_SCHEMA
+
+
+def _model_reconstruction(
+    *,
+    interpolation_state: str,
+    extrapolation_policy: str,
+) -> dict:
+    payload = _b2_reconstruction()
+    model = _antoine_payload()
+    model["extrapolation_policy"] = extrapolation_policy
+    payload["assertion"].update(
+        selection_kind="MODEL",
+        selected_observation_id=None,
+        selected_model=model,
+        interpolation_state=interpolation_state,
+        propagated_uncertainty={
+            "schema": "c1-uncertainty-v1",
+            "kind": "BOUNDED_RANGE",
+            "lower": 0.00005,
+            "upper": 0.00009,
+            "unit": "bar",
+        },
+    )
+    return payload
+
+
+def test_exact_in_range_model_selection_returns_the_declared_model() -> None:
+    payload = _model_reconstruction(
+        interpolation_state="EXACT",
+        extrapolation_policy="FORBID",
+    )
+    payload["assertion"]["requested_conditions"] = {
+        "temperature_k": 400.0,
+        "matrix": "air",
+    }
+    request = _property_request(
+        conditions={"temperature_k": 400.0, "matrix": "air"}
+    )
+
+    result = _select(payload, request)
+
+    assert result.status is SelectionStatus.SELECTED
+    assert result.model is not None
+    assert result.model.equation_type is VaporPressureEquationType.ANTOINE
+    assert result.canonical_unit == "bar"
+    assert result.source is result.model.source
+
+
+@pytest.mark.parametrize(
+    "mutator",
+    (
+        lambda payload: payload["assertion"].update(
+            selected_model={"unexpected": "model"}
+        ),
+        lambda payload: payload["assertion"].update(
+            selection_kind="MODEL",
+            selected_model=_antoine_payload(),
+            selected_observation_id="observation-a",
+        ),
+        lambda payload: payload["assertion"].update(
+            selection_kind="NONE",
+            selected_observation_id="observation-a",
+        ),
+    ),
+)
+def test_b2_selection_shape_mismatch_is_a_contract_error(mutator) -> None:
+    payload = _b2_reconstruction()
+    mutator(payload)
+    with pytest.raises(ThermophysicalContractError, match="selection shape"):
+        selected_assertion_from_b2_reconstruction(payload)
+
+
+def test_release_grade_extrapolation_always_withholds() -> None:
+    payload = _model_reconstruction(
+        interpolation_state="EXTRAPOLATED",
+        extrapolation_policy="ADVISORY_ONLY_WITH_WARNING",
+    )
+    result = _select(payload)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.EXTRAPOLATION_FORBIDDEN
+
+
+def test_exploratory_extrapolation_requires_request_and_model_opt_in() -> None:
+    allowed_payload = _model_reconstruction(
+        interpolation_state="EXTRAPOLATED",
+        extrapolation_policy="ADVISORY_ONLY_WITH_WARNING",
+    )
+    allowed_request = _property_request(
+        claim_grade=ClaimGrade.EXPLORATORY,
+        allow_extrapolation=True,
+    )
+    no_request_opt_in = replace(allowed_request, allow_extrapolation=False)
+    forbidden_payload = _model_reconstruction(
+        interpolation_state="EXTRAPOLATED",
+        extrapolation_policy="FORBID",
+    )
+
+    allowed = _select(allowed_payload, allowed_request)
+    request_blocked = _select(allowed_payload, no_request_opt_in)
+    model_blocked = _select(forbidden_payload, allowed_request)
+
+    assert allowed.status is SelectionStatus.ADVISORY
+    assert allowed.model is not None
+    assert allowed.datum is None
+    assert allowed.canonical_unit == "bar"
+    assert "EXTRAPOLATION_ADVISORY_ONLY" in allowed.warnings
+    assert request_blocked.missing_reason is MissingDataReason.EXTRAPOLATION_FORBIDDEN
+    assert model_blocked.missing_reason is MissingDataReason.EXTRAPOLATION_FORBIDDEN
+
+
+def test_model_outside_valid_range_is_extrapolation_even_if_b2_says_exact() -> None:
+    payload = _model_reconstruction(
+        interpolation_state="EXACT",
+        extrapolation_policy="ADVISORY_ONLY_WITH_WARNING",
+    )
+    result = _select(payload)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.MODEL_OUTSIDE_VALID_RANGE
+
+
+@pytest.mark.parametrize(
+    "mutator,match",
+    (
+        (lambda payload: payload.update(schema="future-schema"), "schema"),
+        (lambda payload: payload.update(unknown=True), "top-level"),
+        (
+            lambda payload: payload["assertion"].update(unknown=True),
+            "assertion",
+        ),
+    ),
+)
+def test_unknown_reconstruction_contract_fields_fail_closed(mutator, match) -> None:
+    payload = _b2_reconstruction()
+    mutator(payload)
+    with pytest.raises(ThermophysicalContractError, match=match):
+        selected_assertion_from_b2_reconstruction(payload)
+
+
+def test_absent_assertion_is_expected_missing_evidence_not_an_exception() -> None:
+    payload = {
+        "schema": "lab-selected-assertion-reconstruction-v1",
+        "assertion": None,
+        "candidates": [],
+        "conflict": None,
+        "complete": False,
+    }
+    assertion = selected_assertion_from_b2_reconstruction(payload)
+    result = PropertySelectionService.select(_property_request(), assertion)
+    assert result.status is SelectionStatus.WITHHELD
+    assert result.missing_reason is MissingDataReason.ASSERTION_ABSENT
