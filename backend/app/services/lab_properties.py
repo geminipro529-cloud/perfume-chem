@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from math import isfinite
 from typing import TYPE_CHECKING, Any
 
-from engine.calibration.hashing import stable_json_hash
-
 from app.models.lab_properties import (
     ASSERTION_AUTHORITY_STATES,
     ASSERTION_CANDIDATE_DECISIONS,
@@ -26,6 +24,7 @@ from app.models.lab_properties import (
     LabSelectedAssertion,
     LabSelectedAssertionCandidate,
 )
+from engine.calibration.hashing import stable_json_hash
 
 if TYPE_CHECKING:
     from contextlib import AbstractAsyncContextManager
@@ -1276,8 +1275,35 @@ class LabPropertyServiceMixin:
                         "original_unit": observation.original_unit,
                         "canonical_unit": observation.canonical_unit,
                         "temperature_k": observation.temperature_k,
+                        "pressure_pa": observation.pressure_pa,
+                        "relative_humidity_percent": (
+                            observation.relative_humidity_percent
+                        ),
                         "matrix": observation.matrix,
+                        "phase": observation.phase,
+                        "purity_fraction": observation.purity_fraction,
                         "method": observation.method,
+                        "source_version_id": observation.source_version_id,
+                        "extraction_record_id": (
+                            observation.extraction_record_id
+                        ),
+                        "source_locator": observation.source_locator_json,
+                        "replicate_count": observation.replicate_count,
+                        "statistic": observation.statistic,
+                        "standard_uncertainty": (
+                            observation.standard_uncertainty
+                        ),
+                        "uncertainty_interval": (
+                            observation.uncertainty_interval_json
+                        ),
+                        "evidence_class": observation.evidence_class,
+                        "review_state": observation.review_state,
+                        "applicability_domain": (
+                            observation.applicability_domain_json
+                        ),
+                        "provenance_activity": (
+                            observation.provenance_activity_json
+                        ),
                         "content_sha256": observation.content_sha256,
                     },
                     "decision": candidate.decision,

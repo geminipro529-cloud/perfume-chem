@@ -1,8 +1,6 @@
 from dataclasses import replace
 
 import pytest
-from sqlalchemy import func, select
-
 from app.models.lab_properties import LabPropertyObservation
 from app.services.lab_properties import (
     AssertionCandidateInput,
@@ -13,6 +11,8 @@ from app.services.lab_properties import (
     SelectedAssertionInput,
 )
 from app.services.lab_service import LabService
+from sqlalchemy import func, select
+
 from tests.unit.test_b1_source_service import (
     _accept_extraction,
     _extraction_input,
@@ -935,6 +935,31 @@ async def test_assertion_reconstruction_uses_explicit_id_and_preserves_lineage(
         candidate["observation"]["numeric_value"]
         for candidate in reconstructed["candidates"]
     } == {7.0, 11.0}
+    selected = next(
+        candidate
+        for candidate in reconstructed["candidates"]
+        if candidate["observation"]["id"] == first.id
+    )
+    observation = selected["observation"]
+    assert observation["pressure_pa"] == 101325.0
+    assert observation["relative_humidity_percent"] == 50.0
+    assert observation["phase"] == "gas"
+    assert observation["purity_fraction"] == 0.99
+    assert observation["source_version_id"] == first.source_version_id
+    assert observation["extraction_record_id"] == first.extraction_record_id
+    assert observation["source_locator"] == {
+        "page": 12,
+        "table": "2",
+        "row": "Linalool",
+    }
+    assert observation["replicate_count"] == 3
+    assert observation["statistic"] == "mean"
+    assert observation["standard_uncertainty"] == 0.5
+    assert observation["uncertainty_interval"] == {"coverage_factor": 2}
+    assert observation["evidence_class"] == "MEASURED"
+    assert observation["review_state"] == "REVIEWED"
+    assert observation["applicability_domain"] == {"matrix": "air"}
+    assert observation["provenance_activity"] == {"actor": "reviewer-1"}
     assert reconstructed["conflict"]["state"] == "UNRESOLVED"
     assert not hasattr(service, "latest_selected_assertion")
     assert not hasattr(service.repository, "latest_selected_assertion")
