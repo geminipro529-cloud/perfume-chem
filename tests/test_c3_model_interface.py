@@ -272,6 +272,47 @@ PUBLIC_C7_NAMES = {
     "select_natural_composition",
     "validate_aging_series",
 }
+PUBLIC_C8_NAMES = {
+    "C8_SENSOMICS_SEQUENCE",
+    "PERMITTED_C8_CLAIMS",
+    "WITHHELD_C8_CLAIMS",
+    "BoundedQuantity",
+    "C8Claim",
+    "C8ClaimDecision",
+    "C8ClaimStatus",
+    "EvidenceReference",
+    "GasConcentrationEvidence",
+    "GasConcentrationOrigin",
+    "GasPhaseContext",
+    "HeadspaceOAVAssessment",
+    "HeadspaceOAVContractError",
+    "InteractionAdjustmentDecision",
+    "InteractionAdjustmentRequest",
+    "InteractionAdjustmentStatus",
+    "InteractionAdjustmentTarget",
+    "InteractionApplicableRange",
+    "InteractionCalibrationState",
+    "InteractionConcentration",
+    "InteractionEvidence",
+    "InteractionEvidenceKind",
+    "InteractionKind",
+    "InteractionNumericalEffect",
+    "OAVAssessmentStatus",
+    "OAVScreeningClass",
+    "OdorThresholdEvidence",
+    "SensomicsAssessment",
+    "SensomicsClaim",
+    "SensomicsProgram",
+    "SensomicsStage",
+    "SensomicsStageRecord",
+    "SensomicsStageStatus",
+    "ThresholdAuthority",
+    "ThresholdKind",
+    "authorize_interaction_adjustment",
+    "calculate_headspace_oav",
+    "evaluate_c8_claim",
+    "evaluate_sensomics_claim",
+}
 
 
 def digest(character: str) -> str:
@@ -1726,6 +1767,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         | PUBLIC_C5_NAMES
         | PUBLIC_C6_NAMES
         | PUBLIC_C7_NAMES
+        | PUBLIC_C8_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()

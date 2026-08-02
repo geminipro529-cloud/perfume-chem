@@ -21,7 +21,6 @@ from engine.physics.headspace_oav import (
     GasPhaseContext,
     HeadspaceOAVAssessment,
     HeadspaceOAVContractError,
-    InteractionAdjustmentDecision,
     InteractionAdjustmentRequest,
     InteractionAdjustmentStatus,
     InteractionAdjustmentTarget,
@@ -35,7 +34,6 @@ from engine.physics.headspace_oav import (
     OAVAssessmentStatus,
     OAVScreeningClass,
     OdorThresholdEvidence,
-    SensomicsAssessment,
     SensomicsClaim,
     SensomicsProgram,
     SensomicsStage,
@@ -48,7 +46,6 @@ from engine.physics.headspace_oav import (
     evaluate_c8_claim,
     evaluate_sensomics_claim,
 )
-
 
 PUBLIC_C8_NAMES = {
     "C8_SENSOMICS_SEQUENCE",
@@ -624,9 +621,7 @@ def test_headspace_oav_classifies_only_from_complete_interval(
 def test_peer_reviewed_context_matched_threshold_can_support_screening() -> None:
     result = calculate_headspace_oav(
         gas_evidence(),
-        threshold_evidence(
-            authority=ThresholdAuthority.PEER_REVIEWED_CONTEXT_MATCHED
-        ),
+        threshold_evidence(authority=ThresholdAuthority.PEER_REVIEWED_CONTEXT_MATCHED),
     )
     assert result.status is OAVAssessmentStatus.COMPUTED
 
@@ -832,7 +827,7 @@ def test_calibrated_interaction_authorization_exposes_but_does_not_apply_effect(
 
 
 @pytest.mark.parametrize(
-    ("evidence", "request", "reason_fragment"),
+    ("evidence", "adjustment", "reason_fragment"),
     [
         (
             interaction_evidence(
@@ -845,24 +840,23 @@ def test_calibrated_interaction_authorization_exposes_but_does_not_apply_effect(
         ),
         (
             interaction_evidence(),
-            adjustment_request(identities=("cas:a", "cas:c"), concentrations=(
-                concentration("cas:a", value=1.0, lower=0.8, upper=1.2),
-                concentration("cas:c", value=2.0, lower=1.7, upper=2.3),
-            )),
+            adjustment_request(
+                identities=("cas:a", "cas:c"),
+                concentrations=(
+                    concentration("cas:a", value=1.0, lower=0.8, upper=1.2),
+                    concentration("cas:c", value=2.0, lower=1.7, upper=2.3),
+                ),
+            ),
             "identit",
         ),
         (
             interaction_evidence(),
-            adjustment_request(
-                request_context=context(matrix_id="different-matrix")
-            ),
+            adjustment_request(request_context=context(matrix_id="different-matrix")),
             "context",
         ),
         (
             interaction_evidence(),
-            adjustment_request(
-                target=InteractionAdjustmentTarget.HEADSPACE_CONCENTRATION
-            ),
+            adjustment_request(target=InteractionAdjustmentTarget.HEADSPACE_CONCENTRATION),
             "target",
         ),
         (
@@ -879,9 +873,7 @@ def test_calibrated_interaction_authorization_exposes_but_does_not_apply_effect(
             interaction_evidence(),
             adjustment_request(
                 concentrations=(
-                    concentration(
-                        "cas:a", value=1.0, lower=0.8, upper=1.2, unit="ug_m3"
-                    ),
+                    concentration("cas:a", value=1.0, lower=0.8, upper=1.2, unit="ug_m3"),
                     concentration("cas:b", value=2.0, lower=1.7, upper=2.3),
                 )
             ),
@@ -891,10 +883,10 @@ def test_calibrated_interaction_authorization_exposes_but_does_not_apply_effect(
 )
 def test_interaction_authorization_withholds_answer_on_every_mismatch(
     evidence: InteractionEvidence,
-    request: InteractionAdjustmentRequest,
+    adjustment: InteractionAdjustmentRequest,
     reason_fragment: str,
 ) -> None:
-    decision = authorize_interaction_adjustment(evidence, request)
+    decision = authorize_interaction_adjustment(evidence, adjustment)
     assert decision.status is InteractionAdjustmentStatus.WITHHELD
     assert decision.numerical_effect is None
     assert any(reason_fragment in reason.casefold() for reason in decision.reasons)
@@ -1050,9 +1042,7 @@ def test_c8_module_has_no_legacy_oav_synergy_database_or_production_dependency()
         "engine.workbench",
         "future_modules",
     )
-    assert not sorted(
-        name for name in imported if name.startswith(forbidden_prefixes)
-    )
+    assert not sorted(name for name in imported if name.startswith(forbidden_prefixes))
     assert "mixture_shifted_odt" not in source_text
     assert "perceived_intensity_stevens" not in source_text
     assert "perceived_intensity_weber" not in source_text
