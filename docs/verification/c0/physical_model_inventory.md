@@ -75,7 +75,7 @@ not implement or activate it.
 | C0-PM-030 | natural decomposition | generic constituent composite | `LITERATURE_DERIVED_MODEL` | canonical proxy | C7 adds lot authority |
 | C0-PM-031 | natural decomposition | in-memory lot registry | `STUB` | disconnected | integrate only through C7 canonical lot path |
 | C0-PM-032 | maturation | Arrhenius arithmetic | `EXACT_PHYSICAL_ARITHMETIC` | shared helper | parameter authority required |
-| C0-PM-033 | maturation | reaction/shelf-life predictor | `HEURISTIC` | canonical advisory gate | relabel/withhold under C9 |
+| C0-PM-033 | maturation | reaction/shelf-life predictor | `HEURISTIC` | C9-quarantined legacy fixture | no canonical or C10 numerical authority |
 | C0-PM-034 | receptor | family-prior occupancy | `HEURISTIC` | quarantined | keep outside production |
 | C0-PM-035 | receptor | glomerular transforms | `HEURISTIC` | quarantined | keep outside production |
 | C0-PM-036 | adaptation | receptor adaptation state | `HEURISTIC` | quarantined | require C9 protocol evidence |
