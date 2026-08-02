@@ -1,0 +1,27 @@
+{
+  "name": "mutation-outside-compute-guard-caught",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "--basetemp",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-mutation-outside",
+    "tests/test_c3_model_interface.py::test_router_abstains_without_compute_for_noncomputable_states"
+  ],
+  "started_at_utc": "2026-08-02T15:04:42.452Z",
+  "finished_at_utc": "2026-08-02T15:04:43.790Z",
+  "duration_seconds": 1.337,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 1,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c3\\logs\\final\\mutation-outside-compute-guard-caught.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c3\\logs\\final\\mutation-outside-compute-guard-caught.stderr.txt"
+}

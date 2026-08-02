@@ -1,0 +1,416 @@
+{
+  "schema": "build-c3-model-interface-gate-v1",
+  "generated_at": "2026-08-02T22:27:39.1267662+07:00",
+  "phase": "Build C, Phase C3",
+  "decision": "PENDING",
+  "decision_reason": "The local executable gate and final DeepLuna audit are green, but the evidence commit, exact-commit replay, and postcommit decision are not yet complete.",
+  "phase_parent": "f5ae19227e75dee30fe101b4324e1f54283174e3",
+  "verified_implementation_head": "37ad809edc4c9b29ba7da090d605f854a49f1826",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    {
+      "commit": "27d0ada2c2199bed9dfeb64bb3038112b1c9ceaa",
+      "purpose": "accepted C3 design"
+    },
+    {
+      "commit": "07884be9115876979db7765e373401eb790ec1a0",
+      "purpose": "C3 implementation plan"
+    },
+    {
+      "commit": "cd83b3d453e7ca03ec932004dca05538c039e302",
+      "purpose": "model applicability contracts"
+    },
+    {
+      "commit": "6a9b99c7b4d603b50e555f6b040fa083036b4f9f",
+      "purpose": "immutable model result envelopes"
+    },
+    {
+      "commit": "defccec392031916dcdd618190cdcfdec78eae9a",
+      "purpose": "explicit versioned model routing"
+    },
+    {
+      "commit": "37ad809edc4c9b29ba7da090d605f854a49f1826",
+      "purpose": "package exports and executable contract tests"
+    }
+  ],
+  "contract_surface": {
+    "public_c3_type_count": 22,
+    "public_c3_types": [
+      "ApplicabilityContext",
+      "ApplicabilityDomain",
+      "ApplicabilityResult",
+      "ApplicabilityState",
+      "DomainRange",
+      "FallbackDisclosure",
+      "ModelAvailability",
+      "ModelComparisonResult",
+      "ModelComputation",
+      "ModelEvidenceClass",
+      "ModelFamily",
+      "ModelInputReference",
+      "ModelInterfaceContractError",
+      "ModelOperation",
+      "ModelOutput",
+      "ModelRelease",
+      "ModelResultStatus",
+      "ModelSelector",
+      "VersionedModelRequest",
+      "VersionedModelResult",
+      "VersionedModelAdapter",
+      "VersionedModelRouter"
+    ],
+    "engine_physics_total_export_count": 62,
+    "enum_type_count": 6,
+    "enum_value_count": 31,
+    "enums": {
+      "ModelOperation": {
+        "count": 6,
+        "values": [
+          "predict_equilibrium_headspace",
+          "predict_dynamic_release",
+          "estimate_partition_coefficient",
+          "evaluate_applicability",
+          "propagate_uncertainty",
+          "compare_models"
+        ]
+      },
+      "ModelFamily": {
+        "count": 9,
+        "values": [
+          "IDEAL_RAOULT_BASELINE",
+          "HENRY_LAW_DILUTE_BASELINE",
+          "MEASURED_LOOKUP_INTERPOLATION",
+          "EMPIRICAL_MATRIX_CORRECTION",
+          "UNIFAC_OR_MODIFIED_UNIFAC",
+          "IMPORTED_COSMO_RS",
+          "MEASURED_PARTITION_MODEL",
+          "DYNAMIC_SEMI_EMPIRICAL_MODEL",
+          "LEGACY_HEURISTIC_ADAPTER"
+        ]
+      },
+      "ApplicabilityState": {
+        "count": 5,
+        "values": [
+          "IN_DOMAIN",
+          "NEAR_DOMAIN_WITH_WARNING",
+          "OUTSIDE_APPLICABILITY_DOMAIN",
+          "INSUFFICIENT_INPUT",
+          "MODEL_NOT_VALIDATED"
+        ]
+      },
+      "ModelAvailability": {
+        "count": 2,
+        "values": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ]
+      },
+      "ModelResultStatus": {
+        "count": 2,
+        "values": [
+          "COMPUTED",
+          "ABSTAINED"
+        ]
+      },
+      "ModelEvidenceClass": {
+        "count": 7,
+        "values": [
+          "THEORETICAL_BASELINE",
+          "MEASURED",
+          "EMPIRICAL",
+          "COMPUTATIONAL_IMPORT",
+          "LITERATURE_DERIVED",
+          "LEGACY_HEURISTIC",
+          "UNVALIDATED"
+        ]
+      }
+    },
+    "typed_operations": [
+      "predict_equilibrium_headspace",
+      "predict_dynamic_release",
+      "estimate_partition_coefficient",
+      "evaluate_applicability",
+      "propagate_uncertainty",
+      "compare_models"
+    ],
+    "source_sha256": "d29ec7b6defba2f66160fbf707b17412e61220a216f2baa529ff55ad949797d5"
+  },
+  "runtime_versions": {
+    "python": "3.11.15",
+    "pytest": "9.1.1",
+    "ruff": "0.15.15",
+    "node": "26.3.0",
+    "basedpyright": "1.39.8",
+    "mypy": "1.19.1"
+  },
+  "verification": {
+    "capture_schema": "build-c3-gate-run-metadata-v1",
+    "metadata_path": "docs/verification/c3/logs/final/gate-run-metadata.stdout.json",
+    "metadata_sha256": "735f57bb8c12d476e1a71710c987e1c092dc1c82348365aa3296d2e49b3d5e8d",
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "matrix_job_count": 22,
+    "matrix_failed_job_count": 0,
+    "matrix_timed_out_job_count": 0,
+    "matrix_nonempty_stderr_count": 0,
+    "tests": {
+      "c3_focused": {
+        "passed": 105,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-c3-focused.stdout.txt"
+      },
+      "c2_compatibility": {
+        "passed": 79,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-c2-compat.stdout.txt"
+      },
+      "c1_compatibility": {
+        "passed": 96,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-c1-compat.stdout.txt"
+      },
+      "c0_compatibility": {
+        "passed": 24,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-c0-compat.stdout.txt"
+      },
+      "complete_root": {
+        "passed": 1402,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-root-full.stdout.txt"
+      },
+      "dependency_invariant": {
+        "passed": 1,
+        "failed": 0,
+        "log": "docs/verification/c3/logs/final/pytest-c3-dependency.stdout.txt"
+      }
+    },
+    "static": {
+      "ruff_check": "PASS",
+      "ruff_format": "PASS",
+      "basedpyright": {
+        "status": "PASS",
+        "errors": 0,
+        "warnings": 0,
+        "notes": 0
+      },
+      "mypy": {
+        "status": "PASS",
+        "issues": 0
+      }
+    },
+    "log_manifest": {
+      "path": "docs/verification/c3/logs/log-manifest.json",
+      "bytes": 16403,
+      "sha256": "73bd271992180b8d0b5e66e815f3e082a896c3428dc620f095a4c2b774693413",
+      "covered_file_count": 61,
+      "invalid_utf8_files": 0,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0,
+      "matched_values_recorded": false
+    }
+  },
+  "mutation_evidence": {
+    "source_sha256_before_and_after": "d29ec7b6defba2f66160fbf707b17412e61220a216f2baa529ff55ad949797d5",
+    "duplicate_selector_guard": {
+      "mutated_result": "EXPECTED_FAILURE",
+      "mutated_exit_code": 1,
+      "mutated_test_result": "4 failed",
+      "restored_exit_code": 0,
+      "restored_test_result": "4 passed",
+      "mutated_log": "docs/verification/c3/logs/final/mutation-duplicate-selector-caught.stdout.txt",
+      "restored_log": "docs/verification/c3/logs/final/mutation-duplicate-selector-restored.stdout.txt"
+    },
+    "outside_domain_compute_guard": {
+      "mutated_result": "EXPECTED_FAILURE",
+      "mutated_exit_code": 1,
+      "mutated_test_result": "1 failed, 2 passed",
+      "restored_exit_code": 0,
+      "restored_test_result": "3 passed",
+      "mutated_log": "docs/verification/c3/logs/final/mutation-outside-compute-guard-caught.stdout.txt",
+      "restored_log": "docs/verification/c3/logs/final/mutation-outside-compute-guard-restored.stdout.txt"
+    },
+    "restoration_verified": true
+  },
+  "authoritative_exit_behaviors": {
+    "explicit_exact_model_selection": {
+      "status": "PASS",
+      "evidence": "Exact family/version selectors are required and same-family releases remain distinguishable."
+    },
+    "no_silent_fallback": {
+      "status": "PASS",
+      "evidence": "Unknown selectors fail closed; answer methods create no fallback disclosure; duplicate selectors are rejected."
+    },
+    "stable_immutable_version_binding": {
+      "status": "PASS",
+      "evidence": "Every computed result carries the exact immutable release snapshot; later registrations cannot change prior mappings or hashes; release drift is rejected."
+    },
+    "mandatory_out_of_domain_abstention": {
+      "status": "PASS",
+      "evidence": "OUTSIDE_APPLICABILITY_DOMAIN, INSUFFICIENT_INPUT, and MODEL_NOT_VALIDATED abstain before compute and cannot feed OAV screening."
+    }
+  },
+  "recovery_archive": {
+    "status": "PASS",
+    "path": "D:\\.backups\\perfume-chem\\build-c3-prewrite-20260802T202227+0700.tar",
+    "bytes": 118286848,
+    "sha256": "fd4e38ff22b9a611fe46b61454f8705eb4b989615c7780a526bf2b813ef3196e",
+    "manifest_file_count": 432,
+    "dirty_or_untracked_count": 429,
+    "existing_dirty_or_untracked_count": 429,
+    "excluded_runtime_path_count": 1213,
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "restorable": true
+  },
+  "protected_state": {
+    "status": "PASS",
+    "before_after_identical": true,
+    "matches_c2_baseline": true,
+    "database_quick_checks_ok": true,
+    "files": {
+      "perfume_chem.db": {
+        "bytes": 12288,
+        "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+        "quick_check": "ok"
+      },
+      "data/perfumery_kb.db": {
+        "bytes": 2084864,
+        "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+        "quick_check": "ok"
+      },
+      "data/perfumery_kb.db-wal": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "data/perfumery_kb.db-shm": {
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    }
+  },
+  "scope": {
+    "status": "PASS",
+    "changed_path_count": 7,
+    "expected_path_count": 7,
+    "index_empty_at_capture": true,
+    "diff_check_clean": true,
+    "truth_core_c3_entry_count": 1,
+    "migration_path_count": 0,
+    "database_path_count": 0,
+    "scientific_artifact_path_count": 0,
+    "production_caller_path_count": 0,
+    "compatibility_or_legacy_path_count": 0,
+    "log": "docs/verification/c3/logs/final/scope-verification.stdout.txt"
+  },
+  "deepluna": {
+    "project_id": "perfume-chem",
+    "runtime": {
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "provider": "deepinfra",
+      "route": "deepinfra-priority",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "spent_nano_usd": 444594123,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0,
+      "luna_runs": 0,
+      "glm_runs": 0,
+      "codex_orchestration_enabled": false
+    },
+    "supplemental_calls": [
+      {
+        "purpose": "initial C3 contract inventory",
+        "job_id": "DS-4ee6afcbb8f56c86578301d1ec1b2bd2",
+        "status": "PASS",
+        "evidence_verdict": "POSITIVE",
+        "cache_hit": false,
+        "provider_calls": 1,
+        "cost_nano_usd": 5530410,
+        "tier": "FLASH",
+        "fallback_policy": "NO_LUNA",
+        "fallback_used": false,
+        "locally_reproduced": true
+      },
+      {
+        "purpose": "Task 2 envelope inventory",
+        "job_id": "DS-ff5b897f00e3bd6618dd726f9a0bd5f4",
+        "status": "PASS",
+        "evidence_verdict": "POSITIVE",
+        "cache_hit": false,
+        "provider_calls": 1,
+        "cost_nano_usd": 2972025,
+        "tier": "FLASH",
+        "fallback_policy": "NO_LUNA",
+        "fallback_used": false,
+        "locally_reproduced": true
+      },
+      {
+        "purpose": "Task 5 executable-gate checklist",
+        "job_id": "DS-25560f38b7f0a373dc76a2757b0d555e",
+        "status": "PASS",
+        "evidence_verdict": "POSITIVE",
+        "cache_hit": false,
+        "provider_calls": 1,
+        "cost_nano_usd": 1810350,
+        "tier": "FLASH",
+        "fallback_policy": "NO_LUNA",
+        "fallback_used": false,
+        "locally_reproduced": true
+      }
+    ],
+    "final_audit": {
+      "status": "PASS",
+      "job_id": "DS-ca0636fee988c53f6306f85b2eaca50d",
+      "execution_status": "ACCEPTED",
+      "evidence_verdict": "POSITIVE",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "cost_nano_usd": 8537265,
+      "prompt_tokens": 61793,
+      "completion_tokens": 723,
+      "total_tokens": 62516,
+      "tier": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "fallback_used": false,
+      "negative_finding_count": 0,
+      "compact_packet_truncated_some_positive_finding_text": true,
+      "locally_reproduced": true,
+      "receipt": "docs/verification/c3/deepluna-final-audit.json"
+    },
+    "provider_claims_are_authoritative": false
+  },
+  "limitations": [
+    "C3 implements immutable contracts and exact router enforcement only.",
+    "C3 implements no Raoult, Henry, UNIFAC, COSMO-RS, partition, dynamic-release, calibration, or other scientific equation.",
+    "C3 does not validate prediction accuracy or promote any model family to executable or canonical scientific capability.",
+    "C3 changes no production caller and creates no persistence or migration.",
+    "C3 is not Build C completion and does not authorize scientific release."
+  ],
+  "exit_gate": {
+    "local_matrix_pass": true,
+    "focused_and_compatibility_tests_pass": true,
+    "complete_root_suite_pass": true,
+    "static_checks_pass": true,
+    "mutation_checks_pass": true,
+    "four_authoritative_behaviors_proven": true,
+    "archive_pass": true,
+    "protected_state_pass": true,
+    "scope_pass": true,
+    "log_hygiene_pass": true,
+    "final_deepluna_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": false,
+    "exact_commit_replay_pass": false,
+    "postcommit_decision_recorded": false,
+    "all_required_green": false,
+    "c4_open": false
+  }
+}
