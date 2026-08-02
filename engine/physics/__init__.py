@@ -5,6 +5,15 @@ matrix/application context. It does not evaluate thermodynamic equations.
 It does not authorize scientific release.
 """
 
+from engine.physics.equilibrium import (
+    C4_INPUT_ROLE,
+    EquilibriumModelContractError,
+    IdealRaoultAdapter,
+    IdealRaoultInputSet,
+    SelectedNumericPropertyInput,
+    UnavailableEquilibriumAdapter,
+    withheld_equilibrium_adapters,
+)
 from engine.physics.matrix_environment import (
     ApplicationEnvironment,
     ApplicationEnvironmentKind,
@@ -86,15 +95,19 @@ __all__ = [
     "ApplicabilityResult",
     "ApplicabilityState",
     "AuthorityState",
+    "C4_INPUT_ROLE",
     "CanonicalScope",
     "ClaimGrade",
     "CompositionCompleteness",
     "DeclaredQuantity",
     "DomainRange",
     "EnvironmentField",
+    "EquilibriumModelContractError",
     "ExtrapolationPolicy",
     "FallbackDisclosure",
     "InterpolationState",
+    "IdealRaoultAdapter",
+    "IdealRaoultInputSet",
     "MatrixAwareModelRequest",
     "MatrixComponent",
     "MatrixComponentRole",
@@ -124,6 +137,7 @@ __all__ = [
     "PropertySelectionService",
     "PropertyValueKind",
     "SelectedPropertyAssertion",
+    "SelectedNumericPropertyInput",
     "SelectionKind",
     "SelectionStatus",
     "SourceReference",
@@ -132,6 +146,7 @@ __all__ = [
     "ThermophysicalProperty",
     "UncertaintyDescriptor",
     "UncertaintyKind",
+    "UnavailableEquilibriumAdapter",
     "VaporPressureCoefficient",
     "VaporPressureEquationType",
     "VaporPressurePoint",
@@ -141,4 +156,5 @@ __all__ = [
     "VersionedModelResult",
     "VersionedModelRouter",
     "selected_assertion_from_b2_reconstruction",
+    "withheld_equilibrium_adapters",
 ]

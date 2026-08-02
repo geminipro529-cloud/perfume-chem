@@ -41,6 +41,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_c1_thermophysical_contracts.py",
         "tests/test_c2_matrix_environment.py",
         "tests/test_c3_model_interface.py",
+        "tests/test_c4_equilibrium_models.py",
         "tests/test_canonical_hashing.py",
         "tests/test_canonical_quantities.py",
         "tests/test_canonical_serialization.py",
@@ -273,6 +274,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "engine/bottle_addition.py",
                 "engine/calibration/hashing.py",
                 "engine/canonical_serialization.py",
+                "engine/physics/equilibrium.py",
                 "engine/intervention_hypotheses.py",
                 "engine/intervention_profiles.py",
                 "engine/intervention_trial.py",
@@ -321,6 +323,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "engine/bottle_addition.py",
                 "engine/calibration/hashing.py",
                 "engine/canonical_serialization.py",
+                "engine/physics/equilibrium.py",
                 "engine/intervention_hypotheses.py",
                 "engine/intervention_trial.py",
                 "engine/interventions.py",
@@ -380,8 +383,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
         (
             CheckSpec(
                 "backend-lint",
-                poetry
-                + ("run", "ruff", "check", "--color", "never", "app"),
+                poetry + ("run", "ruff", "check", "--color", "never", "app"),
                 cwd="backend",
             ),
             CheckSpec(

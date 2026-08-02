@@ -159,6 +159,15 @@ PUBLIC_C3_NAMES = {
     "VersionedModelResult",
     "VersionedModelRouter",
 }
+PUBLIC_C4_NAMES = {
+    "C4_INPUT_ROLE",
+    "EquilibriumModelContractError",
+    "IdealRaoultAdapter",
+    "IdealRaoultInputSet",
+    "SelectedNumericPropertyInput",
+    "UnavailableEquilibriumAdapter",
+    "withheld_equilibrium_adapters",
+}
 
 
 def digest(character: str) -> str:
@@ -1602,7 +1611,9 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
     }
 
     assert public_bindings == direct_bindings
-    assert set(physics.__all__) == PUBLIC_C1_NAMES | PUBLIC_C2_NAMES | PUBLIC_C3_NAMES
+    assert set(physics.__all__) == (
+        PUBLIC_C1_NAMES | PUBLIC_C2_NAMES | PUBLIC_C3_NAMES | PUBLIC_C4_NAMES
+    )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()
     assert "does not authorize scientific release" in (physics.__doc__ or "").lower()
