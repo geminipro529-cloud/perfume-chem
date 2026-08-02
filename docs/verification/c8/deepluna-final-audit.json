@@ -1,0 +1,87 @@
+{
+  "schema": "build-c8-deepluna-final-audit-v1",
+  "status": "PASS",
+  "exact_project": {
+    "workspace": "D:/chatbots/perfume-chem",
+    "project_id": "workspace-712a446e211c45e1b9d1",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9"
+  },
+  "attempts": [
+    {
+      "job_id": "DS-09bbe6f4c154c784dadbfc34c76555fc",
+      "status": "LOCAL_PRETRANSMISSION_REJECTION",
+      "reason": "Packed evidence estimate of 39612 tokens exceeded the 36000-token contract ceiling.",
+      "provider_calls": 0,
+      "cost_incurred": false,
+      "fallback_used": false
+    },
+    {
+      "job_id": "DS-d54912b0cee881229783207149823ebe",
+      "status": "PASS",
+      "execution_status": "ACCEPTED",
+      "evidence_verdict": "POSITIVE",
+      "route": "FLASH",
+      "provider_profile": "deepinfra-fast",
+      "provider": "deepinfra",
+      "provider_route": "deepinfra-priority",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "service_tier": "priority",
+      "maximum_provider_calls": 1,
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "negative_findings": [],
+      "positive_findings": [
+        "The implementation exports the exact 39-name public C8 API.",
+        "Closed vocabularies match the frozen design.",
+        "The five permitted and eight withheld C8 claims are exact, disjoint, and complete."
+      ],
+      "summary": "The bounded design, implementation, tests, and audit packet were consistent; no missing authority guard or evidence-packet contradiction was found."
+    }
+  ],
+  "worker_scope": {
+    "read_only": true,
+    "file_modifications": 0,
+    "architecture_decisions_delegated": false,
+    "scientific_interpretation_delegated": false,
+    "final_acceptance_delegated": false,
+    "normalized_packet_limit": "The returned normalized packet did not expose the requested line citations; no retry was made because the one-call Fast contract was exhausted."
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "log": "docs/verification/c8/logs/final/deepluna-sol-reproduction.stdout.txt",
+    "stderr_bytes": 0,
+    "public_export_count": 39,
+    "permitted_claim_count": 5,
+    "withheld_claim_count": 8,
+    "sensomics_stage_count": 8,
+    "matrix_job_count": 31,
+    "mutations_killed": 4,
+    "implementation_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "test_sha256": "a7621b2169aa62029ab85a7b6236046970c85e9f1c9fcf43692c61a0d25a45a3",
+    "all_worker_positive_findings_reproduced": true,
+    "worker_negative_finding_count": 0,
+    "sol_final_authority_retained": true
+  },
+  "postflight": {
+    "readiness": "READY",
+    "reason_codes": [],
+    "provider_calls_enabled": true,
+    "queued": 0,
+    "active_reads": 0,
+    "active_writes": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "spent_nano_usd_before_accepted_audit": 44590284,
+    "spent_nano_usd_after_accepted_audit": 48966714,
+    "accepted_audit_delta_nano_usd": 4376430,
+    "cumulative_budget_safe": true,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false,
+    "running_batches": 0,
+    "queued_batches": 0,
+    "unknown_transmissions": 0
+  }
+}

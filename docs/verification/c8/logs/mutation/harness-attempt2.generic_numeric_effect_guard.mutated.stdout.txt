@@ -1,0 +1,12 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_uncalibrated_generic_interaction_rejects_a_numerical_effect _______
+
+    def test_uncalibrated_generic_interaction_rejects_a_numerical_effect() -> None:
+>       with pytest.raises(HeadspaceOAVContractError, match="uncalibrated"):
+E       Failed: DID NOT RAISE HeadspaceOAVContractError
+
+tests\test_c8_headspace_oav.py:792: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c8_headspace_oav.py::test_uncalibrated_generic_interaction_rejects_a_numerical_effect
+1 failed in 0.58s

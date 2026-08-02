@@ -1,0 +1,22 @@
+{
+  "absent_planned_path_count": 6,
+  "archive_bytes": 118328832,
+  "archive_content_mismatch_count": 0,
+  "archive_path": "D:\\.backups\\perfume-chem\\build-c8-prewrite-20260803T043741+0700.tar",
+  "archive_sha256": "09fc1acf0d90f586e420f2eff5e9534f823f0d81292d4ba792eaefd3de9c5f5f",
+  "branch": "codex/add-inventory-materials",
+  "content_hashes_verified": true,
+  "current_preserved_work_mismatch_count": 0,
+  "deleted_dirty_or_untracked_count": 0,
+  "dirty_or_untracked_count": 429,
+  "duplicate_member_count": 0,
+  "excluded_runtime_path_count": 1353,
+  "existing_dirty_or_untracked_count": 429,
+  "head": "cae5b2652e58181a95f4dd1618057041b14d645f",
+  "manifest_file_count": 432,
+  "path_preserving": true,
+  "restorable": true,
+  "schema": "c8-recovery-archive-verification-v1",
+  "status": "PASS",
+  "unsafe_member_count": 0
+}

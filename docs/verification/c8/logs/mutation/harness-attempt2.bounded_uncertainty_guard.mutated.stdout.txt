@@ -1,0 +1,302 @@
+......FF.                                                                [100%]
+================================== FAILURES ===================================
+_ test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas6-threshold6-ABOVE_THRESHOLD_SCREENING-uncertainty] _
+
+gas = GasConcentrationEvidence(evidence_id='gas-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=10.0, unit='ppb...a256=None, within_model_domain=None, content_sha256='0c9744adb2abbc4f53163376b542bdcb3070ec09f25cf4c854301e0ee84a5718')
+threshold = OdorThresholdEvidence(threshold_id='threshold-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=2.0, unit='...9e66f47973219203cceb54e16cb27cc5c'), content_sha256='ac3c4871edb4be54ba3aab1586283aa7e3b8d9e59cb202b58bf703717e748528')
+claim = <C8Claim.ABOVE_THRESHOLD_SCREENING: 'ABOVE_THRESHOLD_SCREENING'>
+reason_fragment = 'uncertainty'
+
+    @pytest.mark.parametrize(
+        ("gas", "threshold", "claim", "reason_fragment"),
+        [
+            (
+                gas_evidence(origin=GasConcentrationOrigin.PREDICTED, within_model_domain=False),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "outside model domain",
+            ),
+            (
+                gas_evidence(analyte_id="cas:other"),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "analyte",
+            ),
+            (
+                gas_evidence(gas_context=context(matrix_id="matrix-other")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "context",
+            ),
+            (
+                gas_evidence(gas_quantity=quantity(unit="ug_m3")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "unit",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(authority=ThresholdAuthority.PROXY),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "authority",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(kind=ThresholdKind.RECOGNITION),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "detection threshold",
+            ),
+            (
+                gas_evidence(
+                    gas_quantity=quantity(
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(
+                    threshold_quantity=quantity(
+                        value=2.0,
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(),
+                C8Claim.EXACT_PERCEIVED_INTENSITY,
+                "claim",
+            ),
+        ],
+    )
+    def test_headspace_oav_abstains_answerlessly_on_every_failed_precondition(
+        gas: GasConcentrationEvidence,
+        threshold: OdorThresholdEvidence,
+        claim: C8Claim,
+        reason_fragment: str,
+    ) -> None:
+>       result = calculate_headspace_oav(gas, threshold, claim=claim)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:707: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+gas = GasConcentrationEvidence(evidence_id='gas-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=10.0, unit='ppb...a256=None, within_model_domain=None, content_sha256='0c9744adb2abbc4f53163376b542bdcb3070ec09f25cf4c854301e0ee84a5718')
+threshold = OdorThresholdEvidence(threshold_id='threshold-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=2.0, unit='...9e66f47973219203cceb54e16cb27cc5c'), content_sha256='ac3c4871edb4be54ba3aab1586283aa7e3b8d9e59cb202b58bf703717e748528')
+claim = <C8Claim.ABOVE_THRESHOLD_SCREENING: 'ABOVE_THRESHOLD_SCREENING'>
+
+    def calculate_headspace_oav(
+        gas: GasConcentrationEvidence,
+        threshold: OdorThresholdEvidence,
+        *,
+        claim: C8Claim = C8Claim.ABOVE_THRESHOLD_SCREENING,
+    ) -> HeadspaceOAVAssessment:
+        if not isinstance(gas, GasConcentrationEvidence):
+            raise HeadspaceOAVContractError("gas must be GasConcentrationEvidence")
+        if not isinstance(threshold, OdorThresholdEvidence):
+            raise HeadspaceOAVContractError("threshold must be OdorThresholdEvidence")
+        claim = _direct_enum(C8Claim, claim, "claim")
+        reasons: list[str] = []
+        if claim is not C8Claim.ABOVE_THRESHOLD_SCREENING:
+            reasons.append("requested claim is outside the OAV screening boundary")
+        if gas.analyte_id != threshold.analyte_id:
+            reasons.append("gas and threshold analyte identities do not match")
+        if gas.origin is GasConcentrationOrigin.PREDICTED and gas.within_model_domain is not True:
+            reasons.append("predicted gas concentration is outside model domain")
+        if threshold.kind is not ThresholdKind.DETECTION:
+            reasons.append("threshold is not a detection threshold")
+        if threshold.authority not in _ADMISSIBLE_THRESHOLD_AUTHORITIES:
+            reasons.append("threshold authority is not admissible for screening")
+        if not gas.context.is_compatible_with(threshold.context):
+            reasons.append("gas and threshold contexts are not compatible")
+        if gas.quantity.unit != threshold.quantity.unit:
+            reasons.append("gas and threshold units do not match")
+        if False:
+            reasons.append("numeric uncertainty bounds are required for OAV screening")
+    
+        if reasons:
+            return HeadspaceOAVAssessment(
+                status=OAVAssessmentStatus.ABSTAINED,
+                claim=claim,
+                analyte_id=gas.analyte_id,
+                gas_evidence_sha256=gas.content_sha256,
+                threshold_evidence_sha256=threshold.content_sha256,
+                oav_point=None,
+                oav_lower=None,
+                oav_upper=None,
+                screening_class=OAVScreeningClass.UNKNOWN,
+                reasons=tuple(reasons),
+                limitations=_OAV_LIMITATIONS,
+            )
+    
+        gas_lower = gas.quantity.lower_bound
+        gas_upper = gas.quantity.upper_bound
+        threshold_lower = threshold.quantity.lower_bound
+        threshold_upper = threshold.quantity.upper_bound
+        if gas_lower is None or gas_upper is None or threshold_lower is None or threshold_upper is None:
+>           raise HeadspaceOAVContractError("bounded OAV precondition was not enforced")
+E           engine.physics.headspace_oav.HeadspaceOAVContractError: bounded OAV precondition was not enforced
+
+engine\physics\headspace_oav.py:1006: HeadspaceOAVContractError
+_ test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas7-threshold7-ABOVE_THRESHOLD_SCREENING-uncertainty] _
+
+gas = GasConcentrationEvidence(evidence_id='gas-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=10.0, unit='ppb...a256=None, within_model_domain=None, content_sha256='2f7fae38df7c123b8feecf6ea3e2cd1561be4403225cd1cacf459ab30bec1730')
+threshold = OdorThresholdEvidence(threshold_id='threshold-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=2.0, unit='...9e66f47973219203cceb54e16cb27cc5c'), content_sha256='3c7ad3ec37d4af1d48a8f16dc854b1db3d78fe80371ef91cd36eb604e63fd084')
+claim = <C8Claim.ABOVE_THRESHOLD_SCREENING: 'ABOVE_THRESHOLD_SCREENING'>
+reason_fragment = 'uncertainty'
+
+    @pytest.mark.parametrize(
+        ("gas", "threshold", "claim", "reason_fragment"),
+        [
+            (
+                gas_evidence(origin=GasConcentrationOrigin.PREDICTED, within_model_domain=False),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "outside model domain",
+            ),
+            (
+                gas_evidence(analyte_id="cas:other"),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "analyte",
+            ),
+            (
+                gas_evidence(gas_context=context(matrix_id="matrix-other")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "context",
+            ),
+            (
+                gas_evidence(gas_quantity=quantity(unit="ug_m3")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "unit",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(authority=ThresholdAuthority.PROXY),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "authority",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(kind=ThresholdKind.RECOGNITION),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "detection threshold",
+            ),
+            (
+                gas_evidence(
+                    gas_quantity=quantity(
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(
+                    threshold_quantity=quantity(
+                        value=2.0,
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(),
+                C8Claim.EXACT_PERCEIVED_INTENSITY,
+                "claim",
+            ),
+        ],
+    )
+    def test_headspace_oav_abstains_answerlessly_on_every_failed_precondition(
+        gas: GasConcentrationEvidence,
+        threshold: OdorThresholdEvidence,
+        claim: C8Claim,
+        reason_fragment: str,
+    ) -> None:
+>       result = calculate_headspace_oav(gas, threshold, claim=claim)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:707: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+gas = GasConcentrationEvidence(evidence_id='gas-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=10.0, unit='ppb...a256=None, within_model_domain=None, content_sha256='2f7fae38df7c123b8feecf6ea3e2cd1561be4403225cd1cacf459ab30bec1730')
+threshold = OdorThresholdEvidence(threshold_id='threshold-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=2.0, unit='...9e66f47973219203cceb54e16cb27cc5c'), content_sha256='3c7ad3ec37d4af1d48a8f16dc854b1db3d78fe80371ef91cd36eb604e63fd084')
+claim = <C8Claim.ABOVE_THRESHOLD_SCREENING: 'ABOVE_THRESHOLD_SCREENING'>
+
+    def calculate_headspace_oav(
+        gas: GasConcentrationEvidence,
+        threshold: OdorThresholdEvidence,
+        *,
+        claim: C8Claim = C8Claim.ABOVE_THRESHOLD_SCREENING,
+    ) -> HeadspaceOAVAssessment:
+        if not isinstance(gas, GasConcentrationEvidence):
+            raise HeadspaceOAVContractError("gas must be GasConcentrationEvidence")
+        if not isinstance(threshold, OdorThresholdEvidence):
+            raise HeadspaceOAVContractError("threshold must be OdorThresholdEvidence")
+        claim = _direct_enum(C8Claim, claim, "claim")
+        reasons: list[str] = []
+        if claim is not C8Claim.ABOVE_THRESHOLD_SCREENING:
+            reasons.append("requested claim is outside the OAV screening boundary")
+        if gas.analyte_id != threshold.analyte_id:
+            reasons.append("gas and threshold analyte identities do not match")
+        if gas.origin is GasConcentrationOrigin.PREDICTED and gas.within_model_domain is not True:
+            reasons.append("predicted gas concentration is outside model domain")
+        if threshold.kind is not ThresholdKind.DETECTION:
+            reasons.append("threshold is not a detection threshold")
+        if threshold.authority not in _ADMISSIBLE_THRESHOLD_AUTHORITIES:
+            reasons.append("threshold authority is not admissible for screening")
+        if not gas.context.is_compatible_with(threshold.context):
+            reasons.append("gas and threshold contexts are not compatible")
+        if gas.quantity.unit != threshold.quantity.unit:
+            reasons.append("gas and threshold units do not match")
+        if False:
+            reasons.append("numeric uncertainty bounds are required for OAV screening")
+    
+        if reasons:
+            return HeadspaceOAVAssessment(
+                status=OAVAssessmentStatus.ABSTAINED,
+                claim=claim,
+                analyte_id=gas.analyte_id,
+                gas_evidence_sha256=gas.content_sha256,
+                threshold_evidence_sha256=threshold.content_sha256,
+                oav_point=None,
+                oav_lower=None,
+                oav_upper=None,
+                screening_class=OAVScreeningClass.UNKNOWN,
+                reasons=tuple(reasons),
+                limitations=_OAV_LIMITATIONS,
+            )
+    
+        gas_lower = gas.quantity.lower_bound
+        gas_upper = gas.quantity.upper_bound
+        threshold_lower = threshold.quantity.lower_bound
+        threshold_upper = threshold.quantity.upper_bound
+        if gas_lower is None or gas_upper is None or threshold_lower is None or threshold_upper is None:
+>           raise HeadspaceOAVContractError("bounded OAV precondition was not enforced")
+E           engine.physics.headspace_oav.HeadspaceOAVContractError: bounded OAV precondition was not enforced
+
+engine\physics\headspace_oav.py:1006: HeadspaceOAVContractError
+=========================== short test summary info ===========================
+FAILED tests/test_c8_headspace_oav.py::test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas6-threshold6-ABOVE_THRESHOLD_SCREENING-uncertainty]
+FAILED tests/test_c8_headspace_oav.py::test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas7-threshold7-ABOVE_THRESHOLD_SCREENING-uncertainty]
+2 failed, 7 passed in 0.65s
