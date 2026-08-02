@@ -1,0 +1,22 @@
+{
+  "absent_planned_path_count": 6,
+  "archive_bytes": 118322688,
+  "archive_content_mismatch_count": 0,
+  "archive_path": "D:\\.backups\\perfume-chem\\build-c6-prewrite-20260803T015345+0700.tar",
+  "archive_sha256": "3947df81ab4825c05ff2ccc679f853146a8217b92de75f4268b0cc538a553454",
+  "branch": "codex/add-inventory-materials",
+  "content_hashes_verified": true,
+  "current_preserved_work_mismatch_count": 0,
+  "deleted_dirty_or_untracked_count": 0,
+  "dirty_or_untracked_count": 429,
+  "duplicate_member_count": 0,
+  "excluded_runtime_path_count": 1313,
+  "existing_dirty_or_untracked_count": 429,
+  "head": "59582f7314bfe90bed9096fd534777c9e1a71dce",
+  "manifest_file_count": 432,
+  "path_preserving": true,
+  "restorable": true,
+  "schema": "c6-recovery-archive-verification-v1",
+  "status": "PASS",
+  "unsafe_member_count": 0
+}

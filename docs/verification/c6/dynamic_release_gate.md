@@ -1,10 +1,10 @@
 # Build C6 dynamic-release gate
 
-Decision: **PENDING EXACT-COMMIT REPLAY**
+Decision: **PASS**
 
-The C6 implementation `5b51ab31ddc28b48efa78944b314919f226262b2` passed its local, mutation,
-DeepLuna Fast, and Sol-reconciliation checks. C7 remains closed until this
-evidence package is committed and that exact commit replays cleanly.
+The C6 implementation `5b51ab31ddc28b48efa78944b314919f226262b2` and evidence
+commit `f45239862276b077833a18b5a8e81d5b76021037` passed the local, mutation, DeepLuna Fast,
+Sol-reconciliation, and exact-commit replay gates. C7 is open.
 
 ## Implemented authority
 
@@ -34,11 +34,16 @@ attributes, measured performance, or empirical promotion.
   returned to `d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f`.
 - Scope is exactly seven C6 paths with no production, database, migration,
   scientific-artifact, or legacy-dynamic path.
-- The 118,322,688-byte path-preserving archive reverified with
-  all 429 pre-existing dirty/untracked files preserved and zero mismatches.
+- The 118,322,688-byte path-preserving archive
+  reverified with all 429 pre-existing dirty/untracked files preserved and zero
+  mismatches.
 - Protected database/WAL/SHM hashes and immutable quick checks are unchanged.
-- All 90 captured log files are UTF-8,
-  ANSI-free, and free of credential-shaped matches; stdout/stderr are separate.
+- All 90 original
+  captured log files are UTF-8, ANSI-free, and free of credential-shaped
+  matches; stdout/stderr are separate.
+- The exact evidence commit replay passed all 23 bounded
+  jobs with zero failures, timeouts, stderr bytes, ANSI escapes, or
+  credential-shaped matches.
 
 ## DeepLuna Fast and Sol reconciliation
 
@@ -50,7 +55,7 @@ Postflight reservations are zero.
 
 ## Current boundary
 
-C5 empirical status remains `BLOCKED_PENDING_DATA`: no actual instrument data,
-empirical metrics, or promotion exists. C7 is not open. The next action is an
-exact replay of the committed C6 evidence package, followed by a separate final
-decision receipt if and only if that replay passes.
+C6's conservative dynamic-release implementation and exact evidence replay are
+green, and C7 is open. C5 empirical status remains `BLOCKED_PENDING_DATA`:
+there are no actual instrument data, empirical metrics, or promoted empirical
+claims. This decision opens only the next software phase.

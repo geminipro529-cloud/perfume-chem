@@ -2,9 +2,9 @@
   "schema": "build-c6-dynamic-release-gate-v1",
   "phase_parent": "59582f7314bfe90bed9096fd534777c9e1a71dce",
   "verified_implementation_head": "5b51ab31ddc28b48efa78944b314919f226262b2",
-  "evidence_commit": null,
-  "decision": "PENDING_EXACT_COMMIT_REPLAY",
-  "decision_reason": "The C6 implementation, local matrix, mutations, DeepLuna audit, and Sol reconciliation are green. C7 remains closed until the exact evidence commit replays and a separate final decision receipt is committed.",
+  "evidence_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+  "decision": "PASS",
+  "decision_reason": "The C6 software, physical-simulation, evidence commit, and exact-commit replay are green, so C7 may open. Empirical authority separately remains BLOCKED_PENDING_DATA because no actual instrument data exist.",
   "contract_surface": {
     "source_path": "engine/physics/dynamic_release.py",
     "source_sha256": "d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f",
@@ -229,9 +229,25 @@
     "codex_workers_used": 0
   },
   "postcommit_replay": {
-    "status": "PENDING",
-    "exact_commit": null,
-    "c7_open": false
+    "status": "PASS",
+    "exact_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+    "metadata_path": "docs/verification/c6/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "abe3bbe3001f267c2ab70badb375d620a5c5e917ad94e2eec11aab6f70ac58e1",
+    "replay_manifest_path": "docs/verification/c6/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "afc7c522f7b0a69c46684c5611f926ac53a26db888effe50b92d64effbc2e6f0",
+    "replay_receipt_path": "docs/verification/c6/postcommit/exact-commit-replay.json",
+    "replay_receipt_sha256": "77f4e9ea0426d8e1784af028445d5bb26f776327e50ab985bf48cf8de9b7f87f",
+    "decision_receipt_path": "docs/verification/c6/postcommit/dynamic_release_decision.json",
+    "decision_receipt_sha256": "4efda9a1ae5f9d91208a4137ad94ca153fd5fed3c8d3e3d8fa975b7748be8256",
+    "job_count": 23,
+    "failed_job_count": 0,
+    "timeout_count": 0,
+    "stderr_bytes": 0,
+    "focused_test_count": 53,
+    "root_test_count": 1534,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "c7_open": true
   },
   "exit_gate": {
     "conservation_nonnegativity_reproducibility": true,
@@ -243,10 +259,10 @@
     "full_local_and_mutation_gates_pass": true,
     "final_deepluna_audit_pass": true,
     "sol_reconciliation_pass": true,
-    "evidence_committed": false,
-    "exact_commit_replay_pass": false,
-    "postcommit_decision_recorded": false,
-    "all_required_green": false,
-    "c7_open": false
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c7_open": true
   }
 }
