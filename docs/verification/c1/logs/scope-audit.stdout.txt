@@ -1,0 +1,93 @@
+{
+  "schema": "c1-scope-audit-v1",
+  "generated_at": "2026-08-02T18:03:20+07:00",
+  "branch": "codex/add-inventory-materials",
+  "phase_parent": "fddc07c12d914b8de9f81f2ecbb5c9423a6880a6",
+  "verification_head": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+  "implementation_commits": [
+    {
+      "commit": "488f05c7070330e06d9a39690b7438210065c4ee",
+      "subject": "docs(c1): define thermophysical contract design"
+    },
+    {
+      "commit": "cce9975d4440c2b72fbc9649832f59e73aa20854",
+      "subject": "docs(c1): plan thermophysical contracts"
+    },
+    {
+      "commit": "2879ad4fe5a326e8825fcddae927ed63faeef960",
+      "subject": "feat(c1): add thermophysical property contracts"
+    },
+    {
+      "commit": "fa9c0260babe354843e258cb375cd1d72654a0cb",
+      "subject": "feat(c1): add vapor pressure representations"
+    },
+    {
+      "commit": "26f9bb8943f4da7ba263655c4acf4c2269b215cc",
+      "subject": "feat(c1): expose selected property provenance"
+    },
+    {
+      "commit": "9e7785639171d526043bb7cc41481936425a2fe6",
+      "subject": "feat(c1): add fail-closed property selection"
+    },
+    {
+      "commit": "ab50a9144d84094a9ab234a1b7202bccd025e774",
+      "subject": "feat(c1): publish thermophysical contract boundary"
+    },
+    {
+      "commit": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+      "subject": "style(c1): restore backend import order"
+    }
+  ],
+  "phase_changed_paths": [
+    "backend/app/services/lab_properties.py",
+    "backend/tests/unit/test_b2_property_service.py",
+    "docs/superpowers/plans/2026-08-02-build-c1-thermophysical-contracts.md",
+    "docs/superpowers/specs/2026-08-02-build-c1-thermophysical-contracts-design.md",
+    "docs/verification/c0/physical_model_inventory.json",
+    "engine/physics/__init__.py",
+    "engine/physics/properties.py",
+    "engine/physics/selection.py",
+    "engine/physics/vapor_pressure.py",
+    "tests/test_c1_thermophysical_contracts.py"
+  ],
+  "changed_path_allowlist": [
+    "backend/app/services/lab_properties.py",
+    "backend/tests/unit/test_b2_property_service.py",
+    "docs/superpowers/plans/2026-08-02-build-c1-thermophysical-contracts.md",
+    "docs/superpowers/specs/2026-08-02-build-c1-thermophysical-contracts-design.md",
+    "docs/verification/c0/physical_model_inventory.json",
+    "engine/physics/__init__.py",
+    "engine/physics/properties.py",
+    "engine/physics/selection.py",
+    "engine/physics/vapor_pressure.py",
+    "tests/test_c1_thermophysical_contracts.py"
+  ],
+  "unexpected_changed_paths": [],
+  "forbidden_path_matches": {
+    "migration_paths": [],
+    "database_files": [],
+    "c2_paths": [],
+    "headspace_temporal_optimizer_paths": []
+  },
+  "production_caller_audit": {
+    "definition": "A production caller imports, invokes, or switches runtime behavior to engine.physics outside the C1 contract boundary.",
+    "changed_production_adapter_paths": [
+      "backend/app/services/lab_properties.py"
+    ],
+    "engine_physics_reference_matches": [],
+    "caller_migration_detected": false
+  },
+  "legacy_estimator_import_matches_in_engine_physics": [],
+  "scoped_diff_check_messages": [],
+  "index": {
+    "staged_path_count": 0,
+    "staged_paths": [],
+    "clean": true
+  },
+  "preserved_worktree": {
+    "status_entry_count": 346,
+    "clean": false,
+    "cleaned_or_reset": false
+  },
+  "scope_pass": true
+}

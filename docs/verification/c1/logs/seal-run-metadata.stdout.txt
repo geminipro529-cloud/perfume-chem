@@ -1,0 +1,204 @@
+{
+    "schema":  "c1-seal-run-metadata-v1",
+    "generated_at":  "2026-08-02T18:13:55.6482505+07:00",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "external_pytest_temp_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c1-seal-pytest-20260802T181305+0700",
+    "versions":  {
+                     "root_python":  "Python 3.11.15",
+                     "root_pytest":  "pytest 9.1.1",
+                     "root_ruff":  "ruff 0.15.15",
+                     "backend_python":  "Python 3.11.15",
+                     "backend_pytest":  "pytest 7.4.4",
+                     "backend_ruff":  "ruff 0.15.15",
+                     "backend_mypy":  "mypy 1.19.1 (compiled: yes)",
+                     "node":  "v26.3.0",
+                     "basedpyright":  "basedpyright 1.39.8; pyright 1.39.8"
+                 },
+    "jobs":  [
+                 {
+                     "name":  "pytest-root-seal",
+                     "executable":  "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c1-seal-pytest-20260802T181305+0700\\root",
+                                       "tests/test_c1_thermophysical_contracts.py",
+                                       "tests/test_c0_physical_model_inventory.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T11:13:05.7061026+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:08.6625051+00:00",
+                     "duration_ms":  2958,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/pytest-root-seal.stdout.txt",
+                                    "bytes":  183,
+                                    "sha256":  "9168cafd3cb0f878ce16d7c1747eba767bec98350e4c692d2fc82f6282bf3078"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/pytest-root-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-backend-seal",
+                     "executable":  "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c1-seal-pytest-20260802T181305+0700\\backend",
+                                       "tests/unit/test_b2_property_service.py",
+                                       "tests/unit/test_b2_property_schema.py",
+                                       "tests/unit/test_b1_source_service.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem\\backend",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T11:13:08.7405269+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:53.4655810+00:00",
+                     "duration_ms":  44715,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/pytest-backend-seal.stdout.txt",
+                                    "bytes":  102,
+                                    "sha256":  "529882fe78704d3a316d57d0b00042f63d44b019e9f3356c5e393ae89535df3f"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/pytest-backend-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-root-seal",
+                     "executable":  "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "check",
+                                       "engine/physics/__init__.py",
+                                       "engine/physics/properties.py",
+                                       "engine/physics/selection.py",
+                                       "engine/physics/vapor_pressure.py",
+                                       "tests/test_c1_thermophysical_contracts.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-02T11:13:53.4837355+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:53.6750645+00:00",
+                     "duration_ms":  191,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/ruff-root-seal.stdout.txt",
+                                    "bytes":  19,
+                                    "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/ruff-root-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-backend-seal",
+                     "executable":  "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "check",
+                                       "app/services/lab_properties.py",
+                                       "tests/unit/test_b2_property_service.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem\\backend",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-02T11:13:53.6829223+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:53.8221334+00:00",
+                     "duration_ms":  140,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/ruff-backend-seal.stdout.txt",
+                                    "bytes":  19,
+                                    "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/ruff-backend-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "basedpyright-seal",
+                     "executable":  "C:\\Program Files\\nodejs\\node.exe",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\node_modules\\basedpyright\\index.js",
+                                       "engine/physics"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-02T11:13:53.8346970+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:55.2995581+00:00",
+                     "duration_ms":  1475,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/basedpyright-seal.stdout.txt",
+                                    "bytes":  30,
+                                    "sha256":  "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/basedpyright-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "mypy-backend-seal",
+                     "executable":  "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "mypy",
+                                       "--follow-imports=skip",
+                                       "backend/app/services/lab_properties.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-02T11:13:55.3212341+00:00",
+                     "finished_at_utc":  "2026-08-02T11:13:55.6482505+00:00",
+                     "duration_ms":  330,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c1/logs/mypy-backend-seal.stdout.txt",
+                                    "bytes":  43,
+                                    "sha256":  "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c1/logs/mypy-backend-seal.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}
