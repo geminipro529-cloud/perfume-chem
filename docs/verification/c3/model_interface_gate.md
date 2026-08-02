@@ -1,8 +1,7 @@
 # Build C3 model-interface gate
 
-Status: **PENDING**. The fresh local executable gate and final DeepLuna audit are
-green, but the evidence commit, exact-commit replay, and postcommit decision have
-not yet occurred. C4 remains closed.
+Status: **PASS**. The fresh local executable gate, final DeepLuna audit, evidence
+commit, exact-commit replay, and Sol decision are all green. C4 is open.
 
 ## What C3 establishes
 
@@ -80,6 +79,22 @@ other scientific equation. It does not validate predictions, promote a model
 family, change a production caller, add persistence, complete Build C, or
 authorize scientific release.
 
-The machine-readable source of this status is `model_interface_gate.json`. Until
-the evidence commit, exact-commit replay, and Sol decision are green, `c4_open`
-remains `false`.
+## Exact-commit replay and decision
+
+Evidence commit
+`d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91` contains exactly 65 C3 evidence
+paths and no path outside `docs/verification/c3/`. The replay against that exact
+commit ran 17 jobs with zero failures, zero timeouts, and empty stderr. It
+reproduced C3 105, C2 79, C1 96, C0 24, the complete 1,402-test root suite, the
+dependency invariant, all static checks, the recovery archive, protected state,
+scope, and evidence validation.
+
+The first replay launcher attempt stopped before execution because its Git probe
+used the scratch directory. It started no test job, provider call, database
+action, or repository-file change. The corrected `replay-final` evidence is the
+only authoritative replay.
+
+The machine-readable source of this status is `model_interface_gate.json`; the
+decision record is `postcommit/model_interface_decision.json`. C3 is `PASS` and
+`c4_open` is `true`. This opens only Phase C4; it does not complete Build C or
+authorize scientific release.

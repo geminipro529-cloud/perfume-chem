@@ -1,0 +1,527 @@
+{
+    "schema":  "build-c3-postcommit-replay-metadata-v1",
+    "generated_at":  "2026-08-02T22:43:35.8274585+07:00",
+    "exact_commit":  "d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "sensitive_environment_values_removed_without_logging":  true,
+    "external_pytest_temp_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700",
+    "jobs":  [
+                 {
+                     "name":  "protected-before",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_protected_state_snapshot.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-02T15:42:14.7218438+00:00",
+                     "finished_at_utc":  "2026-08-02T15:42:14.9020668+00:00",
+                     "duration_ms":  177,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-before.stdout.txt",
+                                    "bytes":  703,
+                                    "sha256":  "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-before.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c3-focused",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\c3",
+                                       "tests/test_c3_model_interface.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-02T15:42:15.0034541+00:00",
+                     "finished_at_utc":  "2026-08-02T15:42:16.6178140+00:00",
+                     "duration_ms":  1614,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c3-focused.stdout.txt",
+                                    "bytes":  183,
+                                    "sha256":  "194205778a489e97cd1e7501839e5b4da219f804afd76c083cd79856592aa9e1"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c3-focused.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c2-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\c2",
+                                       "tests/test_c2_matrix_environment.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-02T15:42:16.6358076+00:00",
+                     "finished_at_utc":  "2026-08-02T15:42:17.9543756+00:00",
+                     "duration_ms":  1319,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c2-compat.stdout.txt",
+                                    "bytes":  182,
+                                    "sha256":  "e6bab18983681439e7e368b4384fbde253461d6b1a4ecb429e590efa85eacb20"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c2-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c1-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\c1",
+                                       "tests/test_c1_thermophysical_contracts.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-02T15:42:18.0242568+00:00",
+                     "finished_at_utc":  "2026-08-02T15:42:19.3227926+00:00",
+                     "duration_ms":  1298,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c1-compat.stdout.txt",
+                                    "bytes":  182,
+                                    "sha256":  "67051098413f59f5db6ac31f52dbd50cfe2c1b52fd6e88aeb7a7879c6132feb6"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c1-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c0-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\c0",
+                                       "tests/test_c0_physical_model_inventory.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-02T15:42:19.3378776+00:00",
+                     "finished_at_utc":  "2026-08-02T15:42:23.0558917+00:00",
+                     "duration_ms":  3718,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c0-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "e3b591b1bd2bd3c80fb0de65dba2ceb37d6959f066639e7ba46a1ac0fff4da24"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c0-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-root-full",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\root",
+                                       "tests"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  900,
+                     "started_at_utc":  "2026-08-02T15:42:23.0748908+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:26.4516229+00:00",
+                     "duration_ms":  63376,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-root-full.stdout.txt",
+                                    "bytes":  1653,
+                                    "sha256":  "074d5b5240f328b06720919206ed277d57e31573fe116eb919faf3a6253b2cb6"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-root-full.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c3-dependency",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c3-postcommit-pytest-20260802T224214+0700\\dependency",
+                                       "tests/test_c3_model_interface.py::test_c3_module_has_no_runtime_equation_or_persistence_dependency"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-02T15:43:26.4752133+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:27.7701176+00:00",
+                     "duration_ms":  1295,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c3-dependency.stdout.txt",
+                                    "bytes":  100,
+                                    "sha256":  "1da4baa98f8941800891d25b659cae96fd55558c102ebc824cf6e49a2f3841ff"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/pytest-c3-dependency.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-c3-check",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "check",
+                                       "engine/physics/model_interface.py",
+                                       "engine/physics/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c3_model_interface.py",
+                                       "tests/test_c2_matrix_environment.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T15:43:27.7867769+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:27.9885051+00:00",
+                     "duration_ms":  201,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/ruff-c3-check.stdout.txt",
+                                    "bytes":  19,
+                                    "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/ruff-c3-check.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-c3-format",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "format",
+                                       "--check",
+                                       "engine/physics/model_interface.py",
+                                       "engine/physics/__init__.py",
+                                       "tests/test_c3_model_interface.py",
+                                       "tests/test_c2_matrix_environment.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T15:43:27.9993312+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:28.2859134+00:00",
+                     "duration_ms":  287,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/ruff-c3-format.stdout.txt",
+                                    "bytes":  26,
+                                    "sha256":  "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/ruff-c3-format.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "basedpyright-c3",
+                     "executable":  "node.exe",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\node_modules\\basedpyright\\index.js",
+                                       "engine/physics/model_interface.py",
+                                       "engine/physics/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c3_model_interface.py",
+                                       "tests/test_c2_matrix_environment.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-02T15:43:28.2953189+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:31.5751533+00:00",
+                     "duration_ms":  3280,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/basedpyright-c3.stdout.txt",
+                                    "bytes":  30,
+                                    "sha256":  "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/basedpyright-c3.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "mypy-c3",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "mypy",
+                                       "--follow-imports=skip",
+                                       "engine/physics/model_interface.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T15:43:31.5791531+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:32.0107705+00:00",
+                     "duration_ms":  431,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/mypy-c3.stdout.txt",
+                                    "bytes":  43,
+                                    "sha256":  "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/mypy-c3.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "evidence-validation",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c3_evidence.py",
+                                       "precommit"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-02T15:43:32.0175397+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:32.9058130+00:00",
+                     "duration_ms":  887,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/evidence-validation.stdout.txt",
+                                    "bytes":  315,
+                                    "sha256":  "b8d7181f8687b57ffb6003280432a95b85c1d534d79024d695dd3d97b4e499ad"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/evidence-validation.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "scope-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c3_postcommit_scope.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-02T15:43:32.9194734+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:33.3336342+00:00",
+                     "duration_ms":  414,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/scope-verification.stdout.txt",
+                                    "bytes":  5308,
+                                    "sha256":  "f896bd48e18461f1a19463adc1331ed3da10d8f7b23711b8943aa8ceb2a59bdc"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/scope-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "archive-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_c3_recovery_archive.py",
+                                       "D:\\.backups\\perfume-chem\\build-c3-prewrite-20260802T202227+0700.tar",
+                                       "D:\\chatbots\\perfume-chem"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-02T15:43:33.3532878+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:35.2062172+00:00",
+                     "duration_ms":  1852,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/archive-verification.stdout.txt",
+                                    "bytes":  856,
+                                    "sha256":  "ada0528611f22bbfdfa84b2ecc795c68a5f070177dd3444fa11d781df04632c1"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/archive-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "protected-after",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_protected_state_snapshot.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-02T15:43:35.2144205+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:35.3864101+00:00",
+                     "duration_ms":  172,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-after.stdout.txt",
+                                    "bytes":  703,
+                                    "sha256":  "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-after.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "protected-state-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c3_protected_state.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c3\\postcommit\\replay-final\\protected-before.stdout.txt",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c3\\postcommit\\replay-final\\protected-after.stdout.txt"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-02T15:43:35.4345298+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:35.5800504+00:00",
+                     "duration_ms":  145,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-state-verification.stdout.txt",
+                                    "bytes":  1019,
+                                    "sha256":  "60988de9787481e7e9d0fb0085339422cfe3e3b2e7620ca685460cb58d6fd9b1"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/protected-state-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "log-scan",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\scan_c3_logs.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c3\\postcommit\\replay-final"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-02T15:43:35.6005037+00:00",
+                     "finished_at_utc":  "2026-08-02T15:43:35.8037807+00:00",
+                     "duration_ms":  203,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/log-scan.stdout.txt",
+                                    "bytes":  8323,
+                                    "sha256":  "c5ca94e090bf56e76774f234dd0b040125d79c7046961394eef363f8e6ab3191"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c3/postcommit/replay-final/log-scan.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

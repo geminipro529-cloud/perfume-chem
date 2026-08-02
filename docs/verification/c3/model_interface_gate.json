@@ -1,12 +1,13 @@
 {
   "schema": "build-c3-model-interface-gate-v1",
-  "generated_at": "2026-08-02T22:27:39.1267662+07:00",
+  "generated_at": "2026-08-02T22:46:59.0947385+07:00",
   "phase": "Build C, Phase C3",
-  "decision": "PENDING",
-  "decision_reason": "The local executable gate and final DeepLuna audit are green, but the evidence commit, exact-commit replay, and postcommit decision are not yet complete.",
+  "decision": "PASS",
+  "decision_reason": "All local, mutation, archive, protected-state, scope, DeepLuna, evidence-commit, and exact-commit replay gates are green; Sol accepts C3 and opens C4.",
   "phase_parent": "f5ae19227e75dee30fe101b4324e1f54283174e3",
   "verified_implementation_head": "37ad809edc4c9b29ba7da090d605f854a49f1826",
   "branch": "codex/add-inventory-materials",
+  "evidence_commit": "d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91",
   "implementation_commits": [
     {
       "commit": "27d0ada2c2199bed9dfeb64bb3038112b1c9ceaa",
@@ -394,6 +395,20 @@
     "C3 changes no production caller and creates no persistence or migration.",
     "C3 is not Build C completion and does not authorize scientific release."
   ],
+  "postcommit": {
+    "status": "PASS",
+    "exact_commit": "d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91",
+    "replay_metadata": "docs/verification/c3/postcommit/replay-final/replay-metadata.stdout.json",
+    "replay_metadata_sha256": "2925d516d88953c6a8ea21639c7f9bc83f6283d677dcb78649923d197427e02b",
+    "replay_manifest": "docs/verification/c3/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "1c26b38c34a43a4eb2289b4a8b460c7012b9685f10ffad29c573826e83b57f1b",
+    "replay_job_count": 17,
+    "replay_failed_job_count": 0,
+    "replay_timed_out_job_count": 0,
+    "replay_nonempty_stderr_count": 0,
+    "receipt": "docs/verification/c3/postcommit/exact-commit-replay.json",
+    "decision_record": "docs/verification/c3/postcommit/model_interface_decision.json"
+  },
   "exit_gate": {
     "local_matrix_pass": true,
     "focused_and_compatibility_tests_pass": true,
@@ -407,10 +422,10 @@
     "log_hygiene_pass": true,
     "final_deepluna_audit_pass": true,
     "sol_reconciliation_pass": true,
-    "evidence_committed": false,
-    "exact_commit_replay_pass": false,
-    "postcommit_decision_recorded": false,
-    "all_required_green": false,
-    "c4_open": false
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c4_open": true
   }
 }
