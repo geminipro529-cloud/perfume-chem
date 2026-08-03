@@ -1,5 +1,12 @@
 """Build D scientific validation contracts."""
 
+from engine.scientific_validation.claim_registry import (
+    CLAIM_FAMILY_POLICIES,
+    ClaimFamilyPolicy,
+    get_claim_family_policy,
+    is_authoritative_method,
+    validate_claim_method_alignment,
+)
 from engine.scientific_validation.contracts import (
     AssessorType,
     BindingAuthorityState,
@@ -21,12 +28,14 @@ from engine.scientific_validation.contracts import (
 )
 
 __all__ = [
+    "CLAIM_FAMILY_POLICIES",
     "AssessorType",
     "BindingAuthorityState",
     "BindingState",
     "ClaimAuthorityState",
     "ClaimDefinition",
     "ClaimFamily",
+    "ClaimFamilyPolicy",
     "ClaimScope",
     "ComparatorDefinition",
     "CriterionKind",
@@ -38,4 +47,7 @@ __all__ = [
     "ScopeValue",
     "ValidationMethodFamily",
     "VersionBinding",
+    "get_claim_family_policy",
+    "is_authoritative_method",
+    "validate_claim_method_alignment",
 ]

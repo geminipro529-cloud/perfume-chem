@@ -5,6 +5,11 @@ from decimal import Decimal
 
 import pytest
 
+from engine.scientific_validation.claim_registry import (
+    CLAIM_FAMILY_POLICIES,
+    is_authoritative_method,
+    validate_claim_method_alignment,
+)
 from engine.scientific_validation.contracts import (
     AssessorType,
     BindingAuthorityState,
@@ -24,6 +29,83 @@ from engine.scientific_validation.contracts import (
     ValidationMethodFamily,
     VersionBinding,
 )
+
+EXPECTED_CLAIM_FAMILIES = (
+    "exact_bottle_arithmetic",
+    "event_replay",
+    "analytical_identity",
+    "analytical_quantity",
+    "equilibrium_headspace_prediction",
+    "physical_release_trajectory",
+    "above_threshold_screening",
+    "perceptible_difference",
+    "sensory_similarity_equivalence",
+    "descriptive_profile_accuracy",
+    "temporal_profile_accuracy",
+    "reconstruction_similarity",
+    "intervention_effectiveness",
+    "protected_attribute_preservation",
+    "preference_liking_prediction",
+    "longevity_projection_proxy",
+    "regulatory_screening",
+)
+
+EXPECTED_AUTHORITY_METHODS = {
+    ClaimFamily.EXACT_BOTTLE_ARITHMETIC: (
+        ValidationMethodFamily.DETERMINISTIC_ARITHMETIC,
+    ),
+    ClaimFamily.EVENT_REPLAY: (ValidationMethodFamily.EVENT_STREAM_REPLAY,),
+    ClaimFamily.ANALYTICAL_IDENTITY: (
+        ValidationMethodFamily.ANALYTICAL_IDENTITY,
+    ),
+    ClaimFamily.ANALYTICAL_QUANTITY: (
+        ValidationMethodFamily.ANALYTICAL_QUANTITATION,
+    ),
+    ClaimFamily.EQUILIBRIUM_HEADSPACE_PREDICTION: (
+        ValidationMethodFamily.HELD_OUT_HEADSPACE_BENCHMARK,
+        ValidationMethodFamily.ANALYTICAL_QUANTITATION,
+    ),
+    ClaimFamily.PHYSICAL_RELEASE_TRAJECTORY: (
+        ValidationMethodFamily.HELD_OUT_PHYSICAL_RELEASE_BENCHMARK,
+        ValidationMethodFamily.ANALYTICAL_QUANTITATION,
+    ),
+    ClaimFamily.ABOVE_THRESHOLD_SCREENING: (
+        ValidationMethodFamily.CONTEXTUAL_THRESHOLD_SCREENING,
+    ),
+    ClaimFamily.PERCEPTIBLE_DIFFERENCE: (
+        ValidationMethodFamily.SENSORY_DISCRIMINATION,
+        ValidationMethodFamily.DIRECTIONAL_PAIRED_COMPARISON,
+    ),
+    ClaimFamily.SENSORY_SIMILARITY_EQUIVALENCE: (
+        ValidationMethodFamily.TRAINED_QUANTITATIVE_DESCRIPTIVE_PROFILE,
+    ),
+    ClaimFamily.DESCRIPTIVE_PROFILE_ACCURACY: (
+        ValidationMethodFamily.TRAINED_QUANTITATIVE_DESCRIPTIVE_PROFILE,
+    ),
+    ClaimFamily.TEMPORAL_PROFILE_ACCURACY: (
+        ValidationMethodFamily.REPEATED_TEMPORAL_INTENSITY_PROFILE,
+    ),
+    ClaimFamily.RECONSTRUCTION_SIMILARITY: (
+        ValidationMethodFamily.TRAINED_QUANTITATIVE_DESCRIPTIVE_PROFILE,
+        ValidationMethodFamily.SENSOMICS_RECOMBINATION,
+    ),
+    ClaimFamily.INTERVENTION_EFFECTIVENESS: (
+        ValidationMethodFamily.TRAINED_QUANTITATIVE_DESCRIPTIVE_PROFILE,
+    ),
+    ClaimFamily.PROTECTED_ATTRIBUTE_PRESERVATION: (
+        ValidationMethodFamily.TRAINED_QUANTITATIVE_DESCRIPTIVE_PROFILE,
+    ),
+    ClaimFamily.PREFERENCE_LIKING_PREDICTION: (
+        ValidationMethodFamily.CONTROLLED_CONSUMER_HEDONIC,
+    ),
+    ClaimFamily.LONGEVITY_PROJECTION_PROXY: (
+        ValidationMethodFamily.REPEATED_TEMPORAL_INTENSITY_PROFILE,
+        ValidationMethodFamily.HELD_OUT_PHYSICAL_RELEASE_BENCHMARK,
+    ),
+    ClaimFamily.REGULATORY_SCREENING: (
+        ValidationMethodFamily.REGULATORY_EVIDENCE_REVIEW,
+    ),
+}
 
 
 def formula_binding(identifier: str, digest: str = "a" * 64) -> VersionBinding:
@@ -175,3 +257,55 @@ def test_claim_hash_is_stable_and_fixed_authority_fields_are_false() -> None:
     assert first.study_authorized is False
     assert first.release_authority is False
     assert first.observed_outcome == "unmeasured"
+
+
+def test_registry_contains_exactly_17_unique_master_claim_families() -> None:
+    assert tuple(family.value for family in ClaimFamily) == EXPECTED_CLAIM_FAMILIES
+    assert tuple(policy.family for policy in CLAIM_FAMILY_POLICIES) == tuple(
+        ClaimFamily
+    )
+    assert len({policy.family for policy in CLAIM_FAMILY_POLICIES}) == 17
+    assert all(policy.authoritative_methods for policy in CLAIM_FAMILY_POLICIES)
+    assert {
+        policy.family: policy.authoritative_methods
+        for policy in CLAIM_FAMILY_POLICIES
+    } == EXPECTED_AUTHORITY_METHODS
+
+
+@pytest.mark.parametrize(
+    ("family", "method"),
+    [
+        (
+            ClaimFamily.EXACT_BOTTLE_ARITHMETIC,
+            ValidationMethodFamily.SENSORY_DISCRIMINATION,
+        ),
+        (
+            ClaimFamily.PREFERENCE_LIKING_PREDICTION,
+            ValidationMethodFamily.ANALYTICAL_QUANTITATION,
+        ),
+        (
+            ClaimFamily.SENSORY_SIMILARITY_EQUIVALENCE,
+            ValidationMethodFamily.SENSORY_DISCRIMINATION,
+        ),
+    ],
+)
+def test_master_category_errors_fail_closed(
+    family: ClaimFamily,
+    method: ValidationMethodFamily,
+) -> None:
+    assert is_authoritative_method(family, method) is False
+
+
+def test_claim_method_alignment_checks_primary_and_secondary_endpoints() -> None:
+    claim = valid_claim()
+    validate_claim_method_alignment(claim)
+
+    misaligned = replace(
+        claim,
+        primary_endpoint=replace(
+            claim.primary_endpoint,
+            method_family=ValidationMethodFamily.SENSORY_DISCRIMINATION,
+        ),
+    )
+    with pytest.raises(ValueError, match="cannot authorize"):
+        validate_claim_method_alignment(misaligned)
