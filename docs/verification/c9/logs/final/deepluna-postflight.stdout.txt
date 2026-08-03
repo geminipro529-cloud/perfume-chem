@@ -1,0 +1,50 @@
+{
+  "schema": "build-c9-deepluna-postflight-v1",
+  "readiness": "READY",
+  "reason_codes": [],
+  "exact_project": {
+    "workspace": "D:/chatbots/perfume-chem",
+    "project_id": "workspace-712a446e211c45e1b9d1",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9"
+  },
+  "capacity": {
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "read_limit": 5,
+    "write_limit": 1
+  },
+  "budget": {
+    "spent_nano_usd_before": 54791748,
+    "spent_nano_usd_after": 58720923,
+    "accepted_audit_delta_nano_usd": 3929175,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "project_ceiling_nano_usd": 1000000000,
+    "cumulative_budget_safe": true
+  },
+  "provider": {
+    "profile_id": "deepinfra-fast",
+    "provider": "deepinfra",
+    "route": "deepinfra-priority",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "cumulative_runs": 8,
+    "cumulative_api_calls": 8,
+    "cumulative_prompt_tokens": 142067,
+    "cumulative_completion_tokens": 5981,
+    "cumulative_total_tokens": 148048
+  },
+  "fallback_usage": {
+    "luna_runs": 0,
+    "glm_runs": 0
+  },
+  "codex_orchestration_enabled": false,
+  "batches": {
+    "running": 0,
+    "queued": 0,
+    "unknown_transmissions": 0
+  }
+}

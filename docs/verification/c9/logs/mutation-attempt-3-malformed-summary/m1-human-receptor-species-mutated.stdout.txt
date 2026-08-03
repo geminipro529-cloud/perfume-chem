@@ -1,0 +1,18 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________ test_receptor_requires_human_species_for_narrow_support ___________
+
+    def test_receptor_requires_human_species_for_narrow_support() -> None:
+        animal = _receptor_evidence(species="Mus musculus")
+    
+        decision = assess_receptor_claim(ReceptorClaim.RECORDED_HUMAN_ASSAY_RESPONSE, animal)
+    
+>       assert decision.status is C9AssessmentStatus.WITHHELD
+E       AssertionError: assert <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> is <C9AssessmentStatus.WITHHELD: 'WITHHELD'>
+E        +  where <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> = C9ClaimDecision(status=<C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'>, claim='RECORDED_HUMAN_AS...6f211c14e6a33b',), reasons=('complete concentration-response, parameter, action, source, and applicability evidence',)).status
+E        +  and   <C9AssessmentStatus.WITHHELD: 'WITHHELD'> = C9AssessmentStatus.WITHHELD
+
+tests\test_c9_unsupported_science.py:298: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c9_unsupported_science.py::test_receptor_requires_human_species_for_narrow_support
+1 failed in 3.96s

@@ -1,0 +1,9 @@
+{
+  "schema": "c9-mutation-harness-attempt-v1",
+  "attempt": 2,
+  "status": "LOCAL_HARNESS_FAILURE_BEFORE_TEST_EXECUTION",
+  "source_restored": true,
+  "provider_involved": false,
+  "reason": "Windows PowerShell runtime exposes no ProcessStartInfo.ArgumentList collection",
+  "resolution": "Use a closed, validated, space-free pytest selector in ProcessStartInfo.Arguments"
+}

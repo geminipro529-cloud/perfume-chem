@@ -1,0 +1,391 @@
+{
+  "schema": "build-c9-unsupported-science-gate-v1",
+  "phase_parent": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+  "phase_commits": [
+    "a83e2b088f1e3566ff7e127409f41ab66f7ac232",
+    "94a99667c4334578d2b744f721ad81d7422a80da",
+    "a989abb81487f4086d302ffc14e898da6128bbba",
+    "88b741e42d09296a9b2cd754a25ce66dbde0f499"
+  ],
+  "verified_implementation_head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+  "evidence_commit": null,
+  "decision": "PENDING_AUTHORITATIVE_OVERLAY_REPLAY",
+  "decision_reason": "The authoritative preserved workspace passed local, mutation, scope, archive, protected-state, log-hygiene, DeepLuna Fast, and Sol reproduction gates. A clean detached comparison reproduced the same four inherited baseline failures at the C9 head and C8 parent. C10 remains closed until this evidence is committed and replayed at the exact evidence commit with the verified preserved authoritative overlay.",
+  "contract_surface": {
+    "source_path": "engine/evidence/unsupported_science.py",
+    "source_sha256": "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+    "test_path": "tests/test_c9_unsupported_science.py",
+    "test_sha256": "711b680336b9fbcc73d497e69c41dc9f6342d51dccbc623618af78182b41c44a",
+    "pipeline_gates_sha256": "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f",
+    "public_c9_symbol_count": 33,
+    "aging_process_count": 5,
+    "unsupported_outcome_count": 5,
+    "legacy_surface_count": 19,
+    "production_caller_changed": false,
+    "database_or_migration_changed": false
+  },
+  "receptor_authority": {
+    "narrow_human_assay_support_only": true,
+    "exact_material_receptor_cell_system_curve_parameters_action_source_and_applicability_required": true,
+    "tiny_subset_promotes_human_repertoire": false,
+    "assay_response_promotes_perfume_perception": false
+  },
+  "adaptation_authority": {
+    "exact_species_preparation_nervous_system_protocol_and_timescale_required": true,
+    "animal_single_cell_transfer_to_human_fine_fragrance_allowed": false
+  },
+  "aging_authority": {
+    "processes": [
+      "CHEMICAL_TRANSFORMATION",
+      "DISSOLUTION_PHYSICAL_EQUILIBRATION",
+      "PRECIPITATION_PHASE_BEHAVIOR",
+      "OXIDATION",
+      "SENSORY_MATURATION"
+    ],
+    "process_specific_only": true,
+    "universal_arrhenius_aging_allowed": false,
+    "generic_shelf_life_allowed": false,
+    "generic_sensory_maturation_allowed": false,
+    "canonical_pipeline_aging_claim": "WITHHELD"
+  },
+  "unsupported_outcome_authority": {
+    "outcomes": [
+      "LONGEVITY",
+      "SILLAGE",
+      "PROJECTION",
+      "EMOTION",
+      "HEDONIC"
+    ],
+    "exact_scope_passing_build_d_receipt_required": true,
+    "without_receipt": "WITHHELD",
+    "empirical_or_release_promotion_allowed": false
+  },
+  "legacy_surface_quarantine": {
+    "surface_ids": [
+      "C0-PM-022",
+      "C0-PM-023",
+      "C0-PM-032",
+      "C0-PM-033",
+      "C0-PM-034",
+      "C0-PM-035",
+      "C0-PM-036",
+      "C0-PM-037",
+      "C0-PM-038",
+      "C0-PM-039",
+      "C0-PM-040",
+      "C0-PM-041",
+      "C0-PM-042",
+      "C0-PM-043",
+      "C0-PM-044",
+      "C0-PM-045",
+      "C0-PM-046",
+      "C0-PM-047",
+      "C0-PM-048"
+    ],
+    "disposition_counts": {
+      "CANONICAL_ABSTENTION": 1,
+      "CAPABILITY_BOUNDARY": 2,
+      "NARROW_ARITHMETIC_ONLY": 1,
+      "QUARANTINED_EXPLORATORY": 14,
+      "QUARANTINED_LEGACY_FIXTURE": 1
+    },
+    "c10_use_counts": {
+      "ABSTENTION_ONLY": 1,
+      "CALIBRATED_MODEL_REQUIRED": 1,
+      "CAPABILITY_BOUNDARY_ONLY": 2,
+      "FORBIDDEN_NUMERIC_AUTHORITY": 15
+    },
+    "numeric_authority_by_import_allowed": false,
+    "c0_pm033_runtime_status": "QUARANTINED_EXPLORATORY"
+  },
+  "verification": {
+    "matrix_metadata_path": "docs/verification/c9/logs/final/gate-run-metadata.stdout.json",
+    "matrix_metadata_sha256": "2eeac639113e81664ce4c4c3079e4dea85321477c93054f9824dec75c3d1426c",
+    "matrix_job_count": 36,
+    "matrix_failed_job_count": 0,
+    "matrix_timeout_count": 0,
+    "matrix_stderr_bytes": 0,
+    "tests": {
+      "pytest-c9-focused": {
+        "passed": 28,
+        "failed": 0
+      },
+      "pytest-pipeline-chemistry": {
+        "passed": 3,
+        "failed": 0
+      },
+      "pytest-c8-compat": {
+        "passed": 78,
+        "failed": 0
+      },
+      "pytest-c7-compat": {
+        "passed": 49,
+        "failed": 0
+      },
+      "pytest-c6-compat": {
+        "passed": 53,
+        "failed": 0
+      },
+      "pytest-c5-compat": {
+        "passed": 38,
+        "failed": 0
+      },
+      "pytest-c4-compat": {
+        "passed": 41,
+        "failed": 0
+      },
+      "pytest-c3-compat": {
+        "passed": 105,
+        "failed": 0
+      },
+      "pytest-c2-compat": {
+        "passed": 79,
+        "failed": 0
+      },
+      "pytest-c1-compat": {
+        "passed": 96,
+        "failed": 0
+      },
+      "pytest-c0-compat": {
+        "passed": 24,
+        "failed": 0
+      },
+      "pytest-root-full": {
+        "passed": 1689,
+        "failed": 0
+      },
+      "pytest-c9-dependency": {
+        "passed": 1,
+        "failed": 0
+      },
+      "archive-verifier-contract-tests": {
+        "passed": 4,
+        "failed": 0
+      }
+    },
+    "pip_check": "PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS",
+    "basedpyright": "PASS",
+    "mypy": "PASS",
+    "c0_inventory_verifier": {
+      "status": "PASS",
+      "implementation_count": 48,
+      "call_edge_count": 29,
+      "fixture_count": 24,
+      "classifications": [
+        "DISCONNECTED_LEGACY",
+        "EMPIRICALLY_CALIBRATED_MODEL",
+        "EXACT_PHYSICAL_ARITHMETIC",
+        "HEURISTIC",
+        "LITERATURE_DERIVED_MODEL",
+        "MEASURED_LOOKUP",
+        "STUB",
+        "UNSUPPORTED"
+      ]
+    },
+    "scope_verification": "PASS",
+    "mutation_verification": "PASS",
+    "archive_verification": "PASS",
+    "protected_state_verification": "PASS",
+    "log_manifest": {
+      "path": "docs/verification/c9/logs/log-manifest.json",
+      "bytes": 56191,
+      "sha256": "4e6b73a7a62cecb6a2fcce3941685cc3d60646121fe506e5ac6625ec45d5c452",
+      "covered_file_count": 199,
+      "invalid_utf8_files": 0,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    }
+  },
+  "mutation_evidence": {
+    "mutations_killed": 4,
+    "restoration_checks_passed": 4,
+    "byte_exact_restoration": true,
+    "source_sha256_before_and_after": "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+    "nonempty_stderr_count": 0,
+    "timeout_count": 0,
+    "preserved_malformed_harness_file_count": 19
+  },
+  "recovery_archives": {
+    "prewrite": {
+      "absent_planned_path_count": 6,
+      "allowed_current_mismatch_count": 1,
+      "allowed_current_mismatch_paths": [
+        "engine/pipeline/gates.py"
+      ],
+      "archive_bytes": 118252544,
+      "archive_content_mismatch_count": 0,
+      "archive_path": "D:\\.backups\\perfume-chem\\build-c9-prewrite-20260803T060804+0700.tar",
+      "archive_sha256": "73568e822739f5a39e46f910323d9a296666169919ced28d3c4f3c30beefc870",
+      "branch": "codex/add-inventory-materials",
+      "content_hashes_verified": true,
+      "current_preserved_work_mismatch_count": 1,
+      "deleted_dirty_or_untracked_count": 0,
+      "dirty_or_untracked_count": 429,
+      "duplicate_member_count": 0,
+      "excluded_runtime_path_count": 1353,
+      "existing_dirty_or_untracked_count": 429,
+      "head": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+      "manifest_file_count": 431,
+      "path_preserving": true,
+      "restorable": true,
+      "schema": "c9-recovery-archive-verification-v1",
+      "status": "PASS",
+      "unexpected_current_mismatch_count": 0,
+      "unexpected_current_mismatch_paths": [],
+      "unsafe_member_count": 0,
+      "unused_allowed_current_mismatch_count": 0,
+      "unused_allowed_current_mismatch_paths": []
+    },
+    "prewrite_allowance_bound_to_gates_sha256": "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f",
+    "reconciliation": {
+      "absent_planned_path_count": 0,
+      "allowed_current_mismatch_count": 0,
+      "allowed_current_mismatch_paths": [],
+      "archive_bytes": 118287872,
+      "archive_content_mismatch_count": 0,
+      "archive_path": "D:\\.backups\\perfume-chem\\build-c9-c0recon-prewrite-20260803T064241+0700.tar",
+      "archive_sha256": "9a9c1fe4d26b532fa9e3816705533b94792d7e0eb7de4a883881cfc2a60d0310",
+      "branch": "codex/add-inventory-materials",
+      "content_hashes_verified": true,
+      "current_preserved_work_mismatch_count": 0,
+      "deleted_dirty_or_untracked_count": 0,
+      "dirty_or_untracked_count": 429,
+      "duplicate_member_count": 0,
+      "excluded_runtime_path_count": 1353,
+      "existing_dirty_or_untracked_count": 429,
+      "head": "a989abb81487f4086d302ffc14e898da6128bbba",
+      "manifest_file_count": 431,
+      "path_preserving": true,
+      "restorable": true,
+      "schema": "c9-c0recon-recovery-archive-verification-v1",
+      "status": "PASS",
+      "unexpected_current_mismatch_count": 0,
+      "unexpected_current_mismatch_paths": [],
+      "unsafe_member_count": 0,
+      "unused_allowed_current_mismatch_count": 0,
+      "unused_allowed_current_mismatch_paths": []
+    }
+  },
+  "clean_baseline_limitation": {
+    "status": "INHERITED_BASELINE_LIMITATION",
+    "exact_c9_head": {
+      "commit": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+      "exit_code": 1,
+      "timed_out": false,
+      "duration_ms": 3703,
+      "failed_count": 4,
+      "failure_ids": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+        "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay",
+        "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains",
+        "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once"
+      ],
+      "stdout_path": "docs/verification/c9/logs/clean-baseline/implementation-head.stdout.txt",
+      "stderr_path": "docs/verification/c9/logs/clean-baseline/implementation-head.stderr.txt",
+      "stdout_bytes": 3724,
+      "stderr_bytes": 0
+    },
+    "c8_parent": {
+      "commit": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+      "exit_code": 1,
+      "timed_out": false,
+      "duration_ms": 4687,
+      "failed_count": 4,
+      "failure_ids": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+        "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay",
+        "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains",
+        "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once"
+      ],
+      "stdout_path": "docs/verification/c9/logs/clean-baseline/parent-c8.stdout.txt",
+      "stderr_path": "docs/verification/c9/logs/clean-baseline/parent-c8.stderr.txt",
+      "stdout_bytes": 3724,
+      "stderr_bytes": 0
+    },
+    "same_failure_ids": true,
+    "missing_assigned_test_count": 17,
+    "standalone_clean_tree_claimed": false,
+    "authoritative_replay_mode": "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY"
+  },
+  "protected_state": {
+    "before_after_identical": true,
+    "database_quick_checks_ok": true,
+    "files": {
+      "data/perfumery_kb.db": {
+        "bytes": 2084864,
+        "exists": true,
+        "immutable_quick_check": [
+          "ok"
+        ],
+        "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1"
+      },
+      "data/perfumery_kb.db-shm": {
+        "bytes": 32768,
+        "exists": true,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "data/perfumery_kb.db-wal": {
+        "bytes": 0,
+        "exists": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "perfume_chem.db": {
+        "bytes": 12288,
+        "exists": true,
+        "immutable_quick_check": [
+          "ok"
+        ],
+        "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e"
+      }
+    }
+  },
+  "empirical_boundary": {
+    "status": "BLOCKED_PENDING_DATA",
+    "actual_instrument_data_found": false,
+    "empirical_promotion_allowed": false,
+    "evidence_path": "docs/verification/c9/logs/final/c5-empirical-boundary.stdout.txt",
+    "evidence_sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
+  },
+  "deepluna": {
+    "final_audit_path": "docs/verification/c9/deepluna-final-audit.json",
+    "final_audit_sha256": "030ffc84697b9ef337dcb5ff5a19b7ed51683130d3c2f14446973c6c9c41888c",
+    "status": "PASS",
+    "job_id": "DS-303409a64898b0bfb2398a35d6ebbc42",
+    "provider_calls": 1,
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "negative_finding_count": 0,
+    "locally_reproduced": true,
+    "postflight_open_reserved_nano_usd": 0,
+    "postflight_unknown_reservations": 0,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_workers_used": 0
+  },
+  "postcommit_replay": {
+    "status": "PENDING",
+    "exact_commit": null,
+    "replay_mode": "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY",
+    "c10_open": false
+  },
+  "exit_gate": {
+    "receptor_claims_fail_closed": true,
+    "adaptation_transfer_claims_fail_closed": true,
+    "aging_processes_separated": true,
+    "unsupported_outcomes_withheld_without_build_d_receipt": true,
+    "legacy_numeric_authority_quarantined": true,
+    "canonical_pipeline_shelf_life_withheld": true,
+    "no_forbidden_path_change": true,
+    "full_local_and_mutation_gates_pass": true,
+    "clean_baseline_limitation_truthfully_disclosed": true,
+    "final_deepluna_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": false,
+    "authoritative_overlay_replay_pass": false,
+    "postcommit_decision_recorded": false,
+    "all_required_green": false,
+    "c10_open": false
+  }
+}

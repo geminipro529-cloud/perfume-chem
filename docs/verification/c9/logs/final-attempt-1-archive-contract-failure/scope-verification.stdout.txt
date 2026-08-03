@@ -1,0 +1,61 @@
+{
+  "c0_pm033_runtime_status": "QUARANTINED_EXPLORATORY",
+  "clean_commit_baseline_limitation": {
+    "meaning": "full replay requires the verified preserved authoritative overlay",
+    "missing_assigned_test_count": 17,
+    "missing_assigned_tests": [
+      "tests/test_accord_graph.py",
+      "tests/test_brand_profiles.py",
+      "tests/test_experiments_planner.py",
+      "tests/test_optimizer_determinism.py",
+      "tests/test_optimizer_thermodynamic_unification.py",
+      "tests/test_reconstruction_allergen_authority.py",
+      "tests/test_reconstruction_bridge.py",
+      "tests/test_reconstruction_chassis.py",
+      "tests/test_reconstruction_ensembles.py",
+      "tests/test_reconstruction_identity.py",
+      "tests/test_reconstruction_quantity.py",
+      "tests/test_reconstruction_rank_prior.py",
+      "tests/test_reconstruction_unknowns.py",
+      "tests/test_reports_generator.py",
+      "tests/test_target_formula.py",
+      "tests/test_tracing.py",
+      "tests/test_units_concentration.py"
+    ],
+    "predates_c9": true
+  },
+  "commit_chain": [
+    "a83e2b088f1e3566ff7e127409f41ab66f7ac232",
+    "94a99667c4334578d2b744f721ad81d7422a80da",
+    "a989abb81487f4086d302ffc14e898da6128bbba",
+    "88b741e42d09296a9b2cd754a25ce66dbde0f499"
+  ],
+  "forbidden_runtime_or_database_paths": [],
+  "gates_numstat": {
+    "added": 6,
+    "deleted": 34
+  },
+  "head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+  "implementation_paths": [
+    "engine/evidence/__init__.py",
+    "engine/evidence/unsupported_science.py",
+    "engine/pipeline/gates.py",
+    "engine/project_verification.py",
+    "tests/test_c9_unsupported_science.py"
+  ],
+  "parent": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+  "phase_paths": [
+    "docs/superpowers/plans/2026-08-03-build-c9-unsupported-science.md",
+    "docs/superpowers/specs/2026-08-03-build-c9-unsupported-science-design.md",
+    "docs/verification/c0/physical_model_inventory.json",
+    "docs/verification/c0/physical_model_inventory.md",
+    "engine/evidence/__init__.py",
+    "engine/evidence/unsupported_science.py",
+    "engine/pipeline/gates.py",
+    "engine/project_verification.py",
+    "tests/test_c9_unsupported_science.py"
+  ],
+  "schema": "c9-scope-verification-v1",
+  "status": "PASS",
+  "unrelated_gates_work_preserved": true
+}
