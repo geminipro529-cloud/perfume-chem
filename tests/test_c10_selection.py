@@ -6,8 +6,15 @@ import subprocess
 import sys
 from dataclasses import replace
 from pathlib import Path
+from typing import Any
 
 import pytest
+
+from engine.evidence.unsupported_science import (
+    C9_LEGACY_SURFACES,
+    C10Use,
+    UnsupportedOutcome,
+)
 from engine.optimization import (
     AcquisitionPolicy,
     AcquisitionTerm,
@@ -34,12 +41,6 @@ from engine.optimization import (
     authorize_proposal,
     candidate_formula_state_sha256,
     select_experiments,
-)
-
-from engine.evidence.unsupported_science import (
-    C9_LEGACY_SURFACES,
-    C10Use,
-    UnsupportedOutcome,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -225,8 +226,8 @@ def _stop_policy() -> StopPolicy:
     )
 
 
-def _campaign(**changes) -> CampaignState:
-    values = {
+def _campaign(**changes: Any) -> CampaignState:
+    values: dict[str, Any] = {
         "spent_budget": 0.0,
         "protected_attribute_risk": 0.0,
         "unavailable_data_dominates": False,

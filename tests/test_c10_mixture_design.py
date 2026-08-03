@@ -5,6 +5,8 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
+
+import engine.optimization as optimization
 from engine.optimization import (
     C10ContractError,
     CandidateDose,
@@ -28,6 +30,62 @@ from engine.optimization import (
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE_SHA = "e" * 64
+
+
+def test_c10_public_api_is_explicit_and_frozen() -> None:
+    assert tuple(optimization.__all__) == (
+        "AcquisitionPolicy",
+        "AcquisitionTerm",
+        "AuthorizedExperimentSet",
+        "C10ContractError",
+        "CampaignState",
+        "CandidateAccounting",
+        "CandidateDose",
+        "CandidateEvaluation",
+        "CandidateRejection",
+        "CandidateRole",
+        "CandidateUtility",
+        "ConstraintViolation",
+        "DesignStage",
+        "ExperimentProposal",
+        "FamilyFractionRange",
+        "FeasibilityAssessment",
+        "GateReceipt",
+        "GateStatus",
+        "HISTORICAL_SEARCH_CLAIM",
+        "HistoricalRegressionAssessment",
+        "HistoricalRegressionReceipt",
+        "HistoricalRegressionStatus",
+        "HistoricalSearchClaim",
+        "HumanReviewReceipt",
+        "MixtureCandidate",
+        "MixtureDesignAxis",
+        "MixtureDesignResult",
+        "MixtureDomain",
+        "ModuleActiveRange",
+        "NegativeSpaceCap",
+        "NumericRange",
+        "ObjectiveAuthority",
+        "ObjectiveAuthorityAssessment",
+        "ObjectiveDirection",
+        "ObjectiveEstimate",
+        "RecognizerFloor",
+        "SelectionStatus",
+        "StockDefinition",
+        "StopPolicy",
+        "StopReason",
+        "UtilityContribution",
+        "assess_candidate",
+        "assess_historical_regression",
+        "assess_objective_authority",
+        "authorize_proposal",
+        "candidate_formula_state_sha256",
+        "canonical_json_bytes",
+        "canonical_sha256",
+        "generate_mixture_design",
+        "score_candidate_utility",
+        "select_experiments",
+    )
 
 
 def _stock(
@@ -214,7 +272,7 @@ def test_candidate_accounting_conserves_raw_active_and_named_carrier_mass() -> N
         (
             (
                 CandidateDose("stock-a", 2.0, "core"),
-                CandidateDose("stock-b", 3.0, "module"),
+                CandidateDose("stock-b", 4.0, "module"),
             ),
             "TOTAL_ACTIVE_MASS_BREACH",
         ),

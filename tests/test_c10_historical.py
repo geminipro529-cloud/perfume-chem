@@ -63,7 +63,7 @@ def test_mismatched_counts_guardrails_score_or_family_cannot_pass() -> None:
     receipt = _receipt()
     mismatches = (
         replace(receipt, candidate_count=29_999),
-        replace(receipt, guardrail_count=34),
+        replace(receipt, guardrail_count=36),
         replace(receipt, guardrails_passed=34),
         replace(receipt, dna_threshold=97.4),
         replace(receipt, winner_dna_score=97.75),
