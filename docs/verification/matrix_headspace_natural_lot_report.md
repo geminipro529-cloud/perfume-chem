@@ -1,14 +1,14 @@
 # Build C11 Matrix, Headspace, and Natural-Lot Evidence Report
 
-Status: `DRAFT_PENDING_FINAL_DEEPLUNA_AUDIT_COMMITTED_BLOB_MANIFEST_AND_DETACHED_REPLAY`
+Status: `PASS_WITH_INHERITED_CLEAN_BASELINE_LIMITATION_AND_EMPIRICAL_HISTORICAL_SCIENCE_WITHHELD`
 
-This is a draft C11 aggregate evidence packet. It records software-contract verification and fail-closed scientific boundaries. It does not authorize Build D, production formulation, a database migration, or an empirical perfume-performance claim.
+This is the final C11 aggregate evidence packet. It records software-contract verification and fail-closed scientific boundaries. It does not authorize Build D, production formulation, a database migration, or an empirical perfume-performance claim.
 
 ## Authoritative state
 
 - Source commit: `f8d8c6836643cf8bd7693d1e6672daded9629c69`
 - Branch: `codex/add-inventory-materials`
-- Build C exit gate: `false`
+- Build C exit gate: `true`
 - Build D authorized: `false`
 - Real instrument observations: `0`
 - Real natural-lot profiles: `0`
@@ -95,9 +95,19 @@ UNIFAC remains an inactive/data-only stub; COSMO-RS and DIPPR-style execution ar
 
 The broad Ruff-format diagnostic is inherited committed style drift in seven clean files. The broad mypy diagnostic is 96 test-fixture typing errors in five test files, with no runtime-source error. The old C9 archive contract test is invalid for the later live checkout; a state-independent seven-case C11 synthetic contract replaced it. No production or C11 source was changed to hide these diagnostics.
 
+## Replay and acceptance mode
+
+- Canonical replay mode: `EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY`.
+- Clean detached checkout: `652` passed, `3` inherited failures; committed-state validators passed and the replay worktree remained clean.
+- Preserved authoritative overlay: `655` passed, `0` failed; report/blob validators, status preservation, and log hygiene passed.
+- Standalone clean-tree PASS claimed: `false`.
+- Scientific release: `BLOCKED`; Build D authorized: `false`; Build D started: `false`.
+
+The clean-checkout failures are not relabeled as green. They are the exact pre-C11 C0/C5 overlay-dependent baseline subset, and the C11 commit range contains zero non-C11 path changes.
+
 ## Permitted wording
 
-- Build C software contracts and aggregate verification passed for the tested source state only after the C11 committed replay and final seal are recorded.
+- Build C software contracts and aggregate verification pass for the preserved authoritative overlay at the recorded commit; the standalone clean checkout retains the disclosed inherited baseline limitation.
 - The executable equilibrium calculation is a theoretical ideal Raoult comparison baseline with analytic tests; it is not an accuracy-validated perfume headspace model and cannot feed OAV screening.
 - Dynamic release is an unvalidated, simulation-only deterministic sensitivity model with conservation and nonnegativity checks; it is not measured perfume performance.
 - Natural-lot, interaction, OAV, receptor, adaptation, aging, and optimizer contracts fail closed when exact evidence or context is absent.
@@ -109,8 +119,8 @@ The broad Ruff-format diagnostic is inherited committed style drift in seven cle
 - UNIFAC, modified UNIFAC, COSMO-RS, DIPPR-style equations, or empirical matrix correction are implemented or validated.
 - Normalized GC area percent is constituent concentration or regulatory mass fraction.
 - The historical 30k candidates, 35 guardrails, and 97.76 result were reproduced or are canonical.
-- Build D has started or is authorized by this draft report.
+- Build D has started or is authorized by this Build C boundary report.
 
 ## Next gate
 
-`Run a fresh exact-project DeepLuna Fast audit of the generated C11 packet, reconcile it locally, validate and commit only C11-owned evidence, create a Git-blob manifest, replay the exact commit in a clean detached worktree, then record the Build C boundary decision. Do not begin Build D.`
+`Stop at the Build C boundary and present this evidence report. Build D remains unauthorized and unstarted; do not create or execute any Build D artifact in this turn.`

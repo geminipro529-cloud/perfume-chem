@@ -8,7 +8,8 @@
     "synthetic_tests_passed": 7
   },
   "authoritative_required_gate_status": "PASS",
-  "decision": "PASS_WITH_RECONCILED_NON_GATE_DIAGNOSTICS",
+  "current_evidence_head": "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+  "decision": "PASS_AUTHORITATIVE_OVERLAY_WITH_INHERITED_CLEAN_BASELINE_LIMITATION",
   "execution_controls": {
     "ansi_disabled": true,
     "explicit_timeouts": true,
@@ -43,6 +44,42 @@
     "job_count": 4,
     "path": "docs/verification/c11/logs/reconciliation/f8d8c68/run-manifest.json",
     "sha256": "d1d1875890a33ae06df409eed384d6e1b8a7e11ebf19f6ba730366facc4ab91d"
+  },
+  "replay": {
+    "authoritative_overlay": {
+      "all_pass": true,
+      "committed_manifest_validator_passed": true,
+      "focused_failed": 0,
+      "focused_passed": 655,
+      "inherited_entry_count": 1782,
+      "inherited_sha256": "4487309377de170c3dc1edf71022f16133806be81f142c305fa894e14efdf532",
+      "path": "docs/verification/c11/logs/authoritative-overlay/0607e4b/run-manifest.json",
+      "report_validator_passed": true,
+      "sha256": "d2fce2b88e9260e84a39cc5f4f8fc25b2d7c558ef4fe5981a82c8404958b6579"
+    },
+    "detached_attempt": {
+      "all_pass": false,
+      "failure_ids": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+        "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay",
+        "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains"
+      ],
+      "focused_failed": 3,
+      "focused_passed": 652,
+      "path": "docs/verification/c11/logs/detached-replay/0607e4b/run-manifest.json",
+      "sha256": "a8ff023d754c5aae4ddb5798de49bdc9c40d4363c4015dbfe39c638e03395022",
+      "status": "INHERITED_CLEAN_BASELINE_LIMITATION",
+      "worktree_clean_after": true
+    },
+    "detached_reconciliation": {
+      "all_pass": true,
+      "baseline_classification": "PASS_INHERITED_CLEAN_BASELINE_LIMITATION",
+      "committed_state_validators_passed": true,
+      "path": "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/run-manifest.json",
+      "sha256": "cced5078c207ce1af5a5536c339f846ff0359fb5f2f9fecfcb328083c4783607",
+      "worktree_clean_after": true
+    },
+    "mode": "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY"
   },
   "required_raw_gate_count": 30,
   "required_raw_gate_failures": [],
