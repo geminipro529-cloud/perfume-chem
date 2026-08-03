@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import json
+import subprocess
+import sys
 from dataclasses import FrozenInstanceError, replace
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
 
@@ -33,6 +37,10 @@ from engine.scientific_validation.first_claim import (
     FIRST_CLAIM_ID,
     build_prada_orris_first_claim,
 )
+from scripts.verify_d0_claim_matrix import build_gate_payload
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+VERIFIER = REPOSITORY_ROOT / "scripts" / "verify_d0_claim_matrix.py"
 
 EXPECTED_CLAIM_FAMILIES = (
     "exact_bottle_arithmetic",
@@ -428,3 +436,64 @@ def test_first_claim_rejects_ambiguous_or_wrong_kind_bindings(
     arguments.update(overrides)
     with pytest.raises(ValueError):
         build_prada_orris_first_claim(**arguments)
+
+
+def test_live_d0_gate_binds_quarantined_formula_bytes() -> None:
+    payload = build_gate_payload(REPOSITORY_ROOT)
+
+    assert payload["schema"] == "d0-claim-matrix-gate-v1"
+    assert payload["status"] == "PASS"
+    assert payload["claim_family_count"] == 17
+    assert payload["d0_exit_fields_complete"] is True
+    assert payload["study_authorized"] is False
+    assert payload["release_authority"] is False
+    assert payload["scientific_outcome"] == "unmeasured"
+    formula_bindings = payload["formula_bindings"]
+    assert isinstance(formula_bindings, list)
+    assert formula_bindings[0]["sha256"] == (
+        "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00"
+    )
+    assert formula_bindings[1]["sha256"] == (
+        "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d"
+    )
+    assert all(item["status"] == "QUARANTINED" for item in formula_bindings)
+    assert payload["blockers"] == [
+        "formula artifacts are stale and quarantined",
+        "exact formula builds, lots, matrix, and controlled condition are unbound",
+        "Orris Liquid carrier is unrecorded",
+        "trained panel, pilot, power, protocol, and confirmatory evidence do not exist",
+        "authorized human scientific release has not occurred",
+    ]
+
+
+def test_live_d0_gate_cli_is_deterministic_utf8_json_with_empty_stderr() -> None:
+    command = [
+        sys.executable,
+        "-B",
+        str(VERIFIER),
+        "--repository-root",
+        str(REPOSITORY_ROOT),
+    ]
+    first = subprocess.run(
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="strict",
+        timeout=60,
+    )
+    second = subprocess.run(
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="strict",
+        timeout=60,
+    )
+
+    assert first.returncode == second.returncode == 0
+    assert first.stderr == second.stderr == ""
+    assert first.stdout == second.stdout
+    assert json.loads(first.stdout) == build_gate_payload(REPOSITORY_ROOT)
