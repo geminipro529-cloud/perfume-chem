@@ -1,0 +1,843 @@
+{
+  "api_report_and_recovery": {
+    "b9_report_provenance_tests_in_backend_matrix": true,
+    "backup_restore_tests_in_backend_matrix": true,
+    "portability_import_tests_in_backend_matrix": true,
+    "prewrite_archive": {
+      "absent_planned_path_count": 8,
+      "allowed_current_mismatch_count": 0,
+      "allowed_current_mismatch_paths": [],
+      "archive_bytes": 118213120,
+      "archive_content_mismatch_count": 0,
+      "archive_path": "D:\\.backups\\perfume-chem\\build-c11-prewrite-20260803T100914+0700.tar",
+      "archive_sha256": "b2af01c9143e73751490b550bc935e4f21089a578895540393c3b5972cadcf3e",
+      "branch": "codex/add-inventory-materials",
+      "content_hashes_verified": true,
+      "current_preserved_work_mismatch_count": 0,
+      "deleted_dirty_or_untracked_count": 0,
+      "dirty_or_untracked_count": 429,
+      "duplicate_member_count": 0,
+      "excluded_runtime_path_count": 1353,
+      "existing_dirty_or_untracked_count": 429,
+      "head": "f8d8c6836643cf8bd7693d1e6672daded9629c69",
+      "manifest_file_count": 429,
+      "path_preserving": true,
+      "restorable": true,
+      "schema": "c11-recovery-archive-verification-v1",
+      "status": "PASS",
+      "unexpected_current_mismatch_count": 0,
+      "unexpected_current_mismatch_paths": [],
+      "unsafe_member_count": 0,
+      "unused_allowed_current_mismatch_count": 0,
+      "unused_allowed_current_mismatch_paths": []
+    }
+  },
+  "baselines_and_benchmarks": {
+    "dynamic_reproducibility": "DETERMINISTIC_SIMULATION_ONLY",
+    "empirical_baseline_comparison": "NOT_COMPUTED_NO_REAL_DATA",
+    "ideal_raoult": {
+      "accuracy_validated": false,
+      "authority": "THEORETICAL_BASELINE",
+      "equation": "p_i = x_i * p_i_star",
+      "may_feed_oav_screening": false,
+      "pure_and_binary_analytic_tests_passed": true
+    }
+  },
+  "branch": "codex/add-inventory-materials",
+  "calibration_and_validation": {
+    "empirical_abstention_rate": "NOT_COMPUTED_NO_REAL_DATA",
+    "empirical_metrics_present": false,
+    "empirical_status": "BLOCKED_PENDING_DATA",
+    "leakage_dimensions": [
+      "chemical_identity_group",
+      "close_analog_group",
+      "formula_id",
+      "supplier_lot",
+      "matrix_batch_id",
+      "measurement_session_id"
+    ],
+    "material_classes": [
+      "ACID",
+      "ALCOHOL",
+      "ALDEHYDE",
+      "ESTER",
+      "HYDROCARBON_TERPENE",
+      "KETONE_IONONE",
+      "LACTONE",
+      "MUSK",
+      "PHENOL",
+      "WOODY_AMBER"
+    ],
+    "matrix_ids": [
+      "CURRENT_DECLARED_STOCK",
+      "DEP_HEAVY",
+      "DPG_HEAVY",
+      "FINISHED_10_PERCENT",
+      "FINISHED_20_PERCENT",
+      "HIGH_ETHANOL_STOCK",
+      "IPM_OIL",
+      "TEC_HEAVY"
+    ],
+    "matrix_template_count": 8,
+    "metrics_by_class_and_matrix": {
+      "by_material_class": {
+        "ACID": "NOT_COMPUTED_NO_REAL_DATA",
+        "ALCOHOL": "NOT_COMPUTED_NO_REAL_DATA",
+        "ALDEHYDE": "NOT_COMPUTED_NO_REAL_DATA",
+        "ESTER": "NOT_COMPUTED_NO_REAL_DATA",
+        "HYDROCARBON_TERPENE": "NOT_COMPUTED_NO_REAL_DATA",
+        "KETONE_IONONE": "NOT_COMPUTED_NO_REAL_DATA",
+        "LACTONE": "NOT_COMPUTED_NO_REAL_DATA",
+        "MUSK": "NOT_COMPUTED_NO_REAL_DATA",
+        "PHENOL": "NOT_COMPUTED_NO_REAL_DATA",
+        "WOODY_AMBER": "NOT_COMPUTED_NO_REAL_DATA"
+      },
+      "by_matrix": {
+        "CURRENT_DECLARED_STOCK": "NOT_COMPUTED_NO_REAL_DATA",
+        "DEP_HEAVY": "NOT_COMPUTED_NO_REAL_DATA",
+        "DPG_HEAVY": "NOT_COMPUTED_NO_REAL_DATA",
+        "FINISHED_10_PERCENT": "NOT_COMPUTED_NO_REAL_DATA",
+        "FINISHED_20_PERCENT": "NOT_COMPUTED_NO_REAL_DATA",
+        "HIGH_ETHANOL_STOCK": "NOT_COMPUTED_NO_REAL_DATA",
+        "IPM_OIL": "NOT_COMPUTED_NO_REAL_DATA",
+        "TEC_HEAVY": "NOT_COMPUTED_NO_REAL_DATA"
+      }
+    },
+    "model_lock_binds_validation_dataset": true,
+    "partitions": [
+      "CALIBRATION",
+      "VALIDATION",
+      "HELD_OUT_TEST"
+    ],
+    "program_id": "c5-calibration-program-inventory-20260803-v1",
+    "representative_material_count": 19,
+    "required_group_dimensions": [
+      "material_class",
+      "matrix",
+      "condition"
+    ],
+    "required_metrics": [
+      "bias",
+      "mae",
+      "rmse",
+      "median_absolute_fold_error",
+      "rank_agreement",
+      "calibration_slope",
+      "calibration_intercept",
+      "prediction_interval_coverage",
+      "catastrophic_outlier_rate",
+      "missing_domain_rate",
+      "abstention_rate",
+      "rmse_improvement_vs_baseline"
+    ]
+  },
+  "claim_language": {
+    "forbidden": [
+      "Build C proves accurate real-world perfume headspace, longevity, sillage, projection, intensity, pleasantness, preference, or receptor response.",
+      "UNIFAC, modified UNIFAC, COSMO-RS, DIPPR-style equations, or empirical matrix correction are implemented or validated.",
+      "Normalized GC area percent is constituent concentration or regulatory mass fraction.",
+      "The historical 30k candidates, 35 guardrails, and 97.76 result were reproduced or are canonical.",
+      "Build D has started or is authorized by this draft report."
+    ],
+    "permitted": [
+      "Build C software contracts and aggregate verification passed for the tested source state only after the C11 committed replay and final seal are recorded.",
+      "The executable equilibrium calculation is a theoretical ideal Raoult comparison baseline with analytic tests; it is not an accuracy-validated perfume headspace model and cannot feed OAV screening.",
+      "Dynamic release is an unvalidated, simulation-only deterministic sensitivity model with conservation and nonnegativity checks; it is not measured perfume performance.",
+      "Natural-lot, interaction, OAV, receptor, adaptation, aging, and optimizer contracts fail closed when exact evidence or context is absent.",
+      "No real instrument observations, real natural-lot profiles, held-out C10 outcomes, or reproducible historical 30k artifact bundle were available; empirical metrics were not computed and scientific release remains blocked."
+    ]
+  },
+  "consolidation_adr": {
+    "c0_runtime_changes": false,
+    "current_dynamic_adapter": "engine.pipeline.simulator.simulate_formula",
+    "current_headspace_adapter": "engine.pipeline.formula_state.build_formula_state",
+    "future_interface": "engine.physics versioned request/result router",
+    "persistence_authority": "Laboratory Beta through LabService",
+    "property_authority": "Build B selected assertions through a future condition-aware adapter",
+    "unsupported_output_policy": "WITHHELD"
+  },
+  "data_and_parameter_digests": {
+    "c11_plan_sha256": "33c3207aaf5fd5868933f46a3f58eb9f3711fa7b35ca8dde2e8a665dadbf2565",
+    "c5_inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
+    "c5_program_content_sha256": "0b45099e41e661739128f8d5f397a9c98ea01e1c6eba905bd62c562c8fff2f60",
+    "current_source_files": {
+      "engine/evidence/unsupported_science.py": "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+      "engine/optimization/contracts.py": "4b6bb599351070de966a103ef97a6f3251d0972c62846acfc8a794d8ddcbf743",
+      "engine/optimization/historical.py": "60f564553cce989befe788d7c62409f930a37a47188c659a83b5058cbff28205",
+      "engine/optimization/mixture_design.py": "bc2e21552fb91ae8a08185ffd67dd107ef807ff471adb9cf77eef0b1c33fd6c7",
+      "engine/optimization/selection.py": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+      "engine/physics/calibration_program.py": "1b772b755426f82544f834797778df2704b03c1b5e3d17b91e1037dcad001501",
+      "engine/physics/dynamic_release.py": "d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f",
+      "engine/physics/equilibrium.py": "c2b92a6ba72fc1e64253d155b65bec3e031015eb8150709b45b4ef975bbd7e16",
+      "engine/physics/headspace_oav.py": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+      "engine/physics/matrix_environment.py": "9ea45811a488da7bde56a061480e0e549f961c4bfb8c43b8738af46a235ebec2",
+      "engine/physics/model_interface.py": "d29ec7b6defba2f66160fbf707b17412e61220a216f2baa529ff55ad949797d5",
+      "engine/physics/natural_lots.py": "7e5e7774b8952f84af70b6f6a758573346e05ddd9d41c5e89e40b08929f8d29d",
+      "engine/physics/properties.py": "860ad3d6a19910c11d2893377252dd365b58210ec635eb81c9362e3ba75681ac",
+      "engine/physics/selection.py": "2aef2f231729e0816a4b46684a357eac18fd5ab03961cfe5f1ffeddd34659ed6",
+      "engine/physics/vapor_pressure.py": "bc62cd30adc4cd988d018619e39237815639aa2afe3a5533fd79530785962261"
+    },
+    "draft_deepluna_audit_sha256": "b4707f44b6d3a30d8dc2ab6640e5a28b6ff322c1c1393c1a50b95df80f9a46f4",
+    "phase_gate_inputs": {
+      "b2_property_authority": {
+        "path": "docs/verification/b2/property_authority_gate.json",
+        "sha256": "4a179f8cc3942ad864b3626cf27d0463305f1a7910eb6f6d61d9a37dc97d456d"
+      },
+      "c0_model_inventory": {
+        "path": "docs/verification/c0/physical_model_inventory.json",
+        "sha256": "b2e1f922805c4f0c6be298dd0cb7bf01780b37f6e69cf7a72882b22d351852ae"
+      },
+      "c10_final_decision": {
+        "path": "docs/verification/c10/final_decision.json",
+        "sha256": "612f224373d12e89d327a715598c340a9cd9c39c24e9a948f0edfd5c98df8920"
+      },
+      "c1_thermophysical_contracts": {
+        "path": "docs/verification/c1/thermophysical_contracts_gate.json",
+        "sha256": "8a340ca592bd604c9d8b2ca78450fbbaadd5ef396322487739f38bb6d9ec5204"
+      },
+      "c2_matrix_environment": {
+        "path": "docs/verification/c2/matrix_environment_gate.json",
+        "sha256": "c02f8516423669c92588e6d2464c65d33056462f24ae9b32719ae273f9fd4f11"
+      },
+      "c3_model_interface": {
+        "path": "docs/verification/c3/model_interface_gate.json",
+        "sha256": "3eb6e15220777b497c9d4c8ea1adc42c82e9d07f3c82cd1cd85d65817c7054ce"
+      },
+      "c4_equilibrium": {
+        "path": "docs/verification/c4/equilibrium_model_gate.json",
+        "sha256": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "c5_calibration_program": {
+        "path": "docs/verification/c5/calibration_program_gate.json",
+        "sha256": "dc76040dbdea3233fff717482c811273e03345b6f23dba4cf8ea6693b055c400"
+      },
+      "c6_dynamic_release": {
+        "path": "docs/verification/c6/dynamic_release_gate.json",
+        "sha256": "93dd5a86f451ed1ff1cde5767378c98181917255c53a286526adc5f7e1458965"
+      },
+      "c7_natural_lots": {
+        "path": "docs/verification/c7/natural_lots_gate.json",
+        "sha256": "8ac8a63e6a4a1a7e4d6a85526dd8c96e7ad4a4cd9ce0ee3ed9f9ca93468304e3"
+      },
+      "c8_headspace_oav": {
+        "path": "docs/verification/c8/headspace_oav_gate.json",
+        "sha256": "bef5407b35719ea4ec530f57a900fa7aaf56089ad38b9d56b37dfad6718cb331"
+      },
+      "c9_unsupported_science": {
+        "path": "docs/verification/c9/unsupported_science_gate.json",
+        "sha256": "faa67ff94a600674f2fef53d3dc7cc88ec31bb7417021a0419277bb647da15bc"
+      }
+    },
+    "prewrite_archive_sha256": "b2af01c9143e73751490b550bc935e4f21089a578895540393c3b5972cadcf3e"
+  },
+  "decision": "DRAFT_PENDING_FINAL_DEEPLUNA_AUDIT_COMMITTED_BLOB_MANIFEST_AND_DETACHED_REPLAY",
+  "deepluna": {
+    "codex_subagents_used": false,
+    "draft_report_audit_citation_coverage_complete": false,
+    "draft_report_audit_job_id": "DS-f3f145a583cfb34968d298d6b6ca1d74",
+    "draft_report_audit_negative_finding_count": 0,
+    "draft_report_audit_provider_status": "BLOCKED",
+    "draft_report_audit_scientific_uncertainty": true,
+    "draft_report_audit_sol_reconciliation": "ACCEPT_AS_NONAUTHORITATIVE_CONSISTENCY_SIGNAL_ONLY",
+    "fast_only": true,
+    "final_report_audit_status": "PENDING",
+    "plan_audit_job_id": "DS-dff56e505f55221f97e8a7831a69258f",
+    "plan_audit_status": "BLOCKED_INVALID_READ_CONTRACT_REJECTED_BY_SOL",
+    "prior_boundary_audit_job_id": "DS-17f4ce5932276b793c2e54986d3f7d39",
+    "prior_boundary_audit_status": "PASS_POSITIVE"
+  },
+  "dynamic_release": {
+    "authority": {
+      "calibration_receipt_allowed": false,
+      "cross_substrate_transfer_allowed": false,
+      "empirical_metrics_present": false,
+      "empirical_promotion_allowed": false,
+      "evidence_class": "UNVALIDATED",
+      "output_labels": [
+        "PREDICTED_HEADSPACE_TRAJECTORY",
+        "PREDICTED_RELEASE_TRAJECTORY",
+        "ESTIMATED_PHYSICAL_PERSISTENCE"
+      ],
+      "parameter_authority": "SIMULATION_ONLY_UNCALIBRATED",
+      "prohibited_claims": [
+        "exact longevity",
+        "sillage",
+        "projection",
+        "perceived intensity",
+        "olfactory adaptation",
+        "temporal attribute profile",
+        "measured performance",
+        "empirical calibration"
+      ]
+    },
+    "binding_and_abstention": {
+      "component_and_initial_mass_binding": true,
+      "exact_c6_input_reference": true,
+      "exact_environment_hash": true,
+      "exact_matrix_hash": true,
+      "exact_substrate_kind": true,
+      "exact_substrate_parameter_hash_in_selector": true,
+      "wrong_or_missing_context_abstains_before_compute": true
+    },
+    "state_machine": {
+      "bounded_hazard": "1 - exp(-k * dt)",
+      "compartments": [
+        "condensed",
+        "gas",
+        "sorbed",
+        "explicit_sink"
+      ],
+      "finite_film_resistance": "harmonic combination of D / h^2 and k_g / h",
+      "nonnegative_state_enforced": true,
+      "per_component_per_frame_mass_closure": true,
+      "rate_scenarios": [
+        "LOWER_RATE",
+        "NOMINAL",
+        "UPPER_RATE"
+      ],
+      "solvent_loss_updates_later_matrix_fraction_and_rates": true,
+      "uncertainty_interpretation": "DETERMINISTIC_PARAMETER_SENSITIVITY_NOT_STATISTICAL_INTERVAL"
+    }
+  },
+  "exit_gate": {
+    "build_c_exit_gate_passed": false,
+    "build_d_authorized": false,
+    "build_d_started": false,
+    "committed_blob_manifest_passed": false,
+    "detached_replay_passed": false,
+    "final_deepluna_audit_passed": false
+  },
+  "generated_at_utc": "2026-08-03T04:01:10.383202+00:00",
+  "interaction_context": {
+    "authorization_applies_multiplier": false,
+    "context_calibration_required": true,
+    "generic_numeric_adjustment_allowed": false,
+    "kinds": [
+      "ADDITIVE",
+      "SYNERGISTIC",
+      "MASKING",
+      "SUPPRESSIVE",
+      "QUALITATIVE_TRANSFORMATION",
+      "UNKNOWN"
+    ],
+    "observation_only_numeric_adjustment_allowed": false
+  },
+  "limitations": [
+    "No actual instrument data were found; empirical metrics and promotion are absent.",
+    "No physical sample, validated B5 method row, or held-out dataset is created by this software gate.",
+    "DEP-heavy preparation requires a declared standalone DEP source.",
+    "Finished ethanol-water templates require a declared water lot/source.",
+    "Several owned diluted materials have undeclared fraction basis or carrier and remain preparation holds.",
+    "The simulation smoke harness validates code paths only and has SIMULATION_ONLY authority.",
+    "C4 property uncertainty is not converted into measured empirical uncertainty without real B5-bound data.",
+    "The standalone clean tree retains nine root collection errors and four baseline assertions that reproduce at the pre-C10 parent; only the focused C10 surface is clean-replay green.",
+    "The historical 30k/35/97.76 claim remains noncanonical because no complete implementation/input/result bundle exists.",
+    "No real C10 experiment has been executed, so scientific and sensory outcomes remain withheld.",
+    "The raw C11 matrix retained three transparent non-gate diagnostics; the state-independent reconciliation is authoritative only for the stated software gate and cannot be used as scientific evidence.",
+    "The inherited dirty worktree remains preserved; C11 does not claim a standalone clean baseline."
+  ],
+  "matrix_coverage": {
+    "application_environment_field_count": 13,
+    "application_environment_kind_count": 9,
+    "composition_completeness_state_count": 3,
+    "full_snapshots_and_hashes_embedded": true,
+    "matrix_component_role_count": 10,
+    "matrix_missing_field_count": 6,
+    "matrix_quantity_basis_count": 6,
+    "matrix_stage_count": 5,
+    "prediction_or_measurement_created": false,
+    "same_formula_context_distinguishable": true
+  },
+  "model_domains": {
+    "applicability_states": [
+      "IN_DOMAIN",
+      "NEAR_DOMAIN_WITH_WARNING",
+      "OUTSIDE_APPLICABILITY_DOMAIN",
+      "INSUFFICIENT_INPUT",
+      "MODEL_NOT_VALIDATED"
+    ],
+    "empirically_supported_predictive_domain_claimed": false,
+    "ideal_baseline": {
+      "activity_coefficient": 1.0,
+      "availability": "AVAILABLE",
+      "equation": "p_i = x_i * p_i_star",
+      "evidence_class": "THEORETICAL_BASELINE",
+      "family": "IDEAL_RAOULT_BASELINE",
+      "gas_phase_renormalization": false,
+      "may_feed_oav_screening": false,
+      "model_version": "c4-ideal-raoult-v1",
+      "operation": "predict_equilibrium_headspace",
+      "required_selected_inputs": [
+        "vapor pressure in Pa at the exact matrix temperature",
+        "molecular weight in g/mol"
+      ],
+      "required_warning": "C5_UNCERTAINTY_PROPAGATION_REQUIRED",
+      "supported_environment_kinds": [
+        "SEALED_EQUILIBRIUM_VIAL",
+        "OPEN_LIQUID_SURFACE"
+      ],
+      "supported_matrix_bases": [
+        "MOLE_FRACTION",
+        "MASS_FRACTION",
+        "MASS",
+        "AMOUNT"
+      ],
+      "supported_matrix_stages": [
+        "STOCK_SOLUTION",
+        "CONCENTRATE",
+        "FINISHED_PERFUME"
+      ],
+      "supported_phase_behavior": "single_liquid_phase",
+      "uncertainty_status": "UNKNOWN"
+    },
+    "model_families": [
+      "IDEAL_RAOULT_BASELINE",
+      "HENRY_LAW_DILUTE_BASELINE",
+      "MEASURED_LOOKUP_INTERPOLATION",
+      "EMPIRICAL_MATRIX_CORRECTION",
+      "UNIFAC_OR_MODIFIED_UNIFAC",
+      "IMPORTED_COSMO_RS",
+      "MEASURED_PARTITION_MODEL",
+      "DYNAMIC_SEMI_EMPIRICAL_MODEL",
+      "LEGACY_HEURISTIC_ADAPTER"
+    ],
+    "router_behaviors": {
+      "explicit_exact_model_selection": {
+        "evidence": "Exact family/version selectors are required and same-family releases remain distinguishable.",
+        "status": "PASS"
+      },
+      "mandatory_out_of_domain_abstention": {
+        "evidence": "OUTSIDE_APPLICABILITY_DOMAIN, INSUFFICIENT_INPUT, and MODEL_NOT_VALIDATED abstain before compute and cannot feed OAV screening.",
+        "status": "PASS"
+      },
+      "no_silent_fallback": {
+        "evidence": "Unknown selectors fail closed; answer methods create no fallback disclosure; duplicate selectors are rejected.",
+        "status": "PASS"
+      },
+      "stable_immutable_version_binding": {
+        "evidence": "Every computed result carries the exact immutable release snapshot; later registrations cannot change prior mappings or hashes; release drift is rejected.",
+        "status": "PASS"
+      }
+    },
+    "withheld_models": [
+      {
+        "availability": "UNAVAILABLE",
+        "evidence_class": "UNVALIDATED",
+        "family": "HENRY_LAW_DILUTE_BASELINE",
+        "may_feed_oav_screening": false,
+        "model_version": "c4-henry-withheld-v1"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "evidence_class": "UNVALIDATED",
+        "family": "EMPIRICAL_MATRIX_CORRECTION",
+        "may_feed_oav_screening": false,
+        "model_version": "c4-empirical-matrix-withheld-v1"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "evidence_class": "UNVALIDATED",
+        "family": "UNIFAC_OR_MODIFIED_UNIFAC",
+        "may_feed_oav_screening": false,
+        "model_version": "c4-unifac-withheld-v1"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "evidence_class": "UNVALIDATED",
+        "family": "IMPORTED_COSMO_RS",
+        "may_feed_oav_screening": false,
+        "model_version": "c4-cosmo-rs-withheld-v1"
+      }
+    ]
+  },
+  "model_inventory": {
+    "classification_counts": {
+      "DISCONNECTED_LEGACY": 3,
+      "EXACT_PHYSICAL_ARITHMETIC": 4,
+      "HEURISTIC": 32,
+      "LITERATURE_DERIVED_MODEL": 3,
+      "STUB": 3,
+      "UNSUPPORTED": 3
+    },
+    "implementation_count": 48,
+    "known_absences": [
+      {
+        "capability": "DIPPR-style vapor-pressure equation",
+        "record_id": "C0-PM-017"
+      },
+      {
+        "capability": "COSMO-RS",
+        "record_id": "C0-PM-026"
+      },
+      {
+        "capability": "empirically calibrated perfume headspace model",
+        "note": "No current implementation meets EMPIRICALLY_CALIBRATED_MODEL.",
+        "record_id": "C0-PM-001"
+      },
+      {
+        "capability": "held-out calibrated longevity/sillage/receptor model",
+        "note": "Canonical workbench withholds these outputs.",
+        "record_id": "C0-PM-044"
+      }
+    ],
+    "required_categories": [
+      "formula_state_headspace",
+      "temporal_simulator_trajectory",
+      "thermo_headspace",
+      "vapor_pressure_estimation",
+      "antoine_clausius_clapeyron_dippr",
+      "activity_coefficients",
+      "unifac",
+      "hansen_solubility_distance",
+      "cosmo_rs",
+      "dose_response_psychophysics",
+      "natural_material_decomposition",
+      "maturation_aging_kinetics",
+      "receptor_models",
+      "adaptation",
+      "hedonic_longevity_sillage_diffusion_projection"
+    ],
+    "source": "docs/verification/c0/physical_model_inventory.json"
+  },
+  "natural_lot_coverage": {
+    "actual_lot_count": 0,
+    "actual_lot_data_present": false,
+    "constituent_bases": [
+      "CALIBRATED_MASS_FRACTION",
+      "CALIBRATED_MOLAR_FRACTION",
+      "ESTIMATED_MASS_FRACTION",
+      "RESPONSE_CORRECTED_RELATIVE_FRACTION",
+      "NORMALIZED_AREA_PERCENT",
+      "RELATIVE_RESPONSE",
+      "PRESENCE_ONLY",
+      "LITERATURE_RANGE",
+      "UNKNOWN"
+    ],
+    "normalized_area_percent_is_concentration": false,
+    "precedence": [
+      "EXACT_LOT_QUANTIFIED",
+      "EXACT_LOT_RELATIVE_PROFILE",
+      "SUPPLIER_BATCH_SPECIFIC",
+      "SPECIFIC_LITERATURE_PROXY",
+      "GENERIC_MATERIAL_PROXY",
+      "UNKNOWN"
+    ],
+    "projection_families": [
+      "OLFACTORY_HEADSPACE",
+      "REGULATORY_ALLERGEN",
+      "IDENTITY_AUTHENTICITY"
+    ],
+    "regulatory_requires_complete_calibrated_mass_fraction": true,
+    "unknown_fraction_visible": true
+  },
+  "negative_claims": {
+    "adaptation_authority": {
+      "animal_single_cell_transfer_to_human_fine_fragrance_allowed": false,
+      "exact_species_preparation_nervous_system_protocol_and_timescale_required": true
+    },
+    "aging_authority": {
+      "canonical_pipeline_aging_claim": "WITHHELD",
+      "generic_sensory_maturation_allowed": false,
+      "generic_shelf_life_allowed": false,
+      "process_specific_only": true,
+      "processes": [
+        "CHEMICAL_TRANSFORMATION",
+        "DISSOLUTION_PHYSICAL_EQUILIBRATION",
+        "PRECIPITATION_PHASE_BEHAVIOR",
+        "OXIDATION",
+        "SENSORY_MATURATION"
+      ],
+      "universal_arrhenius_aging_allowed": false
+    },
+    "c8_withheld_claims": [
+      "EXACT_PERCEIVED_INTENSITY",
+      "PERCENT_MIXTURE_CONTRIBUTION",
+      "PLEASANTNESS",
+      "TARGET_SIMILARITY",
+      "FAMILY_IDENTITY",
+      "LONGEVITY",
+      "SILLAGE",
+      "CONSUMER_PREFERENCE"
+    ],
+    "c9_unsupported_outcomes": {
+      "empirical_or_release_promotion_allowed": false,
+      "exact_scope_passing_build_d_receipt_required": true,
+      "outcomes": [
+        "LONGEVITY",
+        "SILLAGE",
+        "PROJECTION",
+        "EMOTION",
+        "HEDONIC"
+      ],
+      "without_receipt": "WITHHELD"
+    },
+    "receptor_authority": {
+      "assay_response_promotes_perfume_perception": false,
+      "exact_material_receptor_cell_system_curve_parameters_action_source_and_applicability_required": true,
+      "narrow_human_assay_support_only": true,
+      "tiny_subset_promotes_human_repertoire": false
+    }
+  },
+  "oav_and_sensomics": {
+    "oav_authority": {
+      "abstention_is_answerless": true,
+      "bounded_uncertainty_required": true,
+      "computed_claim": "ABOVE_THRESHOLD_SCREENING",
+      "context_match_required": true,
+      "detection_threshold_required": true,
+      "gas_origin_values": [
+        "MEASURED",
+        "PREDICTED"
+      ],
+      "oav_is_exact_intensity": false,
+      "oav_is_percent_contribution": false,
+      "out_of_domain_prediction_abstains": true,
+      "unit_match_required": true
+    },
+    "sensomics_authority": {
+      "candidate_prioritization_requires_stages": 5,
+      "ordered_stage_count": 8,
+      "permitted_claims": [
+        "PREDICTED_EQUILIBRIUM_HEADSPACE",
+        "PREDICTED_PHYSICAL_RELEASE",
+        "ABOVE_THRESHOLD_SCREENING",
+        "CANDIDATE_ODORANT_PRIORITIZATION",
+        "EXPERIMENT_SELECTION"
+      ],
+      "tested_context_effect_requires_stages": 8,
+      "withheld_claims": [
+        "EXACT_PERCEIVED_INTENSITY",
+        "PERCENT_MIXTURE_CONTRIBUTION",
+        "PLEASANTNESS",
+        "TARGET_SIMILARITY",
+        "FAMILY_IDENTITY",
+        "LONGEVITY",
+        "SILLAGE",
+        "CONSUMER_PREFERENCE"
+      ]
+    }
+  },
+  "optimizer_benchmark": {
+    "historical_regression": {
+      "c11_must_withhold_historical_regression_claim": true,
+      "claim_canonical": false,
+      "reported_30000_candidate_35_guardrail_97_76_result_reproduced": false,
+      "status": "BLOCKED_MISSING_REPRODUCIBLE_ARTIFACT_BUNDLE"
+    },
+    "software_feasibility": {
+      "exact_content_hash_human_pass_required": true,
+      "hard_gates_before_scoring": true,
+      "pareto_objectives_separate": true,
+      "real_experiment_executed": false
+    }
+  },
+  "phase": "C11",
+  "property_coverage": {
+    "b2_limitation": "B2 promotes zero real literature property observations.",
+    "condition_and_identity_aware": true,
+    "equation_evaluator_implemented": false,
+    "properties": [
+      "vapor_pressure",
+      "molecular_weight",
+      "density",
+      "boiling_point",
+      "enthalpy_of_vaporization",
+      "water_solubility",
+      "solvent_solubility",
+      "logp",
+      "logkow",
+      "henry_constant",
+      "activity_coefficient_parameters",
+      "diffusion_coefficient",
+      "mass_transfer_parameters",
+      "substrate_sorption_parameters",
+      "heat_capacity",
+      "phase_data"
+    ],
+    "property_count": 16,
+    "real_property_data_promoted": false,
+    "real_property_observations_promoted": 0,
+    "source_provenance_required": true,
+    "uncertainty_shapes": [
+      "STANDARD_UNCERTAINTY",
+      "INTERVAL",
+      "EMPIRICAL_DISTRIBUTION",
+      "PARAMETER_COVARIANCE",
+      "BOUNDED_RANGE",
+      "UNKNOWN"
+    ],
+    "vapor_pressure_representation_count": 6,
+    "vapor_pressure_representations": [
+      "MEASURED_TABLE",
+      "ANTOINE",
+      "WAGNER",
+      "DIPPR_STYLE",
+      "CLAUSIUS_CLAPEYRON",
+      "OTHER_DECLARED_FORM"
+    ]
+  },
+  "real_data_boundary": {
+    "actual_instrument_record_count": 0,
+    "actual_natural_lot_count": 0,
+    "empirical_promotion_allowed": false,
+    "real_c10_experimental_observations_present": false,
+    "scientific_release": "BLOCKED",
+    "status": "BLOCKED_PENDING_DATA"
+  },
+  "required_next_action": "Run a fresh exact-project DeepLuna Fast audit of the generated C11 packet, reconcile it locally, validate and commit only C11-owned evidence, create a Git-blob manifest, replay the exact commit in a clean detached worktree, then record the Build C boundary decision. Do not begin Build D.",
+  "schema": "build-c11-matrix-headspace-natural-lot-report-v1",
+  "scope": {
+    "build_d_started": false,
+    "database_migration_created": false,
+    "database_mutated": false,
+    "documentation_and_verification_only": true,
+    "production_code_changed": false
+  },
+  "source_commit": "f8d8c6836643cf8bd7693d1e6672daded9629c69",
+  "stubs_and_absences": [
+    {
+      "category": "formula_state_headspace",
+      "claim_impact": "Can disagree with FormulaState and must not answer canonical headspace requests.",
+      "classification": "DISCONNECTED_LEGACY",
+      "disposition": "Freeze representative output; deprecate as non-runtime after migration comparison.",
+      "id": "C0-PM-003",
+      "name": "Standalone OAV/headspace report script",
+      "runtime_status": "MANUAL_SCRIPT_ONLY"
+    },
+    {
+      "category": "temporal_simulator_trajectory",
+      "claim_impact": "A competing dynamic-release answer with no canonical runtime caller.",
+      "classification": "DISCONNECTED_LEGACY",
+      "disposition": "Freeze output and deprecate non-runtime; reuse arithmetic only through a versioned C6 adapter if validated.",
+      "id": "C0-PM-006",
+      "name": "Standalone open-surface thermo trajectory",
+      "runtime_status": "DISCONNECTED_LIBRARY"
+    },
+    {
+      "category": "antoine_clausius_clapeyron_dippr",
+      "claim_impact": "The repository cannot claim DIPPR-style equation support.",
+      "classification": "UNSUPPORTED",
+      "disposition": "Remain WITHHELD until C1 adds a versioned equation form with coefficients, units, range, source, and validation.",
+      "id": "C0-PM-017",
+      "name": "DIPPR-style vapor-pressure equation",
+      "runtime_status": "ABSENT"
+    },
+    {
+      "category": "unifac",
+      "claim_impact": "Correctly prevents dependency presence from being mislabeled as an active UNIFAC implementation.",
+      "classification": "STUB",
+      "disposition": "Remain inactive until subgroup assignment, parameters, versioning, domain checks, and validation pass C3-C5.",
+      "id": "C0-PM-022",
+      "name": "UNIFAC activity-model capability boundary",
+      "runtime_status": "EXPLICIT_INACTIVE_STUB"
+    },
+    {
+      "category": "unifac",
+      "claim_impact": "Table population alone cannot support UNIFAC activity coefficients.",
+      "classification": "STUB",
+      "disposition": "Keep as non-authoritative reference data until C3 implements and validates a real versioned algorithm.",
+      "id": "C0-PM-023",
+      "name": "Science-KB UNIFAC group catalogue",
+      "runtime_status": "DATA_ONLY_STUB"
+    },
+    {
+      "category": "cosmo_rs",
+      "claim_impact": "The repository cannot claim COSMO-RS activity or partition prediction.",
+      "classification": "UNSUPPORTED",
+      "disposition": "Remain WITHHELD unless a later evidence-gated phase adds a licensed/versioned interface and validation.",
+      "id": "C0-PM-026",
+      "name": "COSMO-RS interface or import",
+      "runtime_status": "WITHHELD_DECLARATION"
+    },
+    {
+      "category": "natural_material_decomposition",
+      "claim_impact": "A data shape exists but does not make current headspace lot-specific.",
+      "classification": "STUB",
+      "disposition": "C7 must integrate canonical lot identity, provenance, uncertainty, and measured composition before use.",
+      "id": "C0-PM-031",
+      "name": "In-memory natural lot profile registry",
+      "runtime_status": "DISCONNECTED_STUB"
+    },
+    {
+      "category": "hedonic_longevity_sillage_diffusion_projection",
+      "claim_impact": "This fail-closed behavior is the current canonical authority for unsupported endpoints.",
+      "classification": "UNSUPPORTED",
+      "disposition": "Preserve until claim-specific C5/C6/C9 validation gates pass.",
+      "id": "C0-PM-044",
+      "name": "Canonical workbench longevity/sillage/receptor abstention",
+      "runtime_status": "CANONICAL_RUNTIME_ABSTENTION"
+    },
+    {
+      "category": "hedonic_longevity_sillage_diffusion_projection",
+      "claim_impact": "Can produce a separate physical score bundle for the same formula.",
+      "classification": "DISCONNECTED_LEGACY",
+      "disposition": "Freeze and deprecate as non-runtime after caller proof; do not adapt as the C router.",
+      "id": "C0-PM-047",
+      "name": "Standalone formula simulator score bundle",
+      "runtime_status": "MANUAL_SCRIPT_ONLY"
+    }
+  ],
+  "uncertainty_calibration": {
+    "c4_output_uncertainty": "UNKNOWN",
+    "c6_interpretation": "DETERMINISTIC_PARAMETER_SENSITIVITY_NOT_STATISTICAL_INTERVAL",
+    "c8_oav_bounded_uncertainty_required": true,
+    "empirically_calibrated": false,
+    "prediction_interval_coverage": "NOT_COMPUTED_NO_REAL_DATA"
+  },
+  "verification": {
+    "database_quick_checks_passed": true,
+    "diagnostic_reconciliation": {
+      "archive_contract": {
+        "allowed_post_c9_path": "engine/pipeline/gates.py",
+        "c11_archive_status": "PASS",
+        "later_user_owned_path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        "replacement": "synthetic state-independent C11 verifier contract tests",
+        "status": "INVALID_STALE_LIVE_CHECKOUT_FIXTURE",
+        "synthetic_tests_passed": 7
+      },
+      "classification_rule": "C11 required tests and integrity gates are authoritative; later-checkout coupling in a C9 scratch test and nonsemantic committed formatting/test-fixture typing diagnostics are preserved as limitations and cannot be relabeled as scientific evidence.",
+      "fresh_test_counts": {
+        "pytest-backend-full": 630,
+        "pytest-backend-portability-provenance": 16,
+        "pytest-c0-c10-focused": 655,
+        "pytest-root-full": 1753
+      },
+      "head": "f8d8c6836643cf8bd7693d1e6672daded9629c69",
+      "raw_job_count": 33,
+      "raw_matrix_all_pass": false,
+      "required_gate_status": "PASS",
+      "required_raw_gate_count": 30,
+      "required_raw_gate_failures": [],
+      "schema": "build-c11-matrix-diagnostic-reconciliation-v1",
+      "static_diagnostics": {
+        "basedpyright_status": "PASS",
+        "broad_mypy_error_count": 96,
+        "broad_mypy_status": "NON_GATE_TEST_FIXTURE_TYPING_DIAGNOSTIC",
+        "broad_mypy_test_file_count": 5,
+        "broad_ruff_format_file_count": 7,
+        "broad_ruff_format_status": "NON_GATE_INHERITED_COMMITTED_STYLE_DRIFT",
+        "compileall_status": "PASS",
+        "production_or_c11_source_changed_to_resolve_diagnostics": false,
+        "ruff_lint_status": "PASS",
+        "runtime_mypy_status": "PASS_20_SOURCE_FILES"
+      },
+      "status": "PASS"
+    },
+    "filtered_inherited_status": {
+      "entry_count": 1782,
+      "index_empty_during_matrix": true,
+      "sha256": "4487309377de170c3dc1edf71022f16133806be81f142c305fa894e14efdf532"
+    },
+    "fresh_test_counts": {
+      "archive-contract-synthetic": 7,
+      "pytest-backend-full": 630,
+      "pytest-backend-portability-provenance": 16,
+      "pytest-c0-c10-focused": 655,
+      "pytest-root-full": 1753
+    },
+    "log_utf8_ansi_and_credential_pattern_scan_passed": true,
+    "normalized_run_manifest": "docs/verification/c11/run_manifest.json",
+    "protected_state_unchanged": true,
+    "requirement_crosswalk": "docs/verification/c11/requirement_crosswalk.json"
+  }
+}

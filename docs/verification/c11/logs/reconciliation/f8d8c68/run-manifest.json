@@ -1,0 +1,124 @@
+{
+    "schema":  "build-c11-diagnostic-reconciliation-run-v1",
+    "generated_at_utc":  "2026-08-03T03:37:52.8843236+00:00",
+    "head":  "f8d8c6836643cf8bd7693d1e6672daded9629c69",
+    "raw_manifest":  "docs/verification/c11/logs/main/f8d8c68-primary/run-manifest.json",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "jobs":  [
+                 {
+                     "name":  "archive-contract-synthetic",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11-reconciliation-pytest-20260803\\archive",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\test_c11_archive_verifier.py"
+                                   ],
+                     "started_at_utc":  "2026-08-03T03:37:45.7008308+00:00",
+                     "duration_ms":  3794,
+                     "timeout_seconds":  300,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/archive-contract-synthetic.stdout.txt",
+                                    "bytes":  100,
+                                    "sha256":  "9f2aa08df78fd3d9f083bec03d35c8429262b746bfee3cb4aa25ec2297f2c01a"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/archive-contract-synthetic.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "mypy-runtime-only",
+                     "arguments":  [
+                                       "-m",
+                                       "mypy",
+                                       "--explicit-package-bases",
+                                       "--follow-imports=skip",
+                                       "--ignore-missing-imports",
+                                       "engine/physics",
+                                       "engine/evidence",
+                                       "engine/optimization",
+                                       "engine/project_verification.py"
+                                   ],
+                     "started_at_utc":  "2026-08-03T03:37:49.6147857+00:00",
+                     "duration_ms":  742,
+                     "timeout_seconds":  600,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/mypy-runtime-only.stdout.txt",
+                                    "bytes":  45,
+                                    "sha256":  "049e111c33e0f38fa35a802bb1cdf4e711b08139923551dc7fc22691a37247cf"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/mypy-runtime-only.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "diagnostic-classification",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_matrix_diagnostics.py",
+                                       "--raw-manifest",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\main\\f8d8c68-primary\\run-manifest.json",
+                                       "--supplement-root",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\reconciliation\\f8d8c68"
+                                   ],
+                     "started_at_utc":  "2026-08-03T03:37:50.3694520+00:00",
+                     "duration_ms":  2259,
+                     "timeout_seconds":  600,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/diagnostic-classification.stdout.txt",
+                                    "bytes":  1504,
+                                    "sha256":  "306fecbc8381a3515ede1d827fa431ff24e1eecf50cf9762d5c91f4943a8c1ce"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/diagnostic-classification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "log-scan",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\scan_c8_logs.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\reconciliation\\f8d8c68"
+                                   ],
+                     "started_at_utc":  "2026-08-03T03:37:52.6863040+00:00",
+                     "duration_ms":  187,
+                     "timeout_seconds":  120,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/log-scan.stdout.txt",
+                                    "bytes":  1795,
+                                    "sha256":  "f70f942a2b4f99c5b507afa3ea899a76a16c49486e53fc925b3c873e625c1d8c"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/reconciliation/f8d8c68/log-scan.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

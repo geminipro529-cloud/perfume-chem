@@ -1,0 +1,63 @@
+{
+  "archive_contract": {
+    "allowed_post_c9_path": "engine/pipeline/gates.py",
+    "c11_archive_status": "PASS",
+    "later_user_owned_path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+    "replacement": "synthetic state-independent C11 verifier contract tests",
+    "status": "INVALID_STALE_LIVE_CHECKOUT_FIXTURE",
+    "synthetic_tests_passed": 7
+  },
+  "authoritative_required_gate_status": "PASS",
+  "decision": "PASS_WITH_RECONCILED_NON_GATE_DIAGNOSTICS",
+  "execution_controls": {
+    "ansi_disabled": true,
+    "explicit_timeouts": true,
+    "no_timeouts": true,
+    "non_pty": true,
+    "stdout_stderr_separate": true
+  },
+  "fresh_test_counts": {
+    "archive-contract-synthetic": 7,
+    "pytest-backend-full": 630,
+    "pytest-backend-portability-provenance": 16,
+    "pytest-c0-c10-focused": 655,
+    "pytest-root-full": 1753
+  },
+  "generated_at_utc": "2026-08-03T04:01:10.375674+00:00",
+  "phase": "C11",
+  "raw_matrix": {
+    "all_pass": false,
+    "failed_jobs": [
+      "archive-verifier-contract-tests",
+      "mypy-build-c",
+      "ruff-build-c-format"
+    ],
+    "job_count": 33,
+    "path": "docs/verification/c11/logs/main/f8d8c68-primary/run-manifest.json",
+    "sha256": "dbad90d5d52096f489d3c4f3e1c5d12edcd29ca9cafca407f0817c0b41a4fdcd"
+  },
+  "reconciliation": {
+    "all_pass": true,
+    "diagnostic_classification_path": "docs/verification/c11/logs/reconciliation/f8d8c68/diagnostic-classification.stdout.txt",
+    "diagnostic_classification_sha256": "306fecbc8381a3515ede1d827fa431ff24e1eecf50cf9762d5c91f4943a8c1ce",
+    "job_count": 4,
+    "path": "docs/verification/c11/logs/reconciliation/f8d8c68/run-manifest.json",
+    "sha256": "d1d1875890a33ae06df409eed384d6e1b8a7e11ebf19f6ba730366facc4ab91d"
+  },
+  "required_raw_gate_count": 30,
+  "required_raw_gate_failures": [],
+  "schema": "build-c11-normalized-run-manifest-v1",
+  "source_commit": "f8d8c6836643cf8bd7693d1e6672daded9629c69",
+  "static_diagnostics": {
+    "basedpyright_status": "PASS",
+    "broad_mypy_error_count": 96,
+    "broad_mypy_status": "NON_GATE_TEST_FIXTURE_TYPING_DIAGNOSTIC",
+    "broad_mypy_test_file_count": 5,
+    "broad_ruff_format_file_count": 7,
+    "broad_ruff_format_status": "NON_GATE_INHERITED_COMMITTED_STYLE_DRIFT",
+    "compileall_status": "PASS",
+    "production_or_c11_source_changed_to_resolve_diagnostics": false,
+    "ruff_lint_status": "PASS",
+    "runtime_mypy_status": "PASS_20_SOURCE_FILES"
+  }
+}
