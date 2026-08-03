@@ -26,6 +26,12 @@ from engine.scientific_validation.contracts import (
     ValidationMethodFamily,
     VersionBinding,
 )
+from engine.scientific_validation.first_claim import (
+    EXPIRATION_TRIGGERS,
+    FIRST_CLAIM_ID,
+    REQUIRED_EVIDENCE,
+    build_prada_orris_first_claim,
+)
 
 __all__ = [
     "CLAIM_FAMILY_POLICIES",
@@ -42,11 +48,15 @@ __all__ = [
     "DecisionCriterion",
     "EndpointDefinition",
     "EndpointRole",
+    "EXPIRATION_TRIGGERS",
     "EvidenceRequirement",
+    "FIRST_CLAIM_ID",
     "MarginAuthority",
+    "REQUIRED_EVIDENCE",
     "ScopeValue",
     "ValidationMethodFamily",
     "VersionBinding",
+    "build_prada_orris_first_claim",
     "get_claim_family_policy",
     "is_authoritative_method",
     "validate_claim_method_alignment",

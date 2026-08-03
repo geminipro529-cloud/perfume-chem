@@ -29,6 +29,10 @@ from engine.scientific_validation.contracts import (
     ValidationMethodFamily,
     VersionBinding,
 )
+from engine.scientific_validation.first_claim import (
+    FIRST_CLAIM_ID,
+    build_prada_orris_first_claim,
+)
 
 EXPECTED_CLAIM_FAMILIES = (
     "exact_bottle_arithmetic",
@@ -309,3 +313,118 @@ def test_claim_method_alignment_checks_primary_and_secondary_endpoints() -> None
     )
     with pytest.raises(ValueError, match="cannot authorize"):
         validate_claim_method_alignment(misaligned)
+
+
+def test_first_claim_defines_the_complete_d0_exit_gate() -> None:
+    control = formula_binding("prada-control", "1" * 64)
+    intervention = formula_binding("prada-luxury-orris", "2" * 64)
+    software = software_binding("3" * 64)
+
+    claim = build_prada_orris_first_claim(
+        control_binding=control,
+        intervention_binding=intervention,
+        software_binding=software,
+    )
+
+    assert claim.claim_id == FIRST_CLAIM_ID
+    assert claim.claim_id == "D0-PRADA-ORRIS-INTERVENTION-001"
+    assert claim.version == 1
+    assert claim.family is ClaimFamily.INTERVENTION_EFFECTIVENESS
+    assert claim.claimant_versions == (intervention, software)
+    assert claim.comparator.binding == control
+    assert claim.assessor_type is AssessorType.TRAINED_DESCRIPTIVE_PANEL
+    assert claim.primary_endpoint.attribute == "iris/orris intensity"
+    assert claim.primary_endpoint.timepoint == "30 minutes post-application"
+    assert claim.primary_endpoint.criterion.lower_margin == Decimal("0.50")
+    assert claim.primary_endpoint.criterion.upper_margin is None
+    assert len(claim.secondary_endpoints) == 3
+    assert tuple(endpoint.attribute for endpoint in claim.secondary_endpoints) == (
+        "clean pressed-shirt/soapy character",
+        "wood-amber structure",
+        "dryness/balance",
+    )
+    assert {
+        endpoint.criterion.lower_margin for endpoint in claim.secondary_endpoints
+    } == {Decimal("-0.75")}
+    assert {
+        endpoint.criterion.upper_margin for endpoint in claim.secondary_endpoints
+    } == {Decimal("0.75")}
+    assert all(
+        endpoint.criterion.margin_authority
+        is MarginAuthority.PROVISIONAL_PREPILOT
+        for endpoint in (claim.primary_endpoint, *claim.secondary_endpoints)
+    )
+    assert tuple(item.evidence_id for item in claim.required_evidence) == (
+        "regenerated-formulas",
+        "stock-identity",
+        "study-safety",
+        "sample-conditions",
+        "panel-authority",
+        "separate-pilot",
+        "margin-power-lock",
+        "immutable-study-lock",
+        "confirmatory-observations",
+        "locked-analysis",
+        "claim-specific-analytical-safety",
+        "human-release-review",
+    )
+    assert len(claim.expiration_triggers) == 8
+    assert claim.scope.population.state is BindingState.BOUND
+    assert claim.scope.substrate.value == "standardized fragrance blotter"
+    assert claim.scope.formula.state is BindingState.REQUIRED_UNBOUND
+    assert claim.scope.lot.state is BindingState.REQUIRED_UNBOUND
+    assert claim.scope.matrix.state is BindingState.REQUIRED_UNBOUND
+    assert claim.scope.condition.state is BindingState.REQUIRED_UNBOUND
+    assert claim.authority_state is ClaimAuthorityState.PLANNING_ONLY
+    assert claim.study_authorized is False
+    assert claim.release_authority is False
+    assert claim.observed_outcome == "unmeasured"
+    validate_claim_method_alignment(claim)
+
+
+def test_first_claim_is_deterministic_and_immutable() -> None:
+    arguments = {
+        "control_binding": formula_binding("control", "1" * 64),
+        "intervention_binding": formula_binding("intervention", "2" * 64),
+        "software_binding": software_binding("3" * 64),
+    }
+    first = build_prada_orris_first_claim(**arguments)
+    second = build_prada_orris_first_claim(**arguments)
+    assert first == second
+    assert first.content_sha256 == second.content_sha256
+    with pytest.raises(FrozenInstanceError):
+        first.title = "changed"  # type: ignore[misc]
+
+
+def test_first_claim_rejects_nonquarantined_formula_bindings() -> None:
+    control = replace(
+        formula_binding("control"),
+        authority_state=BindingAuthorityState.VALIDATED_EXACT_SCOPE,
+    )
+    with pytest.raises(ValueError, match="quarantined planning bindings"):
+        build_prada_orris_first_claim(
+            control_binding=control,
+            intervention_binding=formula_binding("intervention", "2" * 64),
+            software_binding=software_binding(),
+        )
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        {"intervention_binding": formula_binding("control", "2" * 64)},
+        {"intervention_binding": formula_binding("intervention", "1" * 64)},
+        {"software_binding": formula_binding("not-software", "3" * 64)},
+    ],
+)
+def test_first_claim_rejects_ambiguous_or_wrong_kind_bindings(
+    overrides: dict[str, VersionBinding],
+) -> None:
+    arguments = {
+        "control_binding": formula_binding("control", "1" * 64),
+        "intervention_binding": formula_binding("intervention", "2" * 64),
+        "software_binding": software_binding("3" * 64),
+    }
+    arguments.update(overrides)
+    with pytest.raises(ValueError):
+        build_prada_orris_first_claim(**arguments)
