@@ -251,7 +251,7 @@ def _selection_fixture():
     )
     best_quality = _candidate(domain, "candidate-a", 3.0, role=CandidateRole.SCREENING)
     best_distance = _candidate(domain, "candidate-b", 1.0, role=CandidateRole.SCREENING)
-    dominated = _candidate(domain, "candidate-c", 2.5, role=CandidateRole.SCREENING)
+    dominated = _candidate(domain, "candidate-c", 2.0, role=CandidateRole.SCREENING)
     evaluations = (
         _evaluation("candidate-a", quality=0.9, distance=0.4),
         _evaluation("candidate-b", quality=0.6, distance=0.1),
@@ -367,7 +367,9 @@ def test_selection_filters_hard_gates_then_pareto_then_explicit_utility(monkeypa
     assert proposal.pareto_candidate_ids == ("candidate-a", "candidate-b")
     assert proposal.selected_candidate_ids[:2] == ("control", "control-replicate")
     assert set(proposal.selected_candidate_ids[2:]) == {"candidate-a", "candidate-b"}
-    assert {item.candidate_id for item in proposal.rejections} == {"candidate-c"}
+    assert {(item.candidate_id, item.reason_codes) for item in proposal.rejections} == {
+        ("candidate-c", ("PARETO_DOMINATED",))
+    }
     utility_by_id = {item.candidate_id: item for item in proposal.utilities}
     assert set(utility_by_id) == {"candidate-a", "candidate-b"}
     for utility in utility_by_id.values():
