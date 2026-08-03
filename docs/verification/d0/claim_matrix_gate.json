@@ -1,0 +1,297 @@
+{
+  "schema": "d0-claim-matrix-exit-gate-v1",
+  "status": "PASS",
+  "phase": "D0",
+  "generated_at_utc": "2026-08-03T05:39:41.4815581+00:00",
+  "d1_started": false,
+  "authority": {
+    "master_prompt_path": "D:\\.prompts\\perfume chem\\SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.md",
+    "master_prompt_sha256": "7050f2e77160e9039241e8925f844beb3d32374ad075742fe958518ac0eca349",
+    "repository_and_executable_evidence_are_final_authority": true,
+    "deepluna_fast_is_advisory": true
+  },
+  "repository": {
+    "root": "D:\\chatbots\\perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "pre_d_head": "b8cd0cbba47792624ba73b41327d193f30f0bb66",
+    "verified_implementation_head": "de5e1ef72fa9f78c00aa46c0e3c48a32a870166f",
+    "d0_commits": [
+      "3ec0522359aa545f63c68aa0d81184588a190793",
+      "23f71cef875fc74991de9f5c49764109ba2466d1",
+      "fc74634ced9c59254ca8881596e4e06ac8afc7c2",
+      "859cf79666318fd09499d170ead63e4e916d4621",
+      "a9b47661758dec8a5d7056dff01866cfac967c18",
+      "c9fae134637376d63317e04b1923f1d81c5767e9",
+      "d4c21f59a345133e4763ea6681243f4a30d6d5fb",
+      "8281d9cc3a8dfdfd05c0bcf6c932b20f68d94ed0",
+      "de5e1ef72fa9f78c00aa46c0e3c48a32a870166f"
+    ],
+    "changed_files": [
+      "docs/superpowers/plans/2026-08-03-build-d0-claim-matrix.md",
+      "docs/superpowers/specs/2026-08-03-build-d0-claim-matrix-design.md",
+      "engine/project_verification.py",
+      "engine/scientific_validation/__init__.py",
+      "engine/scientific_validation/claim_registry.py",
+      "engine/scientific_validation/contracts.py",
+      "engine/scientific_validation/first_claim.py",
+      "scripts/verify_d0_claim_matrix.py",
+      "tests/test_d0_claim_matrix.py"
+    ],
+    "changed_file_count": 9,
+    "database_or_migration_path_count": 0
+  },
+  "recovery_archive": {
+    "path": "D:\\.backups\\perfume-chem\\build-d0-prewrite-20260803T115425+0700.tar",
+    "bytes": 118281728,
+    "sha256": "a94928628805538cf34138de92bb0dda4886f3d1216b934057e9ed4138ee76b2",
+    "manifest_file_count": 432,
+    "dirty_or_untracked_file_count": 429,
+    "excluded_runtime_path_count": 1353,
+    "path_preserving": true,
+    "content_hashes_verified": true,
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "unexpected_current_mismatch_count_at_creation": 0,
+    "short_restore_root": "D:\\.backups\\perfume-chem\\d0rv-20260803T115425",
+    "short_restore_file_count": 432,
+    "short_restore_mismatch_count": 0,
+    "restorable": true
+  },
+  "protected_state": {
+    "pre_d_status_entry_count": 1782,
+    "post_d0_status_entry_count": 1782,
+    "pre_d_status_sha256": "4487309377de170c3dc1edf71022f16133806be81f142c305fa894e14efdf532",
+    "post_d0_status_sha256": "4487309377de170c3dc1edf71022f16133806be81f142c305fa894e14efdf532",
+    "staged_file_count": 0,
+    "archive_bound_files": [
+      {
+        "path": "engine/evidence/unsupported_science.py",
+        "sha256": "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+        "matches_pre_d_archive": true
+      },
+      {
+        "path": "engine/sensory/ledger.py",
+        "sha256": "3c353d2f9d4ecfc31e062b777234969d06ba881342f370392a8e67d6f087aeee",
+        "matches_pre_d_archive": true
+      },
+      {
+        "path": "engine/experiments/planner.py",
+        "sha256": "bd70a11e49806bea0ac19077e9f378a9a0acf69dd105b75f42e23401a7fac189",
+        "matches_pre_d_archive": true
+      },
+      {
+        "path": "engine/release_readiness.py",
+        "sha256": "2ad9830796d0661c1b397729ff3ade38d3b83b5eec78b8503aaa0b29fed893a4",
+        "matches_pre_d_archive": true
+      },
+      {
+        "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        "sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+        "matches_pre_d_archive": true
+      },
+      {
+        "path": "formulas/Prada_LHomme_Luxury_Orris_30mL_EdT.md",
+        "sha256": "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d",
+        "matches_pre_d_archive": true
+      }
+    ],
+    "clean_baseline_bound_file": {
+      "path": "backend/app/models/lab_claims.py",
+      "sha256": "73e33b719bc16d7105205a0fb6814005a2de6f9a0803cb04461ea3de7ef7b494",
+      "pre_d_blob": "da7b6ec8f08c48aca98d1611ac6eb8d3640a6f95",
+      "post_d0_blob": "da7b6ec8f08c48aca98d1611ac6eb8d3640a6f95",
+      "working_tree_status_entry_count": 0,
+      "unchanged": true
+    }
+  },
+  "claim_gate": {
+    "schema": "d0-claim-matrix-gate-v1",
+    "verifier_status": "PASS",
+    "claim_family_count": 17,
+    "claim_id": "D0-PRADA-ORRIS-INTERVENTION-001",
+    "claim_version": 1,
+    "claim_sha256": "841014f98a7448e4fdbfa9714a48a0e9ad105dbecec277fd826439e3d1dfda10",
+    "d0_exit_fields_complete": true,
+    "d0_exit_fields": {
+      "claim": true,
+      "comparator": true,
+      "endpoint": true,
+      "margin": true,
+      "assessor_population": true,
+      "required_evidence": true
+    },
+    "primary_margin": {
+      "authority": "provisional_prepilot",
+      "lower": "0.50",
+      "upper": null
+    },
+    "protected_margin": {
+      "authority": "provisional_prepilot",
+      "lower": "-0.75",
+      "upper": "0.75"
+    },
+    "required_evidence_count": 12,
+    "revalidation_trigger_count": 8,
+    "required_unbound_scope": [
+      "formula",
+      "lot",
+      "matrix",
+      "condition"
+    ],
+    "formula_bindings": [
+      {
+        "role": "control",
+        "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        "sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+        "status": "QUARANTINED"
+      },
+      {
+        "role": "intervention",
+        "path": "formulas/Prada_LHomme_Luxury_Orris_30mL_EdT.md",
+        "sha256": "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d",
+        "status": "QUARANTINED"
+      }
+    ],
+    "study_authorized": false,
+    "release_authority": false,
+    "scientific_outcome": "unmeasured",
+    "d1_started": false
+  },
+  "command_evidence": {
+    "schema": "d0-command-gate-v1",
+    "capture_root": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\d0-gate-20260803T123746212",
+    "all_commands_passed": true,
+    "verifier_byte_identical": true,
+    "empty_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "commands": [
+      {
+        "name": "pytest-d0",
+        "timeout_seconds": 300,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 3938,
+        "result": "20 passed in 2.12s",
+        "stdout_bytes": 101,
+        "stderr_bytes": 0,
+        "stdout_sha256": "10c3091f7057b9ee174deb78ef5948a5bdfd949b17a7226f8033805782a6cd27"
+      },
+      {
+        "name": "pytest-c0-d0",
+        "timeout_seconds": 900,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 14941,
+        "result": "675 passed in 13.00s",
+        "stdout_bytes": 832,
+        "stderr_bytes": 0,
+        "stdout_sha256": "61732496d84807da30d20e9415a6bd374cd455d46fcff3cec2ea81f83aeb56bc"
+      },
+      {
+        "name": "pytest-root",
+        "timeout_seconds": 1200,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 88654,
+        "result": "1773 passed in 85.68s",
+        "stdout_bytes": 2058,
+        "stderr_bytes": 0,
+        "stdout_sha256": "eab6550c6023dee81671e4fdc94e5099d964a31df7a000a263acff57e19b70af"
+      },
+      {
+        "name": "ruff-d0",
+        "timeout_seconds": 300,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 495,
+        "result": "All checks passed!",
+        "stdout_bytes": 19,
+        "stderr_bytes": 0,
+        "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      {
+        "name": "mypy-d0",
+        "timeout_seconds": 300,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 4813,
+        "result": "Success: no issues found in 6 source files",
+        "stdout_bytes": 44,
+        "stderr_bytes": 0,
+        "stdout_sha256": "90377c8fd97127580c93ac5740d596c9ebc9db94dafa6560ee11fe16b4460c62"
+      },
+      {
+        "name": "verifier-a",
+        "timeout_seconds": 120,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 1109,
+        "stdout_bytes": 2203,
+        "stderr_bytes": 0,
+        "stdout_sha256": "f8f1ea622e6b406a95930570a32c3da34af09c97d78e659dd76d96a0c7fccf1b"
+      },
+      {
+        "name": "verifier-b",
+        "timeout_seconds": 120,
+        "timed_out": false,
+        "exit_code": 0,
+        "duration_ms": 962,
+        "stdout_bytes": 2203,
+        "stderr_bytes": 0,
+        "stdout_sha256": "f8f1ea622e6b406a95930570a32c3da34af09c97d78e659dd76d96a0c7fccf1b"
+      }
+    ]
+  },
+  "diagnostic_history": [
+    {
+      "capture_root": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\d0-gate-20260803T123018140",
+      "result": "FAIL",
+      "failure": "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once",
+      "cause": "tests/test_d0_claim_matrix.py was not assigned to the canonical test-shard manifest",
+      "resolution_commit": "de5e1ef72fa9f78c00aa46c0e3c48a32a870166f",
+      "resolution": "Added a RED integration test, registered D0 in truth-core, lint, and typecheck, then replayed all gates"
+    },
+    {
+      "capture_root": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\d0-gate-20260803T123434594",
+      "result": "EXCLUDED_FROM_ACCEPTANCE",
+      "reason": "The outer desktop command allowance expired after the full root suite and Ruff completed, before the runner wrote final metadata; its partial files were not treated as the final gate packet"
+    }
+  ],
+  "deepluna_fast_audit": {
+    "project_id": "workspace-712a446e211c45e1b9d1",
+    "preflight_readiness": "READY",
+    "server_release": "0.9.9",
+    "runtime_mode": "CANDIDATE_V2",
+    "open_reserved_nano_usd_before_call": 0,
+    "unknown_reservations_before_call": 0,
+    "job_id": "DS-2f8a54df95b4b62bfa677f60419e1b1b",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "provider_call_limit": 1,
+    "audit_scope": "read-only exact repository ranges",
+    "provider_test_execution": false,
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "negative_finding_count": 0,
+    "scope_deviation": false,
+    "architecture_uncertainty": false,
+    "advisory_summary": "D0 software gate is complete; all 17 claim families and method policies are present, the first claim is immutable and planning-only, authority remains fail-closed, project verification is integrated, and no D1, database, migration, or release artifact is present.",
+    "sol_independently_verified": true
+  },
+  "remaining_blockers": [
+    "Both formula artifacts are stale and quarantined and must not be mixed or released.",
+    "Exact formula builds, material lots, finished matrix, substrate, and controlled condition remain unbound.",
+    "Orris Liquid stock carrier is not recorded.",
+    "No trained panel, pilot, power analysis, locked protocol, or confirmatory result exists.",
+    "No authorized human scientific release has occurred."
+  ],
+  "exit_gate": {
+    "d0_software_gate_passed": true,
+    "experimental_claim_validated": false,
+    "mix_or_release_authorized": false,
+    "human_study_authorized": false,
+    "d1_eligible_only_after_build_boundary_report": true,
+    "d1_started": false
+  }
+}
