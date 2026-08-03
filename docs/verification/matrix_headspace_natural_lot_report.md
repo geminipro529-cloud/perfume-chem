@@ -102,6 +102,7 @@ The broad Ruff-format diagnostic is inherited committed style drift in seven cle
 - Preserved authoritative overlay: `655` passed, `0` failed; report/blob validators, status preservation, and log hygiene passed.
 - Standalone clean-tree PASS claimed: `false`.
 - Scientific release: `BLOCKED`; Build D authorized: `false`; Build D started: `false`.
+- Final committed-evidence binding: a manifest-only child commit binds the complete report-seal parent tree, excluding the manifest itself to avoid recursive self-hashing; only exact committed bytes or a recorded CRLF-to-LF transform are accepted.
 
 The clean-checkout failures are not relabeled as green. They are the exact pre-C11 C0/C5 overlay-dependent baseline subset, and the C11 commit range contains zero non-C11 path changes.
 

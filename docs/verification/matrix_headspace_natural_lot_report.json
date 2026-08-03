@@ -161,13 +161,15 @@
     "status": "INHERITED_CLEAN_BASELINE_LIMITATION"
   },
   "committed_evidence_manifest": {
-    "committed_path_count": 84,
-    "passed": true,
+    "binding_contract": "A manifest-only child commit binds the complete report-seal parent tree; the manifest excludes itself to avoid recursive self-hashing.",
+    "canonical_authority": "committed Git blob bytes",
+    "manifest_self_excluded": true,
     "path": "docs/verification/c11/committed_evidence_manifest.json",
-    "sha256": "489082f50a313371f7e587cfac3e0c929d59d83f24e90146ae3e9f089c38e1d8",
-    "target_commit": "b992ea4aaf904083e7cb1735103b62924fc6bb68"
+    "schema": "build-c11-committed-evidence-manifest-v2",
+    "semantic_equivalence_rule": "CRLF_TO_LF_ONLY",
+    "target_commit_role": "IMMEDIATE_PARENT_REPORT_SEAL"
   },
-  "committed_manifest_commit": "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+  "committed_manifest_commit_role": "IMMEDIATE_CHILD_OF_REPORT_SEAL",
   "consolidation_adr": {
     "c0_runtime_changes": false,
     "current_dynamic_adapter": "engine.pipeline.simulator.simulate_formula",
@@ -178,6 +180,7 @@
     "unsupported_output_policy": "WITHHELD"
   },
   "current_evidence_head": "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+  "current_evidence_head_role": "PRE_FINAL_REPORT_REPLAY_HEAD",
   "data_and_parameter_digests": {
     "c11_plan_sha256": "33c3207aaf5fd5868933f46a3f58eb9f3711fa7b35ca8dde2e8a665dadbf2565",
     "c5_inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
@@ -327,6 +330,7 @@
     }
   },
   "evidence_commit": "b992ea4aaf904083e7cb1735103b62924fc6bb68",
+  "evidence_commit_role": "INITIAL_C11_PACKET_COMMIT",
   "exit_gate": {
     "authoritative_overlay_replay_passed": true,
     "build_c_exit_gate_passed": true,
