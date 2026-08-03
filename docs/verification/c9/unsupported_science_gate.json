@@ -8,9 +8,9 @@
     "88b741e42d09296a9b2cd754a25ce66dbde0f499"
   ],
   "verified_implementation_head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
-  "evidence_commit": null,
-  "decision": "PENDING_AUTHORITATIVE_OVERLAY_REPLAY",
-  "decision_reason": "The authoritative preserved workspace passed local, mutation, scope, archive, protected-state, log-hygiene, DeepLuna Fast, and Sol reproduction gates. A clean detached comparison reproduced the same four inherited baseline failures at the C9 head and C8 parent. C10 remains closed until this evidence is committed and replayed at the exact evidence commit with the verified preserved authoritative overlay.",
+  "evidence_commit": "15ef82838059c67768c06e896ed4432c597c212f",
+  "decision": "PASS",
+  "decision_reason": "C9 implementation and evidence replayed at the exact evidence commit with the verified preserved authoritative overlay. All 37 replay jobs passed with 1,689 root tests, zero timeouts, zero stderr, no protected-state drift, and clean log hygiene. The same four clean-tree baseline failures were reproduced at the C9 head and C8 parent, so no standalone clean-tree claim is made. Unsupported scientific and performance claims remain withheld unless their exact later evidence gate passes.",
   "contract_surface": {
     "source_path": "engine/evidence/unsupported_science.py",
     "source_sha256": "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
@@ -196,6 +196,20 @@
       "invalid_utf8_files": 0,
       "ansi_escape_bytes": 0,
       "credential_shaped_matches": 0
+    },
+    "postcommit": {
+      "authoritative_overlay_replay_receipt": {
+        "path": "docs/verification/c9/postcommit/authoritative-overlay-replay.json",
+        "sha256": "08dd7dca5f34d9f8d353eec9f2925b64d3c7b93f684a29d53b4844231f669def"
+      },
+      "decision_receipt": {
+        "path": "docs/verification/c9/postcommit/unsupported_science_decision.json",
+        "sha256": "a204534f7ae3bdce5a278e0722f6565d8c7b5316f8ab77c207cf6533fa2d2676"
+      },
+      "replay_manifest": {
+        "path": "docs/verification/c9/postcommit/replay-manifest.json",
+        "sha256": "857ae4ca76266782d61235a8959a8a1a176c0e412c55674530ebc47b7235a424"
+      }
     }
   },
   "mutation_evidence": {
@@ -365,10 +379,15 @@
     "codex_workers_used": 0
   },
   "postcommit_replay": {
-    "status": "PENDING",
-    "exact_commit": null,
+    "status": "PASS",
+    "exact_commit": "15ef82838059c67768c06e896ed4432c597c212f",
     "replay_mode": "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY",
-    "c10_open": false
+    "attempt_count": 2,
+    "passing_attempt": 2,
+    "passing_job_count": 37,
+    "complete_root_passed": 1689,
+    "standalone_clean_tree_claimed": false,
+    "c10_open": true
   },
   "exit_gate": {
     "receptor_claims_fail_closed": true,
@@ -382,10 +401,10 @@
     "clean_baseline_limitation_truthfully_disclosed": true,
     "final_deepluna_audit_pass": true,
     "sol_reconciliation_pass": true,
-    "evidence_committed": false,
-    "authoritative_overlay_replay_pass": false,
-    "postcommit_decision_recorded": false,
-    "all_required_green": false,
-    "c10_open": false
+    "evidence_committed": true,
+    "authoritative_overlay_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c10_open": true
   }
 }

@@ -1,0 +1,16 @@
+{
+  "authoritative_overlay_required": true,
+  "c0_pm033_runtime_status": "QUARANTINED_EXPLORATORY",
+  "evidence_head": "15ef82838059c67768c06e896ed4432c597c212f",
+  "evidence_path_count": 204,
+  "evidence_paths_all_under_c9": true,
+  "implementation_head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+  "inherited_missing_assigned_test_count": 17,
+  "parent": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+  "phase_commit_count": 4,
+  "phase_path_count": 9,
+  "schema": "build-c9-evidence-commit-scope-v1",
+  "standalone_clean_tree_claimed": false,
+  "status": "PASS",
+  "unrelated_gates_work_preserved": true
+}

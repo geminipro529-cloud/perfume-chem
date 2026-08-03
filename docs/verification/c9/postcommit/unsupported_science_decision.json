@@ -1,0 +1,24 @@
+{
+  "schema": "build-c9-unsupported-science-decision-v1",
+  "decision": "PASS",
+  "decision_scope": "C9 unsupported-science quarantine software contracts only",
+  "implementation_head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+  "evidence_commit": "15ef82838059c67768c06e896ed4432c597c212f",
+  "authoritative_overlay_replay_pass": true,
+  "authoritative_overlay_replay_receipt": {
+    "path": "docs/verification/c9/postcommit/authoritative-overlay-replay.json",
+    "sha256": "08dd7dca5f34d9f8d353eec9f2925b64d3c7b93f684a29d53b4844231f669def"
+  },
+  "standalone_clean_tree_claimed": false,
+  "inherited_clean_baseline_limitation_retained": true,
+  "human_receptor_claims_fail_closed": true,
+  "adaptation_transfer_claims_fail_closed": true,
+  "aging_processes_separated": true,
+  "universal_aging_and_shelf_life_withheld": true,
+  "unsupported_outcomes_require_exact_scope_build_d_receipt": true,
+  "legacy_numeric_authority_quarantined": true,
+  "actual_instrument_data_present": false,
+  "empirical_promotion_allowed": false,
+  "c10_open": true,
+  "reason": "C9 implementation and evidence replayed at the exact evidence commit with the verified preserved authoritative overlay. All 37 replay jobs passed with 1,689 root tests, zero timeouts, zero stderr, no protected-state drift, and clean log hygiene. The same four clean-tree baseline failures were reproduced at the C9 head and C8 parent, so no standalone clean-tree claim is made. Unsupported scientific and performance claims remain withheld unless their exact later evidence gate passes."
+}
