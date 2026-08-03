@@ -1,0 +1,153 @@
+{
+  "authoritative_preserved_overlay": {
+    "c10_scope_clean": true,
+    "current_status_digest_before_final_evidence": "4487309377de170c3dc1edf71022f16133806be81f142c305fa894e14efdf532",
+    "current_status_entry_count_before_final_evidence": 1782,
+    "duration_seconds": 109.27,
+    "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+    "index_empty": true,
+    "root_tests_passed": 1753,
+    "status_digest_unchanged": true,
+    "status_entry_count_after": 1782,
+    "status_entry_count_before": 1782,
+    "stderr_bytes": 0
+  },
+  "build_d_authorized": false,
+  "build_d_started": false,
+  "c10_exit_gate_passed": true,
+  "c11_authorized": true,
+  "canonical_manifest": {
+    "bytes": 140739,
+    "path": "docs/verification/c10/committed_evidence_manifest.json",
+    "sha256": "a3990c4bb46eb7477dbd59d53948dc788c3874fba57f96cb514a437d538a5871"
+  },
+  "canonical_manifest_commit": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+  "decision": "PASS_WITH_HISTORICAL_REGRESSION_WITHHELD_AND_INHERITED_CLEAN_BASELINE_LIMITATION",
+  "deep_luna_fast": {
+    "codex_orchestration_enabled": false,
+    "glm_runs": 0,
+    "latest_evidence_audit_job_id": "DS-0d70ea1ed74279b5ef82ef055b845a72",
+    "latest_evidence_audit_status": "PASS",
+    "latest_evidence_audit_verdict": "POSITIVE",
+    "luna_runs": 0,
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "open_reserved_nano_usd": 0,
+    "postflight_readiness": "READY",
+    "provider": "deepinfra",
+    "route": "deepinfra-priority",
+    "unknown_reservations": 0
+  },
+  "detached_replay": {
+    "canonical_blob_validator_status": "PASS",
+    "focused_c10_passed": 64,
+    "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+    "stderr_bytes": 0,
+    "worktree_clean_after": true
+  },
+  "evidence_commit": "8882f9fd5e8f9040983cf36b8df2eee8343bc311",
+  "generated_at_utc": "2026-08-03T02:39:31.044129Z",
+  "historical_regression": {
+    "c11_must_withhold_historical_regression_claim": true,
+    "claim_canonical": false,
+    "reported_30000_candidate_35_guardrail_97_76_result_reproduced": false,
+    "status": "BLOCKED_MISSING_REPRODUCIBLE_ARTIFACT_BUNDLE"
+  },
+  "limitations": [
+    "The standalone clean tree retains nine root collection errors and four baseline assertions that reproduce at the pre-C10 parent; only the focused C10 surface is clean-replay green.",
+    "The historical 30k/35/97.76 claim remains noncanonical because no complete implementation/input/result bundle exists.",
+    "No real C10 experiment has been executed, so scientific and sensory outcomes remain withheld."
+  ],
+  "pending_gate_report": {
+    "bytes": 11498,
+    "path": "docs/verification/c10/experiment_selection_gate.json",
+    "sha256": "0aa2bb9e55acdcc13cb0bc5ef7a675a880cc0c0a2754369bf252fb7ce90adc15"
+  },
+  "phase": "C10",
+  "replay_log_artifacts": [
+    {
+      "bytes": 101,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-focused.stdout.txt",
+      "sha256": "20f84055429fd510ffeb72e23f557b80f665f461ee90a117c533a0e004dd0d6b",
+      "source_bytes": 204,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "5b325a6cdabd9e31c56fde78df4b2233a245af8cf808506e4471b520686292b2",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-focused.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 325,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-validator.stdout.txt",
+      "sha256": "0a59a965a57d3b1faf695781b3c662c818fca8ce561a2bc3e02afbea4a5ddc74",
+      "source_bytes": 652,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "61166b7f470cc07469d8db9fd9797c0aec8d81c350bfc397c870348f5c45db92",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-validator.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 46916,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root-invalid-scope.stdout.txt",
+      "sha256": "a0273881f1f1439f7424d332115e066d66a13cc8cd96cf685c137cef19281af6",
+      "source_bytes": 93834,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "b8e820a88d31241c2983e7d2637d819ae13263d18569dcbfc68b23c0581747c4",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root-invalid-scope.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 2059,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root.stdout.txt",
+      "sha256": "9a8e6d16216290bb9611469c21478fc41465479f6d212d1c820d7cff218428e4",
+      "source_bytes": 4120,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "5722cf1f394e086b85bce659a34d3d1fbe16c5783c38f57dc28e2f861b1435a5",
+      "transport_encoding": "utf-8"
+    },
+    {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    }
+  ],
+  "replay_run_metadata": {
+    "bytes": 5775,
+    "path": "docs/verification/c10/logs/final-replay/90d5895/run-metadata.json",
+    "sha256": "07eb5cd1be323f4145fea7eca4a4af93ab423f750d89f3b14ae32618acdb8208"
+  },
+  "required_next_action": "Begin C11 aggregate Build C verification; do not begin Build D.",
+  "schema": "build-c10-final-decision-v1",
+  "scientific_boundary": {
+    "c5_actual_instrument_data_status": "BLOCKED_PENDING_DATA",
+    "real_c10_experimental_observations_present": false,
+    "sensory_or_scientific_outcome_claim_authorized": false
+  },
+  "source_commit": "19b993a11d96172faa2b338e0f2e5d74da5fa8f8"
+}

@@ -1,0 +1,149 @@
+{
+  "copied_logs": {
+    "detached-focused.stderr.txt": {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-focused.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    "detached-focused.stdout.txt": {
+      "bytes": 101,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-focused.stdout.txt",
+      "sha256": "20f84055429fd510ffeb72e23f557b80f665f461ee90a117c533a0e004dd0d6b",
+      "source_bytes": 204,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "5b325a6cdabd9e31c56fde78df4b2233a245af8cf808506e4471b520686292b2",
+      "transport_encoding": "utf-8"
+    },
+    "detached-validator.stderr.txt": {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-validator.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    "detached-validator.stdout.txt": {
+      "bytes": 325,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/detached-validator.stdout.txt",
+      "sha256": "0a59a965a57d3b1faf695781b3c662c818fca8ce561a2bc3e02afbea4a5ddc74",
+      "source_bytes": 652,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "61166b7f470cc07469d8db9fd9797c0aec8d81c350bfc397c870348f5c45db92",
+      "transport_encoding": "utf-8"
+    },
+    "overlay-root-invalid-scope.stderr.txt": {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root-invalid-scope.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    "overlay-root-invalid-scope.stdout.txt": {
+      "bytes": 46916,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root-invalid-scope.stdout.txt",
+      "sha256": "a0273881f1f1439f7424d332115e066d66a13cc8cd96cf685c137cef19281af6",
+      "source_bytes": 93834,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "b8e820a88d31241c2983e7d2637d819ae13263d18569dcbfc68b23c0581747c4",
+      "transport_encoding": "utf-8"
+    },
+    "overlay-root.stderr.txt": {
+      "bytes": 0,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_bytes": 0,
+      "source_encoding": "utf-8",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport_encoding": "utf-8"
+    },
+    "overlay-root.stdout.txt": {
+      "bytes": 2059,
+      "path": "docs/verification/c10/logs/final-replay/90d5895/overlay-root.stdout.txt",
+      "sha256": "9a8e6d16216290bb9611469c21478fc41465479f6d212d1c820d7cff218428e4",
+      "source_bytes": 4120,
+      "source_encoding": "utf-16le-bom",
+      "source_sha256": "5722cf1f394e086b85bce659a34d3d1fbe16c5783c38f57dc28e2f861b1435a5",
+      "transport_encoding": "utf-8"
+    }
+  },
+  "manifest_commit": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+  "runs": [
+    {
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "<external-scratch>/pytest-temp",
+        "tests/test_c10_historical.py",
+        "tests/test_c10_mixture_design.py",
+        "tests/test_c10_selection.py"
+      ],
+      "exit_code": 0,
+      "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+      "id": "detached-focused",
+      "passed": 64,
+      "stderr_bytes": 0,
+      "working_tree": "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+      "worktree_clean_after": true
+    },
+    {
+      "exit_code": 0,
+      "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+      "id": "detached-evidence-validator",
+      "status": "PASS",
+      "stderr_bytes": 0,
+      "working_tree": "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+      "worktree_clean_after": true
+    },
+    {
+      "classification": "INVALID_GATE_COMMAND_SCOPE",
+      "collection_errors": 52,
+      "exit_code": 2,
+      "gate_evidence": false,
+      "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+      "id": "overlay-root-invalid-command-scope",
+      "omitted_required_tests_target": true,
+      "stderr_bytes": 0,
+      "working_tree": "D:\\chatbots\\perfume-chem",
+      "worktree_status_digest_unchanged": true
+    },
+    {
+      "c10_scope_dirty_entries_after": 0,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--color=no",
+        "--basetemp",
+        "<external-scratch>/pytest-temp",
+        "tests"
+      ],
+      "exit_code": 0,
+      "head": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+      "id": "authoritative-overlay-root",
+      "index_entries_after": 0,
+      "passed": 1753,
+      "stderr_bytes": 0,
+      "working_tree": "D:\\chatbots\\perfume-chem",
+      "worktree_status_digest_unchanged": true,
+      "worktree_status_entry_count_after": 1782,
+      "worktree_status_entry_count_before": 1782
+    }
+  ],
+  "schema": "build-c10-final-replay-runs-v1"
+}
