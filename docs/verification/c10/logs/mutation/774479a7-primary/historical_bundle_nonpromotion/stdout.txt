@@ -1,0 +1,16 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_missing_historical_implementation_inputs_and_results_fail_closed ____
+
+    def test_missing_historical_implementation_inputs_and_results_fail_closed() -> None:
+        assessment = assess_historical_regression(None)
+    
+        assert assessment.status is HistoricalRegressionStatus.BLOCKED_MISSING_ARTIFACTS
+>       assert assessment.canonical is False
+E       AssertionError: assert True is False
+E        +  where True = HistoricalRegressionAssessment(status=<HistoricalRegressionStatus.BLOCKED_MISSING_ARTIFACTS: 'BLOCKED_MISSING_ARTIFACTS'>, canonical=True, reason_codes=('MISSING_REPRODUCIBLE_ARTIFACT_BUNDLE',), receipt_sha256=None).canonical
+
+tests\test_c10_historical.py:48: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c10_historical.py::test_missing_historical_implementation_inputs_and_results_fail_closed
+1 failed in 0.64s

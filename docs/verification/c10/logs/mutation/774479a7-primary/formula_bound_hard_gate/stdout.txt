@@ -1,0 +1,50 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+______ test_candidate_rejects_failed_or_unknown_formula_bound_gate[FAIL] ______
+
+status = <GateStatus.FAIL: 'FAIL'>
+
+    @pytest.mark.parametrize("status", [GateStatus.FAIL, GateStatus.UNKNOWN])
+    def test_candidate_rejects_failed_or_unknown_formula_bound_gate(
+        status: GateStatus,
+    ) -> None:
+        domain = _domain()
+        candidate = _gate_candidate(
+            domain,
+            _candidate(),
+            statuses={"safety": status},
+        )
+    
+        assessment = assess_candidate(domain, candidate)
+    
+>       assert assessment.feasible is False
+E       AssertionError: assert True is False
+E        +  where True = FeasibilityAssessment(candidate_id='candidate-1', formula_state_sha256='edbc68bcbcf80461fec622dc04549051258dcf2c43e28c...es_mg=(('material-a', 2.0), ('material-b', 2.0)), family_active_masses_mg=(('floral', 2.0), ('woody', 2.0)), cost=8.0)).feasible
+
+tests\test_c10_mixture_design.py:332: AssertionError
+____ test_candidate_rejects_failed_or_unknown_formula_bound_gate[UNKNOWN] _____
+
+status = <GateStatus.UNKNOWN: 'UNKNOWN'>
+
+    @pytest.mark.parametrize("status", [GateStatus.FAIL, GateStatus.UNKNOWN])
+    def test_candidate_rejects_failed_or_unknown_formula_bound_gate(
+        status: GateStatus,
+    ) -> None:
+        domain = _domain()
+        candidate = _gate_candidate(
+            domain,
+            _candidate(),
+            statuses={"safety": status},
+        )
+    
+        assessment = assess_candidate(domain, candidate)
+    
+>       assert assessment.feasible is False
+E       AssertionError: assert True is False
+E        +  where True = FeasibilityAssessment(candidate_id='candidate-1', formula_state_sha256='edbc68bcbcf80461fec622dc04549051258dcf2c43e28c...es_mg=(('material-a', 2.0), ('material-b', 2.0)), family_active_masses_mg=(('floral', 2.0), ('woody', 2.0)), cost=8.0)).feasible
+
+tests\test_c10_mixture_design.py:332: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c10_mixture_design.py::test_candidate_rejects_failed_or_unknown_formula_bound_gate[FAIL]
+FAILED tests/test_c10_mixture_design.py::test_candidate_rejects_failed_or_unknown_formula_bound_gate[UNKNOWN]
+2 failed in 0.60s

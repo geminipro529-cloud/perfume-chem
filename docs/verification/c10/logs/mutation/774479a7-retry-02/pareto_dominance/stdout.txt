@@ -1,0 +1,30 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_selection_filters_hard_gates_then_pareto_then_explicit_utility _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002367536E410>
+
+    def test_selection_filters_hard_gates_then_pareto_then_explicit_utility(monkeypatch) -> None:
+        domain, candidates, evaluations = _selection_fixture()
+    
+        proposal = select_experiments(
+            domain=domain,
+            candidates=candidates,
+            evaluations=evaluations,
+            acquisition_policy=_policy(),
+            stop_policy=_stop_policy(),
+            campaign_state=_campaign(),
+        )
+    
+        assert proposal.status is SelectionStatus.PROPOSED
+        assert proposal.execution_authorized is False
+>       assert proposal.pareto_candidate_ids == ("candidate-a", "candidate-b")
+E       AssertionError: assert ('candidate-a...'candidate-c') == ('candidate-a', 'candidate-b')
+E         
+E         Left contains one more item: 'candidate-c'
+E         Use -v to get more diff
+
+tests\test_c10_selection.py:367: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c10_selection.py::test_selection_filters_hard_gates_then_pareto_then_explicit_utility
+1 failed in 0.50s

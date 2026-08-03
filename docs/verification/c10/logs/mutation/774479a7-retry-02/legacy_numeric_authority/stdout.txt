@@ -1,0 +1,544 @@
+FFFFFFFFFFFFFFFFFF                                                       [100%]
+================================== FAILURES ===================================
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-022] _
+
+surface_id = 'C0-PM-022'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-023] _
+
+surface_id = 'C0-PM-023'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-033] _
+
+surface_id = 'C0-PM-033'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-034] _
+
+surface_id = 'C0-PM-034'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-035] _
+
+surface_id = 'C0-PM-035'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-036] _
+
+surface_id = 'C0-PM-036'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-037] _
+
+surface_id = 'C0-PM-037'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-038] _
+
+surface_id = 'C0-PM-038'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-039] _
+
+surface_id = 'C0-PM-039'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-040] _
+
+surface_id = 'C0-PM-040'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-041] _
+
+surface_id = 'C0-PM-041'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-042] _
+
+surface_id = 'C0-PM-042'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-043] _
+
+surface_id = 'C0-PM-043'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-044] _
+
+surface_id = 'C0-PM-044'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-045] _
+
+surface_id = 'C0-PM-045'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-046] _
+
+surface_id = 'C0-PM-046'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-047] _
+
+surface_id = 'C0-PM-047'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+_ test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-048] _
+
+surface_id = 'C0-PM-048'
+
+    @pytest.mark.parametrize(
+        "surface_id",
+        [
+            record.surface_id
+            for record in C9_LEGACY_SURFACES
+            if record.c10_use is not C10Use.CALIBRATED_MODEL_REQUIRED
+        ],
+    )
+    def test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives(
+        surface_id: str,
+    ) -> None:
+        estimate = _estimate(
+            "legacy-number",
+            0.5,
+            ObjectiveDirection.MAXIMIZE,
+            source_ids=(surface_id,),
+        )
+    
+        assessment = assess_objective_authority(estimate)
+    
+>       assert assessment.accepted is False
+E       assert True is False
+E        +  where True = ObjectiveAuthorityAssessment(accepted=True, reason_codes=()).accepted
+
+tests\test_c10_selection.py:297: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-022]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-023]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-033]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-034]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-035]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-036]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-037]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-038]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-039]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-040]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-041]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-042]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-043]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-044]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-045]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-046]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-047]
+FAILED tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives[C0-PM-048]
+18 failed in 0.89s

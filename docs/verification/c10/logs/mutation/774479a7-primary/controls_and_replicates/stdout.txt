@@ -1,0 +1,49 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________ test_selection_blocks_missing_control_or_exact_replicate ___________
+
+    def test_selection_blocks_missing_control_or_exact_replicate() -> None:
+        domain, candidates, evaluations = _selection_fixture()
+        without_control = tuple(item for item in candidates if item.role is not CandidateRole.CONTROL)
+        mismatched_replicate = replace(
+            candidates[1],
+            doses=(
+                CandidateDose("stock-a", 1.0, "formula"),
+                CandidateDose("stock-b", 3.0, "formula"),
+            ),
+            gate_receipts=(),
+        )
+        mismatched_replicate = _candidate(
+            domain,
+            mismatched_replicate.candidate_id,
+            1.0,
+            role=CandidateRole.REPLICATE,
+            replicate_of="control",
+        )
+    
+        missing = select_experiments(
+            domain=domain,
+            candidates=without_control,
+            evaluations=evaluations,
+            acquisition_policy=_policy(),
+            stop_policy=_stop_policy(),
+            campaign_state=_campaign(),
+        )
+        mismatched = select_experiments(
+            domain=domain,
+            candidates=(candidates[0], mismatched_replicate, *candidates[2:]),
+            evaluations=evaluations,
+            acquisition_policy=_policy(),
+            stop_policy=_stop_policy(),
+            campaign_state=_campaign(),
+        )
+    
+>       assert missing.status is SelectionStatus.BLOCKED
+E       AssertionError: assert <SelectionStatus.PROPOSED: 'PROPOSED'> is <SelectionStatus.BLOCKED: 'BLOCKED'>
+E        +  where <SelectionStatus.PROPOSED: 'PROPOSED'> = ExperimentProposal(status=<SelectionStatus.PROPOSED: 'PROPOSED'>, selected_candidate_ids=('control-replicate', 'candid...quisition_policy_sha256='15d4e9e350f4313e21a55d70f549065990b8e9b6dfea05b006f4878642517cc8', execution_authorized=False).status
+E        +  and   <SelectionStatus.BLOCKED: 'BLOCKED'> = SelectionStatus.BLOCKED
+
+tests\test_c10_selection.py:450: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c10_selection.py::test_selection_blocks_missing_control_or_exact_replicate
+1 failed in 0.76s

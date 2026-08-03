@@ -1,0 +1,28 @@
+{
+  "case_id": "human_exact_hash_authorization",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_selection.py::test_proposal_requires_exact_hash_pass_human_review_before_execution"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_proposal_requires_exact_hash_pass_human_review_before_execution",
+  "finished_at_utc": "2026-08-03T01:39:03.856392Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/selection.py",
+  "source_sha256_after_restore": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "source_sha256_before": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "started_at_utc": "2026-08-03T01:39:01.834589Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "f30f0c0531bf5a13e3d83550fa2fa60275f0e9b22fef97be7880036710158b51",
+  "test_node": "tests/test_c10_selection.py::test_proposal_requires_exact_hash_pass_human_review_before_execution",
+  "timed_out": false
+}

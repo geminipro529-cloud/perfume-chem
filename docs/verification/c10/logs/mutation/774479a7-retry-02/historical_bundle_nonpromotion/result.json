@@ -1,0 +1,28 @@
+{
+  "case_id": "historical_bundle_nonpromotion",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_historical.py::test_missing_historical_implementation_inputs_and_results_fail_closed"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_missing_historical_implementation_inputs_and_results_fail_closed",
+  "finished_at_utc": "2026-08-03T01:39:06.197590Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/historical.py",
+  "source_sha256_after_restore": "60f564553cce989befe788d7c62409f930a37a47188c659a83b5058cbff28205",
+  "source_sha256_before": "60f564553cce989befe788d7c62409f930a37a47188c659a83b5058cbff28205",
+  "started_at_utc": "2026-08-03T01:39:03.910557Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "4209b6a2b99bcfa3ac4123759bd03f0fa1170a9c03cc3054c196e3331768147c",
+  "test_node": "tests/test_c10_historical.py::test_missing_historical_implementation_inputs_and_results_fail_closed",
+  "timed_out": false
+}

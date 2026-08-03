@@ -1,0 +1,28 @@
+{
+  "case_id": "stock_partition_conservation",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_mixture_design.py::test_stock_requires_complete_unique_active_and_carrier_partition"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_stock_requires_complete_unique_active_and_carrier_partition",
+  "finished_at_utc": "2026-08-03T01:40:15.054267Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/contracts.py",
+  "source_sha256_after_restore": "4b6bb599351070de966a103ef97a6f3251d0972c62846acfc8a794d8ddcbf743",
+  "source_sha256_before": "4b6bb599351070de966a103ef97a6f3251d0972c62846acfc8a794d8ddcbf743",
+  "started_at_utc": "2026-08-03T01:40:13.014165Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "946181535b5b9a32501c6383f1ebd528fccbb8ef2cfdd970179826f7dcfd3afd",
+  "test_node": "tests/test_c10_mixture_design.py::test_stock_requires_complete_unique_active_and_carrier_partition",
+  "timed_out": false
+}

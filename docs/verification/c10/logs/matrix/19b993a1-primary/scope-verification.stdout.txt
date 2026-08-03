@@ -1,0 +1,76 @@
+{
+  "commit_chain": [
+    "102ed9b88622290a52bf3d32c0a16b431cb81b75",
+    "98ae7a607595afb29e8fa9e1adeb4003eb8d645b",
+    "774479a7e50b70f482cd04e907dc0a6540dd1679",
+    "19b993a11d96172faa2b338e0f2e5d74da5fa8f8"
+  ],
+  "head": "19b993a11d96172faa2b338e0f2e5d74da5fa8f8",
+  "index_empty": true,
+  "legacy_optimizer_or_planner_paths_changed": [],
+  "optimization_imports": {
+    "engine/optimization/__init__.py": [
+      "contracts",
+      "historical",
+      "mixture_design",
+      "selection"
+    ],
+    "engine/optimization/contracts.py": [
+      "__future__",
+      "dataclasses",
+      "engine.evidence.unsupported_science",
+      "enum",
+      "hashlib",
+      "json",
+      "math",
+      "typing"
+    ],
+    "engine/optimization/historical.py": [
+      "__future__",
+      "contracts",
+      "dataclasses",
+      "enum",
+      "math"
+    ],
+    "engine/optimization/mixture_design.py": [
+      "__future__",
+      "contracts",
+      "itertools",
+      "math",
+      "typing"
+    ],
+    "engine/optimization/selection.py": [
+      "__future__",
+      "collections.abc",
+      "contracts",
+      "engine.evidence.unsupported_science",
+      "mixture_design"
+    ]
+  },
+  "parent": "a2aaad783ddd03d13c8f72cc277db0da7e139814",
+  "phase_paths": [
+    "docs/superpowers/plans/2026-08-03-build-c10-experiment-selection.md",
+    "docs/superpowers/specs/2026-08-03-build-c10-experiment-selection-design.md",
+    "engine/optimization/__init__.py",
+    "engine/optimization/contracts.py",
+    "engine/optimization/historical.py",
+    "engine/optimization/mixture_design.py",
+    "engine/optimization/selection.py",
+    "engine/project_verification.py",
+    "tests/test_c10_historical.py",
+    "tests/test_c10_mixture_design.py",
+    "tests/test_c10_selection.py"
+  ],
+  "protected_hashes": {
+    "engine/optimizer/models.py": "0c5985df1f5f3be7db7826e4951fdc9b128c442c61f2612e2a5f4ce2f867bc79",
+    "engine/optimizer/scoring.py": "8b22f7a15d913ca6219ef007cec28b031b6ee43563f25ad9898803792e6dc1f8",
+    "tests/test_experiments_planner.py": "2df084748b55edc0b56afd86d64a555279c771b91d2d8c5744ab6ddebda173a7"
+  },
+  "required_c10_project_verifier_tests": [
+    "tests/test_c10_historical.py",
+    "tests/test_c10_mixture_design.py",
+    "tests/test_c10_selection.py"
+  ],
+  "schema": "build-c10-scope-verification-v1",
+  "status": "PASS"
+}
