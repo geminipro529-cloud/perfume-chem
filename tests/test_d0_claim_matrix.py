@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from engine.project_verification import build_check_specs, engine_test_shards
 from engine.scientific_validation.claim_registry import (
     CLAIM_FAMILY_POLICIES,
     is_authoritative_method,
@@ -497,3 +498,15 @@ def test_live_d0_gate_cli_is_deterministic_utf8_json_with_empty_stderr() -> None
     assert first.stderr == second.stderr == ""
     assert first.stdout == second.stdout
     assert json.loads(first.stdout) == build_gate_payload(REPOSITORY_ROOT)
+
+
+def test_d0_is_bound_into_canonical_project_verification() -> None:
+    shards = engine_test_shards(REPOSITORY_ROOT)
+    checks = {spec.name: spec.command for spec in build_check_specs(REPOSITORY_ROOT)}
+
+    assert "tests/test_d0_claim_matrix.py" in shards["truth-core"]
+    assert "engine/scientific_validation" in checks["engine-lint"]
+    assert "scripts/verify_d0_claim_matrix.py" in checks["engine-lint"]
+    assert "tests/test_d0_claim_matrix.py" in checks["engine-lint"]
+    assert "engine/scientific_validation" in checks["engine-typecheck"]
+    assert "scripts/verify_d0_claim_matrix.py" in checks["engine-typecheck"]
