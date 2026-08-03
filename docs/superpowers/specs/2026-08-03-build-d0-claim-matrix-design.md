@@ -102,13 +102,15 @@ This module owns:
 - immutable `VersionBinding`, `ScopeValue`, `ClaimScope`,
   `ComparatorDefinition`, `DecisionCriterion`, `EndpointDefinition`,
   `EvidenceRequirement`, and `ClaimDefinition` dataclasses;
-- deterministic canonical JSON and SHA-256 functions.
+- claim-specific canonical payload and SHA-256 adapters that reuse
+  `engine.calibration.hashing.canonical_json_bytes` and `stable_json_hash`.
 
 All identifiers are non-empty, versions are positive integers, hashes are
 lowercase 64-character SHA-256 values, tuple collections are unique, and
 `REQUIRED_UNBOUND` scope values carry an explicit reason but no fabricated
-value. Decimal margins serialize as strings. A claim cannot carry release
-authority.
+value. Decimal margins retain the repository canonical serializer's typed
+decimal representation. D0 does not duplicate or fork the existing canonical
+hashing implementation. A claim cannot carry release authority.
 
 ### `engine/scientific_validation/claim_registry.py`
 
@@ -128,6 +130,14 @@ and cannot silently rebind a formula after its hash changes.
 
 This module exposes only the supported D0 public API. No legacy planner or
 release-readiness object is re-exported.
+
+### `scripts/verify_d0_claim_matrix.py`
+
+This read-only verifier binds the pure first-claim factory to the live formula
+file hashes and current Git commit, confirms both formula status lines remain
+quarantined, validates the registry and method matrix, and emits one canonical
+JSON gate packet to stdout. It does not mutate formulas, reports, Git, or any
+authority store.
 
 ## Canonical claim-family matrix
 
@@ -336,8 +346,9 @@ visible and cannot be overwritten by a later result.
 
 Construction fails closed for malformed IDs, nonpositive versions, invalid
 hashes, duplicate endpoints/evidence requirements, an unbound value without a
-reason, a bound value without a value, nonpositive margins, unsupported method
-families, empty criteria, or any claim carrying release authority.
+reason, a bound value without a value, invalid or zero-width margin geometry,
+unsupported method families, empty criteria, or any claim carrying release
+authority.
 
 Canonical hashes depend only on normalized contract data. They do not depend
 on dict insertion order, filesystem order, locale, clock, environment, random
