@@ -4,7 +4,7 @@ param()
 $ErrorActionPreference = "Stop"
 
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")).Path
-$cheapLunaBuild = "45b09bf3cf70145ba957a0851377eeda335cb26cce67242ad0866555445d3f5f"
+$cheapLunaBuild = "a60f192b5f70230134499a2ef26b3e0816710c2a44b629a867aaec1a5aec064d"
 $cheapLunaRuntime = Join-Path $env:LOCALAPPDATA (
     "OpenCode\CheapLuna\runtime\" + $cheapLunaBuild
 )

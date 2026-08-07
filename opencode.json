@@ -281,10 +281,10 @@
      "*.env.*": "deny"
     },
     "edit": "allow",
-     "bash": {
-      "*": "allow",
-      "git push *": "allow",
-      "git reset --hard *": "deny",
+    "bash": {
+     "*": "allow",
+     "git push *": "deny",
+     "git reset --hard *": "deny",
      "git clean *": "deny",
      "rm -rf *": "deny",
      "rmdir /s *": "deny",
