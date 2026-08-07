@@ -400,7 +400,7 @@
   trp_targets:
   hedonic_valence: 0.55
   ifra_max_pct_edp:
-  user_stock_dilution: neat  # PW SKU 2QK21856 viscous resinoid (about 30% benzyl benzoate); string contract per Material.user_stock_dilution
+  user_stock_dilution: 50% w/w in DPG  # user-confirmed 2026-08-07; PW SKU 2QK21856 viscous resinoid base (about 30% benzyl benzoate)
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 2QK21856
@@ -436,7 +436,8 @@
     odt_eth_ppm: engine.odor_thresholds (DERIVED whole-mixture fallback)
     logp: engine.skin_interaction (effective mixture fallback)
     hedonic_valence: engine.hedonic_model
-    user_in_inventory: inventory.txt (3 g added 2026-07-16)
+    user_in_inventory: "inventory.txt (added 2026-07-16; 50% w/w in DPG stock, user-confirmed 2026-08-07)"
+    user_stock_dilution: "inventory.txt (user-confirmed 2026-08-07: 50% w/w in DPG)"
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=2QK21856
 - canonical_name: Olibanum Resinoid Absolute - Solid
   aliases: []

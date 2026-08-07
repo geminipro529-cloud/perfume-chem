@@ -141,7 +141,7 @@ def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     assert available["Orris Liquid"].dilution == pytest.approx(0.30)
     assert available["Orris Liquid"].fraction_basis == "mass_fraction"
     assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
-    assert available["Olibanum Resinoid"].dilution == pytest.approx(1.0)
+    assert available["Olibanum Resinoid"].dilution == pytest.approx(0.5)
     assert available["Cocoa Absolute"].dilution == pytest.approx(1.0)
     assert available["Cocoa CO2 Extract"].dilution == pytest.approx(0.077)
     assert "Hydroxycitronellal" not in available
@@ -187,7 +187,7 @@ def test_requested_materials_have_runtime_data() -> None:
     assert orris_liquid.user_in_inventory is True
 
     assert olibanum is not None
-    assert olibanum.user_stock_dilution == "neat"
+    assert olibanum.user_stock_dilution == "50% w/w in DPG"
     assert olibanum.user_in_inventory is True
 
     for name in (
@@ -295,7 +295,7 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     expected = {
         "alpha irone": ("79-69-6", 0.30, 0.9, 0.16),
         "hydroxycitronellol": ("107-74-4", 1.0, 100.0, 20.0),
-        "olibanum resinoid": ("8016-36-2", 1.0, 10.0, 3.0),
+        "olibanum resinoid": ("8016-36-2", 0.5, 10.0, 3.0),
         "orris liquid": ("8002-73-1", 0.30, 0.9, 0.16),
     }
     for name, (cas, dilution, odt_air, odt_eth) in expected.items():
