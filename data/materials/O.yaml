@@ -400,7 +400,7 @@
   trp_targets:
   hedonic_valence: 0.55
   ifra_max_pct_edp:
-  user_stock_dilution: neat
+  user_stock_dilution: 1.0  # neat (fixed 2026-08-07: numeric so generator + golden test agree)
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 2QK21856
@@ -1413,7 +1413,7 @@
   trp_targets:
   hedonic_valence: 0.78
   ifra_max_pct_edp:
-  user_stock_dilution: 30% w/w (orris resinoid in DPG/IPM-type carrier)
+  user_stock_dilution: 0.30  # 30% w/w (orris resinoid in DPG/IPM-type carrier); numeric fix 2026-08-07
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 8IQ24653
