@@ -7,10 +7,18 @@
 
 export const BUDGET_CAPS = {
   maximum_attempts: 1,
-  maximum_provider_calls: 2,
-  maximum_estimated_cost_usd: 0.08,
+  maximum_provider_calls: 3,
+  maximum_estimated_cost_usd: 0.20,
   max_output_tokens: 8192,
 };
+
+// FLASH_HIGH / FLASH_MAX (thinking) routes may use up to three provider calls
+// (thinking turn + tool turn + final), priced under the FLASH_HIGH/MAX tuples.
+export const ROUTE_BUDGET_CAPS = Object.freeze({
+  FLASH_FAST: { maximum_provider_calls: 1, maximum_estimated_cost_usd: 0.05 },
+  FLASH_HIGH: { maximum_provider_calls: 3, maximum_estimated_cost_usd: 0.15 },
+  FLASH_MAX: { maximum_provider_calls: 3, maximum_estimated_cost_usd: 0.20 },
+});
 
 /** Enforce the delegation budget envelope before submit. Throws on violation. */
 export function enforceBudget(payload) {

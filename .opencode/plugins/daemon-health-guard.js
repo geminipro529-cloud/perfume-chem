@@ -14,7 +14,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
-const SQLITE = ".cheapluna-home/projects/perfume-chem-cheapluna/daemon-v2/scheduler.sqlite3";
+const SQLITE = ".opencode/.deepluna-home/projects/perfume-chem-cheapluna-isolated/daemon-v2/scheduler.sqlite3";
 const STALE_MS = 5 * 60 * 1000;
 
 function daemonHealthy(directory) {

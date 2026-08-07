@@ -4,7 +4,7 @@ param()
 $ErrorActionPreference = "Stop"
 
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")).Path
-$cheapLunaBuild = "b98f913fe8e87a17d697a86f0fe035eabef9517642dee1fe3f33651f76fdb44f"
+$cheapLunaBuild = "45b09bf3cf70145ba957a0851377eeda335cb26cce67242ad0866555445d3f5f"
 $cheapLunaRuntime = Join-Path $env:LOCALAPPDATA (
     "OpenCode\CheapLuna\runtime\" + $cheapLunaBuild
 )
@@ -29,18 +29,18 @@ if (-not (Test-Path -LiteralPath $nodeExecutable -PathType Leaf)) {
     throw "CheapLuna bootstrap failed: Node.js executable is missing."
 }
 if (-not (Test-Path -LiteralPath $cheapLunaServer -PathType Leaf)) {
-    throw "CheapLuna bootstrap failed: OpenCode-owned runtime is missing."
+    throw "CheapLuna bootstrap failed: candidate immutable runtime is missing."
 }
 
+# Direct DeepSeek credential (DEEPSEEK_DIRECT provider lock; no DeepInfra).
 $providerToken = [Environment]::GetEnvironmentVariable(
-    "PERFUME_CHEAPLUNA_DEEPINFRA_API_TOKEN",
+    "PERFUME_DEEPSEEK_API_KEY",
     "Process"
 )
 if (-not $providerToken) {
     foreach ($name in @(
-        "PERFUME_CHEAPLUNA_DEEPINFRA_API_TOKEN",
-        "PERFUME_DEEPINFRA_API_KEY",
-        "DEEPINFRA_API_TOKEN"
+        "PERFUME_DEEPSEEK_API_KEY",
+        "DEEPSEEK_API_KEY"
     )) {
         $providerToken = [Environment]::GetEnvironmentVariable($name, "User")
         if ($providerToken) {
@@ -49,7 +49,7 @@ if (-not $providerToken) {
     }
 }
 if (-not $providerToken) {
-    throw "CheapLuna bootstrap failed: project-scoped DeepInfra credential is unavailable."
+    throw "CheapLuna bootstrap failed: direct DeepSeek credential is unavailable."
 }
 
 $requiredEnvironment = @{
@@ -64,7 +64,7 @@ $requiredEnvironment = @{
     "DEEPSEEK_ORCHESTRATOR_HOME" = $cheapLunaState
     "NANODRUG_DEEPINFRA_READER_LANES" = "5"
     "NANODRUG_DEEPINFRA_WRITER_LANES" = "1"
-    "DEEPINFRA_API_TOKEN" = $providerToken
+    "DEEPSEEK_API_KEY" = $providerToken
 }
 foreach ($entry in $requiredEnvironment.GetEnumerator()) {
     [Environment]::SetEnvironmentVariable(
@@ -75,6 +75,12 @@ foreach ($entry in $requiredEnvironment.GetEnumerator()) {
 }
 [Environment]::SetEnvironmentVariable(
     "DEEPLUNA_CODEX_EXECUTABLE",
+    $null,
+    "Process"
+)
+# Ensure no DeepInfra route is configured for this profile.
+[Environment]::SetEnvironmentVariable(
+    "DEEPINFRA_API_TOKEN",
     $null,
     "Process"
 )

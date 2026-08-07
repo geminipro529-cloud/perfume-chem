@@ -99,3 +99,13 @@ tmp/
 
 # Scratch backups (codex test-time isolation)
 .archive/
+
+# SSH keys (never push)
+a
+a.pub
+key
+key.pub
+*.pub
+
+
+.pub

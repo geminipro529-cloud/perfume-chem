@@ -7,14 +7,24 @@
  "share": "disabled",
  "command": {
   "cheapluna": {
-   "description": "Delegate one bounded read to project-isolated CheapLuna Fast",
+   "description": "Delegate one bounded read to project-isolated CheapLuna Fast (direct DeepSeek only)",
    "subtask": false,
-   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Delegate this READ_ONLY request with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.01, exact allowed_paths and required_reads, no retry, and no fallback: $ARGUMENTS"
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Provider is DEEPSEEK_DIRECT only (deepseek-v4-flash at api.deepseek.com); no DeepInfra, no V4 Pro, no fallback. Delegate this READ_ONLY request with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.05, exact allowed_paths and required_reads, no retry, and no fallback: $ARGUMENTS"
+  },
+  "cheapluna-analytical": {
+   "description": "Delegate one bounded analytical read (FLASH_HIGH) to project-isolated CheapLuna",
+   "subtask": false,
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Provider is DEEPSEEK_DIRECT only (deepseek-v4-flash, thinking enabled, reasoning_effort high); no DeepInfra, no V4 Pro, no fallback. Delegate this READ_ONLY request with tier=PRO, reasoning_effort=high, allowed_routes=['FLASH','DIRECT_PRO'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=3, maximum_estimated_cost_usd<=0.15, exact allowed_paths and required_reads, thinking-mode request sends NO tool_choice, preserve reasoning_content across tool turns, no retry, and no fallback: $ARGUMENTS"
+  },
+  "cheapluna-critical": {
+   "description": "Delegate one bounded critical audit (FLASH_MAX) to project-isolated CheapLuna",
+   "subtask": false,
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Provider is DEEPSEEK_DIRECT only (deepseek-v4-flash, thinking enabled, reasoning_effort max); no DeepInfra, no V4 Pro, no fallback. Delegate this READ_ONLY request with tier=REASONING, reasoning_effort=max, allowed_routes=['FLASH','DIRECT_PRO'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=3, maximum_estimated_cost_usd<=0.20, exact allowed_paths and required_reads, thinking-mode request sends NO tool_choice, preserve reasoning_content across tool turns, no retry, and no fallback: $ARGUMENTS"
   },
   "cheapluna-write": {
-   "description": "Delegate one bounded host-verified write to project-isolated CheapLuna Fast",
+   "description": "Delegate one bounded host-verified write to project-isolated CheapLuna Fast (direct DeepSeek only)",
    "subtask": false,
-   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Use one writer and exactly one deepseek_write_submit with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.01, explicit nonempty allowed_paths, immutable required_reads, archive-first handling, host verification, transactional rollback, no retry, and no fallback. The active OpenCode head must independently inspect and accept the diff: $ARGUMENTS"
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Provider is DEEPSEEK_DIRECT only (deepseek-v4-flash at api.deepseek.com); no DeepInfra, no V4 Pro, no fallback. Use one writer and exactly one deepseek_write_submit with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.05, explicit nonempty allowed_paths, immutable required_reads, archive-first handling, host verification, transactional rollback, no retry, and no fallback. The active OpenCode head must independently inspect and accept the diff: $ARGUMENTS"
   },
   "perfume-resume": {
    "description": "Guarded Phase C recovery resume (validates RESUME_GUARD_v1 before any queue)",
