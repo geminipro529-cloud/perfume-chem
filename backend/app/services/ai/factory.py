@@ -156,9 +156,7 @@ class AIModelDetector:
                 logger.debug(f"Detected Ollama model: {model_name}")
                 return "ollama"
 
-        # Default to Cerebras (most permissive/free)
-        logger.warning(f"Unknown model '{model_name}', defaulting to Cerebras")
-        return "cerebras"
+        raise ValueError(f"Unknown AI model provider for '{model_name}'")
 
     @classmethod
     def get_supported_models(cls) -> dict:
@@ -318,11 +316,7 @@ def create_ai_service(
         return DeepSeekService(cache=cache)
 
     else:
-        # Default to Cerebras
-        logger.warning(
-            f"Unknown provider '{provider}', defaulting to Cerebras"
-        )
-        return CerebrasService(cache=cache, verbose=verbose)
+        raise ValueError(f"Unknown AI provider: '{provider}'")
 
 
 def get_model_selector() -> dict:

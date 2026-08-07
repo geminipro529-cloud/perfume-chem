@@ -4127,3 +4127,52 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+# MATERIAL_INTAKE_BATCH_2026_08_07 additions
+- canonical_name: 'Tuberlia Base'
+  aliases: ['tuberlia base']
+  cas: None
+  smiles: null
+  inchikey: null
+  mw_g_mol: 190.0
+  density_25c_g_ml: null
+  logp: 2.5
+  vp_25c_pa: 0.1
+  vp_source: "est/literature"
+  odt_air_ppb: 10.0
+  odt_eth_ppm: 0.02
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  character: 'tuberose-creamy captive base (product basis)'
+  notes: "material intake batch 2026-08-07"
+- canonical_name: 'Turkish Storax Tincture 20%'
+  aliases: ['turkish storax', 'storax tincture']
+  cas: None
+  smiles: null
+  inchikey: null
+  mw_g_mol: 148.0
+  density_25c_g_ml: null
+  logp: 2.0
+  vp_25c_pa: 1.0
+  vp_source: "est/literature"
+  odt_air_ppb: 20.0
+  odt_eth_ppm: 0.05
+  user_stock_dilution: 0.2
+  user_in_inventory: true
+  character: 'balsamic-cinnamic resin tincture (Liquidambar orientalis)'
+  notes: "material intake batch 2026-08-07"
+- canonical_name: 'Tuberose EO (volume level grade)'
+  aliases: ['tuberose eo']
+  cas: None
+  smiles: null
+  inchikey: null
+  mw_g_mol: 190.0
+  density_25c_g_ml: null
+  logp: 2.5
+  vp_25c_pa: 0.1
+  vp_source: "est/literature"
+  odt_air_ppb: 20.0
+  odt_eth_ppm: 0.05
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  character: 'tuberose green-creamy natural volume grade'
+  notes: "material intake batch 2026-08-07"

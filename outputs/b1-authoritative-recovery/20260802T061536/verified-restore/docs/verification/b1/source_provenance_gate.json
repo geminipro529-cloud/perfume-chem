@@ -1,0 +1,119 @@
+{
+  "schema": "build-b1-source-provenance-gate-v1",
+  "generated_at_utc": "2026-07-30T02:51:44.1538781Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B1",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commit": "448f69cb9cf23e9e59f7960e77b378ae8e09725a",
+  "alembic_head": "20260730_0005",
+  "environment": {
+    "python": "3.11.15",
+    "poetry": "2.4.1",
+    "pty": false,
+    "ansi_disabled": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "source_types": 18,
+    "workflow_states": 10,
+    "canonical_tables": 4,
+    "migrated_high_impact_values": 0,
+    "production_scientific_consumers_connected": 0,
+    "engine_paths_changed_since_b0": 0
+  },
+  "commands": [
+    {
+      "name": "pytest_b1_and_compatibility",
+      "timeout_seconds": 300,
+      "exit_code": 0,
+      "result": "64 passed in 74.10s",
+      "stdout_path": "docs/verification/b1/logs/pytest.stdout.txt",
+      "stdout_sha256": "408DEC0F6BF1C031E171DE712DDA7E1D07A27063B5FC0360518A61D5ABEA3748",
+      "stderr_path": "docs/verification/b1/logs/pytest.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "ruff_b1_and_revision_compatibility",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b1/logs/ruff.stdout.txt",
+      "stdout_sha256": "AF352A86840AD0AF3D37EA0D9197F868363A6DAC6B1C2EF5D2722F6B41D2D9AF",
+      "stderr_path": "docs/verification/b1/logs/ruff.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "mypy_b1_modules",
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "result": "Success: no issues found in 3 source files",
+      "configuration": "--follow-imports=skip with writable cache",
+      "stdout_path": "docs/verification/b1/logs/mypy.stdout.txt",
+      "stdout_sha256": "F6AF9A428EF63A271AA2234DE6CE89A03776A74B2B986ECE71BAE5015648259C",
+      "stderr_path": "docs/verification/b1/logs/mypy.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "mutated_by_b1_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "integrity_check": "ok",
+      "integrity_method": "byte-identical writable copy",
+      "mutated_by_b1_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/app/models/lab_sources.py": "029A401B7CA047C61595F4D8A45641D4544DC84DB6F92604999F9035E7CEE51B",
+    "backend/app/repositories/lab_sources.py": "B7BC4124C46F05D00F765A1ED8A1A98724E8D91D3D39FDFCACE070B9B0E3CB67",
+    "backend/app/services/lab_sources.py": "0F857A822107AF106F326FE8846FBD25DEE8CC31B76CE3EEB43D1BB2436D5C03",
+    "backend/alembic/versions/20260730_0005_b1_source_provenance.py": "81548136138D89FDD3C2DE0040BCB14B5C73319ED79AEAF48789D436003D52B0",
+    "backend/tests/unit/test_b1_source_schema.py": "46E7FFA91D36CB3E9FA3AEA14FE2B9E79C2E9A833E32EB96F2E74CF6701031ED",
+    "backend/tests/unit/test_b1_source_service.py": "A2C986CFC5D6526BEA3989534DF172B9F85934C496D6CB7AB4DAD820C66931C5",
+    "backend/tests/integration/test_b1_source_migration.py": "96857B57F98B24C3712098FF161B242D2EAC7A013384C6213C7A7ED133FD77FE",
+    "backend/tests/integration/test_backup_restore.py": "864A35BDE8FAA5B1CD71080C490F3093A15801CE229E0DFFBE76C4565C92D8D3",
+    "backend/tests/integration/test_lab_migration.py": "54F7ACBBAEC113654C917FFF9747A8CEB3AC496C36CBB6E821AEC22544B4004F"
+  },
+  "exit_gate": {
+    "canonical_source_document_versions_complete": true,
+    "explicit_append_only_workflow_complete": true,
+    "extraction_context_and_hashes_preserved": true,
+    "source_independence_and_derivation_links_complete": true,
+    "staged_parsed_and_ai_values_non_authoritative": true,
+    "synthetic_accepted_derivations_reconstruct_completely": true,
+    "every_migrated_high_impact_value_reconstructs_completely": true,
+    "migration_has_no_backfill": true,
+    "legacy_runtime_consumers_unchanged": true,
+    "backup_restore_tracks_b1_head": true,
+    "canonical_database_state_preserved": true,
+    "staged_paths_outside_b1_report_commit": 0,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "claim_specific_authority": "DEFERRED_TO_B7",
+    "note": "Passing B1 proves provenance mechanics, not scientific truth or release authority."
+  },
+  "known_limitations": [
+    "B1 migrates zero high-impact values; the universal migrated-value gate passes with an empty migrated set while synthetic accepted records prove the reconstruction contract.",
+    "output_observation_id is an immutable reserved identifier until B2 creates the canonical observation model; B1 does not create a placeholder observation table.",
+    "No production scientific consumer uses B1 acceptance yet.",
+    "Mypy used follow-imports=skip because unrelated pre-existing engine/calibration/store.py typing errors are outside B1.",
+    "No new literature assertion was ingested or promoted in B1."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths": 105,
+    "untracked_files": 505,
+    "staged_entries": 0,
+    "recovery_archive": "preserved_from_A0"
+  }
+}

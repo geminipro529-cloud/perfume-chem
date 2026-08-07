@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "engine/ingestion/schemas/external_candidate_v1.json",
+  "title": "ExternalReconstructionCandidateV1",
+  "description": "Canonical interchange for an external reconstruction candidate. Deterministic JSON; XLSX is never the internal interface. Advisory-only; establishes no formula authority, empirical state, or similarity.",
+  "type": "object",
+  "required": [
+    "candidate_id", "target_id", "target_name", "target_version", "concentration",
+    "region_or_jurisdiction", "formula_uid", "parent_formula_uid", "formula_state",
+    "empirical_state", "source_artifact_paths", "source_artifact_hashes",
+    "inventory_snapshot_id", "inventory_snapshot_hash", "formula_rows", "evidence_refs",
+    "provenance"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string"},
+    "target_id": {"type": "string"},
+    "target_name": {"type": "string"},
+    "target_version": {"type": "string"},
+    "concentration": {"type": "string", "description": "declared concentration with basis, e.g. '20% w/w'"},
+    "region_or_jurisdiction": {"type": "string"},
+    "formula_uid": {"type": "string"},
+    "parent_formula_uid": {"type": "string"},
+    "formula_state": {"type": "string", "enum": ["COMPUTATIONAL_RECONSTRUCTION_CANDIDATE", "INVENTORY_MAPPED", "CANDIDATE", "PENDING_PHYSICAL_TEST", "UNKNOWN"]},
+    "empirical_state": {"type": "string", "enum": ["NOT_EMPIRICALLY_VERIFIED", "PENDING", "UNKNOWN"]},
+    "source_artifact_paths": {"type": "array", "items": {"type": "string"}},
+    "source_artifact_hashes": {"type": "array", "items": {"type": "string"}},
+    "inventory_snapshot_id": {"type": "string"},
+    "inventory_snapshot_hash": {"type": "string"},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object"},
+    "formula_rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "row_number", "raw_material_name", "canonical_material_name", "exact_supplied_stock",
+          "parts", "active_fraction_or_PRODUCT_BASIS", "declared_carrier", "perceptual_function",
+          "structural_function", "phase_roles", "evidence_class", "evidence_refs", "dose_rationale",
+          "plausible_alternatives", "inventory_status", "confidence", "uncertainty"
+        ],
+        "properties": {
+          "row_number": {"type": "integer"},
+          "raw_material_name": {"type": "string"},
+          "canonical_material_name": {"type": ["string", "null"]},
+          "exact_supplied_stock": {"type": "string"},
+          "parts": {"type": "number"},
+          "active_fraction_or_PRODUCT_BASIS": {"oneOf": [{"type": "number", "minimum": 0, "maximum": 1}, {"const": "PRODUCT_BASIS"}]},
+          "declared_carrier": {"type": ["string", "null"]},
+          "perceptual_function": {"type": "string"},
+          "structural_function": {"type": "string"},
+          "phase_roles": {"type": "array", "items": {"type": "string"}},
+          "evidence_class": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "dose_rationale": {"type": "string"},
+          "plausible_alternatives": {"type": "array", "items": {"type": "string"}},
+          "inventory_status": {"type": "string"},
+          "confidence": {"type": "number"},
+          "uncertainty": {"type": ["number", "null"]}
+        }
+      }
+    }
+  }
+}

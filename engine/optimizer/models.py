@@ -48,8 +48,8 @@ def _is_generic_label(name: str) -> bool:
     return _core_material_phrase(name) in _GENERIC_LABELS
 
 
-def _material_alias_keys(name: str) -> set[str]:
-    """Generate conservative alias keys for material name normalization."""
+def _material_alias_keys(name: str) -> tuple[str, ...]:
+    """Generate conservative alias keys in explicit resolution priority order."""
     greek_map = str.maketrans({
         "α": "a",
         "β": "b",
@@ -60,35 +60,43 @@ def _material_alias_keys(name: str) -> set[str]:
     low = name.lower().translate(greek_map)
     low = low.replace("**", "")
     low = re.sub(r"\s+", " ", low.strip())
-    variants = {low}
+    variants: list[str] = []
+    seen: set[str] = set()
 
+    def add_variant(value: str) -> None:
+        normalized = value.strip()
+        if not normalized or normalized in seen:
+            return
+        if len(normalized) < 3 and normalized not in _LOOKUP_ALIASES:
+            return
+        seen.add(normalized)
+        variants.append(normalized)
+
+    # Exact normalized spelling is authoritative. Progressively broader aliases
+    # follow in deterministic order; none may outrank the exact key.
+    add_variant(low)
     stripped_parens = re.sub(r"\s*\([^)]*\)\s*$", "", low).strip()
-    if stripped_parens:
-        variants.add(stripped_parens)
+    add_variant(stripped_parens)
 
     if "(" in low and ")" not in low:
-        variants.add(low.split("(", 1)[0].strip())
+        add_variant(low.split("(", 1)[0])
     if "=" in low:
-        variants.add(low.split("=", 1)[0].strip())
+        add_variant(low.split("=", 1)[0])
 
     no_codes = re.sub(r"\bf\d{4}\b", "", low).strip()
-    variants.add(no_codes)
-    variants.add(no_codes.replace(" f-tec", " ftec"))
-    variants.add(no_codes.replace(" ftec", " f-tec"))
-    variants.add(no_codes.replace(" eo", ""))
-    variants.add(no_codes.replace(" essential oil", ""))
-    variants.add(no_codes.replace(" oil ", " "))
-    variants.add(no_codes.replace(" oil", ""))
-    variants.add(no_codes.replace("  ", " ").strip())
+    add_variant(no_codes)
+    add_variant(no_codes.replace(" f-tec", " ftec"))
+    add_variant(no_codes.replace(" ftec", " f-tec"))
+    add_variant(no_codes.replace(" eo", ""))
+    add_variant(no_codes.replace(" essential oil", ""))
+    add_variant(no_codes.replace(" oil ", " "))
+    add_variant(no_codes.replace(" oil", ""))
+    add_variant(no_codes.replace("  ", " "))
     core_phrase = _core_material_phrase(no_codes)
     if core_phrase:
-        variants.add(core_phrase)
+        add_variant(core_phrase)
 
-    return {
-        v.strip()
-        for v in variants
-        if v and (len(v.strip()) >= 3 or v.strip() in _LOOKUP_ALIASES)
-    }
+    return tuple(variants)
 
 
 def _profile_material_dict(profile) -> dict:

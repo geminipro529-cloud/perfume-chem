@@ -1,8 +1,8 @@
-"""Time-window simulation over FormulaState.
+"""Time-window simulation over :class:`FormulaState`.
 
-This module intentionally starts with a conservative evaporation approximation
-and explicit source labels.  It gives release gates a stable time-series API
-now, while leaving room for a stricter finite-film/UNIFAC backend later.
+The temporal path is an explicitly uncalibrated screening model. It integrates
+composition-dependent modeled headspace over bounded time steps, but it does
+not predict measured skin life, blotter life, or absolute evaporation.
 """
 
 from __future__ import annotations
@@ -21,6 +21,11 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("drydown", 14400.0),
 )
 
+TEMPORAL_MODEL = "dynamic_headspace_exponential_loss_v2"
+TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
+REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
+MAX_INTEGRATION_STEP_SECONDS = 300.0
+
 
 @dataclass(frozen=True, slots=True)
 class SimulationFrame:
@@ -29,6 +34,9 @@ class SimulationFrame:
     state: FormulaState
     receptor_activation: dict[str, float] | None = None
     receptor_source: str = "unavailable:material_specific_assay_required"
+    temporal_model: str = TEMPORAL_MODEL
+    temporal_authority: str = TEMPORAL_AUTHORITY
+    remaining_quantity_basis: str = REMAINING_QUANTITY_BASIS
 
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
@@ -59,30 +67,75 @@ class SimulationFrame:
                 else None
             ),
             "receptor_source": self.receptor_source,
+            "temporal_model": self.temporal_model,
+            "temporal_authority": self.temporal_authority,
+            "remaining_quantity_basis": self.remaining_quantity_basis,
         }
 
 
-def _loss_rate_per_s(vp_pa: float | None, gamma_value: float, mw_g_mol: float | None) -> float:
-    """Heuristic finite-film loss rate.
+def _effective_escaping_tendency_pa(material) -> float:
+    """Return the modeled ``gamma * VP`` term represented by a state row.
 
-    The rate scales with headspace escaping tendency (gamma * VP) and inverse
-    square-root molecular weight.  It is only used for gate time windows; the
-    source is reported as a heuristic until a finite-film backend replaces it.
+    Deriving the term from partial pressure and mole fraction lets supported
+    natural mixtures use their constituent-resolved composite headspace rather
+    than falling back to a missing or fictitious parent vapor pressure.
     """
-    if not vp_pa or vp_pa <= 0:
+    if material.partial_pressure_pa > 0.0 and material.mole_fraction > 0.0:
+        return material.partial_pressure_pa / material.mole_fraction
+    if material.vp_pure_pa is None or material.vp_pure_pa <= 0.0:
+        return 0.0
+    return max(0.0, material.gamma * material.vp_pure_pa)
+
+
+def _loss_rate_per_s(
+    escaping_tendency_pa: float,
+    mw_g_mol: float | None,
+) -> float:
+    """Return an uncalibrated relative-loss rate for temporal screening.
+
+    The scale constant and cap preserve the prior model's conservative
+    numerical behavior. They are not fitted kinetic parameters and therefore
+    cannot support an absolute evaporation or longevity claim.
+    """
+    if escaping_tendency_pa <= 0.0:
         return 0.0
     mw = max(mw_g_mol or 200.0, 1.0)
-    return min(2.5e-3, max(0.0, (gamma_value * vp_pa / math.sqrt(mw)) * 2.0e-5))
+    return min(2.5e-3, (escaping_tendency_pa / math.sqrt(mw)) * 2.0e-5)
 
 
-def _remaining_raw_ul(state: FormulaState, t_seconds: float) -> dict[str, float]:
+def _remaining_raw_ul(state: FormulaState, delta_seconds: float) -> dict[str, float]:
     remaining: dict[str, float] = {}
     for m in state.materials:
-        k = _loss_rate_per_s(m.vp_pure_pa, m.gamma, m.mw_g_mol)
-        active_remaining = m.active_ul * math.exp(-k * t_seconds)
+        k = _loss_rate_per_s(
+            _effective_escaping_tendency_pa(m),
+            m.mw_g_mol,
+        )
+        active_remaining = m.active_ul * math.exp(-k * delta_seconds)
         dilution = max(m.dilution, 1e-9)
         remaining[m.name] = active_remaining / dilution
     return remaining
+
+
+def _advance_state(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    max_step_seconds: float = MAX_INTEGRATION_STEP_SECONDS,
+) -> FormulaState:
+    """Integrate the heuristic loss model while recomputing headspace."""
+    if delta_seconds < 0.0:
+        raise ValueError("Temporal windows must be nondecreasing.")
+    if max_step_seconds <= 0.0:
+        raise ValueError("max_step_seconds must be positive.")
+
+    current = state
+    remaining_seconds = float(delta_seconds)
+    while remaining_seconds > 0.0:
+        step = min(max_step_seconds, remaining_seconds)
+        remaining = _remaining_raw_ul(current, step)
+        current = FormulaState.from_base(current, new_raw_ul=remaining)
+        remaining_seconds -= step
+    return current
 
 
 def simulate_formula(
@@ -95,7 +148,12 @@ def simulate_formula(
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS,
     initial_state: FormulaState | None = None,
 ) -> list[SimulationFrame]:
-    """Return time-window FormulaState frames for release gates and reports."""
+    """Return uncalibrated temporal-screening frames.
+
+    Windows must be nonnegative and nondecreasing so each frame evolves from
+    the preceding composition. FormulaState recomputes activity coefficients
+    and natural-composite headspace after every bounded integration step.
+    """
     initial = initial_state or build_formula_state(
         ingredients_ul,
         dilutions,
@@ -104,17 +162,24 @@ def simulate_formula(
         context=context,
     )
     frames: list[SimulationFrame] = []
+    current_state = initial
+    current_seconds = 0.0
     for label, seconds in windows:
-        if seconds <= 0:
-            frame_state = initial
-        else:
-            remaining = _remaining_raw_ul(initial, seconds)
-            frame_state = FormulaState.from_base(initial, new_raw_ul=remaining)
+        target_seconds = float(seconds)
+        if target_seconds < 0.0:
+            raise ValueError("Temporal windows must be nonnegative.")
+        if target_seconds < current_seconds:
+            raise ValueError("Temporal windows must be nondecreasing.")
+        current_state = _advance_state(
+            current_state,
+            target_seconds - current_seconds,
+        )
+        current_seconds = target_seconds
         frames.append(
             SimulationFrame(
                 label=label,
-                t_seconds=float(seconds),
-                state=frame_state,
+                t_seconds=target_seconds,
+                state=current_state,
             )
         )
     return frames

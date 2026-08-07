@@ -50,6 +50,17 @@ def test_oav_intelligence_contract_and_family_mapping():
         "unmapped_materials",
     }
     assert payload["family_target_alignment"]["materials"]
+    hedione = next(
+        row
+        for row in payload["performance_projection"]["materials"]
+        if row["mapped_material"].casefold() == "hedione"
+    )
+    assert "bangkok_shift" not in hedione
+    assert "paris_vp_pa" not in hedione
+    assert "paris_half_life_min" not in hedione
+    assert hedione["formula_temperature_shift"]["vp_ratio"] > 1.0
+    assert hedione["formula_temperature_shift"]["half_life_projection"] is None
+    assert "not rescaled" in hedione["formula_temperature_shift"]["limitation"]
 
 
 def test_oav_intelligence_surfaces_shift_zone_failures():

@@ -111,6 +111,7 @@ _ALIASES: dict[str, str] = {
     "rose absolute (r. damascena)": "rose absolute",
     # ── Geranium ──
     "geranium flower eo": "geranium eo",
+    "geranium eo (pelargonium graveolens flower oil)": "geranium eo",
     "geranium eo": "geranium eo",
     # ── Jasmine ──
     "jasmine sambac": "jasmine sambac absolute",
@@ -131,6 +132,17 @@ _ALIASES: dict[str, str] = {
     # Preserve the old inaccurate label only as an alias for the CO2 extract.
     "cocoa co2 absolute": "cocoa co2 extract",
     "cocoa co2 abs": "cocoa co2 extract",
+    "adoxal 10% in dpg": "adoxal",
+    "champignol 10% in dpg": "champignol",
+    "coriander eo": "coriander essential oil",
+    "coriander seed oil": "coriander essential oil",
+    "2-acetyl pyrazine 1% in dpg": "2-acetyl pyrazine",
+    "safraleine neat": "safraleine",
+    "blackcurrent absolute": "blackcurrant absolute",
+    "blackcurrant absolute 10% in dpg": "blackcurrant absolute",
+    "violet leaf absolute 10% in dpg": "violet leaf absolute",
+    "jasmine absolute 10% in dpg": "jasmine absolute",
+    "coffee absolute grasse 10% in dpg": "coffee absolute grasse",
     "oakmoss absolute (10% in dpg)": "oakmoss absolute",
     "evernyl (50% in dpg)": "evernyl",
     # ── EO Aliases ──
@@ -162,6 +174,14 @@ _ALIASES: dict[str, str] = {
     "basil eo (india, ocimum basilicum)": "basil eo",
     "basil eo (india)": "basil eo",
     "sweet basil eo": "basil eo",
+
+    # intake batch aliases 2026-08-07 (inventory names -> canonical ODT/profile keys)
+    "phenyl ethyl alcohol": "phenethyl alcohol",
+    "sandalwood base 3x": "sandalwood base x3",
+    "padma (phenylacetaldehyde dimethyl acetal)": "padma",
+    "turkish storax liquidambar orientalis resin ethanol tincture": "turkish storax",
+    "vietnamese benzoin styrax tonkinensis resin ethanol tincture": "benzoin styrax tonkinensis tincture",
+    "caraway seed oil": "caraway seed eo",
 }
 
 

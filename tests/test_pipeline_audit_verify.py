@@ -53,3 +53,37 @@ def test_artifact_verify_blocks_stale_or_tampered_bindings(
     assert rc == 1
     assert '"status": "FAIL"' in captured
     assert '"STALE": 1' in captured
+
+
+def test_artifact_verify_accepts_explicit_quarantine_as_nonpromoting(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Quarantined.md"
+    formula.write_text(
+        "# Quarantined\n\n"
+        "**Status:** QUARANTINED — do not mix or release pending repair.\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "QUARANTINED",
+            "artifact_binding_status": "STALE",
+            "issues": ["formula_definition"],
+            "release_authority": False,
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert '"status": "PASS"' in captured
+    assert '"QUARANTINED": 1' in captured
+    assert '"quarantined_release_authority": false' in captured

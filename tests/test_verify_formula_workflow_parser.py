@@ -1,7 +1,13 @@
 
 import pytest
 
-from scripts.verify_formula_workflow import parse_formula_markdown
+from engine.chemical_life_graph import build_chemical_life_graph
+from engine.formula_metadata import _extract_material_names
+from scripts.format_pipeline_analysis import cli_transport_text
+from scripts.verify_formula_workflow import (
+    _format_life_graph_lines,
+    parse_formula_markdown,
+)
 
 
 def test_parse_formula_markdown_handles_neat_inline_dilutions_and_thousands(tmp_path):
@@ -72,6 +78,83 @@ def test_parse_formula_markdown_ignores_architecture_and_section_marker_rows(tmp
     }
     assert formula["dilutions"]["Aldehyde C11"] == 0.01
     assert formula["dilutions"]["Galaxolide"] == 0.8
+
+
+def test_metadata_preflight_extracts_only_dose_bearing_formula_tables(tmp_path):
+    formula_path = tmp_path / "osmanthus_like.md"
+    formula_path.write_text(
+        """# Osmanthus Study
+
+## Formula
+
+| # | Ingredient | Dilution | Amount (uL) | Active ppm w/w |
+|---|---|---:|---:|---:|
+| 1 | Osmanthus Absolute | 10% in DPG | 300 | UNAVAILABLE |
+| 2 | Hedione | neat | 350 | UNAVAILABLE |
+
+## Accord architecture
+
+| Layer | Function |
+|---|---|
+| Osmanthus + Hedione | Transparent apricot-floral heart |
+
+<!-- PIPELINE_ANALYSIS_START -->
+| Material | OAV |
+|---|---:|
+| Fake generated row | 999 |
+""",
+        encoding="utf-8",
+    )
+
+    assert _extract_material_names(str(formula_path)) == [
+        "Osmanthus Absolute",
+        "Hedione",
+    ]
+
+
+def test_chemical_life_graph_does_not_claim_uncalibrated_longevity():
+    graph = build_chemical_life_graph(
+        "truth probe",
+        {
+            "Bergamot EO FCF": 100.0,
+            "Hedione": 300.0,
+            "Iso E Super": 300.0,
+        },
+    )
+
+    assert graph.temporal.longevity_hours is None
+    assert graph.temporal.authority == "HEURISTIC_UNCALIBRATED"
+    assert graph.temporal.release_authority is False
+
+    lines = _format_life_graph_lines(
+        {
+            "temporal": {
+                "longevity_hours": graph.temporal.longevity_hours,
+                "top_dominance_model_minutes": (
+                    graph.temporal.top_dominance_model_minutes
+                ),
+                "base_dominance_model_hours": (
+                    graph.temporal.base_dominance_model_hours
+                ),
+                "linear_score": graph.temporal.linear_score,
+                "authority": graph.temporal.authority,
+            }
+        }
+    )
+    report = "\n".join(lines)
+    assert "Estimated longevity" not in report
+    assert "Absolute longevity: unavailable" in report
+    assert "model window" in report
+
+
+def test_cli_transport_text_preserves_saved_unicode_but_stabilizes_piped_output():
+    source = "Headspace OAV — Raw µL | γ | Bangkok ×2.2 | β-ionone → drydown"
+
+    assert cli_transport_text(source, ascii_only=False) == source
+    assert cli_transport_text(source, ascii_only=True) == (
+        "Headspace OAV -- Raw uL | gamma | Bangkok x2.2 | "
+        "beta-ionone -> drydown"
+    )
 
 
 def test_parse_formula_markdown_converts_percentage_tables_when_total_is_known(tmp_path):

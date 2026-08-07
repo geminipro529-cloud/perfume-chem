@@ -3,6 +3,7 @@ from engine.science_audit import (
     _gather_data_coverage,
     build_inventory_oav_coverage_audit,
     build_material_consistency_audit,
+    build_science_audit_contract,
 )
 
 
@@ -17,6 +18,20 @@ def test_science_audit_uses_loader_backed_completeness():
     supplier_covered = sum(1 for material in materials if material.completeness()["supplier"])
     supplier_pct = 100.0 * supplier_covered / len(materials)
     assert supplier_pct > 75.0
+
+
+def test_science_audit_reports_unifac_readiness_without_claiming_activation():
+    activity = build_science_audit_contract()["activity_model"]
+
+    assert activity["selected_model"] == (
+        "hansen_distance_regular_solution_heuristic"
+    )
+    assert activity["selected_model_authority"] == "HEURISTIC_UNCALIBRATED"
+    assert activity["unifac_implemented"] is False
+    assert activity["unifac_active"] is False
+    assert activity["unifac_ready"] is False
+    assert activity["release_authority"] is False
+    assert activity["unifac_blockers"]
 
 
 def test_material_consistency_audit_distinguishes_reconciled_and_unresolved_truth():
@@ -72,7 +87,10 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
         "material_count"
     ]
     assert audit["oav_coverage_pct"] > 85.0
-    assert "Jasmine FO" in categories[
+    assert "Leather FO" in categories[
+        "opaque_preblends_without_disclosed_composition"
+    ]
+    assert "Jasmine FO" not in categories[
         "opaque_preblends_without_disclosed_composition"
     ]
     assert "Cade Oil Rectified" in categories[

@@ -41,6 +41,20 @@ from engine.orchestration.methodology import (  # noqa: F401
     evaluate_pyramid_balance,
     get_pyramid_blueprint,
 )
+from engine.orchestration.pipeline import (  # noqa: F401
+    AtelierConfig,
+    AtelierResult,
+    run_pipeline,
+    run_stub_pipeline,
+    stage3_family,
+    stage4_pyramid,
+    stage5_select_materials,
+    stage5b_novelty,
+    stage6_iec_fast_pass,
+    Stage5Materials,
+    Stage5Novelty,
+    Stage6IecResult,
+)
 
 __all__ = [
     "BRIEF_TRANSLATIONS",
@@ -55,5 +69,17 @@ __all__ = [
     "get_pyramid_blueprint",
     "iec_optimize",
     "roudnitska_test",
+    "AtelierConfig",
+    "AtelierResult",
+    "Stage5Materials",
+    "Stage5Novelty",
+    "Stage6IecResult",
+    "run_pipeline",
+    "run_stub_pipeline",
+    "stage3_family",
+    "stage4_pyramid",
+    "stage5_select_materials",
+    "stage5b_novelty",
+    "stage6_iec_fast_pass",
     "translate_brief",
 ]

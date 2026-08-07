@@ -1,6 +1,6 @@
 {
   "$schema": "https://oh-my-openagent.ai/config.json",
-  "disabled_providers": ["anthropic", "google", "github-copilot", "venice", "vercel", "openai", "codex-chatgpt", "opencode", "opencode-go", "openrouter"],
+  "disabled_providers": ["anthropic", "google", "github-copilot", "venice", "vercel", "openai", "codex-chatgpt", "deepinfra"],
   "disabled_mcps": ["codegraph"],
   "disabled_hooks": ["webfetch-redirect-guard", "claude-code-hooks", "auto-update-checker", "legacy-plugin-toast", "fsync-skip-warning", "bash-file-read-guard", "question-label-truncator"],
   "model_fallback": true,
@@ -16,7 +16,7 @@
     "staleTimeoutMs": 600000,
     "messageStalenessTimeoutMs": 120000,
     "taskTtlMs": 900000,
-    "providerConcurrency": { "deepseek": 2, "openai": 0, "deepinfra": 12 },
+    "providerConcurrency": { "deepseek": 5, "openai": 0, "deepinfra": 0 },
     "circuitBreaker": { "enabled": true, "maxToolCalls": 120, "consecutiveThreshold": 6 }
   },
   "monitor": {
@@ -35,70 +35,110 @@
     "plugin_load_timeout_ms": 15000
   },
 "categories": {
-    "reader": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 8000, "thinking": { "type": "enabled", "budgetTokens": 4000 } },
-    "driver": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "engineer": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
-    "ultrabrain": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
-    "deep": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "quick": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 4000, "thinking": { "type": "disabled" } },
-    "artistry": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "unspecified-low": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 4000, "thinking": { "type": "disabled" } },
-    "unspecified-high": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
-    "visual-engineering": { "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 8000, "thinking": { "type": "disabled" } },
-    "writing": { "model": "deepinfra/zai-org/GLM-5.2", "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"], "maxTokens": 12000, "thinking": { "type": "enabled", "budgetTokens": 4000 } }
+    "reader": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 8000, "thinking": { "type": "enabled", "budgetTokens": 4000 } },
+    "driver": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "engineer": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
+    "ultrabrain": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 24000, "thinking": { "type": "enabled", "budgetTokens": 12000 } },
+    "deep": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "quick": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "artistry": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "unspecified-low": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 4000, "thinking": { "type": "disabled" } },
+    "unspecified-high": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 16000, "thinking": { "type": "enabled", "budgetTokens": 8000 } },
+    "visual-engineering": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 8000, "thinking": { "type": "disabled" } },
+    "writing": { "model": "deepseek/deepseek-chat", "fallback_models": [], "maxTokens": 12000, "thinking": { "type": "enabled", "budgetTokens": 4000 } }
   },
   "agents": {
     "sisyphus": {
-      "model": "deepinfra/zai-org/GLM-5.2",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "prometheus": {
-      "model": "deepinfra/zai-org/GLM-5.2",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "sisyphus-junior": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "oracle": {
-      "model": "deepinfra/zai-org/GLM-5.2",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "metis": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "momus": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "librarian": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "explore": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "multimodal-looker": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "atlas": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "build": {
-      "model": "deepseek/deepseek-v4-pro",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "plan": {
-      "model": "deepseek/deepseek-v4-pro",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     },
     "OpenCode-Builder": {
-      "model": "deepinfra/deepseek-ai/DeepSeek-V4-Flash",
-      "fallback_models": ["deepinfra/deepseek-ai/DeepSeek-V4-Pro"]
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-deepseek-reader": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-deepseek-driver": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-deepseek-debugger": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-citrus-top": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-floral-heart": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-woody-base": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-musk-fixative": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-spice-aromatic": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-formula-reviewer": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
+    },
+    "agent-inventory-scout": {
+      "model": "deepseek/deepseek-chat",
+      "fallback_models": []
     }
   }
 }

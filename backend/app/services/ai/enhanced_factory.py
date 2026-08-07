@@ -29,6 +29,7 @@ from app.core.models_config import (
 from app.services.ai.base import BaseAIService
 from app.services.ai.baseten_service import BasetenService
 from app.services.ai.cerebras_service import CerebrasService
+from app.services.ai.deepseek_service import DeepSeekService
 from app.services.ai.huggingface_service import HuggingFaceService
 from app.services.ai.ollama_service import OllamaService
 from app.services.ai.openai_service import OpenAIService
@@ -69,6 +70,10 @@ class ScientificAIModelDetector:
         r'^curie-',
         r'^babbage-',
         r'^ada-',
+    ]
+    DEEPSEEK_PATTERNS = [
+        r'^deepseek-',
+        r'^deepseek/deepseek-',
     ]
 
     HUGGINGFACE_PATTERNS = [
@@ -123,6 +128,12 @@ class ScientificAIModelDetector:
                 logger.debug(f"Detected OpenAI model: {model_name}")
                 return "openai"
 
+        # Check DeepSeek patterns
+        for pattern in cls.DEEPSEEK_PATTERNS:
+            if re.search(pattern, model_lower):
+                logger.debug(f"Detected DeepSeek model: {model_name}")
+                return "deepseek"
+
         # Check Hugging Face patterns
         for pattern in cls.HUGGINGFACE_PATTERNS:
             if re.search(pattern, model_lower):
@@ -135,9 +146,7 @@ class ScientificAIModelDetector:
                 logger.debug(f"Detected Ollama model: {model_name}")
                 return "ollama"
 
-        # Default to Cerebras (most permissive/free)
-        logger.warning(f"Unknown model '{model_name}', defaulting to Cerebras")
-        return "cerebras"
+        raise ValueError(f"Unknown scientific AI model provider for '{model_name}'")
 
     @classmethod
     def validate_scientific_query(cls, model_id: str, query: str) -> Dict[str, Any]:
@@ -286,6 +295,11 @@ def create_scientific_ai_service(
 
         return service
 
+    elif provider == "deepseek":
+        service_model = model or settings.DEEPSEEK_MODEL
+        logger.info(f"Creating DeepSeek service with model: {service_model}")
+        return DeepSeekService(cache=cache)
+
     elif provider == "huggingface":
         service_model = model or settings.HF_MODEL
         logger.info(f"Creating Hugging Face service with model: {service_model}")
@@ -323,10 +337,7 @@ def create_scientific_ai_service(
         return service
 
     else:
-        logger.warning(
-            f"Unknown provider '{provider}', defaulting to Cerebras"
-        )
-        return CerebrasService(cache=cache, verbose=verbose)
+        raise ValueError(f"Unknown scientific AI provider: '{provider}'")
 
 
 def get_scientific_model_selector() -> Dict[str, Any]:

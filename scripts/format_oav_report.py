@@ -16,16 +16,17 @@ ts = f["time_series"]
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
-# ── Scores ──
+# ── Diagnostic indices ──
 scores = f.get("scores", {})
 if scores:
-    print(f"\n{BOLD}{'SCORES':─^50}{RESET}")
+    print(f"\n{BOLD}{'HEURISTIC DIAGNOSTIC INDICES':─^50}{RESET}")
     print(
         f"  Total: {scores.get('total', '?'):.1f}  |  Hedonic: {scores.get('hedonic', '?'):.1f}  |  Luxury: {scores.get('luxury', '?'):.1f}"
     )
     print(
-        f"  Sillage: {scores.get('sillage', '?'):.1f}  |  Longevity: {scores.get('longevity', '?'):.1f}"
+        f"  Sillage index: {scores.get('sillage', '?'):.1f}  |  Longevity index: {scores.get('longevity', '?'):.1f}"
     )
+    print("  Authority: uncalibrated; not measured sillage or skin life")
     print()
 
 # ── Pyramid ──

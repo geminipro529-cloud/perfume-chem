@@ -30,6 +30,12 @@ Format: (constituent name, weight fraction, MW, VP at 25C Pa, ODT air ppb, gamma
 from dataclasses import asdict, dataclass
 
 from engine.name_utils import normalize_name
+from engine.thermo.antoine import (
+    DEFAULT_DHVAP_ESTIMATE_KJ_MOL,
+    VP25_DHVAP_CORRELATION_SOURCE,
+    estimate_dhvap_from_vp_25c,
+    vp_pa,
+)
 
 # ── Flower Absolutes ────────────────────────────────────────────────
 
@@ -630,6 +636,29 @@ _BLACKCURRANT_ABSOLUTE_CONSTITUENTS = [
     ("palmitic acid", 0.10, 256.42, 0.0, 1e6, 0.5),
 ]
 
+_COFFEE_ABSOLUTE_GRASSE_CONSTITUENTS = [
+    # Quantified volatile subset from supercritical-CO2 coffee oil, expressed
+    # as measured mg/kg divided by 1e6. This deliberately remains a partial
+    # extraction-profile proxy, not a supplier-batch assay of the Grasse
+    # absolute. Constituents lacking compatible air-ODT model inputs are
+    # omitted rather than assigned water-threshold values.
+    ("furfuryl alcohol", 0.00236302, 98.10, 0.30, 1.0, 0.7),
+    ("5-methylfurfural", 0.00021703, 110.11, 15.0, 0.1, 1.2),
+    ("furfuryl acetate", 0.00016063, 140.14, 0.50, 0.1, 1.0),
+    ("furfural", 0.00007546, 96.08, 100.0, 1.0, 1.5),
+]
+
+_CORIANDER_EO_CONSTITUENTS = [
+    # Representative GC-MS fingerprint for coriander seed essential oil.
+    # The four compatible constituents below account for 79.75% of the
+    # measured oil; p-cymene is omitted because this module lacks a compatible
+    # evidence-bound air ODT input for it.
+    ("linalool", 0.5757, 154.25, 21.3, 1.5, 2.0),
+    ("geranyl acetate", 0.1590, 196.29, 5.0, 10.0, 2.0),
+    ("beta-caryophyllene", 0.0326, 204.35, 1.5, 10.0, 1.2),
+    ("camphor", 0.0302, 152.23, 25.0, 20.0, 2.0),
+]
+
 # ── Wave 2: EO Literature-Verified Constituents ──────────────────────────
 
 _LAVENDER_EO_CONSTITUENTS = [
@@ -784,6 +813,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "tonka bean absolute": _TONKA_BEAN_ABSOLUTE_CONSTITUENTS,
     "vanilla absolute": _VANILLA_ABSOLUTE_CONSTITUENTS,
     "blackcurrant absolute": _BLACKCURRANT_ABSOLUTE_CONSTITUENTS,
+    "roasted coffee oil literature profile": _COFFEE_ABSOLUTE_GRASSE_CONSTITUENTS,
     "olibanum resinoid": _OLIBANUM_RESINOID_CONSTITUENTS,
     "olibanum resinoid (viscous)": _OLIBANUM_RESINOID_CONSTITUENTS,
     "olibanum resinoid (viscous, 3 g)": _OLIBANUM_RESINOID_CONSTITUENTS,
@@ -811,6 +841,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "blue chamomile eo": _BLUE_CHAMOMILE_EO_CONSTITUENTS,
     "tobacco absolute": _TOBACCO_ABSOLUTE_CONSTITUENTS,
     "carrot seed eo": _CARROT_SEED_EO_CONSTITUENTS,
+    "coriander essential oil": _CORIANDER_EO_CONSTITUENTS,
     # Literature-only proxy identities (not supplier-batch identities).
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
@@ -832,8 +863,10 @@ _PROFILE_ALIASES = {
     "benzoin sumatra resinoid": "benzoin resinoid",
     "lavender eo high altitude": "lavender eo",
     "jasmine absolute": "jasmine sambac",
+    "geranium eo (pelargonium graveolens flower oil)": "geranium eo",
     "galbanum resinoid": "galbanum eo",
     "tonka bean absolute": "tonka bean solvent extract literature profile",
+    "coffee absolute grasse": "roasted coffee oil literature profile",
 }
 
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
@@ -842,6 +875,10 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     ),
     "tonka bean absolute": (
         "Composition source is a published solvent-extract range, not a supplier-batch assay of the in-stock absolute.",
+    ),
+    "coffee absolute grasse": (
+        "Composition source is a quantified supercritical-CO2 coffee-oil volatile subset, not the supplier-batch Grasse absolute.",
+        "Only constituents with compatible air-ODT model inputs are included.",
     ),
 }
 
@@ -860,6 +897,12 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "tonka bean solvent extract literature profile": (
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC12840717/",
     ),
+    "roasted coffee oil literature profile": (
+        "https://doi.org/10.3390/foods12132515",
+    ),
+    "coriander essential oil": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",
+    ),
 }
 
 
@@ -872,6 +915,26 @@ class NaturalCompositeMetadata:
     batch_specific: bool
     sources: tuple[str, ...]
     limitations: tuple[str, ...]
+
+    def as_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class NaturalCompositeHeadspace:
+    """Constituent-resolved headspace authority for one natural mixture."""
+
+    oav: float
+    vapor_ppm: float
+    partial_pressure_pa: float
+    constituent_count: int
+    temperature_K: float  # noqa: N815
+    temperature_model: str = (
+        "heuristic:clausius_clapeyron_vp25_dhvap_correlation"
+    )
+    dhvap_model: str = (
+        f"literature_correlation:{VP25_DHVAP_CORRELATION_SOURCE}"
+    )
 
     def as_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -894,9 +957,9 @@ def _build_normalized_profile_index() -> dict[str, str]:
 _NORMALIZED_PROFILE_INDEX = _build_normalized_profile_index()
 
 
-# Character-impact bonus multipliers per Belhassen 2014 / Adams 2014 / Pandey 2024 / Hong 2023 / Guo 2024.
-# Low-ODT character-impact compounds get multiplier vs their raw weight-percent fraction.
-# Applied in composite_oav() to correct for odor potency not captured by % composition.
+# Qualitative character-impact multipliers retained for future accord/salience
+# analysis. They MUST NOT be applied to quantitative OAV: the constituent ODT
+# already captures odor potency, so multiplying OAV again would double-count it.
 _CHARACTER_IMPACT_BONUS: dict[str, dict[str, float]] = {
     "vetiver eo (india)": {"khusimone": 20, "alpha-vetivone": 5, "beta-vetivone": 5},
     "osmanthus absolute": {"beta-ionone": 5},
@@ -919,7 +982,7 @@ _CHARACTER_IMPACT_BONUS: dict[str, dict[str, float]] = {
 
 
 def _character_bonus(material_name: str, constituent_name: str) -> float:
-    """Return the character-impact multiplier for a constituent, or 1.0."""
+    """Return a qualitative character-impact multiplier, never an OAV factor."""
     canonical = str(material_name or "").strip().casefold()
     bonus_map = _CHARACTER_IMPACT_BONUS.get(canonical, {})
     const_lower = constituent_name.lower()
@@ -944,12 +1007,12 @@ def audit_constituent_completeness() -> dict[str, dict]:
 
 def _resolve_profile_key(material_name: str) -> tuple[str | None, str]:
     raw_key = str(material_name or "").strip().casefold()
-    if raw_key in _ABSOLUTE_CONSTITUENTS:
-        return raw_key, "direct_identity"
     normalized = normalize_name(material_name)
     alias_target = _PROFILE_ALIASES.get(normalized)
     if alias_target is not None and alias_target in _ABSOLUTE_CONSTITUENTS:
         return alias_target, "literature_proxy"
+    if raw_key in _ABSOLUTE_CONSTITUENTS:
+        return raw_key, "direct_identity"
     direct = _NORMALIZED_PROFILE_INDEX.get(normalized)
     if direct is not None:
         return direct, "normalized_identity"
@@ -985,10 +1048,183 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
         sources=_PROFILE_SOURCES.get(key, ("repository:legacy_literature_profile",)),
         limitations=(
             "Not a supplier-batch GC-MS or GC-O certificate.",
-            "Uncharacterized fractions are omitted, not normalized.",
-            "Constituent VP, ODT, and activity coefficients remain modeled inputs.",
+            "Uncharacterized mass uses the characterized profile's harmonic-mean "
+            "molecular weight as an inert residual proxy.",
+            "Constituent ODT and activity coefficients remain modeled inputs.",
+            "Constituent VP is temperature-corrected from 25 C with a "
+            "VP-derived ambient-temperature enthalpy correlation when measured "
+            "data are unavailable; this is not batch-specific thermodynamic data.",
         )
         + proxy_limitations,
+    )
+
+
+def composite_replacement_moles(
+    material_name: str,
+    active_g: float,
+    parent_moles: float,
+) -> float | None:
+    """Return residual-parent plus resolved-constituent moles for a natural.
+
+    The characterized mass is represented by explicit constituent moles. The
+    uncharacterized mass uses the characterized profile's harmonic-mean MW as
+    an inert residual proxy, avoiding an arbitrary bulk-natural molecular MW.
+    """
+    constituents = get_constituents(material_name)
+    if constituents is None:
+        return None
+
+    _ = parent_moles  # retained for API compatibility and caller bookkeeping
+    characterized_fraction = min(
+        1.0,
+        max(0.0, sum(float(row[1]) for row in constituents)),
+    )
+    resolved_moles_per_g = sum(
+        max(0.0, float(fraction)) / float(mw)
+        for _name, fraction, mw, _vp, _odt, _gamma in constituents
+        if float(mw) > 0
+    )
+    resolved_constituent_moles = max(0.0, float(active_g)) * resolved_moles_per_g
+    effective_profile_mw = (
+        characterized_fraction / resolved_moles_per_g
+        if characterized_fraction > 0 and resolved_moles_per_g > 0
+        else None
+    )
+    residual_parent_moles = (
+        max(0.0, float(active_g))
+        * (1.0 - characterized_fraction)
+        / effective_profile_mw
+        if effective_profile_mw is not None
+        else 0.0
+    )
+    return residual_parent_moles + resolved_constituent_moles
+
+
+def composite_headspace(
+    material_name: str,
+    active_g: float,
+    total_moles_in_formula: float,
+    gamma_estimate: float = 0.6,
+    *,
+    parent_moles: float | None = None,
+    temperature_K: float = 298.15,  # noqa: N803
+    dhvap_estimate_kj_mol: float | None = None,
+) -> NaturalCompositeHeadspace | None:
+    """Compute constituent-resolved vapor and OAV for a natural mixture.
+
+    Decomposes the mixture into its known GC-O constituents and sums
+    partial pressure, vapor concentration, and individual OAV contributions
+    computed via modified Raoult's law.
+
+    Args:
+        material_name: canonical name (e.g. "osmanthus absolute")
+        active_g: active mass in grams in the formula
+        total_moles_in_formula: sum of moles of all formula materials, including
+            the natural's parent pseudo-component
+        gamma_estimate: default activity coefficient if a constituent has none
+        parent_moles: moles assigned to the unresolved parent natural. When
+            supplied, the characterized fraction is replaced by constituent
+            moles instead of being double-represented in the denominator.
+        temperature_K: formula-state temperature
+        dhvap_estimate_kj_mol: optional caller-supplied shared
+            Clausius-Clapeyron enthalpy. When omitted, each constituent uses
+            the published ambient-temperature VP25 correlation.
+
+    Returns:
+        NaturalCompositeHeadspace, or None if material not known.
+    """
+    constituents = get_constituents(material_name)
+    if constituents is None:
+        return None
+
+    P_ATM = 101_325.0  # Pa  # noqa: N806
+    total_oav = 0.0
+    total_vapor_ppm = 0.0
+    total_partial_pressure_pa = 0.0
+    constituent_rows: list[tuple[str, float, float, float, float, float | None]] = []
+    resolved_constituent_moles = 0.0
+    used_shared_fallback = False
+
+    for name, fraction, mw, vp_25c_pa, odt_ppb, constituent_gamma in constituents:
+        constituent_mass_g = active_g * fraction
+        moles = constituent_mass_g / mw if constituent_mass_g > 0 else 0.0
+        resolved_constituent_moles += moles
+        constituent_rows.append(
+            (name, moles, vp_25c_pa, odt_ppb, fraction, constituent_gamma)
+        )
+
+    effective_total_moles = float(total_moles_in_formula)
+    if parent_moles is not None:
+        replacement_moles = composite_replacement_moles(
+            material_name,
+            active_g,
+            parent_moles,
+        )
+        if replacement_moles is not None:
+            effective_total_moles += replacement_moles - max(
+                0.0,
+                float(parent_moles),
+            )
+
+    if effective_total_moles <= 0:
+        return None
+
+    contributing_constituents = 0
+    for _name, moles, vp_25c_pa, odt_ppb, _fraction, constituent_gamma in constituent_rows:
+        if moles <= 0:
+            continue
+        contributing_constituents += 1
+        x_i = moles / effective_total_moles
+        gamma_value = (
+            float(constituent_gamma)
+            if constituent_gamma is not None
+            else float(gamma_estimate)
+        )
+        effective_dhvap = dhvap_estimate_kj_mol
+        if effective_dhvap is None:
+            try:
+                effective_dhvap = estimate_dhvap_from_vp_25c(float(vp_25c_pa))
+            except ValueError:
+                effective_dhvap = DEFAULT_DHVAP_ESTIMATE_KJ_MOL
+                used_shared_fallback = True
+        constituent_vp_pa = vp_pa(
+            float(temperature_K),
+            vp_25c_pa=float(vp_25c_pa),
+            dhvap_kj_mol=float(effective_dhvap),
+        )
+        partial_pressure = gamma_value * x_i * constituent_vp_pa
+        vapor_ppm = 1e6 * partial_pressure / P_ATM
+        odt_ppm = odt_ppb / 1000.0
+        oav_contribution = vapor_ppm / odt_ppm if odt_ppm > 0 else 0.0
+        total_partial_pressure_pa += partial_pressure
+        total_vapor_ppm += vapor_ppm
+        total_oav += oav_contribution
+
+    if dhvap_estimate_kj_mol is not None:
+        temperature_model = "caller_supplied:clausius_clapeyron_shared_dhvap"
+        dhvap_model = f"caller_supplied:shared_{float(dhvap_estimate_kj_mol):g}_kj_mol"
+    elif used_shared_fallback:
+        temperature_model = "heuristic:clausius_clapeyron_mixed_dhvap_fallback"
+        dhvap_model = (
+            f"literature_correlation:{VP25_DHVAP_CORRELATION_SOURCE};"
+            f"fallback={DEFAULT_DHVAP_ESTIMATE_KJ_MOL:g}_kj_mol"
+        )
+    else:
+        temperature_model = (
+            "heuristic:clausius_clapeyron_vp25_dhvap_correlation"
+        )
+        dhvap_model = (
+            f"literature_correlation:{VP25_DHVAP_CORRELATION_SOURCE}"
+        )
+
+    return NaturalCompositeHeadspace(
+        oav=total_oav,
+        vapor_ppm=total_vapor_ppm,
+        partial_pressure_pa=total_partial_pressure_pa,
+        constituent_count=contributing_constituents,
+        temperature_K=float(temperature_K),
+        temperature_model=temperature_model,
+        dhvap_model=dhvap_model,
     )
 
 
@@ -997,41 +1233,21 @@ def composite_oav(
     active_g: float,
     total_moles_in_formula: float,
     gamma_estimate: float = 0.6,
+    *,
+    parent_moles: float | None = None,
+    temperature_K: float = 298.15,  # noqa: N803
+    dhvap_estimate_kj_mol: float | None = None,
 ) -> float | None:
-    """Compute the composite OAV for a natural mixture.
-
-    Decomposes the mixture into its known GC-O constituents and sums
-    the individual OAVs computed via modified Raoult's law.
-
-    Args:
-        material_name: canonical name (e.g. "osmanthus absolute")
-        active_g: active mass in grams in the formula
-        total_moles_in_formula: sum of moles of all formula materials
-        gamma_estimate: default activity coefficient if none specified
-
-    Returns:
-        Composite OAV as float, or None if material not known.
-    """
-    constituents = get_constituents(material_name)
-    if constituents is None:
+    """Backward-compatible OAV-only view of constituent headspace."""
+    result = composite_headspace(
+        material_name,
+        active_g,
+        total_moles_in_formula,
+        gamma_estimate,
+        parent_moles=parent_moles,
+        temperature_K=temperature_K,
+        dhvap_estimate_kj_mol=dhvap_estimate_kj_mol,
+    )
+    if result is None or result.oav <= 0:
         return None
-
-    P_ATM = 101_325.0  # Pa  # noqa: N806
-    total_oav = 0.0
-
-    for _name, fraction, mw, vp_Pa, odt_ppb, gamma in constituents:  # noqa: N806
-        constituent_mass_g = active_g * fraction
-        if constituent_mass_g <= 0:
-            continue
-        moles = constituent_mass_g / mw
-        x_i = moles / total_moles_in_formula if total_moles_in_formula > 0 else 0.0
-        partial_pressure = gamma * x_i * vp_Pa
-        vapor_ppm = 1e6 * partial_pressure / P_ATM
-        oav_contribution = vapor_ppm / odt_ppb if odt_ppb > 0 else 0.0
-        bonus = _character_bonus(material_name, _name)
-        total_oav += oav_contribution * bonus
-        odt_ppm = odt_ppb / 1000.0
-        if odt_ppm > 0:
-            total_oav += vapor_ppm / odt_ppm
-
-    return total_oav if total_oav > 0 else None
+    return result.oav

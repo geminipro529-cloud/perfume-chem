@@ -1351,8 +1351,24 @@ def _format_life_graph_lines(life_graph: dict) -> list[str]:
     temporal = life_graph.get("temporal") or {}
     if temporal:
         lines.append("#### Temporal Evolution")
-        lines.append(f"- Top dominance: ~{temporal.get('top_dominance_minutes', 0):.0f} min")
-        lines.append(f"- Estimated longevity: ~{temporal.get('longevity_hours', 0):.0f} hr")
+        lines.append(
+            "- Top-dominance model window: "
+            f"~{temporal.get('top_dominance_model_minutes', 0):.0f} model-min"
+        )
+        base_window = temporal.get("base_dominance_model_hours")
+        if base_window is None:
+            lines.append("- Base-dominance model window: not reached")
+        else:
+            lines.append(
+                f"- Base-dominance model window: ~{base_window:.0f} model-hr"
+            )
+        lines.append(
+            "- Absolute longevity: unavailable; calibrated skin or blotter "
+            "measurements required"
+        )
+        lines.append(
+            f"- Temporal authority: {temporal.get('authority', 'UNKNOWN')}"
+        )
         lines.append(f"- Linearity: {temporal.get('linear_score', 0):.0%}")
         lines.append("- Detailed curve file: temporal_graph.md")
         lines.append("")

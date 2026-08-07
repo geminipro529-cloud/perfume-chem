@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from math import ceil, isfinite
 from typing import Mapping
 
 from engine.safety_assessment import SafetyAssessmentStatus
 from engine.scientific_contract import EvidenceDescriptor, ScientificClass
+
+VERSIONED_FINISHED_PRODUCT_SAFETY = "versioned_finished_product_assessment"
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,6 +74,10 @@ class CandidateAddition:
     desired_effects: Mapping[str, float]
     preserved_character_tags: frozenset[str]
     safety_status: SafetyAssessmentStatus
+    safety_authority: str = "caller_declared"
+    safety_evidence: EvidenceDescriptor | None = None
+    safety_formula_state_sha256: str = ""
+    safety_assessed_active_ppm_w_w: float | None = None
 
     def __post_init__(self) -> None:
         ppm = float(self.requested_active_ppm_w_w)
@@ -94,6 +101,27 @@ class CandidateAddition:
             frozenset(_tag(value) for value in self.preserved_character_tags),
         )
         object.__setattr__(self, "safety_status", SafetyAssessmentStatus(self.safety_status))
+        object.__setattr__(
+            self,
+            "safety_authority",
+            _key(self.safety_authority),
+        )
+        object.__setattr__(
+            self,
+            "safety_formula_state_sha256",
+            self.safety_formula_state_sha256.strip().casefold(),
+        )
+        if self.safety_assessed_active_ppm_w_w is not None:
+            assessed_ppm = float(self.safety_assessed_active_ppm_w_w)
+            if not isfinite(assessed_ppm) or assessed_ppm < 0:
+                raise ValueError(
+                    "safety assessed active ppm must be finite and nonnegative"
+                )
+            object.__setattr__(
+                self,
+                "safety_assessed_active_ppm_w_w",
+                assessed_ppm,
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -102,6 +130,7 @@ class InterventionRequest:
     brief: BriefConstraints
     inventory: Mapping[str, InventoryStock]
     candidates: tuple[CandidateAddition, ...]
+    formula_state_sha256: str = ""
 
     def __post_init__(self) -> None:
         batch_mass = float(self.batch_mass_g)
@@ -109,6 +138,11 @@ class InterventionRequest:
             raise ValueError("batch mass must be finite and greater than zero")
         object.__setattr__(self, "batch_mass_g", batch_mass)
         object.__setattr__(self, "candidates", tuple(self.candidates))
+        object.__setattr__(
+            self,
+            "formula_state_sha256",
+            self.formula_state_sha256.strip().casefold(),
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -118,6 +152,9 @@ class RankedIntervention:
     achieved_active_ppm_w_w: float
     predicted_oav_delta: float
     desired_effects: Mapping[str, float]
+    safety_authority: str
+    safety_formula_state_sha256: str
+    safety_assessed_active_ppm_w_w: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -155,6 +192,28 @@ def rank_interventions(request: InterventionRequest) -> InterventionResult:
             )
         if candidate.safety_status is not SafetyAssessmentStatus.PASS:
             reasons.append("safety status is not pass")
+        else:
+            if candidate.safety_authority != VERSIONED_FINISHED_PRODUCT_SAFETY:
+                reasons.append(
+                    "safety pass is caller-declared, not a versioned "
+                    "finished-product assessment"
+                )
+            if (
+                candidate.safety_evidence is None
+                or candidate.safety_evidence.classification
+                is ScientificClass.UNKNOWN
+                or not candidate.safety_evidence.sources
+            ):
+                reasons.append("versioned safety evidence is missing or unknown")
+            request_hash = request.formula_state_sha256
+            candidate_hash = candidate.safety_formula_state_sha256
+            if (
+                re.fullmatch(r"[0-9a-f]{64}", request_hash) is None
+                or candidate_hash != request_hash
+            ):
+                reasons.append(
+                    "safety assessment is not bound to this formula state"
+                )
 
         stock = inventory.get(key)
         stock_mass_mg = 0.0
@@ -181,6 +240,17 @@ def rank_interventions(request: InterventionRequest) -> InterventionResult:
             achieved_ppm = achieved_active_mg / (request.batch_mass_g * 1000.0) * 1_000_000.0
             if achieved_ppm > request.brief.maximum_active_addition_ppm_w_w:
                 reasons.append("exceeds brief maximum active addition")
+            assessed_ppm = candidate.safety_assessed_active_ppm_w_w
+            if (
+                candidate.safety_status is SafetyAssessmentStatus.PASS
+                and (
+                    assessed_ppm is None
+                    or float(assessed_ppm) + 1e-12 < achieved_ppm
+                )
+            ):
+                reasons.append(
+                    "safety assessment does not cover the achieved active dose"
+                )
 
         if reasons:
             rejected.append(RejectedIntervention(candidate.material, tuple(reasons)))
@@ -192,6 +262,12 @@ def rank_interventions(request: InterventionRequest) -> InterventionResult:
                 achieved_active_ppm_w_w=round(achieved_ppm, 12),
                 predicted_oav_delta=candidate.predicted_oav_delta,
                 desired_effects=candidate.desired_effects,
+                safety_authority=candidate.safety_authority,
+                safety_formula_state_sha256=candidate.safety_formula_state_sha256,
+                safety_assessed_active_ppm_w_w=round(
+                    float(candidate.safety_assessed_active_ppm_w_w or 0.0),
+                    12,
+                ),
             )
         )
 
@@ -230,6 +306,8 @@ def rank_interventions(request: InterventionRequest) -> InterventionResult:
             limitations=(
                 "Predicted OAV delta is a screening ratio, not a measured sensory effect.",
                 "Brief preservation depends on declared character tags and requires smelling trials.",
+                "A safety-ranked candidate still requires an applicable product assessment; "
+                "this result is not an IFRA certificate or permission for skin use.",
             ),
         ),
     )
@@ -268,5 +346,6 @@ __all__ = [
     "InventoryStock",
     "RankedIntervention",
     "RejectedIntervention",
+    "VERSIONED_FINISHED_PRODUCT_SAFETY",
     "rank_interventions",
 ]

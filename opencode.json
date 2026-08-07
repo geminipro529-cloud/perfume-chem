@@ -1,302 +1,589 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "model": "deepseek/deepseek-v4-pro",
-  "small_model": "deepseek/deepseek-v4-flash",
-  "enabled_providers": [
-    "deepseek",
-    "deepinfra"
-  ],
-  "provider": {
-    "deepseek": {
-      "options": {
-        "apiKey": "{env:PERFUME_DEEPSEEK_API_KEY}",
-        "baseURL": "https://api.deepseek.com/v1"
-      }
-    },
-    "deepinfra": {
-      "options": {
-        "apiKey": "{env:PERFUME_DEEPINFRA_API_KEY}"
-      }
-    }
+ "$schema": "https://opencode.ai/config.json",
+ "model": "deepseek/deepseek-v4-flash",
+ "small_model": "deepseek/deepseek-v4-flash",
+ "default_agent": "perfume-orchestrator",
+ "subagent_depth": 1,
+ "share": "disabled",
+ "command": {
+  "cheapluna": {
+   "description": "Delegate one bounded read to project-isolated CheapLuna Fast",
+   "subtask": false,
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Delegate this READ_ONLY request with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.01, exact allowed_paths and required_reads, no retry, and no fallback: $ARGUMENTS"
   },
-  "disabled_providers": [
-    "openai",
-    "codex-chatgpt"
-  ],
-  "instructions": [
-    ".github/copilot-instructions.md"
-  ],
-  "plugin": [
-    "oh-my-openagent",
-    "@plannotator/opencode",
-    "opencode-pty",
-    ".opencode/plugins/env-guard.js",
-    ".opencode/plugins/inventory-guard.js",
-    ".opencode/plugins/gate-cache-guard.js",
-    ".opencode/plugins/parallel-runner-guard.js",
-    ".opencode/plugins/provider-tier.js"
-  ],
-  "compaction": {
-    "auto": true,
-    "prune": true,
-    "reserved": 12000
+  "cheapluna-write": {
+   "description": "Delegate one bounded host-verified write to project-isolated CheapLuna Fast",
+   "subtask": false,
+   "template": "Never use Codex subagents. Use only the cheapluna MCP. Run a fresh deepseek_check and stop unless it is READY for perfume-chem-cheapluna-isolated. Use one writer and exactly one deepseek_write_submit with tier=FLASH, allowed_routes=['FLASH'], fallback_policy='NO_LUNA', maximum_attempts=1, maximum_provider_calls=1, maximum_estimated_cost_usd<=0.01, explicit nonempty allowed_paths, immutable required_reads, archive-first handling, host verification, transactional rollback, no retry, and no fallback. The active OpenCode head must independently inspect and accept the diff: $ARGUMENTS"
   },
-  "permission": {
+  "perfume-resume": {
+   "description": "Guarded Phase C recovery resume (validates RESUME_GUARD_v1 before any queue)",
+   "subtask": false,
+   "template": "PHASE C GUARDED RESUME (PHASE_C_RECOVERY_ONLY). Step 1 GUARD VALIDATION before anything: locate runs/CP6-20260805/phase_c/RESUME_GUARD_v1.json; compute SHA-256; compare against ALL of (a) EMBEDDED EXPECTED HASH e1656ad35e6c3f2aad11a73f403798db2aff50a2d8af6e7e83bda75314deacf2, (b) runs/CP6-20260805/phase_c/RESUME_GUARD_SHA256.json, (c) runs/CP6-20260805/RESUME_GUARD_EXTERNAL_RECEIPT.json; confirm run_id CP6-20260805 and mode PHASE_C_RECOVERY_ONLY. ANY mismatch -> STOP RESUME BLOCKED; do NOT repair or normalize the guard automatically. Step 2 RECOVERY from persisted files only (no conversational memory): recover run CP6-20260805 and phase_c from disk; do NOT rerun C0 or completed Phase C nodes (compare hashes against PHASE_C_SHA256SUMS_v2.json); load task graph from CORRECTED_PHASE_C_TASK_GRAPH_v2.json; recover blocked state from PHASE_C_STATUS_v2.md; verify Phase A-B snapshot unchanged (PREQUALIFICATION_SNAPSHOT.zip sha f9457996427bb61742e23a106fcff4ab183d7643124fa32920d9846c257d0e15) and all 18 fragments unchanged. Step 3 ALLOWED NODES ONLY: C11V3, C11Q-CHEAPLUNA-QUARANTINE-RECOVERY-VERIFY, C1V3-RUNTIME-CONFIG-LOCK, C4N-NATIVE-READ, C5N-NATIVE-WRITE, NATIVE-PERM, NATIVE-AUDIT, FALLBACK-AMENDMENT, PCV3-MANIFEST, PCG3-ARITHMETIC, CLDBG-01..07; REFUSE every node outside this list. Step 4 HARD REFUSALS: refuse stale worker queues and superseded instructions (SUPERSEDED_INSTRUCTION_LEDGER.json): PIL revision relaunch, VER-*, AUD-01, PKG-01, formula Monte Carlo/ablation/perturbation/anti-collapse/audit, release packaging; perform NO formula write and NO package write; conversational_context_required false. Step 5 FIRST NODES: C11V3 (write 00_RESUME_TEST_v3.json/.md), then C11Q, then C1V3-RUNTIME-CONFIG-LOCK, then C4N/C5N per the approved plan.\n\n5. PHASE D/E/F GUARD RECOGNITION: locate runs/CP6-20260805/phase_c/PHASE_DEF_EXECUTION_GUARD_v2.json; compute SHA-256; compare against PINNED HASH c1c701f9260cc0f87be6183abc7d30ca7a91d6460827428a49db99a37cb27e2e, sidecar PHASE_DEF_EXECUTION_GUARD_v2_SHA256.json, external receipt runs/CP6-20260805/PHASE_DEF_EXECUTION_GUARD_EXTERNAL_RECEIPT.json, and 00_RUNTIME_CONFIGURATION_LOCK_v4.json; confirm mode PHASE_DEF_EXECUTION_ONLY and the six policy booleans. Any mismatch -> STOP: DEF RESUME BLOCKED; do not repair automatically."
+  }
+ },
+ "enabled_providers": [
+  "deepseek",
+  "deepinfra",
+  "opencode",
+  "opencode-go",
+  "openrouter"
+ ],
+ "provider": {
+  "deepseek": {
+   "options": {
+    "apiKey": "{env:PERFUME_DEEPSEEK_API_KEY}"
+   }
+  },
+  "deepinfra": {
+   "options": {
+    "apiKey": "{env:PERFUME_DEEPINFRA_API_KEY}"
+   }
+  },
+  "opencode": {
+   "options": {
+    "apiKey": "{env:OPENCODE_API_KEY}"
+   }
+  },
+  "opencode-go": {
+   "options": {
+    "apiKey": "{env:OPENCODE_GO_API_KEY}"
+   }
+  },
+  "openrouter": {
+   "options": {
+    "apiKey": "{env:OPENROUTER_API_KEY}"
+   }
+  }
+ },
+ "disabled_providers": [
+  "anthropic",
+  "google",
+  "github-copilot",
+  "venice",
+  "vercel",
+  "openai",
+  "codex-chatgpt",
+  "codex"
+ ],
+ "instructions": [
+  ".github/copilot-instructions.md"
+ ],
+ "plugin": [
+  "@plannotator/opencode",
+  "opencode-pty",
+  ".opencode/plugins/env-guard.js",
+  ".opencode/plugins/inventory-guard.js",
+  ".opencode/plugins/gate-cache-guard.js",
+  ".opencode/plugins/parallel-runner-guard.js",
+  ".opencode/plugins/provider-tier.js",
+  ".opencode/plugins/cheapluna-budget-guard.js",
+  ".opencode/plugins/cheapluna-cache-first.js",
+  ".opencode/plugins/daemon-health-guard.js"
+ ],
+ "compaction": {
+  "auto": true,
+  "prune": true,
+  "reserved": 12000
+ },
+ "permission": {
+  "read": {
+   "*": "allow",
+   "*.env": "deny",
+   "*.env.*": "deny"
+  },
+  "edit": "allow",
+  "bash": {
+   "*": "allow",
+   "git status*": "allow",
+   "git diff*": "allow",
+   "git log*": "allow",
+   "git add*": "allow",
+   "git commit*": "allow",
+   "git branch*": "allow",
+   "git checkout*": "allow",
+   "git switch*": "allow",
+   "git push*": "allow",
+   "git pull*": "allow",
+   "git fetch*": "allow",
+   "poetry run ruff*": "allow",
+   "poetry run mypy*": "allow",
+   "poetry run pytest*": "allow",
+   "poetry install*": "allow",
+   "poetry add*": "allow",
+   "pytest*": "allow",
+   "python scripts/*": "allow",
+   "python _generate_material_properties.py": "allow",
+   "python -m *": "allow",
+   "pip install*": "allow",
+   "npm install*": "allow",
+   "npm run*": "allow",
+   "npx *": "allow",
+   "rg *": "allow",
+   "sg *": "allow",
+   ".\\scripts\\*": "allow",
+   "docker compose*": "allow",
+   ".venv\\Scripts\\pip*": "allow",
+   ".venv\\Scripts\\python*": "allow"
+  },
+  "external_directory": "allow"
+ },
+ "lsp": {
+  "basedpyright": {
+   "command": [
+    "basedpyright-langserver",
+    "--stdio"
+   ],
+   "extensions": [
+    ".py",
+    ".pyi"
+   ]
+  },
+  "pyright": {
+   "command": [
+    "basedpyright-langserver",
+    "--stdio"
+   ],
+   "extensions": []
+  }
+ },
+ "formatter": {
+  "ruff": {
+   "args": [
+    "format",
+    "--config",
+    "pyproject.toml"
+   ]
+  }
+ },
+ "watcher": {
+  "ignore": [
+   "node_modules/**",
+   "**/__pycache__/**",
+   "**/*.pyc",
+   "**/.mypy_cache/**",
+   "**/.pytest_cache/**",
+   "**/.ruff_cache/**",
+   "**/dist/**",
+   "**/build/**",
+   "**/*.egg-info/**",
+   "**/htmlcov/**",
+   ".venv/**",
+   ".git/**",
+   "output/**",
+   "archive/**",
+   "verification_runs/**",
+   "*.db",
+   "*.xlsx",
+   "*.csv",
+   "*.png",
+   ".opencode/node_modules/**",
+   ".playwright-mcp/**",
+   ".opencode/package-lock.json"
+  ]
+ },
+ "mcp": {
+  "github": {
+   "type": "local",
+   "command": [
+    "npx",
+    "-y",
+    "@modelcontextprotocol/server-github"
+   ],
+   "enabled": true,
+   "environment": {
+    "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
+   }
+  },
+  "playwright": {
+   "type": "local",
+   "command": [
+    "npx",
+    "-y",
+    "@playwright/mcp"
+   ],
+   "enabled": true
+  },
+  "sequential_thinking": {
+   "type": "local",
+   "command": [
+    "npx",
+    "-y",
+    "@modelcontextprotocol/server-sequential-thinking"
+   ],
+   "enabled": true
+  },
+  "pubchem": {
+   "type": "local",
+   "command": [
+    "npx",
+    "-y",
+    "@cyanheads/pubchem-mcp-server"
+   ],
+   "enabled": true
+  },
+  "memory": {
+   "type": "local",
+   "command": [
+    "npx",
+    "-y",
+    "@modelcontextprotocol/server-memory"
+   ],
+   "enabled": true
+  },
+  "perfume_kb": {
+   "type": "local",
+   "command": [
+    "python",
+    ".opencode/mcp/perfume_kb_server.py"
+   ],
+   "enabled": true,
+   "timeout": 15000,
+   "environment": {}
+  },
+  "cheapluna": {
+   "type": "local",
+   "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    ".opencode/scripts/cheapluna-bridge.ps1"
+   ],
+   "enabled": true,
+   "timeout": 120000,
+   "environment": {}
+  }
+ },
+ "agent": {
+  "perfume-orchestrator": {
+   "description": "Primary perfumery science, research, formulation, verification, delegation, and integration orchestrator. Owns canonical state, task graph, worker packets, gates, integration, and terminal reporting. Does not formulate.",
+   "mode": "primary",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "steps": 500,
+   "prompt": "{file:./prompts/DeepSeek_V4_Flash_0731_Perfume_Orchestrator_Master_Prompt.md}",
+   "permission": {
     "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny"
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
     "edit": "allow",
     "bash": {
-      "*": "allow",
-      "git status*": "allow",
-      "git diff*": "allow",
-      "git log*": "allow",
-      "git add*": "allow",
-      "git commit*": "allow",
-      "git branch*": "allow",
-      "git checkout*": "allow",
-      "git switch*": "allow",
-      "git push*": "allow",
-      "git pull*": "allow",
-      "git fetch*": "allow",
-      "poetry run ruff*": "allow",
-      "poetry run mypy*": "allow",
-      "poetry run pytest*": "allow",
-      "poetry install*": "allow",
-      "poetry add*": "allow",
-      "pytest*": "allow",
-      "python scripts/*": "allow",
-      "python _generate_material_properties.py": "allow",
-      "python -m *": "allow",
-      "pip install*": "allow",
-      "npm install*": "allow",
-      "npm run*": "allow",
-      "npx *": "allow",
-      "rg *": "allow",
-      "sg *": "allow",
-      ".\\scripts\\*": "allow",
-      "docker compose*": "allow",
-      ".venv\\Scripts\\pip*": "allow",
-      ".venv\\Scripts\\python*": "allow"
+     "*": "allow",
+     "git push *": "deny",
+     "git reset --hard *": "deny",
+     "git clean *": "deny",
+     "rm -rf *": "deny",
+     "rmdir /s *": "deny",
+     "del /s *": "deny",
+     "*Remove-Item*-Recurse*": "deny"
     },
-    "external_directory": "allow"
+    "task": {
+     "*": "deny",
+     "perfume-explorer": "allow",
+     "perfume-researcher": "allow",
+     "perfume-writer": "allow",
+     "perfume-quant": "allow",
+     "perfume-auditor": "allow",
+     "perfume-packager": "allow",
+     "perfume-integrator": "allow"
+    },
+    "external_directory": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "doom_loop": "allow"
+   }
   },
-  "lsp": {
-    "basedpyright": {
-      "command": [
-        "basedpyright-langserver",
-        "--stdio"
-      ],
-      "extensions": [
-        ".py",
-        ".pyi"
-      ]
+  "perfume-explorer": {
+   "description": "Read-only repository discovery and ancestry search. No edits, no bash.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
-    "pyright": {
-      "command": ["basedpyright-langserver", "--stdio"],
-      "extensions": []
-    }
+    "edit": "deny",
+    "bash": "deny",
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+   }
   },
-  "formatter": {
-    "ruff": {
-      "args": ["format", "--config", "pyproject.toml"]
-    }
+  "perfume-researcher": {
+   "description": "Research worker for W01-W10: literature, patents, suppliers, primary evidence. Writes only to its assigned fragment directory.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
+    },
+    "edit": {
+     "artifacts/fragments/**": "allow",
+     "evidence/**": "allow",
+     "*": "deny"
+    },
+    "bash": "deny",
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "allow",
+    "websearch": "allow"
+   }
   },
-  "watcher": {
-    "ignore": [
-      "node_modules/**",
-      "**/__pycache__/**",
-      "**/*.pyc",
-      "**/.mypy_cache/**",
-      "**/.pytest_cache/**",
-      "**/.ruff_cache/**",
-      "**/dist/**",
-      "**/build/**",
-      "**/*.egg-info/**",
-      "**/htmlcov/**",
-      ".venv/**",
-      ".git/**",
-      "output/**",
-      "archive/**",
-      "verification_runs/**",
-      "*.db",
-      "*.xlsx",
-      "*.csv",
-      "*.png",
-      ".opencode/node_modules/**",
-      ".playwright-mcp/**",
-      ".opencode/package-lock.json"
-    ]
+  "perfume-writer": {
+   "description": "Formula and structured artifact generation. Writes only to its assigned fragment directory.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
+    },
+    "edit": {
+     "artifacts/fragments/**": "allow",
+     "workers/**": "allow",
+     "*": "deny"
+    },
+    "bash": "deny",
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+   }
   },
-  "mcp": {
-    "github": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "enabled": true,
-      "environment": {
-        "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
-      }
+  "perfume-quant": {
+   "description": "Quantitative verification worker (W14): Monte Carlo, ablation, perturbation, dominance, anti-collapse, physical-chemistry checks. Runs Python only.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
-    "playwright": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@playwright/mcp"
-      ],
-      "enabled": true
+    "edit": {
+     "artifacts/fragments/**": "allow",
+     "workers/**": "allow",
+     "*": "deny"
     },
-    "sequential_thinking": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ],
-      "enabled": true
+    "bash": {
+     "python *": "allow",
+     "py *": "allow",
+     "pytest *": "allow",
+     "*": "deny"
     },
-    "pubchem": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@cyanheads/pubchem-mcp-server"
-      ],
-      "enabled": true
-    },
-    "memory": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "enabled": true
-    },
-    "perfume_kb": {
-      "type": "local",
-      "command": ["python", ".opencode/mcp/perfume_kb_server.py"],
-      "enabled": true,
-      "timeout": 15000,
-      "environment": {}
-    }
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+   }
   },
-  "agent": {
-    "agent-citrus-top": {
-      "description": "Parses citrus, green, and top-note materials for synergy/pairing rules",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-citrus-top.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+  "perfume-auditor": {
+   "description": "Strictly read-only adversarial auditor (W16). Inspects artifacts, formulas, sources, hashes, gates. Cannot edit, run bash, or delegate. Fresh context per audit.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.0,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
-    "agent-floral-heart": {
-      "description": "Parses floral and heart-note materials for synergy/pairing rules",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-floral-heart.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "edit": "deny",
+    "bash": "deny",
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "allow"
+   }
+  },
+  "perfume-packager": {
+   "description": "Packaging worker (W15): reads accepted artifacts, writes release directory under releases/. No other writes.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
-    "agent-woody-base": {
-      "description": "Parses woody, amber, and base-structure materials for synergy/pairing rules",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-woody-base.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "edit": {
+     "releases/**": "allow",
+     "artifacts/**": "allow",
+     "*": "deny"
     },
-    "agent-musk-fixative": {
-      "description": "Parses musks, fixatives, gourmand, and leather materials for synergy/pairing rules",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-musk-fixative.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "bash": {
+     "python *": "allow",
+     "py *": "allow",
+     "*": "deny"
     },
-    "agent-spice-aromatic": {
-      "description": "Parses spice, aromatic, and specialty materials for synergy/pairing rules",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-spice-aromatic.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+   }
+  },
+  "perfume-integrator": {
+   "description": "Canonical integration worker: reads accepted fragments and merges them into canonical artifacts. Single-writer; writes only to assigned merge directories. No other writes.",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+   "permission": {
+    "read": {
+     "*": "allow",
+     "*.env": "deny",
+     "*.env.*": "deny"
     },
-    "agent-formula-reviewer": {
-      "description": "Post-formulation quality review เนโฌโ€ checks material diversity, musk chord, fixative layering, family compliance",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-pro",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-formula-reviewer.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "edit": {
+     "artifacts/merged/**": "allow",
+     "runs/**/merged/**": "allow",
+     "*": "deny"
     },
-    "agent-inventory-scout": {
-      "description": "Periodically scans inventory for data completeness — missing ODT, missing profiles, stale VPs, duplicates",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-inventory-scout.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "bash": {
+     "python *": "allow",
+     "py *": "allow",
+     "*": "deny"
     },
-    "agent-deepseek-reader": {
-      "description": "Reads files and extracts structured data — read-only, returns findings in bullet format",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+    "task": "deny",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+   }
+  },
+  "agent-citrus-top": {
+   "description": "Parses citrus, green, and top-note materials for synergy/pairing rules",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-citrus-top.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-floral-heart": {
+   "description": "Parses floral and heart-note materials for synergy/pairing rules",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-floral-heart.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-woody-base": {
+   "description": "Parses woody, amber, and base-structure materials for synergy/pairing rules",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-woody-base.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-musk-fixative": {
+   "description": "Parses musks, fixatives, gourmand, and leather materials for synergy/pairing rules",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-musk-fixative.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-spice-aromatic": {
+   "description": "Parses spice, aromatic, and specialty materials for synergy/pairing rules",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-spice-aromatic.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-formula-reviewer": {
+   "description": "Post-formulation quality review \u0e40\u0e19\u0082\u0e42\u0082\u0e0c\u0e42\u20ac\u009d checks material diversity, musk chord, fixative layering, family compliance",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-formula-reviewer.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-inventory-scout": {
+   "description": "Periodically scans inventory for data completeness \u2014 missing ODT, missing profiles, stale VPs, duplicates",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-inventory-scout.txt}",
+   "permission": {
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-deepseek-reader": {
+   "description": "Reads files and extracts structured data \u2014 read-only, returns findings in bullet format",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-reader.txt}",
+   "permission": {
+    "read": {
+     "*": "allow"
     },
-    "agent-deepseek-driver": {
-      "description": "Implements code changes and runs verification — one concrete goal per invocation",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.1,
-      "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
-      "permission": {
-        "edit": "allow",
-        "bash": "allow"
-      }
+    "edit": "deny",
+    "bash": "deny"
+   }
+  },
+  "agent-deepseek-driver": {
+   "description": "Implements code changes and runs verification \u2014 one concrete goal per invocation",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.1,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-driver.txt}",
+   "permission": {
+    "read": {
+     "*": "allow"
     },
-    "agent-deepseek-debugger": {
-      "description": "Debug failed tasks and fix root causes — expert surgical code review",
-      "mode": "subagent",
-      "model": "deepseek/deepseek-v4-pro",
-      "temperature": 0.0,
-      "prompt": "{file:.opencode/prompts/agent-deepseek-debugger.txt}",
-      "permission": {
-        "edit": "allow",
-        "bash": "allow"
-    }
+    "edit": "allow",
+    "bash": "allow"
+   }
+  },
+  "agent-deepseek-debugger": {
+   "description": "Debug failed tasks and fix root causes \u2014 expert surgical code review",
+   "mode": "subagent",
+   "model": "deepseek/deepseek-v4-flash",
+   "temperature": 0.0,
+   "prompt": "{file:.opencode/prompts/agent-deepseek-debugger.txt}",
+   "permission": {
+    "edit": "allow",
+    "bash": "allow"
+   }
   }
-}
+ }
 }

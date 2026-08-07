@@ -104,8 +104,8 @@ class ThaiSkinProfile:
         "(Iso E Super, Galaxolide, Ambroxan bind most strongly). "
         "2. Sweat production increases → aqueous microenvironment forms → "
         "some ester hydrolysis risk for light acetates. "
-        "3. Higher skin temperature → VP ×2.8 for top notes, but depot effect "
-        "partially compensates for logP > 4 bases."
+        "3. Higher skin temperature increases volatility for light notes, while high "
+        "logP materials still retain better depot behavior."
     )
 
     rule: str = (
@@ -399,3 +399,5 @@ def thai_base_material_score(
     if logp >= 2.0:
         return ("poor — partitions into sweat, not recommended for Thai skin base", 0.25)
     return ("avoid — will be lost through sweat at tropical temperatures", 0.0)
+
+

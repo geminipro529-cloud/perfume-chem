@@ -155,7 +155,9 @@ def clausius_clapeyron_factor(
 ) -> float:
     """VP ratio at temperature vs reference using Clausius-Clapeyron.
 
-    For Bangkok (35°C) vs Paris (22°C): factor ≈ 2.8x.
+    For Bangkok-like conditions (35°C) vs Paris-like (22°C), this returns a
+    default Clausius-Clapeyron estimate. Material-level ΔHvap estimates can
+    shift this ratio materially.
     """
     return clausius_clapeyron_vp_ratio((ref_temp_c, temp_c), delta_h_vap)
 
@@ -184,13 +186,14 @@ def tropical_base_loading_correction(
 ) -> float:
     """Calculate required base loading increase for tropical climates.
 
-    Rule: For Bangkok (35°C, 80% RH), increase base loading by 2-3x
-    relative to temperate EdP design.
+    Rule: For Bangkok-like conditions (35°C, 80% RH), this returns a
+    temperature-driven heuristic correction around a 2.5x target band for
+    representative EdP builds. Material behavior still varies strongly by class.
     """
     factor = clausius_clapeyron_factor(temp_c)
     if factor <= 1.0:
         return paris_base_pct
-    # Scale: 2.8x VP → ~2.5x base correction
+    # Scale heuristic: high-volatility classes often need a larger correction.
     return paris_base_pct * min(factor * 0.9, 3.0)
 
 

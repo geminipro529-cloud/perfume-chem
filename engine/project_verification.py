@@ -62,6 +62,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_interventions.py",
         "tests/test_mixture.py",
         "tests/test_oav_authority.py",
+        "tests/test_pcv3_schema_registry.py",
         "tests/test_project_verification.py",
         "tests/test_preference.py",
         "tests/test_provenance_model.py",
@@ -91,6 +92,8 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_science_kb.py",
         "tests/test_scientific_data_authority_report.py",
         "tests/test_scientific_truth_inventory.py",
+        "tests/test_module_intake_ingestion.py",
+        "tests/test_module_intake_interaction_registry.py",
     ),
     "gates-families": (
         "tests/test_a1_authoritative_contracts.py",

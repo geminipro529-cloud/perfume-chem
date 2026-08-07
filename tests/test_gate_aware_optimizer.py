@@ -30,14 +30,17 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     result = optimize_until_release_ready(
         "Thai Aromatic Fougere Test",
         raw_pct,
+        stock_dilutions={"Evernyl": 0.2},
         config=_config("aromatic_fougere"),
         repair_pool={"Iso E Super": 2.0, "Vetiver EO": 1.0, "Patchouli EO": 1.0},
     )
 
     evernyl_ul = result.raw_concentrate_pct["Evernyl"] / 100.0 * 6000.0
+    evernyl_active_ul = evernyl_ul * 0.2
     safety_gate = {gate.gate: gate for gate in result.gate_report.gates}["safety_ifra_allergen"]
 
-    assert evernyl_ul <= 30.0
+    assert evernyl_ul <= 150.0
+    assert evernyl_active_ul <= 30.0
     assert safety_gate.status != "FAIL"
     assert any(
         action.gate == "safety_ifra_allergen"
@@ -55,7 +58,7 @@ def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
         "Zenolide": 15.0,
         "Vanillin": 10.0,
         "Ethyl Vanillin": 3.0,
-        "Bergamot FCF": 7.0,
+        "Lemon FCF oil Sicilian": 7.0,
     }
     repaired_raw_pct = {
         "Bergamot FCF": 20.0,

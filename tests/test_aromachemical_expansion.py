@@ -7,6 +7,7 @@ from engine.aromachemical_expansion import (
     analyze_expansion,
 )
 from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_inventory
 from engine.odor_thresholds import ODT_DATA
 
 
@@ -33,16 +34,14 @@ def test_purchase_identity_excludes_owned_aliases_and_stock_preparations(range_r
 
 def test_range_extension_excludes_existing_unavailable_stock_by_default(range_report):
     names = {candidate.name for candidate in range_report.candidates}
-    assert names.isdisjoint(
-        {
-            "Galaxolide",
-            "Habanolide",
-            "Romandolide",
-            "Tonalide",
-            "Macrolide",
-            "Musk Ketone",
-        }
-    )
+    explicitly_unavailable = {
+        record.name
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.status != "owned"
+    }
+
+    assert names.isdisjoint(explicitly_unavailable)
+    assert {"Habanolide", "Romandolide"}.issubset(names)
     assert range_report.ranking_authority == "MODELLED_RANGE_GAP_NOT_PURCHASE_ORDER"
     assert range_report.inventory_size == 210
 
@@ -50,8 +49,8 @@ def test_range_extension_excludes_existing_unavailable_stock_by_default(range_re
 def test_replenishment_is_an_explicit_separate_mode():
     report = analyze_expansion(top_n=200, include_replenishment=True)
     by_name = {candidate.name: candidate for candidate in report.candidates}
-    assert by_name["Galaxolide"].purchase_mode == "replenishment"
-    assert by_name["Habanolide"].purchase_mode == "replenishment"
+    assert by_name["Tonalide"].purchase_mode == "replenishment"
+    assert by_name["Habanolide"].purchase_mode == "range_extension"
     assert "Myristic Acid" not in by_name
 
 

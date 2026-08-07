@@ -191,7 +191,12 @@ class InterventionCandidateCreate(LabRequest):
     predicted_oav_delta: float = Field(ge=0)
     desired_effects: dict[str, float]
     preserved_character_tags: frozenset[str]
-    safety_status: Literal["pass", "fail", "unverified"]
+    safety_status: Literal["pass", "fail", "unverified"] = Field(
+        description=(
+            "Caller observation only. A client-declared pass is not authoritative "
+            "and cannot authorize ranking or skin use."
+        )
+    )
 
 
 class InterventionCreate(LabRequest):

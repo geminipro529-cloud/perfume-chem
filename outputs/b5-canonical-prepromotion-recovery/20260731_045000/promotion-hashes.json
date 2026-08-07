@@ -1,0 +1,103 @@
+{
+    "scratch_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\_scratch_perfume_chem2",
+    "repository_root":  "D:\\chatbots\\perfume-chem",
+    "verified":  true,
+    "files":  [
+                  {
+                      "path":  "backend/alembic/versions/20260731_0009_b5_analytical_authority.py",
+                      "source_sha256":  "A64611E9E25FEC1B12D827A591F838F2DAEA2BB8331500C7585A125DFAD187E2",
+                      "destination_sha256":  "A64611E9E25FEC1B12D827A591F838F2DAEA2BB8331500C7585A125DFAD187E2",
+                      "bytes":  30287
+                  },
+                  {
+                      "path":  "backend/app/models/lab_analytical.py",
+                      "source_sha256":  "E987FF9487E8492A651004973EF62A023E32FCBDBAD9EBC465824BAFF33B74D3",
+                      "destination_sha256":  "E987FF9487E8492A651004973EF62A023E32FCBDBAD9EBC465824BAFF33B74D3",
+                      "bytes":  28166
+                  },
+                  {
+                      "path":  "backend/app/repositories/lab_analytical.py",
+                      "source_sha256":  "6590041C403E9C969D38BD483AC702043D8DFF8A1E5B9027E4F0E774F9C51FDA",
+                      "destination_sha256":  "6590041C403E9C969D38BD483AC702043D8DFF8A1E5B9027E4F0E774F9C51FDA",
+                      "bytes":  5252
+                  },
+                  {
+                      "path":  "backend/app/services/lab_analytical.py",
+                      "source_sha256":  "9745A8A46F472C0F79856CD3773AB8E6BCA710A4DF20E4CCA25932066BF3AEAB",
+                      "destination_sha256":  "9745A8A46F472C0F79856CD3773AB8E6BCA710A4DF20E4CCA25932066BF3AEAB",
+                      "bytes":  86911
+                  },
+                  {
+                      "path":  "backend/app/models/lab.py",
+                      "source_sha256":  "7425223A025B1CA953829BB98D89F1718413BCB6939E8EA442866689C120D04E",
+                      "destination_sha256":  "7425223A025B1CA953829BB98D89F1718413BCB6939E8EA442866689C120D04E",
+                      "bytes":  24558
+                  },
+                  {
+                      "path":  "backend/app/repositories/lab.py",
+                      "source_sha256":  "992908B2EDEFB09AA3C887441C832BA5A9F47989B3AAB757E211E13431AFE8D6",
+                      "destination_sha256":  "992908B2EDEFB09AA3C887441C832BA5A9F47989B3AAB757E211E13431AFE8D6",
+                      "bytes":  10801
+                  },
+                  {
+                      "path":  "backend/app/services/lab_service.py",
+                      "source_sha256":  "F29AE59089B1B55C105AE2745ABDCF6CFD58BF7E96AB3BAE852CF12EFB7397A5",
+                      "destination_sha256":  "F29AE59089B1B55C105AE2745ABDCF6CFD58BF7E96AB3BAE852CF12EFB7397A5",
+                      "bytes":  44807
+                  },
+                  {
+                      "path":  "backend/app/services/lab_science.py",
+                      "source_sha256":  "C4AE4981EE64F7DA3D1100BECDABF9B40819D6313AD044B73EB315A5AA2490D3",
+                      "destination_sha256":  "C4AE4981EE64F7DA3D1100BECDABF9B40819D6313AD044B73EB315A5AA2490D3",
+                      "bytes":  55827
+                  },
+                  {
+                      "path":  "backend/tests/unit/test_b5_analytical_schema.py",
+                      "source_sha256":  "71D0CFF32A04B531DC3C65521F1F9D2A611BACE194A4FD10B8D573D4D4FC604A",
+                      "destination_sha256":  "71D0CFF32A04B531DC3C65521F1F9D2A611BACE194A4FD10B8D573D4D4FC604A",
+                      "bytes":  11401
+                  },
+                  {
+                      "path":  "backend/tests/unit/test_b5_analytical_service.py",
+                      "source_sha256":  "6C6813949A2B389369DF8536EFB09636F28C9F6A787229968CF8164CD44A4903",
+                      "destination_sha256":  "6C6813949A2B389369DF8536EFB09636F28C9F6A787229968CF8164CD44A4903",
+                      "bytes":  56764
+                  },
+                  {
+                      "path":  "backend/tests/integration/test_b5_analytical_migration.py",
+                      "source_sha256":  "CD5BC70D996B38AEAE02D747E98C439402234CBCA479802C432B9BEB328541A4",
+                      "destination_sha256":  "CD5BC70D996B38AEAE02D747E98C439402234CBCA479802C432B9BEB328541A4",
+                      "bytes":  16280
+                  },
+                  {
+                      "path":  "backend/tests/integration/test_b5_analytical_e2e.py",
+                      "source_sha256":  "BB751120BFD4A65F7AC6A64AF7E38110028ACE0D60CF144194D3008512E1D121",
+                      "destination_sha256":  "BB751120BFD4A65F7AC6A64AF7E38110028ACE0D60CF144194D3008512E1D121",
+                      "bytes":  9280
+                  },
+                  {
+                      "path":  "backend/tests/integration/test_lab_migration.py",
+                      "source_sha256":  "A12C8851941CEF10A458C216BA2749192CD67B4CD777419EE7913A1F5FD14F7D",
+                      "destination_sha256":  "A12C8851941CEF10A458C216BA2749192CD67B4CD777419EE7913A1F5FD14F7D",
+                      "bytes":  6963
+                  },
+                  {
+                      "path":  "backend/tests/integration/test_backup_restore.py",
+                      "source_sha256":  "50DC59DF1DC369397F01CD99A3D4D58759F104E773F39E09826E832D72F6FDE3",
+                      "destination_sha256":  "50DC59DF1DC369397F01CD99A3D4D58759F104E773F39E09826E832D72F6FDE3",
+                      "bytes":  12046
+                  },
+                  {
+                      "path":  "docs/superpowers/plans/2026-07-31-build-b5-analytical-authority.md",
+                      "source_sha256":  "8EECB682999D2DCC962E4612C7D65BC135D30AF4C2C948D0C8E1056FA1280982",
+                      "destination_sha256":  "8EECB682999D2DCC962E4612C7D65BC135D30AF4C2C948D0C8E1056FA1280982",
+                      "bytes":  30439
+                  },
+                  {
+                      "path":  "docs/superpowers/specs/2026-07-31-build-b5-analytical-authority-design.md",
+                      "source_sha256":  "4D8CC29758F649B728D7FAF0798434E465C22635BEEC51BE80C8C8AA4DA96319",
+                      "destination_sha256":  "4D8CC29758F649B728D7FAF0798434E465C22635BEEC51BE80C8C8AA4DA96319",
+                      "bytes":  14583
+                  }
+              ]
+}

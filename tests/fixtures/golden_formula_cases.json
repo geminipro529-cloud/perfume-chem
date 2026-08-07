@@ -10,8 +10,8 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.4855003625347954, "oav": 9710.007250695908},
-        "Iso E Super": {"vapor_ppm": 1.147036565398884, "oav": 22940.73130797768}
+        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
+        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
       }
     },
     {
@@ -24,8 +24,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
       "expected_material_outputs": {
-        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 0.8477151427792279, "oav": 12833.3555611266},
-        "Bergamot FCF": {"vapor_ppm": 20.56955861155479, "oav": 112101.20845140325}
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1655661476274, "oav": 17996.13852957649},
+        "Bergamot FCF": {"vapor_ppm": 2518.0545957760432, "oav": 164825.20764246685}
       }
     },
     {
@@ -41,8 +41,8 @@
         "Orris Liquid": 499462.94307196565
       },
       "expected_material_outputs": {
-        "Alpha Irone": {"vapor_ppm": 2.7614134204073157, "oav": 3068.2371337859063},
-        "Orris Liquid": {"vapor_ppm": 3.5821339326957555, "oav": 3283.622771637776}
+        "Alpha Irone": {"vapor_ppm": 5.3124962578201655, "oav": 5902.773619800184},
+        "Orris Liquid": {"vapor_ppm": 5.685425514974546, "oav": 6317.139461082829}
       }
     },
     {
@@ -54,8 +54,8 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Leather FO": {"vapor_ppm": 0.008528367591853868, "oav": null},
-        "Iso E Super": {"vapor_ppm": 2.0220644189072634, "oav": 40441.28837814527}
+        "Leather FO": {"vapor_ppm": 0.01931643575331118, "oav": null},
+        "Iso E Super": {"vapor_ppm": 4.010755087198542, "oav": 80215.10174397084}
       }
     },
     {
@@ -68,8 +68,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_composite_materials": ["Bergamot FCF"],
       "expected_material_outputs": {
-        "Bergamot FCF": {"vapor_ppm": 20.881639490136124, "oav": 113802.00545362433},
-        "Hedione": {"vapor_ppm": 0.49560046390043944, "oav": 9912.009278008789}
+        "Bergamot FCF": {"vapor_ppm": 2662.1128498760095, "oav": 174254.88072599284},
+        "Hedione": {"vapor_ppm": 1.0138896646506623, "oav": 20277.793293013245}
       }
     },
     {
@@ -82,8 +82,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "equivalent_active_case": "simple_aromachemical",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.4855003625347954, "oav": 9710.007250695908},
-        "Iso E Super": {"vapor_ppm": 1.147036565398884, "oav": 22940.73130797768}
+        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
+        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
       }
     },
     {
@@ -110,8 +110,8 @@
       "ifra_material": "Evernyl",
       "ifra_limit_pct": 0.1,
       "expected_material_outputs": {
-        "Evernyl": {"vapor_ppm": 0.006824756807581352, "oav": 22.749189358604507},
-        "Hedione": {"vapor_ppm": 0.9288381477161708, "oav": 18576.762954323414}
+        "Evernyl": {"vapor_ppm": 0.01393546054637425, "oav": 46.45153515458084},
+        "Hedione": {"vapor_ppm": 1.9001987824851505, "oav": 38003.97564970301}
       }
     }
   ],

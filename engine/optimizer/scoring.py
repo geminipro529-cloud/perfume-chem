@@ -45,13 +45,12 @@ from ..trigeminal import score_trigeminal
 from .models import (
     FormulaVector,
     ObjectiveWeights,
-    _gamma_from_logp,
-    _get_logp,
     _lookup_material,
     analyze_formula_rule_coverage,
 )
 
 if TYPE_CHECKING:
+    from ..pipeline.formula_state import FormulaState, MaterialState
     from ..synergy_graph import SynergyGraph
     from ..temporal_graph import TemporalProfile
 
@@ -1710,8 +1709,7 @@ class FormulaScorer:
 
     def _score_sillage_heuristic(self, fv: FormulaVector) -> float:
         """Heuristic sillage score from VP, volatility index, and boosters."""
-        avg_vp = fv.avg_property("vp")
-        vi = fv.weighted_volatility_index()
+        avg_vp, vi = self._thermodynamic_projection_properties(fv)
         dist = fv.note_distribution()
 
         score = 0.0
@@ -1827,7 +1825,7 @@ class FormulaScorer:
         contribution is weighted by the perceptibility of both materials:
         pairs where either material has OAV < 1 are discounted.
         """
-        oav_data = getattr(self, "_material_oavs", None)
+        oav_data = self._thermodynamic_oav_map(fv)
         ingredients = fv.ingredient_list()
 
         # ── Effect-weighted pairing rules ──
@@ -2061,6 +2059,7 @@ class FormulaScorer:
         or_family_counts: dict[str, int] = {}
         hedonic_weighted = 0.0
         hedonic_mass = 0.0
+        thermodynamic_rows = self._thermodynamic_material_map(fv)
 
         # Ellena/Roudnitska principle: materials in the shadow zone are not
         # "notes" — they are compositional grain below perception threshold.
@@ -2070,21 +2069,15 @@ class FormulaScorer:
             norm = normalize_name(name)
             prof = get_profile(name)
 
-            # Classify dose zone first. We compare concentrate-level dose
-            # (ppm_in_conc = pct * 10000) against odt_ppm (ppm in ethanol
-            # solution) — the only unit pair that is dimensionally coherent.
-            # odt (ppb-in-air) is kept for headspace/temporal math elsewhere.
-            # Raoult correction: multiply by γᵢ (activity_coef) so that
-            # matrix-suppressed materials (Hedione γ≈0.6, salicylates γ≈0.7)
-            # are classified by their *effective* airborne dose, not mass.
+            # Classify the perceptual zone from canonical headspace OAV. This
+            # preserves one ppm -> mole fraction -> gamma*VP -> air ODT chain
+            # instead of mixing concentrate ppm with a profile-level gamma.
             is_shadow = False
             is_silent = False
-            odt_ref = getattr(prof, "odt_ppm", None) if prof else None
-            gamma = getattr(prof, "activity_coef", 1.0) if prof else 1.0
             dose_ratio = 0.0
-            if odt_ref and odt_ref > 0:
-                ppm_in_conc = pct * 10000.0 * max(gamma, 0.1)
-                dose_ratio = ppm_in_conc / odt_ref
+            thermo_row = thermodynamic_rows.get(name)
+            if thermo_row is not None and thermo_row.oav is not None:
+                dose_ratio = max(0.0, float(thermo_row.oav))
                 if dose_ratio < 0.1:
                     is_silent = True
                 elif dose_ratio <= 1.0:
@@ -2269,7 +2262,7 @@ class FormulaScorer:
         # ── Compute weighted-average character dimensions ──
         dim_sums: dict[str, float] = {d: 0.0 for d in DIMENSIONS}
         total_pct = 0.0
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        oav_data = self._thermodynamic_oav_map(fv)
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
@@ -2420,7 +2413,7 @@ class FormulaScorer:
         """
         from engine.name_utils import normalize_name
 
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        oav_data = self._thermodynamic_oav_map(fv)
 
         # Map each formula material to its cross-adaptation group(s)
         # A material can appear in multiple groups (rare but possible)
@@ -2540,25 +2533,192 @@ class FormulaScorer:
 
     # ── Science module axes (5 new scored dimensions) ──
 
+    @staticmethod
+    def _formula_vector_fingerprint(
+        fv: FormulaVector,
+    ) -> tuple[tuple[tuple[str, float], ...], tuple[tuple[str, float], ...]]:
+        """Return the raw-stock identity used to bind an injected state."""
+        ingredients = tuple(
+            sorted(
+                (str(name), max(0.0, float(value or 0.0)))
+                for name, value in fv.ingredients.items()
+            )
+        )
+        dilutions = tuple(
+            sorted(
+                (str(name), float(value))
+                for name, value in fv.dilutions.items()
+                if value is not None
+            )
+        )
+        return ingredients, dilutions
+
+    @classmethod
+    def _validate_formula_state_override(
+        cls,
+        fv: FormulaVector,
+        formula_state: FormulaState,
+    ) -> None:
+        """Reject injected state that does not describe this raw-stock vector."""
+        vector_raw = {
+            str(name): max(0.0, float(value or 0.0))
+            for name, value in fv.ingredients.items()
+            if float(value or 0.0) > 0.0
+        }
+        state_raw = {
+            row.name: max(0.0, float(row.raw_ul))
+            for row in formula_state.materials
+            if float(row.raw_ul) > 0.0
+        }
+        if set(vector_raw) != set(state_raw):
+            raise ValueError(
+                "formula_state material labels do not match FormulaVector raw stocks"
+            )
+
+        vector_total = sum(vector_raw.values())
+        state_total = sum(state_raw.values())
+        if (vector_total > 0.0) != (state_total > 0.0):
+            raise ValueError("formula_state raw total does not match FormulaVector")
+        if vector_total > 0.0 and state_total > 0.0:
+            for name in vector_raw:
+                vector_fraction = vector_raw[name] / vector_total
+                state_fraction = state_raw[name] / state_total
+                if not math.isclose(
+                    vector_fraction,
+                    state_fraction,
+                    rel_tol=1e-9,
+                    abs_tol=1e-12,
+                ):
+                    raise ValueError(
+                        f"formula_state raw proportion does not match FormulaVector: {name}"
+                    )
+
+        state_dilutions = {
+            row.name: float(row.dilution)
+            for row in formula_state.materials
+            if float(row.raw_ul) > 0.0
+        }
+        for name in vector_raw:
+            vector_dilution = float(fv.dilutions.get(name, 1.0) or 1.0)
+            if not math.isclose(
+                vector_dilution,
+                state_dilutions.get(name, 1.0),
+                rel_tol=1e-12,
+                abs_tol=1e-12,
+            ):
+                raise ValueError(
+                    f"formula_state dilution does not match FormulaVector: {name}"
+                )
+
+    def _formula_state_override_matches(self, fv: FormulaVector) -> bool:
+        """Return whether an injected state remains bound to this vector."""
+        return (
+            getattr(self, "_formula_state_override", None) is not None
+            and getattr(self, "_formula_state_override_fv", None) is fv
+            and getattr(self, "_formula_state_override_fingerprint", None)
+            == self._formula_vector_fingerprint(fv)
+        )
+
     def _science_ingredients(self, fv: FormulaVector) -> tuple[dict[str, float], dict[str, float]]:
-        """Extract ingredient amounts (µL) and dilution factors from FormulaVector."""
-        eff = fv.effective_ingredients()
-        cache_key = tuple(sorted(eff.items()))
+        """Extract raw stock µL and stock fractions without double dilution."""
+        override = getattr(self, "_formula_state_override", None)
+        if self._formula_state_override_matches(fv):
+            return (
+                {row.name: float(row.raw_ul) for row in override.materials},
+                {
+                    row.name: float(row.dilution)
+                    for row in override.materials
+                    if float(row.dilution) != 1.0
+                },
+            )
+
+        raw = {
+            str(name): max(0.0, float(pct or 0.0))
+            for name, pct in fv.ingredients.items()
+        }
+        dilution_items = tuple(
+            sorted(
+                (str(name), float(value))
+                for name, value in fv.dilutions.items()
+                if value is not None
+            )
+        )
+        cache_key = (
+            tuple(sorted(raw.items())),
+            dilution_items,
+            float(self.batch_volume_ml),
+        )
         if hasattr(self, "_sci_cache_key") and self._sci_cache_key == cache_key:
             return self._sci_cache_val
         # Convert percentages back to absolute µL using the configured batch
         # volume. Previously hardcoded to 10 mL — this caused silently-wrong
         # OAV values on any other batch size (e.g. 15 mL split, 30 mL build).
-        total = sum(eff.values()) or 1.0
+        total = sum(raw.values()) or 1.0
         batch_ul = self.batch_volume_ml * 1000.0
-        ingredients = {name: (pct / total) * batch_ul for name, pct in eff.items()}
+        ingredients = {name: (pct / total) * batch_ul for name, pct in raw.items()}
         # Dilution comes from the formula vector (FormulaVector.dilutions), not
         # ingredient profiles — profile-level dilution fields were removed as an
         # architectural fix (stock prep metadata doesn't belong on a molecule).
-        dilutions = {k: v for k, v in fv.dilutions.items() if v and v != 1.0}
+        dilutions = {
+            str(name): float(value)
+            for name, value in fv.dilutions.items()
+            if value is not None and float(value) != 1.0
+        }
         self._sci_cache_key = cache_key
         self._sci_cache_val = (ingredients, dilutions)
         return ingredients, dilutions
+
+    def _thermodynamic_state(self, fv: FormulaVector) -> FormulaState:
+        """Return the canonical physical state for this optimizer formula."""
+        from ..pipeline.formula_state import build_formula_state
+
+        override = getattr(self, "_formula_state_override", None)
+        if self._formula_state_override_matches(fv):
+            return override
+        ingredients, dilutions = self._science_ingredients(fv)
+        return build_formula_state(
+            ingredients,
+            dilutions,
+            batch_volume_ml=self.batch_volume_ml,
+        )
+
+    def _thermodynamic_material_map(self, fv: FormulaVector) -> dict[str, MaterialState]:
+        """Index canonical state rows by the exact formula label."""
+        return {row.name: row for row in self._thermodynamic_state(fv).materials}
+
+    def _thermodynamic_oav_map(self, fv: FormulaVector) -> dict[str, float]:
+        """Return state OAVs, with same-formula release authority when supplied."""
+        values = {
+            row.name: float(row.oav)
+            for row in self._thermodynamic_state(fv).materials
+            if row.oav is not None
+        }
+        if self._formula_state_override_matches(fv):
+            values.update(getattr(self, "_material_oavs", {}) or {})
+        return values
+
+    def _thermodynamic_projection_properties(
+        self, fv: FormulaVector
+    ) -> tuple[float | None, float | None]:
+        """Return active-mass weighted gamma*VP and gamma*VP/sqrt(MW)."""
+        vp_weight = 0.0
+        vp_sum = 0.0
+        vi_weight = 0.0
+        vi_sum = 0.0
+        for row in self._thermodynamic_state(fv).materials:
+            weight = max(0.0, float(row.active_g or 0.0))
+            vp = row.vp_pure_pa
+            if weight <= 0 or vp is None or vp <= 0:
+                continue
+            effective_vp = float(row.gamma) * float(vp)
+            vp_sum += weight * effective_vp
+            vp_weight += weight
+            if row.mw_g_mol is not None and row.mw_g_mol > 0:
+                vi_sum += weight * effective_vp / math.sqrt(float(row.mw_g_mol))
+                vi_weight += weight
+        avg_vp = vp_sum / vp_weight if vp_weight > 0 else None
+        volatility_index = vi_sum / vi_weight if vi_weight > 0 else None
+        return avg_vp, volatility_index
 
     def score_safety(self, fv: FormulaVector) -> float:
         """IFRA compliance + allergen + sensitization risk (0-100)."""
@@ -2630,7 +2790,9 @@ class FormulaScorer:
 
         from engine.name_utils import normalize_name
 
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        thermodynamic_state = self._thermodynamic_state(fv)
+        thermodynamic_rows = {row.name: row for row in thermodynamic_state.materials}
+        oav_data = self._thermodynamic_oav_map(fv)
         eff = fv.effective_ingredients()
         if not eff:
             return 20.0
@@ -2665,24 +2827,12 @@ class FormulaScorer:
         # VP diversity: materials at many different vapor pressures create
         # time-domain resolution.  Measured by how many VP decades are covered
         # and how evenly materials spread across them.
-        # Uses γ(logP)-corrected VP so hydrophobic musks appear at their
-        # real headspace position (higher than raw VP alone).
+        # Uses FormulaState's per-formula gamma-corrected VP.
         vp_values = []
         for name, pct in eff.items():
-            prof = get_profile(name)
-            vp = None
-            mat = _lookup_material(name)
-            if prof and prof.vp and prof.vp > 0:
-                vp = prof.vp
-            if vp is None:
-                # Fallback: material DB
-                if mat and mat.get("vp") and mat["vp"] > 0:
-                    vp = mat["vp"]
-            if vp is not None and vp > 0:
-                # Apply activity-coefficient correction for headspace VP
-                logp = _get_logp(name, mat)
-                gamma = _gamma_from_logp(logp)
-                vp_eff = vp * gamma
+            row = thermodynamic_rows.get(name)
+            if row is not None and row.vp_pure_pa is not None and row.vp_pure_pa > 0:
+                vp_eff = float(row.gamma) * float(row.vp_pure_pa)
                 vp_values.append((name, _math.log10(vp_eff), pct))
 
         temporal_score = 0.0
@@ -2775,18 +2925,13 @@ class FormulaScorer:
         # the headspace disproportionately are counted even if raw VP < 0.1 Pa.
         powerhouse_pct = 0.0
         for name, pct in eff.items():
-            prof = get_profile(name)
-            vp = None
-            mat_ph = _lookup_material(name)
-            if prof and prof.vp and prof.vp > 0:
-                vp = prof.vp
-            if vp is None and mat_ph and mat_ph.get("vp") and mat_ph["vp"] > 0:
-                vp = mat_ph["vp"]
-            if vp is not None:
-                logp = _get_logp(name, mat_ph)
-                gamma = _gamma_from_logp(logp)
-                if vp * gamma > 0.1:
-                    powerhouse_pct += pct
+            row = thermodynamic_rows.get(name)
+            if (
+                row is not None
+                and row.vp_pure_pa is not None
+                and float(row.gamma) * float(row.vp_pure_pa) > 0.1
+            ):
+                powerhouse_pct += pct
         if powerhouse_pct / total_pct > 0.25:
             dose_score -= (powerhouse_pct / total_pct - 0.25) * 15
 
@@ -2892,16 +3037,12 @@ class FormulaScorer:
         self._last_trigeminal_report = score_trigeminal(ingredients, dilutions)
         total_ul = sum(ingredients.values())
         self._last_dose_report = score_dose_response(ingredients, dilutions, total_ul)
-        # Build dynamic γ map from profiles for diffusion classification.
-        # This adjusts Kaw_eff by √γ so non-ideal mixing is reflected
-        # per-formula rather than relying on the static init-time value.
-        gamma_map: dict[str, float] = {}
-        for name in ingredients:
-            prof = get_profile(name)
-            if prof is not None:
-                g = getattr(prof, "activity_coef", None)
-                if g is not None:
-                    gamma_map[name] = float(g)
+        # Replace each diffusion row's reference gamma with FormulaState's
+        # per-formula value.
+        gamma_map = {
+            row.name: float(row.gamma)
+            for row in self._thermodynamic_state(fv).materials
+        }
         self._last_diffusion_report = score_diffusion(ingredients, dilutions, gamma_map)
         return {
             "trigeminal": self._last_trigeminal_report,
@@ -2934,7 +3075,12 @@ class FormulaScorer:
             return 0.0
         return getattr(self, method_name)(fv)
 
-    def score(self, fv: FormulaVector) -> dict[str, object]:
+    def score(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+    ) -> dict[str, object]:
         """Compute all scores with axis-specific synergy pre-multipliers.
 
         Synergy is NOT a standalone axis. It modifies other axes:
@@ -2947,6 +3093,18 @@ class FormulaScorer:
 
         Zero synergy pairs = zero boost = no penalty.
         """
+        # Canonical release callers inject their already-built state so every
+        # optimizer axis consumes identical thermodynamic/OAV authority.
+        if formula_state is not None:
+            self._validate_formula_state_override(fv, formula_state)
+        self._formula_state_override = formula_state
+        self._formula_state_override_fv = fv if formula_state is not None else None
+        self._formula_state_override_fingerprint = (
+            self._formula_vector_fingerprint(fv)
+            if formula_state is not None
+            else None
+        )
+
         # Clear per-FV caches for fresh scoring
         self._sfc_cache = {}
         self._last_synergy_detail = None

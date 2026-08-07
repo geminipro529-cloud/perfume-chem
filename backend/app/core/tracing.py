@@ -1,6 +1,7 @@
 """OpenTelemetry tracing configuration"""
 
 import logging
+import os
 
 from fastapi import FastAPI
 
@@ -8,12 +9,22 @@ logger = logging.getLogger(__name__)
 
 
 def setup_tracing(app: FastAPI) -> None:
-    """Initialize OpenTelemetry tracing. Safe to call even if OTEL is disabled."""
+    """Initialize explicitly enabled OpenTelemetry tracing.
+
+    OpenTelemetry's API is intentionally useful without an SDK.  Keep normal
+    API startup on that no-op path unless the application owner enables the
+    exporter, and honor the standard SDK-wide disable switch even when the
+    project-specific flag is true.
+    """
     from app.core.config import get_settings
+
     settings = get_settings()
 
     if not settings.OTEL_ENABLED:
         logger.info("OpenTelemetry tracing disabled (OTEL_ENABLED=False)")
+        return
+    if os.getenv("OTEL_SDK_DISABLED", "").strip().lower() == "true":
+        logger.info("OpenTelemetry tracing disabled (OTEL_SDK_DISABLED=true)")
         return
 
     try:

@@ -97,7 +97,10 @@ class Settings(BaseSettings):
     ENABLE_AI_SUGGESTIONS: bool = True
 
     # OpenTelemetry Tracing
-    OTEL_ENABLED: bool = True
+    # Exporting is an operational opt-in.  The API remains fully functional
+    # with the OpenTelemetry API's no-op provider when no collector is
+    # configured.
+    OTEL_ENABLED: bool = False
     OTEL_SERVICE_NAME: str = "perfume-chem-api"
     OTEL_OTLP_ENDPOINT: str = "http://localhost:4318"  # HTTP OTLP endpoint
     OTEL_TRACES_SAMPLER: str = "parentbased_traceidratio"

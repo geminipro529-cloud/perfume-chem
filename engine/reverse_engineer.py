@@ -138,6 +138,7 @@ class EvidenceItem:
     ifra_ceiling_pct: Optional[float] = None  # IFRA max for this material
     raw_text: str = ""  # original evidence text
     source_url: str = ""  # URL / reference
+    material_identity_authority: bool = True
 
     def __post_init__(self):
         self.source_type = self.source_type.lower().strip()
@@ -238,6 +239,8 @@ class EvidencePool:
     def add(self, item: EvidenceItem):
         """Add a single evidence item to the pool."""
         self.items.append(item)
+        if not item.material_identity_authority:
+            return
         key = _normalize_material(item.material)
         if key not in self._hypotheses:
             prior = _lookup_prior(key)
@@ -569,11 +572,13 @@ def parse_allergen_list(allergen_text: str) -> list[EvidenceItem]:
     """Parse EU allergen declaration text into evidence items.
 
     Input: INCI-style text like "Linalool, Limonene, Coumarin, Citronellol"
-    Output: EvidenceItem per allergen with high confidence (regulatory data).
+    Output: thresholded constituent-presence evidence only.
 
-    The 26 mandatory EU allergens that must be declared:
+    A label does not establish whether the constituent was dosed as a
+    standalone aroma chemical or arrived inside one or more natural complex
+    substances. These records therefore must not create material hypotheses.
     """
-    # EU 26 mandatory allergens → common perfume material mappings
+    # Legacy label names → constituent identities. This is not a raw-material map.
     allergen_materials = {
         "linalool": "Linalool",
         "limonene": "D-Limonene",
@@ -621,6 +626,7 @@ def parse_allergen_list(allergen_text: str) -> list[EvidenceItem]:
                         material=material_name,
                         confidence=0.90,
                         raw_text=part,
+                        material_identity_authority=False,
                     )
                 )
                 break

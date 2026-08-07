@@ -3,6 +3,7 @@ from engine.intervention_hypotheses import (
     generate_intervention_hypotheses,
 )
 from engine.interventions import (
+    VERSIONED_FINISHED_PRODUCT_SAFETY,
     BriefConstraints,
     CandidateAddition,
     InterventionRequest,
@@ -10,6 +11,9 @@ from engine.interventions import (
     rank_interventions,
 )
 from engine.safety_assessment import SafetyAssessmentStatus
+from engine.scientific_contract import EvidenceDescriptor, ScientificClass
+
+FORMULA_STATE_SHA256 = "a" * 64
 
 
 def _stock(material: str, available_mg: float = 1000.0) -> InventoryStock:
@@ -29,7 +33,26 @@ def _candidate(
     effects: dict[str, float],
     safety: SafetyAssessmentStatus = SafetyAssessmentStatus.PASS,
     preserves: frozenset[str] = frozenset({"iris", "incense"}),
+    safety_authority: str | None = None,
+    safety_evidence: EvidenceDescriptor | None = None,
+    safety_formula_state_sha256: str | None = None,
+    safety_assessed_active_ppm_w_w: float | None = None,
 ) -> CandidateAddition:
+    if safety is SafetyAssessmentStatus.PASS:
+        safety_authority = safety_authority or VERSIONED_FINISHED_PRODUCT_SAFETY
+        safety_evidence = safety_evidence or EvidenceDescriptor(
+            classification=ScientificClass.LITERATURE_DERIVED,
+            basis="Versioned finished-product screening for the bound formula state.",
+            sources=("https://ifrafragrance.org/using-the-standards",),
+            limitations=(
+                "Screening is not a certificate or a substitute for product safety assessment.",
+            ),
+        )
+        safety_formula_state_sha256 = (
+            safety_formula_state_sha256 or FORMULA_STATE_SHA256
+        )
+        if safety_assessed_active_ppm_w_w is None:
+            safety_assessed_active_ppm_w_w = 1_000.0
     return CandidateAddition(
         material=material,
         requested_active_ppm_w_w=ppm,
@@ -37,6 +60,10 @@ def _candidate(
         desired_effects=effects,
         preserved_character_tags=preserves,
         safety_status=safety,
+        safety_authority=safety_authority or "caller_declared",
+        safety_evidence=safety_evidence,
+        safety_formula_state_sha256=safety_formula_state_sha256 or "",
+        safety_assessed_active_ppm_w_w=safety_assessed_active_ppm_w_w,
     )
 
 
@@ -70,6 +97,7 @@ def test_interventions_filter_forbidden_unavailable_unmeasurable_and_unverified(
                 safety=SafetyAssessmentStatus.UNVERIFIED,
             ),
         ),
+        formula_state_sha256=FORMULA_STATE_SHA256,
     )
 
     result = rank_interventions(request)
@@ -105,6 +133,7 @@ def test_interventions_preserve_brief_and_return_only_pareto_candidates():
                 preserves=frozenset({"iris"}),
             ),
         ),
+        formula_state_sha256=FORMULA_STATE_SHA256,
     )
 
     result = rank_interventions(request)
@@ -117,6 +146,87 @@ def test_interventions_preserve_brief_and_return_only_pareto_candidates():
     rejected = {item.material: item.reasons for item in result.rejected}
     assert "does not preserve required character tags: incense" in rejected["Hedione"]
     assert "Pareto-dominated" in rejected["Orris Liquid"]
+
+
+def test_interventions_reject_caller_declared_safety_pass():
+    candidate = _candidate(
+        "Alpha Irone",
+        ppm=100.0,
+        effects={"iris": 1.0},
+        safety_authority="caller_declared",
+        safety_evidence=EvidenceDescriptor(
+            classification=ScientificClass.LITERATURE_DERIVED,
+            basis="Unbound client claim.",
+            sources=("https://ifrafragrance.org/using-the-standards",),
+        ),
+        safety_formula_state_sha256="b" * 64,
+    )
+    request = InterventionRequest(
+        batch_mass_g=10.0,
+        brief=BriefConstraints(name="Iris Cathedral"),
+        inventory={"Alpha Irone": _stock("Alpha Irone")},
+        candidates=(candidate,),
+        formula_state_sha256=FORMULA_STATE_SHA256,
+    )
+
+    result = rank_interventions(request)
+
+    assert result.ranked == ()
+    reasons = result.rejected[0].reasons
+    assert (
+        "safety pass is caller-declared, not a versioned finished-product assessment"
+        in reasons
+    )
+    assert "safety assessment is not bound to this formula state" in reasons
+
+
+def test_interventions_accept_formula_bound_dose_covering_safety_assessment():
+    request = InterventionRequest(
+        batch_mass_g=10.0,
+        brief=BriefConstraints(name="Iris Cathedral"),
+        inventory={"Alpha Irone": _stock("Alpha Irone")},
+        candidates=(
+            _candidate(
+                "Alpha Irone",
+                ppm=100.0,
+                effects={"iris": 1.0},
+                safety_assessed_active_ppm_w_w=100.0,
+            ),
+        ),
+        formula_state_sha256=FORMULA_STATE_SHA256,
+    )
+
+    result = rank_interventions(request)
+
+    assert [item.material for item in result.ranked] == ["Alpha Irone"]
+    assert result.ranked[0].safety_authority == VERSIONED_FINISHED_PRODUCT_SAFETY
+    assert result.ranked[0].safety_formula_state_sha256 == FORMULA_STATE_SHA256
+    assert result.ranked[0].safety_assessed_active_ppm_w_w == 100.0
+
+
+def test_interventions_reject_safety_assessment_below_rounded_achieved_dose():
+    request = InterventionRequest(
+        batch_mass_g=10.0,
+        brief=BriefConstraints(name="Iris Cathedral"),
+        inventory={"Alpha Irone": _stock("Alpha Irone")},
+        candidates=(
+            _candidate(
+                "Alpha Irone",
+                ppm=100.04,
+                effects={"iris": 1.0},
+                safety_assessed_active_ppm_w_w=100.04,
+            ),
+        ),
+        formula_state_sha256=FORMULA_STATE_SHA256,
+    )
+
+    result = rank_interventions(request)
+
+    assert result.ranked == ()
+    assert (
+        "safety assessment does not cover the achieved active dose"
+        in result.rejected[0].reasons
+    )
 
 
 def test_hypotheses_are_inventory_only_noncausal_and_nonquantitative():

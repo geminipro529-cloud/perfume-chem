@@ -88,9 +88,11 @@ def test_oav_authority_family_envelopes_and_time_windows():
     assert all(window.family_envelope for window in result.time_windows)
     assert all(isinstance(window.dominant_oav, list) for window in result.time_windows)
     assert result.top_family_drift >= 0.0
-    # Beragamot ODT corrected from 15 -> 6 ppb (verified against 3+ sources 2026-05-19).
-    # Bergamot now dominates all time windows so leaders do not change.
-    assert result.dominant_leaders_changed is False
+    # Bergamot opens as the leader, then the bounded-step temporal screen lets
+    # Iso E Super overtake it as the volatile citrus pool declines.
+    assert result.dominant_leaders_changed is True
+    assert result.time_windows[0].dominant_oav[0]["material"] == "Bergamot FCF"
+    assert result.time_windows[-1].dominant_oav[0]["material"] == "Iso E Super"
 
 
 def test_oav_authority_missing_odt_blocks():
@@ -134,8 +136,7 @@ def test_oav_authority_high_subliminal_mass_warns():
                 "Hedione": 1000.0,
                 "Iso E Super": 1000.0,
                 "Linalyl Acetate": 1000.0,
-                "Benzyl Benzoate": 2500.0,
-                "Dipropylene Glycol": 500.0,
+                "Dipropylene Glycol": 3000.0,
             }
         )
     )
@@ -437,7 +438,10 @@ def test_pipeline_analysis_labels_distribution_and_longevity_as_proxies(
 
     assert "active note distribution" in result.stdout
     assert "of headspace" not in result.stdout
-    assert "Heuristic, unvalidated skin-life proxy" in result.stdout
+    assert "Heuristic, unvalidated skin-life proxy" not in result.stdout
+    assert "Uncalibrated loss index" in result.stdout
+    assert "Absolute skin life: unavailable" in result.stdout
+    assert "remaining index is not measured evaporation" in result.stdout
     assert "citrus (OAV" not in result.stdout
     assert "Aromatic Leader leads at OAV" in result.stdout
     assert "authentic for vetiver" not in result.stdout

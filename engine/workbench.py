@@ -420,13 +420,21 @@ def _evidence_for(
     )
     temporal = EvidenceDescriptor(
         classification=ScientificClass.HEURISTIC,
-        basis="exponential material loss scaled by vapor pressure, activity coefficient, and molecular weight",
+        basis=(
+            "bounded-step exponential relative loss scaled by canonical modeled "
+            "headspace escaping tendency and molecular weight"
+        ),
         sources=("engine.pipeline.simulator",),
-        assumptions=("a single finite-film loss approximation applies to all materials",),
+        assumptions=(
+            "one uncalibrated relative-loss scale and cap apply to all materials",
+            "modeled partial pressure divided by mole fraction is an adequate escaping-tendency screen",
+        ),
         limitations=(
             "not calibrated against measured skin or blotter evaporation curves",
             "does not model changing solvent matrix, diffusion, or skin absorption explicitly",
-            "activity coefficients are frozen at the opening composition for later temporal frames",
+            "activity coefficients and composite headspace are recomputed as composition changes",
+            "remaining quantity is a heuristic stock-volume-equivalent index, not measured evaporation",
+            "cannot support an absolute skin-life or longevity-hours claim",
         ),
     )
     if mixture_state is None:

@@ -1,0 +1,63 @@
+﻿{
+    "archive":  "D:\\chatbots\\perfume-chem\\outputs\\b5-postaudit-prefix-recovery\\20260731_044705\\b5-postaudit-targets-before-hardening.zip",
+    "archive_sha256":  "499F71B8924F8AC62D9A17D52983A6ACD70281CB500F836356E60EE8DEAF6B4B",
+    "target_count":  9,
+    "restore_root":  "D:\\chatbots\\perfume-chem\\outputs\\b5-postaudit-prefix-recovery\\20260731_044705\\verified-restore",
+    "all_hashes_match":  true,
+    "files":  [
+                  {
+                      "path":  "backend/app/services/lab_analytical.py",
+                      "source_sha256":  "9745A8A46F472C0F79856CD3773AB8E6BCA710A4DF20E4CCA25932066BF3AEAB",
+                      "restored_sha256":  "9745A8A46F472C0F79856CD3773AB8E6BCA710A4DF20E4CCA25932066BF3AEAB",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/app/services/lab_science.py",
+                      "source_sha256":  "C4AE4981EE64F7DA3D1100BECDABF9B40819D6313AD044B73EB315A5AA2490D3",
+                      "restored_sha256":  "C4AE4981EE64F7DA3D1100BECDABF9B40819D6313AD044B73EB315A5AA2490D3",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/app/models/lab_analytical.py",
+                      "source_sha256":  "E987FF9487E8492A651004973EF62A023E32FCBDBAD9EBC465824BAFF33B74D3",
+                      "restored_sha256":  "E987FF9487E8492A651004973EF62A023E32FCBDBAD9EBC465824BAFF33B74D3",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/alembic/versions/20260731_0009_b5_analytical_authority.py",
+                      "source_sha256":  "A64611E9E25FEC1B12D827A591F838F2DAEA2BB8331500C7585A125DFAD187E2",
+                      "restored_sha256":  "A64611E9E25FEC1B12D827A591F838F2DAEA2BB8331500C7585A125DFAD187E2",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/tests/unit/test_b5_analytical_schema.py",
+                      "source_sha256":  "71D0CFF32A04B531DC3C65521F1F9D2A611BACE194A4FD10B8D573D4D4FC604A",
+                      "restored_sha256":  "71D0CFF32A04B531DC3C65521F1F9D2A611BACE194A4FD10B8D573D4D4FC604A",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/tests/unit/test_b5_analytical_service.py",
+                      "source_sha256":  "6C6813949A2B389369DF8536EFB09636F28C9F6A787229968CF8164CD44A4903",
+                      "restored_sha256":  "6C6813949A2B389369DF8536EFB09636F28C9F6A787229968CF8164CD44A4903",
+                      "match":  true
+                  },
+                  {
+                      "path":  "backend/tests/integration/test_b5_analytical_migration.py",
+                      "source_sha256":  "CD5BC70D996B38AEAE02D747E98C439402234CBCA479802C432B9BEB328541A4",
+                      "restored_sha256":  "CD5BC70D996B38AEAE02D747E98C439402234CBCA479802C432B9BEB328541A4",
+                      "match":  true
+                  },
+                  {
+                      "path":  "docs/superpowers/specs/2026-07-31-build-b5-analytical-authority-design.md",
+                      "source_sha256":  "4D8CC29758F649B728D7FAF0798434E465C22635BEEC51BE80C8C8AA4DA96319",
+                      "restored_sha256":  "4D8CC29758F649B728D7FAF0798434E465C22635BEEC51BE80C8C8AA4DA96319",
+                      "match":  true
+                  },
+                  {
+                      "path":  "docs/superpowers/plans/2026-07-31-build-b5-analytical-authority.md",
+                      "source_sha256":  "8EECB682999D2DCC962E4612C7D65BC135D30AF4C2C948D0C8E1056FA1280982",
+                      "restored_sha256":  "8EECB682999D2DCC962E4612C7D65BC135D30AF4C2C948D0C8E1056FA1280982",
+                      "match":  true
+                  }
+              ]
+}

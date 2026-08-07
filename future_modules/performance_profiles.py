@@ -36,7 +36,7 @@ from __future__ import annotations
 from typing import Sequence
 
 from ._shared_types import (
-    BANGKOK_VP_RATIO,
+    bangkok_vp_ratio_default,
     DELTA_H_VAP_DEFAULT,
     NoteTier,
     PerformanceData,
@@ -276,8 +276,8 @@ def estimate_vp_from_halflife(half_life_min: float) -> float:
 
 
 def get_bangkok_vp(vp_pa: float) -> float:
-    """Convert VP from 22°C to Bangkok 35°C using Clausius-Clapeyron."""
-    return vp_pa * BANGKOK_VP_RATIO
+    """Convert VP from 22°C to Bangkok 35°C using a default Clausius-Clapeyron estimate."""
+    return vp_pa * bangkok_vp_ratio_default()
 
 
 def get_temperature_adjusted_vp(
@@ -307,7 +307,7 @@ def estimate_tropical_performance_shift(
     material_name: str,
     paris_half_life_min: float | None = None,
 ) -> dict[str, float] | None:
-    """Estimate how a material's performance shifts from Paris (22°C) to Bangkok (35°C).
+    """Estimate how a material's performance shifts from Paris-like (22°C) to Bangkok-like (35°C).
 
     Returns:
         dict with bangkok_vp, bangkok_half_life_estimate, vp_ratio, or None
@@ -317,7 +317,8 @@ def estimate_tropical_performance_shift(
         return None
 
     bangkok_vp = get_bangkok_vp(pd.vp_pa)
-    # Half-life inversely proportional to VP
+    # Half-life inversely proportional to VP is a heuristic approximation.
+    # It is not intended as a measured kinetic model.
     vp_ratio = bangkok_vp / pd.vp_pa
     bangkok_hl = pd.half_life_min / vp_ratio
 

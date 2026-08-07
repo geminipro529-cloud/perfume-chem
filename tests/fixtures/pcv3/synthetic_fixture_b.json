@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pcv3_synthetic_fixture_b",
+  "description": "SYNTHETIC_TEST_FIXTURE / NON_CANONICAL / NO_PROGRAM_AUTHORITY — Wave 1A test fixture only.",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["id", "tags"]
+}

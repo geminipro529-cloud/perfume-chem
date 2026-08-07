@@ -1441,8 +1441,8 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 1.0  # material intake batch 2026-08-07
+  user_in_inventory: true  # material intake batch 2026-08-07
   supplier:
     perfumersworld_sku: 4GN00382
     perfumersworld_price_usd_per_g: 0.25

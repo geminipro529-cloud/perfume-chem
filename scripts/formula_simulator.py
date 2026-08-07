@@ -80,11 +80,10 @@ def simulate(formula: dict, deltas: dict[str, float] = None) -> dict:
 
     # Scoring
     total_ul = sum(ings.values()) or 1.0
-    pct = {n: (ul * dils.get(n, 1.0) / total_ul) * 100 for n, ul in ings.items()}
-    fv = FormulaVector(ingredients=pct)
+    pct = {n: (ul / total_ul) * 100 for n, ul in ings.items()}
+    fv = FormulaVector(ingredients=pct, dilutions=dils)
     scorer = FormulaScorer(ObjectiveWeights())
-    scorer._material_oavs = {m.name: (m.oav or 0) for m in oav.state.materials}
-    scores = scorer.score(fv)
+    scores = scorer.score(fv, formula_state=oav.state)
 
     # Industry scores
 

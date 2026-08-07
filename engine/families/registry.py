@@ -547,12 +547,25 @@ def _reference_spec(
         oav_targets=oav_targets,
         repair_pool=repair_pool,
         novelty_reference=novelty_reference,
-        novelty_message=novelty_message
-        or "Reference/control archetype; familiar by design.",
+        novelty_message=novelty_message or "Reference/control archetype; familiar by design.",
     )
 
 
+generic_fallback = ArchetypeSpec(
+    key="generic_fallback",
+    family="generic",
+    label="Generic (no specific family archetype)",
+    role="fallback",
+    anchors=(),
+    drift_limits=(),
+    forbidden_materials=(),
+    repair_pool={},
+    novelty_reference="generic fallback for backward compatibility",
+    novelty_message="This archetype is intentionally permissive. Formulas should declare a specific family before release.",
+)
+
 ARCHETYPES: dict[str, ArchetypeSpec] = {
+    "generic_fallback": generic_fallback,
     "aromatic_fougere.classic_reference": ArchetypeSpec(
         key="aromatic_fougere.classic_reference",
         family="aromatic_fougere",
@@ -674,9 +687,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
             _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.25),
         ),
         drift_limits=(
-            _rule(
-                "lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0
-            ),
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
             _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.0),
             _rule("fresh_layton_gourmand_not_heavy", GOURMAND, maximum=3.0),
         ),
@@ -715,9 +726,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
             _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.25),
         ),
         drift_limits=(
-            _rule(
-                "lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0
-            ),
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
             _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.0),
             _rule("indoor_gourmand_not_heavy", GOURMAND, maximum=3.4),
         ),
@@ -756,9 +765,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
             _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.5),
         ),
         drift_limits=(
-            _rule(
-                "lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0
-            ),
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
             _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.2),
             _rule("night_gourmand_not_overweight", GOURMAND, maximum=4.2),
         ),
@@ -870,9 +877,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
         label="Eau de Cologne / 4711 reference",
         anchors=(
             _rule("hesperidic_mass", CITRUS, minimum=20.0),
-            _rule(
-                "neroli_orange_blossom_surrogate", NEROLI_ORANGE_BLOSSOM, minimum=0.4
-            ),
+            _rule("neroli_orange_blossom_surrogate", NEROLI_ORANGE_BLOSSOM, minimum=0.4),
             _rule(
                 "clean_cologne_backbone",
                 (
@@ -1419,9 +1424,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
             _rule("fruit_lactone_axis", FRUITY_CHYPRE, minimum=0.18),
             _rule(
                 "floral_shadow",
-                ROSE_CORE
-                + JASMINE_WHITE
-                + ("Alpha Isomethyl Ionone (Methyl Ionone Pure)",),
+                ROSE_CORE + JASMINE_WHITE + ("Alpha Isomethyl Ionone (Methyl Ionone Pure)",),
                 minimum=2.0,
             ),
         ),
@@ -1995,9 +1998,7 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
         ),
         drift_limits=(
             _rule("not_citrus_dominant", CITRUS, maximum=5.0),
-            _rule(
-                "not_leather", ("Isobutyl Quinoline (10%)",), basis="raw", maximum=0.1
-            ),
+            _rule("not_leather", ("Isobutyl Quinoline (10%)",), basis="raw", maximum=0.1),
             _rule("not_fresh_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
         ),
         forbidden_materials=OPAQUE_PREBLENDS,
@@ -2190,7 +2191,98 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
         },
         novelty_message="Classic gourmand-floral hybrid: tuberose-jasmine heart over cocoa-vanilla-tonka base. Edible warmth through a floral lens.",
     ),
+    "prada_clean_iris": ArchetypeSpec(
+        key="prada_clean_iris",
+        family="clean_iris",
+        label="Prada Clean Iris DNA",
+        role="from_scratch_reconstruction",
+        anchors=(
+            GroupRule(
+                "iris_violet",
+                (
+                    "Alpha Isomethyl Ionone",
+                    "Methyl Ionone Gamma Coeur",
+                    "Isoraldeine 95",
+                    "Dihydro Beta Ionone",
+                ),
+                minimum=8.0,
+                detail="Core iris-violet ionone complex must dominate the heart",
+            ),
+            GroupRule(
+                "soap_muguet",
+                (
+                    "Hydroxycitronellal",
+                    "Florol",
+                    "Helional",
+                    "Bourgeonal",
+                ),
+                minimum=5.0,
+                detail="Soapy-clean muguet accord defines the Prada clean signature",
+            ),
+            GroupRule(
+                "clean_musk",
+                (
+                    "Galaxolide",
+                    "Ethylene Brassylate",
+                    "Habanolide",
+                    "Exaltolide",
+                    "Zenolide",
+                ),
+                minimum=12.0,
+                detail="Clean musk scaffold supports the iris-soap character",
+            ),
+        ),
+        drift_limits=(
+            GroupRule(
+                "sweet_amber_drift",
+                (
+                    "Coumarin",
+                    "Vanillin",
+                    "Ethyl Vanillin",
+                    "Heliotropin",
+                    "Benzoin Resinoid",
+                    "Ambermax",
+                ),
+                maximum=8.0,
+                detail="Sweet-amber must not overtake iris",
+            ),
+            GroupRule(
+                "dominant_citrus",
+                (
+                    "Bergamot FCF",
+                    "Bergamot FCF Sicilian",
+                    "Cedrat FCF Sicilian",
+                    "Grapefruit FCF",
+                    "Red Mandarin EO",
+                    "Lemon FCF oil Sicilian",
+                ),
+                maximum=6.0,
+                detail="Citrus must remain supporting, not primary",
+            ),
+        ),
+        forbidden_materials=(
+            "Cashmeran",  # textile-wood clashes with iris transparency
+            "Suederal",  # leather conflicts with clean character
+            "IBQ",  # animalic leather clashes
+            "Isopropyl Quinoline",
+        ),
+        oav_targets={
+            "iris_violet": {"heart": 10.0, "drydown": 5.0},
+            "soap_muguet": {"heart": 5.0, "drydown": 2.0},
+            "clean_musk": {"top": 3.0, "heart": 5.0, "drydown": 10.0},
+        },
+        repair_pool={
+            "Methyl Ionone Gamma Coeur": 15.0,
+            "Isoraldeine 95": 10.0,
+            "Hydroxycitronellal": 12.0,
+            "Florol": 8.0,
+            "Ethylene Brassylate": 15.0,
+        },
+        novelty_reference="Prada L'Homme EDT (2016)",
+        novelty_message="From-scratch functional hypothesis based on official notes, label evidence, and perfumery priors.",
+    ),
 }
+
 BRIEF_DEFAULTS = {
     "aromatic_fougere": "aromatic_fougere.classic_reference",
     "layton_dna": "layton_dna.fresh_thai",
@@ -2205,6 +2297,7 @@ BRIEF_DEFAULTS = {
     "dhp_2014": "leather_iris_amber.dhp2014",
     "woody_floral_musk": "woody_floral_musk.classic",
     "gourmand_floral": "gourmand_floral.classic_reference",
+    "prada_clean_iris": "prada_clean_iris",
 }
 
 
@@ -2228,10 +2321,7 @@ def _formula_percentages(
 ) -> tuple[Mapping[str, float], Mapping[str, float]]:
     ingredients = formula.get("ingredients_pct") or {}
     if not ingredients and formula.get("ingredients_ul"):
-        total = (
-            sum(float(v or 0.0) for v in formula.get("ingredients_ul", {}).values())
-            or 1.0
-        )
+        total = sum(float(v or 0.0) for v in formula.get("ingredients_ul", {}).values()) or 1.0
         ingredients = {
             material: float(amount or 0.0) / total * 100.0
             for material, amount in formula.get("ingredients_ul", {}).items()
@@ -2301,8 +2391,15 @@ def evaluate_family_archetype(formula: Mapping, archetype: str) -> FamilyEvaluat
             archetype=str(archetype or ""),
             family="unknown",
             label="unknown",
-            status="WARN" if archetype else "PASS",
-            checks=(),
+            status="FAIL" if archetype else "PASS",
+            checks=(
+                FamilyCheck(
+                    name="unknown_archetype",
+                    status="FAIL",
+                    detail="unknown family archetype — must declare a valid family before evaluating drift",
+                    value=0.0,
+                ),
+            ),
         )
     checks = [
         _check_rule(rule, group_value(formula, rule))
@@ -2329,9 +2426,7 @@ def evaluate_family_archetype(formula: Mapping, archetype: str) -> FamilyEvaluat
     )
 
 
-def archetype_penalty(
-    formula: Mapping, archetype: str, *, fail_weight: float = 4.0
-) -> float:
+def archetype_penalty(formula: Mapping, archetype: str, *, fail_weight: float = 4.0) -> float:
     evaluation = evaluate_family_archetype(formula, archetype)
     return sum(fail_weight for check in evaluation.checks if check.status == "FAIL")
 
@@ -2349,9 +2444,7 @@ def novelty_assessment(formula: Mapping, archetype: str) -> dict:
     if spec.key == "aromatic_fougere.modern_mineral":
         signature = group_value(
             formula,
-            _rule(
-                "mineral_signature_present", MARINE + ("Dihydromyrcenol",), basis="raw"
-            ),
+            _rule("mineral_signature_present", MARINE + ("Dihydromyrcenol",), basis="raw"),
         )
         status = "PASS" if signature >= 3.0 else "WARN"
         return {
@@ -2362,9 +2455,7 @@ def novelty_assessment(formula: Mapping, archetype: str) -> dict:
     if spec.key == "aromatic_fougere.modern_tonka_mass":
         signature = group_value(
             formula,
-            _rule(
-                "tonka_mass_hook_present", LOUD_FRUIT + ("Vanillin", "Ethyl Vanillin")
-            ),
+            _rule("tonka_mass_hook_present", LOUD_FRUIT + ("Vanillin", "Ethyl Vanillin")),
         )
         status = "PASS" if signature >= 0.25 else "WARN"
         return {
@@ -2374,9 +2465,7 @@ def novelty_assessment(formula: Mapping, archetype: str) -> dict:
         }
     if spec.key == "woody_floral_musk.classic":
         woods = group_value(formula, _rule("wfm_wood_audit", WOODY_FLORAL_MUSK_WOODS))
-        florals = group_value(
-            formula, _rule("wfm_floral_audit", WOODY_FLORAL_MUSK_FLORALS)
-        )
+        florals = group_value(formula, _rule("wfm_floral_audit", WOODY_FLORAL_MUSK_FLORALS))
         musks = group_value(formula, _rule("wfm_musk_audit", WOODY_FLORAL_MUSK_MUSKS))
         total = woods + florals + musks
         wood_ratio = woods / total if total > 0 else 0
@@ -2394,12 +2483,8 @@ def novelty_assessment(formula: Mapping, archetype: str) -> dict:
             "score": min(balance_score, 1.0),
         }
     if spec.key == "gourmand_floral.classic_reference":
-        gourmands = group_value(
-            formula, _rule("gf_gourmand_audit", GOURMAND_FLORAL_GOURMANDS)
-        )
-        florals = group_value(
-            formula, _rule("gf_floral_audit", GOURMAND_FLORAL_FLORALS)
-        )
+        gourmands = group_value(formula, _rule("gf_gourmand_audit", GOURMAND_FLORAL_GOURMANDS))
+        florals = group_value(formula, _rule("gf_floral_audit", GOURMAND_FLORAL_FLORALS))
         woods = group_value(formula, _rule("gf_wood_audit", GOURMAND_FLORAL_WOODS))
         total = gourmands + florals + woods
         gourmand_ratio = gourmands / total if total > 0 else 0

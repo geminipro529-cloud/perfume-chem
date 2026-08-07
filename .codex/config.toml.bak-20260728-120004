@@ -1,0 +1,71 @@
+# =============================================================================
+# Codex Native + DeepLuna Delegation config.
+# Use when weekly Codex token quota is AVAILABLE.
+#
+# Primary model: gpt-5.6-sol (Codex tokens).
+# DeepLuna MCP is DISABLED by default — enable per-session with:
+#   codex -c mcp_servers.deepseek_orchestrator.enabled=true
+# Daemon runs independently outside Codex.
+#
+# Swap to config_deepluna_fallback.toml when Codex tokens are exhausted.
+# =============================================================================
+
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+
+approval_policy = "never"
+
+[features]
+hooks = true
+plugins = false
+auto_compaction = true
+enable_request_compression = true
+tool_suggest = true
+
+# DeepLuna DISABLED by default — daemon runs independently.
+# Enable per-session: codex -c mcp_servers.deepseek_orchestrator.enabled=true
+[mcp_servers.deepseek_orchestrator]
+command = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+args = [
+  '-NoLogo',
+  '-NoProfile',
+  '-NonInteractive',
+  '-ExecutionPolicy',
+  'Bypass',
+  '-File',
+  'D:\chatbots\perfume-chem\scripts\start_deepluna_codex.ps1',
+]
+cwd = 'D:\chatbots\perfume-chem'
+env_vars = ["DEEPINFRA_API_TOKEN"]
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+enabled_tools = [
+  "deepseek_read_submit",
+  "deepseek_write_submit",
+  "deepseek_check",
+  "deepseek_job_status",
+  "deepseek_job_cancel",
+  "deepseek_batch_submit",
+  "deepseek_batch_status",
+  "deepseek_metrics",
+]
+default_tools_approval_mode = "auto"
+
+[mcp_servers.deepseek_orchestrator.env]
+DEEPLUNA_PRIMARY_PROFILE = 'deepinfra-fast'
+DEEPLUNA_FAST_ONLY = '1'
+DEEPLUNA_CODEX_ORCHESTRATION = 'disabled'
+DEEPLUNA_READER_POOL_MODE = 'DYNAMIC'
+NANODRUG_DEEPINFRA_READER_LANES = '5'
+DEEPLUNA_EMBEDDED_COMPAT = ''
+DEEPLUNA_PROJECT_SCOPE = 'project'
+DEEPLUNA_PROJECT_ID = 'perfume-chem'
+DEEPSEEK_ALLOWED_ROOT = 'D:\chatbots\perfume-chem'
+DEEPSEEK_ORCHESTRATOR_HOME = 'D:\chatbots\perfume-chem\.deepluna-home'
+DEEPLUNA_RETENTION_DAYS = "30"
+DEEPLUNA_CACHE_MAX_BYTES = "268435456"
+
+[sandbox_workspace_write]
+network_access = true

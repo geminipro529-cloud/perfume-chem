@@ -25,7 +25,7 @@ from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
 from ._shared_types import (
-    BANGKOK_VP_RATIO,
+    bangkok_vp_ratio_default,
     FIXATIVE_LOADING,
     HEDONIC_TARGETS,
     HEDONIC_WEIGHTS,
@@ -487,11 +487,11 @@ def evaporative_half_life_estimator(vp_pa: float, logp: float | None = None) -> 
 
 
 def bangkok_temperature_adjustment(vp_pa: float) -> float:
-    """Adjust VP from 22°C to Bangkok 35°C using Clausius-Clapeyron.
+    """Adjust VP from 22°C to Bangkok-like 35°C using a default Clausius-Clapeyron estimate.
 
     Returns VP at 35°C.
     """
-    return vp_pa * BANGKOK_VP_RATIO
+    return vp_pa * bangkok_vp_ratio_default()
 
 
 # ---------------------------------------------------------------------------

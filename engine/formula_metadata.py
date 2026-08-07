@@ -126,7 +126,12 @@ class PreflightResult:
 
 
 def _extract_material_names(formula_path: str) -> list[str]:
-    """Extract material names from a formula markdown table."""
+    """Extract material names only from dose-bearing formula tables.
+
+    Narrative tables such as accord architecture and selection rationale are
+    not formula authority.  A usable table must identify both an ingredient
+    column and a numeric dose/percentage column.
+    """
     names: list[str] = []
     try:
         with open(formula_path, encoding="utf-8") as fh:
@@ -134,53 +139,84 @@ def _extract_material_names(formula_path: str) -> list[str]:
     except (FileNotFoundError, OSError):
         return names
 
-    in_table = False
-    for line in text.splitlines():
+    text = text.split("<!-- PIPELINE_ANALYSIS_START -->", 1)[0]
+
+    def cells(line: str) -> list[str]:
+        values = [cell.strip().replace("**", "").replace("`", "") for cell in line.split("|")]
+        if values and not values[0]:
+            values = values[1:]
+        if values and not values[-1]:
+            values = values[:-1]
+        return values
+
+    def normalized(value: str) -> str:
+        value = value.replace("ยต", "u").replace("ฮผ", "u")
+        return re.sub(r"\s+", " ", value.casefold()).strip()
+
+    def separator(line: str) -> bool:
+        return bool(re.fullmatch(r"\|[\s:\-|]+\|?", line.strip()))
+
+    lines = text.splitlines()
+    table_columns: tuple[int, int] | None = None
+    for index, line in enumerate(lines):
         stripped = line.strip()
-        # Stop scanning after Formula section ends (next ## heading)
-        if stripped.startswith("## ") and not stripped.startswith("## Formula"):
-            if in_table:
-                in_table = False
-                break
-        # Stop scanning after Finished Matrix / Pipeline Analysis / Summary
-        if (
-            stripped.startswith("## Finished Matrix")
-            or stripped.startswith("## Pipeline Analysis")
-            or stripped.startswith("## Summary")
-        ):
-            in_table = False
-            break
-        if stripped.startswith("| # |") or stripped.startswith("|---"):
-            in_table = True
+        if not stripped.startswith("|"):
+            table_columns = None
             continue
-        if in_table and stripped.startswith("|"):
-            cells = stripped.split("|")
-            if len(cells) >= 3:
-                name = cells[2].strip()
-                if not name:
-                    continue
-                # Handle combined material names separated by " + "
-                if " + " in name:
-                    parts = [p.strip() for p in name.split(" + ")]
-                else:
-                    parts = [name]
-                for part in parts:
-                    if not part:
-                        continue
-                    if part.startswith("---"):
-                        continue
-                    if part.startswith("**"):
-                        continue
-                    if re.match(r"^\d+$", part):
-                        continue
-                    if re.match(r"^[\d,\s]+$", part):
-                        # Pure numeric/separator strings (e.g., "6 000", "6,000", "000")
-                        continue
-                    if "total" in part.lower() and part.startswith("**"):
-                        continue
-                    names.append(part)
-        elif in_table and not stripped.startswith("|"):
-            in_table = False
+        if index + 1 < len(lines) and separator(lines[index + 1]):
+            headers = [normalized(value) for value in cells(stripped)]
+            name_index = next(
+                (
+                    position
+                    for position, header in enumerate(headers)
+                    if any(token in header for token in ("ingredient", "material", "component"))
+                ),
+                None,
+            )
+            dose_index = next(
+                (
+                    position
+                    for position, header in enumerate(headers)
+                    if (
+                        ("amount" in header and any(unit in header for unit in ("ul", "ml", " g")))
+                        or header in {"%", "percent", "percentage"}
+                    )
+                ),
+                None,
+            )
+            table_columns = (
+                (name_index, dose_index)
+                if name_index is not None and dose_index is not None
+                else None
+            )
+            continue
+        if separator(stripped) or table_columns is None:
+            continue
+
+        row = cells(stripped)
+        name_index, dose_index = table_columns
+        if max(name_index, dose_index) >= len(row):
+            continue
+        dose_match = re.search(r"[-+]?\d[\d,\s]*(?:\.\d+)?", row[dose_index])
+        if dose_match is None:
+            continue
+        dose = float(dose_match.group(0).replace(",", "").replace(" ", ""))
+        if dose <= 0:
+            continue
+
+        name = row[name_index].strip()
+        for part in (piece.strip() for piece in name.split(" + ")):
+            low = part.casefold()
+            if (
+                not part
+                or part.startswith("---")
+                or re.fullmatch(r"[\d.,\s]+", part)
+                or "total" in low
+                or "ethanol" in low
+                or "finished bottle" in low
+            ):
+                continue
+            names.append(part)
     return names
 
 

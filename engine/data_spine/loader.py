@@ -44,6 +44,16 @@ def _data_fingerprint(base: Path) -> tuple[tuple[str, int, int], ...]:
     return tuple(fingerprint)
 
 
+def _yaml_load_compat(stream):
+    """Accept the real PyYAML API and the test harness monkeypatch style."""
+    try:
+        return yaml.load(stream, loader=_YAML_LOADER)
+    except TypeError as exc:
+        if "unexpected keyword argument 'loader'" not in str(exc):
+            raise
+        return yaml.load(stream, Loader=_YAML_LOADER)
+
+
 @lru_cache(maxsize=8)
 def _load_materials_cached(
     base_path: str, _fingerprint: tuple[tuple[str, int, int], ...]
@@ -58,7 +68,7 @@ def _load_materials_cached(
             # CSafeLoader and SafeLoader implement the same restricted YAML
             # contract; the C implementation is substantially faster on the
             # A-Z material spine while retaining safe object construction.
-            payload = yaml.load(fh, Loader=_YAML_LOADER) or []
+            payload = _yaml_load_compat(fh) or []
         for entry in payload:
             try:
                 materials.append(Material.from_dict(entry))

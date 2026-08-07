@@ -1,0 +1,27 @@
+{
+  "target_hash": "6a81b871565b77287e49963f8254f46f18f443dc8dde6857695739b4e76e3c80",
+  "partition_hash": "26a551f6ac1d84740019400d5c9a988a6c56f3e576c42eb8aecf5e1cc3965e73",
+  "core_raw_uL": 4200,
+  "socket_raw_uL": 300,
+  "protected_anchor_floors_in_core_uL": {
+    "Fresh Ginger Oil": 20,
+    "Black Pepper Oil": 3,
+    "Cardamom Oil": 2,
+    "Basil Oil": 2,
+    "Verdox": 85,
+    "Isoraldeine 95": 85,
+    "Methyl Ionone Gamma Coeur": 65,
+    "Vetiver Oil Haiti": 80,
+    "Cedarwood Virginia Oil": 60
+  },
+  "required_module_roles": ["fresh_spice_or_equivalent_lift", "citrus_aromatic_interface", "green_violet_interface"],
+  "forbidden_drift": ["dominant_gourmand", "dominant_leather", "dominant_incense", "marine_theme"],
+  "authority": "identity-rich secondary-roster hypothesis; doses inferred",
+  "brand": "ysl_modern_masculine",
+  "socket_type": "SIGNATURE_TOP_SOCKET",
+  "module_directions": {
+    "electric_citrus_violet": {"description": "Boosted citrus, reduced DPG, brighter violet", "shift": "Brighter, more citrus-forward daytime flanker"},
+    "green_aromatic_basil": {"description": "Basil-forward, geranium, petitgrain", "shift": "Greener, more aromatic herbal flanker"},
+    "dry_woody_pepper": {"description": "Amplified black pepper and woody elements", "shift": "Drier, more peppery-woody evening flanker"}
+  }
+}

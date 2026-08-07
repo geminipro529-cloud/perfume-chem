@@ -38,6 +38,36 @@ Read:
 - [Fragrance family reference](docs/fragrance_families_reference.md)
 - [Laboratory Beta operations](docs/laboratory_beta.md)
 
+## Quick Start
+
+Two Python environments share one venv. Engine = deterministic analysis core
+(`pyproject.toml`, setuptools). Backend = FastAPI + SQLite Poetry app
+(`backend/`). Full setup below.
+
+**Engine + workbench** (repo root):
+```powershell
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -e ".[dev]"
+.venv\Scripts\python.exe -m pytest tests/test_workbench.py -q
+```
+
+**Backend** (FastAPI; UI at `http://localhost:8000/app`, docs at `/docs`):
+```powershell
+cd backend
+..\.venv\Scripts\python.exe -m poetry env use ..\.venv\Scripts\python.exe
+..\.venv\Scripts\python.exe -m poetry install --with dev
+..\.venv\Scripts\python.exe -m poetry run python -c "from app.db_bootstrap import upgrade_database; from alembic.config import Config; print(upgrade_database(Config('alembic.ini')))"
+..\.venv\Scripts\python.exe -m poetry run uvicorn app.main:app --reload
+```
+
+**Formula release gate** (canonical workflow):
+```powershell
+.venv\Scripts\python.exe scripts\formula_release_gate.py `
+  --formula-file formulas\My_Formula_30mL_EDP.md `
+  --expected-concentrate-ul 6000 --brief generic --json
+.venv\Scripts\python.exe scripts\format_pipeline_analysis.py --input output.json
+```
+
 ## Phase 0 Verification
 
 Hosted GitHub Actions are intentionally not used. Install the repository-owned

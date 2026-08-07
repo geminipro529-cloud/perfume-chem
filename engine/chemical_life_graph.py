@@ -74,11 +74,18 @@ class SynergyReport:
 
 @dataclass
 class TemporalProfile:
-    """Simplified temporal evolution report."""
+    """Uncalibrated temporal-structure diagnostics.
+
+    Model windows describe relative compositional evolution only. They are not
+    measured blotter or skin times and cannot support a longevity claim.
+    """
     note_transitions: list[dict[str, Any]]  # when top→heart→base shifts occur
-    longevity_hours: float                   # estimated projection time
-    top_dominance_minutes: float             # how long top notes dominate
-    linear_score: float                      # 0-1, higher = more linear
+    longevity_hours: None
+    top_dominance_model_minutes: float
+    base_dominance_model_hours: float | None
+    linear_score: float
+    authority: str
+    release_authority: bool
 
 
 @dataclass
@@ -183,8 +190,22 @@ class ChemicalLifeGraph:
 
         # Temporal
         lines.append("── Temporal Evolution ──")
-        lines.append(f"  Top dominance: ~{self.temporal.top_dominance_minutes:.0f} min")
-        lines.append(f"  Estimated longevity: ~{self.temporal.longevity_hours:.0f} hr")
+        lines.append(
+            "  Top-dominance model window: "
+            f"~{self.temporal.top_dominance_model_minutes:.0f} model-min"
+        )
+        if self.temporal.base_dominance_model_hours is None:
+            lines.append("  Base-dominance model window: not reached")
+        else:
+            lines.append(
+                "  Base-dominance model window: "
+                f"~{self.temporal.base_dominance_model_hours:.0f} model-hr"
+            )
+        lines.append(
+            "  Absolute longevity: unavailable; calibrated skin or blotter "
+            "measurements required"
+        )
+        lines.append(f"  Temporal authority: {self.temporal.authority}")
         lines.append(f"  Linearity: {self.temporal.linear_score:.0%}")
 
         return lines
@@ -571,8 +592,13 @@ def _temporal_analysis(ingredients: dict[str, float]) -> TemporalProfile:
     total = sum(ingredients.values())
     if total <= 0:
         return TemporalProfile(
-            note_transitions=[], longevity_hours=0,
-            top_dominance_minutes=0, linear_score=0,
+            note_transitions=[],
+            longevity_hours=None,
+            top_dominance_model_minutes=0,
+            base_dominance_model_hours=None,
+            linear_score=0,
+            authority="HEURISTIC_UNCALIBRATED",
+            release_authority=False,
         )
 
     pct_ingredients = {name: (amt / total) * 100 for name, amt in ingredients.items()}
@@ -590,26 +616,24 @@ def _temporal_analysis(ingredients: dict[str, float]) -> TemporalProfile:
             })
 
     # Top dominance duration (minutes)
-    top_dom_min = 0.0
+    top_dom_model_min = 0.0
     for i, note in enumerate(profile.dominant_notes):
         if note == "top":
             if i + 1 < len(profile.time_points):
-                top_dom_min = profile.time_points[i + 1] * 60
+                top_dom_model_min = profile.time_points[i + 1] * 60
             else:
-                top_dom_min = profile.time_points[i] * 60
+                top_dom_model_min = profile.time_points[i] * 60
         else:
             break
 
-    # Longevity estimate — when base notes have >80% of headspace, and total
-    # headspace drops below 10% of initial
-    longevity = 8.0  # default
+    # First heuristic frame where base-note share exceeds 80%. This is a
+    # compositional model window, not measured persistence or longevity.
+    base_dom_model_hours: float | None = None
     for i, evolution in enumerate(profile.note_evolution):
         base_share = evolution.get("base", 0)
         if base_share > 80 and i > 0:
-            longevity = profile.time_points[i]
+            base_dom_model_hours = profile.time_points[i]
             break
-    else:
-        longevity = profile.time_points[-1]
 
     # Linearity score — how much the note evolution changes over time
     changes = 0
@@ -623,9 +647,12 @@ def _temporal_analysis(ingredients: dict[str, float]) -> TemporalProfile:
 
     return TemporalProfile(
         note_transitions=transitions,
-        longevity_hours=longevity,
-        top_dominance_minutes=top_dom_min,
+        longevity_hours=None,
+        top_dominance_model_minutes=top_dom_model_min,
+        base_dominance_model_hours=base_dom_model_hours,
         linear_score=round(max(0, min(1, linearity)), 2),
+        authority="HEURISTIC_UNCALIBRATED",
+        release_authority=False,
     )
 
 
@@ -674,11 +701,8 @@ def _compute_health(
     elif structure_mode != "module" and concentrate_pct > 40:
         score -= 5
 
-    # Temporal — reward proper evolution
-    if structure_mode != "module" and temporal.top_dominance_minutes < 5:
-        score -= 5  # No real top note
-    if temporal.longevity_hours < 4:
-        score -= 5
+    # The temporal simulator has no skin/blotter calibration. Its model-window
+    # timing therefore remains diagnostic and must not alter formula health.
 
     return round(max(0, min(100, score)), 1)
 

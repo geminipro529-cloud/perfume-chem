@@ -20,7 +20,8 @@ or usefulness of the implementation. See
 | Material identity and property lookup | `engine/material_resolver.py`, `engine/data_spine/` | Mixed `LITERATURE_DERIVED` / `HEURISTIC` / `UNKNOWN` | Active | Classification varies by each field's source label. Missing values must remain visible. |
 | Monomolecular ODT lookup | `engine/odor_thresholds.py`, `engine/pipeline/formula_state.py` | Mixed `LITERATURE_DERIVED` / `HEURISTIC` / `UNKNOWN` | Active | Verification tags vary; matrix and method may not match application conditions. |
 | Natural-mixture composite OAV | `engine/pipeline/natural_absolute_decomposition.py` | `LITERATURE_DERIVED` with heuristic transfer | Active for covered naturals | Constituent data may be literature-derived, but batch composition and matrix transfer are not formula-specific measurements. |
-| Headspace partial pressure and vapor ppm | `engine/pipeline/formula_state.py` | `HEURISTIC` | Active, explicitly labeled | Aromatic-only mole fractions omit the finished solvent matrix; physical-property and activity-coefficient fallbacks remain. Promote only after matrix-complete modeling and headspace validation. |
+| Headspace partial pressure and vapor ppm | `engine/pipeline/formula_state.py` | `HEURISTIC` | Active, explicitly labeled | Partial/proxy matrices and physical-property/activity-coefficient fallbacks remain. VP is temperature-corrected with measured Antoine data first, measured ΔHvap second, then the Goss-Schwarzenbach ambient VP25/ΔHvap correlation; the correlation is exposed per material and is not a measured property. The gamma gate reports source authority and a gamma=1 leverage scenario; this scenario is not an uncertainty bound. Promote only after matrix-complete modeling and headspace validation. |
+| Diluted-stock carrier reconciliation | `engine/solvent_matrix.py`, `engine/pipeline/gates.py` | Mixed `DECLARED` / `PROXY` / `UNKNOWN` | Active, diagnostic only | Uses parsed carrier identity and fraction basis. Residual-volume proxies expose missing carrier scope but are not inserted into headspace mole fractions until basis and double-counting are resolved. |
 | Threshold visibility and OAV | `engine/pipeline/formula_state.py`, `engine/workbench.py` | `HEURISTIC` at output level | Active, explicitly labeled | Combines modeled vapor ppm with mixed-provenance ODT. OAV is a screening ratio, not measured intensity. |
 | Active-volume top/heart/base distribution | `FormulaState.note_distribution()` | `HEURISTIC` | Active | Uses active volume and note labels, not measured perception or OAV-weighted salience. |
 | Temporal OAV frames | `engine/pipeline/simulator.py` | `HEURISTIC` | Active, explicitly labeled | Generic exponential loss approximation lacks blotter/skin calibration and solvent dynamics. |
@@ -40,6 +41,8 @@ or usefulness of the implementation. See
 | OAV intelligence targets and cliff rules | `engine/pipeline/oav_intelligence.py` | `HEURISTIC` | Advisory | Contains target bands and degraded fallbacks; needs formula-class-specific sensory validation. |
 | Family archetypes and pyramid gates | `engine/families/registry.py`, `engine/pipeline/gates.py` | `HEURISTIC`, sometimes literature-informed | Advisory | Useful style constraints, not universal sensory laws. The perfume name and brief remain the design authority. |
 | IFRA and allergen rule checks | `engine/ifra_safety.py`, pipeline safety gates | `LITERATURE_DERIVED` rule snapshot | Safety screening only | Depends on source version, product category, natural constituent data, and legal context; not a regulatory certificate. |
+| Addition-only intervention safety authority | `engine/interventions.py`, `/api/v1/lab/interventions` | Mixed; fail-closed unless versioned evidence is formula-bound | Active diagnostic boundary | Caller-declared pass is nonauthoritative. Ranking requires traceable finished-product evidence bound to the formula-state SHA-256 and covering the pipette-rounded achieved dose; public requests cannot authorize skin use. |
+| Package allergen reconstruction | `engine/reverse_engineer.py`, `engine/allergen_solver.py`, `engine/ifra_constraints.py` | `DECLARED` constituent presence; raw-material identity/concentration `UNKNOWN` | Active, fail-closed diagnostic | Label order does not quantify sub-1% ingredients. Declared constituents cannot create standalone material hypotheses or natural-dose estimates. Absence bounds require an explicitly verified complete/applicable label regime. |
 | Legacy backend longevity/sillage functions | `backend/app/domain/ingredients/chemistry.py` | `HEURISTIC` | Not called by canonical formula API | Note-percentage rules have no empirical wear calibration. |
 | In-sample score correction | `engine/calibration.py` | `HEURISTIC` | Optional legacy feedback path | OLS can train with three samples and reports in-sample metrics; no held-out split or domain validation. It is not `EMPIRICALLY_CALIBRATED`. |
 | Wear-test and panel record storage | `engine/calibration/models.py`, `engine/calibration/store.py` | `EXACT` storage/provenance utility | Available | Storage readiness counts are not model validation. Promotion requires a protocol and held-out analysis. |
@@ -81,6 +84,9 @@ or usefulness of the implementation. See
 2. Density and molecular-weight fallbacks remain available only to keep the
    heuristic headspace model inspectable. Sources and missing fields stay
    visible, and mass-fraction ppm is withheld if any density is missing.
+   Temperature-dependent VP uses a published VP25-derived ΔHvap correlation
+   when measured Antoine/ΔHvap data are absent; that inference is reported and
+   cannot promote the headspace result beyond `HEURISTIC`.
 3. Temporal frames are diagnostic approximations, not hours-of-wear claims.
 4. Canonical API longevity, sillage, and receptor values are intentionally
    unavailable rather than guessed.
@@ -92,6 +98,9 @@ or usefulness of the implementation. See
 7. Composite natural OAV must not be reused as IFRA/allergen constituent
    composition. Regulatory screening needs a versioned source and actual batch
    or supplier composition.
+8. UNIFAC is unavailable and unimplemented in the canonical activity path.
+   Molecular subgroup coverage, interaction-parameter coverage, and
+   perfume-domain validation are required before activation.
 
 ## Phase 0 Verification Boundary
 

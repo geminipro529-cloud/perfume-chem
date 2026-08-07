@@ -13,6 +13,7 @@ import json
 import traceback
 from collections.abc import Sequence
 from dataclasses import dataclass, field, replace
+from statistics import median
 from typing import Mapping
 
 from engine.authority_gates import evaluate_mode_action
@@ -144,6 +145,8 @@ class ReleaseGateConfig:
     matrix_source: str = "omitted"
     mode: str = "RECONSTRUCTION"
     action: str = "REPORT"
+    chassis_core_ul: float | None = None
+    chassis_module_ul: float | None = None
 
     def effective_ifra_headroom(self) -> float:
         """Return the active IFRA multiplier for this gate run."""
@@ -388,9 +391,16 @@ def _gate_material_coverage(state: FormulaState) -> GateResult:
 
 def _gate_data_coverage(state: FormulaState) -> GateResult:
     required = ("mw", "logp", "vp", "odt_air_ppm")
+    composite_authority = {
+        m.name: [field for field in required if field in m.missing_fields]
+        for m in state.materials
+        if m.sources.get("oav_model") == "literature:natural_composite_gc_o"
+        and any(field in m.missing_fields for field in required)
+    }
     missing = {
         m.name: [field for field in required if field in m.missing_fields]
         for m in state.materials
+        if m.sources.get("oav_model") != "literature:natural_composite_gc_o"
         if any(field in m.missing_fields for field in required)
     }
     if missing:
@@ -400,11 +410,21 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
             json.dumps(missing, sort_keys=True),
             missing,
         )
-    return _result("physics_data_coverage", "PASS")
+    return _result(
+        "physics_data_coverage",
+        "PASS",
+        ("constituent-resolved natural authority" if composite_authority else ""),
+        {"natural_composite_exemptions": composite_authority} if composite_authority else None,
+    )
 
 
 def _gate_odt_coverage(state: FormulaState) -> GateResult:
-    missing = sorted(m.name for m in state.materials if m.odt_air_ppm is None)
+    missing = sorted(
+        m.name
+        for m in state.materials
+        if m.odt_air_ppm is None
+        and m.sources.get("oav_model") != "literature:natural_composite_gc_o"
+    )
     if missing:
         return _result("odt_coverage", "FAIL", ", ".join(missing), {"missing": missing})
 
@@ -419,6 +439,7 @@ def _gate_odt_coverage(state: FormulaState) -> GateResult:
                 "derived:",
                 "unverified:",
                 "estimated:",
+                "modeled:",
                 "profile:",
                 "registry:",
             )
@@ -1151,7 +1172,7 @@ def _gate_odt_sanity(state: FormulaState, config: ReleaseGateConfig) -> GateResu
 
 
 def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """WARN if any material has no VP data at all, or VP sourced from a fallback."""
+    """Audit VP origin, temperature model, and cross-source consistency."""
     no_vp = [
         (m.name, m.vp_pure_pa)
         for m in state.materials
@@ -1160,6 +1181,13 @@ def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> Gat
     fallback_sources = [
         m.name for m in state.materials if "fallback" in str(m.sources.get("vp", "")).lower()
     ]
+    temperature_models: dict[str, int] = {}
+    inferred_dhvap_materials: list[str] = []
+    for material in state.materials:
+        model = str(material.sources.get("vp_temperature", "missing"))
+        temperature_models[model] = temperature_models.get(model, 0) + 1
+        if model.startswith("heuristic:"):
+            inferred_dhvap_materials.append(material.name)
     issues = []
     if no_vp:
         issues.append(
@@ -1167,6 +1195,11 @@ def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> Gat
         )
     if fallback_sources:
         issues.append(f"{len(fallback_sources)} materials with fallback VP source")
+    if inferred_dhvap_materials:
+        issues.append(
+            f"{len(inferred_dhvap_materials)} materials use inferred enthalpy "
+            f"for VP at {state.temperature_K:.2f} K"
+        )
     from engine.science_audit import build_material_consistency_audit
 
     consistency = build_material_consistency_audit([material.name for material in state.materials])
@@ -1181,11 +1214,22 @@ def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> Gat
             {
                 "no_vp": no_vp,
                 "fallback_vp_sources": fallback_sources,
+                "temperature_models": temperature_models,
+                "inferred_dhvap_materials": inferred_dhvap_materials,
                 "cross_source_conflicts": vp_conflicts,
                 "release_authority": False,
             },
         )
-    return _result("vp_cross_source", "PASS", "all materials have VP data from trusted sources")
+    return _result(
+        "vp_cross_source",
+        "PASS",
+        "all materials have VP data and measured temperature dependence",
+        {
+            "temperature_models": temperature_models,
+            "inferred_dhvap_materials": [],
+            "release_authority": False,
+        },
+    )
 
 
 def _gate_dilution_consistency(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -1978,7 +2022,6 @@ def _gate_performance_prediction(state: FormulaState, config: ReleaseGateConfig)
     try:
         from future_modules.performance_profiles import (
             estimate_evaporation_timeline,  # noqa: F401  # feature detection
-            get_bangkok_vp,  # noqa: F401  # feature detection
             get_performance,
             recommend_fixative_loading,
         )
@@ -2002,9 +2045,11 @@ def _gate_performance_prediction(state: FormulaState, config: ReleaseGateConfig)
     if fix_load:
         info.append(f"Recommended fixative loading: {fix_load[0]:.0f}% ({fix_load[1]})")
 
-    # Bangkok VP adjustment (always at 305K = ~32°C)
-    if config.temperature_K >= 305:
-        info.append(f"Bangkok temperature adjustment active (T={config.temperature_K}K)")
+    if abs(config.temperature_K - 298.15) > 1e-9:
+        info.append(
+            "Material-specific VP temperature adjustment active "
+            f"(T={config.temperature_K:.2f}K, reference=298.15K)"
+        )
 
     return _result(
         "performance_prediction",
@@ -2067,11 +2112,10 @@ def _gate_chemical_compatibility(state: FormulaState, config: ReleaseGateConfig)
 
 
 def _gate_edge_cases(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """Anosmia coverage, ghost notes, Bangkok climate, solubility."""
+    """Anosmia coverage plus formula-specific VP temperature sensitivity."""
     try:
         from future_modules.edge_cases import (
             check_musk_class_coverage,
-            clausius_clapeyron_factor,
             estimate_anosmia_coverage,
             thai_market_check,  # noqa: F401  # feature detection
         )
@@ -2104,16 +2148,44 @@ def _gate_edge_cases(state: FormulaState, config: ReleaseGateConfig) -> GateResu
     ]
     covered, missing = check_musk_class_coverage(musk_names)
     coverage = estimate_anosmia_coverage(musk_names) * 100.0
-    temperature_c = config.temperature_K - 273.15
-    cc_factor = clausius_clapeyron_factor(temperature_c)
+    temperature_factors = [
+        float(material.vp_temperature_factor)
+        for material in state.materials
+        if material.vp_temperature_factor is not None
+    ]
+    unavailable_temperature_factors = [
+        material.name for material in state.materials if material.vp_temperature_factor is None
+    ]
+    temperature_summary = {
+        "reference_temperature_K": 298.15,
+        "formula_temperature_K": state.temperature_K,
+        "material_count": len(temperature_factors),
+        "unavailable_count": len(unavailable_temperature_factors),
+        "unavailable_materials": unavailable_temperature_factors,
+        "min": min(temperature_factors) if temperature_factors else None,
+        "median": median(temperature_factors) if temperature_factors else None,
+        "max": max(temperature_factors) if temperature_factors else None,
+    }
+    if temperature_factors:
+        temperature_detail = (
+            f"formula VP factor x{temperature_summary['min']:.2f}"
+            f"-{temperature_summary['max']:.2f} "
+            f"(median x{temperature_summary['median']:.2f}, "
+            f"T={state.temperature_K:.2f}K vs 298.15K, "
+            f"n={len(temperature_factors)})"
+        )
+    else:
+        temperature_detail = (
+            f"formula VP factor unavailable (T={state.temperature_K:.2f}K vs 298.15K)"
+        )
     return _result(
         "edge_cases",
         "WARN" if missing else "PASS",
-        f"Musk coverage: {coverage:.0f}%, gaps: {len(missing)}, Bangkok VP ×{cc_factor:.1f}",
+        f"Musk coverage: {coverage:.0f}%, gaps: {len(missing)}, {temperature_detail}",
         data={
             "musk_coverage_pct": round(coverage, 1),
             "missing_classes": missing,
-            "cc_factor": cc_factor,
+            "vp_temperature_factor": temperature_summary,
         },
     )
 
@@ -4092,21 +4164,109 @@ def _gate_natural_compatibility(state: FormulaState, config: ReleaseGateConfig) 
     return _result("natural_compatibility", "PASS", "No incompatible natural pairs detected")
 
 
-def _gate_oav_physics_gamma(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """A.1: Verify gamma != 1.0 for non-ethanol materials (no silent ideal solution)."""
-    issues = []
-    for m in state.materials:
-        if abs(m.gamma - 1.0) < 0.01:
-            name_lower = m.name.lower()
-            if "ethanol" not in name_lower and "dpg" not in name_lower:
-                issues.append(f"{m.name}: {m.gamma:.3f} (silent ideal-solution assumption)")
-    if issues:
+def _gamma_authority_class(source: str) -> str:
+    normalized = str(source or "").strip().lower()
+    if normalized.startswith(("experimental:", "empirically_calibrated:")):
+        return "EMPIRICALLY_CALIBRATED"
+    if normalized.startswith("unifac:"):
+        return "PREDICTIVE_UNIFAC_UNVALIDATED"
+    if normalized == "modeled:natural_composite_constituent_gamma":
+        return "HEURISTIC_NATURAL_COMPOSITE"
+    if normalized.startswith("heuristic:hansen"):
+        return "HEURISTIC_HANSEN_DISTANCE"
+    if normalized.startswith("profile:"):
+        return "HEURISTIC_PROFILE_CONSTANT"
+    if normalized.startswith("fallback:ideal"):
+        return "IDEAL_COMPARISON_FALLBACK"
+    return "UNKNOWN"
+
+
+def _gate_oav_physics_gamma(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+) -> GateResult:
+    """Report gamma authority and OAV leverage without treating non-unity as proof."""
+    del config
+    rows: list[dict[str, object]] = []
+    authority_counts: dict[str, int] = {}
+    for material in state.materials:
+        source = str(material.sources.get("gamma", material.gamma_source) or "unknown")
+        authority = _gamma_authority_class(source)
+        authority_counts[authority] = authority_counts.get(authority, 0) + 1
+        oav_model = str(material.sources.get("oav_model", "unknown"))
+        simple_monomolecular = (
+            oav_model == "heuristic:monomolecular_headspace"
+            and material.oav is not None
+            and material.gamma > 0.0
+        )
+        ideal_scenario_oav = (
+            float(material.oav) / float(material.gamma) if simple_monomolecular else None
+        )
+        leverage = (
+            max(float(material.gamma), 1.0 / float(material.gamma))
+            if simple_monomolecular
+            else None
+        )
+        rows.append(
+            {
+                "material": material.name,
+                "gamma": round(float(material.gamma), 6),
+                "gamma_source": source,
+                "authority": authority,
+                "oav_model": oav_model,
+                "modeled_oav": (None if material.oav is None else round(float(material.oav), 6)),
+                "ideal_gamma_scenario_oav": (
+                    None if ideal_scenario_oav is None else round(ideal_scenario_oav, 6)
+                ),
+                "modeled_to_ideal_oav_ratio": (
+                    None if ideal_scenario_oav is None else round(float(material.gamma), 6)
+                ),
+                "scenario_leverage_x": (None if leverage is None else round(leverage, 6)),
+            }
+        )
+
+    rows.sort(
+        key=lambda row: float(row["scenario_leverage_x"] or 0.0),
+        reverse=True,
+    )
+    unresolved = [row for row in rows if row["authority"] != "EMPIRICALLY_CALIBRATED"]
+    scenario_rows = [row for row in rows if row["scenario_leverage_x"] is not None]
+    data = {
+        "authority": "HEURISTIC_UNCALIBRATED",
+        "release_authority": False,
+        "source_counts": authority_counts,
+        "materials": rows,
+        "comparison_scenario": {
+            "gamma": 1.0,
+            "authority": "COMPARISON_SCENARIO_ONLY",
+            "interpretation": (
+                "The gamma=1 result is neither a confidence interval nor a "
+                "lower/upper bound. It only exposes point-model leverage."
+            ),
+            "natural_composites_excluded": True,
+        },
+    }
+    if unresolved:
+        leverage_detail = ""
+        if scenario_rows:
+            leader = scenario_rows[0]
+            leverage_detail = (
+                f"; largest gamma=1 comparison leverage "
+                f"{leader['material']}={leader['scenario_leverage_x']:.1f}x"
+            )
         return _result(
             "oav_physics_gamma",
             "WARN",
-            f"{len(issues)} materials with gamma ~1.0: " + "; ".join(issues[:5]),
+            f"{len(unresolved)}/{len(rows)} materials use predictive, heuristic, "
+            f"fallback, or unknown gamma authority{leverage_detail}",
+            data,
         )
-    return _result("oav_physics_gamma", "PASS", "All non-ethanol materials have non-unity gamma")
+    return _result(
+        "oav_physics_gamma",
+        "PASS",
+        "All activity coefficients have formula-domain empirical calibration.",
+        data,
+    )
 
 
 def _gate_skin_degradation(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4231,7 +4391,10 @@ def _gate_hedonic_neuroscience(state: FormulaState, config: ReleaseGateConfig) -
     return _result("hedonic_neuroscience", "PASS", "No neuroscience flags raised")
 
 
-def _gate_solvent_matrix(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+def _legacy_gate_solvent_matrix(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+) -> GateResult:
     """Track carrier solvents entering perfume through diluted materials."""
     try:
         from engine.name_utils import normalize_name as _nn  # noqa: F401  # feature detection
@@ -4268,6 +4431,71 @@ def _gate_solvent_matrix(state: FormulaState, config: ReleaseGateConfig) -> Gate
         return _result("solvent_matrix", "PASS", "Solvent module not loaded")
     except Exception as e:
         return _result("solvent_matrix", "PASS", f"Solvent tracking skipped: {e}")
+
+
+def _gate_solvent_matrix(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Reconcile declared bulk solvent and diluted-stock carrier evidence.
+
+    Residual stock-carrier volumes remain diagnostic proxies unless the stock
+    basis is explicitly v/v. They are reported here but are not silently added
+    to the canonical headspace mole fractions.
+    """
+    del config
+    from engine.solvent_matrix import SolventLedger, get_solvent_properties
+
+    ledger = SolventLedger()
+    for name, moles in state.matrix_components_moles:
+        properties = get_solvent_properties(name)
+        mw = float(properties.get("mw", 0.0) or 0.0)
+        density = float(properties.get("density", 0.0) or 0.0)
+        if mw <= 0.0 or density <= 0.0:
+            ledger.unresolved_bulk_components.append(name)
+            continue
+        volume_ul = float(moles) * mw / density * 1000.0
+        ledger.add_bulk_component(name, volume_ul)
+
+    for material in state.materials:
+        ledger.add_material(
+            material.raw_ul,
+            material.dilution,
+            material.stock_carrier,
+            material=material.name,
+            fraction_basis=material.stock_fraction_basis,
+        )
+
+    data = ledger.to_dict()
+    data.update(
+        {
+            "headspace_basis": state.headspace_basis,
+            "matrix_source": state.matrix_source,
+            "formula_stock_carrier_inclusion": state.stock_carrier_inclusion,
+            "interpretation": (
+                "Named residual carrier volumes are reconciliation scenarios. "
+                "They do not alter modeled mole fractions until concentration "
+                "basis, carrier identity, and double-counting are resolved."
+            ),
+        }
+    )
+    diluted_rows = [material for material in state.materials if material.dilution < 1.0]
+    if not diluted_rows:
+        return _result(
+            "solvent_matrix",
+            "PASS",
+            "No diluted-stock carrier reconciliation is required.",
+            data,
+        )
+
+    known = data["known_stock_carriers_ul"]
+    unresolved = float(data["unresolved_carrier_proxy_ul"])
+    proxy_rows = sum(row["authority"] == "RESIDUAL_VOLUME_PROXY" for row in data["stock_rows"])
+    detail = (
+        f"stock-carrier authority {data['authority']}; "
+        f"known named carriers {known}; unresolved carrier proxy "
+        f"{unresolved:.1f} uL"
+    )
+    if proxy_rows:
+        detail += f"; {proxy_rows} named carrier row(s) lack a v/v basis"
+    return _result("solvent_matrix", "WARN", detail, data)
 
 
 def _gate_sensory_overcrowding(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4422,7 +4650,22 @@ def _apply_preflight_confidence_penalty(
     updated = dict(confidence)
     base_combined = float(updated.get("combined_confidence", 0.0) or 0.0)
     adjusted = max(0.0, round(base_combined - penalty, 1))
-    updated["science_preflight_penalty"] = round(penalty, 3)
+    science_penalty = 0.0
+    for raw_check in preflight.get("checks", []) or []:
+        if not isinstance(raw_check, Mapping):
+            continue
+        if raw_check.get("check_name") != "science_coverage":
+            continue
+        raw_data = raw_check.get("data", {}) or {}
+        if isinstance(raw_data, Mapping):
+            science_penalty = float(raw_data.get("confidence_penalty", 0.0) or 0.0)
+        break
+    updated["preflight_evidence_penalty"] = round(penalty, 3)
+    updated["science_preflight_penalty"] = round(science_penalty, 3)
+    updated["preflight_penalty_components"] = {
+        "science_coverage": round(science_penalty, 3),
+        "other_formula_evidence": round(max(0.0, penalty - science_penalty), 3),
+    }
     updated["combined_confidence_pre_penalty"] = round(base_combined, 1)
     updated["combined_confidence"] = adjusted
     updated["combined_grade"] = (
@@ -4444,17 +4687,21 @@ def _apply_preflight_confidence_penalty(
         status = "WARN" if advisory_low_confidence else "FAIL"
         detail = (
             f"combined confidence {adjusted:.1f} below {threshold:.1f} after "
-            f"preflight science penalty {penalty:.1f}"
+            f"preflight evidence penalty {penalty:.1f}"
         )
         if diagnostic_reference:
             detail += "; reference-control study remains diagnostic only"
             updated["authorization"] = "DIAGNOSTIC_REFERENCE_CONTROL_ONLY"
     elif adjusted < 50.0:
         status = "WARN"
-        detail = f"combined confidence {adjusted:.1f} after preflight science penalty {penalty:.1f}"
+        detail = (
+            f"combined confidence {adjusted:.1f} after preflight evidence penalty {penalty:.1f}"
+        )
     else:
         status = "PASS"
-        detail = f"combined confidence {adjusted:.1f} after preflight science penalty {penalty:.1f}"
+        detail = (
+            f"combined confidence {adjusted:.1f} after preflight evidence penalty {penalty:.1f}"
+        )
     updated_gate = _result(confidence_gate.gate, status, detail, updated)
     return updated_gate, updated
 
@@ -4669,6 +4916,139 @@ def _gate_mode_protection(state, config):
             "reasons": [],
         },
     )
+
+
+def _gate_chassis_integrity(state, config):
+    """Validate chassis partition arithmetic when formula has chassis annotations.
+    By default SKIP if no chassis markup detected — no breaking change."""
+    try:
+        from engine.reconstruction.chassis import (
+            ChassisPartition,
+            validate_anchor_floors,  # noqa: F401 — availability check
+            validate_partition,
+        )
+    except ImportError:
+        return GateResult(
+            gate="chassis_integrity",
+            status="SKIP",
+            detail="Chassis engine not available.",
+        )
+
+    chassis_data = getattr(state, "_chassis_data", None)
+    if chassis_data is None:
+        return GateResult(
+            gate="chassis_integrity",
+            status="SKIP",
+            detail="No chassis annotations detected — not applicable to flat formulas.",
+        )
+
+    chassis = ChassisPartition(**chassis_data)
+    expected_total = state.total_raw_ul or 4500.0
+    expected_core = getattr(config, "chassis_core_ul", None) or chassis.core_total_ul
+    expected_module = getattr(config, "chassis_module_ul", None) or chassis.module_total_ul
+
+    errors = validate_partition(chassis, expected_total, expected_core, expected_module)
+
+    if errors:
+        return GateResult(
+            gate="chassis_integrity",
+            status="FAIL",
+            detail=f"Partition validation failed: {'; '.join(errors[:5])}{'...' if len(errors) > 5 else ''}",
+            data={"errors": errors},
+        )
+
+    return GateResult(
+        gate="chassis_integrity",
+        status="PASS",
+        detail=f"Core {chassis.core_total_ul:.1f} + Module {chassis.module_total_ul:.1f} = Target {chassis.total_ul:.1f} µL",
+        data={
+            "core_ul": chassis.core_total_ul,
+            "module_ul": chassis.module_total_ul,
+            "total_ul": chassis.total_ul,
+        },
+    )
+
+
+def _gate_authority_vector(state, config):
+    """Report per-dimension authority and FAIL if critical dimensions too low.
+
+    Uses coverage-aware scoring via ``derive_authority_from_evidence``:
+    - identity: fraction of target rows with at least one evidence claim
+    - quantity: penalized by contradictions
+    - safety: fraction of materials with known IFRA limits
+    - release: only passes if all critical dimensions >= 0.5
+    """
+    from engine.reconstruction.authority import derive_authority_from_evidence
+    from engine.target.formula import AuthorityVector
+
+    # Try to derive from target + evidence if available
+    authority = AuthorityVector()
+    try:
+        target = getattr(state, "_target_formula", None)
+        evidence = getattr(state, "_evidence_ledger", None)
+        if target is not None and evidence is not None:
+            authority = derive_authority_from_evidence(target, evidence)
+    except Exception:
+        pass
+
+    # FAIL conditions
+    failures = []
+    if authority.safety < 0.2:
+        failures.append(
+            f"Safety authority insufficient ({authority.safety:.2f}) — unknown IFRA limits for too many materials"
+        )
+    if authority.identity < 0.3 and authority.quantity < 0.3:
+        failures.append(
+            f"Identity ({authority.identity:.2f}) AND Quantity ({authority.quantity:.2f}) authority both insufficient — insufficient evidence"
+        )
+    if authority.identity < 0.5 and getattr(config, "require_identity_authority", True):
+        failures.append(f"Identity authority insufficient ({authority.identity:.2f})")
+
+    if failures:
+        return GateResult(
+            gate="authority_vector",
+            status="FAIL",
+            detail="; ".join(failures) + ". DIMENSIONS NEVER AVERAGED.",
+            data=authority.as_dict() if hasattr(authority, "as_dict") else {},
+        )
+
+    return GateResult(
+        gate="authority_vector",
+        status="PASS",
+        detail="All critical authority dimensions sufficient. DIMENSIONS NEVER AVERAGED.",
+        data=authority.as_dict() if hasattr(authority, "as_dict") else {},
+    )
+
+
+def _gate_concentration_basis(state, config):
+    """FAIL if any material has unspecified concentration basis or if carriers lack explicit basis."""
+    violations = []
+    for m in state.materials:
+        basis = getattr(m, "concentration_basis", "unspecified")
+        if basis == "unspecified":
+            violations.append(f"{m.name}: concentration basis not specified (use w/w, v/v, or w/v)")
+
+    # Check for carriers without explicit basis
+    from engine.units.concentration import is_carrier
+
+    for m in state.materials:
+        if is_carrier(m.name) and getattr(m, "concentration_basis", "unspecified") == "unspecified":
+            violations.append(f"{m.name}: carrier material without explicit concentration basis")
+
+    if violations:
+        return GateResult(
+            gate="concentration_basis",
+            status="FAIL",
+            detail=f"{len(violations)} material(s) with unspecified concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
+            data={"violations": violations},
+        )
+
+    return GateResult(
+        gate="concentration_basis",
+        status="PASS",
+        detail="All materials have explicit concentration basis.",
+    )
+
 
 def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> GateReport:
     """Run all reusable release gates on a parsed formula record."""
@@ -5084,10 +5464,10 @@ def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> G
             lambda: _gate_mass_market_tier_check(state, config),
             "mass_market_tier_check",
         ),
-        _safe_gate(
-            lambda: _gate_mode_protection(state, config),
-            "mode_protection",
-        ),
+        _safe_gate(lambda: _gate_mode_protection(state, config), "mode_protection"),
+        _safe_gate(lambda: _gate_chassis_integrity(state, config), "chassis_integrity"),
+        _safe_gate(lambda: _gate_authority_vector(state, config), "authority_vector"),
+        _safe_gate(lambda: _gate_concentration_basis(state, config), "concentration_basis"),
     ]
     robustness_gate, _robustness = _gate_robustness(formula, config)
     gates.append(robustness_gate)

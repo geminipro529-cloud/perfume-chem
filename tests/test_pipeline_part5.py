@@ -53,7 +53,7 @@ def test_future_module_gates_accept_unknown_oav_and_current_api_contracts():
     assert "api mismatch" not in musk.detail.lower()
 
 
-def test_edge_case_gate_uses_celsius_and_percentage_units():
+def test_edge_case_gate_uses_formula_specific_temperature_factors():
     state = build_formula_state(
         {
             "Zenolide": 400.0,
@@ -71,7 +71,14 @@ def test_edge_case_gate_uses_celsius_and_percentage_units():
         ReleaseGateConfig(temperature_K=305.0, audit_enabled=False),
     )
 
-    assert 1.0 < result.data["cc_factor"] < 4.0
+    temperature = result.data["vp_temperature_factor"]
+    assert temperature["reference_temperature_K"] == 298.15
+    assert temperature["formula_temperature_K"] == 305.0
+    assert temperature["material_count"] == 4
+    assert 1.0 < temperature["min"] <= temperature["median"] <= temperature["max"]
+    assert "cc_factor" not in result.data
+    assert "Bangkok VP" not in result.detail
+    assert "formula VP factor" in result.detail
     assert result.data["musk_coverage_pct"] > 90.0
     assert "Musk coverage: 100%" in result.detail
 
@@ -145,19 +152,28 @@ def _formula(
 
 def _trial_fougere():
     ingredients = {
-        "Bergamot FCF": 1200.0,
-        "Lavender EO": 700.0,
+        "Cedrat FCF oil Sicilian": 1200.0,
+        "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
         "Coumarin": 300.0,
         "Evernyl": 10.0,
         "Iso E Super": 1500.0,
-        "Vetiver EO": 300.0,
+        "Cedarwood oil Virginia": 300.0,
         "Zenolide": 490.0,
     }
     return _formula(
         ingredients,
-        dilutions={material: 1.0 for material in ingredients},
+        dilutions={
+            material: (
+                0.3
+                if material == "Coumarin"
+                else 0.2
+                if material == "Evernyl"
+                else 1.0
+            )
+            for material in ingredients
+        },
     )
 
 
@@ -308,14 +324,14 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
 
 | # | Material | Dilution | Amount (uL) | Amount (mL) |
 |---:|---|---:|---:|---:|
-| 1 | Bergamot FCF | neat | 1200 | 1.200 |
-| 2 | Lavender EO | neat | 700 | 0.700 |
-| 3 | Linalyl Acetate | neat | 600 | 0.600 |
-| 4 | Hedione | neat | 900 | 0.900 |
-| 5 | Coumarin | neat | 300 | 0.300 |
-| 6 | Evernyl | neat | 10 | 0.010 |
+    | 1 | Cedrat FCF oil Sicilian | neat | 1200 | 1.200 |
+    | 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 0.700 |
+    | 3 | Linalyl Acetate | neat | 600 | 0.600 |
+    | 4 | Hedione | neat | 900 | 0.900 |
+    | 5 | Coumarin | 30% | 300 | 0.300 |
+    | 6 | Evernyl | 20% | 10 | 0.010 |
 | 7 | Iso E Super | neat | 1500 | 1.500 |
-| 8 | Vetiver EO | neat | 300 | 0.300 |
+    | 8 | Cedarwood oil Virginia | neat | 300 | 0.300 |
 | 9 | Zenolide | neat | 490 | 0.490 |
 """,
         encoding="utf-8",

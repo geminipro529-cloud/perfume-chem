@@ -1,4 +1,11 @@
+import path from "node:path";
+
 export const EnvGuard = async ({ project, client, $, directory, worktree }) => {
+  const resolveProjectPath = (value) => {
+    const base = typeof directory === "string" ? directory : (directory?.path || process.cwd());
+    return path.resolve(base, value);
+  };
+
   return {
     "tool.execute.before": async (input, output) => {
       if (input.tool === "read" && output.args.filePath && output.args.filePath.includes(".env")) {
@@ -29,9 +36,12 @@ export const EnvGuard = async ({ project, client, $, directory, worktree }) => {
       output.env.PERFUME_INVENTORY = "inventory.txt"
       output.env.PERFUME_ODT = "engine/odor_thresholds.py"
       output.env.PERFUME_PROFILES = "engine/ingredient_intelligence.py"
-      output.env.PERFUME_MATERIALS_DIR = "data/materials"
-      output.env.PERFUME_PIPELINE_SCRIPT = "scripts/formula_release_gate.py"
-      output.env.PERFUME_ANALYSIS_SCRIPT = "scripts/format_pipeline_analysis.py"
+      output.env.PERFUME_MATERIALS_DIR = resolveProjectPath("data/materials")
+      output.env.PERFUME_PIPELINE_SCRIPT = resolveProjectPath("scripts/formula_release_gate.py")
+      output.env.PERFUME_ANALYSIS_SCRIPT = resolveProjectPath("scripts/format_pipeline_analysis.py")
+      output.env.PERFUME_INVENTORY = resolveProjectPath("inventory.txt")
+      output.env.PERFUME_ODT = resolveProjectPath("engine/odor_thresholds.py")
+      output.env.PERFUME_PROFILES = resolveProjectPath("engine/ingredient_intelligence.py")
     },
 
     "tool.execute.after": async (input, output) => {

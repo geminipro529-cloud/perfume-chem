@@ -1,0 +1,134 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S \"$(git rev-parse --show-toplevel)/.codex/hooks/lifecycle.py\"",
+            "commandWindows": "python -S \"D:\\chatbots\\perfume-chem\\.codex\\hooks\\lifecycle.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -288,6 +288,16 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.5,
         "synergies": ["Linalool", "Hedione", "Neroli EO"],
     },
+    "Bergamot FCF": {
+        "character": {"freshness": 8, "floral": 3, "sweetness": 2, "green": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 1.5,
+        "clogp": 2.5,
+        "synergies": ["Linalool", "Hedione", "Neroli EO"],
+    },
     "Bergamot FCF oil Sicilian": {
         "character": {"freshness": 8, "floral": 4, "sweetness": 2, "green": 2},
         "note": "heart",
@@ -2751,7 +2761,137 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.7,
         "synergies": ["Ylang Ylang EO", "Indole", "Neroli EO", "Methyl Benzoate"],
     },
+    "Adoxal": {
+        "character": {"freshness": 7, "aquatic": 5, "floral": 4, "green": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 210.36,
+        "vp": 0.4,
+        "clogp": 6.2,
+        "synergies": ["Calone", "Helional", "Hedione", "Linalool"],
+    },
+    "Champignol": {
+        "character": {"earthy": 8, "green": 3, "fruity": 3, "smoky": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 128.21,
+        "vp": 70.8,
+        "clogp": 2.7,
+        "synergies": ["Geosmin", "Violet Leaf Absolute", "Patchouli EO", "Blackcurrant Absolute"],
+    },
+    "Coriander Essential Oil": {
+        "character": {"spicy": 5, "freshness": 5, "green": 3, "floral": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 15.0,
+        "clogp": 3.2,
+        "synergies": ["Linalool", "Cardamom EO", "Rose Absolute", "Black Pepper EO"],
+    },
+    "2-Acetyl Pyrazine": {
+        "character": {"gourmand": 8, "warmth": 4, "sweetness": 3, "nutty": 5},
+        "note": "base",
+        "role": "character",
+        "texture": "depth",
+        "mw": 122.12,
+        "vp": 0.02,
+        "clogp": 0.7,
+        "synergies": [
+            "Coffee Absolute Grasse",
+            "Cocoa Absolute",
+            "Vanillin",
+            "Castoreum Synthetic",
+        ],
+    },
+    "Safraleine": {
+        "character": {"spicy": 6, "leathery": 6, "smoky": 3, "warmth": 5},
+        "note": "base",
+        "role": "modifier",
+        "texture": "skin-effect",
+        "mw": 174.24,
+        "vp": 0.02,
+        "clogp": 2.3,
+        "synergies": [
+            "Ethyl Safranate",
+            "Isobutyl Quinoline",
+            "Castoreum Synthetic",
+            "Labdanum Absolute",
+        ],
+    },
+    "Blackcurrant Absolute": {
+        "character": {"fruity": 7, "green": 5, "sourness": 3, "animalic": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 180.0,
+        "vp": 0.05,
+        "clogp": 3.5,
+        "synergies": [
+            "Cassis Base 345B",
+            "Raspberry Ketone",
+            "Rose Absolute",
+            "Violet Leaf Absolute",
+        ],
+    },
+    "Violet Leaf Absolute": {
+        "character": {"green": 8, "freshness": 5, "aquatic": 3, "earthy": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 220.0,
+        "vp": 0.005,
+        "clogp": 4.0,
+        "synergies": ["Blackcurrant Absolute", "Alpha Ionone", "Galbanum EO", "Orris Liquid"],
+    },
+    "Black Agarwood Artificial": {
+        "character": {"woody": 8, "smoky": 6, "animalic": 3, "warmth": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 220.0,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Castoreum Synthetic", "Cypriol EO", "Iso E Super", "Labdanum Absolute"],
+    },
+    "Castoreum Synthetic": {
+        "character": {"animalic": 7, "leathery": 6, "smoky": 4, "warmth": 4},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.001,
+        "clogp": 3.0,
+        "synergies": [
+            "Isobutyl Quinoline",
+            "Birch Tar Rectified",
+            "Black Agarwood Artificial",
+            "Indole",
+        ],
+    },
+    "Coffee Absolute Grasse": {
+        "character": {"gourmand": 8, "warmth": 6, "smoky": 3, "sweetness": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "depth",
+        "mw": 190.0,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": ["2-Acetyl Pyrazine", "Cocoa Absolute", "Vanillin", "Safraleine"],
+    },
     # ═══════════════════════ SOLVENTS / CARRIERS ═══════════════════════
+    "Diethyl Phthalate": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 222.24,
+        "vp": 0.002,
+        "clogp": 2.5,
+        "synergies": [],
+    },
     "Dipropylene Glycol": {
         "character": {},
         "note": "carrier",
@@ -3253,6 +3393,21 @@ _ALIASES = {
     "Tonka FO": "Tonka Bean FO",
     "DHM": "Dihydromyrcenol",
     "DEP": "Diethyl Phthalate",
+    "DPG": "Dipropylene Glycol",
+    "IPM": "Isopropyl Myristate",
+    "TEC": "Triethyl Citrate",
+    "Ethanol 96%": "Ethanol",
+    "Adoxal 10% in DPG": "Adoxal",
+    "Champignol 10% in DPG": "Champignol",
+    "Coriander EO": "Coriander Essential Oil",
+    "Coriander Seed Oil": "Coriander Essential Oil",
+    "2-Acetyl Pyrazine 1% in DPG": "2-Acetyl Pyrazine",
+    "Safraleine neat": "Safraleine",
+    "Blackcurrent Absolute": "Blackcurrant Absolute",
+    "Blackcurrant Absolute 10% in DPG": "Blackcurrant Absolute",
+    "Violet Leaf Absolute 10% in DPG": "Violet Leaf Absolute",
+    "Jasmine Absolute 10% in DPG": "Jasmine Absolute",
+    "Coffee Absolute Grasse 10% in DPG": "Coffee Absolute Grasse",
     "Limonene": "D-Limonene",
     "EB": "Ethylene Brassylate",
     "Vetiver EO (Haitian or Bourbon)": "Vetiver EO",
@@ -3447,6 +3602,16 @@ _CHEMICAL_FAMILY_MAP: dict[str, list[str]] = {
     "Jasmine Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
     "Jasmine Sambac Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
     "Jasmine FO": ["benzenoid", "monoterpenoid", "lactone"],
+    "Adoxal": ["aldehyde_aliphatic", "alkene"],
+    "Champignol": ["alcohol_aliphatic", "fungal"],
+    "Coriander Essential Oil": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "2-Acetyl Pyrazine": ["pyrazine", "ketone_aromatic"],
+    "Safraleine": ["ketone_indenone", "aromatic"],
+    "Blackcurrant Absolute": ["sulfurous", "monoterpenoid", "ester_terpenoid"],
+    "Violet Leaf Absolute": ["aldehyde_green", "natural_mixture"],
+    "Black Agarwood Artificial": ["sesquiterpenoid", "phenolic_smoky"],
+    "Castoreum Synthetic": ["phenolic_smoky", "animalic"],
+    "Coffee Absolute Grasse": ["pyrazine", "furanoid", "phenolic_smoky"],
     "Labdanum Absolute": ["sesquiterpenoid", "balsamic", "amber"],
     "Labdanum Resinoid": ["sesquiterpenoid", "balsamic", "amber"],
     "Lavender EO": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
@@ -3585,6 +3750,17 @@ except Exception:
 # dimension fallback handles the long tail.
 _OR_FAMILY_OVERRIDES: dict[str, str] = {
     # Citrus
+    "Bergamot FCF": "citrus",
+    "Adoxal": "aldehydic",
+    "Champignol": "earth",
+    "Coriander Essential Oil": "aromatic",
+    "2-Acetyl Pyrazine": "gourmand",
+    "Safraleine": "smoky",
+    "Blackcurrant Absolute": "fruity",
+    "Violet Leaf Absolute": "green",
+    "Black Agarwood Artificial": "woody",
+    "Castoreum Synthetic": "animalic",
+    "Coffee Absolute Grasse": "gourmand",
     "Bergamot FCF Sicilian": "citrus",
     "Cedrat FCF Sicilian": "citrus",
     "Blood Orange Sicilian": "citrus",
@@ -3878,6 +4054,7 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Eugenol": 1.1,
     "Geosmin": 1.2,
     # Citrus oils — ethanol nearly ideal
+    "Bergamot FCF": 3.0,
     "Bergamot FCF Sicilian": 1.0,
     # Aldehydes — slightly boosted
     "C-10 Aldehyde": 1.1,
@@ -3922,11 +4099,16 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Bergamot EO": 3.0,
     "Birch Tar Rectified": 1.8,
     "Blackcurrant FTEC": 1.5,
+    "Blackcurrant Absolute": 1.2,
+    "Black Agarwood Artificial": 0.8,
     "Blood Orange Sicilian": 3.0,
     "Calone": 1.5,
     "Cardamom EO": 2.0,
     "Carrot Seed EO": 2.0,
     "Castoreum Base": 1.5,
+    "Castoreum Synthetic": 0.8,
+    "Champignol": 1.2,
+    "Coriander Essential Oil": 2.0,
     "Cassis Base 345B": 1.5,
     "Cedamber": 1.5,
     "Cedarwood EO": 2.0,
@@ -3937,11 +4119,16 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Citral": 1.5,
     "Citronellol": 1.8,
     "Hydroxycitronellol": 0.6,
+    "Coffee Absolute Grasse": 0.8,
+    "Safraleine": 1.2,
+    "Violet Leaf Absolute": 1.0,
     "Civet Reconstitution Base": 1.5,
     "Clary Sage EO": 2.0,
     "Clearwood": 1.8,
     "Clove EO (India)": 1.5,
     "Cyclamen Aldehyde": 1.3,
+    "Adoxal": 1.4,
+    "2-Acetyl Pyrazine": 0.9,
     "D-Limonene": 3.0,
     "DBCA": 1.5,
     "Damascol": 1.3,
@@ -4475,3 +4662,330 @@ def suggest_replacement(missing_name: str, inventory_names: set[str]) -> str:
             best_match = name
 
     return best_match if best_score >= 3 else "no close match — browse inventory by note/character"
+
+
+# ─────────────────────────────────────────────────────────────────────
+
+# MATERIAL_INTAKE_BATCH_2026_08_07 — post-definition patch (user material intake)
+
+MATERIAL_INTAKE_BATCH_2026_08_07 = True
+
+_PROFILES.setdefault("nerolidol", {}).update(
+    {
+        "character": "woody-floral balsamic sesquiterpene alcohol",
+        "note": "floral",
+        "role": "heart",
+        "texture": "soft, balmy",
+        "mw": 222.37,
+        "vp": 0.006,
+        "clogp": 4.6,
+        "odt_air_ppb": 150.0,
+        "odt_eth_ppm": 0.9,
+        "odor_family": "floral_woody",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("stralyl acetate", {}).update(
+    {
+        "character": "green-sweet gardenia-floral ester",
+        "note": "floral",
+        "role": "heart",
+        "texture": "sweet, green",
+        "mw": 164.2,
+        "vp": 7.0,
+        "clogp": 2.0,
+        "odt_air_ppb": 40.0,
+        "odt_eth_ppm": 1.0,
+        "odor_family": "floral",
+        "activity_coef": 1.8,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("cypress eo", {}).update(
+    {
+        "character": "dry conifer-woody-aromatic natural",
+        "note": "woody",
+        "role": "heart",
+        "texture": "dry, resinous",
+        "mw": 136.0,
+        "vp": 250.0,
+        "clogp": 3.8,
+        "odt_air_ppb": 200.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "conifer",
+        "activity_coef": 3.0,
+        "hedonic": 0.4,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("padma", {}).update(
+    {
+        "character": "green-hyacinth floral acetal",
+        "note": "floral",
+        "role": "heart",
+        "texture": "green, stemmy",
+        "mw": 166.22,
+        "vp": 20.0,
+        "clogp": 2.1,
+        "odt_air_ppb": 200.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "green_floral",
+        "activity_coef": 1.5,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("hay absolute", {}).update(
+    {
+        "character": "coumarinic hay, dry, natural",
+        "note": "hay",
+        "role": "base",
+        "texture": "dry, powdery",
+        "mw": 146.0,
+        "vp": 0.3,
+        "clogp": 1.4,
+        "odt_air_ppb": 4.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "hay",
+        "activity_coef": 0.7,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("cabreuva eo", {}).update(
+    {
+        "character": "woody-balsamic nerolidol-rich oil",
+        "note": "woody",
+        "role": "base",
+        "texture": "soft, balsamic",
+        "mw": 222.0,
+        "vp": 0.006,
+        "clogp": 4.6,
+        "odt_air_ppb": 150.0,
+        "odt_eth_ppm": 0.9,
+        "odor_family": "woody",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("tuberlia base", {}).update(
+    {
+        "character": "tuberose-creamy captive base",
+        "note": "floral",
+        "role": "heart",
+        "texture": "creamy, waxy",
+        "mw": 190.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "odt_air_ppb": 10.0,
+        "odt_eth_ppm": 0.02,
+        "odor_family": "tuberose",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("caraway seed eo", {}).update(
+    {
+        "character": "caraway-seed spicy natural",
+        "note": "spice",
+        "role": "heart",
+        "texture": "sharp, seed",
+        "mw": 150.0,
+        "vp": 6.0,
+        "clogp": 2.6,
+        "odt_air_ppb": 2.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "spice",
+        "activity_coef": 2.5,
+        "hedonic": 0.4,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("turkish storax", {}).update(
+    {
+        "character": "balsamic-cinnamic resin tincture",
+        "note": "balsamic",
+        "role": "base",
+        "texture": "warm, resinous",
+        "mw": 148.0,
+        "vp": 1.0,
+        "clogp": 2.0,
+        "odt_air_ppb": 20.0,
+        "odt_eth_ppm": 0.05,
+        "odor_family": "balsamic",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("benzoin styrax tonkinensis tincture", {}).update(
+    {
+        "character": "benzoin-balsamic sweet resin tincture",
+        "note": "balsamic",
+        "role": "base",
+        "texture": "sweet, resinous",
+        "mw": 212.0,
+        "vp": 0.02,
+        "clogp": 2.5,
+        "odt_air_ppb": 3.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "balsamic",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("helichrysum eo", {}).update(
+    {
+        "character": "immortelle hay-curry-floral natural",
+        "note": "floral",
+        "role": "heart",
+        "texture": "hay, curry",
+        "mw": 180.0,
+        "vp": 0.5,
+        "clogp": 3.0,
+        "odt_air_ppb": 5.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "immortelle",
+        "activity_coef": 1.0,
+        "hedonic": 0.5,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("verdyl acetate", {}).update(
+    {
+        "character": "green-floral-woody acetate",
+        "note": "floral",
+        "role": "heart",
+        "texture": "green, woody",
+        "mw": 192.25,
+        "vp": 2.0,
+        "clogp": 2.2,
+        "odt_air_ppb": 10.0,
+        "odt_eth_ppm": 0.02,
+        "odor_family": "green_floral",
+        "activity_coef": 2.0,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("sandalwood base x3", {}).update(
+    {
+        "character": "creamy-warm sandalwood pre-blend",
+        "note": "woody",
+        "role": "base",
+        "texture": "creamy, smooth",
+        "mw": 220.0,
+        "vp": 0.1,
+        "clogp": 3.5,
+        "odt_air_ppb": 100.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "sandalwood",
+        "activity_coef": 0.6,
+        "hedonic": 0.8,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("tuberose eo (volume level grade)", {}).update(
+    {
+        "character": "tuberose green-creamy natural",
+        "note": "floral",
+        "role": "heart",
+        "texture": "creamy, green",
+        "mw": 190.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "odt_air_ppb": 20.0,
+        "odt_eth_ppm": 0.05,
+        "odor_family": "tuberose",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("elemi eo", {}).update(
+    {
+        "character": "elemi pine-citrus-balsamic resin oil",
+        "note": "citrus",
+        "role": "top",
+        "texture": "fresh, balsamic",
+        "mw": 204.0,
+        "vp": 5.0,
+        "clogp": 4.0,
+        "odt_air_ppb": 10.0,  # aligned to pre-existing ODT_DATA elemi eo (remediation 2026-08-07)
+        "odt_eth_ppm": 2.0,
+        "odor_family": "citrus_balsamic",
+        "activity_coef": 2.5,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+
+# ─────────────────────────────────────────────────────────────────────
+# MATERIAL_INTAKE_REMEDIATION_2026_08_07 — MaterialProfile reads "odt"/"odt_ppm" (auditor CRITICAL C2)
+MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
+# backfill Phenethyl Alcohol (legacy profile) odt keys (auditor C2b)
+from engine.odor_thresholds import ODT_DATA as _INTAKE_ODT_DATA
+
+_PEA = _PROFILES.setdefault("Phenethyl Alcohol", {})
+_PEA.setdefault("odt", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_air"))
+_PEA.setdefault("odt_ppm", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_eth"))
+
+for _mi_name in [
+    "nerolidol",
+    "stralyl acetate",
+    "cypress eo",
+    "padma",
+    "hay absolute",
+    "cabreuva eo",
+    "tuberlia base",
+    "caraway seed eo",
+    "turkish storax",
+    "benzoin styrax tonkinensis tincture",
+    "helichrysum eo",
+    "verdyl acetate",
+    "sandalwood base x3",
+    "tuberose eo (volume level grade)",
+]:
+    _mi_prof = _PROFILES.setdefault(_mi_name, {})
+    _mi_prof.setdefault("odt", _mi_prof.get("odt_air_ppb"))
+    _mi_prof.setdefault("odt_ppm", _mi_prof.get("odt_eth_ppm"))
+# elemi eo: align profile with pre-existing ODT_DATA (10.0/2.0) and drop the unsourced 5.0/0.05
+_PROFILES.setdefault("elemi eo", {}).update(
+    {"odt_air_ppb": 10.0, "odt_eth_ppm": 2.0, "odt": 10.0, "odt_ppm": 2.0}
+)

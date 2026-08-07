@@ -85,9 +85,7 @@ def test_materials_count(conn: sqlite3.Connection) -> None:
 
 def test_materials_in_inventory_count(conn: sqlite3.Connection) -> None:
     """At least 200 in-inventory materials should exist."""
-    count = conn.execute(
-        "SELECT COUNT(*) FROM materials WHERE user_in_inventory = 1"
-    ).fetchone()[0]
+    count = conn.execute("SELECT COUNT(*) FROM materials WHERE user_in_inventory = 1").fetchone()[0]
     assert count >= 200, f"Expected >= 200 in-inventory, got {count}"
 
 
@@ -126,9 +124,7 @@ def test_aliases_exist(conn: sqlite3.Connection) -> None:
 
 def test_natural_decomposition_exists(conn: sqlite3.Connection) -> None:
     """SELECT COUNT(*) FROM material_natural_decomposition > 0."""
-    count = conn.execute(
-        "SELECT COUNT(*) FROM material_natural_decomposition"
-    ).fetchone()[0]
+    count = conn.execute("SELECT COUNT(*) FROM material_natural_decomposition").fetchone()[0]
     assert count > 0, "No natural decomposition data found"
 
 
@@ -150,7 +146,7 @@ def test_osmanthus_decomposition(conn: sqlite3.Connection) -> None:
 def test_family_archetypes_count(conn: sqlite3.Connection) -> None:
     """The knowledge base includes all 36 registered family archetypes."""
     count = conn.execute("SELECT COUNT(*) FROM family_archetypes").fetchone()[0]
-    assert count == 36, f"Expected 36 family archetypes, got {count}"
+    assert count == 38, f"Expected 38 family archetypes, got {count}"
 
 
 def test_archetype_anchors_exist(conn: sqlite3.Connection) -> None:
@@ -305,9 +301,7 @@ def test_material_role_ratios_exist(conn: sqlite3.Connection) -> None:
 
 def test_cross_family_compatibility_exist(conn: sqlite3.Connection) -> None:
     """Cross-family compatibility should be populated."""
-    count = conn.execute("SELECT COUNT(*) FROM cross_family_compatibility").fetchone()[
-        0
-    ]
+    count = conn.execute("SELECT COUNT(*) FROM cross_family_compatibility").fetchone()[0]
     assert count > 0, "No cross-family compatibility entries found"
 
 
@@ -325,9 +319,7 @@ def test_every_inventory_material_exists(conn: sqlite3.Connection) -> None:
     from engine.inventory_parser import inventory_names
 
     # Get all unique material names from inventory (including solvents)
-    inv_names = inventory_names(
-        unique=True, include_solvents=True, include_unavailable=True
-    )
+    inv_names = inventory_names(unique=True, include_solvents=True, include_unavailable=True)
 
     # Build a set of canonical names in the DB (normalized)
     db_rows = conn.execute("SELECT canonical_name FROM materials").fetchall()
@@ -349,11 +341,7 @@ def test_every_inventory_material_exists(conn: sqlite3.Connection) -> None:
             continue
 
         # Try a broader search: extract key tokens (words > 2 chars, no numbers)
-        tokens = [
-            t
-            for t in re.split(r"[\s\-/]+", norm_name)
-            if len(t) > 2 and not t.isdigit()
-        ]
+        tokens = [t for t in re.split(r"[\s\-/]+", norm_name) if len(t) > 2 and not t.isdigit()]
         found_broad = False
         for token in tokens:
             rows = conn.execute(
@@ -380,7 +368,6 @@ def test_every_inventory_material_exists(conn: sqlite3.Connection) -> None:
 
         missing.append(name)
 
-    assert not missing, (
-        f"Materials from inventory not found in DB ({len(missing)}):\n"
-        + "\n".join(f"  '{n}' (norm='{normalize_name(n)}')" for n in missing)
+    assert not missing, f"Materials from inventory not found in DB ({len(missing)}):\n" + "\n".join(
+        f"  '{n}' (norm='{normalize_name(n)}')" for n in missing
     )

@@ -12,6 +12,29 @@ from typing import Optional
 
 R_GAS = 8.314_462_618  # J/mol/K
 MMHG_TO_PA = 133.322_387_415
+VP_REFERENCE_T_K = 298.15
+DEFAULT_DHVAP_ESTIMATE_KJ_MOL = 60.0
+
+# Goss and Schwarzenbach, Environmental Science & Technology 33 (1999),
+# 3390-3393, DOI 10.1021/es980812j.  Their ambient-temperature correlation
+# used 195 organic compounds and liquid/subcooled-liquid VP at 25 C:
+# delta_vap H (kJ/mol) = -3.82 ln(P_25 / Pa) + 70.0.
+VP25_DHVAP_CORRELATION_SOURCE = "doi:10.1021/es980812j"
+
+
+def estimate_dhvap_from_vp_25c(vp_25c_pa: float) -> float:
+    """Estimate ambient-temperature enthalpy of vaporization from VP at 25 C.
+
+    This is a literature-derived correlation, not a measured material
+    property.  Callers must preserve that distinction in output authority.
+    """
+    vp = float(vp_25c_pa)
+    if not math.isfinite(vp) or vp <= 0.0:
+        raise ValueError("vp_25c_pa must be finite and positive")
+    estimate = -3.82 * math.log(vp) + 70.0
+    if not math.isfinite(estimate) or estimate <= 0.0:
+        raise ValueError("VP-derived enthalpy estimate is outside the physical domain")
+    return estimate
 
 
 def vp_pa(
@@ -36,7 +59,7 @@ def vp_pa(
         return (10.0**log10_p_mmhg) * MMHG_TO_PA
     if vp_25c_pa is not None and dhvap_kj_mol is not None:
         # Clausius–Clapeyron, reference T = 298.15 K
-        T_ref = 298.15  # noqa: N806
+        T_ref = VP_REFERENCE_T_K  # noqa: N806
         dh = dhvap_kj_mol * 1000.0
         return vp_25c_pa * math.exp(-dh / R_GAS * (1.0 / T_K - 1.0 / T_ref))
     if vp_25c_pa is not None:

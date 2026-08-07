@@ -21,6 +21,124 @@ from engine.pipeline.natural_absolute_decomposition import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
+_JULY_2026_MATERIAL_ADDITIONS = {
+    "Adoxal 10% in DPG": ("Adoxal", 0.10, False),
+    "Champignol 10% in DPG": ("Champignol", 0.10, False),
+    "Coriander EO": ("Coriander Essential Oil", 1.0, True),
+    "2-Acetyl Pyrazine 1% in DPG": ("2-Acetyl Pyrazine", 0.01, False),
+    "Safraleine": ("Safraleine", 1.0, False),
+    "Blackcurrent Absolute": ("Blackcurrant Absolute", 0.10, True),
+    "Violet Leaf Absolute 10% in DPG": (
+        "Violet Leaf Absolute",
+        0.10,
+        True,
+    ),
+    "Black Agarwood Artificial": ("Black Agarwood Artificial", 1.0, False),
+    "Castoreum Synthetic": ("Castoreum Synthetic", 1.0, False),
+    "Jasmine Absolute 10% in DPG": ("Jasmine Absolute", 0.10, True),
+    "Coffee Absolute Grasse 10% in DPG": (
+        "Coffee Absolute Grasse",
+        0.10,
+        True,
+    ),
+}
+
+
+@pytest.mark.parametrize(
+    ("requested_name", "canonical_name", "expected_dilution", "is_natural"),
+    [
+        (requested, canonical, dilution, natural)
+        for requested, (canonical, dilution, natural)
+        in _JULY_2026_MATERIAL_ADDITIONS.items()
+    ],
+)
+def test_july_2026_additions_resolve_across_runtime_data_paths(
+    requested_name: str,
+    canonical_name: str,
+    expected_dilution: float,
+    is_natural: bool,
+) -> None:
+    available = {
+        normalize_name(item.name): item
+        for item in parse_inventory(include_unavailable=False)
+    }
+    inventory_record = available[normalize_name(canonical_name)]
+
+    assert inventory_record.dilution == pytest.approx(expected_dilution)
+    assert names_match(requested_name, canonical_name)
+    assert get_profile(requested_name) is not None
+    assert lookup_odt_entry(requested_name) is not None
+
+    registry_record = load_registry().get(canonical_name)
+    assert registry_record is not None
+    assert registry_record.user_in_inventory is True
+    assert registry_record.user_stock_dilution is not None
+    assert registry_record.mw_g_mol is not None
+    assert registry_record.vp_25c_pa is not None
+    assert registry_record.odt_air_ppb is not None
+    assert registry_record.odt_eth_ppm is not None
+
+    if is_natural:
+        assert get_constituents(requested_name)
+        assert get_composite_metadata(requested_name) is not None
+    else:
+        assert get_constituents(requested_name) is None
+
+
+def test_new_coriander_and_coffee_naturals_have_evidence_bounded_profiles() -> None:
+    coriander = get_composite_metadata("Coriander Essential Oil")
+    coffee = get_composite_metadata("Coffee Absolute Grasse")
+
+    assert coriander is not None
+    assert coriander.resolution == "direct_identity"
+    assert coriander.characterized_fraction == pytest.approx(0.7975)
+    assert coriander.sources == (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",
+    )
+
+    assert coffee is not None
+    assert coffee.resolution == "literature_proxy"
+    assert coffee.profile_key == "roasted coffee oil literature profile"
+    assert coffee.characterized_fraction == pytest.approx(0.00281614)
+    assert coffee.sources == ("https://doi.org/10.3390/foods12132515",)
+    assert any("supplier-batch" in item for item in coffee.limitations)
+
+
+def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
+    materials = json.loads(
+        (PROJECT_ROOT / "data" / "knowledge_graph" / "material_properties.json")
+        .read_text(encoding="utf-8")
+    )
+    by_name = {material["name"].casefold(): material for material in materials}
+
+    for canonical_name, expected_dilution, _is_natural in (
+        _JULY_2026_MATERIAL_ADDITIONS.values()
+    ):
+        material = by_name[canonical_name.casefold()]
+        assert material["in_inventory"] is True
+        assert material["dilution_pct"] == pytest.approx(expected_dilution)
+        assert material["stock_form"]
+        for field in (
+            "mw",
+            "vp",
+            "odt",
+            "odt_ethanol_ppm",
+            "note",
+            "role",
+            "texture",
+            "odor_family",
+            "activity_coef",
+        ):
+            assert material[field] is not None
+
+
+def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
+    profile = get_profile("Violet Leaf Absolute")
+
+    assert profile is not None
+    assert "Violet Leaf Absolute" not in profile.synergies
+
+
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     available = {
         item.name: item
@@ -28,9 +146,10 @@ def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     }
 
     assert available["Alpha Irone"].dilution == pytest.approx(0.30)
-    assert available["Orris Liquid"].dilution == pytest.approx(0.30)
+    assert available["Orris Liquid"].dilution == pytest.approx(1.0)
+    assert available["Orris Liquid"].fraction_basis == "neat"
     assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
-    assert available["Olibanum Resinoid"].dilution == pytest.approx(1.0)
+    assert available["Olibanum Resinoid"].dilution == pytest.approx(0.5)
     assert available["Cocoa Absolute"].dilution == pytest.approx(1.0)
     assert available["Cocoa CO2 Extract"].dilution == pytest.approx(0.077)
     assert "Hydroxycitronellal" not in available

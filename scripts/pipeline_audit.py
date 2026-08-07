@@ -412,6 +412,8 @@ def _cmd_artifact_verify(args: argparse.Namespace) -> int:
             "blocking": sorted(blocking_statuses),
             "unbound_legacy_is_current": False,
             "none_is_current": False,
+            "quarantined_is_current": False,
+            "quarantined_release_authority": False,
         },
         "counts": dict(sorted(counts.items())),
         "files": rows,

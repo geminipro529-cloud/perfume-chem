@@ -1,0 +1,24 @@
+{
+    "archive":  "D:\\chatbots\\perfume-chem\\outputs\\b5-canonical-prepromotion-recovery\\20260731_044800\\b5-canonical-targets-before-promotion.zip",
+    "archive_sha256":  null,
+    "existing_targets":  [
+
+                         ],
+    "absent_targets":  [
+                           "backend/alembic/versions/20260731_0009_b5_analytical_authority.py",
+                           "backend/app/models/lab_analytical.py",
+                           "backend/app/repositories/lab_analytical.py",
+                           "backend/app/services/lab_analytical.py"
+                       ],
+    "restored_root":  "D:\\chatbots\\perfume-chem\\outputs\\b5-canonical-prepromotion-recovery\\20260731_044800\\verified-restore",
+    "hashes":  [
+
+               ],
+    "mismatches":  [
+
+                   ],
+    "entry_mismatches":  [
+
+                         ],
+    "verified":  true
+}

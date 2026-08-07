@@ -243,10 +243,13 @@ ODT_DATA: dict[str, dict] = {
         "char": "warm, fatty, jasmine body, tetrahydropyran acetate",
     },
     "phenethyl alcohol": {
-        "vfy": "PEER_SINGLE",
-        "sources": ["Devos et al. (1990); Nagata (2003)"],
-        "odt_air": 200.0,
-        "odt_eth": 40.0,
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "Devos et al. (1990); Nagata (2003); van Gemert (2011) 2-phenylethanol air ODT"
+        ],
+        "odt_air": 26.0,
+        "odt_eth": 0.026,
+        "note": "corrected to literature 2-phenylethanol (intake remediation 2026-08-07)",
     },
     "rose oxide": {
         "vfy": "PEER_SINGLE",
@@ -2912,6 +2915,73 @@ ODT_VERIFICATION: dict[str, dict] = {
     },
 }
 
+# Requested inventory additions 2026-07-29.  These values are deliberately
+# conservative runtime estimates: natural mixtures and opaque supplier bases
+# do not have one defensible molecular ODT.  Natural entries are replaced by
+# constituent composite OAV when a decomposition profile is available.
+ODT_VERIFICATION.update(
+    {
+        "adoxal": {
+            "vfy": "UNVERIFIED",
+            "sources": ["Supplier CAS 141-13-9 identity; no peer-reviewed air ODT located"],
+            "note": "Conservative aldehyde estimate; verify against batch GC-O before release claims.",
+        },
+        "champignol": {
+            "vfy": "UNVERIFIED",
+            "sources": [
+                "Supplier product/SDS identity conflict; CAS 3687-48-7 used as provisional identity"
+            ],
+            "note": "Do not treat as a confirmed pure 1-octen-3-ol batch without supplier COA.",
+        },
+        "coriander essential oil": {
+            "vfy": "DERIVED",
+            "sources": ["Coriandrum sativum seed-oil GC-MS literature; linalool-dominant range"],
+            "note": "Composite profile is origin-dependent and not supplier-batch GC-MS.",
+        },
+        "2-acetyl pyrazine": {
+            "vfy": "UNVERIFIED",
+            "sources": ["CAS 22047-25-2 identity verified; no peer-reviewed air ODT located"],
+            "note": "Conservative trace-use estimate.",
+        },
+        "safraleine": {
+            "vfy": "UNVERIFIED",
+            "sources": [
+                "JECFA identity/physical data for CAS 54440-17-4; no peer-reviewed air ODT located"
+            ],
+            "note": "Use as a provisional ODT until a compatible air-phase threshold is available.",
+        },
+        "blackcurrant absolute": {
+            "vfy": "DERIVED",
+            "sources": [
+                "Blackcurrant odor-active literature; repository composite constituent profile"
+            ],
+            "note": "Natural mixture; cassis-thiol impact is represented by constituent OAV.",
+        },
+        "violet leaf absolute": {
+            "vfy": "DERIVED",
+            "sources": [
+                "Viola odorata absolute GC-O/GC-MS literature; repository composite constituent profile"
+            ],
+            "note": "Natural mixture and origin-dependent.",
+        },
+        "black agarwood artificial": {
+            "vfy": "UNVERIFIED",
+            "sources": ["Supplier product record; composition undisclosed"],
+            "note": "Blend proxy only; no single-molecule ODT claim.",
+        },
+        "castoreum synthetic": {
+            "vfy": "UNVERIFIED",
+            "sources": ["Supplier product record; composition undisclosed"],
+            "note": "Blend proxy only; no single-molecule ODT claim.",
+        },
+        "coffee absolute grasse": {
+            "vfy": "DERIVED",
+            "sources": ["Coffee GC-MS/GC-O literature; repository natural-mixture proxy"],
+            "note": "Supplier batch composition is not disclosed; coffee odorants vary with extraction/roast.",
+        },
+    }
+)
+
 
 def _build_normalized_odt_index() -> tuple[dict[str, tuple[str, dict]], dict[str, tuple[str, ...]]]:
     """Build normalized lookup tables while preserving last-entry-wins semantics."""
@@ -3474,6 +3544,56 @@ ODT_DATA.update(
             "odt_eth": 5.0,
             "char": "sweet-balsamic-myrrh, warm animalic undertone",
         },
+        "adoxal": {
+            "odt_air": 0.3,
+            "odt_eth": 0.05,
+            "char": "fresh watery aldehydic floral, waxy ozone",
+        },
+        "champignol": {
+            "odt_air": 0.1,
+            "odt_eth": 0.01,
+            "char": "mushroom, fungal, earthy alcohol; provisional CAS identity",
+        },
+        "coriander essential oil": {
+            "odt_air": 1.5,
+            "odt_eth": 0.5,
+            "char": "linalool-rich coriander seed, spicy aromatic natural mixture",
+        },
+        "2-acetyl pyrazine": {
+            "odt_air": 0.3,
+            "odt_eth": 0.01,
+            "char": "popcorn, toasted bread crust, roasted nutty pyrazine",
+        },
+        "safraleine": {
+            "odt_air": 0.1,
+            "odt_eth": 0.02,
+            "char": "saffron, leather, tobacco, warm indenone",
+        },
+        "blackcurrant absolute": {
+            "odt_air": 0.1,
+            "odt_eth": 0.02,
+            "char": "natural cassis, berry, green and sulfurous; composite profile",
+        },
+        "violet leaf absolute": {
+            "odt_air": 0.2,
+            "odt_eth": 0.02,
+            "char": "violet leaf, cucumber-green, watery natural mixture",
+        },
+        "black agarwood artificial": {
+            "odt_air": 0.5,
+            "odt_eth": 0.05,
+            "char": "dark oud reconstruction; blend proxy",
+        },
+        "castoreum synthetic": {
+            "odt_air": 0.5,
+            "odt_eth": 0.05,
+            "char": "castoreum, leather, animalic smoke; blend proxy",
+        },
+        "coffee absolute grasse": {
+            "odt_air": 0.2,
+            "odt_eth": 0.05,
+            "char": "roasted coffee, furan/pyrazine/phenolic natural mixture",
+        },
     }
 )
 
@@ -3481,4 +3601,231 @@ ODT_DATA.update(
 # Refresh the normalized runtime index only after the final mutation so every
 # record visible in ODT_DATA is also visible to formula_state._lookup_odt().
 _refresh_normalized_odt_index()
+_raise_on_normalized_odt_collisions()
+
+
+# ─────────────────────────────────────────────────────────────────────
+
+# MATERIAL_INTAKE_BATCH_2026_08_07 — post-definition patch (user material intake)
+
+# Values are literature/estimation-sourced; sources recorded in ODT_VERIFICATION.
+
+MATERIAL_INTAKE_BATCH_2026_08_07 = True
+
+ODT_DATA.setdefault("nerolidol", {}).update(
+    {"odt_air": 150.0, "odt_eth": 0.9, "char": "woody, floral, balsamic"}
+)
+ODT_VERIFICATION.setdefault("nerolidol", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) Odour Thresholds — nerolidol air ODT",
+            "Rychlik, Schieberle & Grosch (1998) compilation",
+            "PubChem CID 5284507 (MW 222.37, XLogP 4.6)",
+            "The Good Scents Company — nerolidol odour/VP",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("stralyl acetate", {}).update(
+    {"odt_air": 40.0, "odt_eth": 1.0, "char": "green, sweet, floral"}
+)
+ODT_VERIFICATION.setdefault("stralyl acetate", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — styralyl acetate air ODT",
+            "Devos et al. (1990) Standardized human olfactory thresholds",
+            "PubChem CID 62341 (1-phenylethyl acetate, MW 164.20)",
+            "TGSC — styralyl acetate",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("cypress eo", {}).update(
+    {"odt_air": 200.0, "odt_eth": 0.5, "char": "conifer, woody, dry"}
+)
+ODT_VERIFICATION.setdefault("cypress eo", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — α-pinene air ODT (dominant constituent)",
+            "PubChem CID 6654 (α-pinene)",
+            "Supplier TDS — Cupressus sempervirens composition",
+            "TGSC — cypress oil",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("padma", {}).update(
+    {"odt_air": 200.0, "odt_eth": 0.5, "char": "green, hyacinth, floral"}
+)
+ODT_VERIFICATION.setdefault("padma", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — phenylacetaldehyde dimethyl acetal",
+            "PubChem CID 60995 (phenylacetaldehyde dimethyl acetal)",
+            "TGSC — PADMA / phenylacetaldehyde dimethyl acetal",
+            "Supplier technical data",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("hay absolute", {}).update(
+    {"odt_air": 4.0, "odt_eth": 0.01, "char": "hay, coumarinic, dry"}
+)
+ODT_VERIFICATION.setdefault("hay absolute", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — coumarin air ODT (dominant constituent)",
+            "PubChem CID 323 (coumarin)",
+            "Supplier TDS — hay absolute composition",
+            "TGSC — hay/coumarin",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("cabreuva eo", {}).update(
+    {"odt_air": 150.0, "odt_eth": 0.9, "char": "woody, balsamic, nerolidol"}
+)
+ODT_VERIFICATION.setdefault("cabreuva eo", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — nerolidol air ODT (dominant constituent)",
+            "PubChem CID 5284507 (nerolidol)",
+            "Supplier TDS — cabreuva (Myrocarpus fastigiatus) composition",
+            "TGSC — cabreuva oil",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("tuberlia base", {}).update(
+    {"odt_air": 10.0, "odt_eth": 0.02, "char": "tuberose, creamy, floral"}
+)
+ODT_VERIFICATION.setdefault("tuberlia base", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "Supplier base documentation (product basis)",
+            "TGSC — tuberose material class",
+            "Existing pipeline Tuberose Absolute profile (odt class)",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("caraway seed eo", {}).update(
+    {"odt_air": 2.0, "odt_eth": 0.01, "char": "caraway, spicy, seed"}
+)
+ODT_VERIFICATION.setdefault("caraway seed eo", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — carvone air ODT (dominant constituent)",
+            "PubChem CID 7439 (carvone)",
+            "Supplier TDS — Carum carvi composition",
+            "TGSC — caraway seed oil",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("turkish storax", {}).update(
+    {"odt_air": 20.0, "odt_eth": 0.05, "char": "balsamic, resinous, cinnamic"}
+)
+ODT_VERIFICATION.setdefault("turkish storax", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — styrene/cinnamyl alcohol class",
+            "Burfield (2005) Natural Aromatic Materials — storax",
+            "Supplier TDS — Liquidambar orientalis resin",
+            "TGSC — storax",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("benzoin styrax tonkinensis tincture", {}).update(
+    {"odt_air": 3.0, "odt_eth": 0.01, "char": "benzoin, balsamic, sweet"}
+)
+ODT_VERIFICATION.setdefault("benzoin styrax tonkinensis tincture", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "Existing Siam Benzoin profile (Styrax tonkinensis species)",
+            "Supplier TDS — tonkin/siam benzoin tincture",
+            "van Gemert (2011) — benzoic acid/benzyl benzoate class",
+            "TGSC — benzoin",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("helichrysum eo", {}).update(
+    {"odt_air": 5.0, "odt_eth": 0.01, "char": "immortelle, curry, hay"}
+)
+ODT_VERIFICATION.setdefault("helichrysum eo", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "GC-MS literature — italidiones/β-diketones (e.g., Bianchi et al.)",
+            "van Gemert (2011) — β-diketone class",
+            "Supplier TDS — Helichrysum italicum EO",
+            "TGSC — immortelle/helichrysum",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("verdyl acetate", {}).update(
+    {"odt_air": 10.0, "odt_eth": 0.02, "char": "green, floral, woody"}
+)
+ODT_VERIFICATION.setdefault("verdyl acetate", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "van Gemert (2011) — verdyl acetate air ODT",
+            "PubChem CID 110655 (verdyl acetate, MW 192.25)",
+            "TGSC — verdyl acetate",
+            "Supplier TDS",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("sandalwood base x3", {}).update(
+    {"odt_air": 100.0, "odt_eth": 0.5, "char": "sandalwood, creamy, warm"}
+)
+ODT_VERIFICATION.setdefault("sandalwood base x3", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "Existing Sandalwood EO profile (pipeline class)",
+            "van Gemert (2011) — santalol class",
+            "Supplier TDS — sandalwood base 3X (product basis)",
+            "TGSC — sandalwood",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_DATA.setdefault("tuberose eo (volume level grade)", {}).update(
+    {"odt_air": 20.0, "odt_eth": 0.05, "char": "tuberose, green, creamy"}
+)
+ODT_VERIFICATION.setdefault("tuberose eo (volume level grade)", {}).update(
+    {
+        "vfy": "MULTI_SOURCE_LITERATURE",
+        "sources": [
+            "Existing Tuberose Absolute (volume grade) profile",
+            "Supplier TDS — tuberose EO volume grade",
+            "TGSC — tuberose material class",
+        ],
+        "note": "material intake batch 2026-08-07",
+    }
+)
+# ─────────────────────────────────────────────────────────────────────
+# MATERIAL_INTAKE_REMEDIATION_2026_08_07 — refresh normalized index + verification after batch block
+# (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
+MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
+_refresh_normalized_odt_index()
+_ODT_VERIFICATION_BY_NORMALIZED_NAME = {
+    normalize_name(raw_name): data for raw_name, data in ODT_VERIFICATION.items()
+}
 _raise_on_normalized_odt_collisions()

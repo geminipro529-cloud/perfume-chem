@@ -1,0 +1,201 @@
+{
+  "schema_version": "b0-scientific-truth-baseline-v1",
+  "generated_at": "2026-07-30",
+  "phase": "B0",
+  "decision": "PASS",
+  "authority": {
+    "repository": "D:\\chatbots\\perfume-chem",
+    "build_a_boundary_commit": "9f160b6cdc04a5f1ce6f3351612a435c145e1ac7",
+    "working_tree_overlay_in_scope": true,
+    "historical_reports_are_authority": false
+  },
+  "full_inventory": {
+    "path": "docs/verification/b0/scientific_truth_inventory.json.gz",
+    "schema_version": "scientific-truth-inventory-v1",
+    "compressed_sha256": "FDFE1DE2F51ECF2AE03014C27A3C13C594C2DBF1020DBA9A31BFFED487D08CA8",
+    "decompressed_sha256": "955269451E42C9F8452624AE0C0FC4245591EBA54FA0A00F7B805AD6E08707F2",
+    "compressed_bytes": 1499508,
+    "decompressed_bytes": 26142842,
+    "forbidden_or_generated_path_count": 0
+  },
+  "inventory_summary": {
+    "source_digest_count": 997,
+    "material_count": 1262,
+    "material_property_observation_count": 23869,
+    "code_constant_count": 238,
+    "knowledge_rule_count": 3381,
+    "material_property_conflict_set_count": 226
+  },
+  "authority_counts": {
+    "UNKNOWN": 20949,
+    "UNATTRIBUTED_LEGACY": 1987,
+    "LEGACY_HEURISTIC": 505,
+    "LEGACY_TRACEABLE": 311,
+    "LOCAL_RECORD": 69,
+    "LITERATURE_DERIVED": 39,
+    "SUPPLIER_PROVIDED": 9
+  },
+  "non_null_property_counts": {
+    "cas": 61,
+    "density_25c_g_ml": 32,
+    "dhvap_kj_mol": 2,
+    "hedonic_valence": 137,
+    "ifra_max_pct_edp": 15,
+    "inchikey": 14,
+    "kaw_eff": 122,
+    "logp": 211,
+    "mw_g_mol": 289,
+    "odt_air_ppb": 92,
+    "odt_eth_ppm": 81,
+    "or_targets": 1260,
+    "smiles": 15,
+    "stevens_n": 2,
+    "trp_targets": 50,
+    "user_stock_dilution": 251,
+    "vp_25c_pa": 286
+  },
+  "claim_impact_map": {
+    "analytical_identification": 9,
+    "analytical_quantitation": 46,
+    "family_classification": 3403,
+    "formula_similarity": 1,
+    "headspace_prediction": 10112,
+    "identity": 5023,
+    "intervention_recommendation": 5892,
+    "mass_volume_conversion": 3785,
+    "natural_authenticity": 74,
+    "quantity": 2527,
+    "release": 1245,
+    "safety_compliance_screening": 2533,
+    "sensory_intensity": 2516,
+    "threshold_screening": 2564
+  },
+  "selected_source_digests": {
+    "verification_runs/science_audit.json": "569C4DD700DC7AA6525861875530866D3636DD1A42FD48CBEE64C0A005739B0A",
+    "docs/oav_analysis_Bleu_Luxe_vF_2026-05-09.txt": "8D31330BBB41EC0F564CFDA1B49991539AE29B14E1A87B1096C62072C6C917C3",
+    "data/knowledge_graph/material_properties.json": "1FCCCD43D41520D62CA4D3CCC4C8653357B7D4545676C10AE10DCCC9CBFF0726",
+    "data/knowledge_graph/pairing_rules.json": "FC4370B8017334E070B873463BCEC1DB8CD781B156DB214A8B1C0382483CF8D1",
+    "data/knowledge_graph/pairing_rules_discovered.json": "2DD23D496CDA1B6DBD61FF147F977D4BBB7D919048B591E018785BA0BDE9E044",
+    "data/knowledge_graph/synergy_matrix.json": "7B194C2F7EA19EFCFBCC1BAFEF5E4C0DFDCAC69739DFF5720B1C91FE0B7D7B9D",
+    "data/knowledge_graph/theory_rules.json": "4237619F7FDDDBFC15B373C42F40E2D30FC587537AC8F782B2111D6F61F53B90",
+    "data/perfumery_kb.db": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+    "tests/fixtures/golden_formula_cases.json": "193C0BFA868C1C0A4E92F75AE6B1B4FA99C3268C3F6C5C9C3EBB404FE3C4BEB7",
+    "tests/fixtures/golden_formula_cases.sha256": "C16FC7419B77F7BAC52D0642698E21FE44252C129B6D6A1C175AD4CD3B86287B"
+  },
+  "high_impact_findings": [
+    {
+      "id": "B0-F1",
+      "status": "CONFIRMED",
+      "finding": "ODT_DATA has 301 entries and ODT_VERIFICATION has 276 entries without first-class context observations."
+    },
+    {
+      "id": "B0-F2",
+      "status": "CONFIRMED",
+      "finding": "MIXTURE_SUPPRESSION_FACTOR is a global legacy heuristic with multiple runtime consumers."
+    },
+    {
+      "id": "B0-F3",
+      "status": "CONFIRMED",
+      "finding": "Two IFRA_CAT4_LIMITS dictionaries contain 27 and 97 entries and have overlapping consumers."
+    },
+    {
+      "id": "B0-F4",
+      "status": "CONFIRMED",
+      "finding": "A legacy regulatory helper treats an absent IFRA limit as unrestricted."
+    },
+    {
+      "id": "B0-F5",
+      "status": "CONFIRMED",
+      "finding": "Material properties are duplicated across YAML, knowledge JSON, SQLite, and code consumers."
+    },
+    {
+      "id": "B0-F6",
+      "status": "CONFIRMED",
+      "finding": "Knowledge rules are predominantly advisory legacy records and cannot be blocking numerical truth."
+    },
+    {
+      "id": "B0-F7",
+      "status": "CONFIRMED",
+      "finding": "Build A science persistence lacks complete source-document, extraction, observation, selected-assertion, contextual-threshold, and method-validation authority."
+    },
+    {
+      "id": "B0-F8",
+      "status": "CONFIRMED",
+      "finding": "Fixed-score analytical QC and coarse identity states are insufficient for claim-specific analytical authority."
+    }
+  ],
+  "compatibility_matrix": [
+    {
+      "surface": "YAML material fields",
+      "readable": true,
+      "migration": "observation_or_explicit_heuristic",
+      "authority": "selected_assertion_policy"
+    },
+    {
+      "surface": "ODT_DATA_and_ODT_VERIFICATION",
+      "readable": true,
+      "migration": "preserve_actual_status_and_context_gaps",
+      "authority": "exploratory_until_context_gate_passes"
+    },
+    {
+      "surface": "legacy_OAV_and_headspace_outputs",
+      "readable": true,
+      "migration": "frozen_fixture",
+      "authority": "none"
+    },
+    {
+      "surface": "EvidenceSource_and_EvidenceClaim",
+      "readable": true,
+      "migration": "one_way_adapter",
+      "authority": "source_and_review_scoped"
+    },
+    {
+      "surface": "LabMaterialProperty",
+      "readable": true,
+      "migration": "selected_assertion_projection",
+      "authority": "not_last_write_wins"
+    },
+    {
+      "surface": "legacy_analytical_exports",
+      "readable": true,
+      "migration": "missing_fields_unknown",
+      "authority": "advisory_or_withheld"
+    },
+    {
+      "surface": "fixed_four_of_seven_QC",
+      "readable": true,
+      "migration": "historical_projection",
+      "authority": "cannot_unlock_claim"
+    },
+    {
+      "surface": "legacy_IFRA_helpers",
+      "readable": true,
+      "migration": "missing_limit_unknown",
+      "authority": "dated_scoped_screening_only"
+    },
+    {
+      "surface": "knowledge_JSON_and_SQLite_rules",
+      "readable": true,
+      "migration": "compile_and_quarantine_invalid",
+      "authority": "advisory_until_evidence_promotion"
+    },
+    {
+      "surface": "golden_formula_and_API_fixtures",
+      "readable": true,
+      "migration": "unchanged_unless_reviewed_and_relocked",
+      "authority": "regression_only"
+    }
+  ],
+  "exit_gate": {
+    "scientific_inventory_complete": true,
+    "runtime_consumers_linked": true,
+    "source_digest_baseline_complete": true,
+    "legacy_behavior_frozen": true,
+    "known_heuristics_and_conflicts_recorded": true,
+    "compatibility_matrix_complete": true,
+    "claim_impact_map_complete": true,
+    "secret_paths_excluded": true,
+    "migrations_or_backfills_performed": false,
+    "passed": true
+  }
+}

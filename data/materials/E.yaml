@@ -144,8 +144,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 1.0  # material intake batch 2026-08-07
+  user_in_inventory: true  # material intake batch 2026-08-07
   supplier:
   families: []
   character:

@@ -27,13 +27,21 @@ from engine.mixer.prebonding import get_functional_groups
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
 from engine.pipeline.natural_absolute_decomposition import (
+    NaturalCompositeHeadspace,
     NaturalCompositeMetadata,
-    composite_oav,
+    composite_headspace,
+    composite_replacement_moles,
     get_composite_metadata,
 )
 from engine.science_data import get_science_profile
 from engine.thermo.activity import gamma
-from engine.thermo.antoine import vp_pa
+from engine.thermo.antoine import (
+    DEFAULT_DHVAP_ESTIMATE_KJ_MOL,
+    VP25_DHVAP_CORRELATION_SOURCE,
+    VP_REFERENCE_T_K,
+    estimate_dhvap_from_vp_25c,
+    vp_pa,
+)
 from engine.uncertainty import (
     FieldUncertainty,
     FormulaUncertainty,
@@ -115,6 +123,7 @@ class MaterialState:
     mole_fraction: float
     logp: float | None
     vp_pure_pa: float | None
+    vp_temperature_factor: float | None
     gamma: float
     gamma_source: str
     partial_pressure_pa: float
@@ -160,6 +169,7 @@ class MaterialState:
             "mole_fraction": self.mole_fraction,
             "logp": self.logp,
             "vp_pure_pa": self.vp_pure_pa,
+            "vp_temperature_factor": self.vp_temperature_factor,
             "gamma": self.gamma,
             "gamma_source": self.gamma_source,
             "partial_pressure_pa": self.partial_pressure_pa,
@@ -193,6 +203,7 @@ class FormulaState:
     temperature_K: float  # noqa: N815
     context: str
     uncertainty: FormulaUncertainty
+    odorant_active_ul: float = 0.0
     matrix_components_moles: tuple[tuple[str, float], ...] = ()
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
@@ -307,16 +318,17 @@ class FormulaState:
     def from_base(cls, base: FormulaState, *, new_raw_ul: dict[str, float]) -> FormulaState:
         """Create a new FormulaState with different raw_ul amounts, reusing constant fields.
 
-        Only amount-dependent fields (raw_ul, active_g, moles, mole_fraction,
-        partial_pressure, vapor_ppm, oav, intensity) are recomputed.
-        Constant material properties (MW, VP, gamma, HSP, ODT, etc.) are copied
-        from the base state. This avoids redundant material resolution and
-        property lookups during temporal simulation.
+        Amount-dependent fields (raw_ul, active_g, moles, mole_fraction,
+        gamma, partial_pressure, vapor_ppm, oav, intensity) are recomputed.
+        Constant material properties (MW, VP, HSP, ODT, etc.) are copied from
+        the base state. This avoids redundant material resolution and property
+        lookups without freezing a composition-dependent activity coefficient.
         """
         materials: list[MaterialState] = []
         total_raw = sum(new_raw_ul.values())
         mole_inputs: dict[str, float] = dict(base.matrix_components_moles)
         authoritative_masses: dict[str, tuple[float | None, str]] = {}
+        composite_rows: list[tuple[str, str, float, float]] = []
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
             active_ul = raw_ul * m.dilution
@@ -340,8 +352,13 @@ class FormulaState:
             moles = active_g / mw if active_g > 0 else 0.0
             canonical = m.canonical_name
             mole_inputs[canonical] = mole_inputs.get(canonical, 0.0) + moles
+            composite_rows.append((canonical, m.name, active_g, moles))
 
         total_moles = sum(mole_inputs.values())
+        composite_total_moles = _composite_formula_total_moles(
+            total_moles,
+            tuple(composite_rows),
+        )
         all_active_masses_authoritative = all(
             mass is not None for mass, _authority in authoritative_masses.values()
         )
@@ -353,6 +370,7 @@ class FormulaState:
             name: (moles / total_moles if total_moles > 0 else 0.0)
             for name, moles in mole_inputs.items()
         }
+        hsp_table = {m.canonical_name: m.hsp for m in base.materials if m.hsp is not None}
 
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
@@ -369,7 +387,20 @@ class FormulaState:
             moles = active_g / mw if active_g > 0 else 0.0
             x_i = mole_fractions.get(m.canonical_name, 0.0)
 
-            partial_pressure = (m.gamma * x_i * m.vp_pure_pa) if m.vp_pure_pa is not None else 0.0
+            gamma_value = m.gamma
+            gamma_source = m.gamma_source
+            if gamma_source != "profile:ingredient_intelligence.activity_coef":
+                try:
+                    gamma_value = gamma(
+                        m.canonical_name,
+                        mole_fractions,
+                        base.temperature_K,
+                        hsp_table=hsp_table,
+                    )
+                    gamma_source = "heuristic:hansen_distance"
+                except Exception:
+                    gamma_value = m.gamma
+            partial_pressure = gamma_value * x_i * m.vp_pure_pa if m.vp_pure_pa is not None else 0.0
             vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
             oav_value = oav(vapor_ppm, m.odt_air_ppm) if m.odt_air_ppm is not None else None
 
@@ -377,25 +408,38 @@ class FormulaState:
             # For known natural absolutes, replace the monomolecular OAV
             # with a composite OAV computed from published GC-O constituents.
             # The monomolecular model understates natural OAV by 100-1000x.
-            composite, composite_metadata, composite_lookup_name = _lookup_composite_oav(
-                m.canonical_name,
-                m.name,
-                active_g,
-                total_moles,
+            composite_result, composite_metadata, composite_lookup_name = (
+                _lookup_composite_headspace(
+                    m.canonical_name,
+                    m.name,
+                    active_g,
+                    composite_total_moles,
+                    temperature_K=base.temperature_K,
+                )
             )
             requires_composite = m.is_opaque_preblend or _is_natural_mixture(m.name)
-            if composite is not None:
-                oav_value = composite  # use accurate multi-constituent model
-            # Fall through: unmodeled naturals keep their monomolecular OAV.
-            # Composite decomposition is a better model, but monomolecular
-            # (Raoult-law) is a better estimate than zero.
+            if composite_result is not None:
+                partial_pressure = composite_result.partial_pressure_pa
+                vapor_ppm = composite_result.vapor_ppm
+                oav_value = composite_result.oav
+            elif requires_composite:
+                # Unsupported naturals and opaque preblends must fail closed.
+                # Their bulk MW/VP is not a defensible odor authority proxy.
+                oav_value = None
             intensity = (
                 perceived_intensity_stevens(oav_value, m.family) if oav_value is not None else None
             )
 
             sources = dict(m.sources)
-            sources["oav_model"] = _oav_model_source(composite, requires_composite)
+            sources["oav_model"] = _oav_model_source(
+                composite_result,
+                requires_composite,
+            )
             if composite_metadata is not None:
+                sources["mw"] = "literature:natural_composite_constituent_mw"
+                sources["vp"] = "literature:natural_composite_constituent_vp"
+                sources["gamma"] = "modeled:natural_composite_constituent_gamma"
+                sources["odt"] = "modeled:natural_composite_constituent_odt"
                 sources["natural_composite"] = (
                     f"{composite_metadata.composition_authority};"
                     f"profile={composite_metadata.profile_key};"
@@ -430,8 +474,9 @@ class FormulaState:
                     mole_fraction=x_i,
                     logp=m.logp,
                     vp_pure_pa=m.vp_pure_pa,
-                    gamma=m.gamma,
-                    gamma_source=m.gamma_source,
+                    vp_temperature_factor=m.vp_temperature_factor,
+                    gamma=gamma_value,
+                    gamma_source=gamma_source,
                     partial_pressure_pa=float(partial_pressure),
                     vapor_ppm=float(vapor_ppm),
                     odt_air_ppm=m.odt_air_ppm,
@@ -478,6 +523,7 @@ class FormulaState:
         return {
             "total_raw_ul": round(self.total_raw_ul, 4),
             "total_active_ul": round(self.total_active_ul, 4),
+            "odorant_active_ul": round(self.odorant_active_ul, 4),
             "batch_volume_ml": self.batch_volume_ml,
             "temperature_K": self.temperature_K,
             "context": self.context,
@@ -546,7 +592,7 @@ def _is_natural_mixture(name: str) -> bool:
     return any(token in low for token in NATURAL_MIXTURE_TOKENS)
 
 
-def _oav_model_source(composite: float | None, requires_composite: bool) -> str:
+def _oav_model_source(composite: object | None, requires_composite: bool) -> str:
     if composite is not None:
         return "literature:natural_composite_gc_o"
     if requires_composite:
@@ -554,12 +600,18 @@ def _oav_model_source(composite: float | None, requires_composite: bool) -> str:
     return "heuristic:monomolecular_headspace"
 
 
-def _lookup_composite_oav(
+def _lookup_composite_headspace(
     canonical_name: str,
     stock_label: str,
     active_g: float,
     total_moles: float,
-) -> tuple[float | None, NaturalCompositeMetadata | None, str]:
+    *,
+    temperature_K: float,  # noqa: N803
+) -> tuple[
+    NaturalCompositeHeadspace | None,
+    NaturalCompositeMetadata | None,
+    str,
+]:
     """Resolve natural composites without losing stock-label identity.
 
     Material canonicalization can intentionally map a stock label to a broader
@@ -573,10 +625,39 @@ def _lookup_composite_oav(
     )
     for candidate in candidates:
         metadata = get_composite_metadata(candidate)
-        composite = composite_oav(candidate, active_g, total_moles)
+        composite = composite_headspace(
+            candidate,
+            active_g,
+            total_moles,
+            temperature_K=temperature_K,
+        )
         if composite is not None or metadata is not None:
             return composite, metadata, candidate
     return None, None, ""
+
+
+def _composite_formula_total_moles(
+    total_moles: float,
+    material_rows: tuple[tuple[str, str, float, float], ...],
+) -> float:
+    """Replace every modeled natural parent in one shared formula mole pool."""
+    effective_total = float(total_moles)
+    for canonical_name, stock_label, active_g, parent_moles in material_rows:
+        candidates = tuple(
+            dict.fromkeys(
+                value for value in (canonical_name, stock_label) if str(value or "").strip()
+            )
+        )
+        for candidate in candidates:
+            replacement = composite_replacement_moles(
+                candidate,
+                active_g,
+                parent_moles,
+            )
+            if replacement is not None:
+                effective_total += replacement - max(0.0, parent_moles)
+                break
+    return max(0.0, effective_total)
 
 
 def _first_present(*values):
@@ -811,6 +892,18 @@ def _build_formula_state_cached(
         name: (moles / total_moles if total_moles > 0 else 0.0)
         for name, moles in mole_inputs.items()
     }
+    composite_total_moles = _composite_formula_total_moles(
+        total_moles,
+        tuple(
+            (
+                row[13].canonical_name,
+                row[0],
+                row[4],
+                row[12],
+            )
+            for row in raw_rows
+        ),
+    )
     all_active_masses_authoritative = all(row[5] is not None for row in raw_rows)
     total_authoritative_active_g = sum(float(row[5] or 0.0) for row in raw_rows)
     finished_mass_g = total_authoritative_active_g + matrix_mass_g
@@ -849,16 +942,55 @@ def _build_formula_state_cached(
             (getattr(profile, "vp", None), "profile:ingredient_intelligence.vp"),
         )
         dhvap = getattr(reg_mat, "dhvap_kj_mol", None)
+        vp_temperature_source = "unavailable:no_vp"
+        dhvap_source = "unavailable:not_used"
+        vp_temperature_factor: float | None = None
         try:
             if ant is not None:
                 vp = vp_pa(temperature_K, A=ant[0], B=ant[1], C=ant[2])
+                reference_vp = vp_pa(
+                    VP_REFERENCE_T_K,
+                    A=ant[0],
+                    B=ant[1],
+                    C=ant[2],
+                )
+                if reference_vp > 0:
+                    vp_temperature_factor = float(vp) / float(reference_vp)
                 vp_source = "measured:data_spine.antoine"
+                vp_temperature_source = "measured:data_spine.antoine"
+                dhvap_source = "not_required:antoine"
             elif vp_25 is not None:
-                vp = vp_pa(temperature_K, vp_25c_pa=float(vp_25), dhvap_kj_mol=dhvap)
+                effective_dhvap = float(dhvap) if dhvap is not None else None
+                if effective_dhvap is not None:
+                    dhvap_source = "registry:data_spine.dhvap"
+                    vp_temperature_source = "literature:clausius_clapeyron"
+                elif abs(float(temperature_K) - VP_REFERENCE_T_K) <= 1e-9:
+                    dhvap_source = "not_required:vp_25c_reference_temperature"
+                    vp_temperature_source = "reference:vp_25c"
+                else:
+                    try:
+                        effective_dhvap = estimate_dhvap_from_vp_25c(float(vp_25))
+                        dhvap_source = f"literature_correlation:{VP25_DHVAP_CORRELATION_SOURCE}"
+                        vp_temperature_source = (
+                            "heuristic:clausius_clapeyron_vp25_dhvap_correlation"
+                        )
+                    except ValueError:
+                        effective_dhvap = DEFAULT_DHVAP_ESTIMATE_KJ_MOL
+                        dhvap_source = f"heuristic:shared_{DEFAULT_DHVAP_ESTIMATE_KJ_MOL:g}_kj_mol"
+                        vp_temperature_source = "heuristic:clausius_clapeyron_shared_dhvap"
+                vp = vp_pa(
+                    temperature_K,
+                    vp_25c_pa=float(vp_25),
+                    dhvap_kj_mol=effective_dhvap,
+                )
+                if float(vp_25) > 0:
+                    vp_temperature_factor = float(vp) / float(vp_25)
             else:
                 vp = None
         except Exception:
             vp = None
+            vp_temperature_source = "unavailable:temperature_correction_failed"
+            dhvap_source = "unavailable:temperature_correction_failed"
 
         gamma_source = "heuristic:hansen_distance"
         profile_activity_coef = getattr(profile, "activity_coef", None)
@@ -878,19 +1010,34 @@ def _build_formula_state_cached(
         oav_value = oav(vapor_ppm, odt_air_ppm) if odt_air_ppm else None
 
         # RULE 1b — Natural Absolute Decomposition
-        composite, composite_metadata, composite_lookup_name = _lookup_composite_oav(
+        composite_result, composite_metadata, composite_lookup_name = _lookup_composite_headspace(
             canonical,
             name,
             active_g,
-            total_moles,
+            composite_total_moles,
+            temperature_K=temperature_K,
         )
         is_opaque_preblend = _is_opaque_preblend(name, profile)
         requires_composite = is_opaque_preblend or _is_natural_mixture(name)
-        if composite is not None:
-            oav_value = composite  # use accurate multi-constituent model
-        # Fall through: unmodeled naturals keep their monomolecular OAV.
-        # Composite decomposition is a better model, but monomolecular
-        # (Raoult-law) is a better estimate than zero.
+        if composite_result is not None:
+            partial_pressure = composite_result.partial_pressure_pa
+            vapor_ppm = composite_result.vapor_ppm
+            oav_value = composite_result.oav
+            composite_reference, _, _ = _lookup_composite_headspace(
+                canonical,
+                name,
+                active_g,
+                composite_total_moles,
+                temperature_K=VP_REFERENCE_T_K,
+            )
+            if composite_reference is not None and composite_reference.partial_pressure_pa > 0:
+                vp_temperature_factor = (
+                    composite_result.partial_pressure_pa / composite_reference.partial_pressure_pa
+                )
+        elif requires_composite:
+            # Unsupported naturals and opaque preblends must fail closed.
+            # Their bulk MW/VP is not a defensible odor authority proxy.
+            oav_value = None
         family = getattr(profile, "or_family", None) if profile else None
         intensity = (
             perceived_intensity_stevens(oav_value, family) if oav_value is not None else None
@@ -918,14 +1065,22 @@ def _build_formula_state_cached(
             "mw": mw_source if mw is not None else "missing",
             "logp": logp_source if logp is not None else "missing",
             "vp": vp_source if vp is not None else "missing",
+            "vp_temperature": vp_temperature_source,
+            "dhvap": dhvap_source,
             "gamma": gamma_source,
             "odt": odt_source,
             "ifra": "literature:ifra_safety"
             if ifra_limit is not None
             else "missing_or_unrestricted",
-            "oav_model": _oav_model_source(composite, requires_composite),
+            "oav_model": _oav_model_source(composite_result, requires_composite),
         }
-        if composite_metadata is not None:
+        if composite_metadata is not None and composite_result is not None:
+            sources["mw"] = "literature:natural_composite_constituent_mw"
+            sources["vp"] = "literature:natural_composite_constituent_vp"
+            sources["vp_temperature"] = composite_result.temperature_model
+            sources["dhvap"] = composite_result.dhvap_model
+            sources["gamma"] = "modeled:natural_composite_constituent_gamma"
+            sources["odt"] = "modeled:natural_composite_constituent_odt"
             sources["natural_composite"] = (
                 f"{composite_metadata.composition_authority};"
                 f"profile={composite_metadata.profile_key};"
@@ -937,6 +1092,11 @@ def _build_formula_state_cached(
         uncertainty_fields.extend(
             [
                 field_uncertainty(f"{name}.vp", sources["vp"]),
+                field_uncertainty(
+                    f"{name}.vp_temperature",
+                    sources["vp_temperature"],
+                ),
+                field_uncertainty(f"{name}.dhvap", sources["dhvap"]),
                 field_uncertainty(f"{name}.gamma", sources["gamma"]),
                 field_uncertainty(f"{name}.odt", sources["odt"]),
             ]
@@ -967,6 +1127,7 @@ def _build_formula_state_cached(
                 mole_fraction=x_i,
                 logp=float(logp) if logp is not None else None,
                 vp_pure_pa=float(vp) if vp is not None else None,
+                vp_temperature_factor=vp_temperature_factor,
                 gamma=float(gamma_value),
                 gamma_source=gamma_source,
                 partial_pressure_pa=float(partial_pressure),
@@ -981,7 +1142,7 @@ def _build_formula_state_cached(
                 profile_name=profile_name,
                 registry_name=reg_name,
                 ifra_limit_pct=ifra_limit,
-                is_known=identity.is_known,
+                is_known=identity.is_known or composite_metadata is not None,
                 is_opaque_preblend=is_opaque_preblend,
                 functional_groups=functional_groups,
                 hsp=hsp,
@@ -998,10 +1159,18 @@ def _build_formula_state_cached(
             )
         )
 
+    # FIX: DPG and carriers are NOT odorant-active. Use engine.units.concentration.classify_material_category().
+    from engine.units.concentration import classify_material_category
+
+    odorant_active_ul = sum(
+        m.active_ul for m in materials if classify_material_category(m.name) == "odorant"
+    )
+
     return FormulaState(
         materials=tuple(materials),
         total_raw_ul=sum(float(v or 0.0) for v in ingredients_ul.values()),
         total_active_ul=sum(m.active_ul for m in materials),
+        odorant_active_ul=odorant_active_ul,
         batch_volume_ml=float(batch_volume_ml),
         temperature_K=float(temperature_K),
         context=context,

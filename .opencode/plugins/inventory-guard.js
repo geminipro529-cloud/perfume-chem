@@ -7,26 +7,39 @@
  *   3. experimental.session.compacting → pins critical rules (Rule 0, Rule 1, Rule 2) in compaction context
  */
 
+import path from "node:path";
+
+function resolveProjectPath(directory, relativePath) {
+  const base = typeof directory === "string" ? directory : (directory?.path || process.cwd());
+  return path.resolve(base, relativePath);
+}
+
 let inventoryReadThisSession = false;
 let inventoryHash = null;
 let formulaModifiedThisSession = false;
 let pipelineRunThisSession = false;
 
 export const InventoryGuard = async ({ project, client, $, directory, worktree }) => {
+  const inventoryPath = resolveProjectPath(directory, "inventory.txt");
+  const odtPath = resolveProjectPath(directory, "engine/odor_thresholds.py");
+  const profilesPath = resolveProjectPath(directory, "engine/ingredient_intelligence.py");
+  const materialsDir = resolveProjectPath(directory, "data/materials");
+  const invDir = path.dirname(inventoryPath).replace(/\\/g, "/");
+
   return {
 
     // ── shell.env: inject project context ──────────────────────────────
-    "shell.env": async (input, output) => {
+  "shell.env": async (input, output) => {
       // Inject CI-safe defaults (extend env-guard pattern)
       output.env.OPENAI_API_KEY = output.env.OPENAI_API_KEY || "test-key";
       output.env.SECRET_KEY = output.env.SECRET_KEY || "test-secret-key-for-ci";
 
       // Inject project metadata
-      output.env.PERFUME_INVENTORY_PATH = "inventory.txt";
-      output.env.PERFUME_ODT_PATH = "engine/odor_thresholds.py";
-      output.env.PERFUME_PROFILES_PATH = "engine/ingredient_intelligence.py";
-      output.env.PERFUME_MATERIALS_DIR = "data/materials";
-    },
+    output.env.PERFUME_INVENTORY_PATH = inventoryPath;
+    output.env.PERFUME_ODT_PATH = odtPath;
+    output.env.PERFUME_PROFILES_PATH = profilesPath;
+    output.env.PERFUME_MATERIALS_DIR = materialsDir;
+  },
 
     // ── tool.execute.before: enforce Rule 0 & pipeline pre-checks ──────
     "tool.execute.before": async (input, output) => {
@@ -35,24 +48,35 @@ export const InventoryGuard = async ({ project, client, $, directory, worktree }
 
       // Track when inventory.txt is read
       if (tool === "read" && args?.filePath) {
-        const fp = String(args.filePath).replace(/\\/g, "/");
-        if (fp.endsWith("inventory.txt")) {
+        const fp = path.resolve(directory || process.cwd(), String(args.filePath)).replace(/\\/g, "/");
+        const inv = path.resolve(inventoryPath).replace(/\\/g, "/");
+        const looksLikeInventory =
+          fp === inv ||
+          fp.startsWith(`${invDir}/`) ||
+          fp.endsWith("/inventory.txt");
+        if (looksLikeInventory) {
           inventoryReadThisSession = true;
         }
       }
 
       // Track when inventory.txt is written (hash update trigger)
       if (tool === "write" && args?.filePath) {
-        const fp = String(args.filePath).replace(/\\/g, "/");
-        if (fp.endsWith("inventory.txt")) {
+        const fp = path.resolve(directory || process.cwd(), String(args.filePath)).replace(/\\/g, "/");
+        const inv = path.resolve(inventoryPath).replace(/\\/g, "/");
+        const looksLikeInventory =
+          fp === inv ||
+          fp.startsWith(`${invDir}/`) ||
+          fp.endsWith("/inventory.txt");
+        if (looksLikeInventory) {
           inventoryReadThisSession = true; // writer implicitly knows inventory
         }
       }
 
       // Track formula file writes (markdown in formulas/ directory)
       if (tool === "write" && args?.filePath) {
-        const fp = String(args.filePath).replace(/\\/g, "/");
-        if (fp.startsWith("formulas/") && fp.endsWith(".md")) {
+        const fp = path.resolve(directory || process.cwd(), String(args.filePath)).replace(/\\/g, "/");
+        const formulaRoot = path.resolve(directory || process.cwd(), "formulas").replace(/\\/g, "/");
+        if (fp.startsWith(`${formulaRoot}/`) && fp.endsWith(".md")) {
           formulaModifiedThisSession = true;
         }
       }

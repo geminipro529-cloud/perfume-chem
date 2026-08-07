@@ -97,7 +97,7 @@ CITRUS_HESPERIDIC = FamilyHedonicProfile(
     pitfalls=(
         "Overdosing limonene (mass waste without character contribution)",
         "Under-loading base — EdC/EdT cannot project base notes; use 2-3x EdP base loading",
-        "Ignoring tropical humidity — VP x2.8 at 35°C; Bangkok formulas need 2.5-3x base vs Paris",
+        "Ignoring tropical climate — VP inflation can be material-dependent; test 2-3x volatile top/heart loads before fixing base ratio",
         "Using phototoxic bergamot (use FCF only for leave-on)",
         "Synthetic citrus accord without any natural EO lacks depth and roundness",
     ),
@@ -108,7 +108,7 @@ CITRUS_HESPERIDIC = FamilyHedonicProfile(
         "BHT 0.01-0.05% to prevent limonene autoxidation",
     ),
     market_notes={
-        "tropical": "Increase base loading 2.5-3x for Bangkok/HCMC/Singapore",
+        "tropical": "Increase base loading carefully for humid heat (often >1x and material-dependent; tune by volatility class, especially for top materials)",
         "fresh_current": "Dihydromyrcenol-heavy is the modern transparent laundry-citrus signature",
     },
 )
@@ -300,7 +300,7 @@ AMBER_ORIENTAL_PROFILE = FamilyHedonicProfile(
     ),
     performance_tips=(
         "Amber/oriental most suited to tropical climates — heavy base survives high-T evaporation",
-        "2.8x VP at 35°C increases sillage; base remains stable unlike citrus/floral families",
+        "At ~35°C, volatile lifts can rise materially; adjust citrus/green top loads modestly and keep base structure similar",
         "Animalic oriental: Muscone/Ethylene Brassylate + Indole 0.05% + Castoreum (not OAV > 5)",
         "Benzyl Benzoate at 5-10% of concentrate as molecular cohesive agent",
     ),

@@ -35,30 +35,34 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: 2-Acetyl Pyrazine
-  aliases: []
-  cas: null
+  aliases:
+  - 2-acetyl pyrazine 1% in dpg
+  - 2-Acetyl Pyrazine (1% in DPG)
+  cas: 22047-25-2
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 122.12
   density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  logp: 0.7
+  functional_groups:
+  - pyrazine
+  - ketone
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.02
+  vp_source: estimated_from_supplier_physical_data
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 0.3
+  odt_eth_ppm: 0.01
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.01
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 1EN13109
     perfumersworld_price_usd_per_g: 0.71
@@ -69,11 +73,17 @@
       - form: 1.0% in DPG
         sku: 5EN13769
         price_usd_per_g: 0.1
-  families: []
-  character: null
-  notes: null
+  families:
+  - gourmand
+  - pyrazine
+  - synthetic
+  character: Powerful popcorn, toasted bread-crust, roasted corn-chip and nutty pyrazine.
+  notes: 1% in DPG user stock. Discrete molecule; ODT/VP are conservative model inputs, not a supplier COA.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: PubChem:22047-25-2
+    mw_g_mol: PubChem:CID30914
+    user_in_inventory: inventory.txt
 - canonical_name: A-ALDEHYDE F-TEC
   aliases: []
   cas: null
@@ -376,30 +386,34 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Adoxal
-  aliases: []
-  cas: null
+  aliases:
+  - adoxal 10% in dpg
+  - Adoxal (10% in DPG)
+  cas: 141-13-9
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  mw_g_mol: 210.36
+  density_25c_g_ml: 0.8534
+  logp: 6.2
+  functional_groups:
+  - aldehyde
+  - alkene
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.4
+  vp_source: supplier_physical_data_20c_adjusted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 0.3
+  odt_eth_ppm: 0.05
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.1
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GA00012
     perfumersworld_price_usd_per_g: 1.42
@@ -410,11 +424,19 @@
       - form: 10.0% in DPG
         sku: 5GA08479
         price_usd_per_g: 0.17
-  families: []
-  character: null
-  notes: null
+  families:
+  - aldehydic
+  - fresh
+  - floral
+  - synthetic
+  character: Fresh watery aldehydic floral with waxy, ozone and melon-like lift.
+  notes: 10% in DPG user stock. CAS 141-13-9 is the discrete material; VP and ODT remain conservative model values.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: supplier:4GA00012
+    mw_g_mol: literature:CAS_141-13-9
+    vp_25c_pa: supplier:20C_value_temperature_adjusted
+    user_in_inventory: inventory.txt
 - canonical_name: Agarwood F-TEC
   aliases:
   - AGARWOOD F-TEC

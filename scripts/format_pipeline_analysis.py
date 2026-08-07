@@ -8,8 +8,10 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import statistics
 import sys
+import unicodedata
 
 
 # Force stdout to UTF-8 regardless of the console codepage.
@@ -21,6 +23,51 @@ def _configure_cli_stdio() -> None:
         reconfigure = getattr(stream, "reconfigure", None)
         if callable(reconfigure):
             reconfigure(encoding="utf-8", errors="replace")
+
+
+_ASCII_TRANSPORT_REPLACEMENTS = str.maketrans(
+    {
+        "—": "--",
+        "–": "-",
+        "−": "-",
+        "µ": "u",
+        "γ": "gamma",
+        "×": "x",
+        "→": "->",
+        "←": "<-",
+        "≤": "<=",
+        "≥": ">=",
+        "±": "+/-",
+        "°": " deg",
+        "α": "alpha",
+        "β": "beta",
+        "δ": "delta",
+        "Δ": "Delta",
+        "σ": "sigma",
+        "Σ": "Sigma",
+        "•": "*",
+        "✓": "PASS",
+        "✗": "FAIL",
+    }
+)
+
+
+def cli_transport_text(text: str, *, ascii_only: bool | None = None) -> str:
+    """Return stable CLI text across Windows native-process pipes.
+
+    Persisted Markdown and JSON retain their original Unicode. Only live output
+    is transliterated when a Windows process is writing to a pipe, where legacy
+    PowerShell may decode UTF-8 bytes with the active locale code page.
+    """
+    if ascii_only is None:
+        is_tty = bool(getattr(sys.stdout, "isatty", lambda: False)())
+        ascii_only = os.name == "nt" and not is_tty
+    if not ascii_only:
+        return text
+
+    translated = text.translate(_ASCII_TRANSPORT_REPLACEMENTS)
+    normalized = unicodedata.normalize("NFKD", translated)
+    return normalized.encode("ascii", errors="backslashreplace").decode("ascii")
 
 
 OAV_BRACKETS = [
@@ -98,24 +145,6 @@ def _requires_perceptibility(material: dict) -> bool:
         )
         or (family == "musk" and role != "fixative")
     )
-
-
-def _compute_longevity(ts):
-    """Compute an unvalidated longevity proxy from temporal model data.
-
-    Uses the ratio of base-note OAV at drydown (4h) vs opening (0s) scaled by 8.0.
-    This is a reporting heuristic, not a sensory skin-life prediction.
-    Returns None when temporal data is missing or base OAV at opening is zero.
-    """
-    if not ts or len(ts) < 2:
-        return None
-    opening_mats = ts[0]["state"].get("materials", [])
-    drydown_mats = ts[-1]["state"].get("materials", [])
-    base_oav_open = sum(m.get("oav", 0) or 0 for m in opening_mats if m.get("note") == "base")
-    base_oav_dry = sum(m.get("oav", 0) or 0 for m in drydown_mats if m.get("note") == "base")
-    if base_oav_open <= 0:
-        return None
-    return (base_oav_dry / base_oav_open) * 8.0
 
 
 def build_gate_summary(formula):
@@ -441,7 +470,7 @@ def build_temporal(formula):
     lines = ["## Temporal Evolution (5 Windows)", ""]
 
     # Summary table
-    h = " | ".join(["Window", "Time", "T/H/B", "Vapor", "Raw uL", "Leaders"])
+    h = " | ".join(["Window", "Time", "T/H/B", "Vapor", "Remain idx", "Leaders"])
     lines.append(f"| {h} |")
     lines.append("|" + "|".join(["-" * 12] * 6) + "|")
     first_ul = ts[0]["state"].get("total_raw_ul", 1) if ts else 1
@@ -450,12 +479,20 @@ def build_temporal(formula):
         nd = s.get("note_distribution", {})
         doms = w.get("dominant_oav", [])
         ldrs = ", ".join(f"{d['material'][:12]}({d['oav']:.0f})" for d in doms[:3])
-        evap = 100 * (1 - s.get("total_raw_ul", 0) / first_ul)
+        remaining_index = 100 * s.get("total_raw_ul", 0) / first_ul
         lines.append(
             f"| {w['label'][:12]:12s} | {w['t_seconds']:>6.0f}s | {nd.get('top', 0):>4.1f}/{nd.get('heart', 0):>3.1f}/{nd.get('base', 0):>4.1f}"
-            f" | {s.get('total_vapor_ppm', 0):>6.2f}ppm | {s.get('total_raw_ul', 0):>6.0f} | {ldrs:>40s}"
+            f" | {s.get('total_vapor_ppm', 0):>6.2f}ppm | {remaining_index:>6.1f}% | {ldrs:>40s}"
         )
     lines.append("")
+    if ts:
+        lines.append(
+            "Temporal authority: "
+            f"{ts[0].get('temporal_authority', 'HEURISTIC_UNCALIBRATED')}; "
+            f"model={ts[0].get('temporal_model', 'unspecified')}; "
+            "remaining index is not measured evaporation."
+        )
+        lines.append("")
 
     # Detail per window
     lines.append("### Per-Window Detail")
@@ -463,9 +500,12 @@ def build_temporal(formula):
         s = w["state"]
         nd = s.get("note_distribution", {})
         doms = w.get("dominant_oav", [])
-        evap = 100 * (1 - s.get("total_raw_ul", 0) / first_ul)
+        loss_index = 100 * (1 - s.get("total_raw_ul", 0) / first_ul)
         lines.append("")
-        lines.append(f"**{w['label'].upper()}** ({w['t_seconds']}s) — Evap:{evap:.0f}%")
+        lines.append(
+            f"**{w['label'].upper()}** ({w['t_seconds']}s) "
+            f"— Uncalibrated loss index:{loss_index:.0f}%"
+        )
         lines.append(
             f"  T:{nd.get('top', 0):.1f}% H:{nd.get('heart', 0):.1f}% B:{nd.get('base', 0):.1f}%  Vapor:{s.get('total_vapor_ppm', 0):.2f}ppm"
         )
@@ -570,22 +610,19 @@ def build_perfumer(formula):
     if ts:
         f = ts[0]["state"]
         last_state = ts[-1]["state"]
-        evap = 100 * (1 - last_state.get("total_raw_ul", 0) / f.get("total_raw_ul", 1))
+        loss_index = 100 * (
+            1 - last_state.get("total_raw_ul", 0) / f.get("total_raw_ul", 1)
+        )
         persist = last_state.get("note_distribution", {}).get("base", 0)
-        lines.append(f"  Evaporation: {evap:.0f}% over 4h")
+        lines.append(f"  Uncalibrated loss index: {loss_index:.0f}% over modeled window")
         lines.append(
             f"  Vapor: {f.get('total_vapor_ppm', 0):.1f} > {last_state.get('total_vapor_ppm', 0):.1f} ppm"
         )
         lines.append(f"  Base @ drydown: {persist:.0f}%")
-        longevity_hr = _compute_longevity(ts)
-        if longevity_hr is not None:
-            lines.append(
-                "  Heuristic, unvalidated skin-life proxy: "
-                f"{longevity_hr:.0f}h moderate + "
-                f"{longevity_hr * 0.5:.0f}h skin scent; sensory calibration required"
-            )
-        else:
-            lines.append("  Skin-life proxy: data insufficient")
+        lines.append(
+            "  Absolute skin life: unavailable; calibrated finite-film, "
+            "vehicle, skin-absorption, and sensory data are required"
+        )
     lines.append("")
 
     # Balance
@@ -824,26 +861,18 @@ def main():
     formula = data.get("formulas", [{}])[0]
     mats = formula.get("formula_state", {}).get("materials", [])
 
-    for line in build_gate_summary(formula):
-        print(line)
-    for line in build_reference_deviation(formula):
-        print(line)
-    for line in build_authority_dimensions(formula, data.get("run_evidence_contract")):
-        print(line)
-    for line in build_oav_headspace_table(mats):
-        print(line)
-    for line in build_note_distribution(mats):
-        print(line)
-    for line in build_class_distribution(mats):
-        print(line)
-    for line in build_subthreshold(mats):
-        print(line)
-    for line in build_temporal(formula):
-        print(line)
-    for line in build_oav_structural(mats, formula):
-        print(line)
-    for line in build_perfumer(formula):
-        print(line)
+    lines: list[str] = []
+    lines.extend(build_gate_summary(formula))
+    lines.extend(build_reference_deviation(formula))
+    lines.extend(build_authority_dimensions(formula, data.get("run_evidence_contract")))
+    lines.extend(build_oav_headspace_table(mats))
+    lines.extend(build_note_distribution(mats))
+    lines.extend(build_class_distribution(mats))
+    lines.extend(build_subthreshold(mats))
+    lines.extend(build_temporal(formula))
+    lines.extend(build_oav_structural(mats, formula))
+    lines.extend(build_perfumer(formula))
+    print(cli_transport_text("\n".join(lines)))
 
 
 if __name__ == "__main__":

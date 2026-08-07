@@ -190,8 +190,28 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
         },
     )
     assert interventions.status_code == 200
-    assert interventions.json()["ranked"][0]["material"] == "Alpha Irone"
-    assert interventions.json()["evidence"]["classification"] == "HEURISTIC"
+    intervention_payload = interventions.json()
+    assert intervention_payload["ranked"] == []
+    assert intervention_payload["evidence"]["classification"] == "HEURISTIC"
+    assert intervention_payload["safety_authority"] == {
+        "client_declared_status_authoritative": False,
+        "required_authority": "versioned_finished_product_assessment",
+        "formula_state_binding_required": True,
+        "achieved_dose_coverage_required": True,
+        "public_request_can_authorize_skin_use": False,
+    }
+    rejected = {
+        item["material"]: item["reasons"] for item in intervention_payload["rejected"]
+    }
+    assert (
+        "safety pass is caller-declared, not a versioned finished-product assessment"
+        in rejected["Alpha Irone"]
+    )
+    assert "versioned safety evidence is missing or unknown" in rejected["Alpha Irone"]
+    assert (
+        "safety assessment is not bound to this formula state"
+        in rejected["Alpha Irone"]
+    )
 
     hypotheses = await client.post(
         "/api/v1/lab/intervention-hypotheses",

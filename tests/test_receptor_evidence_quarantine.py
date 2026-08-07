@@ -17,6 +17,12 @@ def test_simulation_does_not_emit_family_proxy_receptor_numbers():
         payload["receptor_source"]
         == "unavailable:material_specific_assay_required"
     )
+    assert payload["temporal_model"] == "dynamic_headspace_exponential_loss_v2"
+    assert payload["temporal_authority"] == "HEURISTIC_UNCALIBRATED"
+    assert (
+        payload["remaining_quantity_basis"]
+        == "heuristic_remaining_stock_volume_equivalent_ul"
+    )
 
 
 def test_emotional_mapping_withholds_numeric_truth_without_human_observations():

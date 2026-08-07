@@ -218,8 +218,8 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.1
+  user_in_inventory: true  # material intake batch 2026-08-07 (10% stock)
   supplier:
     perfumersworld_sku: 8NY00523
     perfumersworld_price_usd_per_g: 4.4
@@ -1464,3 +1464,20 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+# MATERIAL_INTAKE_BATCH_2026_08_07 additions
+- canonical_name: 'Helichrysum EO'
+  aliases: ['helichrysum eo', 'immortelle eo']
+  cas: None
+  smiles: null
+  inchikey: null
+  mw_g_mol: 180.0
+  density_25c_g_ml: null
+  logp: 3.0
+  vp_25c_pa: 0.5
+  vp_source: "est/literature"
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 0.01
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  character: 'immortelle hay-curry-floral (Helichrysum italicum)'
+  notes: "material intake batch 2026-08-07"

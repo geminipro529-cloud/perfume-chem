@@ -204,13 +204,92 @@ literature-derived, because:
 The matrix dependence of odor thresholds has been demonstrated experimentally:
 [Perry and Hayes, 2016](https://pubmed.ncbi.nlm.nih.gov/28231131/).
 
+## Scientific Coverage Scope
+
+The data-spine completeness percentage uses the full local material catalogue
+as its denominator. It is a project-health and backfill metric. It is not a
+formula-confidence input because most catalogue rows are absent from any one
+formula.
+
+Formula release confidence is scoped to the formula's actual model inputs.
+The preflight reports identity, MW, VP, ODT, OAV, HSP, and structured IFRA
+coverage for the parsed materials, while the dedicated `odt_authority`,
+`data_authority`, and `material_identity_and_physics` checks own penalties and
+fail-closed decisions. Missing Antoine constants, HSP, receptor, or regulatory
+records remain visible as unsupported or advisory axes; the pipeline does not
+invent those values and does not treat an absent IFRA record as proof that a
+material is unrestricted.
+
+The aggregate confidence adjustment is labeled `preflight_evidence_penalty`.
+Its separately reported `science_preflight_penalty` contains only the
+formula-scoped science-coverage component; it must not be used as an alias for
+ODT authority, data authority, knowledge quality, or other preflight evidence.
+
+This scoping follows the JCGM measurement-model principle that an output is a
+function of the input quantities on which it depends. Uncertainty or
+completeness gaps in unrelated catalogue rows are not input quantities for the
+formula result:
+[JCGM 100:2008, section 4.1](https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf).
+
+## Activity-Coefficient Authority
+
+IUPAC defines a liquid-mixture activity coefficient through chemical potential
+and the complete set of mixture mole fractions. The canonical headspace path
+currently uses a Hansen-distance, regular-solution-style heuristic when a
+material-specific profile constant is absent. Both paths are
+`HEURISTIC_UNCALIBRATED`; a non-unity gamma is not evidence that the value is
+correct.
+
+The `oav_physics_gamma` gate reports each material's source and authority. For
+monomolecular OAV only, it also reports the OAV obtained by replacing the point
+estimate with gamma=1. This is a comparison scenario that exposes model
+leverage. It is not an uncertainty interval, not a lower or upper bound, and
+not applicable to natural-composite OAV, whose constituents have separate
+activity estimates.
+
+UNIFAC is not active. The original method requires molecular functional-group
+assignments and group-pair interaction parameters. Promotion additionally
+requires a versioned implementation and validation in the intended perfume
+matrix/domain. Package availability alone is insufficient:
+
+- [IUPAC Gold Book: activity coefficient](https://goldbook.iupac.org/terms/view/A00116)
+- [Fredenslund, Jones, and Prausnitz, 1975](https://doi.org/10.1002/aic.690210607)
+
+### Diluted-stock carrier reconciliation
+
+The `solvent_matrix` gate reads the carrier and concentration basis already
+attached to each parsed stock. It never assumes that the finished bottle is
+entirely ethanol, and it does not infer an exact carrier quantity from a bare
+percentage. IUPAC defines mass fraction and volume fraction as different
+quantities; only an explicit volume fraction supports a direct
+residual-volume calculation:
+
+- [IUPAC Gold Book: fraction](https://goldbook.iupac.org/terms/view/F02494)
+- [IUPAC Gold Book: mass fraction](https://goldbook.iupac.org/terms/view/M03722)
+- [IUPAC Gold Book: volume fraction](https://goldbook.iupac.org/terms/view/V06643)
+
+For diagnostic reconciliation, the gate may show `raw stock volume x
+(1 - declared fraction)` as a `RESIDUAL_VOLUME_PROXY`. Named and unknown
+carriers are reported separately, along with the actual declared bulk-matrix
+components. These proxy carrier volumes are not silently injected into
+headspace mole fractions, because doing so could double-count a carrier or
+convert a mass-basis declaration into a volume basis.
+
+The local DPG reconciliation property records use the Shell DPG technical data
+sheet (molecular weight 134.2 g/mol and density 1027 kg/m3 at 20 C). This
+supports the identity/property conversion only; it does not establish the
+preparation basis or batch composition of a user's diluted stock:
+[Shell DPG Technical Data Sheet U1521](https://www.shell.com/content/dam/shell/assets/en/business-functions/chemical/documents/tds-dpg-updated-sept-2023.pdf).
+
 ## Temporal, Longevity, And Sillage
 
-The current temporal simulator applies an exponential loss-rate approximation
-based on vapor pressure, activity coefficient, and molecular weight. It is
-`HEURISTIC`. It has not been fitted to measured blotter or skin depletion curves
-and does not explicitly model solvent evaporation, diffusion, or skin
-absorption.
+The current temporal simulator integrates a bounded-step exponential
+relative-loss approximation based on canonical modeled headspace escaping
+tendency and molecular weight. Activity coefficients and natural-composite
+headspace are recomputed as the modeled composition changes. It remains
+`HEURISTIC_UNCALIBRATED`: the relative-loss scale has not been fitted to
+measured blotter or skin depletion curves and does not explicitly model solvent
+evaporation, diffusion, or skin absorption.
 
 Consequently the canonical API returns:
 
@@ -222,6 +301,86 @@ Consequently the canonical API returns:
 ```
 
 Temporal OAV frames remain available as heuristic diagnostic outputs.
+Their `remaining_quantity_basis` is
+`heuristic_remaining_stock_volume_equivalent_ul`; reports must call the derived
+percentage an uncalibrated loss index, not measured evaporation.
+
+Optimizer and release-scoring surfaces may retain bounded 0-100 indices for
+relative search and diagnosis. These indices are not outcome predictions. The
+release payload therefore attaches `score_contract.classification =
+HEURISTIC_DIAGNOSTIC_INDICES`, per-axis authority, an empty
+`release_authorized_axes` list, and `release_authority = false`. In particular,
+numeric `longevity`, `sillage`, and `skin_performance` indices must never be
+presented as hours of skin life, measured projection/sillage, or a validated
+skin outcome.
+
+The legacy Chemical Life Graph follows the same boundary. Its temporal
+structure may report explicitly labeled `model-min` or `model-hr` windows for
+top/base dominance and a relative linearity diagnostic. It must emit
+`longevity_hours = null`, mark temporal authority
+`HEURISTIC_UNCALIBRATED`, and must not let model-window timing change the
+formula health score.
+
+## Intervention Safety Authority
+
+An addition-only rescue changes the finished-product composition. Quantitative
+IFRA limits apply to the finished consumer product, and conformity
+documentation does not replace a product safety assessment:
+
+- [IFRA: Using the Standards](https://ifrafragrance.org/using-the-standards)
+- [IFRA: Certification of IFRA Standards](https://ifrafragrance.org/initiatives-positions/safe-use-fragrance-science/ifra-standards/certification-of-ifra-standards)
+
+Accordingly, a client-supplied `safety_status = pass` is an observation, not
+authority. `rank_interventions()` may rank a safety-passing candidate only when
+all of the following are present:
+
+1. authority is `versioned_finished_product_assessment`;
+2. evidence has a non-unknown scientific classification and at least one
+   traceable source;
+3. the assessment is bound to the exact 64-character SHA-256 formula-state
+   identity supplied by the intervention request; and
+4. the assessed active concentration covers the achieved concentration after
+   stock dilution and dispensing-increment rounding.
+
+The public `/lab/interventions` request deliberately cannot supply this trusted
+evidence package. It therefore remains diagnostic and fails closed: even a
+caller-declared `pass` is rejected from ranking. A future server-side assessment
+adapter may attach the required versioned binding after evaluating the whole
+finished formula in its product category. Neither a ranked diagnostic nor an
+IFRA conformity statement is permission for skin use.
+
+The exact aliquot trial planner remains separate. It preserves the source
+bottle, calculates the requested final concentration from current active mass,
+and withholds skin authorization while safety is unverified.
+
+## Allergen-Label Reconstruction Authority
+
+An ingredient-list fragrance-allergen declaration supports constituent
+presence above the applicable notification threshold. It does not establish
+that the constituent was added as a standalone aroma chemical, identify which
+natural complex substance supplied it, or quantify a natural-material dose.
+Under Article 19 of Regulation (EC) No 1223/2009, ingredients below 1% may be
+listed in any order. Therefore package position is not a concentration scale:
+[Regulation (EC) No 1223/2009, Article 19](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009R1223).
+
+The expanded fragrance-allergen regime continues to apply thresholded
+individual labelling in the finished product; it does not convert the label
+into a formula disclosure:
+[Commission Regulation (EU) 2023/1545](https://eur-lex.europa.eu/eli/reg/2023/1545/oj/eng).
+
+Natural complex substances additionally have source and batch composition
+variation. Typical compositional data are useful for screening but are not the
+analytical composition of the target bottle:
+[IFRA NCS Task Force procedure](https://ifrafragrance.org/docs/default-source/guidelines/ifra-ncs-tf-procedure-to-derive-ncs-compositional-data-rev1---final-june-23-2021.pdf).
+
+Accordingly:
+
+- label-derived evidence is retained as non-material constituent evidence;
+- it cannot create a standalone material hypothesis;
+- raw-material source and concentration remain unresolved;
+- list order cannot generate concentration ranges or a reconstruction score;
+- absent-label upper bounds are withheld unless the applicable market/date
+  regime and complete required-allergen universe are explicitly verified.
 
 ## Receptor Biology
 

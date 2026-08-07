@@ -20,7 +20,6 @@ from engine.name_utils import normalize_name
 from engine.odt_verifier import verify_entry
 from engine.pipeline.formula_state import FormulaState
 from engine.schema_validator import SchemaValidator
-from engine.science_audit import build_science_audit_contract, coverage_confidence_penalty
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +58,11 @@ def _status_from_checks(checks: list[PreflightCheck]) -> str:
     if any(check.status == "WARN" for check in checks):
         return "WARN"
     return "PASS"
+
+
+def _literal_inventory_key(name: str) -> str:
+    """Normalize only spaces/case (no alias expansion)."""
+    return " ".join((name or "").strip().lower().split())
 
 
 def _input_normalization_check(formula: Mapping[str, Any]) -> PreflightCheck:
@@ -145,26 +149,87 @@ def _knowledge_rule_quality_check() -> tuple[PreflightCheck, float]:
     )
 
 
-def _science_check() -> tuple[PreflightCheck, float]:
-    contract = build_science_audit_contract()
-    penalty = coverage_confidence_penalty(contract)
-    status = "PASS"
-    detail = "Science coverage supports deterministic runtime use."
-    if penalty >= 20.0:
-        status = "WARN"
-        detail = f"Sparse science coverage triggers {penalty:.1f} confidence penalty."
+def _science_check(state: FormulaState) -> tuple[PreflightCheck, float]:
+    """Report formula-scoped model coverage without importing catalogue gaps.
+
+    Dedicated ODT, data-authority, and state-sanity checks own release
+    confidence.  The catalogue audit remains useful project-health context but
+    has no authority to penalize a formula that does not use its sparse rows.
+    """
+    materials = tuple(state.materials)
+    denominator = max(len(materials), 1)
+
+    def coverage(predicate) -> float:
+        return round(
+            100.0 * sum(1 for material in materials if predicate(material))
+            / denominator,
+            3,
+        )
+
+    runtime_coverage = {
+        "known_identity_pct": coverage(lambda material: material.is_known),
+        "mw_available_pct": coverage(
+            lambda material: material.mw_g_mol is not None
+            and material.mw_g_mol > 0.0
+        ),
+        "vp_available_pct": coverage(
+            lambda material: material.vp_pure_pa is not None
+            and material.vp_pure_pa > 0.0
+        ),
+        "odt_available_pct": coverage(
+            lambda material: material.odt_air_ppm is not None
+            and material.odt_air_ppm > 0.0
+        ),
+        "oav_available_pct": coverage(lambda material: material.oav is not None),
+        "hsp_available_pct": coverage(lambda material: material.hsp is not None),
+        "ifra_structured_pct": coverage(
+            lambda material: material.ifra_limit_pct is not None
+        ),
+    }
+    core_fields = (
+        "known_identity_pct",
+        "mw_available_pct",
+        "vp_available_pct",
+        "odt_available_pct",
+    )
+    core_complete = all(runtime_coverage[field] >= 100.0 for field in core_fields)
+    status = "PASS" if core_complete else "WARN"
+    detail = (
+        "Formula runtime coverage is complete for identity, MW, VP, and ODT; "
+        "optional axes remain explicitly advisory."
+        if core_complete
+        else "Formula runtime has missing core inputs; dedicated fail-closed checks own the release verdict."
+    )
     return (
         PreflightCheck(
             "science_coverage",
             status,
             detail,
             {
-                "coverage_pct": contract.get("data_coverage_pct", {}),
-                "known_weaknesses": contract.get("weaknesses", []),
-                "confidence_penalty": round(penalty, 3),
+                "scope": "formula_runtime",
+                "material_count": len(materials),
+                "runtime_input_coverage_pct": runtime_coverage,
+                "catalogue_context": {
+                    "scope": "full_material_catalogue",
+                    "evaluated_in_formula_preflight": False,
+                    "coverage_report": (
+                        "engine.science_audit.build_science_audit_contract"
+                    ),
+                    "formula_penalty_authority": False,
+                },
+                "limitations": [
+                    "Catalogue completeness is evaluated by project audit, not per formula.",
+                    "Missing optional axes remain unsupported; no values are fabricated.",
+                ],
+                "confidence_penalty": 0.0,
+                "penalty_owners": [
+                    "odt_authority",
+                    "data_authority",
+                    "material_identity_and_physics",
+                ],
             },
         ),
-        penalty,
+        0.0,
     )
 
 
@@ -271,6 +336,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
 
     exact_identity: dict[str, list] = defaultdict(list)
     legacy_identity: dict[str, list] = defaultdict(list)
+    literal_identity: dict[str, list] = defaultdict(list)
     for record in parse_inventory(
         unique=False,
         include_solvents=True,
@@ -278,6 +344,9 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     ):
         exact_identity[normalize_name(record.identity_name or record.name)].append(record)
         legacy_identity[normalize_name(record.name)].append(record)
+        literal_identity[_literal_inventory_key(record.identity_name or record.name)].append(
+            record
+        )
 
     ingredients = formula.get("ingredients_ul", {}) or {}
     dilutions = formula.get("dilutions", {}) or {}
@@ -292,6 +361,10 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     for name in ingredients:
         norm = normalize_name(name)
         candidates = exact_identity.get(norm) or legacy_identity.get(norm) or []
+        if len(candidates) > 1:
+            literal_candidates = literal_identity.get(_literal_inventory_key(name))
+            if literal_candidates:
+                candidates = literal_candidates
         spec = dict(stock_specs.get(name, {}) or {})
         formula_dil = float(spec.get("fraction", dilutions.get(name, 1.0)) or 1.0)
         raw_ul = float(ingredients.get(name, 0.0) or 0.0)
@@ -666,7 +739,7 @@ def run_release_preflight(
     authority_check, authority_penalty = _data_authority_check(state)
     checks.append(authority_check)
     total_penalty += authority_penalty
-    science_check, science_penalty = _science_check()
+    science_check, science_penalty = _science_check(state)
     checks.append(science_check)
     total_penalty += science_penalty
     checks.append(_state_sanity_check(state))

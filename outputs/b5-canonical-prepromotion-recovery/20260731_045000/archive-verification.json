@@ -1,0 +1,78 @@
+{
+    "archive":  "D:\\chatbots\\perfume-chem\\outputs\\b5-canonical-prepromotion-recovery\\20260731_045000\\b5-canonical-targets-before-promotion.zip",
+    "archive_sha256":  "EF0712C7FCEB4E8664DB62E0833C1AC2006690BC1DED2B7209FA58C86D38B06E",
+    "existing_targets":  [
+                             "backend/app/models/lab.py",
+                             "backend/app/repositories/lab.py",
+                             "backend/app/services/lab_service.py",
+                             "backend/app/services/lab_science.py",
+                             "backend/tests/integration/test_lab_migration.py",
+                             "backend/tests/integration/test_backup_restore.py"
+                         ],
+    "absent_targets":  [
+                           "backend/alembic/versions/20260731_0009_b5_analytical_authority.py",
+                           "backend/app/models/lab_analytical.py",
+                           "backend/app/repositories/lab_analytical.py",
+                           "backend/app/services/lab_analytical.py",
+                           "backend/tests/unit/test_b5_analytical_schema.py",
+                           "backend/tests/unit/test_b5_analytical_service.py",
+                           "backend/tests/integration/test_b5_analytical_migration.py",
+                           "backend/tests/integration/test_b5_analytical_e2e.py",
+                           "docs/superpowers/plans/2026-07-31-build-b5-analytical-authority.md",
+                           "docs/superpowers/specs/2026-07-31-build-b5-analytical-authority-design.md",
+                           "docs/verification/b5/analytical_authority_gate.json",
+                           "docs/verification/b5/analytical_authority_gate.md"
+                       ],
+    "restored_root":  "D:\\chatbots\\perfume-chem\\outputs\\b5-canonical-prepromotion-recovery\\20260731_045000\\verified-restore",
+    "hashes":  [
+                   {
+                       "path":  "backend/app/models/lab.py",
+                       "source_sha256":  "E255280C56A4535E0BEA3D62EDFC439237DFC4F72B4663925F8A26D8B036ABDF",
+                       "restored_sha256":  "E255280C56A4535E0BEA3D62EDFC439237DFC4F72B4663925F8A26D8B036ABDF",
+                       "source_bytes":  24136,
+                       "restored_bytes":  24136
+                   },
+                   {
+                       "path":  "backend/app/repositories/lab.py",
+                       "source_sha256":  "3F181DE2068C4C53855150C9AB7BD544727C42F461C37A816674BF1D146AF379",
+                       "restored_sha256":  "3F181DE2068C4C53855150C9AB7BD544727C42F461C37A816674BF1D146AF379",
+                       "source_bytes":  10674,
+                       "restored_bytes":  10674
+                   },
+                   {
+                       "path":  "backend/app/services/lab_service.py",
+                       "source_sha256":  "5E6FDCCE38AD4D782E88BEB10F9928EE1EA3196F2BBA462AF47DE82F446EE8F8",
+                       "restored_sha256":  "5E6FDCCE38AD4D782E88BEB10F9928EE1EA3196F2BBA462AF47DE82F446EE8F8",
+                       "source_bytes":  44695,
+                       "restored_bytes":  44695
+                   },
+                   {
+                       "path":  "backend/app/services/lab_science.py",
+                       "source_sha256":  "B263E101E2A5E95070AAC38B1F9FB9731D6CECA59909BA2CA40CE74D993509DA",
+                       "restored_sha256":  "B263E101E2A5E95070AAC38B1F9FB9731D6CECA59909BA2CA40CE74D993509DA",
+                       "source_bytes":  54863,
+                       "restored_bytes":  54863
+                   },
+                   {
+                       "path":  "backend/tests/integration/test_lab_migration.py",
+                       "source_sha256":  "4BDE87AE9EF41210BDA59D9BB1FDDB5EAB29A9B5D2F458BA13E3A33BD2AD6C02",
+                       "restored_sha256":  "4BDE87AE9EF41210BDA59D9BB1FDDB5EAB29A9B5D2F458BA13E3A33BD2AD6C02",
+                       "source_bytes":  6963,
+                       "restored_bytes":  6963
+                   },
+                   {
+                       "path":  "backend/tests/integration/test_backup_restore.py",
+                       "source_sha256":  "1D41098A2DA1EE3F946B9E7E2AEC4A923CD209136AB204DB1319E0C5EC3D7691",
+                       "restored_sha256":  "1D41098A2DA1EE3F946B9E7E2AEC4A923CD209136AB204DB1319E0C5EC3D7691",
+                       "source_bytes":  12046,
+                       "restored_bytes":  12046
+                   }
+               ],
+    "mismatches":  [
+
+                   ],
+    "entry_mismatches":  [
+
+                         ],
+    "verified":  true
+}

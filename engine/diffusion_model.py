@@ -227,11 +227,13 @@ def _clone_diffusion_row(row: dict[str, float]) -> dict[str, float]:
         "MW": float(row["MW"]),
         "VP_25": float(row["VP_25"]),
         "Kaw_eff": float(row["Kaw_eff"]),
+        "gamma_ref": float(row.get("gamma_ref", 1.0)),
     }
 
 
 _DIFFUSION_INDEX: dict[str, dict[str, float]] = {}
 for _name, _row in DIFFUSION_DATA.items():
+    _row.setdefault("gamma_ref", 1.0)
     _DIFFUSION_INDEX[normalize_name(_name)] = _row
 
 try:
@@ -255,6 +257,7 @@ for _name, _profile in _INGREDIENT_PROFILES.items():
         "MW": float(_mw),
         "VP_25": float(_vp),
         "Kaw_eff": _estimate_kaw_eff(_vp, _mw, _profile.get("activity_coef", 1.0)),
+        "gamma_ref": float(_profile.get("activity_coef", 1.0)),
     }
     DIFFUSION_DATA[_name] = _row
     _DIFFUSION_INDEX[_norm] = _row
@@ -324,10 +327,9 @@ def score_diffusion(
     A low score means the diffusion is flat (all near or all far).
 
     gamma_map: per-material activity coefficient γᵢ (optional). When provided,
-      Kaw_eff is scaled by √γ before reach classification, so non-ideal mixing
-      (γ > 1 → salted-out, projects further; γ < 1 → retained, projects less)
-      is reflected dynamically. If omitted, the static γ baked into DIFFUSION_DATA
-      Kaw_eff at module init time is used.
+      the reference coefficient associated with Kaw_eff is replaced through
+      √(γ_dynamic / γ_reference), so profile-derived rows do not apply gamma
+      twice. If omitted, the row's reference Kaw_eff is used unchanged.
     """
     dilutions = dilutions or {}
     gamma_map = gamma_map or {}
@@ -354,8 +356,12 @@ def score_diffusion(
         # Apply dynamic γ correction if provided. kaw is proportional to √γ
         # (from Henry's law: Kaw ∝ VP × γ), so scaling by √(γ_dynamic/γ_static)
         # adjusts the baked-in static γ to the mixture-specific value.
-        gamma = gamma_map.get(name, 1.0)
-        kaw_effective = kaw * math.sqrt(max(gamma, 0.1))
+        if name in gamma_map:
+            gamma_dynamic = max(float(gamma_map[name]), 0.1)
+            gamma_reference = max(float(data.get("gamma_ref", 1.0)), 0.1)
+            kaw_effective = kaw * math.sqrt(gamma_dynamic / gamma_reference)
+        else:
+            kaw_effective = kaw
         reach = _classify_reach(mw, kaw_effective)
 
         field_mass[reach] += active

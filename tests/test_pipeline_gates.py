@@ -1,7 +1,10 @@
+import pytest
+
 import engine.pipeline.gates as gates_module
 from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
 from engine.name_utils import normalize_name
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
+from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import (
     ReleaseGateConfig,
     _apply_guideline_policy,
@@ -126,6 +129,92 @@ def test_gate_warns_when_top_carrier_relies_on_low_authority_odt():
         row["material"] == "Bergamot"
         for row in gates["odt_coverage"].data["low_authority_materials"]
     )
+
+
+def test_gamma_gate_reports_source_authority_and_ideal_scenario_leverage():
+    state = build_formula_state(
+        {"Iso E Super": 200.0, "Hedione": 100.0},
+        {"Iso E Super": 1.0, "Hedione": 1.0},
+        matrix_moles={"Ethanol": 0.4},
+        matrix_mass_g=18.4,
+        matrix_source="explicit",
+    )
+
+    gate = gates_module._gate_oav_physics_gamma(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert gate.status == "WARN"
+    assert gate.data["release_authority"] is False
+    assert gate.data["comparison_scenario"]["authority"] == (
+        "COMPARISON_SCENARIO_ONLY"
+    )
+    iso_e = next(
+        row for row in gate.data["materials"]
+        if row["material"] == "Iso E Super"
+    )
+    modeled = next(
+        material for material in state.materials
+        if material.name == "Iso E Super"
+    )
+    assert iso_e["authority"] in {
+        "HEURISTIC_HANSEN_DISTANCE",
+        "HEURISTIC_PROFILE_CONSTANT",
+    }
+    assert iso_e["ideal_gamma_scenario_oav"] == pytest.approx(
+        modeled.oav / modeled.gamma,
+        rel=1e-5,
+    )
+    assert iso_e["modeled_to_ideal_oav_ratio"] == pytest.approx(
+        modeled.gamma,
+        rel=1e-5,
+    )
+    assert "non-unity" not in gate.detail
+
+
+def test_solvent_matrix_gate_uses_stock_carrier_evidence_without_inventing_matrix():
+    state = build_formula_state(
+        {"Neroli EO": 300.0, "Ambrofix": 250.0},
+        {"Neroli EO": 0.1, "Ambrofix": 0.3},
+        stock_specs={
+            "Neroli EO": {
+                "fraction_basis": "unspecified",
+                "carrier": "DPG",
+                "declared": True,
+            },
+            "Ambrofix": {
+                "fraction_basis": "mass_per_volume",
+                "carrier": "",
+                "declared": True,
+            },
+        },
+        matrix_moles={"Ethanol": 0.4, "Water": 0.05},
+        matrix_mass_g=19.3,
+        matrix_source="incomplete_stock_carrier",
+    )
+
+    gate = gates_module._gate_solvent_matrix(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert gate.status == "WARN"
+    assert gate.data["authority"] == "PARTIAL_UNRESOLVED"
+    assert gate.data["known_stock_carriers_ul"]["DPG"] == pytest.approx(270.0)
+    assert gate.data["unresolved_carrier_proxy_ul"] == pytest.approx(175.0)
+    assert gate.data["bulk_matrix_components_ul"]["ETHANOL"] == pytest.approx(
+        0.4 * 46.0684 / 0.785 * 1000.0,
+        rel=1e-6,
+    )
+    assert gate.data["bulk_matrix_components_ul"]["WATER"] == pytest.approx(
+        0.05 * 18.01528 / 0.997 * 1000.0,
+        rel=1e-6,
+    )
+    assert gate.data["headspace_stock_carrier_inclusion"] == (
+        "NOT_INCLUDED_PENDING_RECONCILIATION"
+    )
+    assert "30 mL" not in gate.detail
 
 
 def test_chemistry_stability_fails_aldehyde_amine_contact():

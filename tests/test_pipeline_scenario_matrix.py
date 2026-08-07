@@ -30,10 +30,26 @@ from scripts.format_pipeline_analysis import (
 from scripts.formula_release_gate import parse_formula_markdown
 
 ROOT = Path(__file__).resolve().parents[1]
-PRADA_FILES = (
-    ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md",
-    ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
+PRADA_CASES = (
+    (
+        ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        {
+            ("Bourgeonal", "stock_fraction_mismatch"),
+            ("Aldehyde C11", "not_in_inventory"),
+            ("Ethylene Brassylate", "not_in_inventory"),
+        },
+    ),
+    (
+        ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
+        {
+            ("Orris Liquid", "stock_fraction_mismatch"),
+            ("Bourgeonal", "stock_fraction_mismatch"),
+            ("Aldehyde C11", "not_in_inventory"),
+            ("Ethylene Brassylate", "not_in_inventory"),
+        },
+    ),
 )
+PRADA_FILES = tuple(path for path, _expected_issues in PRADA_CASES)
 
 
 def _formula(path: Path) -> dict:
@@ -48,15 +64,25 @@ def _state(formula: dict):
     )
 
 
-@pytest.mark.parametrize("path", PRADA_FILES, ids=lambda path: path.stem)
-def test_prada_controls_are_exact_subtotal_live_stock_architecture_contracts(
+@pytest.mark.parametrize(
+    ("path", "expected_stock_issues"),
+    PRADA_CASES,
+    ids=lambda case: case.stem if isinstance(case, Path) else None,
+)
+def test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock(
     path: Path,
+    expected_stock_issues: set[tuple[str, str]],
 ) -> None:
     formula = _formula(path)
     state = _state(formula)
+    stock_contract = resolve_inventory_stock_contract(formula)
 
     assert sum(formula["ingredients_ul"].values()) == pytest.approx(5000.0)
-    assert resolve_inventory_stock_contract(formula).status == "PASS"
+    assert stock_contract.status == "FAIL"
+    assert {
+        (str(issue["material"]), str(issue["reason"]))
+        for issue in stock_contract.data["issues"]
+    } == expected_stock_issues
     assert _natural_composite_coverage_check(state).status == "PASS"
     assert evaluate_reference_contract(formula, state)["status"] == "PASS"
     assert all(material.oav is not None for material in state.materials)
@@ -190,30 +216,22 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
     assert set(audit["categories"]["naturals_missing_composite_evidence"]) == {
         "Anise EO",
         "Basil EO",
-        "Blue Chamomile EO",
         "Cade Oil Rectified",
-        "Carrot Seed EO",
         "Champaca Flower EO",
+        "Grapefruit FCF oil Sicilian",
         "Himalayan Cedarwood EO",
         "Magnolia EO",
-        "Mimosa Absolute",
         "Opoponax Resinoid",
         "Peppermint Essential Oil",
         "Peru Balsam Resinoid",
         "Pine EO",
         "Spike Lavender EO",
         "Tagetes EO",
-        "Tobacco Absolute",
     }
     assert set(
         audit["categories"]["opaque_preblends_without_disclosed_composition"]
     ) == {
-        "Amber Core",
-        "Jasmine FO",
         "Leather FO",
-        "Sandalwood FO",
-        "Tonka Bean FO",
-        "Tuberalia base",
     }
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert audit["release_authority"] is False

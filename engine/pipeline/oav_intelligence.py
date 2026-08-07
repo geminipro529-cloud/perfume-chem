@@ -33,10 +33,7 @@ try:
         list_family_performance_tips,
         list_family_pitfalls,
     )
-    from future_modules.performance_profiles import (
-        estimate_tropical_performance_shift,
-        get_performance,
-    )
+    from future_modules.performance_profiles import get_performance
     from future_modules.synergy_matrix import (
         get_all_antagonist_pairs,
         get_all_synergy_pairs,
@@ -96,9 +93,6 @@ except ImportError:
 
     def list_family_pitfalls(*args, **kwargs):
         return ()
-
-    def estimate_tropical_performance_shift(*args, **kwargs):
-        return None
 
     def get_performance(*args, **kwargs):
         return None
@@ -534,8 +528,31 @@ def analyze_oav_intelligence(
                 mapped_perf_name = candidate
                 break
         if perf is not None and mapped_perf_name is not None:
-            shift = estimate_tropical_performance_shift(mapped_perf_name)
             note_mismatch = material.note != perf.note_tier.value
+            temperature_factor = material.vp_temperature_factor
+            temperature_shift = {
+                "reference_temperature_K": 298.15,
+                "formula_temperature_K": state.temperature_K,
+                "vp_ratio": (
+                    round(float(temperature_factor), 6)
+                    if temperature_factor is not None
+                    else None
+                ),
+                "formula_vp_pa": (
+                    round(float(material.vp_pure_pa), 6)
+                    if material.vp_pure_pa is not None
+                    else None
+                ),
+                "temperature_model": material.sources.get(
+                    "vp_temperature",
+                    "missing",
+                ),
+                "half_life_projection": None,
+                "limitation": (
+                    "Profile half-life is an independent 32 C skin estimate; "
+                    "it is not rescaled from vapor pressure."
+                ),
+            }
             performance_materials.append(
                 {
                     "material": material.canonical_name,
@@ -544,19 +561,14 @@ def analyze_oav_intelligence(
                     "engine_note": material.note,
                     "future_note_tier": perf.note_tier.value,
                     "note_tier_mismatch": note_mismatch,
-                    "paris_half_life_min": round(float(perf.half_life_min), 6),
-                    "paris_vp_pa": round(float(perf.vp_pa), 6),
-                    "bangkok_shift": {
-                        key: round(float(value), 6) for key, value in (shift or {}).items()
-                    },
+                    "profile_half_life_min_at_32c": round(
+                        float(perf.half_life_min),
+                        6,
+                    ),
+                    "profile_vp_25c_pa": round(float(perf.vp_pa), 6),
+                    "formula_temperature_shift": temperature_shift,
                 }
             )
-            if shift is not None:
-                bangkok_hl = float(shift["bangkok_half_life_min_est"])
-                if oav >= 5.0 and bangkok_hl < 20.0 and material.note in {"top", "heart"}:
-                    performance_warnings.append(
-                        f"{material.canonical_name} may collapse quickly in Bangkok heat (~{bangkok_hl:.1f} min half-life)"
-                    )
             if note_mismatch and oav >= 10.0:
                 performance_warnings.append(
                     f"{material.canonical_name} note-tier mismatch: engine={material.note}, future={perf.note_tier.value}"

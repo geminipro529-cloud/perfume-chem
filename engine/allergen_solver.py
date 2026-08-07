@@ -1,18 +1,11 @@
-"""Allergen Ratio Solver — Back-calculates natural extract %% from declared allergens.
+"""Non-quantitative allergen-source diagnostic for fragrance labels.
 
-When a fragrance box declares allergens (EU cosmetics regulation), each
-allergen has a specific GC-MS composition in natural extracts. By treating
-the allergen declarations as simultaneous equations, we can solve for the
-concentration of each natural raw material.
-
-Example:
-  - Citronellol declared at position X → comes from rose absolute (34%)
-    and geraniol from rose (15%), jasmine (trace)
-  - Linalool declared at position Y → comes from bergamot (25%),
-    lavender (30%), rose (2%)
-  - Solving the system constrains rose absolute to ~2.8%, jasmine to ~2.3%
-
-This is the generalized version of the back-calculation done for Opus V.
+A package declaration supports thresholded constituent presence under the
+applicable label regime. It does not disclose a constituent concentration,
+the source raw material, or a natural-material dose. Ingredients below 1% may
+be listed in any order, and natural-complex composition varies by batch.
+Accordingly this module exposes possible sources but withholds natural
+concentration estimates.
 """
 
 from __future__ import annotations
@@ -144,49 +137,32 @@ class SolvedNatural:
 
 @dataclass
 class AllergenSolverResult:
-    """Complete allergen ratio solution."""
+    """Fail-closed allergen-source diagnostic."""
     target_name: str
     equations: list[AllergenEquation]
     solved_naturals: list[SolvedNatural]
     residual_allergens: list[str]     # Allergens not explained by naturals
     deficit_analysis: dict[str, float]  # Allergen deficits suggesting synthetics
     score: float               # 0–100
+    authority: str
+    quantitative_authority: bool
+    limitations: tuple[str, ...]
 
 
 # ── Allergen position → concentration estimation ───────────────────
 # EU requires listing allergens by descending concentration.
 # We estimate ranges based on position and typical formulation levels.
 
-def _position_to_pct_range(
-    position: int,
-    total_allergens: int,
+def _declaration_to_pct_range(
     concentrate_pct: float = 25.0,
 ) -> tuple[float, float]:
-    """Estimate allergen % in CONCENTRATE from its box position.
-
-    Position 1 = highest concentration; descending order required by EU regulation.
-    Returns (min_pct, max_pct) of the allergen in the concentrate.
-    """
+    """Return only the label-threshold lower bound and a non-informative cap."""
+    if not math.isfinite(concentrate_pct) or not 0 < concentrate_pct <= 100:
+        raise ValueError("concentrate_pct must be finite and in (0, 100]")
     # For leave-on products, declaration threshold is 0.001% (10 ppm) in product
     # In a 25% concentrate, that's 0.004% in concentrate
     min_declaration_pct = 0.001 / (concentrate_pct / 100.0) * 100.0
-
-    # Estimate: first allergen typically 0.5–3% of concentrate
-    # Last allergen typically 0.004–0.1%
-    if total_allergens <= 1:
-        return (0.01, 3.0)
-
-    # Log-spaced decay between first and last
-    max_first = 3.0
-    min_last = min_declaration_pct
-
-    log_max = math.log(max_first)
-    log_min = math.log(max(min_last, 0.001))
-    fraction = (position - 1) / max(total_allergens - 1, 1)
-
-    center = math.exp(log_max - fraction * (log_max - log_min))
-
-    return (center * 0.5, center * 2.0)
+    return (min_declaration_pct, 100.0)
 
 
 def _solve_two_source_ratio(
@@ -238,157 +214,54 @@ def solve_allergen_ratios(
     known_ratios: Optional[dict[str, float]] = None,
     additional_constraints: Optional[dict[str, tuple[float, float]]] = None,
 ) -> AllergenSolverResult:
-    """Solve for natural extract concentrations from allergen declarations.
+    """Expose possible constituent sources without estimating natural doses.
 
     Args:
         target_name: Fragrance name.
-        declared_allergens: Ordered list of allergens from box (1st = highest).
+        declared_allergens: Allergens transcribed from the package.
         concentrate_pct: Product concentration %.
-        known_ratios: Known allergen ratios, e.g. {"citronellol:geraniol": 1.94}.
-        additional_constraints: Extra constraints, e.g. {"rose absolute": (2.0, 4.0)}.
+        known_ratios: Retained for API compatibility; insufficient for source
+            attribution without measured constituent concentrations and a
+            source-complete mixture model.
+        additional_constraints: Retained for API compatibility; not promoted
+            through this label-only diagnostic.
 
     Returns:
-        AllergenSolverResult with solved naturals and per-category score.
+        A non-quantitative result. ``solved_naturals`` is always empty.
     """
-    n = len(declared_allergens)
     equations: list[AllergenEquation] = []
-    solved: dict[str, SolvedNatural] = {}
     residuals: list[str] = []
-    deficits: dict[str, float] = {}
+    _ = known_ratios, additional_constraints
 
-    if known_ratios is None:
-        known_ratios = {}
-    if additional_constraints is None:
-        additional_constraints = {}
-
-    # Build equations from each declared allergen
     for pos, allergen in enumerate(declared_allergens, 1):
         allergen_key = allergen.lower().strip()
-        pct_range = _position_to_pct_range(pos, n, concentrate_pct)
+        if not allergen_key:
+            continue
+        pct_range = _declaration_to_pct_range(concentrate_pct)
         sources = ALLERGEN_SOURCES.get(allergen_key, [])
-
         equations.append(AllergenEquation(
             allergen=allergen_key,
             declared_position=pos,
             estimated_pct_range=pct_range,
             contributing_sources=sources,
         ))
-
-        if not sources:
-            residuals.append(allergen_key)
-            continue
-
-        # For single-source allergens, directly estimate the natural
-        single_sources = [(name, pct) for name, pct in sources if pct > 5.0]
-        if len(single_sources) == 1:
-            src_name, src_allergen_pct = single_sources[0]
-            # natural_pct = allergen_pct_in_concentrate / (allergen_% in natural / 100)
-            min_nat = pct_range[0] / (src_allergen_pct / 100.0)
-            max_nat = pct_range[1] / (src_allergen_pct / 100.0)
-
-            if src_name in solved:
-                # Tighten existing bounds
-                existing = solved[src_name]
-                existing.min_pct = max(existing.min_pct, min_nat)
-                existing.max_pct = min(existing.max_pct, max_nat)
-                existing.best_estimate_pct = (existing.min_pct + existing.max_pct) / 2
-                existing.constraining_allergens.append(allergen_key)
-                existing.confidence = min(1.0, existing.confidence + 0.2)
-            else:
-                solved[src_name] = SolvedNatural(
-                    material=src_name,
-                    min_pct=min_nat,
-                    max_pct=max_nat,
-                    best_estimate_pct=(min_nat + max_nat) / 2,
-                    constraining_allergens=[allergen_key],
-                    confidence=0.5,
-                    method="single_source",
-                )
-        elif len(single_sources) > 1:
-            # Multiple sources — mark as unsolved for now
-            for src_name, src_pct in single_sources:
-                if src_name not in solved:
-                    min_nat = pct_range[0] / (src_pct / 100.0)
-                    max_nat = pct_range[1] / (src_pct / 100.0)
-                    solved[src_name] = SolvedNatural(
-                        material=src_name,
-                        min_pct=0.0,
-                        max_pct=max_nat,
-                        best_estimate_pct=max_nat / 3,
-                        constraining_allergens=[allergen_key],
-                        confidence=0.3,
-                        method="multi_source_bound",
-                    )
-
-    # Apply known ratios for tighter constraints
-    for ratio_key, ratio_val in known_ratios.items():
-        parts = ratio_key.split(":")
-        if len(parts) == 2:
-            a_name, b_name = parts[0].strip().lower(), parts[1].strip().lower()
-            # Find equations for both allergens
-            eq_a = next((e for e in equations if e.allergen == a_name), None)
-            eq_b = next((e for e in equations if e.allergen == b_name), None)
-            if eq_a and eq_b:
-                # Try rose ratio analysis
-                for source_name in ["rose absolute", "rose otto"]:
-                    comp = NATURAL_COMPOSITIONS.get(source_name, {})
-                    if a_name in comp and b_name in comp:
-                        expected_ratio = comp[a_name] / max(comp[b_name], 0.01)
-                        if abs(expected_ratio - ratio_val) / max(expected_ratio, 0.01) < 0.25:
-                            # Ratio matches this source — refine
-                            mid_a = sum(eq_a.estimated_pct_range) / 2
-                            nat_pct = mid_a / (comp[a_name] / 100.0)
-                            if source_name in solved:
-                                solved[source_name].best_estimate_pct = nat_pct
-                                solved[source_name].confidence = min(1.0, solved[source_name].confidence + 0.3)
-                                solved[source_name].method = "ratio"
-                            else:
-                                solved[source_name] = SolvedNatural(
-                                    material=source_name,
-                                    min_pct=nat_pct * 0.7,
-                                    max_pct=nat_pct * 1.3,
-                                    best_estimate_pct=nat_pct,
-                                    constraining_allergens=[a_name, b_name],
-                                    confidence=0.75,
-                                    method="ratio",
-                                )
-
-    # Apply additional external constraints
-    for mat_name, (cmin, cmax) in additional_constraints.items():
-        if mat_name in solved:
-            solved[mat_name].min_pct = max(solved[mat_name].min_pct, cmin)
-            solved[mat_name].max_pct = min(solved[mat_name].max_pct, cmax)
-            solved[mat_name].best_estimate_pct = (solved[mat_name].min_pct + solved[mat_name].max_pct) / 2
-            solved[mat_name].confidence = min(1.0, solved[mat_name].confidence + 0.2)
-
-    # Deficit analysis: allergens not fully explained by solved naturals
-    for eq in equations:
-        total_explained = 0.0
-        for src_name, src_pct in eq.contributing_sources:
-            if src_name in solved:
-                total_explained += solved[src_name].best_estimate_pct * (src_pct / 100.0)
-        mid_declared = sum(eq.estimated_pct_range) / 2
-        deficit = mid_declared - total_explained
-        if deficit > 0.01:
-            deficits[eq.allergen] = deficit
-
-    # Score: more solved naturals with tighter bounds = higher score
-    if not solved:
-        score = 0.0
-    else:
-        avg_conf = sum(s.confidence for s in solved.values()) / len(solved)
-        spread = sum(
-            1.0 - min(1.0, (s.max_pct - s.min_pct) / max(s.best_estimate_pct, 0.1))
-            for s in solved.values()
-        ) / len(solved)
-        n_solved = min(len(solved), 8)
-        score = min(100.0, (avg_conf * 40 + spread * 30 + n_solved * 5))
+        residuals.append(allergen_key)
 
     return AllergenSolverResult(
         target_name=target_name,
         equations=equations,
-        solved_naturals=list(solved.values()),
+        solved_naturals=[],
         residual_allergens=residuals,
-        deficit_analysis=deficits,
-        score=score,
+        deficit_analysis={},
+        score=0.0,
+        authority="UNSUPPORTED_FROM_LABEL_ORDER",
+        quantitative_authority=False,
+        limitations=(
+            "Package position does not quantify constituents below one percent.",
+            "A declared constituent may come from a standalone chemical, one or more "
+            "natural complex substances, or both.",
+            "Natural-complex composition varies by source and batch.",
+            "Measured constituent concentrations and a source-complete model are "
+            "required before raw-material attribution.",
+        ),
     )

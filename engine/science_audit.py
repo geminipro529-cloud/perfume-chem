@@ -14,16 +14,31 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "materials"
 
 
-def _gather_data_coverage() -> dict[str, float]:
-    """Mirror engine.data_spine.audit using the live Material schema."""
+def _gather_data_coverage_audit() -> dict:
+    """Mirror data-spine completeness for the full local material catalogue.
+
+    This denominator includes supplier/catalogue records that may be absent from
+    a particular formula.  It is project-health evidence, not formula-release
+    confidence evidence.
+    """
     try:
         from engine.data_spine.loader import load_materials
     except Exception:
-        return {}
+        return {
+            "scope": "full_material_catalogue",
+            "material_count": 0,
+            "coverage_pct": {},
+            "formula_penalty_authority": False,
+        }
 
     materials = load_materials(DATA)
     if not materials:
-        return {}
+        return {
+            "scope": "full_material_catalogue",
+            "material_count": 0,
+            "coverage_pct": {},
+            "formula_penalty_authority": False,
+        }
 
     fields = [
         "mw", "logp", "vp_25c", "antoine", "dhvap", "hsp",
@@ -37,7 +52,19 @@ def _gather_data_coverage() -> dict[str, float]:
                 counts[field] += 1
 
     total = len(materials)
-    return {field: 100.0 * count / total for field, count in counts.items()}
+    return {
+        "scope": "full_material_catalogue",
+        "material_count": total,
+        "coverage_pct": {
+            field: 100.0 * count / total for field, count in counts.items()
+        },
+        "formula_penalty_authority": False,
+    }
+
+
+def _gather_data_coverage() -> dict[str, float]:
+    """Backward-compatible catalogue percentage view."""
+    return dict(_gather_data_coverage_audit()["coverage_pct"])
 
 
 def _positive_float(value: object) -> float | None:
@@ -119,6 +146,32 @@ def build_material_consistency_audit(
                 for source, value in raw_values.items()
                 if (number := _positive_float(value)) is not None
             }
+            if natural_mixture and field_name in {"mw_g_mol", "vp_25c_pa"} and values:
+                ratio = (
+                    max(values.values()) / min(values.values())
+                    if len(values) >= 2
+                    else 1.0
+                )
+                conflicts.append(
+                    {
+                        "material": name,
+                        "canonical_name": resolved.canonical_name,
+                        "field": field_name,
+                        "ratio": round(ratio, 6),
+                        "values": values,
+                        "runtime_precedence": (
+                            "natural_composite_constituents"
+                            if natural_metadata is not None
+                            else "data_spine"
+                            if "data_spine" in values
+                            else "profile"
+                        ),
+                        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+                        "composite_oav_coverage": natural_metadata is not None,
+                        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT",
+                    }
+                )
+                continue
             if len(values) < 2:
                 continue
             ratio = max(values.values()) / min(values.values())
@@ -295,21 +348,46 @@ def build_inventory_oav_coverage_audit() -> dict:
 
 def build_science_audit_contract() -> dict:
     """Return the machine-readable science audit contract."""
-    cov = _gather_data_coverage()
+    from engine.thermo.activity import activity_model_capabilities
+
+    catalogue = _gather_data_coverage_audit()
+    cov = dict(catalogue["coverage_pct"])
+    activity_model = activity_model_capabilities()
+    activity_model.update(
+        {
+            "catalogue_hsp_coverage_pct": cov.get("hsp", 0.0),
+            "catalogue_smiles_coverage_pct": cov.get("smiles", 0.0),
+            "unifac_ready": False,
+            "unifac_blockers": [
+                "runtime implementation is absent",
+                "molecular subgroup assignments are not stored in the data spine",
+                "catalogue structure coverage is incomplete",
+                "perfume-domain VLE or headspace validation is absent",
+            ],
+        }
+    )
     return {
+        "coverage_scope": catalogue["scope"],
+        "catalogue_material_count": catalogue["material_count"],
+        "catalogue_data_coverage_pct": cov,
+        "formula_penalty_authority": False,
+        # Backward-compatible alias for project-verification/reporting clients.
         "data_coverage_pct": cov,
         "material_consistency": build_material_consistency_audit(),
         "inventory_oav_coverage": build_inventory_oav_coverage_audit(),
+        "activity_model": activity_model,
         "weaknesses": [{"title": t, "body": b} for t, b in KNOWN_WEAKNESSES],
         "open_questions": OPEN_QUESTIONS,
     }
 
 
 def coverage_confidence_penalty(contract: dict | None = None) -> float:
-    """Convert sparse science coverage into a bounded confidence penalty.
+    """Convert catalogue gaps into a bounded project-health gap index.
 
-    This is intentionally conservative. It should lower trust, not fabricate
-    a hard-fail from incomplete auxiliary science fields.
+    The historical name is retained for compatibility.  This value must not be
+    applied to an individual formula: catalogue rows outside that formula are
+    not inputs to its measurement model. Formula release confidence is owned by
+    formula-scoped ODT, data-authority, and core-physics checks.
     """
     contract = contract or build_science_audit_contract()
     coverage = contract.get("data_coverage_pct", {}) or {}
