@@ -1,0 +1,204 @@
+{
+    "generated_at":  "2026-08-07T02:07:41Z",
+    "upgrade_id":  "CL-ORCH-UPGRADE-20260807-V1",
+    "manifest_count":  28,
+    "project":  "perfume-chem-cheapluna-isolated",
+    "entries":  [
+                    {
+                        "path":  "lib/batch-dag.mjs",
+                        "sha256":  "435d1a8c519584a6f49df2d53c6a65fafed3b5dc07c6afff618e886cbdbf86e3",
+                        "size":  6539,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/candidate-runtime.mjs",
+                        "sha256":  "fb618602512afc949191c55562fc3ffe84ee2f3c766e60ba418ce176f80b2e76",
+                        "size":  31986,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/capacity-policy.mjs",
+                        "sha256":  "f35fc270444a9e42ec73a189f0afc248bee450a6927c3d5f9c9b02d53ba660e3",
+                        "size":  25283,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/daemon-protocol-v2.mjs",
+                        "sha256":  "37c87551d9c72e3a126d2ee6a6aa9ce08d0948f595f4a71e49e3c5ca0a72f278",
+                        "size":  76978,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/deepseek-v4-tokenizer.mjs",
+                        "sha256":  "f459bfc60a70021130c7770ac063653dc4c81f1e935cc227d65b7f0e384c07b3",
+                        "size":  6766,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/evidence-protocol.mjs",
+                        "sha256":  "b288093b58fadac37585e9ea69f57edd728ebe74cd7b515418dfa44226efddfb",
+                        "size":  18344,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/execution-kernel.mjs",
+                        "sha256":  "af37fd74221a27f45bc8643f808d55dabce2d5933c95e21f2970f189d99fd4cc",
+                        "size":  15056,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/identity.mjs",
+                        "sha256":  "c9f5aa1bf29db7b72aaefbeaeb133fbf6045d786ac7fd352febf9634a05e0f20",
+                        "size":  4690,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/provider-pools.mjs",
+                        "sha256":  "1ed9d42f60f3e0a1501631738ab73524136a5e9923dbc59dd7e69de27d545b66",
+                        "size":  19194,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/public-text-security.mjs",
+                        "sha256":  "6c897fa59f79fea2bd8b0e0d94522b35ae13bc5dc4e7014d955aa119d9a17d1e",
+                        "size":  412,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/result-protocol.mjs",
+                        "sha256":  "b01434bbc0c962caf9c3f70bc98e5169946c9cd03898b581a0f8cbe9b69b895e",
+                        "size":  8750,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/scheduler-store.mjs",
+                        "sha256":  "5bf122cb60ff0a508f4258c92766aed75b6720770de0d4ee7b5fcd706ac29b96",
+                        "size":  469884,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/security.mjs",
+                        "sha256":  "76984510ea027ad0aac757cc143226317354cd1e6a274d9e88d6094d381a5a58",
+                        "size":  1883,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "lib/transmission-budget-controller.mjs",
+                        "sha256":  "ee1b68e1e71e3374438f12a589e49df5714a12cf0e5179de2d9323b677272db5",
+                        "size":  24926,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "local-executor.mjs",
+                        "sha256":  "25d61f156ae9219e868c7fd95135383ef9f212abc74a41c8f533e680c8596333",
+                        "size":  17574,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "orchestrator-daemon.mjs",
+                        "sha256":  "c8efc67e618960ce89256390a4f1cfba13017c26bf985782058fd66e2e34131f",
+                        "size":  159441,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "package-lock.json",
+                        "sha256":  "aad7a1fa14643d8e5f23b5f2b2b94971a853f09f5f5992449a5056f2045cf4ed",
+                        "size":  41834,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "package.json",
+                        "sha256":  "40f42eae9b95a937d1c81123ca5b807a04a528fdd1c181ed2e51cac25875b295",
+                        "size":  388,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "server.mjs",
+                        "sha256":  "2845dc9fc42b0093fd575baf1746a19f988e6b09f25b73b68bd159bd36216e53",
+                        "size":  503058,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "vendor/deepseek-v4-flash/60d8d70770c6776ff598c94bb586a859a38244f1/encoding/encoding_dsv4.py",
+                        "sha256":  "bdbd57c132a1b3725042323d02b98b9d1df28e5f388f134399555d041f5055e0",
+                        "size":  27908,
+                        "tag":  "runtime",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/scripts/cheapluna-bridge.ps1",
+                        "sha256":  "20d0fa3a5f42327cc74da60f510ace69d2afe8b3b9626a0c6db4c47f37f5b04c",
+                        "size":  5279,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/scripts/cheapluna-cli.mjs",
+                        "sha256":  "3a851e2584806428276e3a5dba8c2d59d99f0bac7bb20e56fcdf6f362cf74f49",
+                        "size":  3649,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/scripts/cheapluna-drain.mjs",
+                        "sha256":  "4af1c53b70dd3196037e3c66e539516412fda54474bc1425327c368f67697b57",
+                        "size":  8025,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/scripts/delegation_pure.mjs",
+                        "sha256":  "47aeee45c768f6ac15867a52e393d75291d1556f77dbd0b71f15c33bcd45b67c",
+                        "size":  2453,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/plugins/cheapluna-cache-first.js",
+                        "sha256":  "a0fdba6e2441210d3e3dc13ab58607c026cc7331494764193d1dd8cd2eaaa4f5",
+                        "size":  3498,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/plugins/cheapluna-budget-guard.js",
+                        "sha256":  "f97311fc98520a813548c314762ceab13050983c9bc5fe562545f9ca522e8c13",
+                        "size":  4085,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  ".opencode/plugins/daemon-health-guard.js",
+                        "sha256":  "9094efc08cd3d31e16538c5292daff659146044d36f16b0cb09e875836e9f560",
+                        "size":  2853,
+                        "tag":  "host",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "opencode.json",
+                        "sha256":  "eb1211554a6f423b8f57d65e0cd243ef9bbebbcbcf16be80343fcd605cb7c390",
+                        "size":  18574,
+                        "tag":  "host",
+                        "exists":  true
+                    }
+                ]
+}

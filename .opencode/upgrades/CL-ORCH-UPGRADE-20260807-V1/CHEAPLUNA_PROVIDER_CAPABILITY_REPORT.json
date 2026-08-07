@@ -1,0 +1,179 @@
+{
+  "probe": "P1A",
+  "provider": "deepseek",
+  "base_url": "https://api.deepseek.com",
+  "model_requested": "deepseek-v4-flash",
+  "generated_at": "2026-08-07T02:10:23.784Z",
+  "methodology": "non-streaming POST, request body dialect matches runtime direct profile; first-token latency not separately observable for non-streaming (equals total)",
+  "probes": [
+    {
+      "probe": "A",
+      "request": {
+        "model": "deepseek-v4-flash",
+        "thinking": "disabled",
+        "reasoning_effort": null,
+        "tools": false,
+        "tool_choice": null
+      },
+      "http_status": 200,
+      "total_latency_ms": 1670,
+      "json_valid": true,
+      "returned_model": "deepseek-v4-flash",
+      "system_fingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+      "thinking_state": "disabled",
+      "reasoning_effort": null,
+      "content": "READY",
+      "tool_calls": null,
+      "reasoning_content_exposed": false,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 2,
+        "total_tokens": 14,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 12,
+        "reasoning_tokens": null
+      },
+      "raw": "{\"id\":\"ad0532bc-9e5a-4166-978b-4403b0e496a9\",\"object\":\"chat.completion\",\"created\":1786068624,\"model\":\"deepseek-v4-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"READY\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":12,\"completion_tokens\":2,\"total_tokens\":14,\"prompt_tokens_details\":{\"cached_tokens\":0},\"prompt_cache_hit_tokens\":0,\"prompt_cache_miss_tokens\":12},\"system_fingerprint\":\"fp_a18b46594c_prod0820_fp8_kvcache_20260402\"}"
+    },
+    {
+      "probe": "B",
+      "request": {
+        "model": "deepseek-v4-flash",
+        "thinking": "enabled",
+        "reasoning_effort": "high",
+        "tools": false,
+        "tool_choice": null
+      },
+      "http_status": 200,
+      "total_latency_ms": 1039,
+      "json_valid": true,
+      "returned_model": "deepseek-v4-flash",
+      "system_fingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+      "thinking_state": "enabled",
+      "reasoning_effort": "high",
+      "content": "READY",
+      "tool_calls": null,
+      "reasoning_content_exposed": true,
+      "usage": {
+        "prompt_tokens": 91,
+        "completion_tokens": 12,
+        "total_tokens": 103,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 91,
+        "reasoning_tokens": 9
+      },
+      "raw": "{\"id\":\"81fec186-5b78-45a3-9085-87645fd21727\",\"object\":\"chat.completion\",\"created\":1786068625,\"model\":\"deepseek-v4-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"READY\",\"reasoning_content\":\"We need answer exactly one word READY.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":91,\"completion_tokens\":12,\"total_tokens\":103,\"prompt_tokens_details\":{\"cached_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":9},\"prompt_cache_hit_tokens\":0,\"prompt_cache_miss_tokens\":91},\"system_fingerprint\":\"fp_a18b46594c_prod0820_fp8_kvcache_20260402\"}"
+    },
+    {
+      "probe": "C",
+      "request": {
+        "model": "deepseek-v4-flash",
+        "thinking": "enabled",
+        "reasoning_effort": "max",
+        "tools": false,
+        "tool_choice": null
+      },
+      "http_status": 200,
+      "total_latency_ms": 952,
+      "json_valid": true,
+      "returned_model": "deepseek-v4-flash",
+      "system_fingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+      "thinking_state": "enabled",
+      "reasoning_effort": "max",
+      "content": "READY",
+      "tool_calls": null,
+      "reasoning_content_exposed": true,
+      "usage": {
+        "prompt_tokens": 104,
+        "completion_tokens": 12,
+        "total_tokens": 116,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 104,
+        "reasoning_tokens": 9
+      },
+      "raw": "{\"id\":\"44855bdc-a3de-4059-bcb7-51134a6cd1da\",\"object\":\"chat.completion\",\"created\":1786068626,\"model\":\"deepseek-v4-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"READY\",\"reasoning_content\":\"We need answer exactly one word READY.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":104,\"completion_tokens\":12,\"total_tokens\":116,\"prompt_tokens_details\":{\"cached_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":9},\"prompt_cache_hit_tokens\":0,\"prompt_cache_miss_tokens\":104},\"system_fingerprint\":\"fp_a18b46594c_prod0820_fp8_kvcache_20260402\"}"
+    },
+    {
+      "probe": "D",
+      "request": {
+        "model": "deepseek-v4-flash",
+        "thinking": "enabled",
+        "reasoning_effort": "high",
+        "tools": true,
+        "tool_choice": null
+      },
+      "http_status": 200,
+      "total_latency_ms": 1077,
+      "json_valid": true,
+      "returned_model": "deepseek-v4-flash",
+      "system_fingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+      "thinking_state": "enabled",
+      "reasoning_effort": "high",
+      "content": "READY",
+      "tool_calls": "absent",
+      "reasoning_content_exposed": true,
+      "tool_loop": {
+        "first_response": "READY",
+        "tool_call_observed": false,
+        "tool_call_id": null,
+        "second_response": null
+      },
+      "usage": {
+        "prompt_tokens": 358,
+        "completion_tokens": 17,
+        "total_tokens": 375,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 358,
+        "reasoning_tokens": 14
+      },
+      "raw": "{\"id\":\"d3f45351-3058-4edb-b687-5db4aa2ce745\",\"object\":\"chat.completion\",\"created\":1786068627,\"model\":\"deepseek-v4-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"READY\",\"reasoning_content\":\"The user wants exactly one word: READY. No tool needed.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":358,\"completion_tokens\":17,\"total_tokens\":375,\"prompt_tokens_details\":{\"cached_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":14},\"prompt_cache_hit_tokens\":0,\"prompt_cache_miss_tokens\":358},\"system_fingerprint\":\"fp_a18b46594c_prod0820_fp8_kvcache_20260402\"}"
+    },
+    {
+      "probe": "Dprime",
+      "request": {
+        "model": "deepseek-v4-flash",
+        "thinking": "enabled",
+        "reasoning_effort": "high",
+        "tools": true,
+        "tool_choice": null,
+        "note": "forced tool call; reasoning_content captured and replayed on assistant message for next turn"
+      },
+      "first_status": 200,
+      "first_model": "deepseek-v4-flash",
+      "first_latency_ms": 1344,
+      "tool_call_observed": true,
+      "tool_call_id": "call_00_IQTckdgZwXZcYG94pOpg7801",
+      "reasoning_content_exposed": true,
+      "reasoning_content_len": 70,
+      "first_content": "",
+      "second_status": 200,
+      "second_model": "deepseek-v4-flash",
+      "second_latency_ms": 769,
+      "tool_loop_reconstructed": true,
+      "usage1": {
+        "prompt_tokens": 365,
+        "completion_tokens": 63,
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 109,
+        "reasoning_tokens": 18
+      },
+      "usage2": {
+        "prompt_tokens": 445,
+        "completion_tokens": 1,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 61,
+        "reasoning_tokens": 0
+      }
+    }
+  ],
+  "direct_deepseek_available": true,
+  "capability_probe_identity_hash": "35c2648de564368864528486632eedf7ca0dbaf17c4cbb515ce15addbf008cbe",
+  "tool_call_compatibility": {
+    "thinking_mode_without_tool_choice_accepted": true,
+    "tool_call_observed_in_thinking_mode": true,
+    "reasoning_content_captured": true,
+    "reasoning_content_replayed_for_next_turn_accepted": true,
+    "tool_call_ids_preserved": true,
+    "reasoning_content_not_surfaced_as_user_output": true
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "upgrade_id": "CL-ORCH-UPGRADE-20260807-V1",
+  "authorization": "APPROVED (REV-9 execution authorization; saved at C:/Users/ASUS/.plannotator/plans/cheapluna-orchestration-behavi-2026-08-07-approved.md)",
+  "generated_at": "2026-08-07T02:09:02Z",
+  "authority_verification": {
+    "REV3_AUTHORITY_VERIFICATION": "PASS",
+    "REV5_EXECUTION_CONTRACT_VERIFICATION": "PASS",
+    "REV6_EXECUTION_CONTRACT_VERIFICATION": "PASS",
+    "REV7_EXECUTION_CONTRACT_VERIFICATION": "PASS",
+    "EXTERNAL_SHA256_RECEIPT_VERIFICATION": "PASS"
+  },
+  "governing_plan_identities": {
+    "REV-3": {
+      "body_bytes": 24305,
+      "body_sha256": "57a914d0c1bb10c180cee83afe8fffd6f4bb1517bcd60b5d7a81b69be1f8a459",
+      "whole_bytes": 25287,
+      "whole_sha256": "9c8d3ac7c7419ab17d0997e1d932510c6e3a9829023d4471c7b23fb2d12d37b8"
+    },
+    "REV-5": {
+      "body_bytes": 31518,
+      "body_sha256": "7c04da3bd0c6dbe2ed6de93a75bdcfc22b1650ca5909b9b8b6cab2e6ae0d18c2",
+      "whole_bytes": 32311,
+      "whole_sha256": "498afa5417d10a046c42a42694e91f8d242c7665102e5e40c8ad209cdf295c73"
+    },
+    "REV-6": {
+      "body_bytes": 36485,
+      "body_sha256": "24497ebcf2a1fec38ba83f0700f620ef8fbe442f20f004095fc14f70251e9e1c",
+      "whole_bytes": 37492,
+      "whole_sha256": "f0ba18b73144ca3dc2efe1a2ec6b9d6334f0eed6419daf0410eaa5235d2797a8"
+    },
+    "REV-7": {
+      "body_bytes": 39740,
+      "body_sha256": "49bb3b269702331b006fa3657b9d4c633e46b099c86c3827672f13a6885a93b3",
+      "whole_bytes": 40956,
+      "whole_sha256": "f40e6a1133f5b4a164fafdd306658230825dc3bdef175cb8274fec2f853ad8e6"
+    },
+    "REV-9": {
+      "authority_file": "CHEAPLUNA_ORCH_REV9.md",
+      "exact_file_byte_size": 43980,
+      "external_receipt_sha256": "b8c10e2bea6dfe7ebf6819e74decc83279ff4d008848ed2967e9d3521bb0a589",
+      "receipt_file": "CHEAPLUNA_ORCH_REV9.sha256"
+    }
+  },
+  "primary_execution_authority": {
+    "rule": "SHA256(exact_saved_CHEAPLUNA_ORCH_REV9.md_bytes) == external_receipt_sha256",
+    "value": "b8c10e2bea6dfe7ebf6819e74decc83279ff4d008848ed2967e9d3521bb0a589",
+    "verified": true,
+    "immutable_once_review_begins": true
+  },
+  "canonicalization_convention": {
+    "encoding": "UTF-8",
+    "bom": false,
+    "normalize": "CRLF/CR -> LF",
+    "whole_file_sha256_value_replaced_with": "64 ASCII zeroes",
+    "strip_one_terminal_lf": true
+  },
+  "pcv3_freeze": {
+    "status": "ACTIVE",
+    "pcv3_wave_2": "NOT_STARTED"
+  },
+  "modification_allowlist": [
+    "%LOCALAPPDATA%/OpenCode/CheapLuna/runtime/ (new immutable build dir only)",
+    ".opencode/scripts/cheapluna-bridge.ps1",
+    ".opencode/scripts/cheapluna-cli.mjs",
+    ".opencode/scripts/cheapluna-drain.mjs",
+    ".opencode/scripts/delegation_pure.mjs",
+    ".opencode/plugins/cheapluna-cache-first.js",
+    ".opencode/plugins/cheapluna-budget-guard.js",
+    ".opencode/plugins/daemon-health-guard.js",
+    "opencode.json (cheapluna command templates + MCP env only)",
+    ".opencode/upgrades/CL-ORCH-UPGRADE-20260807-V1/"
+  ],
+  "credential": {
+    "credential_source_name": "PERFUME_DEEPSEEK_API_KEY",
+    "credential_present": true,
+    "value_not_recorded": true
+  },
+  "provider_lock": {
+    "provider": "deepseek",
+    "base_url": "https://api.deepseek.com",
+    "api_model": "deepseek-v4-flash",
+    "internal_label": "DS-V4-FLASH-3107",
+    "routes": [
+      "LOCAL",
+      "FLASH_FAST",
+      "FLASH_HIGH",
+      "FLASH_MAX"
+    ],
+    "deepinfra_calls": 0,
+    "v4_pro_calls": 0,
+    "fallback": "DISABLED"
+  }
+}

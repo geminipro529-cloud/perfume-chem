@@ -1,0 +1,592 @@
+{
+  "test": "reasoning_replay",
+  "scenario": "tool_loop_ok",
+  "tier": "PRO",
+  "provider_requests": [
+    {
+      "body": {
+        "model": "deepseek-v4-flash",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a bounded CheapLuna Chat worker invoked directly by Codex.\nSol is the sole head engineer and retains architecture, scientific interpretation, novelty, thesis claims, and final approval.\nDo not delegate, spawn nested agents, make architectural decisions, or make scientific claims.\nUse only the supplied tools. Never request or reveal chain-of-thought; provide concise evidence only.\nDo not ask whether the instruction was understood, do not restate it, and do not request confirmation.\nWork directly against definition_of_done in listed order; do not narrate progress.\nEvery non-final provider turn must issue only novel, bounded tool requests that advance an unmet criterion.\nBatch independent reads in one turn, never repeat equivalent tool arguments, and reserve the final provider turn for finish_handoff.\nIf one material ambiguity remains, return BLOCKED once; do not recursively critique the same answer.\nStop and report BLOCKED when requirements are ambiguous or architecture_uncertainty is true.\nStop and report BLOCKED when scientific_uncertainty is true.\nPreserve positive and negative evidence. Never read credentials or environment secrets. Never perform Git mutations.\nFor every non-empty governed positive_findings or negative_findings entry, include a matching citations entry.\nAfter read_file, copy its returned evidence_id and cite an exact line range inside that receipt.\nEach citation must contain exactly finding_field, finding_index, evidence_id, start, end, and unit='line'; citations is mandatory even when empty.\nGoverned findings may contain only claims supported by read_file receipts; put command outcomes in tests or summary.\nUse an empty findings array instead of a meta-claim such as 'no negative findings'.\nComplete the task by calling finish_handoff exactly once with all required fields."
+          },
+          {
+            "role": "user",
+            "content": "TASK CONTRACT JSON\n{\n  \"contract_version\": 5,\n  \"status_vocabulary\": [\n    \"PASS\",\n    \"FAIL\",\n    \"BLOCKED\"\n  ],\n  \"execution_status_vocabulary\": [\n    \"ACCEPTED\",\n    \"INCOMPLETE\",\n    \"BLOCKED\",\n    \"PROVIDER_ERROR\",\n    \"CONTRACT_ERROR\",\n    \"CANCELLED\"\n  ],\n  \"evidence_verdict_vocabulary\": [\n    \"POSITIVE\",\n    \"NEGATIVE\",\n    \"NULL\",\n    \"MIXED\",\n    \"UNRESOLVED\",\n    \"NOT_APPLICABLE\"\n  ],\n  \"final_json_keys\": [\n    \"status\",\n    \"summary\",\n    \"files_inspected\",\n    \"files_changed\",\n    \"commands_run\",\n    \"tests\",\n    \"positive_findings\",\n    \"negative_findings\",\n    \"scientific_uncertainty\",\n    \"architecture_uncertainty\",\n    \"scope_deviation\",\n    \"residual_risks\",\n    \"recommended_next_action\",\n    \"execution_status\",\n    \"evidence_verdict\"\n  ],\n  \"authority_boundary\": \"Sol retains architecture, science, policy, hypothesis interpretation, and final approval.\",\n  \"mode\": \"READ_ONLY\",\n  \"fast_only\": false,\n  \"model_tier\": \"PRO\",\n  \"allowed_paths\": [\n    \"inventory.txt\"\n  ],\n  \"required_reads\": [\n    {\n      \"path\": \"inventory.txt\",\n      \"unit\": \"line\",\n      \"start\": 1,\n      \"end\": 3\n    }\n  ],\n  \"coverage_spec\": {\n    \"mode\": \"ALL_REQUIRED_READS\",\n    \"citations_required_for\": [\n      \"positive_findings\",\n      \"negative_findings\"\n    ]\n  },\n  \"forbidden_actions\": [],\n  \"commands_tests\": [],\n  \"write_verifications\": [],\n  \"frozen_artifacts\": [],\n  \"frozen_artifact_payload_identity\": \"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\n  \"definition_of_done\": [\n    \"terminal verdict recorded\"\n  ],\n  \"required_output\": [\n    \"decision\",\n    \"evidence\",\n    \"source_hashes\",\n    \"terminal_state\"\n  ],\n  \"route_constraints\": {\n    \"allowedRoutes\": [\n      \"FLASH\",\n      \"DIRECT_PRO\"\n    ],\n    \"fallbackPolicy\": \"NO_LUNA\",\n    \"maximumAttempts\": 1,\n    \"maximumEstimatedCostUsd\": 0.2,\n    \"privacyClass\": \"PROVIDER_ALLOWED\",\n    \"maximumProviderCalls\": 5,\n    \"maximumInputTokens\": 131072,\n    \"maximumCachedInputTokens\": 65536,\n    \"maximumOutputTokensTotal\": 16384,\n    \"maximumTotalTokens\": 147456\n  },\n  \"route_normalization\": null,\n  \"provider_call_protocol\": {\n    \"maximum_calls\": 5,\n    \"final_call_reserved_for_handoff\": true,\n    \"packed_one_shot\": false\n  },\n  \"execution_rule\": \"Do not edit, create, move, or delete files.\",\n  \"objective\": \"Read the file and then finalize.\",\n  \"task_id\": \"CONTRACT-00e548a4197e64109ef755cab551e5c82490a7552c2b017cd9062e76363f5601\"\n}"
+          }
+        ],
+        "stream": false,
+        "max_tokens": 8192,
+        "user_id": "codex-7f189a4f8a5247d8770e",
+        "thinking": {
+          "type": "enabled"
+        },
+        "reasoning_effort": "high",
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "list_files",
+              "description": "List bounded files below an allowed file or directory.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "read_file",
+              "description": "Read a bounded UTF-8 line range from an allowed file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "start_line": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "end_line": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "path"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "search_text",
+              "description": "Search literal text under an allowed file or directory.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "query": {
+                    "type": "string"
+                  },
+                  "max_results": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                },
+                "required": [
+                  "path",
+                  "query"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "finish_handoff",
+              "description": "Return the final bounded evidence handoff to Sol.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "PASS",
+                      "FAIL",
+                      "BLOCKED"
+                    ]
+                  },
+                  "execution_status": {
+                    "type": "string",
+                    "enum": [
+                      "ACCEPTED",
+                      "INCOMPLETE",
+                      "BLOCKED",
+                      "PROVIDER_ERROR",
+                      "CONTRACT_ERROR",
+                      "CANCELLED"
+                    ]
+                  },
+                  "evidence_verdict": {
+                    "type": "string",
+                    "enum": [
+                      "POSITIVE",
+                      "NEGATIVE",
+                      "NULL",
+                      "MIXED",
+                      "UNRESOLVED",
+                      "NOT_APPLICABLE"
+                    ]
+                  },
+                  "summary": {
+                    "type": "string",
+                    "maxLength": 600
+                  },
+                  "files_inspected": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 200
+                    }
+                  },
+                  "files_changed": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 200
+                    }
+                  },
+                  "commands_run": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "tests": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "positive_findings": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "negative_findings": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "citations": {
+                    "type": "array",
+                    "maxItems": 24,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "finding_field": {
+                          "type": "string",
+                          "enum": [
+                            "positive_findings",
+                            "negative_findings"
+                          ]
+                        },
+                        "finding_index": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "evidence_id": {
+                          "type": "string",
+                          "pattern": "^EV-[a-f0-9]{32}$"
+                        },
+                        "start": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "unit": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "finding_field",
+                        "finding_index",
+                        "evidence_id",
+                        "start",
+                        "end",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scientific_uncertainty": {
+                    "type": "boolean"
+                  },
+                  "architecture_uncertainty": {
+                    "type": "boolean"
+                  },
+                  "scope_deviation": {
+                    "type": "boolean"
+                  },
+                  "residual_risks": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "recommended_next_action": {
+                    "type": "string",
+                    "maxLength": 300
+                  }
+                },
+                "required": [
+                  "status",
+                  "summary",
+                  "files_inspected",
+                  "files_changed",
+                  "commands_run",
+                  "tests",
+                  "positive_findings",
+                  "negative_findings",
+                  "scientific_uncertainty",
+                  "architecture_uncertainty",
+                  "scope_deviation",
+                  "residual_risks",
+                  "recommended_next_action",
+                  "execution_status",
+                  "evidence_verdict"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        ]
+      },
+      "raw_len": 7846
+    },
+    {
+      "body": {
+        "model": "deepseek-v4-flash",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a bounded CheapLuna Chat worker invoked directly by Codex.\nSol is the sole head engineer and retains architecture, scientific interpretation, novelty, thesis claims, and final approval.\nDo not delegate, spawn nested agents, make architectural decisions, or make scientific claims.\nUse only the supplied tools. Never request or reveal chain-of-thought; provide concise evidence only.\nDo not ask whether the instruction was understood, do not restate it, and do not request confirmation.\nWork directly against definition_of_done in listed order; do not narrate progress.\nEvery non-final provider turn must issue only novel, bounded tool requests that advance an unmet criterion.\nBatch independent reads in one turn, never repeat equivalent tool arguments, and reserve the final provider turn for finish_handoff.\nIf one material ambiguity remains, return BLOCKED once; do not recursively critique the same answer.\nStop and report BLOCKED when requirements are ambiguous or architecture_uncertainty is true.\nStop and report BLOCKED when scientific_uncertainty is true.\nPreserve positive and negative evidence. Never read credentials or environment secrets. Never perform Git mutations.\nFor every non-empty governed positive_findings or negative_findings entry, include a matching citations entry.\nAfter read_file, copy its returned evidence_id and cite an exact line range inside that receipt.\nEach citation must contain exactly finding_field, finding_index, evidence_id, start, end, and unit='line'; citations is mandatory even when empty.\nGoverned findings may contain only claims supported by read_file receipts; put command outcomes in tests or summary.\nUse an empty findings array instead of a meta-claim such as 'no negative findings'.\nComplete the task by calling finish_handoff exactly once with all required fields."
+          },
+          {
+            "role": "user",
+            "content": "TASK CONTRACT JSON\n{\n  \"contract_version\": 5,\n  \"status_vocabulary\": [\n    \"PASS\",\n    \"FAIL\",\n    \"BLOCKED\"\n  ],\n  \"execution_status_vocabulary\": [\n    \"ACCEPTED\",\n    \"INCOMPLETE\",\n    \"BLOCKED\",\n    \"PROVIDER_ERROR\",\n    \"CONTRACT_ERROR\",\n    \"CANCELLED\"\n  ],\n  \"evidence_verdict_vocabulary\": [\n    \"POSITIVE\",\n    \"NEGATIVE\",\n    \"NULL\",\n    \"MIXED\",\n    \"UNRESOLVED\",\n    \"NOT_APPLICABLE\"\n  ],\n  \"final_json_keys\": [\n    \"status\",\n    \"summary\",\n    \"files_inspected\",\n    \"files_changed\",\n    \"commands_run\",\n    \"tests\",\n    \"positive_findings\",\n    \"negative_findings\",\n    \"scientific_uncertainty\",\n    \"architecture_uncertainty\",\n    \"scope_deviation\",\n    \"residual_risks\",\n    \"recommended_next_action\",\n    \"execution_status\",\n    \"evidence_verdict\"\n  ],\n  \"authority_boundary\": \"Sol retains architecture, science, policy, hypothesis interpretation, and final approval.\",\n  \"mode\": \"READ_ONLY\",\n  \"fast_only\": false,\n  \"model_tier\": \"PRO\",\n  \"allowed_paths\": [\n    \"inventory.txt\"\n  ],\n  \"required_reads\": [\n    {\n      \"path\": \"inventory.txt\",\n      \"unit\": \"line\",\n      \"start\": 1,\n      \"end\": 3\n    }\n  ],\n  \"coverage_spec\": {\n    \"mode\": \"ALL_REQUIRED_READS\",\n    \"citations_required_for\": [\n      \"positive_findings\",\n      \"negative_findings\"\n    ]\n  },\n  \"forbidden_actions\": [],\n  \"commands_tests\": [],\n  \"write_verifications\": [],\n  \"frozen_artifacts\": [],\n  \"frozen_artifact_payload_identity\": \"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\n  \"definition_of_done\": [\n    \"terminal verdict recorded\"\n  ],\n  \"required_output\": [\n    \"decision\",\n    \"evidence\",\n    \"source_hashes\",\n    \"terminal_state\"\n  ],\n  \"route_constraints\": {\n    \"allowedRoutes\": [\n      \"FLASH\",\n      \"DIRECT_PRO\"\n    ],\n    \"fallbackPolicy\": \"NO_LUNA\",\n    \"maximumAttempts\": 1,\n    \"maximumEstimatedCostUsd\": 0.2,\n    \"privacyClass\": \"PROVIDER_ALLOWED\",\n    \"maximumProviderCalls\": 5,\n    \"maximumInputTokens\": 131072,\n    \"maximumCachedInputTokens\": 65536,\n    \"maximumOutputTokensTotal\": 16384,\n    \"maximumTotalTokens\": 147456\n  },\n  \"route_normalization\": null,\n  \"provider_call_protocol\": {\n    \"maximum_calls\": 5,\n    \"final_call_reserved_for_handoff\": true,\n    \"packed_one_shot\": false\n  },\n  \"execution_rule\": \"Do not edit, create, move, or delete files.\",\n  \"objective\": \"Read the file and then finalize.\",\n  \"task_id\": \"CONTRACT-00e548a4197e64109ef755cab551e5c82490a7552c2b017cd9062e76363f5601\"\n}"
+          },
+          {
+            "role": "assistant",
+            "content": null,
+            "reasoning_content": "mock tool reasoning",
+            "tool_calls": [
+              {
+                "id": "call_mock_1",
+                "type": "function",
+                "function": {
+                  "name": "read_file",
+                  "arguments": "{\"path\":\"inventory.txt\",\"start_line\":1,\"end_line\":5}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_mock_1",
+            "content": "{\"path\":\"inventory.txt\",\"start_line\":1,\"end_line\":5,\"total_lines\":301,\"content\":\"PERFUMERY INVENTORY — CURRENT WORKING MATERIALS\\nUpdated: 2026-08-07 — material intake batch (Leafovert neat; additions; OOS marks)\\n=============================================================================================\\n\\n--- SOLVENTS / CARRIERS ---\",\"evidence_id\":\"EV-d47e381347fa2d9349a20c7e30a0a652\",\"receipt\":{\"evidence_id\":\"EV-d47e381347fa2d9349a20c7e30a0a652\",\"schema_version\":1,\"job_id\":\"DJ-6b8782a1-0a0f-44dc-bd9f-1c5cbb12f569\",\"workspace_instance_id\":\"WS-80d6bd5e051fa37b095d70de0d9f0914\",\"manifest_hash\":\"fcd0c2f40a018004cce0c1f4b038965dbccd9d1b73b2e95c75a10f9cd3de7cc5\",\"relative_path\":\"inventory.txt\",\"file_sha256\":\"dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec\",\"chunk_sha256s\":[\"f12685fa4c7d74cbfa47579af9109702ac36d3c0744c98622d5d5054fccfd701\"],\"start\":1,\"end\":5,\"unit\":\"line\",\"next_start\":6,\"extractor\":\"text-lines@1\",\"receipt_hash\":\"d47e381347fa2d9349a20c7e30a0a6523ccda17d14f33e9a33aedbf5c2444980\"}}"
+          }
+        ],
+        "stream": false,
+        "max_tokens": 8192,
+        "user_id": "codex-7f189a4f8a5247d8770e",
+        "thinking": {
+          "type": "enabled"
+        },
+        "reasoning_effort": "high",
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "list_files",
+              "description": "List bounded files below an allowed file or directory.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "read_file",
+              "description": "Read a bounded UTF-8 line range from an allowed file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "start_line": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "end_line": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "path"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "search_text",
+              "description": "Search literal text under an allowed file or directory.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "query": {
+                    "type": "string"
+                  },
+                  "max_results": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                },
+                "required": [
+                  "path",
+                  "query"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "finish_handoff",
+              "description": "Return the final bounded evidence handoff to Sol.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "PASS",
+                      "FAIL",
+                      "BLOCKED"
+                    ]
+                  },
+                  "execution_status": {
+                    "type": "string",
+                    "enum": [
+                      "ACCEPTED",
+                      "INCOMPLETE",
+                      "BLOCKED",
+                      "PROVIDER_ERROR",
+                      "CONTRACT_ERROR",
+                      "CANCELLED"
+                    ]
+                  },
+                  "evidence_verdict": {
+                    "type": "string",
+                    "enum": [
+                      "POSITIVE",
+                      "NEGATIVE",
+                      "NULL",
+                      "MIXED",
+                      "UNRESOLVED",
+                      "NOT_APPLICABLE"
+                    ]
+                  },
+                  "summary": {
+                    "type": "string",
+                    "maxLength": 600
+                  },
+                  "files_inspected": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 200
+                    }
+                  },
+                  "files_changed": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 200
+                    }
+                  },
+                  "commands_run": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "tests": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "positive_findings": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "negative_findings": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "citations": {
+                    "type": "array",
+                    "maxItems": 24,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "finding_field": {
+                          "type": "string",
+                          "enum": [
+                            "positive_findings",
+                            "negative_findings"
+                          ]
+                        },
+                        "finding_index": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "evidence_id": {
+                          "type": "string",
+                          "pattern": "^EV-[a-f0-9]{32}$"
+                        },
+                        "start": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "unit": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "finding_field",
+                        "finding_index",
+                        "evidence_id",
+                        "start",
+                        "end",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scientific_uncertainty": {
+                    "type": "boolean"
+                  },
+                  "architecture_uncertainty": {
+                    "type": "boolean"
+                  },
+                  "scope_deviation": {
+                    "type": "boolean"
+                  },
+                  "residual_risks": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string",
+                      "maxLength": 180
+                    }
+                  },
+                  "recommended_next_action": {
+                    "type": "string",
+                    "maxLength": 300
+                  }
+                },
+                "required": [
+                  "status",
+                  "summary",
+                  "files_inspected",
+                  "files_changed",
+                  "commands_run",
+                  "tests",
+                  "positive_findings",
+                  "negative_findings",
+                  "scientific_uncertainty",
+                  "architecture_uncertainty",
+                  "scope_deviation",
+                  "residual_risks",
+                  "recommended_next_action",
+                  "execution_status",
+                  "evidence_verdict"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        ]
+      },
+      "raw_len": 9240
+    }
+  ],
+  "terminal": {
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "summary": ""
+  },
+  "trace_sha256": "3664d1fdb6c9d168a2dc55c4da000a139aade2a7df1ca321d943e1c8481bdda4"
+}

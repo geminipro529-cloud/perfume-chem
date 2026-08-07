@@ -1,0 +1,31 @@
+{
+  "report_id": "CHEAPLUNA_CANARY_REPORT",
+  "upgrade": "CL-ORCH-UPGRADE-20260807-V1",
+  "authority": "REV-9 P6D/P6F",
+  "generated_at": "2026-08-07T15:20:00Z",
+  "READ_CANARY_RESULT": "PASS",
+  "READ_CANARY_DETAIL": "Exact nonce bytes and SHA-256 returned verbatim in result; no substitution, no truncation-disguised-as-success. FLASH uncertainty gate produced BLOCKED job status but content identity was exact.",
+  "WRITE_CANARY_RESULT": "FAIL",
+  "WRITE_CANARY_DETAIL": "Flash packed WRITE (FLASH_PACKED_WRITE_V1) validated the task and executed 1 provider call; model returned a valid-looking handoff with write_operations, but materializeFlashPackedWritePlan rejected operation[0].kind as unsupported. File remained 0 bytes; no disk write applied (host stages writes only after full handoff validation).",
+  "CANONICAL_IO_QUALIFICATION_STATE": "NOT_ELIGIBLE",
+  "CHEAPLUNA_CANONICAL_IO": "QUARANTINED",
+  "note": "Canaries never auto-lift quarantine. Qualification requires READ==PASS AND WRITE==PASS; WRITE==FAIL blocks canonical IO until the candidate WRITE prompt/validator contract is fixed and re-tested.",
+  "write_failure_hypothesis": {
+    "observed": "operation[0].kind is unsupported at server.mjs:4943 despite provider returning write_file/replace_text plan",
+    "likely_root_cause": "Strict hasExactObjectKeys(operation, [content,kind,path]) for write_file and [kind,new_text,old_text,path] for replace_text; a model that adds any extra key (e.g. sha256, byte_length, description) falls through to the else branch -> kind is unsupported. flash-packed-prompt-v8 instructs strict keys but does not explicitly forbid extra keys inside each operation object.",
+    "confidence": "HIGH (validator code reviewed; only strict-key failure produces this exact error)",
+    "fix_direction": "Candidate fix in server.mjs: for write_file/replace_text accept and ignore benign extra keys (or reject with a precise 'extra key' message), and reinforce the packed prompt: 'write_operations objects MUST contain exactly the listed keys and no others'. Re-test with mock-provider scripted WRITE handoff before any live call."
+  },
+  "live_cost": {
+    "write_canary_api_calls": 7,
+    "total_estimated_usd": "~0.01",
+    "note": "Each Flash WRITE attempt cost ~0.001 USD; diagnosed live per user directive then stopped per REV-9 4 (mock-first for the fix)"
+  },
+  "next_steps": [
+    "Fix candidate write_operations strict-key validator + prompt reinforcement in candidate/runtime/server.mjs",
+    "Add mock-provider WRITE fixture (scripted handoff with write_operations) to P5B contract suite",
+    "Re-run P5B (25/25 + 10/10 + new WRITE case) -> PASS",
+    "Re-run WRITE canary live (1 call) -> expect PASS",
+    "Then CANONICAL_IO_QUALIFICATION_STATE: ELIGIBLE_FOR_SEPARATE_REVIEW"
+  ]
+}

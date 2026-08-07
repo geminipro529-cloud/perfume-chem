@@ -1,0 +1,91 @@
+{
+  "report_id": "CHEAPLUNA_VALIDATION_REPORT",
+  "upgrade": "CL-ORCH-UPGRADE-20260807-V1",
+  "authority": "REV-9",
+  "generated_at": "2026-08-07T07:25:00Z",
+  "model_id": "deepseek/deepseek-v4-flash",
+  "phases": {
+    "P5B_MOCK_ACCEPTANCE": "PASS (25/25 offline + 10/10 mock contract tests, 0 live API)",
+    "P6A_RUNTIME_INSTALL": {
+      "result": "PASS",
+      "candidate_build_hash": "a60f192b5f70230134499a2ef26b3e0816710c2a44b629a867aaec1a5aec064d",
+      "manifest_files": 22,
+      "independent_hash_recompute": "MATCH",
+      "installed_copy_self_verify": "PASS",
+      "old_runtime": "45b09bf3cf70145ba957a0851377eeda335cb26cce67242ad0866555445d3f5f (untouched, rollback anchor)"
+    },
+    "P6B_CUTOVER": {
+      "step1_block_admissions": "queue empty; 0 RUNNING/QUEUED/VALIDATING",
+      "step2_inspect_queue": "95 historical generations terminal; 0 active",
+      "step3_drain": "nothing to drain",
+      "step4_require_running_zero": "PASS (0 RUNNING attempts, 0 active leases)",
+      "step5_snapshot_scheduler_db": "evidence/cutover/scheduler_pre_cutover_20260807T070435Z.sqlite3 (10 MB)",
+      "step6_stop_old_daemon": "PASS (PID 21912 stopped)",
+      "step7_verify_stopped": "PASS",
+      "step8_drift_check": "PASS after re-baseline; 4 files had legitimate drift (upgrade's own committed changes f39e887); pre_change refreshed to today's real baseline",
+      "step9_apply_host_files": "8/8 applied (5 content-identical, 3 line-ending/security updates)",
+      "step10_bridge_pin": "45b09bf3... -> a60f192b...",
+      "step11_start_candidate": "PASS (daemon PID 15280, detached)",
+      "step12_build_identity_handshake": "PASS (runtime_build_hash = a60f192b...)",
+      "step13_health_probe": "PASS (read_limit 5, write_limit 1)",
+      "step14_direct_deepseek_capability": "PASS (see P6C)",
+      "step15_reopen_admissions": "done"
+    },
+    "P6C_LIVE_CAPABILITY": {
+      "result": "PASS",
+      "health": {
+        "readiness": "READY",
+        "project_id": "perfume-chem-cheapluna-isolated",
+        "runtime_build_hash": "a60f192b5f70230134499a2ef26b3e0816710c2a44b629a867aaec1a5aec064d",
+        "read_limit": 5,
+        "write_limit": 1
+      },
+      "cap_flash": {
+        "status": "PASS",
+        "execution_status": "ACCEPTED",
+        "evidence_verdict": "POSITIVE",
+        "elapsed_ms": 4830,
+        "summary": "Galaxolide is listed in the MUSKS inventory category at 50% dilution in DEP. The entry appears on line 194 of inventory.txt.",
+        "model": "deepseek-v4-flash"
+      },
+      "cap_high": {
+        "status": "PASS",
+        "execution_status": "ACCEPTED",
+        "evidence_verdict": "NEGATIVE",
+        "elapsed_ms": 51670,
+        "summary": "Review completed: inventory.txt output retains multiple dilution entries for the same material (e.g., Hexyl Acetate 1% line 13 and (10%) line 22; Geosmin 0.1% a...",
+        "model": "deepseek-v4-flash"
+      }
+    },
+    "live_verified_parameter_fixes": [
+      "FLASH_HIGH max_output_tokens 3000 -> 8192 (thinking + tool loop truncation eliminated; mock-predicted, live-confirmed)",
+      "required_reads must be bounded to the file's actual line count (301 for inventory.txt); unbounded end:null triggers read exceeds maximum line range",
+      "FLASH_HIGH maximum_provider_calls 2 -> 5 (tool loop budget for read + thinking + handoff)"
+    ],
+    "documented_behavior_kept": [
+      "FLASH uncertainty gate (PASS + scope_deviation -> BLOCKED) observed on first probe; per REV-9/plan section 4, kept as intended scheduler semantics (subsequent probe with correct contract produced ACCEPTED)"
+    ]
+  },
+  "model_unification_live_confirmed": {
+    "provider": "deepseek (direct)",
+    "route": "deepseek-chat",
+    "model": "deepseek-v4-flash",
+    "tokenizer_model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+    "tokenizer_revision": "60d8d70770c6776ff598c94bb586a859a38244f1",
+    "pricing_version": "deepseek-v4-flash-chat-2026-08-05"
+  },
+  "live_spend": {
+    "cap_flash_nano_usd": 1091784,
+    "cap_flash_usd": 0.001091784,
+    "total_live_calls": 6,
+    "total_estimated_usd": "~0.01 (minimal capability verification only)"
+  },
+  "next_steps": [
+    "P6D READ canary (nonce-based integrity) before benchmark",
+    "P6E benchmark SAFE_NEW/BALANCED_NEW/TURBO_NEW",
+    "P6F WRITE canary",
+    "P7 22 artifacts",
+    "/plannotator-review",
+    "STOP"
+  ]
+}

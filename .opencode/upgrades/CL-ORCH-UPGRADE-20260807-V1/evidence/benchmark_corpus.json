@@ -1,0 +1,1265 @@
+{
+  "benchmark_corpus_id": "CL-BENCH-20260807-V1",
+  "profiles": [
+    "BASELINE_DIRECT_DEEPSEEK_CURRENT_SCHEDULER",
+    "SAFE_NEW",
+    "BALANCED_NEW",
+    "TURBO_NEW"
+  ],
+  "packets": [
+    {
+      "packet_id": "P001",
+      "task_class": "source_discovery",
+      "decision_requested": "Which inventory category header lists Galaxolide, and at what dilution?",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "category header",
+        "dilution %"
+      ],
+      "prohibited_claims": [
+        "inventing stock"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "evidence must quote the exact inventory line",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P002",
+      "task_class": "source_discovery",
+      "decision_requested": "List the distinct citrus materials present in inventory.txt and their category.",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "material names",
+        "category"
+      ],
+      "prohibited_claims": [
+        "non-inventory materials"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "each citrus material must appear in inventory",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P003",
+      "task_class": "source_discovery",
+      "decision_requested": "What is the reported stock dilution of Alpha Irone?",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "dilution %"
+      ],
+      "prohibited_claims": [
+        "unstated dilution"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must match inventory line exactly",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P004",
+      "task_class": "source_discovery",
+      "decision_requested": "Which musk materials are listed in inventory and under which category header?",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "musk material list"
+      ],
+      "prohibited_claims": [
+        "materials not in inventory"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "list must be a subset of inventory lines",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P005",
+      "task_class": "source_discovery",
+      "decision_requested": "Is Osmanthus Absolute present in inventory? If yes, at what dilution?",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "present/absent",
+        "dilution"
+      ],
+      "prohibited_claims": [
+        "guessing dilution"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "presence claim must match inventory lines",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P006",
+      "task_class": "code_review",
+      "decision_requested": "Review the activity-coefficient defaulting path: may gamma ever silently become 1.0?",
+      "source_references": [
+        "intel"
+      ],
+      "source_paths": [
+        "engine/ingredient_intelligence.py"
+      ],
+      "ordered_source_sha256": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "gamma handling description",
+        "whether silent 1.0 is possible"
+      ],
+      "prohibited_claims": [
+        "claiming default is 1.0 without evidence"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "finding must cite code lines",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P007",
+      "task_class": "code_review",
+      "decision_requested": "Does ingredient_intelligence._PROFILES contain a VP for Hedione that differs from data YAML?",
+      "source_references": [
+        "intel",
+        "i_yaml"
+      ],
+      "source_paths": [
+        "engine/ingredient_intelligence.py",
+        "data/materials/I.yaml"
+      ],
+      "ordered_source_sha256": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2",
+        "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "stale VP finding or none"
+      ],
+      "prohibited_claims": [
+        "inventing values"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must quote both values",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P008",
+      "task_class": "code_review",
+      "decision_requested": "Identify any duplicate ODT_DATA entries for 'hedione' and which entry wins.",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "duplicate count",
+        "winner"
+      ],
+      "prohibited_claims": [
+        "asserting no duplicates without checking"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must count occurrences",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P009",
+      "task_class": "code_review",
+      "decision_requested": "Does the note_map in gates.py use case-insensitive keys for pyramid lookup?",
+      "source_references": [
+        "gates"
+      ],
+      "source_paths": [
+        "engine/pipeline/gates.py"
+      ],
+      "ordered_source_sha256": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "yes/no with line ref"
+      ],
+      "prohibited_claims": [
+        "unverified claim"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must cite the exact lookup line",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P010",
+      "task_class": "code_review",
+      "decision_requested": "Review whether inventory_parser deduplicates by keeping the highest-dilution entry.",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "dedup behavior"
+      ],
+      "prohibited_claims": [
+        "claiming unknown behavior"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reference parser semantics evidenced in repo",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P011",
+      "task_class": "test_diagnosis",
+      "decision_requested": "A pyramid gate shows T:0 H:100 B:0. Diagnose the most likely root cause.",
+      "source_references": [
+        "gates"
+      ],
+      "source_paths": [
+        "engine/pipeline/gates.py"
+      ],
+      "ordered_source_sha256": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "root-cause hypothesis"
+      ],
+      "prohibited_claims": [
+        "claiming a fix without evidence"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "hypothesis must map to code path",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P012",
+      "task_class": "test_diagnosis",
+      "decision_requested": "A material reports 100M+ OAV. What is the most likely cause?",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "duplicate ODT cause"
+      ],
+      "prohibited_claims": [
+        "normal physics"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reference ODT lookup behavior",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P013",
+      "task_class": "test_diagnosis",
+      "decision_requested": "What failure mode does a material missing from ODT_DATA cause?",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "missing-key behavior"
+      ],
+      "prohibited_claims": [
+        "crash without evidence"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must cite lookup fallback",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P014",
+      "task_class": "test_diagnosis",
+      "decision_requested": "Diagnose why --brief has no effect on perfume_knowledge pyramid gate.",
+      "source_references": [
+        "gates"
+      ],
+      "source_paths": [
+        "engine/pipeline/gates.py"
+      ],
+      "ordered_source_sha256": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "brief resolution gap"
+      ],
+      "prohibited_claims": [
+        "claiming brief works"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must cite gate config path",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P015",
+      "task_class": "test_diagnosis",
+      "decision_requested": "If concentrate total exceeds expected by header rows, what parser behavior is implicated?",
+      "source_references": [
+        "inventory.txt"
+      ],
+      "source_paths": [
+        "inventory.txt"
+      ],
+      "ordered_source_sha256": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "row-parser inflation"
+      ],
+      "prohibited_claims": [
+        "fabricated cause"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reference row parsing evidence",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P016",
+      "task_class": "schema_review",
+      "decision_requested": "Is the concentration string '10%' acceptable per the repo's concentration-basis rule?",
+      "source_references": [
+        "concentration"
+      ],
+      "source_paths": [
+        "engine/units/concentration.py"
+      ],
+      "ordered_source_sha256": [
+        "6f3a1bed735a14edd4d6174f8ad004d2a0c1594134ffe6f828eb319ed10d9ece"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "declared basis requirement"
+      ],
+      "prohibited_claims": [
+        "naked % accepted"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must cite parse_concentration contract",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P017",
+      "task_class": "schema_review",
+      "decision_requested": "Does material_properties.json record in_inventory for all 210 materials?",
+      "source_references": [
+        "intel"
+      ],
+      "source_paths": [
+        "engine/ingredient_intelligence.py"
+      ],
+      "ordered_source_sha256": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "coverage finding"
+      ],
+      "prohibited_claims": [
+        "asserting coverage without evidence"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "finding must be bounded to evidence",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P018",
+      "task_class": "schema_review",
+      "decision_requested": "Review whether ODT_VERIFICATION and ODT_DATA both hold numeric ODT values.",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "both/one dict finding"
+      ],
+      "prohibited_claims": [
+        "unverified claim"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reference both dicts",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P019",
+      "task_class": "schema_review",
+      "decision_requested": "Does the packet require output schema fields decision/evidence/source_hashes/terminal_state?",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "required fields"
+      ],
+      "prohibited_claims": [
+        "claiming optional"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must map to repo contract",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P020",
+      "task_class": "schema_review",
+      "decision_requested": "Is a family archetype 'aromatic_fougere' available in the families registry?",
+      "source_references": [
+        "families"
+      ],
+      "source_paths": [
+        "docs/fragrance_families_reference.md"
+      ],
+      "ordered_source_sha256": [
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "availability"
+      ],
+      "prohibited_claims": [
+        "invented family"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must match docs",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P021",
+      "task_class": "authority_comparison",
+      "decision_requested": "Compare VP for Methyl Ionone Pure between ingredient_intelligence profile and data YAML.",
+      "source_references": [
+        "intel",
+        "i_yaml"
+      ],
+      "source_paths": [
+        "engine/ingredient_intelligence.py",
+        "data/materials/I.yaml"
+      ],
+      "ordered_source_sha256": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2",
+        "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "two values + agreement/disagreement"
+      ],
+      "prohibited_claims": [
+        "using only one source"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must quote both",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P022",
+      "task_class": "authority_comparison",
+      "decision_requested": "Compare the ODT for Benzoin Resinoid in ODT_DATA against documented value 3.0 ppb.",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "stored vs 3.0"
+      ],
+      "prohibited_claims": [
+        "asserting without lookup"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must quote stored value",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P023",
+      "task_class": "authority_comparison",
+      "decision_requested": "Do the families doc and the registry both support 'layton_dna'?",
+      "source_references": [
+        "families"
+      ],
+      "source_paths": [
+        "docs/fragrance_families_reference.md"
+      ],
+      "ordered_source_sha256": [
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "both support / missing"
+      ],
+      "prohibited_claims": [
+        "partial claim"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must check both",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P024",
+      "task_class": "authority_comparison",
+      "decision_requested": "Is Hedione ODT in ODT_DATA 0.05 ppb (the corrected value)?",
+      "source_references": [
+        "odt"
+      ],
+      "source_paths": [
+        "engine/odor_thresholds.py"
+      ],
+      "ordered_source_sha256": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "yes/no value"
+      ],
+      "prohibited_claims": [
+        "uncited value"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must quote ODT_DATA entry",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P025",
+      "task_class": "authority_comparison",
+      "decision_requested": "Compare Citrus category guidance in copilot-instructions vs families doc.",
+      "source_references": [
+        "instructions",
+        "families"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md",
+        "docs/fragrance_families_reference.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2",
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "consistency finding"
+      ],
+      "prohibited_claims": [
+        "inventing guidance"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must quote both",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P026",
+      "task_class": "synthesis",
+      "decision_requested": "Synthesize the 3-4 material musk chord rule for a skin-scent accord from the guidance.",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "chord axes"
+      ],
+      "prohibited_claims": [
+        "ignoring guidance"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reflect guidance axes",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P027",
+      "task_class": "synthesis",
+      "decision_requested": "Synthesize the sandalwood differentiation registers (dry vs creamy vs round).",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "registers"
+      ],
+      "prohibited_claims": [
+        "fabricated registers"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reflect guidance",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P028",
+      "task_class": "synthesis",
+      "decision_requested": "Synthesize the local-first deterministic routing list into a compact classifier statement.",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "deterministic ops"
+      ],
+      "prohibited_claims": [
+        "omitting deterministic ops"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must list the documented ops",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P029",
+      "task_class": "adversarial_audit",
+      "decision_requested": "Audit: could a formula label a character note with OAV<1 as perceptible?",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "risk finding"
+      ],
+      "prohibited_claims": [
+        "claiming it is fine"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must apply OAV rule",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    },
+    {
+      "packet_id": "P030",
+      "task_class": "adversarial_audit",
+      "decision_requested": "Audit: is 18% Hedione flagged as a crowding risk?",
+      "source_references": [
+        "instructions"
+      ],
+      "source_paths": [
+        ".github/copilot-instructions.md"
+      ],
+      "ordered_source_sha256": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "expected_deterministic_result": null,
+      "allowed_claims": [
+        "crowding ceiling"
+      ],
+      "prohibited_claims": [
+        "claiming no ceiling"
+      ],
+      "abstention_rule": "Output must be JSON with decision/evidence/source_hashes/terminal_state.",
+      "local_output_schema_identity": "cl_orch_packet_v1",
+      "acceptance_rule": "must reflect documented ceiling",
+      "timeout_s": 90,
+      "max_output_tokens": 2048
+    }
+  ],
+  "cases": [
+    {
+      "benchmark_case_id": "CASE-001",
+      "task_class": "source_discovery",
+      "packet_ids": [
+        "P001"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "evidence must quote the exact inventory line",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-002",
+      "task_class": "source_discovery",
+      "packet_ids": [
+        "P002"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "each citrus material must appear in inventory",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-003",
+      "task_class": "source_discovery",
+      "packet_ids": [
+        "P003"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "must match inventory line exactly",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-004",
+      "task_class": "source_discovery",
+      "packet_ids": [
+        "P004"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "list must be a subset of inventory lines",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-005",
+      "task_class": "source_discovery",
+      "packet_ids": [
+        "P005"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "presence claim must match inventory lines",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-006",
+      "task_class": "code_review",
+      "packet_ids": [
+        "P006"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2"
+      ],
+      "acceptance_rule": "finding must cite code lines",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-007",
+      "task_class": "code_review",
+      "packet_ids": [
+        "P007"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2",
+        "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      ],
+      "acceptance_rule": "must quote both values",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-008",
+      "task_class": "code_review",
+      "packet_ids": [
+        "P008"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must count occurrences",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-009",
+      "task_class": "code_review",
+      "packet_ids": [
+        "P009"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "acceptance_rule": "must cite the exact lookup line",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-010",
+      "task_class": "code_review",
+      "packet_ids": [
+        "P010"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "must reference parser semantics evidenced in repo",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-011",
+      "task_class": "test_diagnosis",
+      "packet_ids": [
+        "P011"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "acceptance_rule": "hypothesis must map to code path",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-012",
+      "task_class": "test_diagnosis",
+      "packet_ids": [
+        "P012"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must reference ODT lookup behavior",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-013",
+      "task_class": "test_diagnosis",
+      "packet_ids": [
+        "P013"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must cite lookup fallback",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-014",
+      "task_class": "test_diagnosis",
+      "packet_ids": [
+        "P014"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+      ],
+      "acceptance_rule": "must cite gate config path",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-015",
+      "task_class": "test_diagnosis",
+      "packet_ids": [
+        "P015"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+      ],
+      "acceptance_rule": "must reference row parsing evidence",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-016",
+      "task_class": "schema_review",
+      "packet_ids": [
+        "P016"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "6f3a1bed735a14edd4d6174f8ad004d2a0c1594134ffe6f828eb319ed10d9ece"
+      ],
+      "acceptance_rule": "must cite parse_concentration contract",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-017",
+      "task_class": "schema_review",
+      "packet_ids": [
+        "P017"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2"
+      ],
+      "acceptance_rule": "finding must be bounded to evidence",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-018",
+      "task_class": "schema_review",
+      "packet_ids": [
+        "P018"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must reference both dicts",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-019",
+      "task_class": "schema_review",
+      "packet_ids": [
+        "P019"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must map to repo contract",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-020",
+      "task_class": "schema_review",
+      "packet_ids": [
+        "P020"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "acceptance_rule": "must match docs",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-021",
+      "task_class": "authority_comparison",
+      "packet_ids": [
+        "P021"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2",
+        "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      ],
+      "acceptance_rule": "must quote both",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-022",
+      "task_class": "authority_comparison",
+      "packet_ids": [
+        "P022"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must quote stored value",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-023",
+      "task_class": "authority_comparison",
+      "packet_ids": [
+        "P023"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "acceptance_rule": "must check both",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-024",
+      "task_class": "authority_comparison",
+      "packet_ids": [
+        "P024"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      ],
+      "acceptance_rule": "must quote ODT_DATA entry",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-025",
+      "task_class": "authority_comparison",
+      "packet_ids": [
+        "P025"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2",
+        "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401"
+      ],
+      "acceptance_rule": "must quote both",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-026",
+      "task_class": "synthesis",
+      "packet_ids": [
+        "P026"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must reflect guidance axes",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-027",
+      "task_class": "synthesis",
+      "packet_ids": [
+        "P027"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must reflect guidance",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-028",
+      "task_class": "synthesis",
+      "packet_ids": [
+        "P028"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must list the documented ops",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-029",
+      "task_class": "adversarial_audit",
+      "packet_ids": [
+        "P029"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must apply OAV rule",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    },
+    {
+      "benchmark_case_id": "CASE-030",
+      "task_class": "adversarial_audit",
+      "packet_ids": [
+        "P030"
+      ],
+      "dependency_edges": [],
+      "ordered_source_hashes": [
+        "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2"
+      ],
+      "acceptance_rule": "must reflect documented ceiling",
+      "case_start_definition": "packet submitted as READ_ONLY job",
+      "case_terminal_definition": "job reaches terminal verdict"
+    }
+  ],
+  "source_hashes": {
+    "inventory.txt": [
+      "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500",
+      16966
+    ],
+    "odt": [
+      "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79",
+      143953
+    ],
+    "intel": [
+      "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2",
+      166964
+    ],
+    "gates": [
+      "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f",
+      218289
+    ],
+    "concentration": [
+      "6f3a1bed735a14edd4d6174f8ad004d2a0c1594134ffe6f828eb319ed10d9ece",
+      20781
+    ],
+    "i_yaml": [
+      "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1",
+      28485
+    ],
+    "families": [
+      "467c759ea52412be0ea8af7c77f0f14d9fb59de7b99722fce57ee2415fbb7401",
+      42031
+    ],
+    "instructions": [
+      "2bf76476d98ed67938f00914009a24fe898ef82b692cbf2e1d6578f9b0418cc2",
+      24988
+    ]
+  },
+  "BENCHMARK_CORPUS_SHA256": "adf315404df537edc0081ee4c1894312ae2272031471e173e9ef2923b1184d23"
+}

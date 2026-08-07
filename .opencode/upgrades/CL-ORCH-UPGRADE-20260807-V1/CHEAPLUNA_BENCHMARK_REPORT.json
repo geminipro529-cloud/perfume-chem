@@ -1,0 +1,88 @@
+{
+  "report_id": "CHEAPLUNA_BENCHMARK_REPORT_SAFE_NEW",
+  "upgrade": "CL-ORCH-UPGRADE-20260807-V1",
+  "authority": "REV-9 P6E",
+  "generated_at": "2026-08-07T15:10:00Z",
+  "profile": "SAFE_NEW",
+  "characterization_only": true,
+  "promotion_state": "PROMOTION_HOLD_NO_COMPARABLE_BASELINE",
+  "result_class": "PROVIDER_CACHE_ISOLATED_RESULT",
+  "corpus_sha256": "adf315404df537edc0081ee4c1894312ae2272031471e173e9ef2923b1184d23",
+  "provider_cache_namespace_hash": "46fce6eb5f657f7a33c1e06e669638717d03ee4b1e34df9eb55cd0ca7ddc513e",
+  "totals": { "packets": 30, "pass": 20, "blocked": 6, "fail": 4, "pass_rate_pct": 66.7 },
+  "routes": { "FLASH_FAST": 5, "FLASH_HIGH": 21, "FLASH_MAX": 2, "LOCAL": 2 },
+  "critical_path_ms": { "sample_count": 30, "p50": 27517, "p95": 62361, "min": 1, "max": 75855 },
+  "pass_by_task_class": {
+    "source_discovery": { "total": 5, "pass": 2, "blocked": 3 },
+    "code_review": { "total": 5, "pass": 3, "blocked": 0, "fail": 2 },
+    "test_diagnosis": { "total": 5, "pass": 4, "blocked": 0, "fail": 1 },
+    "schema_review": { "total": 5, "pass": 4, "blocked": 0, "fail": 1 },
+    "authority_comparison": { "total": 5, "pass": 2, "blocked": 2, "fail": 1 },
+    "synthesis": { "total": 3, "pass": 2, "blocked": 1 },
+    "adversarial_audit": { "total": 2, "pass": 2 }
+  },
+  "fail_diagnosis": [
+    {
+      "packet": "P010",
+      "case_id": "CASE-010",
+      "task_class": "code_review",
+      "failure": "finish_reason=length",
+      "detail": "Primary worker output truncated at max_output_tokens=8192 during thinking+tool loop",
+      "class": "OUTPUT_CEILING",
+      "fix_direction": "Raise max_output_tokens for FLASH_HIGH multi-source synthesis cases or split the packet",
+      "evidence": "result.json summary/negative_findings exact message"
+    },
+    {
+      "packet": "P015",
+      "case_id": "CASE-015",
+      "task_class": "test_diagnosis",
+      "failure": "finish_reason=length",
+      "detail": "Same output truncation class as P010",
+      "class": "OUTPUT_CEILING",
+      "fix_direction": "Same as P010",
+      "evidence": "result.json summary/negative_findings exact message"
+    },
+    {
+      "packet": "P018",
+      "case_id": "CASE-018",
+      "task_class": "schema_review",
+      "failure": "provider job token limit would be exceeded",
+      "detail": "input=135554/131072 output=10257/16384 total=145811/147456 — bounded reads of multiple large corpus sources exceed the 128K input ceiling",
+      "class": "INPUT_CEILING",
+      "fix_direction": "Split multi-source packets or reduce bounded-read range so input stays under 131072",
+      "evidence": "result.json summary exact token accounting"
+    },
+    {
+      "packet": "P025",
+      "case_id": "CASE-025",
+      "task_class": "authority_comparison",
+      "failure": "provider job token limit would be exceeded",
+      "detail": "input=146200/131072 output=11197/16384 total=157397/147456 — same input ceiling class as P018",
+      "class": "INPUT_CEILING",
+      "fix_direction": "Same as P018",
+      "evidence": "result.json summary exact token accounting"
+    }
+  ],
+  "blocked_analysis": {
+    "count": 6,
+    "class": "UNCERTAINTY_GATE",
+    "detail": "All BLOCKED results have coverage_status=COMPLETE and honest UNRESOLVED verdicts where the source lacked the requested content (documented REV-9 semantic, kept by design). Example P028: 'zero occurrences of deterministic/routing'.",
+    "kept_per_rev9": true
+  },
+  "isolated_state_proof": {
+    "cross_profile_scheduler_state_reuse": 0,
+    "cross_profile_local_result_reuse": 0,
+    "detail": "SAFE_NEW ran in its own namespace at %TEMP%\\cl_bench_safenew; no reuse of active project or baseline state"
+  },
+  "literature_grounding": [
+    "DeepSeek API: model context window 128K input / 16K output per job; exceeding -> provider job token limit (validates INPUT_CEILING class)",
+    "DeepSeek API: finish_reason=length when max_tokens reached (validates OUTPUT_CEILING class)",
+    "REV-9 4: parameter-contract fixes (max_output_tokens, required_reads bounds) verified before live runs"
+  ],
+  "next_steps": [
+    "Option A: rerun FAIL packets with per-packet parameter relief (larger output ceiling where schema allows, split reads)",
+    "Option B: accept 20/30 characterization as-is (66.7% honest pass, 0 silent failures)",
+    "P6F WRITE canary",
+    "Package + push to GitHub"
+  ]
+}

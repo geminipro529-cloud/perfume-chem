@@ -1,0 +1,72 @@
+{
+  "upgrade_id": "CL-ORCH-UPGRADE-20260807-V1",
+  "generated_at": "2026-08-07T02:08:19Z",
+  "pcv3_freeze": {
+    "status": "ACTIVE",
+    "pcv3_wave_2": "NOT_STARTED",
+    "marker": "evidence/pcv3_freeze_marker.txt"
+  },
+  "resolved_baseline": {
+    "logical_project": "perfume-chem-cheapluna-isolated",
+    "active_state_root": "D:\\chatbots\\perfume-chem\\.opencode\\.deepluna-home",
+    "secondary_home": "D:\\chatbots\\perfume-chem\\.cheapluna-home",
+    "runtime_root": "C:\\Users\\ASUS\\AppData\\Local\\OpenCode\\CheapLuna\\runtime\\b98f913fe8e87a17d697a86f0fe035eabef9517642dee1fe3f33651f76fdb44f",
+    "scheduler_entry": "server.mjs (daemon: node server.mjs --daemon --project-id=perfume-chem-cheapluna-isolated)",
+    "provider_today": "deepinfra (historical only)",
+    "direct_deepseek_key_present": true,
+    "credential_source_name": "PERFUME_DEEPSEEK_API_KEY",
+    "credential_present": true
+  },
+  "precondition_manifest": "CHEAPLUNA_PRECONDITION_SHA256SUMS.json",
+  "pre_change_dir": "pre_change/",
+  "target_path_provenance": [
+    {
+      "path": ".opencode/scripts/cheapluna-bridge.ps1",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "20d0fa3a5f42327cc74da60f510ace69d2afe8b3b9626a0c6db4c47f37f5b04c",
+      "byte_size": 5279
+    },
+    {
+      "path": ".opencode/scripts/cheapluna-cli.mjs",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "3a851e2584806428276e3a5dba8c2d59d99f0bac7bb20e56fcdf6f362cf74f49",
+      "byte_size": 3649
+    },
+    {
+      "path": ".opencode/scripts/cheapluna-drain.mjs",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "4af1c53b70dd3196037e3c66e539516412fda54474bc1425327c368f67697b57",
+      "byte_size": 8025
+    },
+    {
+      "path": ".opencode/scripts/delegation_pure.mjs",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "47aeee45c768f6ac15867a52e393d75291d1556f77dbd0b71f15c33bcd45b67c",
+      "byte_size": 2453
+    },
+    {
+      "path": ".opencode/plugins/cheapluna-cache-first.js",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "a0fdba6e2441210d3e3dc13ab58607c026cc7331494764193d1dd8cd2eaaa4f5",
+      "byte_size": 3498
+    },
+    {
+      "path": ".opencode/plugins/cheapluna-budget-guard.js",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "f97311fc98520a813548c314762ceab13050983c9bc5fe562545f9ca522e8c13",
+      "byte_size": 4085
+    },
+    {
+      "path": ".opencode/plugins/daemon-health-guard.js",
+      "classification": "UNTRACKED_PRE_EXISTING",
+      "sha256": "9094efc08cd3d31e16538c5292daff659146044d36f16b0cb09e875836e9f560",
+      "byte_size": 2853
+    },
+    {
+      "path": "opencode.json",
+      "classification": "PRE_EXISTING_USER_CHANGE",
+      "sha256": "eb1211554a6f423b8f57d65e0cd243ef9bbebbcbcf16be80343fcd605cb7c390",
+      "byte_size": 18574
+    }
+  ]
+}

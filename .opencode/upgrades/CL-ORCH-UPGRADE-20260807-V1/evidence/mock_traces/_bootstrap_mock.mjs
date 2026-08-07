@@ -1,0 +1,18 @@
+import fs from 'node:fs'; import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+const m = await import(pathToFileURL(process.argv[2]).href);
+const root = process.argv[3], proj = process.argv[4], ws = process.argv[5], now = Date.now;
+const dr = path.join(path.resolve(root), 'projects', proj, 'daemon-v2');
+const db = path.join(dr, 'scheduler.sqlite3'); const cr = path.join(dr, 'migration-copy'); const cpd = path.join(cr, 'fresh-state');
+fs.mkdirSync(dr, {recursive:true});
+let s = m.openSchedulerStore({filename: db, now}); s.close();
+await m.migrateSchedulerStoreToCandidateV3({filename: db, backupFilename: db+'.b3'});
+await m.migrateSchedulerStoreToCandidateV4({filename: db, backupFilename: db+'.b4'});
+await m.migrateSchedulerStoreToCandidateV5({filename: db, backupFilename: db+'.b5'});
+s = m.openCandidateSchedulerStoreV5({filename: db, now});
+fs.mkdirSync(cr, {recursive:true}); fs.mkdirSync(cpd, {recursive:true});
+const oc = s.auditCandidateCopiedStateMigration({projectId: proj, copyRoot: cr, workspaceRoot: ws, candidateProtocolVersion: 4, staleBeforeMs: 0, sources: [{namespace:'fresh-state', sourceKind:'CANONICAL', copiedRoot: cpd}]});
+const h = Object.fromEntries(s.database.prepare('SELECT source_namespace,source_hash FROM legacy_migration_sources WHERE run_id=? ORDER BY source_namespace').all(oc.runId).map(r=>[r.source_namespace,r.source_hash]));
+const att = s.issueCandidateMigrationAttestation({projectId: proj, runId: oc.runId, sourceHashes: h});
+fs.writeFileSync(path.join(dr,'migration-attestation.json'), JSON.stringify(att));
+s.verifyCandidateMigrationAttestation(att); s.close(); console.log('BOOTSTRAP_OK');

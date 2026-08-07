@@ -1,0 +1,181 @@
+{
+  "report_id": "CHEAPLUNA_TEST_REPORT",
+  "upgrade": "CL-ORCH-UPGRADE-20260807-V1",
+  "authority": "REV-9 (CHEAPLUNA_ORCH_REV9.md)",
+  "generated_at": "2026-08-07T06:45:00Z",
+  "model_id": "deepseek/deepseek-v4-flash",
+  "gate": "P5B_MOCK_ACCEPTANCE",
+  "gate_result": "PASS",
+  "summary": {
+    "offline_unit_tests": "25/25 PASS",
+    "mock_provider_contract_tests": "10/10 PASS",
+    "live_api_calls": 0,
+    "live_budget_spent_usd": 0.0,
+    "evidence_dir": "evidence/mock_traces"
+  },
+  "offline_unit_suite": {
+    "script": "_test_candidate.mjs",
+    "target": "candidate/runtime/lib/cl-orch-upgrade.mjs",
+    "result": { "PASS": 25, "FAIL": 0 },
+    "covered": [
+      "deterministic-local routing (json/sha/expected)",
+      "semantic routes FLASH_FAST/FLASH_HIGH/FLASH_MAX",
+      "resolveTask tier/effort/thinking mapping",
+      "invocation id uniqueness + format",
+      "prompt prefix stable-first ordering",
+      "semantic cache key determinism + model-identity sensitivity",
+      "retry policy table (429/400/401)",
+      "circuit breaker triggers",
+      "result schema validation + terminal states",
+      "cache hit ratio",
+      "provenance record + internal model label DS-V4-FLASH-3107"
+    ]
+  },
+  "mock_provider_suite": {
+    "driver": "_p5b_contract.mjs",
+    "mock": "candidate/runtime/test/mock-provider.mjs",
+    "runtime_under_test": "candidate/runtime/server.mjs (daemon 0.9.9)",
+    "result": { "PASS": 10, "FAIL": 0 },
+    "cases": [
+      {
+        "id": "contract_fast_shape",
+        "scenario": "fast_ok",
+        "tier": "FLASH",
+        "result": "PASS",
+        "detail": "1 provider request; body thinking=disabled, model=deepseek-v4-flash; job PASS/ACCEPTED"
+      },
+      {
+        "id": "contract_high_shape",
+        "scenario": "thinking_ok",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "thinking=enabled, reasoning_effort=high, NO tool_choice key (REV-9 8.3)"
+      },
+      {
+        "id": "contract_max_shape",
+        "scenario": "thinking_ok",
+        "tier": "REASONING",
+        "result": "PASS",
+        "detail": "thinking=enabled, reasoning_effort=max, NO tool_choice key (REV-9 8.3; fixed candidate REASONING effort high->max)"
+      },
+      {
+        "id": "reasoning_replay",
+        "scenario": "tool_loop_ok",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "reasoning_content replayed verbatim on assistant tool-call turn; tool_call_id bound; job ACCEPTED"
+      },
+      {
+        "id": "truncation",
+        "scenario": "truncation",
+        "tier": "FLASH",
+        "result": "PASS",
+        "detail": "finish_reason=length yields documented truncation terminal FAIL/INCOMPLETE with exact message in result_packet"
+      },
+      {
+        "id": "retry_429",
+        "scenario": "http_429_then_ok",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "3 provider requests (429,429,handoff); job ACCEPTED; exp backoff + jitter"
+      },
+      {
+        "id": "retry_500",
+        "scenario": "http_500_then_ok",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "2 provider requests (500,handoff); job ACCEPTED"
+      },
+      {
+        "id": "retry_503",
+        "scenario": "http_503_then_ok",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "3 provider requests (503,503,handoff); job ACCEPTED"
+      },
+      {
+        "id": "retry_400_no_retry",
+        "scenario": "http_400",
+        "tier": "PRO",
+        "result": "PASS",
+        "detail": "1 provider request; no retry; CONTRACT_ERROR (deterministic rejection)"
+      },
+      {
+        "id": "semantic_quarantine",
+        "scenario": "semantic_corruption",
+        "tier": "FLASH",
+        "result": "PASS",
+        "detail": "semantic contradiction handled; result accepted as quarantine path (1 request)"
+      }
+    ]
+  },
+  "defects_found_and_fixed_in_candidate": [
+    {
+      "id": "D1",
+      "severity": "HIGH",
+      "finding": "createProductionWorkerEnvelope hardcoded maximumAttempts=1, ignoring route_constraints.maximum_attempts; REV-9 retry table structurally unreachable",
+      "fix": "Envelope now derives maximumAttempts from validated route_constraints (clamped 1..3)"
+    },
+    {
+      "id": "D2",
+      "severity": "HIGH",
+      "finding": "No HTTP-level transient retry in runDeepSeekAgent: a 429/500/503 immediately failed the job (BLOCKED) despite RETRY_POLICY declaring 429->2, 500->1, 503->2",
+      "fix": "Retry loop around the provider fetch with exponential backoff + jitter; same reservation/transmission stays OPEN across retries and is reconciled exactly once; flashPacked one-shot runs keep a single call"
+    },
+    {
+      "id": "D3",
+      "severity": "HIGH",
+      "finding": "Candidate deepseek-direct profile mapped REASONING tier to reasoning_effort=high; REV-9 4 requires max",
+      "fix": "All profiles REASONING -> max; supportedFlashReasoningPriceTuple accepts high|max; DEEPSEEK_CHAT price tuple max path exercised"
+    },
+    {
+      "id": "D4",
+      "severity": "MEDIUM",
+      "finding": "P5B driver in-process connect read process.env without the isolated mock project overrides, so pipe discovery targeted the real daemon",
+      "fix": "Driver synchronizes process.env with the daemon env before in-process connect"
+    },
+    {
+      "id": "D5",
+      "severity": "MEDIUM",
+      "finding": "Mock fixtures returned schema-incomplete handoff JSON and wrong read_file arg names (start/end vs start_line/end_line); jobs always INCOMPLETE",
+      "fix": "completeHandoff() helper returns all final_json_keys; tool-loop fixture reads allowed path inventory.txt with start_line/end_line"
+    },
+    {
+      "id": "D6",
+      "severity": "MEDIUM",
+      "finding": "Driver retry tests set maxCalls=1 and maxAttempts=1, and FLASH+reads normalization forced FLASH_PACKED_ONE_CALL, so retries could never be exercised; circuit breaker state leaked across tests (PROVIDER_ERROR 0 reqs)",
+      "fix": "Retry tests use PRO tier, no required_reads (coverage_spec omitted when empty per evidence-protocol), maxAttempts=3/2/3; worker-state circuit reset between tests"
+    },
+    {
+      "id": "D7",
+      "severity": "LOW",
+      "finding": "Truncation test asserted st.summary, but candidate daemon surfaces terminal detail in result_packet.summary/negative_findings",
+      "fix": "Check reads result_packet fields; daemon behavior confirmed correct per API docs (finish_reason=length is an identifiable terminal)"
+    }
+  ],
+  "model_unification": {
+    "directive": "all models flash v4 0731/3107",
+    "status": "COMPLETE_in_candidate",
+    "active_profile_cheapluna_chat": { "FLASH": "deepseek-v4-flash", "PRO": "deepseek-v4-flash", "REASONING": "deepseek-v4-flash" },
+    "deepinfra_profiles": { "FLASH": "deepseek-ai/DeepSeek-V4-Flash-0731", "PRO": "deepseek-ai/DeepSeek-V4-Flash-0731", "REASONING": "deepseek-ai/DeepSeek-V4-Flash-0731" },
+    "glm_fallback_model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+    "official_api_model": "deepseek-v4-flash (serves DeepSeek-V4-Flash-0731 per api-docs.deepseek.com)",
+    "tokenizer_identity": "deepseek-ai/DeepSeek-V4-Flash-0731 pinned revision"
+  },
+  "literature_grounding": [
+    "DeepSeek API docs: deepseek-v4-flash is the official model id and currently serves DeepSeek-V4-Flash-0731 (api-docs.deepseek.com Quick Start)",
+    "DeepSeek Thinking Mode guide: reasoning_content must be passed back in ALL subsequent tool-loop turns or the API returns 400 (validates reasoning_replay as highest-value contract test)",
+    "DeepSeek Chat Completions API reference: finish_reason values include length/tool_calls/insufficient_system_resource; JSON Output may be partially cut off on finish_reason=length",
+    "DeepSeek Context Caching guide: prefix-unit cache; usage.prompt_cache_hit_tokens / prompt_cache_miss_tokens (validates stable-first prompt ordering + cache key)",
+    "DeepSeek Rate Limit guide: deepseek-v4-flash concurrency 2500; 429 on exceed; user_id KVCache isolation",
+    "DeepSeek Error Codes: 400/401/402/422/429/500/503 semantics match REV-9 retry table (400/422 no retry; 401/402 HOLD; 429/503 paced retries; 500 brief wait)"
+  ],
+  "next_steps": [
+    "P5B_MOCK_ACCEPTANCE = PASS recorded; no further live API calls until accepted by user",
+    "Recompute candidate runtime identity; install immutable candidate build (REV-9 P6A)",
+    "Controlled cutover per REV-9 P6B (block/drain/snapshot/stop/apply/start/handshake/health/capability)",
+    "Live smoke: one FLASH_FAST + one FLASH_HIGH packet gated on mock green",
+    "P6E characterization with fixed parameters; READ canary before benchmark",
+    "P6F WRITE canary; P7 22 artifacts; validation; /plannotator-review; STOP"
+  ]
+}
