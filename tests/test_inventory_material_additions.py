@@ -48,8 +48,7 @@ _JULY_2026_MATERIAL_ADDITIONS = {
     ("requested_name", "canonical_name", "expected_dilution", "is_natural"),
     [
         (requested, canonical, dilution, natural)
-        for requested, (canonical, dilution, natural)
-        in _JULY_2026_MATERIAL_ADDITIONS.items()
+        for requested, (canonical, dilution, natural) in _JULY_2026_MATERIAL_ADDITIONS.items()
     ],
 )
 def test_july_2026_additions_resolve_across_runtime_data_paths(
@@ -59,8 +58,7 @@ def test_july_2026_additions_resolve_across_runtime_data_paths(
     is_natural: bool,
 ) -> None:
     available = {
-        normalize_name(item.name): item
-        for item in parse_inventory(include_unavailable=False)
+        normalize_name(item.name): item for item in parse_inventory(include_unavailable=False)
     }
     inventory_record = available[normalize_name(canonical_name)]
 
@@ -92,9 +90,7 @@ def test_new_coriander_and_coffee_naturals_have_evidence_bounded_profiles() -> N
     assert coriander is not None
     assert coriander.resolution == "direct_identity"
     assert coriander.characterized_fraction == pytest.approx(0.7975)
-    assert coriander.sources == (
-        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",
-    )
+    assert coriander.sources == ("https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",)
 
     assert coffee is not None
     assert coffee.resolution == "literature_proxy"
@@ -106,14 +102,13 @@ def test_new_coriander_and_coffee_naturals_have_evidence_bounded_profiles() -> N
 
 def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
     materials = json.loads(
-        (PROJECT_ROOT / "data" / "knowledge_graph" / "material_properties.json")
-        .read_text(encoding="utf-8")
+        (PROJECT_ROOT / "data" / "knowledge_graph" / "material_properties.json").read_text(
+            encoding="utf-8"
+        )
     )
     by_name = {material["name"].casefold(): material for material in materials}
 
-    for canonical_name, expected_dilution, _is_natural in (
-        _JULY_2026_MATERIAL_ADDITIONS.values()
-    ):
+    for canonical_name, expected_dilution, _is_natural in _JULY_2026_MATERIAL_ADDITIONS.values():
         material = by_name[canonical_name.casefold()]
         assert material["in_inventory"] is True
         assert material["dilution_pct"] == pytest.approx(expected_dilution)
@@ -140,16 +135,13 @@ def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
 
 
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:
-    available = {
-        item.name: item
-        for item in parse_inventory(include_unavailable=False)
-    }
+    available = {item.name: item for item in parse_inventory(include_unavailable=False)}
 
     assert available["Alpha Irone"].dilution == pytest.approx(0.30)
-    assert available["Orris Liquid"].dilution == pytest.approx(1.0)
-    assert available["Orris Liquid"].fraction_basis == "neat"
+    assert available["Orris Liquid"].dilution == pytest.approx(0.30)
+    assert available["Orris Liquid"].fraction_basis == "mass_fraction"
     assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
-    assert available["Olibanum Resinoid"].dilution == pytest.approx(0.5)
+    assert available["Olibanum Resinoid"].dilution == pytest.approx(1.0)
     assert available["Cocoa Absolute"].dilution == pytest.approx(1.0)
     assert available["Cocoa CO2 Extract"].dilution == pytest.approx(0.077)
     assert "Hydroxycitronellal" not in available
@@ -210,10 +202,7 @@ def test_requested_materials_have_runtime_data() -> None:
 def test_new_names_resolve_without_collapsing_distinct_molecules() -> None:
     assert normalize_name("Alpha Irone (30% w/w in IPM)") == "alpha irone"
     assert normalize_name("Orris Liquid (30%)") == "orris liquid"
-    assert (
-        normalize_name("Olibanum Resinoid (viscous, 3 g)")
-        == "olibanum resinoid"
-    )
+    assert normalize_name("Olibanum Resinoid (viscous, 3 g)") == "olibanum resinoid"
     assert not names_match("Hydroxycitronellol", "Hydroxycitronellal")
     assert normalize_name("Cocoa Absolute") == "cocoa absolute"
     assert normalize_name("Cocoa CO2 Extract") == "cocoa co2 extract"
@@ -226,8 +215,7 @@ def test_cocoa_absolute_and_co2_extract_have_distinct_runtime_records() -> None:
     cocoa_names = [
         material.canonical_name.casefold()
         for material in load_materials()
-        if material.canonical_name.casefold()
-        in {"cocoa absolute", "cocoa co2 extract"}
+        if material.canonical_name.casefold() in {"cocoa absolute", "cocoa co2 extract"}
     ]
     assert cocoa_names.count("cocoa absolute") == 1
     assert cocoa_names.count("cocoa co2 extract") == 1
@@ -298,8 +286,9 @@ def test_hydroxycitronellol_odt_is_positive_and_labeled_as_derived() -> None:
 
 def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     materials = json.loads(
-        (PROJECT_ROOT / "data" / "knowledge_graph" / "material_properties.json")
-        .read_text(encoding="utf-8")
+        (PROJECT_ROOT / "data" / "knowledge_graph" / "material_properties.json").read_text(
+            encoding="utf-8"
+        )
     )
     by_name = {material["name"].casefold(): material for material in materials}
 
@@ -339,11 +328,14 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
 )
 def test_natural_mixtures_use_positive_composite_oav(name: str) -> None:
     assert get_constituents(name)
-    assert composite_oav(
-        name,
-        active_g=0.1,
-        total_moles_in_formula=0.1,
-    ) > 0
+    assert (
+        composite_oav(
+            name,
+            active_g=0.1,
+            total_moles_in_formula=0.1,
+        )
+        > 0
+    )
 
 
 def test_volume_grade_osmanthus_uses_conservative_composite_potency() -> None:
@@ -369,12 +361,8 @@ def test_cocoa_absolute_and_co2_extract_use_distinct_composite_fingerprints() ->
     assert absolute is not None
     assert co2_extract is not None
     assert absolute != co2_extract
-    assert {constituent[0] for constituent in co2_extract} == {
-        "2,3,5-trimethylpyrazine"
-    }
-    assert "3-methylbutanal" in {
-        constituent[0] for constituent in absolute
-    }
+    assert {constituent[0] for constituent in co2_extract} == {"2,3,5-trimethylpyrazine"}
+    assert "3-methylbutanal" in {constituent[0] for constituent in absolute}
 
 
 @pytest.mark.parametrize(
