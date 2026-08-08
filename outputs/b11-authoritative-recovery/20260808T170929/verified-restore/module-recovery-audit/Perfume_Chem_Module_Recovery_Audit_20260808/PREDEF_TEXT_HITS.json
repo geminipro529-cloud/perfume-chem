@@ -1,0 +1,332 @@
+[
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "00_READ_ME_FIRST.md",
+    "pattern": "PRE_DEF",
+    "context": " rows.  The historical eight-character hashes are preserved only as locator clues. They never count as the missing full PRE_DEF ledger.  The bench packet contains zero physical results, zero winners, and zero formula revisions. The decode key is packaged separately for blind integrity.  **Phase G remains LOCKED / NOT AUTHORIZ"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "ADDENDUM_STATUS.md",
+    "pattern": "PRE_DEF",
+    "context": "MPLETION WITHHELD \u2014 SOURCE EVIDENCE INCOMPLETE**. - Authentic frozen branches recovered: **0/18**. - Full authoritative PRE_DEF ledgers recovered: **0**. - Six-pilot bench master: **PASS**. - Work queue: **227 screens in 41 family batches**. - Predeclared comparisons: **186**. - Formula rows: **10,734**. - Blank evaluation ro"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "SOURCE_GAP_CERTIFICATE_v2.json",
+    "pattern": "PRE_DEF",
+    "context": "ta/perfume_recovery\"   ],   \"snapshot_candidates_recovered\": 0,   \"state\": \"AUTHENTIC FORMULA SOURCE BYTES AND COMPLETE PRE_DEF LEDGER NOT RECOVERED\",   \"total_bytes_hashed\": 71078521 } "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "SOURCE_GAP_CERTIFICATE_v2.md",
+    "pattern": "PRE_DEF",
+    "context": "# CP6 Formula-Source Gap Certificate v2  **State:** **AUTHENTIC FORMULA SOURCE BYTES AND COMPLETE PRE_DEF LEDGER NOT RECOVERED**  The read-only scan hashed **24 direct files** and **1,337 nested archive members** across **39 archives**, with **0 scan errors**. It recovered **0/18 authentic branch files**"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "FINAL_ADDENDUM_VERIFICATION_REPORT.md",
+    "pattern": "PRE_DEF",
+    "context": "ly complete. The formal immutable-byte gate remains withheld because authentic 18-branch bytes and a complete full-hash PRE_DEF ledger are still absent.  **Phase G remains LOCKED / NOT AUTHORIZED.** "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "EXPECTED_18_BRANCH_REGISTRY_v2.json",
+    "pattern": "PIL-\\d{2}-[A-Z]",
+    "context": "ecimal SHA-256 characters. Eight-character prefixes are locator clues only.\",   \"branches\": [     {       \"branch_id\": \"PIL-01-A\",       \"pilot_id\": \"PILOT-01\",       \"variant\": \"A\",       \"branch_title\": \"Crystalline Petal\u2013Rhizome\",       \"expected_relative_path\": \"runs/2026-08-05_055546/workers/PIL-01-A/fragment.json\",      "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "RECOVERY_GATE_CONTRACT_v2.json",
+    "pattern": "PRE_DEF",
+    "context": "source bytes.\",     \"Exactly one unambiguous current SHA-256 exists per expected branch ID.\",     \"A full authoritative PRE_DEF ledger maps all 18 expected branch IDs to 64-character SHA-256 values.\",     \"All 18 current hashes equal their PRE_DEF hashes.\",     \"No mismatch, unresolved duplicate, or ledger conflict remains.\" "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "RECOVERY_AND_BENCH_TASK_GRAPH_v2.json",
+    "pattern": "PRE_DEF",
+    "context": "ult\": \"0 complete 18-row full-hash ledgers recovered.\",       \"state\": \"BLOCKED_EXTERNAL\",       \"task\": \"COMPLETE FULL PRE_DEF LEDGER\"     },     {       \"lane\": \"RECOVERY\",       \"node_id\": \"R6\",       \"result\": \"Depends on R4 and R5.\",       \"state\": \"BLOCKED\",       \"task\": \"18/18 IMMUTABILITY COMPARISON\"     },     {    "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "RECOVERY_AND_BENCH_TASK_GRAPH_v2.csv",
+    "pattern": "PRE_DEF",
+    "context": "RECOVERY,AUTHENTIC 18 SOURCE BYTES,BLOCKED_EXTERNAL,0/18 authentic fragment bytes recovered.\r R5,RECOVERY,COMPLETE FULL PRE_DEF LEDGER,BLOCKED_EXTERNAL,0 complete 18-row full-hash ledgers recovered.\r R6,RECOVERY,18/18 IMMUTABILITY COMPARISON,BLOCKED,Depends on R4 and R5.\r R7,RECOVERY,FORMAL C-F COMPLETION CHECKPOINT,BLOCKED,D"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tools/cp6_formula_ancestry_recovery.py",
+    "pattern": "PRE_DEF",
+    "context": "ompile(r\"(?i)PIL(?:OT)?[-_ ]?0?([1-6])[-_ ]?([ABC])\") LEDGER_NAMES = {     \"prequalification_formula_hashes.json\",     \"pre_def_formula_ancestry_hashes.json\",     \"prequalification_formula_manifest.json\",     \"prequalification_snapshot_hashes.json\", } SNAPSHOT_NAME = \"prequalification_snapshot.zip\"   def now() -> str:     ret"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tools/run_recovery_windows.ps1",
+    "pattern": "formula_ancestry",
+    "context": "string[]]$Root = @(\"D:\\chatbots\\perfume-chem\\runs\\2026-08-05_055546\", \"$HOME\\Downloads\"),   [string]$OutputDir = \".\\CP6_Formula_Ancestry_Recovery_Result\" ) $ErrorActionPreference = \"Stop\" $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path $argsList = @(\"$ScriptDir\\cp6_formula_ancestry_recovery.py\", \"--output-dir\", $OutputDir"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tools/run_recovery_posix.sh",
+    "pattern": "formula_ancestry",
+    "context": "#!/usr/bin/env bash set -euo pipefail SCRIPT_DIR=$(cd -- \"$(dirname -- \"$0\")\" && pwd) OUT=${OUT:-./CP6_Formula_Ancestry_Recovery_Result} args=() for root in \"$@\"; do args+=(--root \"$root\"); done python3 \"$SCRIPT_DIR/cp6_formula_ancestry_recovery.py\" --output-dir \"$OUT\" \"${args[@]}\" "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tools/USAGE.md",
+    "pattern": "formula_ancestry",
+    "context": "un_recovery_windows.ps1 -Root @(\"D:\\chatbots\\perfume-chem\\runs\\2026-08-05_055546\", \"$HOME\\Downloads\") -OutputDir \".\\CP6_Formula_Ancestry_Recovery_Result\" ```  ## macOS / Linux ```bash OUT=./CP6_Formula_Ancestry_Recovery_Result ./tools/run_recovery_posix.sh /path/to/runs/2026-08-05_055546 /path/to/Downloads ```  Exit codes: 0 pass; 2 i"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tests/run_self_tests.py",
+    "pattern": "PREQUALIFICATION",
+    "context": "t'/branch/'fragment.json'; q.parent.mkdir(parents=True,exist_ok=True); q.write_bytes(data+b'CONFLICT')  if full: (base/'PREQUALIFICATION_FORMULA_HASHES.json').write_text(json.dumps({'rows':rows}),encoding='utf-8')  else: (base/'PREQUALIFICATION_FORMULA_HASHES.json').write_text(json.dumps({'rows':[{'branch_id':r['branch_id'],'sha256_pr"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERED_POST_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "pattern": "PIL-\\d{2}-[A-Z]",
+    "context": "{   \"checkpoint\": \"POST_DEF\",   \"expected_formula_count\": 18,   \"rows\": [     {       \"branch_id\": \"PIL-01-A\",       \"branch_title\": \"Crystalline Petal\u2013Rhizome\",       \"sha256\": null,       \"state\": \"MISSING\"     },     {       \"branch_id\": \"PIL-01-B\",       \"branch_title\": \"Wet Botanical Rhizome\",       \"s"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERED_PRE_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "pattern": "PRE_DEF",
+    "context": "{   \"checkpoint\": \"PRE_DEF\",   \"expected_formula_count\": 18,   \"rows\": [     {       \"branch_id\": \"PIL-01-A\",       \"branch_title\": \"Crystalline Petal\u2013Rhizome\",       \"sha256\": null,       \"state\": \"MISSING\"     },     {      "
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERY_CANDIDATE_INVENTORY.csv",
+    "pattern": "PRE_DEF",
+    "context": "\ufeffcandidate_class,locator,source_kind,archive_depth,size_bytes,sha256,branch_ids,prefix_matches,parse_state,notes\r PRE_DEF_LEDGER,/mnt/data/CP6_C_F_Completion/CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json,ZIP_MEMBER,1,306,cc98a8a4b475371d5545c75e00bcc578b10c6a646cd1ca2f2c8"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERY_SCAN_REPORT.json",
+    "pattern": "PRE_DEF",
+    "context": "erage\": false,       \"locator\": \"/mnt/data/CP6_C_F_Completion/CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json\",       \"parse_ok\": true,       \"sha256\": \"cc98a8a4b475371d5545c75e00bcc578b10c6a646cd1ca2f2c854ef0f142c1b4\"     }   ],   \"mismatches\": [],   \"missing_current_branch_ids\""
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERY_SCAN_REPORT.md",
+    "pattern": "PRE_DEF",
+    "context": "CE INCOMPLETE**   **Exit code:** `2`  ## Results  - Current authentic branches recovered: **0/18** - Complete full-hash PRE_DEF ledgers: **0** - Snapshot candidates: **0** - Ambiguous branches: **0** - Hash mismatches: **0**  The scan did not recover enough authentic full-hash evidence to prove 18/18 byte identity.  Eight-cha"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "source_evidence/Pasted markdown(3).md",
+    "pattern": "PREQUALIFICATION",
+    "context": "L-06-C  c3397720\u2026\r ```\r \r (Full 64-char hashes captured in the checkpoint pass; to be re-recorded immutably in Phase B `PREQUALIFICATION_FORMULA_HASHES.json`.) No fragment will be copied, edited, or overwritten by this plan. Rev-1 status confirmed for 8 branches (01-A, 03-A, 03-C, 04-A, 04-B, 05-B, 06-B + earlier 05-B anti-collapse).\r"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "source_evidence/Pasted text(20260805-121355).txt",
+    "pattern": "PIL-\\d{2}-[A-Z]",
+    "context": "md + the 00_* canonical set + update manifests, then CONTINUE the run: relaunch the 5 remaining active-basis revisions (PIL-04-A, PIL-04-C, PIL-05-A, PIL-06-A, PIL-06-B), then re-run MC, stage the adversarial audit report, and package.  Key facts for the report:  1. Run identity: RUN-20260805-055546; dir runs/2026-08-05_055546"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "RECOVERY_AND_BENCH_ADDENDUM_MANIFEST_v2.json",
+    "pattern": "PRE_DEF",
+    "context": "c3af79f655dcefe810aa24816a549\",       \"size_bytes\": 2650     },     {       \"path\": \"current_environment_scan/RECOVERED_PRE_DEF_FORMULA_ANCESTRY_HASHES.json\",       \"sha256\": \"0f96941cf320238457c4a0ba458fb71a15fbf33b99a1aa7da03366b01ffbf2ba\",       \"size_bytes\": 2674     },     {       \"path\": \"current_environment_scan/RECOVE"
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "RECOVERY_AND_BENCH_ADDENDUM_SHA256SUMS_v2.json",
+    "pattern": "PRE_DEF",
+    "context": "c3af79f655dcefe810aa24816a549\",       \"size_bytes\": 2650     },     {       \"path\": \"current_environment_scan/RECOVERED_PRE_DEF_FORMULA_ANCESTRY_HASHES.json\",       \"sha256\": \"0f96941cf320238457c4a0ba458fb71a15fbf33b99a1aa7da03366b01ffbf2ba\",       \"size_bytes\": 2674     },     {       \"path\": \"current_environment_scan/RECOVE"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!00_READ_ME_FIRST.md",
+    "pattern": "PRE_DEF",
+    "context": "facts. It **does not issue a formal Phase C\u2013F Completion Checkpoint**, because the governing contract requires an 18/18 PRE_DEF-to-POST_DEF byte-identity proof and the 18 source formula files/full ledger are absent.  ## Primary files  - `PHASE_C_F_TERMINAL_CHECKPOINT.md` - `DEF_CONTINUATION_CHECKPOINT.md` - `PHASE_G_LOCK.json"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!ARTIFACT_INDEX.csv",
+    "pattern": "PRE_DEF",
+    "context": "STRY_HASHES.json,runs,378,e724d14ed7b83faed683d716d57884e69af7e500f0aca81fb27cc137d689dfe4 runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json,runs,306,cc98a8a4b475371d5545c75e00bcc578b10c6a646cd1ca2f2c854ef0f142c1b4 runs/CP6-20260805/phase_d_engine/ENGINE_ACTUAL_UNPATCHED_TERMINAL_STATE_v2.json,runs,545,46887d4"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!DEF_CONTINUATION_CHECKPOINT.md",
+    "pattern": "PRE_DEF",
+    "context": "las: **all 0**. - Phase G: **locked and unauthorized**.  ## Hard governance blocker  The actual 18 draft files and full PRE_DEF ancestry ledger were not present in the recovered package or Library search. Therefore the mandatory **POST_DEF 18/18 byte-identity comparison cannot be executed**. This run proves that it performed "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!FINAL_VERIFICATION_REPORT.json",
+    "pattern": "PREQUALIFICATION",
+    "context": "      \"final_formula_audits\": 0,         \"release_packages\": 0       },       \"evidence_required_to_close\": \"The actual PREQUALIFICATION_SNAPSHOT.zip or 18 formula files plus their full SHA-256 ledger.\",       \"phase_g_effect\": \"FORMAL PHASE C\u2013F COMPLETION CHECKPOINT WITHHELD; PHASE G REMAINS LOCKED.\"     },     \"phase_g\": {       \"ph"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!FINAL_VERIFICATION_REPORT.md",
+    "pattern": "PRE_DEF",
+    "context": "TION CHECKPOINT` is **withheld**, not failed by the completed D/E/F work. The only missing gate is the mandated **18/18 PRE_DEF-to-POST_DEF byte-identity comparison**. The actual 18 immutable draft files or `PREQUALIFICATION_SNAPSHOT.zip` and its full SHA-256 ledger were not present in the recovered source set.  No formula wo"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!PHASE_C_F_TERMINAL_CHECKPOINT.json",
+    "pattern": "PRE_DEF",
+    "context": "ockers\": [     {       \"id\": \"B-GOV-01\",       \"severity\": \"HARD\",       \"state\": \"BLOCKED\",       \"scope\": \"18-formula PRE_DEF/POST_DEF byte identity\",       \"reason\": \"Formula source bytes and full hash ledger absent.\",       \"phase_g_effect\": \"PHASE G LOCKED\"     },     {       \"id\": \"B-D-01\",       \"severity\": \"HARD\",    "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!PHASE_C_F_TERMINAL_CHECKPOINT.md",
+    "pattern": "PREQUALIFICATION",
+    "context": "cal I/O: **0 / 0**. - Phase G: **LOCKED / NOT AUTHORIZED**.  ## Only unresolved computational gate  Recover the actual `PREQUALIFICATION_SNAPSHOT.zip`, or the 18 immutable draft files plus their full SHA\u2011256 ledger, and run the byte-identity comparison. No other D3/D4/E/F task remains active. "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!RUN_ARTIFACT_MANIFEST.json",
+    "pattern": "PRE_DEF",
+    "context": "4d14ed7b83faed683d716d57884e69af7e500f0aca81fb27cc137d689dfe4\"     },     {       \"path\": \"runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json\",       \"size_bytes\": 306,       \"sha256\": \"cc98a8a4b475371d5545c75e00bcc578b10c6a646cd1ca2f2c854ef0f142c1b4\"     },     {       \"path\": \"runs/CP6-20260805/phase_d_engine"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!RUN_SHA256SUMS.json",
+    "pattern": "PRE_DEF",
+    "context": "4d14ed7b83faed683d716d57884e69af7e500f0aca81fb27cc137d689dfe4\"     },     {       \"path\": \"runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json\",       \"size_bytes\": 306,       \"sha256\": \"cc98a8a4b475371d5545c75e00bcc578b10c6a646cd1ca2f2c854ef0f142c1b4\"     },     {       \"path\": \"runs/CP6-20260805/phase_d_engine"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!packages/PHASE_D_ENGINE_TERMINAL_PACKAGE.zip!phase_d_engine/ENGINE_FIXTURE_MATERIAL_REGISTRY_v1.json",
+    "pattern": "formula_ancestry",
+    "context": "\"ISOLATED TEST FIXTURE REGISTRY ONLY\",   \"canonical_inventory_modified\": false,   \"production_yaml_modified\": false,   \"formula_ancestry_modified\": false,   \"materials\": [     {       \"test_identity\": \"TEST-CITRUS-VALID\",       \"classification\": \"odor_material\",       \"stock_state\": \"synthetic-valid\",       \"active_fraction\": 1.0     "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/DEF_CONTINUATION_CHECKPOINT.json",
+    "pattern": "PRE_DEF",
+    "context": "ockers\": [     {       \"id\": \"B-GOV-01\",       \"severity\": \"HARD\",       \"state\": \"BLOCKED\",       \"scope\": \"18-formula PRE_DEF/POST_DEF byte identity\",       \"reason\": \"Formula source bytes and full hash ledger absent.\",       \"phase_g_effect\": \"PHASE G LOCKED\"     },     {       \"id\": \"B-D-01\",       \"severity\": \"HARD\",    "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/DEF_CONTINUATION_CHECKPOINT.md",
+    "pattern": "PRE_DEF",
+    "context": "las: **all 0**. - Phase G: **locked and unauthorized**.  ## Hard governance blocker  The actual 18 draft files and full PRE_DEF ancestry ledger were not present in the recovered package or Library search. Therefore the mandatory **POST_DEF 18/18 byte-identity comparison cannot be executed**. This run proves that it performed "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/DEF_GLOBAL_TASK_GRAPH_v1.csv",
+    "pattern": "PRE_DEF",
+    "context": "dossier,COMPLETE_COMPUTATIONAL,\"F1,F3,F4\",True\r F6,F,VERIFY LABEL ledger,INVENTORY_CONDITIONAL,F4,True\r GOV1,GOVERNANCE,PRE_DEF / POST_DEF 18-formula byte identity,BLOCKED_SOURCE_BYTES_ABSENT,,True\r MAN-D,MANIFEST,\"Phase D manifest, ledger and receipt\",COMPLETE,D4,True\r MAN-E,MANIFEST,\"Phase E manifest, ledger and receipt\",CO"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/DEF_GLOBAL_TASK_GRAPH_v1.json",
+    "pattern": "PRE_DEF",
+    "context": "ndency\": \"F4\",       \"terminal\": true     },     {       \"node_id\": \"GOV1\",       \"phase\": \"GOVERNANCE\",       \"task\": \"PRE_DEF / POST_DEF 18-formula byte identity\",       \"state\": \"BLOCKED_SOURCE_BYTES_ABSENT\",       \"dependency\": \"\",       \"terminal\": true     },     {       \"node_id\": \"MAN-D\",       \"phase\": \"MANIFEST\",   "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/PHASE_C_F_COMPLETION_CHECKPOINT_WITHHELD.md",
+    "pattern": "formula_ancestry",
+    "context": "  A document claiming formal completion would be false at this moment because the governing contract requires `POST_DEF_FORMULA_ANCESTRY_HASHES.json` to confirm **18/18 unchanged**, and the underlying 18 source files are not available.  The completion run therefore issues a **terminal checkpoint** instead:  - all feasible work is fini"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/PHASE_C_F_TERMINAL_CHECKPOINT.json",
+    "pattern": "PRE_DEF",
+    "context": "ockers\": [     {       \"id\": \"B-GOV-01\",       \"severity\": \"HARD\",       \"state\": \"BLOCKED\",       \"scope\": \"18-formula PRE_DEF/POST_DEF byte identity\",       \"reason\": \"Formula source bytes and full hash ledger absent.\",       \"phase_g_effect\": \"PHASE G LOCKED\"     },     {       \"id\": \"B-D-01\",       \"severity\": \"HARD\",    "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/PHASE_C_F_TERMINAL_CHECKPOINT.md",
+    "pattern": "PREQUALIFICATION",
+    "context": "cal I/O: **0 / 0**. - Phase G: **LOCKED / NOT AUTHORIZED**.  ## Only unresolved computational gate  Recover the actual `PREQUALIFICATION_SNAPSHOT.zip`, or the 18 immutable draft files plus their full SHA\u2011256 ledger, and run the byte-identity comparison. No other D3/D4/E/F task remains active. "
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/FORMULA_ANCESTRY_SOURCE_SEARCH_v1.json",
+    "pattern": "PRE_DEF",
+    "context": "ot\": \"/mnt/data/cf_work\",   \"filename_patterns\": [     \"PREQUALIFICATION\",     \"FORMULA_ANCESTRY\",     \"POST_DEF\",     \"PRE_DEF\",     \"fragment.json\"   ],   \"matching_files\": [],   \"matching_formula_ancestry_source_bytes\": 0,   \"library_exact_title_search_result\": \"No exact PREQUALIFICATION / FORMULA_ANCESTRY artifacts return"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/FORMULA_IMMUTABILITY_VERIFICATION_v1.json",
+    "pattern": "PREQUALIFICATION",
+    "context": "ulations\": 0,     \"final_formula_audits\": 0,     \"release_packages\": 0   },   \"evidence_required_to_close\": \"The actual PREQUALIFICATION_SNAPSHOT.zip or 18 formula files plus their full SHA-256 ledger.\",   \"phase_g_effect\": \"FORMAL PHASE C\u2013F COMPLETION CHECKPOINT WITHHELD; PHASE G REMAINS LOCKED.\" }"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "pattern": "PRE_DEF",
+    "context": "{   \"run_id\": \"CP6-20260805\",   \"checkpoint\": \"PRE_DEF\",   \"expected_formula_count\": 18,   \"source_bytes_available\": false,   \"hash_rows_available\": false,   \"verified_formula_count\": 0,   \"state\": \"BLOCKED \u2014 IMMUTABLE FORMULA SOURCE BYTES ABSENT\",   \"no"
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/phase_d_engine/ENGINE_FIXTURE_MATERIAL_REGISTRY_v1.json",
+    "pattern": "formula_ancestry",
+    "context": "\"ISOLATED TEST FIXTURE REGISTRY ONLY\",   \"canonical_inventory_modified\": false,   \"production_yaml_modified\": false,   \"formula_ancestry_modified\": false,   \"materials\": [     {       \"test_identity\": \"TEST-CITRUS-VALID\",       \"classification\": \"odor_material\",       \"stock_state\": \"synthetic-valid\",       \"active_fraction\": 1.0     "
+  },
+  {
+    "outer": "Complex_Perfumery_Canonical_Source_Upload_Kit_v1(3).zip",
+    "chain": "01_CORE_GOVERNANCE/meaningful_complexity_schema.json",
+    "pattern": "formula_ancestry",
+    "context": "  \"official\",             \"peer_reviewed_primary\",             \"patent\",             \"supplier_technical\",             \"formula_ancestry\",             \"public_reconstruction\",             \"sensory_hypothesis\"           ]         },         \"evidence_refs\": {           \"type\": \"array\",           \"items\": {             \"type\": \"string\" "
+  },
+  {
+    "outer": "PERFUME_CHEM_UNINTEGRATED_INTEGRATION_INTAKE_20260807 (1)(1).zip",
+    "chain": "PERFUME_CHEM_UNINTEGRATED_INTEGRATION_INTAKE_20260807/01_AUTHORITY_CONTEXT/meaningful_complexity_schema.json",
+    "pattern": "formula_ancestry",
+    "context": "  \"official\",             \"peer_reviewed_primary\",             \"patent\",             \"supplier_technical\",             \"formula_ancestry\",             \"public_reconstruction\",             \"sensory_hypothesis\"           ]         },         \"evidence_refs\": {           \"type\": \"array\",           \"items\": {             \"type\": \"string\" "
+  },
+  {
+    "outer": "PERFUME_CHEM_UNINTEGRATED_INTEGRATION_INTAKE_20260807 (1)(1).zip",
+    "chain": "PERFUME_CHEM_UNINTEGRATED_INTEGRATION_INTAKE_20260807/04_ARCHIVE_PACKAGES_DO_NOT_IMPORT_DIRECTLY/Perfume_Meaningful_Complexity_Audit_v2_Pack.zip!meaningful_complexity_schema.json",
+    "pattern": "formula_ancestry",
+    "context": "  \"official\",             \"peer_reviewed_primary\",             \"patent\",             \"supplier_technical\",             \"formula_ancestry\",             \"public_reconstruction\",             \"sensory_hypothesis\"           ]         },         \"evidence_refs\": {           \"type\": \"array\",           \"items\": {             \"type\": \"string\" "
+  },
+  {
+    "outer": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807 (1)(1).zip",
+    "chain": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807/SUPPORTING_EXACT_BYTES/GOVERNANCE/meaningful_complexity_schema.json",
+    "pattern": "formula_ancestry",
+    "context": "  \"official\",             \"peer_reviewed_primary\",             \"patent\",             \"supplier_technical\",             \"formula_ancestry\",             \"public_reconstruction\",             \"sensory_hypothesis\"           ]         },         \"evidence_refs\": {           \"type\": \"array\",           \"items\": {             \"type\": \"string\" "
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PROGRAM_V3_INTEGRATED_SPECIFICATION.md",
+    "pattern": "PRE_DEF",
+    "context": "program holds  ### 11.1 Open program holds  - Authentic 18/18 inherited Phase G source bytes and the complete full-hash PRE_DEF ledger have not been recovered. - Designed physical work has not generated coded observations or measurements. - No empirical perfume release gate has passed.  ### 11.2 Open lane holds  - Target engi"
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PROGRAM_V3_FINAL_CONFLICT_REGISTER.csv",
+    "pattern": "PRE_DEF",
+    "context": "hat disagree with terminal reports.,Source-derived\r PCV3-CONF-002,Inherited Phase G / immutable ancestry,Required 18/18 PRE_DEF-to-POST_DEF byte identity proof,Available abbreviated prefixes and historical logs,Missing authoritative bytes,Authentic 18 branch bytes and complete full-hash PRE_DEF ledger were not recovered; abbr"
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PROGRAM_V3_IMPLEMENTATION_BACKLOG.csv",
+    "pattern": "PRE_DEF",
+    "context": "Resolve the source-byte gate without reconstructing or altering ancestry.,Authentic source bytes and complete full-hash PRE_DEF ledger,PREQUALIFICATION_SNAPSHOT.zip or all 18 files; full SHA-256 ledger,\"Perform byte-only identity comparison; do not formulate, repair, or infer missing hashes.\",18/18 byte comparison report; sou"
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PROGRAM_V3_RELEASE_GATES.md",
+    "pattern": "PRE_DEF",
+    "context": " for the claim.  **Current state:** `HOLD`  **Current blockers:**  - inherited 18/18 Phase G source-byte proof and full PRE_DEF ledger remain missing; - exact byte closure for some upstream authorities and specialist packages remains partial; - exact SYNCED workbook byte hashes were not independently closed in this runtime.  "
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PROGRAM_V3_FINAL_INTEGRATION_REPORT.md",
+    "pattern": "PRE_DEF",
+    "context": " 26 explicit conflicts or integration tensions.  Key open holds include:  - missing 18/18 Phase G source bytes and full PRE_DEF ledger; - actual target-engine execution; - exact upstream byte closure for Chat 1 and Chat 3 packages; - exact SYNCED workbook byte closure in the integration runtime; - physical stock, label, lot, "
+  },
+  {
+    "outer": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "chain": "PCV3_INTEGRATOR_FINAL_WORKER_MANIFEST.json",
+    "pattern": "PRE_DEF",
+    "context": "cts\": [],   \"open_program_holds\": [     \"Recovery and exact comparison of inherited 18/18 Phase G source bytes and full PRE_DEF ledger\",     \"Empirical perfume release\",     \"Skin or consumer use authorization\"   ],   \"open_lane_holds\": [     \"Target repository adapter implementation and actual engine qualification\",     \"Exa"
+  },
+  {
+    "outer": "Perfume_Meaningful_Complexity_Audit_v2_Pack(1).zip",
+    "chain": "meaningful_complexity_schema.json",
+    "pattern": "formula_ancestry",
+    "context": "  \"official\",             \"peer_reviewed_primary\",             \"patent\",             \"supplier_technical\",             \"formula_ancestry\",             \"public_reconstruction\",             \"sensory_hypothesis\"           ]         },         \"evidence_refs\": {           \"type\": \"array\",           \"items\": {             \"type\": \"string\" "
+  }
+]

@@ -8,8 +8,8 @@ info:
     SHA-256 verification and git apply --check before touching the tree.
   version: 1.0.0
 servers:
-  - url: https://REPLACE_WITH_PUBLIC_HTTPS_HOST
-    description: Replace with the public HTTPS URL from cloudflared/ngrok/VPS
+  - url: https://add-yorkshire-pressing-operates.trycloudflare.com
+    description: Public HTTPS URL from cloudflared quick tunnel
 security:
   - bearerAuth: []
 components:
@@ -18,12 +18,102 @@ components:
       type: http
       scheme: bearer
       bearerFormat: "app_<token>"
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    HealthResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        workspace:
+          type: string
+        readonly:
+          type: boolean
+        head:
+          type: string
+    ReadResponse:
+      type: object
+      required:
+        - path
+        - bytes
+        - sha256
+        - content
+      properties:
+        path:
+          type: string
+        bytes:
+          type: integer
+        sha256:
+          type: string
+        content:
+          type: string
+    StatusResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        status:
+          type: string
+        head:
+          type: string
+    ApplyResponse:
+      type: object
+      properties:
+        applied:
+          type: boolean
+        patchFile:
+          type: string
+        status:
+          type: string
+        dry_run:
+          type: boolean
+        ok:
+          type: boolean
+        error:
+          type: string
+          nullable: true
+    CommitResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        head:
+          type: string
+        error:
+          type: string
+          nullable: true
+    ApplyRequest:
+      type: object
+      required:
+        - patch
+      properties:
+        patch:
+          type: string
+          description: Unified diff text with a/ b/ prefixes
+        dry_run:
+          type: boolean
+          default: false
+    CommitRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          maxLength: 500
 paths:
   /api/health:
     get:
       operationId: getHealth
       summary: Health probe
-      description: Returns workspace, readonly flag, and current git HEAD.
+      description: Returns workspace, readonly flag, and current git HEAD. No authentication required.
       security: []
       responses:
         "200":
@@ -31,12 +121,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ok: { type: boolean }
-                  workspace: { type: string }
-                  readonly: { type: boolean }
-                  head: { type: string }
+                $ref: "#/components/schemas/HealthResponse"
   /api/read:
     get:
       operationId: readFile
@@ -49,29 +134,27 @@ paths:
           in: query
           required: true
           description: Workspace-relative file path (e.g. formulas/iris.md)
-          schema: { type: string }
+          schema:
+            type: string
       responses:
         "200":
           description: File content with hash
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  path: { type: string }
-                  bytes: { type: integer }
-                  sha256: { type: string }
-                  content: { type: string }
+                $ref: "#/components/schemas/ReadResponse"
         "400":
           description: Escaped, absolute, fenced, or missing path
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error: { type: string }
+                $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: Missing or invalid bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/status:
     get:
       operationId: gitStatus
@@ -83,11 +166,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ok: { type: boolean }
-                  status: { type: string }
-                  head: { type: string }
+                $ref: "#/components/schemas/StatusResponse"
+        "401":
+          description: Missing or invalid bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/apply:
     post:
       operationId: applyPatch
@@ -101,37 +186,32 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [patch]
-              properties:
-                patch:
-                  type: string
-                  description: Unified diff text
-                dry_run:
-                  type: boolean
-                  default: false
+              $ref: "#/components/schemas/ApplyRequest"
       responses:
         "200":
           description: Applied (or dry-run result)
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  applied: { type: boolean }
-                  patchFile: { type: string }
-                  status: { type: string }
-                  dry_run: { type: boolean }
-                  ok: { type: boolean }
-                  error: { type: string, nullable: true }
-        "422":
-          description: Patch failed the check
+                $ref: "#/components/schemas/ApplyResponse"
+        "400":
+          description: Fenced path or invalid patch
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error: { type: string }
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Patch failed the git apply --check
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/commit:
     post:
       operationId: commitChanges
@@ -142,23 +222,26 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [message]
-              properties:
-                message:
-                  type: string
-                  maxLength: 500
+              $ref: "#/components/schemas/CommitRequest"
       responses:
         "200":
           description: Committed
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ok: { type: boolean }
-                  head: { type: string }
-                  error: { type: string, nullable: true }
+                $ref: "#/components/schemas/CommitResponse"
+        "400":
+          description: Empty message or commit failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/revert:
     post:
       operationId: revertLastCommit
@@ -170,8 +253,16 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ok: { type: boolean }
-                  head: { type: string }
-                  error: { type: string, nullable: true }
+                $ref: "#/components/schemas/CommitResponse"
+        "400":
+          description: Nothing to revert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"

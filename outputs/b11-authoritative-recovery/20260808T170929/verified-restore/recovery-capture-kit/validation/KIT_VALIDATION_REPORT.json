@@ -1,0 +1,93 @@
+{
+  "limitations": [
+    "PowerShell was structurally validated in Linux, but not executed because Windows PowerShell is unavailable in this runtime.",
+    "The user must run the collector on the Windows machine that contains Downloads and the local tunnel/repository state."
+  ],
+  "package": "Perfume_Chem_Full_Recovery_Capture_Kit_20260808",
+  "source_mutations": 0,
+  "tests": [
+    {
+      "detail": "missing=[]",
+      "state": "PASS",
+      "test": "required_files_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "python_scanner_compiles"
+    },
+    {
+      "detail": "[]",
+      "state": "PASS",
+      "test": "Capture-PerfumeChemRecovery.ps1_balanced_structure"
+    },
+    {
+      "detail": "[]",
+      "state": "PASS",
+      "test": "Verify-PerfumeChemRecovery.ps1_balanced_structure"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "synthetic_nested_archive_test"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "synthetic_predef_detection_test"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "synthetic_unsafe_path_test"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "synthetic_target_match_test"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "downloads_copy_instruction_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "credential_exclusion_instruction_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "upload_chunks_scope_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "source_mutation_guard_declared"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "secret_fail_closed_gate_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "git_forensics_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "recursive_archive_scan_present"
+    },
+    {
+      "detail": "",
+      "state": "PASS",
+      "test": "exact_hash_target_matching_present"
+    }
+  ],
+  "tests_passed": 16,
+  "tests_total": 16,
+  "validation_state": "PASS"
+}

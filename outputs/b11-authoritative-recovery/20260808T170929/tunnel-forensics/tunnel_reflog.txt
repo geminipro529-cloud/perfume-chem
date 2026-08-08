@@ -1,0 +1,502 @@
+﻿a7bacff refs/heads/codex/add-inventory-materials@{2026-08-08 03:37:26 +0700}: reset: moving to HEAD~1
+a7bacff HEAD@{2026-08-08 03:37:26 +0700}: reset: moving to HEAD~1
+7b15bd7 refs/heads/codex/add-inventory-materials@{2026-08-08 03:37:14 +0700}: commit: test: option-a e2e canary
+7b15bd7 HEAD@{2026-08-08 03:37:14 +0700}: commit: test: option-a e2e canary
+a7bacff refs/heads/codex/add-inventory-materials@{2026-08-08 03:24:48 +0700}: reset: moving to HEAD~1
+a7bacff HEAD@{2026-08-08 03:24:48 +0700}: reset: moving to HEAD~1
+dae9216 refs/heads/codex/add-inventory-materials@{2026-08-08 03:24:47 +0700}: commit: test: app-server e2e canary
+dae9216 HEAD@{2026-08-08 03:24:47 +0700}: commit: test: app-server e2e canary
+a7bacff refs/remotes/origin/codex/add-inventory-materials@{2026-08-07 15:19:37 +0700}: update by push
+a7bacff refs/heads/codex/add-inventory-materials@{2026-08-07 15:18:16 +0700}: commit: feat(cheapluna): CL-ORCH-UPGRADE-20260807-V1 delegation upgrade โ€” P5B mock acceptance, live cutover, SAFE_NEW benchmark, canaries
+a7bacff HEAD@{2026-08-07 15:18:16 +0700}: commit: feat(cheapluna): CL-ORCH-UPGRADE-20260807-V1 delegation upgrade โ€” P5B mock acceptance, live cutover, SAFE_NEW benchmark, canaries
+2fe95d9 refs/heads/codex/add-inventory-materials@{2026-08-07 14:52:37 +0700}: commit: delegator
+2fe95d9 HEAD@{2026-08-07 14:52:37 +0700}: commit: delegator
+8d5cb54 refs/remotes/origin/codex/add-inventory-materials@{2026-08-07 13:31:42 +0700}: update by push
+8d5cb54 refs/heads/codex/add-inventory-materials@{2026-08-07 13:30:06 +0700}: commit: fix: record olibanum resinoid stock as 50% w/w in DPG (user-confirmed)
+8d5cb54 HEAD@{2026-08-07 13:30:06 +0700}: commit: fix: record olibanum resinoid stock as 50% w/w in DPG (user-confirmed)
+8a62c6e refs/remotes/origin/codex/add-inventory-materials@{2026-08-07 13:22:02 +0700}: update by push
+8a62c6e refs/heads/codex/add-inventory-materials@{2026-08-07 13:20:19 +0700}: commit: fix: reconcile olibanum/orris dilution spine across inventory, YAML, and golden tests
+8a62c6e HEAD@{2026-08-07 13:20:19 +0700}: commit: fix: reconcile olibanum/orris dilution spine across inventory, YAML, and golden tests
+3bd7434 refs/heads/codex/add-inventory-materials@{2026-08-07 13:06:42 +0700}: commit: chore: allow git push in opencode permission rules
+3bd7434 HEAD@{2026-08-07 13:06:42 +0700}: commit: chore: allow git push in opencode permission rules
+f39e887 refs/heads/codex/add-inventory-materials@{2026-08-07 13:01:09 +0700}: commit: chore: route CheapLuna delegation to direct DeepSeek; protect SSH keys from push
+f39e887 HEAD@{2026-08-07 13:01:09 +0700}: commit: chore: route CheapLuna delegation to direct DeepSeek; protect SSH keys from push
+89d6433 refs/heads/codex/add-inventory-materials@{2026-08-07 10:13:01 +0700}: commit: forcodex
+89d6433 HEAD@{2026-08-07 10:13:01 +0700}: commit: forcodex
+952ebee refs/heads/codex/add-inventory-materials@{2026-08-07 09:49:43 +0700}: commit: chore: .gitignore line-ending normalization
+952ebee HEAD@{2026-08-07 09:49:43 +0700}: commit: chore: .gitignore line-ending normalization
+f59e98e refs/heads/codex/add-inventory-materials@{2026-08-07 09:41:53 +0700}: commit: fix: unblock pre-push gate (olibanum/orris dilution spine to golden contract; mypy librt env upgrade)
+f59e98e HEAD@{2026-08-07 09:41:53 +0700}: commit: fix: unblock pre-push gate (olibanum/orris dilution spine to golden contract; mypy librt env upgrade)
+dd567b4 refs/heads/codex/add-inventory-materials@{2026-08-07 09:15:42 +0700}: commit (amend): checkpoint: canonical pre-external-evidence baseline
+dd567b4 HEAD@{2026-08-07 09:15:42 +0700}: commit (amend): checkpoint: canonical pre-external-evidence baseline
+4464fe9 refs/heads/codex/add-inventory-materials@{2026-08-07 09:14:42 +0700}: commit: checkpoint: canonical pre-external-evidence baseline
+4464fe9 HEAD@{2026-08-07 09:14:42 +0700}: commit: checkpoint: canonical pre-external-evidence baseline
+7839317 refs/heads/codex/add-inventory-materials@{2026-08-03 12:50:51 +0700}: commit: docs(d0): record scientific claim matrix gate
+7839317 HEAD@{2026-08-03 12:50:51 +0700}: commit: docs(d0): record scientific claim matrix gate
+de5e1ef refs/heads/codex/add-inventory-materials@{2026-08-03 12:34:15 +0700}: commit: test(d0): bind claim gate into project verification
+de5e1ef HEAD@{2026-08-03 12:34:15 +0700}: commit: test(d0): bind claim gate into project verification
+8281d9c refs/heads/codex/add-inventory-materials@{2026-08-03 12:25:39 +0700}: commit: test(d0): verify authoritative claim bindings
+8281d9c HEAD@{2026-08-03 12:25:39 +0700}: commit: test(d0): verify authoritative claim bindings
+d4c21f5 refs/heads/codex/add-inventory-materials@{2026-08-03 12:22:18 +0700}: commit: feat(d0): define first confirmatory claim
+d4c21f5 HEAD@{2026-08-03 12:22:18 +0700}: commit: feat(d0): define first confirmatory claim
+c9fae13 refs/heads/codex/add-inventory-materials@{2026-08-03 12:19:49 +0700}: commit: feat(d0): register scientific claim method authority
+c9fae13 HEAD@{2026-08-03 12:19:49 +0700}: commit: feat(d0): register scientific claim method authority
+a9b4766 refs/heads/codex/add-inventory-materials@{2026-08-03 12:17:38 +0700}: commit: feat(d0): add immutable scientific claim contracts
+a9b4766 HEAD@{2026-08-03 12:17:38 +0700}: commit: feat(d0): add immutable scientific claim contracts
+859cf79 refs/heads/codex/add-inventory-materials@{2026-08-03 12:14:17 +0700}: commit: docs(d0): close TDD coverage gaps
+859cf79 HEAD@{2026-08-03 12:14:17 +0700}: commit: docs(d0): close TDD coverage gaps
+fc74634 refs/heads/codex/add-inventory-materials@{2026-08-03 12:12:37 +0700}: commit: docs(d0): plan scientific claim matrix implementation
+fc74634 HEAD@{2026-08-03 12:12:37 +0700}: commit: docs(d0): plan scientific claim matrix implementation
+23f71ce refs/heads/codex/add-inventory-materials@{2026-08-03 12:05:51 +0700}: commit: docs(d0): reuse canonical hashing contract
+23f71ce HEAD@{2026-08-03 12:05:51 +0700}: commit: docs(d0): reuse canonical hashing contract
+3ec0522 refs/heads/codex/add-inventory-materials@{2026-08-03 12:03:29 +0700}: commit: docs(d0): define scientific claim matrix
+3ec0522 HEAD@{2026-08-03 12:03:29 +0700}: commit: docs(d0): define scientific claim matrix
+b8cd0cb worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 11:30:51 +0700}: checkout: moving from 0607e4bc2e36bb1fc9ff3337d39d100c6605e424 to b8cd0cbba47792624ba73b41327d193f30f0bb66
+b8cd0cb refs/heads/codex/add-inventory-materials@{2026-08-03 11:29:45 +0700}: commit: docs(c11): bind final Build C evidence tree
+b8cd0cb HEAD@{2026-08-03 11:29:45 +0700}: commit: docs(c11): bind final Build C evidence tree
+123942f refs/heads/codex/add-inventory-materials@{2026-08-03 11:28:37 +0700}: commit: docs(c11): define final evidence binding contract
+123942f HEAD@{2026-08-03 11:28:37 +0700}: commit: docs(c11): define final evidence binding contract
+4f97b91 refs/heads/codex/add-inventory-materials@{2026-08-03 11:24:15 +0700}: commit: docs(c11): seal Build C evidence boundary
+4f97b91 HEAD@{2026-08-03 11:24:15 +0700}: commit: docs(c11): seal Build C evidence boundary
+0607e4b worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 11:05:53 +0700}: checkout: moving from f8d8c6836643cf8bd7693d1e6672daded9629c69 to 0607e4bc2e36bb1fc9ff3337d39d100c6605e424
+0607e4b refs/heads/codex/add-inventory-materials@{2026-08-03 11:04:05 +0700}: commit: docs(c11): bind aggregate evidence commit
+0607e4b HEAD@{2026-08-03 11:04:05 +0700}: commit: docs(c11): bind aggregate evidence commit
+b992ea4 refs/heads/codex/add-inventory-materials@{2026-08-03 11:01:30 +0700}: commit: docs(c11): add Build C aggregate evidence package
+b992ea4 HEAD@{2026-08-03 11:01:30 +0700}: commit: docs(c11): add Build C aggregate evidence package
+f8d8c68 worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 09:48:02 +0700}: checkout: moving from 007024ae624cd37ad7b6a4e627b106d515fc684c to f8d8c6836643cf8bd7693d1e6672daded9629c69
+f8d8c68 refs/heads/codex/add-inventory-materials@{2026-08-03 09:47:50 +0700}: commit: docs(c10): seal final decision blobs
+f8d8c68 HEAD@{2026-08-03 09:47:50 +0700}: commit: docs(c10): seal final decision blobs
+007024a worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 09:43:01 +0700}: checkout: moving from 90d5895194ae66bf3c8b477624c8c9a7db852a20 to 007024ae624cd37ad7b6a4e627b106d515fc684c
+007024a refs/heads/codex/add-inventory-materials@{2026-08-03 09:42:48 +0700}: commit: docs(c10): record final experiment-selection decision
+007024a HEAD@{2026-08-03 09:42:48 +0700}: commit: docs(c10): record final experiment-selection decision
+90d5895 worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 09:30:19 +0700}: checkout: moving from 8882f9fd5e8f9040983cf36b8df2eee8343bc311 to 90d5895194ae66bf3c8b477624c8c9a7db852a20
+90d5895 refs/heads/codex/add-inventory-materials@{2026-08-03 09:30:06 +0700}: commit: docs(c10): seal canonical evidence blobs
+90d5895 HEAD@{2026-08-03 09:30:06 +0700}: commit: docs(c10): seal canonical evidence blobs
+8882f9f worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 09:19:48 +0700}: checkout: moving from 19b993a11d96172faa2b338e0f2e5d74da5fa8f8 to 8882f9fd5e8f9040983cf36b8df2eee8343bc311
+8882f9f refs/heads/codex/add-inventory-materials@{2026-08-03 09:19:13 +0700}: commit: docs(c10): record experiment-selection gate evidence
+8882f9f HEAD@{2026-08-03 09:19:13 +0700}: commit: docs(c10): record experiment-selection gate evidence
+19b993a worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 08:59:26 +0700}: checkout: moving from a2aaad783ddd03d13c8f72cc277db0da7e139814 to 19b993a11d96172faa2b338e0f2e5d74da5fa8f8
+a2aaad7 worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 08:59:01 +0700}: checkout: moving from 19b993a11d96172faa2b338e0f2e5d74da5fa8f8 to a2aaad783ddd03d13c8f72cc277db0da7e139814
+19b993a worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 08:57:04 +0700}: checkout: moving from a2aaad783ddd03d13c8f72cc277db0da7e139814 to 19b993a11d96172faa2b338e0f2e5d74da5fa8f8
+a2aaad7 worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 08:56:56 +0700}: checkout: moving from 19b993a11d96172faa2b338e0f2e5d74da5fa8f8 to a2aaad783ddd03d13c8f72cc277db0da7e139814
+19b993a worktrees/c10-replay-19b993a1/HEAD@{2026-08-03 08:54:14 +0700}: 
+19b993a refs/heads/codex/add-inventory-materials@{2026-08-03 08:39:55 +0700}: commit: test(c10): make Pareto mutation observable
+19b993a HEAD@{2026-08-03 08:39:55 +0700}: commit: test(c10): make Pareto mutation observable
+774479a refs/heads/codex/add-inventory-materials@{2026-08-03 08:22:47 +0700}: commit: feat(optimization): add constrained experiment selection
+774479a HEAD@{2026-08-03 08:22:47 +0700}: commit: feat(optimization): add constrained experiment selection
+98ae7a6 refs/heads/codex/add-inventory-materials@{2026-08-03 08:10:44 +0700}: commit: test(c10): freeze constrained experiment-selection contract
+98ae7a6 HEAD@{2026-08-03 08:10:44 +0700}: commit: test(c10): freeze constrained experiment-selection contract
+102ed9b refs/heads/codex/add-inventory-materials@{2026-08-03 08:05:21 +0700}: commit: docs(c10): define constrained experiment-selection boundary
+102ed9b HEAD@{2026-08-03 08:05:21 +0700}: commit: docs(c10): define constrained experiment-selection boundary
+a2aaad7 refs/heads/codex/add-inventory-materials@{2026-08-03 07:50:44 +0700}: commit: docs(c9): record authoritative overlay decision
+a2aaad7 HEAD@{2026-08-03 07:50:44 +0700}: commit: docs(c9): record authoritative overlay decision
+15ef828 refs/heads/codex/add-inventory-materials@{2026-08-03 07:36:52 +0700}: commit: docs(c9): record unsupported-science gate evidence
+15ef828 HEAD@{2026-08-03 07:36:52 +0700}: commit: docs(c9): record unsupported-science gate evidence
+88b741e worktrees/c9-replay-a989abb/HEAD@{2026-08-03 07:32:06 +0700}: checkout: moving from e252621483bc115604fa7ccd5193aa8a18c302d8 to 88b741e42d09296a9b2cd754a25ce66dbde0f499
+e252621 worktrees/c9-replay-a989abb/HEAD@{2026-08-03 07:32:01 +0700}: checkout: moving from 88b741e42d09296a9b2cd754a25ce66dbde0f499 to e252621483bc115604fa7ccd5193aa8a18c302d8
+88b741e worktrees/c9-replay-a989abb/HEAD@{2026-08-03 07:30:14 +0700}: checkout: moving from a989abb81487f4086d302ffc14e898da6128bbba to 88b741e42d09296a9b2cd754a25ce66dbde0f499
+88b741e refs/heads/codex/add-inventory-materials@{2026-08-03 06:44:49 +0700}: commit: docs(c0): reconcile C9 shelf-life quarantine
+88b741e HEAD@{2026-08-03 06:44:49 +0700}: commit: docs(c0): reconcile C9 shelf-life quarantine
+a989abb worktrees/c9-replay-a989abb/HEAD@{2026-08-03 06:39:03 +0700}: checkout: moving from e252621483bc115604fa7ccd5193aa8a18c302d8 to a989abb81487f4086d302ffc14e898da6128bbba
+e252621 worktrees/c9-replay-a989abb/HEAD@{2026-08-03 06:38:58 +0700}: checkout: moving from a989abb81487f4086d302ffc14e898da6128bbba to e252621483bc115604fa7ccd5193aa8a18c302d8
+a989abb worktrees/c9-replay-a989abb/HEAD@{2026-08-03 06:36:34 +0700}: 
+a989abb refs/heads/codex/add-inventory-materials@{2026-08-03 06:35:54 +0700}: commit: feat(evidence): enforce C9 unsupported-science quarantine
+a989abb HEAD@{2026-08-03 06:35:54 +0700}: commit: feat(evidence): enforce C9 unsupported-science quarantine
+94a9966 refs/heads/codex/add-inventory-materials@{2026-08-03 06:22:49 +0700}: commit: test(c9): freeze unsupported-science triage contract
+94a9966 HEAD@{2026-08-03 06:22:49 +0700}: commit: test(c9): freeze unsupported-science triage contract
+a83e2b0 refs/heads/codex/add-inventory-materials@{2026-08-03 06:19:19 +0700}: commit: docs(c9): define unsupported-science authority boundary
+a83e2b0 HEAD@{2026-08-03 06:19:19 +0700}: commit: docs(c9): define unsupported-science authority boundary
+e252621 refs/heads/codex/add-inventory-materials@{2026-08-03 05:57:26 +0700}: commit: docs(verification): record C8 exact replay decision
+e252621 HEAD@{2026-08-03 05:57:26 +0700}: commit: docs(verification): record C8 exact replay decision
+b0e5ed3 refs/heads/codex/add-inventory-materials@{2026-08-03 05:44:45 +0700}: commit: docs(verification): seal C8 headspace OAV evidence
+b0e5ed3 HEAD@{2026-08-03 05:44:45 +0700}: commit: docs(verification): seal C8 headspace OAV evidence
+511504f refs/heads/codex/add-inventory-materials@{2026-08-03 05:07:08 +0700}: commit: feat(physics): add C8 headspace OAV authority contracts
+511504f HEAD@{2026-08-03 05:07:08 +0700}: commit: feat(physics): add C8 headspace OAV authority contracts
+8459c0f refs/heads/codex/add-inventory-materials@{2026-08-03 04:52:29 +0700}: commit: test(c8): define headspace OAV authority contract
+8459c0f HEAD@{2026-08-03 04:52:29 +0700}: commit: test(c8): define headspace OAV authority contract
+59ef836 refs/heads/codex/add-inventory-materials@{2026-08-03 04:42:48 +0700}: commit: docs(c8): define headspace OAV authority boundary
+59ef836 HEAD@{2026-08-03 04:42:48 +0700}: commit: docs(c8): define headspace OAV authority boundary
+cae5b26 refs/heads/codex/add-inventory-materials@{2026-08-03 04:30:29 +0700}: commit: docs(verification): record C7 exact replay decision
+cae5b26 HEAD@{2026-08-03 04:30:29 +0700}: commit: docs(verification): record C7 exact replay decision
+be8f450 refs/heads/codex/add-inventory-materials@{2026-08-03 04:17:15 +0700}: commit: docs(verification): seal C7 natural-lot evidence
+be8f450 HEAD@{2026-08-03 04:17:15 +0700}: commit: docs(verification): seal C7 natural-lot evidence
+ce78c45 refs/heads/codex/add-inventory-materials@{2026-08-03 03:49:30 +0700}: commit: test(physics): harden C7 unresolved disclosure guard
+ce78c45 HEAD@{2026-08-03 03:49:30 +0700}: commit: test(physics): harden C7 unresolved disclosure guard
+39987ea refs/heads/codex/add-inventory-materials@{2026-08-03 03:47:37 +0700}: commit: feat(physics): add C7 lot-aware natural contracts
+39987ea HEAD@{2026-08-03 03:47:37 +0700}: commit: feat(physics): add C7 lot-aware natural contracts
+862ebca refs/heads/codex/add-inventory-materials@{2026-08-03 03:28:55 +0700}: commit: test(c7): freeze lot aware natural contract
+862ebca HEAD@{2026-08-03 03:28:55 +0700}: commit: test(c7): freeze lot aware natural contract
+915e7c0 refs/heads/codex/add-inventory-materials@{2026-08-03 03:22:58 +0700}: commit: docs(c7): define natural lot authority boundary
+915e7c0 HEAD@{2026-08-03 03:22:58 +0700}: commit: docs(c7): define natural lot authority boundary
+aa2276f refs/heads/codex/add-inventory-materials@{2026-08-03 03:07:29 +0700}: commit: docs(c6): record dynamic release decision
+aa2276f HEAD@{2026-08-03 03:07:29 +0700}: commit: docs(c6): record dynamic release decision
+f452398 refs/heads/codex/add-inventory-materials@{2026-08-03 02:54:48 +0700}: commit: docs(c6): seal dynamic release evidence
+f452398 HEAD@{2026-08-03 02:54:48 +0700}: commit: docs(c6): seal dynamic release evidence
+5b51ab3 refs/heads/codex/add-inventory-materials@{2026-08-03 02:34:04 +0700}: commit: feat(c6): add conservative dynamic release model
+5b51ab3 HEAD@{2026-08-03 02:34:04 +0700}: commit: feat(c6): add conservative dynamic release model
+9bb6412 refs/heads/codex/add-inventory-materials@{2026-08-03 02:05:43 +0700}: commit: test(c6): bind substrate release selectors
+9bb6412 HEAD@{2026-08-03 02:05:43 +0700}: commit: test(c6): bind substrate release selectors
+db79cd1 refs/heads/codex/add-inventory-materials@{2026-08-03 02:03:27 +0700}: commit: test(c6): freeze dynamic release contract
+db79cd1 HEAD@{2026-08-03 02:03:27 +0700}: commit: test(c6): freeze dynamic release contract
+59582f7 refs/heads/codex/add-inventory-materials@{2026-08-03 01:43:26 +0700}: commit: docs(c5): record calibration program gate
+59582f7 HEAD@{2026-08-03 01:43:26 +0700}: commit: docs(c5): record calibration program gate
+4a0700f refs/heads/codex/add-inventory-materials@{2026-08-03 01:36:22 +0700}: commit: chore(c5): seal calibration program evidence
+4a0700f HEAD@{2026-08-03 01:36:22 +0700}: commit: chore(c5): seal calibration program evidence
+052bbdf refs/heads/codex/add-inventory-materials@{2026-08-03 01:15:29 +0700}: commit: feat(c5): add fail-closed calibration program
+052bbdf HEAD@{2026-08-03 01:15:29 +0700}: commit: feat(c5): add fail-closed calibration program
+04a6678 refs/heads/codex/add-inventory-materials@{2026-08-03 01:00:37 +0700}: commit: test(c5): freeze calibration program contract
+04a6678 HEAD@{2026-08-03 01:00:37 +0700}: commit: test(c5): freeze calibration program contract
+085512e refs/heads/codex/add-inventory-materials@{2026-08-03 00:40:52 +0700}: commit: docs(c4): record equilibrium model gate decision
+085512e HEAD@{2026-08-03 00:40:52 +0700}: commit: docs(c4): record equilibrium model gate decision
+30a03df refs/heads/codex/add-inventory-materials@{2026-08-03 00:34:04 +0700}: commit: test(c4): seal equilibrium model gate
+30a03df HEAD@{2026-08-03 00:34:04 +0700}: commit: test(c4): seal equilibrium model gate
+bd31ee5 refs/heads/codex/add-inventory-materials@{2026-08-03 00:18:43 +0700}: commit: docs(c4): remove gate-breaking whitespace
+bd31ee5 HEAD@{2026-08-03 00:18:43 +0700}: commit: docs(c4): remove gate-breaking whitespace
+f016ebd refs/heads/codex/add-inventory-materials@{2026-08-03 00:06:49 +0700}: commit: docs(c4): reconcile COSMO-RS withholding
+f016ebd HEAD@{2026-08-03 00:06:49 +0700}: commit: docs(c4): reconcile COSMO-RS withholding
+c44aef1 refs/heads/codex/add-inventory-materials@{2026-08-03 00:05:05 +0700}: commit: test(c4): integrate equilibrium gate
+c44aef1 HEAD@{2026-08-03 00:05:05 +0700}: commit: test(c4): integrate equilibrium gate
+620f9f9 refs/heads/codex/add-inventory-materials@{2026-08-03 00:03:19 +0700}: commit: feat(c4): implement ideal equilibrium baseline
+620f9f9 HEAD@{2026-08-03 00:03:19 +0700}: commit: feat(c4): implement ideal equilibrium baseline
+a2d9df6 refs/heads/codex/add-inventory-materials@{2026-08-02 23:56:12 +0700}: commit: test(c4): define equilibrium model contract
+a2d9df6 HEAD@{2026-08-02 23:56:12 +0700}: commit: test(c4): define equilibrium model contract
+355fce6 refs/heads/codex/add-inventory-materials@{2026-08-02 23:50:13 +0700}: commit: docs(c4): plan equilibrium model gate
+355fce6 HEAD@{2026-08-02 23:50:13 +0700}: commit: docs(c4): plan equilibrium model gate
+2acf82a refs/heads/codex/add-inventory-materials@{2026-08-02 23:50:04 +0700}: commit: docs(c4): define equilibrium model boundary
+2acf82a HEAD@{2026-08-02 23:50:04 +0700}: commit: docs(c4): define equilibrium model boundary
+2fef491 refs/heads/codex/add-inventory-materials@{2026-08-02 22:51:04 +0700}: commit: docs(c3): record model interface gate decision
+2fef491 HEAD@{2026-08-02 22:51:04 +0700}: commit: docs(c3): record model interface gate decision
+d6c4b6b refs/heads/codex/add-inventory-materials@{2026-08-02 22:37:36 +0700}: commit: test(c3): seal model interface gate
+d6c4b6b HEAD@{2026-08-02 22:37:36 +0700}: commit: test(c3): seal model interface gate
+37ad809 refs/heads/codex/add-inventory-materials@{2026-08-02 21:31:10 +0700}: commit: test(c3): publish model interface contracts
+37ad809 HEAD@{2026-08-02 21:31:10 +0700}: commit: test(c3): publish model interface contracts
+defccec refs/heads/codex/add-inventory-materials@{2026-08-02 21:14:48 +0700}: commit: feat(c3): enforce explicit model routing
+defccec HEAD@{2026-08-02 21:14:48 +0700}: commit: feat(c3): enforce explicit model routing
+6a9b99c refs/heads/codex/add-inventory-materials@{2026-08-02 21:00:37 +0700}: commit: feat(c3): add immutable model result envelopes
+6a9b99c HEAD@{2026-08-02 21:00:37 +0700}: commit: feat(c3): add immutable model result envelopes
+cd83b3d refs/heads/codex/add-inventory-materials@{2026-08-02 20:41:58 +0700}: commit: feat(c3): add model applicability contracts
+cd83b3d HEAD@{2026-08-02 20:41:58 +0700}: commit: feat(c3): add model applicability contracts
+07884be refs/heads/codex/add-inventory-materials@{2026-08-02 20:34:06 +0700}: commit: docs(c3): plan versioned model interface
+07884be HEAD@{2026-08-02 20:34:06 +0700}: commit: docs(c3): plan versioned model interface
+27d0ada refs/heads/codex/add-inventory-materials@{2026-08-02 20:30:37 +0700}: commit: docs(c3): accept model interface design
+27d0ada HEAD@{2026-08-02 20:30:37 +0700}: commit: docs(c3): accept model interface design
+f5ae192 refs/heads/codex/add-inventory-materials@{2026-08-02 20:16:24 +0700}: commit: docs(c2): record matrix environment gate decision
+f5ae192 HEAD@{2026-08-02 20:16:24 +0700}: commit: docs(c2): record matrix environment gate decision
+dba6f85 refs/heads/codex/add-inventory-materials@{2026-08-02 20:09:12 +0700}: commit: test(c2): seal matrix environment gate
+dba6f85 HEAD@{2026-08-02 20:09:12 +0700}: commit: test(c2): seal matrix environment gate
+193d554 refs/heads/codex/add-inventory-materials@{2026-08-02 19:44:21 +0700}: commit: test(c2): register contract tests in verifier
+193d554 HEAD@{2026-08-02 19:44:21 +0700}: commit: test(c2): register contract tests in verifier
+1d82a21 refs/heads/codex/add-inventory-materials@{2026-08-02 19:37:39 +0700}: commit: feat(c2): require matrix context in model requests
+1d82a21 HEAD@{2026-08-02 19:37:39 +0700}: commit: feat(c2): require matrix context in model requests
+2efe0e4 refs/heads/codex/add-inventory-materials@{2026-08-02 19:30:01 +0700}: commit: feat(c2): add application environment contracts
+2efe0e4 HEAD@{2026-08-02 19:30:01 +0700}: commit: feat(c2): add application environment contracts
+5aa4f3c refs/heads/codex/add-inventory-materials@{2026-08-02 19:25:19 +0700}: commit: feat(c2): add versioned matrix contracts
+5aa4f3c HEAD@{2026-08-02 19:25:19 +0700}: commit: feat(c2): add versioned matrix contracts
+68b9f00 refs/heads/codex/add-inventory-materials@{2026-08-02 19:18:12 +0700}: commit: docs(c2): plan matrix environment contracts
+68b9f00 HEAD@{2026-08-02 19:18:12 +0700}: commit: docs(c2): plan matrix environment contracts
+1fe41a4 refs/heads/codex/add-inventory-materials@{2026-08-02 19:12:19 +0700}: commit: docs(c2): accept matrix environment design
+1fe41a4 HEAD@{2026-08-02 19:12:19 +0700}: commit: docs(c2): accept matrix environment design
+e6c6d5b refs/heads/codex/add-inventory-materials@{2026-08-02 18:54:43 +0700}: commit: docs(c1): record thermophysical gate decision
+e6c6d5b HEAD@{2026-08-02 18:54:43 +0700}: commit: docs(c1): record thermophysical gate decision
+4934980 refs/heads/codex/add-inventory-materials@{2026-08-02 18:47:20 +0700}: commit: test(c1): seal thermophysical contract gate
+4934980 HEAD@{2026-08-02 18:47:20 +0700}: commit: test(c1): seal thermophysical contract gate
+8c29acd refs/heads/codex/add-inventory-materials@{2026-08-02 18:12:25 +0700}: commit: style(c1): restore backend import order
+8c29acd HEAD@{2026-08-02 18:12:25 +0700}: commit: style(c1): restore backend import order
+ab50a91 refs/heads/codex/add-inventory-materials@{2026-08-02 17:29:44 +0700}: commit: feat(c1): publish thermophysical contract boundary
+ab50a91 HEAD@{2026-08-02 17:29:44 +0700}: commit: feat(c1): publish thermophysical contract boundary
+9e77856 refs/heads/codex/add-inventory-materials@{2026-08-02 17:23:14 +0700}: commit: feat(c1): add fail-closed property selection
+9e77856 HEAD@{2026-08-02 17:23:14 +0700}: commit: feat(c1): add fail-closed property selection
+26f9bb8 refs/heads/codex/add-inventory-materials@{2026-08-02 17:11:39 +0700}: commit: feat(c1): expose selected property provenance
+26f9bb8 HEAD@{2026-08-02 17:11:39 +0700}: commit: feat(c1): expose selected property provenance
+fa9c026 refs/heads/codex/add-inventory-materials@{2026-08-02 17:06:53 +0700}: commit: feat(c1): add vapor pressure representations
+fa9c026 HEAD@{2026-08-02 17:06:53 +0700}: commit: feat(c1): add vapor pressure representations
+2879ad4 refs/heads/codex/add-inventory-materials@{2026-08-02 17:03:34 +0700}: commit: feat(c1): add thermophysical property contracts
+2879ad4 HEAD@{2026-08-02 17:03:34 +0700}: commit: feat(c1): add thermophysical property contracts
+cce9975 refs/heads/codex/add-inventory-materials@{2026-08-02 16:56:24 +0700}: commit: docs(c1): plan thermophysical contracts
+cce9975 HEAD@{2026-08-02 16:56:24 +0700}: commit: docs(c1): plan thermophysical contracts
+488f05c refs/heads/codex/add-inventory-materials@{2026-08-02 16:44:20 +0700}: commit: docs(c1): define thermophysical contract design
+488f05c HEAD@{2026-08-02 16:44:20 +0700}: commit: docs(c1): define thermophysical contract design
+fddc07c refs/heads/codex/add-inventory-materials@{2026-08-02 16:27:16 +0700}: commit: build(c0): inventory and freeze physical model paths
+fddc07c HEAD@{2026-08-02 16:27:16 +0700}: commit: build(c0): inventory and freeze physical model paths
+9e88f5d refs/heads/codex/add-inventory-materials@{2026-08-02 14:51:40 +0700}: commit: build(b10): seal current scientific authority gate
+9e88f5d HEAD@{2026-08-02 14:51:40 +0700}: commit: build(b10): seal current scientific authority gate
+d34af72 refs/heads/codex/add-inventory-materials@{2026-08-02 13:44:35 +0700}: commit: fix(b10): close final authority verifier gaps
+d34af72 HEAD@{2026-08-02 13:44:35 +0700}: commit: fix(b10): close final authority verifier gaps
+a9c5e73 refs/heads/codex/add-inventory-materials@{2026-08-02 11:07:32 +0700}: commit: build(b9): seal current science reporting gate
+a9c5e73 HEAD@{2026-08-02 11:07:32 +0700}: commit: build(b9): seal current science reporting gate
+cf85718 refs/heads/codex/add-inventory-materials@{2026-08-02 10:25:12 +0700}: commit: build(b8): seal current prioritized backfill gate
+cf85718 HEAD@{2026-08-02 10:25:12 +0700}: commit: build(b8): seal current prioritized backfill gate
+428684f refs/heads/codex/add-inventory-materials@{2026-08-02 09:19:31 +0700}: commit: build(b7): seal current claim authority gate
+428684f HEAD@{2026-08-02 09:19:31 +0700}: commit: build(b7): seal current claim authority gate
+2d5136a refs/heads/codex/add-inventory-materials@{2026-08-02 08:47:52 +0700}: commit: build(b6): seal current regulatory authority gate
+2d5136a HEAD@{2026-08-02 08:47:52 +0700}: commit: build(b6): seal current regulatory authority gate
+2e5724f refs/heads/codex/add-inventory-materials@{2026-08-02 08:11:58 +0700}: commit: build(b5): seal current analytical authority gate
+2e5724f HEAD@{2026-08-02 08:11:58 +0700}: commit: build(b5): seal current analytical authority gate
+cc6cc95 refs/heads/codex/add-inventory-materials@{2026-08-02 07:41:37 +0700}: commit: build(b4): seal current knowledge rule gate
+cc6cc95 HEAD@{2026-08-02 07:41:37 +0700}: commit: build(b4): seal current knowledge rule gate
+bc93eba refs/heads/codex/add-inventory-materials@{2026-08-02 07:15:40 +0700}: commit: build(b3): seal current contextual OAV gate
+bc93eba HEAD@{2026-08-02 07:15:40 +0700}: commit: build(b3): seal current contextual OAV gate
+1688a13 refs/heads/codex/add-inventory-materials@{2026-08-02 06:53:14 +0700}: commit: build(b2): seal current property authority gate
+1688a13 HEAD@{2026-08-02 06:53:14 +0700}: commit: build(b2): seal current property authority gate
+1736e26 refs/heads/codex/add-inventory-materials@{2026-08-02 06:20:21 +0700}: commit: build(b1): seal current source provenance gate
+1736e26 HEAD@{2026-08-02 06:20:21 +0700}: commit: build(b1): seal current source provenance gate
+5963759 refs/heads/codex/add-inventory-materials@{2026-08-02 06:10:44 +0700}: commit: build(b0): seal current scientific truth baseline
+5963759 HEAD@{2026-08-02 06:10:44 +0700}: commit: build(b0): seal current scientific truth baseline
+eb980e6 refs/heads/codex/add-inventory-materials@{2026-08-02 06:00:12 +0700}: commit: fix(b0): exclude transient sqlite sidecars
+eb980e6 HEAD@{2026-08-02 06:00:12 +0700}: commit: fix(b0): exclude transient sqlite sidecars
+b847bbc refs/heads/codex/add-inventory-materials@{2026-08-02 05:59:37 +0700}: commit: docs(build-b): add authoritative reverification plan
+b847bbc HEAD@{2026-08-02 05:59:37 +0700}: commit: docs(build-b): add authoritative reverification plan
+533e77d refs/heads/codex/add-inventory-materials@{2026-08-02 05:57:46 +0700}: commit: docs(build-b): freeze authoritative reverification design
+533e77d HEAD@{2026-08-02 05:57:46 +0700}: commit: docs(build-b): freeze authoritative reverification design
+073ee8e refs/heads/codex/add-inventory-materials@{2026-08-02 05:43:55 +0700}: commit: docs(a6): reconcile final worktree count
+073ee8e HEAD@{2026-08-02 05:43:55 +0700}: commit: docs(a6): reconcile final worktree count
+89ed269 refs/heads/codex/add-inventory-materials@{2026-08-02 05:43:07 +0700}: commit: build(a6): seal canonical convergence report
+89ed269 HEAD@{2026-08-02 05:43:07 +0700}: commit: build(a6): seal canonical convergence report
+f6ba7c3 refs/heads/codex/add-inventory-materials@{2026-08-02 05:36:11 +0700}: commit: build(a6): make verifier evidence ansi-free
+f6ba7c3 HEAD@{2026-08-02 05:36:11 +0700}: commit: build(a6): make verifier evidence ansi-free
+9736260 refs/heads/codex/add-inventory-materials@{2026-08-02 04:56:54 +0700}: commit: build(a5): seal bottle inventory operations
+9736260 HEAD@{2026-08-02 04:56:54 +0700}: commit: build(a5): seal bottle inventory operations
+c472f9f refs/heads/codex/add-inventory-materials@{2026-08-02 04:50:31 +0700}: commit: build(a4): seal claim authority gates
+c472f9f HEAD@{2026-08-02 04:50:31 +0700}: commit: build(a4): seal claim authority gates
+f979461 refs/heads/codex/add-inventory-materials@{2026-08-02 04:43:24 +0700}: commit: build(a3): seal canonical evidence boundary
+f979461 HEAD@{2026-08-02 04:43:24 +0700}: commit: build(a3): seal canonical evidence boundary
+f941ad8 refs/heads/codex/add-inventory-materials@{2026-08-02 04:17:05 +0700}: commit: build(a2): enforce canonical alias write path
+f941ad8 HEAD@{2026-08-02 04:17:05 +0700}: commit: build(a2): enforce canonical alias write path
+9f14fe9 refs/heads/codex/add-inventory-materials@{2026-08-02 02:56:54 +0700}: commit: build-a: checkpoint A0 baseline and A1 contracts
+9f14fe9 HEAD@{2026-08-02 02:56:54 +0700}: commit: build-a: checkpoint A0 baseline and A1 contracts
+0fa0adf refs/heads/codex/add-inventory-materials@{2026-07-31 23:57:38 +0700}: commit: docs: seal Build B scientific authority evidence
+0fa0adf HEAD@{2026-07-31 23:57:38 +0700}: commit: docs: seal Build B scientific authority evidence
+2ababd3 refs/heads/codex/add-inventory-materials@{2026-07-31 23:26:18 +0700}: commit: fix: keep knowledge verification read-only
+2ababd3 HEAD@{2026-07-31 23:26:18 +0700}: commit: fix: keep knowledge verification read-only
+f4bfe12 refs/heads/codex/add-inventory-materials@{2026-07-31 11:29:43 +0700}: commit: fix: isolate interaction graph verification
+f4bfe12 HEAD@{2026-07-31 11:29:43 +0700}: commit: fix: isolate interaction graph verification
+5fb5d3b refs/heads/codex/add-inventory-materials@{2026-07-31 11:17:41 +0700}: commit: test: define Build B10 authority report contract
+5fb5d3b HEAD@{2026-07-31 11:17:41 +0700}: commit: test: define Build B10 authority report contract
+5749cbf refs/heads/codex/add-inventory-materials@{2026-07-31 11:02:47 +0700}: commit: fix: include Build B tests in verifier shards
+5749cbf HEAD@{2026-07-31 11:02:47 +0700}: commit: fix: include Build B tests in verifier shards
+db87f4d refs/heads/codex/add-inventory-materials@{2026-07-31 10:39:27 +0700}: commit: docs: plan Build B10 verification
+31db080 refs/heads/codex/add-inventory-materials@{2026-07-31 10:39:27 +0700}: commit: docs: freeze Build B10 verification design
+db87f4d HEAD@{2026-07-31 10:39:27 +0700}: commit: docs: plan Build B10 verification
+31db080 HEAD@{2026-07-31 10:39:27 +0700}: commit: docs: freeze Build B10 verification design
+1a27b48 refs/heads/codex/add-inventory-materials@{2026-07-31 10:26:13 +0700}: commit: docs: record Build B9 science reporting gate
+1a27b48 HEAD@{2026-07-31 10:26:13 +0700}: commit: docs: record Build B9 science reporting gate
+596a90e refs/heads/codex/add-inventory-materials@{2026-07-31 10:09:36 +0700}: commit: feat: add Build B9 science authority UI
+596a90e HEAD@{2026-07-31 10:09:36 +0700}: commit: feat: add Build B9 science authority UI
+6e5db36 refs/heads/codex/add-inventory-materials@{2026-07-31 10:06:50 +0700}: commit: test: define Build B9 science authority UI
+6e5db36 HEAD@{2026-07-31 10:06:50 +0700}: commit: test: define Build B9 science authority UI
+91da2b1 refs/heads/codex/add-inventory-materials@{2026-07-31 10:04:03 +0700}: commit: feat: expose Build B9 science authority API
+91da2b1 HEAD@{2026-07-31 10:04:03 +0700}: commit: feat: expose Build B9 science authority API
+d8b431b refs/heads/codex/add-inventory-materials@{2026-07-31 10:01:25 +0700}: commit: test: define Build B9 science authority API
+d8b431b HEAD@{2026-07-31 10:01:25 +0700}: commit: test: define Build B9 science authority API
+5caf755 refs/heads/codex/add-inventory-materials@{2026-07-31 09:59:35 +0700}: commit: feat: project canonical Build B science authority
+5caf755 HEAD@{2026-07-31 09:59:35 +0700}: commit: feat: project canonical Build B science authority
+5033ba3 refs/heads/codex/add-inventory-materials@{2026-07-31 09:57:55 +0700}: commit: test: require Build B9 canonical report projection
+5033ba3 HEAD@{2026-07-31 09:57:55 +0700}: commit: test: require Build B9 canonical report projection
+cc6e4aa refs/heads/codex/add-inventory-materials@{2026-07-31 09:56:34 +0700}: commit: feat: define Build B9 science report contract
+cc6e4aa HEAD@{2026-07-31 09:56:34 +0700}: commit: feat: define Build B9 science report contract
+69f8313 refs/heads/codex/add-inventory-materials@{2026-07-31 09:50:38 +0700}: commit: test: define Build B9 science report contract
+69f8313 HEAD@{2026-07-31 09:50:38 +0700}: commit: test: define Build B9 science report contract
+8eac6b2 refs/heads/codex/add-inventory-materials@{2026-07-31 09:47:35 +0700}: commit: docs: plan Build B9 science reporting
+8eac6b2 HEAD@{2026-07-31 09:47:35 +0700}: commit: docs: plan Build B9 science reporting
+7ca8e24 refs/heads/codex/add-inventory-materials@{2026-07-31 09:46:24 +0700}: commit: docs: freeze Build B9 science reporting design
+7ca8e24 HEAD@{2026-07-31 09:46:24 +0700}: commit: docs: freeze Build B9 science reporting design
+ca8731a refs/heads/codex/add-inventory-materials@{2026-07-31 09:38:09 +0700}: commit: docs: record Build B8 prioritized backfill gate
+ca8731a HEAD@{2026-07-31 09:38:09 +0700}: commit: docs: record Build B8 prioritized backfill gate
+3cb554f refs/heads/codex/add-inventory-materials@{2026-07-31 09:12:00 +0700}: commit: feat: project Build B8 current inventory gaps
+3cb554f HEAD@{2026-07-31 09:12:00 +0700}: commit: feat: project Build B8 current inventory gaps
+02bb875 refs/heads/codex/add-inventory-materials@{2026-07-31 09:04:06 +0700}: commit: test: define Build B8 workspace projection contract
+02bb875 HEAD@{2026-07-31 09:04:06 +0700}: commit: test: define Build B8 workspace projection contract
+657c3d6 refs/heads/codex/add-inventory-materials@{2026-07-31 09:02:22 +0700}: commit: feat: enforce Build B8 backfill evidence lineage
+657c3d6 HEAD@{2026-07-31 09:02:22 +0700}: commit: feat: enforce Build B8 backfill evidence lineage
+4db0b3f refs/heads/codex/add-inventory-materials@{2026-07-31 09:01:13 +0700}: commit: test: reject Build B8 property subtype confusion
+4db0b3f HEAD@{2026-07-31 09:01:13 +0700}: commit: test: reject Build B8 property subtype confusion
+1e1653a refs/heads/codex/add-inventory-materials@{2026-07-31 08:58:25 +0700}: commit: test: define Build B8 scientific signal resolvers
+1e1653a HEAD@{2026-07-31 08:58:25 +0700}: commit: test: define Build B8 scientific signal resolvers
+670f845 refs/heads/codex/add-inventory-materials@{2026-07-31 08:55:27 +0700}: commit: test: require Build B8 typed lineage and B7 promotion
+670f845 HEAD@{2026-07-31 08:55:27 +0700}: commit: test: require Build B8 typed lineage and B7 promotion
+787d15a refs/heads/codex/add-inventory-materials@{2026-07-31 08:50:25 +0700}: commit: feat: persist Build B8 backfill campaigns
+787d15a HEAD@{2026-07-31 08:50:25 +0700}: commit: feat: persist Build B8 backfill campaigns
+99ab3d2 refs/heads/codex/add-inventory-materials@{2026-07-31 08:41:18 +0700}: commit: test: define Build B8 campaign persistence contract
+99ab3d2 HEAD@{2026-07-31 08:41:18 +0700}: commit: test: define Build B8 campaign persistence contract
+3c7c40e refs/heads/codex/add-inventory-materials@{2026-07-31 08:38:44 +0700}: commit: feat: add Build B8 prioritized backfill schema
+3c7c40e HEAD@{2026-07-31 08:38:44 +0700}: commit: feat: add Build B8 prioritized backfill schema
+ae0553d refs/heads/codex/add-inventory-materials@{2026-07-31 08:27:23 +0700}: commit: test: define Build B8 backfill authority contract
+ae0553d HEAD@{2026-07-31 08:27:23 +0700}: commit: test: define Build B8 backfill authority contract
+2e10918 refs/heads/codex/add-inventory-materials@{2026-07-31 08:23:43 +0700}: commit: docs: plan Build B8 prioritized backfill
+2e10918 HEAD@{2026-07-31 08:23:43 +0700}: commit: docs: plan Build B8 prioritized backfill
+6465f3a refs/heads/codex/add-inventory-materials@{2026-07-31 08:20:25 +0700}: commit: docs: freeze Build B8 prioritized backfill design
+6465f3a HEAD@{2026-07-31 08:20:25 +0700}: commit: docs: freeze Build B8 prioritized backfill design
+3c160e3 refs/heads/codex/add-inventory-materials@{2026-07-31 08:06:05 +0700}: commit: docs: record Build B7 verification gate
+3c160e3 HEAD@{2026-07-31 08:06:05 +0700}: commit: docs: record Build B7 verification gate
+ff1542a refs/heads/codex/add-inventory-materials@{2026-07-31 07:53:17 +0700}: commit: chore: type B7 repository scalar reads
+ff1542a HEAD@{2026-07-31 07:53:17 +0700}: commit: chore: type B7 repository scalar reads
+2052d93 refs/heads/codex/add-inventory-materials@{2026-07-31 07:49:10 +0700}: commit: test: close Build B7 negative-path gaps
+2052d93 HEAD@{2026-07-31 07:49:10 +0700}: commit: test: close Build B7 negative-path gaps
+d4fa291 refs/heads/codex/add-inventory-materials@{2026-07-31 07:40:40 +0700}: commit: test: advance migration baseline to Build B7
+d4fa291 HEAD@{2026-07-31 07:40:40 +0700}: commit: test: advance migration baseline to Build B7
+226a569 refs/heads/codex/add-inventory-materials@{2026-07-31 07:33:57 +0700}: commit: feat: enforce Build B7 claim authority
+226a569 HEAD@{2026-07-31 07:33:57 +0700}: commit: feat: enforce Build B7 claim authority
+1ee16d0 refs/heads/codex/add-inventory-materials@{2026-07-31 06:54:35 +0700}: commit: feat: add Build B7 claim authority schema
+1ee16d0 HEAD@{2026-07-31 06:54:35 +0700}: commit: feat: add Build B7 claim authority schema
+f71601c refs/heads/codex/add-inventory-materials@{2026-07-31 06:50:22 +0700}: commit: docs: plan Build B7 claim authority
+f71601c HEAD@{2026-07-31 06:50:22 +0700}: commit: docs: plan Build B7 claim authority
+736275f refs/heads/codex/add-inventory-materials@{2026-07-31 06:48:58 +0700}: commit: docs: freeze Build B7 claim authority design
+736275f HEAD@{2026-07-31 06:48:58 +0700}: commit: docs: freeze Build B7 claim authority design
+0c4b749 refs/heads/codex/add-inventory-materials@{2026-07-31 06:37:09 +0700}: commit: docs: record Build B6 verification gate
+0c4b749 HEAD@{2026-07-31 06:37:09 +0700}: commit: docs: record Build B6 verification gate
+26137df refs/heads/codex/add-inventory-materials@{2026-07-31 06:36:48 +0700}: commit: feat: add Build B6 regulatory authority
+26137df HEAD@{2026-07-31 06:36:48 +0700}: commit: feat: add Build B6 regulatory authority
+ddea825 refs/heads/codex/add-inventory-materials@{2026-07-31 05:32:21 +0700}: commit: docs: plan Build B6 regulatory authority
+ddea825 HEAD@{2026-07-31 05:32:21 +0700}: commit: docs: plan Build B6 regulatory authority
+841681e refs/heads/codex/add-inventory-materials@{2026-07-31 05:29:22 +0700}: commit: docs: freeze Build B6 regulatory authority design
+841681e HEAD@{2026-07-31 05:29:22 +0700}: commit: docs: freeze Build B6 regulatory authority design
+d94d195 refs/heads/codex/add-inventory-materials@{2026-07-31 05:09:24 +0700}: commit: docs(verification): record B5 analytical gate
+d94d195 HEAD@{2026-07-31 05:09:24 +0700}: commit: docs(verification): record B5 analytical gate
+4075183 refs/heads/codex/add-inventory-materials@{2026-07-31 05:05:31 +0700}: commit: feat(lab): add B5 analytical authority
+4075183 HEAD@{2026-07-31 05:05:31 +0700}: commit: feat(lab): add B5 analytical authority
+2777d54 refs/heads/codex/add-inventory-materials@{2026-07-31 03:03:44 +0700}: commit: docs: record B4 knowledge rule gate
+2777d54 HEAD@{2026-07-31 03:03:44 +0700}: commit: docs: record B4 knowledge rule gate
+0b274a4 refs/heads/codex/add-inventory-materials@{2026-07-31 02:50:15 +0700}: commit: test: freeze B4 identity resolution baseline
+0b274a4 HEAD@{2026-07-31 02:50:15 +0700}: commit: test: freeze B4 identity resolution baseline
+edab511 refs/heads/codex/add-inventory-materials@{2026-07-31 02:35:32 +0700}: commit: feat: add B4 knowledge rule authority
+edab511 HEAD@{2026-07-31 02:35:32 +0700}: commit: feat: add B4 knowledge rule authority
+5b873bc refs/heads/codex/add-inventory-materials@{2026-07-31 00:23:30 +0700}: commit: docs: record B3 contextual threshold gate
+5b873bc HEAD@{2026-07-31 00:23:30 +0700}: commit: docs: record B3 contextual threshold gate
+3a61de2 refs/heads/codex/add-inventory-materials@{2026-07-31 00:08:41 +0700}: commit: feat: add B3 contextual threshold authority
+3a61de2 HEAD@{2026-07-31 00:08:41 +0700}: commit: feat: add B3 contextual threshold authority
+3a46dce refs/heads/codex/add-inventory-materials@{2026-07-30 22:54:41 +0700}: commit: docs: record B2 property authority gate
+3a46dce HEAD@{2026-07-30 22:54:41 +0700}: commit: docs: record B2 property authority gate
+bdf8399 refs/heads/codex/add-inventory-materials@{2026-07-30 22:50:02 +0700}: commit: fix: tighten B2 property authority gates
+bdf8399 HEAD@{2026-07-30 22:50:02 +0700}: commit: fix: tighten B2 property authority gates
+aa91cda refs/heads/codex/add-inventory-materials@{2026-07-30 22:12:27 +0700}: commit: feat: add B2 property observation authority
+aa91cda HEAD@{2026-07-30 22:12:27 +0700}: commit: feat: add B2 property observation authority
+48a91a4 refs/heads/codex/add-inventory-materials@{2026-07-30 13:30:22 +0700}: commit: docs: plan Build B completion and B2 authority
+48a91a4 HEAD@{2026-07-30 13:30:22 +0700}: commit: docs: plan Build B completion and B2 authority
+a0ca9af refs/heads/codex/add-inventory-materials@{2026-07-30 09:55:11 +0700}: commit: docs: close Build B1 source provenance gate
+a0ca9af HEAD@{2026-07-30 09:55:11 +0700}: commit: docs: close Build B1 source provenance gate
+448f69c refs/heads/codex/add-inventory-materials@{2026-07-30 09:46:42 +0700}: commit: test: align backup verification with B1 head
+448f69c HEAD@{2026-07-30 09:46:42 +0700}: commit: test: align backup verification with B1 head
+60bd35b refs/heads/codex/add-inventory-materials@{2026-07-30 09:43:02 +0700}: commit: feat: reconstruct B1 source derivations
+60bd35b HEAD@{2026-07-30 09:43:02 +0700}: commit: feat: reconstruct B1 source derivations
+207198d refs/heads/codex/add-inventory-materials@{2026-07-30 09:35:32 +0700}: commit: feat: enforce B1 extraction workflow
+207198d HEAD@{2026-07-30 09:35:32 +0700}: commit: feat: enforce B1 extraction workflow
+093cd56 refs/heads/codex/add-inventory-materials@{2026-07-30 09:30:31 +0700}: commit: feat: register immutable B1 source versions
+093cd56 HEAD@{2026-07-30 09:30:31 +0700}: commit: feat: register immutable B1 source versions
+76fb331 refs/heads/codex/add-inventory-materials@{2026-07-30 09:25:40 +0700}: commit: feat: migrate B1 source provenance schema
+76fb331 HEAD@{2026-07-30 09:25:40 +0700}: commit: feat: migrate B1 source provenance schema
+2051172 refs/heads/codex/add-inventory-materials@{2026-07-30 09:22:04 +0700}: commit: feat: add B1 canonical source schema
+2051172 HEAD@{2026-07-30 09:22:04 +0700}: commit: feat: add B1 canonical source schema
+c795e7f refs/heads/codex/add-inventory-materials@{2026-07-30 09:18:13 +0700}: commit: docs: plan Build B1 source provenance registry
+c795e7f HEAD@{2026-07-30 09:18:13 +0700}: commit: docs: plan Build B1 source provenance registry
+24e14c5 refs/heads/codex/add-inventory-materials@{2026-07-30 09:15:58 +0700}: commit: docs: design Build B1 source provenance registry
+24e14c5 HEAD@{2026-07-30 09:15:58 +0700}: commit: docs: design Build B1 source provenance registry
+9a8f11d refs/heads/codex/add-inventory-materials@{2026-07-30 08:43:54 +0700}: commit: docs: establish Build B scientific truth baseline
+9a8f11d HEAD@{2026-07-30 08:43:54 +0700}: commit: docs: establish Build B scientific truth baseline
+9f160b6 refs/heads/codex/add-inventory-materials@{2026-07-30 08:17:30 +0700}: commit: docs: close Build A canonical convergence
+9f160b6 HEAD@{2026-07-30 08:17:30 +0700}: commit: docs: close Build A canonical convergence
+68f7024 refs/heads/codex/add-inventory-materials@{2026-07-30 08:13:13 +0700}: commit: test: align A1 compatibility documentation
+68f7024 HEAD@{2026-07-30 08:13:13 +0700}: commit: test: align A1 compatibility documentation
+cbb0dbd refs/heads/codex/add-inventory-materials@{2026-07-30 08:09:10 +0700}: commit: test: add A6 conservation and correction fuzz coverage
+cbb0dbd HEAD@{2026-07-30 08:09:10 +0700}: commit: test: add A6 conservation and correction fuzz coverage
+d75a164 refs/heads/codex/add-inventory-materials@{2026-07-30 07:51:44 +0700}: commit: feat: complete bottle and inventory operations
+d75a164 HEAD@{2026-07-30 07:51:44 +0700}: commit: feat: complete bottle and inventory operations
+3f05073 refs/heads/codex/add-inventory-materials@{2026-07-30 06:56:01 +0700}: commit: docs: design A5 bottle and inventory operations
+3f05073 HEAD@{2026-07-30 06:56:01 +0700}: commit: docs: design A5 bottle and inventory operations
+30cf394 refs/heads/codex/add-inventory-materials@{2026-07-30 06:52:18 +0700}: commit: feat: enforce claim-specific authority gates
+30cf394 HEAD@{2026-07-30 06:52:18 +0700}: commit: feat: enforce claim-specific authority gates
+fd97b3e refs/heads/codex/add-inventory-materials@{2026-07-30 06:34:19 +0700}: commit: docs: design A4 authority gates
+fd97b3e HEAD@{2026-07-30 06:34:19 +0700}: commit: docs: design A4 authority gates
+6bb08f0 refs/heads/codex/add-inventory-materials@{2026-07-30 06:32:11 +0700}: commit: feat: add canonical serialization and provenance boundary
+6bb08f0 HEAD@{2026-07-30 06:32:11 +0700}: commit: feat: add canonical serialization and provenance boundary
+9ecc11c refs/heads/codex/add-inventory-materials@{2026-07-30 06:02:41 +0700}: commit: docs: plan A3 canonical boundaries
+9ecc11c HEAD@{2026-07-30 06:02:41 +0700}: commit: docs: plan A3 canonical boundaries
+3e012f2 refs/heads/codex/add-inventory-materials@{2026-07-30 06:01:40 +0700}: commit: build(a2): close canonical execution lifecycle
+3e012f2 HEAD@{2026-07-30 06:01:40 +0700}: commit: build(a2): close canonical execution lifecycle
+d23bc86 refs/heads/codex/add-inventory-materials@{2026-07-30 05:18:59 +0700}: commit: docs: plan A2 lifecycle API convergence
+d23bc86 HEAD@{2026-07-30 05:18:59 +0700}: commit: docs: plan A2 lifecycle API convergence
+c887158 refs/heads/codex/add-inventory-materials@{2026-07-30 05:14:56 +0700}: commit: build(a2): close legacy dual-write paths
+c887158 HEAD@{2026-07-30 05:14:56 +0700}: commit: build(a2): close legacy dual-write paths
+174925a refs/heads/codex/add-inventory-materials@{2026-07-30 04:43:19 +0700}: commit: docs: plan A2 legacy adapter convergence
+174925a HEAD@{2026-07-30 04:43:19 +0700}: commit: docs: plan A2 legacy adapter convergence
+95380e4 refs/heads/codex/add-inventory-materials@{2026-07-30 04:38:33 +0700}: commit: build(a2): add science authority persistence
+95380e4 HEAD@{2026-07-30 04:38:33 +0700}: commit: build(a2): add science authority persistence
+bfaf1b6 refs/heads/codex/add-inventory-materials@{2026-07-30 03:55:50 +0700}: commit: docs: plan A2 science authority persistence
+bfaf1b6 HEAD@{2026-07-30 03:55:50 +0700}: commit: docs: plan A2 science authority persistence
+7e0dc59 refs/heads/codex/add-inventory-materials@{2026-07-30 03:43:56 +0700}: commit: build(a2): add canonical planning persistence
+7e0dc59 HEAD@{2026-07-30 03:43:56 +0700}: commit: build(a2): add canonical planning persistence
+672d1a7 refs/heads/codex/add-inventory-materials@{2026-07-30 02:32:21 +0700}: commit: docs: plan A2 planning-core slice
+672d1a7 HEAD@{2026-07-30 02:32:21 +0700}: commit: docs: plan A2 planning-core slice
+c52e493 refs/heads/codex/add-inventory-materials@{2026-07-30 02:06:58 +0700}: commit: build(a1r): close verifier coverage gap
+c52e493 HEAD@{2026-07-30 02:06:58 +0700}: commit: build(a1r): close verifier coverage gap
+1050fe5 refs/heads/codex/add-inventory-materials@{2026-07-30 01:57:56 +0700}: commit: docs: record staged A1R to A2 design
+1050fe5 HEAD@{2026-07-30 01:57:56 +0700}: commit: docs: record staged A1R to A2 design
+f55d4b3 refs/heads/codex/add-inventory-materials@{2026-07-30 00:29:05 +0700}: commit: build(a1): enforce authoritative reconstruction contracts
+f55d4b3 HEAD@{2026-07-30 00:29:05 +0700}: commit: build(a1): enforce authoritative reconstruction contracts
+2e46e4c refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:53:52 +0700}: update by push
+2e46e4c refs/heads/codex/add-inventory-materials@{2026-07-23 08:53:46 +0700}: commit: chore: remove redundant opencode-perfume launch scripts
+2e46e4c HEAD@{2026-07-23 08:53:46 +0700}: commit: chore: remove redundant opencode-perfume launch scripts
+7de6872 refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:52:23 +0700}: update by push
+7de6872 refs/heads/codex/add-inventory-materials@{2026-07-23 08:52:17 +0700}: commit: refactor: rename startup scripts to 'opencode-perfume'
+7de6872 HEAD@{2026-07-23 08:52:17 +0700}: commit: refactor: rename startup scripts to 'opencode-perfume'
+24e867c refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:49:37 +0700}: update by push
+24e867c refs/heads/codex/add-inventory-materials@{2026-07-23 08:49:33 +0700}: commit: refactor: shorten startup scripts to 'start' and 'start.cmd'
+24e867c HEAD@{2026-07-23 08:49:33 +0700}: commit: refactor: shorten startup scripts to 'start' and 'start.cmd'
+dfdf6c1 refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:48:56 +0700}: update by push
+dfdf6c1 refs/heads/codex/add-inventory-materials@{2026-07-23 08:48:51 +0700}: commit: refactor: rename opencode-startup.ps1/.bat to start.ps1/start.bat
+dfdf6c1 HEAD@{2026-07-23 08:48:51 +0700}: commit: refactor: rename opencode-startup.ps1/.bat to start.ps1/start.bat
+a6ac0ab refs/heads/codex/add-inventory-materials@{2026-07-23 08:44:10 +0700}: commit: docs(plannotator): copy approved rev3 plan into repo + add resume instructions
+a6ac0ab HEAD@{2026-07-23 08:44:10 +0700}: commit: docs(plannotator): copy approved rev3 plan into repo + add resume instructions
+e5f3b05 refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:41:26 +0700}: update by push
+e5f3b05 refs/heads/codex/add-inventory-materials@{2026-07-23 08:41:10 +0700}: commit: docs(checkpoint): v5-R rev3 resume point at B3 (B1+B2+B3 incomplete)
+e5f3b05 HEAD@{2026-07-23 08:41:10 +0700}: commit: docs(checkpoint): v5-R rev3 resume point at B3 (B1+B2+B3 incomplete)
+95b7921 refs/heads/codex/add-inventory-materials@{2026-07-23 08:35:48 +0700}: commit: docs(formula): append LNDL Chamomile pipeline analysis (B2)
+95b7921 HEAD@{2026-07-23 08:35:48 +0700}: commit: docs(formula): append LNDL Chamomile pipeline analysis (B2)
+17b5ac8 refs/heads/codex/add-inventory-materials@{2026-07-23 08:30:51 +0700}: commit: fix(pipeline): fall back to monomolecular OAV for unmodeled naturals (lime, cocoa)
+17b5ac8 HEAD@{2026-07-23 08:30:51 +0700}: commit: fix(pipeline): fall back to monomolecular OAV for unmodeled naturals (lime, cocoa)
+cbe3984 refs/remotes/origin/codex/add-inventory-materials@{2026-07-23 08:22:45 +0700}: update by push
+cbe3984 refs/heads/codex/add-inventory-materials@{2026-07-23 08:15:53 +0700}: commit: chore: consolidate Plan v5 waves 1-8 + Track C/E working-tree state into a verified baseline
+cbe3984 HEAD@{2026-07-23 08:15:53 +0700}: commit: chore: consolidate Plan v5 waves 1-8 + Track C/E working-tree state into a verified baseline
+dba99ec refs/remotes/origin/codex/add-inventory-materials@{2026-07-17 19:49:27 +0700}: update by push
+dba99ec refs/heads/codex/add-inventory-materials@{2026-07-17 19:48:03 +0700}: commit: feat: add brief-driven perfumer workflow
+dba99ec HEAD@{2026-07-17 19:48:03 +0700}: commit: feat: add brief-driven perfumer workflow
+40cc4c6 refs/remotes/origin/codex/add-inventory-materials@{2026-07-17 16:24:23 +0700}: update by push
+40cc4c6 refs/heads/codex/add-inventory-materials@{2026-07-17 16:16:22 +0700}: commit: feat: complete local-first laboratory beta
+40cc4c6 HEAD@{2026-07-17 16:16:22 +0700}: commit: feat: complete local-first laboratory beta
+0566978 refs/remotes/origin/codex/add-inventory-materials@{2026-07-16 06:36:34 +0700}: update by push
+0566978 refs/heads/codex/add-inventory-materials@{2026-07-16 06:36:26 +0700}: commit: feat: stabilize phase zero research preview
+0566978 HEAD@{2026-07-16 06:36:26 +0700}: commit: feat: stabilize phase zero research preview
+2c54b85 refs/remotes/origin/codex/add-inventory-materials@{2026-07-16 03:18:58 +0700}: update by push
+2c54b85 refs/heads/codex/add-inventory-materials@{2026-07-16 03:18:08 +0700}: commit: docs: add architectural analysis and implementation roadmap
+2c54b85 HEAD@{2026-07-16 03:18:08 +0700}: commit: docs: add architectural analysis and implementation roadmap
+10ac2cd refs/remotes/origin/codex/add-inventory-materials@{2026-07-16 02:32:52 +0700}: update by push
+10ac2cd refs/heads/codex/add-inventory-materials@{2026-07-16 02:32:38 +0700}: commit: feat: sync new perfumery materials
+10ac2cd HEAD@{2026-07-16 02:32:38 +0700}: commit: feat: sync new perfumery materials
+974ff47 refs/heads/codex/add-inventory-materials@{2026-07-16 01:46:34 +0700}: branch: Created from HEAD
+974ff47 HEAD@{2026-07-16 01:46:34 +0700}: checkout: moving from master to codex/add-inventory-materials
+974ff47 refs/heads/master@{2026-07-16 00:38:47 +0700}: merge codex/perfume-workbench-truth-core: Fast-forward
+974ff47 HEAD@{2026-07-16 00:38:47 +0700}: merge codex/perfume-workbench-truth-core: Fast-forward
+925cd5e refs/heads/master@{2026-07-15 20:32:42 +0700}: commit: chore: ignore isolated worktrees
+925cd5e HEAD@{2026-07-15 20:32:42 +0700}: commit: chore: ignore isolated worktrees
+32bbb5e refs/heads/master@{2026-07-15 20:31:27 +0700}: commit: docs: plan perfume workbench truth core
+32bbb5e HEAD@{2026-07-15 20:31:27 +0700}: commit: docs: plan perfume workbench truth core
+a2fe723 refs/heads/master@{2026-07-15 20:26:28 +0700}: commit: docs: design perfume workbench truth core
+a2fe723 HEAD@{2026-07-15 20:26:28 +0700}: commit: docs: design perfume workbench truth core
+00bbc81 refs/remotes/origin/master@{2026-07-15 02:52:30 +0700}: update by push
+00bbc81 refs/heads/master@{2026-07-15 02:51:55 +0700}: commit: chore: snapshot current perfume-chem workspace
+00bbc81 HEAD@{2026-07-15 02:51:55 +0700}: commit: chore: snapshot current perfume-chem workspace
+38beb17 refs/heads/master@{2026-07-09 01:17:41 +0700}: commit: docs: add L'Homme super luxury design spec
+38beb17 HEAD@{2026-07-09 01:17:41 +0700}: commit: docs: add L'Homme super luxury design spec
+72b838c HEAD@{2026-05-20 18:30:28 +0700}: reset: moving to HEAD
+72b838c HEAD@{2026-05-14 05:21:43 +0700}: reset: moving to HEAD
+7e74622 refs/stash@{2026-05-14 05:21:42 +0700}: WIP on master: 72b838c chore: organize repository structure and move scratch/formula/docs into folders
+72b838c HEAD@{2026-05-11 07:10:39 +0700}: reset: moving to HEAD
+72b838c HEAD@{2026-05-11 06:55:53 +0700}: reset: moving to HEAD
+72b838c HEAD@{2026-04-22 02:28:54 +0700}: checkout: moving from master to master
+72b838c HEAD@{2026-04-22 02:28:35 +0700}: checkout: moving from master to master
+72b838c refs/remotes/origin/HEAD@{2026-04-22 02:13:31 +0700}: fetch
+72b838c refs/remotes/origin/copilot/add-iris-jasmine-perfume-output@{2026-04-22 02:13:31 +0700}: fetch: storing head
+8233b2c refs/remotes/origin/copilot/optimize-photorealistic-iris@{2026-04-22 02:13:31 +0700}: fetch: storing head
+72b838c refs/remotes/origin/copilot/optimized-iris-jasmine-perfume-formula@{2026-04-22 02:13:31 +0700}: fetch: storing head
+72b838c refs/remotes/origin/master@{2026-04-21 22:58:58 +0700}: update by push
+72b838c refs/heads/master@{2026-04-21 22:52:20 +0700}: commit (initial): chore: organize repository structure and move scratch/formula/docs into folders
+72b838c HEAD@{2026-04-21 22:52:20 +0700}: commit (initial): chore: organize repository structure and move scratch/formula/docs into folders

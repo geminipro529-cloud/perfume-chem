@@ -138,6 +138,7 @@ def compact_gate(gate) -> dict:
         "quantitative_authority",
         "natural_composite_coverage",
         "reference_claim_contract",
+        "g15_oav_firewall",
         "architecture_concentration",
     }:
         compact_data = data
@@ -179,6 +180,7 @@ def gate_report_event(
             "quantitative_authority",
             "natural_composite_coverage",
             "reference_claim_contract",
+            "g15_oav_firewall",
         }
     }
     return {

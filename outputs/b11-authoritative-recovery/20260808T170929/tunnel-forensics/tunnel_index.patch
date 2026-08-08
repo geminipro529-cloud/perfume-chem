@@ -1,0 +1,2070 @@
+diff --git a/tools/app-server/apply_patch.ps1 b/tools/app-server/apply_patch.ps1
+new file mode 100644
+index 0000000..d0a2c1a
+--- /dev/null
++++ b/tools/app-server/apply_patch.ps1
+@@ -0,0 +1,47 @@
++﻿param(
++    [Parameter(Mandatory = $true, Position = 0)]
++    [string]$PatchFile,
++    [switch]$DryRun
++)
++# apply_patch.ps1 - Option A (A1): verify + apply a unified diff through the app server.
++# Usage:  .\tools\app-server\apply_patch.ps1 output\patch-inbox\edit.patch
++#         .\tools\app-server\apply_patch.ps1 output\patch-inbox\edit.patch -DryRun
++$ErrorActionPreference = "Stop"
++
++$here = Split-Path -Parent $MyInvocation.MyCommand.Path
++$root = (Resolve-Path (Join-Path $here "..\..")).Path
++$server = "http://127.0.0.1:4519"
++
++# token from .env
++$envFile = Join-Path $here ".env"
++$token = ""
++if (Test-Path -LiteralPath $envFile) {
++    $line = Get-Content -LiteralPath $envFile | Where-Object { $_ -match "^APP_SERVER_TOKEN=" } | Select-Object -First 1
++    if ($line) { $token = ($line -replace "^APP_SERVER_TOKEN=", "").Trim() }
++}
++if (-not $token) { Write-Error "APP_SERVER_TOKEN not found in $envFile - run .\tools\app-server\start.ps1 first"; exit 1 }
++
++# resolve patch path (allow repo-relative)
++$patchAbs = if ([System.IO.Path]::IsPathRooted($PatchFile)) { $PatchFile } else { Join-Path $root $PatchFile }
++if (-not (Test-Path -LiteralPath $patchAbs)) { Write-Error "patch file not found: $patchAbs"; exit 1 }
++$patchText = Get-Content -LiteralPath $patchAbs -Raw
++
++$headers = @{ Authorization = "Bearer $token" }
++$patchPlain = [string]$patchText
++$body = (@{ patch = $patchPlain; dry_run = [bool]$DryRun } | ConvertTo-Json -Compress)
++
++try {
++    $resp = Invoke-RestMethod -Uri "$server/api/apply" -Method Post -Headers $headers -ContentType "application/json" -Body $body -TimeoutSec 30
++    if ($DryRun) {
++        if ($resp.ok) { Write-Output "DRY RUN OK - patch applies cleanly" } else { Write-Output "DRY RUN FAILED: $($resp.error)"; exit 2 }
++    } else {
++        Write-Output "PATCH APPLIED"
++        Write-Output "---- git status ----"
++        Write-Output $resp.status
++        Write-Output "---- review with: git diff ----"
++    }
++} catch {
++    Write-Error "apply failed: $($_.Exception.Message)"
++    if ($_.ErrorDetails.Message) { Write-Output $_.ErrorDetails.Message }
++    exit 2
++}
+diff --git a/tools/app-server/commit.ps1 b/tools/app-server/commit.ps1
+new file mode 100644
+index 0000000..5baa56a
+--- /dev/null
++++ b/tools/app-server/commit.ps1
+@@ -0,0 +1,37 @@
++﻿param(
++    [Parameter(Mandatory = $true, Position = 0)]
++    [string]$Message
++)
++# commit.ps1 - Option A: one-line commit of applied/placed changes through the app server.
++# Usage:  .\tools\app-server\commit.ps1 "message"
++$ErrorActionPreference = "Stop"
++
++$here = Split-Path -Parent $MyInvocation.MyCommand.Path
++$server = "http://127.0.0.1:4519"
++
++$envFile = Join-Path $here ".env"
++$token = ""
++if (Test-Path -LiteralPath $envFile) {
++    $line = Get-Content -LiteralPath $envFile | Where-Object { $_ -match "^APP_SERVER_TOKEN=" } | Select-Object -First 1
++    if ($line) { $token = ($line -replace "^APP_SERVER_TOKEN=", "").Trim() }
++}
++if (-not $token) { Write-Error "APP_SERVER_TOKEN not found in $envFile - run .\tools\app-server\start.ps1 first"; exit 1 }
++
++$headers = @{ Authorization = "Bearer $token" }
++$body = (@{ message = [string]$Message } | ConvertTo-Json -Compress)
++
++try {
++    $resp = Invoke-RestMethod -Uri "$server/api/commit" -Method Post -Headers $headers -ContentType "application/json" -Body $body -TimeoutSec 30
++    if ($resp.ok) {
++        Write-Output "COMMITTED"
++        Write-Output "head: $($resp.head)"
++        Write-Output "message: $Message"
++    } else {
++        Write-Error "commit failed: $($resp.error)"
++        exit 2
++    }
++} catch {
++    Write-Error "commit failed: $($_.Exception.Message)"
++    if ($_.ErrorDetails.Message) { Write-Output $_.ErrorDetails.Message }
++    exit 2
++}
+diff --git a/tools/app-server/package.json b/tools/app-server/package.json
+new file mode 100644
+index 0000000..55a461d
+--- /dev/null
++++ b/tools/app-server/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "perfume-chem-app-server",
++  "version": "1.0.0",
++  "private": true,
++  "type": "module",
++  "description": "Authed HTTP backend for browser-ChatGPT writes to D:\\chatbots\\perfume-chem. Serves Option A (local apply inbox) and Option D2 (Apps SDK UI connectDomains target).",
++  "main": "server.mjs",
++  "scripts": {
++    "start": "node server.mjs"
++  }
++}
+diff --git a/tools/app-server/server.mjs b/tools/app-server/server.mjs
+new file mode 100644
+index 0000000..2e9e06f
+--- /dev/null
++++ b/tools/app-server/server.mjs
+@@ -0,0 +1,251 @@
++// perfume-chem App Server — authed HTTP backend for browser-ChatGPT writes.
++// Serves:
++//   Option A: local apply inbox  (GET /api/health, POST /api/apply, POST /api/commit)
++//   Option D2: Apps SDK UI connectDomains target (same endpoints, CORS-enabled)
++//
++// Security discipline (mirrors the delegation daemon):
++//   - Bearer token auth (APP_SERVER_TOKEN env; compare via timing-safe digest)
++//   - All file paths are workspace-relative; absolute paths and .. escapes rejected
++//   - Patch apply via `git apply --check` then `git apply`; no shell interpolation
++//   - Commit requires explicit message; never force-push
++//   - Optional read-only mode (APP_SERVER_READONLY=1)
++//   - Symlinks never followed for reads/writes
++import http from "node:http";
++import crypto from "node:crypto";
++import fs from "node:fs";
++import path from "node:path";
++import { spawn } from "node:child_process";
++
++const WORKSPACE = path.resolve(process.env.APP_SERVER_ROOT ?? process.cwd());
++const PORT = Number(process.env.APP_SERVER_PORT ?? 4519);
++const TOKEN = process.env.APP_SERVER_TOKEN ?? "";
++const READONLY = process.env.APP_SERVER_READONLY === "1";
++const MAX_BODY = 2_000_000;
++const MAX_PATCH = 500_000;
++
++if (!TOKEN) {
++  console.error("[app-server] APP_SERVER_TOKEN is required");
++  process.exit(1);
++}
++
++function safeEqual(a, b) {
++  const ha = crypto.createHash("sha256").update(String(a)).digest();
++  const hb = crypto.createHash("sha256").update(String(b)).digest();
++  return crypto.timingSafeEqual(ha, hb);
++}
++
++function workspaceRelative(rel) {
++  if (typeof rel !== "string" || rel.length === 0) throw new Error("path required");
++  if (path.isAbsolute(rel)) throw new Error("absolute paths not allowed");
++  const norm = path.normalize(rel);
++  if (norm.startsWith("..") || norm.includes(`..${path.sep}`) || norm === "..") {
++    throw new Error("path escapes workspace");
++  }
++  const full = path.resolve(WORKSPACE, norm);
++  if (full !== WORKSPACE && !full.startsWith(WORKSPACE + path.sep)) {
++    throw new Error("path escapes workspace");
++  }
++  return { rel: norm, full };
++}
++
++function lstatNoFollow(full) {
++  try { return fs.lstatSync(full); } catch { return null; }
++}
++
++function readFileSafe(full) {
++  const st = lstatNoFollow(full);
++  if (!st) throw new Error("file does not exist");
++  if (st.isSymbolicLink()) throw new Error("symbolic links not allowed");
++  if (!st.isFile()) throw new Error("not a regular file");
++  const bytes = fs.readFileSync(full);
++  return { bytes, sha256: crypto.createHash("sha256").update(bytes).digest("hex") };
++}
++
++function run(cmd, args, opts = {}) {
++  return new Promise((resolve) => {
++    const p = spawn(cmd, args, { cwd: WORKSPACE, windowsHide: true, ...opts });
++    let out = "", err = "";
++    p.stdout.on("data", (d) => (out += d));
++    p.stderr.on("data", (d) => (err += d));
++    p.on("close", (code) => resolve({ code, out, err }));
++  });
++}
++
++async function git(args) {
++  const r = await run("git", args);
++  return { ok: r.code === 0, code: r.code, out: r.out.trim(), err: r.err.trim() };
++}
++
++async function applyPatch(patchText) {
++  if (READONLY) throw new Error("server is read-only");
++  if (typeof patchText !== "string" || patchText.length === 0) throw new Error("patch required");
++  if (patchText.length > MAX_PATCH) throw new Error("patch too large");
++  if (/^git\s/i.test(patchText.trim())) throw new Error("shell-style patch not allowed; use unified diff");
++
++  const patchFile = path.join(WORKSPACE, "output", "patch-inbox", `patch-${Date.now()}.patch`);
++  fs.mkdirSync(path.dirname(patchFile), { recursive: true });
++  fs.writeFileSync(patchFile, patchText, "utf8");
++
++  const check = await git(["apply", "--check", "--whitespace=error-all", patchFile]);
++  if (!check.ok) {
++    fs.rmSync(patchFile, { force: true });
++    throw new Error(`git apply --check failed: ${check.err || check.out}`);
++  }
++  const apply = await git(["apply", patchFile]);
++  if (!apply.ok) {
++    fs.rmSync(patchFile, { force: true });
++    throw new Error(`git apply failed: ${apply.err || apply.out}`);
++  }
++  const status = await git(["status", "--short"]);
++  return { applied: true, patchFile: path.relative(WORKSPACE, patchFile), status: status.out };
++}
++
++function send(res, code, body) {
++  const payload = JSON.stringify(body);
++  res.writeHead(code, {
++    "Content-Type": "application/json",
++    "Content-Length": Buffer.byteLength(payload),
++    "Access-Control-Allow-Origin": process.env.APP_SERVER_CORS_ORIGIN ?? "*",
++    "Access-Control-Allow-Headers": "Authorization, Content-Type",
++    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
++  });
++  res.end(payload);
++}
++
++function readBody(req) {
++  return new Promise((resolve, reject) => {
++    let size = 0;
++    const chunks = [];
++    req.on("data", (c) => {
++      size += c.length;
++      if (size > MAX_BODY) { reject(new Error("body too large")); req.destroy(); return; }
++      chunks.push(c);
++    });
++    req.on("end", () => {
++      try { resolve(JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}")); }
++      catch { reject(new Error("invalid JSON")); }
++    });
++    req.on("error", reject);
++  });
++}
++
++function authorize(req, res) {
++  const header = req.headers.authorization ?? "";
++  const match = /^Bearer\s+(.+)$/i.exec(header);
++  if (!match || !safeEqual(match[1], TOKEN)) {
++    send(res, 401, { error: "unauthorized" });
++    return false;
++  }
++  return true;
++}
++
++const server = http.createServer(async (req, res) => {  const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
++  const method = req.method;
++
++  if (method === "OPTIONS") {
++    send(res, 204, {});
++    return;
++  }
++
++  // Health: no auth (probe only)
++  if (method === "GET" && url.pathname === "/api/health") {
++    const gitHead = await git(["rev-parse", "HEAD"]);
++    send(res, 200, {
++      ok: true,
++      workspace: WORKSPACE,
++      readonly: READONLY,
++      head: gitHead.ok ? gitHead.out : "unknown",
++      time: new Date().toISOString(),
++    });
++    return;
++  }
++
++  if (!authorize(req, res)) return;
++
++  try {
++    // GET /api/read?path=...
++    if (method === "GET" && url.pathname === "/api/read") {
++      const { full } = workspaceRelative(url.searchParams.get("path") ?? "");
++      const { bytes, sha256 } = readFileSafe(full);
++      send(res, 200, {
++        path: url.searchParams.get("path"),
++        bytes: bytes.byteLength,
++        sha256,
++        content: bytes.toString("utf8"),
++      });
++      return;
++    }
++
++    // GET /api/status — git status --short
++    if (method === "GET" && url.pathname === "/api/status") {
++      const status = await git(["status", "--short"]);
++      send(res, 200, { ok: status.ok, status: status.out, head: (await git(["rev-parse", "HEAD"])).out });
++      return;
++    }
++
++    // POST /api/apply — { patch: "<unified diff>" }  (dry_run: true to check only)
++    if (method === "POST" && url.pathname === "/api/apply") {
++      const body = await readBody(req);
++      if (body.dry_run) {
++        const patchFile = path.join(WORKSPACE, "output", "patch-inbox", `dryrun-${Date.now()}.patch`);
++        fs.mkdirSync(path.dirname(patchFile), { recursive: true });
++        fs.writeFileSync(patchFile, String(body.patch ?? ""), "utf8");
++        const check = await git(["apply", "--check", patchFile]);
++        fs.rmSync(patchFile, { force: true });
++        send(res, check.ok ? 200 : 422, { dry_run: true, ok: check.ok, error: check.ok ? null : (check.err || check.out) });
++        return;
++      }
++      const result = await applyPatch(String(body.patch ?? ""));
++      send(res, 200, result);
++      return;
++    }
++
++    // POST /api/commit — { message, files?: [...] }  (commits staged/working changes)
++    if (method === "POST" && url.pathname === "/api/commit") {
++      if (READONLY) throw new Error("server is read-only");
++      const body = await readBody(req);
++      const message = String(body.message ?? "").trim();
++      if (!message) throw new Error("commit message required");
++      if (message.length > 500) throw new Error("commit message too long");
++      const add = await git(["add", "-A"]);
++      if (!add.ok) throw new Error(`git add failed: ${add.err}`);
++      const commit = await git(["commit", "-m", message]);
++      send(res, commit.ok ? 200 : 400, {
++        ok: commit.ok,
++        head: (await git(["rev-parse", "HEAD"])).out,
++        error: commit.ok ? null : commit.out || commit.err,
++      });
++      return;
++    }
++
++    // POST /api/revert — revert the last local commit (bounded rescue)
++    if (method === "POST" && url.pathname === "/api/revert") {
++      if (READONLY) throw new Error("server is read-only");
++      const revert = await git(["reset", "--soft", "HEAD~1"]);
++      send(res, revert.ok ? 200 : 400, {
++        ok: revert.ok,
++        head: (await git(["rev-parse", "HEAD"])).out,
++        error: revert.ok ? null : revert.err || revert.out,
++      });
++      return;
++    }
++
++    send(res, 404, { error: "not found" });
++  } catch (error) {
++    send(res, 400, { error: error.message });
++  }
++});
++
++server.listen(PORT, "127.0.0.1", () => {
++  console.log(`[app-server] listening on http://127.0.0.1:${PORT}`);
++  console.log(`[app-server] workspace: ${WORKSPACE}`);
++  console.log(`[app-server] readonly: ${READONLY}`);
++  console.log(`[app-server] endpoints: /api/health /api/read /api/status /api/apply /api/commit /api/revert`);
++});
++
++process.on("uncaughtException", (error) => {
++  console.error("[app-server] uncaughtException:", error.message);
++});
++process.on("unhandledRejection", (error) => {
++  console.error("[app-server] unhandledRejection:", error?.message ?? error);
++});
+diff --git a/tools/app-server/start.ps1 b/tools/app-server/start.ps1
+new file mode 100644
+index 0000000..3f2b577
+--- /dev/null
++++ b/tools/app-server/start.ps1
+@@ -0,0 +1,41 @@
++﻿# Start the perfume-chem App Server (Option A local write backend).
++# Reads APP_SERVER_TOKEN from tools/app-server/.env if present, else generates+stores one.
++$ErrorActionPreference = "Stop"
++$here = Split-Path -Parent $MyInvocation.MyCommand.Path
++$envFile = Join-Path $here ".env"
++
++# Ensure a token exists (persisted in .env, gitignored)
++$token = $null
++if (Test-Path -LiteralPath $envFile) {
++    $line = Get-Content -LiteralPath $envFile | Where-Object { $_ -match "^APP_SERVER_TOKEN=" } | Select-Object -First 1
++    if ($line) { $token = ($line -replace "^APP_SERVER_TOKEN=", "").Trim() }
++}
++if (-not $token) {
++    $token = "app_" + ([guid]::NewGuid().ToString("N"))
++    Set-Content -LiteralPath $envFile -Value "APP_SERVER_TOKEN=$token" -Encoding UTF8
++    Write-Output "Generated new APP_SERVER_TOKEN (saved to $envFile)"
++}
++
++$root = (Resolve-Path (Join-Path $here "..\..")).Path
++$env:APP_SERVER_ROOT = $root
++$env:APP_SERVER_TOKEN = $token
++$env:APP_SERVER_PORT = "4519"
++
++# Kill any stale instance on the port
++Get-CimInstance Win32_Process -Filter "Name = 'node.exe'" -ErrorAction SilentlyContinue |
++    Where-Object { $_.CommandLine -match "tools[\\/]app-server[\\/]server\.mjs" } |
++    ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
++
++$p = Start-Process -FilePath "C:\Program Files\nodejs\node.exe" `
++    -ArgumentList @("tools\app-server\server.mjs") `
++    -WorkingDirectory $root -WindowStyle Hidden -PassThru
++Start-Sleep -Seconds 2
++
++try {
++    $h = Invoke-WebRequest -Uri "http://127.0.0.1:4519/api/health" -UseBasicParsing -TimeoutSec 5
++    Write-Output "APP SERVER UP: $($h.Content)"
++    Write-Output "TOKEN (for ChatGPT/scripts): $token"
++} catch {
++    Write-Output "APP SERVER FAILED TO START: $($_.Exception.Message)"
++    exit 1
++}
+diff --git a/tools/mcp-filesystem/SETUP.md b/tools/mcp-filesystem/SETUP.md
+new file mode 100644
+index 0000000..f53665f
+--- /dev/null
++++ b/tools/mcp-filesystem/SETUP.md
+@@ -0,0 +1,76 @@
++# Secure MCP Tunnel — browser ChatGPT Pro edits perfume-chem files without GitHub
++
++**Why this path:** when Codex credits run out, browser ChatGPT Pro can still edit the repo
++on this machine through a private tunnel to a local scoped filesystem MCP server. No GitHub,
++no Codex tokens — ChatGPT plan + a free tunnel.
++
++## What was already built (this repo)
++
++| Artifact | Path | Purpose |
++|---|---|---|
++| Filesystem MCP server | `tools/mcp-filesystem/server.mjs` | read_file / write_file / edit_file / list_dir / search_text / file_info, scoped to `D:\chatbots\perfume-chem` |
++| MCP SDK deps | `tools/mcp-filesystem/node_modules` | `@modelcontextprotocol/sdk` (installed) |
++| Tunnel profile | `%USERPROFILE%\.config\tunnel-client\perfume-chem-fs.yaml` | wires the MCP server into tunnel-client |
++| Start script | `tools/mcp-filesystem/start_tunnel.ps1` | validates profile + starts detached daemon |
++| Check script | `tools/mcp-filesystem/check_tunnel.ps1` | healthz / readyz / doctor |
++| Local test harness | (temp) | verified all 6 tools + escape rejection end-to-end |
++
++Security model (tested): workspace-relative paths only; absolute paths and `..` escapes
++rejected; symlinks never followed; writes are exact-byte with SHA-256; optional read-only
++mode via `FS_MCP_READONLY=1`.
++
++## Step 1 — Create the Tunnel (you, in Platform settings)
++
++1. Open https://platform.openai.com/settings/organization/tunnels
++2. Create a tunnel (any name, e.g. `perfume-chem-fs`)
++3. Copy the **tunnel ID** (format `tunnel_<32 hex>`)
++4. Edit `%USERPROFILE%\.config\tunnel-client\perfume-chem-fs.yaml` and replace
++   `tunnel_00000000000000000000000000000000` with your real ID
++
++## Step 2 — Create a Runtime API key (you)
++
++1. Open https://platform.openai.com/settings/organization/api-keys
++2. Create a runtime key (scoped, Tunnels Read + Use)
++3. Set it in the environment (permanent):
++   ```powershell
++   [Environment]::SetEnvironmentVariable("CONTROL_PLANE_API_KEY", "sk-...", "User")
++   ```
++   (then open a new terminal)
++
++## Step 3 — Start the tunnel
++
++```powershell
++.\tools\mcp-filesystem\start_tunnel.ps1
++.\tools\mcp-filesystem\check_tunnel.ps1   # expect healthz/readyz OK
++```
++
++Local admin UI: http://127.0.0.1:8080/ui
++
++## Step 4 — Connect browser ChatGPT Pro
++
++1. Open https://chatgpt.com/plugins → **+** → create a developer-mode app
++2. Connection: **Tunnel** → select the `perfume-chem-fs` tunnel
++3. Name it (e.g. "Perfume Chem FS"), save
++4. In ChatGPT, start a chat in **Work**, select the app, and prompt e.g.:
++   > "Use the Perfume Chem FS app: read `inventory.txt` line 194, then edit
++   > `formulas/example.md` replacing X with Y, and report the new SHA-256."
++
++## Step 5 — When Codex credits return
++
++Stop the tunnel when not needed:
++```powershell
++Get-Process tunnel-client -ErrorAction SilentlyContinue | Stop-Process -Force
++```
++
++## Troubleshooting
++
++- `doctor` fails auth → CONTROL_PLANE_API_KEY wrong/missing or tunnel not associated with your
++  workspace (Platform org vs ChatGPT workspace association).
++- Tunnel not listed in ChatGPT → the tunnel must be associated with the ChatGPT workspace,
++  and your account needs Tunnels Read + Use; Enterprise/Edu may require developer-mode access.
++- MCP tool errors → run the local test harness again to confirm the server itself is healthy
++  (the tunnel only transports; the server does the file work).
++- Want read-only guardrails → set `FS_MCP_READONLY: "1"` in the profile's mcp.command env.
++
++Sources: OpenAI Codex docs (Codex cloud / Remote / web surfaces), Secure MCP Tunnel guide
++(developers.openai.com/api/docs/guides/secure-mcp-tunnels), tunnel-client v0.0.11.
+diff --git a/tools/mcp-filesystem/check_tunnel.ps1 b/tools/mcp-filesystem/check_tunnel.ps1
+new file mode 100644
+index 0000000..eb3375e
+--- /dev/null
++++ b/tools/mcp-filesystem/check_tunnel.ps1
+@@ -0,0 +1,20 @@
++# Check the perfume-chem filesystem MCP tunnel health + readiness.
++$ErrorActionPreference = "Continue"
++Write-Output "=== tunnel-client health/readyz ==="
++try {
++    $h = Invoke-WebRequest -Uri "http://127.0.0.1:8080/healthz" -UseBasicParsing -TimeoutSec 5
++    Write-Output "healthz: $($h.StatusCode) $($h.Content)"
++} catch { Write-Output "healthz: NOT REACHABLE — daemon not running?" }
++try {
++    $r = Invoke-WebRequest -Uri "http://127.0.0.1:8080/readyz" -UseBasicParsing -TimeoutSec 5
++    Write-Output "readyz:  $($r.StatusCode) $($r.Content)"
++} catch { Write-Output "readyz:  NOT REACHABLE" }
++
++Write-Output ""
++Write-Output "=== doctor (profile validation) ==="
++$tc = "C:\Users\ASUS\AppData\Local\OpenCode\profiles\perfume-chem\tmp\opencode\tunnel-client\tunnel-client.exe"
++if (Test-Path -LiteralPath $tc) {
++    & $tc doctor --profile perfume-chem-fs --explain 2>&1 | Select-Object -First 25
++} else {
++    Write-Output "tunnel-client.exe not found"
++}
+diff --git a/tools/mcp-filesystem/package-lock.json b/tools/mcp-filesystem/package-lock.json
+new file mode 100644
+index 0000000..6fb98ce
+--- /dev/null
++++ b/tools/mcp-filesystem/package-lock.json
+@@ -0,0 +1,1178 @@
++{
++  "name": "perfume-chem-fs-mcp",
++  "version": "1.0.0",
++  "lockfileVersion": 3,
++  "requires": true,
++  "packages": {
++    "": {
++      "name": "perfume-chem-fs-mcp",
++      "version": "1.0.0",
++      "dependencies": {
++        "@modelcontextprotocol/sdk": "^1.0.0"
++      }
++    },
++    "node_modules/@hono/node-server": {
++      "version": "2.1.0",
++      "resolved": "https://registry.npmjs.org/@hono/node-server/-/node-server-2.1.0.tgz",
++      "integrity": "sha512-XovyyCCnBzW+zKu+z/zq8hwNs4KOR5rEMAOxo2f40Q5xoOI37IMm6MIg2COOUtUApo0i6850MTBKH2u4QLGIqg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=20"
++      },
++      "peerDependencies": {
++        "hono": "^4"
++      }
++    },
++    "node_modules/@modelcontextprotocol/sdk": {
++      "version": "1.30.0",
++      "resolved": "https://registry.npmjs.org/@modelcontextprotocol/sdk/-/sdk-1.30.0.tgz",
++      "integrity": "sha512-xKd8OIzlqNzcqcNumGAa6g+PW2kjD5vrpcKOnfldAUPP3j7lnqMPwlTXQm8gF+UwH72z0lqaRbjr9hqGz0eITA==",
++      "license": "MIT",
++      "dependencies": {
++        "@hono/node-server": "^1.19.9 || ^2.0.5",
++        "ajv": "^8.17.1",
++        "ajv-formats": "^3.0.1",
++        "content-type": "^1.0.5",
++        "cors": "^2.8.5",
++        "cross-spawn": "^7.0.5",
++        "eventsource": "^3.0.2",
++        "eventsource-parser": "^3.0.0",
++        "express": "^5.2.1",
++        "express-rate-limit": "^8.2.1",
++        "hono": "^4.11.4",
++        "jose": "^6.1.3",
++        "json-schema-typed": "^8.0.2",
++        "pkce-challenge": "^5.0.0",
++        "raw-body": "^3.0.0",
++        "zod": "^3.25 || ^4.0",
++        "zod-to-json-schema": "^3.25.1"
++      },
++      "engines": {
++        "node": ">=18"
++      },
++      "peerDependencies": {
++        "@cfworker/json-schema": "^4.1.1",
++        "zod": "^3.25 || ^4.0"
++      },
++      "peerDependenciesMeta": {
++        "@cfworker/json-schema": {
++          "optional": true
++        },
++        "zod": {
++          "optional": false
++        }
++      }
++    },
++    "node_modules/accepts": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz",
++      "integrity": "sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==",
++      "license": "MIT",
++      "dependencies": {
++        "mime-types": "^3.0.0",
++        "negotiator": "^1.0.0"
++      },
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/ajv": {
++      "version": "8.20.0",
++      "resolved": "https://registry.npmjs.org/ajv/-/ajv-8.20.0.tgz",
++      "integrity": "sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==",
++      "license": "MIT",
++      "dependencies": {
++        "fast-deep-equal": "^3.1.3",
++        "fast-uri": "^3.0.1",
++        "json-schema-traverse": "^1.0.0",
++        "require-from-string": "^2.0.2"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/epoberezkin"
++      }
++    },
++    "node_modules/ajv-formats": {
++      "version": "3.0.1",
++      "resolved": "https://registry.npmjs.org/ajv-formats/-/ajv-formats-3.0.1.tgz",
++      "integrity": "sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==",
++      "license": "MIT",
++      "dependencies": {
++        "ajv": "^8.0.0"
++      },
++      "peerDependencies": {
++        "ajv": "^8.0.0"
++      },
++      "peerDependenciesMeta": {
++        "ajv": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/body-parser": {
++      "version": "2.3.0",
++      "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz",
++      "integrity": "sha512-2cGmJupaNgg+QUwVLAucDuWuoMZ6EX9iHDRswZ5lsNYEmwPaRknMPCLZz07yTzVq/83p4o/wzbDZbBrTvGGTIw==",
++      "license": "MIT",
++      "dependencies": {
++        "bytes": "^3.1.2",
++        "content-type": "^2.0.0",
++        "debug": "^4.4.3",
++        "http-errors": "^2.0.1",
++        "iconv-lite": "^0.7.2",
++        "on-finished": "^2.4.1",
++        "qs": "^6.15.2",
++        "raw-body": "^3.0.2",
++        "type-is": "^2.1.0"
++      },
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/body-parser/node_modules/content-type": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/content-type/-/content-type-2.0.0.tgz",
++      "integrity": "sha512-j/O/d7GcZCyNl7/hwZAb606rzqkyvaDctLmckbxLzHvFBzTJHuGEdodATcP3yIRoDrLHkIATJuvzbFlp/ki2cQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/bytes": {
++      "version": "3.1.2",
++      "resolved": "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz",
++      "integrity": "sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/call-bind-apply-helpers": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/call-bind-apply-helpers/-/call-bind-apply-helpers-1.0.2.tgz",
++      "integrity": "sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==",
++      "license": "MIT",
++      "dependencies": {
++        "es-errors": "^1.3.0",
++        "function-bind": "^1.1.2"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/call-bound": {
++      "version": "1.0.4",
++      "resolved": "https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz",
++      "integrity": "sha512-+ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==",
++      "license": "MIT",
++      "dependencies": {
++        "call-bind-apply-helpers": "^1.0.2",
++        "get-intrinsic": "^1.3.0"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/content-disposition": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz",
++      "integrity": "sha512-5jRCH9Z/+DRP7rkvY83B+yGIGX96OYdJmzngqnw2SBSxqCFPd0w2km3s5iawpGX8krnwSGmF0FW5Nhr0Hfai3g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/content-type": {
++      "version": "1.0.5",
++      "resolved": "https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz",
++      "integrity": "sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/cookie": {
++      "version": "0.7.2",
++      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
++      "integrity": "sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/cookie-signature": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz",
++      "integrity": "sha512-D76uU73ulSXrD1UXF4KE2TMxVVwhsnCgfAyTg9k8P6KGZjlXKrOLe4dJQKI3Bxi5wjesZoFXJWElNWBjPZMbhg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=6.6.0"
++      }
++    },
++    "node_modules/cors": {
++      "version": "2.8.6",
++      "resolved": "https://registry.npmjs.org/cors/-/cors-2.8.6.tgz",
++      "integrity": "sha512-tJtZBBHA6vjIAaF6EnIaq6laBBP9aq/Y3ouVJjEfoHbRBcHBAHYcMh/w8LDrk2PvIMMq8gmopa5D4V8RmbrxGw==",
++      "license": "MIT",
++      "dependencies": {
++        "object-assign": "^4",
++        "vary": "^1"
++      },
++      "engines": {
++        "node": ">= 0.10"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/cross-spawn": {
++      "version": "7.0.6",
++      "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
++      "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
++      "license": "MIT",
++      "dependencies": {
++        "path-key": "^3.1.0",
++        "shebang-command": "^2.0.0",
++        "which": "^2.0.1"
++      },
++      "engines": {
++        "node": ">= 8"
++      }
++    },
++    "node_modules/debug": {
++      "version": "4.4.3",
++      "resolved": "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz",
++      "integrity": "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==",
++      "license": "MIT",
++      "dependencies": {
++        "ms": "^2.1.3"
++      },
++      "engines": {
++        "node": ">=6.0"
++      },
++      "peerDependenciesMeta": {
++        "supports-color": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/depd": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/depd/-/depd-2.0.0.tgz",
++      "integrity": "sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/dunder-proto": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz",
++      "integrity": "sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==",
++      "license": "MIT",
++      "dependencies": {
++        "call-bind-apply-helpers": "^1.0.1",
++        "es-errors": "^1.3.0",
++        "gopd": "^1.2.0"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/ee-first": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",
++      "integrity": "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==",
++      "license": "MIT"
++    },
++    "node_modules/encodeurl": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz",
++      "integrity": "sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/es-define-property": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.1.tgz",
++      "integrity": "sha512-e3nRfgfUZ4rNGL232gUgX06QNyyez04KdjFrF+LTRoOXmrOgFKDg4BCdsjW8EnT69eqdYGmRpJwiPVYNrCaW3g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/es-errors": {
++      "version": "1.3.0",
++      "resolved": "https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz",
++      "integrity": "sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/es-object-atoms": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.2.tgz",
++      "integrity": "sha512-HWcBoN6NileqtSydK2FqHbS/LoDd2pqrnQHLyJzBj4kOp/ky2MWMN694xOfkK8/SnUsW2DH7EfyVlydKCsm1Zw==",
++      "license": "MIT",
++      "dependencies": {
++        "es-errors": "^1.3.0"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/escape-html": {
++      "version": "1.0.3",
++      "resolved": "https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz",
++      "integrity": "sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==",
++      "license": "MIT"
++    },
++    "node_modules/etag": {
++      "version": "1.8.1",
++      "resolved": "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz",
++      "integrity": "sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/eventsource": {
++      "version": "3.0.7",
++      "resolved": "https://registry.npmjs.org/eventsource/-/eventsource-3.0.7.tgz",
++      "integrity": "sha512-CRT1WTyuQoD771GW56XEZFQ/ZoSfWid1alKGDYMmkt2yl8UXrVR4pspqWNEcqKvVIzg6PAltWjxcSSPrboA4iA==",
++      "license": "MIT",
++      "dependencies": {
++        "eventsource-parser": "^3.0.1"
++      },
++      "engines": {
++        "node": ">=18.0.0"
++      }
++    },
++    "node_modules/eventsource-parser": {
++      "version": "3.1.0",
++      "resolved": "https://registry.npmjs.org/eventsource-parser/-/eventsource-parser-3.1.0.tgz",
++      "integrity": "sha512-kJezFj9YFAMLeORyi7aCLxLbD5/qWMQnoMVlVPyHIll7lgRJCc3JVln9Vgl9nwQi0YkMnhdGTMNn7CkRRAptMg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18.0.0"
++      }
++    },
++    "node_modules/express": {
++      "version": "5.2.1",
++      "resolved": "https://registry.npmjs.org/express/-/express-5.2.1.tgz",
++      "integrity": "sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==",
++      "license": "MIT",
++      "dependencies": {
++        "accepts": "^2.0.0",
++        "body-parser": "^2.2.1",
++        "content-disposition": "^1.0.0",
++        "content-type": "^1.0.5",
++        "cookie": "^0.7.1",
++        "cookie-signature": "^1.2.1",
++        "debug": "^4.4.0",
++        "depd": "^2.0.0",
++        "encodeurl": "^2.0.0",
++        "escape-html": "^1.0.3",
++        "etag": "^1.8.1",
++        "finalhandler": "^2.1.0",
++        "fresh": "^2.0.0",
++        "http-errors": "^2.0.0",
++        "merge-descriptors": "^2.0.0",
++        "mime-types": "^3.0.0",
++        "on-finished": "^2.4.1",
++        "once": "^1.4.0",
++        "parseurl": "^1.3.3",
++        "proxy-addr": "^2.0.7",
++        "qs": "^6.14.0",
++        "range-parser": "^1.2.1",
++        "router": "^2.2.0",
++        "send": "^1.1.0",
++        "serve-static": "^2.2.0",
++        "statuses": "^2.0.1",
++        "type-is": "^2.0.1",
++        "vary": "^1.1.2"
++      },
++      "engines": {
++        "node": ">= 18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/express-rate-limit": {
++      "version": "8.6.2",
++      "resolved": "https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-8.6.2.tgz",
++      "integrity": "sha512-YH4ru+eOJxQABscKFfRCy9R7x9QFGdezclVMwwgFFndzS2Xnm0uo6B0ABZsLhcpeptGv2qvuJVWlQr9gQZoC3A==",
++      "license": "MIT",
++      "dependencies": {
++        "debug": "^4.4.3",
++        "ip-address": "^10.2.0"
++      },
++      "engines": {
++        "node": ">= 16"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/express-rate-limit"
++      },
++      "peerDependencies": {
++        "express": ">= 4.11"
++      }
++    },
++    "node_modules/fast-deep-equal": {
++      "version": "3.1.3",
++      "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",
++      "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
++      "license": "MIT"
++    },
++    "node_modules/fast-uri": {
++      "version": "3.1.5",
++      "resolved": "https://registry.npmjs.org/fast-uri/-/fast-uri-3.1.5.tgz",
++      "integrity": "sha512-gHwA1O9LDIcKunMKhObS/HimwtehO1nPUECKAu5TpKgaO19fcWEl4bliWe1jWxVFvIXztJjjQ4L8XQ1EU9f7Jw==",
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/fastify"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/fastify"
++        }
++      ],
++      "license": "BSD-3-Clause"
++    },
++    "node_modules/finalhandler": {
++      "version": "2.1.1",
++      "resolved": "https://registry.npmjs.org/finalhandler/-/finalhandler-2.1.1.tgz",
++      "integrity": "sha512-S8KoZgRZN+a5rNwqTxlZZePjT/4cnm0ROV70LedRHZ0p8u9fRID0hJUZQpkKLzro8LfmC8sx23bY6tVNxv8pQA==",
++      "license": "MIT",
++      "dependencies": {
++        "debug": "^4.4.0",
++        "encodeurl": "^2.0.0",
++        "escape-html": "^1.0.3",
++        "on-finished": "^2.4.1",
++        "parseurl": "^1.3.3",
++        "statuses": "^2.0.1"
++      },
++      "engines": {
++        "node": ">= 18.0.0"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/forwarded": {
++      "version": "0.2.0",
++      "resolved": "https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz",
++      "integrity": "sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/fresh": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/fresh/-/fresh-2.0.0.tgz",
++      "integrity": "sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/function-bind": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz",
++      "integrity": "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==",
++      "license": "MIT",
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/get-intrinsic": {
++      "version": "1.3.0",
++      "resolved": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz",
++      "integrity": "sha512-9fSjSaos/fRIVIp+xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==",
++      "license": "MIT",
++      "dependencies": {
++        "call-bind-apply-helpers": "^1.0.2",
++        "es-define-property": "^1.0.1",
++        "es-errors": "^1.3.0",
++        "es-object-atoms": "^1.1.1",
++        "function-bind": "^1.1.2",
++        "get-proto": "^1.0.1",
++        "gopd": "^1.2.0",
++        "has-symbols": "^1.1.0",
++        "hasown": "^2.0.2",
++        "math-intrinsics": "^1.1.0"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/get-proto": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/get-proto/-/get-proto-1.0.1.tgz",
++      "integrity": "sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==",
++      "license": "MIT",
++      "dependencies": {
++        "dunder-proto": "^1.0.1",
++        "es-object-atoms": "^1.0.0"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/gopd": {
++      "version": "1.2.0",
++      "resolved": "https://registry.npmjs.org/gopd/-/gopd-1.2.0.tgz",
++      "integrity": "sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/has-symbols": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/has-symbols/-/has-symbols-1.1.0.tgz",
++      "integrity": "sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h+eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/hasown": {
++      "version": "2.0.4",
++      "resolved": "https://registry.npmjs.org/hasown/-/hasown-2.0.4.tgz",
++      "integrity": "sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==",
++      "license": "MIT",
++      "dependencies": {
++        "function-bind": "^1.1.2"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/hono": {
++      "version": "4.13.1",
++      "resolved": "https://registry.npmjs.org/hono/-/hono-4.13.1.tgz",
++      "integrity": "sha512-kdJoFVv2xmayw6cY09H7AbMJMt8Jn5jdlEdXsP7AGBdF2DIptVlKlOLKXP41yPip4/a3yQPv9gVcJYI8YY04dw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=16.9.0"
++      }
++    },
++    "node_modules/http-errors": {
++      "version": "2.0.1",
++      "resolved": "https://registry.npmjs.org/http-errors/-/http-errors-2.0.1.tgz",
++      "integrity": "sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==",
++      "license": "MIT",
++      "dependencies": {
++        "depd": "~2.0.0",
++        "inherits": "~2.0.4",
++        "setprototypeof": "~1.2.0",
++        "statuses": "~2.0.2",
++        "toidentifier": "~1.0.1"
++      },
++      "engines": {
++        "node": ">= 0.8"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/iconv-lite": {
++      "version": "0.7.3",
++      "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.3.tgz",
++      "integrity": "sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==",
++      "license": "MIT",
++      "dependencies": {
++        "safer-buffer": ">= 2.1.2 < 3.0.0"
++      },
++      "engines": {
++        "node": ">=0.10.0"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/inherits": {
++      "version": "2.0.4",
++      "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz",
++      "integrity": "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==",
++      "license": "ISC"
++    },
++    "node_modules/ip-address": {
++      "version": "10.4.0",
++      "resolved": "https://registry.npmjs.org/ip-address/-/ip-address-10.4.0.tgz",
++      "integrity": "sha512-oSK96Grm3aP6OrS263xVxbNDGVL7rzBtYdpGqlDG8iQdoenDoTs/nkki+DflYbAEE8Xl6o5YxhxlrKvI3nqKXQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 12"
++      }
++    },
++    "node_modules/ipaddr.js": {
++      "version": "1.9.1",
++      "resolved": "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz",
++      "integrity": "sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.10"
++      }
++    },
++    "node_modules/is-promise": {
++      "version": "4.0.0",
++      "resolved": "https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz",
++      "integrity": "sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==",
++      "license": "MIT"
++    },
++    "node_modules/isexe": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
++      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
++      "license": "ISC"
++    },
++    "node_modules/jose": {
++      "version": "6.2.8",
++      "resolved": "https://registry.npmjs.org/jose/-/jose-6.2.8.tgz",
++      "integrity": "sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==",
++      "license": "MIT",
++      "funding": {
++        "url": "https://github.com/sponsors/panva"
++      }
++    },
++    "node_modules/json-schema-traverse": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz",
++      "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==",
++      "license": "MIT"
++    },
++    "node_modules/json-schema-typed": {
++      "version": "8.0.2",
++      "resolved": "https://registry.npmjs.org/json-schema-typed/-/json-schema-typed-8.0.2.tgz",
++      "integrity": "sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA==",
++      "license": "BSD-2-Clause"
++    },
++    "node_modules/math-intrinsics": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz",
++      "integrity": "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      }
++    },
++    "node_modules/media-typer": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/media-typer/-/media-typer-1.1.1.tgz",
++      "integrity": "sha512-yz3xRaG20c6/BOzvYoDaGtPmGscs7YivItZEEqe6GbwNfHuxu9YNmvnEkMzKldAGY4/80pRcQRZSEnhquk9XuQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/merge-descriptors": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-2.0.0.tgz",
++      "integrity": "sha512-Snk314V5ayFLhp3fkUREub6WtjBfPdCPY1Ln8/8munuLuiYhsABgBVWsozAG+MWMbVEvcdcpbi9R7ww22l9Q3g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/sindresorhus"
++      }
++    },
++    "node_modules/mime-db": {
++      "version": "1.54.0",
++      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz",
++      "integrity": "sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/mime-types": {
++      "version": "3.0.2",
++      "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz",
++      "integrity": "sha512-Lbgzdk0h4juoQ9fCKXW4by0UJqj+nOOrI9MJ1sSj4nI8aI2eo1qmvQEie4VD1glsS250n15LsWsYtCugiStS5A==",
++      "license": "MIT",
++      "dependencies": {
++        "mime-db": "^1.54.0"
++      },
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/ms": {
++      "version": "2.1.3",
++      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
++      "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
++      "license": "MIT"
++    },
++    "node_modules/negotiator": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-1.0.0.tgz",
++      "integrity": "sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/object-assign": {
++      "version": "4.1.1",
++      "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
++      "integrity": "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
++    "node_modules/object-inspect": {
++      "version": "1.13.4",
++      "resolved": "https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.4.tgz",
++      "integrity": "sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/on-finished": {
++      "version": "2.4.1",
++      "resolved": "https://registry.npmjs.org/on-finished/-/on-finished-2.4.1.tgz",
++      "integrity": "sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==",
++      "license": "MIT",
++      "dependencies": {
++        "ee-first": "1.1.1"
++      },
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/once": {
++      "version": "1.4.0",
++      "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
++      "integrity": "sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==",
++      "license": "ISC",
++      "dependencies": {
++        "wrappy": "1"
++      }
++    },
++    "node_modules/parseurl": {
++      "version": "1.3.3",
++      "resolved": "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz",
++      "integrity": "sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/path-key": {
++      "version": "3.1.1",
++      "resolved": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
++      "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/path-to-regexp": {
++      "version": "8.4.2",
++      "resolved": "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-8.4.2.tgz",
++      "integrity": "sha512-qRcuIdP69NPm4qbACK+aDogI5CBDMi1jKe0ry5rSQJz8JVLsC7jV8XpiJjGRLLol3N+R5ihGYcrPLTno6pAdBA==",
++      "license": "MIT",
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/pkce-challenge": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/pkce-challenge/-/pkce-challenge-5.0.1.tgz",
++      "integrity": "sha512-wQ0b/W4Fr01qtpHlqSqspcj3EhBvimsdh0KlHhH8HRZnMsEa0ea2fTULOXOS9ccQr3om+GcGRk4e+isrZWV8qQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/proxy-addr": {
++      "version": "2.0.7",
++      "resolved": "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.7.tgz",
++      "integrity": "sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==",
++      "license": "MIT",
++      "dependencies": {
++        "forwarded": "0.2.0",
++        "ipaddr.js": "1.9.1"
++      },
++      "engines": {
++        "node": ">= 0.10"
++      }
++    },
++    "node_modules/qs": {
++      "version": "6.15.3",
++      "resolved": "https://registry.npmjs.org/qs/-/qs-6.15.3.tgz",
++      "integrity": "sha512-O9gl3zCl5h5blw1KGUzQKhA5oUXSl8rwUIM5o0S3nCXMliSvy5Dzx7/DJcI+SwgICv+IneSZwhBh1oSyEHA71A==",
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "es-define-property": "^1.0.1",
++        "side-channel": "^1.1.1"
++      },
++      "engines": {
++        "node": ">=0.6"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/range-parser": {
++      "version": "1.3.0",
++      "resolved": "https://registry.npmjs.org/range-parser/-/range-parser-1.3.0.tgz",
++      "integrity": "sha512-hek2mFQpPuI4E1BBKrSto+BU3e3x4xuarsbiwr3+lf7p44juvFMV0XFWQAP3xUyqXA4RrXLIoaSUGbSt056ZMw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/raw-body": {
++      "version": "3.0.2",
++      "resolved": "https://registry.npmjs.org/raw-body/-/raw-body-3.0.2.tgz",
++      "integrity": "sha512-K5zQjDllxWkf7Z5xJdV0/B0WTNqx6vxG70zJE4N0kBs4LovmEYWJzQGxC9bS9RAKu3bgM40lrd5zoLJ12MQ5BA==",
++      "license": "MIT",
++      "dependencies": {
++        "bytes": "~3.1.2",
++        "http-errors": "~2.0.1",
++        "iconv-lite": "~0.7.0",
++        "unpipe": "~1.0.0"
++      },
++      "engines": {
++        "node": ">= 0.10"
++      }
++    },
++    "node_modules/require-from-string": {
++      "version": "2.0.2",
++      "resolved": "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz",
++      "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
++    "node_modules/router": {
++      "version": "2.2.0",
++      "resolved": "https://registry.npmjs.org/router/-/router-2.2.0.tgz",
++      "integrity": "sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==",
++      "license": "MIT",
++      "dependencies": {
++        "debug": "^4.4.0",
++        "depd": "^2.0.0",
++        "is-promise": "^4.0.0",
++        "parseurl": "^1.3.3",
++        "path-to-regexp": "^8.0.0"
++      },
++      "engines": {
++        "node": ">= 18"
++      }
++    },
++    "node_modules/safer-buffer": {
++      "version": "2.1.2",
++      "resolved": "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz",
++      "integrity": "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==",
++      "license": "MIT"
++    },
++    "node_modules/send": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/send/-/send-1.2.1.tgz",
++      "integrity": "sha512-1gnZf7DFcoIcajTjTwjwuDjzuz4PPcY2StKPlsGAQ1+YH20IRVrBaXSWmdjowTJ6u8Rc01PoYOGHXfP1mYcZNQ==",
++      "license": "MIT",
++      "dependencies": {
++        "debug": "^4.4.3",
++        "encodeurl": "^2.0.0",
++        "escape-html": "^1.0.3",
++        "etag": "^1.8.1",
++        "fresh": "^2.0.0",
++        "http-errors": "^2.0.1",
++        "mime-types": "^3.0.2",
++        "ms": "^2.1.3",
++        "on-finished": "^2.4.1",
++        "range-parser": "^1.2.1",
++        "statuses": "^2.0.2"
++      },
++      "engines": {
++        "node": ">= 18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/serve-static": {
++      "version": "2.2.1",
++      "resolved": "https://registry.npmjs.org/serve-static/-/serve-static-2.2.1.tgz",
++      "integrity": "sha512-xRXBn0pPqQTVQiC8wyQrKs2MOlX24zQ0POGaj0kultvoOCstBQM5yvOhAVSUwOMjQtTvsPWoNCHfPGwaaQJhTw==",
++      "license": "MIT",
++      "dependencies": {
++        "encodeurl": "^2.0.0",
++        "escape-html": "^1.0.3",
++        "parseurl": "^1.3.3",
++        "send": "^1.2.0"
++      },
++      "engines": {
++        "node": ">= 18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/setprototypeof": {
++      "version": "1.2.0",
++      "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz",
++      "integrity": "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==",
++      "license": "ISC"
++    },
++    "node_modules/shebang-command": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
++      "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
++      "license": "MIT",
++      "dependencies": {
++        "shebang-regex": "^3.0.0"
++      },
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/shebang-regex": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
++      "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=8"
++      }
++    },
++    "node_modules/side-channel": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/side-channel/-/side-channel-1.1.1.tgz",
++      "integrity": "sha512-6x6dK6zJdpTzF4sQeNYxwtvBzf6Eg4GtlesS94HOvTudUeyK2WXAaIfmDgsyslYrRBeFIlsi54AYsFGUuhmvrQ==",
++      "license": "MIT",
++      "dependencies": {
++        "es-errors": "^1.3.0",
++        "object-inspect": "^1.13.4",
++        "side-channel-list": "^1.0.1",
++        "side-channel-map": "^1.0.1",
++        "side-channel-weakmap": "^1.0.2"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/side-channel-list": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/side-channel-list/-/side-channel-list-1.0.1.tgz",
++      "integrity": "sha512-mjn/0bi/oUURjc5Xl7IaWi/OJJJumuoJFQJfDDyO46+hBWsfaVM65TBHq2eoZBhzl9EchxOijpkbRC8SVBQU0w==",
++      "license": "MIT",
++      "dependencies": {
++        "es-errors": "^1.3.0",
++        "object-inspect": "^1.13.4"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/side-channel-map": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/side-channel-map/-/side-channel-map-1.0.1.tgz",
++      "integrity": "sha512-VCjCNfgMsby3tTdo02nbjtM/ewra6jPHmpThenkTYh8pG9ucZ/1P8So4u4FGBek/BjpOVsDCMoLA/iuBKIFXRA==",
++      "license": "MIT",
++      "dependencies": {
++        "call-bound": "^1.0.2",
++        "es-errors": "^1.3.0",
++        "get-intrinsic": "^1.2.5",
++        "object-inspect": "^1.13.3"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/side-channel-weakmap": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/side-channel-weakmap/-/side-channel-weakmap-1.0.2.tgz",
++      "integrity": "sha512-WPS/HvHQTYnHisLo9McqBHOJk2FkHO/tlpvldyrnem4aeQp4hai3gythswg6p01oSoTl58rcpiFAjF2br2Ak2A==",
++      "license": "MIT",
++      "dependencies": {
++        "call-bound": "^1.0.2",
++        "es-errors": "^1.3.0",
++        "get-intrinsic": "^1.2.5",
++        "object-inspect": "^1.13.3",
++        "side-channel-map": "^1.0.1"
++      },
++      "engines": {
++        "node": ">= 0.4"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
++    "node_modules/statuses": {
++      "version": "2.0.2",
++      "resolved": "https://registry.npmjs.org/statuses/-/statuses-2.0.2.tgz",
++      "integrity": "sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/toidentifier": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz",
++      "integrity": "sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.6"
++      }
++    },
++    "node_modules/type-is": {
++      "version": "2.1.0",
++      "resolved": "https://registry.npmjs.org/type-is/-/type-is-2.1.0.tgz",
++      "integrity": "sha512-faYHw0anBbc/kWF3zFTEnxSFOAGUX9GFbOBthvDdLsIlEoWOFOtS0zgCiQYwIskL9iGXZL3kAXD8OoZ4GmMATA==",
++      "license": "MIT",
++      "dependencies": {
++        "content-type": "^2.0.0",
++        "media-typer": "^1.1.0",
++        "mime-types": "^3.0.0"
++      },
++      "engines": {
++        "node": ">= 18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/type-is/node_modules/content-type": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/content-type/-/content-type-2.0.0.tgz",
++      "integrity": "sha512-j/O/d7GcZCyNl7/hwZAb606rzqkyvaDctLmckbxLzHvFBzTJHuGEdodATcP3yIRoDrLHkIATJuvzbFlp/ki2cQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
++    "node_modules/unpipe": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz",
++      "integrity": "sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/vary": {
++      "version": "1.1.2",
++      "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",
++      "integrity": "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
++    "node_modules/which": {
++      "version": "2.0.2",
++      "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
++      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
++      "license": "ISC",
++      "dependencies": {
++        "isexe": "^2.0.0"
++      },
++      "bin": {
++        "node-which": "bin/node-which"
++      },
++      "engines": {
++        "node": ">= 8"
++      }
++    },
++    "node_modules/wrappy": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
++      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",
++      "license": "ISC"
++    },
++    "node_modules/zod": {
++      "version": "4.4.3",
++      "resolved": "https://registry.npmjs.org/zod/-/zod-4.4.3.tgz",
++      "integrity": "sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==",
++      "license": "MIT",
++      "funding": {
++        "url": "https://github.com/sponsors/colinhacks"
++      }
++    },
++    "node_modules/zod-to-json-schema": {
++      "version": "3.25.2",
++      "resolved": "https://registry.npmjs.org/zod-to-json-schema/-/zod-to-json-schema-3.25.2.tgz",
++      "integrity": "sha512-O/PgfnpT1xKSDeQYSCfRI5Gy3hPf91mKVDuYLUHZJMiDFptvP41MSnWofm8dnCm0256ZNfZIM7DSzuSMAFnjHA==",
++      "license": "ISC",
++      "peerDependencies": {
++        "zod": "^3.25.28 || ^4"
++      }
++    }
++  }
++}
+diff --git a/tools/mcp-filesystem/package.json b/tools/mcp-filesystem/package.json
+new file mode 100644
+index 0000000..62b9d1f
+--- /dev/null
++++ b/tools/mcp-filesystem/package.json
+@@ -0,0 +1,14 @@
++{
++  "name": "perfume-chem-fs-mcp",
++  "version": "1.0.0",
++  "private": true,
++  "type": "module",
++  "description": "Scoped filesystem MCP server for D:\\chatbots\\perfume-chem — lets browser ChatGPT Pro / Codex read and write repo files through the Secure MCP Tunnel without GitHub.",
++  "main": "server.mjs",
++  "scripts": {
++    "start": "node server.mjs"
++  },
++  "dependencies": {
++    "@modelcontextprotocol/sdk": "^1.0.0"
++  }
++}
+diff --git a/tools/mcp-filesystem/run-server.cmd b/tools/mcp-filesystem/run-server.cmd
+new file mode 100644
+index 0000000..4b5c4a0
+--- /dev/null
++++ b/tools/mcp-filesystem/run-server.cmd
+@@ -0,0 +1,5 @@
++@echo off
++rem Launcher for the perfume-chem scoped filesystem MCP server (used by tunnel-client).
++rem tunnel-client's stdio command field takes a single executable path; this wrapper
++rem carries the node + script arguments so the YAML stays schema-valid.
++"C:\Program Files\nodejs\node.exe" "D:\chatbots\perfume-chem\tools\mcp-filesystem\server.mjs" %*
+diff --git a/tools/mcp-filesystem/server.mjs b/tools/mcp-filesystem/server.mjs
+new file mode 100644
+index 0000000..a18604e
+--- /dev/null
++++ b/tools/mcp-filesystem/server.mjs
+@@ -0,0 +1,287 @@
++// Scoped filesystem MCP server for perfume-chem.
++// Lets browser ChatGPT Pro / Codex read+write repo files through the Secure MCP Tunnel
++// without GitHub. Security model mirrors the delegation daemon:
++//  - ALL paths are workspace-relative; absolute paths and escapes are rejected.
++//  - Writes are exact-byte with SHA-256 verification returned to the caller.
++//  - No shell execution. No symlink traversal out of the workspace.
++//  - Optional read-only mode via FS_MCP_READONLY=1.
++import { Server } from "@modelcontextprotocol/sdk/server/index.js";
++import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
++import {
++  CallToolRequestSchema,
++  ListToolsRequestSchema,
++} from "@modelcontextprotocol/sdk/types.js";
++import fs from "node:fs";
++import path from "node:path";
++import crypto from "node:crypto";
++
++const WORKSPACE = process.env.FS_MCP_ROOT
++  ? path.resolve(process.env.FS_MCP_ROOT)
++  : path.resolve(process.cwd());
++const READONLY = process.env.FS_MCP_READONLY === "1";
++const MAX_READ_BYTES = Number(process.env.FS_MCP_MAX_READ_BYTES ?? 2_000_000);
++const MAX_WRITE_BYTES = Number(process.env.FS_MCP_MAX_WRITE_BYTES ?? 1_000_000);
++
++function normalizeAllowedPath(rel) {
++  if (typeof rel !== "string" || rel.length === 0) {
++    throw new Error("path must be a non-empty string");
++  }
++  if (path.isAbsolute(rel)) {
++    throw new Error(`absolute paths are not allowed: ${rel}`);
++  }
++  const normalized = path.normalize(rel);
++  if (normalized.startsWith("..") || normalized.includes(`..${path.sep}`) || normalized === "..") {
++    throw new Error(`path escapes the workspace: ${rel}`);
++  }
++  const full = path.resolve(WORKSPACE, normalized);
++  if (full !== WORKSPACE && !full.startsWith(WORKSPACE + path.sep)) {
++    throw new Error(`path escapes the workspace: ${rel}`);
++  }
++  return { rel: normalized, full };
++}
++
++function lstatNoFollow(full) {
++  try {
++    return fs.lstatSync(full);
++  } catch {
++    return null;
++  }
++}
++
++function assertRegularFile(full) {
++  const st = lstatNoFollow(full);
++  if (!st) throw new Error("file does not exist");
++  if (st.isSymbolicLink()) throw new Error("symbolic links are not allowed");
++  if (!st.isFile()) throw new Error("not a regular file");
++  return st;
++}
++
++function sha256Hex(bytes) {
++  return crypto.createHash("sha256").update(bytes).digest("hex");
++}
++
++async function listDirTree(full, depthLeft, results, prefix) {
++  const st = lstatNoFollow(full);
++  if (!st) return;
++  if (st.isSymbolicLink()) return; // never traverse links
++  if (st.isDirectory()) {
++    results.push({ path: prefix || ".", type: "directory", size: null });
++    if (depthLeft <= 0) return;
++    const entries = fs.readdirSync(full).sort();
++    for (const entry of entries) {
++      const childFull = path.join(full, entry);
++      const childPrefix = prefix ? `${prefix}/${entry}` : entry;
++      await listDirTree(childFull, depthLeft - 1, results, childPrefix);
++    }
++  } else if (st.isFile()) {
++    results.push({ path: prefix || ".", type: "file", size: st.size });
++  }
++}
++
++const server = new Server(
++  { name: "perfume-chem-fs-mcp", version: "1.0.0" },
++  { capabilities: { tools: {} } },
++);
++
++server.setRequestHandler(ListToolsRequestSchema, async () => ({
++  tools: [
++    {
++      name: "read_file",
++      description: `Read a workspace-relative file (up to ${MAX_READ_BYTES} bytes). Returns content, line count, and SHA-256. Paths must be relative to the workspace root.`,
++      inputSchema: {
++        type: "object",
++        properties: {
++          path: { type: "string", description: "workspace-relative file path" },
++          start_line: { type: "integer", description: "optional 1-based start line" },
++          end_line: { type: "integer", description: "optional 1-based end line" },
++        },
++        required: ["path"],
++      },
++    },
++    {
++      name: "list_dir",
++      description: "List a workspace-relative directory tree (depth limited).",
++      inputSchema: {
++        type: "object",
++        properties: {
++          path: { type: "string", description: "workspace-relative directory (default .)" },
++          depth: { type: "integer", description: "max depth, default 2" },
++        },
++        required: [],
++      },
++    },
++    {
++      name: "search_text",
++      description: "Case-sensitive text search over workspace files (line-oriented, no regex).",
++      inputSchema: {
++        type: "object",
++        properties: {
++          needle: { type: "string", description: "exact text to find" },
++          path: { type: "string", description: "workspace-relative dir to search (default .)" },
++          max_matches: { type: "integer", description: "default 50" },
++        },
++        required: ["needle"],
++      },
++    },
++    {
++      name: "write_file",
++      description: `Write EXACT bytes to a workspace-relative file (up to ${MAX_WRITE_BYTES} bytes). Overwrites or creates. Returns SHA-256 + byte length. Use for new files or full rewrites.`,
++      inputSchema: {
++        type: "object",
++        properties: {
++          path: { type: "string" },
++          content: { type: "string", description: "exact file content" },
++        },
++        required: ["path", "content"],
++      },
++    },
++    {
++      name: "edit_file",
++      description: "Replace the FIRST occurrence of old_text with new_text in a workspace-relative file. old_text must be non-empty and present exactly once.",
++      inputSchema: {
++        type: "object",
++        properties: {
++          path: { type: "string" },
++          old_text: { type: "string", minLength: 1 },
++          new_text: { type: "string" },
++        },
++        required: ["path", "old_text", "new_text"],
++      },
++    },
++    {
++      name: "file_info",
++      description: "Return size, mtime, and SHA-256 for a workspace-relative file.",
++      inputSchema: {
++        type: "object",
++        properties: { path: { type: "string" } },
++        required: ["path"],
++      },
++    },
++  ],
++}));
++
++server.setRequestHandler(CallToolRequestSchema, async (request) => {
++  const { name, arguments: args } = request.params;
++  try {
++    switch (name) {
++      case "read_file": {
++        const { rel, full } = normalizeAllowedPath(args.path);
++        assertRegularFile(full);
++        const bytes = fs.readFileSync(full);
++        if (bytes.byteLength > MAX_READ_BYTES) {
++          throw new Error(`file exceeds ${MAX_READ_BYTES} byte read limit`);
++        }
++        const text = bytes.toString("utf8");
++        const lines = text.split("\n");
++        const start = args.start_line ?? 1;
++        const end = args.end_line ?? lines.length;
++        const slice = lines.slice(Math.max(0, start - 1), Math.min(lines.length, end)).join("\n");
++        return {
++          content: [{ type: "text", text: JSON.stringify({
++            path: rel,
++            total_lines: lines.length,
++            start_line: start,
++            end_line: Math.min(end, lines.length),
++            sha256: sha256Hex(bytes),
++            bytes: bytes.byteLength,
++            content: slice,
++          }, null, 2) }],
++        };
++      }
++      case "list_dir": {
++        const rel = args.path ?? ".";
++        const { full } = normalizeAllowedPath(rel);
++        const st = lstatNoFollow(full);
++        if (!st || !st.isDirectory()) throw new Error("directory does not exist");
++        const results = [];
++        await listDirTree(full, Number(args.depth ?? 2), results, rel === "." ? "." : rel);
++        return { content: [{ type: "text", text: JSON.stringify({ path: rel, entries: results }, null, 2) }] };
++      }
++      case "search_text": {
++        const needle = String(args.needle);
++        const rel = args.path ?? ".";
++        const { full } = normalizeAllowedPath(rel);
++        const maxMatches = Number(args.max_matches ?? 50);
++        const matches = [];
++        const walk = (dir) => {
++          const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
++          for (const entry of entries) {
++            if (entry.name === ".git" || entry.name === "node_modules" || entry.name === ".venv") continue;
++            const child = path.join(dir, entry.name);
++            if (entry.isSymbolicLink()) continue;
++            if (entry.isDirectory()) walk(child);
++            else if (entry.isFile() && child.endsWith(".md") || entry.isFile() && child.endsWith(".py") || entry.isFile() && child.endsWith(".js") || entry.isFile() && child.endsWith(".mjs") || entry.isFile() && child.endsWith(".json") || entry.isFile() && child.endsWith(".txt") || entry.isFile() && child.endsWith(".yaml") || entry.isFile() && child.endsWith(".toml")) {
++              if (matches.length >= maxMatches) return;
++              const lines = fs.readFileSync(child, "utf8").split("\n");
++              for (let i = 0; i < lines.length; i++) {
++                if (lines[i].includes(needle)) {
++                  matches.push({ file: path.relative(WORKSPACE, child).replace(/\\/g, "/"), line: i + 1, text: lines[i].slice(0, 300) });
++                  if (matches.length >= maxMatches) return;
++                }
++              }
++            }
++          }
++        };
++        walk(full);
++        return { content: [{ type: "text", text: JSON.stringify({ needle, matches }, null, 2) }] };
++      }
++      case "write_file": {
++        if (READONLY) throw new Error("server is read-only");
++        const { rel, full } = normalizeAllowedPath(args.path);
++        const bytes = Buffer.from(String(args.content), "utf8");
++        if (bytes.byteLength > MAX_WRITE_BYTES) throw new Error(`write exceeds ${MAX_WRITE_BYTES} byte limit`);
++        const existing = lstatNoFollow(full);
++        if (existing?.isSymbolicLink()) throw new Error("symbolic links are not allowed");
++        fs.mkdirSync(path.dirname(full), { recursive: true });
++        fs.writeFileSync(full, bytes);
++        return {
++          content: [{ type: "text", text: JSON.stringify({
++            path: rel, bytes: bytes.byteLength, sha256: sha256Hex(bytes), written: true,
++          }, null, 2) }],
++        };
++      }
++      case "edit_file": {
++        if (READONLY) throw new Error("server is read-only");
++        const { rel, full } = normalizeAllowedPath(args.path);
++        assertRegularFile(full);
++        const oldText = String(args.old_text);
++        const newText = String(args.new_text);
++        if (oldText.length === 0) throw new Error("old_text must be non-empty");
++        const current = fs.readFileSync(full, "utf8");
++        const first = current.indexOf(oldText);
++        const second = current.indexOf(oldText, first + 1);
++        if (first === -1) throw new Error("old_text not found in file");
++        if (second !== -1) throw new Error("old_text appears more than once; use write_file for full rewrites");
++        const updated = current.slice(0, first) + newText + current.slice(first + oldText.length);
++        const bytes = Buffer.from(updated, "utf8");
++        if (bytes.byteLength > MAX_WRITE_BYTES) throw new Error(`write exceeds ${MAX_WRITE_BYTES} byte limit`);
++        fs.writeFileSync(full, bytes);
++        return {
++          content: [{ type: "text", text: JSON.stringify({
++            path: rel, bytes: bytes.byteLength, sha256: sha256Hex(bytes), replaced: true,
++          }, null, 2) }],
++        };
++      }
++      case "file_info": {
++        const { rel, full } = normalizeAllowedPath(args.path);
++        assertRegularFile(full);
++        const bytes = fs.readFileSync(full);
++        return {
++          content: [{ type: "text", text: JSON.stringify({
++            path: rel, bytes: bytes.byteLength, sha256: sha256Hex(bytes), mtime_ms: fs.statSync(full).mtimeMs,
++          }, null, 2) }],
++        };
++      }
++      default:
++        throw new Error(`unknown tool: ${name}`);
++    }
++  } catch (error) {
++    return {
++      isError: true,
++      content: [{ type: "text", text: `Error: ${error.message}` }],
++    };
++  }
++});
++
++const transport = new StdioServerTransport();
++await server.connect(transport);
+diff --git a/tools/mcp-filesystem/start_tunnel.ps1 b/tools/mcp-filesystem/start_tunnel.ps1
+new file mode 100644
+index 0000000..ae37df6
+--- /dev/null
++++ b/tools/mcp-filesystem/start_tunnel.ps1
+@@ -0,0 +1,31 @@
++# Start the perfume-chem filesystem MCP tunnel (browser ChatGPT Pro can then edit files
++# without GitHub / without Codex credits).
++#
++# Prereqs (one-time, see SETUP.md):
++#   1. Create a Tunnel + Runtime API key in Platform settings.
++#   2. Put the real tunnel ID in %USERPROFILE%\.config\tunnel-client\perfume-chem-fs.yaml.
++#   3. Set CONTROL_PLANE_API_KEY in the environment (user or system level).
++$ErrorActionPreference = "Stop"
++
++$tcHome = "C:\Users\ASUS\AppData\Local\OpenCode\profiles\perfume-chem\tmp\opencode\tunnel-client"
++$tc = Join-Path $tcHome "tunnel-client.exe"
++if (-not (Test-Path -LiteralPath $tc)) {
++    throw "tunnel-client not found at $tc — download v0.0.11 from https://github.com/openai/tunnel-client/releases"
++}
++if (-not $env:CONTROL_PLANE_API_KEY) {
++    Write-Warning "CONTROL_PLANE_API_KEY is not set in this session. The daemon will fail auth until it is set."
++}
++
++Write-Output "Validating profile..."
++& $tc doctor --profile perfume-chem-fs --explain 2>&1 | Select-Object -First 30
++
++Write-Output "Starting tunnel daemon (detached)..."
++$p = Start-Process -FilePath $tc -ArgumentList @("run", "--profile", "perfume-chem-fs") -WindowStyle Hidden -PassThru
++Start-Sleep -Seconds 4
++if ($p.HasExited) {
++    Write-Output "FAILED to start (exit $($p.ExitCode))"
++    exit 1
++}
++Write-Output "TUNNEL RUNNING pid=$($p.Id)"
++Write-Output "Local admin UI: http://127.0.0.1:8080/ui  (healthz / readyz on same port)"
++Write-Output "Verify with: .\tools\mcp-filesystem\check_tunnel.ps1"

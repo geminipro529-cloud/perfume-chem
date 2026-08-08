@@ -159,7 +159,13 @@ def _format_oav_table(state) -> list[dict]:
     ]
 
 
-def _run_input_hashes(formulas: list[dict], config: ReleaseGateConfig) -> dict:
+def _run_input_hashes(
+    formulas: list[dict],
+    config: ReleaseGateConfig,
+    *,
+    parent_formulas: list[dict] | None = None,
+    authorized_active_dose_changes: dict[str, str] | None = None,
+) -> dict:
     requested_config = config_summary(config)
     requested_config.pop("audit_source", None)
     semantic_config = {
@@ -167,6 +173,9 @@ def _run_input_hashes(formulas: list[dict], config: ReleaseGateConfig) -> dict:
         "formula_family_archetypes": [
             str(formula.get("family_archetype", "") or "") for formula in formulas
         ],
+        "g15_authorized_active_dose_changes": dict(
+            authorized_active_dose_changes or {}
+        ),
     }
     return {
         "formula_definitions": [
@@ -176,6 +185,14 @@ def _run_input_hashes(formulas: list[dict], config: ReleaseGateConfig) -> dict:
                 "sha256": stable_formula_definition_hash(formula),
             }
             for formula in formulas
+        ],
+        "g15_parent_formula_definitions": [
+            {
+                "number": int(formula.get("number", 1)),
+                "name": str(formula.get("name", "")),
+                "sha256": stable_formula_definition_hash(formula),
+            }
+            for formula in (parent_formulas or [])
         ],
         "semantic_config": semantic_config,
         "config_sha256": stable_json_hash(semantic_config),
@@ -562,6 +579,21 @@ def main(argv: list[str] | None = None) -> int:
         default=1500.0,
         help="Target retail price in THB (default: 1500). Used for mass-market tier margin check.",
     )
+    parser.add_argument(
+        "--parent-formula-file",
+        default=None,
+        help="Immediate parent revision for mandatory G15 stock-rebase + temporal OAV screening.",
+    )
+    parser.add_argument(
+        "--authorize-active-dose-change",
+        action="append",
+        default=[],
+        metavar="MATERIAL=AUTHORITY",
+        help=(
+            "Explicitly authorize an intentional >=3x active-dose revision for one material. "
+            "Repeat per material; authority text is preserved in G15 audit evidence."
+        ),
+    )
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--print-analysis", action="store_true")
     analysis_write = parser.add_mutually_exclusive_group()
@@ -582,6 +614,32 @@ def main(argv: list[str] | None = None) -> int:
     if not formulas:
         raise ValueError(f"No parseable formulas found in {formula_path}")
 
+    parent_formulas = None
+    if args.parent_formula_file:
+        parent_path = Path(args.parent_formula_file)
+        if not parent_path.is_absolute():
+            parent_path = PROJECT_ROOT / parent_path
+        parent_formulas = parse_formula_markdown(parent_path)
+        if not parent_formulas:
+            raise ValueError(f"No parseable parent formulas found in {parent_path}")
+        if len(parent_formulas) not in (1, len(formulas)):
+            raise ValueError("Parent file must contain one formula or match child count.")
+
+    authorized_active_dose_changes: dict[str, str] = {}
+    for raw_authority in args.authorize_active_dose_change:
+        if "=" not in raw_authority:
+            raise ValueError(
+                "--authorize-active-dose-change must use MATERIAL=AUTHORITY"
+            )
+        material, authority = (part.strip() for part in raw_authority.split("=", 1))
+        if not material or not authority:
+            raise ValueError(
+                "--authorize-active-dose-change requires non-blank material and authority text"
+            )
+        if material in authorized_active_dose_changes and authorized_active_dose_changes[material] != authority:
+            raise ValueError(f"Conflicting active-dose authorities for {material}")
+        authorized_active_dose_changes[material] = authority
+
     # ── Preflight guard ──────────────────────────────────────────────
     from engine.formula_metadata import pipeline_preflight_guard
 
@@ -598,17 +656,34 @@ def main(argv: list[str] | None = None) -> int:
     config = _build_config(args)
     if any(detect_reference_claim(formula).quantitative_requested for formula in formulas):
         config = dataclasses.replace(config, quantitative_claim=True)
-    run_hashes = _run_input_hashes(formulas, config)
+    run_hashes = _run_input_hashes(
+        formulas,
+        config,
+        parent_formulas=parent_formulas,
+        authorized_active_dose_changes=authorized_active_dose_changes,
+    )
     scorer = FormulaScorer(ObjectiveWeights())
     reports = []
 
-    for formula in formulas:
+    for formula_index, formula in enumerate(formulas):
         ings = formula["ingredients_ul"]
         dils = formula["dilutions"]
+        parent_formula = None
+        if parent_formulas:
+            parent_formula = (
+                parent_formulas[0]
+                if len(parent_formulas) == 1
+                else parent_formulas[formula_index]
+            )
 
-        # Build the canonical physical state and temporal simulation once.  The
-        # OAV authority surface reuses these immutable gate artifacts below.
-        gate_result = gate_formula(formula, config)
+        # Build the canonical physical state and temporal simulation once. G15
+        # receives the immediate parent here, before any release/report output.
+        gate_result = gate_formula(
+            formula,
+            config,
+            parent_formula=parent_formula,
+            authorized_active_dose_changes=authorized_active_dose_changes,
+        )
         gate_report = gate_result.as_dict()
 
         # Phase 1: OAV authority analysis
@@ -630,6 +705,20 @@ def main(argv: list[str] | None = None) -> int:
         oav_result = analyze_oav_authority(oav_req, gate_report=gate_result)
         oav_table = _format_oav_table(oav_result.state)
 
+        g15_gate = next(
+            gate for gate in gate_report["gates"] if gate.get("gate") == "g15_oav_firewall"
+        )
+        premix_data = dict(g15_gate.get("data", {}).get("pre_mix_guard", {}) or {})
+        if not premix_data:
+            premix_data = {
+                "status": g15_gate.get("status", "FAIL"),
+                "findings": [],
+                "g15_failure_code": g15_gate.get("data", {}).get("failure_code"),
+                "limitations": [
+                    "G15 failed before the lower-level pre_mix_guard could run; inspect G15 gate data."
+                ],
+            }
+
         # Phase 3: Release gates
         unified_scores = compute_unified_release_scores(
             formula, oav_result, gate_report, scorer=scorer
@@ -637,6 +726,7 @@ def main(argv: list[str] | None = None) -> int:
 
         report = {
             **gate_report,
+            "pre_mix_guard": premix_data,
             "scores": unified_scores["scores"],
             "industry_10": unified_scores["industry_10"],
             "score_provenance": unified_scores["provenance"],

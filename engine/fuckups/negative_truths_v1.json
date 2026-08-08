@@ -1,0 +1,24 @@
+{
+  "schema": "perfume-chem-negative-truths-v1",
+  "purpose": "Regression patterns that must be caught before compounding; not aesthetic optimization rules.",
+  "records": [
+    {
+      "id": "prada_citronellol_10pct_to_neat",
+      "gate": "STOCK_REBASE_ACTIVE_EQUIVALENCE",
+      "status": "HARD_FAIL",
+      "rule": "Same raw µL after 10% -> neat stock change produces 10x active dose."
+    },
+    {
+      "id": "lemonile_10pct_to_neat",
+      "gate": "STOCK_REBASE_ACTIVE_EQUIVALENCE",
+      "status": "HARD_FAIL",
+      "rule": "Lemonile 10% -> neat with unchanged raw µL produces 10x active dose; temporal OAV is corroborating screening evidence."
+    },
+    {
+      "id": "oav_not_final_design_gate",
+      "gate": "OAV_AUTHORITY_BOUNDARY",
+      "status": "WARN_ONLY",
+      "rule": "Static or temporal OAV dominance alone cannot prove percent contribution, exact intensity, target mismatch, or bad smell."
+    }
+  ]
+}

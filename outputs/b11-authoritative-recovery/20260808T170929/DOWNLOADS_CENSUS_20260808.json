@@ -1,0 +1,46 @@
+﻿{
+    "unique_member_sha256":  6794,
+    "schema_version":  "perfume-chem-downloads-census-v1",
+    "top_level_zips":  103,
+    "authentic_predef_branch_count":  0,
+    "verdict_vs_audit":  "CONFIRMS audit HOLDs: PRE_DEF 0/18, PREQUALIFICATION_SNAPSHOT absent, no exact recovery targets byte-mounted in Downloads",
+    "artifacts":  [
+                      {
+                          "Name":  "ARCHIVE_DUPLICATE_ALIASES.csv",
+                          "SHA256":  "6af5ad32349f88e7aa3c2a5f1d7948ff057a3366851e75aafd00866b4911989d",
+                          "Bytes":  6054877
+                      },
+                      {
+                          "Name":  "ARCHIVE_ERRORS.csv",
+                          "SHA256":  "2847717103bda3f2c853b8f9a34691fffe714e10c41284a165cdf318a1fff4d1",
+                          "Bytes":  66
+                      },
+                      {
+                          "Name":  "ARCHIVE_MEMBER_INDEX.csv",
+                          "SHA256":  "d4b5074d8331de88b9689fc63963e21c022802175454a2992dc5629ae771213e",
+                          "Bytes":  8600081
+                      },
+                      {
+                          "Name":  "ARCHIVE_SCAN_SUMMARY.json",
+                          "SHA256":  "d413ceb843db5c85c41626c25ab9b09a716cb0f29fa568f7624a3186d5bad652",
+                          "Bytes":  1014
+                      },
+                      {
+                          "Name":  "NESTED_RECOVERY_TARGET_MATCHES.csv",
+                          "SHA256":  "ae7d674f1a11310d678a3f1376f9fef001f749b072ae4c8299662c6dd216840d",
+                          "Bytes":  144
+                      },
+                      {
+                          "Name":  "PRE_DEF_RECOVERY_CANDIDATES.csv",
+                          "SHA256":  "669ed47fdecbaea29c66c00faf2184a31e8629a2230b475bf489b65f4b869df5",
+                          "Bytes":  151299
+                      }
+                  ],
+    "archive_member_records":  21225,
+    "scan_errors":  0,
+    "scanned_utc":  "2026-08-08T10:13:24.984401+00:00",
+    "recovery_target_matches":  0,
+    "prequalification_snapshot_name_hits":  0,
+    "nested_bytes_read":  1254365349,
+    "unsafe_member_paths":  0
+}

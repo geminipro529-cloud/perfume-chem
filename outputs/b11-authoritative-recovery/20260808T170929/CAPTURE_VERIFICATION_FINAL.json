@@ -1,0 +1,16 @@
+﻿{
+    "schema":  "b11-capture-verification-final-v1",
+    "overall_state":  "PASS",
+    "manifest_ok":  167632,
+    "manifest_missing":  0,
+    "manifest_mismatches":  0,
+    "seal_ok":  37,
+    "chunks":  8,
+    "chunk_crc_failures":  0,
+    "capture_root":  "C:\\Users\\ASUS\\AppData\\Local\\OpenCode\\profiles\\perfume-chem\\tmp\\opencode\\recovery_capture\\PerfumeChem_Recovery_20260808_180024",
+    "report":  "C:\\Users\\ASUS\\AppData\\Local\\OpenCode\\profiles\\perfume-chem\\tmp\\opencode\\recovery_capture\\PerfumeChem_Recovery_20260808_180024\\04_MANIFESTS\\VERIFICATION_REPORT_LONG_PARALLEL.json",
+    "ps_verifier_state":  "FAIL-12,510-MAX_PATH-false-positive",
+    "ps_verifier_report":  "C:\\Users\\ASUS\\AppData\\Local\\OpenCode\\profiles\\perfume-chem\\tmp\\opencode\\recovery_capture\\PerfumeChem_Recovery_20260808_180024\\04_MANIFESTS\\VERIFICATION_REPORT.json",
+    "ps_verifier_explanation":  "PS 5.1 Test-Path cannot resolve \u003e260-char paths; all 12,510 flagged files verified present and hash-matching via long-path Python verifier.",
+    "recorded_utc":  "2026-08-08T16:20:21.4200161Z"
+}

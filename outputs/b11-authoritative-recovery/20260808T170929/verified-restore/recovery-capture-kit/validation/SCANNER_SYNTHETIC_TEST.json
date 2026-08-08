@@ -1,0 +1,46 @@
+{
+  "predef_detection": "PASS",
+  "python_compile": "PASS",
+  "scanner_exit_code": 2,
+  "scanner_expected_partial_exit_due_to_unsafe_path": true,
+  "summary": {
+    "archive_member_records": 5,
+    "authentic_predef_branch_count": 1,
+    "authentic_predef_branch_ids_found": [
+      "PIL-01-A"
+    ],
+    "duplicate_hash_groups": 0,
+    "duplicate_member_paths": 0,
+    "excluded_directory_names": [
+      ".git",
+      ".venv",
+      "00_METADATA",
+      "04_MANIFESTS",
+      "06_UPLOAD_STAGING",
+      "07_UPLOAD_CHUNKS",
+      "99_PRIVATE_LOCAL_ONLY_DO_NOT_UPLOAD",
+      "__pycache__",
+      "node_modules",
+      "venv"
+    ],
+    "full_sha_ledger_candidate_records": 1,
+    "nested_bytes_read": 545,
+    "predef_candidate_records": 2,
+    "prequalification_snapshot_name_hits": 0,
+    "recovery_targets": 1,
+    "root": "/tmp/pcscan_test_04t5bb4v",
+    "scan_errors": 1,
+    "scanned_utc": "2026-08-08T09:51:03.729734+00:00",
+    "source_mutations": 0,
+    "suspicious_compression_ratio_records": 0,
+    "target_exact_hash_matches": 0,
+    "target_name_or_pattern_matches": 1,
+    "targets_not_found": 0,
+    "top_level_zip_files": 1,
+    "unique_member_sha256": 5,
+    "unsafe_member_paths": 1
+  },
+  "synthetic_nested_zip_scan": "PASS",
+  "target_matching": "PASS",
+  "unsafe_path_detection": "PASS"
+}

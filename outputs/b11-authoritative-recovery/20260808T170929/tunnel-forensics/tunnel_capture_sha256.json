@@ -1,0 +1,67 @@
+﻿[
+    {
+        "Name":  "tunnel_branch.txt",
+        "SHA256":  "dbdb4d52b379c0d242d32c45ff0c2e52925d3507b37d3fe02d1c219ae80d1ff0",
+        "Bytes":  34
+    },
+    {
+        "Name":  "tunnel_branches.txt",
+        "SHA256":  "4513479cdc66a9c33644fd5d39016fab956b6a19ee1087a01c4096317edf8d54",
+        "Bytes":  1302
+    },
+    {
+        "Name":  "tunnel_head.txt",
+        "SHA256":  "968177a4525c3316756a115970fcae4d3825613d8b1b838de49b8355c5f4d690",
+        "Bytes":  45
+    },
+    {
+        "Name":  "tunnel_index.patch",
+        "SHA256":  "ca8cbcf71dd4c395901f75aa1c93dc1d6c61532c6cb93b3e75a032cfd42f036e",
+        "Bytes":  79687
+    },
+    {
+        "Name":  "tunnel_reflog.txt",
+        "SHA256":  "0800fa0c197922219abb8b81f142d982fd4e81bfd266489fa73c53336650b790",
+        "Bytes":  58365
+    },
+    {
+        "Name":  "tunnel_remotes.txt",
+        "SHA256":  "ce7befad2133111ac6aff17c76732f692105f9efa95c7a95e68b1538d715f83f",
+        "Bytes":  144
+    },
+    {
+        "Name":  "tunnel_repo_root.txt",
+        "SHA256":  "1ccd46aee6c74a930bae47dfa8a5ee15c4ddfbc580df76cf6a2b7db93a7db6c6",
+        "Bytes":  29
+    },
+    {
+        "Name":  "tunnel_stashes.txt",
+        "SHA256":  "cd617a71ba73d8c3427d44ed3025ec4bfc97fbd7a0865f7f6c1d2673b61d3652",
+        "Bytes":  118
+    },
+    {
+        "Name":  "tunnel_status_porcelain_v2.txt",
+        "SHA256":  "0a6cff5270622d1ecec459b25560400008f0f6729f20d707896cf062d14d3798",
+        "Bytes":  2224
+    },
+    {
+        "Name":  "tunnel_unreachable_objects.txt",
+        "SHA256":  "1241c5d225541dee338a1cf9abcca152bd13ce38ceb74f931dec74cbbd6a7f58",
+        "Bytes":  48566
+    },
+    {
+        "Name":  "tunnel_untracked_files.zlist",
+        "SHA256":  "bbc9654882e20e0f9c4d49f754d8583a3468db1d1a05130cb8428769151907f1",
+        "Bytes":  1168
+    },
+    {
+        "Name":  "tunnel_worktree.patch",
+        "SHA256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Bytes":  0
+    },
+    {
+        "Name":  "tunnel_worktrees.txt",
+        "SHA256":  "d296882351dbf8661391462ec09d5729066afd73fa6000ba721ef8567b30a1ce",
+        "Bytes":  366
+    }
+]

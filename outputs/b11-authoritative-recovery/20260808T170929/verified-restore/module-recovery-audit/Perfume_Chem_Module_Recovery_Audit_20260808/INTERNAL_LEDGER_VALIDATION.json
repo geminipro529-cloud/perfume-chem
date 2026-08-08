@@ -1,0 +1,504 @@
+[
+  {
+    "package": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "package_sha256": "47af3c5a709b88351995de82b1480e3eb9a5b6806ed46a2c2c3de4b0009b9aa7",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Perceptual_Object_Reconstruction_and_Prada_Iris_Launch_v1(2).zip",
+    "package_sha256": "525ffe17f392cd86ea67b094345b950c11043e4bab7cb417733293341225d9de",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807 (1)(1).zip",
+    "package_sha256": "5eb12ae7b4ece04a90df4bbc1e89caf2beb8f53d678b106120b5df6c1e26a2c1",
+    "ledger": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807/LOCAL_EXACT_BYTES_SHA256.json",
+    "entries": 11,
+    "verified": 11,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807 (1)(1).zip",
+    "package_sha256": "5eb12ae7b4ece04a90df4bbc1e89caf2beb8f53d678b106120b5df6c1e26a2c1",
+    "ledger": "PROGRAM_V3_CHAT1_3_SOURCE_RECOVERY_PACK_20260807/KNOWN_SPECIALIST_HASHES.json",
+    "entries": 11,
+    "verified": 0,
+    "missing": 11,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "FAIL_OR_EXTERNAL_REFERENCES",
+    "details": [
+      {
+        "path": "EXPERIMENTAL_DATA_MODEL_v1.md",
+        "state": "MISSING"
+      },
+      {
+        "path": "experimental_data_model.schema.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "SENSORY_OBSERVATION_TEMPLATE.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "PHYSICAL_BATCH_LEDGER_TEMPLATE.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "CODED_SAMPLE_REGISTER_TEMPLATE.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "ASSESSOR_PROFILE_SCHEMA.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "ANALYTICAL_MEASUREMENT_SCHEMA.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "BLIND_DECODE_SCHEMA.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "EXISTING_SCHEMA_MIGRATION_MAP.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "PCV3_EXPERIMENT_DATA_WORKER_MANIFEST.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "VALIDATION_REPORT.json",
+        "state": "MISSING"
+      }
+    ]
+  },
+  {
+    "package": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "package_sha256": "6132263daeb7c71bf44e588f42925ecbb2536b1a958ae0ef0e870303343762e5",
+    "ledger": "RECOVERY_AND_BENCH_ADDENDUM_SHA256SUMS_v2.json",
+    "entries": 44,
+    "verified": 44,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "package_sha256": "6132263daeb7c71bf44e588f42925ecbb2536b1a958ae0ef0e870303343762e5",
+    "ledger": "bench_execution_master/SIX_PILOT_BENCH_EXECUTION_MASTER_v1_SHA256SUMS.json",
+    "entries": 51,
+    "verified": 11,
+    "missing": 40,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "FAIL_OR_EXTERNAL_REFERENCES",
+    "details": [
+      {
+        "path": "data/SIX_PILOT_AGGREGATE_MATERIAL_REQUIREMENTS_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_BATCH_SUMMARY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_BENCH_PILOT_SUMMARY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_COMMON_EVALUATION_SCHEDULE_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_COMPARISON_PLAN_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_FORMULA_ROWS_NORMALIZED_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_PER_PILOT_MATERIAL_REQUIREMENTS_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_PHYSICAL_SCREEN_WORK_QUEUE_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_PRIVATE_DECODE_KEY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/SIX_PILOT_SOURCE_FILE_INTEGRITY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-01_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-02_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-03_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-04_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-05_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "data/source_evaluations/PILOT-06_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "private_decode_packet/README_PRIVATE.md",
+        "state": "MISSING"
+      },
+      {
+        "path": "private_decode_packet/SIX_PILOT_PRIVATE_DECODE_KEY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_AGGREGATE_MATERIAL_REQUIREMENTS_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_BATCH_SUMMARY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_BENCH_PILOT_SUMMARY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_COMMON_EVALUATION_SCHEDULE_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_COMPARISON_PLAN_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_FORMULA_ROWS_NORMALIZED_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_PER_PILOT_MATERIAL_REQUIREMENTS_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_PHYSICAL_SCREEN_WORK_QUEUE_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/SIX_PILOT_SOURCE_FILE_INTEGRITY_v1.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/Verification.json",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-01_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-02_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-03_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-04_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-05_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "public_packet/source_evaluations/PILOT-06_Coded_Evaluation.csv",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT01_Violet_Orris_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT02_Layered_Woods_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT03_Multi_Class_Clean_Skin_Musk_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT04_Green_Fruit_Stone_Fruit_Osmanthus_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT05_Incense_Storax_Benzoin_Suede_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      },
+      {
+        "path": "source_packages/PILOT06_Citrus_Aldehydic_Aromatic_Air_Component_Screening_v1_Package.zip",
+        "state": "MISSING"
+      }
+    ]
+  },
+  {
+    "package": "Perfume_Data_Science_Extreme_Research_Bundle_v1(2).zip",
+    "package_sha256": "69bbdc04fcb8f113b615525bcb13d40c51ee25e78657739b35efef482ed77f5c",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Perfume_Meaningful_Complexity_Audit_v2_Pack(1).zip",
+    "package_sha256": "76c98fa8d5b92e7c0be252d83356d49dd662ad69c9ab79f377dc386a6d3e2178",
+    "ledger": "SHA256SUMS.json",
+    "entries": 6,
+    "verified": 6,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "PERFUME_CHEM_UNINTEGRATED_INTEGRATION_INTAKE_20260807 (1)(1).zip",
+    "package_sha256": "7d2e9769ab805c2f5d9575da7432d925ba34471c4f71aeaf4b451a842dc13aa3",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Top_Complexity_Microevent_Bundle_v2(2).zip",
+    "package_sha256": "7f2ba46548cba73f2a172a6c1e6bb17cffb85a21dcb9ead7745130dfa7b0eb8c",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Woody_Amber_Musk_Extreme_Research_Bundle_V2(1).zip",
+    "package_sha256": "8e2c29d615081cbaea116fd08a2bea8cfb637f017139c1d39897bdf9d6e8d6ba",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "PROGRAM_V3_FINAL_INTEGRATION_PACKAGE(2).zip",
+    "package_sha256": "919d08c69b21db887decaf029945b9c9b1c24ed58b919812dee79d0b598c467e",
+    "ledger": "SHA256SUMS.json",
+    "entries": 11,
+    "verified": 11,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "FLORAL_COVERAGE_FOUNDATION_v2.zip",
+    "package_sha256": "95bca9fbdcc241bc98f84e998082b54d711bb26fff02144f0891ec96ad6b8f8b",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "FLORAL_COVERAGE_FC3A_BUNDLE(2).zip",
+    "package_sha256": "98ca44ac17ba7ee24a22c121a04143ebc6565b0d2573fef5fc680eec2da6ea31",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Perceptual_Object_Complexity_and_Prada_Iris_Package_v1(2).zip",
+    "package_sha256": "9fc7e663fdd46860a68c77442b1bf555330cffcd2db0a78269b67a49228c4432",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Perfume_Chem_Stock_Basis_Hardening_v1(2).zip",
+    "package_sha256": "a07e189c88c121be5da0242a9f4a36f5da30e7c5d0d4bfd640d9dd2240e75477",
+    "ledger": "perfume_chem_stock_basis_hardening_v1/SHA256SUMS.json",
+    "entries": 24,
+    "verified": 23,
+    "missing": 1,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "FAIL_OR_EXTERNAL_REFERENCES",
+    "details": [
+      {
+        "path": "pytest_cache/README.md",
+        "state": "MISSING"
+      }
+    ]
+  },
+  {
+    "package": "PERFUME_156_TRUTH_RESOLVED_WORKING_PACKAGE_v3_1(2).zip",
+    "package_sha256": "aa590491333ff0bdf82720188eae195df3e6f94f9b89ba674d3e3944a74c75d1",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Perfume_Verification_Engine_Qualification_v1_Package(1).zip",
+    "package_sha256": "af2b207bda605058472c868d94f907ea1b6540a8baf1a6458472a55193f7f07d",
+    "ledger": "SHA256SUMS.json",
+    "entries": 17,
+    "verified": 17,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "Kenny_Complex_Accord_Atlas_Package (1)(1).zip",
+    "package_sha256": "d4d75cfd1c9a666d69cdd13830986ba6571f1d524e5b97dee6c5b1535ea592c9",
+    "ledger": "Kenny_Complex_Accord_Atlas_Hashes.json",
+    "entries": 9,
+    "verified": 9,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "Perfumery_Interaction_Layering_Atlas_v1_Package.zip",
+    "package_sha256": "d9d3b55cb37f6dbcb0f2f9317162afdebe9ce2ff8092647d2fbdfd5042b11e6f",
+    "ledger": "SHA256SUMS.json",
+    "entries": 7,
+    "verified": 7,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "PASS",
+    "details": []
+  },
+  {
+    "package": "Complex_Perfumery_Canonical_Source_Upload_Kit_v1(3).zip",
+    "package_sha256": "decfc7b65878410360e4862014324a9dd5e863ea29ac0e8384d8f7ab38494639",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "FLORAL_COVERAGE_FC1_READINESS_BUNDLE (1).zip",
+    "package_sha256": "e106030d546a58f26f9a68ef84ec9102a5f4e1e8635f81611f05f1e9b591d9e1",
+    "ledger": "FLORAL_COVERAGE_FC1_EXTERNAL_SHA256.json",
+    "entries": 2,
+    "verified": 1,
+    "missing": 1,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "FAIL_OR_EXTERNAL_REFERENCES",
+    "details": [
+      {
+        "path": "source_package",
+        "state": "MISSING"
+      }
+    ]
+  },
+  {
+    "package": "FLORAL_COVERAGE_FC2_FC3_EXTERNAL_BUNDLE.zip",
+    "package_sha256": "e6fc090460a19f6dff2041f3d3ab100fed0d8d5377fb5b0eec07a983a70e6bf4",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "FLORAL_COVERAGE_FOUNDATION_v1_EXTERNAL_CANDIDATE_SHA_f3bbb4f3.zip",
+    "package_sha256": "f3bbb4f3a3980a043b7ae7798b471f1c63d312c22eaa02845f77ce03069386da",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  },
+  {
+    "package": "Complex_Perfumery_New_Chat_Master_Continuation_Prompt_Package (1)(2).zip",
+    "package_sha256": "fbb548aa0e369359d79817b49b18f057632cfe4d6ba637563b88a4b228a92d29",
+    "ledger": "",
+    "entries": 0,
+    "verified": 0,
+    "missing": 0,
+    "mismatch": 0,
+    "size_mismatch": 0,
+    "state": "NO_INTERNAL_LEDGER"
+  }
+]

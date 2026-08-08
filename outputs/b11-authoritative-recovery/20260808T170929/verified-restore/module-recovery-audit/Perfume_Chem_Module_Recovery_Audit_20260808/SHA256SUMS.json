@@ -1,0 +1,109 @@
+{
+  "files": [
+    {
+      "path": "IMPLEMENT_NOT_RECOVER.csv",
+      "bytes": 1287,
+      "sha256": "d7f4d27f3d1e58560e0b9eeed2757eef60ef409c8fc0317f074b81f216003a59"
+    },
+    {
+      "path": "IMPLEMENT_NOT_RECOVER.json",
+      "bytes": 1718,
+      "sha256": "277aa50bc3239231de972e7b4245f7acaab33a56eb6e3feacd8671a5388f180c"
+    },
+    {
+      "path": "INTERNAL_LEDGER_VALIDATION.csv",
+      "bytes": 4202,
+      "sha256": "0938d9d717fc5b2e5d7209c569cba956da86878706a3279750525cff74fd0a5a"
+    },
+    {
+      "path": "INTERNAL_LEDGER_VALIDATION.json",
+      "bytes": 14633,
+      "sha256": "e6689aeb2f80aad5652062dc4dd767f885c26db370775e1906f670114025606f"
+    },
+    {
+      "path": "MODULE_ESTATE_INDEX.csv",
+      "bytes": 8218,
+      "sha256": "d2fb16d2f3cceb9f1c0c9e8534ab1e1b291b43703d417000dbf0ebf7850cbb8a"
+    },
+    {
+      "path": "MODULE_ESTATE_INDEX.json",
+      "bytes": 13704,
+      "sha256": "40f7037e3c3b4aefbcca113ecae56ec80149a939d0e6c13db2f1a0305bfa7b09"
+    },
+    {
+      "path": "PACKAGE_MANIFEST.json",
+      "bytes": 3634,
+      "sha256": "320e4406a20a489e4c0cfc0d54a39beb203e79ff43b63a30abd9d5409fe429cb"
+    },
+    {
+      "path": "PREDEF_FILENAME_HITS.json",
+      "bytes": 1333,
+      "sha256": "45aaa58d260ef9a2918e4259bd11d13d231272e7d3af12e371efdf4884d13d43"
+    },
+    {
+      "path": "PREDEF_TEXT_HITS.json",
+      "bytes": 28775,
+      "sha256": "39c014d800da42dc7b4df0312848dd6e2bb8adfd1deee0acee97e42ae276db57"
+    },
+    {
+      "path": "RECOVERY_AUDIT_AFTER_USER_ZIPS_20260808.md",
+      "bytes": 3902,
+      "sha256": "9ad189af15e9ec78723ea40df305b61545235241871d819d96e0521be16da4c2"
+    },
+    {
+      "path": "RECOVERY_STATE.json",
+      "bytes": 1523,
+      "sha256": "0c7526f53a420d30a4625601191797f6204e9556ea181f3eae2a5fa23dc4ccdb"
+    },
+    {
+      "path": "RECURSIVE_ARCHIVE_INVENTORY.csv",
+      "bytes": 32874,
+      "sha256": "4f2de842b30c709a9d5db7de3a41b0fa5724a9d6ba606b36f02da76907716f5d"
+    },
+    {
+      "path": "RECURSIVE_ARCHIVE_INVENTORY.json",
+      "bytes": 51903,
+      "sha256": "84f07d7e4d44f367b8101e1650db6ed4e3d4724167e6c4d67319aea0aad078e1"
+    },
+    {
+      "path": "REQUIRED_ARTIFACT_COVERAGE.csv",
+      "bytes": 34824,
+      "sha256": "f218d9b130eee798dcb523c3eb659fea38430840499212842f35ebc83546c907"
+    },
+    {
+      "path": "REQUIRED_ARTIFACT_COVERAGE.json",
+      "bytes": 56970,
+      "sha256": "7936c40b4001bec21bbaea1abd948562c35a82ffe2f5d32b8ea9113b4c1d7a33"
+    },
+    {
+      "path": "SUPERSESSION_AND_AUTHORITY_RULES.md",
+      "bytes": 1343,
+      "sha256": "7dc4695afc1d494a373fd52c7291a4cb75f4d5382fe29372cf56a43293f39716"
+    },
+    {
+      "path": "TUNNEL_FORENSIC_CAPTURE_RUNBOOK.md",
+      "bytes": 1057,
+      "sha256": "586ee217653fdcfb4f54ddbb705477d6540f7ecdbdcad0d7d1ba9bb25adf73e8"
+    },
+    {
+      "path": "UPLOAD_AND_RECOVERY_SHORTLIST.csv",
+      "bytes": 4963,
+      "sha256": "0abd3eae387d6e208e3a2c758c7e42f87276c5ae00c0ec13a820b80e5a29a7ce"
+    },
+    {
+      "path": "UPLOAD_AND_RECOVERY_SHORTLIST.json",
+      "bytes": 6545,
+      "sha256": "e6741d44b81e13b8e4cbf17633def185d3f60e97b37eb19b0054dfa164c8fd1d"
+    },
+    {
+      "path": "ZIP_INVENTORY.csv",
+      "bytes": 5667,
+      "sha256": "16e0be95296ebd3cf1aa2871e097efa881e0be4a86d7e1e781ee65543f4a1ff5"
+    },
+    {
+      "path": "ZIP_INVENTORY.json",
+      "bytes": 11561,
+      "sha256": "4be49e4459d2141e7e93405d9243ff5287840bb63b6310eed1a49161389b93ac"
+    }
+  ]
+}

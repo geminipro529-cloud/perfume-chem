@@ -1,0 +1,44 @@
+[
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "EXPECTED_18_BRANCH_REGISTRY_v2.json",
+    "size": 7886,
+    "depth": 0
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "tools/cp6_formula_ancestry_recovery.py",
+    "size": 17205,
+    "depth": 0
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERED_POST_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "size": 2650,
+    "depth": 0
+  },
+  {
+    "outer": "CP6_C_F_RECOVERY_AND_BENCH_ADDENDUM_v2.zip",
+    "chain": "current_environment_scan/RECOVERED_PRE_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "size": 2674,
+    "depth": 0
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/FORMULA_ANCESTRY_SOURCE_SEARCH_v1.json",
+    "size": 781,
+    "depth": 1
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/POST_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "size": 378,
+    "depth": 1
+  },
+  {
+    "outer": "CP6_C_F_TERMINAL_PLUS_ADDENDUM_v2 (1)(1).zip",
+    "chain": "CP6_C_F_TERMINAL_PACKAGE.zip!runs/CP6-20260805/governance/PRE_DEF_FORMULA_ANCESTRY_HASHES.json",
+    "size": 306,
+    "depth": 1
+  }
+]

@@ -13,6 +13,9 @@
 > **⚠️ RULE 4: Every natural mixture uses composite OAV, not monomolecular.**  
 > All EOs, absolutes, resinoids, and natural mixtures (35+ entries) are decomposed into published GC-O constituents in `engine/pipeline/natural_absolute_decomposition.py`. The pipeline auto-applies composite OAV via `formula_state.py` at lines 219 and 567. Never use the old monomolecular OAV for naturals. This increases OAV accuracy by 100-500,000× for absolutes.
 
+> **⚠️ RULE 5: Every revised compounding formula must pass the pre-mix active-dose + OAV-per-time guard.**  
+> Supply the immediate parent formula to the release gate. A stock-strength change must preserve active dose unless an explicit dose change is intended. `STOCK_REBASE_ACTIVE_EQUIVALENCE` is a hard arithmetic failure. OAV-per-time is a screening alarm only, never percent perceived contribution or a final aesthetic/similarity gate. Regression cases include the Prada L'Homme citronellol and Lemonile 10%-to-neat patterns. See `docs/PRE_MIX_OAV_GUARD.md`.
+
 ## Repo architecture
 
 Two separate Python environments — they don't share a package manager:

@@ -1,0 +1,76 @@
+{
+  "schema_version": "perfume-chem-recovery-intake-v1",
+  "batch": "b11-authoritative-recovery/20260808T170929",
+  "recorded_at_utc": "2026-08-08T17:09:29Z",
+  "model_id": "deepseek/deepseek-v4-flash",
+  "purpose": "Integrate the two user-downloaded recovery packages (Module Recovery Audit 20260808 + Full Recovery Capture Kit 20260808) into the canonical recovery estate; capture tunnel-local git forensics; preserve the inherited WIP stash.",
+  "source_downloads": {
+    "module_recovery_audit_zip": {
+      "path": "C:/Users/ASUS/Downloads/Perfume_Chem_Module_Recovery_Audit_20260808.zip",
+      "bytes": 62239,
+      "sha256": "00261dfc3df32bb68054c50b4efbcc23f7b0a56c9879b27d91b8897158c4278b",
+      "members": 21,
+      "crc_status": "PASS"
+    },
+    "full_recovery_capture_kit_zip": {
+      "path": "C:/Users/ASUS/Downloads/Perfume_Chem_Full_Recovery_Capture_Kit_20260808.zip",
+      "bytes": 36358,
+      "sha256": "ae3b36afe359f50871f742280341986bfd0b494c75a6e7da4b762932c5bdf570",
+      "members": 25,
+      "crc_status": "PASS"
+    }
+  },
+  "extracted_members": {
+    "audit_package_manifest_verified": "20/20",
+    "kit_package_manifest_verified": "17/17",
+    "total_extracted_files": 40,
+    "hash_verification_state": "ALL 40 MANIFEST HASHES VERIFIED OK"
+  },
+  "canonical_estate_paths": {
+    "audit_zip": "outputs/b11-authoritative-recovery/20260808T170929/Perfume_Chem_Module_Recovery_Audit_20260808.zip",
+    "kit_zip": "outputs/b11-authoritative-recovery/20260808T170929/Perfume_Chem_Full_Recovery_Capture_Kit_20260808.zip",
+    "audit_restore": "outputs/b11-authoritative-recovery/20260808T170929/verified-restore/module-recovery-audit/",
+    "kit_restore": "outputs/b11-authoritative-recovery/20260808T170929/verified-restore/recovery-capture-kit/",
+    "forensics": "outputs/b11-authoritative-recovery/20260808T170929/tunnel-forensics/"
+  },
+  "tunnel_forensics_capture": {
+    "state": "COMPLETE",
+    "head": "a7bacff",
+    "branch": "master",
+    "worktree_patch_bytes": 0,
+    "index_patch_bytes": 79687,
+    "untracked_entries": 13,
+    "stashes": 1,
+    "unreachable_objects_report_bytes": 48566,
+    "capture_sha256": "outputs/b11-authoritative-recovery/20260808T170929/tunnel-forensics/tunnel_capture_sha256.json"
+  },
+  "inherited_stash": {
+    "ref": "stash@{0}",
+    "commit": "7e7462213ce309fc1536b383b829bdd090990bfa",
+    "base": "72b838cf47d1bd09f2bfd2fc19406d9add5223bd",
+    "message": "WIP on master: 72b838c chore: organize repository structure and move scratch/formula/docs into folders",
+    "diff_files_count": 1007,
+    "unique_to_stash_vs_head_files": 140,
+    "patch_bytes": 17851120,
+    "patch_sha256": "53704B02045D56A7322199FFE198D412B0B1F93A7E57DADD87117CE023BD0EED",
+    "action": "PRESERVED_READ_ONLY_NOT_APPLIED",
+    "decision": "HOLD - user decides whether to mine unique scratch content; do not auto-apply to working tree."
+  },
+  "authority_mutations": {
+    "formula": 0,
+    "physical_truth": 0,
+    "inventory": 0,
+    "release": 0
+  },
+  "remaining_p0_recovery": [
+    "FC-1_VALIDATED_EXTERNAL_CANDIDATE_*.zip (upload for hash comparison)",
+    "PREQUALIFICATION_SNAPSHOT.zip OR 18 exact PIL-XX-X/fragment.json + full SHA-256 PRE_DEF ledger",
+    "Full 12.6 GB Downloads forensic capture via kit (external drive, user-run)"
+  ],
+  "next_actions": [
+    "User: run Capture-PerfumeChemRecovery.ps1 to the external drive (closes full Downloads+Git estate capture)",
+    "User: upload FC-1_VALIDATED_EXTERNAL_CANDIDATE_*.zip for hash comparison",
+    "User: locate PREQUALIFICATION_SNAPSHOT.zip or authentic PIL fragments",
+    "Orchestrator: fresh Downloads census with Scan-PerfumeChemArchives.py when capture root exists"
+  ]
+}

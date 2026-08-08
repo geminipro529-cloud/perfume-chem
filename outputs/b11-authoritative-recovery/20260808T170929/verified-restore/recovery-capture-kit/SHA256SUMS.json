@@ -1,0 +1,85 @@
+{
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "CAPTURE_SCOPE_AND_UPLOAD_POLICY.md",
+      "sha256": "b98d81536548637b18ab55f252c1a0d28c8f303e83773976da56697295483bcb",
+      "size": 1502
+    },
+    {
+      "path": "DO_NOT_UPLOAD_CREDENTIALS.txt",
+      "sha256": "31167245bd8a32306b9fecac668efe8c9599c84b006a089b56b9b457e35f711b",
+      "size": 309
+    },
+    {
+      "path": "README_FIRST.md",
+      "sha256": "f2508a3adde95c52f8612d5d40abc5c2089dce620aca66215d45b23298f08565",
+      "size": 3264
+    },
+    {
+      "path": "RECOVERY_REGISTERS_README.md",
+      "sha256": "7611e2be4235c971ca75e26bdb9f9bd600ee1edec536b8ad1036bd26e838b767",
+      "size": 763
+    },
+    {
+      "path": "RUN_RECOVERY_CAPTURE.cmd",
+      "sha256": "9c86533dbd9544fed2c0696b964cf9314abe40a4daa6eb793ebf9c04f12843d5",
+      "size": 624
+    },
+    {
+      "path": "RUN_VERIFY_CAPTURE.cmd",
+      "sha256": "e7a7f2e4adc649c0f69ac47a9ade360d3ffe76d1e570d2df38453976ab55a5a1",
+      "size": 525
+    },
+    {
+      "path": "registers/FILE_LIBRARY_EXACT_PACKAGE_RECOVERY_QUEUE.csv",
+      "sha256": "0383de6387be37e0bdddae47d4b07e2bd86b72877f290d24b6b7f6912feb4b55",
+      "size": 2251
+    },
+    {
+      "path": "registers/MISSING_EXACT_BYTES_REGISTER.csv",
+      "sha256": "055c9199e61e90d53e47eda4a0b52a1ac25aa170f00237930eb1806a51eaa394",
+      "size": 26798
+    },
+    {
+      "path": "registers/RESEARCH_REGENERATION_GAP_REGISTER.csv",
+      "sha256": "88237036aac83a2f8927997fd8085f9cd281a2c0a249aed5fdd4f12ba0e59c00",
+      "size": 6199
+    },
+    {
+      "path": "registers/VISIBLE_UNMOUNTED_BATCHES_REGISTER.csv",
+      "sha256": "761460642da5e8eb719096d45a958d223969887b5bfec808b5c9fe1cd657f577",
+      "size": 9129
+    },
+    {
+      "path": "scripts/Capture-PerfumeChemRecovery.ps1",
+      "sha256": "1b144c8b5c987389aaf6cb6535b21048efd8a4fe08a921bb039865bd27a51e05",
+      "size": 46852
+    },
+    {
+      "path": "scripts/Scan-PerfumeChemArchives.py",
+      "sha256": "75c46d5f8893d82b316165c09f0a75495b71952d852ed824334c98fe4f2bb5c0",
+      "size": 19912
+    },
+    {
+      "path": "scripts/Verify-PerfumeChemRecovery.ps1",
+      "sha256": "9d1dd2e044ca538371e101210469bbe93919f8dfe4afcf51473fa42ba859773a",
+      "size": 4823
+    },
+    {
+      "path": "validation/KIT_VALIDATION_REPORT.json",
+      "sha256": "07fe205c1c2c2188caefce2ccf750fd699ab438021d3043ca73adbcdfbe15aaf",
+      "size": 2146
+    },
+    {
+      "path": "validation/SCANNER_CURRENT_MOUNT_SELF_TEST_SUMMARY.json",
+      "sha256": "894769a80e96e76d1c9399bf98e5213a8517a2525407380a84789616e5350a91",
+      "size": 968
+    },
+    {
+      "path": "validation/SCANNER_SYNTHETIC_TEST.json",
+      "sha256": "3def14f83a98b68805197409dc3e8c84102146716f7b3b67a542df0e8ba8a203",
+      "size": 1310
+    }
+  ]
+}

@@ -23,6 +23,7 @@ from engine.chemical_data_validator import blocked_reason
 from engine.chemistry.photochem import photolysis_remaining_fraction
 from engine.confidence import ConfidenceScorer
 from engine.evidence.unsupported_science import AgingClaim, assess_aging_claim
+from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.families.registry import (
     evaluate_family_archetype,
     get_archetype,
@@ -249,6 +250,7 @@ HARD_BLOCKING_GATES = frozenset(
         "quantitative_authority",
         "natural_composite_coverage",
         "reference_claim_contract",
+        "g15_oav_firewall",
     }
 )
 
@@ -1128,6 +1130,182 @@ def _gate_oav_overdose_blocker(state: FormulaState, config: ReleaseGateConfig) -
         "oav_overdose_blocker",
         "PASS",
         "no material exceeds the 10,000 OAV review threshold",
+    )
+
+
+def _formula_dilutions_for_g15(formula: Mapping) -> dict[str, float]:
+    ingredients = dict(formula.get("ingredients_ul", {}) or {})
+    dilutions = dict(formula.get("dilutions", {}) or {})
+    stock_specs = dict(formula.get("stock_specs", {}) or {})
+    resolved: dict[str, float] = {}
+    for raw_name in ingredients:
+        name = str(raw_name)
+        spec = dict(stock_specs.get(raw_name, stock_specs.get(name, {})) or {})
+        value = spec.get("fraction", dilutions.get(raw_name, dilutions.get(name, 1.0)))
+        resolved[name] = float(value)
+    return resolved
+
+
+def _gate_g15_oav_firewall(
+    formula: Mapping,
+    simulation: Sequence[SimulationFrame],
+    config: ReleaseGateConfig,
+    *,
+    parent_formula: Mapping | None = None,
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> GateResult:
+    """Mandatory pre-presentation dose-lineage and temporal OAV firewall.
+
+    G15 does not set an absolute OAV ceiling. It blocks unexplained revision
+    discontinuities and stock-rebase active-dose errors, while modeled OAV
+    dominance remains a review signal only.
+    """
+    parent_uid = str(formula.get("parent_formula_uid", "") or "").strip()
+    data: dict = {
+        "gate_id": "G15",
+        "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+        "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+        "oav_release_authority": False,
+        "child_formula_hash": formula_hash_from_record(formula),
+        "oav_interpretation": (
+            "Modeled OAV is a time-resolved screening signal, not percent perceived "
+            "contribution, beauty, similarity, preference, or measured headspace."
+        ),
+        "declared_parent_formula_uid": parent_uid or None,
+        "authorized_active_dose_changes": dict(authorized_active_dose_changes or {}),
+    }
+
+    if parent_uid and parent_formula is None:
+        data["failure_code"] = "G15_PARENT_BASELINE_MISSING"
+        return _result(
+            "g15_oav_firewall",
+            "FAIL",
+            f"Revision declares parent_formula_uid={parent_uid} but no parent formula baseline was supplied.",
+            data,
+        )
+
+    parent_ingredients = None
+    parent_dilutions = None
+    parent_series = None
+    if parent_formula is not None:
+        if not isinstance(parent_formula, Mapping):
+            data["failure_code"] = "G15_PARENT_BASELINE_INVALID"
+            return _result(
+                "g15_oav_firewall",
+                "FAIL",
+                "Parent formula baseline must be a mapping.",
+                data,
+            )
+        supplied_parent_uid = str(parent_formula.get("formula_uid", "") or "").strip()
+        data["supplied_parent_formula_uid"] = supplied_parent_uid or None
+        if parent_uid and not supplied_parent_uid:
+            data["failure_code"] = "G15_PARENT_ID_UNVERIFIED"
+            return _result(
+                "g15_oav_firewall",
+                "FAIL",
+                "A parent_formula_uid is declared, but the supplied parent baseline has no formula_uid to verify lineage.",
+                data,
+            )
+        if parent_uid and supplied_parent_uid != parent_uid:
+            data["failure_code"] = "G15_PARENT_ID_MISMATCH"
+            return _result(
+                "g15_oav_firewall",
+                "FAIL",
+                f"Supplied parent formula_uid={supplied_parent_uid} does not match declared parent_formula_uid={parent_uid}.",
+                data,
+            )
+
+        raw_parent_ingredients = parent_formula.get("ingredients_ul", {}) or {}
+        if not isinstance(raw_parent_ingredients, Mapping) or not raw_parent_ingredients:
+            data["failure_code"] = "G15_PARENT_BASELINE_INVALID"
+            return _result(
+                "g15_oav_firewall",
+                "FAIL",
+                "Parent formula baseline has no usable ingredients_ul mapping.",
+                data,
+            )
+        parent_ingredients = {
+            str(name): float(value) for name, value in raw_parent_ingredients.items()
+        }
+        data["parent_formula_hash"] = formula_hash_from_record(parent_formula)
+        parent_dilutions = _formula_dilutions_for_g15(parent_formula)
+        data["parent_g15_dilutions"] = dict(parent_dilutions)
+
+        parent_matrix = dict(parent_formula.get("matrix_moles", {}) or {})
+        if not parent_matrix:
+            parent_matrix = dict(config.matrix_components_moles)
+        parent_matrix_mass_g = float(
+            parent_formula.get("matrix_mass_g", config.matrix_mass_g) or config.matrix_mass_g
+        )
+        parent_matrix_source = str(
+            parent_formula.get("matrix_source", config.matrix_source) or config.matrix_source
+        )
+        parent_stock_specs = {
+            str(name): dict(spec or {})
+            for name, spec in dict(parent_formula.get("stock_specs", {}) or {}).items()
+        }
+        parent_state = build_formula_state(
+            parent_ingredients,
+            parent_dilutions,
+            stock_specs=parent_stock_specs,
+            batch_volume_ml=config.batch_volume_ml,
+            temperature_K=config.temperature_K,
+            matrix_moles=parent_matrix,
+            matrix_mass_g=parent_matrix_mass_g,
+            matrix_source=parent_matrix_source,
+        )
+        parent_series = [
+            frame.as_dict()
+            for frame in simulate_formula(
+                parent_ingredients,
+                parent_dilutions,
+                batch_volume_ml=config.batch_volume_ml,
+                temperature_K=config.temperature_K,
+                initial_state=parent_state,
+            )
+        ]
+
+    child_ingredients = {
+        str(name): float(value)
+        for name, value in dict(formula.get("ingredients_ul", {}) or {}).items()
+    }
+    child_dilutions = _formula_dilutions_for_g15(formula)
+    data["child_g15_dilutions"] = dict(child_dilutions)
+    child_series = [frame.as_dict() for frame in simulation]
+    guard = evaluate_pre_mix_guard(
+        child_ingredients_ul=child_ingredients,
+        child_dilutions=child_dilutions,
+        child_time_series=child_series,
+        parent_ingredients_ul=parent_ingredients,
+        parent_dilutions=parent_dilutions,
+        parent_time_series=parent_series,
+        authorized_active_dose_changes=authorized_active_dose_changes,
+    )
+    data["pre_mix_guard"] = guard.as_dict()
+
+    if guard.status == "FAIL":
+        blockers = [
+            finding.code for finding in guard.findings if finding.severity == "FAIL"
+        ]
+        return _result(
+            "g15_oav_firewall",
+            "FAIL",
+            "G15 blocked pre-presentation formula output: " + ", ".join(blockers),
+            data,
+        )
+    if guard.status == "WARN":
+        warnings = [finding.code for finding in guard.findings]
+        return _result(
+            "g15_oav_firewall",
+            "WARN",
+            "G15 requires review before compounding: " + ", ".join(warnings),
+            data,
+        )
+    return _result(
+        "g15_oav_firewall",
+        "PASS",
+        "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+        data,
     )
 
 
@@ -5050,7 +5228,13 @@ def _gate_concentration_basis(state, config):
     )
 
 
-def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> GateReport:
+def gate_formula(
+    formula: Mapping,
+    config: ReleaseGateConfig | None = None,
+    *,
+    parent_formula: Mapping | None = None,
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> GateReport:
     """Run all reusable release gates on a parsed formula record."""
     config = config or ReleaseGateConfig()
     reference_detection = detect_reference_claim(formula)
@@ -5112,6 +5296,16 @@ def gate_formula(formula: Mapping, config: ReleaseGateConfig | None = None) -> G
     )
     gates = [
         _safe_gate(lambda: _gate_pipeline_preflight(preflight), "pipeline_preflight"),
+        _safe_gate(
+            lambda: _gate_g15_oav_firewall(
+                formula,
+                simulation,
+                config,
+                parent_formula=parent_formula,
+                authorized_active_dose_changes=authorized_active_dose_changes,
+            ),
+            "g15_oav_firewall",
+        ),
         _safe_gate(
             lambda: _gate_preflight_contract(preflight, "inventory_stock_contract"),
             "inventory_stock_contract",

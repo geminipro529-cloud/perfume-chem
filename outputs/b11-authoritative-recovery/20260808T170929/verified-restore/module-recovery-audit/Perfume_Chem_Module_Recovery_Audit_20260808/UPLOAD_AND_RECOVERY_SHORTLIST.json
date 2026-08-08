@@ -1,0 +1,106 @@
+[
+  {
+    "priority": "P0",
+    "artifact": "FC-1_VALIDATED_EXTERNAL_CANDIDATE_*.zip (screenshot top item)",
+    "recovery_type": "UPLOAD_FOR_HASH_COMPARISON",
+    "current_state": "VISIBLE_IN_SCREENSHOT_NOT_BYTE_MOUNTED",
+    "why": "May contain FC-1 reconciliation bundle and reconciled terminal state absent from current mount.",
+    "acceptance": "Hash and list contents; deduplicate against e106030d FC1 readiness and File Library reconciliation records."
+  },
+  {
+    "priority": "P0",
+    "artifact": "PREQUALIFICATION_SNAPSHOT.zip OR 18 exact PIL-XX-X/fragment.json files plus full SHA-256 PRE_DEF ledger",
+    "recovery_type": "TRUE_IRREPLACEABLE_BYTE_RECOVERY",
+    "current_state": "0_OF_18_AUTHENTIC_FRAGMENTS; NO_COMPLETE_LEDGER",
+    "why": "Only remaining cryptographic ancestry hole for inherited CP6/Phase G formula branches.",
+    "acceptance": "Exact historical paths and all 64-character hashes match; do not reconstruct from prefixes."
+  },
+  {
+    "priority": "P0",
+    "artifact": "Tunnel forensic snapshot bundle",
+    "recovery_type": "LOCAL_ONLY_GIT_RECOVERY",
+    "current_state": "TUNNEL_FILESYSTEM_NOT_EXPOSED_TO_THIS_CHAT",
+    "why": "Needed to prove no uncommitted, untracked, stash, reflog-only, or worktree-only modules are lost.",
+    "acceptance": "Repo root, HEAD, branch, remotes, status, binary worktree/index patches, untracked archive, stashes, reflogs, worktrees, unreachable objects, hashes."
+  },
+  {
+    "priority": "P1",
+    "artifact": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+    "recovery_type": "MATERIALIZE_EXACT_FILE_LIBRARY_BYTES",
+    "current_state": "VALIDATED_IN_FILE_LIBRARY; NOT_MOUNTED_HERE",
+    "why": "Canonical home of 94 families, 228 combinations, 202 techniques, hedonic mechanisms, interfaces, temporal records, evidence gaps, and physical screens.",
+    "acceptance": "Exact ZIP CRC, manifest, SHA ledger, final 28/28 validation; no regeneration from summaries."
+  },
+  {
+    "priority": "P1",
+    "artifact": "ACCORD_INTEL_MODULE_ESTATE_HARVEST.zip",
+    "recovery_type": "MATERIALIZE_EXACT_FILE_LIBRARY_BYTES",
+    "current_state": "FILE_LIBRARY_SHA_KNOWN; NOT_MOUNTED_HERE",
+    "why": "Lossless module-entry ancestry and source-authority map for all specialist lanes.",
+    "acceptance": "Expected SHA-256 37d2eb6fa364d9b01f46b338d7917ffd99cf089733f8e2442b183e89cee20929."
+  },
+  {
+    "priority": "P1",
+    "artifact": "PCV3_CHAT1_MEANINGFUL_COMPLEXITY_MODEL_V3_COMPLETE.zip",
+    "recovery_type": "MATERIALIZE_EXACT_FILE_LIBRARY_BYTES",
+    "current_state": "VALIDATED_EXACT_PACKAGE; NOT_MOUNTED_HERE",
+    "why": "Canonical D1-D10 complexity source, schemas, fixtures, and anti-padding rules.",
+    "acceptance": "SHA-256 10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1."
+  },
+  {
+    "priority": "P1",
+    "artifact": "PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_v1.zip",
+    "recovery_type": "MATERIALIZE_EXACT_FILE_LIBRARY_BYTES",
+    "current_state": "VALIDATED_EXACT_PACKAGE; NOT_MOUNTED_HERE",
+    "why": "Canonical Experiment/Condition/CodedSample/Observation/PhysicalBatch/AnalyticalMeasurement vocabulary.",
+    "acceptance": "SHA-256 db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb."
+  },
+  {
+    "priority": "P1",
+    "artifact": "Authoritative XHIGH post-freeze release candidate selected by release receipt/index",
+    "recovery_type": "MATERIALIZE_RELEASE_QUALIFIED_BYTES",
+    "current_state": "FILE_LIBRARY_CANONICAL; LOCAL SAME-NAME_CHECKPOINT_MAY_DIFFER",
+    "why": "Avoid accidentally integrating an older unfrozen same-named checkpoint.",
+    "acceptance": "Post-freeze receipt/index, exact release-qualified filename, CRC, SHA ledger, worker hashes, read-only DB."
+  },
+  {
+    "priority": "P1",
+    "artifact": "Program v3 specialist source packages: Chat3 v2, Chat4 T1, Chat5 material behavior, Chat6 floral expansion, Chat7 hedonic production, Chat8 decision intelligence",
+    "recovery_type": "MATERIALIZE_WORKER_PACKAGE_BYTES",
+    "current_state": "CONTENTS/LEDGERS_IN_FILE_LIBRARY; SEVERAL ZIP HASHES_NOT_SURFACED",
+    "why": "Final Program v3 package intentionally did not repack upstream exact bytes.",
+    "acceptance": "Each package CRC + internal ledger; preserve execution/empirical holds. Known names include Chat5_Exact_Stock_Material_Behavior_Atlas_v1.zip, PCV3_CHAT6_FLORAL_EXPANSION_PACKAGE_v1.zip, PCV3_CHAT8_DECISION_INTELLIGENCE_v1.zip."
+  },
+  {
+    "priority": "P1",
+    "artifact": "FLORAL_COVERAGE_FC1_RECONCILIATION_BUNDLE.zip and FLORAL_COVERAGE_FC1_RECONCILED_TERMINAL_STATE.json",
+    "recovery_type": "MATERIALIZE_EXACT_FILE_LIBRARY_BYTES",
+    "current_state": "RECONCILIATION_REPORT_FOUND; BUNDLE/TERMINAL_NOT_MOUNTED",
+    "why": "Closes FC-1 external/local/reconciliation strata without overwriting parents.",
+    "acceptance": "Parent e106030d receipt, reconciliation index, task arithmetic, resume-gate state, manifest and SHA receipt."
+  },
+  {
+    "priority": "P2",
+    "artifact": "Five FC-1 Counterbrand estate inputs",
+    "recovery_type": "HISTORICAL_GATE_SPECIFIC_RECOVERY",
+    "current_state": "NOT_FOUND_BY_EXACT_NAME",
+    "why": "Required only to close the historical FC-1 claim/readiness resume gate; newer CrossBrand CSVs are not substitutes.",
+    "acceptance": "Counterbrand_Input_File_Manifest.xlsx; extracted_formulas/All_Formula_Rows.jsonl; Counterbrand_Target_Version_Matrix.xlsx; Counterbrand_Formula_Lineage_Map.xlsx; Counterbrand_Governing_Formula_Index.xlsx."
+  },
+  {
+    "priority": "P2",
+    "artifact": "Current CrossBrand SYNCED triad and immutable 1,038-record ancestry master",
+    "recovery_type": "PORTFOLIO_BYTE_CLOSURE",
+    "current_state": "FILE_LIBRARY_REFERENCES_PRESENT; COMPLETE_LOCAL_REHASH_NOT_CLOSED",
+    "why": "Needed for no-loss portfolio migration and source lineage.",
+    "acceptance": "Exact SYNCED Master Audit, Testable Formula Book, Ingredient Concentration Register; ancestry preserved separately; V5 rebase only at inventory scope."
+  },
+  {
+    "priority": "P2",
+    "artifact": "SOL_5_6_PRO_Strict_Perfume_Reverification_V2.md; Perfumer_Style_Complex_Perfume_Atlas_v1.xlsx; Diagnostic_High_Complexity_Pilot_Program_v2.json; Perfumery_Ingredient_Catalog_379.docx",
+    "recovery_type": "PERMANENT_AUTHORITY_CONTEXT_BYTES",
+    "current_state": "FILE_LIBRARY/PRIOR_MANIFEST_REFERENCES; NOT_ALL_MOUNTED",
+    "why": "Completes the intended permanent authority and design-intelligence context.",
+    "acceptance": "Hash-lock exact current versions; catalog remains subordinate to inventory/supplier/primary evidence."
+  }
+]

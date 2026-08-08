@@ -598,6 +598,7 @@ def optimize_until_release_ready(
     actions: list[GateRepairAction] = []
     constraints: dict[str, tuple[float | None, float | None]] = {}
     report: GateReport | None = None
+    parent_formula_for_g15: Mapping | None = None
 
     for pass_index in range(1, max_passes + 1):
         stock_dilutions = _inventory_stock_dilutions(
@@ -613,7 +614,12 @@ def optimize_until_release_ready(
             body=body,
             family_archetype=family_archetype,
         )
-        report = gate_formula(formula, config)
+        report = gate_formula(
+            formula,
+            config,
+            parent_formula=parent_formula_for_g15,
+        )
+        parent_formula_for_g15 = formula
         failed = _failed_gates(report)
         if not failed:
             break
@@ -712,7 +718,11 @@ def optimize_until_release_ready(
         body=body,
         family_archetype=family_archetype,
     )
-    final_report = gate_formula(formula, config)
+    final_report = gate_formula(
+        formula,
+        config,
+        parent_formula=parent_formula_for_g15,
+    )
     authority = analyze_oav_authority(
         OAVAuthorityRequest(
             formula_name=name,
