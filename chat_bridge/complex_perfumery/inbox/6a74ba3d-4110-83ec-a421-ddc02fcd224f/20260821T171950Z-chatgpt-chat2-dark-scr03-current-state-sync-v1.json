@@ -1,0 +1,196 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-chat2-dark-scr03-current-state-sync-20260821T171950Z",
+  "packet_nonce": "28ba29ec85b74b4fa59273a985017d5c",
+  "created_at": "2026-08-21T17:19:50.4487212Z",
+  "freshness": {
+    "source_observed_at": "2026-08-21T17:19:50.4487212Z",
+    "source_revision": "local-mirror:eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Synchronize the current Complex Perfumery Chat 2 DARK-SCR-03 state into Perfume-Chem without duplicating exact bytes, repeating paid work, or promoting design hypotheses into formula, physical, sensory, safety, installation, publication, or release authority.",
+  "summary": "A fresh exact-byte comparison found that the latest Complex Perfumery Chat 2 package is already present in Perfume-Chem. The mirror source and quarantined destination are both 41,483 bytes with SHA-256 eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769. The existing capture manifest, governance receipt, V18 collection delta, and focused receipt test already record the package as immutable design ancestry under QUARANTINE_HOLD, not admitted or installed. No duplicate binary was copied and no formula, inventory, stock, physical, sensory, analytical, safety, procurement, publication, or release state was changed. Package validation remains PASS_WITH_EXECUTION_HOLD and physical evidence remains NOT_TESTED.",
+  "decisions": [
+    {
+      "decision": "Do not create another copy of the DARK-SCR-03 archive.",
+      "reason": "The current mirror source and existing Perfume-Chem quarantine copy match exactly in byte length and SHA-256. A second copy would be duplicate intake rather than new work."
+    },
+    {
+      "decision": "Keep the existing capture and governance receipt as the controlling Perfume-Chem representation of this Chat 2 package.",
+      "reason": "They preserve source identity, exact bytes, archive checks, package relationships, and all non-promotion authority flags."
+    },
+    {
+      "decision": "Record this synchronization as an append-only no-delta status packet.",
+      "reason": "The bridge protocol forbids overwriting prior packets, and current evidence changes synchronization status only, not scientific or physical state."
+    },
+    {
+      "decision": "Do not retry the bounded DeepLuna Chat audit performed for this sync.",
+      "reason": "Both read-only shards terminated with line-range contract errors and evidence verdict UNRESOLVED; local exact-byte checks are sufficient and duplicate paid work is prohibited."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The latest Chat 2 DARK-SCR-03 source archive is already captured exactly in Perfume-Chem.",
+      "evidence": "Source and destination are each 41,483 bytes with SHA-256 eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769."
+    },
+    {
+      "claim": "The existing capture has passed exact-byte and archive-integrity checks but remains quarantined and unadmitted.",
+      "evidence": "The capture manifest records copy_matches_source true, clean CRC, safe member paths, exact embedded ledger and manifest membership, QUARANTINE_HOLD with PARTIAL_MEMBER_SCAN, graph terminal, and promotion_allowed false."
+    },
+    {
+      "claim": "The package does not contain physical or sensory results.",
+      "evidence": "Package state is PASS_WITH_EXECUTION_HOLD; physical evidence is NOT_TESTED; collected observations, physical batches, analytical measurements, and decisions are all zero."
+    },
+    {
+      "claim": "The Perfume-Chem receipt and focused test already enforce the package boundary.",
+      "evidence": "The governance receipt keeps admission, canonicalization, repository application, row import, and every authority field false; the focused test asserts the exact source identity and non-promotion contract."
+    },
+    {
+      "claim": "The fresh DeepLuna Chat delegation supplies no accepted evidence for this sync.",
+      "evidence": "Jobs DS-288ae45bf760eeb9510b0f3f427e5a9c and DS-7baa37060e4a4f032209069934e4568a terminated BLOCKED/FAIL with evidence verdict UNRESOLVED because of required-read line-range contract errors; no retry, fallback, or repository write was performed."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip",
+      "role": "current Complex Perfumery Chat 2 source archive"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip",
+      "role": "existing exact-byte Perfume-Chem quarantine copy"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/capture_manifest.json",
+      "role": "source identity and native quarantine evidence"
+    },
+    {
+      "path": "data/governance/chat2_dark_scr03_ibq_suederal_canonical_package_receipt_20260817.json",
+      "role": "controlling package receipt and non-promotion boundary"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v18_post_v17_floral_hedonic_portfolio_delta_20260817.json",
+      "role": "collection-level delta that includes the Chat 2 receipt without admitting package formulas"
+    },
+    {
+      "path": "tests/test_chat2_dark_scr03_ibq_suederal_canonical_package_receipt.py",
+      "role": "focused exact-byte and authority-boundary regression test"
+    }
+  ],
+  "constraints": [
+    "DARK-SCR-03 remains the canonical symbolic design for IBQ 10% versus Suederal 10%; the practical comparator remains same-load B alone.",
+    "Generic IBQ CAS, isomer, CID, manufacturer, and grade identity remain unresolved and may not be inferred from the generic name.",
+    "Both IBQ 10% and Suederal 10% require physical label capture for supplier or product grade, carrier, concentration basis, lot, and ExactStockRef before execution.",
+    "The 18-condition matrix and 2,520-row observation template are design geometry only; blank NOT_COLLECTED rows are not observations.",
+    "Physical evidence, liking, similarity, stability, safety, measured headspace, strict empirical OAV, and release state remain NOT_TESTED or unauthorized.",
+    "Source admission, formula, inventory, stock, bottle, physical execution, sensory, analytical, mechanism, model training, safety, procurement, installation, publication, release, and cross-chat integration authority remain false.",
+    "No package member or formula is imported into canonical native surfaces by this sync.",
+    "DeepLuna Fast, DeepInfra, Luna, Codex subagents, retries, and alternate fallbacks remain prohibited."
+  ],
+  "unresolved_questions": [
+    "Can both owned 10% stock labels be photographed or transcribed with supplier or product grade, carrier, concentration basis, lot, and ExactStockRef?",
+    "Will an authorized operator, device, substrate, application, maturation, and current handling-document plan be approved for a future physical experiment?",
+    "Will a later admission review resolve the native PARTIAL_MEMBER_SCAN finding for the large blank observation template without weakening quarantine limits?"
+  ],
+  "next_actions": [
+    {
+      "action": "Treat the existing capture and governance receipt as the current Perfume-Chem representation; do not copy the same archive again.",
+      "authority": "Sol/Codex repository integration"
+    },
+    {
+      "action": "If physical execution is separately authorized, capture both exact stock labels and close every preregistration hold before compounding or observation entry.",
+      "authority": "Sol and authorized physical operator"
+    },
+    {
+      "action": "Keep package admission, formula integration, procurement, safety, publication, and release on HOLD until their independent gates pass.",
+      "authority": "Sol and the applicable native authority ledgers"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Requested synchronization versus existing exact capture",
+      "state": "NO_NEW_BINARY_DELTA",
+      "detail": "The requested source package is already present byte-for-byte. This packet updates synchronization status without duplicating the archive."
+    },
+    {
+      "scope": "Package integrity versus package admission",
+      "state": "EXACT_BYTES_VERIFIED_GRAPH_QUARANTINED_NOT_ADMITTED",
+      "detail": "Exact bytes and internal ledgers verify successfully, but integrity does not grant canonical, formula, physical, safety, installation, publication, or release authority."
+    },
+    {
+      "scope": "DeepLuna Chat audit versus local verification",
+      "state": "WORKER_UNRESOLVED_LOCAL_EVIDENCE_CONTROLS",
+      "detail": "The bounded worker audit failed its read-range contract and was not accepted or retried. Fresh local hashes, manifests, receipt evidence, and focused tests remain the acceptance basis."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "uri": "codex://threads/019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "title": "Data Integration for Perfume-Chem"
+    },
+    {
+      "kind": "deepluna_chat_job",
+      "id": "DS-288ae45bf760eeb9510b0f3f427e5a9c",
+      "route": "DIRECT_PRO",
+      "disposition": "BLOCKED_UNRESOLVED_NO_RETRY"
+    },
+    {
+      "kind": "deepluna_chat_job",
+      "id": "DS-7baa37060e4a4f032209069934e4568a",
+      "route": "DIRECT_PRO",
+      "disposition": "FAIL_UNRESOLVED_NO_RETRY"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+      "path": "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "fb0ef39a4e191562c3930e6904c8642225cb7eae35597052332c44bd84851185",
+      "path": "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/capture_manifest.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "1209129dc208bdc6e5b511dfc74652274cd9531c6bcc1c16a58dfab769fc9cbb",
+      "path": "data/governance/chat2_dark_scr03_ibq_suederal_canonical_package_receipt_20260817.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "425051ed452f89fb3f25663a82774993c48ef7607a03b774f0368ead2ef75784",
+      "path": "data/governance/complex_perfumery_v18_post_v17_floral_hedonic_portfolio_delta_20260817.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "fe9351a34e4fd71b0b420d5a579b78ee3f1087c4017ef48c561064ac038f89bc",
+      "path": "tests/test_chat2_dark_scr03_ibq_suederal_canonical_package_receipt.py"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}
