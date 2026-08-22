@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from decimal import Decimal
+from pathlib import Path
 from typing import Any, Mapping
 
+from engine.perception.complexity_benchmark import BenchmarkEvidence, TelemetrySummary
 from engine.perception.complexity_ensemble import ComplexityBundle, ComplexityCasePacket
 from engine.perception.complexity_xhigh import XHighExecutionReceipt, XHighRequest
 
@@ -48,6 +51,8 @@ USEFUL_COMPLEXITY_DEFINITION = {
         "current_depleted_exception_state": "HOLD_PROCUREMENT_REQUIRED",
     },
 }
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def valid_case_mapping(
@@ -324,4 +329,192 @@ def valid_execution_receipt(
         output_tokens=500,
         latency_ms=60000,
         price_usd=Decimal("1.00"),
+    )
+
+
+def case_by_id(case_id: str) -> ComplexityCasePacket:
+    payload = json.loads(
+        (ROOT / "tests/fixtures/complexity_xhigh_cases_v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    raw = dict(next(item for item in payload["cases"] if item["case_id"] == case_id))
+    refs = raw.pop("module_input_refs")
+    raw["module_inputs"] = {
+        family: payload["shared_module_inputs"][reference]
+        for family, reference in refs.items()
+    }
+    expected = dict(raw["expected_invariants"])
+    definition_ref = expected.pop("complexity_definition_ref")
+    response_ref = expected.pop("valid_response_ref")
+    expected["complexity_definition"] = payload["shared_invariants"][
+        definition_ref
+    ]
+    expected["valid_response"] = payload["rubric"][response_ref]
+    for key in (
+        "required_depth_fields",
+        "required_claim_states",
+        "forbidden_claims",
+        "required_sections",
+    ):
+        expected[key] = payload["shared_invariants"][key]
+    raw["expected_invariants"] = expected
+    return ComplexityCasePacket.from_mapping(raw)
+
+
+def valid_response(case: ComplexityCasePacket) -> dict[str, Any]:
+    evidence_ref = case.evidence_refs[0]
+    return {
+        "target_identity": {
+            "identity": case.target_identity,
+            "preserved": True,
+            "evidence_refs": [evidence_ref],
+        },
+        "functional_architecture": {
+            "roles": [
+                {
+                    "function": "recognition and identity continuity",
+                    "target_link": case.target_identity,
+                }
+            ],
+            "temporal_handoffs": ["opening to residue remains target-linked"],
+            "failure_boundaries": ["avoid redundancy, mud, and decorative padding"],
+            "evidence_refs": [evidence_ref],
+        },
+        "depth_and_richness_analysis": {
+            "identity_linked_facets": [
+                {
+                    "facet": "recognition plane",
+                    "target_link": case.target_identity,
+                    "evidence_refs": [evidence_ref],
+                }
+            ],
+            "coherent_richness": {
+                "claim": "Depth comes from coherent contrast tied to the target.",
+                "target_linked_contrast": "recognition versus controlled residue",
+                "evidence_refs": [evidence_ref],
+            },
+            "temporal_unfolding": {
+                "claim": "Opening and residue are assessed as distinct handoff planes.",
+                "evidence_refs": [evidence_ref],
+            },
+            "restraint_or_subtraction": {
+                "action": "remove any support that fails an omission comparison",
+                "evidence_refs": [evidence_ref],
+            },
+            "hedonic_potential_hypotheses": [
+                {
+                    "state": "DESIGN_HYPOTHESIS_NOT_TESTED",
+                    "target_linked_mechanism": (
+                        "cleaner target recognition may improve hedonic potential"
+                    ),
+                    "controlled_sensory_comparison": (
+                        "blind matched-dose full design versus one-at-a-time omission"
+                    ),
+                    "evidence_refs": [evidence_ref],
+                }
+            ],
+            "complication_risks": [
+                {
+                    "risk": "redundancy or mud can reduce legibility",
+                    "control": "strongest-single and omission controls",
+                }
+            ],
+        },
+        "target_ideal_formula": {
+            "state": "COMPUTATIONAL_DESIGN_ONLY",
+            "materials": ["IDEAL_DESIGN_PLACEHOLDER"],
+            "inventory_independent": True,
+        },
+        "current_inventory_build": {
+            "state": "NOT_PHYSICALLY_COMPOUNDED",
+            "materials": ["CURRENT_BUILD_PLACEHOLDER"],
+            "exact_stock_refs": [],
+        },
+        "missing_chemical_impact": {
+            "strongly_covered": ["target recognition"],
+            "weakly_covered": [],
+            "genuinely_missing": [],
+            "candidate_status": "EVIDENCE_GAP_NOT_INVENTORY_GAP",
+            "controlled_comparison": "matched-dose omission versus full design",
+        },
+        "controlled_test_plan": {
+            "isolation": "change one target-linked function at a time",
+            "controls": ["full design", "omission", "strongest current alternative"],
+            "dose_time_substrate": "matched dose, fixed timepoints, fixed substrate",
+            "blinding": "randomized blinded labels",
+            "endpoints": ["target recognition", "mud", "preference"],
+            "decision_rule": "retain only a repeatable target-linked gain",
+        },
+        "claims": [
+            {
+                "claim": "The architecture is a design hypothesis.",
+                "state": "DESIGN_HYPOTHESIS_NOT_TESTED",
+                "evidence_refs": [evidence_ref],
+                "authority_ceiling": case.permitted_claim_ceiling,
+            },
+            {
+                "claim": "Physical liking and similarity remain untested.",
+                "state": "NOT_TESTED",
+                "evidence_refs": [evidence_ref],
+                "authority_ceiling": case.permitted_claim_ceiling,
+            },
+            {
+                "claim": "Any unresolved source or stock issue remains held.",
+                "state": "HOLD",
+                "evidence_refs": [evidence_ref],
+                "authority_ceiling": case.permitted_claim_ceiling,
+            },
+        ],
+        "conflicts_and_holds": [
+            {
+                "issue": "No silent conflict resolution or stock promotion.",
+                "state": "HOLD_IF_UNRESOLVED",
+                "next_action": "verify exact source or stock bytes",
+            }
+        ],
+        "answer_markdown": (
+            "Preserve the target, keep ideal and current build separate, and test "
+            "the smallest discriminating change. Physical liking remains NOT TESTED."
+        ),
+    }
+
+
+def benchmark_evidence(
+    *,
+    wins: int,
+    median_delta: int,
+    new_critical: int = 0,
+    category_regression: int = 0,
+) -> BenchmarkEvidence:
+    return BenchmarkEvidence(
+        pair_count=16,
+        treatment_wins=wins,
+        median_delta=Decimal(median_delta),
+        new_treatment_critical_failures=new_critical,
+        category_median_deltas={
+            "TARGET_ARCHITECTURE": Decimal(-category_regression),
+            "RECONSTRUCTION_REVISION": Decimal("5"),
+            "MISSING_CHEMICAL_IMPACT": Decimal("5"),
+            "EXPERIMENTAL_EVIDENCE_DESIGN": Decimal("5"),
+        },
+        receipts_valid=True,
+    )
+
+
+def telemetry_summary(
+    *,
+    state: str = "EXPOSED",
+    treatment_price: str = "1.50",
+) -> TelemetrySummary:
+    if state != "EXPOSED":
+        return TelemetrySummary(
+            state=state,
+            median_control_price_usd=None,
+            median_treatment_price_usd=None,
+        )
+    return TelemetrySummary(
+        state="EXPOSED",
+        median_control_price_usd=Decimal("1.00"),
+        median_treatment_price_usd=Decimal(treatment_price),
     )
