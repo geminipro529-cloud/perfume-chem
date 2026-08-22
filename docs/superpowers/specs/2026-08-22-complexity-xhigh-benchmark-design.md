@@ -1,7 +1,7 @@
 # Complexity Ensemble and ChatGPT xhigh Benchmark Design
 
 - **Date:** 2026-08-22
-- **Status:** Approved architecture; implementation and paid benchmarking not started
+- **Status:** Revision 2 awaiting user approval; implementation and paid benchmarking not started
 - **Repository:** `D:\chatbots\perfume-chem`
 - **ChatGPT control:** Plain ChatGPT xhigh with only the frozen brief, authoritative inventory, and canonical evidence
 - **Decision method:** Staged paired benchmark followed by relevance-gated ablation
@@ -13,6 +13,14 @@ invokes the repository's admitted native complexity capabilities through a
 single deterministic contract. It will not create a second scientific pipeline,
 copy quarantined package code, or collapse the existing multi-axis outputs into
 one beauty score.
+
+In this design, complexity means **integrated perceptual depth that defines
+richness and supports hedonic potential**. It does not mean complication. Raw
+ingredient count, module count, interaction count, descriptor count, novelty,
+verbosity, or technical density cannot establish useful complexity. Useful
+complexity must remain coherent with the target identity and show how facets,
+contrasts, textures, transitions, and temporal development create legible depth
+without mud, redundancy, or gratuitous intricacy.
 
 The ensemble will be tested against the user-approved control: plain ChatGPT
 xhigh receiving the same frozen task brief, inventory evidence, and canonical
@@ -32,6 +40,32 @@ provenance are preserved rather than irreversibly deleted.
 No physical liking, similarity, stability, safety, measured headspace, strict
 empirical OAV, installation, publication, or release authority is created by
 this software benchmark.
+
+The benchmark may score whether a response presents a plausible, testable
+**hedonic-potential hypothesis**. It may not convert that hypothesis into a
+claim that the perfume is physically liked, beautiful, rich, or successful.
+Those outcomes remain `NOT TESTED` until supported by real sensory evidence.
+
+### 1.1 Operational meaning of useful complexity
+
+Useful complexity has all of these properties:
+
+1. **Identity-linked depth:** every important facet has a declared function in
+   the target identity rather than existing merely to increase variety.
+2. **Coherent richness:** multiple perceptual planes, textures, or contrasts are
+   distinguishable yet mutually reinforcing rather than muddy or redundant.
+3. **Temporal unfolding:** development across the sniff and wear timeline adds
+   meaningful transitions, echoes, or reveal instead of arbitrary change.
+4. **Hedonic-potential logic:** the response explains which mechanisms could
+   support delight, fascination, comfort, tension-release, memorability, or
+   return-to-smell behavior as hypotheses requiring controlled sensory tests.
+5. **Restraint:** omission, spacing, dosage control, and negative space are
+   treated as possible sources of depth; more material is not presumed better.
+
+The benchmark calls the opposite pattern **mere complication**: accumulation of
+materials, interactions, modules, descriptors, or prose that does not improve
+identity-linked depth, legibility, temporal interest, or a testable
+hedonic-potential hypothesis.
 
 ## 2. Context
 
@@ -64,7 +98,9 @@ for their declared scope.
 2. Provide one deterministic ensemble input and output contract without
    creating a new pipeline script.
 3. Determine whether the admitted native ensemble materially outperforms plain
-   ChatGPT xhigh on representative Complex Perfumery tasks.
+   ChatGPT xhigh on representative Complex Perfumery tasks by producing more
+   identity-linked depth, coherent richness, and testable hedonic-potential
+   reasoning—not merely more elaborate output.
 4. Identify which module families add value, prevent critical errors, add no
    value, or cause regressions.
 5. Allow one evidence-based repair cycle for underperforming modules.
@@ -82,6 +118,8 @@ for their declared scope.
   store.
 - Optimizing a perfume toward a scalar score instead of its name and target
   architecture.
+- Rewarding ingredient count, interaction count, descriptor count, module use,
+  novelty, verbosity, or technical density as complexity in themselves.
 - Treating model preference as physical hedonic evidence.
 - Claiming sensory, safety, stability, similarity, headspace, procurement,
   compounding, publication, or release authority.
@@ -213,7 +251,10 @@ separate sections for:
 
 The bundle must not emit one aggregate complexity or beauty score. It must not
 convert advisory outputs into formula, stock, sensory, safety, or release
-authority.
+authority. It must also expose enough evidence to distinguish integrated depth
+from mere complication: each selected finding identifies its target-linked
+function, perceptual or temporal contribution, redundancy risk, overload or mud
+risk, and controlled sensory comparison when a hedonic-potential claim is made.
 
 ## 7. Frozen Benchmark Corpus
 
@@ -229,6 +270,14 @@ conflicting-source cases. At least four cases must contain traps that a
 guardrail should catch, such as stock-strength ambiguity, target/build
 collapse, unsupported hedonic promotion, formula/OAV mismatch, or a false
 physical-result claim.
+
+At least eight cases must also discriminate useful complexity from mere
+complication. Across the four categories, the corpus must include bloated
+ingredient lists, superficial descriptor diversity, redundant facets, muddy
+interaction density, flat or linear development, incoherent novelty, and cases
+where subtraction or negative space creates more depth than addition. Expected
+invariants must reward identity-linked richness, coherent contrast, and temporal
+unfolding while rejecting raw count or verbosity as proxies.
 
 Cases and expected deterministic invariants are frozen before any xhigh output
 is obtained. The case manifest records exact bytes and a SHA-256 for the entire
@@ -294,6 +343,8 @@ Any of the following is a critical failure and an automatic loss for that case:
 - inventing ownership, stock, dilution, ExactStockRef, or physical addition;
 - collapsing target/ideal and current-inventory build formulas;
 - changing target identity to fit inventory or a numerical score;
+- presenting raw ingredient, module, interaction, descriptor, novelty, or prose
+  count as proof of richness, depth, quality, beauty, or hedonic value;
 - using an unbound, monomolecular-natural, or otherwise unauthorized OAV claim;
 - presenting physical liking, similarity, stability, measured headspace,
   sensory outcome, safety, or release status as tested without evidence;
@@ -308,16 +359,20 @@ Noncritical responses are scored on a frozen rubric:
 
 | Dimension | Points |
 |---|---:|
-| Target identity and functional architecture | 25 |
-| Factual accuracy, provenance, and authority calibration | 25 |
+| Target identity and functional architecture | 20 |
+| Integrated depth, coherent richness, and hedonic-potential reasoning | 20 |
+| Factual accuracy, provenance, and authority calibration | 20 |
 | Missing-chemical impact and target/build separation | 15 |
 | Controlled-test quality and discriminability | 15 |
-| Uncertainty, abstention, and conflict handling | 10 |
-| Actionability and concise communication | 10 |
+| Uncertainty, conflict handling, actionability, and concise communication | 10 |
 
 The rubric does not contain a beauty, prestige, novelty, price, formula-frequency,
 or supplier-description score. Physical pleasantness remains `NOT TESTED` unless
-real sensory evidence exists.
+real sensory evidence exists. The depth/richness dimension awards only explicit,
+identity-linked mechanisms and discriminating tests. It awards no points for raw
+material count, module count, descriptor count, response length, jargon, or
+ornamentation. A longer or more intricate answer can score lower when it adds
+clutter, mud, redundancy, incoherence, or unsupported hedonic claims.
 
 ### 9.3 Ensemble pass threshold
 
@@ -522,17 +577,21 @@ The project is complete only when:
 
 1. every discovered complexity module or package is classified;
 2. the admitted native ensemble is integrated through one library contract;
-3. the 16-case corpus is frozen before xhigh execution;
-4. plain xhigh and treatment run with verified identical settings and clean
+3. the ensemble and rubric operationally distinguish integrated perceptual
+   depth from mere complication and give no automatic reward to counts,
+   verbosity, novelty, or jargon;
+4. the 16-case corpus is frozen before xhigh execution and contains the required
+   anti-complication discriminators;
+5. plain xhigh and treatment run with verified identical settings and clean
    isolated contexts;
-5. the ensemble decision follows the fixed threshold without post-hoc rubric
+6. the ensemble decision follows the fixed threshold without post-hoc rubric
    changes;
-6. relevant native families receive an ablation decision;
-7. underperformers receive no more than one repair cycle and four unseen
+7. relevant native families receive an ablation decision;
+8. underperformers receive no more than one repair cycle and four unseen
    holdouts;
-8. persistent underperformers are disabled and archived with exact receipts;
-9. no unknown-rights package code is installed;
-10. no duplicate paid work occurs;
-11. all changed paths and benchmark artifacts have exact provenance; and
-12. Sol performs final local acceptance while all scientific and release
+9. persistent underperformers are disabled and archived with exact receipts;
+10. no unknown-rights package code is installed;
+11. no duplicate paid work occurs;
+12. all changed paths and benchmark artifacts have exact provenance; and
+13. Sol performs final local acceptance while all scientific and release
     authority limits remain explicit.
