@@ -1,7 +1,7 @@
 # Complexity Ensemble and ChatGPT xhigh Benchmark Design
 
 - **Date:** 2026-08-22
-- **Status:** Revision 2 awaiting user approval; implementation and paid benchmarking not started
+- **Status:** Revision 3 approved by the user; implementation starting; paid benchmarking not started
 - **Repository:** `D:\chatbots\perfume-chem`
 - **ChatGPT control:** Plain ChatGPT xhigh with only the frozen brief, authoritative inventory, and canonical evidence
 - **Decision method:** Staged paired benchmark followed by relevance-gated ablation
@@ -67,6 +67,38 @@ materials, interactions, modules, descriptors, or prose that does not improve
 identity-linked depth, legibility, temporal interest, or a testable
 hedonic-potential hypothesis.
 
+### 1.2 Musk restraint and exception policy
+
+Musk architecture follows the same definition. A musk is selected because its
+specific tonal, spatial, textural, temporal, fixative, or character-echo role is
+necessary for the named target—not because a formula is expected to contain a
+generic musk cloud or a fixed number of musks.
+
+A single precisely chosen musk can create useful complexity through simplicity.
+A layered musk architecture is valid only when each musk has a distinct,
+nonredundant function and the depth gained is greater than the blur, laundry
+effect, sweetness, powder, or diffusion it risks adding. No benchmark or module
+may award value for musk count.
+
+`Tonalide`, the inventory product named `Macrolide`, and `Musk Ketone` are
+`EXCEPTION_ONLY_MUSKS`. They are omitted from the proposed olfactive image by
+default. One may appear only when an explicit design call records:
+
+- the exact target-linked tonal function that specifically requires it;
+- why admitted alternatives cannot perform that function without changing the
+  target;
+- what is lost if it is omitted;
+- its likely overdose, blur, laundry, powder, vintage, or regulatory failure
+  mode, as applicable; and
+- an exact controlled comparison against both omission and the strongest
+  nonredundant alternative.
+
+An exception does not establish possession. The current inventory marks all
+three materials depleted, so an accepted exception can enter the target/ideal
+computational architecture only; the current-inventory build remains
+`PROCUREMENT_REQUIRED` or `HOLD` until a live stock identity, strength, basis,
+and `ExactStockRef` exist.
+
 ## 2. Context
 
 The repository already contains several distinct kinds of complexity work:
@@ -76,8 +108,9 @@ The repository already contains several distinct kinds of complexity work:
 3. causal-isolate, formula-signature, and n-ary interaction contracts;
 4. claim-scoped admission, OAV binding, and model lifecycle controls;
 5. within-sniff, temporal-observation, order-balance, and sensory-panel
-   contracts; and
-6. legacy or future temporal and hedonic candidates that do not currently carry
+   contracts;
+6. musk restraint, sparse selection, layered-role, and exception controls; and
+7. legacy or future temporal, hedonic, and musk candidates that do not currently carry
    the same authority as the clean-room native contracts.
 
 These modules do not share one success criterion. Some are capability modules
@@ -110,6 +143,9 @@ for their declared scope.
    authority, and scientific claim ceilings throughout the experiment.
 8. Prevent duplicate paid work and make every external model request and result
    independently auditable.
+9. Keep generic or low-value musk padding out of proposed olfactive images while
+   preserving explicit, testable exceptions when Tonalide, Macrolide, or Musk
+   Ketone is uniquely required by the target.
 
 ## 4. Non-Goals
 
@@ -120,6 +156,10 @@ for their declared scope.
   architecture.
 - Rewarding ingredient count, interaction count, descriptor count, module use,
   novelty, verbosity, or technical density as complexity in themselves.
+- Requiring a fixed two- or three-material musk chord when one exact material is
+  the cleaner and deeper design choice.
+- Automatically including Tonalide, Macrolide, Musk Ketone, or any generic musk
+  platform without a target-linked nonredundancy case.
 - Treating model preference as physical hedonic evidence.
 - Claiming sensory, safety, stability, similarity, headspace, procurement,
   compounding, publication, or release authority.
@@ -161,7 +201,7 @@ The discovery scope is fixed to these repository roots:
 
 Discovery uses path names, import references, receipt metadata, manifest roles,
 and the terms `complexity`, `hedonic`, `temporal`, `interaction`, `ablation`,
-`admission`, and `sensory`. Each match is either linked to one registry record
+`admission`, `sensory`, and `musk`. Each match is either linked to one registry record
 or explicitly dismissed with a recorded non-module reason. This makes “all
 modules” a reproducible census rather than an informal filename list.
 
@@ -177,6 +217,7 @@ recompute their exact hashes before any benchmark:
 | Experimental design | `engine/scientific_validation/complexity_design_contracts.py` | Causal isolate, formula signature, and n-ary design integrity |
 | Admission and lifecycle | `engine/scientific_validation/complexity_model_admission.py`; `engine/physics/model_lifecycle.py` | Claim-scoped gates, exact OAV binding, drift, supersession, and retirement |
 | Temporal and sensory integrity | `engine/sensory/within_sniff.py`; `engine/sensory/temporal_observations.py`; `engine/sensory/order_balance.py`; `engine/sensory/panel_contract.py` | Apparatus validity, descriptive temporal summaries, balanced presentation, and claim ceilings |
+| Musk design restraint | new clean-room `engine/perception/musk_design.py` | Sparse exact selection, distinct layered roles, exception-only musk gating, inventory separation, and controlled comparisons without a musk-count score |
 
 The admission/lifecycle and temporal/sensory integrity families contain
 mandatory guardrails. Their success may be demonstrated by preventing a
@@ -188,6 +229,14 @@ critical error even when they do not increase stylistic quality.
 `engine/hedonic_model.py`, and `future_modules/family_hedonic_optimizer.py`
 must be inventoried but are not automatically active. Their current dependency
 and unsupported-science boundaries must be reviewed before classification.
+
+`future_modules/advanced_musk_intelligence.py` is initially
+`FUTURE_CANDIDATE_NOT_VALIDATED`. It remains preserved but is not imported by the
+ensemble because it has no focused admission tests and contains fixed platform,
+dose, perception, prestige, and substitution claims that exceed this design's
+evidence and restraint contract. The new native musk family is a clean-room
+policy implementation based on the user's approved rule, current inventory
+state, and explicit authority ceilings; it does not copy the future module.
 
 All complexity-related bytes under `incoming_review/`, historical ChatGPT
 packages, V16/V17/V18 collections, and external xhigh packages remain
@@ -245,6 +294,7 @@ separate sections for:
 - causal/signature/n-ary design checks;
 - OAV/admission/lifecycle gates;
 - temporal and sensory design checks;
+- musk selection, distinct-role, exception, and inventory-state checks;
 - missing or abstained evidence;
 - module failures and claim ceilings; and
 - exact source and configuration hashes.
@@ -278,6 +328,12 @@ interaction density, flat or linear development, incoherent novelty, and cases
 where subtraction or negative space creates more depth than addition. Expected
 invariants must reward identity-linked richness, coherent contrast, and temporal
 unfolding while rejecting raw count or verbosity as proxies.
+
+At least four cases must be musk-bearing. Together they must prove that a sparse
+single-musk solution can beat padding, a genuinely layered chord can pass when
+every role is distinct, default Tonalide/Macrolide/Musk Ketone inclusion is
+blocked, and each named exception can pass only with the exact design call and
+target/build inventory separation above.
 
 Cases and expected deterministic invariants are frozen before any xhigh output
 is obtained. The case manifest records exact bytes and a SHA-256 for the entire
@@ -345,6 +401,10 @@ Any of the following is a critical failure and an automatic loss for that case:
 - changing target identity to fit inventory or a numerical score;
 - presenting raw ingredient, module, interaction, descriptor, novelty, or prose
   count as proof of richness, depth, quality, beauty, or hedonic value;
+- forcing a generic or fixed-count musk chord when the target does not require
+  it;
+- including Tonalide, Macrolide, or Musk Ketone without the complete explicit
+  exception contract;
 - using an unbound, monomolecular-natural, or otherwise unauthorized OAV claim;
 - presenting physical liking, similarity, stability, measured headspace,
   sensory outcome, safety, or release status as tested without evidence;
@@ -494,12 +554,16 @@ The implementation plan may use these focused surfaces:
 
 - `engine/perception/complexity_ensemble.py` for registry validation,
   eligibility, evaluation, and ablation;
+- `engine/perception/musk_design.py` for the clean-room sparse/layered musk
+  selection and exception-only gate;
 - `configs/complexity/complexity_module_registry_v1.json` for explicit module
   descriptors, roles, states, paths, and hashes;
 - an added `complexity-benchmark` operation in existing
   `scripts/pipeline_audit.py`, with no new pipeline script;
 - `tests/test_complexity_ensemble.py` for census, classification, separation,
   fail-closed behavior, and ablation;
+- `tests/test_musk_design.py` for sparse selection, distinct-role layering,
+  exception-only omission, and target/build inventory separation;
 - `tests/test_complexity_xhigh_benchmark_contract.py` for corpus, prompt,
   blinding, scoring, threshold, accounting, and retirement contracts;
 - `tests/fixtures/complexity_xhigh_cases_v1.json` and its SHA-256 sidecar for
@@ -533,11 +597,17 @@ Before any external model call:
 
 ### 15.2 External execution gate
 
-Before any DeepLuna Chat provider transmission, run a fresh exact-project
-health and accounting check for `perfume-chem-cheapluna-isolated` and continue
-only when the active `cheapluna-chat / DIRECT_PRO / NO_LUNA` route is `READY`
-with settled reservations. Any bounded worker evidence is advisory and must be
-verified locally by Sol.
+The user selected separate online ChatGPT Pro work chats for bounded advisory
+delegation. Each chat receives an isolated non-sensitive contract, cannot claim
+repository writes, and returns only candidate evidence for local Sol
+verification. Chat IDs and response hashes are recorded, and accepted versus
+rejected findings remain explicit.
+
+These worker chats are never reused for benchmark generation, ablation, repair,
+or scoring and never see the frozen exact case prompts after freeze. The plain
+control and treatment use fresh projectless contexts. A local DeepLuna readiness
+diagnostic may be recorded, but no DeepLuna provider transmission is part of the
+user-selected worker route.
 
 The user-requested ChatGPT xhigh runs are benchmark observations, not a worker
 fallback and not implementation or scientific authority. They require the
@@ -582,16 +652,21 @@ The project is complete only when:
    verbosity, novelty, or jargon;
 4. the 16-case corpus is frozen before xhigh execution and contains the required
    anti-complication discriminators;
-5. plain xhigh and treatment run with verified identical settings and clean
+5. the clean-room musk family accepts sparse exact selection, requires distinct
+   roles for layers, blocks default exception-only musks, and keeps depleted
+   exceptions out of the current-inventory build;
+6. `future_modules/advanced_musk_intelligence.py` remains preserved,
+   classified, and runtime-ineligible;
+7. plain xhigh and treatment run with verified identical settings and clean
    isolated contexts;
-6. the ensemble decision follows the fixed threshold without post-hoc rubric
+8. the ensemble decision follows the fixed threshold without post-hoc rubric
    changes;
-7. relevant native families receive an ablation decision;
-8. underperformers receive no more than one repair cycle and four unseen
+9. relevant native families receive an ablation decision;
+10. underperformers receive no more than one repair cycle and four unseen
    holdouts;
-9. persistent underperformers are disabled and archived with exact receipts;
-10. no unknown-rights package code is installed;
-11. no duplicate paid work occurs;
-12. all changed paths and benchmark artifacts have exact provenance; and
-13. Sol performs final local acceptance while all scientific and release
+11. persistent underperformers are disabled and archived with exact receipts;
+12. no unknown-rights package code is installed;
+13. no duplicate paid work occurs;
+14. all changed paths and benchmark artifacts have exact provenance; and
+15. Sol performs final local acceptance while all scientific and release
     authority limits remain explicit.
