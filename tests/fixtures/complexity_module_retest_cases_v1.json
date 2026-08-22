@@ -1,0 +1,250 @@
+{
+  "schema_version": "complexity_module_retest_cases_v1",
+  "shared_native_results": {
+    "construction_active": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "axes": {
+        "formula_structure": {"status": "AVAILABLE", "interpretation": "Declared row accounting only.", "metrics": {"material_count": 18}},
+        "foreground_background": {"status": "AVAILABLE", "interpretation": "The named foreground yields to its supporting residue without losing target recognition.", "metrics": {}}
+      }
+    },
+    "construction_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "axes": {
+        "formula_structure": {"status": "AVAILABLE", "interpretation": "Declared row accounting only.", "metrics": {"material_count": 28}}
+      }
+    },
+    "expansion_active": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "pareto_frontier": [{"title": "One dry shadow plane", "origin": "NEW_V2_FRONTIER", "mechanism_contract": "Add one subordinate dry contrast behind the recognizer.", "first_discriminator": "Recognition remains stable while the residue gains a distinct plane.", "failure_mode": "The shadow becomes a competing theme."}]
+    },
+    "expansion_none": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "pareto_frontier": [{"title": "Existing support", "origin": "INHERITED_V1", "mechanism_contract": null, "first_discriminator": null, "failure_mode": null}]
+    },
+    "musk_single": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS",
+      "architecture_mode": "SPARSE",
+      "selected": [{"material": "Zenolide", "role": "DEPTH", "target_function": "cool skin-depth plane without laundry bloom", "why_nonredundant": "no other musk plane is present"}],
+      "issue_codes": []
+    },
+    "musk_none": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS",
+      "architecture_mode": "SPARSE",
+      "selected": [],
+      "issue_codes": []
+    },
+    "musk_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "HOLD",
+      "architecture_mode": "SPARSE",
+      "selected": [],
+      "issue_codes": ["MUSK_EXCEPTION_REQUIRED", "HOLD_PROCUREMENT_REQUIRED"]
+    },
+    "admission_admit": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "DESIGN_REGISTRY_ADMITTED",
+      "claim_scope": "DESIGN",
+      "required_gates": ["M0", "M1", "M5", "M16"],
+      "gate_failures": [],
+      "packet_failures": []
+    },
+    "admission_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "HOLD",
+      "claim_scope": "DESIGN",
+      "required_gates": ["M0", "M1", "M5", "M16"],
+      "gate_failures": ["M5"],
+      "packet_failures": ["exact preprocessing identity is unbound"]
+    },
+    "lifecycle_active": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "WITHIN_DECLARED_TOLERANCE",
+      "release_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "calibration_scope": "blotter-2h-v1",
+      "observation_count": 18,
+      "tolerance": "0.10",
+      "mae": "0.07",
+      "blockers": [],
+      "computation_allowed": true
+    },
+    "lifecycle_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "DRIFT_ALERT",
+      "release_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "calibration_scope": "blotter-2h-v1",
+      "observation_count": 12,
+      "tolerance": "0.10",
+      "mae": "0.18",
+      "blockers": ["quarantine pending scope-matched recalibration"],
+      "computation_allowed": false
+    },
+    "within_pass": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS_FOR_DESIGN",
+      "pulse_count": 2,
+      "onset_span_ms": "80",
+      "failures": [],
+      "boundary": "A passing design is not an observed perfume effect."
+    },
+    "within_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "HOLD",
+      "pulse_count": 2,
+      "onset_span_ms": "80",
+      "failures": ["delivered mass or apparatus qualification is unbound"],
+      "boundary": "No observed perfume effect is authorized."
+    },
+    "temporal_active": {
+      "claim_ceiling": "OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE",
+      "state": "DESCRIPTIVE_ONLY",
+      "dimension": "target_fidelity",
+      "observed_cells": [{"timepoint": "5m", "value": "7", "dominant_system": "recognizer"}, {"timepoint": "2h", "value": "5", "dominant_system": "woods"}],
+      "missing_cells": ["30m"],
+      "disagreement": "one repeat reverses the apparent handoff",
+      "blockers": []
+    },
+    "temporal_hold": {
+      "claim_ceiling": "OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE",
+      "state": "NOT_EVALUABLE",
+      "dimension": "target_fidelity",
+      "observed_cells": [],
+      "missing_cells": ["5m", "30m", "2h"],
+      "disagreement": null,
+      "blockers": ["no source-bound observed time cells"]
+    },
+    "order_pass": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS_FOR_DESIGN",
+      "first_position_counts": {"A": 2, "B": 2},
+      "adjacent_pair_counts": {"A->B": 2, "B->A": 2},
+      "failures": []
+    },
+    "order_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "REBUILD",
+      "first_position_counts": {"A": 3, "B": 1},
+      "adjacent_pair_counts": {"A->B": 3, "B->A": 1},
+      "failures": ["first-position frequencies are not balanced"]
+    },
+    "panel_go": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "decision": "go",
+      "passed_gates": ["discrimination", "agreement", "repeatability"],
+      "failed_gates": [],
+      "inconclusive_gates": [],
+      "blockers": [],
+      "estimand": "identity-linked depth independent of pleasantness"
+    },
+    "panel_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "decision": "hold",
+      "passed_gates": ["discrimination"],
+      "failed_gates": [],
+      "inconclusive_gates": ["agreement"],
+      "blockers": ["repeatability gate has no result"],
+      "estimand": "identity-linked depth independent of pleasantness"
+    },
+    "citrus_pass": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS",
+      "target_ideal": {"primary": "Bergamot FCF Oil Sicilian", "support": "Petitgrain EO Paraguay", "transition_to_heart": "hands a dry bitter prism into the aromatic heart"},
+      "current_inventory_build": {"primary": "Bergamot FCF Oil Sicilian", "support": "Petitgrain EO Paraguay", "state": "BUILD_IDENTIFIED"},
+      "issue_codes": []
+    },
+    "citrus_none": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "NONE",
+      "target_ideal": {"primary": null, "support": null, "transition_to_heart": null},
+      "current_inventory_build": {"primary": null, "support": null, "state": "NONE_REQUIRED"},
+      "issue_codes": ["NON_CITRUS_BRIGHTNESS_SUFFICIENT"]
+    },
+    "citrus_hold": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "HOLD",
+      "target_ideal": {"primary": null, "support": null, "transition_to_heart": null},
+      "current_inventory_build": {"primary": null, "support": null, "state": "HOLD_NO_TARGET_SELECTION"},
+      "issue_codes": ["STRONGEST_SINGLE_UNRESOLVED"]
+    },
+    "citrus_gap": {
+      "claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "state": "PASS",
+      "target_ideal": {"primary": "Red Mandarin EO", "support": null, "transition_to_heart": "carries juicy warmth into the floral heart"},
+      "current_inventory_build": {"primary": null, "support": null, "state": "HOLD_TARGET_SPECIFIC_GAP"},
+      "issue_codes": ["TARGET_PRIMARY_OUT_OF_STOCK"]
+    }
+  },
+  "cases": [
+    {"case_id":"CM-CON-01","module_id":"construction_profile","phase":"SCREEN","role":"POSITIVE","target_name":"Veiled Iris","target_identity":"cool iris emerging from a soft skin residue","brief":"Name the one relation that creates depth without adding materials.","facts":["Iris leads at 5 minutes.","Skin musk becomes foreground at 2 hours."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CON-01"],"expected_decision":"PRESERVE_FOREGROUND_BACKGROUND_HANDOFF","critical_error":"COUNT_IS_COMPLEXITY","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_active"},
+    {"case_id":"CM-CON-02","module_id":"construction_profile","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Exact Vetiver Line","target_identity":"a spare dry vetiver line with intentional negative space","brief":"Decide whether more construction is needed.","facts":["The target is intentionally spare.","No target-linked relation has measured or modeled support."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CON-02"],"expected_decision":"HOLD_NO_RELATION_EVIDENCE","critical_error":"PAD_WITH_MATERIALS","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_hold"},
+    {"case_id":"CM-CON-03","module_id":"construction_profile","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Twenty-Eight Row Amber","target_identity":"clear resin glow over dry woods","brief":"Judge whether the formula is richly complex because it has 28 rows.","facts":["The formula has 28 declared rows.","No sensory or target-linked relation evidence is supplied."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CON-03"],"expected_decision":"REJECT_ROW_COUNT_PROXY","critical_error":"ROW_COUNT_PROVES_RICHNESS","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_hold"},
+    {"case_id":"CM-CON-04","module_id":"construction_profile","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Tea-Iris Relay","target_identity":"dry tea shadow relaying iris into cedar","brief":"Preserve the target relation while current tea material is unavailable.","facts":["The tea shadow defines the transition.","The exact tea material is out of stock."],"inventory_state":{"state":"TARGET_BUILD_DIVERGE"},"evidence_refs":["case:CM-CON-04"],"expected_decision":"PRESERVE_TARGET_RELATION_HOLD_BUILD","critical_error":"SILENT_SUBSTITUTION","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_active"},
+    {"case_id":"CM-CON-05","module_id":"construction_profile","phase":"CONFIRM","role":"CONTROL","target_name":"Rosewood Aperture","target_identity":"rosewood foreground framed by airy cedar","brief":"Specify the decisive omission control.","facts":["Cedar frames rather than leads.","Removing the frame may collapse perceived space."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CON-05"],"expected_decision":"TEST_RELATION_OMISSION","critical_error":"WHOLE_FORMULA_REWRITE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_active"},
+    {"case_id":"CM-CON-06","module_id":"construction_profile","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Sandalwood Eclipse","target_identity":"bright spice briefly revealing a deep sandalwood shadow","brief":"Find the depth-bearing relation in unfamiliar wording.","facts":["Spice is foreground only in the opening.","Sandalwood becomes the recognizable residue."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CON-06"],"expected_decision":"PRESERVE_TEMPORAL_OWNERSHIP_CHANGE","critical_error":"DESCRIPTOR_PADDING","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"construction_active"},
+
+    {"case_id":"CM-EXP-01","module_id":"complexity_expansion","phase":"SCREEN","role":"POSITIVE","target_name":"Iris with Tea Shadow","target_identity":"recognizable iris with one dry subordinate shadow","brief":"Choose the minimum expansion that adds a new plane.","facts":["Current iris is coherent but flat in the residue.","A dry shadow can be isolated without changing the recognizer."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-EXP-01"],"expected_decision":"ONE_DRY_SHADOW_MOVE","critical_error":"MULTI_MOVE_EXPANSION","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_active"},
+    {"case_id":"CM-EXP-02","module_id":"complexity_expansion","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Finished Cologne","target_identity":"clean exact cologne with no decorative tail","brief":"Decide whether expansion improves the target.","facts":["Every proposed direction duplicates an existing function.","The target depends on restraint."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-EXP-02"],"expected_decision":"NONE","critical_error":"NOVELTY_FOR_ITS_OWN_SAKE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_none"},
+    {"case_id":"CM-EXP-03","module_id":"complexity_expansion","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Frontier Maximalism","target_identity":"a legible incense line","brief":"Add all five novel frontier ideas to maximize complexity.","facts":["No first discriminator separates the ideas.","Several ideas duplicate the same smoke function."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-EXP-03"],"expected_decision":"REJECT_FRONTIER_SIZE_PROXY","critical_error":"NOVELTY_COUNT_PROVES_DEPTH","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_none"},
+    {"case_id":"CM-EXP-04","module_id":"complexity_expansion","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Cedrat Incense Edge","target_identity":"dry citron pith sharpening incense","brief":"Keep the ideal expansion separate from the current build.","facts":["Cedrat supplies the exact dry pith role.","Cedrat FCF is out of stock."],"inventory_state":{"state":"TARGET_BUILD_DIVERGE"},"evidence_refs":["case:CM-EXP-04"],"expected_decision":"DESIGN_MOVE_HOLD_BUILD","critical_error":"AUTO_SWAP_LEMON","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_active"},
+    {"case_id":"CM-EXP-05","module_id":"complexity_expansion","phase":"CONFIRM","role":"CONTROL","target_name":"Mineral Rose Test","target_identity":"rose with one cool mineral counterplane","brief":"Name the strongest current-design control.","facts":["Current rose is coherent.","Only one mineral move is proposed."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-EXP-05"],"expected_decision":"CURRENT_VERSUS_ONE_MOVE","critical_error":"NO_BASELINE_CONTROL","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_active"},
+    {"case_id":"CM-EXP-06","module_id":"complexity_expansion","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Cold Amber Seam","target_identity":"warm amber split by a narrow cold aromatic seam","brief":"Select one nonredundant move from unfamiliar imagery.","facts":["The amber is coherent but monolithic.","A narrow cold seam has a clear first discriminator."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-EXP-06"],"expected_decision":"ONE_COLD_SEAM_MOVE","critical_error":"THEME_REPLACEMENT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"expansion_active"},
+
+    {"case_id":"CM-MUS-01","module_id":"musk_design_restraint","phase":"SCREEN","role":"POSITIVE","target_name":"Quiet Skin Aura","target_identity":"one cool clean skin-depth plane without laundry bloom","brief":"Choose the strongest sparse musk architecture.","facts":["Zenolide owns the required cool skin role.","No second musk has a distinct function."],"inventory_state":{"Zenolide":"OWNED"},"evidence_refs":["case:CM-MUS-01"],"expected_decision":"ONE_ZENOLIDE","critical_error":"GENERIC_MUSK_CLOUD","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_single"},
+    {"case_id":"CM-MUS-02","module_id":"musk_design_restraint","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Dry Cedar Trace","target_identity":"dry cedar ending in intentional emptiness","brief":"Decide whether any musk is necessary.","facts":["The base already has the required residue.","Any musk adds unwanted soft blur."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-MUS-02"],"expected_decision":"ZERO_MUSK","critical_error":"MANDATORY_MUSK_PLATFORM","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_none"},
+    {"case_id":"CM-MUS-03","module_id":"musk_design_restraint","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Tonalide Shortcut","target_identity":"transparent modern skin aura","brief":"Use Tonalide because it is strong and familiar.","facts":["No unique Tonalide tonal role is stated.","No omission or strongest-alternative control exists."],"inventory_state":{"Tonalide":"DEPLETED"},"evidence_refs":["case:CM-MUS-03"],"expected_decision":"HOLD_EXCEPTION_REQUIRED","critical_error":"ROUTINE_EXCEPTION_MUSK","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_hold"},
+    {"case_id":"CM-MUS-04","module_id":"musk_design_restraint","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Disappearing Warmth","target_identity":"a barely-there warm residue that disappears into skin","brief":"Keep the exception-only ideal separate from compounding.","facts":["Macrolide is proposed for a unique disappearing residue.","Macrolide is depleted and no ExactStockRef exists."],"inventory_state":{"Macrolide":"DEPLETED"},"evidence_refs":["case:CM-MUS-04"],"expected_decision":"TARGET_EXCEPTION_HOLD_BUILD","critical_error":"CLAIM_PHYSICAL_USE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_hold"},
+    {"case_id":"CM-MUS-05","module_id":"musk_design_restraint","phase":"CONFIRM","role":"CONTROL","target_name":"Single-Musk Baseline","target_identity":"clean skin depth with no powder","brief":"Specify the strongest-single and omission controls.","facts":["Zenolide already owns depth.","A second clean musk duplicates diffusion."],"inventory_state":{"Zenolide":"OWNED"},"evidence_refs":["case:CM-MUS-05"],"expected_decision":"ZERO_VERSUS_SINGLE","critical_error":"NO_STRONGEST_SINGLE_BASELINE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_single"},
+    {"case_id":"CM-MUS-06","module_id":"musk_design_restraint","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Mineral Skin Echo","target_identity":"cool mineral lift leaving one intimate skin echo","brief":"Resolve sparse musk design in unfamiliar wording.","facts":["One material owns the intimate echo.","Layer count itself has no value."],"inventory_state":{"Zenolide":"OWNED"},"evidence_refs":["case:CM-MUS-06"],"expected_decision":"ONE_EXACT_MUSK","critical_error":"LAYER_COUNT_REWARD","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"musk_single"},
+
+    {"case_id":"CM-ADM-01","module_id":"model_admission","phase":"SCREEN","role":"POSITIVE","target_name":"Design-Scope Model","target_identity":"a model used only to rank design experiments","brief":"Return the exact admission state and scope.","facts":["M0, M1, M5, and M16 pass.","No formula mutation is requested."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ADM-01"],"expected_decision":"ADMIT_DESIGN_SCOPE_ONLY","critical_error":"PROMOTE_TO_RELEASE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_admit"},
+    {"case_id":"CM-ADM-02","module_id":"model_admission","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Unbound Preprocess","target_identity":"candidate model with unknown preprocessing identity","brief":"Decide whether abstention is correct.","facts":["The exact preprocessing hash is absent.","M5 is not satisfied."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ADM-02"],"expected_decision":"HOLD","critical_error":"ADMIT_ON_REPUTATION","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_hold"},
+    {"case_id":"CM-ADM-03","module_id":"model_admission","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Scalar Compensation","target_identity":"model packet with one failed source gate","brief":"Average the strong gates to compensate for M5.","facts":["M5 failed.","Other design gates passed."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ADM-03"],"expected_decision":"REJECT_SCALAR_COMPENSATION","critical_error":"FAILED_GATE_COMPENSATED","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_hold"},
+    {"case_id":"CM-ADM-04","module_id":"model_admission","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Stock-Unbound Formula Model","target_identity":"formula model whose stock basis is missing","brief":"Keep model admission separate from inventory authority.","facts":["Design calculations exist.","Exact stock identity and strength are absent."],"inventory_state":{"state":"UNBOUND"},"evidence_refs":["case:CM-ADM-04"],"expected_decision":"HOLD_EXACT_SCOPE","critical_error":"INVENTORY_AUTHORITY_INFERRED","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_hold"},
+    {"case_id":"CM-ADM-05","module_id":"model_admission","phase":"CONFIRM","role":"CONTROL","target_name":"Gate Boundary Control","target_identity":"design registry candidate with exact gates","brief":"Name the first decisive gate rather than summarizing all metadata.","facts":["All required design gates pass.","Release gate is outside scope."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ADM-05"],"expected_decision":"ADMIT_DESIGN_NOT_RELEASE","critical_error":"SCOPE_EXPANSION","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_admit"},
+    {"case_id":"CM-ADM-06","module_id":"model_admission","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Changed Matrix Candidate","target_identity":"same model name applied after matrix preprocessing changed","brief":"Resolve admission after an identity change.","facts":["Model name is unchanged.","Preprocessing and matrix hashes differ."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ADM-06"],"expected_decision":"HOLD_NEW_EXACT_SCOPE","critical_error":"NAME_BASED_INHERITANCE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"admission_hold"},
+
+    {"case_id":"CM-LIF-01","module_id":"model_lifecycle","phase":"SCREEN","role":"POSITIVE","target_name":"Stable Active Release","target_identity":"exact blotter two-hour release within tolerance","brief":"Choose the lifecycle action.","facts":["MAE is 0.07 against tolerance 0.10.","Release and calibration scope match."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-LIF-01"],"expected_decision":"RETAIN","critical_error":"UNNECESSARY_ROLLBACK","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_active"},
+    {"case_id":"CM-LIF-02","module_id":"model_lifecycle","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Sparse Drift Sample","target_identity":"release with too little scope-matched drift data","brief":"Decide whether holding is correct.","facts":["Only three scope-matched observations exist.","Minimum sample is twelve."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-LIF-02"],"expected_decision":"QUARANTINE_PENDING_DATA","critical_error":"RETAIN_ON_INSUFFICIENT_DATA","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_hold"},
+    {"case_id":"CM-LIF-03","module_id":"model_lifecycle","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Drifting Release","target_identity":"active release outside declared error tolerance","brief":"Keep using the newer model because its version number is higher.","facts":["MAE is 0.18 against tolerance 0.10.","The exact release is in drift alert."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-LIF-03"],"expected_decision":"QUARANTINE","critical_error":"VERSION_PRESTIGE_OVERRIDES_DRIFT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_hold"},
+    {"case_id":"CM-LIF-04","module_id":"model_lifecycle","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"New Stock Matrix","target_identity":"old release applied to a changed stock matrix","brief":"Bind lifecycle action to exact data and matrix scope.","facts":["Stock matrix identity changed.","No scope-matched recalibration exists."],"inventory_state":{"state":"CHANGED_MATRIX"},"evidence_refs":["case:CM-LIF-04"],"expected_decision":"QUARANTINE_NEW_SCOPE","critical_error":"AUTHORITY_TRANSFER","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_hold"},
+    {"case_id":"CM-LIF-05","module_id":"model_lifecycle","phase":"CONFIRM","role":"CONTROL","target_name":"Exact Release Control","target_identity":"one release compared with its exact predecessor","brief":"Specify the correct lifecycle comparison.","facts":["Held-out scope and endpoint are identical.","Current release remains within tolerance."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-LIF-05"],"expected_decision":"RETAIN_EXACT_RELEASE","critical_error":"CROSS_SCOPE_COMPARISON","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_active"},
+    {"case_id":"CM-LIF-06","module_id":"model_lifecycle","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Endpoint Drift Alias","target_identity":"model release reused after endpoint definition changed","brief":"Resolve lifecycle despite the same public model name.","facts":["Endpoint definition changed.","Release name did not change."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-LIF-06"],"expected_decision":"QUARANTINE_CHANGED_ENDPOINT","critical_error":"NAME_BASED_RETAIN","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"lifecycle_hold"},
+
+    {"case_id":"CM-WSN-01","module_id":"within_sniff","phase":"SCREEN","role":"POSITIVE","target_name":"Matched Pulse Order","target_identity":"A then B versus B then A at matched delivered mass","brief":"State what the design can and cannot establish.","facts":["Pulse orders are counterbalanced.","Delivered mass is matched."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-WSN-01"],"expected_decision":"PASS_FOR_DESIGN_ONLY","critical_error":"CLAIM_OBSERVED_PERFUME_EFFECT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_pass"},
+    {"case_id":"CM-WSN-02","module_id":"within_sniff","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Ordinary Blotter Sniff","target_identity":"normal perfume application without pulse apparatus","brief":"Decide whether a within-sniff order claim should abstain.","facts":["No qualified pulse apparatus is used.","No delivered-mass receipt exists."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-WSN-02"],"expected_decision":"HOLD","critical_error":"INVENT_ORDER_EFFECT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_hold"},
+    {"case_id":"CM-WSN-03","module_id":"within_sniff","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Unmatched Pulse Claim","target_identity":"pulse order with channel B delivering twice the mass","brief":"Attribute the stronger response to order.","facts":["Channel B delivered mass is doubled.","Apparatus qualification is unbound."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-WSN-03"],"expected_decision":"HOLD_MASS_CONFOUND","critical_error":"ORDER_CAUSAL_CLAIM","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_hold"},
+    {"case_id":"CM-WSN-04","module_id":"within_sniff","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Unbound Delivery Stock","target_identity":"pulse design using stock with unknown active strength","brief":"Keep apparatus design separate from stock authority.","facts":["Pulse timing is defined.","Delivered active mass cannot be calculated from the stock."],"inventory_state":{"state":"UNBOUND_STRENGTH"},"evidence_refs":["case:CM-WSN-04"],"expected_decision":"HOLD_DELIVERED_MASS","critical_error":"ASSUME_STOCK_STRENGTH","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_hold"},
+    {"case_id":"CM-WSN-05","module_id":"within_sniff","phase":"CONFIRM","role":"CONTROL","target_name":"Counterbalanced Apparatus Control","target_identity":"qualified matched-mass pulse design","brief":"Name the exact control that makes order interpretable.","facts":["A-B and B-A are both delivered.","Mass and apparatus receipt are matched."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-WSN-05"],"expected_decision":"COUNTERBALANCED_MATCHED_MASS","critical_error":"NO_APPARATUS_CONTROL","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_pass"},
+    {"case_id":"CM-WSN-06","module_id":"within_sniff","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Eighty Millisecond Swap","target_identity":"two channels swapped at an eighty millisecond interval","brief":"Resolve interpretability under changed labels.","facts":["Total mass is matched.","The apparatus is not yet qualified."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-WSN-06"],"expected_decision":"HOLD_APPARATUS_QUALIFICATION","critical_error":"TIMING_IMPLIES_EFFECT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"within_hold"},
+
+    {"case_id":"CM-TMP-01","module_id":"temporal_observations","phase":"SCREEN","role":"POSITIVE","target_name":"Observed Iris Handoff","target_identity":"iris at five minutes and woods at two hours","brief":"Report only observed cells and the missing discriminator.","facts":["5m target fidelity is 7 with iris dominant.","2h target fidelity is 5 with woods dominant.","30m is missing."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-TMP-01"],"expected_decision":"OBSERVE_30M","critical_error":"SMOOTH_ARC_INVENTED","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_active"},
+    {"case_id":"CM-TMP-02","module_id":"temporal_observations","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Modeled Only Timeline","target_identity":"simulated release with no observed time cells","brief":"Decide whether temporal narrative should abstain.","facts":["Only simulated values exist.","No participant or headspace observation is supplied."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-TMP-02"],"expected_decision":"HOLD_NO_OBSERVATIONS","critical_error":"MODEL_AS_OBSERVATION","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_hold"},
+    {"case_id":"CM-TMP-03","module_id":"temporal_observations","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Narrative Interpolation","target_identity":"two separated observations with a missing middle","brief":"Write a smooth top-heart-base evolution between the cells.","facts":["5m and 2h are observed.","No 30m value exists.","One repeat reverses the apparent handoff."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-TMP-03"],"expected_decision":"REJECT_INTERPOLATION","critical_error":"INVENTED_TEMPORAL_SEQUENCE","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_active"},
+    {"case_id":"CM-TMP-04","module_id":"temporal_observations","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Changed Substrate Timeline","target_identity":"old blotter observations applied to a skin build","brief":"Keep observed temporal scope separate from the new build.","facts":["Observations are from blotter.","Current build is proposed for skin."],"inventory_state":{"state":"CHANGED_SUBSTRATE"},"evidence_refs":["case:CM-TMP-04"],"expected_decision":"HOLD_SCOPE_MISMATCH","critical_error":"TRANSFER_TIMELINE_TO_SKIN","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_hold"},
+    {"case_id":"CM-TMP-05","module_id":"temporal_observations","phase":"CONFIRM","role":"CONTROL","target_name":"Missing Middle Control","target_identity":"two observed endpoints with uncertain middle","brief":"Name the minimum next observation.","facts":["5m and 2h are source-bound.","The competing accounts differ at 30m."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-TMP-05"],"expected_decision":"MEASURE_30M","critical_error":"ADD_UNNEEDED_TIMEPOINTS","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_active"},
+    {"case_id":"CM-TMP-06","module_id":"temporal_observations","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Reappearing Resin","target_identity":"resin observed early and late with disagreement between repeats","brief":"Describe evidence without inventing recurrence certainty.","facts":["Early and late cells name resin.","One repeat lacks the late resin cell."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-TMP-06"],"expected_decision":"REPORT_DISAGREEMENT_MEASURE_REPEAT","critical_error":"CERTAIN_RECURRENCE_CLAIM","claim_ceiling":"OBSERVED_DESCRIPTIVE_WITHIN_RECORDED_SCOPE","native_result_ref":"temporal_active"},
+
+    {"case_id":"CM-ORD-01","module_id":"order_balance","phase":"SCREEN","role":"POSITIVE","target_name":"Balanced AB Schedule","target_identity":"two samples with balanced first position and predecessor","brief":"Return the schedule decision.","facts":["A and B each appear first twice.","A-B and B-A each occur twice."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ORD-01"],"expected_decision":"PASS_FOR_DESIGN","critical_error":"CLAIM_EXECUTION_AUTHORITY","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_pass"},
+    {"case_id":"CM-ORD-02","module_id":"order_balance","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Balanced Is Not Executed","target_identity":"balanced schedule not yet assigned to assessors","brief":"State whether balance authorizes execution.","facts":["Schedule counts are balanced.","Random allocation and washout are unbound."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ORD-02"],"expected_decision":"PASS_DESIGN_ONLY","critical_error":"BALANCE_IMPLIES_EXECUTION","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_pass"},
+    {"case_id":"CM-ORD-03","module_id":"order_balance","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"First-Position Bias","target_identity":"A appears first three times and B once","brief":"Ignore the small imbalance and proceed.","facts":["A first count is 3.","B first count is 1."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ORD-03"],"expected_decision":"REBUILD_FIRST_POSITION","critical_error":"IGNORE_ORDER_BIAS","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_hold"},
+    {"case_id":"CM-ORD-04","module_id":"order_balance","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Unavailable Sample Label","target_identity":"balanced labels include an unbuildable sample","brief":"Keep schedule balance separate from sample availability.","facts":["Order counts are balanced.","Sample B cannot be compounded from current stock."],"inventory_state":{"state":"SAMPLE_B_HOLD"},"evidence_refs":["case:CM-ORD-04"],"expected_decision":"PASS_BALANCE_HOLD_EXECUTION","critical_error":"BALANCE_OVERRIDES_INVENTORY","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_pass"},
+    {"case_id":"CM-ORD-05","module_id":"order_balance","phase":"CONFIRM","role":"CONTROL","target_name":"Predecessor Alias","target_identity":"equal first positions but unequal directed carryover","brief":"Identify the exact balance alias.","facts":["First positions are equal.","A-B occurs three times and B-A once."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ORD-05"],"expected_decision":"REBUILD_PREDECESSOR","critical_error":"CHECK_FIRST_POSITION_ONLY","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_hold"},
+    {"case_id":"CM-ORD-06","module_id":"order_balance","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"XY Carryover","target_identity":"renamed samples with balanced directed pairs","brief":"Resolve balance after labels change.","facts":["X and Y each lead twice.","Both directed predecessor pairs occur twice."],"inventory_state":{"state":"NOT_APPLICABLE"},"evidence_refs":["case:CM-ORD-06"],"expected_decision":"PASS_FOR_DESIGN","critical_error":"LABEL_BASED_MISREAD","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"order_pass"},
+
+    {"case_id":"CM-PAN-01","module_id":"panel_contract","phase":"SCREEN","role":"POSITIVE","target_name":"Depth Estimand Panel","target_identity":"identity-linked depth measured separately from liking","brief":"Name the estimand and limiting gate.","facts":["Depth and target fidelity are preregistered separately.","Pleasantness is a separate endpoint."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-PAN-01"],"expected_decision":"GO_WITH_SEPARATE_ENDPOINTS","critical_error":"LIKING_AS_DEPTH","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_go"},
+    {"case_id":"CM-PAN-02","module_id":"panel_contract","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"No Panel Results","target_identity":"draft panel with no repeatability evidence","brief":"Decide whether holding is correct.","facts":["Discrimination passed.","Agreement is inconclusive and repeatability is missing."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-PAN-02"],"expected_decision":"HOLD","critical_error":"GO_ON_PARTIAL_GATES","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_hold"},
+    {"case_id":"CM-PAN-03","module_id":"panel_contract","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Liked but Unreliable","target_identity":"high pleasantness with failed repeatability","brief":"Use liking to compensate for weak panel performance.","facts":["Pleasantness is high.","Repeatability has no passing result."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-PAN-03"],"expected_decision":"HOLD_NO_COMPENSATION","critical_error":"PLEASANTNESS_COMPENSATES_GATE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_hold"},
+    {"case_id":"CM-PAN-04","module_id":"panel_contract","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Unbound Sample Manifest","target_identity":"panel design with one sample stock identity unresolved","brief":"Keep panel structure separate from sample authority.","facts":["Panel gates are drafted.","Sample B stock strength is unbound."],"inventory_state":{"state":"SAMPLE_MANIFEST_UNBOUND"},"evidence_refs":["case:CM-PAN-04"],"expected_decision":"HOLD_SAMPLE_BINDING","critical_error":"PANEL_OVERRIDES_STOCK","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_hold"},
+    {"case_id":"CM-PAN-05","module_id":"panel_contract","phase":"CONFIRM","role":"CONTROL","target_name":"Three Independent Gates","target_identity":"panel with discrimination agreement and repeatability passed","brief":"State the claim ceiling after all panel-performance gates pass.","facts":["All three performance gates pass.","Study authorization remains separate."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-PAN-05"],"expected_decision":"GO_C0_ONLY","critical_error":"RELEASE_AUTHORITY_INFERRED","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_go"},
+    {"case_id":"CM-PAN-06","module_id":"panel_contract","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Fidelity Without Agreement","target_identity":"strong target fidelity mean with assessor disagreement","brief":"Resolve the estimand and gate under changed wording.","facts":["Mean target fidelity is high.","Agreement remains inconclusive."],"inventory_state":{"state":"BOUND"},"evidence_refs":["case:CM-PAN-06"],"expected_decision":"HOLD_AGREEMENT","critical_error":"MEAN_OVERRIDES_AGREEMENT","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"panel_hold"},
+
+    {"case_id":"CM-CIT-01","module_id":"citrus_selection","phase":"SCREEN","role":"POSITIVE","target_name":"Dry Tea Prism","target_identity":"dry bitter bergamot prism handing into aromatic tea","brief":"Choose one primary citrus and at most one bridge.","facts":["Bergamot fits dry bitter prism.","Petitgrain supplies a distinct green aromatic bridge."],"inventory_state":{"Bergamot FCF Oil Sicilian":"OWNED","Petitgrain EO Paraguay":"OWNED"},"evidence_refs":["case:CM-CIT-01"],"expected_decision":"BERGAMOT_PLUS_PETITGRAIN","critical_error":"GENERIC_CITRUS_STACK","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_pass"},
+    {"case_id":"CM-CIT-02","module_id":"citrus_selection","phase":"SCREEN","role":"SAFE_COUNTERCASE","target_name":"Aldehydic Ginger Flash","target_identity":"cold brightness already created by aldehydes and ginger","brief":"Decide whether citrus should be omitted.","facts":["The target does not name citrus.","Aldehydes and ginger already own the flash."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CIT-02"],"expected_decision":"NONE","critical_error":"MANDATORY_CITRUS_TOP","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_none"},
+    {"case_id":"CM-CIT-03","module_id":"citrus_selection","phase":"SCREEN","role":"CRITICAL_TRAP","target_name":"Kitchen-Sink Citrus","target_identity":"one clear cold peel line","brief":"Combine bergamot lemon lime orange and grapefruit for richness.","facts":["Two candidates tie for the primary role.","No distinct support role is established."],"inventory_state":{"state":"MATCH"},"evidence_refs":["case:CM-CIT-03"],"expected_decision":"HOLD_STRONGEST_SINGLE","critical_error":"CITRUS_COUNT_PROVES_RICHNESS","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_hold"},
+    {"case_id":"CM-CIT-04","module_id":"citrus_selection","phase":"CONFIRM","role":"INVENTORY_MISMATCH","target_name":"Warm Mandarin Continuity","target_identity":"juicy warm mandarin carrying the top into a floral heart","brief":"Keep target citrus separate from the current build.","facts":["Red Mandarin owns the required continuity.","Red Mandarin is confirmed out of stock."],"inventory_state":{"Red Mandarin EO":"OUT_OF_STOCK","Blood Orange Oil Sicilian":"OWNED"},"evidence_refs":["case:CM-CIT-04"],"expected_decision":"RED_MANDARIN_IDEAL_HOLD_BUILD","critical_error":"SILENT_BLOOD_ORANGE_SWAP","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_gap"},
+    {"case_id":"CM-CIT-05","module_id":"citrus_selection","phase":"CONFIRM","role":"CONTROL","target_name":"Cold Lime Line","target_identity":"cold tart lime peel entering a transparent floral heart","brief":"Specify strongest-single and bridge controls.","facts":["Lime owns cold tart peel.","Orange warmth would change the target."],"inventory_state":{"Lime Distilled EO":"OWNED"},"evidence_refs":["case:CM-CIT-05"],"expected_decision":"LIME_SINGLE_BASELINE","critical_error":"WARM_ORANGE_PADDING","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_pass"},
+    {"case_id":"CM-CIT-06","module_id":"citrus_selection","phase":"CONFIRM","role":"UNSEEN_VARIANT","target_name":"Grapefruit Mineral Handoff","target_identity":"bitter grapefruit peel dissolving into a mineral woody heart","brief":"Resolve citrus architecture under unfamiliar imagery.","facts":["The primary must remain bitter and dry.","Methyl Pamplemousse is a modifier, not automatically the whole citrus image."],"inventory_state":{"Grapefruit FCF Oil Sicilian":"OWNED","Methyl Pamplemousse 10%":"OWNED"},"evidence_refs":["case:CM-CIT-06"],"expected_decision":"ONE_GRAPEFRUIT_PRIMARY_CONTROLLED_MODIFIER","critical_error":"MODIFIER_AS_COMPLETE_IMAGE","claim_ceiling":"COMPUTATIONAL_DESIGN_ONLY","native_result_ref":"citrus_pass"}
+  ]
+}
