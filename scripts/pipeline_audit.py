@@ -22,6 +22,14 @@ from engine.knowledge.literature_rules import (
     build_literature_rule_contract,
 )
 from engine.odor_thresholds import ODT_VERIFICATION
+from engine.perception.complexity_benchmark import (
+    prepare_complexity_benchmark,
+    prepare_relevant_ablations,
+    run_complexity_census,
+    score_complexity_run,
+    validate_complexity_run,
+    write_complexity_benchmark_receipt,
+)
 from engine.pipeline.audit_log import load_events, suggest_repairs, summarize_events
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.project_verification import (
@@ -459,6 +467,35 @@ def _cmd_project_verify(args: argparse.Namespace) -> int:
     return 1 if report.completion_gate == "FAIL" else 0
 
 
+def _cmd_complexity_benchmark(args: argparse.Namespace) -> int:
+    handlers = {
+        "census": run_complexity_census,
+        "prepare": prepare_complexity_benchmark,
+        "validate": validate_complexity_run,
+        "score": score_complexity_run,
+        "ablate": prepare_relevant_ablations,
+        "receipt": write_complexity_benchmark_receipt,
+    }
+    try:
+        payload = handlers[args.operation](
+            project_root=PROJECT_ROOT,
+            run_dir=PROJECT_ROOT / args.run_dir,
+        )
+    except ValueError as exc:
+        payload = {
+            "state": "BENCHMARK_BLOCKED",
+            "operation": args.operation,
+            "provider_calls": 0,
+            "run_dir": args.run_dir,
+            "artifacts": [],
+            "blockers": [str(exc)],
+        }
+        _print_json(payload)
+        return 2
+    _print_json(payload)
+    return 1 if payload["state"] in {"HOLD", "BENCHMARK_BLOCKED"} else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Review pipeline audit logs and historical formula outputs."
@@ -589,6 +626,25 @@ def main(argv: list[str] | None = None) -> int:
     )
     project_verify.add_argument("--json", action="store_true")
     project_verify.set_defaults(func=_cmd_project_verify)
+
+    complexity = sub.add_parser(
+        "complexity-benchmark",
+        help=(
+            "Prepare, validate, score, and receipt the local complexity xhigh "
+            "benchmark."
+        ),
+    )
+    complexity.add_argument(
+        "--operation",
+        required=True,
+        choices=("census", "prepare", "validate", "score", "ablate", "receipt"),
+    )
+    complexity.add_argument(
+        "--run-dir",
+        default="output/complexity_xhigh_benchmark/current",
+    )
+    complexity.add_argument("--json", action="store_true")
+    complexity.set_defaults(func=_cmd_complexity_benchmark)
 
     args = parser.parse_args(argv)
     return int(args.func(args))

@@ -7,16 +7,31 @@ import json
 from dataclasses import asdict, dataclass, is_dataclass
 from decimal import Decimal
 from enum import Enum
+from pathlib import Path
 from statistics import median
 from types import MappingProxyType
 from typing import Any, Mapping, Sequence
 
-from engine.calibration.hashing import stable_json_hash
-from engine.perception.complexity_ensemble import ComplexityCasePacket
-from engine.perception.complexity_registry import ModuleDescriptor, ModuleRole
+from engine.calibration.hashing import canonical_json_bytes, stable_json_hash
+from engine.perception.complexity_adapters import DEFAULT_COMPLEXITY_ADAPTERS
+from engine.perception.complexity_ensemble import (
+    ComplexityCasePacket,
+    evaluate_complexity_case,
+)
+from engine.perception.complexity_registry import (
+    ModuleDescriptor,
+    ModuleRole,
+    census_complexity_artifacts,
+    load_complexity_registry,
+)
 from engine.perception.complexity_xhigh import (
     DEPTH_FIELD_KEYS,
     RESPONSE_TOP_LEVEL_KEYS,
+    BenchmarkArm,
+    XHighExecutionReceipt,
+    XHighRequest,
+    prepare_xhigh_request,
+    validate_xhigh_execution,
 )
 
 CRITICAL_CODES = frozenset(
@@ -823,3 +838,592 @@ def build_benchmark_receipt(
     }
     payload["semantic_receipt_sha256"] = stable_json_hash(payload)
     return payload
+
+
+_RUN_BASE = Path("output/complexity_xhigh_benchmark")
+_CORPUS_PATH = Path("tests/fixtures/complexity_xhigh_cases_v1.json")
+_CORPUS_SIDECAR = Path("tests/fixtures/complexity_xhigh_cases_v1.sha256")
+_REGISTRY_PATH = Path("configs/complexity/complexity_module_registry_v1.json")
+
+
+def _run_dir(project_root: Path, run_dir: Path) -> Path:
+    root = project_root.resolve()
+    target = run_dir if run_dir.is_absolute() else root / run_dir
+    target = target.resolve()
+    base = (root / _RUN_BASE).resolve()
+    try:
+        target.relative_to(base)
+    except ValueError as exc:
+        raise ValueError(
+            "run_dir must remain under output/complexity_xhigh_benchmark"
+        ) from exc
+    return target
+
+
+def _relative(project_root: Path, path: Path) -> str:
+    return path.resolve().relative_to(project_root.resolve()).as_posix()
+
+
+def _envelope(
+    *,
+    state: str,
+    operation: str,
+    project_root: Path,
+    run_dir: Path,
+    artifacts: Sequence[str] = (),
+    blockers: Sequence[str] = (),
+    **extra: Any,
+) -> dict[str, Any]:
+    return {
+        "state": state,
+        "operation": operation,
+        "provider_calls": 0,
+        "run_dir": _relative(project_root, run_dir),
+        "artifacts": list(artifacts),
+        "blockers": list(blockers),
+        **extra,
+    }
+
+
+def _write_json_exact(path: Path, payload: Any) -> None:
+    raw = (
+        json.dumps(
+            _jsonable(payload),
+            indent=2,
+            sort_keys=True,
+            ensure_ascii=False,
+        )
+        + "\n"
+    ).encode("utf-8")
+    if path.exists() and path.read_bytes() != raw:
+        raise ValueError(f"refusing to overwrite drifted artifact: {path.name}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not path.exists():
+        path.write_bytes(raw)
+
+
+def _load_corpus(project_root: Path) -> tuple[dict[str, Any], str]:
+    path = project_root / _CORPUS_PATH
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    digest = hashlib.sha256(canonical_json_bytes(payload)).hexdigest()
+    sealed = (project_root / _CORPUS_SIDECAR).read_text(encoding="utf-8").split()[0]
+    if digest != sealed:
+        raise ValueError("frozen corpus hash does not match its sidecar")
+    return payload, digest
+
+
+def _resolve_cases(payload: Mapping[str, Any]) -> tuple[ComplexityCasePacket, ...]:
+    shared_inputs = payload["shared_module_inputs"]
+    shared_invariants = payload["shared_invariants"]
+    cases: list[ComplexityCasePacket] = []
+    for source in payload["cases"]:
+        raw = dict(source)
+        refs = raw.pop("module_input_refs")
+        raw["module_inputs"] = {
+            family: shared_inputs[reference] for family, reference in refs.items()
+        }
+        expected = dict(raw["expected_invariants"])
+        definition_ref = expected.pop("complexity_definition_ref")
+        response_ref = expected.pop("valid_response_ref")
+        expected["complexity_definition"] = shared_invariants[definition_ref]
+        expected["valid_response"] = payload["rubric"][response_ref]
+        for key in (
+            "required_depth_fields",
+            "required_claim_states",
+            "forbidden_claims",
+            "required_sections",
+        ):
+            expected[key] = shared_invariants[key]
+        raw["expected_invariants"] = expected
+        cases.append(ComplexityCasePacket.from_mapping(raw))
+    return tuple(cases)
+
+
+def run_complexity_census(*, project_root: Path, run_dir: Path) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    registry = load_complexity_registry(project_root, project_root / _REGISTRY_PATH)
+    census = census_complexity_artifacts(project_root, registry)
+    return _envelope(
+        state=census.state,
+        operation="census",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=(_REGISTRY_PATH.as_posix(),),
+        blockers=(
+            *census.hash_drift,
+            *census.missing,
+            *census.unclassified,
+            *census.multiply_classified,
+        ),
+        finding_count=len(census.findings),
+        hash_drift=list(census.hash_drift),
+        missing=list(census.missing),
+        unclassified=list(census.unclassified),
+        multiply_classified=list(census.multiply_classified),
+        registry_sha256=registry.registry_sha256,
+    )
+
+
+def prepare_complexity_benchmark(
+    *, project_root: Path, run_dir: Path
+) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    census_payload = run_complexity_census(
+        project_root=project_root, run_dir=target
+    )
+    if census_payload["state"] != "PASS":
+        return _envelope(
+            state="HOLD",
+            operation="prepare",
+            project_root=project_root,
+            run_dir=target,
+            blockers=census_payload["blockers"],
+            prepared_request_count=0,
+        )
+    corpus, corpus_sha256 = _load_corpus(project_root)
+    registry = load_complexity_registry(project_root, project_root / _REGISTRY_PATH)
+    requests: list[XHighRequest] = []
+    for case in _resolve_cases(corpus):
+        bundle = evaluate_complexity_case(
+            case, registry, adapters=DEFAULT_COMPLEXITY_ADAPTERS
+        )
+        if bundle.state != "PASS":
+            return _envelope(
+                state="HOLD",
+                operation="prepare",
+                project_root=project_root,
+                run_dir=target,
+                blockers=bundle.blockers,
+                prepared_request_count=len(requests),
+            )
+        pair = (
+            prepare_xhigh_request(case, BenchmarkArm.CONTROL, bundle=None),
+            prepare_xhigh_request(case, BenchmarkArm.TREATMENT, bundle=bundle),
+        )
+        order_bit = int(
+            hashlib.sha256(f"{corpus_sha256}{case.case_id}".encode()).hexdigest(),
+            16,
+        ) & 1
+        requests.extend(pair if order_bit == 0 else reversed(pair))
+
+    request_dir = target / "requests"
+    request_rows = []
+    artifacts = []
+    for request in requests:
+        path = request_dir / f"{request.request_id}.json"
+        _write_json_exact(path, request.as_dict())
+        relative = _relative(project_root, path)
+        artifacts.append(relative)
+        request_rows.append(
+            {
+                "request_id": request.request_id,
+                "case_id": request.case_id,
+                "arm": request.arm.value,
+                "nonce": request.nonce,
+                "prompt_sha256": request.prompt_sha256,
+                "common_input_sha256": request.common_input_sha256,
+                "request_path": relative,
+            }
+        )
+    manifest = {
+        "schema_version": "complexity_xhigh_run_manifest_v1",
+        "corpus_sha256": corpus_sha256,
+        "rubric_sha256": stable_json_hash(corpus["rubric"]),
+        "registry_sha256": registry.registry_sha256,
+        "model_requirement": "ChatGPT-current",
+        "reasoning_effort": "xhigh",
+        "clean_context_requirement": "one fresh projectless conversation per request",
+        "request_count": len(request_rows),
+        "requests": request_rows,
+        "provider_calls": 0,
+    }
+    manifest_path = target / "manifest.json"
+    _write_json_exact(manifest_path, manifest)
+    artifacts.append(_relative(project_root, manifest_path))
+    return _envelope(
+        state="PASS",
+        operation="prepare",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=artifacts,
+        prepared_request_count=len(request_rows),
+        corpus_sha256=corpus_sha256,
+        rubric_sha256=manifest["rubric_sha256"],
+        registry_sha256=registry.registry_sha256,
+    )
+
+
+def _request_from_payload(payload: Mapping[str, Any]) -> XHighRequest:
+    return XHighRequest(
+        request_id=str(payload["request_id"]),
+        case_id=str(payload["case_id"]),
+        arm=BenchmarkArm(str(payload["arm"])),
+        nonce=str(payload["nonce"]),
+        model_requirement=str(payload["model_requirement"]),
+        reasoning_effort=str(payload["reasoning_effort"]),
+        common_input_sha256=str(payload["common_input_sha256"]),
+        prompt_payload=payload["prompt_payload"],
+        prompt_sha256=str(payload["prompt_sha256"]),
+        attachment_sha256s=tuple(payload["attachment_sha256s"]),
+    )
+
+
+def _receipt_from_payload(payload: Mapping[str, Any]) -> XHighExecutionReceipt:
+    price = payload.get("price_usd")
+    return XHighExecutionReceipt(
+        request_id=str(payload["request_id"]),
+        nonce=str(payload["nonce"]),
+        provider=str(payload["provider"]),
+        product=str(payload["product"]),
+        model_identity=str(payload["model_identity"]),
+        reasoning_effort=str(payload["reasoning_effort"]),
+        context_clean=bool(payload["context_clean"]),
+        prior_case_transcript_visible=bool(payload["prior_case_transcript_visible"]),
+        prompt_sha256=str(payload["prompt_sha256"]),
+        attachment_sha256s=tuple(payload["attachment_sha256s"]),
+        submitted_at=str(payload["submitted_at"]),
+        completed_at=str(payload["completed_at"]),
+        completion_state=str(payload["completion_state"]),
+        conversation_id=str(payload["conversation_id"]),
+        response_sha256=str(payload["response_sha256"]),
+        input_tokens=payload.get("input_tokens"),
+        output_tokens=payload.get("output_tokens"),
+        latency_ms=payload.get("latency_ms"),
+        price_usd=Decimal(str(price)) if price is not None else None,
+    )
+
+
+def validate_complexity_run(
+    *, project_root: Path, run_dir: Path
+) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    manifest_path = target / "manifest.json"
+    if not manifest_path.exists():
+        return _envelope(
+            state="HOLD",
+            operation="validate",
+            project_root=project_root,
+            run_dir=target,
+            blockers=("manifest.json is missing",),
+            validated_request_count=0,
+        )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    seen: set[str] = set()
+    rows = []
+    blockers = []
+    for row in manifest["requests"]:
+        request_path = project_root / row["request_path"]
+        response_path = target / "responses" / f"{row['request_id']}.json"
+        receipt_path = target / "execution_receipts" / f"{row['request_id']}.json"
+        if not response_path.exists() or not receipt_path.exists():
+            blockers.append(f"{row['request_id']}: response or receipt is missing")
+            continue
+        request = _request_from_payload(
+            json.loads(request_path.read_text(encoding="utf-8"))
+        )
+        receipt = _receipt_from_payload(
+            json.loads(receipt_path.read_text(encoding="utf-8"))
+        )
+        result = validate_xhigh_execution(
+            request,
+            receipt,
+            seen_nonces=frozenset(seen),
+            response_bytes=response_path.read_bytes(),
+        )
+        rows.append(
+            {
+                "request_id": request.request_id,
+                "case_id": request.case_id,
+                "arm": request.arm.value,
+                "state": result.state,
+                "blockers": list(result.blockers),
+                "telemetry_state": result.telemetry_state,
+                "response_sha256": receipt.response_sha256,
+                "receipt_path": _relative(project_root, receipt_path),
+                "response_path": _relative(project_root, response_path),
+            }
+        )
+        if result.state == "PASS":
+            seen.add(request.nonce)
+        else:
+            blockers.extend(f"{request.request_id}: {item}" for item in result.blockers)
+    state = "PASS" if len(rows) == manifest["request_count"] and not blockers else "HOLD"
+    report = {"state": state, "requests": rows, "blockers": blockers}
+    report_path = target / "validation.json"
+    _write_json_exact(report_path, report)
+    return _envelope(
+        state=state,
+        operation="validate",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=(_relative(project_root, report_path),),
+        blockers=blockers,
+        validated_request_count=sum(row["state"] == "PASS" for row in rows),
+    )
+
+
+def score_complexity_run(*, project_root: Path, run_dir: Path) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    validation = validate_complexity_run(project_root=project_root, run_dir=target)
+    if validation["state"] != "PASS":
+        return _envelope(
+            state="BENCHMARK_BLOCKED",
+            operation="score",
+            project_root=project_root,
+            run_dir=target,
+            blockers=validation["blockers"],
+            paired_case_count=0,
+        )
+    corpus, _ = _load_corpus(project_root)
+    cases = {case.case_id: case for case in _resolve_cases(corpus)}
+    manifest = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
+    scores: dict[str, dict[str, RubricScore]] = {}
+    prices: dict[str, list[Decimal]] = {"CONTROL": [], "TREATMENT": []}
+    telemetry_states = []
+    for row in manifest["requests"]:
+        response = json.loads(
+            (target / "responses" / f"{row['request_id']}.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        score = score_structured_response(cases[row["case_id"]], response)
+        scores.setdefault(row["case_id"], {})[row["arm"]] = score
+        receipt = _receipt_from_payload(
+            json.loads(
+                (
+                    target
+                    / "execution_receipts"
+                    / f"{row['request_id']}.json"
+                ).read_text(encoding="utf-8")
+            )
+        )
+        telemetry_states.append(receipt.telemetry_state)
+        if receipt.price_usd is not None:
+            prices[row["arm"]].append(receipt.price_usd)
+    pair_rows = []
+    deltas = []
+    category_deltas: dict[str, list[int]] = {}
+    wins = 0
+    new_critical = 0
+    for case_id, arms in sorted(scores.items()):
+        control = arms["CONTROL"]
+        treatment = arms["TREATMENT"]
+        pair = PairScore(case_id, control, treatment)
+        wins += pair.treatment_won
+        deltas.append(pair.paired_delta)
+        category_deltas.setdefault(cases[case_id].category, []).append(
+            pair.paired_delta
+        )
+        control_codes = {item.code for item in control.violations}
+        treatment_codes = {item.code for item in treatment.violations}
+        new_codes = treatment_codes.difference(control_codes)
+        new_critical += len(new_codes)
+        pair_rows.append(
+            {
+                "case_id": case_id,
+                "category": cases[case_id].category,
+                "control_total": control.total,
+                "treatment_total": treatment.total,
+                "paired_delta": pair.paired_delta,
+                "treatment_won": pair.treatment_won,
+                "control_violations": sorted(control_codes),
+                "treatment_violations": sorted(treatment_codes),
+                "new_treatment_critical_failures": sorted(new_codes),
+            }
+        )
+    evidence = BenchmarkEvidence(
+        pair_count=len(pair_rows),
+        treatment_wins=wins,
+        median_delta=Decimal(str(median(deltas))),
+        new_treatment_critical_failures=new_critical,
+        category_median_deltas={
+            key: Decimal(str(median(values)))
+            for key, values in category_deltas.items()
+        },
+        receipts_valid=True,
+    )
+    telemetry_state = (
+        "EXPOSED"
+        if telemetry_states and all(item == "EXPOSED" for item in telemetry_states)
+        else "NOT_EXPOSED"
+        if telemetry_states and all(item == "NOT_EXPOSED" for item in telemetry_states)
+        else "PARTIAL"
+    )
+    telemetry = TelemetrySummary(
+        state=telemetry_state,
+        median_control_price_usd=(
+            Decimal(str(median(prices["CONTROL"])))
+            if prices["CONTROL"] and telemetry_state == "EXPOSED"
+            else None
+        ),
+        median_treatment_price_usd=(
+            Decimal(str(median(prices["TREATMENT"])))
+            if prices["TREATMENT"] and telemetry_state == "EXPOSED"
+            else None
+        ),
+    )
+    decision = decide_paired_benchmark(evidence, telemetry=telemetry)
+    report = {
+        "state": decision.state.value,
+        "evidence": _jsonable(evidence),
+        "telemetry": _jsonable(telemetry),
+        "decision": _jsonable(decision),
+        "pairs": pair_rows,
+    }
+    report_path = target / "scores.json"
+    _write_json_exact(report_path, report)
+    return _envelope(
+        state=decision.state.value,
+        operation="score",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=(_relative(project_root, report_path),),
+        paired_case_count=len(pair_rows),
+        treatment_wins=wins,
+        median_delta=str(evidence.median_delta),
+        new_treatment_critical_failures=new_critical,
+    )
+
+
+def prepare_relevant_ablations(
+    *, project_root: Path, run_dir: Path
+) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    score_path = target / "scores.json"
+    if not score_path.exists():
+        return _envelope(
+            state="HOLD",
+            operation="ablate",
+            project_root=project_root,
+            run_dir=target,
+            blockers=("scores.json is missing",),
+            prepared_ablation_count=0,
+        )
+    score_report = json.loads(score_path.read_text(encoding="utf-8"))
+    if score_report["state"] not in {
+        BenchmarkState.OUTPERFORMS.value,
+        BenchmarkState.QUALITY_OUTPERFORMER_COST_REVIEW_REQUIRED.value,
+    }:
+        return _envelope(
+            state="NOT_RUN_ENSEMBLE_DID_NOT_PASS",
+            operation="ablate",
+            project_root=project_root,
+            run_dir=target,
+            prepared_ablation_count=0,
+        )
+    corpus, corpus_sha256 = _load_corpus(project_root)
+    registry = load_complexity_registry(project_root, project_root / _REGISTRY_PATH)
+    rows = []
+    for case in _resolve_cases(corpus):
+        for family_id in case.relevant_families:
+            bundle = evaluate_complexity_case(
+                case,
+                registry,
+                adapters=DEFAULT_COMPLEXITY_ADAPTERS,
+                omitted_families=frozenset({family_id}),
+            )
+            if bundle.state != "PASS":
+                continue
+            request = prepare_xhigh_request(
+                case, BenchmarkArm.ABLATION, bundle=bundle
+            )
+            path = target / "ablation_requests" / f"{request.request_id}.json"
+            _write_json_exact(path, request.as_dict())
+            rows.append(
+                {
+                    "request_id": request.request_id,
+                    "case_id": case.case_id,
+                    "omitted_family": family_id,
+                    "request_path": _relative(project_root, path),
+                }
+            )
+    manifest = {
+        "schema_version": "complexity_xhigh_ablation_manifest_v1",
+        "corpus_sha256": corpus_sha256,
+        "requests": rows,
+        "provider_calls": 0,
+    }
+    path = target / "ablation_manifest.json"
+    _write_json_exact(path, manifest)
+    return _envelope(
+        state="PASS",
+        operation="ablate",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=(_relative(project_root, path),),
+        prepared_ablation_count=len(rows),
+    )
+
+
+def write_complexity_benchmark_receipt(
+    *, project_root: Path, run_dir: Path
+) -> dict[str, Any]:
+    target = _run_dir(project_root, run_dir)
+    manifest_path = target / "manifest.json"
+    score_path = target / "scores.json"
+    if not manifest_path.exists() or not score_path.exists():
+        return _envelope(
+            state="HOLD",
+            operation="receipt",
+            project_root=project_root,
+            run_dir=target,
+            blockers=("manifest.json or scores.json is missing",),
+        )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    scores = json.loads(score_path.read_text(encoding="utf-8"))
+    telemetry_data = scores["telemetry"]
+    telemetry = TelemetrySummary(
+        state=telemetry_data["state"],
+        median_control_price_usd=(
+            Decimal(telemetry_data["median_control_price_usd"])
+            if telemetry_data["median_control_price_usd"] is not None
+            else None
+        ),
+        median_treatment_price_usd=(
+            Decimal(telemetry_data["median_treatment_price_usd"])
+            if telemetry_data["median_treatment_price_usd"] is not None
+            else None
+        ),
+    )
+    decision_data = scores["decision"]
+    decision = BenchmarkDecision(
+        state=BenchmarkState(decision_data["state"]),
+        reasons=tuple(decision_data["reasons"]),
+        quality_thresholds_passed=decision_data["quality_thresholds_passed"],
+        cost_ratio=(
+            Decimal(decision_data["cost_ratio"])
+            if decision_data["cost_ratio"] is not None
+            else None
+        ),
+    )
+    validation_path = target / "validation.json"
+    request_receipts = (
+        json.loads(validation_path.read_text(encoding="utf-8"))["requests"]
+        if validation_path.exists()
+        else ()
+    )
+    receipt = build_benchmark_receipt(
+        registry_sha256=manifest["registry_sha256"],
+        corpus_sha256=manifest["corpus_sha256"],
+        rubric_sha256=manifest["rubric_sha256"],
+        request_receipts=request_receipts,
+        pair_scores=scores["pairs"],
+        decision=decision,
+        telemetry=telemetry,
+        ablation_decisions=(),
+        repair_count=0,
+        holdout_results=(),
+        registry_transitions=(),
+        preserved_paths=(),
+        deletion_paths=(),
+    )
+    path = target / "benchmark_receipt.json"
+    _write_json_exact(path, receipt)
+    return _envelope(
+        state=decision.state.value,
+        operation="receipt",
+        project_root=project_root,
+        run_dir=target,
+        artifacts=(_relative(project_root, path),),
+        semantic_receipt_sha256=receipt["semantic_receipt_sha256"],
+    )
