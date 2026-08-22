@@ -493,7 +493,12 @@ def _cmd_complexity_benchmark(args: argparse.Namespace) -> int:
         _print_json(payload)
         return 2
     _print_json(payload)
-    return 1 if payload["state"] in {"HOLD", "BENCHMARK_BLOCKED"} else 0
+    return (
+        1
+        if payload["state"] == "HOLD"
+        or str(payload["state"]).startswith("BENCHMARK_BLOCKED")
+        else 0
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

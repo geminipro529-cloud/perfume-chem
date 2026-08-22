@@ -9,6 +9,7 @@ from engine.calibration.hashing import stable_json_hash
 from engine.perception.complexity_benchmark import (
     FamilyDecision,
     build_benchmark_receipt,
+    build_blocked_benchmark_receipt,
     decide_paired_benchmark,
 )
 from tests.complexity_benchmark_fixtures import (
@@ -90,6 +91,27 @@ def test_receipt_refuses_second_repair_or_any_deletion_path() -> None:
         _receipt(deletion_paths=("engine/perception/construction_complexity.py",))
 
 
+def test_blocked_receipt_records_zero_transmissions_without_retiring_modules() -> None:
+    receipt = build_blocked_benchmark_receipt(
+        registry_sha256="a" * 64,
+        corpus_sha256="b" * 64,
+        rubric_sha256="c" * 64,
+        run_id="CXB-20260822T120000Z-0123abcd",
+        blocker_code="BENCHMARK_BLOCKED_UNVERIFIED_XHIGH",
+        blocker=(
+            "available cloud task interface cannot attest xhigh model and "
+            "projectless isolation"
+        ),
+        advisory_worker_chat_ids=("worker-1", "worker-2"),
+    )
+    semantic_hash = receipt.pop("semantic_receipt_sha256")
+    assert stable_json_hash(receipt) == semantic_hash
+    assert receipt["provider_transmissions"] == 0
+    assert receipt["module_disposition"] == "NO_RETIREMENT_WITHOUT_VALID_BENCHMARK"
+    assert receipt["benchmark_decision"] == "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH"
+    assert not any(receipt["authority_flags"].values())
+
+
 def test_runbook_is_nonfast_no_duplicate_and_authority_safe() -> None:
     text = RUNBOOK.read_text(encoding="utf-8")
     for required in (
@@ -102,4 +124,5 @@ def test_runbook_is_nonfast_no_duplicate_and_authority_safe() -> None:
         "no DeepLuna provider transmission",
     ):
         assert required in text
+    assert "[Globalization.CultureInfo]::InvariantCulture" in text
     assert "DeepLuna Fast fallback" not in text

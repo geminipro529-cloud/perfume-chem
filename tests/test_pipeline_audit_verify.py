@@ -90,6 +90,29 @@ def test_complexity_benchmark_rejects_run_dir_traversal(capsys) -> None:
     assert payload["state"] == "BENCHMARK_BLOCKED"
 
 
+def test_complexity_benchmark_blocked_terminal_receipt_returns_nonzero(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(
+        pipeline_audit,
+        "write_complexity_benchmark_receipt",
+        lambda **_: {
+            "state": "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH",
+            "operation": "receipt",
+            "provider_calls": 0,
+            "run_dir": "output/complexity_xhigh_benchmark/blocked",
+            "artifacts": [],
+            "blockers": ["xhigh cannot be attested"],
+        },
+    )
+    rc = pipeline_audit.main(
+        ["complexity-benchmark", "--operation", "receipt", "--json"]
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 1
+    assert payload["state"] == "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH"
+
+
 def test_artifact_verify_blocks_stale_or_tampered_bindings(
     tmp_path, monkeypatch, capsys
 ):

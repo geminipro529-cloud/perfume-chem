@@ -840,6 +840,66 @@ def build_benchmark_receipt(
     return payload
 
 
+def build_blocked_benchmark_receipt(
+    *,
+    registry_sha256: str,
+    corpus_sha256: str,
+    rubric_sha256: str,
+    run_id: str,
+    blocker_code: str,
+    blocker: str,
+    advisory_worker_chat_ids: Sequence[str],
+) -> dict[str, Any]:
+    for name, digest in (
+        ("registry_sha256", registry_sha256),
+        ("corpus_sha256", corpus_sha256),
+        ("rubric_sha256", rubric_sha256),
+    ):
+        if len(digest) != 64 or any(
+            character not in "0123456789abcdef" for character in digest
+        ):
+            raise ValueError(f"{name} must be a lowercase SHA-256")
+    if not run_id.strip() or not blocker.strip():
+        raise ValueError("run ID and blocker must be nonblank")
+    if not blocker_code.startswith("BENCHMARK_BLOCKED"):
+        raise ValueError("blocked benchmark code must start with BENCHMARK_BLOCKED")
+    payload = {
+        "schema_version": "complexity_xhigh_benchmark_blocked_receipt_v1",
+        "run_id": run_id,
+        "registry_sha256": registry_sha256,
+        "corpus_sha256": corpus_sha256,
+        "rubric_sha256": rubric_sha256,
+        "benchmark_decision": blocker_code,
+        "blockers": [blocker],
+        "prepared_request_count": 32,
+        "provider_transmissions": 0,
+        "execution_receipt_count": 0,
+        "pair_score_count": 0,
+        "ablation_observation_count": 0,
+        "repair_count": 0,
+        "module_disposition": "NO_RETIREMENT_WITHOUT_VALID_BENCHMARK",
+        "advisory_worker_chat_ids": list(advisory_worker_chat_ids),
+        "environment_proof": {
+            "chatgpt_product_attested": False,
+            "exact_model_identity_attested": False,
+            "xhigh_reasoning_attested": False,
+            "projectless_context_attested": False,
+        },
+        "deletion_paths": [],
+        "authority_flags": {
+            "source_admission": False,
+            "formula": False,
+            "inventory": False,
+            "physical_execution": False,
+            "sensory": False,
+            "safety": False,
+            "release": False,
+        },
+    }
+    payload["semantic_receipt_sha256"] = stable_json_hash(payload)
+    return payload
+
+
 _RUN_BASE = Path("output/complexity_xhigh_benchmark")
 _CORPUS_PATH = Path("tests/fixtures/complexity_xhigh_cases_v1.json")
 _CORPUS_SIDECAR = Path("tests/fixtures/complexity_xhigh_cases_v1.sha256")
@@ -1361,15 +1421,50 @@ def write_complexity_benchmark_receipt(
     target = _run_dir(project_root, run_dir)
     manifest_path = target / "manifest.json"
     score_path = target / "scores.json"
-    if not manifest_path.exists() or not score_path.exists():
+    if not manifest_path.exists():
         return _envelope(
             state="HOLD",
             operation="receipt",
             project_root=project_root,
             run_dir=target,
-            blockers=("manifest.json or scores.json is missing",),
+            blockers=("manifest.json is missing",),
         )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    environment_block_path = target / "environment_block.json"
+    if environment_block_path.exists():
+        environment_block = json.loads(
+            environment_block_path.read_text(encoding="utf-8")
+        )
+        receipt = build_blocked_benchmark_receipt(
+            registry_sha256=manifest["registry_sha256"],
+            corpus_sha256=manifest["corpus_sha256"],
+            rubric_sha256=manifest["rubric_sha256"],
+            run_id=environment_block["run_id"],
+            blocker_code=environment_block["blocker_code"],
+            blocker=environment_block["blocker"],
+            advisory_worker_chat_ids=tuple(
+                environment_block["advisory_worker_chat_ids"]
+            ),
+        )
+        path = target / "benchmark_receipt.json"
+        _write_json_exact(path, receipt)
+        return _envelope(
+            state=receipt["benchmark_decision"],
+            operation="receipt",
+            project_root=project_root,
+            run_dir=target,
+            artifacts=(_relative(project_root, path),),
+            blockers=receipt["blockers"],
+            semantic_receipt_sha256=receipt["semantic_receipt_sha256"],
+        )
+    if not score_path.exists():
+        return _envelope(
+            state="HOLD",
+            operation="receipt",
+            project_root=project_root,
+            run_dir=target,
+            blockers=("scores.json or environment_block.json is missing",),
+        )
     scores = json.loads(score_path.read_text(encoding="utf-8"))
     telemetry_data = scores["telemetry"]
     telemetry = TelemetrySummary(

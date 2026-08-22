@@ -23,7 +23,7 @@ Run these commands once in PowerShell from the repository root. Preserve the
 same `$runId` and `$runDir` for every later operation.
 
 ```powershell
-$stamp = [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ')
+$stamp = [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ', [Globalization.CultureInfo]::InvariantCulture)
 $suffix = (New-Guid).Guid.Replace('-', '').Substring(0, 8).ToLowerInvariant()
 $runId = "CXB-$stamp-$suffix"
 $runDir = "output/complexity_xhigh_benchmark/$runId"
