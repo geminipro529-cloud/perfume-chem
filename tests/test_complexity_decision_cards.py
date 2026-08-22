@@ -4,6 +4,12 @@ import hashlib
 
 import pytest
 
+from engine.perception.citrus_selection import (
+    CitrusCandidate,
+    CitrusInventoryState,
+    CitrusSelectionRequest,
+    select_citrus_architecture,
+)
 from engine.perception.complexity_decision_cards import (
     DecisionCard,
     DecisionCardState,
@@ -330,3 +336,54 @@ def test_projection_rejects_unknown_module_and_unbound_result_hash() -> None:
         build_decision_card("unknown", native_result("model_admission"), "target")
     with pytest.raises(ValueError, match="result_sha256"):
         build_decision_card("model_admission", {"state": "HOLD"}, "target")
+
+
+def citrus_native_result(*, citrus_required: bool = True) -> dict[str, object]:
+    candidate = CitrusCandidate(
+        material="Bergamot FCF Oil Sicilian",
+        roles=("DRY_BITTER_PRISM",),
+        axis_matches=("dry", "peel", "bitter", "cold", "naturalistic"),
+        axis_conflicts=(),
+        inventory_state=CitrusInventoryState.OWNED,
+        exact_stock_ref="inventory:Bergamot FCF Oil Sicilian:neat",
+        transition_to_heart="hands its bitter prism into the aromatic iris heart",
+        evidence_refs=("inventory:bergamot",),
+    )
+    request = CitrusSelectionRequest(
+        target_identity="dry bitter tea prism over aromatic iris",
+        target_axes=("dry", "peel", "bitter", "cold", "naturalistic"),
+        primary_role="DRY_BITTER_PRISM",
+        support_role=None,
+        candidates=(candidate,),
+        citrus_required=citrus_required,
+        non_citrus_brightness_satisfies_target=not citrus_required,
+        inventory_authority_sha256="d" * 64,
+    )
+    return select_citrus_architecture(request).as_dict()
+
+
+def test_citrus_projection_names_primary_handoff_and_inventory_separation() -> None:
+    card = build_decision_card(
+        "citrus_selection",
+        citrus_native_result(),
+        "dry bitter tea prism over aromatic iris",
+    )
+
+    encoded = card.to_json_bytes().decode("utf-8")
+    assert card.decision_kind == "CITRUS_ARCHITECTURE"
+    assert card.state is DecisionCardState.DECIDE
+    assert "Bergamot FCF Oil Sicilian" in encoded
+    assert "aromatic iris heart" in encoded
+    assert "BUILD_IDENTIFIED" in encoded
+    assert "stack" in card.reject
+
+
+def test_citrus_projection_preserves_none_as_a_successful_decision() -> None:
+    card = build_decision_card(
+        "citrus_selection",
+        citrus_native_result(citrus_required=False),
+        "aldehydic ginger brightness",
+    )
+
+    assert card.state is DecisionCardState.NONE
+    assert "NONE" in " ".join(card.decisive_evidence)

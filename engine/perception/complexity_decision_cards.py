@@ -454,6 +454,50 @@ def _panel_card(native_result: Mapping[str, Any], target_identity: str) -> Decis
     )
 
 
+def _citrus_card(native_result: Mapping[str, Any], target_identity: str) -> DecisionCard:
+    selection_state = _brief(native_result.get("state", "HOLD")).upper()
+    target = _mapping(native_result.get("target_ideal", {}), "citrus target_ideal")
+    current = _mapping(
+        native_result.get("current_inventory_build", {}),
+        "citrus current_inventory_build",
+    )
+    issues = tuple(_brief(item) for item in _items(native_result.get("issue_codes")))
+    if selection_state == "NONE":
+        evidence = (
+            "decision: NONE; citrus is not required for this target",
+            f"basis: {issues[0] if issues else 'target identity is already served'}",
+        )
+        state = DecisionCardState.NONE
+    elif selection_state == "HOLD":
+        evidence = tuple(f"hold: {item}" for item in issues[:3]) or (
+            "No unique target-fit primary citrus is established.",
+        )
+        state = DecisionCardState.HOLD
+    else:
+        primary = _brief(target.get("primary"))
+        support = target.get("support")
+        primary_fact = f"target primary: {primary}"
+        if support is not None:
+            primary_fact += f"; distinct support: {_brief(support)}"
+        evidence = (
+            primary_fact,
+            f"handoff: {_brief(target.get('transition_to_heart'))}",
+            f"current build: {_brief(current.get('state'))}",
+        )
+        state = DecisionCardState.DECIDE
+    return _card(
+        native_result,
+        module_id="citrus_selection",
+        decision_kind="CITRUS_ARCHITECTURE",
+        state=state,
+        decision_question="Which one primary citrus and optional distinct bridge best serve the target and its heart handoff, or is NONE better?",
+        decisive_evidence=evidence,
+        preserve=target_identity,
+        reject="Do not stack generic citrus, default to bergamot, or infer richness and liking from count, percentage, or naturalness.",
+        controlled_comparison="citrus omission, strongest-single primary, and primary plus one distinct bridge at matched dose",
+    )
+
+
 _PROJECTORS: dict[str, Projector] = {
     "construction_profile": _construction_card,
     "complexity_expansion": _expansion_card,
@@ -464,6 +508,7 @@ _PROJECTORS: dict[str, Projector] = {
     "temporal_observations": _temporal_card,
     "order_balance": _order_card,
     "panel_contract": _panel_card,
+    "citrus_selection": _citrus_card,
 }
 
 
