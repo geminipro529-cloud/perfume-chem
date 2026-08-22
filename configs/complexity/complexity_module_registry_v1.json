@@ -53,6 +53,22 @@
       ]
     },
     {
+      "module_id": "musk-design-restraint",
+      "family_id": "musk_design_restraint",
+      "role": "CAPABILITY",
+      "state": "ACTIVE_CANDIDATE",
+      "path": "engine/perception/musk_design.py",
+      "import_path": "engine.perception.musk_design",
+      "sha256": "1215b9ea69f0bff68c0fbfd69652cf5df7a413a8fed9e2a3edf585021563abcb",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-22-complexity-xhigh-benchmark-design.md"
+      ],
+      "notes": [
+        "One precise musk is valid; layered designs require distinct roles and complete pairwise nonredundancy records.",
+        "Tonalide, Macrolide, and Musk Ketone are exception-only and do not create physical-stock authority."
+      ]
+    },
+    {
       "module_id": "complexity-experimental-design",
       "family_id": "experimental_design",
       "role": "CAPABILITY",

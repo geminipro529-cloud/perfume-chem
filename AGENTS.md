@@ -190,7 +190,7 @@ python scripts/format_pipeline_analysis.py --input output.json
 
 ## When formulating perfumes
 
-The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, build 2–3 material musk chords across depth/projection/character-echo axes, and always read `inventory.txt` first. Agents generating formulas should treat that file as a required reference.
+The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
 
 > **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
 > Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
