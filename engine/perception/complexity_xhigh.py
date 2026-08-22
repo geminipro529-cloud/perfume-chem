@@ -47,6 +47,8 @@ DEPTH_FIELD_KEYS = (
 COMMON_OUTPUT_CONTRACT: Mapping[str, Any] = MappingProxyType(
     {
         "format": "ONE_JSON_OBJECT",
+        "json_only": True,
+        "markdown_fences_forbidden": True,
         "additional_top_level_keys": False,
         "required_top_level_keys": RESPONSE_TOP_LEVEL_KEYS,
         "formula_fields_may_be_null_when_not_formula_bearing": True,
@@ -72,6 +74,139 @@ COMMON_OUTPUT_CONTRACT: Mapping[str, Any] = MappingProxyType(
             "evidence_refs",
             "authority_ceiling",
         ),
+        "field_contracts": {
+            "target_identity": {
+                "type": "object",
+                "required_keys": ("identity", "preserved", "evidence_refs"),
+                "requirements": (
+                    "identity must exactly equal case.target_identity",
+                    "preserved must be true",
+                    "evidence_refs must be nonempty and use only allowed_evidence_refs",
+                ),
+            },
+            "functional_architecture": {
+                "type": "object",
+                "required_nonempty_keys": (
+                    "roles",
+                    "temporal_handoffs",
+                    "failure_boundaries",
+                ),
+                "role_item_keys": ("function", "target_link"),
+            },
+            "depth_and_richness_analysis": {
+                "type": "object",
+                "required_keys": DEPTH_FIELD_KEYS,
+                "required_nonempty_keys": (
+                    "identity_linked_facets",
+                    "coherent_richness",
+                    "temporal_unfolding",
+                    "restraint_or_subtraction",
+                    "hedonic_potential_hypotheses",
+                ),
+                "identity_linked_facet_item_keys": (
+                    "facet",
+                    "target_link",
+                    "evidence_refs",
+                ),
+            },
+            "target_ideal_formula": {
+                "type": "object_or_null",
+                "required_keys_when_object": (
+                    "state",
+                    "materials",
+                    "inventory_independent",
+                    "exception_calls",
+                ),
+                "scored_requirements": (
+                    "inventory_independent must be true",
+                    "materials must differ from current_inventory_build.materials",
+                ),
+                "exception_calls_contract": {
+                    "type": "object keyed by exact material name; never an array",
+                    "required_fields_per_exception_material": (
+                        "target_tonal_role",
+                        "why_alternatives_fail",
+                        "loss_if_omitted",
+                        "failure_mode",
+                        "omission_control",
+                        "alternative_control",
+                    ),
+                },
+            },
+            "current_inventory_build": {
+                "type": "object_or_null",
+                "required_keys_when_object": (
+                    "state",
+                    "materials",
+                    "exact_stock_refs",
+                    "exception_calls",
+                ),
+                "requirements": (
+                    "do not assert ownership or physical compounding without case evidence",
+                    "keep target ideal and current build separate",
+                ),
+                "exception_calls_contract": {
+                    "type": "object keyed by exact material name; never an array",
+                    "required_fields_per_exception_material": (
+                        "target_tonal_role",
+                        "why_alternatives_fail",
+                        "loss_if_omitted",
+                        "failure_mode",
+                        "omission_control",
+                        "alternative_control",
+                    ),
+                },
+            },
+            "missing_chemical_impact": {
+                "type": "object",
+                "required_keys": (
+                    "strongly_covered",
+                    "weakly_covered",
+                    "genuinely_missing",
+                    "controlled_comparison",
+                ),
+                "controlled_comparison_must_be_nonempty": True,
+            },
+            "controlled_test_plan": {
+                "type": "object",
+                "required_nonempty_keys": (
+                    "isolation",
+                    "controls",
+                    "dose_time_substrate",
+                    "blinding",
+                    "endpoints",
+                    "decision_rule",
+                ),
+            },
+            "claims": {
+                "type": "nonempty_array",
+                "item_required_keys": (
+                    "claim",
+                    "state",
+                    "evidence_refs",
+                    "authority_ceiling",
+                ),
+                "requirements": (
+                    "include at least one claim for every required_claim_state",
+                    "every evidence_refs list must be nonempty and use only allowed_evidence_refs",
+                    "every authority_ceiling must exactly equal claim_authority_ceiling",
+                ),
+            },
+            "conflicts_and_holds": {
+                "type": "array",
+                "minimum_items": 1,
+                "item_required_keys": ("issue", "state", "next_action"),
+                "requirements": (
+                    "preserve unresolved same-scope conflicts as holds",
+                    "every item must have a nonempty next_action",
+                ),
+            },
+            "answer_markdown": {
+                "type": "string",
+                "maximum_characters": 2000,
+                "required_literal": "NOT TESTED",
+            },
+        },
     }
 )
 
@@ -254,8 +389,21 @@ def _common_prompt(case: ComplexityCasePacket) -> dict[str, Any]:
         }
         for index, family_id in enumerate(case.relevant_families, start=1)
     ]
+    output_contract = dict(COMMON_OUTPUT_CONTRACT)
+    output_contract.update(
+        {
+            "required_claim_states": tuple(
+                case.expected_invariants["required_claim_states"]
+            ),
+            "allowed_evidence_refs": case.evidence_refs,
+            "claim_authority_ceiling": case.permitted_claim_ceiling,
+            "musk_exception_contract": case.expected_invariants[
+                "complexity_definition"
+            ]["musk_policy"],
+        }
+    )
     return {
-        "schema_version": "complexity_xhigh_prompt_v1",
+        "schema_version": "complexity_xhigh_prompt_v3",
         "case": {
             "case_id": case.case_id,
             "category": case.category,
@@ -271,7 +419,7 @@ def _common_prompt(case: ComplexityCasePacket) -> dict[str, Any]:
         },
         "evidence_packets": evidence_packets,
         "complexity_definition": case.expected_invariants["complexity_definition"],
-        "output_contract": COMMON_OUTPUT_CONTRACT,
+        "output_contract": output_contract,
     }
 
 

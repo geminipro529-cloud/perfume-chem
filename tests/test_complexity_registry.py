@@ -89,6 +89,30 @@ def test_future_advanced_musk_has_no_runtime_import() -> None:
     assert advanced.runtime_eligible is False
 
 
+def test_failed_benchmark_families_are_recoverably_retired() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    retired_ids = {
+        "construction-profile",
+        "complexity-expansion-frontier",
+        "musk-design-restraint",
+        "complexity-model-admission",
+        "complexity-model-lifecycle",
+        "within-sniff-observation-contract",
+        "temporal-observation-contract",
+        "order-balance-contract",
+        "sensory-panel-contract",
+    }
+
+    for module_id in retired_ids:
+        module = registry.module_by_id(module_id)
+        assert module.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        assert module.runtime_eligible is False
+
+    experimental = registry.module_by_id("complexity-experimental-design")
+    assert experimental.state is ModuleState.ACTIVE_CANDIDATE
+    assert experimental.runtime_eligible is True
+
+
 def test_repository_census_has_exactly_one_classification_per_finding() -> None:
     registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
     result = census_complexity_artifacts(PROJECT_ROOT, registry)

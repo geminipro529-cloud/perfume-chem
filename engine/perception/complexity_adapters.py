@@ -134,6 +134,22 @@ def _seal(
     result["sensory_authority"] = False
     result["safety_authority"] = False
     result["release_authority"] = False
+    result["response_discriminators"] = {
+        "target_build_separation": {
+            "target_ideal_inventory_independent": True,
+            "current_build_requires_case_bound_stock_evidence": True,
+            "identical_target_and_build_material_lists_forbidden": True,
+            "when_stock_evidence_is_absent": (
+                "use an empty current_inventory_build.materials list"
+            ),
+        },
+        "missing_chemical_impact": {
+            "module_inventory_authority": False,
+            "default_gap_class": "EVIDENCE_GAP_NOT_INVENTORY_GAP",
+            "inventory_gap_requires_case_bound_evidence": True,
+            "controlled_comparison_required": True,
+        },
+    }
     result["result_sha256"] = stable_json_hash(result)
     return result
 
@@ -1007,7 +1023,34 @@ def adapt_musk_design(payload: Mapping[str, Any]) -> Mapping[str, Any]:
             pairwise_nonredundancy=pairwise,
         )
     )
-    return _seal(result.as_dict())
+    native = result.as_dict()
+    decisions = tuple(_mapping(item, "musk decision") for item in native["decisions"])
+    target_materials = [
+        str(item["material"]) for item in decisions if item["target_included"]
+    ]
+    build_materials = [
+        str(item["material"])
+        for item in decisions
+        if item["current_build_included"]
+    ]
+    exception_calls: dict[str, dict[str, Any]] = {}
+    for raw in native["selected"]:
+        selected = _mapping(raw, "selected musk")
+        material = str(selected["material"])
+        exception = selected.get("exception")
+        if material not in target_materials or exception is None:
+            continue
+        call = dict(_mapping(exception, "musk exception"))
+        call.pop("material", None)
+        exception_calls[material] = call
+    native["formula_projection"] = {
+        "target_ideal_materials": target_materials,
+        "current_inventory_build_materials": build_materials,
+        "current_inventory_build_state": native["current_inventory_build_state"],
+        "target_ideal_exception_calls": exception_calls,
+        "current_inventory_build_exception_calls": {},
+    }
+    return _seal(native)
 
 
 DEFAULT_COMPLEXITY_ADAPTERS: Mapping[str, Adapter] = MappingProxyType(

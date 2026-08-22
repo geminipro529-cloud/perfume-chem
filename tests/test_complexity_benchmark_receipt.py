@@ -25,7 +25,7 @@ RUNBOOK = (
 )
 FINAL_RECEIPT = (
     ROOT
-    / "data/governance/complexity_xhigh_benchmark_CXB-20260822T123757Z-809d0e73.json"
+    / "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
 )
 
 
@@ -148,6 +148,27 @@ def test_final_receipt_replays_semantic_hash_and_authority_boundary() -> None:
         "release": False,
     }
     assert payload["deleted_paths"] == []
-    assert payload["benchmark"]["provider_transmissions"] == 0
-    assert payload["benchmark"]["valid_pair_count"] == 0
-    assert payload["module_decision"] == "NO_RETIREMENT_WITHOUT_VALID_BENCHMARK"
+    assert payload["benchmark"]["valid_pair_count"] == 16
+    assert payload["benchmark"]["treatment_wins"] == 3
+    assert payload["benchmark"]["median_paired_delta"] == "0.0"
+    assert payload["repair_cycle"]["count"] == 1
+    assert payload["repair_cycle"]["frozen_cases"]["treatment_wins"] == 0
+    assert payload["repair_cycle"]["holdouts"]["treatment_wins"] == 1
+    assert payload["module_decision"] == "PARTIAL_RECOVERABLE_RETIREMENT"
+
+    transitions = payload["registry_transitions"]
+    assert len(transitions) == 9
+    assert all(
+        row["new_state"] == "RETIRED_BENCHMARK_UNDERPERFORMER"
+        and row["runtime_eligible"] is False
+        and row["deleted"] is False
+        for row in transitions
+    )
+    retained = payload["retained_modules"]
+    assert retained == [
+        {
+            "module_id": "complexity-experimental-design",
+            "state": "ACTIVE_CANDIDATE",
+            "reason": "associated with the two decisive main-run gains and not in the failed repair set",
+        }
+    ]

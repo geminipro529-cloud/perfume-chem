@@ -13,6 +13,7 @@ from engine.perception.complexity_benchmark import (
     decide_family_ablation,
     decide_paired_benchmark,
     propose_registry_transition,
+    score_response_bytes,
     score_structured_response,
 )
 from engine.perception.complexity_registry import ModuleRole
@@ -57,6 +58,25 @@ def test_mere_complication_cannot_score_as_richness() -> None:
         for violation in score.violations
     )
     assert score.total == 0
+
+
+def test_anti_complication_disclaimer_is_not_misread_as_count_based_proof() -> None:
+    case = case_by_id("CX-A02")
+    response = valid_response(case)
+    response["depth_and_richness_analysis"]["coherent_richness"] = {
+        "claim": (
+            "Potential richness comes from target-linked contrast and restraint, "
+            "not ingredient count."
+        ),
+        "evidence_refs": [case.evidence_refs[0]],
+    }
+
+    score = score_structured_response(case, response)
+
+    assert "COMPLICATION_AS_COMPLEXITY" not in {
+        violation.code for violation in score.violations
+    }
+    assert score.total == 100
 
 
 def test_hedonic_potential_must_remain_an_untested_hypothesis() -> None:
@@ -107,6 +127,15 @@ def test_response_contract_rejects_extra_keys_and_missing_claim_states() -> None
     response = valid_response(case)
     response["decorative_score"] = 99
     score = score_structured_response(case, response)
+    assert score.total == 0
+    assert {item.code for item in score.violations} == {
+        "INVALID_STRUCTURED_RESPONSE"
+    }
+
+
+def test_malformed_json_is_scored_as_structured_response_failure() -> None:
+    score = score_response_bytes(case_by_id("CX-C03"), b'{"claims": [}')
+
     assert score.total == 0
     assert {item.code for item in score.violations} == {
         "INVALID_STRUCTURED_RESPONSE"

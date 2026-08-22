@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import Counter
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -14,7 +15,7 @@ from engine.perception.complexity_ensemble import (
     ablate_complexity_case,
     evaluate_complexity_case,
 )
-from engine.perception.complexity_registry import load_complexity_registry
+from engine.perception.complexity_registry import ModuleState, load_complexity_registry
 from tests.complexity_benchmark_fixtures import valid_case_mapping
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,58 @@ SIDECAR = ROOT / "tests/fixtures/complexity_xhigh_cases_v1.sha256"
 REGISTRY = load_complexity_registry(
     ROOT,
     ROOT / "configs/complexity/complexity_module_registry_v1.json",
+)
+_PRERETIREMENT_RUNTIME = {
+    "construction-profile": (
+        ModuleState.ACTIVE_CANDIDATE,
+        "engine.perception.construction_complexity",
+    ),
+    "complexity-expansion-frontier": (
+        ModuleState.ACTIVE_CANDIDATE,
+        "engine.perception.complexity_expansion",
+    ),
+    "musk-design-restraint": (
+        ModuleState.ACTIVE_CANDIDATE,
+        "engine.perception.musk_design",
+    ),
+    "complexity-model-admission": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.scientific_validation.complexity_model_admission",
+    ),
+    "complexity-model-lifecycle": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.physics.model_lifecycle",
+    ),
+    "within-sniff-observation-contract": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.sensory.within_sniff",
+    ),
+    "temporal-observation-contract": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.sensory.temporal_observations",
+    ),
+    "order-balance-contract": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.sensory.order_balance",
+    ),
+    "sensory-panel-contract": (
+        ModuleState.MANDATORY_GUARDRAIL,
+        "engine.sensory.panel_contract",
+    ),
+}
+
+
+def _restore_preretirement_runtime(module):
+    override = _PRERETIREMENT_RUNTIME.get(module.module_id)
+    if override is None:
+        return module
+    state, import_path = override
+    return replace(module, state=state, import_path=import_path)
+
+
+UNIT_REGISTRY = replace(
+    REGISTRY,
+    modules=tuple(_restore_preretirement_runtime(module) for module in REGISTRY.modules),
 )
 
 
@@ -90,7 +143,7 @@ def test_case_packet_deep_copies_and_freezes_nested_input() -> None:
 def test_ensemble_keeps_family_outputs_separate_and_has_no_overall_score() -> None:
     bundle = evaluate_complexity_case(
         ComplexityCasePacket.from_mapping(valid_case_mapping()),
-        REGISTRY,
+        UNIT_REGISTRY,
         adapters={
             "construction_profile": lambda _payload: {
                 "axes": {"formula_structure": {"status": "AVAILABLE"}}
@@ -112,13 +165,13 @@ def test_relevant_missing_input_and_omitted_guardrail_fail_closed() -> None:
             module_inputs={},
         )
     )
-    result = evaluate_complexity_case(packet, REGISTRY, adapters={})
+    result = evaluate_complexity_case(packet, UNIT_REGISTRY, adapters={})
     assert result.state == "HOLD"
     assert "missing input" in " ".join(result.blockers)
     with pytest.raises(ValueError, match="mandatory guardrail"):
         ablate_complexity_case(
             packet,
-            REGISTRY,
+            UNIT_REGISTRY,
             omitted_family="admission_lifecycle",
             adapters={},
         )
@@ -132,7 +185,7 @@ def test_adapter_failure_or_aggregate_score_fails_closed() -> None:
 
     failed = evaluate_complexity_case(
         packet,
-        REGISTRY,
+        UNIT_REGISTRY,
         adapters={"construction_profile": broken},
     )
     assert failed.state == "HOLD"
@@ -140,7 +193,7 @@ def test_adapter_failure_or_aggregate_score_fails_closed() -> None:
 
     scored = evaluate_complexity_case(
         packet,
-        REGISTRY,
+        UNIT_REGISTRY,
         adapters={"construction_profile": lambda _payload: {"overall_score": 99}},
     )
     assert scored.state == "HOLD"
@@ -193,11 +246,23 @@ def test_every_frozen_case_executes_its_relevant_module_bundle() -> None:
     for mapping in _cases():
         bundle = evaluate_complexity_case(
             ComplexityCasePacket.from_mapping(mapping),
-            REGISTRY,
+            UNIT_REGISTRY,
             adapters=DEFAULT_COMPLEXITY_ADAPTERS,
         )
         assert bundle.state == "PASS", (mapping["case_id"], bundle.blockers)
         assert not bundle.blockers
+
+
+def test_live_registry_fails_closed_for_a_retired_family() -> None:
+    bundle = evaluate_complexity_case(
+        ComplexityCasePacket.from_mapping(valid_case_mapping()),
+        REGISTRY,
+        adapters=DEFAULT_COMPLEXITY_ADAPTERS,
+    )
+    assert bundle.state == "HOLD"
+    assert bundle.blockers == (
+        "construction_profile: no runtime-eligible module",
+    )
 
 
 def test_anti_complication_cases_cover_required_failure_modes() -> None:

@@ -106,6 +106,11 @@ def valid_case_mapping(
                 "hedonic_potential_hypotheses",
                 "complication_risks",
             ],
+            "required_claim_states": [
+                "DESIGN_HYPOTHESIS_NOT_TESTED",
+                "NOT_TESTED",
+                "HOLD",
+            ],
             "forbidden_claims": [
                 "row count proves quality",
                 "more ingredients means more richness",

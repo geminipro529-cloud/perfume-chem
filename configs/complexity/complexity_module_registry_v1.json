@@ -32,40 +32,50 @@
       "module_id": "construction-profile",
       "family_id": "construction_profile",
       "role": "CAPABILITY",
-      "state": "ACTIVE_CANDIDATE",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/perception/construction_complexity.py",
-      "import_path": "engine.perception.construction_complexity",
+      "import_path": null,
       "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "complexity-expansion-frontier",
       "family_id": "complexity_expansion",
       "role": "CAPABILITY",
-      "state": "ACTIVE_CANDIDATE",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/perception/complexity_expansion.py",
-      "import_path": "engine.perception.complexity_expansion",
+      "import_path": null,
       "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "musk-design-restraint",
       "family_id": "musk_design_restraint",
       "role": "CAPABILITY",
-      "state": "ACTIVE_CANDIDATE",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/perception/musk_design.py",
-      "import_path": "engine.perception.musk_design",
+      "import_path": null,
       "sha256": "1215b9ea69f0bff68c0fbfd69652cf5df7a413a8fed9e2a3edf585021563abcb",
       "evidence_refs": [
-        "docs/superpowers/specs/2026-08-22-complexity-xhigh-benchmark-design.md"
+        "docs/superpowers/specs/2026-08-22-complexity-xhigh-benchmark-design.md",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
       ],
       "notes": [
         "One precise musk is valid; layered designs require distinct roles and complete pairwise nonredundancy records.",
-        "Tonalide, Macrolide, and Musk Ketone are exception-only and do not create physical-stock authority."
+        "Tonalide, Macrolide, and Musk Ketone are exception-only and do not create physical-stock authority.",
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
@@ -84,72 +94,96 @@
       "module_id": "complexity-model-admission",
       "family_id": "admission_lifecycle",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/scientific_validation/complexity_model_admission.py",
-      "import_path": "engine.scientific_validation.complexity_model_admission",
+      "import_path": null,
       "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "complexity-model-lifecycle",
       "family_id": "admission_lifecycle",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/physics/model_lifecycle.py",
-      "import_path": "engine.physics.model_lifecycle",
+      "import_path": null,
       "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "within-sniff-observation-contract",
       "family_id": "temporal_sensory_integrity",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/sensory/within_sniff.py",
-      "import_path": "engine.sensory.within_sniff",
+      "import_path": null,
       "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "temporal-observation-contract",
       "family_id": "temporal_sensory_integrity",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/sensory/temporal_observations.py",
-      "import_path": "engine.sensory.temporal_observations",
+      "import_path": null,
       "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "order-balance-contract",
       "family_id": "temporal_sensory_integrity",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/sensory/order_balance.py",
-      "import_path": "engine.sensory.order_balance",
+      "import_path": null,
       "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {
       "module_id": "sensory-panel-contract",
       "family_id": "temporal_sensory_integrity",
       "role": "GUARDRAIL",
-      "state": "MANDATORY_GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/sensory/panel_contract.py",
-      "import_path": "engine.sensory.panel_contract",
+      "import_path": null,
       "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc",
       "evidence_refs": [
-        "data/governance/complexity_native_module_admission_20260822.json"
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
       ]
     },
     {

@@ -63,6 +63,59 @@ def test_musk_adapter_preserves_sparse_selection_and_exception_holds() -> None:
     assert "MUSK_EXCEPTION_REQUIRED" in blocked["issue_codes"]
 
 
+def test_sealed_adapter_exposes_target_build_and_gap_discriminators() -> None:
+    result = adapt_admission_lifecycle(admission_payload())
+
+    discriminators = result["response_discriminators"]
+    assert discriminators["target_build_separation"] == {
+        "target_ideal_inventory_independent": True,
+        "current_build_requires_case_bound_stock_evidence": True,
+        "identical_target_and_build_material_lists_forbidden": True,
+        "when_stock_evidence_is_absent": (
+            "use an empty current_inventory_build.materials list"
+        ),
+    }
+    assert discriminators["missing_chemical_impact"] == {
+        "module_inventory_authority": False,
+        "default_gap_class": "EVIDENCE_GAP_NOT_INVENTORY_GAP",
+        "inventory_gap_requires_case_bound_evidence": True,
+        "controlled_comparison_required": True,
+    }
+
+
+def test_musk_adapter_projects_complete_exception_call_as_material_keyed_object() -> None:
+    exception = {
+        "material": "Macrolide",
+        "target_tonal_role": "barely-there disappearing residue",
+        "why_alternatives_fail": "alternatives leave a more projected clean trail",
+        "loss_if_omitted": "the warmth-to-skin transition becomes abrupt",
+        "failure_mode": "overdose creates anonymous soft blur",
+        "omission_control": "carrier-matched omission",
+        "alternative_control": "matched strongest clean macrocyclic alternative",
+    }
+
+    result = adapt_musk_design(
+        musk_payload(
+            material="Macrolide",
+            exception_call=exception,
+            inventory_state="DEPLETED",
+        )
+    )
+
+    projection = result["formula_projection"]
+    assert projection["target_ideal_materials"] == ["Macrolide"]
+    assert projection["current_inventory_build_materials"] == []
+    assert projection["current_inventory_build_state"] == (
+        "HOLD_PROCUREMENT_REQUIRED"
+    )
+    assert projection["target_ideal_exception_calls"] == {
+        "Macrolide": {
+            key: value for key, value in exception.items() if key != "material"
+        }
+    }
+    assert projection["current_inventory_build_exception_calls"] == {}
+
+
 @pytest.mark.parametrize(
     ("adapter", "payload"),
     [

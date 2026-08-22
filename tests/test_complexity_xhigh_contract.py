@@ -38,6 +38,81 @@ def test_control_excludes_module_bundle_and_treatment_includes_only_bundle_delta
     assert "construction_profile" not in str(control.prompt_payload)
 
 
+def test_shared_v3_output_contract_discloses_all_scorer_enforced_fields() -> None:
+    case = ComplexityCasePacket.from_mapping(valid_case_mapping())
+    request = prepare_xhigh_request(case, BenchmarkArm.CONTROL, bundle=None)
+
+    assert request.prompt_payload["schema_version"] == "complexity_xhigh_prompt_v3"
+    contract = request.prompt_payload["output_contract"]
+    fields = contract["field_contracts"]
+
+    assert contract["required_claim_states"] == tuple(
+        case.expected_invariants["required_claim_states"]
+    )
+    assert contract["allowed_evidence_refs"] == case.evidence_refs
+    assert contract["claim_authority_ceiling"] == case.permitted_claim_ceiling
+    assert fields["target_identity"]["required_keys"] == (
+        "identity",
+        "preserved",
+        "evidence_refs",
+    )
+    assert fields["functional_architecture"]["required_nonempty_keys"] == (
+        "roles",
+        "temporal_handoffs",
+        "failure_boundaries",
+    )
+    assert fields["target_ideal_formula"]["scored_requirements"] == (
+        "inventory_independent must be true",
+        "materials must differ from current_inventory_build.materials",
+    )
+    assert fields["target_ideal_formula"]["exception_calls_contract"] == {
+        "type": "object keyed by exact material name; never an array",
+        "required_fields_per_exception_material": (
+            "target_tonal_role",
+            "why_alternatives_fail",
+            "loss_if_omitted",
+            "failure_mode",
+            "omission_control",
+            "alternative_control",
+        ),
+    }
+    assert fields["missing_chemical_impact"]["required_keys"] == (
+        "strongly_covered",
+        "weakly_covered",
+        "genuinely_missing",
+        "controlled_comparison",
+    )
+    assert fields["controlled_test_plan"]["required_nonempty_keys"] == (
+        "isolation",
+        "controls",
+        "dose_time_substrate",
+        "blinding",
+        "endpoints",
+        "decision_rule",
+    )
+    assert fields["conflicts_and_holds"]["minimum_items"] == 1
+    assert fields["conflicts_and_holds"]["item_required_keys"] == (
+        "issue",
+        "state",
+        "next_action",
+    )
+    assert fields["answer_markdown"] == {
+        "type": "string",
+        "maximum_characters": 2000,
+        "required_literal": "NOT TESTED",
+    }
+
+
+def test_v3_contract_changes_request_identity_from_prior_hidden_contracts() -> None:
+    case = ComplexityCasePacket.from_mapping(valid_case_mapping())
+    request = prepare_xhigh_request(case, BenchmarkArm.CONTROL, bundle=None)
+
+    assert request.nonce != "CX-A01-control-975fe3b169c09565"
+    assert request.request_id != "cxreq-cx-a01-control-0df9ca73faea"
+    assert request.nonce != "CX-A01-control-1e746ac84ba1a4a4"
+    assert request.request_id != "cxreq-cx-a01-control-040f05ba6cf7"
+
+
 def test_unverified_model_effort_context_or_duplicate_nonce_blocks() -> None:
     request = prepare_xhigh_request(
         ComplexityCasePacket.from_mapping(valid_case_mapping()),

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import asdict, dataclass, is_dataclass
 from decimal import Decimal
 from enum import Enum
@@ -84,6 +85,9 @@ _COMPLICATION_PROXIES = (
     "more complex because",
 )
 _PROOF_WORDS = ("richer", "richness", "depth", "quality", "beauty", "hedonic")
+_PROXY_NEGATION = re.compile(
+    r"\b(?:not|no|never|without|rather than|instead of)\b[^.!?;:]{0,80}$"
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -176,6 +180,19 @@ def _nonempty(value: Any) -> bool:
     if isinstance(value, (str, bytes, Mapping, Sequence)):
         return bool(value)
     return True
+
+
+def _asserts_complication_proxy(text: str) -> bool:
+    """Return true only when a proxy is asserted, not explicitly rejected."""
+
+    for proxy in _COMPLICATION_PROXIES:
+        offset = 0
+        while (index := text.find(proxy, offset)) >= 0:
+            prefix = text[max(0, index - 96) : index]
+            if _PROXY_NEGATION.search(prefix) is None:
+                return True
+            offset = index + len(proxy)
+    return False
 
 
 def _schema_error(
@@ -330,7 +347,7 @@ def _critical_violations(
             ),
         }
     )
-    if any(proxy in positive_depth_text for proxy in _COMPLICATION_PROXIES) and any(
+    if _asserts_complication_proxy(positive_depth_text) and any(
         proof in positive_depth_text for proof in _PROOF_WORDS
     ):
         _add_violation(
@@ -508,6 +525,18 @@ def score_structured_response(
         total=0 if violations else diagnostics,
         violations=violations,
     )
+
+
+def score_response_bytes(
+    case: ComplexityCasePacket, response_bytes: bytes | str
+) -> RubricScore:
+    """Score exact provider output, treating malformed JSON as a hard failure."""
+
+    try:
+        response = json.loads(response_bytes)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        response = None
+    return score_structured_response(case, response)  # type: ignore[arg-type]
 
 
 def decide_paired_benchmark(
@@ -1241,12 +1270,10 @@ def score_complexity_run(*, project_root: Path, run_dir: Path) -> dict[str, Any]
     prices: dict[str, list[Decimal]] = {"CONTROL": [], "TREATMENT": []}
     telemetry_states = []
     for row in manifest["requests"]:
-        response = json.loads(
-            (target / "responses" / f"{row['request_id']}.json").read_text(
-                encoding="utf-8"
-            )
+        score = score_response_bytes(
+            cases[row["case_id"]],
+            (target / "responses" / f"{row['request_id']}.json").read_bytes(),
         )
-        score = score_structured_response(cases[row["case_id"]], response)
         scores.setdefault(row["case_id"], {})[row["arm"]] = score
         receipt = _receipt_from_payload(
             json.loads(
