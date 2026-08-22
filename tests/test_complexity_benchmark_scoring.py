@@ -1,13 +1,25 @@
 from __future__ import annotations
 
+from decimal import Decimal
+
+import pytest
+
 from engine.perception.complexity_benchmark import (
+    AblationObservation,
     BenchmarkState,
+    FailureSummary,
+    FamilyDecision,
+    classify_repair,
+    decide_family_ablation,
     decide_paired_benchmark,
+    propose_registry_transition,
     score_structured_response,
 )
+from engine.perception.complexity_registry import ModuleRole
 from tests.complexity_benchmark_fixtures import (
     benchmark_evidence,
     case_by_id,
+    module_descriptor,
     telemetry_summary,
     valid_response,
 )
@@ -147,4 +159,95 @@ def test_cost_review_uses_exposed_comparable_price_only() -> None:
             benchmark_evidence(wins=12, median_delta=5), telemetry=not_exposed
         ).state
         is BenchmarkState.OUTPERFORMS
+    )
+
+
+def test_capability_retains_on_gain_or_win_rate() -> None:
+    rows = tuple(
+        AblationObservation(
+            f"CX-A0{index + 1}", Decimal(value), value > 0, 0
+        )
+        for index, value in enumerate((4, 3, 0, 5))
+    )
+    assert (
+        decide_family_ablation(
+            "construction_profile", ModuleRole.CAPABILITY, rows
+        ).state
+        == "RETAIN"
+    )
+
+
+def test_guardrail_retains_only_by_preventing_critical_failure() -> None:
+    retained_rows = (AblationObservation("CX-B01", Decimal("0"), False, 1),)
+    retained = decide_family_ablation(
+        "admission_lifecycle", ModuleRole.GUARDRAIL, retained_rows
+    )
+    assert retained.state == "RETAIN"
+    no_prevention = (AblationObservation("CX-B01", Decimal("10"), True, 0),)
+    not_retained = decide_family_ablation(
+        "admission_lifecycle", ModuleRole.GUARDRAIL, no_prevention
+    )
+    assert not_retained.state == "REPAIR_REQUIRED"
+
+
+def test_no_relevant_case_is_not_failure_and_repair_count_is_capped() -> None:
+    assert (
+        decide_family_ablation("x", ModuleRole.CAPABILITY, []).state
+        == "NOT_EVALUATED_NO_RELEVANT_CASE"
+    )
+    with pytest.raises(ValueError, match="one repair cycle"):
+        classify_repair(
+            FailureSummary(codes=("AUTHORITY_LEAK",), case_ids=("CX-B01",)),
+            prior_repair_count=1,
+        )
+
+
+def test_repair_class_is_bounded_to_named_files_and_four_sealed_holdouts() -> None:
+    decision = classify_repair(
+        FailureSummary(
+            codes=("UNSUPPORTED_HEDONIC_RESULT",),
+            case_ids=("CX-D04",),
+        ),
+        prior_repair_count=0,
+    )
+    assert decision.repair_class.value == "AUTHORITY_LEAK"
+    assert len(decision.sealed_holdout_ids) == 4
+    assert decision.automatic_source_edits is False
+    assert set(decision.allowed_files) == {
+        "engine/perception/complexity_ensemble.py",
+        "engine/perception/complexity_adapters.py",
+    }
+
+
+def test_retirement_changes_registry_state_but_never_deletes_source() -> None:
+    descriptor = module_descriptor()
+    decision = FamilyDecision(
+        family_id=descriptor.family_id,
+        state="RETIRE",
+        median_delta=Decimal("-2"),
+        win_rate=Decimal("0.25"),
+        prevented_critical_failures=0,
+        reasons=("failed one repair and four holdouts",),
+    )
+    proposal = propose_registry_transition(descriptor, decision)
+    assert proposal.new_state == "RETIRED_BENCHMARK_UNDERPERFORMER"
+    assert proposal.delete_paths == ()
+    assert proposal.preserve_paths == (descriptor.path,)
+
+
+def test_new_critical_regression_forces_repair_even_with_score_gain() -> None:
+    rows = (
+        AblationObservation(
+            "CX-A01",
+            Decimal("9"),
+            True,
+            0,
+            new_critical_regressions=1,
+        ),
+    )
+    assert (
+        decide_family_ablation(
+            "construction_profile", ModuleRole.CAPABILITY, rows
+        ).state
+        == "REPAIR_REQUIRED"
     )

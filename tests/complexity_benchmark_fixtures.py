@@ -8,6 +8,11 @@ from typing import Any, Mapping
 
 from engine.perception.complexity_benchmark import BenchmarkEvidence, TelemetrySummary
 from engine.perception.complexity_ensemble import ComplexityBundle, ComplexityCasePacket
+from engine.perception.complexity_registry import (
+    ModuleDescriptor,
+    ModuleRole,
+    ModuleState,
+)
 from engine.perception.complexity_xhigh import XHighExecutionReceipt, XHighRequest
 
 INVENTORY_WORKBOOK_SHA256 = (
@@ -517,4 +522,19 @@ def telemetry_summary(
         state="EXPOSED",
         median_control_price_usd=Decimal("1.00"),
         median_treatment_price_usd=Decimal(treatment_price),
+    )
+
+
+def module_descriptor() -> ModuleDescriptor:
+    return ModuleDescriptor(
+        module_id="construction-complexity",
+        family_id="construction_profile",
+        role=ModuleRole.CAPABILITY,
+        state=ModuleState.ACTIVE_CANDIDATE,
+        path="engine/perception/construction_complexity.py",
+        import_path="engine.perception.construction_complexity",
+        sha256="f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1",
+        evidence_refs=(
+            "data/governance/complexity_native_module_admission_20260822.json",
+        ),
     )

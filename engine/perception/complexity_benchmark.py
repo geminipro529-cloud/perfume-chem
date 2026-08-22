@@ -2,14 +2,18 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass, is_dataclass
 from decimal import Decimal
 from enum import Enum
+from statistics import median
 from types import MappingProxyType
 from typing import Any, Mapping, Sequence
 
+from engine.calibration.hashing import stable_json_hash
 from engine.perception.complexity_ensemble import ComplexityCasePacket
+from engine.perception.complexity_registry import ModuleDescriptor, ModuleRole
 from engine.perception.complexity_xhigh import (
     DEPTH_FIELD_KEYS,
     RESPONSE_TOP_LEVEL_KEYS,
@@ -559,3 +563,263 @@ def decide_paired_benchmark(
         False,
         None,
     )
+
+
+@dataclass(frozen=True, slots=True)
+class AblationObservation:
+    case_id: str
+    score_delta: Decimal
+    full_ensemble_won: bool
+    prevented_critical_failures: int
+    new_critical_regressions: int = 0
+
+
+@dataclass(frozen=True, slots=True)
+class FamilyDecision:
+    family_id: str
+    state: str
+    median_delta: Decimal | None
+    win_rate: Decimal | None
+    prevented_critical_failures: int
+    reasons: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class FailureSummary:
+    codes: tuple[str, ...]
+    case_ids: tuple[str, ...]
+
+
+class RepairClass(str, Enum):
+    BUNDLE_VERBOSITY_OR_COST = "BUNDLE_VERBOSITY_OR_COST"
+    AUTHORITY_LEAK = "AUTHORITY_LEAK"
+    IRRELEVANT_FAMILY_OUTPUT = "IRRELEVANT_FAMILY_OUTPUT"
+    MISSING_DISCRIMINATOR = "MISSING_DISCRIMINATOR"
+    INCOMPLETE_BINDING = "INCOMPLETE_BINDING"
+    NO_BOUNDED_REPAIR = "NO_BOUNDED_REPAIR"
+
+
+@dataclass(frozen=True, slots=True)
+class RepairDecision:
+    repair_class: RepairClass
+    failing_codes: tuple[str, ...]
+    failing_case_ids: tuple[str, ...]
+    allowed_files: tuple[str, ...]
+    prior_repair_count: int
+    sealed_holdout_ids: tuple[str, ...]
+    automatic_source_edits: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class RegistryTransition:
+    module_id: str
+    family_id: str
+    prior_state: str
+    new_state: str
+    reasons: tuple[str, ...]
+    preserve_paths: tuple[str, ...]
+    delete_paths: tuple[str, ...] = ()
+
+
+def decide_family_ablation(
+    family_id: str,
+    role: ModuleRole,
+    observations: Sequence[AblationObservation],
+) -> FamilyDecision:
+    if not observations:
+        return FamilyDecision(
+            family_id=family_id,
+            state="NOT_EVALUATED_NO_RELEVANT_CASE",
+            median_delta=None,
+            win_rate=None,
+            prevented_critical_failures=0,
+            reasons=("no frozen case declared this family relevant",),
+        )
+    rows = tuple(observations)
+    median_delta = Decimal(str(median(item.score_delta for item in rows)))
+    wins = sum(item.full_ensemble_won for item in rows)
+    win_rate = Decimal(wins) / Decimal(len(rows))
+    prevented = sum(item.prevented_critical_failures for item in rows)
+    regressions = sum(item.new_critical_regressions for item in rows)
+    if regressions:
+        return FamilyDecision(
+            family_id,
+            "REPAIR_REQUIRED",
+            median_delta,
+            win_rate,
+            prevented,
+            ("full ensemble introduces a new critical regression",),
+        )
+    if role is ModuleRole.GUARDRAIL:
+        retained = prevented >= 1
+        reason = (
+            "guardrail prevented at least one critical failure"
+            if retained
+            else "guardrail did not prevent a critical failure"
+        )
+    elif role is ModuleRole.CAPABILITY:
+        retained = median_delta >= Decimal("3") or win_rate >= Decimal("0.60")
+        reason = (
+            "capability met median-gain or paired-win retention threshold"
+            if retained
+            else "capability missed median-gain and paired-win thresholds"
+        )
+    else:
+        retained = False
+        reason = "evidence-only families are not runtime ablation candidates"
+    return FamilyDecision(
+        family_id=family_id,
+        state="RETAIN" if retained else "REPAIR_REQUIRED",
+        median_delta=median_delta,
+        win_rate=win_rate,
+        prevented_critical_failures=prevented,
+        reasons=(reason,),
+    )
+
+
+def classify_repair(
+    summary: FailureSummary, *, prior_repair_count: int
+) -> RepairDecision:
+    if prior_repair_count >= 1:
+        raise ValueError("one repair cycle is the maximum")
+    if prior_repair_count < 0:
+        raise ValueError("prior repair count must be nonnegative")
+    codes = tuple(sorted(set(summary.codes)))
+    case_ids = tuple(sorted(set(summary.case_ids)))
+    joined = " ".join(codes).upper()
+    if "VERBOS" in joined or "COST" in joined:
+        repair_class = RepairClass.BUNDLE_VERBOSITY_OR_COST
+        allowed = ("engine/perception/complexity_adapters.py",)
+    elif any(term in joined for term in ("AUTHORITY", "UNSUPPORTED", "PROMOTED")):
+        repair_class = RepairClass.AUTHORITY_LEAK
+        allowed = (
+            "engine/perception/complexity_ensemble.py",
+            "engine/perception/complexity_adapters.py",
+        )
+    elif "IRRELEVANT" in joined:
+        repair_class = RepairClass.IRRELEVANT_FAMILY_OUTPUT
+        allowed = ("engine/perception/complexity_adapters.py",)
+    elif "DISCRIMINATOR" in joined:
+        repair_class = RepairClass.MISSING_DISCRIMINATOR
+        allowed = ("engine/perception/complexity_adapters.py",)
+    elif any(term in joined for term in ("BINDING", "INCOMPLETE", "PROVENANCE")):
+        repair_class = RepairClass.INCOMPLETE_BINDING
+        allowed = (
+            "engine/perception/complexity_adapters.py",
+            "engine/perception/model_admission.py",
+            "engine/sensory/complexity_temporal.py",
+        )
+    else:
+        repair_class = RepairClass.NO_BOUNDED_REPAIR
+        allowed = ()
+    seed = hashlib.sha256(
+        json.dumps(
+            {"codes": codes, "case_ids": case_ids},
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+    holdouts = tuple(
+        f"CX-HOLDOUT-{index + 1}-{seed[index * 8 : (index + 1) * 8]}"
+        for index in range(4)
+    )
+    return RepairDecision(
+        repair_class=repair_class,
+        failing_codes=codes,
+        failing_case_ids=case_ids,
+        allowed_files=allowed,
+        prior_repair_count=prior_repair_count,
+        sealed_holdout_ids=holdouts,
+    )
+
+
+def propose_registry_transition(
+    descriptor: ModuleDescriptor, decision: FamilyDecision
+) -> RegistryTransition:
+    if descriptor.family_id != decision.family_id:
+        raise ValueError("family decision does not match module descriptor")
+    if decision.state == "RETIRE":
+        new_state = "RETIRED_BENCHMARK_UNDERPERFORMER"
+    elif decision.state == "NOT_EVALUATED_NO_RELEVANT_CASE":
+        new_state = "NOT_EVALUATED_NO_RELEVANT_CASE"
+    else:
+        new_state = descriptor.state.value
+    return RegistryTransition(
+        module_id=descriptor.module_id,
+        family_id=descriptor.family_id,
+        prior_state=descriptor.state.value,
+        new_state=new_state,
+        reasons=decision.reasons,
+        preserve_paths=(descriptor.path,),
+        delete_paths=(),
+    )
+
+
+def _jsonable(value: Any) -> Any:
+    if is_dataclass(value):
+        return _jsonable(asdict(value))
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, Decimal):
+        return str(value)
+    if isinstance(value, Mapping):
+        return {str(key): _jsonable(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(item) for item in value]
+    return value
+
+
+def build_benchmark_receipt(
+    *,
+    registry_sha256: str,
+    corpus_sha256: str,
+    rubric_sha256: str,
+    request_receipts: Sequence[Any],
+    pair_scores: Sequence[Any],
+    decision: BenchmarkDecision,
+    telemetry: TelemetrySummary,
+    ablation_decisions: Sequence[FamilyDecision],
+    repair_count: int,
+    holdout_results: Sequence[Any],
+    registry_transitions: Sequence[RegistryTransition],
+    preserved_paths: Sequence[str],
+    deletion_paths: Sequence[str],
+) -> dict[str, Any]:
+    if repair_count not in {0, 1}:
+        raise ValueError("one repair cycle is the maximum")
+    if deletion_paths:
+        raise ValueError("benchmark receipts cannot authorize deletion paths")
+    for name, digest in (
+        ("registry_sha256", registry_sha256),
+        ("corpus_sha256", corpus_sha256),
+        ("rubric_sha256", rubric_sha256),
+    ):
+        if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
+            raise ValueError(f"{name} must be a lowercase SHA-256")
+    payload = {
+        "schema_version": "complexity_xhigh_benchmark_receipt_v1",
+        "registry_sha256": registry_sha256,
+        "corpus_sha256": corpus_sha256,
+        "rubric_sha256": rubric_sha256,
+        "request_receipts": _jsonable(tuple(request_receipts)),
+        "pair_scores": _jsonable(tuple(pair_scores)),
+        "benchmark_decision": _jsonable(decision),
+        "telemetry": _jsonable(telemetry),
+        "ablation_decisions": _jsonable(tuple(ablation_decisions)),
+        "repair_count": repair_count,
+        "holdout_results": _jsonable(tuple(holdout_results)),
+        "registry_transitions": _jsonable(tuple(registry_transitions)),
+        "preserved_paths": list(dict.fromkeys(str(path) for path in preserved_paths)),
+        "deletion_paths": [],
+        "authority_flags": {
+            "source_admission": False,
+            "formula": False,
+            "inventory": False,
+            "physical_execution": False,
+            "sensory": False,
+            "safety": False,
+            "release": False,
+        },
+    }
+    payload["semantic_receipt_sha256"] = stable_json_hash(payload)
+    return payload

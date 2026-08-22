@@ -1,0 +1,83 @@
+from __future__ import annotations
+
+from decimal import Decimal
+
+import pytest
+
+from engine.calibration.hashing import stable_json_hash
+from engine.perception.complexity_benchmark import (
+    FamilyDecision,
+    build_benchmark_receipt,
+    decide_paired_benchmark,
+)
+from tests.complexity_benchmark_fixtures import (
+    benchmark_evidence,
+    telemetry_summary,
+)
+
+
+def _receipt(*, repair_count: int = 0, deletion_paths: tuple[str, ...] = ()) -> dict:
+    telemetry = telemetry_summary(state="NOT_EXPOSED")
+    decision = decide_paired_benchmark(
+        benchmark_evidence(wins=12, median_delta=5), telemetry=telemetry
+    )
+    return build_benchmark_receipt(
+        registry_sha256="a" * 64,
+        corpus_sha256="b" * 64,
+        rubric_sha256="c" * 64,
+        request_receipts=(
+            {
+                "request_id": "cxreq-1",
+                "prompt_sha256": "d" * 64,
+                "response_sha256": "e" * 64,
+                "execution_state": "PASS",
+            },
+        ),
+        pair_scores=(
+            {
+                "case_id": "CX-A01",
+                "control_total": 70,
+                "treatment_total": 78,
+            },
+        ),
+        decision=decision,
+        telemetry=telemetry,
+        ablation_decisions=(
+            FamilyDecision(
+                family_id="construction_profile",
+                state="RETAIN",
+                median_delta=Decimal("4"),
+                win_rate=Decimal("0.75"),
+                prevented_critical_failures=0,
+                reasons=("median gain passed",),
+            ),
+        ),
+        repair_count=repair_count,
+        holdout_results=(),
+        registry_transitions=(),
+        preserved_paths=("engine/perception/construction_complexity.py",),
+        deletion_paths=deletion_paths,
+    )
+
+
+def test_receipt_is_semantically_hashed_and_grants_no_authority() -> None:
+    receipt = _receipt()
+    semantic_hash = receipt.pop("semantic_receipt_sha256")
+    assert stable_json_hash(receipt) == semantic_hash
+    assert receipt["deletion_paths"] == []
+    assert receipt["authority_flags"] == {
+        "source_admission": False,
+        "formula": False,
+        "inventory": False,
+        "physical_execution": False,
+        "sensory": False,
+        "safety": False,
+        "release": False,
+    }
+
+
+def test_receipt_refuses_second_repair_or_any_deletion_path() -> None:
+    with pytest.raises(ValueError, match="one repair cycle"):
+        _receipt(repair_count=2)
+    with pytest.raises(ValueError, match="deletion paths"):
+        _receipt(deletion_paths=("engine/perception/construction_complexity.py",))
