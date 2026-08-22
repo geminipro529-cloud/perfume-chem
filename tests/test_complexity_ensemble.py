@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 
 import pytest
 
+from engine.calibration.hashing import canonical_json_bytes
+from engine.perception.complexity_adapters import DEFAULT_COMPLEXITY_ADAPTERS
 from engine.perception.complexity_ensemble import (
     ComplexityCasePacket,
     ablate_complexity_case,
@@ -14,10 +18,45 @@ from engine.perception.complexity_registry import load_complexity_registry
 from tests.complexity_benchmark_fixtures import valid_case_mapping
 
 ROOT = Path(__file__).resolve().parents[1]
+CASES = ROOT / "tests/fixtures/complexity_xhigh_cases_v1.json"
+SIDECAR = ROOT / "tests/fixtures/complexity_xhigh_cases_v1.sha256"
 REGISTRY = load_complexity_registry(
     ROOT,
     ROOT / "configs/complexity/complexity_module_registry_v1.json",
 )
+
+
+def _corpus_payload() -> dict:
+    return json.loads(CASES.read_text(encoding="utf-8"))
+
+
+def _cases() -> list[dict]:
+    payload = _corpus_payload()
+    shared = payload["shared_module_inputs"]
+    shared_invariants = payload["shared_invariants"]
+    resolved = []
+    for raw in payload["cases"]:
+        case = dict(raw)
+        refs = case.pop("module_input_refs")
+        case["module_inputs"] = {
+            family: shared[reference] for family, reference in refs.items()
+        }
+        expected = dict(case["expected_invariants"])
+        definition_ref = expected.pop("complexity_definition_ref")
+        response_ref = expected.pop("valid_response_ref")
+        expected["complexity_definition"] = shared_invariants[definition_ref]
+        expected["valid_response"] = payload["rubric"][response_ref]
+        expected["required_depth_fields"] = shared_invariants[
+            "required_depth_fields"
+        ]
+        expected["required_claim_states"] = shared_invariants[
+            "required_claim_states"
+        ]
+        expected["forbidden_claims"] = shared_invariants["forbidden_claims"]
+        expected["required_sections"] = shared_invariants["required_sections"]
+        case["expected_invariants"] = expected
+        resolved.append(case)
+    return resolved
 
 
 def test_case_packet_requires_exact_hashes_and_unique_relevance() -> None:
@@ -106,3 +145,110 @@ def test_adapter_failure_or_aggregate_score_fails_closed() -> None:
     )
     assert scored.state == "HOLD"
     assert "aggregate score" in " ".join(scored.blockers)
+
+
+def test_frozen_corpus_has_four_cases_per_category_and_exact_hash() -> None:
+    payload = _corpus_payload()
+    assert payload["schema_version"] == "complexity_xhigh_cases_v1"
+    assert len(payload["cases"]) == 16
+    counts = Counter(case["category"] for case in payload["cases"])
+    assert counts == {
+        "TARGET_ARCHITECTURE": 4,
+        "RECONSTRUCTION_REVISION": 4,
+        "MISSING_CHEMICAL_IMPACT": 4,
+        "EXPERIMENTAL_EVIDENCE_DESIGN": 4,
+    }
+    assert sum(
+        bool(case["expected_invariants"]["critical_traps"])
+        for case in payload["cases"]
+    ) >= 4
+    assert sum(
+        bool(case["expected_invariants"]["anti_complication_case"])
+        for case in payload["cases"]
+    ) >= 8
+    assert (
+        hashlib.sha256(canonical_json_bytes(payload)).hexdigest()
+        == SIDECAR.read_text(encoding="utf-8").split()[0]
+    )
+
+
+def test_every_case_binds_current_inventory_and_declares_relevance() -> None:
+    for raw in _cases():
+        case = ComplexityCasePacket.from_mapping(raw)
+        assert (
+            case.inventory_authority_sha256
+            == "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+        )
+        assert (
+            case.local_inventory_sha256
+            == "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec"
+        )
+        assert case.relevant_families
+        definition = case.expected_invariants["complexity_definition"]
+        assert definition["claim_ceiling"] == "DESIGN_HYPOTHESIS_NOT_TESTED"
+        assert "ingredient count" in definition["invalid_proxies"]
+
+
+def test_every_frozen_case_executes_its_relevant_module_bundle() -> None:
+    for mapping in _cases():
+        bundle = evaluate_complexity_case(
+            ComplexityCasePacket.from_mapping(mapping),
+            REGISTRY,
+            adapters=DEFAULT_COMPLEXITY_ADAPTERS,
+        )
+        assert bundle.state == "PASS", (mapping["case_id"], bundle.blockers)
+        assert not bundle.blockers
+
+
+def test_anti_complication_cases_cover_required_failure_modes() -> None:
+    cases = [
+        case
+        for case in _cases()
+        if case["expected_invariants"]["anti_complication_case"]
+    ]
+    covered = {
+        mode
+        for case in cases
+        for mode in case["expected_invariants"]["complication_failure_modes"]
+    }
+    assert {
+        "BLOAT",
+        "REDUNDANCY",
+        "MUD",
+        "SUPERFICIAL_DIVERSITY",
+        "FLAT_DEVELOPMENT",
+        "INCOHERENT_NOVELTY",
+        "NEEDED_SUBTRACTION",
+    }.issubset(covered)
+
+
+def test_musk_cases_cover_sparse_layered_and_all_named_exceptions() -> None:
+    cases = [
+        case
+        for case in _cases()
+        if "musk_design_restraint" in case["relevant_families"]
+    ]
+    assert len(cases) >= 4
+    modes = {case["expected_invariants"]["musk_case_mode"] for case in cases}
+    assert {
+        "SPARSE",
+        "LAYERED",
+        "EXCEPTION_BLOCK",
+        "EXCEPTION_TARGET_ONLY",
+    }.issubset(modes)
+    materials = {
+        material
+        for case in cases
+        for material in case["expected_invariants"].get("exception_materials", [])
+    }
+    assert materials == {"Tonalide", "Macrolide", "Musk Ketone"}
+
+
+def test_contrastive_case_pairs_change_one_decisive_fact() -> None:
+    payload = _corpus_payload()
+    pairs = payload["contrastive_pairs"]
+    assert len(pairs) == 8
+    assert {case_id for pair in pairs for case_id in pair["case_ids"]} == {
+        case["case_id"] for case in payload["cases"]
+    }
+    assert all(pair["single_changed_fact"].strip() for pair in pairs)
