@@ -254,6 +254,24 @@
       ]
     },
     {
+      "module_id": "citrus-architecture-selector",
+      "family_id": "citrus_selection",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/citrus_selection.py",
+      "import_path": null,
+      "sha256": "87f67663184526edc8d18b35cbe4acd6dcb138c4806334d07d6608cea9ccb99e",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-22-complexity-decision-cards-recovery-design.md",
+        "tests/fixtures/complexity_module_retest_cases_v1.json"
+      ],
+      "notes": [
+        "Target-first non-scalar selector candidate; not runtime eligible before its external xhigh retention gate passes.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate."
+      ]
+    },
+    {
       "module_id": "meaningful-complexity-v2-evidence",
       "family_id": "legacy_external_evidence",
       "role": "EVIDENCE",

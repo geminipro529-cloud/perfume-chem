@@ -1,0 +1,113 @@
+{
+  "schema_version": "complexity_decision_card_candidate_freeze_v1",
+  "receipt_id": "complexity-decision-card-candidate-freeze-20260822",
+  "design_state": "USER_APPROVED_AND_LOCALLY_IMPLEMENTED",
+  "online_benchmark_state": "NOT_STARTED",
+  "predecessor_benchmark": {
+    "path": "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json",
+    "sha256": "d894c520cdee591f56b3cb81f308599a3b02ee5315229feb9a2d7b95477d6b2f",
+    "decision": "NO_DEMONSTRATED_OUTPERFORMANCE"
+  },
+  "candidate_artifacts": [
+    {
+      "path": "engine/perception/complexity_decision_cards.py",
+      "sha256": "da222ab7da7956b2cc009cb5f5cd0455b0795285bf74d94db6980c4879cc215c"
+    },
+    {
+      "path": "engine/perception/citrus_selection.py",
+      "sha256": "87f67663184526edc8d18b35cbe4acd6dcb138c4806334d07d6608cea9ccb99e"
+    },
+    {
+      "path": "engine/perception/complexity_module_retest.py",
+      "sha256": "0de8862ad128d4bdc3e8e8d4631400b9d268b7eb68f7ae79e663ab535882a41c"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v1.json",
+      "sha256": "8bfd37a65621e02320d46ba65202228a32abf12f34a7a5af4efe13f34a8e12f5"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v1.sha256",
+      "sha256": "eae25b1d3e77b6736b91e0a347297fe495b94f325894a1fe905a08a0ca0b9fbb"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-22-complexity-decision-cards-recovery-design.md",
+      "sha256": "147e11bd28108152a76a21a4c9439dc9ac64cf26bae13492d53a3c92b2367ff3"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-22-complexity-decision-cards-recovery.md",
+      "sha256": "12c930c5d5027a75268f054f6b350c4a7e12024c8afcb4e8849b42a578b61676"
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v1.json",
+      "sha256": "7b4a34266dba971222f848991852ff22e9b1c6ae0d87f6c53544d8ea0478140b"
+    }
+  ],
+  "repaired_module_ids": [
+    "construction-profile",
+    "complexity-expansion-frontier",
+    "musk-design-restraint",
+    "complexity-model-admission",
+    "complexity-model-lifecycle",
+    "within-sniff-observation-contract",
+    "temporal-observation-contract",
+    "order-balance-contract",
+    "sensory-panel-contract"
+  ],
+  "candidate_module_ids": [
+    "citrus-architecture-selector"
+  ],
+  "retained_support_module_ids": [
+    "complexity-experimental-design"
+  ],
+  "candidate_contract": {
+    "module_count": 10,
+    "cases_per_module": 6,
+    "total_case_count": 60,
+    "screening_pairs_per_module": 3,
+    "confirmation_pairs_per_credible_screen": 3,
+    "retention_wins_required": 4,
+    "minimum_median_paired_gain": "5",
+    "new_critical_regressions_allowed": 0,
+    "safe_countercase_required": true,
+    "critical_trap_prevention_required": true,
+    "length_matched_placebo_must_be_beaten": true,
+    "maximum_card_utf8_bytes": 1600
+  },
+  "citrus_contract": {
+    "target_first": true,
+    "strongest_single_primary": true,
+    "maximum_distinct_supports": 1,
+    "none_is_valid": true,
+    "target_build_separation": true,
+    "red_mandarin_and_cedrat_no_silent_substitution": true,
+    "legacy_dhc_citrus_scoring_runtime_authority": false
+  },
+  "musk_contract": {
+    "zero_or_one_exact_musk_is_valid": true,
+    "strongest_single_baseline_required": true,
+    "exception_only_materials": [
+      "Tonalide",
+      "Macrolide",
+      "Musk Ketone"
+    ],
+    "routine_exception_use_allowed": false
+  },
+  "execution_policy": {
+    "control": "normal projectless ChatGPT 5.6 Sol Extra High",
+    "reasoning_effort": "Extra High",
+    "fresh_conversation_per_request": true,
+    "deep_luna_fast_transmissions": 0,
+    "source_changes_during_scored_execution_allowed": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "b412ad221834ba9edec287f92b5e79c141fa5b4e2a3491b12515f8784a244a90"
+}
