@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import hashlib
+from decimal import Decimal
 from typing import Any, Mapping
+
+from engine.perception.complexity_ensemble import ComplexityBundle, ComplexityCasePacket
+from engine.perception.complexity_xhigh import XHighExecutionReceipt, XHighRequest
 
 INVENTORY_WORKBOOK_SHA256 = (
     "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
@@ -278,3 +283,45 @@ def musk_payload(
         ],
         "pairwise_nonredundancy": [],
     }
+
+
+def valid_bundle(case: ComplexityCasePacket) -> ComplexityBundle:
+    output = {"axes": {"formula_structure": {"status": "AVAILABLE"}}}
+    return ComplexityBundle(
+        case_id=case.case_id,
+        state="PASS",
+        case_input_sha256=case.input_sha256,
+        registry_sha256="b" * 64,
+        omitted_families=(),
+        family_outputs={"construction_profile": output},
+        module_runs=(),
+        blockers=(),
+    )
+
+
+def valid_execution_receipt(
+    request: XHighRequest,
+    *,
+    response_bytes: bytes = b'{"ok":true}',
+) -> XHighExecutionReceipt:
+    return XHighExecutionReceipt(
+        request_id=request.request_id,
+        nonce=request.nonce,
+        provider="OpenAI",
+        product="ChatGPT",
+        model_identity="ChatGPT-current",
+        reasoning_effort="xhigh",
+        context_clean=True,
+        prior_case_transcript_visible=False,
+        prompt_sha256=request.prompt_sha256,
+        attachment_sha256s=request.attachment_sha256s,
+        submitted_at="2026-08-22T10:00:00Z",
+        completed_at="2026-08-22T10:01:00Z",
+        completion_state="SUCCEEDED",
+        conversation_id="chatgpt:test-cx-a01-control",
+        response_sha256=hashlib.sha256(response_bytes).hexdigest(),
+        input_tokens=1000,
+        output_tokens=500,
+        latency_ms=60000,
+        price_usd=Decimal("1.00"),
+    )
