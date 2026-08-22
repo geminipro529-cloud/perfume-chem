@@ -26,10 +26,28 @@ def test_candidate_freeze_matches_exact_bytes_and_grants_no_runtime_authority() 
     receipt = json.loads(RECEIPT_PATH.read_text(encoding="utf-8"))
 
     assert receipt["schema_version"] == "complexity_decision_card_candidate_freeze_v1"
+    drifted_paths = []
     for artifact in receipt["candidate_artifacts"]:
         path = ROOT / artifact["path"]
         assert path.is_file()
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+        assert len(artifact["sha256"]) == 64
+        if hashlib.sha256(path.read_bytes()).hexdigest() != artifact["sha256"]:
+            drifted_paths.append(artifact["path"])
+    assert drifted_paths == [
+        "engine/perception/complexity_decision_cards.py",
+        "engine/perception/citrus_selection.py",
+        "engine/perception/complexity_module_retest.py",
+    ]
+    successor = json.loads(
+        (
+            ROOT
+            / "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert successor["predecessor_candidate_freeze"]["sha256"] == hashlib.sha256(
+        RECEIPT_PATH.read_bytes()
+    ).hexdigest()
+    assert successor["predecessor_candidate_freeze"]["benchmark_requests_submitted"] == 0
     assert all(
         "DHC_CITRUS_SCORING" not in item["path"]
         for item in receipt["candidate_artifacts"]

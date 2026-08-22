@@ -22,6 +22,7 @@ from engine.perception.complexity_module_retest import (
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests/fixtures/complexity_module_retest_cases_v1.json"
+FIXTURE_V2 = ROOT / "tests/fixtures/complexity_module_retest_cases_v2.json"
 
 
 def canonical_bytes(value: object) -> bytes:
@@ -59,6 +60,52 @@ def test_corpus_sidecar_locks_exact_bytes() -> None:
     expected = FIXTURE.with_suffix(".sha256").read_text(encoding="ascii").strip()
 
     assert expected == hashlib.sha256(FIXTURE.read_bytes()).hexdigest()
+
+
+def test_v2_corpus_inherits_complete_matrix_and_binds_new_inventory_materials() -> None:
+    cases = load_module_retest_cases(FIXTURE_V2)
+    by_module = group_cases(cases)
+
+    assert set(by_module) == set(EXPECTED_MODULE_IDS)
+    assert all(len(items) == 6 for items in by_module.values())
+    named = {
+        material: state
+        for case in cases
+        for material, state in case.inventory_state.items()
+        if material
+        in {
+            "Neroli EO 10% in DPG",
+            "Ambrettolide 10% in DPG",
+            "Romandolide",
+            "Habanolide",
+            "Ethylene Brassylate",
+        }
+    }
+    assert named == {
+        "Neroli EO 10% in DPG": "OWNED_10_PERCENT_DPG_ONLY_SUPPORT_ONLY",
+        "Ambrettolide 10% in DPG": (
+            "PLANNED_ACQUISITION_DESIGN_AVAILABLE_PROCUREMENT_PENDING"
+        ),
+        "Romandolide": "OWNED_NEAT_AS_SUPPLIED",
+        "Habanolide": "OWNED_NEAT_AS_SUPPLIED",
+        "Ethylene Brassylate": "MISSING_HIGH_VALUE_EXPANSION",
+    }
+
+    neroli_case = next(item for item in cases if item.case_id == "CM-CIT-01")
+    neroli_card = build_decision_card(
+        neroli_case.module_id,
+        neroli_case.native_result,
+        neroli_case.target_identity,
+    )
+    assert "support stock" in " ".join(neroli_card.decisive_evidence)
+
+
+def test_v2_corpus_sidecar_locks_exact_bytes() -> None:
+    expected = FIXTURE_V2.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).strip()
+
+    assert expected == hashlib.sha256(FIXTURE_V2.read_bytes()).hexdigest()
 
 
 def test_treatment_diff_is_only_one_card_and_placebo_is_length_matched() -> None:

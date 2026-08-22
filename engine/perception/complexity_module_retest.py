@@ -153,53 +153,132 @@ class ModuleRetestCase:
         }
 
 
+def _case_from_row(
+    row: Mapping[str, Any], shared: Mapping[str, Any]
+) -> ModuleRetestCase:
+    if "native_result" in row:
+        native_result = row["native_result"]
+    else:
+        reference = _text(row.get("native_result_ref"), "native_result_ref")
+        if reference not in shared:
+            raise ValueError(f"unknown native_result_ref: {reference}")
+        source = shared[reference]
+        if not isinstance(source, dict):
+            raise TypeError(f"shared native result {reference} must be an object")
+        native_result = dict(source)
+        native_result["result_sha256"] = hashlib.sha256(
+            _canonical_bytes(source)
+        ).hexdigest()
+    return ModuleRetestCase(
+        case_id=row["case_id"],
+        module_id=row["module_id"],
+        phase=row["phase"],
+        role=ModuleRetestRole(row["role"]),
+        target_name=row["target_name"],
+        target_identity=row["target_identity"],
+        brief=row["brief"],
+        facts=tuple(row["facts"]),
+        inventory_state=row["inventory_state"],
+        evidence_refs=tuple(row["evidence_refs"]),
+        expected_decision=row["expected_decision"],
+        critical_error=row["critical_error"],
+        claim_ceiling=row["claim_ceiling"],
+        native_result=native_result,
+    )
+
+
+def _case_as_row(case: ModuleRetestCase) -> dict[str, Any]:
+    return {
+        "case_id": case.case_id,
+        "module_id": case.module_id,
+        "phase": case.phase,
+        "role": case.role.value,
+        "target_name": case.target_name,
+        "target_identity": case.target_identity,
+        "brief": case.brief,
+        "facts": list(case.facts),
+        "inventory_state": dict(case.inventory_state),
+        "evidence_refs": list(case.evidence_refs),
+        "expected_decision": case.expected_decision,
+        "critical_error": case.critical_error,
+        "claim_ceiling": case.claim_ceiling,
+        "native_result": dict(case.native_result),
+    }
+
+
+def _deep_merge(base: Mapping[str, Any], patch: Mapping[str, Any]) -> dict[str, Any]:
+    merged = dict(base)
+    for key, value in patch.items():
+        existing = merged.get(key)
+        if isinstance(existing, Mapping) and isinstance(value, Mapping):
+            merged[key] = _deep_merge(existing, value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _load_v2_cases(path: Path, payload: Mapping[str, Any]) -> tuple[ModuleRetestCase, ...]:
+    base_name = _text(payload.get("base_corpus"), "base_corpus")
+    if Path(base_name).name != base_name:
+        raise ValueError("base_corpus must be a sibling filename")
+    base_path = path.parent / base_name
+    if base_path.resolve() == path.resolve():
+        raise ValueError("base_corpus cannot reference itself")
+    base_cases = load_module_retest_cases(base_path)
+    rows_by_id = {item.case_id: _case_as_row(item) for item in base_cases}
+    overrides = payload.get("case_overrides")
+    if not isinstance(overrides, list):
+        raise ValueError("case_overrides must be a list")
+    seen: set[str] = set()
+    for override in overrides:
+        if not isinstance(override, dict):
+            raise TypeError("each case override must be an object")
+        case_id = _text(override.get("case_id"), "case override case_id")
+        if case_id in seen:
+            raise ValueError("case override IDs must be unique")
+        seen.add(case_id)
+        if case_id not in rows_by_id:
+            raise ValueError(f"unknown case override: {case_id}")
+        row = rows_by_id[case_id]
+        native_patch = override.get("native_result_patch")
+        for key, value in override.items():
+            if key not in {"case_id", "native_result_patch"}:
+                if key not in row:
+                    raise ValueError(f"unsupported case override field: {key}")
+                row[key] = value
+        if native_patch is not None:
+            if not isinstance(native_patch, dict):
+                raise TypeError("native_result_patch must be an object")
+            native_result = _deep_merge(row["native_result"], native_patch)
+            native_result.pop("result_sha256", None)
+            native_result["result_sha256"] = hashlib.sha256(
+                _canonical_bytes(native_result)
+            ).hexdigest()
+            row["native_result"] = native_result
+    return tuple(_case_from_row(rows_by_id[item.case_id], {}) for item in base_cases)
+
+
 def load_module_retest_cases(path: Path) -> tuple[ModuleRetestCase, ...]:
     if not isinstance(path, Path):
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "complexity_module_retest_cases_v1":
+    schema = payload.get("schema_version")
+    if schema == "complexity_module_retest_cases_v2":
+        cases = list(_load_v2_cases(path, payload))
+    elif schema == "complexity_module_retest_cases_v1":
+        shared = payload.get("shared_native_results", {})
+        if not isinstance(shared, dict):
+            raise ValueError("shared_native_results must be an object")
+        rows = payload.get("cases")
+        if not isinstance(rows, list):
+            raise ValueError("corpus cases must be a list")
+        cases = []
+        for row in rows:
+            if not isinstance(row, dict):
+                raise TypeError("each corpus case must be an object")
+            cases.append(_case_from_row(row, shared))
+    else:
         raise ValueError("unsupported module retest corpus schema")
-    shared = payload.get("shared_native_results", {})
-    if not isinstance(shared, dict):
-        raise ValueError("shared_native_results must be an object")
-    rows = payload.get("cases")
-    if not isinstance(rows, list):
-        raise ValueError("corpus cases must be a list")
-    cases: list[ModuleRetestCase] = []
-    for row in rows:
-        if not isinstance(row, dict):
-            raise TypeError("each corpus case must be an object")
-        if "native_result" in row:
-            native_result = row["native_result"]
-        else:
-            reference = _text(row.get("native_result_ref"), "native_result_ref")
-            if reference not in shared:
-                raise ValueError(f"unknown native_result_ref: {reference}")
-            source = shared[reference]
-            if not isinstance(source, dict):
-                raise TypeError(f"shared native result {reference} must be an object")
-            native_result = dict(source)
-            native_result["result_sha256"] = hashlib.sha256(
-                _canonical_bytes(source)
-            ).hexdigest()
-        cases.append(
-            ModuleRetestCase(
-                case_id=row["case_id"],
-                module_id=row["module_id"],
-                phase=row["phase"],
-                role=ModuleRetestRole(row["role"]),
-                target_name=row["target_name"],
-                target_identity=row["target_identity"],
-                brief=row["brief"],
-                facts=tuple(row["facts"]),
-                inventory_state=row["inventory_state"],
-                evidence_refs=tuple(row["evidence_refs"]),
-                expected_decision=row["expected_decision"],
-                critical_error=row["critical_error"],
-                claim_ceiling=row["claim_ceiling"],
-                native_result=native_result,
-            )
-        )
     ids = tuple(item.case_id for item in cases)
     if len(ids) != len(set(ids)):
         raise ValueError("case IDs must be unique")
