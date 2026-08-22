@@ -37,6 +37,7 @@ def test_candidate_freeze_matches_exact_bytes_and_grants_no_runtime_authority() 
         "engine/perception/complexity_decision_cards.py",
         "engine/perception/citrus_selection.py",
         "engine/perception/complexity_module_retest.py",
+        "configs/complexity/complexity_module_registry_v1.json",
     ]
     successor = json.loads(
         (

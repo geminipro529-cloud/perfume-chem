@@ -67,15 +67,17 @@
       "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "path": "engine/perception/musk_design.py",
       "import_path": null,
-      "sha256": "1215b9ea69f0bff68c0fbfd69652cf5df7a413a8fed9e2a3edf585021563abcb",
+      "sha256": "9090554b46c4fecbc21ac9e6ba8ec12dc2a94563ae5f97764e9a5533d5e3bf8c",
       "evidence_refs": [
         "docs/superpowers/specs/2026-08-22-complexity-xhigh-benchmark-design.md",
-        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json",
+        "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json"
       ],
       "notes": [
         "One precise musk is valid; layered designs require distinct roles and complete pairwise nonredundancy records.",
         "Tonalide, Macrolide, and Musk Ketone are exception-only and do not create physical-stock authority.",
-        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved."
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "V2 candidate stock semantics distinguish owned-neat Habanolide and Romandolide, planned Ambrettolide 10% in DPG, and missing Ethylene Brassylate without changing retired runtime state."
       ]
     },
     {
@@ -260,15 +262,17 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/perception/citrus_selection.py",
       "import_path": null,
-      "sha256": "87f67663184526edc8d18b35cbe4acd6dcb138c4806334d07d6608cea9ccb99e",
+      "sha256": "bc48b3bcbcfbc5e5f3a9b84878f8b4bf740e6ed7005eec8b94a9721912f1236a",
       "evidence_refs": [
         "docs/superpowers/specs/2026-08-22-complexity-decision-cards-recovery-design.md",
-        "tests/fixtures/complexity_module_retest_cases_v1.json"
+        "tests/fixtures/complexity_module_retest_cases_v2.json",
+        "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json"
       ],
       "notes": [
         "Target-first non-scalar selector candidate; not runtime eligible before its external xhigh retention gate passes.",
         "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
-        "Target/ideal selection and current-inventory build remain separate."
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus."
       ]
     },
     {
