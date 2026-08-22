@@ -55,7 +55,7 @@
     },
     {
       "path": "engine/perception/complexity_inventory.py",
-      "sha256": "02dad9baa8c285f094635b07e1bafb65b41c09b3792abcabbc1eeb60d24cb742"
+      "sha256": "fc161370b129183237a769246911177a97a8e61439cc10106734eefafc3f033f"
     },
     {
       "path": "engine/perception/complexity_module_retest.py",
@@ -79,7 +79,7 @@
     },
     {
       "path": "tests/test_complexity_inventory.py",
-      "sha256": "037377e554d103ea5f11721b2ebd29bbfc640b1046f976425e2a42c8ed94db1f"
+      "sha256": "22d8e9d823e31bd06be46e1f1d38aad0e8eb2cd15d99dbc95a176f002fd77940"
     }
   ],
   "inventory_contract": {
@@ -156,5 +156,5 @@
     "publication": false,
     "release": false
   },
-  "semantic_receipt_sha256": "a243a6ef8b39f14f0820d37a3ca6a2d1c8147fdb706e3e5d8ebd957e9d441f2d"
+  "semantic_receipt_sha256": "54b7d8433beee5fcf3b2dd7553829efe94172865c902757e8b19c82d2c463eb8"
 }

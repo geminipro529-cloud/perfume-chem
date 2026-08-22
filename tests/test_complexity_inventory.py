@@ -27,7 +27,11 @@ def test_catalog_covers_every_current_master_record_and_august_addition() -> Non
     )
     assert catalog.current_record_count == 280
     assert len(catalog.current_records) == 280
+    assert len(catalog.sheet_manifest) == 18
     assert len(catalog.august_added_materials) == 30
+    assert len(catalog.advisory_candidates) == 35
+    assert len(catalog.planned_and_prepare) == 4
+    assert len(catalog.aliases_and_non_equivalents) == 45
     assert {
         "Freesia HDI",
         "Dimethyl Benzyl Carbonyl Acetate",

@@ -235,6 +235,15 @@ class ComplexityInventoryCatalog:
             raise ValueError("current_record_count must be positive")
         self.current_record_count = count
 
+        raw_manifest = value.get("sheet_manifest")
+        if not isinstance(raw_manifest, list):
+            raise TypeError("sheet_manifest must be a list")
+        if any(not isinstance(item, Mapping) for item in raw_manifest):
+            raise TypeError("sheet manifest entries must be mappings")
+        self.sheet_manifest = tuple(
+            MappingProxyType(dict(item)) for item in raw_manifest
+        )
+
         raw_records = value.get("current_records")
         if not isinstance(raw_records, list):
             raise TypeError("current_records must be a list")
@@ -276,10 +285,13 @@ class ComplexityInventoryCatalog:
         raw_advisory = value.get("advisory_candidates")
         if not isinstance(raw_advisory, list):
             raise TypeError("advisory_candidates must be a list")
+        if any(not isinstance(item, Mapping) for item in raw_advisory):
+            raise TypeError("advisory candidate must be a mapping")
+        self.advisory_candidates = tuple(
+            MappingProxyType(dict(item)) for item in raw_advisory
+        )
         advisory: dict[str, Mapping[str, Any]] = {}
-        for item in raw_advisory:
-            if not isinstance(item, Mapping):
-                raise TypeError("advisory candidate must be a mapping")
+        for item in self.advisory_candidates:
             material = _text(item.get("material"), "advisory material")
             advisory[_key(material)] = MappingProxyType(dict(item))
         self._advisory_by_key = MappingProxyType(advisory)
@@ -287,10 +299,13 @@ class ComplexityInventoryCatalog:
         raw_planned = value.get("planned_and_prepare")
         if not isinstance(raw_planned, list):
             raise TypeError("planned_and_prepare must be a list")
+        if any(not isinstance(item, Mapping) for item in raw_planned):
+            raise TypeError("planned/preparation row must be a mapping")
+        self.planned_and_prepare = tuple(
+            MappingProxyType(dict(item)) for item in raw_planned
+        )
         planned: dict[str, Mapping[str, Any]] = {}
-        for item in raw_planned:
-            if not isinstance(item, Mapping):
-                raise TypeError("planned/preparation row must be a mapping")
+        for item in self.planned_and_prepare:
             material = _text(item.get("material_or_stock"), "planned material")
             planned[_key(material)] = MappingProxyType(dict(item))
         self._planned_by_key = MappingProxyType(planned)
@@ -298,11 +313,14 @@ class ComplexityInventoryCatalog:
         raw_aliases = value.get("aliases_and_non_equivalents")
         if not isinstance(raw_aliases, list):
             raise TypeError("aliases_and_non_equivalents must be a list")
+        if any(not isinstance(item, Mapping) for item in raw_aliases):
+            raise TypeError("alias row must be a mapping")
+        self.aliases_and_non_equivalents = tuple(
+            MappingProxyType(dict(item)) for item in raw_aliases
+        )
         safe_aliases: dict[str, str] = {}
         forbidden_pairs: set[frozenset[str]] = set()
-        for item in raw_aliases:
-            if not isinstance(item, Mapping):
-                raise TypeError("alias row must be a mapping")
+        for item in self.aliases_and_non_equivalents:
             left = _key(item.get("Material / name"))
             right = _key(item.get("Compared with"))
             relationship = _text(item.get("Relationship"), "relationship").upper()
