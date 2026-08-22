@@ -10,9 +10,12 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field, replace
 from enum import Enum
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from engine.calibration.hashing import stable_json_hash
+
+if TYPE_CHECKING:
+    from engine.perception.complexity_inventory import ComplexityInventoryCatalog
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
@@ -112,6 +115,55 @@ class CitrusCandidate:
             "evidence_refs": list(self.evidence_refs),
             "selection_scope": self.selection_scope.value,
         }
+
+
+def bind_citrus_inventory(
+    candidate: CitrusCandidate,
+    catalog: ComplexityInventoryCatalog | None = None,
+) -> CitrusCandidate:
+    """Bind one target-defined citrus candidate to the frozen inventory catalog."""
+
+    if not isinstance(candidate, CitrusCandidate):
+        raise TypeError("candidate must be a CitrusCandidate")
+    if catalog is None:
+        from engine.perception.complexity_inventory import (
+            load_complexity_inventory_catalog,
+        )
+
+        catalog = load_complexity_inventory_catalog()
+    from engine.perception.complexity_inventory import (
+        InventoryAvailability,
+        StockReadiness,
+    )
+
+    projection = catalog.project(candidate.material)
+    if (
+        projection.availability is InventoryAvailability.OWNED
+        and projection.stock_readiness is StockReadiness.EXACT_STOCK_IDENTIFIED
+    ):
+        state = CitrusInventoryState.OWNED
+        exact_stock_ref = projection.exact_stock_ref
+    elif projection.availability is InventoryAvailability.OUT_OF_STOCK:
+        state = CitrusInventoryState.OUT_OF_STOCK
+        exact_stock_ref = None
+    elif projection.availability is InventoryAvailability.PLANNED_ACQUISITION:
+        state = CitrusInventoryState.PLANNED_ACQUISITION
+        exact_stock_ref = None
+    elif projection.availability in {
+        InventoryAvailability.OWNED,
+        InventoryAvailability.PREPARABLE_NOT_MIXED,
+        InventoryAvailability.VERIFY_FIRST,
+    }:
+        state = CitrusInventoryState.VERIFY_FIRST
+        exact_stock_ref = None
+    else:
+        state = CitrusInventoryState.MISSING
+        exact_stock_ref = None
+    return replace(
+        candidate,
+        inventory_state=state,
+        exact_stock_ref=exact_stock_ref,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -395,5 +447,6 @@ __all__ = [
     "CitrusSelectionRequest",
     "CitrusSelectionResult",
     "CitrusSelectionState",
+    "bind_citrus_inventory",
     "select_citrus_architecture",
 ]

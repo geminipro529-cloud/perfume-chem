@@ -23,18 +23,25 @@ def canonical_bytes(value: object) -> bytes:
     ).encode("utf-8")
 
 
-def test_v2_freeze_hash_binds_amended_modules_and_corpus() -> None:
+def test_v2_freeze_is_preserved_as_the_pre_catalog_historical_freeze() -> None:
     receipt = json.loads(RECEIPT_PATH.read_text(encoding="utf-8"))
+    successor_path = (
+        ROOT
+        / "data/governance/complexity_decision_card_candidate_freeze_20260823_v3.json"
+    )
+    successor = json.loads(successor_path.read_text(encoding="utf-8"))
 
     assert receipt["schema_version"] == "complexity_decision_card_candidate_freeze_v2"
     assert receipt["online_benchmark_state"] == "NOT_STARTED"
     assert receipt["predecessor_candidate_freeze"]["path"].endswith(
         "complexity_decision_card_candidate_freeze_20260822.json"
     )
-    for artifact in receipt["candidate_artifacts"]:
-        path = ROOT / artifact["path"]
-        assert path.is_file()
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+    assert successor["predecessor_candidate_freeze"]["path"] == str(
+        RECEIPT_PATH.relative_to(ROOT)
+    ).replace("\\", "/")
+    assert successor["predecessor_candidate_freeze"]["sha256"] == hashlib.sha256(
+        RECEIPT_PATH.read_bytes()
+    ).hexdigest()
     assert any(
         item["path"].endswith("complexity_module_retest_cases_v2.json")
         for item in receipt["candidate_artifacts"]

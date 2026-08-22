@@ -6,10 +6,13 @@ nor grants formula, stock, physical, sensory, safety, OAV, or release authority.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, fields, is_dataclass
+from dataclasses import dataclass, fields, is_dataclass, replace
 from enum import Enum
 from itertools import combinations
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from engine.perception.complexity_inventory import ComplexityInventoryCatalog
 
 EXCEPTION_ONLY_MUSKS = frozenset({"tonalide", "macrolide", "musk ketone"})
 
@@ -214,6 +217,55 @@ class MuskCandidate:
             self.fingerprint, MuskFingerprint
         ):
             raise TypeError("fingerprint must be a MuskFingerprint")
+
+
+def bind_musk_inventory(
+    candidate: MuskCandidate,
+    catalog: ComplexityInventoryCatalog | None = None,
+) -> MuskCandidate:
+    """Bind one target-defined musk candidate without changing its design role."""
+
+    if not isinstance(candidate, MuskCandidate):
+        raise TypeError("candidate must be a MuskCandidate")
+    if catalog is None:
+        from engine.perception.complexity_inventory import (
+            load_complexity_inventory_catalog,
+        )
+
+        catalog = load_complexity_inventory_catalog()
+    from engine.perception.complexity_inventory import (
+        InventoryAvailability,
+        StockReadiness,
+    )
+
+    projection = catalog.project(candidate.material)
+    if (
+        projection.availability is InventoryAvailability.OWNED
+        and projection.stock_readiness is StockReadiness.EXACT_STOCK_IDENTIFIED
+    ):
+        state = InventoryState.OWNED
+        exact_stock_ref = projection.exact_stock_ref
+    elif projection.availability is InventoryAvailability.OUT_OF_STOCK:
+        state = InventoryState.DEPLETED
+        exact_stock_ref = None
+    elif projection.availability is InventoryAvailability.PLANNED_ACQUISITION:
+        state = InventoryState.PLANNED_ACQUISITION
+        exact_stock_ref = None
+    elif projection.availability in {
+        InventoryAvailability.MISSING,
+        InventoryAvailability.FORBIDDEN,
+        InventoryAvailability.UNLISTED,
+    }:
+        state = InventoryState.MISSING
+        exact_stock_ref = None
+    else:
+        state = InventoryState.UNKNOWN
+        exact_stock_ref = None
+    return replace(
+        candidate,
+        inventory_state=state,
+        exact_stock_ref=exact_stock_ref,
+    )
 
 
 @dataclass(frozen=True, slots=True)

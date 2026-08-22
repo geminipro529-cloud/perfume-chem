@@ -1,0 +1,160 @@
+{
+  "schema_version": "complexity_decision_card_candidate_freeze_v3",
+  "receipt_id": "complexity-decision-card-candidate-freeze-20260823-v3",
+  "design_state": "USER_APPROVED_AND_LOCALLY_IMPLEMENTED",
+  "online_benchmark_state": "PAUSED_FOR_INVENTORY_SCOPE_AMENDMENT",
+  "scope_amendment": "Parse every authoritative workbook sheet, reconcile every current and newly added inventory row, and bind the complete catalog before continuing the Extra High benchmark.",
+  "predecessor_candidate_freeze": {
+    "path": "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json",
+    "sha256": "4ed30b808deb6879c786775b0168f9502b3c745b08e55d6413b42821aa50058e",
+    "disposition": "HISTORICAL_PRE_CATALOG_FREEZE"
+  },
+  "predecessor_screen_run": {
+    "run_id": "CMR-20260823-decision-cards-v2",
+    "model": "ChatGPT 5.6 Sol Extra High",
+    "surface": "Work",
+    "generated_requests": 60,
+    "submitted_responses": 16,
+    "captured_responses": 16,
+    "verified_responses": 16,
+    "clipboard_corrections": 3,
+    "scoring_state": "NOT_FINAL",
+    "response_integrity_audit_path": "output/complexity_module_retest/CMR-20260823-decision-cards-v2/response_integrity_audit.json",
+    "disposition": "REUSE_ONLY_WHEN_PROMPT_SHA256_IS_IDENTICAL"
+  },
+  "inventory_authority": {
+    "workbook_source": "Complex Perfumery project sources/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "repository_snapshot_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+    "repository_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "catalog_path": "data/governance/complexity_inventory_catalog_v1.json",
+    "catalog_sha256": "bdc3904b97cefc4bad34e0914c706455d50d383f331587385e9eb35539b1b037",
+    "authority_rule": "The V5 workbook governs current stock, strength, availability, product basis, and preparation state; advisory sheets do not create stock and historical inventory.txt comments do not override V5.",
+    "source_conflict_hold": "inventory.txt contains an older Ethylene Brassylate ownership comment, while V5 says it is not in current inventory; V5 governs and physical use remains blocked."
+  },
+  "inventory_coverage": {
+    "workbook_sheets_parsed": 18,
+    "current_master_records": 280,
+    "august_added_materials": 30,
+    "advisory_candidates": 35,
+    "planned_and_prepare_rows": 4,
+    "alias_and_non_equivalence_rows": 45
+  },
+  "candidate_artifacts": [
+    {
+      "path": "engine/perception/complexity_decision_cards.py",
+      "sha256": "3eb56d50877db7a2ca295a3a3be462175a509d38ee6ac56131420e79624b1a7d"
+    },
+    {
+      "path": "engine/perception/citrus_selection.py",
+      "sha256": "bdeacf985bc8ea6bdc64dbef5712620239046c177bc1ebd1ba17519b89f1464c"
+    },
+    {
+      "path": "engine/perception/musk_design.py",
+      "sha256": "ed34dc12790795d83e9f612bf1982b23cb34e9bf226bd13d1268d2226c35f23a"
+    },
+    {
+      "path": "engine/perception/complexity_inventory.py",
+      "sha256": "02dad9baa8c285f094635b07e1bafb65b41c09b3792abcabbc1eeb60d24cb742"
+    },
+    {
+      "path": "engine/perception/complexity_module_retest.py",
+      "sha256": "0604971cdf86c4ec41540d57efb220b1191abeaedd684444477a980f876e2d9d"
+    },
+    {
+      "path": "data/governance/complexity_inventory_catalog_v1.json",
+      "sha256": "bdc3904b97cefc4bad34e0914c706455d50d383f331587385e9eb35539b1b037"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.json",
+      "sha256": "f33fe7f78fdc604087c9ef2f421e0d336c8c57ce0cc84a8128dcea879dab7b42"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.sha256",
+      "sha256": "d08ecd4dc81fc0e7be07d664bd7755a1bc48de0a1ae82a24db0344e0e1e38580"
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    },
+    {
+      "path": "tests/test_complexity_inventory.py",
+      "sha256": "037377e554d103ea5f11721b2ebd29bbfc640b1046f976425e2a42c8ed94db1f"
+    }
+  ],
+  "inventory_contract": {
+    "target_identity_defined_by_inventory": false,
+    "roles_defined_by_inventory": false,
+    "hedonic_value_defined_by_inventory": false,
+    "advisory_candidate_creates_stock": false,
+    "unlisted_material_is_owned": false,
+    "target_and_current_build_are_separate": true,
+    "availability_and_stock_readiness_are_separate": true,
+    "exact_strength_is_preserved": true,
+    "non_equivalence_is_preserved": true,
+    "physical_addition_requires_exact_stock_reference": true
+  },
+  "module_binding_contract": {
+    "citrus": {
+      "inventory_binding_may_change_selection_role": false,
+      "inventory_binding_may_change_target_axis": false,
+      "inventory_binding_may_change_transition_function": false,
+      "owned_requires_current_row_and_exact_stock_readiness": true,
+      "verify_first_is_not_owned": true,
+      "neroli_10_percent_preserves_stock_strength": true
+    },
+    "musk": {
+      "inventory_binding_may_change_design_role": false,
+      "inventory_binding_may_change_target_function": false,
+      "inventory_binding_may_change_nonredundancy_claim": false,
+      "zero_or_one_exact_musk_is_valid": true,
+      "exception_only_materials": [
+        "Tonalide",
+        "Macrolide",
+        "Musk Ketone"
+      ],
+      "musk_count_is_complexity_evidence": false
+    }
+  },
+  "benchmark_evidence_reuse_policy": {
+    "allowed": true,
+    "requires_identical_prompt_sha256": true,
+    "requires_visible_dom_response_verification": true,
+    "requires_same_model": true,
+    "requires_same_surface": true,
+    "requires_fresh_conversation": true,
+    "allows_changed_prompt_reuse": false
+  },
+  "candidate_contract": {
+    "module_count": 10,
+    "cases_per_module": 6,
+    "total_case_count": 60,
+    "screening_pairs_per_module": 3,
+    "confirmation_pairs_per_credible_screen": 3,
+    "retention_wins_required": 4,
+    "minimum_median_paired_gain": "5",
+    "new_critical_regressions_allowed": 0,
+    "safe_countercase_required": true,
+    "critical_trap_prevention_required": true,
+    "length_matched_placebo_must_be_beaten": true,
+    "maximum_card_utf8_bytes": 1600
+  },
+  "execution_policy": {
+    "control": "normal projectless ChatGPT 5.6 Sol Extra High",
+    "reasoning_effort": "Extra High",
+    "fresh_conversation_per_request": true,
+    "deep_luna_fast_transmissions": 0,
+    "source_changes_during_scored_execution_allowed": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "a243a6ef8b39f14f0820d37a3ca6a2d1c8147fdb706e3e5d8ebd957e9d441f2d"
+}
