@@ -1,7 +1,7 @@
 # MASTER PROMPT — Governing Document
 
 > **Status:** CANONICAL GOVERNING CONTRACT for the chemistry, perfumery, and verification program.
-> **Locked:** 2026-08-05
+> **Revised:** 2026-08-10; Meaningful Complexity v2 retained as historical ancestry only
 > **Applies to:** All agents, workers, and orchestration rounds in this workspace.
 
 CHEMISTRY, PERFUMERY, MEANINGFUL COMPLEXITY, LITERATURE RESEARCH, FORMULATION, AND VERIFICATION
@@ -102,10 +102,15 @@ Always read the current inventory file before writing formulas. Never silently c
 
 ## 9. MEANINGFUL COMPLEXITY STANDARD
 
-FULL COMPLEX PERFUME: Minimum 65 distinct odor materials. Preferred 70 to 90.
-COMPLEX STANDALONE ACCORD: Minimum 50 distinct odor materials. Preferred 55 to 70.
+`complexity_authority=WITHHELD`
 
-Counting rules: carriers do not count; same material at two strengths counts once; proprietary base counts once; duplicates/aliases do not increase count; decorative trace with no function does not count; ablated material no longer counts.
+No universal material-count minimum is authorized for a perfume or accord. No aggregate complexity or quality score is authorized. Formula row count remains descriptive structural accounting only; it cannot cause PASS, HOLD, or REBUILD by itself. Compact formulas may be valid, while large formulas may collapse or become generic.
+
+Report candidate dimensions separately: recognizer preservation; structural organization; interaction; temporal shape; texture; contrast; resilience and robustness; post-ablation or effective complexity; execution and stock readiness; evidence and uncertainty. Do not silently combine them.
+
+Complexity cannot compensate for a failed inventory or stock identity, active-dose or basis, strict-OAV evidence, physical chemistry, safety or regulatory, provenance or source-use, or physical-observation gate. The immutable Meaningful Complexity Audit v2 pack is historical governance ancestry, not active sensory, formula, or release authority. Missing PCV3 v3 or Universal Accord bytes must not be reconstructed from transcript prose.
+
+Counting rules for the descriptive structure axis: carriers do not count; the same material at two strengths counts once; a proprietary base counts once; duplicates and aliases do not increase count; a decorative trace with no declared function does not establish complexity; an ablated row remains ancestry but not part of the surviving structural census.
 
 ## 10. FORMULA-CONSTRUCTION WORKFLOW
 
@@ -113,7 +118,7 @@ For each perfume: 1. Write identity contract. 2. Define recognizers at 0min/30mi
 
 ## 11. QUANTITATIVE VERIFICATION GATES
 
-G0: CANONICAL LOCK. G1: ARITHMETIC. G2: INVENTORY. G3: RECOGNIZER COVERAGE. G4: MEANINGFUL COMPLEXITY. G5: COMPUTATIONAL OAV. G6: HEADSPACE AND TEMPORAL MODEL. G7: MONTE CARLO ROBUSTNESS. G8: MATERIAL ABLATION. G9: DOSE PERTURBATION. G10: DOMINANCE. G11: ANTI-COLLAPSE. G12: PHYSICAL CHEMISTRY. G13: FINAL QUALITY GATE (min 92/100). G14: PHYSICAL AND SAFETY BOUNDARY.
+G0: CANONICAL LOCK. G1: ARITHMETIC. G2: INVENTORY. G3: RECOGNIZER COVERAGE. G4: CANDIDATE-ONLY CONSTRUCTION-COMPLEXITY REPORT (`complexity_authority=WITHHELD`; no row-count gate or aggregate score). G5: COMPUTATIONAL OAV SCREEN. G6: HEADSPACE AND TEMPORAL MODEL. G7: UNCERTAINTY AND ROBUSTNESS REPORT. G8: MATERIAL ABLATION. G9: DOSE PERTURBATION. G10: DOMINANCE DIAGNOSTIC. G11: ANTI-COLLAPSE COMPARISON WITH NO UNIVERSAL SIMILARITY CUTOFF. G12: PHYSICAL CHEMISTRY. G13: NONCOMPENSATORY DIMENSION REPORT WITH NO AGGREGATE QUALITY SCORE. G14: PHYSICAL AND SAFETY BOUNDARY.
 
 ## 12-16. ROW FORMAT, STYLE INTEGRATION, OUTPUTS, AUTONOMY, TRUTHFULNESS
 

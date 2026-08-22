@@ -161,6 +161,14 @@ from engine.physics.model_interface import (
     VersionedModelResult,
     VersionedModelRouter,
 )
+from engine.physics.model_lifecycle import (
+    ModelDriftAssessment,
+    ModelDriftObservation,
+    ModelDriftState,
+    ModelLifecycleCard,
+    ModelLifecycleState,
+    assess_model_drift,
+)
 from engine.physics.natural_lots import (
     C7_COMPOSITION_PRECEDENCE,
     PERMITTED_CONSTITUENT_BASES,
@@ -311,6 +319,11 @@ __all__ = [
     "ModelEvidenceClass",
     "ModelFamily",
     "ModelInputReference",
+    "ModelDriftAssessment",
+    "ModelDriftObservation",
+    "ModelDriftState",
+    "ModelLifecycleCard",
+    "ModelLifecycleState",
     "ModelInterfaceContractError",
     "ModelOperation",
     "ModelOutput",
@@ -358,6 +371,7 @@ __all__ = [
     "VersionedModelResult",
     "VersionedModelRouter",
     "assess_empirical_readiness",
+    "assess_model_drift",
     "build_c5_program",
     "evaluate_real_held_out",
     "evaluate_simulation_smoke",

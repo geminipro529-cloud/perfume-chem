@@ -20,6 +20,11 @@ from engine.intervention_trial import (
 )
 from engine.interventions import InterventionRequest, InterventionResult, rank_interventions
 from engine.mixture import MixtureComponent, MixtureState
+from engine.perception.construction_complexity import (
+    ConstructionComplexityInputs,
+    ConstructionComplexityProfile,
+    analyze_construction_complexity,
+)
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
 from engine.quantities import ConcentrationBasis
@@ -70,6 +75,7 @@ class WorkbenchFormulaRequest:
     matrix_components: tuple[MixtureComponent, ...] = ()
     mode: CalculationMode = CalculationMode.COMPATIBILITY
     stock_fraction_bases: Mapping[str, ConcentrationBasis | str] | None = None
+    construction_inputs: ConstructionComplexityInputs | None = None
 
     def __post_init__(self) -> None:
         name = self.formula_name.strip()
@@ -103,6 +109,13 @@ class WorkbenchFormulaRequest:
         stock_fraction_bases = _normalized_fraction_bases(
             self.stock_fraction_bases or {}
         )
+        if self.construction_inputs is not None and not isinstance(
+            self.construction_inputs,
+            ConstructionComplexityInputs,
+        ):
+            raise TypeError(
+                "construction_inputs must be a ConstructionComplexityInputs value"
+            )
         unknown_bases = set(stock_fraction_bases).difference(ingredients)
         if unknown_bases:
             raise ValueError(
@@ -190,6 +203,7 @@ class WorkbenchAnalysis:
     request: WorkbenchFormulaRequest
     formula_state: FormulaState
     time_series: tuple[SimulationFrame, ...]
+    construction_complexity: ConstructionComplexityProfile
     evidence: dict[str, EvidenceDescriptor]
     assumptions: tuple[str, ...]
     limitations: tuple[str, ...]
@@ -207,6 +221,7 @@ class WorkbenchAnalysis:
             "note_distribution": self.formula_state.note_distribution(),
             "time_series": [frame.as_dict() for frame in self.time_series],
             "mixture_state": _mixture_payload(self.formula_state, self.mixture_state),
+            "construction_complexity": self.construction_complexity.as_dict(),
             "evidence": {
                 name: descriptor.as_dict()
                 for name, descriptor in self.evidence.items()
@@ -299,6 +314,11 @@ class PerfumeWorkbench:
                 initial_state=state,
             )
         )
+        construction_complexity = analyze_construction_complexity(
+            state,
+            frames,
+            inputs=request.construction_inputs,
+        )
         evidence = _evidence_for(state, mixture_state, request)
         assumptions = _analysis_assumptions(request, mixture_state)
         limitations = _unique(
@@ -310,6 +330,7 @@ class PerfumeWorkbench:
             request=request,
             formula_state=state,
             time_series=frames,
+            construction_complexity=construction_complexity,
             evidence=evidence,
             assumptions=assumptions,
             limitations=limitations,

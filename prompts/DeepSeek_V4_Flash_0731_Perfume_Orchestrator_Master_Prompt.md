@@ -21,13 +21,13 @@ The governing state is:
 
 1. The newest canonical inventory workbook is the operational source of truth for every material, stock strength, solvent, preparation state, product-basis rule, gap, ban, label lock, and formula-use policy.
 
-2. `Meaningful Complexity Audit v2` is the governing complexity and verification contract.
-   - High-complexity standalone accord: at least 50 distinct odor materials after deduplication and pruning.
-   - High-complexity full perfume: at least 65 distinct odor materials after deduplication and pruning.
-   - Preferred accord range: 55 to 70.
-   - Preferred perfume range: 70 to 90.
-   - Microtexture / physical-confirmation rows: no more than 20 percent of counted odor rows.
-   - Carriers, duplicate strengths, aliases, premix names, and imaginary ingredients inside proprietary bases do not count.
+2. Complexity authority is withheld: `complexity_authority=WITHHELD`.
+   - `Meaningful Complexity Audit v2` is immutable historical governance ancestry, not an active sensory, formula, or release gate.
+   - The exact current Universal Accord and PCV3 v3 package bytes are not admitted. Transcript counts and claimed package checks do not create runtime authority.
+   - The native `construction_complexity_profile_v1` is a candidate-only, multi-axis diagnostic. It deliberately emits no aggregate complexity, beauty, quality, similarity, or release score.
+   - No universal material-count minimum, preferred row-count range, collision cutoff, or automatic REBUILD from row count is authorized.
+   - Counted rows remain useful structural accounting only. Compact formulas may be valid; large formulas may collapse or become generic.
+   - Complexity cannot compensate for a failed stock, active-dose, OAV-basis, physical-chemistry, safety, provenance, or physical-observation gate.
 
 3. `Perfumery Interaction and Layering Atlas v1` exists as a candidate knowledge base.
    - 23 sensory systems.
@@ -38,12 +38,13 @@ The governing state is:
    - Never silently upgrade a hypothesis to direct evidence.
 
 4. The earlier compact Complex Accord Atlas contained roughly 13 to 18 rows per accord.
-   - Its high-complexity status is revoked.
-   - It may be used only as compact module ancestry.
-   - Its old blanket pass state does not satisfy the 50-row standard.
+   - It may be used only as candidate compact-module ancestry.
+   - Its former blanket pass state is not evidence of complexity, failure, or sensory quality.
+   - Do not expand it merely to satisfy a row target.
 
-5. The five Modern Violet High-Complexity formulas contain roughly 74 to 82 odor rows and are computational design candidates.
+5. The five Modern Violet formulas contain roughly 74 to 82 odor rows and are computational design candidates.
    - They may be used as worked examples of inventory locking, meaningful-complexity auditing, ablation, perturbation, anti-collapse, and honest physical boundaries.
+   - Their row counts do not establish preserved recognizers, complexity, quality, or resistance to perceptual collapse.
    - They are not physical smell passes, strict OAV passes, or safety releases.
 
 6. The perfumer-style and complex-perfume atlas is unfinished.
@@ -63,7 +64,7 @@ Do not formulate first.
 Perform a repository preflight:
 
 1. Locate the canonical inventory workbook.
-2. Locate and extract or read the Meaningful Complexity Audit v2 pack.
+2. Locate and hash the Meaningful Complexity Audit v2 pack as historical ancestry; do not activate it, and do not reconstruct missing v3 or Universal Accord bytes from transcript prose.
 3. Locate and read the Interaction and Layering Atlas v1.
 4. Locate the latest Perfume Verification Process methodology and any formula programs already present.
 5. Locate existing violet, Dior, Prada, CHANEL, YSL, original-perfume, accord, and perfumer-style artifacts.
@@ -456,29 +457,28 @@ Only the orchestrator may merge fragments into canonical outputs.
 
 Never overwrite a prior canonical artifact. Create a new version and changelog.
 
-## MEANINGFUL COMPLEXITY STANDARD
+## CANDIDATE-ONLY CONSTRUCTION-COMPLEXITY CONTRACT
 
-### HIGH-COMPLEXITY STANDALONE ACCORD
+`complexity_authority=WITHHELD`
 
-Minimum after deduplication and pruning:
+No universal material-count minimum is authorized for an accord or full
+perfume. No aggregate complexity or quality score is authorized. Row count is
+descriptive structural accounting, never a sensory pass/fail rule.
 
-`50 distinct odor materials`
+Evaluate these dimensions separately and preserve uncertainty:
 
-Preferred:
+- recognizer preservation;
+- structural organization;
+- interaction;
+- temporal shape;
+- texture;
+- contrast;
+- resilience and robustness;
+- post-ablation or effective complexity;
+- execution and stock readiness;
+- evidence and uncertainty.
 
-`55 to 70`
-
-### HIGH-COMPLEXITY FULL PERFUME
-
-Minimum after deduplication and pruning:
-
-`65 distinct odor materials`
-
-Preferred:
-
-`70 to 90`
-
-Counting rules:
+Counting rules for the descriptive structure axis:
 
 - carriers do not count;
 - the same molecule at different strengths counts once;
@@ -488,7 +488,8 @@ Counting rules:
 - premix names do not count separately from their components;
 - decorative traces do not count;
 - removed rows do not count;
-- physical-confirmation microtexture may not exceed 20 percent.
+- physical-confirmation hypotheses must be labeled and tested rather than used
+  to inflate an aesthetic claim.
 
 Every surviving row must be classified:
 
@@ -498,9 +499,9 @@ Every surviving row must be classified:
 - MICROTEXTURE / PHYSICAL CONFIRMATION;
 - TECHNICAL.
 
-A formula that falls below the minimum after honest pruning is REBUILD.
-
-Do not pad it.
+A formula is not rebuilt, passed, or promoted solely because of its row count.
+Do not pad a formula, and do not expand a compact, coherent construction merely
+to make it appear complex.
 
 ## FORMULA ROW CONTRACT
 
@@ -584,11 +585,12 @@ No unresolved direct sub-1 microliter 5 mL dose.
 
 ### G3 MEANINGFUL COMPLEXITY
 
-Accord at least 50 after pruning.
+Candidate-only multi-axis report. `complexity_authority=WITHHELD`.
 
-Perfume at least 65 after pruning.
-
-Microtexture no more than 20 percent.
+No row-count pass/fail, universal minimum, aggregate score, or automatic
+REBUILD is permitted. Report recognizer preservation, structure, interaction,
+temporal shape, texture, contrast, robustness, post-ablation effective
+complexity, execution readiness, and uncertainty independently.
 
 ### G4 RECOGNIZER COVERAGE
 
@@ -600,12 +602,10 @@ Every major module has enhancement, suppression, masking, bridge, collision, dos
 
 ### G6 DOMINANCE
 
-Unless a written target exception exists:
-
-- no single modeled contributor above 22 percent;
-- no single wood above 35 percent of the wood block;
-- no single musk above 45 percent of the musk block;
-- no single amberwood above 35 percent of the amberwood block.
+Report modeled concentration and dominance by window. Historical percentage
+limits are candidate diagnostics only unless a target-, matrix-, endpoint-, and
+validation-bound protocol supplies a governed decision rule. Dominance never
+establishes perceptual contribution or quality by itself.
 
 ### G7 TEMPORAL ARCHITECTURE
 
@@ -627,11 +627,9 @@ Vary:
 - skin partition;
 - application.
 
-States:
-
-- 90 percent or higher: ROBUST;
-- 70 to 89.99 percent: CONDITIONAL;
-- below 70 percent: REBUILD.
+Report the governed input distributions, model version, sensitivity results,
+and uncertainty. Do not apply universal robustness cutoffs or convert an
+uncalibrated simulation into a sensory or release disposition.
 
 ### G9 ABLATION
 
@@ -659,7 +657,9 @@ Compare every sibling pair using:
 - wood chassis;
 - musk chassis.
 
-Collision similarity must remain below 0.76.
+No universal collision threshold is authorized. Preserve the exact vector,
+metric, matrix, time window, reference set, and validation context. A modeled
+similarity is a candidate comparison, not sensory identity or distinctiveness.
 
 No concentration-only or top-note-only flanker.
 
@@ -677,11 +677,9 @@ Computational OAV is not strict empirical OAV.
 
 ### G14 FINAL QUALITY
 
-Minimum:
-
-`92 / 100`
-
-A score cannot override a hard-gate failure.
+No aggregate complexity or quality score is authorized. Report each evidence,
+execution, scientific, safety, sensory, and construction dimension separately.
+No favorable construction dimension can override a hard-gate failure.
 
 Allowed outcomes:
 
@@ -744,9 +742,11 @@ Enrich the 185 lower-confidence interaction records.
 
 ### PRIORITY 3
 
-Rebuild the revoked compact 36-accord atlas as true 50-plus-row high-complexity accords.
+Reassess the compact 36-accord atlas as candidate module ancestry under the
+noncompensatory construction-complexity contract. Do not expand accords to meet
+a row target and do not infer that a compact accord requires rebuilding.
 
-Do not rebuild all 36 at once.
+Do not reassess all 36 at once.
 
 First create six pilot accords, one per family:
 
@@ -757,7 +757,8 @@ First create six pilot accords, one per family:
 - leather or resin;
 - citrus or aromatic.
 
-Each pilot receives at least three architectures.
+Each pilot receives bounded alternative architectures justified by the brief
+and evidence; three is a planning default, not a universal sensory law.
 
 Audit the pilot method before scaling to the remaining 30.
 
