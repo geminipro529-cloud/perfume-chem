@@ -12,7 +12,6 @@ from engine.perception.complexity_registry import (
     load_complexity_registry,
 )
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = PROJECT_ROOT / "configs/complexity/complexity_module_registry_v1.json"
 

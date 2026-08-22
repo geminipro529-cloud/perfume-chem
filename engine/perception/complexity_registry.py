@@ -6,15 +6,14 @@ formula, sensory, inventory, safety, or release authority.
 
 from __future__ import annotations
 
+import hashlib
+import json
+import re
 from dataclasses import dataclass
 from enum import Enum
 from fnmatch import fnmatchcase
-import hashlib
-import json
 from pathlib import Path, PurePosixPath
-import re
 from typing import Any, Mapping
-
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _RUNTIME_STATES = frozenset({"ACTIVE_CANDIDATE", "MANDATORY_GUARDRAIL"})

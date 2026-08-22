@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
 
@@ -13,6 +14,12 @@ from engine.perception.complexity_benchmark import (
 from tests.complexity_benchmark_fixtures import (
     benchmark_evidence,
     telemetry_summary,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+RUNBOOK = (
+    ROOT
+    / "docs/research/PERFUME_CHEM_COMPLEXITY_XHIGH_BENCHMARK_RUNBOOK_2026-08-22.md"
 )
 
 
@@ -81,3 +88,18 @@ def test_receipt_refuses_second_repair_or_any_deletion_path() -> None:
         _receipt(repair_count=2)
     with pytest.raises(ValueError, match="deletion paths"):
         _receipt(deletion_paths=("engine/perception/construction_complexity.py",))
+
+
+def test_runbook_is_nonfast_no_duplicate_and_authority_safe() -> None:
+    text = RUNBOOK.read_text(encoding="utf-8")
+    for required in (
+        "ChatGPT Pro work chats are advisory workers only",
+        "plain ChatGPT xhigh",
+        "one clean projectless conversation per request",
+        "do not retry an ambiguous request",
+        "RETIRED_BENCHMARK_UNDERPERFORMER",
+        "physical liking remains NOT TESTED",
+        "no DeepLuna provider transmission",
+    ):
+        assert required in text
+    assert "DeepLuna Fast fallback" not in text
