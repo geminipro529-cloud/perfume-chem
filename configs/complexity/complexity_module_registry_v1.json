@@ -1,0 +1,279 @@
+{
+  "schema_version": "complexity_module_registry_v1",
+  "discovery": {
+    "roots": [
+      "engine",
+      "future_modules",
+      "incoming_review",
+      "references/existing_evidence_packages",
+      "data/governance",
+      "chat_bridge/complex_perfumery"
+    ],
+    "terms": [
+      "complexity",
+      "hedonic",
+      "temporal",
+      "interaction",
+      "ablation",
+      "admission",
+      "sensory",
+      "musk"
+    ],
+    "metadata_keys": [
+      "module_name",
+      "file_name",
+      "receipt_id",
+      "classification",
+      "role"
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "construction-profile",
+      "family_id": "construction_profile",
+      "role": "CAPABILITY",
+      "state": "ACTIVE_CANDIDATE",
+      "path": "engine/perception/construction_complexity.py",
+      "import_path": "engine.perception.construction_complexity",
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "complexity-expansion-frontier",
+      "family_id": "complexity_expansion",
+      "role": "CAPABILITY",
+      "state": "ACTIVE_CANDIDATE",
+      "path": "engine/perception/complexity_expansion.py",
+      "import_path": "engine.perception.complexity_expansion",
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "complexity-experimental-design",
+      "family_id": "experimental_design",
+      "role": "CAPABILITY",
+      "state": "ACTIVE_CANDIDATE",
+      "path": "engine/scientific_validation/complexity_design_contracts.py",
+      "import_path": "engine.scientific_validation.complexity_design_contracts",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "complexity-model-admission",
+      "family_id": "admission_lifecycle",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "import_path": "engine.scientific_validation.complexity_model_admission",
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "complexity-model-lifecycle",
+      "family_id": "admission_lifecycle",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/physics/model_lifecycle.py",
+      "import_path": "engine.physics.model_lifecycle",
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "within-sniff-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/sensory/within_sniff.py",
+      "import_path": "engine.sensory.within_sniff",
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "temporal-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/sensory/temporal_observations.py",
+      "import_path": "engine.sensory.temporal_observations",
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "order-balance-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/sensory/order_balance.py",
+      "import_path": "engine.sensory.order_balance",
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "sensory-panel-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/sensory/panel_contract.py",
+      "import_path": "engine.sensory.panel_contract",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ]
+    },
+    {
+      "module_id": "temporal-graph-future",
+      "family_id": "temporal_graph_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/temporal_graph.py",
+      "import_path": null,
+      "sha256": "9b2b72f5107039273bfb22118a36270b8a11ff1a47265d3b221d37eed49f4302",
+      "evidence_refs": [],
+      "notes": [
+        "Derived temporal view only; it cannot replace observations."
+      ]
+    },
+    {
+      "module_id": "temporal-volatility-future",
+      "family_id": "temporal_volatility_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/temporal_volatility.py",
+      "import_path": null,
+      "sha256": "a7411771f4ccd5c28b8caf36928f41e8b63e1c5da6ce9f724acd251e4a2814d5",
+      "evidence_refs": [],
+      "notes": [
+        "Predicted release is not measured headspace or perceived time behavior."
+      ]
+    },
+    {
+      "module_id": "hedonic-model-future",
+      "family_id": "hedonic_model_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/hedonic_model.py",
+      "import_path": null,
+      "sha256": "c5a25a93192c4e38231710cb25f00c7e16127780c3417e8fa0606da7e8bd3529",
+      "evidence_refs": [],
+      "notes": [
+        "Composition cannot establish liking."
+      ]
+    },
+    {
+      "module_id": "family-hedonic-optimizer",
+      "family_id": "family_hedonic_optimizer_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "future_modules/family_hedonic_optimizer.py",
+      "import_path": null,
+      "sha256": "8c3de4caedd2dc184d1c2c4573e8721647579aa317b93b074fd2fdad41c6547f",
+      "evidence_refs": [],
+      "notes": [
+        "No beauty or liking optimization is admitted without response data."
+      ]
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "family_id": "advanced_musk_intelligence_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "future_modules/advanced_musk_intelligence.py",
+      "import_path": null,
+      "sha256": "28745ddba38677eaf9717d67067feb436d68b0f0dce672f2b2a405d776adba7b",
+      "evidence_refs": [],
+      "notes": [
+        "Fixed platform and dose recommendations are unvalidated.",
+        "Perception, prestige, and substitution assertions are unvalidated.",
+        "The module must never be imported by the complexity runtime."
+      ]
+    },
+    {
+      "module_id": "meaningful-complexity-v2-evidence",
+      "family_id": "legacy_external_evidence",
+      "role": "EVIDENCE",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "path": "incoming_review/Meaningful_Complexity_Audit_v2.md",
+      "import_path": null,
+      "sha256": "07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3",
+      "evidence_refs": [],
+      "notes": [
+        "Historical evidence only; row minima and scalar scores are not runtime authority."
+      ]
+    }
+  ],
+  "artifact_rules": [
+    {
+      "rule_id": "incoming-review-evidence",
+      "path_prefix": "incoming_review",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "existing-reference-evidence",
+      "path_prefix": "references/existing_evidence_packages",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "governance-receipt-evidence",
+      "path_prefix": "data/governance",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "chat-bridge-evidence",
+      "path_prefix": "chat_bridge/complex_perfumery",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    }
+  ],
+  "dismissal_rules": [
+    {
+      "rule_id": "complexity-runtime-infrastructure",
+      "path_glob": "engine/perception/complexity_*.py",
+      "reason": "Registry, adapter, ensemble, benchmark, and request infrastructure; not an independent perfumery capability."
+    },
+    {
+      "rule_id": "sensory-support-infrastructure",
+      "path_glob": "engine/sensory/*.py",
+      "reason": "Support or package surface outside the admitted temporal and panel contracts."
+    },
+    {
+      "rule_id": "interaction-graph-support",
+      "path": "engine/interaction_graph.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "material-interactions-support",
+      "path": "engine/material_interactions.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "skin-interaction-support",
+      "path": "engine/skin_interaction.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "interaction-registry-support",
+      "path_prefix": "engine/interaction_registry",
+      "reason": "Existing interaction registry support, not an independent complexity module."
+    },
+    {
+      "rule_id": "somatosensory-future-name-collision",
+      "path": "future_modules/somatosensory.py",
+      "reason": "Name match only; not part of the approved complexity ensemble."
+    }
+  ]
+}
