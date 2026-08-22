@@ -1,0 +1,311 @@
+{
+  "schema_version": "perfume_chem_complexity_xhigh_governance_receipt_v1",
+  "receipt_id": "complexity-xhigh-CXB-20260822T123757Z-809d0e73",
+  "run_id": "CXB-20260822T123757Z-809d0e73",
+  "terminal_state": "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH",
+  "decision_summary": "Provider-free implementation passed, but the available ChatGPT cloud-task interface could not select or attest exact model identity, xhigh effort, and fresh projectless isolation. No benchmark request was transmitted and no comparative module decision was inferred.",
+  "design_definition": {
+    "complexity": "identity-linked perceptual depth, coherent richness, meaningful temporal unfolding, restraint or negative space, and testable hedonic-potential mechanisms",
+    "not_proxies": [
+      "ingredient count",
+      "module count",
+      "interaction count",
+      "descriptor count",
+      "novelty",
+      "response length",
+      "jargon",
+      "technical density"
+    ],
+    "physical_liking_state": "NOT_TESTED"
+  },
+  "benchmark": {
+    "runtime_receipt_path": "output/complexity_xhigh_benchmark/CXB-20260822T123757Z-809d0e73/benchmark_receipt.json",
+    "runtime_receipt_semantic_sha256": "59fc86cec0bcb1a6cfd6ef8e6dd7a7a7192bbfe56ce5451cfef52244ec87c505",
+    "corpus_sha256": "62be54dc1580815bff2ed66c191c5df95b3997433ea98173cc85230a319472ec",
+    "rubric_sha256": "e37dfe36580c933de5283ef15d9cc4039f2731897c83aeffdf1153e189a5d57a",
+    "registry_sha256": "edcdd24d3690fd2288145934fadc7fe8b1e10504882623dcf1f5994f069245ac",
+    "prepared_request_count": 32,
+    "prepared_control_count": 16,
+    "prepared_treatment_count": 16,
+    "unique_nonce_count": 32,
+    "provider_transmissions": 0,
+    "execution_receipt_count": 0,
+    "valid_pair_count": 0,
+    "treatment_wins": null,
+    "median_paired_delta": null,
+    "category_median_deltas": null,
+    "new_treatment_critical_failures": null,
+    "telemetry_state": "NOT_EXPOSED_NO_TRANSMISSION",
+    "ablation_observation_count": 0,
+    "repair_count": 0,
+    "holdout_count": 0,
+    "blocker": {
+      "code": "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH",
+      "chatgpt_product_attested": false,
+      "exact_model_identity_attested": false,
+      "xhigh_reasoning_attested": false,
+      "projectless_context_attested": false,
+      "reason": "The only available ChatGPT cloud-task creation interface exposes neither a model nor a reasoning-effort selector and cannot prove fresh projectless isolation."
+    }
+  },
+  "advisory_workers": [
+    {
+      "conversation_id": "6a89880b-621c-83ec-a8a0-ca42092758b5",
+      "title": "Audit Complexity Modules",
+      "accepted_turn_id": "3fe63afa-d18f-4c2e-a352-729d4d4066a9",
+      "response_sha256": "5f4ca1590deb85273e2aeb4aa448017261d90b40ed3d1e1d82c1fddedf38076d",
+      "hash_state": "EXACT_RETRIEVED_RESPONSE",
+      "accepted_findings": [
+        "separate narrow family ownership",
+        "future and legacy modules remain runtime-ineligible",
+        "count-based complexity and fixed musk proportions are invalid",
+        "liking, complexity, similarity, physical performance, and safety remain separate"
+      ],
+      "rejected_or_held_findings": [
+        "all dose, perception, prestige, substitution, and physical-result claims without local evidence"
+      ]
+    },
+    {
+      "conversation_id": "6a89880c-9ef0-83ec-8d26-173c38ecf547",
+      "title": "Architecture Review Findings",
+      "accepted_turn_id": "b772192f-810d-404e-921e-baa4d32cf42b",
+      "response_sha256": "dc42418906007000736305ba51ae2ec32f3c94b3c116590a702c5d3da3ec2cfc",
+      "hash_state": "EXACT_RETRIEVED_RESPONSE",
+      "accepted_findings": [
+        "future-module quarantine requires a static adapter map",
+        "registry, import firewall, nonce, and dirty-tree decisions need high-intelligence review",
+        "routine hash and schema gates should remain deterministic"
+      ],
+      "rejected_or_held_findings": [
+        "no worker architecture statement was treated as code or release authority"
+      ]
+    },
+    {
+      "conversation_id": "6a89880b-d5ac-83ec-af22-dc8cacdb2ffe",
+      "title": "Design Musk API Contract",
+      "accepted_turn_id": "2e04af21-445d-4a67-b930-7b21bccacf38",
+      "retrieved_prefix_sha256": "a52d010f71f4d8e111bbfb7023ab2542ad85aabf0f829479ff927cfa089412ad",
+      "hash_state": "TRUNCATED_READER_PREFIX_NOT_EXACT_RESPONSE",
+      "accepted_findings": [
+        "a role enum alone cannot prove layered nonredundancy",
+        "target brief, material fingerprint, pairwise distinction, strongest-single, and omission controls are required",
+        "single-musk sparse architecture must remain valid"
+      ],
+      "rejected_or_held_findings": [
+        "unretrieved response suffix has no provenance-bearing authority",
+        "all unsupported sensory, dose, prestige, and substitution assertions"
+      ]
+    },
+    {
+      "conversation_id": "6a89880c-3f70-83ec-a842-2b09e5e2d342",
+      "title": "Benchmark Design Review",
+      "accepted_turn_id": "04a9d1ee-4637-45d6-bdb4-20e529291fb0",
+      "response_sha256": "0d700f040e3daf02b99a810d8266685e75295405124b16846dcb993d60b68f0a",
+      "hash_state": "EXACT_RETRIEVED_RESPONSE",
+      "accepted_findings": [
+        "eight contrastive case pairs should change one decisive fact each",
+        "five-two-zero scoring anchors resist vocabulary gaming",
+        "same generation intelligence is required for control and treatment",
+        "blinded judging and final adjudication require stronger independent reasoning"
+      ],
+      "rejected_or_held_findings": [
+        "the 64-output replication expansion was not adopted for the cost-aware initial gate",
+        "no benchmark suggestion grants sensory truth"
+      ]
+    }
+  ],
+  "module_registry_decisions": [
+    {
+      "module_id": "construction-profile",
+      "family_id": "construction_profile",
+      "state": "ACTIVE_CANDIDATE",
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1"
+    },
+    {
+      "module_id": "complexity-expansion-frontier",
+      "family_id": "complexity_expansion",
+      "state": "ACTIVE_CANDIDATE",
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e"
+    },
+    {
+      "module_id": "musk-design-restraint",
+      "family_id": "musk_design_restraint",
+      "state": "ACTIVE_CANDIDATE",
+      "sha256": "1215b9ea69f0bff68c0fbfd69652cf5df7a413a8fed9e2a3edf585021563abcb"
+    },
+    {
+      "module_id": "complexity-experimental-design",
+      "family_id": "experimental_design",
+      "state": "ACTIVE_CANDIDATE",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968"
+    },
+    {
+      "module_id": "complexity-model-admission",
+      "family_id": "admission_lifecycle",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710"
+    },
+    {
+      "module_id": "complexity-model-lifecycle",
+      "family_id": "admission_lifecycle",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf"
+    },
+    {
+      "module_id": "within-sniff-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa"
+    },
+    {
+      "module_id": "temporal-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b"
+    },
+    {
+      "module_id": "order-balance-contract",
+      "family_id": "temporal_sensory_integrity",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c"
+    },
+    {
+      "module_id": "sensory-panel-contract",
+      "family_id": "temporal_sensory_integrity",
+      "state": "MANDATORY_GUARDRAIL",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc"
+    }
+  ],
+  "future_module_holds": {
+    "future_modules/advanced_musk_intelligence.py": {
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "runtime_eligible": false,
+      "sha256": "28745ddba38677eaf9717d67067feb436d68b0f0dce672f2b2a405d776adba7b"
+    },
+    "external_packages": "EVIDENCE_ONLY_NOT_ADMITTED"
+  },
+  "musk_policy": {
+    "default": "zero or one exact musk is valid; layering requires distinct nonredundant target-linked roles",
+    "exception_only_materials": [
+      "Tonalide",
+      "Macrolide",
+      "Musk Ketone"
+    ],
+    "current_build_state": "DEPLETED_EXCEPTION_MATERIALS_REQUIRE_PROCUREMENT_HOLD",
+    "no_fixed_musk_count": true
+  },
+  "module_decision": "NO_RETIREMENT_WITHOUT_VALID_BENCHMARK",
+  "preserved_paths": [
+    "engine/perception/construction_complexity.py",
+    "engine/perception/complexity_expansion.py",
+    "engine/perception/musk_design.py",
+    "engine/perception/complexity_experimental_design.py",
+    "engine/perception/model_admission.py",
+    "engine/perception/model_lifecycle.py",
+    "engine/sensory/within_sniff.py",
+    "engine/sensory/temporal_observation.py",
+    "engine/sensory/order_balance.py",
+    "engine/sensory/panel_contract.py",
+    "future_modules/advanced_musk_intelligence.py"
+  ],
+  "deleted_paths": [],
+  "implementation_commits": [
+    "7b8e920776065cfa46cfdd0b22aaa972a2758187",
+    "228de57bf19ee46f471c655a1e63b30fd189f5b5",
+    "861d3b4184b42f1e6873d32fa94cda464665cd7f",
+    "2f3f757ca9fdf0bd30dc6d02c2122b9558bf04bd",
+    "8c03e073070995679f8f4e431dbb519f68cee114",
+    "3971dc95cf64b50a2e03e3c113b86f035136bcda",
+    "ca141321d6d48ba6ef479c13ab62f45fe9ec325a",
+    "c57cf7de9eaa25f8922fc949bbc494a1d4c3d2c5",
+    "442dc8f169de8a279ee30ffcbf103a4759e42e92",
+    "315f18781700667ef841bcf36a301286ec913183",
+    "f6f708afbef817f1bfddfa737926b971fabbbd11",
+    "983e0feed34e68d9d8b5b95287851711fa741f02",
+    "ee74d6ebab962e8f01038de7d49ab8f823b468da"
+  ],
+  "verification": {
+    "focused_provider_free": {
+      "state": "PASS",
+      "tests": "63 passed",
+      "ruff": "PASS",
+      "compileall": "PASS",
+      "complexity_census": "PASS",
+      "unclassified_count": 0,
+      "hash_drift_count": 0
+    },
+    "paired_manifest_contract": {
+      "state": "PASS",
+      "pairs": 16,
+      "control_requests": 16,
+      "treatment_requests": 16,
+      "unique_nonces": 32,
+      "provider_calls": 0,
+      "matching_common_inputs": true,
+      "treatment_only_module_bundle_delta": true
+    },
+    "project_quick": {
+      "completion_gate": "FAIL",
+      "passed_checks": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "golden-fixture-lock"
+      ],
+      "failed_checks": [
+        "formula-artifact-validation"
+      ],
+      "failure_relation": "PRE_EXISTING_UNRELATED_FORMULA_ARTIFACT_STALENESS; NO COMPLEXITY TASK FORMULA PATH WAS MODIFIED",
+      "release_readiness": "BLOCKED"
+    },
+    "project_full": {
+      "completion_gate": "FAIL",
+      "passed_checks": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "engine-tests-legacy",
+        "backend-lint",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "package-build",
+        "package-wheel-smoke",
+        "golden-fixture-lock"
+      ],
+      "failed_checks": {
+        "formula-artifact-validation": "stale and unbound historical formula artifacts",
+        "engine-tests-truth-core": "5 failed, 919 passed; failures include live inventory snapshot drift, physics export drift, and the repository shard manifest not covering current tests",
+        "engine-tests-data-knowledge": "collection blocked by missing sqlalchemy in the direct engine test environment",
+        "engine-tests-gates-families": "2 failed, 637 passed in unrelated pipeline gate expectations",
+        "backend-typecheck": "1 existing no-any-return error in stock_strength_quarantine.py",
+        "backend-tests": "9 failed, 738 passed in A2/B5/B6 and legacy stock-strength paths"
+      },
+      "task_specific_interpretation": "The dedicated complexity suite executes the new tests directly and passes 66/66. The broad repository remains non-release-ready; the shard-manifest failure includes current unassigned tests and must not be represented as unrelated or as a complexity semantic failure.",
+      "docker_status": "SKIPPED",
+      "release_readiness": "BLOCKED"
+    }
+  },
+  "deep_luna": {
+    "provider_transmission_after_chatgpt_pro_worker_selection": false,
+    "role_in_benchmark": "NONE"
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "ffb51c4b2c213033ddcd046f2a7b9de07c6e68fda417d7ae7a99502029c0b2e7"
+}

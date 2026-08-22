@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from decimal import Decimal
 from pathlib import Path
 
@@ -21,6 +22,10 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNBOOK = (
     ROOT
     / "docs/research/PERFUME_CHEM_COMPLEXITY_XHIGH_BENCHMARK_RUNBOOK_2026-08-22.md"
+)
+FINAL_RECEIPT = (
+    ROOT
+    / "data/governance/complexity_xhigh_benchmark_CXB-20260822T123757Z-809d0e73.json"
 )
 
 
@@ -126,3 +131,23 @@ def test_runbook_is_nonfast_no_duplicate_and_authority_safe() -> None:
         assert required in text
     assert "[Globalization.CultureInfo]::InvariantCulture" in text
     assert "DeepLuna Fast fallback" not in text
+
+
+def test_final_receipt_replays_semantic_hash_and_authority_boundary() -> None:
+    payload = json.loads(FINAL_RECEIPT.read_text(encoding="utf-8"))
+    declared = payload.pop("semantic_receipt_sha256")
+    assert stable_json_hash(payload) == declared
+    assert payload["authority"] == {
+        "formula": False,
+        "inventory": False,
+        "physical_execution": False,
+        "sensory": False,
+        "safety": False,
+        "installation": False,
+        "publication": False,
+        "release": False,
+    }
+    assert payload["deleted_paths"] == []
+    assert payload["benchmark"]["provider_transmissions"] == 0
+    assert payload["benchmark"]["valid_pair_count"] == 0
+    assert payload["module_decision"] == "NO_RETIREMENT_WITHOUT_VALID_BENCHMARK"
