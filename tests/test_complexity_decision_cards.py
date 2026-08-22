@@ -272,6 +272,27 @@ def test_musk_projection_holds_incomplete_exception_material() -> None:
     assert "strongest-single" in card.controlled_comparison
 
 
+def test_musk_projection_preserves_planned_inventory_state() -> None:
+    native = native_result("musk_design_restraint")
+    native["selected"] = [
+        {
+            "material": "Ambrettolide 10% in DPG",
+            "role": "DEPTH",
+            "target_function": "warm intimate skin depth",
+            "why_nonredundant": "only admitted musk plane",
+            "inventory_state": "PLANNED_ACQUISITION",
+            "exact_stock_ref": None,
+        }
+    ]
+
+    card = build_decision_card(
+        "musk_design_restraint", native, "warm intimate skin depth"
+    )
+
+    assert "PLANNED_ACQUISITION" in " ".join(card.decisive_evidence)
+    assert "Ambrettolide 10% in DPG" in " ".join(card.decisive_evidence)
+
+
 def test_admission_projection_names_decisive_failed_gate() -> None:
     native = native_result("model_admission")
     native.update(state="HOLD", gate_failures=["M5"], packet_failures=[])
@@ -387,3 +408,20 @@ def test_citrus_projection_preserves_none_as_a_successful_decision() -> None:
 
     assert card.state is DecisionCardState.NONE
     assert "NONE" in " ".join(card.decisive_evidence)
+
+
+def test_citrus_projection_preserves_exact_neroli_support_stock_basis() -> None:
+    native = citrus_native_result()
+    native["target_ideal"]["support"] = "Neroli EO 10% in DPG"
+    native["current_inventory_build"].update(
+        support="Neroli EO 10% in DPG",
+        support_stock_ref="inventory-v5:Neroli EO 10% in DPG",
+    )
+
+    card = build_decision_card(
+        "citrus_selection", native, "orange-blossom transition over aromatic iris"
+    )
+
+    evidence = " ".join(card.decisive_evidence)
+    assert "Neroli EO 10% in DPG" in evidence
+    assert "support stock" in evidence

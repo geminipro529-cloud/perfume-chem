@@ -222,3 +222,148 @@ def test_incomplete_exception_call_is_rejected() -> None:
             omission_control="same formula without Tonalide",
             alternative_control="",
         )
+
+
+@pytest.mark.parametrize(
+    ("material", "stock_ref"),
+    [
+        ("Habanolide", "inventory-v5:Habanolide:neat-as-supplied"),
+        ("Romandolide", "inventory-v5:Romandolide:neat-as-supplied"),
+    ],
+)
+def test_current_owned_musks_keep_their_exact_neat_stock_basis(
+    material: str, stock_ref: str
+) -> None:
+    result = evaluate_musk_design(
+        MuskDesignRequest(
+            target_identity="one exact clean musk plane",
+            candidates=(
+                MuskCandidate(
+                    material,
+                    MuskRole.DEPTH,
+                    "own the single target-linked musk plane",
+                    "no other musk is admitted",
+                    InventoryState.OWNED,
+                    stock_ref,
+                ),
+            ),
+        )
+    )
+
+    assert result.state == "PASS"
+    assert result.architecture_mode == "SPARSE"
+    assert result.current_inventory_build_state == "BUILD_IDENTIFIED"
+    assert result.selected[0].exact_stock_ref == stock_ref
+
+
+def test_ambrettolide_10pct_is_design_available_but_procurement_pending() -> None:
+    result = evaluate_musk_design(
+        MuskDesignRequest(
+            target_identity="warm intimate skin depth",
+            candidates=(
+                MuskCandidate(
+                    "Ambrettolide 10% in DPG",
+                    MuskRole.DEPTH,
+                    "supply the target's warm intimate depth plane",
+                    "it is the only admitted musk hypothesis",
+                    InventoryState.PLANNED_ACQUISITION,
+                    None,
+                ),
+            ),
+        )
+    )
+
+    assert result.state == "PASS"
+    assert result.target_ideal_state == "DESIGN_AVAILABLE"
+    assert result.current_inventory_build_state == "HOLD_PROCUREMENT_REQUIRED"
+    assert result.decisions[0].disposition == "TARGET_ONLY_PLANNED_ACQUISITION"
+
+
+def test_ethylene_brassylate_remains_missing_target_only_hypothesis() -> None:
+    result = evaluate_musk_design(
+        MuskDesignRequest(
+            target_identity="broad soft clean musk body",
+            candidates=(
+                MuskCandidate(
+                    "Ethylene Brassylate",
+                    MuskRole.TEXTURE,
+                    "test a broad soft clean musk body",
+                    "the candidate geometry is not represented by current stock",
+                    InventoryState.MISSING,
+                    None,
+                ),
+            ),
+        )
+    )
+
+    assert result.state == "PASS"
+    assert result.current_inventory_build_state == "HOLD_PROCUREMENT_REQUIRED"
+    assert result.decisions[0].disposition == "TARGET_ONLY_MISSING"
+    assert result.physical_execution_authorized is False
+
+
+@pytest.mark.parametrize(
+    "inventory_state",
+    [InventoryState.PLANNED_ACQUISITION, InventoryState.MISSING],
+)
+def test_unowned_musk_cannot_claim_an_exact_physical_stock_ref(
+    inventory_state: InventoryState,
+) -> None:
+    with pytest.raises(ValueError, match="cannot have exact_stock_ref"):
+        MuskCandidate(
+            "Ambrettolide 10% in DPG",
+            MuskRole.DEPTH,
+            "warm intimate depth",
+            "single admitted musk hypothesis",
+            inventory_state,
+            "inventory:fake-physical-stock-ref",
+        )
+
+
+def test_all_named_musks_do_not_create_a_complexity_by_count_shortcut() -> None:
+    candidates = (
+        MuskCandidate(
+            "Ambrettolide 10% in DPG",
+            MuskRole.DEPTH,
+            "warm depth",
+            "candidate one",
+            InventoryState.PLANNED_ACQUISITION,
+            None,
+        ),
+        MuskCandidate(
+            "Romandolide",
+            MuskRole.DEPTH,
+            "clean depth",
+            "candidate two",
+            InventoryState.OWNED,
+            "inventory-v5:Romandolide:neat-as-supplied",
+        ),
+        MuskCandidate(
+            "Habanolide",
+            MuskRole.DEPTH,
+            "radiant depth",
+            "candidate three",
+            InventoryState.OWNED,
+            "inventory-v5:Habanolide:neat-as-supplied",
+        ),
+        MuskCandidate(
+            "Ethylene Brassylate",
+            MuskRole.DEPTH,
+            "soft body depth",
+            "candidate four",
+            InventoryState.MISSING,
+            None,
+        ),
+    )
+
+    result = evaluate_musk_design(
+        MuskDesignRequest(
+            target_identity="one restrained musk depth plane",
+            candidates=candidates,
+        )
+    )
+
+    assert result.state == "HOLD"
+    assert "REDUNDANT_MUSK_ROLE" in result.issue_codes
+    assert result.architecture_mode == "LAYERED"
+    assert "score" not in json.dumps(result.as_dict()).casefold()

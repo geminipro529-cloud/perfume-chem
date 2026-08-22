@@ -6,6 +6,7 @@ import pytest
 
 from engine.perception.citrus_selection import (
     CitrusCandidate,
+    CitrusCandidateScope,
     CitrusInventoryState,
     CitrusSelectionRequest,
     CitrusSelectionState,
@@ -23,6 +24,7 @@ def candidate(
     axis_conflicts: tuple[str, ...] = (),
     inventory_state: CitrusInventoryState = CitrusInventoryState.OWNED,
     exact_stock_ref: str | None = None,
+    selection_scope: CitrusCandidateScope = CitrusCandidateScope.PRIMARY_OR_SUPPORT,
 ) -> CitrusCandidate:
     if exact_stock_ref is None and inventory_state is CitrusInventoryState.OWNED:
         exact_stock_ref = f"inventory:{material}:neat"
@@ -35,6 +37,7 @@ def candidate(
         exact_stock_ref=exact_stock_ref,
         transition_to_heart="hands brightness into the aromatic heart without a gap",
         evidence_refs=(f"inventory:{material}",),
+        selection_scope=selection_scope,
     )
 
 
@@ -219,6 +222,47 @@ def test_owned_material_without_exact_stock_ref_holds_current_build() -> None:
     assert result.target_primary == "Bergamot FCF Oil Sicilian"
     assert result.current_build_primary is None
     assert result.current_build_state == "HOLD_VERIFY_EXACT_STOCK"
+
+
+def test_neroli_10pct_is_an_exact_support_bridge_not_a_primary_citrus() -> None:
+    neroli_stock_ref = (
+        "inventory-v5:Current Inventory Master!D180:Neroli EO 10% in DPG"
+    )
+    neroli = candidate(
+        "Neroli EO 10% in DPG",
+        roles=("FLORAL_TRANSITION_BRIDGE",),
+        exact_stock_ref=neroli_stock_ref,
+        selection_scope=CitrusCandidateScope.SUPPORT_ONLY,
+    )
+    result = select_citrus_architecture(
+        citrus_request(
+            support_role="FLORAL_TRANSITION_BRIDGE",
+            candidates=(
+                candidate("Bergamot FCF Oil Sicilian", roles=("DRY_BITTER_PRISM",)),
+                neroli,
+            ),
+        )
+    )
+
+    assert result.target_primary == "Bergamot FCF Oil Sicilian"
+    assert result.target_support == "Neroli EO 10% in DPG"
+    assert result.current_build_support == "Neroli EO 10% in DPG"
+    assert result.as_dict()["current_inventory_build"]["support_stock_ref"] == (
+        neroli_stock_ref
+    )
+
+    neroli_primary_impersonator = candidate(
+        "Neroli EO 10% in DPG",
+        roles=("DRY_BITTER_PRISM",),
+        exact_stock_ref=neroli_stock_ref,
+        selection_scope=CitrusCandidateScope.SUPPORT_ONLY,
+    )
+    neroli_only = select_citrus_architecture(
+        citrus_request(candidates=(neroli_primary_impersonator,))
+    )
+
+    assert neroli_only.state is CitrusSelectionState.HOLD
+    assert "NO_TARGET_FIT_PRIMARY" in neroli_only.issue_codes
 
 
 def test_selector_is_pure_and_does_not_require_legacy_citrus_file(

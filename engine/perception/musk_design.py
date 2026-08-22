@@ -198,6 +198,14 @@ class MuskCandidate:
                 "exact_stock_ref",
                 _clean(self.exact_stock_ref, "exact_stock_ref"),
             )
+        if (
+            self.inventory_state
+            in {InventoryState.PLANNED_ACQUISITION, InventoryState.MISSING}
+            and self.exact_stock_ref is not None
+        ):
+            raise ValueError(
+                f"{self.inventory_state.value} musk cannot have exact_stock_ref"
+            )
         if self.exception is not None and not isinstance(
             self.exception, MuskExceptionCall
         ):
@@ -290,6 +298,18 @@ def _owned_with_identity(candidate: MuskCandidate) -> bool:
     )
 
 
+def _inventory_disposition(candidate: MuskCandidate) -> str:
+    if _owned_with_identity(candidate):
+        return "BUILD_IDENTIFIED"
+    if candidate.inventory_state is InventoryState.PLANNED_ACQUISITION:
+        return "TARGET_ONLY_PLANNED_ACQUISITION"
+    if candidate.inventory_state is InventoryState.MISSING:
+        return "TARGET_ONLY_MISSING"
+    if candidate.inventory_state is InventoryState.DEPLETED:
+        return "TARGET_ONLY_DEPLETED"
+    return "TARGET_ONLY_EXACT_STOCK_REQUIRED"
+
+
 def evaluate_musk_design(request: MuskDesignRequest) -> MuskDesignResult:
     issues: list[str] = []
     decisions: list[MuskMaterialDecision] = []
@@ -341,7 +361,7 @@ def evaluate_musk_design(request: MuskDesignRequest) -> MuskDesignResult:
                 candidate.material,
                 True,
                 build_included,
-                "BUILD_IDENTIFIED" if build_included else "PROCUREMENT_REQUIRED",
+                _inventory_disposition(candidate),
             )
         )
 

@@ -40,6 +40,11 @@ class CitrusInventoryState(str, Enum):
     MISSING = "MISSING"
 
 
+class CitrusCandidateScope(str, Enum):
+    PRIMARY_OR_SUPPORT = "PRIMARY_OR_SUPPORT"
+    SUPPORT_ONLY = "SUPPORT_ONLY"
+
+
 class CitrusSelectionState(str, Enum):
     PASS = "PASS"
     HOLD = "HOLD"
@@ -56,6 +61,7 @@ class CitrusCandidate:
     exact_stock_ref: str | None
     transition_to_heart: str
     evidence_refs: tuple[str, ...]
+    selection_scope: CitrusCandidateScope = CitrusCandidateScope.PRIMARY_OR_SUPPORT
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "material", _text(self.material, "material"))
@@ -71,6 +77,8 @@ class CitrusCandidate:
         object.__setattr__(self, "axis_conflicts", conflicts)
         if not isinstance(self.inventory_state, CitrusInventoryState):
             raise TypeError("inventory_state must be a CitrusInventoryState")
+        if not isinstance(self.selection_scope, CitrusCandidateScope):
+            raise TypeError("selection_scope must be a CitrusCandidateScope")
         if self.exact_stock_ref is not None:
             object.__setattr__(
                 self,
@@ -102,6 +110,7 @@ class CitrusCandidate:
             "exact_stock_ref": self.exact_stock_ref,
             "transition_to_heart": self.transition_to_heart,
             "evidence_refs": list(self.evidence_refs),
+            "selection_scope": self.selection_scope.value,
         }
 
 
@@ -180,6 +189,8 @@ class CitrusSelectionResult:
     target_support: str | None
     current_build_primary: str | None
     current_build_support: str | None
+    current_build_primary_stock_ref: str | None
+    current_build_support_stock_ref: str | None
     current_build_state: str
     primary_transition_to_heart: str | None
     issue_codes: tuple[str, ...]
@@ -203,6 +214,8 @@ class CitrusSelectionResult:
             "current_inventory_build": {
                 "primary": self.current_build_primary,
                 "support": self.current_build_support,
+                "primary_stock_ref": self.current_build_primary_stock_ref,
+                "support_stock_ref": self.current_build_support_stock_ref,
                 "state": self.current_build_state,
             },
             "issue_codes": list(self.issue_codes),
@@ -238,6 +251,8 @@ def _hold_result(
         target_support=None,
         current_build_primary=None,
         current_build_support=None,
+        current_build_primary_stock_ref=None,
+        current_build_support_stock_ref=None,
         current_build_state="HOLD_NO_TARGET_SELECTION",
         primary_transition_to_heart=None,
         issue_codes=tuple(issue_codes),
@@ -246,15 +261,17 @@ def _hold_result(
     )
 
 
-def _inventory_projection(candidate: CitrusCandidate) -> tuple[str | None, str]:
+def _inventory_projection(
+    candidate: CitrusCandidate,
+) -> tuple[str | None, str | None, str]:
     if (
         candidate.inventory_state is CitrusInventoryState.OWNED
         and candidate.exact_stock_ref is not None
     ):
-        return candidate.material, "BUILD_IDENTIFIED"
+        return candidate.material, candidate.exact_stock_ref, "BUILD_IDENTIFIED"
     if candidate.inventory_state is CitrusInventoryState.VERIFY_FIRST:
-        return None, "HOLD_VERIFY_EXACT_STOCK"
-    return None, "HOLD_TARGET_SPECIFIC_GAP"
+        return None, None, "HOLD_VERIFY_EXACT_STOCK"
+    return None, None, "HOLD_TARGET_SPECIFIC_GAP"
 
 
 def select_citrus_architecture(
@@ -280,6 +297,8 @@ def select_citrus_architecture(
             target_support=None,
             current_build_primary=None,
             current_build_support=None,
+            current_build_primary_stock_ref=None,
+            current_build_support_stock_ref=None,
             current_build_state="NONE_REQUIRED",
             primary_transition_to_heart=None,
             issue_codes=(issue,),
@@ -292,6 +311,7 @@ def select_citrus_architecture(
         item
         for item in request.candidates
         if request.primary_role in item.roles
+        and item.selection_scope is CitrusCandidateScope.PRIMARY_OR_SUPPORT
         and not item.axis_conflicts
         and required_axes.issubset(item.axis_matches)
     )
@@ -322,7 +342,9 @@ def select_citrus_architecture(
             else:
                 issues.append("SUPPORT_NOT_JUSTIFIED")
 
-    current_primary, build_state = _inventory_projection(primary)
+    current_primary, current_primary_stock_ref, build_state = _inventory_projection(
+        primary
+    )
     if current_primary is None:
         if primary.inventory_state is CitrusInventoryState.OUT_OF_STOCK:
             issues.append("TARGET_PRIMARY_OUT_OF_STOCK")
@@ -331,8 +353,11 @@ def select_citrus_architecture(
         else:
             issues.append("TARGET_PRIMARY_NOT_BUILDABLE")
     current_support: str | None = None
+    current_support_stock_ref: str | None = None
     if support is not None:
-        current_support, support_state = _inventory_projection(support)
+        current_support, current_support_stock_ref, support_state = (
+            _inventory_projection(support)
+        )
         if current_support is None:
             issues.append("TARGET_SUPPORT_NOT_BUILDABLE")
             if build_state == "BUILD_IDENTIFIED":
@@ -353,6 +378,8 @@ def select_citrus_architecture(
         target_support=support.material if support else None,
         current_build_primary=current_primary,
         current_build_support=current_support,
+        current_build_primary_stock_ref=current_primary_stock_ref,
+        current_build_support_stock_ref=current_support_stock_ref,
         current_build_state=build_state,
         primary_transition_to_heart=primary.transition_to_heart,
         issue_codes=tuple(issues),
@@ -363,6 +390,7 @@ def select_citrus_architecture(
 
 __all__ = [
     "CitrusCandidate",
+    "CitrusCandidateScope",
     "CitrusInventoryState",
     "CitrusSelectionRequest",
     "CitrusSelectionResult",

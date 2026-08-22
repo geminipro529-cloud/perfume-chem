@@ -247,10 +247,19 @@ def _musk_card(native_result: Mapping[str, Any], target_identity: str) -> Decisi
         state = DecisionCardState.HOLD
     elif selected:
         first = selected[0]
+        inventory_state = first.get("inventory_state")
+        stock_ref = first.get("exact_stock_ref")
+        inventory_fact = (
+            f" | inventory: {_brief(inventory_state)}"
+            if inventory_state is not None
+            else ""
+        )
+        if stock_ref is not None:
+            inventory_fact += f" | stock: {_brief(stock_ref)}"
         evidence = (
             "strongest single: "
             f"{_brief(first.get('material'))} | {_brief(first.get('role'))} | "
-            f"{_brief(first.get('target_function'))}",
+            f"{_brief(first.get('target_function'))}{inventory_fact}",
         )
         if len(selected) > 1:
             second = selected[1]
@@ -479,10 +488,17 @@ def _citrus_card(native_result: Mapping[str, Any], target_identity: str) -> Deci
         primary_fact = f"target primary: {primary}"
         if support is not None:
             primary_fact += f"; distinct support: {_brief(support)}"
+        current_fact = f"current build: {_brief(current.get('state'))}"
+        primary_stock_ref = current.get("primary_stock_ref")
+        support_stock_ref = current.get("support_stock_ref")
+        if primary_stock_ref is not None:
+            current_fact += f" | primary stock: {_brief(primary_stock_ref)}"
+        if support_stock_ref is not None:
+            current_fact += f" | support stock: {_brief(support_stock_ref)}"
         evidence = (
             primary_fact,
             f"handoff: {_brief(target.get('transition_to_heart'))}",
-            f"current build: {_brief(current.get('state'))}",
+            current_fact,
         )
         state = DecisionCardState.DECIDE
     return _card(
@@ -493,7 +509,10 @@ def _citrus_card(native_result: Mapping[str, Any], target_identity: str) -> Deci
         decision_question="Which one primary citrus and optional distinct bridge best serve the target and its heart handoff, or is NONE better?",
         decisive_evidence=evidence,
         preserve=target_identity,
-        reject="Do not stack generic citrus, default to bergamot, or infer richness and liking from count, percentage, or naturalness.",
+        reject=(
+            "Do not stack generic citrus, default to bergamot, use a Neroli bridge "
+            "as a primary-citrus substitute, or infer richness and liking from count."
+        ),
         controlled_comparison="citrus omission, strongest-single primary, and primary plus one distinct bridge at matched dose",
     )
 
