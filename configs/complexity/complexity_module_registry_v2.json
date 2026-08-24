@@ -1,0 +1,77 @@
+{
+  "schema_version": "complexity_module_registry_v2",
+  "base_registry": "complexity_module_registry_v1.json",
+  "module_overrides": [
+    {
+      "module_id": "citrus-architecture-selector",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "import_path": null,
+      "notes": [
+        "Retired and unreachable from runtime after failing the prior external xhigh retention benchmark; source retained as a provenance tombstone.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus.",
+        "The shared V5 catalog binds exact current stock for any target-defined citrus candidate while keeping carrier-open, out-of-stock, planned, missing, and unlisted states fail-closed."
+      ]
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "architectural-delta-engine",
+      "family_id": "architectural_delta_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/architectural_delta.py",
+      "import_path": null,
+      "sha256": "ddf6e97411071782bc607fb5e29acbc02459299fa2bfdda2e65d01594dd5e622",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Target-first zero-or-one delta engine; ingredient count is never complexity evidence.",
+        "Current inventory constrains the build but cannot redefine the ideal target.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "family_id": "temporal_sensory_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/sensory/ledger.py",
+      "import_path": null,
+      "sha256": "0aa4eefb7fa74b3992aa9386e382fcd9e58dfd19293d405eb229a16a37175592",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Evidence ledger preserves missing and duplicate cells, assessor disagreement, order balance, and observed transitions.",
+        "Predicted volatility is never converted into perceived behavior.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "family_id": "hedonic_preference_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/preference.py",
+      "import_path": null,
+      "sha256": "b71c615a9817532d58e0643e70cb294642e668a7127904ce2965e0be055ecb31",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_scoped_preference.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Learns only scoped criteria from blinded comparisons; no synthetic beauty score.",
+        "Sparse, disconnected, order-confounded, unscoped, or baseline-failing evidence is not validated.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    }
+  ]
+}

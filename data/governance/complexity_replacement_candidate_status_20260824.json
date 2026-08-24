@@ -1,0 +1,39 @@
+{
+  "schema_version": "complexity_replacement_candidate_status_v1",
+  "candidate_id": "COMPLEXITY-REPLACEMENTS-20260824",
+  "recorded_at": "2026-08-24T12:39:28.9170959+07:00",
+  "modules": [
+    "architectural-delta-engine",
+    "temporal-sensory-ledger",
+    "hedonic-preference-learner"
+  ],
+  "runtime_state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+  "runtime_reachable": false,
+  "external_benchmark": {
+    "run_id": "RPL-XHIGH-20260824-v3-formal-01",
+    "completed_outputs": 3,
+    "planned_outputs": 54,
+    "status": "PARTIAL_UNSCORED",
+    "admission_decision": "WITHHELD",
+    "critical_error_assessment": "NOT_COMPLETE"
+  },
+  "controls": [
+    "plain_chatgpt_sol_xhigh",
+    "length_matched_placebo"
+  ],
+  "authority": {
+    "runtime_admission": false,
+    "formula_change": false,
+    "compounding": false,
+    "sensory_claim": false,
+    "hedonic_claim": false,
+    "safety": false,
+    "purchase": false,
+    "release": false
+  },
+  "next_gate": "Complete the fresh blinded screen-first benchmark and apply the declared admission thresholds against both controls.",
+  "notes": [
+    "This receipt contains status metadata only; raw model conversations and outputs remain outside GitHub.",
+    "No module may become runtime-reachable from this candidate receipt."
+  ]
+}

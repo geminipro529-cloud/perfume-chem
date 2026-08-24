@@ -13,7 +13,10 @@ from engine.perception.complexity_registry import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_PATH = PROJECT_ROOT / "configs/complexity/complexity_module_registry_v1.json"
+HISTORICAL_REGISTRY_PATH = (
+    PROJECT_ROOT / "configs/complexity/complexity_module_registry_v1.json"
+)
+REGISTRY_PATH = PROJECT_ROOT / "configs/complexity/complexity_module_registry_v2.json"
 
 
 def _write_registry_fixture(root: Path):
@@ -56,6 +59,12 @@ def test_registry_loads_only_exact_hash_bound_native_candidates(tmp_path: Path) 
     registry = _write_registry_fixture(tmp_path)
     assert registry.modules[0].state is ModuleState.ACTIVE_CANDIDATE
     assert census_complexity_artifacts(tmp_path, registry).state == "PASS"
+
+
+def test_historical_v1_registry_remains_exactly_frozen() -> None:
+    assert hashlib.sha256(HISTORICAL_REGISTRY_PATH.read_bytes()).hexdigest() == (
+        "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    )
 
 
 def test_census_holds_on_hash_drift_or_unclassified_match(tmp_path: Path) -> None:
@@ -101,6 +110,7 @@ def test_failed_benchmark_families_are_recoverably_retired() -> None:
         "temporal-observation-contract",
         "order-balance-contract",
         "sensory-panel-contract",
+        "citrus-architecture-selector",
     }
 
     for module_id in retired_ids:
@@ -111,6 +121,25 @@ def test_failed_benchmark_families_are_recoverably_retired() -> None:
     experimental = registry.module_by_id("complexity-experimental-design")
     assert experimental.state is ModuleState.ACTIVE_CANDIDATE
     assert experimental.runtime_eligible is True
+
+
+def test_replacement_modules_remain_unreachable_until_new_xhigh_admission() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    replacement_ids = {
+        "architectural-delta-engine",
+        "temporal-sensory-ledger",
+        "hedonic-preference-learner",
+    }
+    for module_id in replacement_ids:
+        module = registry.module_by_id(module_id)
+        assert module.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+        assert module.import_path is None
+        assert module.runtime_eligible is False
+
+    runtime_ids = {
+        module.module_id for module in registry.modules if module.runtime_eligible
+    }
+    assert runtime_ids == {"complexity-experimental-design"}
 
 
 def test_repository_census_has_exactly_one_classification_per_finding() -> None:

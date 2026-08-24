@@ -23,13 +23,13 @@ from engine.chemical_data_validator import blocked_reason
 from engine.chemistry.photochem import photolysis_remaining_fraction
 from engine.confidence import ConfidenceScorer
 from engine.evidence.unsupported_science import AgingClaim, assess_aging_claim
-from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.families.registry import (
     evaluate_family_archetype,
     get_archetype,
     infer_archetype,
     novelty_assessment,
 )
+from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
@@ -52,6 +52,8 @@ from engine.pipeline.oav_intelligence import (
     analyze_oav_intelligence,
 )
 from engine.pipeline.preflight import (
+    FormulaDoseReceipt,
+    build_formula_dose_receipt,
     resolve_inventory_stock_contract,
     resolved_stock_specs_for_state,
     run_release_preflight,
@@ -189,6 +191,7 @@ class GateReport:
     simulation: tuple[SimulationFrame, ...]
     confidence: dict
     formula_hash: str
+    dose_receipt: FormulaDoseReceipt
     calibration_summary: dict
     commercial_readiness: str
     preflight: dict = field(default_factory=dict)
@@ -201,6 +204,7 @@ class GateReport:
             "name": self.name,
             "status": self.status,
             "formula_hash": self.formula_hash,
+            "dose_receipt": self.dose_receipt.as_dict(),
             "gates": [g.as_dict() for g in self.gates],
             "confidence": self.confidence,
             "calibration_summary": dict(self.calibration_summary),
@@ -5264,6 +5268,7 @@ def gate_formula(
     ingredients_ul: Mapping[str, float] = formula["ingredients_ul"]
     dilutions: Mapping[str, float] = formula.get("dilutions", {})
     stock_contract = resolve_inventory_stock_contract(formula)
+    dose_receipt = build_formula_dose_receipt(formula, stock_contract)
     stock_specs: Mapping[str, Mapping[str, object]] = resolved_stock_specs_for_state(
         formula,
         stock_contract,
@@ -5683,6 +5688,7 @@ def gate_formula(
         simulation=simulation,
         confidence=confidence,
         formula_hash=formula_hash,
+        dose_receipt=dose_receipt,
         calibration_summary=calibration_summary,
         commercial_readiness=_commercial_readiness(status, gates, confidence, config),
         preflight=preflight,

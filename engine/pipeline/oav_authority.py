@@ -138,9 +138,10 @@ class OAVAuthorityRequest:
     matrix_moles: Mapping[str, float] = field(default_factory=dict)
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
+    dose_receipt_sha256: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "formula_name": self.formula_name,
             "ingredients_ul": {str(k): float(v or 0.0) for k, v in self.ingredients_ul.items()},
             "dilutions": {str(k): float(v or 1.0) for k, v in self.dilutions.items()},
@@ -158,6 +159,9 @@ class OAVAuthorityRequest:
             "matrix_mass_g": float(self.matrix_mass_g),
             "matrix_source": self.matrix_source,
         }
+        if self.dose_receipt_sha256 is not None:
+            payload["dose_receipt_sha256"] = self.dose_receipt_sha256
+        return payload
 
 
 @dataclass(frozen=True, slots=True)
@@ -262,6 +266,9 @@ class OAVAuthorityResult:
     intelligence_status: str
     intelligence_blocking_reasons: tuple[str, ...]
     intelligence_warning_reasons: tuple[str, ...]
+    receipt_binding_status: str
+    strict_oav_status: str
+    dose_receipt_sha256: str | None
     primary_status: str
     authority_rank_score: float
     blocking_reasons: tuple[str, ...]
@@ -298,6 +305,8 @@ class OAVAuthorityResult:
                 ],
                 "min_perceptible_materials": int(self.request.min_perceptible_materials),
                 "max_perceptible_channels": int(self.request.max_perceptible_channels),
+                "receipt_binding_status": self.receipt_binding_status,
+                "dose_receipt_sha256": self.dose_receipt_sha256,
             },
             "material_oav_table": [row.as_dict() for row in self.material_rows],
             "family_envelope_table": [window.as_dict() for window in self.time_windows],
@@ -337,6 +346,9 @@ class OAVAuthorityResult:
                 "scaling_risk": dict(self.scaling_risk),
                 "robustness": dict(self.robustness),
                 "intelligence_status": self.intelligence_status,
+                "strict_oav_status": self.strict_oav_status,
+                "receipt_binding_status": self.receipt_binding_status,
+                "dose_receipt_sha256": self.dose_receipt_sha256,
             },
             "downstream_integration": {
                 "status_rank": _status_rank(self.primary_status),
@@ -503,6 +515,8 @@ def analyze_oav_authority(
     formula = _formula_record_from_request(request)
     reused_gates: dict[str, GateResult] = {}
     if gate_report is None:
+        receipt_binding_status = "UNBOUND_EXPLORATORY_RECONSTRUCTION"
+        dose_receipt_sha256 = request.dose_receipt_sha256
         stock_contract = resolve_inventory_stock_contract(formula)
         stock_specs = resolved_stock_specs_for_state(formula, stock_contract)
         state = build_formula_state(
@@ -526,6 +540,14 @@ def analyze_oav_authority(
             initial_state=state,
         )
     else:
+        if request.dose_receipt_sha256 is None:
+            receipt_binding_status = "UNBOUND_GATE_REPORT_COMPAT"
+            dose_receipt_sha256 = None
+        elif request.dose_receipt_sha256 != gate_report.dose_receipt.receipt_sha256:
+            raise ValueError("OAV request dose receipt does not match gate report")
+        else:
+            receipt_binding_status = "BOUND_GATE_RECEIPT"
+            dose_receipt_sha256 = gate_report.dose_receipt.receipt_sha256
         state = gate_report.formula_state
         frames = list(gate_report.simulation)
         expected_windows = tuple(
@@ -649,6 +671,9 @@ def analyze_oav_authority(
         intelligence_status=intelligence.intelligence_status,
         intelligence_blocking_reasons=intelligence.intelligence_blocking_reasons,
         intelligence_warning_reasons=intelligence.intelligence_warning_reasons,
+        receipt_binding_status=receipt_binding_status,
+        strict_oav_status="ABSTAINED",
+        dose_receipt_sha256=dose_receipt_sha256,
         primary_status=primary_status,
         authority_rank_score=rank_score,
         blocking_reasons=tuple(dict.fromkeys(blocking_reasons)),

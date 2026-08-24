@@ -23,7 +23,7 @@ CASES = ROOT / "tests/fixtures/complexity_xhigh_cases_v1.json"
 SIDECAR = ROOT / "tests/fixtures/complexity_xhigh_cases_v1.sha256"
 REGISTRY = load_complexity_registry(
     ROOT,
-    ROOT / "configs/complexity/complexity_module_registry_v1.json",
+    ROOT / "configs/complexity/complexity_module_registry_v2.json",
 )
 _PRERETIREMENT_RUNTIME = {
     "construction-profile": (

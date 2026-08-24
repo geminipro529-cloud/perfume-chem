@@ -73,9 +73,16 @@ class PreMixGuardReport:
             return "FAIL"
         return "WARN" if self.findings else "PASS"
 
+    @property
+    def gate_status(self) -> str:
+        """Expose the screening result through the pipeline gate vocabulary."""
+
+        return self.status
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "status": self.status,
+            "gate_status": self.gate_status,
             "parent_comparison_available": self.parent_comparison_available,
             "temporal_comparison_available": self.temporal_comparison_available,
             "findings": [x.as_dict() for x in self.findings],

@@ -39,10 +39,19 @@ from __future__ import annotations
 
 import random
 import string
-from dataclasses import dataclass
-from typing import Any
+from collections import Counter, defaultdict
+from dataclasses import dataclass, field
+from enum import Enum
+from math import isfinite
+from statistics import median
+from typing import Any, Mapping
 
 from engine.domain_errors import LegacyWriteProhibitedError
+from engine.sensory.order_balance import (
+    OrderBalanceState,
+    PresentationSchedule,
+    assess_order_balance,
+)
 
 # ── Constants ────────────────────────────────────────────────────────────────────
 
@@ -249,6 +258,353 @@ class SensoryObservation:
             preference=float(data.get("preference") or 3.0),
             notes=str(data.get("notes") or ""),
         )
+
+
+class TemporalEvidenceState(str, Enum):
+    COMPLETE = "COMPLETE"
+    INCOMPLETE = "INCOMPLETE"
+    HOLD = "HOLD"
+
+
+def _required_text(value: object, field_name: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field_name} must be nonblank text")
+    return " ".join(value.split())
+
+
+def _unique_text(values: tuple[str, ...], field_name: str) -> tuple[str, ...]:
+    normalized = tuple(_required_text(value, field_name) for value in values)
+    if not normalized or len(normalized) != len(set(normalized)):
+        raise ValueError(f"{field_name} must contain unique nonblank values")
+    return normalized
+
+
+@dataclass(frozen=True, slots=True, order=True)
+class ObservationCellKey:
+    protocol_id: str
+    sample_id: str
+    assessor_id: str
+    repeat_id: str
+    time_seconds: float
+    endpoint_id: str
+
+    def __post_init__(self) -> None:
+        for name in (
+            "protocol_id",
+            "sample_id",
+            "assessor_id",
+            "repeat_id",
+            "endpoint_id",
+        ):
+            object.__setattr__(self, name, _required_text(getattr(self, name), name))
+        if not isfinite(self.time_seconds) or self.time_seconds < 0:
+            raise ValueError("time_seconds must be finite and nonnegative")
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalObservationCell:
+    key: ObservationCellKey
+    observation_id: str
+    value: float
+    presentation_sequence_id: str
+    presentation_position: int
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.key, ObservationCellKey):
+            raise TypeError("key must be an ObservationCellKey")
+        object.__setattr__(
+            self,
+            "observation_id",
+            _required_text(self.observation_id, "observation_id"),
+        )
+        object.__setattr__(
+            self,
+            "presentation_sequence_id",
+            _required_text(
+                self.presentation_sequence_id,
+                "presentation_sequence_id",
+            ),
+        )
+        if not isfinite(self.value):
+            raise ValueError("value must be finite")
+        if isinstance(self.presentation_position, bool) or self.presentation_position < 1:
+            raise ValueError("presentation_position must be a positive integer")
+
+    def as_dict(self) -> dict[str, Any]:
+        """Return a JSON-compatible shape suitable for existing context fields."""
+
+        return {
+            "protocol_id": self.key.protocol_id,
+            "sample_id": self.key.sample_id,
+            "assessor_id": self.key.assessor_id,
+            "repeat_id": self.key.repeat_id,
+            "time_seconds": self.key.time_seconds,
+            "endpoint_id": self.key.endpoint_id,
+            "observation_id": self.observation_id,
+            "value": self.value,
+            "presentation_sequence_id": self.presentation_sequence_id,
+            "presentation_position": self.presentation_position,
+        }
+
+    @classmethod
+    def from_dict(cls, value: Mapping[str, Any]) -> TemporalObservationCell:
+        """Hydrate one cell from backend observation/comparison context JSON."""
+
+        if not isinstance(value, Mapping):
+            raise TypeError("temporal observation context must be a mapping")
+        return cls(
+            key=ObservationCellKey(
+                protocol_id=str(value["protocol_id"]),
+                sample_id=str(value["sample_id"]),
+                assessor_id=str(value["assessor_id"]),
+                repeat_id=str(value["repeat_id"]),
+                time_seconds=float(value["time_seconds"]),
+                endpoint_id=str(value["endpoint_id"]),
+            ),
+            observation_id=str(value["observation_id"]),
+            value=float(value["value"]),
+            presentation_sequence_id=str(value["presentation_sequence_id"]),
+            presentation_position=int(value["presentation_position"]),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class SensoryProtocolScope:
+    protocol_id: str
+    sample_ids: tuple[str, ...]
+    assessor_ids: tuple[str, ...]
+    repeat_ids: tuple[str, ...]
+    timepoints_seconds: tuple[float, ...]
+    endpoint_ids: tuple[str, ...]
+    schedule_sha256: str
+    within_sniff: bool = False
+    within_sniff_apparatus_qualified: bool = False
+    within_sniff_timing_protocol_qualified: bool = False
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self, "protocol_id", _required_text(self.protocol_id, "protocol_id")
+        )
+        for name in ("sample_ids", "assessor_ids", "repeat_ids", "endpoint_ids"):
+            object.__setattr__(
+                self,
+                name,
+                _unique_text(tuple(getattr(self, name)), name),
+            )
+        timepoints = tuple(float(value) for value in self.timepoints_seconds)
+        if (
+            not timepoints
+            or any(not isfinite(value) or value < 0 for value in timepoints)
+            or tuple(sorted(set(timepoints))) != timepoints
+        ):
+            raise ValueError(
+                "timepoints_seconds must be unique, increasing, finite, and nonnegative"
+            )
+        object.__setattr__(self, "timepoints_seconds", timepoints)
+        digest = _required_text(self.schedule_sha256, "schedule_sha256").lower()
+        if len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            raise ValueError("schedule_sha256 must be a SHA-256 hex digest")
+        object.__setattr__(self, "schedule_sha256", digest)
+        for name in (
+            "within_sniff",
+            "within_sniff_apparatus_qualified",
+            "within_sniff_timing_protocol_qualified",
+        ):
+            if not isinstance(getattr(self, name), bool):
+                raise TypeError(f"{name} must be boolean")
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEvidenceRequest:
+    scope: SensoryProtocolScope
+    schedule: PresentationSchedule
+    cells: tuple[TemporalObservationCell, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.scope, SensoryProtocolScope):
+            raise TypeError("scope must be a SensoryProtocolScope")
+        if not isinstance(self.schedule, PresentationSchedule):
+            raise TypeError("schedule must be a PresentationSchedule")
+        cells = tuple(self.cells)
+        if any(not isinstance(cell, TemporalObservationCell) for cell in cells):
+            raise TypeError("cells must contain TemporalObservationCell values")
+        object.__setattr__(self, "cells", cells)
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEndpointSummary:
+    sample_id: str
+    endpoint_id: str
+    time_seconds: float
+    observed_count: int
+    median: float
+    first_quartile: float
+    third_quartile: float
+    assessor_disagreement: float
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalTransition:
+    sample_id: str
+    endpoint_id: str
+    from_time_seconds: float
+    to_time_seconds: float
+    median_delta: float
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEvidenceResult:
+    state: TemporalEvidenceState
+    protocol_id: str
+    schedule_sha256: str
+    expected_cell_count: int
+    observed_cell_count: int
+    missing_cells: tuple[ObservationCellKey, ...]
+    duplicate_cells: tuple[ObservationCellKey, ...]
+    summaries: tuple[TemporalEndpointSummary, ...]
+    transitions: tuple[TemporalTransition, ...]
+    order_balance_state: OrderBalanceState
+    blockers: tuple[str, ...]
+    next_discriminator: str | None
+    interpolated_cell_count: int = field(default=0, init=False)
+    physical_execution_authorized: bool = field(default=False, init=False)
+    sensory_authority: bool = field(default=False, init=False)
+    release_authority: bool = field(default=False, init=False)
+
+
+def analyze_temporal_evidence(
+    request: TemporalEvidenceRequest,
+) -> TemporalEvidenceResult:
+    """Summarize only canonical observed cells; never interpolate evidence."""
+
+    if not isinstance(request, TemporalEvidenceRequest):
+        raise TypeError("request must be a TemporalEvidenceRequest")
+    scope = request.scope
+    expected = tuple(
+        ObservationCellKey(
+            protocol_id=scope.protocol_id,
+            sample_id=sample_id,
+            assessor_id=assessor_id,
+            repeat_id=repeat_id,
+            time_seconds=timepoint,
+            endpoint_id=endpoint_id,
+        )
+        for sample_id in scope.sample_ids
+        for assessor_id in scope.assessor_ids
+        for repeat_id in scope.repeat_ids
+        for timepoint in scope.timepoints_seconds
+        for endpoint_id in scope.endpoint_ids
+    )
+    counts = Counter(cell.key for cell in request.cells)
+    expected_set = set(expected)
+    missing = tuple(sorted(expected_set.difference(counts)))
+    duplicates = tuple(sorted(key for key, count in counts.items() if count > 1))
+    grouped: dict[tuple[str, str, float], list[float]] = defaultdict(list)
+    for cell in request.cells:
+        if cell.key in expected_set:
+            grouped[
+                (cell.key.sample_id, cell.key.endpoint_id, cell.key.time_seconds)
+            ].append(cell.value)
+    summaries = tuple(
+        _endpoint_summary(key, values)
+        for key, values in sorted(grouped.items())
+    )
+    transitions = _temporal_transitions(summaries)
+    order = assess_order_balance(request.schedule)
+    blockers: list[str] = []
+    if request.schedule.schedule_sha256 != scope.schedule_sha256:
+        blockers.append("presentation schedule hash does not match protocol scope")
+    if order.state is OrderBalanceState.REBUILD:
+        blockers.extend(order.failures)
+    if duplicates:
+        blockers.append("duplicate canonical observation cells are present")
+    if scope.within_sniff:
+        if not scope.within_sniff_apparatus_qualified:
+            blockers.append("within-sniff observations require qualified timing apparatus")
+        if not scope.within_sniff_timing_protocol_qualified:
+            blockers.append("within-sniff observations require a qualified timing protocol")
+    state = (
+        TemporalEvidenceState.HOLD
+        if blockers
+        else TemporalEvidenceState.INCOMPLETE
+        if missing
+        else TemporalEvidenceState.COMPLETE
+    )
+    next_discriminator = None
+    if missing:
+        next_discriminator = f"Collect missing cell {missing[0]}."
+    elif summaries:
+        most_disputed = max(
+            summaries,
+            key=lambda item: (
+                item.assessor_disagreement,
+                item.sample_id,
+                item.endpoint_id,
+                item.time_seconds,
+            ),
+        )
+        if most_disputed.assessor_disagreement > 0:
+            next_discriminator = (
+                f"Repeat {most_disputed.sample_id} {most_disputed.endpoint_id} at "
+                f"{most_disputed.time_seconds:g}s to resolve assessor disagreement."
+            )
+    return TemporalEvidenceResult(
+        state=state,
+        protocol_id=scope.protocol_id,
+        schedule_sha256=request.schedule.schedule_sha256,
+        expected_cell_count=len(expected),
+        observed_cell_count=len(counts),
+        missing_cells=missing,
+        duplicate_cells=duplicates,
+        summaries=summaries,
+        transitions=transitions,
+        order_balance_state=order.state,
+        blockers=tuple(blockers),
+        next_discriminator=next_discriminator,
+    )
+
+
+def _endpoint_summary(
+    key: tuple[str, str, float],
+    values: list[float],
+) -> TemporalEndpointSummary:
+    ordered = sorted(values)
+    middle = median(ordered)
+    lower = median(ordered[: len(ordered) // 2]) if len(ordered) > 1 else middle
+    upper_start = (len(ordered) + 1) // 2
+    upper = median(ordered[upper_start:]) if len(ordered) > 1 else middle
+    return TemporalEndpointSummary(
+        sample_id=key[0],
+        endpoint_id=key[1],
+        time_seconds=key[2],
+        observed_count=len(ordered),
+        median=float(middle),
+        first_quartile=float(lower),
+        third_quartile=float(upper),
+        assessor_disagreement=float(ordered[-1] - ordered[0]),
+    )
+
+
+def _temporal_transitions(
+    summaries: tuple[TemporalEndpointSummary, ...],
+) -> tuple[TemporalTransition, ...]:
+    grouped: dict[tuple[str, str], list[TemporalEndpointSummary]] = defaultdict(list)
+    for summary in summaries:
+        grouped[(summary.sample_id, summary.endpoint_id)].append(summary)
+    transitions: list[TemporalTransition] = []
+    for (sample_id, endpoint_id), values in sorted(grouped.items()):
+        ordered = sorted(values, key=lambda item: item.time_seconds)
+        for left, right in zip(ordered, ordered[1:]):
+            transitions.append(
+                TemporalTransition(
+                    sample_id=sample_id,
+                    endpoint_id=endpoint_id,
+                    from_time_seconds=left.time_seconds,
+                    to_time_seconds=right.time_seconds,
+                    median_delta=right.median - left.median,
+                )
+            )
+    return tuple(transitions)
 
 
 # ── Code generation ──────────────────────────────────────────────────────────────
@@ -476,8 +832,17 @@ class SensoryTrial:
 
 __all__ = [
     "TIME_POINTS",
+    "ObservationCellKey",
     "SensorySample",
     "SensoryObservation",
+    "SensoryProtocolScope",
     "SensoryTrial",
+    "TemporalEndpointSummary",
+    "TemporalEvidenceRequest",
+    "TemporalEvidenceResult",
+    "TemporalEvidenceState",
+    "TemporalObservationCell",
+    "TemporalTransition",
+    "analyze_temporal_evidence",
     "generate_trial_codes",
 ]
