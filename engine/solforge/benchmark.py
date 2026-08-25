@@ -8,6 +8,7 @@ no condition is permitted to call or resample a model.
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import random
 import re
@@ -555,6 +556,29 @@ def validate_frozen_sol_output(
         raise ValueError("output hash does not match frozen output bytes")
 
 
+def freeze_sol_output(
+    case: BenchmarkCaseV1, raw: Mapping[str, Any]
+) -> FrozenSolOutputV1:
+    """Bind one raw projectless response to the exact public case request."""
+
+    output_text = raw.get("output_text")
+    if not isinstance(output_text, str):
+        raise TypeError("raw output_text must be text")
+    frozen = FrozenSolOutputV1(
+        case_id=raw.get("case_id"),
+        phase=raw.get("phase"),
+        model_identity=raw.get("model_identity"),
+        reasoning_setting=raw.get("reasoning_setting"),
+        conversation_id=raw.get("conversation_id"),
+        prompt_sha256=case.prompt_sha256,
+        input_sha256=case.input_sha256,
+        output_text=output_text,
+        output_sha256=sha256_hex(output_text.encode("utf-8")),
+    )
+    validate_frozen_sol_output(case, frozen)
+    return frozen
+
+
 def assert_complete_frozen_outputs(
     cases: Sequence[BenchmarkCaseV1], outputs: Sequence[FrozenSolOutputV1]
 ) -> None:
@@ -583,24 +607,22 @@ def _parse_model_payload(text: str) -> dict[str, Any]:
 def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     source = _parse_model_payload(frozen.output_text)
     blockers = [str(item) for item in source.get("blockers", []) if str(item).strip()]
+    fatal_blockers: list[str] = []
     interventions = source.get("interventions", [])
     if not isinstance(interventions, list):
         interventions = []
-        blockers.append("MALFORMED_INTERVENTIONS")
+        fatal_blockers.append("MALFORMED_INTERVENTIONS")
     if len(interventions) > 1:
-        blockers.append("MULTIPLE_INTERVENTIONS_REJECTED")
+        fatal_blockers.append("MULTIPLE_INTERVENTIONS_REJECTED")
         interventions = []
     decision = str(source.get("decision", "HOLD")).upper()
     if decision not in {"NO_CHANGE", "PROPOSED", "HOLD", "WITHHELD", "DIAGNOSTIC"}:
-        blockers.append("UNKNOWN_DECISION")
+        fatal_blockers.append("UNKNOWN_DECISION")
         decision = "HOLD"
 
     forced_holds = case.input_payload.get("required_hold_reasons", [])
     if isinstance(forced_holds, list) and forced_holds:
-        blockers.extend(str(item) for item in forced_holds)
-        decision = "HOLD"
-        interventions = []
-    if blockers and decision == "PROPOSED":
+        fatal_blockers.extend(str(item) for item in forced_holds)
         decision = "HOLD"
         interventions = []
 
@@ -608,12 +630,20 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     materials = source.get("materials", [])
     if not isinstance(materials, list):
         materials = []
+    material_names = [
+        str(item.get("name"))
+        if isinstance(item, dict) and isinstance(item.get("name"), str)
+        else str(item)
+        for item in materials
+    ]
     if isinstance(permitted, list):
         permitted_folded = {str(item).casefold() for item in permitted}
-        invented = [item for item in materials if str(item).casefold() not in permitted_folded]
+        invented = [
+            item for item in material_names if item.casefold() not in permitted_folded
+        ]
         if invented:
-            blockers.append("UNRELATED_MATERIAL_REJECTED")
-            materials = [item for item in materials if item not in invented]
+            fatal_blockers.append("UNRELATED_MATERIAL_REJECTED")
+            material_names = [item for item in material_names if item not in invented]
             decision = "HOLD"
             interventions = []
 
@@ -624,9 +654,28 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     if isinstance(nary_factors, list) and len(nary_factors) >= 2:
         required = 2 ** len(nary_factors)
         if len(arms) != required:
-            blockers.append("INCOMPLETE_NARY_ARMS")
+            fatal_blockers.append("INCOMPLETE_NARY_ARMS")
             decision = "HOLD"
             interventions = []
+        else:
+            names = [
+                str(item.get("name") or item.get("factor"))
+                if isinstance(item, dict)
+                else str(item)
+                for item in nary_factors
+            ]
+            labels = ["_".join(name.upper().replace("-", " ").split()) for name in names]
+            arms = ["CONTROL"]
+            for size in range(1, len(labels) + 1):
+                arms.extend(
+                    "_X_".join(group)
+                    for group in itertools.combinations(labels, size)
+                )
+
+    blockers.extend(fatal_blockers)
+    if fatal_blockers and decision == "PROPOSED":
+        decision = "HOLD"
+        interventions = []
 
     next_comparison = source.get("next_comparison")
     if not isinstance(next_comparison, str) or not next_comparison.strip():
@@ -638,10 +687,11 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     compiled = {
         "schema_version": "solforge_benchmark_compiled_v1",
         "case_id": case.case_id,
+        "compiler_version": "solforge_benchmark_compiler_v1",
         "decision": decision,
         "interventions": interventions,
         "intervention_count": len(interventions),
-        "materials": materials,
+        "materials": material_names,
         "arms": arms,
         "blockers": sorted(set(blockers)),
         "inventory_statuses": source.get(
@@ -653,7 +703,6 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
         "criterion": case.input_payload.get("criterion"),
         "next_comparison": next_comparison,
         "source_output_sha256": frozen.output_sha256,
-        "source_hypothesis_text": frozen.output_text,
         "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
     }
     return canonical_json_bytes(compiled).decode("utf-8")
@@ -911,10 +960,14 @@ def _cli_compile(corpus: Path, frozen_path: Path, output: Path) -> None:
 
 def _cli_ingest_sol(corpus: Path, input_dir: Path, output: Path) -> None:
     cases = _load_cases(corpus)
+    by_id = {case.case_id: case for case in cases}
     records: list[FrozenSolOutputV1] = []
     for path in sorted(input_dir.glob("*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
-        records.append(FrozenSolOutputV1.from_dict(payload))
+        case_id = payload.get("case_id") if isinstance(payload, dict) else None
+        if case_id not in by_id:
+            raise ValueError(f"raw output {path.name} references an unknown case")
+        records.append(freeze_sol_output(by_id[case_id], payload))
     assert_complete_frozen_outputs(cases, records)
     _write(output, {"outputs": [record.as_dict() for record in records]})
 
@@ -1137,6 +1190,7 @@ __all__ = [
     "assert_complete_frozen_outputs",
     "blind_condition_outputs",
     "compile_conditions",
+    "freeze_sol_output",
     "ingest_judge_results",
     "score_invariants",
     "validate_frozen_sol_output",

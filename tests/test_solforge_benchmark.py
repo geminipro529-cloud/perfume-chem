@@ -17,6 +17,7 @@ from engine.solforge.benchmark import (
     assert_complete_frozen_outputs,
     blind_condition_outputs,
     compile_conditions,
+    freeze_sol_output,
     ingest_judge_results,
     score_invariants,
     validate_frozen_sol_output,
@@ -104,6 +105,23 @@ def test_dispatch_prompt_is_exact_public_no_tools_and_excludes_answer_key() -> N
     assert sha256_hex(dispatch.encode("utf-8")) == case.prompt_sha256
 
 
+def test_raw_model_output_is_frozen_with_computed_exact_hashes() -> None:
+    case = _case()
+    raw = {
+        "case_id": case.case_id,
+        "phase": case.phase.value,
+        "model_identity": "GPT-5.6 Sol",
+        "reasoning_setting": "xhigh",
+        "conversation_id": "fresh-projectless-task",
+        "output_text": '{"decision":"NO_CHANGE"}',
+    }
+    frozen = freeze_sol_output(case, raw)
+    assert frozen.prompt_sha256 == case.prompt_sha256
+    assert frozen.input_sha256 == case.input_sha256
+    assert frozen.output_sha256 == sha256_hex(raw["output_text"].encode("utf-8"))
+    validate_frozen_sol_output(case, frozen)
+
+
 def test_three_conditions_share_one_frozen_output_and_noop_is_length_matched() -> None:
     case = _case()
     frozen = _frozen(case)
@@ -119,6 +137,67 @@ def test_three_conditions_share_one_frozen_output_and_noop_is_length_matched() -
     assert '"schema_version":"solforge_benchmark_compiled_v1"' not in (
         by_kind[ConditionKind.NO_OP_LENGTH_MATCHED].output_text
     )
+    assert "source_hypothesis_text" not in by_kind[ConditionKind.SOLFORGE].output_text
+    assert "source_output_sha256" in by_kind[ConditionKind.SOLFORGE].output_text
+
+
+def test_governor_preserves_nonfatal_limitations_and_canonicalizes_factorial() -> None:
+    case = replace(
+        _case(),
+        case_id="MUSK-FACTORIAL",
+        category="two factor musk design",
+        user_prompt="Design a complete two-factor comparison.",
+        input_payload={
+            "target_identity": "diffusive rounded musk",
+            "ideal_architecture": {"Habanolide": "diffusion", "Romandolide": "volume"},
+            "current_inventory_build": {"materials": []},
+            "criterion": "DEPTH",
+            "permitted_materials": ["Habanolide", "Romandolide"],
+        },
+        public_invariants=("zero_one_intervention", "complete_nary_arms", "authority_false"),
+        sealed_answer_key={
+            "allowed_decisions": ["PROPOSED"],
+            "max_interventions": 1,
+            "required_arm_sets": [[
+                "CONTROL", "HABANOLIDE", "ROMANDOLIDE", "HABANOLIDE_X_ROMANDOLIDE"
+            ]],
+            "require_authority_false": True,
+        },
+    )
+    raw = json.dumps(
+        {
+            "decision": "PROPOSED",
+            "interventions": [{"type": "complete_factorial"}],
+            "materials": ["Habanolide", "Romandolide"],
+            "blockers": ["No physical observations are supplied."],
+            "arms": [{"id": value} for value in ("A00", "A10", "A01", "A11")],
+            "nary_factors": ["Habanolide", "Romandolide"],
+            "next_comparison": "Run the four constant-total arms.",
+            "authority_flags": BENCHMARK_AUTHORITY_FLAGS,
+        },
+        sort_keys=True,
+    )
+    frozen = FrozenSolOutputV1(
+        case_id=case.case_id,
+        phase=case.phase,
+        model_identity="GPT-5.6 Sol",
+        reasoning_setting="xhigh",
+        conversation_id="factorial-task",
+        prompt_sha256=case.prompt_sha256,
+        input_sha256=case.input_sha256,
+        output_text=raw,
+        output_sha256=sha256_hex(raw.encode("utf-8")),
+    )
+    governed = next(
+        item for item in compile_conditions(case, frozen)
+        if item.condition is ConditionKind.SOLFORGE
+    )
+    payload = json.loads(governed.output_text)
+    assert payload["decision"] == "PROPOSED"
+    assert len(payload["interventions"]) == 1
+    assert payload["arms"] == [
+        "CONTROL", "HABANOLIDE", "ROMANDOLIDE", "HABANOLIDE_X_ROMANDOLIDE"
+    ]
 
 
 def test_condition_set_rejects_condition_specific_resampling() -> None:
