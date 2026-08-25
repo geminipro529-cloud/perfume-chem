@@ -1,0 +1,8 @@
+{
+  "case_id": "SCR-EVIDENCE-10",
+  "phase": "SCREEN",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03a4d-b098-72f1-8bbd-11ec5753f172",
+  "output_text": "{\"decision\":\"HOLD\",\"interventions\":[],\"materials\":[\"Hedione\",\"Iso E Super\"],\"blockers\":[\"MISSING_DISCRIMINATING_EVIDENCE\"],\"inventory_statuses\":{\"target_identity\":\"KNOWN\",\"current_inventory_build\":\"KNOWN\",\"specific_delta\":\"UNRESOLVED\",\"target_inventory_separation\":\"PRESERVED\"},\"arms\":[],\"nary_factors\":[],\"next_comparison\":\"Run a controlled constant-total comparison that distinguishes material omission from a Hedione-to-Iso E Super ratio change before altering the formula.\",\"authority_flags\":{\"compounding\":false,\"formula\":false,\"hedonic\":false,\"physical\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}"
+}
