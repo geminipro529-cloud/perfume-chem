@@ -18,10 +18,12 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import inspect
 import json
 import re
 import sys
+import tempfile
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
@@ -48,6 +50,7 @@ except Exception:  # pragma: no cover - fallback path for future refactors
     format_recommendations = None  # type: ignore[assignment]
     load_inventory = None  # type: ignore[assignment]
 
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.ingredient_intelligence import get_profile
 from engine.intervention_context import (
     BottleAddition,
@@ -58,6 +61,12 @@ from engine.intervention_context import (
 from engine.optimizer.models import FormulaVector, _lookup_material
 from engine.optimizer.optimizer import FormulaOptimizer
 from engine.optimizer.scoring import FormulaScorer
+from engine.solforge.contracts import (
+    ExecutionReceiptV1,
+    SolForgeCaseV1,
+    SolHypothesisSetV1,
+)
+from engine.solforge.orchestrator import run_solforge_shadow
 
 MODES = ("pre_mix", "post_mix", "between_mix")
 DEFAULT_BATCH_ML = 30.0
@@ -1126,6 +1135,22 @@ def main() -> int:
         "--bundle-dir",
         help="Verification bundle directory containing verification_summary.json",
     )
+    source_group.add_argument(
+        "--solforge-case",
+        help="Canonical solforge_case_v1 JSON input",
+    )
+    parser.add_argument(
+        "--solforge-hypotheses",
+        help="Canonical sol_hypothesis_set_v1 JSON input",
+    )
+    parser.add_argument(
+        "--solforge-execution",
+        help="Optional canonical execution_receipt_v1 JSON input",
+    )
+    parser.add_argument(
+        "--output-dir",
+        help="Required atomic artifact directory for SolForge mode",
+    )
     parser.add_argument("--formula", type=int, help="Formula number to select")
     parser.add_argument("--name", help="Partial formula name to select")
     parser.add_argument(
@@ -1207,6 +1232,20 @@ def main() -> int:
         help="Optional output file. Defaults to stdout.",
     )
     args = parser.parse_args()
+
+    if args.solforge_case:
+        if not args.solforge_hypotheses or not args.output_dir:
+            parser.error(
+                "--solforge-case requires --solforge-hypotheses and --output-dir"
+            )
+        return _run_solforge_cli(
+            case_path=Path(args.solforge_case),
+            hypotheses_path=Path(args.solforge_hypotheses),
+            execution_path=(
+                Path(args.solforge_execution) if args.solforge_execution else None
+            ),
+            output_dir=Path(args.output_dir),
+        )
 
     extra_observations = list(args.observation or [])
     intent_tags = list(args.intent_tag or [])
@@ -1294,6 +1333,112 @@ def main() -> int:
     if save_state_path is not None and bottle_state is not None:
         _write_bottle_state(save_state_path, bottle_state, source)
 
+    return 0
+
+
+def _project_path(path: Path) -> Path:
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def _read_json_bytes(path: Path) -> tuple[bytes, dict[str, Any]]:
+    exact = path.read_bytes()
+    payload = json.loads(exact.decode("utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"SolForge input must be a JSON object: {path}")
+    return exact, payload
+
+
+def _run_solforge_cli(
+    *,
+    case_path: Path,
+    hypotheses_path: Path,
+    execution_path: Path | None,
+    output_dir: Path,
+) -> int:
+    """Publish one shadow run atomically without changing legacy CLI behavior."""
+
+    case_path = _project_path(case_path)
+    hypotheses_path = _project_path(hypotheses_path)
+    execution_path = _project_path(execution_path) if execution_path else None
+    output_dir = _project_path(output_dir)
+    if output_dir.exists() and any(output_dir.iterdir()):
+        raise FileExistsError(f"refusing existing nonempty output directory: {output_dir}")
+
+    case_bytes, case_payload = _read_json_bytes(case_path)
+    hypothesis_bytes, hypothesis_payload = _read_json_bytes(hypotheses_path)
+    case = SolForgeCaseV1.from_dict(case_payload)
+    hypotheses = SolHypothesisSetV1.from_dict(hypothesis_payload)
+    input_hashes = {
+        str(case_path): hashlib.sha256(case_bytes).hexdigest(),
+        str(hypotheses_path): hashlib.sha256(hypothesis_bytes).hexdigest(),
+    }
+    execution = None
+    if execution_path is not None:
+        execution_bytes, execution_payload = _read_json_bytes(execution_path)
+        execution = ExecutionReceiptV1.from_dict(execution_payload)
+        input_hashes[str(execution_path)] = hashlib.sha256(execution_bytes).hexdigest()
+
+    state = run_solforge_shadow(case, hypotheses, execution=execution)
+    records = [case, hypotheses]
+    for record in (
+        state.compiled_experiment,
+        execution,
+        state.temporal_evidence,
+        state.criterion_fit,
+        state.decision_receipt,
+    ):
+        if record is not None:
+            records.append(record)
+
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    if output_dir.exists():
+        output_dir.rmdir()
+    with tempfile.TemporaryDirectory(
+        prefix=f".{output_dir.name}.tmp-", dir=output_dir.parent
+    ) as temporary:
+        temporary_path = Path(temporary)
+        record_files: list[dict[str, str]] = []
+        for record in records:
+            payload = record.as_dict()
+            schema_version = str(payload["schema_version"])
+            filename = f"{schema_version}--{record.record_sha256}.json"
+            exact = record.canonical_bytes()
+            (temporary_path / filename).write_bytes(exact)
+            record_files.append(
+                {
+                    "filename": filename,
+                    "record_sha256": record.record_sha256,
+                    "file_sha256": hashlib.sha256(exact).hexdigest(),
+                }
+            )
+        if state.backend_export is not None:
+            export_bytes = canonical_json_bytes(state.backend_export)
+            export_sha256 = sha256_hex(export_bytes)
+            filename = f"solforge_backend_lab_export_v1--{export_sha256}.json"
+            (temporary_path / filename).write_bytes(export_bytes)
+            record_files.append(
+                {
+                    "filename": filename,
+                    "record_sha256": export_sha256,
+                    "file_sha256": export_sha256,
+                }
+            )
+        manifest = {
+            "schema_version": "solforge_artifact_manifest_v1",
+            "stage": state.stage.value,
+            "history": [stage.value for stage in state.history],
+            "input_file_sha256": input_hashes,
+            "records": record_files,
+            "blockers": list(state.blockers),
+            "publication_authorized": False,
+            "database_write_authorized": False,
+            "physical_execution_authorized": False,
+            "release_authorized": False,
+        }
+        (temporary_path / "MANIFEST.json").write_bytes(
+            canonical_json_bytes(manifest)
+        )
+        temporary_path.replace(output_dir)
     return 0
 
 
