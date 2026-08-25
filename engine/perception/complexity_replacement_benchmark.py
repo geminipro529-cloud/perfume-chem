@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from statistics import median
@@ -27,8 +27,13 @@ REPLACEMENT_MODULE_IDS = (
 
 _BLINDED_CONTEXT_SCHEMA = "complexity_reasoning_context_v1"
 _BLINDED_PROMPT_SCHEMA = "complexity_replacement_benchmark_prompt_v2_blinded"
-_BLINDED_MANIFEST_SCHEMA = "complexity_replacement_benchmark_manifest_v3_blinded"
-_BLINDED_RECEIPT_SCHEMA = "complexity_replacement_benchmark_receipt_v3_blinded"
+_BLINDED_MANIFEST_SCHEMA = "complexity_replacement_benchmark_manifest_v5_blinded"
+_BLINDED_RECEIPT_SCHEMA = "complexity_replacement_benchmark_receipt_v5_blinded"
+_DISPATCH_PREAMBLE = (
+    "Resolve this blinded benchmark case now using only the JSON payload below. "
+    "Return only the requested answer; do not use external sources or add process "
+    "commentary."
+)
 
 
 def _canonical_bytes(value: object) -> bytes:
@@ -170,6 +175,8 @@ class ReplacementBenchmarkRequest:
     prompt_payload: Mapping[str, Any]
     common_input_sha256: str
     prompt_sha256: str
+    dispatch_text: str
+    dispatch_sha256: str
     nonce: str
     packet_sha256: str | None
     packet_byte_count: int
@@ -185,6 +192,32 @@ class ReplacementScreenDecision:
     plain_control_wins: int
     placebo_wins: int
     reasons: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        module_id = _text(self.module_id, "module_id")
+        if module_id not in REPLACEMENT_MODULE_IDS:
+            raise ValueError(f"unknown replacement module: {module_id}")
+        state = _text(self.state, "state").upper()
+        if state not in {"PROCEED", "STOP"}:
+            raise ValueError("screen decision state must be PROCEED or STOP")
+        for name in ("plain_control_wins", "placebo_wins"):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 3:
+                raise ValueError(f"{name} must be an integer from zero to three")
+        reasons = tuple(_text(reason, "reasons") for reason in self.reasons)
+        if len(reasons) != len(set(reasons)):
+            raise ValueError("screen decision reasons must be unique")
+        if state == "PROCEED" and (
+            self.plain_control_wins < 2 or self.placebo_wins < 2 or reasons
+        ):
+            raise ValueError(
+                "PROCEED requires at least two wins against each control and no blockers"
+            )
+        if state == "STOP" and not reasons:
+            raise ValueError("STOP requires at least one blocking reason")
+        object.__setattr__(self, "module_id", module_id)
+        object.__setattr__(self, "state", state)
+        object.__setattr__(self, "reasons", reasons)
 
 
 @dataclass(frozen=True, slots=True)
@@ -365,6 +398,138 @@ def _load_module_packets(value: object) -> dict[str, ReplacementModulePacket]:
     return packets
 
 
+def _load_v3_cases(
+    path: Path,
+    payload: Mapping[str, Any],
+) -> tuple[ReplacementBenchmarkCase, ...]:
+    base_name = _text(payload.get("base_corpus"), "base_corpus")
+    if Path(base_name).name != base_name:
+        raise ValueError("base_corpus must be a sibling filename")
+    base_path = path.parent / base_name
+    if base_path.resolve() == path.resolve():
+        raise ValueError("base_corpus cannot reference itself")
+    expected_base_hash = _validated_sha256(
+        payload.get("base_corpus_sha256"),
+        "base_corpus_sha256",
+    )
+    if hashlib.sha256(base_path.read_bytes()).hexdigest() != expected_base_hash:
+        raise ValueError("base replacement corpus hash mismatch")
+    base_cases = load_replacement_benchmark_cases(base_path)
+    packets = {
+        module_id: next(
+            case.module_packet for case in base_cases if case.module_id == module_id
+        )
+        for module_id in REPLACEMENT_MODULE_IDS
+    }
+
+    packet_overrides = payload.get("module_packet_overrides", {})
+    if not isinstance(packet_overrides, Mapping):
+        raise TypeError("module_packet_overrides must be an object")
+    for module_id, override in packet_overrides.items():
+        if module_id not in packets:
+            raise ValueError(f"unknown module packet override: {module_id}")
+        if not isinstance(override, Mapping):
+            raise TypeError("each module packet override must be an object")
+        unsupported = set(override).difference(
+            {
+                "operating_contract_append",
+                "authority_boundary_append",
+                "evidence_refs_append",
+            }
+        )
+        if unsupported:
+            raise ValueError(
+                "unsupported module packet override fields: "
+                + ", ".join(sorted(unsupported))
+            )
+        packet = packets[module_id]
+        packets[module_id] = ReplacementModulePacket(
+            module_id=module_id,
+            operating_contract=packet.operating_contract
+            + tuple(override.get("operating_contract_append", ())),
+            authority_boundary=packet.authority_boundary
+            + tuple(override.get("authority_boundary_append", ())),
+            evidence_refs=packet.evidence_refs
+            + tuple(override.get("evidence_refs_append", ())),
+        )
+
+    cases_by_id = {case.case_id: case for case in base_cases}
+    case_overrides = payload.get("case_overrides", [])
+    if not isinstance(case_overrides, list):
+        raise TypeError("case_overrides must be a list")
+    seen: set[str] = set()
+    for override in case_overrides:
+        if not isinstance(override, Mapping):
+            raise TypeError("each case override must be an object")
+        case_id = _text(override.get("case_id"), "case override case_id")
+        if case_id in seen:
+            raise ValueError("case override IDs must be unique")
+        seen.add(case_id)
+        if case_id not in cases_by_id:
+            raise ValueError(f"unknown case override: {case_id}")
+        unsupported = set(override).difference(
+            {
+                "case_id",
+                "target_identity",
+                "facts",
+                "facts_append",
+                "inventory_state",
+                "expected_decision",
+                "critical_error",
+                "claim_ceiling",
+                "evidence_payload",
+                "evidence_payload_patch",
+            }
+        )
+        if unsupported:
+            raise ValueError(
+                "unsupported case override fields: "
+                + ", ".join(sorted(unsupported))
+            )
+        case = cases_by_id[case_id]
+        updates: dict[str, Any] = {
+            name: override[name]
+            for name in (
+                "target_identity",
+                "facts",
+                "inventory_state",
+                "expected_decision",
+                "critical_error",
+                "claim_ceiling",
+                "evidence_payload",
+            )
+            if name in override
+        }
+        if "facts_append" in override:
+            updates["facts"] = case.facts + tuple(override["facts_append"])
+        if "evidence_payload_patch" in override:
+            patch = override["evidence_payload_patch"]
+            if not isinstance(patch, Mapping):
+                raise TypeError("evidence_payload_patch must be an object")
+            updates["evidence_payload"] = {
+                **dict(case.evidence_payload),
+                **dict(patch),
+            }
+        cases_by_id[case_id] = replace(case, **updates)
+
+    cases = tuple(
+        replace(
+            cases_by_id[base_case.case_id],
+            module_packet=packets[base_case.module_id],
+        )
+        for base_case in base_cases
+    )
+    positive = next(case for case in cases if case.case_id == "RPL-TEM-S01")
+    repeatability = positive.evidence_payload.get("repeatability")
+    if not isinstance(repeatability, Mapping) or repeatability.get("required") is not True:
+        raise ValueError("v3 temporal positive case requires repeatability evidence")
+    safety = next(case for case in cases if case.case_id == "RPL-TEM-C03")
+    safety_events = safety.evidence_payload.get("safety_events")
+    if not isinstance(safety_events, list) or not safety_events:
+        raise ValueError("v3 temporal safety case requires an adverse sensory event")
+    return cases
+
+
 def load_replacement_benchmark_cases(
     path: Path,
 ) -> tuple[ReplacementBenchmarkCase, ...]:
@@ -372,38 +537,41 @@ def load_replacement_benchmark_cases(
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
     schema_version = payload.get("schema_version")
-    if schema_version not in {
+    if schema_version == "complexity_replacement_retest_cases_v3":
+        cases = list(_load_v3_cases(path, payload))
+    elif schema_version in {
         "complexity_replacement_retest_cases_v1",
         "complexity_replacement_retest_cases_v2",
     }:
-        raise ValueError("unsupported replacement benchmark corpus schema")
-    packets = _load_module_packets(payload.get("module_packets"))
-    rows = payload.get("cases")
-    if not isinstance(rows, list):
-        raise TypeError("cases must be a list")
-    cases: list[ReplacementBenchmarkCase] = []
-    for row in rows:
-        if not isinstance(row, Mapping):
-            raise TypeError("each replacement benchmark case must be an object")
-        if schema_version == "complexity_replacement_retest_cases_v2":
-            _validate_v2_case_evidence(row)
-        module_id = _text(row.get("module_id"), "module_id")
-        cases.append(
-            ReplacementBenchmarkCase(
-                case_id=row.get("case_id"),
-                module_id=module_id,
-                phase=row.get("phase"),
-                role=ModuleRetestRole(row.get("role")),
-                target_identity=row.get("target_identity"),
-                facts=tuple(row.get("facts", ())),
-                inventory_state=row.get("inventory_state", {}),
-                expected_decision=row.get("expected_decision"),
-                critical_error=row.get("critical_error"),
-                claim_ceiling=row.get("claim_ceiling"),
-                module_packet=packets[module_id],
-                evidence_payload=row.get("evidence_payload", {}),
+        packets = _load_module_packets(payload.get("module_packets"))
+        rows = payload.get("cases")
+        if not isinstance(rows, list):
+            raise TypeError("cases must be a list")
+        cases = []
+        for row in rows:
+            if not isinstance(row, Mapping):
+                raise TypeError("each replacement benchmark case must be an object")
+            if schema_version == "complexity_replacement_retest_cases_v2":
+                _validate_v2_case_evidence(row)
+            module_id = _text(row.get("module_id"), "module_id")
+            cases.append(
+                ReplacementBenchmarkCase(
+                    case_id=row.get("case_id"),
+                    module_id=module_id,
+                    phase=row.get("phase"),
+                    role=ModuleRetestRole(row.get("role")),
+                    target_identity=row.get("target_identity"),
+                    facts=tuple(row.get("facts", ())),
+                    inventory_state=row.get("inventory_state", {}),
+                    expected_decision=row.get("expected_decision"),
+                    critical_error=row.get("critical_error"),
+                    claim_ceiling=row.get("claim_ceiling"),
+                    module_packet=packets[module_id],
+                    evidence_payload=row.get("evidence_payload", {}),
+                )
             )
-        )
+    else:
+        raise ValueError("unsupported replacement benchmark corpus schema")
     ids = tuple(case.case_id for case in cases)
     if len(ids) != len(set(ids)):
         raise ValueError("replacement benchmark case IDs must be unique")
@@ -474,6 +642,172 @@ def _validated_sha256(value: object, field_name: str) -> str:
     return text_value
 
 
+def _screen_decisions_from_receipt(
+    results: Sequence[Mapping[str, Any]],
+) -> tuple[ReplacementScreenDecision, ...]:
+    request_ids = tuple(
+        _text(result.get("request_id"), "screen result request_id")
+        for result in results
+    )
+    if len(request_ids) != len(set(request_ids)):
+        raise ValueError("screen receipt result request IDs must be unique")
+
+    decisions: list[ReplacementScreenDecision] = []
+    expected_arms = {arm.value for arm in ModuleRetestArm}
+    for module_id in REPLACEMENT_MODULE_IDS:
+        module_results = [
+            result for result in results if result.get("module_id") == module_id
+        ]
+        by_case: dict[str, list[Mapping[str, Any]]] = {}
+        for result in module_results:
+            case_id = _text(result.get("case_id"), "screen result case_id")
+            by_case.setdefault(case_id, []).append(result)
+        if len(by_case) != 3:
+            raise ValueError("screen receipt requires three cases per module")
+
+        plain_scores: list[ModulePairScore] = []
+        placebo_scores: list[ModulePairScore] = []
+        for case_id in sorted(by_case):
+            rows = by_case[case_id]
+            arms = {
+                _text(row.get("arm"), "screen result arm"): row for row in rows
+            }
+            if len(rows) != 3 or set(arms) != expected_arms:
+                raise ValueError("screen receipt requires every arm exactly once per case")
+            roles = {
+                _text(row.get("role"), "screen result role") for row in rows
+            }
+            if len(roles) != 1:
+                raise ValueError("screen receipt case arms must share one role")
+            try:
+                role = ModuleRetestRole(next(iter(roles)))
+            except ValueError as exc:
+                raise ValueError("screen receipt contains an unknown case role") from exc
+
+            scored: dict[str, Decimal] = {}
+            for arm, row in arms.items():
+                _validated_sha256(
+                    row.get("dispatch_sha256"),
+                    "screen result dispatch_sha256",
+                )
+                try:
+                    score = Decimal(str(row.get("rubric_score")))
+                except (InvalidOperation, ValueError) as exc:
+                    raise ValueError("screen receipt rubric score must be numeric") from exc
+                if not score.is_finite() or not Decimal("0") <= score <= Decimal("100"):
+                    raise ValueError(
+                        "screen receipt rubric score must be between zero and 100"
+                    )
+                output_text = _text(row.get("output_text"), "screen result output_text")
+                output_hash = _validated_sha256(
+                    row.get("output_sha256"),
+                    "screen result output_sha256",
+                )
+                if hashlib.sha256(output_text.encode("utf-8")).hexdigest() != output_hash:
+                    raise ValueError("screen receipt output hash mismatch")
+                scored[arm] = score
+
+            treatment = arms[ModuleRetestArm.TREATMENT.value]
+            critical_errors = treatment.get("critical_error_codes")
+            if not isinstance(critical_errors, list):
+                raise ValueError("screen receipt critical error codes must be a list")
+            normalized_errors = tuple(
+                _text(code, "screen result critical error code")
+                for code in critical_errors
+            )
+            if len(normalized_errors) != len(set(normalized_errors)):
+                raise ValueError("screen receipt critical error codes must be unique")
+            flag_names = (
+                "safe_countercase_pass",
+                "critical_trap_pass",
+                "specialist_checks_pass",
+            )
+            if any(not isinstance(treatment.get(name), bool) for name in flag_names):
+                raise ValueError("screen receipt treatment checks must be boolean")
+            common = {
+                "module_id": module_id,
+                "case_id": case_id,
+                "role": role,
+                "treatment_score": scored[ModuleRetestArm.TREATMENT.value],
+                "critical_regression": bool(normalized_errors),
+                "safe_countercase_pass": treatment["safe_countercase_pass"],
+                "critical_trap_pass": treatment["critical_trap_pass"],
+                "specialist_checks_pass": treatment["specialist_checks_pass"],
+            }
+            plain_scores.append(
+                ModulePairScore(
+                    **common,
+                    control_score=scored[ModuleRetestArm.CONTROL.value],
+                )
+            )
+            placebo_scores.append(
+                ModulePairScore(
+                    **common,
+                    control_score=scored[ModuleRetestArm.PLACEBO.value],
+                )
+            )
+        decisions.append(decide_replacement_screen(plain_scores, placebo_scores))
+    return tuple(decisions)
+
+
+def _validated_screen_receipt(
+    receipt: Mapping[str, Any],
+    *,
+    corpus_sha256: str,
+    rubric_sha256: str,
+    model_identity: Mapping[str, str],
+) -> tuple[str, tuple[ReplacementScreenDecision, ...]]:
+    """Validate the actual SCREEN receipt before opening confirmation work."""
+
+    if not isinstance(receipt, Mapping):
+        raise ValueError("screen receipt must be a mapping")
+    if receipt.get("schema_version") != _BLINDED_RECEIPT_SCHEMA:
+        raise ValueError("screen receipt schema mismatch")
+    receipt_hash = _validated_sha256(
+        receipt.get("receipt_sha256"),
+        "screen receipt SHA-256",
+    )
+    unhashed_receipt = dict(receipt)
+    unhashed_receipt.pop("receipt_sha256", None)
+    observed_hash = hashlib.sha256(_canonical_bytes(unhashed_receipt)).hexdigest()
+    if observed_hash != receipt_hash:
+        raise ValueError("screen receipt hash mismatch")
+    if receipt.get("phase") != "SCREEN":
+        raise ValueError("screen receipt must record the SCREEN phase")
+    if receipt.get("screen_receipt_sha256") is not None:
+        raise ValueError("screen receipt cannot depend on an earlier screen receipt")
+    if receipt.get("corpus_sha256") != corpus_sha256:
+        raise ValueError("screen receipt corpus hash mismatch")
+    if receipt.get("rubric_sha256") != rubric_sha256:
+        raise ValueError("screen receipt rubric hash mismatch")
+    if receipt.get("model_identity") != dict(model_identity):
+        raise ValueError("screen receipt model identity mismatch")
+
+    results = receipt.get("results")
+    if not isinstance(results, list) or len(results) != 27:
+        raise ValueError("screen receipt must contain exactly 27 results")
+    if receipt.get("result_count") != len(results):
+        raise ValueError("screen receipt result count mismatch")
+    if any(
+        not isinstance(result, Mapping) or result.get("phase") != "SCREEN"
+        for result in results
+    ):
+        raise ValueError("screen receipt contains a non-SCREEN result")
+    module_counts = {
+        module_id: sum(result.get("module_id") == module_id for result in results)
+        for module_id in REPLACEMENT_MODULE_IDS
+    }
+    if module_counts != {module_id: 9 for module_id in REPLACEMENT_MODULE_IDS}:
+        raise ValueError("screen receipt does not cover every module exactly")
+
+    authority = receipt.get("authority")
+    if not isinstance(authority, Mapping) or not authority:
+        raise ValueError("screen receipt authority map is missing")
+    if any(value is not False for value in authority.values()):
+        raise ValueError("screen receipt cannot grant authority")
+    return receipt_hash, _screen_decisions_from_receipt(results)
+
+
 def _blinded_placebo_context(target_bytes: int) -> dict[str, str]:
     """Build an inert context packet with the same public shape and byte length."""
 
@@ -502,6 +836,9 @@ def build_replacement_benchmark_manifest(
     rubric_sha256: str,
     run_nonce: str,
     model_identity: Mapping[str, str],
+    phase: str,
+    screen_decisions: Sequence[ReplacementScreenDecision] = (),
+    screen_receipt: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if len(cases) != 18:
         raise ValueError("replacement benchmark manifest requires 18 frozen cases")
@@ -520,8 +857,63 @@ def build_replacement_benchmark_manifest(
         for field in required_model_fields
     }
     normalized_run_nonce = _text(run_nonce, "run_nonce")
+    normalized_phase = _text(phase, "phase").upper()
+    if normalized_phase not in {"SCREEN", "CONFIRM", "ALL"}:
+        raise ValueError("phase must be SCREEN, CONFIRM, or ALL")
+    normalized_corpus_sha256 = _validated_sha256(corpus_sha256, "corpus_sha256")
+    normalized_rubric_sha256 = _validated_sha256(rubric_sha256, "rubric_sha256")
+    decisions = tuple(screen_decisions)
+    normalized_screen_receipt: str | None = None
+    if normalized_phase == "CONFIRM":
+        if screen_receipt is None:
+            raise ValueError("confirmation requires the actual validated screen receipt")
+        normalized_screen_receipt, receipt_decisions = _validated_screen_receipt(
+            screen_receipt,
+            corpus_sha256=normalized_corpus_sha256,
+            rubric_sha256=normalized_rubric_sha256,
+            model_identity=normalized_model,
+        )
+        if any(not isinstance(decision, ReplacementScreenDecision) for decision in decisions):
+            raise TypeError("screen decisions must be ReplacementScreenDecision values")
+        if len(decisions) != len(REPLACEMENT_MODULE_IDS):
+            raise ValueError("confirmation requires one screen decision per module")
+        decision_modules = tuple(decision.module_id for decision in decisions)
+        if set(decision_modules) != set(REPLACEMENT_MODULE_IDS) or len(
+            decision_modules
+        ) != len(set(decision_modules)):
+            raise ValueError("screen decisions must cover every module exactly once")
+        if any(decision.state not in {"PROCEED", "STOP"} for decision in decisions):
+            raise ValueError("screen decisions must be PROCEED or STOP")
+        decisions_by_module = {decision.module_id: decision for decision in decisions}
+        receipt_decisions_by_module = {
+            decision.module_id: decision for decision in receipt_decisions
+        }
+        if decisions_by_module != receipt_decisions_by_module:
+            raise ValueError("screen decisions do not match the validated screen receipt")
+        eligible_modules = {
+            decision.module_id
+            for decision in receipt_decisions
+            if decision.state == "PROCEED"
+        }
+        if not eligible_modules:
+            raise ValueError("confirmation cannot run because no module passed screening")
+        selected_cases = tuple(
+            case
+            for case in cases
+            if case.phase == "CONFIRM" and case.module_id in eligible_modules
+        )
+    else:
+        if decisions or screen_receipt is not None:
+            raise ValueError(
+                "screen decisions and screen receipt are valid only for confirmation"
+            )
+        selected_cases = tuple(
+            case
+            for case in cases
+            if normalized_phase == "ALL" or case.phase == normalized_phase
+        )
     requests = []
-    for case in cases:
+    for case in selected_cases:
         for arm in ModuleRetestArm:
             request = prepare_replacement_benchmark_request(
                 case,
@@ -539,6 +931,8 @@ def build_replacement_benchmark_manifest(
                     "prompt_payload": dict(request.prompt_payload),
                     "common_input_sha256": request.common_input_sha256,
                     "prompt_sha256": request.prompt_sha256,
+                    "dispatch_text": request.dispatch_text,
+                    "dispatch_sha256": request.dispatch_sha256,
                     "nonce": request.nonce,
                     "packet_sha256": request.packet_sha256,
                     "packet_byte_count": request.packet_byte_count,
@@ -547,16 +941,58 @@ def build_replacement_benchmark_manifest(
             )
     manifest: dict[str, Any] = {
         "schema_version": _BLINDED_MANIFEST_SCHEMA,
+        "phase": normalized_phase,
         "run_nonce": normalized_run_nonce,
-        "corpus_sha256": _validated_sha256(corpus_sha256, "corpus_sha256"),
-        "rubric_sha256": _validated_sha256(rubric_sha256, "rubric_sha256"),
+        "corpus_sha256": normalized_corpus_sha256,
+        "rubric_sha256": normalized_rubric_sha256,
         "model_identity": normalized_model,
         "request_count": len(requests),
         "requests": requests,
+        "screen_receipt_sha256": normalized_screen_receipt,
+        "screen_decisions": [
+            {
+                "module_id": decision.module_id,
+                "state": decision.state,
+                "plain_control_wins": decision.plain_control_wins,
+                "placebo_wins": decision.placebo_wins,
+                "reasons": list(decision.reasons),
+            }
+            for decision in decisions
+        ],
         "old_frozen_requests_resumed": False,
         "admission_policy": {
             "screen": "at least 2/3 wins against each control and zero critical regressions",
             "final": "at least 4/6 wins and median paired gain >= 5 against each control, zero critical errors",
+        },
+        "execution_gate": {
+            "screen_first": True,
+            "confirmation_requires_screen_state": "PROCEED",
+            "confirmation_requires_screen_receipt": True,
+        },
+        "rollback_policy": {
+            "runtime_reachable_during_benchmark": False,
+            "post_admission_triggers": [
+                "critical regression",
+                "registry hash drift",
+                "reproducibility failure",
+                "authority-boundary violation",
+            ],
+            "action": (
+                "Make the candidate runtime-unreachable and restore the last "
+                "validated registry state while preserving source and evidence bytes."
+            ),
+            "source_deletion_authorized": False,
+            "formula_mutation_authorized": False,
+            "release_authority": False,
+            "post_restore_verification_required": True,
+            "post_restore_verification": [
+                "registry hash equals the last validated registry hash",
+                "candidate import paths remain runtime-unreachable",
+                "authority flags remain false",
+                "focused freeze and ensemble tests pass",
+            ],
+            "rollback_failure_state": "HOLD_RUNTIME_UNREACHABLE",
+            "runtime_reenable_requires_fresh_admission": True,
         },
         "authority": {
             "formula": False,
@@ -615,8 +1051,11 @@ def build_replacement_benchmark_receipt(
             {
                 "case_id": request["case_id"],
                 "module_id": request["module_id"],
+                "phase": request["phase"],
+                "role": request["role"],
                 "arm": request["arm"],
                 "prompt_sha256": request["prompt_sha256"],
+                "dispatch_sha256": request["dispatch_sha256"],
                 "common_input_sha256": request["common_input_sha256"],
             }
         )
@@ -628,8 +1067,11 @@ def build_replacement_benchmark_receipt(
         "corpus_sha256": manifest["corpus_sha256"],
         "rubric_sha256": manifest["rubric_sha256"],
         "model_identity": dict(manifest["model_identity"]),
+        "phase": manifest["phase"],
+        "screen_receipt_sha256": manifest["screen_receipt_sha256"],
         "result_count": len(results),
         "results": results,
+        "rollback_policy": dict(manifest["rollback_policy"]),
         "authority": dict(manifest["authority"]),
     }
     receipt["receipt_sha256"] = hashlib.sha256(_canonical_bytes(receipt)).hexdigest()
@@ -683,7 +1125,10 @@ def prepare_replacement_benchmark_request(
         encoded = _canonical_bytes(packet)
         packet_hash = hashlib.sha256(encoded).hexdigest()
         packet_bytes = len(encoded)
-    prompt_hash = hashlib.sha256(_canonical_bytes(prompt)).hexdigest()
+    prompt_bytes = _canonical_bytes(prompt)
+    prompt_hash = hashlib.sha256(prompt_bytes).hexdigest()
+    dispatch_text = f"{_DISPATCH_PREAMBLE}\n\n{prompt_bytes.decode('utf-8')}"
+    dispatch_hash = hashlib.sha256(dispatch_text.encode("utf-8")).hexdigest()
     nonce_material = f"{case.case_id}|{arm.value}|{prompt_hash}"
     if normalized_run_nonce is not None:
         nonce_material = f"{normalized_run_nonce}|{nonce_material}"
@@ -698,6 +1143,8 @@ def prepare_replacement_benchmark_request(
         prompt_payload=MappingProxyType(prompt),
         common_input_sha256=common_hash,
         prompt_sha256=prompt_hash,
+        dispatch_text=dispatch_text,
+        dispatch_sha256=dispatch_hash,
         nonce=nonce,
         packet_sha256=packet_hash,
         packet_byte_count=packet_bytes,

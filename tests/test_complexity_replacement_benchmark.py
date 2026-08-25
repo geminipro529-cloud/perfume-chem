@@ -17,6 +17,7 @@ from engine.perception.complexity_replacement_benchmark import (
     ReplacementBenchmarkCase,
     ReplacementModulePacket,
     ReplacementScoredOutput,
+    ReplacementScreenDecision,
     build_replacement_benchmark_manifest,
     build_replacement_benchmark_receipt,
     decide_replacement_retention,
@@ -288,6 +289,7 @@ def test_fresh_corpus_has_three_screen_and_three_confirmation_cases_per_module()
         corpus_sha256=corpus_sha256,
         rubric_sha256="f" * 64,
         run_nonce="replacement-xhigh-test-run",
+        phase="ALL",
         model_identity={
             "provider": "OpenAI",
             "product": "ChatGPT",
@@ -300,7 +302,7 @@ def test_fresh_corpus_has_three_screen_and_three_confirmation_cases_per_module()
     assert len(manifest["requests"]) == 54
     assert manifest["run_nonce"] == "replacement-xhigh-test-run"
     assert manifest["rubric_sha256"] == "f" * 64
-    assert manifest["schema_version"].endswith("_v3_blinded")
+    assert manifest["schema_version"].endswith("_v5_blinded")
     assert manifest["old_frozen_requests_resumed"] is False
     assert manifest["authority"] == {
         "formula": False,
@@ -312,6 +314,18 @@ def test_fresh_corpus_has_three_screen_and_three_confirmation_cases_per_module()
         "publication": False,
         "release": False,
     }
+    for request in manifest["requests"]:
+        canonical_payload = json.dumps(
+            request["prompt_payload"],
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+        )
+        assert request["dispatch_text"].endswith(canonical_payload)
+        assert hashlib.sha256(request["dispatch_text"].encode("utf-8")).hexdigest() == (
+            request["dispatch_sha256"]
+        )
+        assert f'"arm":"{request["arm"]}"' not in request["dispatch_text"]
 
     outputs = tuple(
         ReplacementScoredOutput(
@@ -332,9 +346,192 @@ def test_fresh_corpus_has_three_screen_and_three_confirmation_cases_per_module()
         scored_outputs=outputs,
     )
     assert receipt["result_count"] == 54
-    assert receipt["schema_version"].endswith("_v3_blinded")
+    assert receipt["schema_version"].endswith("_v5_blinded")
+    assert receipt["phase"] == "ALL"
+    assert receipt["rollback_policy"] == manifest["rollback_policy"]
     assert receipt["rubric_sha256"] == manifest["rubric_sha256"]
     assert receipt["manifest_sha256"] == manifest["manifest_sha256"]
     assert receipt["results"][0]["output_sha256"]
+    assert receipt["results"][0]["dispatch_sha256"] == manifest["requests"][0][
+        "dispatch_sha256"
+    ]
     assert receipt["results"][0]["rubric_score"] == "90"
     assert receipt["authority"] == manifest["authority"]
+
+
+def test_live_manifest_is_screen_first_and_confirmation_is_receipt_gated() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_retest_cases_v2.json"
+    cases = load_replacement_benchmark_cases(corpus_path)
+    common = {
+        "cases": cases,
+        "corpus_sha256": hashlib.sha256(corpus_path.read_bytes()).hexdigest(),
+        "rubric_sha256": "f" * 64,
+        "run_nonce": "replacement-xhigh-screen-first",
+        "model_identity": {
+            "provider": "OpenAI",
+            "product": "ChatGPT",
+            "model": "test-xhigh-snapshot",
+            "reasoning_effort": "Extra High",
+            "surface": "Work",
+            "context": "FRESH_PROJECTLESS_CONVERSATION",
+        },
+    }
+
+    screen = build_replacement_benchmark_manifest(**common, phase="SCREEN")
+
+    assert screen["phase"] == "SCREEN"
+    assert screen["request_count"] == 27
+    assert {request["phase"] for request in screen["requests"]} == {"SCREEN"}
+    assert screen["rollback_policy"]["source_deletion_authorized"] is False
+    assert screen["rollback_policy"]["runtime_reachable_during_benchmark"] is False
+    assert screen["rollback_policy"]["post_restore_verification_required"] is True
+    assert screen["rollback_policy"]["rollback_failure_state"] == (
+        "HOLD_RUNTIME_UNREACHABLE"
+    )
+
+    screen_outputs = tuple(
+        ReplacementScoredOutput(
+            request_id=request["request_id"],
+            output_text=f"Frozen screen response for {request['request_id']}",
+            rubric_score=(
+                Decimal("90")
+                if request["arm"] == "TREATMENT"
+                else Decimal("80")
+                if request["module_id"] == "temporal_sensory_ledger"
+                and request["role"] != "CRITICAL_TRAP"
+                else Decimal("90")
+            ),
+            evaluator_id="blind-rubric-v1",
+            critical_error_codes=(
+                ("SYNTHETIC_CRITICAL_REGRESSION",)
+                if request["arm"] == "TREATMENT"
+                and request["module_id"] != "temporal_sensory_ledger"
+                else ()
+            ),
+            safe_countercase_pass=True,
+            critical_trap_pass=True,
+            specialist_checks_pass=True,
+        )
+        for request in screen["requests"]
+    )
+    screen_receipt = build_replacement_benchmark_receipt(
+        run_id="replacement-xhigh-screen-first",
+        manifest=screen,
+        scored_outputs=screen_outputs,
+    )
+
+    decisions = tuple(
+        ReplacementScreenDecision(
+            module_id=module_id,
+            state="PROCEED" if module_id == "temporal_sensory_ledger" else "STOP",
+            plain_control_wins=(
+                2 if module_id == "temporal_sensory_ledger" else 0
+            ),
+            placebo_wins=(2 if module_id == "temporal_sensory_ledger" else 0),
+            reasons=(
+                ()
+                if module_id == "temporal_sensory_ledger"
+                else (
+                    "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+                    "PLACEBO_TWO_WINS_REQUIRED",
+                    "CRITICAL_REGRESSION",
+                )
+            ),
+        )
+        for module_id in REPLACEMENT_MODULE_IDS
+    )
+    confirmation = build_replacement_benchmark_manifest(
+        **common,
+        phase="CONFIRM",
+        screen_decisions=decisions,
+        screen_receipt=screen_receipt,
+    )
+
+    assert confirmation["phase"] == "CONFIRM"
+    assert confirmation["request_count"] == 9
+    assert {request["module_id"] for request in confirmation["requests"]} == {
+        "temporal_sensory_ledger"
+    }
+    assert {request["phase"] for request in confirmation["requests"]} == {"CONFIRM"}
+    assert confirmation["screen_receipt_sha256"] == screen_receipt["receipt_sha256"]
+
+    fabricated_decisions = tuple(
+        ReplacementScreenDecision(
+            module_id=decision.module_id,
+            state="PROCEED",
+            plain_control_wins=2,
+            placebo_wins=2,
+            reasons=(),
+        )
+        if decision.module_id == "architectural_delta"
+        else decision
+        for decision in decisions
+    )
+    with pytest.raises(ValueError, match="screen decisions do not match"):
+        build_replacement_benchmark_manifest(
+            **common,
+            phase="CONFIRM",
+            screen_decisions=fabricated_decisions,
+            screen_receipt=screen_receipt,
+        )
+
+    with pytest.raises(ValueError, match="screen receipt"):
+        build_replacement_benchmark_manifest(
+            **common,
+            phase="CONFIRM",
+            screen_decisions=decisions,
+        )
+
+    tampered = dict(screen_receipt)
+    tampered["result_count"] = 26
+    with pytest.raises(ValueError, match="screen receipt hash"):
+        build_replacement_benchmark_manifest(
+            **common,
+            phase="CONFIRM",
+            screen_decisions=decisions,
+            screen_receipt=tampered,
+        )
+
+
+def test_screen_decision_cannot_claim_proceed_with_insufficient_wins() -> None:
+    with pytest.raises(ValueError, match="PROCEED"):
+        ReplacementScreenDecision(
+            module_id="architectural_delta",
+            state="PROCEED",
+            plain_control_wins=1,
+            placebo_wins=3,
+            reasons=(),
+        )
+
+
+def test_v3_corpus_refreshes_sensory_safety_and_reliability_without_mutating_v2() -> None:
+    v2_path = FIXTURES / "complexity_replacement_retest_cases_v2.json"
+    v2_hash = hashlib.sha256(v2_path.read_bytes()).hexdigest()
+    assert v2_hash == (
+        FIXTURES / "complexity_replacement_retest_cases_v2.sha256"
+    ).read_text(encoding="utf-8").split()[0]
+
+    v3_path = FIXTURES / "complexity_replacement_retest_cases_v3.json"
+    v3_hash = hashlib.sha256(v3_path.read_bytes()).hexdigest()
+    assert v3_hash == (
+        FIXTURES / "complexity_replacement_retest_cases_v3.sha256"
+    ).read_text(encoding="utf-8").split()[0]
+    cases = load_replacement_benchmark_cases(v3_path)
+
+    positive = next(case for case in cases if case.case_id == "RPL-TEM-S01")
+    safety = next(case for case in cases if case.case_id == "RPL-TEM-C03")
+    assert positive.evidence_payload["repeatability"] == {
+        "required": True,
+        "maximum_within_assessor_repeat_spread": 1.0,
+    }
+    assert safety.expected_decision.startswith("HOLD")
+    assert safety.critical_error == "ADVERSE_SENSORY_EVENT_IGNORED"
+    assert safety.evidence_payload["safety_events"][0]["event_code"] == "HEADACHE"
+    assert any(
+        "safety incident" in rule.casefold()
+        for rule in safety.module_packet.operating_contract
+    )
+    assert any(
+        "repeatability" in rule.casefold()
+        for rule in safety.module_packet.operating_contract
+    )
