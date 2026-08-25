@@ -266,6 +266,13 @@ class TemporalEvidenceState(str, Enum):
     HOLD = "HOLD"
 
 
+class AssessorReliabilityState(str, Enum):
+    NOT_REQUIRED = "NOT_REQUIRED"
+    NOT_EVALUABLE = "NOT_EVALUABLE"
+    PASS = "PASS"
+    HOLD = "HOLD"
+
+
 def _required_text(value: object, field_name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field_name} must be nonblank text")
@@ -369,6 +376,57 @@ class TemporalObservationCell:
 
 
 @dataclass(frozen=True, slots=True)
+class SensorySafetyEvent:
+    """One assessor safety incident that stops evidentiary promotion."""
+
+    event_id: str
+    protocol_id: str
+    assessor_id: str
+    sample_id: str
+    time_seconds: float
+    event_code: str
+    note: str
+
+    def __post_init__(self) -> None:
+        for name in (
+            "event_id",
+            "protocol_id",
+            "assessor_id",
+            "sample_id",
+            "event_code",
+            "note",
+        ):
+            object.__setattr__(self, name, _required_text(getattr(self, name), name))
+        if not isfinite(self.time_seconds) or self.time_seconds < 0:
+            raise ValueError("time_seconds must be finite and nonnegative")
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "event_id": self.event_id,
+            "protocol_id": self.protocol_id,
+            "assessor_id": self.assessor_id,
+            "sample_id": self.sample_id,
+            "time_seconds": self.time_seconds,
+            "event_code": self.event_code,
+            "note": self.note,
+        }
+
+    @classmethod
+    def from_dict(cls, value: Mapping[str, Any]) -> SensorySafetyEvent:
+        if not isinstance(value, Mapping):
+            raise TypeError("sensory safety event context must be a mapping")
+        return cls(
+            event_id=str(value["event_id"]),
+            protocol_id=str(value["protocol_id"]),
+            assessor_id=str(value["assessor_id"]),
+            sample_id=str(value["sample_id"]),
+            time_seconds=float(value["time_seconds"]),
+            event_code=str(value["event_code"]),
+            note=str(value["note"]),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class SensoryProtocolScope:
     protocol_id: str
     sample_ids: tuple[str, ...]
@@ -380,6 +438,8 @@ class SensoryProtocolScope:
     within_sniff: bool = False
     within_sniff_apparatus_qualified: bool = False
     within_sniff_timing_protocol_qualified: bool = False
+    require_repeatability: bool = False
+    maximum_within_assessor_repeat_spread: float | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -409,9 +469,15 @@ class SensoryProtocolScope:
             "within_sniff",
             "within_sniff_apparatus_qualified",
             "within_sniff_timing_protocol_qualified",
+            "require_repeatability",
         ):
             if not isinstance(getattr(self, name), bool):
                 raise TypeError(f"{name} must be boolean")
+        threshold = self.maximum_within_assessor_repeat_spread
+        if threshold is not None and (not isfinite(threshold) or threshold < 0):
+            raise ValueError(
+                "maximum_within_assessor_repeat_spread must be finite and nonnegative"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -419,6 +485,7 @@ class TemporalEvidenceRequest:
     scope: SensoryProtocolScope
     schedule: PresentationSchedule
     cells: tuple[TemporalObservationCell, ...]
+    safety_events: tuple[SensorySafetyEvent, ...] = ()
 
     def __post_init__(self) -> None:
         if not isinstance(self.scope, SensoryProtocolScope):
@@ -429,6 +496,13 @@ class TemporalEvidenceRequest:
         if any(not isinstance(cell, TemporalObservationCell) for cell in cells):
             raise TypeError("cells must contain TemporalObservationCell values")
         object.__setattr__(self, "cells", cells)
+        safety_events = tuple(self.safety_events)
+        if any(not isinstance(event, SensorySafetyEvent) for event in safety_events):
+            raise TypeError("safety_events must contain SensorySafetyEvent values")
+        event_ids = tuple(event.event_id for event in safety_events)
+        if len(event_ids) != len(set(event_ids)):
+            raise ValueError("sensory safety event IDs must be unique")
+        object.__setattr__(self, "safety_events", safety_events)
 
 
 @dataclass(frozen=True, slots=True)
@@ -453,6 +527,13 @@ class TemporalTransition:
 
 
 @dataclass(frozen=True, slots=True)
+class AssessorReliabilitySummary:
+    assessor_id: str
+    observed_repeat_groups: int
+    maximum_repeat_spread: float | None
+
+
+@dataclass(frozen=True, slots=True)
 class TemporalEvidenceResult:
     state: TemporalEvidenceState
     protocol_id: str
@@ -466,6 +547,10 @@ class TemporalEvidenceResult:
     order_balance_state: OrderBalanceState
     blockers: tuple[str, ...]
     next_discriminator: str | None
+    safety_events: tuple[SensorySafetyEvent, ...]
+    safety_stop_triggered: bool
+    assessor_reliability_state: AssessorReliabilityState
+    assessor_reliability: tuple[AssessorReliabilitySummary, ...]
     interpolated_cell_count: int = field(default=0, init=False)
     physical_execution_authorized: bool = field(default=False, init=False)
     sensory_authority: bool = field(default=False, init=False)
@@ -523,6 +608,58 @@ def analyze_temporal_evidence(
             blockers.append("within-sniff observations require qualified timing apparatus")
         if not scope.within_sniff_timing_protocol_qualified:
             blockers.append("within-sniff observations require a qualified timing protocol")
+    reliability = _assessor_reliability(scope, request.cells, expected_set)
+    if not scope.require_repeatability:
+        reliability_state = AssessorReliabilityState.NOT_REQUIRED
+    elif len(scope.repeat_ids) < 2:
+        reliability_state = AssessorReliabilityState.NOT_EVALUABLE
+        blockers.append("repeatability requires at least two declared repeats")
+    elif scope.maximum_within_assessor_repeat_spread is None:
+        reliability_state = AssessorReliabilityState.NOT_EVALUABLE
+        blockers.append("repeatability requires a declared maximum assessor spread")
+    elif missing or duplicates:
+        reliability_state = AssessorReliabilityState.NOT_EVALUABLE
+    elif any(
+        summary.maximum_repeat_spread is None
+        for summary in reliability
+    ):
+        reliability_state = AssessorReliabilityState.NOT_EVALUABLE
+        blockers.append("repeatability evidence is not evaluable for every assessor")
+    elif any(
+        (summary.maximum_repeat_spread or 0)
+        > scope.maximum_within_assessor_repeat_spread
+        for summary in reliability
+    ):
+        reliability_state = AssessorReliabilityState.HOLD
+        for summary in reliability:
+            if (
+                summary.maximum_repeat_spread is not None
+                and summary.maximum_repeat_spread
+                > scope.maximum_within_assessor_repeat_spread
+            ):
+                blockers.append(
+                    f"{summary.assessor_id} exceeds the declared repeatability "
+                    f"threshold: {summary.maximum_repeat_spread:g} > "
+                    f"{scope.maximum_within_assessor_repeat_spread:g}"
+                )
+    else:
+        reliability_state = AssessorReliabilityState.PASS
+    for event in request.safety_events:
+        if event.protocol_id != scope.protocol_id:
+            blockers.append(
+                f"sensory safety event {event.event_id} does not match protocol scope"
+            )
+        if event.assessor_id not in scope.assessor_ids:
+            blockers.append(
+                f"sensory safety event {event.event_id} names an unknown assessor"
+            )
+        if event.sample_id not in scope.sample_ids:
+            blockers.append(
+                f"sensory safety event {event.event_id} names an unknown sample"
+            )
+        blockers.append(
+            f"sensory safety stop triggered: {event.event_code} ({event.event_id})"
+        )
     state = (
         TemporalEvidenceState.HOLD
         if blockers
@@ -561,7 +698,44 @@ def analyze_temporal_evidence(
         order_balance_state=order.state,
         blockers=tuple(blockers),
         next_discriminator=next_discriminator,
+        safety_events=request.safety_events,
+        safety_stop_triggered=bool(request.safety_events),
+        assessor_reliability_state=reliability_state,
+        assessor_reliability=reliability,
     )
+
+
+def _assessor_reliability(
+    scope: SensoryProtocolScope,
+    cells: tuple[TemporalObservationCell, ...],
+    expected: set[ObservationCellKey],
+) -> tuple[AssessorReliabilitySummary, ...]:
+    grouped: dict[tuple[str, str, float, str], list[float]] = defaultdict(list)
+    for cell in cells:
+        if cell.key in expected:
+            grouped[
+                (
+                    cell.key.assessor_id,
+                    cell.key.sample_id,
+                    cell.key.time_seconds,
+                    cell.key.endpoint_id,
+                )
+            ].append(cell.value)
+    summaries: list[AssessorReliabilitySummary] = []
+    for assessor_id in scope.assessor_ids:
+        spreads = tuple(
+            max(values) - min(values)
+            for key, values in grouped.items()
+            if key[0] == assessor_id and len(values) >= 2
+        )
+        summaries.append(
+            AssessorReliabilitySummary(
+                assessor_id=assessor_id,
+                observed_repeat_groups=len(spreads),
+                maximum_repeat_spread=max(spreads) if spreads else None,
+            )
+        )
+    return tuple(summaries)
 
 
 def _endpoint_summary(
@@ -832,9 +1006,12 @@ class SensoryTrial:
 
 __all__ = [
     "TIME_POINTS",
+    "AssessorReliabilityState",
+    "AssessorReliabilitySummary",
     "ObservationCellKey",
     "SensorySample",
     "SensoryObservation",
+    "SensorySafetyEvent",
     "SensoryProtocolScope",
     "SensoryTrial",
     "TemporalEndpointSummary",

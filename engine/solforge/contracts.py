@@ -51,6 +51,8 @@ class _FrozenArray(tuple):
 
 
 def _freeze_json(value: object) -> object:
+    if isinstance(value, (_FrozenObject, _FrozenArray)):
+        return value
     if isinstance(value, Mapping):
         pairs: list[tuple[str, object]] = []
         for key, item in value.items():

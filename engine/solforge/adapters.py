@@ -5,8 +5,16 @@ from __future__ import annotations
 import hashlib
 import itertools
 from pathlib import Path
+from typing import Any
 
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
+from engine.hedonic_evidence import (
+    HedonicEvidenceRequest,
+    HedonicEvidenceState,
+    HedonicScope,
+    bind_preference_fit_evidence,
+    evaluate_hedonic_evidence,
+)
 from engine.perception.architectural_delta import (
     ArchitecturalDeltaCandidate,
     ArchitecturalDeltaFamily,
@@ -16,14 +24,33 @@ from engine.perception.architectural_delta import (
     _load_execution_inventory_catalog,
     evaluate_architectural_delta,
 )
+from engine.preference import (
+    PairwisePreference,
+    PreferenceFitRequest,
+    PreferenceFitStatus,
+    fit_preference_model,
+)
+from engine.sensory.ledger import (
+    SensoryProtocolScope,
+    SensorySafetyEvent,
+    TemporalEvidenceRequest,
+    TemporalEvidenceResult,
+    TemporalEvidenceState,
+    TemporalObservationCell,
+    analyze_temporal_evidence,
+)
+from engine.sensory.order_balance import PresentationSchedule
 from engine.solforge.contracts import (
     CompilationState,
     CompiledArmV1,
     CompiledExperimentV1,
+    CriterionFitPacketV1,
+    ExecutionReceiptV1,
     SolForgeCaseState,
     SolForgeCaseV1,
     SolHypothesisSetV1,
     SolHypothesisV1,
+    TemporalEvidencePacketV1,
 )
 from engine.solforge.hypotheses import validate_hypothesis_set
 
@@ -387,4 +414,321 @@ def export_backend_lab_payloads(experiment: CompiledExperimentV1) -> dict[str, o
     }
 
 
-__all__ = ["compile_architectural_delta", "export_backend_lab_payloads"]
+def _execution_context(execution: ExecutionReceiptV1) -> dict[str, Any]:
+    context = execution.as_dict()["execution_context"]
+    if not isinstance(context, dict):
+        raise ValueError("execution_context must be a JSON object")
+    return context
+
+
+def _schedule_from_dict(value: object) -> PresentationSchedule:
+    if not isinstance(value, dict):
+        raise ValueError("execution schedule must be an object")
+    return PresentationSchedule(
+        labels=tuple(value["labels"]),
+        sequences=tuple(tuple(sequence) for sequence in value["sequences"]),
+        method=str(value.get("method") or "WILLIAMS_FIRST_ORDER_BALANCED"),
+    )
+
+
+def _scope_from_dict(value: object) -> SensoryProtocolScope:
+    if not isinstance(value, dict):
+        raise ValueError("protocol_scope must be an object")
+    return SensoryProtocolScope(
+        protocol_id=str(value["protocol_id"]),
+        sample_ids=tuple(value["sample_ids"]),
+        assessor_ids=tuple(value["assessor_ids"]),
+        repeat_ids=tuple(value["repeat_ids"]),
+        timepoints_seconds=tuple(value["timepoints_seconds"]),
+        endpoint_ids=tuple(value["endpoint_ids"]),
+        schedule_sha256=str(value["schedule_sha256"]),
+        within_sniff=bool(value.get("within_sniff", False)),
+        within_sniff_apparatus_qualified=bool(
+            value.get("within_sniff_apparatus_qualified", False)
+        ),
+        within_sniff_timing_protocol_qualified=bool(
+            value.get("within_sniff_timing_protocol_qualified", False)
+        ),
+        require_repeatability=bool(value.get("require_repeatability", False)),
+        maximum_within_assessor_repeat_spread=value.get(
+            "maximum_within_assessor_repeat_spread"
+        ),
+    )
+
+
+def analyze_execution_receipt(
+    execution: ExecutionReceiptV1,
+) -> TemporalEvidenceResult:
+    """Analyze only observation cells explicitly bound into an execution receipt."""
+
+    context = _execution_context(execution)
+    scope = _scope_from_dict(context.get("protocol_scope"))
+    schedule = _schedule_from_dict(context.get("schedule"))
+    if set(scope.sample_ids) != {sample_id for sample_id, _ in execution.sample_sha256}:
+        raise ValueError("protocol samples do not match the execution receipt")
+    cells_raw = context.get("observations", [])
+    safety_raw = context.get("safety_events", [])
+    if not isinstance(cells_raw, list) or not isinstance(safety_raw, list):
+        raise ValueError("observations and safety_events must be lists")
+    return analyze_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=tuple(TemporalObservationCell.from_dict(item) for item in cells_raw),
+            safety_events=tuple(SensorySafetyEvent.from_dict(item) for item in safety_raw),
+        )
+    )
+
+
+def _cell_text(key: object) -> str:
+    return canonical_json_bytes(
+        {
+            "protocol_id": key.protocol_id,
+            "sample_id": key.sample_id,
+            "assessor_id": key.assessor_id,
+            "repeat_id": key.repeat_id,
+            "time_seconds": key.time_seconds,
+            "endpoint_id": key.endpoint_id,
+        }
+    ).decode("utf-8")
+
+
+def _temporal_payload(result: TemporalEvidenceResult) -> dict[str, object]:
+    return {
+        "state": result.state.value,
+        "protocol_id": result.protocol_id,
+        "schedule_sha256": result.schedule_sha256,
+        "expected_cell_count": result.expected_cell_count,
+        "observed_cell_count": result.observed_cell_count,
+        "missing_cells": [_cell_text(key) for key in result.missing_cells],
+        "duplicate_cells": [_cell_text(key) for key in result.duplicate_cells],
+        "summaries": [
+            {
+                "sample_id": item.sample_id,
+                "endpoint_id": item.endpoint_id,
+                "time_seconds": item.time_seconds,
+                "observed_count": item.observed_count,
+                "median": item.median,
+                "first_quartile": item.first_quartile,
+                "third_quartile": item.third_quartile,
+                "assessor_disagreement": item.assessor_disagreement,
+            }
+            for item in result.summaries
+        ],
+        "transitions": [
+            {
+                "sample_id": item.sample_id,
+                "endpoint_id": item.endpoint_id,
+                "from_time_seconds": item.from_time_seconds,
+                "to_time_seconds": item.to_time_seconds,
+                "median_delta": item.median_delta,
+            }
+            for item in result.transitions
+        ],
+        "order_balance_state": result.order_balance_state.value,
+        "blockers": list(result.blockers),
+        "next_discriminator": result.next_discriminator,
+        "safety_event_ids": [item.event_id for item in result.safety_events],
+        "safety_stop_triggered": result.safety_stop_triggered,
+        "assessor_reliability_state": result.assessor_reliability_state.value,
+    }
+
+
+def build_temporal_packet(
+    execution: ExecutionReceiptV1,
+    result: TemporalEvidenceResult,
+) -> TemporalEvidencePacketV1:
+    """Bind one ledger result to its exact execution parent."""
+
+    state = {
+        TemporalEvidenceState.COMPLETE: "COMPLETE",
+        TemporalEvidenceState.INCOMPLETE: "INSUFFICIENT",
+        TemporalEvidenceState.HOLD: "HOLD",
+    }[result.state]
+    disagreement = {
+        f"{item.sample_id}|{item.endpoint_id}|{item.time_seconds:g}": (
+            item.assessor_disagreement
+        )
+        for item in result.summaries
+    }
+    return TemporalEvidencePacketV1(
+        execution_receipt_sha256=execution.record_sha256,
+        ledger_payload_sha256=sha256_hex(canonical_json_bytes(_temporal_payload(result))),
+        state=state,
+        observed_cell_count=result.observed_cell_count,
+        missing_cells=tuple(_cell_text(key) for key in result.missing_cells),
+        duplicate_cells=tuple(_cell_text(key) for key in result.duplicate_cells),
+        disagreement=disagreement,
+        safety_stop=result.safety_stop_triggered,
+        next_discriminator=result.next_discriminator,
+        test_only=execution.test_only,
+    )
+
+
+def _fit_result_payload(result: object) -> dict[str, object]:
+    return {
+        "status": result.status.value,
+        "validated": result.validated,
+        "utilities": result.utilities,
+        "comparison_count": result.comparison_count,
+        "connected": result.connected,
+        "heldout_accuracy": result.heldout_accuracy,
+        "baseline_accuracy": result.baseline_accuracy,
+        "gate_failures": list(result.gate_failures),
+        "validation_notes": list(result.validation_notes),
+        "criterion_id": result.criterion_id,
+        "utility_intervals": result.utility_intervals,
+        "tie_rate": result.tie_rate,
+        "assessor_heterogeneity": result.assessor_heterogeneity,
+        "order_effect": result.order_effect,
+        "next_comparison": result.next_comparison,
+        "bootstrap_replicates": result.bootstrap_replicates,
+        "bootstrap_seed": result.bootstrap_seed,
+        "bootstrap_method": result.bootstrap_method,
+        "evidence": result.evidence.as_dict(),
+    }
+
+
+def build_criterion_fit_packet(
+    execution: ExecutionReceiptV1,
+    temporal: TemporalEvidencePacketV1,
+    *,
+    criterion: str,
+) -> CriterionFitPacketV1:
+    """Fit exactly one scoped criterion and bind diagnostics to temporal evidence."""
+
+    if temporal.execution_receipt_sha256 != execution.record_sha256:
+        raise ValueError("temporal packet does not bind the execution receipt")
+    criterion = criterion.strip().upper()
+    if criterion not in _CRITERIA:
+        raise ValueError("criterion is not supported")
+    context = _execution_context(execution)
+    comparisons_raw = context.get("comparisons", [])
+    if not isinstance(comparisons_raw, list):
+        raise ValueError("comparisons must be a list")
+    comparisons = tuple(PairwisePreference.from_dict(item) for item in comparisons_raw)
+    training = tuple(
+        comparison
+        for comparison, raw in zip(comparisons, comparisons_raw, strict=True)
+        if raw.get("partition", "training") == "training"
+    )
+    heldout = tuple(
+        comparison
+        for comparison, raw in zip(comparisons, comparisons_raw, strict=True)
+        if raw.get("partition") == "heldout"
+    )
+    config = context.get("preference_fit", {})
+    if not isinstance(config, dict):
+        raise ValueError("preference_fit must be an object")
+    request = PreferenceFitRequest(
+        training=training,
+        heldout=heldout,
+        minimum_comparisons=int(config.get("minimum_comparisons", 10)),
+        minimum_heldout_comparisons=int(
+            config.get("minimum_heldout_comparisons", 5)
+        ),
+        declared_baseline_accuracy=config.get("declared_baseline_accuracy"),
+        criterion_id=criterion,
+        bootstrap_replicates=int(config.get("bootstrap_replicates", 0)),
+        bootstrap_seed=int(config.get("bootstrap_seed", 0)),
+        require_scoped_validation=bool(config.get("require_scoped_validation", True)),
+    )
+    fit = fit_preference_model(request)
+    validation_state = (
+        "WITHHELD"
+        if fit.status is PreferenceFitStatus.WITHHELD
+        else "FAILED_BASELINE"
+        if any("baseline" in note.casefold() for note in fit.validation_notes)
+        else "VALIDATED_EXACT_SCOPE"
+        if fit.validated
+        else "DIAGNOSTIC"
+    )
+    if temporal.state == "HOLD" or temporal.safety_stop:
+        validation_state = "WITHHELD"
+
+    result_hash_payload: object = _fit_result_payload(fit)
+    if criterion == "LIKING" and fit.status is not PreferenceFitStatus.WITHHELD:
+        assessor_ids = tuple(
+            sorted({item.assessor_id for item in comparisons if item.assessor_id is not None})
+        )
+        repeat_map = {
+            str(item["comparison_id"]): str(item.get("repeat_id") or "R1")
+            for item in comparisons_raw
+        }
+        repeat_ids = tuple(sorted(set(repeat_map.values())))
+        timepoints = {item.time_seconds for item in comparisons}
+        if len(timepoints) != 1:
+            validation_state = "INVALID"
+        else:
+            protocol_payload = context.get("protocol_scope", {})
+            protocol_sha256 = sha256_hex(canonical_json_bytes(protocol_payload))
+            receipt = bind_preference_fit_evidence(
+                request,
+                fit,
+                scope=HedonicScope(str(context.get("hedonic_scope", "OWNER"))),
+                formula_build_sha256=str(context["formula_build_sha256"]),
+                sample_sha256=tuple(digest for _, digest in execution.sample_sha256),
+                protocol_sha256=protocol_sha256,
+                assessor_ids=assessor_ids,
+                repeat_ids=repeat_ids,
+                comparison_repeat_ids=repeat_map,
+                time_seconds=float(next(iter(timepoints))),
+                schedule_sha256=analyze_execution_receipt(execution).schedule_sha256,
+            )
+            safety_events = context.get("safety_events", [])
+            hedonic = evaluate_hedonic_evidence(
+                HedonicEvidenceRequest(
+                    criterion_id="LIKING",
+                    scope=receipt.scope,
+                    formula_build_sha256=receipt.formula_build_sha256,
+                    sample_sha256=receipt.sample_sha256,
+                    protocol_sha256=receipt.protocol_sha256,
+                    assessor_ids=receipt.assessor_ids,
+                    repeat_ids=receipt.repeat_ids,
+                    time_seconds=receipt.time_seconds,
+                    schedule_sha256=receipt.schedule_sha256,
+                    fit_receipt=receipt,
+                    safety_event_ids=tuple(
+                        str(item.get("event_id")) for item in safety_events
+                    ),
+                )
+            )
+            validation_state = {
+                HedonicEvidenceState.VALIDATED_EXACT_SCOPE: "VALIDATED_EXACT_SCOPE",
+                HedonicEvidenceState.FAILED_HELDOUT_BASELINE: "FAILED_BASELINE",
+                HedonicEvidenceState.DIAGNOSTIC: "DIAGNOSTIC",
+                HedonicEvidenceState.INSUFFICIENT_EVIDENCE: "WITHHELD",
+                HedonicEvidenceState.NOT_TESTED: "NOT_TESTED",
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED: "INVALID",
+            }[hedonic.state]
+            result_hash_payload = {
+                "preference": _fit_result_payload(fit),
+                "hedonic": hedonic.as_dict(),
+            }
+    heterogeneity = (
+        max(fit.assessor_heterogeneity.values())
+        if fit.assessor_heterogeneity
+        else None
+    )
+    return CriterionFitPacketV1(
+        temporal_evidence_sha256=temporal.record_sha256,
+        comparison_payload_sha256=sha256_hex(canonical_json_bytes(comparisons_raw)),
+        criterion=criterion,
+        preference_result_sha256=sha256_hex(canonical_json_bytes(result_hash_payload)),
+        validation_state=validation_state,
+        utility_intervals=fit.utility_intervals,
+        tie_rate=fit.tie_rate,
+        assessor_heterogeneity=heterogeneity,
+        order_effect=abs(fit.order_effect) if fit.order_effect is not None else None,
+        next_pair=fit.next_comparison,
+        test_only=execution.test_only,
+    )
+
+
+__all__ = [
+    "analyze_execution_receipt",
+    "build_criterion_fit_packet",
+    "build_temporal_packet",
+    "compile_architectural_delta",
+    "export_backend_lab_payloads",
+]

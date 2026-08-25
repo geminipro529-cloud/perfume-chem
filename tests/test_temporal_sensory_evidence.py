@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from engine.sensory.ledger import (
+    AssessorReliabilityState,
     ObservationCellKey,
     SensoryProtocolScope,
+    SensorySafetyEvent,
     TemporalEvidenceRequest,
     TemporalEvidenceState,
     TemporalObservationCell,
@@ -219,3 +221,86 @@ def test_temporal_cell_round_trips_through_existing_context_json_shape() -> None
     restored = TemporalObservationCell.from_dict(original.as_dict())
 
     assert restored == original
+
+
+def test_adverse_sensory_event_triggers_a_fail_closed_protocol_stop() -> None:
+    scope, schedule = _scope()
+    event = SensorySafetyEvent(
+        event_id="safety-1",
+        protocol_id=scope.protocol_id,
+        assessor_id="assessor-1",
+        sample_id="sample-a",
+        time_seconds=45.0,
+        event_code="HEADACHE",
+        note="Assessor reported an immediate headache.",
+    )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                _cell("sample-a", 0, 2.0),
+                _cell("sample-a", 300, 4.0),
+                _cell("sample-b", 0, 3.0),
+                _cell("sample-b", 300, 3.5),
+            ),
+            safety_events=(event,),
+        )
+    )
+
+    assert result.state is TemporalEvidenceState.HOLD
+    assert result.safety_stop_triggered is True
+    assert result.safety_events == (event,)
+    assert any("HEADACHE" in blocker for blocker in result.blockers)
+    assert SensorySafetyEvent.from_dict(event.as_dict()) == event
+
+
+def test_declared_repeatability_gate_holds_unreliable_assessor_evidence() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-repeatability-v1",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1",),
+        repeat_ids=("repeat-1", "repeat-2"),
+        timepoints_seconds=(0.0,),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+        require_repeatability=True,
+        maximum_within_assessor_repeat_spread=0.5,
+    )
+
+    def repeated_cell(sample: str, repeat: str, value: float) -> TemporalObservationCell:
+        return TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id="assessor-1",
+                repeat_id=repeat,
+                time_seconds=0,
+                endpoint_id="depth",
+            ),
+            observation_id=f"obs-{sample}-{repeat}",
+            value=value,
+            presentation_sequence_id="sequence-1",
+            presentation_position=1 if sample == "sample-a" else 2,
+        )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                repeated_cell("sample-a", "repeat-1", 2.0),
+                repeated_cell("sample-a", "repeat-2", 4.0),
+                repeated_cell("sample-b", "repeat-1", 3.0),
+                repeated_cell("sample-b", "repeat-2", 3.2),
+            ),
+        )
+    )
+
+    assert result.state is TemporalEvidenceState.HOLD
+    assert result.assessor_reliability_state is AssessorReliabilityState.HOLD
+    assert result.assessor_reliability[0].assessor_id == "assessor-1"
+    assert result.assessor_reliability[0].maximum_repeat_spread == 2.0
+    assert any("repeatability threshold" in blocker for blocker in result.blockers)
