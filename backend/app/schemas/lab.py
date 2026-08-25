@@ -5,7 +5,13 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+from app.schemas.solforge import (
+    SolForgeComparisonContextV1,
+    SolForgeObservationContextV1,
+    SolForgeProtocolContextV1,
+)
 
 
 class LabRequest(BaseModel):
@@ -110,6 +116,14 @@ class ExperimentCreate(LabRequest):
     protocol: dict[str, Any]
     status: str = Field(default="planned", min_length=1)
 
+    @field_validator("protocol")
+    @classmethod
+    def _validate_solforge_protocol(cls, value: dict[str, Any]) -> dict[str, Any]:
+        if "solforge" not in value:
+            return value
+        parsed = SolForgeProtocolContextV1.model_validate(value["solforge"])
+        return {**value, "solforge": parsed.model_dump(mode="json")}
+
 
 class SampleCreate(LabRequest):
     bottle_id: str
@@ -127,6 +141,14 @@ class ObservationCreate(LabRequest):
     elapsed_seconds: float = Field(ge=0)
     observations: dict[str, Any]
 
+    @field_validator("observations")
+    @classmethod
+    def _validate_solforge_observation(cls, value: dict[str, Any]) -> dict[str, Any]:
+        if "solforge" not in value:
+            return value
+        parsed = SolForgeObservationContextV1.model_validate(value["solforge"])
+        return {**value, "solforge": parsed.model_dump(mode="json")}
+
 
 class PairwiseComparisonCreate(LabRequest):
     experiment_id: str
@@ -134,6 +156,14 @@ class PairwiseComparisonCreate(LabRequest):
     right_sample_id: str
     preferred_sample_id: str | None = None
     context: dict[str, Any] = Field(default_factory=dict)
+
+    @field_validator("context")
+    @classmethod
+    def _validate_solforge_comparison(cls, value: dict[str, Any]) -> dict[str, Any]:
+        if "solforge" not in value:
+            return value
+        parsed = SolForgeComparisonContextV1.model_validate(value["solforge"])
+        return {**value, "solforge": parsed.model_dump(mode="json")}
 
 
 class PredictionCreate(LabRequest):

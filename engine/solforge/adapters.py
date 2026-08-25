@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import itertools
 from pathlib import Path
 
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
@@ -268,4 +269,122 @@ def compile_architectural_delta(
     )
 
 
-__all__ = ["compile_architectural_delta"]
+_CRITERIA = ("TARGET_FIDELITY", "DEPTH", "RICHNESS", "LIKING")
+
+
+def export_backend_lab_payloads(experiment: CompiledExperimentV1) -> dict[str, object]:
+    """Return deterministic draft payloads; perform no API, database, or lab action."""
+
+    if experiment.state is not CompilationState.COMPILED or len(experiment.arms) < 2:
+        raise ValueError("backend export requires a compiled multi-arm experiment")
+    experiment_sha256 = experiment.record_sha256
+    arm_ids = tuple(arm.arm_id for arm in experiment.arms)
+    schedule_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "compiled_experiment_sha256": experiment_sha256,
+                "arm_ids": arm_ids,
+                "criterion_ids": _CRITERIA,
+                "presentation_order": arm_ids,
+            }
+        )
+    )
+    protocol = {
+        "schema_version": "solforge_protocol_context_v1",
+        "compiled_experiment_sha256": experiment_sha256,
+        "schedule_sha256": schedule_sha256,
+        "arm_ids": list(arm_ids),
+        "criterion_ids": list(_CRITERIA),
+        "test_only": True,
+    }
+    samples = [
+        {
+            "bottle_id": f"shadow-only:{arm.sample_sha256}",
+            "blind_code": arm.blind_code,
+        }
+        for arm in experiment.arms
+    ]
+    applications = [
+        {
+            "sample_id": arm.arm_id,
+            "applied_at": "1970-01-01T00:00:00Z",
+            "dose": {"total_active_mass_g": arm.total_active_mass_g},
+            "context": {
+                "shadow_template": True,
+                "test_only": True,
+                "sample_sha256": arm.sample_sha256,
+                "compiled_experiment_sha256": experiment_sha256,
+            },
+        }
+        for arm in experiment.arms
+    ]
+    observations: list[dict[str, object]] = []
+    for sequence, arm in enumerate(experiment.arms, start=1):
+        for criterion in _CRITERIA:
+            observations.append(
+                {
+                    "elapsed_seconds": 0.0,
+                    "observations": {
+                        "value": None,
+                        "solforge": {
+                            "schema_version": "solforge_observation_context_v1",
+                            "compiled_experiment_sha256": experiment_sha256,
+                            "schedule_sha256": schedule_sha256,
+                            "sample_id": arm.arm_id,
+                            "sample_sha256": arm.sample_sha256,
+                            "assessor_id": "UNASSIGNED_TEST_TEMPLATE",
+                            "repeat_index": 1,
+                            "timepoint_seconds": 0.0,
+                            "endpoint": criterion,
+                            "presentation_sequence": sequence,
+                            "test_only": True,
+                        },
+                    },
+                }
+            )
+    comparisons: list[dict[str, object]] = []
+    for left, right in itertools.combinations(experiment.arms, 2):
+        for criterion in _CRITERIA:
+            comparisons.append(
+                {
+                    "experiment_id": f"shadow-only:{experiment_sha256}",
+                    "left_sample_id": left.arm_id,
+                    "right_sample_id": right.arm_id,
+                    "preferred_sample_id": None,
+                    "context": {
+                        "solforge": {
+                            "schema_version": "solforge_comparison_context_v1",
+                            "compiled_experiment_sha256": experiment_sha256,
+                            "schedule_sha256": schedule_sha256,
+                            "criterion": criterion,
+                            "assessor_id": "UNASSIGNED_TEST_TEMPLATE",
+                            "repeat_index": 1,
+                            "timepoint_seconds": 0.0,
+                            "left_sample_id": left.arm_id,
+                            "right_sample_id": right.arm_id,
+                            "first_presented_item": left.arm_id,
+                            "test_only": True,
+                        }
+                    },
+                }
+            )
+    return {
+        "schema_version": "solforge_backend_lab_export_v1",
+        "compiled_experiment_sha256": experiment_sha256,
+        "schedule_sha256": schedule_sha256,
+        "experiment": {
+            "name": f"SolForge shadow {experiment_sha256[:12]}",
+            "protocol": {"solforge": protocol},
+            "status": "planned-shadow-only",
+        },
+        "samples": samples,
+        "applications": applications,
+        "observations": observations,
+        "comparisons": comparisons,
+        "publication_authorized": False,
+        "database_write_authorized": False,
+        "physical_execution_authorized": False,
+    }
+
+
+__all__ = ["compile_architectural_delta", "export_backend_lab_payloads"]
