@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-99f288ffa48071fb81d3",
+  "case_id": "RPL-ARC-S03",
+  "module_id": "architectural_delta",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03ac1-dd29-73d2-b55d-435d5d5d90e1",
+  "dispatch_sha256": "a362fa818f50faceeafb9d03f1a4970bb2f5a383bc03d95e3080debca9efbfe1",
+  "output_text": "{\n  \"decision\": \"REJECT promotion to primary citrus; retain Neroli 10% as support only.\",\n  \"target_linked_reasoning\": \"Availability alone does not create target-linked complexity. Primary placement conflicts with the required peel-led bitter citrus opening and prohibition on orange-blossom identity.\",\n  \"controlled_comparison\": \"Blindly compare an otherwise identical peel-led control without Neroli against a variant using Neroli 10% only in a support role. Assess bitter-peel fidelity and emergence of orange-blossom identity. Physical liking remains NOT TESTED.\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "e3346111eb617d5845fbbeb5d63c45367efcadbfb232585566123e67ea7cbfc6",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

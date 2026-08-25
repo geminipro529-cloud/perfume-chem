@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-f7003fc0c75f48b5ef8e",
+  "case_id": "RPL-ARC-S02",
+  "module_id": "architectural_delta",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03ab9-c582-7a81-bb2d-6147185ca009",
+  "dispatch_sha256": "281250a02cb615c911eca787da150cec10afdbdb71b726a51dc40d07a707f86b",
+  "output_text": "{\n  \"decision\": \"NO ADDITION. Preserve the intentionally restrained, complete transparent floral architecture; the candidate is redundant with V5 stock.\",\n  \"target_linked_reasoning\": \"No target function is missing or weakly covered. Ingredient count is not evidence of depth, richness, or improved relationships, and the sole rationale—appearing more complex—does not justify changing the ideal architecture.\",\n  \"controlled_comparison\": \"No comparison is required for acceptance. If computationally challenged, compare the unchanged baseline with one isolated candidate-addition arm, holding all other materials and ratios constant; evaluate only target-linked architectural effects. Physical liking remains NOT TESTED.\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\n  \"physical_liking_state\": \"NOT TESTED\"\n}",
+  "output_sha256": "365e8ce95b3478c87d8bf35c133ad0477194335aaa271df606ae2a312d2194da",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

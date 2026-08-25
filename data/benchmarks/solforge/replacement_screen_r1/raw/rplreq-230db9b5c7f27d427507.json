@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-230db9b5c7f27d427507",
+  "case_id": "RPL-ARC-S02",
+  "module_id": "architectural_delta",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03abf-5362-7d11-b7a9-31bce6438d69",
+  "dispatch_sha256": "8ab5453ecf536238fe4e359741889113d4f44bb3eab6163e9933555319839155",
+  "output_text": "{\n  \"decision\": \"REJECT_ADDITION; retain the V5 architecture.\",\n  \"target_linked_reasoning\": \"No target function is missing or weakly covered, and the candidate is redundant with current stock. Ingredient count alone does not create target-linked complexity. Adding it risks obscuring the intentionally restrained, transparent floral relationships without evidenced benefit.\",\n  \"controlled_comparison\": \"If uncertainty remains, compare the unchanged V5 formula against a blinded variant in which the candidate replaces its nearest functional equivalent at matched total concentration. Assess transparency, floral coherence, depth, richness, restraint, and temporal relationships. Accept only a reproducible target-linked improvement.\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\n  \"physical_liking_state\": \"NOT TESTED\"\n}",
+  "output_sha256": "636f2ed217b0782ae7df1614ce705c2e4b7a1226e82c691c5f09f355c4e5dd5f",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

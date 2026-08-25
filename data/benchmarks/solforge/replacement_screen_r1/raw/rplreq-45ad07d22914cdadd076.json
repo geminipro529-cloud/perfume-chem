@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-45ad07d22914cdadd076",
+  "case_id": "RPL-ARC-S01",
+  "module_id": "architectural_delta",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03ac1-ab06-7480-992b-bd010bb66555",
+  "dispatch_sha256": "5eb3ff16c387e402849270d1ba06cf0cd3b23ad57d346dd158620e1ee070b7da",
+  "output_text": "{\n  \"decision\": \"Test the owned candidate as a single dry-mineral bridge; reject the higher-count proposals.\",\n  \"target_linked_reasoning\": \"It uniquely has target-specific nonredundancy evidence and an isolated addition arm, supporting iris structure while preserving negative space. Ingredient count is not evidence of complexity, and the higher-count proposals duplicate existing functions.\",\n  \"controlled_comparison\": \"Run a blinded baseline-versus-baseline-plus-candidate comparison, holding all other variables constant. Evaluate dry mineral bridging, iris structural depth, and preservation of negative space.\",\n  \"physical_liking_state\": \"NOT TESTED\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "9ae9870d5536ecfc300f7c922b030dcb56c4cdf39a0b0427b0411588bca19564",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}
