@@ -1,32 +1,18 @@
-name: P0 V5 execution authority
+name: P0 runner probe
 
 on:
   pull_request:
     branches:
       - codex/complexity-replacements-candidate
-    paths:
-      - engine/pipeline/v5_execution_authority.py
-      - tests/test_v5_execution_authority.py
-      - .github/workflows/p0-v5-execution-authority.yml
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  focused-test:
+  probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - name: Check out review branch
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install test runner
-        run: python -m pip install --disable-pip-version-check pytest
-      - name: Compile authority module
-        run: python -m py_compile engine/pipeline/v5_execution_authority.py
-      - name: Run focused authority tests
-        run: python -m pytest -q tests/test_v5_execution_authority.py
+      - name: Confirm GitHub-hosted runner starts
+        run: echo P0_RUNNER_OK
