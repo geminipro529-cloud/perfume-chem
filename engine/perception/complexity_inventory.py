@@ -150,7 +150,7 @@ def _classify_current(
             StockReadiness.PROCUREMENT_PENDING,
             None,
         )
-    if status.startswith("GAP"):
+    if status.startswith("GAP") or status.startswith("MISSING"):
         return InventoryAvailability.MISSING, StockReadiness.NOT_BUILDABLE, None
     if status.startswith("CONSTRUCTIBLE"):
         return (
