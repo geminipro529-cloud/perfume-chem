@@ -13,6 +13,15 @@ from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 _IDENTIFIER_RE = re.compile(r"^(doi|pmid|pmcid|iso|nist):\S+$", re.IGNORECASE)
+_RIGHTS = frozenset(
+    {
+        "METADATA_AND_DERIVED_SUMMARY_ONLY",
+        "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+        "PUBLIC_GUIDANCE_METADATA_ONLY",
+        "UNRESOLVED_NO_FULL_TEXT",
+        "OPEN_ACCESS_RETAINED_BYTES",
+    }
+)
 
 RESEARCH_AUTHORITY_FLAGS = {
     "formula": False,
@@ -144,6 +153,10 @@ class ResearchEvidenceRecordV1(_Record):
         object.__setattr__(self, "evidence_class", ResearchEvidenceClass(self.evidence_class))
         source_kind = self.source_kind.upper()
         object.__setattr__(self, "source_kind", source_kind)
+        rights = self.rights.upper()
+        if rights not in _RIGHTS:
+            raise ValueError("rights is not an allowed evidence-rights state")
+        object.__setattr__(self, "rights", rights)
         supplier_class = ResearchEvidenceClass.SUPPLIER_OR_TRADE_DESCRIPTION
         if (source_kind == "SUPPLIER") != (self.evidence_class is supplier_class):
             raise ValueError("supplier evidence must use only the supplier evidence class")
@@ -156,6 +169,11 @@ class ResearchEvidenceRecordV1(_Record):
                 optional=True,
             ),
         )
+        if (
+            self.retained_source_sha256 is not None
+            and self.rights != "OPEN_ACCESS_RETAINED_BYTES"
+        ):
+            raise ValueError("rights do not permit retained source bytes")
         if self.short_extract is not None:
             extract = _text(self.short_extract, "short_extract")
             if len(extract.split()) > 25:

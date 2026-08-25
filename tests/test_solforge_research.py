@@ -140,7 +140,7 @@ def test_seed_manifest_has_all_method_seeds_and_no_claim_authority() -> None:
     assert len(payload["seeds"]) == 10
     assert {seed["seed_id"] for seed in payload["seeds"]} == {
         "FRANK-2017",
-        "ZAK-2020",
+        "MCCLINTOCK-2020",
         "LABBE-2009",
         "ZHOU-2024",
         "ARSHAMIAN-2022",
