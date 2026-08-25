@@ -1,16 +1,19 @@
 """V5 inventory execution-authority firewall.
 
-This module separates three scopes that must never be collapsed:
+This module keeps three scopes separate:
 
-1. target / ideal computational architecture;
-2. current-inventory computational build design;
-3. physical execution against an exact bottle or prepared stock.
+1. TARGET_IDEAL: evidence-faithful computational architecture. Inventory never
+   blocks or rewrites the target.
+2. CURRENT_INVENTORY_BUILD: whether a material is owned/available for the
+   current-stock computational build, plus whether its stock basis is
+   sufficiently structured for quantitative use.
+3. PHYSICAL_EXECUTION: whether an actual bottle/preparation is exactly bound
+   and execution-ready.
 
-The reconciliation input schema matches the V5 review table exported from the
-current inventory workbook.  Workbook-side fields are retained as evidence, but
-V5 status/policy fields control current-inventory design interpretation.  A
-physical action additionally requires a resolved ExactStockRef and a non-HOLD
-physical gate.
+Important project semantic: HOLD means HAVE/owned unless a stronger V5 status
+explicitly says GAP, OUT OF STOCK, MISSING, NOT OWNED, or PLANNED ACQUISITION.
+HOLD is therefore never interpreted as an inventory gap. ExactStockRef and
+physical execution readiness are separate downstream questions.
 
 No result from this module grants sensory, liking, safety, stability, release,
 or measured-headspace authority.
@@ -19,7 +22,6 @@ or measured-headspace authority.
 from __future__ import annotations
 
 import math
-import re
 from dataclasses import dataclass
 from typing import Any, Mapping, Sequence
 
@@ -47,26 +49,25 @@ RECONCILIATION_COLUMNS = (
     "Final Execution State",
 )
 
+TARGET_IDEAL = "TARGET_IDEAL"
+CURRENT_INVENTORY_BUILD = "CURRENT_INVENTORY_BUILD"
+PHYSICAL_EXECUTION = "PHYSICAL_EXECUTION"
+
 PHYSICAL_MODES = frozenset({"LIVE_BATCH", "BATCH_RESCUE"})
 CURRENT_BUILD_MODES = frozenset(
-    {
-        "INVENTORY_MAPPING",
-        "COMPLIANCE_BUILD",
-        "RELEASE_REVIEW",
-    }
-)
-DESIGN_MODES = frozenset(
-    {
-        "RECONSTRUCTION",
-        "CREATIVE_FORMULATION",
-        "STRUCTURAL_CHASSIS",
-        "FLANKER_MODULE",
-        "SENSORY_EXPERIMENT",
-        "ANALYTICAL_INTERPRETATION",
-    }
+    {"INVENTORY_MAPPING", "COMPLIANCE_BUILD", "RELEASE_REVIEW"}
 )
 
 _UNRESOLVED_TOKENS = frozenset({"", "UNRESOLVED", "UNKNOWN", "NONE", "N/A", "NA"})
+_TRUE_UNAVAILABLE_TOKENS = (
+    "OUT OF STOCK",
+    "GAP",
+    "MISSING",
+    "NOT OWNED",
+    "DON'T HAVE",
+    "DONT HAVE",
+)
+_READY_TOKENS = frozenset({"PASS", "READY", "ALLOW", "ALLOWED", "APPROVED"})
 
 
 def _text(value: object) -> str:
@@ -77,11 +78,14 @@ def _upper(value: object) -> str:
     return _text(value).upper()
 
 
+def _contains_any(value: object, tokens: Sequence[str]) -> bool:
+    upper = _upper(value)
+    return any(token in upper for token in tokens)
+
+
 def _resolved_ref(value: object) -> str | None:
     text = _text(value)
-    if text.upper() in _UNRESOLVED_TOKENS:
-        return None
-    return text
+    return None if text.upper() in _UNRESOLVED_TOKENS else text
 
 
 def _fraction(value: object) -> float | None:
@@ -99,16 +103,11 @@ def _fraction(value: object) -> float | None:
     return result
 
 
-def _has_any(text: str, tokens: Sequence[str]) -> bool:
-    upper = text.upper()
-    return any(token in upper for token in tokens)
-
-
-def _v5_status_class(status: str) -> str:
-    upper = status.upper()
+def _v5_status_class(status: object) -> str:
+    upper = _upper(status)
     if "PLANNED ACQUISITION" in upper or "DESIGN-AVAILABLE" in upper:
         return "PLANNED_DESIGN_AVAILABLE"
-    if _has_any(upper, ("OUT OF STOCK", "GAP", "MISSING", "NOT OWNED")):
+    if any(token in upper for token in _TRUE_UNAVAILABLE_TOKENS):
         return "UNAVAILABLE"
     if "CONSTRUCTIBLE ACCORD" in upper:
         return "CONSTRUCTIBLE_NOT_PREPARED"
@@ -119,12 +118,18 @@ def _v5_status_class(status: str) -> str:
     return "OTHER"
 
 
-def _final_hold(value: object) -> bool:
-    return _upper(value).startswith("HOLD")
+def _workbook_says_have(value: object) -> bool:
+    upper = _upper(value)
+    return "HAVE" in upper and not any(
+        token in upper for token in _TRUE_UNAVAILABLE_TOKENS
+    )
 
 
-def _physical_gate_hold(value: object) -> bool:
-    return _upper(value) in {"", "HOLD", "FAIL", "BLOCK", "BLOCKED", "UNKNOWN"}
+def _hold_present(row: Mapping[str, Any]) -> bool:
+    return (
+        _upper(row.get("Workbook Physical Gate")) == "HOLD"
+        or _upper(row.get("Final Execution State")).startswith("HOLD")
+    )
 
 
 def _product_basis(policy: str, stock: str, workbook_stock: str) -> bool:
@@ -134,11 +139,33 @@ def _product_basis(policy: str, stock: str, workbook_stock: str) -> bool:
 
 def _policy_forbids_neat_model(policy: str) -> bool:
     upper = policy.upper()
-    return (
-        "DO NOT DOSE OR MODEL AS NEAT" in upper
-        or "DO NOT DOSE AS NEAT" in upper
-        or "DO NOT MODEL AS NEAT" in upper
+    return any(
+        phrase in upper
+        for phrase in (
+            "DO NOT DOSE OR MODEL AS NEAT",
+            "DO NOT DOSE AS NEAT",
+            "DO NOT MODEL AS NEAT",
+        )
     )
+
+
+def _physical_gate_ready(value: object) -> bool:
+    return _upper(value) in _READY_TOKENS
+
+
+def _final_execution_ready(value: object) -> bool:
+    return _upper(value) in _READY_TOKENS
+
+
+def _scope_from_mode(mode: str) -> str:
+    mode_name = _upper(mode)
+    if not mode_name:
+        raise V5ExecutionAuthorityError("mode must not be blank")
+    if mode_name in PHYSICAL_MODES:
+        return PHYSICAL_EXECUTION
+    if mode_name in CURRENT_BUILD_MODES:
+        return CURRENT_INVENTORY_BUILD
+    return TARGET_IDEAL
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,6 +174,8 @@ class MaterialExecutionAuthority:
     canonical_material: str | None
     v5_status: str
     v5_status_class: str
+    inventory_owned: bool
+    hold_means_have: bool
     exact_stock_ref: str | None
     physical_gate: str
     final_execution_state: str
@@ -168,6 +197,8 @@ class MaterialExecutionAuthority:
             "canonical_material": self.canonical_material,
             "v5_status": self.v5_status,
             "v5_status_class": self.v5_status_class,
+            "inventory_owned": self.inventory_owned,
+            "hold_means_have": self.hold_means_have,
             "exact_stock_ref": self.exact_stock_ref,
             "physical_gate": self.physical_gate,
             "final_execution_state": self.final_execution_state,
@@ -194,6 +225,7 @@ class MaterialExecutionAuthority:
 @dataclass(frozen=True, slots=True)
 class FormulaExecutionAuthority:
     mode: str
+    scope: str
     status: str
     allowed: bool
     physical_execution_allowed: bool
@@ -204,6 +236,7 @@ class FormulaExecutionAuthority:
     def as_dict(self) -> dict[str, Any]:
         return {
             "mode": self.mode,
+            "scope": self.scope,
             "status": self.status,
             "allowed": self.allowed,
             "physical_execution_allowed": self.physical_execution_allowed,
@@ -226,13 +259,14 @@ def validate_reconciliation_row(row: Mapping[str, Any]) -> None:
 
 
 def evaluate_reconciliation_row(row: Mapping[str, Any]) -> MaterialExecutionAuthority:
-    """Evaluate one V5 reconciliation row without silently repairing conflicts."""
+    """Evaluate one reconciliation row without turning HOLD into an inventory gap."""
 
     validate_reconciliation_row(row)
     material = _text(row["Material"])
     canonical = _text(row.get("V5 Canonical Material")) or None
     v5_status = _text(row.get("V5 Status"))
     status_class = _v5_status_class(v5_status)
+    workbook_status = _text(row.get("Workbook Inventory Status"))
     exact_ref = _resolved_ref(row.get("Workbook ExactStockRef"))
     physical_gate = _text(row.get("Workbook Physical Gate"))
     final_state = _text(row.get("Final Execution State"))
@@ -242,40 +276,36 @@ def evaluate_reconciliation_row(row: Mapping[str, Any]) -> MaterialExecutionAuth
     workbook_carrier = _text(row.get("Workbook Carrier"))
     active_fraction = _fraction(row.get("Workbook Active Fraction"))
     is_product_basis = _product_basis(policy, v5_stock, workbook_stock)
+    hold_present = _hold_present(row)
 
     reasons: list[str] = []
-    mapped = bool(canonical and status_class != "UNMAPPED")
 
-    design_allowed = status_class in {
-        "HAVE",
-        "PLANNED_DESIGN_AVAILABLE",
-        "CONSTRUCTIBLE_NOT_PREPARED",
-    }
-    if not mapped and status_class != "PLANNED_DESIGN_AVAILABLE":
-        design_allowed = False
-        reasons.append("V5_MAPPING_NOT_RESOLVED")
+    # Target / ideal architecture is never inventory-gated.
+    design_allowed = True
 
-    current_build_allowed = status_class == "HAVE" and mapped
-    if status_class == "PLANNED_DESIGN_AVAILABLE":
-        current_build_allowed = False
+    # Inventory possession is a separate fact. HOLD is not an absence state.
+    if status_class == "UNAVAILABLE":
+        inventory_owned = False
+        reasons.append("V5_STATUS_UNAVAILABLE")
+    elif status_class == "PLANNED_DESIGN_AVAILABLE":
+        inventory_owned = False
         reasons.append("PLANNED_MATERIAL_NOT_PHYSICALLY_OWNED")
     elif status_class == "CONSTRUCTIBLE_NOT_PREPARED":
-        current_build_allowed = False
+        inventory_owned = False
         reasons.append("CONSTRUCTIBLE_ACCORD_NOT_YET_PREPARED")
-    elif status_class == "UNAVAILABLE":
-        design_allowed = False
-        current_build_allowed = False
-        reasons.append("V5_STATUS_UNAVAILABLE")
-    elif status_class in {"UNMAPPED", "OTHER"}:
-        current_build_allowed = False
-        reasons.append("V5_STATUS_NOT_EXECUTION_READY")
+    else:
+        inventory_owned = status_class == "HAVE" or _workbook_says_have(workbook_status)
+        if not inventory_owned:
+            reasons.append("INVENTORY_OWNERSHIP_NOT_ESTABLISHED")
 
-    if _final_hold(final_state):
-        reasons.append("FINAL_EXECUTION_STATE_HOLD")
-    if _physical_gate_hold(physical_gate):
-        reasons.append("PHYSICAL_GATE_HOLD")
-    if exact_ref is None:
-        reasons.append("EXACTSTOCKREF_UNRESOLVED")
+    if inventory_owned and hold_present:
+        reasons.append("HOLD_PRESERVES_HAVE")
+
+    current_build_allowed = inventory_owned
+
+    if canonical is None:
+        # This is an evidence/mapping gap, not automatically an inventory gap.
+        reasons.append("V5_MAPPING_UNRESOLVED")
 
     carrier = workbook_carrier or None
     carrier_conflict = "CONFLICT" in workbook_carrier.upper()
@@ -289,8 +319,7 @@ def evaluate_reconciliation_row(row: Mapping[str, Any]) -> MaterialExecutionAuth
         reasons.append("ACTIVE_FRACTION_CONFLICT_WITH_V5_POLICY")
 
     quantitative_design_allowed = bool(
-        design_allowed
-        and not carrier_conflict
+        not carrier_conflict
         and (
             is_product_basis
             or (
@@ -300,31 +329,30 @@ def evaluate_reconciliation_row(row: Mapping[str, Any]) -> MaterialExecutionAuth
         )
     )
 
+    # HOLD does not mean unavailable, but it also does not fabricate a physical
+    # execution authorization. Physical readiness is a separate downstream gate.
+    if exact_ref is None:
+        reasons.append("EXACTSTOCKREF_UNRESOLVED")
+    if not _physical_gate_ready(physical_gate):
+        reasons.append("PHYSICAL_GATE_NOT_READY")
+    if not _final_execution_ready(final_state):
+        reasons.append("FINAL_EXECUTION_NOT_READY")
+
     physical_allowed = bool(
-        current_build_allowed
+        inventory_owned
         and exact_ref is not None
-        and not _physical_gate_hold(physical_gate)
-        and not _final_hold(final_state)
+        and _physical_gate_ready(physical_gate)
+        and _final_execution_ready(final_state)
         and quantitative_design_allowed
     )
-
-    if physical_allowed:
-        reasons = [
-            reason
-            for reason in reasons
-            if reason
-            not in {
-                "FINAL_EXECUTION_STATE_HOLD",
-                "PHYSICAL_GATE_HOLD",
-                "EXACTSTOCKREF_UNRESOLVED",
-            }
-        ]
 
     return MaterialExecutionAuthority(
         material=material,
         canonical_material=canonical,
         v5_status=v5_status,
         v5_status_class=status_class,
+        inventory_owned=inventory_owned,
+        hold_means_have=bool(inventory_owned and hold_present),
         exact_stock_ref=exact_ref,
         physical_gate=physical_gate,
         final_execution_state=final_state,
@@ -340,12 +368,17 @@ def evaluate_reconciliation_row(row: Mapping[str, Any]) -> MaterialExecutionAuth
         reasons=tuple(dict.fromkeys(reasons)),
         evidence={
             "uses": _text(row.get("Uses")),
-            "workbook_inventory_status": _text(row.get("Workbook Inventory Status")),
+            "workbook_inventory_status": workbook_status,
             "workbook_stock_description": workbook_stock,
             "workbook_carrier": workbook_carrier,
             "v5_match_method": _text(row.get("V5 Match Method")),
             "v5_actual_stocks": v5_stock,
             "v5_user_note": _text(row.get("V5 User Note")),
+            "hold_semantics": (
+                "OWNED_HAVE_NOT_EXECUTION_READY"
+                if inventory_owned and hold_present
+                else "NOT_APPLICABLE"
+            ),
         },
     )
 
@@ -354,12 +387,17 @@ def evaluate_formula_execution_authority(
     rows: Sequence[Mapping[str, Any]],
     *,
     mode: str,
+    scope: str | None = None,
 ) -> FormulaExecutionAuthority:
-    """Evaluate a formula-scoped set of reconciliation rows for one operating mode."""
+    """Evaluate formula rows for target, current-build, or physical scope."""
 
     mode_name = _upper(mode)
     if not mode_name:
         raise V5ExecutionAuthorityError("mode must not be blank")
+    scope_name = _upper(scope) if scope is not None else _scope_from_mode(mode_name)
+    if scope_name not in {TARGET_IDEAL, CURRENT_INVENTORY_BUILD, PHYSICAL_EXECUTION}:
+        raise V5ExecutionAuthorityError(f"unsupported authority scope: {scope_name}")
+
     evaluated = tuple(evaluate_reconciliation_row(row) for row in rows)
     if not evaluated:
         raise V5ExecutionAuthorityError("at least one reconciliation row is required")
@@ -367,40 +405,40 @@ def evaluate_formula_execution_authority(
     blockers: list[str] = []
     warnings: list[str] = []
 
-    if mode_name in PHYSICAL_MODES:
+    if scope_name == PHYSICAL_EXECUTION:
         for row in evaluated:
             if not row.physical_execution_allowed:
-                blockers.append(f"{row.material}:PHYSICAL_HOLD")
+                blockers.append(f"{row.material}:PHYSICAL_EXECUTION_NOT_READY")
         allowed = not blockers
-        status = "PHYSICAL_READY" if allowed else "HOLD"
-    elif mode_name in CURRENT_BUILD_MODES:
+        status = "PHYSICAL_READY" if allowed else "PHYSICAL_HOLD"
+    elif scope_name == CURRENT_INVENTORY_BUILD:
         for row in evaluated:
             if not row.current_inventory_build_allowed:
                 blockers.append(f"{row.material}:CURRENT_BUILD_UNAVAILABLE")
             elif not row.quantitative_design_allowed:
                 blockers.append(f"{row.material}:QUANTITATIVE_BASIS_HOLD")
             if not row.physical_execution_allowed:
-                warnings.append(f"{row.material}:PHYSICAL_EXECUTION_HOLD")
+                warnings.append(f"{row.material}:PHYSICAL_EXECUTION_NOT_READY")
         allowed = not blockers
-        status = "CURRENT_BUILD_ALLOWED" if allowed else "HOLD"
+        status = "CURRENT_BUILD_ALLOWED" if allowed else "CURRENT_BUILD_HOLD"
     else:
+        # Inventory cannot redefine the target. Inventory issues are warnings only.
         for row in evaluated:
-            if not row.design_allowed:
-                blockers.append(f"{row.material}:DESIGN_UNAVAILABLE")
-            elif not row.quantitative_design_allowed:
-                warnings.append(f"{row.material}:QUANTITATIVE_DESIGN_HOLD")
+            if not row.current_inventory_build_allowed:
+                warnings.append(f"{row.material}:CURRENT_BUILD_UNAVAILABLE")
+            if not row.quantitative_design_allowed:
+                warnings.append(f"{row.material}:QUANTITATIVE_STOCK_BASIS_HOLD")
             if not row.physical_execution_allowed:
-                warnings.append(f"{row.material}:PHYSICAL_EXECUTION_HOLD")
-        allowed = not blockers
-        status = "DESIGN_ALLOWED" if allowed else "HOLD"
+                warnings.append(f"{row.material}:PHYSICAL_EXECUTION_NOT_READY")
+        allowed = True
+        status = "TARGET_IDEAL_ALLOWED"
 
     return FormulaExecutionAuthority(
         mode=mode_name,
+        scope=scope_name,
         status=status,
         allowed=allowed,
-        physical_execution_allowed=all(
-            row.physical_execution_allowed for row in evaluated
-        ),
+        physical_execution_allowed=all(row.physical_execution_allowed for row in evaluated),
         rows=evaluated,
         blockers=tuple(blockers),
         warnings=tuple(dict.fromkeys(warnings)),
@@ -411,11 +449,7 @@ def reconciliation_row_from_formula_stock_spec(
     material: str,
     stock_spec: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Adapt a formula stock-spec mapping into the V5 reconciliation schema.
-
-    This adapter is intentionally strict.  It never assumes neat stock when a
-    fraction is missing, and it never invents an ExactStockRef.
-    """
+    """Adapt a formula stock-spec without assuming neat stock or exact binding."""
 
     fraction = stock_spec.get("fraction")
     if fraction is None:
@@ -440,11 +474,15 @@ def reconciliation_row_from_formula_stock_spec(
         "V5 Match Method": stock_spec.get("v5_match_method", "FORMULA_STOCK_SPEC"),
         "V5 Canonical Material": stock_spec.get("v5_canonical_material", material),
         "V5 Status": stock_spec.get("v5_status", ""),
-        "V5 Actual Stock(s)": stock_spec.get("v5_actual_stocks", stock_spec.get("stock_description", "")),
+        "V5 Actual Stock(s)": stock_spec.get(
+            "v5_actual_stocks", stock_spec.get("stock_description", "")
+        ),
         "V5 Can Prepare": stock_spec.get("v5_can_prepare", ""),
         "V5 Formula-Use Policy": stock_spec.get("v5_formula_use_policy", ""),
         "V5 User Note": stock_spec.get("v5_user_note", ""),
-        "Final Execution State": stock_spec.get("final_execution_state", "HOLD — EXACTSTOCKREF UNRESOLVED"),
+        "Final Execution State": stock_spec.get(
+            "final_execution_state", "HOLD — EXACTSTOCKREF UNRESOLVED"
+        ),
     }
 
 
@@ -452,6 +490,7 @@ def evaluate_formula_stock_specs(
     formula: Mapping[str, Any],
     *,
     mode: str,
+    scope: str | None = None,
 ) -> FormulaExecutionAuthority:
     """Evaluate formula stock_specs with no implicit neat or physical authority."""
 
@@ -466,11 +505,13 @@ def evaluate_formula_stock_specs(
         except (TypeError, ValueError) as exc:
             raise V5ExecutionAuthorityError(f"{name}: ingredient dose must be numeric") from exc
         if not math.isfinite(amount) or amount < 0.0:
-            raise V5ExecutionAuthorityError(f"{name}: ingredient dose must be finite and nonnegative")
+            raise V5ExecutionAuthorityError(
+                f"{name}: ingredient dose must be finite and nonnegative"
+            )
         if amount == 0.0:
             continue
         spec = dict(stock_specs.get(raw_name, stock_specs.get(name, {})) or {})
         if "fraction" not in spec and name in dilutions:
             spec["fraction"] = dilutions[name]
         rows.append(reconciliation_row_from_formula_stock_spec(name, spec))
-    return evaluate_formula_execution_authority(rows, mode=mode)
+    return evaluate_formula_execution_authority(rows, mode=mode, scope=scope)
