@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from engine.pipeline.stock_authority_spine import (
+    StockAuthorityError,
     V5InventorySnapshot,
     V5StockRecord,
-    StockAuthorityError,
+    bind_exact_stock_ref,
     build_formula_dose_receipt_from_snapshot,
     prepare_run,
     require_formula_state_authority,
@@ -22,7 +25,6 @@ def rec(
     carrier="",
     owned=True,
     product_basis=False,
-    exact_ref=None,
     source_row=1,
 ):
     return V5StockRecord(
@@ -33,7 +35,6 @@ def rec(
         carrier=carrier,
         inventory_owned=owned,
         product_basis=product_basis,
-        exact_stock_ref=exact_ref,
         source_row=source_row,
     )
 
@@ -96,7 +97,7 @@ def test_product_basis_never_gets_fictional_active_equivalent():
 
 
 def test_owned_hold_semantics_are_compatible_with_current_build_receipt():
-    # HOLD is intentionally represented by owned=True, never by an absence state.
+    # HOLD is represented by owned=True, never by an inventory-absence state.
     snapshot = snap(rec("Hedione", frac=1.0, basis="neat", owned=True))
     receipt = build_formula_dose_receipt_from_snapshot(
         {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
@@ -118,28 +119,71 @@ def test_snapshot_rejects_duplicate_canonical_rows():
         snap(rec("Hedione", source_row=1), rec("hedione", source_row=2))
 
 
+def test_zero_active_fraction_does_not_construct_invalid_bound_receipt():
+    snapshot = snap(rec("DPG", frac=0.0, basis="volume_fraction", carrier="DPG"))
+    receipt = build_formula_dose_receipt_from_snapshot(
+        {"name": "x", "ingredients_ul": {"DPG": 20.0}}, snapshot
+    )
+    assert receipt.status == "ABSTAINED"
+    assert receipt.lines[0].stock_fraction is None
+    assert "zero_active_fraction_requires_carrier_quantity_model" in receipt.lines[0].blockers
+
+
 def test_prepared_run_requires_exact_ref_for_every_bound_line():
-    snapshot = snap(rec("Hedione", exact_ref=None))
+    snapshot = snap(rec("Hedione"))
     receipt = build_formula_dose_receipt_from_snapshot(
         {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
     )
     with pytest.raises(StockAuthorityError):
-        prepare_run("run-1", receipt, snapshot)
+        prepare_run("run-1", receipt, snapshot, exact_stock_refs=())
+
+
+def test_exact_stock_ref_is_downstream_of_v5_snapshot():
+    snapshot = snap(rec("Hedione"))
+    ref = bind_exact_stock_ref(snapshot, "Hedione", ref_id="stock:hedione:001")
+    assert ref.ref_id == "stock:hedione:001"
+    assert ref.inventory_snapshot_sha256 == snapshot.snapshot_sha256
+    assert ref.inventory_stock_id == snapshot.stock_id(snapshot.resolve("Hedione"))
 
 
 def test_prepared_run_binds_explicit_exact_ref():
-    snapshot = snap(rec("Hedione", exact_ref="stock:hedione:001"))
+    snapshot = snap(rec("Hedione"))
     receipt = build_formula_dose_receipt_from_snapshot(
         {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
     )
-    prepared = prepare_run("run-1", receipt, snapshot)
+    ref = bind_exact_stock_ref(snapshot, "Hedione", ref_id="stock:hedione:001")
+    prepared = prepare_run(
+        "run-1", receipt, snapshot, exact_stock_refs=(ref,)
+    )
     assert prepared.status == "BOUND"
     assert prepared.formula_receipt_sha256 == receipt.receipt_sha256
     assert prepared.exact_stock_refs[0].ref_id == "stock:hedione:001"
 
 
+def test_explicit_stock_binding_survives_into_prepared_run():
+    snapshot = snap(
+        rec("Heliotropal 10%", frac=0.1, basis="volume_fraction", source_row=2)
+    )
+    receipt = build_formula_dose_receipt_from_snapshot(
+        {
+            "name": "x",
+            "ingredients_ul": {"Heliotropal": 20.0},
+            "stock_bindings": {"Heliotropal": "Heliotropal 10%"},
+        },
+        snapshot,
+    )
+    ref = bind_exact_stock_ref(
+        snapshot, "Heliotropal 10%", ref_id="stock:heliotropal10:001"
+    )
+    prepared = prepare_run(
+        "run-1", receipt, snapshot, exact_stock_refs=(ref,)
+    )
+    assert prepared.status == "BOUND"
+    assert prepared.exact_stock_refs[0].inventory_stock_id == receipt.lines[0].stock_id
+
+
 def test_formula_state_authority_current_vs_physical():
-    snapshot = snap(rec("Hedione", exact_ref=None))
+    snapshot = snap(rec("Hedione"))
     receipt = build_formula_dose_receipt_from_snapshot(
         {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
     )
@@ -154,22 +198,28 @@ def test_formula_state_authority_current_vs_physical():
 
 
 def test_prepared_run_never_grants_sensory_or_release_authority():
-    snapshot = snap(rec("Hedione", exact_ref="stock:hedione:001"))
+    snapshot = snap(rec("Hedione"))
     receipt = build_formula_dose_receipt_from_snapshot(
         {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
     )
-    payload = prepare_run("run-1", receipt, snapshot).as_dict()
+    ref = bind_exact_stock_ref(snapshot, "Hedione", ref_id="stock:hedione:001")
+    payload = prepare_run(
+        "run-1", receipt, snapshot, exact_stock_refs=(ref,)
+    ).as_dict()
     assert payload["sensory_authority"] is False
     assert payload["liking_authority"] is False
     assert payload["safety_authority"] is False
     assert payload["release_authority"] is False
 
 
-def test_zero_active_fraction_does_not_construct_invalid_bound_receipt():
-    snapshot = snap(rec("DPG", frac=0.0, basis="volume_fraction", carrier="DPG"))
+def test_prepared_run_rejects_forged_exact_ref_metadata():
+    snapshot = snap(rec("Hedione"))
     receipt = build_formula_dose_receipt_from_snapshot(
-        {"name": "x", "ingredients_ul": {"DPG": 20.0}}, snapshot
+        {"name": "x", "ingredients_ul": {"Hedione": 20.0}}, snapshot
     )
-    assert receipt.status == "ABSTAINED"
-    assert receipt.lines[0].stock_fraction is None
-    assert "zero_active_fraction_requires_carrier_quantity_model" in receipt.lines[0].blockers
+    ref = bind_exact_stock_ref(snapshot, "Hedione", ref_id="stock:hedione:001")
+    forged = replace(ref, material="Not Hedione")
+    with pytest.raises(StockAuthorityError):
+        prepare_run(
+            "run-1", receipt, snapshot, exact_stock_refs=(forged,)
+        )
