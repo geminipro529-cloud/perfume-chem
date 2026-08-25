@@ -123,7 +123,11 @@ def _parse_current_inventory_workbook(
             if not any(value is not None and str(value).strip() for value in values):
                 continue
             record = {
-                field_name: _optional_workbook_text(values[header_indexes[header]])
+                field_name: _optional_workbook_text(
+                    values[header_indexes[header]]
+                    if header_indexes[header] < len(values)
+                    else None
+                )
                 for header, field_name in _CURRENT_MASTER_HEADERS.items()
             }
             record["source_row"] = source_row
@@ -296,6 +300,7 @@ class ArchitecturalDeltaResult:
     current_build_ref: str
     formula_lineage_sha256: str
     inventory_workbook_sha256: str
+    inventory_source_row_count: int
     selected_candidate: ArchitecturalDeltaCandidate | None
     inventory_projection: InventoryProjection | None
     controlled_arms: tuple[str, ...]
@@ -339,6 +344,7 @@ def evaluate_architectural_delta(
         "current_build_ref": request.current_build_ref,
         "formula_lineage_sha256": request.formula_lineage_sha256,
         "inventory_workbook_sha256": catalog.workbook_sha256,
+        "inventory_source_row_count": len(catalog.current_records),
     }
     if not request.candidates:
         return ArchitecturalDeltaResult(
@@ -449,7 +455,28 @@ def _candidate_blockers(
                 f"{candidate.candidate_id}: n-ary design lacks complete pairwise "
                 "nonredundancy isolates"
             )
-        if candidate.nary_candidate is None:
+        if role_count == 2:
+            factors = tuple(
+                part.strip().upper().replace(" ", "_")
+                for part in candidate.material.split("+")
+                if part.strip()
+            )
+            expected_arms = (
+                "CONTROL",
+                *factors,
+                "_X_".join(factors),
+            )
+            if len(factors) != 2 or candidate.controlled_arms != expected_arms:
+                blockers.append(
+                    f"{candidate.candidate_id}: two-factor interaction requires "
+                    "exactly four factorial arms"
+                )
+            if candidate.causal_design_sha256 is None:
+                blockers.append(
+                    f"{candidate.candidate_id}: two-factor interaction requires a "
+                    "hash-bound causal design"
+                )
+        elif candidate.nary_candidate is None:
             blockers.append(
                 f"{candidate.candidate_id}: existing n-ary interaction contract is required"
             )

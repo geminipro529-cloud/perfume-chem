@@ -122,6 +122,7 @@ def test_empty_target_defined_candidate_set_returns_authority_free_no_change() -
         Path(os.environ["PERFUME_COMPLEXITY_INVENTORY_WORKBOOK"]).read_bytes()
     ).hexdigest()
     assert result.inventory_workbook_sha256 == expected_workbook_sha256
+    assert result.inventory_source_row_count > 0
     assert result.selected_candidate is None
     assert result.next_comparison is None
     assert result.formula_mutation_authorized is False
@@ -528,3 +529,23 @@ def test_nary_design_requires_distinct_roles_and_complete_pairwise_isolates() ->
     assert any("n-ary interaction contract" in blocker for blocker in contract_missing.blockers)
     assert proposed.state is ArchitecturalDeltaState.PROPOSED
     assert proposed.empirical_authority is False
+
+
+def test_two_factor_design_requires_complete_four_arm_factorial() -> None:
+    result = evaluate_architectural_delta(
+        _request(
+            _candidate(
+                candidate_id="two-musk-factorial",
+                material="Habanolide + Romandolide",
+                family=ArchitecturalDeltaFamily.MUSK,
+                kind=ArchitecturalDeltaKind.NARY_DESIGN,
+                distinct_role_refs=("radiance", "texture"),
+                pairwise_nonredundancy_refs=("habanolide:romandolide",),
+                controlled_arms=("CONTROL", "HABANOLIDE", "HABANOLIDE_X_ROMANDOLIDE"),
+                causal_design_sha256="f" * 64,
+            )
+        )
+    )
+
+    assert result.state is ArchitecturalDeltaState.HOLD
+    assert any("four factorial arms" in blocker for blocker in result.blockers)
