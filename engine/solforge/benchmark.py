@@ -34,6 +34,14 @@ BENCHMARK_AUTHORITY_FLAGS = {
     "sensory": False,
 }
 
+JUDGE_SCORE_CRITERIA = (
+    "target_fidelity",
+    "experimental_usefulness",
+    "restraint",
+    "clarity",
+    "evidence_efficiency",
+)
+
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 _FABRICATED_SENSORY_RE = re.compile(
     r"\b(?:we|the panel|assessors?)\s+(?:smelled|observed|perceived|preferred)\b",
@@ -638,7 +646,15 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     if isinstance(forced_holds, list) and forced_holds:
         fatal_blockers.extend(str(item) for item in forced_holds)
         decision = "HOLD"
-        interventions = []
+        interventions = [
+            {
+                **item,
+                "status": "EVIDENCE_ONLY_NOT_AUTHORIZED",
+            }
+            if isinstance(item, dict)
+            else item
+            for item in interventions
+        ]
 
     permitted = case.input_payload.get("permitted_materials")
     materials = source.get("materials", [])
@@ -665,7 +681,20 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
     if not isinstance(arms, list):
         arms = []
     nary_factors = source.get("nary_factors", [])
-    if isinstance(nary_factors, list) and len(nary_factors) >= 2:
+    binary_factorial = (
+        isinstance(nary_factors, list)
+        and len(nary_factors) >= 2
+        and all(
+            isinstance(item, str)
+            or (
+                isinstance(item, dict)
+                and isinstance(item.get("levels"), list)
+                and len(item["levels"]) == 2
+            )
+            for item in nary_factors
+        )
+    )
+    if binary_factorial:
         required = 2 ** len(nary_factors)
         if len(arms) != required:
             fatal_blockers.append("INCOMPLETE_NARY_ARMS")
@@ -699,24 +728,18 @@ def _compile_governed(case: BenchmarkCaseV1, frozen: FrozenSolOutputV1) -> str:
             else "Retain the declared control and record the next discriminating comparison."
         )
     compiled = {
-        "schema_version": "solforge_benchmark_compiled_v1",
-        "case_id": case.case_id,
-        "compiler_version": "solforge_benchmark_compiler_v1",
         "decision": decision,
         "interventions": interventions,
-        "intervention_count": len(interventions),
         "materials": material_names,
         "arms": arms,
+        "nary_factors": nary_factors,
         "blockers": sorted(set(blockers)),
         "inventory_statuses": source.get(
             "inventory_statuses", case.input_payload.get("inventory_statuses", {})
         ),
         "ideal_architecture": case.input_payload.get("ideal_architecture"),
         "current_inventory_build": case.input_payload.get("current_inventory_build"),
-        "inventory_sha256": case.input_payload.get("inventory_sha256"),
-        "criterion": case.input_payload.get("criterion"),
         "next_comparison": next_comparison,
-        "source_output_sha256": frozen.output_sha256,
         "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
     }
     return canonical_json_bytes(compiled).decode("utf-8")
@@ -750,11 +773,11 @@ def compile_conditions(
 
     validate_frozen_sol_output(case, frozen)
     governed = _compile_governed(case, frozen)
-    target_bytes = len(governed.encode("utf-8"))
+    governed_bytes = len(governed.encode("utf-8"))
     raw_bytes = len(frozen.output_text.encode("utf-8"))
-    if target_bytes < raw_bytes:
-        raise AssertionError("governed output cannot be shorter than its source bytes")
+    target_bytes = max(governed_bytes, raw_bytes)
     no_op = frozen.output_text + (" " * (target_bytes - raw_bytes))
+    governed = governed + (" " * (target_bytes - governed_bytes))
     return (
         _condition(case, frozen, ConditionKind.PLAIN_SOL, frozen.output_text),
         _condition(
@@ -844,6 +867,44 @@ def ingest_judge_results(
             )
         )
     return tuple(mapped)
+
+
+def score_judged_results(
+    results: Sequence[UnblindedJudgeResultV1],
+) -> tuple[dict[str, object], ...]:
+    """Aggregate complete blinded-judge criteria onto the declared 0-25 scale."""
+
+    expected = set(JUDGE_SCORE_CRITERIA)
+    seen: set[tuple[str, ConditionKind]] = set()
+    rows: list[dict[str, object]] = []
+    for item in results:
+        identity = (item.case_id, item.condition)
+        if identity in seen:
+            raise ValueError("duplicate judged case condition")
+        seen.add(identity)
+        criterion_scores = dict(item.result.scores)
+        if set(criterion_scores) != expected:
+            raise ValueError("judge score must contain exactly the five declared criteria")
+        critical_errors = (
+            [f"JUDGE_CRITICAL_ERROR:{item.result.candidate_id}"]
+            if item.result.critical_error
+            else []
+        )
+        rows.append(
+            {
+                "case_id": item.case_id,
+                "condition": item.condition.value,
+                "score": sum(criterion_scores.values()),
+                "score_max": len(JUDGE_SCORE_CRITERIA) * 5,
+                "criterion_scores": {
+                    name: criterion_scores[name] for name in JUDGE_SCORE_CRITERIA
+                },
+                "critical_errors": critical_errors,
+                "judge_result_sha256": item.result.record_sha256,
+                "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
+            }
+        )
+    return tuple(sorted(rows, key=lambda row: (str(row["case_id"]), str(row["condition"]))))
 
 
 def freeze_judge_output(
@@ -1178,6 +1239,19 @@ def _cli_admit(
     _write(output, admission.as_dict())
 
 
+def _cli_score_judge(judged_path: Path, output: Path) -> None:
+    payload = json.loads(judged_path.read_text(encoding="utf-8"))
+    mapped = tuple(
+        UnblindedJudgeResultV1(
+            case_id=row["case_id"],
+            condition=ConditionKind(row["condition"]),
+            result=JudgeResultV1.from_dict(row["judge_result"]),
+        )
+        for row in payload["results"]
+    )
+    _write(output, {"scores": list(score_judged_results(mapped))})
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="action", required=True)
@@ -1208,6 +1282,9 @@ def _build_parser() -> argparse.ArgumentParser:
     score.add_argument("--corpus", type=Path, required=True)
     score.add_argument("--conditions", type=Path, required=True)
     score.add_argument("--output", type=Path, required=True)
+    score_judge = sub.add_parser("score-judge")
+    score_judge.add_argument("--judged", type=Path, required=True)
+    score_judge.add_argument("--output", type=Path, required=True)
     admit = sub.add_parser("admit")
     admit.add_argument("--scores", type=Path, required=True)
     admit.add_argument("--output", type=Path, required=True)
@@ -1248,6 +1325,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.action == "score":
         _cli_score(args.corpus, args.conditions, args.output)
         return 0
+    if args.action == "score-judge":
+        _cli_score_judge(args.judged, args.output)
+        return 0
     if args.action == "admit":
         _cli_admit(args.scores, args.output, args.module_id, args.phase)
         return 0
@@ -1262,6 +1342,7 @@ __all__ = [
     "BENCHMARK_AUTHORITY_FLAGS",
     "EXPECTED_MODEL_IDENTITY",
     "EXPECTED_REASONING_SETTING",
+    "JUDGE_SCORE_CRITERIA",
     "BenchmarkAdmissionV1",
     "BenchmarkCaseV1",
     "BenchmarkPhase",
@@ -1278,5 +1359,6 @@ __all__ = [
     "freeze_judge_output",
     "ingest_judge_results",
     "score_invariants",
+    "score_judged_results",
     "validate_frozen_sol_output",
 ]

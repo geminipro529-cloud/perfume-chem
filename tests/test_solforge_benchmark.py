@@ -21,6 +21,7 @@ from engine.solforge.benchmark import (
     freeze_sol_output,
     ingest_judge_results,
     score_invariants,
+    score_judged_results,
     validate_frozen_sol_output,
 )
 
@@ -139,7 +140,11 @@ def test_three_conditions_share_one_frozen_output_and_noop_is_length_matched() -
         by_kind[ConditionKind.NO_OP_LENGTH_MATCHED].output_text
     )
     assert "source_hypothesis_text" not in by_kind[ConditionKind.SOLFORGE].output_text
-    assert "source_output_sha256" in by_kind[ConditionKind.SOLFORGE].output_text
+    assert "source_output_sha256" not in by_kind[ConditionKind.SOLFORGE].output_text
+    assert "compiler_version" not in by_kind[ConditionKind.SOLFORGE].output_text
+    assert len(by_kind[ConditionKind.NO_OP_LENGTH_MATCHED].output_text) == len(
+        by_kind[ConditionKind.SOLFORGE].output_text
+    )
 
 
 def test_governor_preserves_nonfatal_limitations_and_canonicalizes_factorial() -> None:
@@ -199,6 +204,62 @@ def test_governor_preserves_nonfatal_limitations_and_canonicalizes_factorial() -
     assert payload["arms"] == [
         "CONTROL", "HABANOLIDE", "ROMANDOLIDE", "HABANOLIDE_X_ROMANDOLIDE"
     ]
+    assert payload["nary_factors"] == ["Habanolide", "Romandolide"]
+
+
+def test_forced_hold_preserves_evidence_only_design_and_dependent_ratio_arms() -> None:
+    case = replace(
+        _case(),
+        case_id="COUNT-HOLD",
+        input_payload={
+            **_case().input_payload,
+            "criterion": "DEPTH",
+            "permitted_materials": ["Iralia", "Orris Givco"],
+            "required_hold_reasons": ["INGREDIENT_COUNT_RATIONALE"],
+        },
+    )
+    output = json.dumps(
+        {
+            "decision": "HOLD",
+            "interventions": [{"type": "CONSTANT_TOTAL_NARY_RATIO_SCREEN"}],
+            "materials": ["Iralia", "Orris Givco"],
+            "blockers": ["INGREDIENT_COUNT_RATIONALE"],
+            "arms": ["IRALIA", "MIX", "ORRIS"],
+            "nary_factors": [
+                {"factor": "Iralia_fraction", "levels": [1.0, 0.5, 0.0]},
+                {"factor": "Orris_Givco_fraction", "constraint": "1-Iralia_fraction"},
+            ],
+            "next_comparison": "Compare the three constant-total ratio arms.",
+            "authority_flags": BENCHMARK_AUTHORITY_FLAGS,
+        },
+        sort_keys=True,
+    )
+    frozen = FrozenSolOutputV1(
+        case_id=case.case_id,
+        phase=case.phase,
+        model_identity="GPT-5.6 Sol",
+        reasoning_setting="xhigh",
+        conversation_id="count-hold-task",
+        prompt_sha256=case.prompt_sha256,
+        input_sha256=case.input_sha256,
+        output_text=output,
+        output_sha256=sha256_hex(output.encode("utf-8")),
+    )
+    governed = next(
+        item
+        for item in compile_conditions(case, frozen)
+        if item.condition is ConditionKind.SOLFORGE
+    )
+    payload = json.loads(governed.output_text)
+    assert payload["decision"] == "HOLD"
+    assert payload["interventions"] == [
+        {
+            "status": "EVIDENCE_ONLY_NOT_AUTHORIZED",
+            "type": "CONSTANT_TOTAL_NARY_RATIO_SCREEN",
+        }
+    ]
+    assert payload["arms"] == ["IRALIA", "MIX", "ORRIS"]
+    assert "INCOMPLETE_NARY_ARMS" not in payload["blockers"]
 
 
 def test_condition_set_rejects_condition_specific_resampling() -> None:
@@ -286,6 +347,49 @@ def test_raw_judge_output_is_bound_to_exact_packets() -> None:
     changed["output_text"] = json.dumps({"results": []})
     with pytest.raises(ValueError, match="missing judge result"):
         freeze_judge_output(packets, changed)
+
+
+def test_judged_results_are_scored_on_declared_five_criterion_scale() -> None:
+    case = _case()
+    packets, key = blind_condition_outputs(
+        case, compile_conditions(case, _frozen(case)), seed=43
+    )
+    results = tuple(
+        JudgeResultV1(
+            packet_sha256=packet.record_sha256,
+            candidate_id=packet.candidate_id,
+            judge_model_identity="GPT-5.6 Sol",
+            judge_reasoning_setting="xhigh",
+            scores=(
+                ("target_fidelity", 5),
+                ("experimental_usefulness", 4),
+                ("restraint", 3),
+                ("clarity", 2),
+                ("evidence_efficiency", 1),
+            ),
+            critical_error=packet is packets[0],
+            rationale="Bounded score.",
+        )
+        for packet in packets
+    )
+    mapped = ingest_judge_results(
+        packets, results, key, unblinding_authorized=True
+    )
+    scored = score_judged_results(mapped)
+    assert len(scored) == 3
+    assert all(row["score"] == 15 for row in scored)
+    assert all(row["score_max"] == 25 for row in scored)
+    assert sum(bool(row["critical_errors"]) for row in scored) == 1
+
+    incomplete = replace(results[0], scores=(("clarity", 5),))
+    remapped = ingest_judge_results(
+        packets,
+        (incomplete, *results[1:]),
+        key,
+        unblinding_authorized=True,
+    )
+    with pytest.raises(ValueError, match="five declared criteria"):
+        score_judged_results(remapped)
 
 
 def test_invariant_scoring_is_deterministic_and_authority_closed() -> None:
