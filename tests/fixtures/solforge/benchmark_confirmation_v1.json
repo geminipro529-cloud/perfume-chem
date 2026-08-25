@@ -1,0 +1,298 @@
+{
+  "schema_version": "solforge_benchmark_corpus_v1",
+  "corpus_id": "SOLFORGE-CONFIRMATION-V1",
+  "inventory_authority": {
+    "artifact": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "cases": [
+    {
+      "case_id": "CNF-CITRUS-01",
+      "phase": "CONFIRMATION",
+      "category": "lemon-lime heart-echo alternative",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A lemon-lime opening vanishes before the heart. Choose one controlled heart-echo strategy without claiming literal persistence of peel oil.",
+      "input_payload": {
+        "target_identity": "sharp lemon-lime opening echoed as green citrus in the heart",
+        "ideal_architecture": {"opening": "lemon-lime", "heart_echo": "acetate-or-green bridge"},
+        "current_inventory_build": {"materials": ["Lemon Oil", "Distilled Lime"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Lemon Oil", "Distilled Lime", "Linalyl Acetate", "Terpinyl Acetate"]
+      },
+      "public_invariants": ["zero_one_intervention", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Neroli"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "A heart echo is a selected facet bridge, not preservation of the volatile oil."
+      }
+    },
+    {
+      "case_id": "CNF-CITRUS-02",
+      "phase": "CONFIRMATION",
+      "category": "bitter-orange target with floral bridge",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target is dry bitter-orange peel, with Neroli 10% allowed only as a restrained floral bridge. Select one first delta.",
+      "input_payload": {
+        "target_identity": "dry bitter-orange peel with a restrained floral bridge",
+        "ideal_architecture": {"bitter_orange": "primary", "neroli": "support-only"},
+        "current_inventory_build": {"materials": ["Bitter Orange Oil"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Bitter Orange Oil", "Neroli 10%"]
+      },
+      "public_invariants": ["zero_one_intervention", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Sweet Orange Oil"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Primary citrus follows target identity; the floral bridge remains subordinate."
+      }
+    },
+    {
+      "case_id": "CNF-MUSK-03",
+      "phase": "CONFIRMATION",
+      "category": "zero-musk target",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target is austere root, mineral, and incense with no soft skin or laundry musk facet. Decide whether musk is required for complexity.",
+      "input_payload": {
+        "target_identity": "austere mineral root incense without musk",
+        "ideal_architecture": {"musk": "absent", "depth": "root-mineral-incense relation"},
+        "current_inventory_build": {"materials": ["Vetiver", "Orris Givco", "Olibanum"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Vetiver", "Orris Givco", "Olibanum"]
+      },
+      "public_invariants": ["correct_no_change", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["NO_CHANGE"], "max_interventions": 0,
+        "required_blockers": [], "forbidden_materials": ["Habanolide", "Romandolide", "Tonalide"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Zero musk is valid when the target does not need a musk function."
+      }
+    },
+    {
+      "case_id": "CNF-MUSK-04",
+      "phase": "CONFIRMATION",
+      "category": "single Romandolide target",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target requires rounded, fruity-clean musk volume but not metallic diffusion. Romandolide is owned. Select the first experiment.",
+      "input_payload": {
+        "target_identity": "rounded fruity-clean skin volume",
+        "ideal_architecture": {"musk": "single rounded-volume function"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Romandolide": "OWNED"},
+        "permitted_materials": ["Romandolide"]
+      },
+      "public_invariants": ["zero_one_intervention", "exact_inventory_lineage", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Habanolide"],
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "A single precise musk is preferable to default layering."
+      }
+    },
+    {
+      "case_id": "CNF-MUSK-05",
+      "phase": "CONFIRMATION",
+      "category": "unavailable musk-layering proposal",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A proposal layers Ambrettolide 10%, Ethylene Brassylate, and a missing macrocyclic musk without distinct roles or stock. Decide whether to advance it.",
+      "input_payload": {
+        "target_identity": "restrained skin musk with one unresolved function",
+        "ideal_architecture": {"musk": "zero-or-one until nonredundancy is shown"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Ambrettolide 10% in DPG": "PROCUREMENT_PENDING", "Ethylene Brassylate": "MISSING", "Unnamed Macrocyclic Musk": "MISSING"},
+        "required_hold_reasons": ["MUSK_LAYER_NONREDUNDANCY_UNPROVEN", "INVENTORY_MISMATCH"],
+        "permitted_materials": []
+      },
+      "public_invariants": ["required_hold", "exact_inventory_lineage", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["MUSK_LAYER_NONREDUNDANCY_UNPROVEN", "INVENTORY_MISMATCH"],
+        "forbidden_materials": ["Ambrettolide 10% in DPG", "Ethylene Brassylate", "Unnamed Macrocyclic Musk"],
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Unavailable redundant layering has neither stock nor interaction authority."
+      }
+    },
+    {
+      "case_id": "CNF-ORRIS-06",
+      "phase": "CONFIRMATION",
+      "category": "sweet orris versus generic floral powder",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target is sweet edible rhizome depth, not generic violet-floral powder. Choose one isolated architecture delta.",
+      "input_payload": {
+        "target_identity": "sweet orris root with edible warmth and damp rhizome",
+        "ideal_architecture": {"orris_root": "central", "sweetness": "integrated", "powder": "secondary"},
+        "current_inventory_build": {"materials": ["Iralia", "Orris Givco"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Iralia", "Orris Givco", "Vanillin"]
+      },
+      "public_invariants": ["zero_one_intervention", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["generic floral bouquet"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "The experiment must discriminate rhizome-linked sweetness from generic powder."
+      }
+    },
+    {
+      "case_id": "CNF-FLORAL-07",
+      "phase": "CONFIRMATION",
+      "category": "two-flower identity relation",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Rose and jasmine have distinct target functions. Design the minimum complete experiment needed to test whether their relation adds target depth.",
+      "input_payload": {
+        "target_identity": "rose petal body animated by jasmine luminosity",
+        "ideal_architecture": {"Rose": "petal body", "Jasmine": "living luminosity"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Rose Accord", "Jasmine Accord"]
+      },
+      "public_invariants": ["zero_one_intervention", "complete_nary_arms", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [],
+        "required_arm_sets": [["CONTROL", "ROSE", "JASMINE", "ROSE_X_JASMINE"]],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "A relation claim needs control, both isolates, and the combination."
+      }
+    },
+    {
+      "case_id": "CNF-FLORAL-08",
+      "phase": "CONFIRMATION",
+      "category": "selected three-flower interaction",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Rose, jasmine, and muguet each have declared functions. Specify the complete constant-total factorial needed before a three-way depth claim.",
+      "input_payload": {
+        "target_identity": "petal body, living bloom, and floral air in layered relation",
+        "ideal_architecture": {"Rose": "body", "Jasmine": "life", "Muguet": "air"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Rose Accord", "Jasmine Accord", "Muguet Accord"]
+      },
+      "public_invariants": ["zero_one_intervention", "complete_nary_arms", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [],
+        "required_arm_sets": [["CONTROL", "ROSE", "JASMINE", "MUGUET", "ROSE_X_JASMINE", "ROSE_X_MUGUET", "JASMINE_X_MUGUET", "ROSE_X_JASMINE_X_MUGUET"]],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "A three-way interaction cannot be inferred from selected pairwise arms."
+      }
+    },
+    {
+      "case_id": "CNF-FLORAL-09",
+      "phase": "CONFIRMATION",
+      "category": "selected four-flower count trap",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Rose, jasmine, tuberose, and osmanthus are combined only because four flowers are assumed richer than two. No distinct roles or factorial resources are supplied. Decide the first experiment.",
+      "input_payload": {
+        "target_identity": "focused floral identity not yet specified",
+        "ideal_architecture": {"flower_count": "not an endpoint", "relations": "undeclared"},
+        "current_inventory_build": {"materials": ["Rose Accord", "Jasmine Accord"]},
+        "criterion": "RICHNESS",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["INGREDIENT_COUNT_RATIONALE", "FUNCTIONS_UNDECLARED"],
+        "permitted_materials": ["Rose Accord", "Jasmine Accord"]
+      },
+      "public_invariants": ["required_hold", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["INGREDIENT_COUNT_RATIONALE", "FUNCTIONS_UNDECLARED"],
+        "forbidden_materials": ["Tuberose Accord", "Osmanthus Accord"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Four flowers do not earn richness by count; functions and tractable contrasts come first."
+      }
+    },
+    {
+      "case_id": "CNF-WOOD-10",
+      "phase": "CONFIRMATION",
+      "category": "wood depth separated from darkness",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A dark amberwood overdose increases intensity but collapses cedar grain and vetiver root transitions. Choose one ratio experiment for depth, not darkness.",
+      "input_payload": {
+        "target_identity": "cedar grain moving into vetiver root with transparent late space",
+        "ideal_architecture": {"depth": "grain-root-space transition", "darkness": "not the endpoint"},
+        "current_inventory_build": {"materials": ["Cedarwood", "Vetiver", "Amberwood"]},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Cedarwood", "Vetiver", "Amberwood"]
+      },
+      "public_invariants": ["zero_one_intervention", "criterion_isolation", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [], "required_criterion": "DEPTH",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Wood depth is a temporal and structural relation, not darkness or loudness."
+      }
+    },
+    {
+      "case_id": "CNF-TEMPORAL-11",
+      "phase": "CONFIRMATION",
+      "category": "incomplete temporal cells with disagreement",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Two assessor-timepoint cells are missing, one cell is duplicated, and assessors disagree strongly at drydown. Decide whether temporal depth is established.",
+      "input_payload": {
+        "target_identity": "verified top-heart-base temporal transition",
+        "ideal_architecture": {"temporal_cells": "complete unique protocol-bound observations", "agreement": "reported"},
+        "current_inventory_build": {"observed_cells": 14, "expected_cells": 16, "duplicate_cells": 1, "assessor_disagreement": "high"},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["MISSING_TEMPORAL_CELLS", "DUPLICATE_TEMPORAL_CELL"],
+        "permitted_materials": []
+      },
+      "public_invariants": ["required_hold", "criterion_isolation", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["MISSING_TEMPORAL_CELLS", "DUPLICATE_TEMPORAL_CELL"],
+        "forbidden_materials": [], "required_criterion": "DEPTH",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Missing stays missing, duplicates hold the ledger, and disagreement must remain explicit."
+      }
+    },
+    {
+      "case_id": "CNF-PREF-12",
+      "phase": "CONFIRMATION",
+      "category": "non-liking criteria offered as liking",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A formula won blinded target fidelity, depth, and richness comparisons, but liking was never collected. Decide whether it is a hedonic winner.",
+      "input_payload": {
+        "target_identity": "criterion-separated preference evidence",
+        "ideal_architecture": {"TARGET_FIDELITY": "separate", "DEPTH": "separate", "RICHNESS": "separate", "LIKING": "missing"},
+        "current_inventory_build": {"observed_criteria": ["TARGET_FIDELITY", "DEPTH", "RICHNESS"]},
+        "criterion": "LIKING",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["LIKING_NOT_OBSERVED", "CRITERION_SUBSTITUTION_FORBIDDEN"],
+        "permitted_materials": []
+      },
+      "public_invariants": ["required_hold", "criterion_isolation", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD", "WITHHELD"], "max_interventions": 0,
+        "required_blockers": ["LIKING_NOT_OBSERVED", "CRITERION_SUBSTITUTION_FORBIDDEN"],
+        "forbidden_materials": [], "required_criterion": "LIKING",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Depth, richness, and fidelity cannot be collapsed into liking."
+      }
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}
