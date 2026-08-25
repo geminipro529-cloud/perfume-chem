@@ -163,3 +163,13 @@ def test_prepared_run_never_grants_sensory_or_release_authority():
     assert payload["liking_authority"] is False
     assert payload["safety_authority"] is False
     assert payload["release_authority"] is False
+
+
+def test_zero_active_fraction_does_not_construct_invalid_bound_receipt():
+    snapshot = snap(rec("DPG", frac=0.0, basis="volume_fraction", carrier="DPG"))
+    receipt = build_formula_dose_receipt_from_snapshot(
+        {"name": "x", "ingredients_ul": {"DPG": 20.0}}, snapshot
+    )
+    assert receipt.status == "ABSTAINED"
+    assert receipt.lines[0].stock_fraction is None
+    assert "zero_active_fraction_requires_carrier_quantity_model" in receipt.lines[0].blockers
