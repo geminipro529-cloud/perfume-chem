@@ -124,8 +124,40 @@ class BenchmarkCaseV1(_Record):
         )
 
     @property
+    def dispatch_prompt_text(self) -> str:
+        compact_input = json.dumps(
+            self.input_payload, sort_keys=True, separators=(",", ":")
+        )
+        compact_invariants = json.dumps(
+            list(self.public_invariants), separators=(",", ":")
+        )
+        compact_authority = json.dumps(
+            BENCHMARK_AUTHORITY_FLAGS, sort_keys=True, separators=(",", ":")
+        )
+        return "\n\n".join(
+            (
+                "NO-NETWORK, NO-TOOLS EVALUATION. Do not read files, skills, "
+                "memory, prior tasks, or project instructions. Do not call any "
+                "provider, shell, browser, or other tool. Reason only from this "
+                "public case and answer immediately.",
+                self.system_prompt,
+                f"Case ID: {self.case_id}",
+                f"Case category: {self.category}",
+                f"Task: {self.user_prompt}",
+                f"Public input: {compact_input}",
+                f"Public invariants to respect: {compact_invariants}",
+                f"Required authority_flags object: {compact_authority}",
+                "Return only valid JSON. No markdown or commentary. decision must "
+                "be NO_CHANGE, PROPOSED, HOLD, WITHHELD, or DIAGNOSTIC. "
+                "interventions must contain zero or one object. A n-ary design "
+                "counts as one intervention and must name nary_factors and every "
+                "constant-total factorial arm. next_comparison must be a string.",
+            )
+        )
+
+    @property
     def prompt_bytes(self) -> bytes:
-        return f"{self.system_prompt}\n\n{self.user_prompt}".encode("utf-8")
+        return self.dispatch_prompt_text.encode("utf-8")
 
     @property
     def prompt_sha256(self) -> str:
@@ -143,6 +175,7 @@ class BenchmarkCaseV1(_Record):
             "category": self.category,
             "system_prompt": self.system_prompt,
             "user_prompt": self.user_prompt,
+            "dispatch_prompt_text": self.dispatch_prompt_text,
             "input_payload": self.input_payload,
             "public_invariants": list(self.public_invariants),
             "prompt_sha256": self.prompt_sha256,

@@ -92,6 +92,18 @@ def test_frozen_output_rejects_unknown_model_reasoning_and_hash_drift() -> None:
         validate_frozen_sol_output(case, replace(frozen, output_sha256="b" * 64))
 
 
+def test_dispatch_prompt_is_exact_public_no_tools_and_excludes_answer_key() -> None:
+    case = _case()
+    dispatch = case.dispatch_prompt_text
+    assert "NO-NETWORK, NO-TOOLS EVALUATION" in dispatch
+    assert case.system_prompt in dispatch
+    assert case.user_prompt in dispatch
+    assert json.dumps(case.input_payload, sort_keys=True, separators=(",", ":")) in dispatch
+    assert "sealed_answer_key" not in dispatch
+    assert "human_rationale" not in dispatch
+    assert sha256_hex(dispatch.encode("utf-8")) == case.prompt_sha256
+
+
 def test_three_conditions_share_one_frozen_output_and_noop_is_length_matched() -> None:
     case = _case()
     frozen = _frozen(case)
