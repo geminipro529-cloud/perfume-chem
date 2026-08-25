@@ -1,0 +1,144 @@
+{
+  "schema_version": "complexity_module_registry_v2",
+  "base_registry": "complexity_module_registry_v1.json",
+  "module_overrides": [
+    {
+      "module_id": "citrus-architecture-selector",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "import_path": null,
+      "notes": [
+        "Retired and unreachable from runtime after failing the prior external xhigh retention benchmark; source retained as a provenance tombstone.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus.",
+        "The shared V5 catalog binds exact current stock for any target-defined citrus candidate while keeping carrier-open, out-of-stock, planned, missing, and unlisted states fail-closed."
+      ]
+    },
+    {
+      "module_id": "family-hedonic-optimizer",
+      "sha256": "c78cf372ed14b150475b88f3dd589fed7763eba26970cbece97e332c7f7b4bd3",
+      "notes": [
+        "Exact current source bytes are rebound only in this additive overlay; the frozen V1 registry remains unchanged.",
+        "This evidence-only module remains nonruntime and grants no beauty, liking, formula, sensory, or release authority."
+      ]
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "architectural-delta-engine",
+      "family_id": "architectural_delta_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/architectural_delta.py",
+      "import_path": null,
+      "sha256": "ddf6e97411071782bc607fb5e29acbc02459299fa2bfdda2e65d01594dd5e622",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Target-first zero-or-one delta engine; ingredient count is never complexity evidence.",
+        "Current inventory constrains the build but cannot redefine the ideal target.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "family_id": "temporal_sensory_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/sensory/ledger.py",
+      "import_path": null,
+      "sha256": "0aa4eefb7fa74b3992aa9386e382fcd9e58dfd19293d405eb229a16a37175592",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Evidence ledger preserves missing and duplicate cells, assessor disagreement, order balance, and observed transitions.",
+        "Predicted volatility is never converted into perceived behavior.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "family_id": "hedonic_preference_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/preference.py",
+      "import_path": null,
+      "sha256": "b71c615a9817532d58e0643e70cb294642e668a7127904ce2965e0be055ecb31",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_scoped_preference.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Learns only scoped criteria from blinded comparisons; no synthetic beauty score.",
+        "Sparse, disconnected, order-confounded, unscoped, or baseline-failing evidence is not validated.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "universal-perceptual-topology-core",
+      "family_id": "universal_perceptual_topology",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perceptual_topology.py",
+      "import_path": null,
+      "sha256": "968d57d5fe9fe00ad3e830f24cc204bc4523c10067342d239dc27ef88d07e0b1",
+      "evidence_refs": [
+        "incoming_review/Meaningful_Complexity_Audit_v2.md",
+        "tests/test_perceptual_topology.py"
+      ],
+      "notes": [
+        "Target/ideal topology remains separate from a dose-receipt-bound current-inventory projection.",
+        "Portfolio vectors are engineering anti-collapse diagnostics, not sensory similarity, beauty, or perceived-contribution scores.",
+        "Natural mixtures remain one canonical formula row; constituent decomposition remains inside the native OAV diagnostic firewall.",
+        "Nonruntime until a valid blinded replacement benchmark is accepted by Sol."
+      ]
+    },
+    {
+      "module_id": "perfumery-art-composition-topology-v1",
+      "family_id": "perfumery_art_composition_topology",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perfumery_art_topology.py",
+      "import_path": null,
+      "sha256": "cb88d4204edb583d687aebe55cda5f0aa0531d85c6d0b005f523dc017da80772",
+      "evidence_refs": [
+        "engine/sensory/order_balance.py",
+        "engine/sensory/ledger.py",
+        "tests/test_perceptual_topology.py"
+      ],
+      "notes": [
+        "Numerical ratio, ablation, and matched-total perturbation arms derive only from the bound canonical current build.",
+        "Williams schedules and temporal observations reuse the existing sensory contracts; allocation, execution, inference, and acceptance remain separate.",
+        "OAV and headspace can only authorize experiment selection and cannot choose an artistic topology or final formula.",
+        "Nonruntime until a valid blinded replacement benchmark is accepted by Sol."
+      ]
+    },
+    {
+      "module_id": "wood-depth-model-v2",
+      "family_id": "wood_depth_specialist",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/wood_depth.py",
+      "import_path": null,
+      "sha256": "d8c1efb393ecb1d455f242e4408cd53fb44ab05f8be23d7eaedbe499d6377e06",
+      "evidence_refs": [
+        "engine/perception/perceptual_topology.py",
+        "engine/perception/perfumery_art_topology.py",
+        "tests/test_perceptual_topology.py"
+      ],
+      "notes": [
+        "Wood-block fractions are computed from canonical active amounts; caller-supplied dominance percentages are not accepted.",
+        "Depth remains a target-linked ratio, texture, salience, and temporal hypothesis, never material count, total wood percentage, darkness, or headspace OAV.",
+        "The specialist inherits the Universal and Art topology contracts and creates no duplicate scoring or formula system.",
+        "Nonruntime until a valid blinded replacement benchmark is accepted by Sol."
+      ]
+    }
+  ]
+}

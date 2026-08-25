@@ -176,6 +176,129 @@ def _validate_rule(rule: Any, *, dismissal: bool) -> Mapping[str, Any]:
     return dict(rule)
 
 
+def _module_descriptor_from_row(
+    project_root: Path,
+    row: Any,
+) -> ModuleDescriptor:
+    if not isinstance(row, dict):
+        raise ValueError("module rows must be objects")
+    allowed = {
+        "module_id",
+        "family_id",
+        "role",
+        "state",
+        "path",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    if not set(row).issubset(allowed):
+        raise ValueError("module row contains unknown fields")
+    module_id = _nonblank(row.get("module_id"), "module_id")
+    family_id = _nonblank(row.get("family_id"), "family_id")
+    relative = _relative_path(row.get("path"))
+    digest = _nonblank(row.get("sha256"), "sha256")
+    if not _SHA256.fullmatch(digest):
+        raise ValueError(f"module {module_id!r} requires a lowercase SHA-256")
+    try:
+        role = ModuleRole(row.get("role"))
+        state = ModuleState(row.get("state"))
+    except ValueError as exc:
+        raise ValueError(f"module {module_id!r} has an unknown role or state") from exc
+    import_path = row.get("import_path")
+    if import_path is not None:
+        import_path = _nonblank(import_path, "import_path")
+    if state.value in _RUNTIME_STATES and import_path is None:
+        raise ValueError(f"runtime candidate {module_id!r} requires import_path")
+    if state.value not in _RUNTIME_STATES and import_path is not None:
+        raise ValueError(f"non-runtime module {module_id!r} cannot have import_path")
+    module_path = _inside_root(project_root, relative)
+    if not module_path.is_file():
+        raise ValueError(f"registered module is missing: {relative}")
+    return ModuleDescriptor(
+        module_id=module_id,
+        family_id=family_id,
+        role=role,
+        state=state,
+        path=relative,
+        import_path=import_path,
+        sha256=digest,
+        evidence_refs=_string_tuple(row.get("evidence_refs", []), "evidence_refs"),
+        notes=_string_tuple(row.get("notes", []), "notes"),
+    )
+
+
+def _load_registry_overlay(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    required = {
+        "schema_version",
+        "base_registry",
+        "module_overrides",
+        "module_additions",
+    }
+    if set(payload) != required:
+        raise ValueError("complexity registry v2 top-level keys are closed")
+    base_name = _nonblank(payload.get("base_registry"), "base_registry")
+    if Path(base_name).name != base_name:
+        raise ValueError("base_registry must be a sibling filename")
+    base_path = registry_path.parent / base_name
+    if base_path.resolve() == registry_path.resolve():
+        raise ValueError("base_registry cannot reference itself")
+    base = load_complexity_registry(project_root, base_path)
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    overrides = payload.get("module_overrides")
+    if not isinstance(overrides, list):
+        raise ValueError("module_overrides must be a list")
+    seen_overrides: set[str] = set()
+    override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    for override in overrides:
+        if not isinstance(override, dict) or not set(override).issubset(override_fields):
+            raise ValueError("module override contains unknown fields")
+        module_id = _nonblank(override.get("module_id"), "module override module_id")
+        if module_id in seen_overrides:
+            raise ValueError("module override IDs must be unique")
+        seen_overrides.add(module_id)
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown module override: {module_id}")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root, row
+        )
+    additions = payload.get("module_additions")
+    if not isinstance(additions, list):
+        raise ValueError("module_additions must be a list")
+    modules.extend(
+        _module_descriptor_from_row(project_root, row) for row in additions
+    )
+    ids = tuple(item.module_id for item in modules)
+    paths = tuple(item.path.casefold() for item in modules)
+    if len(ids) != len(set(ids)) or len(paths) != len(set(paths)):
+        raise ValueError("module IDs and paths must be unique")
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v2",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -183,6 +306,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v2":
+        return _load_registry_overlay(project_root, registry_path, raw, payload)
     required = {
         "schema_version",
         "discovery",
@@ -214,59 +339,12 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     ids: set[str] = set()
     paths: set[str] = set()
     for row in raw_modules:
-        if not isinstance(row, dict):
-            raise ValueError("module rows must be objects")
-        allowed = {
-            "module_id",
-            "family_id",
-            "role",
-            "state",
-            "path",
-            "import_path",
-            "sha256",
-            "evidence_refs",
-            "notes",
-        }
-        if not set(row).issubset(allowed):
-            raise ValueError("module row contains unknown fields")
-        module_id = _nonblank(row.get("module_id"), "module_id")
-        family_id = _nonblank(row.get("family_id"), "family_id")
-        relative = _relative_path(row.get("path"))
-        digest = _nonblank(row.get("sha256"), "sha256")
-        if not _SHA256.fullmatch(digest):
-            raise ValueError(f"module {module_id!r} requires a lowercase SHA-256")
-        if module_id in ids or relative.casefold() in paths:
+        descriptor = _module_descriptor_from_row(project_root, row)
+        if descriptor.module_id in ids or descriptor.path.casefold() in paths:
             raise ValueError("module IDs and paths must be unique")
-        ids.add(module_id)
-        paths.add(relative.casefold())
-        try:
-            role = ModuleRole(row.get("role"))
-            state = ModuleState(row.get("state"))
-        except ValueError as exc:
-            raise ValueError(f"module {module_id!r} has an unknown role or state") from exc
-        import_path = row.get("import_path")
-        if import_path is not None:
-            import_path = _nonblank(import_path, "import_path")
-        if state.value in _RUNTIME_STATES and import_path is None:
-            raise ValueError(f"runtime candidate {module_id!r} requires import_path")
-        if state.value not in _RUNTIME_STATES and import_path is not None:
-            raise ValueError(f"non-runtime module {module_id!r} cannot have import_path")
-        module_path = _inside_root(project_root, relative)
-        if not module_path.is_file():
-            raise ValueError(f"registered module is missing: {relative}")
-        modules.append(
-            ModuleDescriptor(
-                module_id=module_id,
-                family_id=family_id,
-                role=role,
-                state=state,
-                path=relative,
-                import_path=import_path,
-                sha256=digest,
-                evidence_refs=_string_tuple(row.get("evidence_refs", []), "evidence_refs"),
-                notes=_string_tuple(row.get("notes", []), "notes"),
-            )
-        )
+        ids.add(descriptor.module_id)
+        paths.add(descriptor.path.casefold())
+        modules.append(descriptor)
 
     artifact_rules = tuple(
         _validate_rule(rule, dismissal=False) for rule in payload["artifact_rules"]

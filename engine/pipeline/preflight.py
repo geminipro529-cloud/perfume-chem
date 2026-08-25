@@ -7,10 +7,12 @@ subsequent OAV/gate analysis.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
+from math import isclose, isfinite
 from typing import Any, Mapping
 
-from engine.calibration.hashing import stable_file_hash
+from engine.calibration.hashing import stable_file_hash, stable_json_hash
 from engine.inventory_parser import INVENTORY_PATH, parse_inventory
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
@@ -50,6 +52,257 @@ class PreflightReport:
             "confidence_penalty": round(float(self.confidence_penalty), 3),
             "warnings": list(self.warnings),
         }
+
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_DOSE_RECEIPT_SCHEMA = "formula-dose-receipt-v1"
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseLineReceipt:
+    """One immutable planned-volume dose bound to one exact physical stock."""
+
+    material_name: str
+    raw_ul: float
+    active_ul: float | None
+    stock_fraction: float | None
+    fraction_basis: str
+    carrier: str
+    stock_id: str | None
+    stock_authority: str | None
+    inventory_authority: str | None
+    source_rows: tuple[int, ...]
+    status: str
+    blockers: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        name = str(self.material_name).strip()
+        if not name:
+            raise ValueError("dose receipt material_name must not be blank")
+        raw_ul = float(self.raw_ul)
+        if not isfinite(raw_ul) or raw_ul <= 0.0:
+            raise ValueError(f"{name}: dose receipt raw_ul must be finite and positive")
+        fraction = None if self.stock_fraction is None else float(self.stock_fraction)
+        if fraction is not None and (not isfinite(fraction) or not 0.0 < fraction <= 1.0):
+            raise ValueError(f"{name}: dose receipt stock_fraction must be in (0, 1]")
+        active_ul = None if self.active_ul is None else float(self.active_ul)
+        if active_ul is not None and (not isfinite(active_ul) or active_ul < 0.0):
+            raise ValueError(f"{name}: dose receipt active_ul must be finite and nonnegative")
+        status = str(self.status).strip().upper()
+        if status not in {"BOUND", "ABSTAINED"}:
+            raise ValueError(f"{name}: dose receipt line status is invalid")
+        blockers = tuple(sorted({str(item).strip() for item in self.blockers if str(item).strip()}))
+        source_rows = tuple(sorted({int(value) for value in self.source_rows}))
+        if status == "BOUND":
+            required = (
+                fraction,
+                active_ul,
+                str(self.stock_id or "").strip(),
+                str(self.stock_authority or "").strip(),
+                str(self.inventory_authority or "").strip(),
+            )
+            if any(value in {None, ""} for value in required) or not source_rows:
+                raise ValueError(f"{name}: bound dose receipt line lacks stock lineage")
+            if blockers:
+                raise ValueError(f"{name}: bound dose receipt line cannot carry blockers")
+            if fraction is None or active_ul is None or not isclose(
+                active_ul, raw_ul * fraction, rel_tol=0.0, abs_tol=1e-12
+            ):
+                raise ValueError(f"{name}: dose receipt active quantity is inconsistent")
+        elif not blockers:
+            raise ValueError(f"{name}: abstained dose receipt line requires blockers")
+        object.__setattr__(self, "material_name", name)
+        object.__setattr__(self, "raw_ul", raw_ul)
+        object.__setattr__(self, "active_ul", active_ul)
+        object.__setattr__(self, "stock_fraction", fraction)
+        object.__setattr__(self, "fraction_basis", str(self.fraction_basis).strip())
+        object.__setattr__(self, "carrier", str(self.carrier).strip())
+        object.__setattr__(self, "stock_id", str(self.stock_id).strip() if self.stock_id else None)
+        object.__setattr__(
+            self,
+            "stock_authority",
+            str(self.stock_authority).strip() if self.stock_authority else None,
+        )
+        object.__setattr__(
+            self,
+            "inventory_authority",
+            str(self.inventory_authority).strip() if self.inventory_authority else None,
+        )
+        object.__setattr__(self, "source_rows", source_rows)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "blockers", blockers)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "material_name": self.material_name,
+            "raw_ul": self.raw_ul,
+            "active_ul": self.active_ul,
+            "stock_fraction": self.stock_fraction,
+            "fraction_basis": self.fraction_basis,
+            "carrier": self.carrier,
+            "stock_id": self.stock_id,
+            "stock_authority": self.stock_authority,
+            "inventory_authority": self.inventory_authority,
+            "source_rows": list(self.source_rows),
+            "status": self.status,
+            "blockers": list(self.blockers),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseReceipt:
+    """Content-addressed V5 stock/dose identity for one formula input."""
+
+    formula_name: str
+    formula_input_sha256: str
+    legacy_formula_hash: str
+    inventory_snapshot_sha256: str
+    inventory_source_workbook_sha256: str
+    inventory_authority_sheet: str
+    lines: tuple[FormulaDoseLineReceipt, ...]
+    status: str
+    reasons: tuple[str, ...]
+    receipt_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        formula_name = str(self.formula_name).strip()
+        if not formula_name:
+            raise ValueError("dose receipt formula_name must not be blank")
+        for value, label in (
+            (self.formula_input_sha256, "formula_input_sha256"),
+            (self.legacy_formula_hash, "legacy_formula_hash"),
+            (self.inventory_snapshot_sha256, "inventory_snapshot_sha256"),
+            (self.inventory_source_workbook_sha256, "inventory_source_workbook_sha256"),
+        ):
+            if not _SHA256_RE.fullmatch(str(value)):
+                raise ValueError(f"dose receipt {label} must be lowercase SHA-256")
+        lines = tuple(sorted(self.lines, key=lambda row: row.material_name.casefold()))
+        if not lines:
+            raise ValueError("dose receipt requires at least one positive dose line")
+        if len({line.material_name.casefold() for line in lines}) != len(lines):
+            raise ValueError("dose receipt material names must be unique")
+        status = str(self.status).strip().upper()
+        reasons = tuple(sorted({str(item).strip() for item in self.reasons if str(item).strip()}))
+        if status == "BOUND":
+            if reasons or any(line.status != "BOUND" for line in lines):
+                raise ValueError("bound dose receipt cannot contain unresolved lines")
+        elif status == "ABSTAINED":
+            if not reasons:
+                raise ValueError("abstained dose receipt requires a reason")
+        else:
+            raise ValueError("dose receipt status must be BOUND or ABSTAINED")
+        object.__setattr__(self, "formula_name", formula_name)
+        object.__setattr__(self, "inventory_authority_sheet", str(self.inventory_authority_sheet).strip())
+        object.__setattr__(self, "lines", lines)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "reasons", reasons)
+        object.__setattr__(self, "receipt_sha256", stable_json_hash(self._payload()))
+
+    def _payload(self) -> dict[str, Any]:
+        return {
+            "schema": _DOSE_RECEIPT_SCHEMA,
+            "formula_name": self.formula_name,
+            "formula_input_sha256": self.formula_input_sha256,
+            "legacy_formula_hash": self.legacy_formula_hash,
+            "inventory_snapshot_sha256": self.inventory_snapshot_sha256,
+            "inventory_source_workbook_sha256": self.inventory_source_workbook_sha256,
+            "inventory_authority_sheet": self.inventory_authority_sheet,
+            "lines": [line.as_dict() for line in self.lines],
+            "status": self.status,
+            "reasons": list(self.reasons),
+            "quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+            "physical_metrology_authority": False,
+            "release_authority": False,
+        }
+
+    def as_dict(self) -> dict[str, Any]:
+        return {**self._payload(), "receipt_sha256": self.receipt_sha256}
+
+
+def build_formula_dose_receipt(
+    formula: Mapping[str, Any],
+    stock_contract: PreflightCheck | None = None,
+) -> FormulaDoseReceipt:
+    """Build a deterministic compatibility receipt without granting stock authority."""
+
+    contract = stock_contract or resolve_inventory_stock_contract(formula)
+    resolved = {
+        str(name): dict(spec or {})
+        for name, spec in dict(contract.data.get("resolved_stock_specs", {}) or {}).items()
+    }
+    issues = {
+        str(item.get("material", "")).casefold(): str(
+            item.get("reason", "inventory_stock_contract_failed")
+        )
+        for item in contract.data.get("issues", [])
+    }
+    dilutions = dict(formula.get("dilutions", {}) or {})
+    lines: list[FormulaDoseLineReceipt] = []
+    reasons: list[str] = []
+    for raw_name, raw_value in sorted(
+        dict(formula.get("ingredients_ul", {}) or {}).items(),
+        key=lambda item: str(item[0]).casefold(),
+    ):
+        name = str(raw_name)
+        raw_ul = float(raw_value or 0.0)
+        if raw_ul <= 0.0:
+            continue
+        spec = resolved.get(name, {})
+        raw_fraction = spec.get("fraction", dilutions.get(name))
+        fraction = None if raw_fraction is None else float(raw_fraction)
+        blocker = issues.get(name.casefold())
+        source_rows = tuple(int(row) for row in spec.get("source_rows", ()) or ())
+        lineage_complete = bool(
+            fraction is not None
+            and spec.get("stock_id")
+            and spec.get("authority")
+            and spec.get("inventory_authority")
+            and source_rows
+        )
+        if contract.status != "PASS" or not lineage_complete:
+            blocker = blocker or "legacy_stock_lineage_not_exactly_bound"
+        status = "ABSTAINED" if blocker else "BOUND"
+        blockers = (blocker,) if blocker else ()
+        if blocker:
+            reasons.append(f"{name}:{blocker}")
+        lines.append(
+            FormulaDoseLineReceipt(
+                material_name=name,
+                raw_ul=raw_ul,
+                active_ul=raw_ul * fraction if fraction is not None else None,
+                stock_fraction=fraction,
+                fraction_basis=str(spec.get("fraction_basis", "unspecified")),
+                carrier=str(spec.get("carrier", "")),
+                stock_id=str(spec.get("stock_id", "")).strip() or None,
+                stock_authority=str(spec.get("authority", "")).strip() or None,
+                inventory_authority=str(spec.get("inventory_authority", "")).strip()
+                or None,
+                source_rows=source_rows,
+                status=status,
+                blockers=blockers,
+            )
+        )
+    input_hash = stable_json_hash(
+        {
+            "name": str(formula.get("name", "Formula")),
+            "ingredients_ul": dict(formula.get("ingredients_ul", {}) or {}),
+            "dilutions": dilutions,
+        }
+    )
+    inventory_hash = str(
+        contract.data.get("inventory_snapshot_sha256") or stable_file_hash(INVENTORY_PATH)
+    )
+    return FormulaDoseReceipt(
+        formula_name=str(formula.get("name", "Formula")),
+        formula_input_sha256=input_hash,
+        legacy_formula_hash=input_hash,
+        inventory_snapshot_sha256=inventory_hash,
+        inventory_source_workbook_sha256=inventory_hash,
+        inventory_authority_sheet="LEGACY_INVENTORY_SNAPSHOT_COMPATIBILITY",
+        lines=tuple(lines),
+        status="BOUND" if lines and not reasons else "ABSTAINED",
+        reasons=tuple(reasons),
+    )
 
 
 def _status_from_checks(checks: list[PreflightCheck]) -> str:
