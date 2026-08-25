@@ -24,9 +24,17 @@ _REQUIRED_AXIS_IDS = (
 
 _GATE_ALIASES = {
     "source_rights": ("source_rights", "reference_claim_contract"),
-    "target_formula_identity": ("target_formula_identity", "formula_identity"),
+    "target_formula_identity": (
+        "target_formula_identity",
+        "formula_identity",
+        "exact_subtotal",
+    ),
     "inventory_lineage": ("inventory_lineage", "inventory_stock_contract"),
-    "active_dose_rebase": ("active_dose_rebase", "formula_state_contract"),
+    "active_dose_rebase": (
+        "active_dose_rebase",
+        "formula_state_contract",
+        "g15_oav_firewall",
+    ),
     "safety_ifra": ("safety_ifra", "safety_ifra_allergen"),
     "laboratory_execution": ("laboratory_execution",),
     "sensory_evidence": ("sensory_evidence",),

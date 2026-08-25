@@ -1,5 +1,4 @@
-"""Unified pipeline CLI — chains OAV authority + formula scoring + release gates.
-This is the ONLY entry point for formula analysis."""
+"""Evidence-gated formula analysis with opt-in frozen legacy diagnostics."""
 
 from __future__ import annotations
 
@@ -11,7 +10,7 @@ import re
 import subprocess
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -39,6 +38,12 @@ from engine.calibration.hashing import (
     stable_json_hash,
     stable_text_hash,
 )
+from engine.evidence_contracts import EvidenceSourceRef
+from engine.hedonic_evidence import (
+    HedonicEvidenceRequest,
+    HedonicScope,
+    evaluate_hedonic_evidence,
+)
 from engine.optimizer.models import ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 from engine.pipeline.analysis import render_pipeline_analysis
@@ -50,6 +55,17 @@ from engine.pipeline.gates import (
 )
 from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
+from engine.pipeline.oav_evidence import (
+    evaluate_oav_evidence,
+    oav_evidence_request_from_formula_state,
+)
+from engine.pipeline.release_evidence import (
+    ReleaseEvidenceRequest,
+    evaluate_release_evidence,
+    release_axes_from_gate_report,
+    release_axis_from_hedonic,
+    release_axis_from_oav,
+)
 from engine.pipeline.release_scoring import compute_unified_release_scores
 from engine.reference_contracts import detect_reference_claim
 from scripts.format_pipeline_analysis import cli_transport_text
@@ -463,6 +479,7 @@ def validate_pipeline_analysis_artifact(
             key: manifest.get(key)
             for key in (
                 "formula_definitions",
+                "g15_parent_formula_definitions",
                 "semantic_config",
                 "config_sha256",
                 "inventory_sha256",
@@ -595,6 +612,11 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     parser.add_argument("--json", action="store_true")
+    parser.add_argument(
+        "--include-legacy-diagnostics",
+        action="store_true",
+        help="Nest frozen V1 OAV and unified-score diagnostics under compatibility.",
+    )
     parser.add_argument("--print-analysis", action="store_true")
     analysis_write = parser.add_mutually_exclusive_group()
     analysis_write.add_argument("--append-analysis", dest="append_analysis", action="store_true")
@@ -662,7 +684,6 @@ def main(argv: list[str] | None = None) -> int:
         parent_formulas=parent_formulas,
         authorized_active_dose_changes=authorized_active_dose_changes,
     )
-    scorer = FormulaScorer(ObjectiveWeights())
     reports = []
 
     for formula_index, formula in enumerate(formulas):
@@ -686,24 +707,42 @@ def main(argv: list[str] | None = None) -> int:
         )
         gate_report = gate_result.as_dict()
 
-        # Phase 1: OAV authority analysis
-        oav_req = OAVAuthorityRequest(
-            formula_name=formula["name"],
-            ingredients_ul=ings,
-            dilutions=dils,
-            stock_specs=formula.get("stock_specs", {}) or {},
-            batch_volume_ml=args.batch_volume_ml,
-            temperature_K=args.temperature_k,
-            family_archetype=str(
-                gate_result.config_summary.get("family_archetype", "")
-                or formula.get("family_archetype", "")
-            ),
-            matrix_moles=dict(gate_result.formula_state.matrix_components_moles),
-            matrix_mass_g=gate_result.formula_state.matrix_mass_g,
-            matrix_source=gate_result.formula_state.matrix_source,
+        # Phase 1: evidence-state OAV screening. Simulator output is always
+        # MODELED; transferred thresholds and unresolved stock lineage remain
+        # visible and cannot become measured evidence through this adapter.
+        retrieved_on = date.today().isoformat()
+        model_source = EvidenceSourceRef(
+            source_id="formula-state-headspace-model-v2",
+            source_uri="repo://engine/pipeline/formula_state.py",
+            retrieved_on=retrieved_on,
+            source_sha256=run_hashes["pipeline_source_sha256"],
         )
-        oav_result = analyze_oav_authority(oav_req, gate_report=gate_result)
-        oav_table = _format_oav_table(oav_result.state)
+        threshold_source = EvidenceSourceRef(
+            source_id="odor-threshold-registry-snapshot",
+            source_uri="repo://engine/odor_thresholds.py",
+            retrieved_on=retrieved_on,
+            source_sha256=run_hashes["scientific_inputs_sha256"],
+        )
+        exact_stock_refs = {
+            line.material_name: line.stock_id
+            for line in gate_result.dose_receipt.lines
+            if line.stock_id is not None and line.status == "BOUND"
+        }
+        threshold_sources = {
+            key: threshold_source
+            for material in gate_result.formula_state.materials
+            for key in (material.name, material.canonical_name)
+        }
+        oav_v2_request = oav_evidence_request_from_formula_state(
+            gate_result.formula_state,
+            formula_sha256=gate_result.formula_hash,
+            dose_receipt_sha256=gate_result.dose_receipt.receipt_sha256,
+            exact_stock_refs=exact_stock_refs,
+            model_source=model_source,
+            threshold_sources=threshold_sources,
+        )
+        oav_v2 = evaluate_oav_evidence(oav_v2_request)
+        oav_table = _format_oav_table(gate_result.formula_state)
 
         g15_gate = next(
             gate for gate in gate_report["gates"] if gate.get("gate") == "g15_oav_firewall"
@@ -719,43 +758,104 @@ def main(argv: list[str] | None = None) -> int:
                 ],
             }
 
-        # Phase 3: Release gates
-        unified_scores = compute_unified_release_scores(
-            formula, oav_result, gate_report, scorer=scorer
-        ).as_dict()
+        # Phase 2: no liking evidence is synthesized from composition.
+        hedonic_v2 = evaluate_hedonic_evidence(
+            HedonicEvidenceRequest(
+                criterion_id="LIKING",
+                scope=HedonicScope.OWNER,
+                formula_build_sha256=gate_result.formula_hash,
+                sample_sha256=(gate_result.formula_hash,),
+                protocol_sha256=run_hashes["pipeline_source_sha256"],
+                assessor_ids=("NOT_TESTED",),
+                repeat_ids=("NOT_TESTED",),
+                time_seconds=0.0,
+                schedule_sha256=run_hashes["pipeline_source_sha256"],
+                fit_receipt=None,
+            )
+        )
+
+        # Phase 3: hard noncompensatory release conjunction.
+        release_axes = (
+            *release_axes_from_gate_report(
+                gate_report,
+                formula_sha256=gate_result.formula_hash,
+            ),
+            release_axis_from_oav(oav_v2),
+            release_axis_from_hedonic(hedonic_v2),
+        )
+        release_v2 = evaluate_release_evidence(
+            ReleaseEvidenceRequest(
+                formula_sha256=gate_result.formula_hash,
+                axes=release_axes,
+                diagnostics={
+                    "formula_gate_status": gate_result.status,
+                    "modeled_temporal_screen_available": bool(
+                        gate_result.simulation
+                    ),
+                },
+            )
+        )
 
         report = {
             **gate_report,
             "pre_mix_guard": premix_data,
-            "scores": unified_scores["scores"],
-            "industry_10": unified_scores["industry_10"],
-            "score_provenance": unified_scores["provenance"],
-            "oav_authority": {
-                "status": oav_result.primary_status,
-                "rank_score": round(oav_result.authority_rank_score, 1),
-                "perceptible": len([r for r in oav_result.material_rows if (r.oav or 0) >= 1.0]),
-                "subliminal_mass_pct": round(oav_result.subliminal_mass_ratio * 100, 1),
-                "total_vapor_ppm": round(oav_result.state.total_vapor_ppm, 2),
-                "family_drift_pct": round(oav_result.top_family_drift * 100, 1),
-                "headspace_basis": oav_result.state.headspace_basis,
-                "model_class": "HEURISTIC_NOT_MEASURED",
-            },
+            "release_evidence": release_v2.as_dict(),
+            "oav_evidence": oav_v2.as_dict(),
+            "hedonic_evidence": hedonic_v2.as_dict(),
             "oav_table": oav_table,
             "time_windows": [
                 {
-                    "label": w.label,
-                    "t_seconds": w.t_seconds,
-                    "perceptible_materials": w.perceptible_material_count,
-                    "total_vapor_ppm": round(w.total_vapor_ppm, 2),
-                    "dominant_leaders": [
-                        {"material": leader["material"], "oav": leader["oav"]}
-                        for leader in w.dominant_oav[:5]
-                    ],
+                    "label": frame.label,
+                    "t_seconds": frame.t_seconds,
+                    "perceptible_materials": sum(
+                        (material.oav or 0.0) >= 1.0
+                        for material in frame.state.materials
+                    ),
+                    "total_vapor_ppm": round(frame.state.total_vapor_ppm, 2),
+                    "dominant_leaders": frame.dominant_oav(limit=5),
+                    "authority": frame.temporal_authority,
                 }
-                for w in oav_result.time_windows
+                for frame in gate_result.simulation
             ],
             "prior_analysis_binding": _prior_analysis_binding(formula, run_hashes),
         }
+
+        if args.include_legacy_diagnostics:
+            oav_req = OAVAuthorityRequest(
+                formula_name=formula["name"],
+                ingredients_ul=ings,
+                dilutions=dils,
+                stock_specs=formula.get("stock_specs", {}) or {},
+                batch_volume_ml=args.batch_volume_ml,
+                temperature_K=args.temperature_k,
+                family_archetype=str(
+                    gate_result.config_summary.get("family_archetype", "")
+                    or formula.get("family_archetype", "")
+                ),
+                matrix_moles=dict(
+                    gate_result.formula_state.matrix_components_moles
+                ),
+                matrix_mass_g=gate_result.formula_state.matrix_mass_g,
+                matrix_source=gate_result.formula_state.matrix_source,
+                dose_receipt_sha256=gate_result.dose_receipt.receipt_sha256,
+            )
+            legacy_oav = analyze_oav_authority(oav_req, gate_report=gate_result)
+            unified_scores = compute_unified_release_scores(
+                formula,
+                legacy_oav,
+                gate_report,
+                scorer=FormulaScorer(ObjectiveWeights()),
+            ).as_dict()
+            report["compatibility"] = {
+                "legacy_unified_scores_v1": unified_scores,
+                "legacy_oav_authority_v1": {
+                    "status": legacy_oav.primary_status,
+                    "authority_rank_score": round(
+                        legacy_oav.authority_rank_score, 1
+                    ),
+                    "release_authority": False,
+                },
+            }
 
         report["interventions"] = build_intervention_contract(
             formula,
@@ -774,6 +874,21 @@ def main(argv: list[str] | None = None) -> int:
     payload = {
         "formula_file": str(formula_path),
         "overall": overall,
+        "controlling_decision": "release_evidence_v2",
+        "release_evidence_overall": (
+            "INVALID"
+            if any(
+                report["release_evidence"]["status"] == "INVALID"
+                for report in reports
+            )
+            else "READY_FOR_HUMAN_REVIEW"
+            if all(
+                report["release_evidence"]["status"]
+                == "READY_FOR_HUMAN_REVIEW"
+                for report in reports
+            )
+            else "HOLD"
+        ),
         "formulas": reports,
     }
     base_analysis_text = render_pipeline_analysis(payload)
@@ -878,25 +993,14 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(f"Overall: {overall}")
         for report in reports:
-            s = report.get("scores", {})
-            oa = report.get("oav_authority", {})
+            release = report["release_evidence"]
             print(f"\n{report['name']}: {report['status']} ({report['commercial_readiness']})")
             print(
-                f"  Diagnostic index: {s.get('total', 0):.1f}  |  "
-                f"Heuristic sillage index: {s.get('sillage', 0):.1f}  |  "
-                f"Heuristic longevity index: {s.get('longevity', 0):.1f}  |  "
-                f"Synergy index: {s.get('synergy', 0):.1f}  |  "
-                f"Heuristic skin index: {s.get('skin_performance', 0):.1f}"
+                f"  Release evidence: {release['status']}  |  "
+                "release authority: false"
             )
-            print(
-                "  Performance authority: uncalibrated diagnostic indices; "
-                "not measured sillage, skin life, or skin outcome"
-            )
-            print(
-                f"  OAV: {oa.get('status', '?')} (rank={oa.get('rank_score', 0)})  |  "
-                f"Perceptible: {oa.get('perceptible', '?')}  |  "
-                f"Vapor: {oa.get('total_vapor_ppm', 0)} ppm"
-            )
+            for axis in release["axes"]:
+                print(f"  {axis['state']}: {axis['axis_id']}")
             for gate in report["gates"]:
                 detail = f" - {gate['detail']}" if gate.get("detail") else ""
                 print(f"  {gate['status']}: {gate['gate']}{detail}")

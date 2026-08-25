@@ -109,7 +109,7 @@ def compute_unified_release_scores(
     scorer._material_oavs = {
         row.name: (row.oav or 0.0) for row in oav_result.material_rows
     }
-    raw_scores = scorer.score(fv, formula_state=oav_result.state)
+    raw_scores = scorer.score_legacy_replay(fv, formula_state=oav_result.state)
     scores = _numeric_scores_only(raw_scores)
 
     percept = [row for row in oav_result.material_rows if (row.oav or 0.0) >= 1.0]
