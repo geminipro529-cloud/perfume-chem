@@ -1147,6 +1147,31 @@ C9_LEGACY_SURFACES = (
 C9_LEGACY_SURFACE_IDS = tuple(record.surface_id for record in C9_LEGACY_SURFACES)
 
 
+SOLFORGE_AUTHORITY_CLASSIFICATIONS: dict[str, dict[str, object]] = {
+    "fixed_valence_hedonic_scorer": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "source_paths": ("engine/hedonic_model.py",),
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "replacement": "engine/hedonic_evidence.py",
+        "numeric_claim_authority": False,
+    },
+    "oav_authority_rank": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "source_paths": ("engine/pipeline/oav_authority.py",),
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "replacement": "engine/pipeline/oav_evidence.py",
+        "numeric_claim_authority": False,
+    },
+    "unified_score_payload": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "source_paths": ("engine/pipeline/release_scoring.py",),
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "replacement": "engine/pipeline/release_evidence.py",
+        "numeric_claim_authority": False,
+    },
+}
+
+
 def get_c9_legacy_surface(surface_id: str) -> C9LegacySurfaceRecord:
     surface_id = _nonblank(surface_id, "surface_id")
     for record in C9_LEGACY_SURFACES:

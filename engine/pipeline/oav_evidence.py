@@ -8,10 +8,12 @@ from enum import Enum
 from math import isfinite
 from typing import Any, Mapping
 
+from engine.calibration.hashing import stable_json_hash
 from engine.evidence_contracts import (
     EvidenceBasis,
     EvidenceSourceRef,
     QuantitativeEvidence,
+    canonical_json_bytes,
 )
 from engine.pipeline.formula_state import FormulaState
 
@@ -115,6 +117,7 @@ class OAVEvidenceRequest:
     dose_receipt_sha256: str
     measurement_context: str
     rows: tuple[OAVMaterialEvidenceInput, ...]
+    dose_receipt: Mapping[str, Any] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -134,6 +137,12 @@ class OAVEvidenceRequest:
         if any(not isinstance(row, OAVMaterialEvidenceInput) for row in rows):
             raise TypeError("rows must contain OAVMaterialEvidenceInput")
         object.__setattr__(self, "rows", rows)
+        if self.dose_receipt is not None:
+            if not isinstance(self.dose_receipt, Mapping):
+                raise TypeError("dose_receipt must be a mapping or None")
+            receipt = dict(self.dose_receipt)
+            canonical_json_bytes(receipt)
+            object.__setattr__(self, "dose_receipt", receipt)
 
 
 @dataclass(frozen=True, slots=True)
@@ -319,6 +328,7 @@ def evaluate_oav_evidence(request: OAVEvidenceRequest) -> OAVEvidenceResult:
     if not isinstance(request, OAVEvidenceRequest):
         raise TypeError("request must be an OAVEvidenceRequest")
     blockers: list[str] = []
+    blockers.extend(_dose_receipt_blockers(request))
     names = [row.material_name.casefold() for row in request.rows]
     duplicates = sorted({name for name in names if names.count(name) > 1})
     if duplicates:
@@ -357,6 +367,45 @@ def evaluate_oav_evidence(request: OAVEvidenceRequest) -> OAVEvidenceResult:
     )
 
 
+def _dose_receipt_blockers(request: OAVEvidenceRequest) -> tuple[str, ...]:
+    receipt = request.dose_receipt
+    if receipt is None:
+        return ()
+    core = dict(receipt)
+    claimed = core.pop("receipt_sha256", None)
+    observed = stable_json_hash(core)
+    blockers: list[str] = []
+    if claimed != request.dose_receipt_sha256 or observed != request.dose_receipt_sha256:
+        blockers.append("dose receipt hash does not match supplied receipt bytes")
+        return tuple(blockers)
+    raw_lines = core.get("lines")
+    if not isinstance(raw_lines, list):
+        return ("dose receipt lines are missing or malformed",)
+    lines = {
+        str(line.get("material_name", "")).strip().casefold(): line
+        for line in raw_lines
+        if isinstance(line, Mapping)
+    }
+    for row in request.rows:
+        line = lines.get(row.material_name.casefold())
+        if line is None:
+            blockers.append(f"{row.material_name}: dose receipt line is missing")
+            continue
+        if line.get("stock_id") != row.exact_stock_ref:
+            blockers.append(f"{row.material_name}: exact stock reference mismatch")
+        expected_strength = line.get("stock_fraction")
+        if expected_strength is None or row.supplied_strength_fraction is None:
+            if expected_strength != row.supplied_strength_fraction:
+                blockers.append(f"{row.material_name}: stock strength mismatch")
+        elif abs(float(expected_strength) - row.supplied_strength_fraction) > 1e-12:
+            blockers.append(f"{row.material_name}: stock strength mismatch")
+        expected_carrier = str(line.get("carrier") or "").strip().casefold()
+        observed_carrier = str(row.carrier or "").strip().casefold()
+        if expected_carrier != observed_carrier:
+            blockers.append(f"{row.material_name}: carrier mismatch")
+    return tuple(blockers)
+
+
 def _lookup(mapping: Mapping[str, Any], name: str, canonical_name: str) -> Any:
     if name in mapping:
         return mapping[name]
@@ -371,6 +420,7 @@ def oav_evidence_request_from_formula_state(
     exact_stock_refs: Mapping[str, str],
     model_source: EvidenceSourceRef,
     threshold_sources: Mapping[str, EvidenceSourceRef],
+    dose_receipt: Mapping[str, Any] | None = None,
 ) -> OAVEvidenceRequest:
     """Adapt modeled FormulaState values without upgrading their evidence basis."""
 
@@ -435,6 +485,7 @@ def oav_evidence_request_from_formula_state(
         dose_receipt_sha256=dose_receipt_sha256,
         measurement_context=state.context,
         rows=tuple(rows),
+        dose_receipt=dose_receipt,
     )
 
 

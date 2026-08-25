@@ -740,6 +740,7 @@ def main(argv: list[str] | None = None) -> int:
             exact_stock_refs=exact_stock_refs,
             model_source=model_source,
             threshold_sources=threshold_sources,
+            dose_receipt=gate_result.dose_receipt.as_dict(),
         )
         oav_v2 = evaluate_oav_evidence(oav_v2_request)
         oav_table = _format_oav_table(gate_result.formula_state)

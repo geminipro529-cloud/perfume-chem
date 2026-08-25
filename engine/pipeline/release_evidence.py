@@ -246,6 +246,13 @@ def release_axis_from_hedonic(
         HedonicEvidenceState.FAILED_HELDOUT_BASELINE: EvidenceAxisState.HOLD,
         HedonicEvidenceState.INVALID_OR_CONFOUNDED: EvidenceAxisState.INVALID,
     }[result.state]
+    blockers = result.blockers
+    if (
+        result.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE
+        and result.fit_receipt_sha256 is None
+    ):
+        state = EvidenceAxisState.INVALID
+        blockers = (*blockers, "validated liking is missing its fit receipt hash")
     payload = result.as_dict()
     scope: dict[str, object] = {
         "formula_sha256": result.formula_build_sha256,
@@ -259,7 +266,7 @@ def release_axis_from_hedonic(
         state=state,
         source_sha256=sha256_hex(canonical_json_bytes(payload)),
         scope=scope,
-        blockers=result.blockers,
+        blockers=blockers,
         limitations=result.limitations,
     )
 

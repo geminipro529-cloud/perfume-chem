@@ -169,6 +169,43 @@ CLAIM_TYPES = (
 )
 
 
+SOLFORGE_RUNTIME_AUTHORITY: dict[str, dict[str, object]] = {
+    "legacy_fixed_valence_hedonic": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "runtime_path": "engine/hedonic_model.py",
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "authority": False,
+    },
+    "legacy_oav_authority_rank": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "runtime_path": "engine/pipeline/oav_authority.py",
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "authority": False,
+    },
+    "legacy_unified_score": {
+        "classification": "LEGACY_HEURISTIC_PROVENANCE",
+        "runtime_path": "engine/pipeline/release_scoring.py",
+        "permitted_use": "EXPLICIT_HISTORICAL_REPLAY_ONLY",
+        "authority": False,
+    },
+    "oav_evidence_v2": {
+        "classification": "COMPUTATIONAL_OR_MEASURED_EVIDENCE_STATE",
+        "runtime_path": "engine/pipeline/oav_evidence.py",
+        "authority": "CONDITIONAL_ON_EACH_ROW_BASIS_AND_SCOPE",
+    },
+    "hedonic_evidence_v2": {
+        "classification": "OBSERVED_EXACT_SCOPE_ONLY",
+        "runtime_path": "engine/hedonic_evidence.py",
+        "authority": "EXACT_RECORDED_SCOPE_ONLY",
+    },
+    "release_evidence_v2": {
+        "classification": "NONCOMPENSATORY_DECISION_SUPPORT",
+        "runtime_path": "engine/pipeline/release_evidence.py",
+        "authority": "READY_FOR_HUMAN_REVIEW_ONLY",
+    },
+}
+
+
 def _is_generated_or_metadata(path: Path, repo_root: Path) -> bool:
     relative = path.relative_to(repo_root)
     relative_posix = relative.as_posix().casefold()
@@ -644,6 +681,7 @@ def build_inventory(repo_root: Path) -> dict[str, Any]:
         "knowledge_rules": knowledge_rules,
         "code_constants": constants,
         "claim_impact_map": impact_counts,
+        "solforge_runtime_authority": SOLFORGE_RUNTIME_AUTHORITY,
         "legacy_fixtures": {
             "science_audit": _legacy_fixture(
                 repo_root, "verification_runs/science_audit.json"
