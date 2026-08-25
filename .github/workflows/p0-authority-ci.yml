@@ -64,3 +64,5 @@ jobs:
             engine/pipeline/oav_authority.py \
             engine/pipeline/robustness.py \
             engine/pipeline/simulator.py
+
+# Triggered after repository Actions permissions were enabled.
