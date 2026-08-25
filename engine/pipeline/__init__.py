@@ -9,6 +9,15 @@ from .oav_authority import (
     OAVTimeWindowSummary,
     analyze_oav_authority,
 )
+from .oav_evidence import (
+    OAVEvidenceRequest,
+    OAVEvidenceResult,
+    OAVEvidenceState,
+    OAVMaterialEvidenceInput,
+    OAVMaterialEvidenceResult,
+    evaluate_oav_evidence,
+    oav_evidence_request_from_formula_state,
+)
 from .oav_intelligence import OAVIntelligenceResult, analyze_oav_intelligence
 from .robustness import RobustnessReport, audit_formula_robustness
 from .simulator import SimulationFrame, simulate_formula
@@ -21,15 +30,22 @@ __all__ = [
     "OAVIntelligenceResult",
     "OAVAuthorityRequest",
     "OAVAuthorityResult",
+    "OAVEvidenceRequest",
+    "OAVEvidenceResult",
+    "OAVEvidenceState",
     "OAVMaterialRow",
+    "OAVMaterialEvidenceInput",
+    "OAVMaterialEvidenceResult",
     "OAVTimeWindowSummary",
     "ReleaseGateConfig",
     "RobustnessReport",
     "SimulationFrame",
     "analyze_oav_intelligence",
     "analyze_oav_authority",
+    "evaluate_oav_evidence",
     "audit_formula_robustness",
     "build_formula_state",
     "gate_formula",
+    "oav_evidence_request_from_formula_state",
     "simulate_formula",
 ]
