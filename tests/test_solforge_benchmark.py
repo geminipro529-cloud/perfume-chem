@@ -17,6 +17,7 @@ from engine.solforge.benchmark import (
     assert_complete_frozen_outputs,
     blind_condition_outputs,
     compile_conditions,
+    freeze_judge_output,
     freeze_sol_output,
     ingest_judge_results,
     score_invariants,
@@ -218,6 +219,9 @@ def test_blinded_packets_hide_labels_and_bind_unchanged_outputs() -> None:
     for label in ConditionKind:
         assert label.value.encode("utf-8") not in serialized
     assert set(answer_key) == {packet.candidate_id for packet in packets}
+    assert all("dispatch_prompt_text" not in packet.public_case for packet in packets)
+    assert all("system_prompt" not in packet.public_case for packet in packets)
+    assert all("sealed_answer_key" not in packet.public_case for packet in packets)
     with pytest.raises(ValueError, match="changed after blinding"):
         replace(packets[0], output_text=packets[0].output_text + " changed")
 
@@ -247,6 +251,41 @@ def test_judge_ingest_requires_unblinding_and_complete_unique_results() -> None:
         )
     mapped = ingest_judge_results(packets, results, key, unblinding_authorized=True)
     assert {item.condition for item in mapped} == set(ConditionKind)
+
+
+def test_raw_judge_output_is_bound_to_exact_packets() -> None:
+    case = _case()
+    packets, _ = blind_condition_outputs(case, compile_conditions(case, _frozen(case)), seed=31)
+    raw = {
+        "case_id": case.case_id,
+        "model_identity": "GPT-5.6 Sol",
+        "reasoning_setting": "xhigh",
+        "conversation_id": "fresh-judge-task",
+        "prompt_text": "Judge these three anonymous candidates.",
+        "output_text": json.dumps(
+            {
+                "results": [
+                    {
+                        "candidate_id": packet.candidate_id,
+                        "scores": {"clarity": 4, "evidence_efficiency": 5},
+                        "critical_error": False,
+                        "rationale": "Bounded output.",
+                    }
+                    for packet in packets
+                ]
+            },
+            sort_keys=True,
+        ),
+    }
+    results = freeze_judge_output(packets, raw)
+    assert len(results) == 3
+    assert {result.packet_sha256 for result in results} == {
+        packet.record_sha256 for packet in packets
+    }
+    changed = dict(raw)
+    changed["output_text"] = json.dumps({"results": []})
+    with pytest.raises(ValueError, match="missing judge result"):
+        freeze_judge_output(packets, changed)
 
 
 def test_invariant_scoring_is_deterministic_and_authority_closed() -> None:

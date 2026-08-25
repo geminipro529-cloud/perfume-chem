@@ -184,6 +184,20 @@ class BenchmarkCaseV1(_Record):
             "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
         }
 
+    def as_judge_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": "solforge_benchmark_judge_case_v1",
+            "case_id": self.case_id,
+            "phase": self.phase.value,
+            "category": self.category,
+            "task": self.user_prompt,
+            "input_payload": self.input_payload,
+            "public_invariants": list(self.public_invariants),
+            "prompt_sha256": self.prompt_sha256,
+            "input_sha256": self.input_sha256,
+            "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
+        }
+
     def as_dict(self) -> dict[str, object]:
         return {
             **self.as_public_dict(),
@@ -786,7 +800,7 @@ def blind_condition_outputs(
             case_id=case.case_id,
             phase=case.phase,
             candidate_id=candidate,
-            public_case=case.as_public_dict(),
+            public_case=case.as_judge_dict(),
             output_text=condition.output_text,
             output_sha256=condition.output_sha256,
         )
@@ -830,6 +844,59 @@ def ingest_judge_results(
             )
         )
     return tuple(mapped)
+
+
+def freeze_judge_output(
+    packets: Sequence[BlindedJudgePacketV1],
+    raw: Mapping[str, Any],
+) -> tuple[JudgeResultV1, ...]:
+    """Bind one raw projectless judge completion to exact blinded packets."""
+
+    if raw.get("model_identity") != EXPECTED_MODEL_IDENTITY:
+        raise ValueError("judge model identity is not the frozen benchmark model")
+    if raw.get("reasoning_setting") != EXPECTED_REASONING_SETTING:
+        raise ValueError("judge reasoning setting is not xhigh")
+    _text(raw.get("conversation_id"), "judge conversation_id")
+    _text(raw.get("prompt_text"), "judge prompt_text")
+    output_text = _opaque_text(raw.get("output_text"), "judge output_text")
+    try:
+        payload = json.loads(output_text)
+    except json.JSONDecodeError as exc:
+        raise ValueError("judge output is not valid JSON") from exc
+    if not isinstance(payload, dict) or not isinstance(payload.get("results"), list):
+        raise ValueError("judge output must contain a results list")
+    packet_by_id = {packet.candidate_id: packet for packet in packets}
+    if raw.get("case_id") not in {packet.case_id for packet in packets}:
+        raise ValueError("judge case id does not match blinded packets")
+    rows = payload["results"]
+    candidate_ids = [row.get("candidate_id") for row in rows if isinstance(row, dict)]
+    if len(candidate_ids) != len(set(candidate_ids)):
+        raise ValueError("duplicate judge result")
+    if set(packet_by_id).difference(candidate_ids):
+        raise ValueError("missing judge result")
+    if set(candidate_ids).difference(packet_by_id):
+        raise ValueError("judge result references an unknown packet")
+    results: list[JudgeResultV1] = []
+    for row in rows:
+        scores = row.get("scores")
+        if not isinstance(scores, dict):
+            raise ValueError("judge scores must be an object")
+        critical_error = row.get("critical_error")
+        if not isinstance(critical_error, bool):
+            raise ValueError("judge critical_error must be boolean")
+        packet = packet_by_id[row["candidate_id"]]
+        results.append(
+            JudgeResultV1(
+                packet_sha256=packet.record_sha256,
+                candidate_id=packet.candidate_id,
+                judge_model_identity=str(raw["model_identity"]),
+                judge_reasoning_setting=str(raw["reasoning_setting"]),
+                scores=tuple(sorted((str(name), int(value)) for name, value in scores.items())),
+                critical_error=critical_error,
+                rationale=row.get("rationale"),
+            )
+        )
+    return tuple(results)
 
 
 def _normalized_output(condition: ConditionOutputV1) -> dict[str, Any]:
@@ -1024,12 +1091,29 @@ def _cli_ingest_judge(
     unblinding_authorized: bool,
 ) -> None:
     packet_payload = json.loads(packets_path.read_text(encoding="utf-8"))
-    result_payload = json.loads(results_path.read_text(encoding="utf-8"))
     key_payload = json.loads(answer_key_path.read_text(encoding="utf-8"))
     packets = tuple(
         BlindedJudgePacketV1.from_dict(item) for item in packet_payload["packets"]
     )
-    results = tuple(JudgeResultV1.from_dict(item) for item in result_payload["results"])
+    if results_path.is_dir():
+        packets_by_case: dict[str, list[BlindedJudgePacketV1]] = {}
+        for packet in packets:
+            packets_by_case.setdefault(packet.case_id, []).append(packet)
+        results = tuple(
+            result
+            for path in sorted(results_path.glob("*.json"))
+            for result in freeze_judge_output(
+                packets_by_case.get(
+                    json.loads(path.read_text(encoding="utf-8")).get("case_id"), ()
+                ),
+                json.loads(path.read_text(encoding="utf-8")),
+            )
+        )
+    else:
+        result_payload = json.loads(results_path.read_text(encoding="utf-8"))
+        results = tuple(
+            JudgeResultV1.from_dict(item) for item in result_payload["results"]
+        )
     answer_key = {
         candidate: ConditionKind(condition)
         for candidate, condition in key_payload["answer_key"].items()
@@ -1191,6 +1275,7 @@ __all__ = [
     "blind_condition_outputs",
     "compile_conditions",
     "freeze_sol_output",
+    "freeze_judge_output",
     "ingest_judge_results",
     "score_invariants",
     "validate_frozen_sol_output",
