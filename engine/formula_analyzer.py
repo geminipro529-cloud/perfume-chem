@@ -840,11 +840,10 @@ def format_scores(scores: dict, formula_name: str = "") -> str:
             bar = "█" * int(scores[axis] / 5) + "░" * (20 - int(scores[axis] / 5))
             lines.append(f"  {axis:>17s}  {bar} {scores[axis]:5.1f}")
 
-    # Science axes (5 new)
+    # Science diagnostics with composition-derived liking excluded.
     science_axes = [
         "safety",
         "skin_performance",
-        "hedonic",
         "perceptual_clarity",
         "emotional_coherence",
     ]
@@ -857,6 +856,15 @@ def format_scores(scores: dict, formula_name: str = "") -> str:
             if axis in scores:
                 bar = "█" * int(scores[axis] / 5) + "░" * (20 - int(scores[axis] / 5))
                 lines.append(f"  {axis:>17s}  {bar} {scores[axis]:5.1f}")
+
+    hedonic_evidence = scores.get("_hedonic_evidence", {})
+    if hedonic_evidence:
+        lines.append("")
+        lines.append("  LIKING EVIDENCE")
+        lines.append("  " + "-" * 40)
+        lines.append(
+            f"  {'State':>17s}  {hedonic_evidence.get('state', 'NOT_TESTED')}"
+        )
 
     lines.append("")
     lines.append(f"  {'Arithmetic Total':>17s}  {scores.get('arithmetic_total', 0):5.1f}")
@@ -1033,15 +1041,6 @@ def format_science_summary(scores: dict) -> str:
         lines.append(f"  {'Substantivity':>17s}  {skin['substantivity_score']:.1f}")
         for d in (skin.get("diagnostics") or [])[:3]:
             lines.append(f"  {'':>17s}  {d}")
-
-    # ── Hedonic Valence ──
-    hedonic = sci.get("hedonic", {})
-    if hedonic.get("valence") is not None:
-        lines.append("")
-        lines.append("  HEDONIC VALENCE")
-        lines.append("  " + "-" * 40)
-        lines.append(f"  {'Valence':>17s}  {hedonic['valence']:+.3f}")
-        lines.append(f"  {'Class':>17s}  {hedonic.get('pleasantness', '?')}")
 
     # ── Psychophysics ──
     psych = sci.get("psychophysics", {})
@@ -1291,7 +1290,7 @@ def run_analysis(
         print("=" * 80)
         print(
             f"  {'Formula':<30s} {'Geom':>6s} {'Arith':>6s} {'Health':>6s} {'Long':>5s} "
-            f"{'Sill':>5s} {'Safe':>5s} {'Hed':>5s} {'Emo':>5s} {'★Avg':>5s} {'Conf':>5s}"
+            f"{'Sill':>5s} {'Safe':>5s} {'Emo':>5s} {'★Avg':>5s} {'Conf':>5s}"
         )
         print("  " + "-" * 88)
         for info in formulas:
@@ -1306,7 +1305,6 @@ def run_analysis(
                 f"{s.get('longevity', 0):5.1f} "
                 f"{s.get('sillage', 0):5.1f} "
                 f"{s.get('safety', 0):5.1f} "
-                f"{s.get('hedonic', 0):5.1f} "
                 f"{s.get('emotional_coherence', 0):5.1f} "
                 f"{s.get('_star_avg', 0):5.1f} "
                 f"{conf_data.get('overall_confidence', 0):5.1f}"
@@ -1339,7 +1337,7 @@ def run_reverse_engineering(pool: EvidencePool) -> None:
             print(f"  Longevity:       {scores.get('longevity', 0):.1f}")
             print(f"  Sillage:         {scores.get('sillage', 0):.1f}")
             print(f"  Balance:         {scores.get('balance', 0):.1f}")
-            print(f"  Hedonic:         {scores.get('hedonic', 0):.1f}")
+            print("  Liking evidence: NOT_TESTED")
 
 
 def run_reverse_engineering_demo():

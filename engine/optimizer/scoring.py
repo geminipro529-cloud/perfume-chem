@@ -6,7 +6,9 @@
 - OAV = concentration_ppm / ODT_ppm (dimensionless).
 - Every perceptibility claim must be backed by OAV. No exceptions.
 
-10 axes — 7 physics/experimental, 3 craftsmanship:
+Active diagnostics exclude any composition-derived liking or beauty axis.
+
+Legacy replay formerly exposed 10 axes:
   longevity   (×0.8) — MW, CLP, base note percentage
   sillage     (×0.8) — VP, projection boosters, note distribution
   synergy     (×0.5) — pairing rule hits + SynergyGraph
@@ -44,6 +46,7 @@ from ..skin_interaction import score_skin_interaction
 from ..trigeminal import score_trigeminal
 from .models import (
     FormulaVector,
+    LegacyObjectiveWeightsV1,
     ObjectiveWeights,
     _lookup_material,
     analyze_formula_rule_coverage,
@@ -3060,7 +3063,6 @@ class FormulaScorer:
         "texture": "score_texture",
         "stacking_depth": "score_stacking_depth",
         "skin_performance": "score_skin_performance",
-        "hedonic": "score_hedonic",
         "perceptual_clarity": "score_perceptual_clarity",
         "photorealism": "score_photorealism",
     }
@@ -3070,6 +3072,8 @@ class FormulaScorer:
 
         Used for fast pre-screening in the recommendation engine.
         """
+        if axis == "hedonic":
+            raise ValueError("hedonic is evidence-gated")
         method_name = self._AXIS_DISPATCH.get(axis)
         if method_name is None:
             return 0.0
@@ -3080,6 +3084,42 @@ class FormulaScorer:
         fv: FormulaVector,
         *,
         formula_state: FormulaState | None = None,
+    ) -> dict[str, object]:
+        """Compute active diagnostics with liking explicitly NOT_TESTED."""
+
+        if self.weights.hedonic != 0:
+            raise ValueError("hedonic is evidence-gated")
+        return self._score_impl(
+            fv,
+            formula_state=formula_state,
+            objective_weights=self.weights.as_dict(),
+            include_legacy_hedonic=False,
+        )
+
+    def score_legacy_replay(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+        weights: LegacyObjectiveWeightsV1 | None = None,
+    ) -> dict[str, object]:
+        """Reproduce the frozen V1 heuristic payload for historical replay."""
+
+        legacy_weights = weights or LegacyObjectiveWeightsV1()
+        return self._score_impl(
+            fv,
+            formula_state=formula_state,
+            objective_weights=legacy_weights.as_dict(),
+            include_legacy_hedonic=True,
+        )
+
+    def _score_impl(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+        objective_weights: dict[str, float],
+        include_legacy_hedonic: bool,
     ) -> dict[str, object]:
         """Compute all scores with axis-specific synergy pre-multipliers.
 
@@ -3111,7 +3151,7 @@ class FormulaScorer:
         unknown = unknown_materials(fv.ingredient_list())
 
         # Compute base scores first
-        scores = {
+        scores: dict[str, object] = {
             "longevity": self.score_longevity(fv),
             "sillage": self.score_sillage(fv),
             "synergy_raw": self.score_synergy(fv),
@@ -3119,10 +3159,11 @@ class FormulaScorer:
             "texture": self.score_texture(fv),
             "stacking_depth": self.score_stacking_depth(fv),
             "skin_performance": self.score_skin_performance(fv),
-            "hedonic": self.score_hedonic(fv),
             "perceptual_clarity": self.score_perceptual_clarity(fv),
             "photorealism": self.score_photorealism(fv),
         }
+        if include_legacy_hedonic:
+            scores["hedonic"] = self.score_hedonic(fv)
 
         # Run enhancer modules (trigeminal, dose-response, diffusion)
         self._run_enhancer_modules(fv)
@@ -3160,7 +3201,7 @@ class FormulaScorer:
         raw_syn = scores.pop("synergy_raw", 50)
         scores["synergy"] = raw_syn
 
-        weights = self.weights.as_dict()
+        weights = objective_weights
         total_weight = sum(weights.values()) or 1.0
 
         # Arithmetic mean
@@ -3266,7 +3307,7 @@ class FormulaScorer:
             }
 
         # Science module diagnostics (8 modules, rich reports)
-        scores["_science"] = {
+        science_diagnostics = {
             "skin": {
                 "reservoir_score": getattr(self, "_last_skin_report", None)
                 and self._last_skin_report.reservoir_score,
@@ -3274,14 +3315,6 @@ class FormulaScorer:
                 and self._last_skin_report.substantivity_score,
                 "diagnostics": getattr(self, "_last_skin_report", None)
                 and self._last_skin_report.diagnostics,
-            },
-            "hedonic": {
-                "valence": getattr(self, "_last_hedonic_report", None)
-                and self._last_hedonic_report.weighted_valence,
-                "pleasantness": getattr(self, "_last_hedonic_report", None)
-                and self._last_hedonic_report.pleasantness_class,
-                "diagnostics": getattr(self, "_last_hedonic_report", None)
-                and self._last_hedonic_report.diagnostics,
             },
             "psychophysics": {
                 "perceptible": getattr(self, "_last_psychophysics_report", None)
@@ -3320,6 +3353,24 @@ class FormulaScorer:
                 and self._last_diffusion_report.diagnostics,
             },
         }
+        if include_legacy_hedonic:
+            science_diagnostics["hedonic"] = {
+                "valence": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.weighted_valence,
+                "pleasantness": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.pleasantness_class,
+                "diagnostics": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.diagnostics,
+            }
+        scores["_science"] = science_diagnostics
+        if not include_legacy_hedonic:
+            scores["_hedonic_evidence"] = {
+                "state": "NOT_TESTED",
+                "basis": (
+                    "No exact-scope blinded LIKING receipt supplied to FormulaScorer."
+                ),
+                "legacy_heuristic_available_for_replay": True,
+            }
 
         # Primary total uses geometric mean
         scores["total"] = scores["geometric_total"]

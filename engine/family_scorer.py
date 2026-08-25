@@ -40,7 +40,7 @@ from engine.synergy_graph import SynergyGraph
 
 FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
     # ── Soliflore — single-flower celebration ──
-    # Priorities: photorealism (botanical fidelity), hedonic (beauty), texture (smooth)
+    # Priorities: photorealism (botanical fidelity) and texture (smoothness).
     # De-emphasized: versatility (one flower), stacking_depth (one subject), longevity (flowers are ephemeral)
     "soliflore": ObjectiveWeights(
         longevity=0.5,       # flowers are fleeting — don't penalize
@@ -50,7 +50,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # smooth, silky, petal-soft — crucial
         stacking_depth=0.3,  # single subject, not layered architecture
         skin_performance=0.5,  # moderate — some intimacy, not the point
-        hedonic=0.9,         # beauty is the whole point
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.7,  # clean reading of the flower
         photorealism=1.0,    # must smell like the real flower — defining axis
     ),
@@ -66,7 +66,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.6,         # crisp, clean, not heavily textured
         stacking_depth=0.3,  # simple architecture
         skin_performance=0.4,  # not about skin intimacy
-        hedonic=0.7,         # should be pleasant
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.9,  # must read clean and clear
         photorealism=0.9,    # should smell like real citrus/herbs
     ),
@@ -74,7 +74,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
 
     # ── Fougère — lavender + coumarin + oakmoss, structured aromatic ──
     # Priorities: stacking_depth (architectural), synergy (triad must work), longevity (built to last)
-    # De-emphasized: photorealism (abstract accord), hedonic (more structural than beautiful)
+    # De-emphasized: photorealism (abstract accord).
     "fougere": ObjectiveWeights(
         longevity=0.9,       # fougères are built to last
         sillage=0.7,         # moderate projection — not a cologne
@@ -83,13 +83,13 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.8,         # the dry-herbal texture is characteristic
         stacking_depth=0.9,  # the layered architecture IS the fougère
         skin_performance=0.6,  # moderate
-        hedonic=0.5,         # structural, not pretty — beauty comes from order
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate — fougères can be busy
         photorealism=0.5,    # abstract accord, not botanical realism
     ),
 
     # ── Oriental — rich, warm, resinous, opulent ──
-    # Priorities: longevity (defining trait), luxury (opulence), texture (round, enveloping), hedonic (pleasurable)
+    # Priorities: longevity, material-luxury diagnostics, and enveloping texture.
     # De-emphasized: photorealism (fantasy), perceptual_clarity (dense and complex)
     "oriental": ObjectiveWeights(
         longevity=1.0,       # the defining trait — orientals must last
@@ -99,14 +99,14 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=1.0,         # round, creamy, enveloping — defining
         stacking_depth=0.8,  # layered warmth architecture
         skin_performance=0.8,  # orientals should hug the skin
-        hedonic=0.9,         # must be deeply pleasurable
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.3,  # orientals are dense, not clean
         photorealism=0.3,    # fantasy composition, not botanical
     ),
 
     # ── Chypre — bergamot + labdanum + oakmoss, sophisticated, dry ──
     # Priorities: longevity, stacking_depth (bergamot-to-oakmoss arc), texture (dry-sophisticated)
-    # De-emphasized: photorealism (abstract), hedonic (intellectual, not pretty)
+    # De-emphasized: photorealism (abstract).
     "chypre": ObjectiveWeights(
         longevity=0.9,       # chypres are built on substantial bases
         sillage=0.6,         # moderate — sophistication over projection
@@ -115,14 +115,14 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # the dry, elegant texture is defining
         stacking_depth=0.9,  # the top-to-base arc IS the chypre
         skin_performance=0.7,  # should wear close and personal
-        hedonic=0.5,         # intellectual, not crowd-pleasing
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.5,  # moderate — chypres have complexity
         photorealism=0.4,    # abstract composition
     ),
 
     # ── Woody — cedar, sandalwood, vetiver, dry-grainy ──
     # Priorities: longevity, texture (grain/dryness), stacking_depth
-    # De-emphasized: photorealism (abstract wood, not a tree), hedonic (structural)
+    # De-emphasized: photorealism (abstract wood, not a tree).
     "woody": ObjectiveWeights(
         longevity=0.9,       # woods persist
         sillage=0.6,         # moderate — woods are often close
@@ -131,13 +131,13 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # the grain, dryness, creaminess — defining
         stacking_depth=0.8,  # layered wood architecture
         skin_performance=0.7,  # woods often wear well on skin
-        hedonic=0.5,         # structural, not floral-beautiful
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate
         photorealism=0.4,    # abstract wood, not a tree
     ),
 
     # ── Amber — warm, resinous, vanillic ──
-    # Priorities: longevity, luxury (resins = opulence), hedonic (warm = pleasurable), texture (smooth)
+    # Priorities: longevity, resin architecture, and smooth texture.
     # De-emphasized: photorealism (fantasy), perceptual_clarity (dense)
     "amber": ObjectiveWeights(
         longevity=0.9,       # resins and vanilla persist
@@ -147,13 +147,13 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # smooth, round, enveloping
         stacking_depth=0.7,  # moderate layering
         skin_performance=0.7,  # warm on skin
-        hedonic=0.8,         # warm-fuzzy = inherently pleasurable
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.4,  # amber is dense and opaque
         photorealism=0.3,    # fantasy accord
     ),
 
     # ── Floral — rose, jasmine, muguet, abstract bouquet ──
-    # Priorities: hedonic (flowers = beauty), sillage (florals should bloom), photorealism
+    # Priorities: floral bloom, target fidelity, and petal texture.
     # De-emphasized: stacking_depth (often simple), longevity (florals can be fleeting)
     "floral": ObjectiveWeights(
         longevity=0.6,       # florals vary — some fleeting, some lasting
@@ -163,7 +163,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.8,         # petal-soft, silky
         stacking_depth=0.5,  # often simple architecture
         skin_performance=0.6,  # moderate
-        hedonic=1.0,         # beauty is the entire point
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.7,  # clean floral reading
         photorealism=0.8,    # should smell like flowers
     ),
@@ -178,7 +178,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=1.0,         # powder, suede, butter — the defining axis
         stacking_depth=0.6,  # moderate
         skin_performance=0.8,  # iris is a skin-scent material
-        hedonic=0.8,         # powdery = pleasurable
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate — powder softens edges
         photorealism=0.7,    # orris/iris realism
     ),
@@ -190,14 +190,14 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # crisp, transparent, not heavy powder
         stacking_depth=0.6,
         skin_performance=0.8,
-        hedonic=0.8,
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.8,  # crystalline = transparent
         photorealism=0.7,
     ),
 
     # ── Green — galbanum, violet leaf, cut grass ──
     # Priorities: photorealism (must smell like living plant), perceptual_clarity (crisp), sillage
-    # De-emphasized: luxury (green is humble), hedonic (often sharp), longevity (green tops are fleeting)
+    # De-emphasized: material-luxury and longevity (green tops are fleeting).
     "green": ObjectiveWeights(
         longevity=0.5,       # green tops are inherently fleeting
         sillage=0.9,         # green notes project sharply
@@ -206,14 +206,14 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.7,         # crisp, sharp, sometimes wet
         stacking_depth=0.5,  # simpler architecture
         skin_performance=0.5,  # moderate
-        hedonic=0.5,         # green can be sharp and challenging
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.9,  # must read crisp and clean
         photorealism=1.0,    # must smell like the living plant — defining
     ),
 
     # ── Leather — IBQ, birch tar, suede ──
     # Priorities: longevity, texture (tactile leather), stacking_depth
-    # De-emphasized: photorealism (abstract), hedonic (leather is divisive)
+    # De-emphasized: photorealism (abstract).
     "leather": ObjectiveWeights(
         longevity=0.9,       # leather bases persist
         sillage=0.6,         # moderate — often close-wearing
@@ -222,7 +222,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # the tactile leather feel — defining
         stacking_depth=0.8,  # layered leather architecture
         skin_performance=0.8,  # leather and skin are a natural pairing
-        hedonic=0.4,         # leather is divisive, not universally pleasant
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate
         photorealism=0.4,    # abstract accord
     ),
@@ -238,14 +238,14 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # smooth, skin-like, seamless — defining
         stacking_depth=0.5,  # simpler architecture
         skin_performance=1.0,  # the whole point — must perform on skin
-        hedonic=0.7,         # should be pleasant and comfortable
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate
         photorealism=0.4,    # abstract — "your skin but better" is not photorealistic
     ),
     "musky": "skin_scent",  # alias
 
     # ── Gourmand — edible, sweet, vanillic ──
-    # Priorities: hedonic (pleasure), longevity (sweet notes persist), luxury (often indulgent)
+    # Priorities: longevity, indulgent texture, and material-luxury diagnostics.
     # De-emphasized: photorealism (fantasy food), perceptual_clarity (dense)
     "gourmand": ObjectiveWeights(
         longevity=0.9,       # sweet notes are tenacious
@@ -255,7 +255,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.8,         # creamy, smooth, edible
         stacking_depth=0.6,  # moderate
         skin_performance=0.7,  # sweet notes wear well
-        hedonic=1.0,         # pleasure is the entire point
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.4,  # gourmands are dense and complex
         photorealism=0.3,    # fantasy food, not literal
     ),
@@ -271,7 +271,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.8,         # the warm, tingling spice texture
         stacking_depth=0.6,  # moderate
         skin_performance=0.6,  # moderate
-        hedonic=0.6,         # spices are warming but can be challenging
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.6,  # moderate
         photorealism=0.5,    # spice accords are abstract blends
     ),
@@ -286,7 +286,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.8,
         stacking_depth=0.8,
         skin_performance=0.7,
-        hedonic=0.7,
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.7,
         photorealism=0.6,
     ),
@@ -302,7 +302,7 @@ FAMILY_WEIGHT_PRESETS: dict[str, ObjectiveWeights] = {
         texture=0.9,         # smooth, even — defining
         stacking_depth=0.3,  # intentionally flat — not a weakness
         skin_performance=0.8,  # linear fragrances often wear well
-        hedonic=0.7,
+        hedonic=0.0,         # observed liking is evidence-gated
         perceptual_clarity=0.9,  # must read clean across the arc
         photorealism=0.7,
     ),

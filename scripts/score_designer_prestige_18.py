@@ -208,7 +208,7 @@ def parse_collection(md_path: Path) -> list[dict]:
 
 AXES = [
     "longevity", "sillage", "synergy", "luxury", "texture",
-    "stacking_depth", "skin_performance", "hedonic",
+    "stacking_depth", "skin_performance",
     "perceptual_clarity", "photorealism",
 ]
 

@@ -1205,7 +1205,6 @@ def generate_recommendations(
         "synergy": ["synergy"],
         "stacking_depth": ["complexity"],
         "skin_performance": ["texture"],  # skin-effect materials
-        "hedonic": ["character_balance"],
         "perceptual_clarity": [],  # adding materials hurts clarity
         "luxury": [],  # usually high; no addition helps
         "safety": [],  # handled by dose-reduction below

@@ -57,7 +57,6 @@ AXES = [
     "texture",
     "stacking_depth",
     "skin_performance",
-    "hedonic",
     "perceptual_clarity",
     "photorealism",
 ]

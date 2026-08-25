@@ -1207,9 +1207,8 @@ def _normalize_legacy_score_axes(
     )
     complexity_score = (
         normalized.get("texture", 50.0) * 0.35
-        + normalized.get("hedonic", 50.0) * 0.25
+        + normalized.get("stacking_depth", 50.0) * 0.45
         + normalized.get("perceptual_clarity", 50.0) * 0.20
-        + min(len(getattr(fv, "ingredients", {}) or {}), 20) * 1.0
     )
     radiance_score = min(max(float(radar.get("radiance", 0.0)) * 10.0, 0.0), 100.0)
     character_values = [float(v) for v in radar.values() if isinstance(v, (int, float))]

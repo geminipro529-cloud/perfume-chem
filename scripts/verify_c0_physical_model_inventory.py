@@ -745,7 +745,7 @@ def _capture_optimizer_scores(payload: Mapping[str, Any]) -> dict[str, float]:
         ingredients={str(name): float(value) for name, value in payload["ingredients_pct"].items()},
         dilutions={str(name): float(value) for name, value in payload.get("dilutions", {}).items()},
     )
-    result = FormulaScorer(ObjectiveWeights()).score(vector)
+    result = FormulaScorer(ObjectiveWeights()).score_legacy_replay(vector)
     return {
         str(name): float(value)
         for name, value in result.items()
