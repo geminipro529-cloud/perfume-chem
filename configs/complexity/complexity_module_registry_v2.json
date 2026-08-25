@@ -31,7 +31,7 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/perception/architectural_delta.py",
       "import_path": null,
-      "sha256": "ddf6e97411071782bc607fb5e29acbc02459299fa2bfdda2e65d01594dd5e622",
+      "sha256": "b2f8a0edaf6a31bc8444f9791739cbfd03cc733186f1e5fb51dd09499a5ff645",
       "evidence_refs": [
         "tests/fixtures/complexity_replacement_retest_cases_v2.json",
         "tests/test_architectural_delta.py",
@@ -50,7 +50,7 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/sensory/ledger.py",
       "import_path": null,
-      "sha256": "0aa4eefb7fa74b3992aa9386e382fcd9e58dfd19293d405eb229a16a37175592",
+      "sha256": "f1d9078b7907a75b4aca0242da7228508952fb0b4cae17cd93977961f0b5da3c",
       "evidence_refs": [
         "tests/fixtures/complexity_replacement_retest_cases_v2.json",
         "tests/test_temporal_sensory_evidence.py",
@@ -58,6 +58,7 @@
       ],
       "notes": [
         "Evidence ledger preserves missing and duplicate cells, assessor disagreement, order balance, and observed transitions.",
+        "Assessor safety incidents stop promotion, and declared repeatability thresholds fail closed on unreliable repeated evidence.",
         "Predicted volatility is never converted into perceived behavior.",
         "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
       ]
@@ -138,6 +139,22 @@
         "Depth remains a target-linked ratio, texture, salience, and temporal hypothesis, never material count, total wood percentage, darkness, or headspace OAV.",
         "The specialist inherits the Universal and Art topology contracts and creates no duplicate scoring or formula system.",
         "Nonruntime until a valid blinded replacement benchmark is accepted by Sol."
+      ]
+    },
+    {
+      "module_id": "hedonic-evidence-gate-v2",
+      "family_id": "hedonic_evidence_governance",
+      "role": "EVIDENCE",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "path": "engine/hedonic_evidence.py",
+      "import_path": null,
+      "sha256": "69695d6ca5fc00b95c0274235f454b38f20d06cf68c9fb6e87ed3bf06fea58c8",
+      "evidence_refs": [
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "data/governance/solforge_gate_foundation_acceptance_v1.json"
+      ],
+      "notes": [
+        "Exact-scope liking evidence gate; no composition-derived beauty score or release authority."
       ]
     }
   ]

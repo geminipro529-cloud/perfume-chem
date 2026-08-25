@@ -1,0 +1,158 @@
+{
+  "schema_version": "complexity_module_registry_v3",
+  "base_registry_chain": [
+    {
+      "path": "complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    },
+    {
+      "path": "complexity_module_registry_v2.json",
+      "sha256": "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500"
+    }
+  ],
+  "module_overrides": [
+    {
+      "module_id": "construction-profile",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "complexity-expansion-frontier",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "musk-design-restraint",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "complexity-model-admission",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "complexity-model-lifecycle",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "within-sniff-observation-contract",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "temporal-observation-contract",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "order-balance-contract",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "sensory-panel-contract",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "citrus-architecture-selector",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null
+    },
+    {
+      "module_id": "complexity-experimental-design",
+      "state": "CATALOG_ONLY",
+      "import_path": null
+    },
+    {
+      "module_id": "architectural-delta-engine",
+      "state": "EXPERIMENT_COMPILER",
+      "import_path": null,
+      "sha256": "b2f8a0edaf6a31bc8444f9791739cbfd03cc733186f1e5fb51dd09499a5ff645",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v3.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_solforge_architectural_adapter.py"
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "state": "DIAGNOSTIC_ONLY",
+      "import_path": null,
+      "sha256": "f1d9078b7907a75b4aca0242da7228508952fb0b4cae17cd93977961f0b5da3c",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v3.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_solforge_evidence_adapters.py"
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "state": "DIAGNOSTIC_ONLY",
+      "import_path": null,
+      "sha256": "b71c615a9817532d58e0643e70cb294642e668a7127904ce2965e0be055ecb31",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v3.json",
+        "tests/test_scoped_preference.py",
+        "tests/test_solforge_evidence_adapters.py"
+      ]
+    },
+    {
+      "module_id": "universal-perceptual-topology-core",
+      "state": "RESEARCH_ONLY",
+      "import_path": null,
+      "sha256": "968d57d5fe9fe00ad3e830f24cc204bc4523c10067342d239dc27ef88d07e0b1"
+    },
+    {
+      "module_id": "perfumery-art-composition-topology-v1",
+      "state": "RESEARCH_ONLY",
+      "import_path": null,
+      "sha256": "cb88d4204edb583d687aebe55cda5f0aa0531d85c6d0b005f523dc017da80772"
+    },
+    {
+      "module_id": "wood-depth-model-v2",
+      "state": "RESEARCH_ONLY",
+      "import_path": null,
+      "sha256": "d8c1efb393ecb1d455f242e4408cd53fb44ab05f8be23d7eaedbe499d6377e06"
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "solforge-shadow-orchestrator",
+      "family_id": "solforge_evidence_loop",
+      "role": "CAPABILITY",
+      "state": "EXPERIMENT_COMPILER",
+      "path": "engine/solforge/orchestrator.py",
+      "import_path": null,
+      "sha256": "cdd7a3a6400ca7879ae13765e884ad1b022155569d9d5e187fb6a2ab7fa3fe42",
+      "evidence_refs": [
+        "data/governance/solforge_gate_foundation_acceptance_v1.json",
+        "tests/test_solforge_orchestrator.py",
+        "tests/test_solforge_runtime_isolation.py"
+      ],
+      "notes": [
+        "Shadow-only deterministic evidence loop; no live model, laboratory, purchase, compounding, or release action.",
+        "Runtime admission requires a later exact-scope scientific and blinded benchmark acceptance overlay."
+      ]
+    }
+  ],
+  "required_evidence": [
+    {
+      "path": "data/governance/solforge_gate_foundation_acceptance_v1.json",
+      "sha256": "89fb1ffd75e774b577f89273ba6660f58a29a742b1562bd4aa79ef24fadaa41d",
+      "acceptance_sha256": "b7aa985b4146c2775071934d6d3c0fe796dfeb2fb83951a073a62ed1e91008a6"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}
