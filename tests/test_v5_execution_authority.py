@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from engine.pipeline.v5_execution_authority import (
+    CURRENT_INVENTORY_BUILD,
+    PHYSICAL_EXECUTION,
+    TARGET_IDEAL,
     evaluate_formula_stock_specs,
     evaluate_reconciliation_row,
 )
@@ -29,17 +32,73 @@ def _row(**overrides):
     return row
 
 
-def test_unresolved_exact_stock_ref_is_physical_hold():
+def test_hold_means_have_not_inventory_gap():
     result = evaluate_reconciliation_row(_row())
 
+    assert result.inventory_owned is True
+    assert result.hold_means_have is True
+    assert result.current_inventory_build_allowed is True
     assert result.design_allowed is True
+    assert result.physical_execution_allowed is False
+    assert "HOLD_PRESERVES_HAVE" in result.reasons
+    assert "V5_STATUS_UNAVAILABLE" not in result.reasons
+
+
+def test_unresolved_exact_stock_ref_blocks_only_physical_execution():
+    result = evaluate_reconciliation_row(_row())
+
+    assert result.inventory_owned is True
     assert result.current_inventory_build_allowed is True
     assert result.physical_execution_allowed is False
     assert "EXACTSTOCKREF_UNRESOLVED" in result.reasons
-    assert "PHYSICAL_GATE_HOLD" in result.reasons
+    assert "PHYSICAL_GATE_NOT_READY" in result.reasons
+    assert "FINAL_EXECUTION_NOT_READY" in result.reasons
 
 
-def test_ambrettolide_is_design_available_but_not_current_physical_stock():
+def test_hold_have_survives_missing_v5_canonical_mapping():
+    result = evaluate_reconciliation_row(
+        _row(
+            Material="Turkish Storax Tincture 20%",
+            **{
+                "Workbook Inventory Status": "HAVE — HISTORY CONFIRMED",
+                "V5 Match Method": "NO_EXACT_V5_MATCH",
+                "V5 Canonical Material": "",
+                "V5 Status": "",
+                "V5 Actual Stock(s)": "",
+            },
+        )
+    )
+
+    assert result.inventory_owned is True
+    assert result.current_inventory_build_allowed is True
+    assert result.design_allowed is True
+    assert result.physical_execution_allowed is False
+    assert "V5_MAPPING_UNRESOLVED" in result.reasons
+    assert "HOLD_PRESERVES_HAVE" in result.reasons
+
+
+def test_target_ideal_is_not_redefined_by_v5_gap():
+    result = evaluate_reconciliation_row(
+        _row(
+            Material="Guaiacwood EO",
+            **{
+                "Workbook Inventory Status": "HAVE — PHOTO VERIFIED / ESSENTIAL OIL",
+                "V5 Canonical Material": "Guaiacwood EO",
+                "V5 Status": "GAP",
+                "V5 Actual Stock(s)": "",
+                "V5 Formula-Use Policy": "Do not substitute silently; target-required material is not in stock.",
+            },
+        )
+    )
+
+    assert result.design_allowed is True
+    assert result.inventory_owned is False
+    assert result.current_inventory_build_allowed is False
+    assert result.physical_execution_allowed is False
+    assert "V5_STATUS_UNAVAILABLE" in result.reasons
+
+
+def test_planned_ambrettolide_remains_target_design_available_only():
     result = evaluate_reconciliation_row(
         _row(
             Material="Ambrettolide 10%",
@@ -47,13 +106,9 @@ def test_ambrettolide_is_design_available_but_not_current_physical_stock():
                 "V5 Canonical Material": "Ambrettolide 10%",
                 "V5 Status": "PLANNED ACQUISITION • DESIGN-AVAILABLE",
                 "V5 Actual Stock(s)": "Ambrettolide 10% in DPG planned; physical receipt pending",
-                "V5 Can Prepare": "Create or verify exact 10% in DPG stock after acquisition.",
                 "V5 Formula-Use Policy": (
                     "Usable in computational formula design, accord architecture and screen planning. "
                     "A physical batch may not claim Ambrettolide use until receipt and ExactStockRef are recorded."
-                ),
-                "V5 User Note": (
-                    "User instructed on 2026-08-07 to treat Ambrettolide as available for design because purchase is planned."
                 ),
                 "Final Execution State": "HOLD — PROCUREMENT PENDING + EXACTSTOCKREF UNRESOLVED",
             },
@@ -62,12 +117,12 @@ def test_ambrettolide_is_design_available_but_not_current_physical_stock():
 
     assert result.v5_status_class == "PLANNED_DESIGN_AVAILABLE"
     assert result.design_allowed is True
+    assert result.inventory_owned is False
     assert result.current_inventory_build_allowed is False
     assert result.physical_execution_allowed is False
-    assert "PLANNED_MATERIAL_NOT_PHYSICALLY_OWNED" in result.reasons
 
 
-def test_orris_product_basis_does_not_require_molecular_active_fraction():
+def test_orris_product_basis_is_not_forced_into_guessed_active_equivalent():
     result = evaluate_reconciliation_row(
         _row(
             Material="Orris Liquid",
@@ -91,36 +146,12 @@ def test_orris_product_basis_does_not_require_molecular_active_fraction():
     )
 
     assert result.product_basis is True
-    assert result.design_allowed is True
+    assert result.inventory_owned is True
+    assert result.current_inventory_build_allowed is True
     assert result.quantitative_design_allowed is True
-    assert result.physical_execution_allowed is False
 
 
-def test_v5_gap_overrides_workbook_have_for_current_inventory_use():
-    result = evaluate_reconciliation_row(
-        _row(
-            Material="Guaiacwood EO",
-            **{
-                "Workbook Inventory Status": "HAVE — PHOTO VERIFIED / ESSENTIAL OIL",
-                "Workbook Stock Description": "PerfumersWorld Guaiacwood Essential Oil; as supplied",
-                "Workbook Active Fraction": 1,
-                "Workbook Carrier": "DEP",
-                "V5 Canonical Material": "Guaiacwood EO",
-                "V5 Status": "GAP",
-                "V5 Actual Stock(s)": "",
-                "V5 Formula-Use Policy": "Do not substitute silently; target-required material is not in stock.",
-            },
-        )
-    )
-
-    assert result.v5_status_class == "UNAVAILABLE"
-    assert result.design_allowed is False
-    assert result.current_inventory_build_allowed is False
-    assert result.physical_execution_allowed is False
-    assert "V5_STATUS_UNAVAILABLE" in result.reasons
-
-
-def test_v5_policy_conflict_prevents_neat_quantitative_model():
+def test_stock_policy_conflict_blocks_quantitative_current_build_not_ownership():
     result = evaluate_reconciliation_row(
         _row(
             Material="Sandalwood EO 10% in DPG",
@@ -137,13 +168,13 @@ def test_v5_policy_conflict_prevents_neat_quantitative_model():
         )
     )
 
-    assert result.design_allowed is True
+    assert result.inventory_owned is True
+    assert result.current_inventory_build_allowed is True
     assert result.quantitative_design_allowed is False
-    assert result.physical_execution_allowed is False
     assert "ACTIVE_FRACTION_CONFLICT_WITH_V5_POLICY" in result.reasons
 
 
-def test_hypothetical_resolved_stock_can_become_physical_ready():
+def test_resolved_ready_stock_can_become_physical_ready():
     result = evaluate_reconciliation_row(
         _row(
             **{
@@ -154,9 +185,42 @@ def test_hypothetical_resolved_stock_can_become_physical_ready():
         )
     )
 
+    assert result.inventory_owned is True
     assert result.current_inventory_build_allowed is True
     assert result.quantitative_design_allowed is True
     assert result.physical_execution_allowed is True
+
+
+def test_formula_target_scope_never_lets_inventory_redefine_target():
+    formula = {
+        "ingredients_ul": {"Missing Target Material": 20.0},
+        "dilutions": {"Missing Target Material": 0.1},
+        "stock_specs": {
+            "Missing Target Material": {
+                "fraction": 0.1,
+                "v5_status": "GAP",
+                "v5_canonical_material": "Missing Target Material",
+                "physical_gate": "HOLD",
+                "exact_stock_ref": "UNRESOLVED",
+            }
+        },
+    }
+
+    target = evaluate_formula_stock_specs(
+        formula,
+        mode="RECONSTRUCTION",
+        scope=TARGET_IDEAL,
+    )
+    current = evaluate_formula_stock_specs(
+        formula,
+        mode="INVENTORY_MAPPING",
+        scope=CURRENT_INVENTORY_BUILD,
+    )
+
+    assert target.allowed is True
+    assert target.status == "TARGET_IDEAL_ALLOWED"
+    assert current.allowed is False
+    assert current.status == "CURRENT_BUILD_HOLD"
 
 
 def test_formula_adapter_never_assumes_neat_when_fraction_is_missing():
@@ -165,6 +229,7 @@ def test_formula_adapter_never_assumes_neat_when_fraction_is_missing():
         "dilutions": {},
         "stock_specs": {
             "Hedione": {
+                "workbook_inventory_status": "HAVE",
                 "v5_status": "HAVE",
                 "v5_canonical_material": "Hedione",
                 "stock_description": "neat / as supplied",
@@ -174,40 +239,50 @@ def test_formula_adapter_never_assumes_neat_when_fraction_is_missing():
         },
     }
 
-    report = evaluate_formula_stock_specs(formula, mode="RECONSTRUCTION")
-    row = report.rows[0]
+    target = evaluate_formula_stock_specs(
+        formula,
+        mode="RECONSTRUCTION",
+        scope=TARGET_IDEAL,
+    )
+    current = evaluate_formula_stock_specs(
+        formula,
+        mode="INVENTORY_MAPPING",
+        scope=CURRENT_INVENTORY_BUILD,
+    )
 
+    row = target.rows[0]
+    assert row.inventory_owned is True
     assert row.active_fraction is None
     assert row.quantitative_design_allowed is False
     assert "ACTIVE_FRACTION_NOT_STRUCTURED" in row.reasons
-    assert report.allowed is True
-    assert "Hedione:QUANTITATIVE_DESIGN_HOLD" in report.warnings
+    assert target.allowed is True
+    assert current.allowed is False
 
 
-def test_formula_adapter_preserves_planned_design_availability():
+def test_physical_scope_requires_exact_binding_even_when_hold_means_have():
     formula = {
-        "ingredients_ul": {"Ambrettolide 10%": 20.0},
-        "dilutions": {"Ambrettolide 10%": 0.1},
+        "ingredients_ul": {"Hedione": 100.0},
+        "dilutions": {"Hedione": 1.0},
         "stock_specs": {
-            "Ambrettolide 10%": {
-                "fraction": 0.1,
-                "carrier": "DPG",
-                "v5_status": "PLANNED ACQUISITION / DESIGN-AVAILABLE",
-                "v5_canonical_material": "Ambrettolide 10%",
-                "v5_actual_stocks": "Ambrettolide 10% in DPG planned; physical receipt pending",
-                "v5_formula_use_policy": "Usable in computational formula design only until receipt and ExactStockRef exist.",
+            "Hedione": {
+                "fraction": 1.0,
+                "workbook_inventory_status": "HAVE",
+                "v5_status": "HAVE",
+                "v5_canonical_material": "Hedione",
                 "physical_gate": "HOLD",
                 "exact_stock_ref": "UNRESOLVED",
-                "final_execution_state": "HOLD — PROCUREMENT PENDING + EXACTSTOCKREF UNRESOLVED",
+                "final_execution_state": "HOLD — EXACTSTOCKREF UNRESOLVED",
             }
         },
     }
 
-    design = evaluate_formula_stock_specs(formula, mode="RECONSTRUCTION")
-    physical = evaluate_formula_stock_specs(formula, mode="LIVE_BATCH")
+    physical = evaluate_formula_stock_specs(
+        formula,
+        mode="LIVE_BATCH",
+        scope=PHYSICAL_EXECUTION,
+    )
 
-    assert design.allowed is True
-    assert design.status == "DESIGN_ALLOWED"
-    assert design.physical_execution_allowed is False
+    assert physical.rows[0].inventory_owned is True
+    assert physical.rows[0].hold_means_have is True
     assert physical.allowed is False
-    assert physical.status == "HOLD"
+    assert physical.status == "PHYSICAL_HOLD"
