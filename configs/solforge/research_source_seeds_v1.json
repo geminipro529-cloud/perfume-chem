@@ -1,0 +1,93 @@
+{
+  "schema_version": "solforge_research_source_seeds_v1",
+  "seeds": [
+    {
+      "seed_id": "FRANK-2017",
+      "stable_identifier": "doi:10.1093/chemse/bjx031",
+      "uri": "https://doi.org/10.1093/chemse/bjx031",
+      "title": "Recognition of the Component Odors in Mixtures",
+      "intended_methodological_use": "Constrain component-recognition, suppression, and selective-adaptation hypotheses.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ZAK-2020",
+      "stable_identifier": "doi:10.1093/chemse/bjaa032",
+      "uri": "https://doi.org/10.1093/chemse/bjaa032",
+      "title": "Mixture and Concentration Effects on Odorant Receptor Response Patterns In Vivo",
+      "intended_methodological_use": "Constrain concentration, mixture-interaction, and receptor-to-perception uncertainty.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LABBE-2009",
+      "stable_identifier": "doi:10.1016/j.foodqual.2008.10.001",
+      "uri": "https://doi.org/10.1016/j.foodqual.2008.10.001",
+      "title": "Temporal dominance of sensations and sensory profiling: A comparative study",
+      "intended_methodological_use": "Inform temporal endpoint and dominance-profile design while preserving product-domain limits.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ZHOU-2024",
+      "stable_identifier": "doi:10.1038/s41562-024-01984-8",
+      "uri": "https://doi.org/10.1038/s41562-024-01984-8",
+      "title": "Human olfactory perception embeds fine temporal resolution within a single sniff",
+      "intended_methodological_use": "Permit within-sniff questions only with a qualified sniff-triggered apparatus and protocol.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ARSHAMIAN-2022",
+      "stable_identifier": "pmid:35381183",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+      "title": "The perception of odor pleasantness is shared across cultures",
+      "intended_methodological_use": "Require both population scope and individual-heterogeneity reporting for pleasantness.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LIU-2020",
+      "stable_identifier": "pmid:33093474",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/33093474/",
+      "title": "Assessment of odor hedonic perception: the Sniffin' sticks parosmia test (SSParoT)",
+      "intended_methodological_use": "Inform pairwise hedonic assessment, separate intensity ratings, and test-retest requirements.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "NIST-MIXTURE-DESIGN",
+      "stable_identifier": "nist:eda-handbook-5.5.4",
+      "uri": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri54.htm",
+      "title": "What is a mixture design?",
+      "intended_methodological_use": "Require constrained proportions, explicit response variables, and adequate mixture designs.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-8586-2023",
+      "stable_identifier": "iso:8586:2023",
+      "uri": "https://www.iso.org/standard/76667.html",
+      "title": "Sensory analysis — Selection and training of sensory assessors",
+      "intended_methodological_use": "Public metadata only: define assessor selection and training scope.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-13299-2016",
+      "stable_identifier": "iso:13299:2016",
+      "uri": "https://www.iso.org/standard/58042.html",
+      "title": "Sensory analysis — Methodology — General guidance for establishing a sensory profile",
+      "intended_methodological_use": "Public metadata only: define descriptive-profile methodology scope.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-11136-2014",
+      "stable_identifier": "iso:11136:2014",
+      "uri": "https://www.iso.org/standard/50125.html",
+      "title": "Sensory analysis — Methodology — General guidance for conducting hedonic tests with consumers in a controlled area",
+      "intended_methodological_use": "Public metadata only: keep controlled consumer liking separate from trained-panel description.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    }
+  ],
+  "authority_flags": {
+    "formula": false,
+    "hedonic": false,
+    "release": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}
