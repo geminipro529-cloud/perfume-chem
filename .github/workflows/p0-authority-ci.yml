@@ -1,0 +1,66 @@
+name: P0 Authority CI
+
+on:
+  push:
+    branches:
+      - sol/p0-dose-receipt-firewall
+  pull_request:
+    branches:
+      - codex/complexity-replacements-candidate
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authority-spine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install focused test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest pyyaml numpy pandas scipy requests
+
+      - name: Compile P0 authority modules
+        run: |
+          python -m py_compile \
+            engine/pipeline/stock_authority_spine.py \
+            engine/pipeline/v5_execution_authority.py \
+            engine/pipeline/v5_snapshot_provider.py \
+            engine/pipeline/state_authorization.py
+
+      - name: Run P0 authority spine tests
+        run: |
+          python -m pytest -q \
+            tests/test_stock_authority_spine.py \
+            tests/test_v5_execution_authority.py \
+            tests/test_v5_snapshot_provider.py \
+            tests/test_state_authorization.py
+
+  sealed-bypass-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile sealed bypass entrypoints
+        run: |
+          python -m py_compile \
+            engine/pipeline/oav_authority.py \
+            engine/pipeline/robustness.py \
+            engine/pipeline/simulator.py
