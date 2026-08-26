@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from engine.perception.complexity_registry import ModuleState, load_complexity_registry
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,12 +25,9 @@ def test_registry_v3_exposes_no_solforge_or_replacement_runtime_imports() -> Non
     assert states["hedonic-preference-learner"] is ModuleState.DIAGNOSTIC_ONLY
 
 
-def test_registry_v4_exposes_no_rebuild_runtime_imports() -> None:
-    registry = load_complexity_registry(ROOT, REGISTRY_V4)
-    assert not any(module.runtime_eligible for module in registry.modules)
-    for module in registry.modules:
-        if module.state is not ModuleState.ADMITTED_RUNTIME:
-            assert module.import_path is None
+def test_frozen_registry_v4_fails_closed_after_rebuild_source_drift() -> None:
+    with pytest.raises(ValueError, match="source binding hash mismatch"):
+        load_complexity_registry(ROOT, REGISTRY_V4)
 
 
 def test_retired_complexity_cards_are_provenance_tombstones() -> None:
@@ -93,3 +92,25 @@ def test_registry_v3_authority_flags_are_all_false() -> None:
         "scientific": False,
         "sensory": False,
     }
+
+
+def test_admitted_runtime_import_graph_excludes_failed_evidence_modules() -> None:
+    runtime = (ROOT / "engine/solforge/runtime.py").read_text(encoding="utf-8")
+    architectural = (
+        ROOT / "engine/solforge/architectural_adapter.py"
+    ).read_text(encoding="utf-8")
+    admitted_source = f"{runtime}\n{architectural}".casefold()
+
+    assert "engine.solforge.architectural_adapter" in runtime
+    for forbidden in (
+        "engine.solforge.orchestrator",
+        "engine.solforge.adapters",
+        "engine.solforge.governance",
+        "engine.hedonic_evidence",
+        "engine.preference",
+        "engine.preference_davidson",
+        "engine.preference_validation",
+        "engine.sensory.ledger",
+        "engine.pipeline.oav_evidence",
+    ):
+        assert forbidden not in admitted_source

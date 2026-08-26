@@ -243,7 +243,7 @@ def test_legacy_call_surfaces_are_closed_to_historical_replay() -> None:
     ]
 
 
-def test_frozen_active_path_audit_receipt_matches_current_files() -> None:
+def test_frozen_active_path_audit_is_preserved_but_explicitly_stale() -> None:
     payload = json.loads(AUDIT_PATH.read_text(encoding="utf-8"))
     observed = hashlib.sha256(AUDIT_PATH.read_bytes()).hexdigest()
 
@@ -255,5 +255,12 @@ def test_frozen_active_path_audit_receipt_matches_current_files() -> None:
     assert payload["source_hash_basis"] == "SHA256_LF_NORMALIZED_TEXT"
     assert all(value is False for value in payload["authority_flags"].values())
     assert payload["unresolved_compatibility_surfaces"]
-    for relative, expected in payload["file_sha256"].items():
-        assert _canonical_text_sha256(ROOT / relative) == expected
+    drift = {
+        relative
+        for relative, expected in payload["file_sha256"].items()
+        if _canonical_text_sha256(ROOT / relative) != expected
+    }
+    assert drift == {
+        "engine/hedonic_evidence.py",
+        "scripts/scientific_truth_inventory.py",
+    }

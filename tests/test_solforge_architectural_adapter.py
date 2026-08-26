@@ -12,6 +12,9 @@ from engine.solforge.adapters import (
     compile_architectural_delta,
     compile_architectural_delta_v2,
 )
+from engine.solforge.architectural_adapter import (
+    compile_architectural_delta as compile_runtime_architectural_delta,
+)
 from engine.solforge.contracts import (
     CompilationState,
     SolForgeCaseState,
@@ -218,6 +221,28 @@ def test_case_inventory_hash_mismatch_fails_closed(inventory_authority) -> None:
     result = compile_architectural_delta(case, _set(case, _hypothesis()))
     assert result.state is CompilationState.HOLD
     assert "INVENTORY_HASH_MISMATCH" in result.blockers
+
+
+def test_runtime_adapter_matches_the_historical_shadow_compiler(
+    inventory_authority,
+) -> None:
+    case = _case(inventory_authority)
+    for hypotheses in (
+        _set(case),
+        _set(case, _hypothesis()),
+        _set(
+            case,
+            _hypothesis(),
+            _hypothesis(
+                hypothesis_id="H2",
+                rank=2,
+                material_names=("Romandolide",),
+            ),
+        ),
+    ):
+        historical = compile_architectural_delta(case, hypotheses)
+        admitted = compile_runtime_architectural_delta(case, hypotheses)
+        assert admitted.canonical_bytes() == historical.canonical_bytes()
 
 
 def test_v2_adapter_emits_only_one_closed_evidence_delta(inventory_authority) -> None:

@@ -23,11 +23,12 @@ _RUNTIME_STATES = frozenset(
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
 CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
-    "configs/complexity/complexity_module_registry_v5.json"
+    "configs/complexity/complexity_module_registry_v6.json"
 )
 _V5_ARCHITECTURAL_DELTA_SHA256 = (
     "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
 )
+_V6_ARCHITECTURAL_DELTA_SHA256 = _V5_ARCHITECTURAL_DELTA_SHA256
 
 
 class ModuleState(str, Enum):
@@ -780,6 +781,249 @@ def _load_registry_v5(
     )
 
 
+def _load_registry_v6(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    required = {
+        "schema_version",
+        "change_class",
+        "predecessor_registry_chain",
+        "base_registry",
+        "module_overrides",
+        "screen_evidence",
+        "runtime_bindings",
+        "provenance_bindings",
+        "authority_flags",
+    }
+    if set(payload) != required:
+        raise ValueError("complexity registry v6 top-level keys are closed")
+    if payload.get("change_class") != "RUNTIME_ISOLATION_REPAIR_NO_NEW_ADMISSION":
+        raise ValueError("V6 change class must deny new admission")
+
+    chain = payload.get("predecessor_registry_chain")
+    expected_names = [
+        f"complexity_module_registry_v{version}.json" for version in range(1, 6)
+    ]
+    if not isinstance(chain, list) or len(chain) != len(expected_names):
+        raise ValueError("V6 predecessor chain must contain exact V1 through V5")
+    chain_paths: dict[str, Path] = {}
+    for expected_name, item in zip(expected_names, chain, strict=True):
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V6 predecessor entries are closed")
+        name = _nonblank(item.get("path"), "predecessor path")
+        if name != expected_name:
+            raise ValueError("V6 predecessor order must be exact V1 through V5")
+        digest = _nonblank(item.get("sha256"), "predecessor sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("V6 predecessor sha256 must be lower-case SHA-256")
+        path = registry_path.parent / name
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"V6 predecessor hash mismatch: {name}")
+        chain_paths[name] = path
+
+    base_record = payload.get("base_registry")
+    if not isinstance(base_record, dict) or set(base_record) != {"path", "sha256"}:
+        raise ValueError("V6 base registry must be one closed record")
+    if base_record.get("path") != "complexity_module_registry_v3.json":
+        raise ValueError("V6 must reconstruct from the last source-stable V3 registry")
+    if base_record.get("sha256") != next(
+        item["sha256"]
+        for item in chain
+        if item["path"] == "complexity_module_registry_v3.json"
+    ):
+        raise ValueError("V6 base registry must match the frozen V3 predecessor")
+    base = load_complexity_registry(
+        project_root,
+        chain_paths["complexity_module_registry_v3.json"],
+    )
+
+    if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
+        raise ValueError("V6 authority flags must be the exact all-false mapping")
+
+    evidence_rows = payload.get("screen_evidence")
+    expected_evidence_paths = {
+        "tests/fixtures/complexity_replacement_benchmark_cases_v8.json",
+        "data/benchmarks/solforge/evidence_foundation_screen_v2/effective_manifest.json",
+        "data/benchmarks/solforge/evidence_foundation_screen_v2/execution_receipt.json",
+        "data/benchmarks/solforge/evidence_foundation_screen_v2/receipt.json",
+        "data/benchmarks/solforge/evidence_foundation_screen_v2/screen_decisions.json",
+    }
+    if not isinstance(evidence_rows, list) or len(evidence_rows) != len(
+        expected_evidence_paths
+    ):
+        raise ValueError("V6 screen evidence must contain five exact records")
+    evidence_payloads: dict[str, Mapping[str, Any]] = {}
+    for item in evidence_rows:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V6 screen evidence entries are closed")
+        relative = _relative_path(item.get("path"), "screen evidence path")
+        digest = _nonblank(item.get("sha256"), "screen evidence sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("V6 screen evidence sha256 must be lower-case SHA-256")
+        path = _inside_root(project_root, relative)
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"V6 screen evidence hash mismatch: {relative}")
+        parsed = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(parsed, Mapping):
+            raise ValueError("V6 screen evidence must contain one JSON object")
+        evidence_payloads[relative] = parsed
+    if set(evidence_payloads) != expected_evidence_paths:
+        raise ValueError("V6 screen evidence paths must be exact")
+    decisions = evidence_payloads[
+        "data/benchmarks/solforge/evidence_foundation_screen_v2/screen_decisions.json"
+    ]
+    decision_rows = decisions.get("decisions")
+    expected_failed_ids = {
+        "temporal_oav_error_sentinel",
+        "temporal_sensory_ledger",
+        "hedonic_preference_learner",
+    }
+    if (
+        not isinstance(decision_rows, list)
+        or {row.get("module_id") for row in decision_rows if isinstance(row, Mapping)}
+        != expected_failed_ids
+        or any(row.get("state") != "STOP" for row in decision_rows)
+    ):
+        raise ValueError("V6 screen evidence must stop every evidence candidate")
+
+    runtime_rows = payload.get("runtime_bindings")
+    expected_runtime_paths = {
+        "engine/perception/complexity_registry.py",
+        "engine/perception/architectural_delta.py",
+        "engine/solforge/architectural_adapter.py",
+        "engine/solforge/runtime.py",
+        "scripts/intervention_recommend.py",
+    }
+    if not isinstance(runtime_rows, list) or len(runtime_rows) != len(
+        expected_runtime_paths
+    ):
+        raise ValueError("V6 runtime bindings must contain five exact records")
+    observed_runtime_paths: set[str] = set()
+    for item in runtime_rows:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V6 runtime binding entries are closed")
+        relative = _relative_path(item.get("path"), "runtime binding path")
+        digest = _nonblank(item.get("sha256"), "runtime binding sha256")
+        path = _inside_root(project_root, relative)
+        if (
+            not _SHA256.fullmatch(digest)
+            or not path.is_file()
+            or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+        ):
+            raise ValueError(f"V6 runtime binding hash mismatch: {relative}")
+        observed_runtime_paths.add(relative)
+    if observed_runtime_paths != expected_runtime_paths:
+        raise ValueError("V6 runtime binding paths must be exact")
+
+    provenance_rows = payload.get("provenance_bindings")
+    expected_provenance_paths = {
+        "engine/hedonic_evidence.py",
+        "engine/hedonic_model.py",
+        "engine/pipeline/oav_evidence.py",
+        "engine/preference.py",
+        "engine/preference_davidson.py",
+        "engine/preference_validation.py",
+        "engine/sensory/ledger.py",
+        "engine/solforge/adapters.py",
+        "engine/solforge/orchestrator.py",
+    }
+    if not isinstance(provenance_rows, list) or len(provenance_rows) != len(
+        expected_provenance_paths
+    ):
+        raise ValueError("V6 provenance bindings must contain nine exact records")
+    observed_provenance_paths: set[str] = set()
+    for item in provenance_rows:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V6 provenance binding entries are closed")
+        relative = _relative_path(item.get("path"), "provenance binding path")
+        digest = _nonblank(item.get("sha256"), "provenance binding sha256")
+        path = _inside_root(project_root, relative)
+        if (
+            not _SHA256.fullmatch(digest)
+            or not path.is_file()
+            or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+        ):
+            raise ValueError(f"V6 provenance binding hash mismatch: {relative}")
+        observed_provenance_paths.add(relative)
+    if observed_provenance_paths != expected_provenance_paths:
+        raise ValueError("V6 provenance binding paths must be exact")
+    if observed_runtime_paths.intersection(observed_provenance_paths):
+        raise ValueError("V6 runtime and provenance bindings must be disjoint")
+
+    overrides = payload.get("module_overrides")
+    expected_override_ids = {
+        "advanced-musk-intelligence",
+        "architectural-delta-engine",
+        "hedonic-evidence-gate-v2",
+        "hedonic-model-future",
+        "hedonic-preference-learner",
+        "solforge-shadow-orchestrator",
+        "temporal-sensory-ledger",
+    }
+    if not isinstance(overrides, list) or {
+        item.get("module_id") for item in overrides if isinstance(item, dict)
+    } != expected_override_ids:
+        raise ValueError("V6 module overrides must cover the exact isolation set")
+    allowed_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    for override in overrides:
+        if not isinstance(override, dict) or set(override) != allowed_override_fields:
+            raise ValueError("V6 module override schema is closed")
+        module_id = _nonblank(override.get("module_id"), "module override module_id")
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown V6 module override: {module_id}")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root,
+            row,
+        )
+
+    runtime_modules = tuple(module for module in modules if module.runtime_eligible)
+    if tuple(module.module_id for module in runtime_modules) != (
+        "architectural-delta-engine",
+    ):
+        raise ValueError("V6 may retain only architectural-delta-engine at runtime")
+    architecture = runtime_modules[0]
+    if (
+        architecture.state is not ModuleState.ADMITTED_RUNTIME
+        or architecture.import_path != "engine.perception.architectural_delta"
+        or architecture.sha256 != _V6_ARCHITECTURAL_DELTA_SHA256
+    ):
+        raise ValueError("V6 architectural runtime binding is invalid")
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        module = modules[index_by_id[module_id]]
+        if (
+            module.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+            or module.import_path is not None
+        ):
+            raise ValueError("V6 underperformers must remain runtime-unreachable")
+    shadow = modules[index_by_id["solforge-shadow-orchestrator"]]
+    if shadow.state is not ModuleState.PROVENANCE_TOMBSTONE or shadow.import_path:
+        raise ValueError("V6 full shadow orchestrator must be a provenance tombstone")
+
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v6",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -787,6 +1031,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v6":
+        return _load_registry_v6(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v5":
         return _load_registry_v5(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v4":
@@ -865,8 +1111,8 @@ def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
         project_root,
         project_root / CURRENT_COMPLEXITY_REGISTRY_PATH,
     )
-    if registry.schema_version != "complexity_module_registry_v5":
-        raise ValueError("current complexity runtime must use registry V5")
+    if registry.schema_version != "complexity_module_registry_v6":
+        raise ValueError("current complexity runtime must use registry V6")
     runtime_modules = tuple(item for item in registry.modules if item.runtime_eligible)
     if tuple(item.module_id for item in runtime_modules) != (
         "architectural-delta-engine",

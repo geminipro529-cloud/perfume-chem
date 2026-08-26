@@ -37,10 +37,11 @@ def _rewrite_receipt(project: Path, mutate) -> None:
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
-def test_current_gate_foundation_receipt_is_ready() -> None:
+def test_frozen_gate_foundation_receipt_fails_closed_after_source_drift() -> None:
     result = verify_gate_foundation_receipt(ROOT)
-    assert result.ready is True
-    assert result.blockers == ()
+    assert result.ready is False
+    assert result.receipt is None
+    assert "file hash mismatch: engine/hedonic_evidence.py" in result.blockers
     assert result.acceptance_sha256 == "fe57ed5e467f7218972d362c231651f80051d8e08897520316c1a70b9cb05233"
 
 

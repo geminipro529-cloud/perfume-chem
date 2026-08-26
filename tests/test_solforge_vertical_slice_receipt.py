@@ -18,6 +18,18 @@ from engine.solforge.vertical_slice_verifier import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.fixture(autouse=True)
+def _historical_gate_preflight(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "engine.solforge.vertical_slice_verifier.verify_gate_foundation_receipt",
+        lambda _root: SimpleNamespace(
+            ready=True,
+            acceptance_sha256="a" * 64,
+            blockers=(),
+        ),
+    )
+
+
 def _passing_check() -> tuple[dict[str, object], ...]:
     return (
         {

@@ -1525,7 +1525,9 @@ def _blinded_placebo_context(target_bytes: int) -> dict[str, str]:
     current = len(_canonical_bytes(payload))
     if current > target_bytes:
         raise ValueError("target placebo byte count is too small for the blind envelope")
-    payload["context"] += "x" * (target_bytes - current)
+    needed = target_bytes - current
+    alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    payload["context"] += (alphabet * ((needed // len(alphabet)) + 1))[:needed]
     if len(_canonical_bytes(payload)) != target_bytes:
         raise AssertionError("blinded placebo context must be exactly length matched")
     return payload

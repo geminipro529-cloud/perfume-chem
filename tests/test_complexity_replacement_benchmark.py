@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 from decimal import Decimal
 from pathlib import Path
@@ -106,6 +107,7 @@ def test_replacement_modules_and_three_arm_prompts_are_frozen_and_fair() -> None
     assert "engine/perception" not in str(treatment_packet)
     assert "placebo" not in str(placebo_packet).casefold()
     assert "treatment" not in str(treatment_packet).casefold()
+    assert not re.search(r"(.)\1{15,}", placebo_packet["context"])
     assert control.common_input_sha256 == treatment.common_input_sha256
     assert control.common_input_sha256 == placebo.common_input_sha256
     assert len({control.nonce, treatment.nonce, placebo.nonce}) == 3

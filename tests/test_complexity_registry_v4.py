@@ -50,7 +50,31 @@ def _copy_registry_project(tmp_path: Path) -> tuple[Path, Path]:
         target = project / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, target)
-    return project, project / V4.relative_to(ROOT)
+    target_v4 = project / V4.relative_to(ROOT)
+    payload = json.loads(target_v4.read_text(encoding="utf-8"))
+    for item in payload["source_bindings"]:
+        item["sha256"] = hashlib.sha256(
+            (project / item["path"]).read_bytes()
+        ).hexdigest()
+    module_path_by_id = {
+        item["module_id"]: item["path"]
+        for path in registry_paths[:3]
+        for item in json.loads(path.read_text(encoding="utf-8")).get(
+            "module_additions", []
+        )
+    }
+    module_path_by_id.update(
+        {
+            item["module_id"]: item["path"]
+            for item in json.loads(V1.read_text(encoding="utf-8"))["modules"]
+        }
+    )
+    for item in payload["module_overrides"]:
+        item["sha256"] = hashlib.sha256(
+            (project / module_path_by_id[item["module_id"]]).read_bytes()
+        ).hexdigest()
+    target_v4.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return project, target_v4
 
 
 def test_v4_preserves_every_frozen_predecessor_byte() -> None:
@@ -58,8 +82,11 @@ def test_v4_preserves_every_frozen_predecessor_byte() -> None:
         assert hashlib.sha256(path.read_bytes()).hexdigest() == FROZEN[path.name]
 
 
-def test_v4_loads_rebuilds_as_unadmitted_nonruntime_candidates() -> None:
-    registry = load_complexity_registry(ROOT, V4)
+def test_v4_loads_rebuilds_as_unadmitted_nonruntime_candidates(
+    tmp_path: Path,
+) -> None:
+    project, path = _copy_registry_project(tmp_path)
+    registry = load_complexity_registry(project, path)
     assert registry.schema_version == "complexity_module_registry_v4"
     for module_id in (
         "architectural-delta-engine",
@@ -69,12 +96,15 @@ def test_v4_loads_rebuilds_as_unadmitted_nonruntime_candidates() -> None:
         module = registry.module_by_id(module_id)
         assert module.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
         assert module.import_path is None
-        assert hashlib.sha256((ROOT / module.path).read_bytes()).hexdigest() == module.sha256
+        assert hashlib.sha256((project / module.path).read_bytes()).hexdigest() == (
+            module.sha256
+        )
     assert not any(module.runtime_eligible for module in registry.modules)
 
 
-def test_v4_keeps_retired_cards_unreachable() -> None:
-    registry = load_complexity_registry(ROOT, V4)
+def test_v4_keeps_retired_cards_unreachable(tmp_path: Path) -> None:
+    project, path = _copy_registry_project(tmp_path)
+    registry = load_complexity_registry(project, path)
     retired = {
         "construction-profile",
         "complexity-expansion-frontier",
@@ -92,6 +122,11 @@ def test_v4_keeps_retired_cards_unreachable() -> None:
         and registry.module_by_id(module_id).import_path is None
         for module_id in retired
     )
+
+
+def test_frozen_v4_detects_post_benchmark_source_drift() -> None:
+    with pytest.raises(ValueError, match="source binding hash mismatch"):
+        load_complexity_registry(ROOT, V4)
 
 
 def test_v4_parent_and_source_hashes_fail_closed(tmp_path: Path) -> None:

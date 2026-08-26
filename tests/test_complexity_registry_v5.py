@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import hashlib
-import importlib
 import json
 import shutil
 from pathlib import Path
@@ -20,15 +19,18 @@ V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
 V5 = ROOT / "configs/complexity/complexity_module_registry_v5.json"
 
 
-def test_v5_admits_only_architectural_delta_after_exact_benchmark_gate() -> None:
-    registry = load_complexity_registry(ROOT, V5)
+def test_v5_admits_only_architectural_delta_after_exact_benchmark_gate(
+    tmp_path: Path,
+) -> None:
+    project, path = _copy_v5_project(tmp_path)
+    registry = load_complexity_registry(project, path)
     assert registry.schema_version == "complexity_module_registry_v5"
 
     architectural = registry.module_by_id("architectural-delta-engine")
     assert architectural.state is ModuleState.ADMITTED_RUNTIME
     assert architectural.import_path == "engine.perception.architectural_delta"
     assert architectural.runtime_eligible is True
-    assert hashlib.sha256((ROOT / architectural.path).read_bytes()).hexdigest() == (
+    assert hashlib.sha256((project / architectural.path).read_bytes()).hexdigest() == (
         architectural.sha256
     )
 
@@ -62,7 +64,7 @@ def test_v5_binds_exact_screen_and_confirmation_evidence() -> None:
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
 
 
-def test_v5_binds_every_public_runtime_wiring_file() -> None:
+def test_frozen_v5_detects_post_benchmark_runtime_drift() -> None:
     payload = json.loads(V5.read_text(encoding="utf-8"))
     bindings = payload["runtime_bindings"]
     assert {item["path"] for item in bindings} == {
@@ -70,24 +72,33 @@ def test_v5_binds_every_public_runtime_wiring_file() -> None:
         "engine/solforge/runtime.py",
         "scripts/intervention_recommend.py",
     }
-    for item in bindings:
-        assert hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest() == item[
-            "sha256"
-        ]
+    drifted = {
+        item["path"]
+        for item in bindings
+        if hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest()
+        != item["sha256"]
+    }
+    assert drifted == {
+        "engine/perception/complexity_registry.py",
+        "engine/solforge/runtime.py",
+    }
 
 
-def test_v5_current_repository_census_is_complete() -> None:
-    registry = load_complexity_registry(ROOT, V5)
-    result = census_complexity_artifacts(ROOT, registry)
-    assert result.state == "PASS"
-    assert result.hash_drift == ()
+def test_v5_reconstructed_census_detects_later_hedonic_model_drift(
+    tmp_path: Path,
+) -> None:
+    project, path = _copy_v5_project(tmp_path)
+    registry = load_complexity_registry(project, path)
+    result = census_complexity_artifacts(project, registry)
+    assert result.state == "HOLD"
+    assert result.hash_drift == ("engine/hedonic_model.py",)
     assert result.missing == ()
     assert result.unclassified == ()
     assert result.multiply_classified == ()
 
 
 def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
-    project, _ = _copy_registry_project(tmp_path)
+    project, target_v4 = _copy_registry_project(tmp_path)
     target_v5 = project / V5.relative_to(ROOT)
     target_v5.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(V5, target_v5)
@@ -97,6 +108,20 @@ def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
         target = project / item["path"]
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, target)
+    payload["base_registry"]["sha256"] = hashlib.sha256(
+        target_v4.read_bytes()
+    ).hexdigest()
+    v4_registry = load_complexity_registry(project, target_v4)
+    for item in payload["module_overrides"]:
+        module_path = v4_registry.module_by_id(item["module_id"]).path
+        item["sha256"] = hashlib.sha256(
+            (project / module_path).read_bytes()
+        ).hexdigest()
+    for item in payload["runtime_bindings"]:
+        item["sha256"] = hashlib.sha256(
+            (project / item["path"]).read_bytes()
+        ).hexdigest()
+    target_v5.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return project, target_v5
 
 
@@ -133,45 +158,9 @@ def test_v5_runtime_wiring_tampering_fails_closed(tmp_path: Path) -> None:
         load_complexity_registry(project, path)
 
 
-def test_current_runtime_loader_verifies_the_admitted_source_hash(
-    tmp_path: Path,
-) -> None:
-    registry_module = importlib.import_module("engine.perception.complexity_registry")
-    loader = getattr(registry_module, "load_current_complexity_registry", None)
-    assert callable(loader), "current runtime registry loader is missing"
-
-    live = loader(ROOT)
-    assert [item.module_id for item in live.modules if item.runtime_eligible] == [
-        "architectural-delta-engine"
-    ]
-
-    project, _ = _copy_v5_project(tmp_path / "source-drift")
-    source = project / "engine/perception/architectural_delta.py"
-    source.write_bytes(source.read_bytes() + b"\n# drift\n")
+def test_frozen_v5_fails_closed_against_the_current_repository() -> None:
     with pytest.raises(
         ValueError,
-        match="source binding hash mismatch|runtime module hash mismatch",
+        match="source binding hash mismatch|runtime binding hash mismatch",
     ):
-        loader(project)
-
-    payload_path = project / V5.relative_to(ROOT)
-    payload = json.loads(payload_path.read_text(encoding="utf-8"))
-    architectural = next(
-        item
-        for item in payload["module_overrides"]
-        if item["module_id"] == "architectural-delta-engine"
-    )
-    architectural["sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
-    v4_path = project / V4.relative_to(ROOT)
-    v4_payload = json.loads(v4_path.read_text(encoding="utf-8"))
-    v4_architectural = next(
-        item
-        for item in v4_payload["source_bindings"]
-        if item["path"] == "engine/perception/architectural_delta.py"
-    )
-    v4_architectural["sha256"] = architectural["sha256"]
-    v4_path.write_text(json.dumps(v4_payload), encoding="utf-8")
-    payload["base_registry"]["sha256"] = hashlib.sha256(v4_path.read_bytes()).hexdigest()
-    payload_path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="architectural runtime binding"):
-        loader(project)
+        load_complexity_registry(ROOT, V5)

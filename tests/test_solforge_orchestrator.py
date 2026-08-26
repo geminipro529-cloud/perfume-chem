@@ -146,13 +146,40 @@ def test_runtime_registry_failure_holds_before_architectural_compilation(
         raise AssertionError("architectural compilation ran before the runtime gate")
 
     monkeypatch.setattr(runtime, "load_current_complexity_registry", fail_registry)
-    monkeypatch.setattr(runtime, "run_solforge_shadow", compile_must_not_run)
+    monkeypatch.setattr(runtime, "compile_architectural_delta", compile_must_not_run)
 
     with pytest.raises(
         runtime.ComplexityRuntimeAdmissionError,
         match="COMPLEXITY_RUNTIME_GATE_FAILED: admitted source drift",
     ):
         runtime.run_admitted_solforge(case, hypotheses)
+
+
+def test_admitted_runtime_holds_execution_when_evidence_modules_are_retired(
+    monkeypatch,
+) -> None:
+    runtime = importlib.import_module("engine.solforge.runtime")
+    case = _case()
+    hypotheses = _hypotheses(case)
+    compiled = _compiled(case, hypotheses)
+    monkeypatch.setattr(runtime, "compile_architectural_delta", lambda *_: compiled)
+    monkeypatch.setattr(
+        runtime,
+        "export_backend_lab_payloads",
+        lambda *_: {"draft": True},
+    )
+
+    result = runtime.run_admitted_solforge(
+        case,
+        hypotheses,
+        execution=_execution(compiled),
+    )
+
+    assert result.admitted_module_ids == ("architectural-delta-engine",)
+    assert result.state.stage is runtime.ArchitecturalRuntimeStage.HELD
+    assert result.state.blockers == ("EVIDENCE_ANALYSIS_MODULE_NOT_ADMITTED",)
+    assert result.state.temporal_evidence is None
+    assert result.state.criterion_fit is None
 
 
 def test_execution_parent_mismatch_is_held(monkeypatch) -> None:

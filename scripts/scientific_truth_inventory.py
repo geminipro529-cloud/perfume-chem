@@ -16,8 +16,10 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 from collections import defaultdict
 from collections.abc import Mapping
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -907,12 +909,53 @@ def _source_candidate_record(
     }
 
 
-def _recovery_registry_census(repo_root: Path, commit: str) -> dict[str, Any]:
+@lru_cache(maxsize=8)
+def _recovery_registry_census_json(repo_root_text: str, commit: str) -> str:
     from engine.perception.complexity_registry import load_complexity_registry
 
+    repo_root = Path(repo_root_text)
     relative = "configs/complexity/complexity_module_registry_v5.json"
     blob = _git_blob(repo_root, commit, relative)
-    registry = load_complexity_registry(repo_root, repo_root / relative)
+    registry_names = tuple(
+        f"configs/complexity/complexity_module_registry_v{version}.json"
+        for version in range(1, 6)
+    )
+    snapshot_paths = set(registry_names)
+    registry_blobs: dict[str, bytes] = {}
+    for registry_name in registry_names:
+        registry_blob = _git_blob(repo_root, commit, registry_name)
+        registry_blobs[registry_name] = registry_blob
+        payload = json.loads(registry_blob.decode("utf-8"))
+
+        def collect_paths(value: object) -> None:
+            if isinstance(value, Mapping):
+                for key, item in value.items():
+                    if key == "path" and isinstance(item, str):
+                        snapshot_paths.add(item)
+                    else:
+                        collect_paths(item)
+            elif isinstance(value, list):
+                for item in value:
+                    collect_paths(item)
+
+        collect_paths(payload)
+
+    with tempfile.TemporaryDirectory(prefix="perfume-chem-recovery-registry-") as temp:
+        snapshot = Path(temp)
+        for snapshot_path in sorted(snapshot_paths):
+            relative_path = Path(snapshot_path)
+            if relative_path.is_absolute() or ".." in relative_path.parts:
+                continue
+            try:
+                exact = registry_blobs.get(snapshot_path) or _git_blob(
+                    repo_root, commit, snapshot_path
+                )
+            except subprocess.CalledProcessError:
+                continue
+            target = snapshot / relative_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(exact)
+        registry = load_complexity_registry(snapshot, snapshot / relative)
     blob_sha256 = hashlib.sha256(blob).hexdigest()
     if registry.registry_sha256 != blob_sha256:
         raise ValueError("registry V5 working bytes differ from the baseline commit")
@@ -924,7 +967,7 @@ def _recovery_registry_census(repo_root: Path, commit: str) -> dict[str, Any]:
             "import_path": module.import_path,
             "runtime_eligible": module.runtime_eligible,
         }
-    return {
+    result = {
         "registry": {
             "path": relative,
             "schema_version": registry.schema_version,
@@ -932,6 +975,13 @@ def _recovery_registry_census(repo_root: Path, commit: str) -> dict[str, Any]:
         },
         "module_dispositions": selected,
     }
+    return json.dumps(result, sort_keys=True, separators=(",", ":"))
+
+
+def _recovery_registry_census(repo_root: Path, commit: str) -> dict[str, Any]:
+    return json.loads(
+        _recovery_registry_census_json(str(repo_root.resolve()), commit)
+    )
 
 
 def build_recovery_baseline(

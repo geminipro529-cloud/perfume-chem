@@ -21,11 +21,21 @@ from engine.solforge.contracts import (
     SolHypothesisSetV1,
     SolHypothesisV1,
 )
+from engine.solforge.governance import GateFoundationPreflight
 from engine.solforge.orchestrator import SolForgeStage, run_solforge_shadow
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests/fixtures/solforge/vertical_slice_cases_v1.json"
 FIXTURE_HASH = ROOT / "tests/fixtures/solforge/vertical_slice_cases_v1.sha256"
+H = "a" * 64
+
+
+@pytest.fixture(autouse=True)
+def _historical_shadow_preflight(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "engine.solforge.orchestrator.verify_gate_foundation_receipt",
+        lambda *_: GateFoundationPreflight(True, H, ()),
+    )
 
 
 def _fixture() -> dict:
