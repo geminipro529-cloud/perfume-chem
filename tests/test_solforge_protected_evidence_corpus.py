@@ -52,6 +52,40 @@ def test_protected_corpus_has_three_screen_and_confirmation_cases_per_module() -
             assert roles == {"POSITIVE", "SAFE_COUNTERCASE", "CRITICAL_TRAP"}
 
 
+def test_public_decision_invariant_matches_each_execution_derived_answer() -> None:
+    """Catch a public prompt that tells the blind control the wrong decision."""
+
+    corpus = build_protected_evidence_benchmark_corpus_v1()
+    for item in corpus.cases:
+        decisions = item.case.sealed_answer_key["allowed_decisions"]
+        assert len(decisions) == 1
+        expected = f"correct_{decisions[0].casefold()}"
+        observed = tuple(
+            invariant
+            for invariant in item.case.public_invariants
+            if invariant.startswith("correct_")
+        )
+        assert observed == (expected,)
+
+
+def test_temporal_positive_and_static_roles_use_observed_balanced_sequences() -> None:
+    """Catch a design-balanced schedule paired with only one executed order."""
+
+    corpus = build_protected_evidence_benchmark_corpus_v1()
+    expected_states = {
+        "PE-TEM-S01": "AUGMENT",
+        "PE-TEM-S02": "NO_AUGMENTATION",
+        "PE-TEM-C01": "AUGMENT",
+    }
+    by_id = {item.case.case_id: item for item in corpus.cases}
+    for case_id, expected_state in expected_states.items():
+        capsule = build_protected_evidence_capsule_from_execution(
+            by_id[case_id].case,
+            by_id[case_id].execution,
+        )
+        assert capsule.objective_receipt.state.value == expected_state
+
+
 def test_protected_corpus_recomputes_every_sealed_receipt_from_public_execution() -> None:
     corpus = build_protected_evidence_benchmark_corpus_v1()
 

@@ -97,20 +97,27 @@ def _frozen(case: BenchmarkCaseV1):
 def _temporal_execution() -> ExecutionReceiptV1:
     schedule = generate_williams_schedule(("CONTROL", "TREATMENT"))
 
-    def cell(sample: str, time_seconds: float, value: float) -> dict[str, object]:
+    def cell(
+        sample: str,
+        time_seconds: float,
+        value: float,
+        assessor: str,
+        sequence_index: int,
+    ) -> dict[str, object]:
+        sequence = schedule.sequences[sequence_index]
         return TemporalObservationCell(
             key=ObservationCellKey(
                 protocol_id="P1",
                 sample_id=sample,
-                assessor_id="A1",
+                assessor_id=assessor,
                 repeat_id="R1",
                 time_seconds=time_seconds,
                 endpoint_id="DEPTH",
             ),
-            observation_id=f"O-{sample}-{time_seconds:g}",
+            observation_id=f"O-{sample}-{assessor}-{time_seconds:g}",
             value=value,
-            presentation_sequence_id="sequence-1",
-            presentation_position=1 if sample == "CONTROL" else 2,
+            presentation_sequence_id=f"sequence-{sequence_index + 1}",
+            presentation_position=sequence.index(sample) + 1,
         ).as_dict()
 
     return ExecutionReceiptV1(
@@ -120,7 +127,7 @@ def _temporal_execution() -> ExecutionReceiptV1:
             "protocol_scope": {
                 "protocol_id": "P1",
                 "sample_ids": ["CONTROL", "TREATMENT"],
-                "assessor_ids": ["A1"],
+                "assessor_ids": ["A1", "A2"],
                 "repeat_ids": ["R1"],
                 "timepoints_seconds": [0.0, 300.0],
                 "endpoint_ids": ["DEPTH"],
@@ -133,10 +140,13 @@ def _temporal_execution() -> ExecutionReceiptV1:
             },
             "schedule": schedule.as_dict(),
             "observations": [
-                cell("CONTROL", 0.0, 3.0),
-                cell("CONTROL", 300.0, 3.0),
-                cell("TREATMENT", 0.0, 2.0),
-                cell("TREATMENT", 300.0, 4.5),
+                cell(sample, timepoint, value, assessor, assessor_index)
+                for assessor_index, assessor in enumerate(("A1", "A2"))
+                for sample, values in (
+                    ("CONTROL", (3.0, 3.0)),
+                    ("TREATMENT", (2.0, 4.5)),
+                )
+                for timepoint, value in zip((0.0, 300.0), values, strict=True)
             ],
             "safety_events": [],
         },
@@ -151,7 +161,7 @@ def _hedonic_execution() -> ExecutionReceiptV1:
     protocol_scope = {
         "protocol_id": "P1",
         "sample_ids": ["CONTROL", "TREATMENT"],
-        "assessor_ids": ["A1"],
+        "assessor_ids": ["A1", "A2"],
         "repeat_ids": ["R1"],
         "timepoints_seconds": [0.0],
         "endpoint_ids": ["DEPTH"],
@@ -207,20 +217,26 @@ def _hedonic_execution() -> ExecutionReceiptV1:
             }
         )
 
-    def cell(sample: str, value: float) -> dict[str, object]:
+    def cell(
+        sample: str,
+        value: float,
+        assessor: str,
+        sequence_index: int,
+    ) -> dict[str, object]:
+        sequence = schedule.sequences[sequence_index]
         return TemporalObservationCell(
             key=ObservationCellKey(
                 protocol_id="P1",
                 sample_id=sample,
-                assessor_id="A1",
+                assessor_id=assessor,
                 repeat_id="R1",
                 time_seconds=0.0,
                 endpoint_id="DEPTH",
             ),
-            observation_id=f"O-{sample}",
+            observation_id=f"O-{sample}-{assessor}",
             value=value,
-            presentation_sequence_id="sequence-1",
-            presentation_position=1 if sample == "CONTROL" else 2,
+            presentation_sequence_id=f"sequence-{sequence_index + 1}",
+            presentation_position=sequence.index(sample) + 1,
         ).as_dict()
 
     return ExecutionReceiptV1(
@@ -229,7 +245,11 @@ def _hedonic_execution() -> ExecutionReceiptV1:
         execution_context={
             "protocol_scope": protocol_scope,
             "schedule": schedule.as_dict(),
-            "observations": [cell("CONTROL", 2.0), cell("TREATMENT", 4.0)],
+            "observations": [
+                cell(sample, value, assessor, assessor_index)
+                for assessor_index, assessor in enumerate(("A1", "A2"))
+                for sample, value in (("CONTROL", 2.0), ("TREATMENT", 4.0))
+            ],
             "safety_events": [],
             "comparisons": comparisons,
             "preference_fit": {
@@ -480,7 +500,21 @@ def test_protected_condition_set_round_trip_and_objective_scoring() -> None:
     capsule = build_protected_evidence_capsule_from_execution(case, execution)
     condition_set = compile_protected_evidence_conditions(case, frozen, capsule)
 
+    treatment = next(
+        item
+        for item in condition_set.conditions
+        if item.condition is ConditionKind.SOLFORGE
+    )
+    payload = json.loads(treatment.output_text.rstrip())
+
     assert ProtectedConditionSetV1.from_dict(condition_set.as_dict()) == condition_set
+    assert payload["evidence_summary"]["observed_cell_count"] == 8
+    assert payload["evidence_summary"]["missing_cell_count"] == 0
+    assert payload["evidence_summary"]["duplicate_cell_count"] == 0
+    assert payload["evidence_summary"]["order_balance_state"] == "PASS_FOR_DESIGN"
+    assert payload["evidence_summary"]["summaries"]
+    assert payload["evidence_summary"]["transitions"]
+    assert payload["next_comparison"].startswith("CONFIRM_FINDING:")
 
     scores = score_protected_evidence_invariants(benchmark_case, condition_set)
     by_kind = {score.condition: score for score in scores}

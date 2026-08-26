@@ -381,7 +381,7 @@ def test_manifest_declares_every_required_adversarial_stratum() -> None:
         "assessor_disagreement",
         "temporal_crossover",
         "no_transition",
-        "resolved_no_next_test",
+        "resolved_next_discriminator",
     }.issubset(strata["temporal"])
     assert {
         "disconnected_graph",

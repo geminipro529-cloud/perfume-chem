@@ -627,6 +627,69 @@ class TemporalEvidenceAuditResultV2:
             raise TypeError("legacy_result must be a TemporalEvidenceResult")
 
 
+def _assess_observed_presentation_order(
+    schedule: PresentationSchedule,
+    cells: tuple[TemporalObservationCell, ...],
+) -> tuple[OrderBalanceState, tuple[str, ...]]:
+    """Audit executed sequence coverage after collapsing timepoint/endpoint rows."""
+
+    grouped: dict[tuple[str, str, str], dict[int, set[str]]] = defaultdict(
+        lambda: defaultdict(set)
+    )
+    for cell in cells:
+        group = (
+            cell.key.assessor_id,
+            cell.key.repeat_id,
+            cell.presentation_sequence_id,
+        )
+        grouped[group][cell.presentation_position].add(cell.key.sample_id)
+    failures: list[str] = []
+    observed_sequences: list[tuple[str, ...]] = []
+    required_positions = tuple(range(1, len(schedule.labels) + 1))
+    for group, positions in sorted(grouped.items()):
+        if tuple(sorted(positions)) != required_positions or any(
+            len(samples) != 1 for samples in positions.values()
+        ):
+            failures.append(
+                "observed presentation sequence is incomplete or position-conflicted: "
+                + "|".join(group)
+            )
+            continue
+        sequence = tuple(next(iter(positions[position])) for position in required_positions)
+        if sequence not in schedule.sequences:
+            failures.append(
+                "observed presentation sequence is absent from the declared schedule: "
+                + "|".join(sequence)
+            )
+            continue
+        observed_sequences.append(sequence)
+    if not observed_sequences:
+        failures.append("no complete observed presentation sequence is available")
+    else:
+        observed = assess_order_balance(
+            PresentationSchedule(
+                labels=schedule.labels,
+                sequences=tuple(observed_sequences),
+                method=schedule.method,
+            )
+        )
+        failures.extend(
+            f"observed presentation {failure}" for failure in observed.failures
+        )
+        if any(count == 0 for count in observed.first_position_counts.values()):
+            failures.append(
+                "observed presentation sequences omit at least one declared first position"
+            )
+        if any(count == 0 for count in observed.adjacent_pair_counts.values()):
+            failures.append(
+                "observed presentation sequences omit at least one declared carryover pair"
+            )
+    return (
+        OrderBalanceState.REBUILD if failures else OrderBalanceState.PASS_FOR_DESIGN,
+        tuple(failures),
+    )
+
+
 def analyze_temporal_evidence(
     request: TemporalEvidenceRequest,
 ) -> TemporalEvidenceResult:
@@ -666,11 +729,18 @@ def analyze_temporal_evidence(
     )
     transitions = _temporal_transitions(summaries)
     order = assess_order_balance(request.schedule)
+    order_state = order.state
     blockers: list[str] = []
     if request.schedule.schedule_sha256 != scope.schedule_sha256:
         blockers.append("presentation schedule hash does not match protocol scope")
     if order.state is OrderBalanceState.REBUILD:
         blockers.extend(order.failures)
+    elif not missing and len(scope.timepoints_seconds) >= 2:
+        order_state, observed_order_failures = _assess_observed_presentation_order(
+            request.schedule,
+            request.cells,
+        )
+        blockers.extend(observed_order_failures)
     if duplicates:
         blockers.append("duplicate canonical observation cells are present")
     if scope.within_sniff:
@@ -740,7 +810,7 @@ def analyze_temporal_evidence(
     next_discriminator = None
     if missing:
         next_discriminator = f"Collect missing cell {missing[0]}."
-    elif summaries:
+    elif state is TemporalEvidenceState.COMPLETE and summaries:
         most_disputed = max(
             summaries,
             key=lambda item: (
@@ -755,6 +825,22 @@ def analyze_temporal_evidence(
                 f"Repeat {most_disputed.sample_id} {most_disputed.endpoint_id} at "
                 f"{most_disputed.time_seconds:g}s to resolve assessor disagreement."
             )
+        else:
+            selected_finding = _select_temporal_finding(
+                scope,
+                summaries,
+                transitions,
+            )
+            if selected_finding is None:
+                next_discriminator = (
+                    "STOP_EXACT_SCOPE:NO_OBSERVED_TEMPORAL_CHANGE;"
+                    "reopen_only_with_preregistered_independent_replication"
+                )
+            else:
+                next_discriminator = (
+                    f"CONFIRM_FINDING:{selected_finding[1]};"
+                    "independent_assessors;balanced_presentation"
+                )
     return TemporalEvidenceResult(
         state=state,
         protocol_id=scope.protocol_id,
@@ -765,7 +851,7 @@ def analyze_temporal_evidence(
         duplicate_cells=duplicates,
         summaries=summaries,
         transitions=transitions,
-        order_balance_state=order.state,
+        order_balance_state=order_state,
         blockers=tuple(blockers),
         next_discriminator=next_discriminator,
         safety_events=request.safety_events,
@@ -1106,10 +1192,17 @@ def audit_temporal_evidence(
     safe_transitions = _temporal_transitions(safe_summaries)
     excluded_duplicate_row_count = sum(counts[key] for key in duplicates)
 
+    observed_order_blockers = [
+        blocker
+        for blocker in legacy.blockers
+        if "observed presentation" in blocker
+        or blocker.startswith("no complete observed presentation")
+    ]
     protocol_blockers = [
         blocker
         for blocker in legacy.blockers
         if blocker != "duplicate canonical observation cells are present"
+        and blocker not in observed_order_blockers
     ]
     protocol_blockers.extend(_within_sniff_v2_blockers(scope))
     expected = {
@@ -1133,6 +1226,7 @@ def audit_temporal_evidence(
         )
 
     selected_finding: tuple[str, str] | None = None
+    next_discriminator: str | None
     if protocol_blockers:
         disposition = TemporalEvidenceDisposition.PROTOCOL_HOLD
         blockers = tuple(dict.fromkeys(protocol_blockers))
@@ -1164,15 +1258,20 @@ def audit_temporal_evidence(
         ).decode("utf-8")
         next_discriminator = f"COLLECT_CELL:{cell_text}"
         reason_codes = ("ONE_MISSING_CELL_SELECTED",)
+    elif observed_order_blockers:
+        disposition = TemporalEvidenceDisposition.PROTOCOL_HOLD
+        blockers = tuple(dict.fromkeys(observed_order_blockers))
+        next_discriminator = "BALANCE_OBSERVED_PRESENTATION_SEQUENCES"
+        reason_codes = ("OBSERVED_ORDER_CONFOUNDED",)
     else:
         disposition = TemporalEvidenceDisposition.RESOLVED
         blockers = ()
-        next_discriminator = None
         selected_finding = _select_temporal_finding(
             scope,
             safe_summaries,
             safe_transitions,
         )
+        next_discriminator = legacy.next_discriminator
         reason_codes = (
             ("NO_OBSERVED_TEMPORAL_CHANGE",)
             if selected_finding is None
@@ -1243,7 +1342,7 @@ def audit_temporal_evidence(
             reason_codes=reason_codes,
             delta=delta,
             blockers=(),
-            next_action=None,
+            next_action=next_discriminator,
         )
     elif disposition is TemporalEvidenceDisposition.RESOLVED:
         receipt = no_augmentation_receipt(

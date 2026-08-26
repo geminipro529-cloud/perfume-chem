@@ -14,7 +14,7 @@
     },
     {
       "path": "engine/sensory/ledger.py",
-      "sha256": "3fad6fb4c022328269302ec7958028e6347f56f0fd367e7d1b81138db3f9917a"
+      "sha256": "2c29e53dbdb04435e4a94d88a15684e7549fdd8dbcfcc4c70d5ef219b8dc03c4"
     },
     {
       "path": "engine/preference.py",
@@ -42,7 +42,7 @@
     },
     {
       "path": "tests/test_temporal_sensory_evidence.py",
-      "sha256": "53cdbbf14dac4b031517f1f6a41d4e4f2e35582c25fd996e340ef276b8b38187"
+      "sha256": "7e1104d00804ce68aab7f33cd49e7658212ea009454c6340696e8022fa9da85d"
     },
     {
       "path": "tests/test_preference_validation.py",
@@ -66,7 +66,7 @@
     },
     {
       "path": "tests/science/test_evidence_foundation_falsification_v1.py",
-      "sha256": "61e9b6ff5be639f90ec8f771289c2f908d0176719028367db2d37c05c906d3e2"
+      "sha256": "b4d8516e0de7dd334e61ab025f30aab996049620a64b7e42b607e67dabdd47cc"
     }
   ],
   "oav_cases": {
@@ -170,7 +170,7 @@
       "assessor_disagreement",
       "temporal_crossover",
       "no_transition",
-      "resolved_no_next_test"
+      "resolved_next_discriminator"
     ],
     "preference": [
       "known_utilities_and_ties",

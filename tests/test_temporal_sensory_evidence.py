@@ -16,7 +16,11 @@ from engine.sensory.ledger import (
     analyze_temporal_evidence,
     audit_temporal_evidence,
 )
-from engine.sensory.order_balance import PresentationSchedule, generate_williams_schedule
+from engine.sensory.order_balance import (
+    OrderBalanceState,
+    PresentationSchedule,
+    generate_williams_schedule,
+)
 
 
 def _scope(
@@ -60,7 +64,45 @@ def _cell(sample_id: str, time_seconds: float, value: float, *, suffix: str = ""
     )
 
 
-def test_complete_balanced_grid_summarizes_observed_cells_and_transitions() -> None:
+def _balanced_grid(
+    values: dict[tuple[str, float], float],
+) -> tuple[SensoryProtocolScope, PresentationSchedule, tuple[TemporalObservationCell, ...]]:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-depth-v1",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1", "assessor-2"),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+    cells: list[TemporalObservationCell] = []
+    for assessor_index, assessor in enumerate(scope.assessor_ids):
+        sequence = schedule.sequences[assessor_index]
+        position = {sample: index + 1 for index, sample in enumerate(sequence)}
+        for sample in scope.sample_ids:
+            for timepoint in scope.timepoints_seconds:
+                cells.append(
+                    TemporalObservationCell(
+                        key=ObservationCellKey(
+                            protocol_id=scope.protocol_id,
+                            sample_id=sample,
+                            assessor_id=assessor,
+                            repeat_id="repeat-1",
+                            time_seconds=timepoint,
+                            endpoint_id="depth",
+                        ),
+                        observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
+                        value=values[(sample, timepoint)],
+                        presentation_sequence_id=f"sequence-{assessor_index + 1}",
+                        presentation_position=position[sample],
+                    )
+                )
+    return scope, schedule, tuple(cells)
+
+
+def test_complete_cell_grid_with_only_one_observed_sequence_holds_order_inference() -> None:
     scope, schedule = _scope()
     result = analyze_temporal_evidence(
         TemporalEvidenceRequest(
@@ -75,17 +117,79 @@ def test_complete_balanced_grid_summarizes_observed_cells_and_transitions() -> N
         )
     )
 
-    assert result.state is TemporalEvidenceState.COMPLETE
+    assert result.state is TemporalEvidenceState.HOLD
     assert result.expected_cell_count == 4
     assert result.observed_cell_count == 4
     assert result.missing_cells == ()
     assert result.duplicate_cells == ()
     assert [summary.median for summary in result.summaries] == [2.0, 4.0, 3.0, 3.5]
     assert [transition.median_delta for transition in result.transitions] == [2.0, 0.5]
+    assert result.order_balance_state is OrderBalanceState.REBUILD
+    assert any("observed presentation" in blocker for blocker in result.blockers)
     assert result.interpolated_cell_count == 0
     assert result.physical_execution_authorized is False
     assert result.sensory_authority is False
     assert result.release_authority is False
+
+
+def test_complete_grid_with_both_observed_orders_passes_order_audit() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-balanced-execution-v1",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1", "assessor-2"),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+
+    def observed(
+        sample: str,
+        assessor: str,
+        timepoint: float,
+        value: float,
+    ) -> TemporalObservationCell:
+        reverse = assessor == "assessor-2"
+        return TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id=assessor,
+                repeat_id="repeat-1",
+                time_seconds=timepoint,
+                endpoint_id="depth",
+            ),
+            observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
+            value=value,
+            presentation_sequence_id=("sequence-2" if reverse else "sequence-1"),
+            presentation_position=(
+                2 if reverse and sample == "sample-a"
+                else 1 if reverse
+                else 1 if sample == "sample-a"
+                else 2
+            ),
+        )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=tuple(
+                observed(sample, assessor, timepoint, value)
+                for assessor in scope.assessor_ids
+                for sample, values in (
+                    ("sample-a", (2.0, 4.0)),
+                    ("sample-b", (3.0, 3.5)),
+                )
+                for timepoint, value in zip(scope.timepoints_seconds, values, strict=True)
+            ),
+        )
+    )
+
+    assert result.state is TemporalEvidenceState.COMPLETE
+    assert result.order_balance_state is OrderBalanceState.PASS_FOR_DESIGN
+    assert result.blockers == ()
 
 
 def test_missing_cells_remain_missing_and_name_the_next_collection() -> None:
@@ -312,18 +416,20 @@ def test_declared_repeatability_gate_holds_unreliable_assessor_evidence() -> Non
     assert any("repeatability threshold" in blocker for blocker in result.blockers)
 
 
-def test_complete_matched_timepoints_are_resolved_without_new_test() -> None:
-    scope, schedule = _scope()
+def test_complete_matched_timepoints_select_one_bound_confirmation() -> None:
+    scope, schedule, cells = _balanced_grid(
+        {
+            ("sample-a", 0.0): 2.0,
+            ("sample-a", 300.0): 4.0,
+            ("sample-b", 0.0): 3.0,
+            ("sample-b", 300.0): 3.5,
+        }
+    )
     audit = audit_temporal_evidence(
         TemporalEvidenceRequest(
             scope=scope,
             schedule=schedule,
-            cells=(
-                _cell("sample-a", 0, 2.0),
-                _cell("sample-a", 300, 4.0),
-                _cell("sample-b", 0, 3.0),
-                _cell("sample-b", 300, 3.5),
-            ),
+            cells=cells,
         )
     )
 
@@ -331,23 +437,27 @@ def test_complete_matched_timepoints_are_resolved_without_new_test() -> None:
     assert audit.receipt.state is EvidenceAugmentationState.AUGMENT
     assert audit.receipt.delta is not None
     assert "OBSERVED_CROSSOVER" in audit.receipt.delta.decision_effect
-    assert audit.receipt.next_action is None
-    assert audit.next_discriminator is None
+    assert audit.receipt.next_action == audit.next_discriminator
+    assert audit.next_discriminator is not None
+    assert audit.next_discriminator.startswith("CONFIRM_FINDING:")
+    assert "OBSERVED_CROSSOVER" in audit.next_discriminator
     assert set(audit.receipt.authority.values()) == {False}
 
 
 def test_complete_static_grid_returns_no_useful_augmentation_and_round_trips() -> None:
-    scope, schedule = _scope()
+    scope, schedule, cells = _balanced_grid(
+        {
+            ("sample-a", 0.0): 2.0,
+            ("sample-a", 300.0): 2.0,
+            ("sample-b", 0.0): 3.0,
+            ("sample-b", 300.0): 3.0,
+        }
+    )
     audit = audit_temporal_evidence(
         TemporalEvidenceRequest(
             scope=scope,
             schedule=schedule,
-            cells=(
-                _cell("sample-a", 0, 2.0),
-                _cell("sample-a", 300, 2.0),
-                _cell("sample-b", 0, 3.0),
-                _cell("sample-b", 300, 3.0),
-            ),
+            cells=cells,
         )
     )
 
@@ -355,20 +465,24 @@ def test_complete_static_grid_returns_no_useful_augmentation_and_round_trips() -
     assert audit.receipt.state is EvidenceAugmentationState.NO_AUGMENTATION
     assert audit.receipt.delta is None
     assert audit.receipt.next_action is None
+    assert audit.next_discriminator is not None
+    assert audit.next_discriminator.startswith("STOP_EXACT_SCOPE:")
     assert EvidenceDeltaReceiptV1.from_dict(audit.receipt.as_dict()) == audit.receipt
 
 
 def test_equal_transition_tie_uses_declared_sample_order_deterministically() -> None:
-    scope, schedule = _scope()
+    scope, schedule, cells = _balanced_grid(
+        {
+            ("sample-a", 0.0): 1.0,
+            ("sample-a", 300.0): 2.0,
+            ("sample-b", 0.0): 3.0,
+            ("sample-b", 300.0): 4.0,
+        }
+    )
     request = TemporalEvidenceRequest(
         scope=scope,
         schedule=schedule,
-        cells=(
-            _cell("sample-a", 0, 1.0),
-            _cell("sample-a", 300, 2.0),
-            _cell("sample-b", 0, 3.0),
-            _cell("sample-b", 300, 4.0),
-        ),
+        cells=cells,
     )
 
     first = audit_temporal_evidence(request)
@@ -383,12 +497,13 @@ def test_equal_transition_tie_uses_declared_sample_order_deterministically() -> 
 
 
 def test_temporal_audit_is_invariant_to_observation_row_order() -> None:
-    scope, schedule = _scope()
-    cells = (
-        _cell("sample-a", 0, 2.0),
-        _cell("sample-a", 300, 4.0),
-        _cell("sample-b", 0, 3.0),
-        _cell("sample-b", 300, 3.5),
+    scope, schedule, cells = _balanced_grid(
+        {
+            ("sample-a", 0.0): 2.0,
+            ("sample-a", 300.0): 4.0,
+            ("sample-b", 0.0): 3.0,
+            ("sample-b", 300.0): 3.5,
+        }
     )
     first = audit_temporal_evidence(
         TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=cells)
@@ -464,18 +579,26 @@ def test_temporal_audit_is_semantically_invariant_to_blind_label_renaming() -> N
 
 
 def test_duplicate_cell_audits_provenance_before_remeasurement() -> None:
-    scope, schedule = _scope()
+    scope, schedule, cells = _balanced_grid(
+        {
+            ("sample-a", 0.0): 2.0,
+            ("sample-a", 300.0): 4.0,
+            ("sample-b", 0.0): 3.0,
+            ("sample-b", 300.0): 3.5,
+        }
+    )
+    duplicate = TemporalObservationCell(
+        key=cells[0].key,
+        observation_id=f"{cells[0].observation_id}-duplicate",
+        value=4.5,
+        presentation_sequence_id=cells[0].presentation_sequence_id,
+        presentation_position=cells[0].presentation_position,
+    )
     audit = audit_temporal_evidence(
         TemporalEvidenceRequest(
             scope=scope,
             schedule=schedule,
-            cells=(
-                _cell("sample-a", 0, 2.0),
-                _cell("sample-a", 0, 4.5, suffix="-duplicate"),
-                _cell("sample-a", 300, 4.0),
-                _cell("sample-b", 0, 3.0),
-                _cell("sample-b", 300, 3.5),
-            ),
+            cells=(*cells, duplicate),
         )
     )
 
@@ -485,10 +608,13 @@ def test_duplicate_cell_audits_provenance_before_remeasurement() -> None:
         "AUDIT_PROVENANCE:protocol/sample/assessor/repeat/timepoint/endpoint"
     )
     assert audit.excluded_duplicate_row_count == 2
-    assert not any(
-        summary.sample_id == "sample-a" and summary.time_seconds == 0
+    surviving = next(
+        summary
         for summary in audit.summaries
+        if summary.sample_id == "sample-a" and summary.time_seconds == 0
     )
+    assert surviving.observed_count == 1
+    assert surviving.median == 2.0
 
 
 def test_v2_missing_grid_selects_exactly_one_cell() -> None:
@@ -557,7 +683,7 @@ def test_v2_missing_grid_uses_observed_disagreement_to_choose_one_cell() -> None
     assert '"assessor_id":"assessor-3"' in audit.next_discriminator
 
 
-def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:
+def test_v2_disagreement_selects_remeasurement_without_changing_disposition() -> None:
     schedule = generate_williams_schedule(("sample-a", "sample-b"))
     scope = SensoryProtocolScope(
         protocol_id="protocol-depth-v1",
@@ -570,6 +696,7 @@ def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:
     )
 
     def observed(sample: str, assessor: str, timepoint: float, value: float):
+        reverse = assessor == "assessor-2"
         return TemporalObservationCell(
             key=ObservationCellKey(
                 protocol_id=scope.protocol_id,
@@ -581,8 +708,13 @@ def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:
             ),
             observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
             value=value,
-            presentation_sequence_id="sequence-1",
-            presentation_position=1 if sample == "sample-a" else 2,
+            presentation_sequence_id="sequence-2" if reverse else "sequence-1",
+            presentation_position=(
+                2 if reverse and sample == "sample-a"
+                else 1 if reverse
+                else 1 if sample == "sample-a"
+                else 2
+            ),
         )
 
     audit = audit_temporal_evidence(
@@ -603,7 +735,9 @@ def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:
     )
 
     assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
-    assert audit.next_discriminator is None
+    assert audit.next_discriminator == (
+        "Repeat sample-a depth at 0s to resolve assessor disagreement."
+    )
 
 
 def test_v2_within_sniff_requires_full_apparatus_binding() -> None:

@@ -513,33 +513,39 @@ def test_art_observations_bind_to_existing_temporal_ledger_without_creating_a_pa
     block = plan.block_by_id("ratio:grain:cream")
     sample_ids = tuple(arm.arm_id for arm in block.arms)
     timepoints = (0.0, 300.0, 1_800.0, 7_200.0, 28_800.0, 86_400.0)
+    assessor_ids = tuple(
+        f"assessor-{index}"
+        for index in range(1, len(block.schedule.sequences) + 1)
+    )
     scope = SensoryProtocolScope(
         protocol_id=block.protocol_id,
         sample_ids=sample_ids,
-        assessor_ids=("assessor-1",),
+        assessor_ids=assessor_ids,
         repeat_ids=("repeat-1",),
         timepoints_seconds=timepoints,
         endpoint_ids=("target_fidelity",),
         schedule_sha256=block.schedule.schedule_sha256,
     )
-    positions = {
-        sample_id: position
-        for position, sample_id in enumerate(block.schedule.sequences[0], start=1)
-    }
     cells = tuple(
         TemporalObservationCell(
             key=ObservationCellKey(
                 protocol_id=block.protocol_id,
                 sample_id=sample_id,
-                assessor_id="assessor-1",
+                assessor_id=assessor_id,
                 repeat_id="repeat-1",
                 time_seconds=timepoint,
                 endpoint_id="target_fidelity",
             ),
-            observation_id=f"obs-{sample_index}-{time_index}",
+            observation_id=(
+                f"obs-{assessor_index}-{sample_index}-{time_index}"
+            ),
             value=float(sample_index),
-            presentation_sequence_id="sequence-1",
-            presentation_position=positions[sample_id],
+            presentation_sequence_id=f"sequence-{assessor_index}",
+            presentation_position=sequence.index(sample_id) + 1,
+        )
+        for assessor_index, (assessor_id, sequence) in enumerate(
+            zip(assessor_ids, block.schedule.sequences, strict=True),
+            start=1,
         )
         for sample_index, sample_id in enumerate(sample_ids, start=1)
         for time_index, timepoint in enumerate(timepoints, start=1)

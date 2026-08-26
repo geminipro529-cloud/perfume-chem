@@ -404,6 +404,59 @@ def _protected_payload(
 ) -> dict[str, Any]:
     receipt = capsule.objective_receipt
     explanation_state, explanation = _secondary_explanation(frozen.output_text)
+    evidence_summary: dict[str, object] | None = None
+    next_comparison = receipt.next_action
+    if capsule.module is ProtectedEvidenceModule.TEMPORAL_SENSORY_LEDGER:
+        execution_payload = case.input_payload.get("execution_receipt")
+        try:
+            execution = ExecutionReceiptV1.from_dict(execution_payload)
+        except (KeyError, TypeError, ValueError):
+            execution = None
+        if (
+            execution is not None
+            and execution.record_sha256 == capsule.execution_receipt_sha256
+        ):
+            audit = audit_execution_receipt_v2(execution)
+            if audit.receipt != receipt:
+                raise ValueError(
+                    "protected temporal audit does not match the objective receipt"
+                )
+            evidence_summary = {
+                "disposition": audit.disposition.value,
+                "source_cell_count": audit.source_cell_count,
+                "observed_cell_count": audit.legacy_result.observed_cell_count,
+                "missing_cell_count": len(audit.missing_cells),
+                "duplicate_cell_count": len(audit.duplicate_cells),
+                "excluded_duplicate_row_count": audit.excluded_duplicate_row_count,
+                "order_balance_state": audit.legacy_result.order_balance_state.value,
+                "assessor_reliability_state": (
+                    audit.legacy_result.assessor_reliability_state.value
+                ),
+                "summaries": [
+                    {
+                        "sample_id": item.sample_id,
+                        "endpoint_id": item.endpoint_id,
+                        "time_seconds": item.time_seconds,
+                        "observed_count": item.observed_count,
+                        "median": item.median,
+                        "first_quartile": item.first_quartile,
+                        "third_quartile": item.third_quartile,
+                        "assessor_disagreement": item.assessor_disagreement,
+                    }
+                    for item in audit.summaries
+                ],
+                "transitions": [
+                    {
+                        "sample_id": item.sample_id,
+                        "endpoint_id": item.endpoint_id,
+                        "from_time_seconds": item.from_time_seconds,
+                        "to_time_seconds": item.to_time_seconds,
+                        "median_delta": item.median_delta,
+                    }
+                    for item in audit.transitions
+                ],
+            }
+            next_comparison = audit.next_discriminator
     intervention: list[dict[str, object]] = []
     if receipt.state is EvidenceAugmentationState.AUGMENT:
         if receipt.delta is None:  # pragma: no cover - closed receipt invariant
@@ -415,13 +468,13 @@ def _protected_payload(
                 "delta": receipt.delta.as_dict(),
             }
         )
-    return {
+    payload: dict[str, Any] = {
         "decision": _DECISIONS[receipt.state],
         "interventions": intervention,
         "blockers": list(receipt.blockers),
         "criterion": case.input_payload.get("criterion"),
-        "next_comparison": receipt.next_action
-        or "No additional comparison is selected by this exact evidence receipt.",
+        "next_comparison": next_comparison
+        or "STOP_EXACT_SCOPE:no additional comparison is justified by this receipt.",
         "objective_receipt": receipt.as_dict(),
         "objective_receipt_sha256": receipt.receipt_sha256,
         "execution_receipt_sha256": capsule.execution_receipt_sha256,
@@ -432,6 +485,9 @@ def _protected_payload(
         "secondary_explanation_authority": "NONE",
         "authority_flags": dict(BENCHMARK_AUTHORITY_FLAGS),
     }
+    if evidence_summary is not None:
+        payload["evidence_summary"] = evidence_summary
+    return payload
 
 
 def _condition(

@@ -46,20 +46,28 @@ def _temporal_cell(
     sample: str,
     time_seconds: float,
     value: float,
+    *,
+    assessor_id: str = "A1",
+    sequence_id: str = "sequence-1",
+    presentation_position: int | None = None,
 ) -> dict[str, object]:
     return TemporalObservationCell(
         key=ObservationCellKey(
             protocol_id="P1",
             sample_id=sample,
-            assessor_id="A1",
+            assessor_id=assessor_id,
             repeat_id="R1",
             time_seconds=time_seconds,
             endpoint_id="DEPTH",
         ),
-        observation_id=f"O-{sample}-{time_seconds:g}",
+        observation_id=f"O-{sample}-{assessor_id}-{time_seconds:g}",
         value=value,
-        presentation_sequence_id="sequence-1",
-        presentation_position=1 if sample == "CONTROL" else 2,
+        presentation_sequence_id=sequence_id,
+        presentation_position=(
+            presentation_position
+            if presentation_position is not None
+            else 1 if sample == "CONTROL" else 2
+        ),
     ).as_dict()
 
 
@@ -72,7 +80,7 @@ def _temporal_base() -> ExecutionReceiptV1:
             "protocol_scope": {
                 "protocol_id": "P1",
                 "sample_ids": ["CONTROL", "TREATMENT"],
-                "assessor_ids": ["A1"],
+                "assessor_ids": ["A1", "A2"],
                 "repeat_ids": ["R1"],
                 "timepoints_seconds": [0.0, 300.0],
                 "endpoint_ids": ["DEPTH"],
@@ -85,10 +93,22 @@ def _temporal_base() -> ExecutionReceiptV1:
             },
             "schedule": schedule.as_dict(),
             "observations": [
-                _temporal_cell("CONTROL", 0.0, 3.0),
-                _temporal_cell("CONTROL", 300.0, 3.0),
-                _temporal_cell("TREATMENT", 0.0, 2.0),
-                _temporal_cell("TREATMENT", 300.0, 4.5),
+                _temporal_cell(
+                    sample,
+                    timepoint,
+                    value,
+                    assessor_id=assessor,
+                    sequence_id=f"sequence-{assessor_index + 1}",
+                    presentation_position=sequence.index(sample) + 1,
+                )
+                for assessor_index, (assessor, sequence) in enumerate(
+                    zip(("A1", "A2"), schedule.sequences, strict=True)
+                )
+                for sample, values in (
+                    ("CONTROL", (3.0, 3.0)),
+                    ("TREATMENT", (2.0, 4.5)),
+                )
+                for timepoint, value in zip((0.0, 300.0), values, strict=True)
             ],
             "safety_events": [],
         },
@@ -107,7 +127,7 @@ def _hedonic_base() -> ExecutionReceiptV1:
     protocol_scope = {
         "protocol_id": "P1",
         "sample_ids": ["CONTROL", "TREATMENT"],
-        "assessor_ids": ["A1"],
+        "assessor_ids": ["A1", "A2"],
         "repeat_ids": ["R1"],
         "timepoints_seconds": [0.0],
         "endpoint_ids": ["DEPTH"],
@@ -171,8 +191,18 @@ def _hedonic_base() -> ExecutionReceiptV1:
             "protocol_scope": protocol_scope,
             "schedule": schedule.as_dict(),
             "observations": [
-                _temporal_cell("CONTROL", 0.0, 2.0),
-                _temporal_cell("TREATMENT", 0.0, 4.0),
+                _temporal_cell(
+                    sample,
+                    0.0,
+                    value,
+                    assessor_id=assessor,
+                    sequence_id=f"sequence-{assessor_index + 1}",
+                    presentation_position=sequence.index(sample) + 1,
+                )
+                for assessor_index, (assessor, sequence) in enumerate(
+                    zip(("A1", "A2"), schedule.sequences, strict=True)
+                )
+                for sample, value in (("CONTROL", 2.0), ("TREATMENT", 4.0))
             ],
             "safety_events": [],
             "comparisons": comparisons,
@@ -348,7 +378,10 @@ def _case(
         system_prompt=base.system_prompt,
         user_prompt=base.user_prompt,
         input_payload=base.input_payload,
-        public_invariants=base.public_invariants,
+        public_invariants=(
+            f"correct_{_DECISIONS[receipt.state].casefold()}",
+            *base.public_invariants[1:],
+        ),
         sealed_answer_key=answer,
     )
     return ProtectedEvidenceBenchmarkCaseV1(case=case, execution=execution)

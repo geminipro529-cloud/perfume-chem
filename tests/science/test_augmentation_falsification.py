@@ -51,23 +51,53 @@ def _cell(sample: str, timepoint: float, value: float, suffix: str = "") -> Temp
 
 
 def test_resolved_temporal_grid_emits_zero_next_action() -> None:
-    scope, schedule = _scope()
+    schedule = generate_williams_schedule(("control", "candidate"))
+    scope = SensoryProtocolScope(
+        protocol_id="science-temporal-v1",
+        sample_ids=("control", "candidate"),
+        assessor_ids=("p1", "p2"),
+        repeat_ids=("r1",),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("PERCEIVED_DEPTH",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+    values = {
+        ("control", 0.0): 2.0,
+        ("control", 300.0): 2.5,
+        ("candidate", 0.0): 2.0,
+        ("candidate", 300.0): 4.0,
+    }
+    cells = tuple(
+        TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id=assessor,
+                repeat_id="r1",
+                time_seconds=timepoint,
+                endpoint_id="PERCEIVED_DEPTH",
+            ),
+            observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
+            value=values[(sample, timepoint)],
+            presentation_sequence_id=f"seq-{assessor_index + 1}",
+            presentation_position=schedule.sequences[assessor_index].index(sample) + 1,
+        )
+        for assessor_index, assessor in enumerate(scope.assessor_ids)
+        for sample in scope.sample_ids
+        for timepoint in scope.timepoints_seconds
+    )
     audit = audit_temporal_evidence(
         TemporalEvidenceRequest(
             scope=scope,
             schedule=schedule,
-            cells=(
-                _cell("control", 0, 2.0),
-                _cell("control", 300, 2.5),
-                _cell("candidate", 0, 2.0),
-                _cell("candidate", 300, 4.0),
-            ),
+            cells=cells,
         )
     )
 
     assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
-    assert audit.next_discriminator is None
-    assert audit.receipt.next_action is None
+    assert audit.next_discriminator is not None
+    assert audit.next_discriminator.startswith("CONFIRM_FINDING:")
+    assert audit.receipt.next_action == audit.next_discriminator
     assert set(audit.receipt.authority.values()) == {False}
 
 
