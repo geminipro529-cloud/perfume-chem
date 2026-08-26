@@ -407,7 +407,7 @@ def score_evidence_receipt(
         raise TypeError("receipt_payload must be a mapping")
     nested_receipt = receipt_payload.get("objective_receipt")
     if isinstance(nested_receipt, Mapping):
-        receipt_payload = nested_receipt
+        receipt_payload = {**receipt_payload, **nested_receipt}
     critical = tuple(
         _text(code, "observed_critical_error_codes")
         for code in observed_critical_error_codes

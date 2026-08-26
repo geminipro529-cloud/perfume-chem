@@ -308,6 +308,40 @@ def test_objective_receipt_fails_closed_on_missing_receipt_or_authority_claim() 
     assert "UNSUPPORTED_AUTHORITY" in unsupported.critical_error_codes
 
 
+def test_objective_receipt_accepts_equivalent_split_json_layout() -> None:
+    case = next(
+        case
+        for case in load_replacement_benchmark_cases(
+            FIXTURES / "complexity_replacement_benchmark_cases_v4.json"
+        )
+        if case.case_id == "AUG-ARC-S01"
+    )
+    score = score_evidence_receipt(
+        case,
+        {
+            "reason_codes": ["TARGET_GAP", "ONE_NONREDUNDANT_DELTA"],
+            "next_actions": ["Run one constant-total isolated comparison."],
+            "objective_receipt": {
+                "decision_state": "AUGMENT",
+                "calculations": {"candidate_count_after_filter": 1},
+                "authority": {
+                    "formula": False,
+                    "inventory": False,
+                    "physical_execution": False,
+                    "sensory": False,
+                    "safety": False,
+                    "purchase": False,
+                    "publication": False,
+                    "release": False,
+                },
+            },
+        },
+    )
+
+    assert score.state == "PASS"
+    assert score.score == Decimal("100")
+
+
 def test_v4_prompt_requests_objective_receipt_without_leaking_answer_key() -> None:
     case = next(
         case
