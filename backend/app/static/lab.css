@@ -66,7 +66,7 @@ body {
 .nav-item {
   width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent;
   padding: 15px 10px; display: flex; gap: 15px; color: var(--muted); cursor: pointer;
-  font: 700 13px/1 "Bahnschrift", "Aptos Display", sans-serif; text-align: left; letter-spacing: .04em;
+  font: 700 13px/1 "Bahnschrift", "Aptos Display", sans-serif; text-align: left; letter-spacing: .04em; text-decoration: none;
 }
 .nav-item span { font-family: "Baskerville", serif; color: var(--amber); font-weight: 400; }
 .nav-item:hover, .nav-item:focus-visible { color: var(--blue); background: rgba(21,61,91,.05); outline: 2px solid transparent; }

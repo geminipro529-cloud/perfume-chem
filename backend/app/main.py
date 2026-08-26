@@ -115,6 +115,12 @@ async def laboratory_app():
     return STATIC_DIR / "index.html"
 
 
+@app.get("/solforge", response_class=FileResponse)
+async def solforge_workbench_app():
+    """Serve the local closed-packet SolForge experiment workbench."""
+    return STATIC_DIR / "solforge.html"
+
+
 @app.get("/")
 async def root():
     """Root endpoint"""
