@@ -1040,7 +1040,10 @@ def load_replacement_benchmark_cases(
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
     schema_version = payload.get("schema_version")
-    if schema_version == "complexity_replacement_benchmark_cases_v5":
+    if schema_version in {
+        "complexity_replacement_benchmark_cases_v5",
+        "complexity_replacement_benchmark_cases_v6",
+    }:
         cases = list(_load_v5_cases(path, payload))
     elif schema_version == "complexity_replacement_benchmark_cases_v4":
         cases = list(_load_v4_cases(path, payload))

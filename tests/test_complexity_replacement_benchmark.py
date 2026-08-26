@@ -398,6 +398,28 @@ def test_v5_uses_native_module_states_and_top_level_receipt_fields() -> None:
     assert case.objective_expectation.expected_state not in json.dumps(case.common_payload())
 
 
+def test_v6_repairs_native_state_precedence_without_changing_answer_keys() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v6.json"
+    expected_sha256 = corpus_path.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_sha256
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor = FIXTURES / raw["predecessor_corpus"]
+    assert hashlib.sha256(predecessor.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+    no_change = next(case for case in cases if case.case_id == "AUG-ARC-S02")
+    target_inversion = next(case for case in cases if case.case_id == "AUG-ARC-S03")
+    assert no_change.objective_expectation.expected_state == "NO_CHANGE"
+    assert target_inversion.objective_expectation.expected_state == "HOLD"
+    packet_text = " ".join(no_change.module_packet.operating_contract)
+    assert "count- or prestige-only expansion resolves to NO_CHANGE" in packet_text
+    assert "specific target-inverting intervention" in packet_text
+
+
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:
     case = _case()
 
