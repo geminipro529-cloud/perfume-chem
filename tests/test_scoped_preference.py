@@ -4,6 +4,8 @@ from engine.preference import (
     PairwisePreference,
     PreferenceFitRequest,
     PreferenceFitStatus,
+    PreferenceModelFamily,
+    PreferenceOutcome,
     fit_preference_model,
 )
 
@@ -25,6 +27,7 @@ def test_pairwise_preference_preserves_legacy_constructor_and_round_trips_scope(
     assert legacy.left_item == "A"
     assert legacy.comparison_id is None
     assert PairwisePreference.from_dict(scoped.as_dict()) == scoped
+    assert legacy.outcome is PreferenceOutcome.LEFT
 
 
 def _scoped(
@@ -180,3 +183,57 @@ def test_scoped_balanced_records_can_validate_but_unscoped_or_order_confounded_c
     assert any("scoped metadata" in note for note in unscoped.validation_notes)
     assert confounded.status is PreferenceFitStatus.DIAGNOSTIC
     assert any("presentation order" in note for note in confounded.validation_notes)
+
+
+def test_davidson_result_retains_ties_but_excludes_discrimination_only_rows() -> None:
+    training = _balanced_training() + (
+        _scoped("tie-1", "p1", "A", "B", None, first="A"),
+        PairwisePreference(
+            "A",
+            "B",
+            None,
+            comparison_id="npd-1",
+            assessor_id="p2",
+            protocol_id="protocol-preference-v1",
+            criterion_id="richness",
+            time_seconds=300,
+            first_presented_item="B",
+            outcome=PreferenceOutcome.NO_PERCEPTIBLE_DIFFERENCE,
+        ),
+    )
+    result = fit_preference_model(
+        PreferenceFitRequest(
+            training=training,
+            minimum_comparisons=6,
+            criterion_id="richness",
+        )
+    )
+
+    assert result.model_family is PreferenceModelFamily.DAVIDSON_V1
+    assert result.comparison_count == 6
+    assert result.tie_rate == 1 / 7
+    assert result.tie_parameter is not None and result.tie_parameter > 0
+    assert result.converged is True
+    assert set(result.pair_probabilities) == {"A|B", "A|C", "B|C"}
+    assert all(
+        abs(sum(probabilities) - 1.0) < 1e-12
+        for probabilities in result.pair_probabilities.values()
+    )
+
+
+def test_scoped_validation_rejects_legacy_bradley_terry_family() -> None:
+    result = fit_preference_model(
+        PreferenceFitRequest(
+            training=_balanced_training(),
+            heldout=_heldout(),
+            minimum_comparisons=6,
+            minimum_heldout_comparisons=3,
+            declared_baseline_accuracy=0.5,
+            criterion_id="richness",
+            require_scoped_validation=True,
+            model_family=PreferenceModelFamily.BRADLEY_TERRY_LEGACY,
+        )
+    )
+
+    assert result.status is PreferenceFitStatus.WITHHELD
+    assert any("legacy model family" in failure for failure in result.gate_failures)
