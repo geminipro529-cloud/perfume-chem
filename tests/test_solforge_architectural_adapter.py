@@ -7,7 +7,11 @@ from pathlib import Path
 import pytest
 from openpyxl import Workbook
 
-from engine.solforge.adapters import compile_architectural_delta
+from engine.evidence.augmentation import EvidenceAugmentationState
+from engine.solforge.adapters import (
+    compile_architectural_delta,
+    compile_architectural_delta_v2,
+)
 from engine.solforge.contracts import (
     CompilationState,
     SolForgeCaseState,
@@ -214,3 +218,35 @@ def test_case_inventory_hash_mismatch_fails_closed(inventory_authority) -> None:
     result = compile_architectural_delta(case, _set(case, _hypothesis()))
     assert result.state is CompilationState.HOLD
     assert "INVENTORY_HASH_MISMATCH" in result.blockers
+
+
+def test_v2_adapter_emits_only_one_closed_evidence_delta(inventory_authority) -> None:
+    case = _case(inventory_authority)
+    result = compile_architectural_delta_v2(case, _set(case, _hypothesis()))
+
+    assert result.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert result.receipt.delta is not None
+    assert result.comparison_closure is not None
+    assert result.receipt.next_action == "COMPARE:CONTROL:H1"
+
+
+def test_v2_adapter_abstains_when_no_hypothesis_remains(inventory_authority) -> None:
+    case = _case(inventory_authority, target="austere iris without citrus or musk")
+    result = compile_architectural_delta_v2(case, _set(case))
+
+    assert result.receipt.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert result.receipt.delta is None
+    assert result.receipt.next_action is None
+
+
+def test_v2_adapter_missing_inventory_path_holds(inventory_authority, tmp_path) -> None:
+    case = _case(inventory_authority)
+    missing = SolForgeCaseV1.from_dict(
+        {**case.as_dict(), "inventory_path": str(tmp_path / "missing-v5.xlsx")}
+    )
+    result = compile_architectural_delta_v2(
+        missing, _set(missing, _hypothesis())
+    )
+
+    assert result.receipt.state is EvidenceAugmentationState.HOLD
+    assert "INVENTORY_PATH_MISSING" in result.receipt.blockers

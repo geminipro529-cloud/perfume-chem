@@ -17,6 +17,14 @@ from typing import Any, Mapping
 
 from openpyxl import load_workbook
 
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    hold_receipt,
+    no_augmentation_receipt,
+)
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.perception import complexity_inventory as _complexity_inventory
 from engine.perception.complexity_inventory import (
     ComplexityInventoryCatalog,
@@ -170,6 +178,67 @@ def _text_tuple(values: tuple[str, ...], field_name: str) -> tuple[str, ...]:
 
 
 @dataclass(frozen=True, slots=True)
+class ComparisonClosureV1:
+    """Complete one-comparison decision contract for an architectural delta."""
+
+    rejected_alternative: str
+    compliant_treatment: str
+    primary_endpoints: tuple[str, ...]
+    failure_endpoints: tuple[str, ...]
+    changed_factor: str
+    constant_constraints: tuple[str, ...]
+    blinding_rule: str
+    order_rule: str
+    time_windows: tuple[str, ...]
+    accept_rule: str
+    reject_rule: str
+
+    def __post_init__(self) -> None:
+        for name in (
+            "rejected_alternative",
+            "compliant_treatment",
+            "changed_factor",
+            "blinding_rule",
+            "order_rule",
+            "accept_rule",
+            "reject_rule",
+        ):
+            object.__setattr__(self, name, _text(getattr(self, name), name))
+        for name in (
+            "primary_endpoints",
+            "failure_endpoints",
+            "constant_constraints",
+            "time_windows",
+        ):
+            values = _text_tuple(tuple(getattr(self, name)), name)
+            if not values:
+                raise ValueError(f"{name} must be nonempty")
+            object.__setattr__(self, name, values)
+        if self.rejected_alternative == self.compliant_treatment:
+            raise ValueError("comparison alternatives must be distinct")
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": "comparison_closure_v1",
+            "rejected_alternative": self.rejected_alternative,
+            "compliant_treatment": self.compliant_treatment,
+            "primary_endpoints": list(self.primary_endpoints),
+            "failure_endpoints": list(self.failure_endpoints),
+            "changed_factor": self.changed_factor,
+            "constant_constraints": list(self.constant_constraints),
+            "blinding_rule": self.blinding_rule,
+            "order_rule": self.order_rule,
+            "time_windows": list(self.time_windows),
+            "accept_rule": self.accept_rule,
+            "reject_rule": self.reject_rule,
+        }
+
+    @property
+    def closure_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+@dataclass(frozen=True, slots=True)
 class ArchitecturalDeltaCandidate:
     candidate_id: str
     material: str
@@ -191,6 +260,8 @@ class ArchitecturalDeltaCandidate:
     exception_justification: str | None = None
     causal_design_sha256: str | None = None
     nary_candidate: NaryInteractionCandidate | None = None
+    uniqueness_evidence_refs: tuple[str, ...] = ()
+    comparison_closure: ComparisonClosureV1 | None = None
 
     def __post_init__(self) -> None:
         for name in (
@@ -239,6 +310,14 @@ class ArchitecturalDeltaCandidate:
                 "pairwise_nonredundancy_refs",
             ),
         )
+        object.__setattr__(
+            self,
+            "uniqueness_evidence_refs",
+            _text_tuple(
+                tuple(self.uniqueness_evidence_refs),
+                "uniqueness_evidence_refs",
+            ),
+        )
         if self.exception_justification is not None:
             object.__setattr__(
                 self,
@@ -255,6 +334,10 @@ class ArchitecturalDeltaCandidate:
             self.nary_candidate, NaryInteractionCandidate
         ):
             raise TypeError("nary_candidate must be a NaryInteractionCandidate")
+        if self.comparison_closure is not None and not isinstance(
+            self.comparison_closure, ComparisonClosureV1
+        ):
+            raise TypeError("comparison_closure must be a ComparisonClosureV1")
 
 
 @dataclass(frozen=True, slots=True)
@@ -313,6 +396,25 @@ class ArchitecturalDeltaResult:
     sensory_authority: bool = field(default=False, init=False)
     safety_authority: bool = field(default=False, init=False)
     release_authority: bool = field(default=False, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class ArchitecturalEvidenceDeltaResultV2:
+    """V2 augmentation disposition layered over the compatible V1 result."""
+
+    architectural_result: ArchitecturalDeltaResult
+    comparison_closure: ComparisonClosureV1 | None
+    receipt: EvidenceDeltaReceiptV1
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.architectural_result, ArchitecturalDeltaResult):
+            raise TypeError("architectural_result must be an ArchitecturalDeltaResult")
+        if self.comparison_closure is not None and not isinstance(
+            self.comparison_closure, ComparisonClosureV1
+        ):
+            raise TypeError("comparison_closure must be a ComparisonClosureV1")
+        if not isinstance(self.receipt, EvidenceDeltaReceiptV1):
+            raise TypeError("receipt must be an EvidenceDeltaReceiptV1")
 
 
 def evaluate_architectural_delta(
@@ -408,6 +510,231 @@ def evaluate_architectural_delta(
     )
 
 
+_ARCHITECTURAL_POLICY = {
+    "schema_version": "architectural_evidence_delta_policy_v2",
+    "target_first": True,
+    "ingredient_count_reward": False,
+    "zero_or_one_intervention": True,
+    "neroli_default": "SUPPORT_ONLY",
+    "musk_default": "ZERO_OR_ONE",
+    "exception_only_musks": ["Tonalide", "Macrolide", "Musk Ketone"],
+    "nary_requires_isolated_arms": True,
+    "authority": "EVIDENCE_DESIGN_ONLY",
+}
+_ARCHITECTURAL_POLICY_SHA256 = sha256_hex(
+    canonical_json_bytes(_ARCHITECTURAL_POLICY)
+)
+
+
+def _request_evidence_payload(request: ArchitecturalDeltaRequest) -> dict[str, object]:
+    return {
+        "target_identity": request.target_identity,
+        "ideal_formula_ref": request.ideal_formula_ref,
+        "current_build_ref": request.current_build_ref,
+        "formula_lineage_sha256": request.formula_lineage_sha256,
+        "no_change_reason": request.no_change_reason,
+        "candidates": [
+            {
+                "candidate_id": candidate.candidate_id,
+                "material": candidate.material,
+                "family": candidate.family.value,
+                "kind": candidate.kind.value,
+                "priority_rank": candidate.priority_rank,
+                "target_role": candidate.target_role,
+                "nonredundancy_evidence": candidate.nonredundancy_evidence,
+                "controlled_arms": list(candidate.controlled_arms),
+                "evidence_refs": list(candidate.evidence_refs),
+                "uniqueness_evidence_refs": list(
+                    candidate.uniqueness_evidence_refs
+                ),
+                "comparison_closure": (
+                    None
+                    if candidate.comparison_closure is None
+                    else candidate.comparison_closure.as_dict()
+                ),
+            }
+            for candidate in request.candidates
+        ],
+    }
+
+
+def _source_binding_hashes(
+    candidate: ArchitecturalDeltaCandidate,
+) -> tuple[str, ...]:
+    refs = (*candidate.evidence_refs, *candidate.uniqueness_evidence_refs)
+    return tuple(
+        sorted(
+            {
+                value.casefold()
+                for value in refs
+                if len(value) == 64
+                and all(character in "0123456789abcdefABCDEF" for character in value)
+            }
+        )
+    )
+
+
+def _v2_reason_codes(blockers: tuple[str, ...]) -> tuple[str, ...]:
+    codes: list[str] = []
+    joined = " ".join(blockers).casefold()
+    if "comparison closure is required" in joined:
+        codes.append("COMPARISON_CLOSURE_MISSING")
+    elif "comparison closure" in joined:
+        codes.append("COMPARISON_CLOSURE_INVALID")
+    if "unique" in joined and "evidence" in joined:
+        codes.append("UNIQUENESS_EVIDENCE_MISSING")
+    if "source binding" in joined:
+        codes.append("SOURCE_BINDING_MISSING")
+    if not codes:
+        codes.append("ARCHITECTURAL_POLICY_HOLD")
+    return tuple(codes)
+
+
+def evaluate_architectural_evidence_delta(
+    request: ArchitecturalDeltaRequest,
+    *,
+    inventory_catalog_path: str | None = None,
+    inventory_workbook_path: str | None = None,
+) -> ArchitecturalEvidenceDeltaResultV2:
+    """Emit one closed decision delta, explicit abstention, or a precise hold."""
+
+    result = evaluate_architectural_delta(
+        request,
+        inventory_catalog_path=inventory_catalog_path,
+        inventory_workbook_path=inventory_workbook_path,
+    )
+    request_payload = _request_evidence_payload(request)
+    input_sha256 = sha256_hex(canonical_json_bytes(request_payload))
+    evidence_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "candidate_evidence": [
+                    {
+                        "candidate_id": candidate.candidate_id,
+                        "evidence_refs": list(candidate.evidence_refs),
+                        "uniqueness_evidence_refs": list(
+                            candidate.uniqueness_evidence_refs
+                        ),
+                    }
+                    for candidate in request.candidates
+                ]
+            }
+        )
+    )
+    exact_scope = (
+        f"{request.target_identity}/{request.ideal_formula_ref}/"
+        f"{request.current_build_ref}"
+    )
+    if result.state is ArchitecturalDeltaState.NO_CHANGE:
+        receipt = no_augmentation_receipt(
+            module_id="architectural_delta",
+            exact_scope=exact_scope,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_sha256,
+            policy_sha256=_ARCHITECTURAL_POLICY_SHA256,
+            reasons=("NO_TARGET_DEFICIENCY",),
+        )
+        return ArchitecturalEvidenceDeltaResultV2(result, None, receipt)
+
+    selected = result.selected_candidate
+    blockers = list(result.blockers)
+    closure = None if selected is None else selected.comparison_closure
+    if result.state is ArchitecturalDeltaState.PROPOSED and selected is not None:
+        if closure is None:
+            blockers.append(
+                f"{selected.candidate_id}: comparison closure is required"
+            )
+        else:
+            arms = set(selected.controlled_arms)
+            if {
+                closure.rejected_alternative,
+                closure.compliant_treatment,
+            }.difference(arms):
+                blockers.append(
+                    f"{selected.candidate_id}: comparison closure alternatives "
+                    "must be controlled arms"
+                )
+            if not any(
+                "TOTAL" in constraint.upper()
+                for constraint in closure.constant_constraints
+            ):
+                blockers.append(
+                    f"{selected.candidate_id}: comparison closure requires a "
+                    "constant-total constraint"
+                )
+        source_bindings = _source_binding_hashes(selected)
+        if not source_bindings:
+            blockers.append(f"{selected.candidate_id}: source binding is required")
+    else:
+        source_bindings = ()
+
+    if blockers or selected is None or closure is None:
+        blocker_tuple = tuple(blockers) or ("No eligible intervention remains.",)
+        receipt = hold_receipt(
+            module_id="architectural_delta",
+            exact_scope=exact_scope,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_sha256,
+            policy_sha256=_ARCHITECTURAL_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=_v2_reason_codes(blocker_tuple),
+            blockers=blocker_tuple,
+            next_action=(
+                "CLOSE_COMPARISON"
+                if any("comparison closure" in value.casefold() for value in blockers)
+                else None
+            ),
+        )
+        return ArchitecturalEvidenceDeltaResultV2(result, closure, receipt)
+
+    projection = result.inventory_projection
+    observed_facts = (
+        f"target_identity={request.target_identity}",
+        f"ideal_formula_ref={request.ideal_formula_ref}",
+        f"current_build_ref={request.current_build_ref}",
+        f"inventory_status={projection.availability.value if projection else 'UNKNOWN'}",
+    )
+    delta = DecisionDeltaV1(
+        delta_id=f"ARCHITECTURAL:{selected.candidate_id}",
+        decision_effect=(
+            f"Run one closed comparison of {closure.rejected_alternative} against "
+            f"{closure.compliant_treatment}."
+        ),
+        observed_facts=observed_facts,
+        derived_calculations=(
+            "changed_factors=1",
+            f"controlled_arms={len(selected.controlled_arms)}",
+            f"inventory_source_rows={result.inventory_source_row_count}",
+            f"closure_sha256={closure.closure_sha256}",
+        ),
+        hypotheses=(
+            selected.nonredundancy_evidence,
+            f"omission_loss={selected.loss_if_omitted}",
+        ),
+        forbidden_inferences=(
+            "No composition-derived liking, sensory truth, safety, purchase, or release claim is permitted.",
+            "The proposed arm is an experiment, not a formula mutation authorization.",
+        ),
+    )
+    receipt = EvidenceDeltaReceiptV1(
+        module_id="architectural_delta",
+        exact_scope=exact_scope,
+        state=EvidenceAugmentationState.AUGMENT,
+        input_sha256=input_sha256,
+        evidence_sha256=evidence_sha256,
+        policy_sha256=_ARCHITECTURAL_POLICY_SHA256,
+        source_binding_sha256=source_bindings,
+        reason_codes=("ONE_CLOSED_COMPARISON",),
+        delta=delta,
+        blockers=(),
+        next_action=(
+            f"COMPARE:{closure.rejected_alternative}:"
+            f"{closure.compliant_treatment}"
+        ),
+    )
+    return ArchitecturalEvidenceDeltaResultV2(result, closure, receipt)
+
+
 _EXCEPTION_ONLY_MUSKS = ("tonalide", "macrolide", "musk ketone")
 
 
@@ -422,6 +749,14 @@ def _candidate_blockers(
     if candidate.redundant_with_current_build:
         blockers.append(
             f"{candidate.candidate_id}: addition is redundant with the current build"
+        )
+    uniqueness_claim = (
+        "unique" in candidate.target_role.casefold()
+        or "unique" in candidate.nonredundancy_evidence.casefold()
+    )
+    if uniqueness_claim and not candidate.uniqueness_evidence_refs:
+        blockers.append(
+            f"{candidate.candidate_id}: unique role requires uniqueness evidence"
         )
     material = candidate.material.casefold()
     if (
@@ -495,11 +830,14 @@ def _candidate_blockers(
 
 
 __all__ = [
+    "ArchitecturalEvidenceDeltaResultV2",
     "ArchitecturalDeltaRequest",
     "ArchitecturalDeltaResult",
     "ArchitecturalDeltaCandidate",
     "ArchitecturalDeltaFamily",
     "ArchitecturalDeltaKind",
     "ArchitecturalDeltaState",
+    "ComparisonClosureV1",
     "evaluate_architectural_delta",
+    "evaluate_architectural_evidence_delta",
 ]

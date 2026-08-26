@@ -7,6 +7,7 @@ import itertools
 from pathlib import Path
 from typing import Any
 
+from engine.evidence.augmentation import hold_receipt
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.hedonic_evidence import (
     HedonicEvidenceRequest,
@@ -20,9 +21,13 @@ from engine.perception.architectural_delta import (
     ArchitecturalDeltaFamily,
     ArchitecturalDeltaKind,
     ArchitecturalDeltaRequest,
+    ArchitecturalDeltaResult,
     ArchitecturalDeltaState,
+    ArchitecturalEvidenceDeltaResultV2,
+    ComparisonClosureV1,
     _load_execution_inventory_catalog,
     evaluate_architectural_delta,
+    evaluate_architectural_evidence_delta,
 )
 from engine.preference import (
     PairwisePreference,
@@ -117,6 +122,29 @@ def _candidate(case: SolForgeCaseV1, hypothesis: SolHypothesisV1) -> Architectur
     else:
         arms = ("CONTROL", _arm_id(hypothesis.hypothesis_id))
         roles = ()
+    closure = ComparisonClosureV1(
+        rejected_alternative=arms[0],
+        compliant_treatment=arms[-1],
+        primary_endpoints=(case.criterion,),
+        failure_endpoints=("TARGET_IDENTITY_DRIFT",),
+        changed_factor=(
+            " + ".join(hypothesis.material_names)
+            if not nary
+            else "NARY_INTERACTION"
+        ),
+        constant_constraints=(
+            tuple(case.constraints)
+            if case.constraints
+            else ("CONSTANT_TOTAL_ACTIVE_MASS",)
+        ),
+        blinding_rule="Freeze formula hashes before assigning opaque codes.",
+        order_rule="Balance first presentation and record predecessor.",
+        time_windows=("OPENING", "HEART", "DRYDOWN"),
+        accept_rule=(
+            f"Accept only if {case.criterion} improves without target-identity drift."
+        ),
+        reject_rule="Reject for no criterion gain, redundancy, or target drift.",
+    )
     current = _current_material_names(case)
     target = case.target_identity.casefold()
     material_key = material.casefold()
@@ -149,6 +177,7 @@ def _candidate(case: SolForgeCaseV1, hypothesis: SolHypothesisV1) -> Architectur
         ),
         exception_justification=exception_justification,
         causal_design_sha256=(hypothesis.evidence_refs[0] if nary and hypothesis.evidence_refs else None),
+        comparison_closure=closure,
     )
 
 
@@ -293,6 +322,95 @@ def compile_architectural_delta(
         omission_loss=candidate.loss_if_omitted,
         failure_mode=candidate.failure_mode,
         next_comparison=delta.next_comparison,
+    )
+
+
+def compile_architectural_delta_v2(
+    case: SolForgeCaseV1,
+    hypotheses: SolHypothesisSetV1,
+) -> ArchitecturalEvidenceDeltaResultV2:
+    """Compile a V2 conditional delta while preserving all V1 fail-closed gates."""
+
+    legacy = compile_architectural_delta(case, hypotheses)
+    candidates = tuple(_candidate(case, item) for item in hypotheses.hypotheses)
+    request = ArchitecturalDeltaRequest(
+        target_identity=case.target_identity,
+        ideal_formula_ref=f"case:{case.record_sha256}:ideal",
+        current_build_ref=f"case:{case.record_sha256}:inventory-build",
+        formula_lineage_sha256=case.formula_sha256,
+        candidates=candidates,
+        no_change_reason="No validated nonredundant intervention remains.",
+    )
+    if legacy.state is CompilationState.HOLD and "INVENTORY_PATH_MISSING" in legacy.blockers:
+        input_sha256 = sha256_hex(
+            canonical_json_bytes(
+                {
+                    "case_sha256": case.record_sha256,
+                    "hypothesis_set_sha256": hypotheses.record_sha256,
+                }
+            )
+        )
+        receipt = hold_receipt(
+            module_id="architectural_delta",
+            exact_scope=f"{case.case_id}/{case.target_identity}",
+            input_sha256=input_sha256,
+            evidence_sha256=hypotheses.record_sha256,
+            policy_sha256=sha256_hex(
+                canonical_json_bytes(
+                    {"policy": "authoritative inventory required at execution"}
+                )
+            ),
+            source_binding_sha256=tuple(
+                sorted(
+                    {
+                        ref
+                        for hypothesis in hypotheses.hypotheses
+                        for ref in hypothesis.evidence_refs
+                    }
+                )
+            ),
+            reasons=("SOLFORGE_COMPILATION_HOLD",),
+            blockers=legacy.blockers,
+            next_action=None,
+        )
+        architectural = ArchitecturalDeltaResult(
+            state=ArchitecturalDeltaState.HOLD,
+            target_identity=case.target_identity,
+            ideal_formula_ref=request.ideal_formula_ref,
+            current_build_ref=request.current_build_ref,
+            formula_lineage_sha256=case.formula_sha256,
+            inventory_workbook_sha256=case.inventory_sha256,
+            inventory_source_row_count=0,
+            selected_candidate=None,
+            inventory_projection=None,
+            controlled_arms=(),
+            blockers=legacy.blockers,
+            next_comparison=None,
+        )
+        return ArchitecturalEvidenceDeltaResultV2(architectural, None, receipt)
+    result = evaluate_architectural_evidence_delta(
+        request,
+        inventory_workbook_path=case.inventory_path,
+    )
+    if legacy.state is not CompilationState.HOLD:
+        return result
+
+    prior = result.receipt
+    receipt = hold_receipt(
+        module_id=prior.module_id,
+        exact_scope=prior.exact_scope,
+        input_sha256=prior.input_sha256,
+        evidence_sha256=prior.evidence_sha256,
+        policy_sha256=prior.policy_sha256,
+        source_binding_sha256=prior.source_binding_sha256,
+        reasons=("SOLFORGE_COMPILATION_HOLD",),
+        blockers=legacy.blockers or ("Legacy compilation gate held.",),
+        next_action=None,
+    )
+    return ArchitecturalEvidenceDeltaResultV2(
+        architectural_result=result.architectural_result,
+        comparison_closure=result.comparison_closure,
+        receipt=receipt,
     )
 
 
@@ -730,5 +848,6 @@ __all__ = [
     "build_criterion_fit_packet",
     "build_temporal_packet",
     "compile_architectural_delta",
+    "compile_architectural_delta_v2",
     "export_backend_lab_payloads",
 ]

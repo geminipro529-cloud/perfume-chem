@@ -9,13 +9,17 @@ from pathlib import Path
 import pytest
 from openpyxl import Workbook
 
+from engine.evidence.augmentation import EvidenceAugmentationState
 from engine.perception.architectural_delta import (
     ArchitecturalDeltaCandidate,
     ArchitecturalDeltaFamily,
     ArchitecturalDeltaKind,
     ArchitecturalDeltaRequest,
     ArchitecturalDeltaState,
+    ArchitecturalEvidenceDeltaResultV2,
+    ComparisonClosureV1,
     evaluate_architectural_delta,
+    evaluate_architectural_evidence_delta,
 )
 from engine.perception.complexity_inventory import (
     InventoryAvailability,
@@ -185,6 +189,24 @@ def _request(*candidates: ArchitecturalDeltaCandidate) -> ArchitecturalDeltaRequ
         candidates=candidates,
         no_change_reason="No justified architectural delta remains.",
     )
+
+
+def _closure(**overrides: object) -> ComparisonClosureV1:
+    values: dict[str, object] = {
+        "rejected_alternative": "baseline",
+        "compliant_treatment": "single-closed-test",
+        "primary_endpoints": ("TARGET_FIDELITY", "PERCEIVED_DEPTH"),
+        "failure_endpoints": ("TARGET_IDENTITY_DRIFT",),
+        "changed_factor": "one target-linked material role",
+        "constant_constraints": ("TOTAL_ACTIVE_MASS", "CARRIER_COMPENSATION"),
+        "blinding_rule": "Opaque codes are assigned after formula hashes are frozen.",
+        "order_rule": "Balance first presentation across assessors.",
+        "time_windows": ("OPENING", "HEART", "DRYDOWN"),
+        "accept_rule": "Accept only if target fidelity is retained and depth improves.",
+        "reject_rule": "Reject for no gain or target-identity drift.",
+    }
+    values.update(overrides)
+    return ComparisonClosureV1(**values)
 
 
 def _nary_contract() -> NaryInteractionCandidate:
@@ -549,3 +571,128 @@ def test_two_factor_design_requires_complete_four_arm_factorial() -> None:
 
     assert result.state is ArchitecturalDeltaState.HOLD
     assert any("four factorial arms" in blocker for blocker in result.blockers)
+
+
+def test_complete_architectural_question_emits_no_augmentation() -> None:
+    result = evaluate_architectural_evidence_delta(_request())
+
+    assert isinstance(result, ArchitecturalEvidenceDeltaResultV2)
+    assert result.receipt.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert result.receipt.reason_codes == ("NO_TARGET_DEFICIENCY",)
+    assert result.receipt.next_action is None
+    assert result.comparison_closure is None
+
+
+def test_valid_closed_comparison_emits_one_source_bound_delta() -> None:
+    result = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="closed-test",
+                material="Habanolide",
+                family=ArchitecturalDeltaFamily.MUSK,
+                evidence_refs=("d" * 64,),
+                comparison_closure=_closure(),
+            )
+        )
+    )
+
+    assert result.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert result.receipt.delta is not None
+    assert result.receipt.source_binding_sha256 == ("d" * 64,)
+    assert result.receipt.next_action == "COMPARE:baseline:single-closed-test"
+    assert set(result.receipt.authority.values()) == {False}
+
+
+def test_neroli_primary_vs_support_holds_total_citrus_constant() -> None:
+    closure = _closure(
+        rejected_alternative="NEROLI_PRIMARY",
+        compliant_treatment="NEROLI_SUPPORT_ONLY",
+        primary_endpoints=("BITTER_PEEL_IDENTITY", "ORANGE_BLOSSOM_DRIFT"),
+        changed_factor="NEROLI_ROLE",
+        constant_constraints=("TOTAL_CITRUS_DOSE", "TOTAL_ACTIVE_MASS"),
+    )
+    result = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="neroli-role",
+                material="Neroli EO 10%",
+                family=ArchitecturalDeltaFamily.CITRUS,
+                controlled_arms=("NEROLI_PRIMARY", "NEROLI_SUPPORT_ONLY"),
+                evidence_refs=("e" * 64,),
+                comparison_closure=closure,
+            )
+        )
+    )
+
+    assert result.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert result.comparison_closure == closure
+    assert "TOTAL_CITRUS_DOSE" in closure.constant_constraints
+    assert closure.primary_endpoints == (
+        "BITTER_PEEL_IDENTITY",
+        "ORANGE_BLOSSOM_DRIFT",
+    )
+
+
+def test_missing_closure_and_unsupported_uniqueness_hold() -> None:
+    missing_closure = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="missing-closure",
+                material="Romandolide",
+                evidence_refs=("f" * 64,),
+            )
+        )
+    )
+    unsupported_unique = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="unsupported-unique",
+                material="Romandolide",
+                target_role="supply a unique texture",
+                evidence_refs=("f" * 64,),
+                comparison_closure=_closure(
+                    compliant_treatment="single-unsupported-unique"
+                ),
+            )
+        )
+    )
+
+    assert missing_closure.receipt.state is EvidenceAugmentationState.HOLD
+    assert "COMPARISON_CLOSURE_MISSING" in missing_closure.receipt.reason_codes
+    assert unsupported_unique.receipt.state is EvidenceAugmentationState.HOLD
+    assert "UNIQUENESS_EVIDENCE_MISSING" in unsupported_unique.receipt.reason_codes
+
+
+def test_v2_closure_requires_constant_total_and_exact_source_binding() -> None:
+    no_constant_total = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="no-constant-total",
+                material="Habanolide",
+                controlled_arms=("baseline", "single-no-constant-total"),
+                evidence_refs=("d" * 64,),
+                comparison_closure=_closure(
+                    compliant_treatment="single-no-constant-total",
+                    constant_constraints=("ROOM_TEMPERATURE",),
+                ),
+            )
+        )
+    )
+    no_source_binding = evaluate_architectural_evidence_delta(
+        _request(
+            _candidate(
+                candidate_id="no-source-binding",
+                material="Habanolide",
+                controlled_arms=("baseline", "single-no-source-binding"),
+                evidence_refs=("target:hypothesis-only",),
+                comparison_closure=_closure(
+                    compliant_treatment="single-no-source-binding"
+                ),
+            )
+        )
+    )
+
+    assert no_constant_total.receipt.state is EvidenceAugmentationState.HOLD
+    assert "COMPARISON_CLOSURE_INVALID" in no_constant_total.receipt.reason_codes
+    assert no_source_binding.receipt.state is EvidenceAugmentationState.HOLD
+    assert "SOURCE_BINDING_MISSING" in no_source_binding.receipt.reason_codes
