@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:21:53.706853+00:00",
+  "dispatch_sha256": "706a0aa433370a43e81e533edade3f85c89dd010ade571ee79ac969dd8aecaef",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "d0789c5555312eadf5be41d471b3e979f32e4130c54326173e92fc32b9242522",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The current build already covers iris recognition, root texture, and mineral residue, but lacks the target-defining continuous dry root-to-wood transition. Of three reviewed candidates, only the owned distinct bridge addresses that gap; the other two merely duplicate the existing sweet amber residue and would conflict with the no-added-sweetness target.\",\"controlled_comparison\":{\"design\":\"Matched-total A/B replacement\",\"control\":\"Current build\",\"variant\":\"Introduce the distinct dry root-to-wood bridge while reducing existing material sufficiently to keep the total constant; do not add either redundant residue candidate.\",\"discriminator\":\"Improved root-to-wood continuity without increased sweetness or loss of iris, root texture, dry wood, or mineral residue.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Prepare the constant-total control and bridge-variant specification for later blinded evaluation.\"],\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_CONTINUITY\",\"DISTINCT_BRIDGE_OWNED\",\"REDUNDANT_SWEET_RESIDUE_FILTERED\",\"CONSTANT_TOTAL_REQUIRED\",\"V5_REPARSE_REQUIRED\"]},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "def77da1eb35c2843b6f0696918be0403aaf76afc781412020c475dfe24b5896",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-9c99944edd9f189085cc",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.832713+00:00",
+  "stderr_sha256": "3a8845e60fb5d8e75f8b3d03a77ac50ce739fb48716730da1d66b27d826c5543",
+  "stderr_tail": "OLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The current build already covers iris recognition, root texture, and mineral residue, but lacks the target-defining continuous dry root-to-wood transition. Of three reviewed candidates, only the owned distinct bridge addresses that gap; the other two merely duplicate the existing sweet amber residue and would conflict with the no-added-sweetness target.\",\"controlled_comparison\":{\"design\":\"Matched-total A/B replacement\",\"control\":\"Current build\",\"variant\":\"Introduce the distinct dry root-to-wood bridge while reducing existing material sufficiently to keep the total constant; do not add either redundant residue candidate.\",\"discriminator\":\"Improved root-to-wood continuity without increased sweetness or loss of iris, root texture, dry wood, or mineral residue.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Prepare the constant-total control and bridge-variant specification for later blinded evaluation.\"],\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_CONTINUITY\",\"DISTINCT_BRIDGE_OWNED\",\"REDUNDANT_SWEET_RESIDUE_FILTERED\",\"CONSTANT_TOTAL_REQUIRED\",\"V5_REPARSE_REQUIRED\"]},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n5,272\n",
+  "stdout_sha256": "da853eeaaa392060403323358aa3eff02455f47ae977f133443f7382e4b35aad"
+}

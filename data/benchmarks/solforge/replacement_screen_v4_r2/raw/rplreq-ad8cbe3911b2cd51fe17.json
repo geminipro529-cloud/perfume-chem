@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:23:00.378316+00:00",
+  "dispatch_sha256": "131eafc7b7964e9f1b6313df84e38f3a02de1a4c6519cba5f4225a66dddbfaaf",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "8a77981a5f57b5df34286cc7e5dc22cbd5faf8e04462af9319a4d9d1fe28c219",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The first-presented item won 8/8 comparisons (100%), while product identity and presentation position were perfectly confounded. Directional product utilities cannot identify which product is more liked because an equally compatible positional effect explains every result.\",\"controlled_comparison\":\"No supplied comparison isolates product preference from presentation order; there are zero reverse-order replicates.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":\"100% (8/8)\"},\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"next_actions\":[\"Run randomized, counterbalanced reverse-order comparisons so each product appears equally often in each position, then estimate liking from position-balanced outcomes.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"inventory_state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "5cb4e5158dfc93f901c6e564f6fb1d0de53a7df516f6bc062b7fef9a012308eb",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ad8cbe3911b2cd51fe17",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:18.932342+00:00",
+  "stderr_sha256": "4407e9b8bf307ac4ff1a6cdb866730aa4eb3892cc977b24e335fc80d3fcc8a2e",
+  "stderr_tail": "'deepluna|orchestration' } | Select-Object -ExpandProperty FullName\\\\\\\"` rejected: blocked by policy\\\")\" }\n2026-08-26T07:22:35.932938Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Users\\\\ASUS\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files \\\"C:\\\\Users\\\\ASUS\\\\.codex\\\\skills\\\" | rg \\\"deepluna|orchestration|SKILL\\\\.md\\\"\"`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command \\\\\\\"rg --files \\\\\\\\\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\" | rg \\\\\\\\\\\\\\\"deepluna|orchestration|SKILL\\\\\\\\\\\\\\\\.md\\\\\\\\\\\\\\\"\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The first-presented item won 8/8 comparisons (100%), while product identity and presentation position were perfectly confounded. Directional product utilities cannot identify which product is more liked because an equally compatible positional effect explains every result.\",\"controlled_comparison\":\"No supplied comparison isolates product preference from presentation order; there are zero reverse-order replicates.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":\"100% (8/8)\"},\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"next_actions\":[\"Run randomized, counterbalanced reverse-order comparisons so each product appears equally often in each position, then estimate liking from position-balanced outcomes.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"inventory_state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"}}\ntokens used\n34,703\n",
+  "stdout_sha256": "2ef0070444660673994b99de9825aa938695048ba9172b3330dbe5dec854885c"
+}

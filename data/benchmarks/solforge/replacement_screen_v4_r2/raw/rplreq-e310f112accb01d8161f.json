@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S01",
+  "completed_utc": "2026-08-26T07:22:20.124555+00:00",
+  "dispatch_sha256": "7b1868875a6e155d8e72adc6c0fb4e27e3c12f46c3ff4cef09684ac65e784824",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "4914ec22a4b35d9c37755c40a2e4d10bdd8e594bbf4c695635c2c29d67aaea8a",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"For the scoped DEPTH target, A is directionally preferred to B in four of six non-tied outcomes; two of eight outcomes are ties. The connected, order-balanced comparison design and superior held-out proper score support using this fit, but the evidence does not establish target fidelity, richness, physical liking, or a broader sensory claim.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"total_outcomes\":8,\"directional_outcome_count\":6,\"tie_rate\":0.25,\"a_over_b_wins\":4,\"b_over_a_wins\":2,\"ties\":2,\"comparison_graph\":\"CONNECTED\",\"order_balance\":\"BALANCED\",\"bootstrap\":\"ASSESSOR_CLUSTER_FIXED\",\"held_out_score\":\"BEATS_DECLARED_BASELINE\",\"most_uncertain_pair\":[\"B\",\"C\"]},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SCOPED_DEPTH_PREFERENCE\",\"A_OVER_B_DIRECTIONAL_MAJORITY\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_BEATS_BASELINE\",\"B_C_WIDEST_INTERVAL\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"next_actions\":[\"Collect the deterministic B-versus-C depth comparison to reduce the widest interval.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "ce27ed87026c4b237d51d55963bef2ce1ce1f2dcc42c6d8cb9c9a4cfe86a3880",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-e310f112accb01d8161f",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:04.096805+00:00",
+  "stderr_sha256": "7d7af99041461fd663b4cccce29cc633a36d8356b13a86ac03374f3500322855",
+  "stderr_tail": "\",\"tie_rate\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"For the scoped DEPTH target, A is directionally preferred to B in four of six non-tied outcomes; two of eight outcomes are ties. The connected, order-balanced comparison design and superior held-out proper score support using this fit, but the evidence does not establish target fidelity, richness, physical liking, or a broader sensory claim.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"total_outcomes\":8,\"directional_outcome_count\":6,\"tie_rate\":0.25,\"a_over_b_wins\":4,\"b_over_a_wins\":2,\"ties\":2,\"comparison_graph\":\"CONNECTED\",\"order_balance\":\"BALANCED\",\"bootstrap\":\"ASSESSOR_CLUSTER_FIXED\",\"held_out_score\":\"BEATS_DECLARED_BASELINE\",\"most_uncertain_pair\":[\"B\",\"C\"]},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SCOPED_DEPTH_PREFERENCE\",\"A_OVER_B_DIRECTIONAL_MAJORITY\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_BEATS_BASELINE\",\"B_C_WIDEST_INTERVAL\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"next_actions\":[\"Collect the deterministic B-versus-C depth comparison to reduce the widest interval.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25}}}\ntokens used\n1,230\n",
+  "stdout_sha256": "7fbe55b5c26e3dc071cc259b81299eb204134d6a9b780e8267dd9245e9f3e412"
+}

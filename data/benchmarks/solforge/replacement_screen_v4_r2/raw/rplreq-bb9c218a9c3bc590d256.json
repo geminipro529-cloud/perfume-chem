@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S02",
+  "completed_utc": "2026-08-26T07:22:31.453751+00:00",
+  "dispatch_sha256": "95bc740361d93de06accfd0724b2b96a89573b27f3d4de68b05b4b295b46ed30",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "6c93cca628aa7be1a01fdbdc6ff7b3aee5772a060da2158815e2154a07734e7f",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}; therefore the reported global utility ranking is unsupported. One bridge comparison would create a single connected component and satisfy the target identity without asserting a current global ranking.\",\"controlled_comparison\":\"Compare B with C under the same controlled preference protocol.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"calculations\":{\"bridge_comparison_count_required\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Run one bridge comparison between B and C.\"],\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNSUPPORTED\",\"SINGLE_BRIDGE_REQUIRED\"],\"physical_liking_state\":\"NOT TESTED\"}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "2ef078d830be1fc4e40fa8d5d47a42e205c24fee1a22f81cb981ff7664e1ec30",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-bb9c218a9c3bc590d256",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:14.129270+00:00",
+  "stderr_sha256": "863bf658e381fbbd1566f4648ce355b15d6beaf6b118790edddc96ac80535cc1",
+  "stderr_tail": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"bridge_comparison_count_required\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}; therefore the reported global utility ranking is unsupported. One bridge comparison would create a single connected component and satisfy the target identity without asserting a current global ranking.\",\"controlled_comparison\":\"Compare B with C under the same controlled preference protocol.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"calculations\":{\"bridge_comparison_count_required\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Run one bridge comparison between B and C.\"],\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNSUPPORTED\",\"SINGLE_BRIDGE_REQUIRED\"],\"physical_liking_state\":\"NOT TESTED\"}}\ntokens used\n5,281\n",
+  "stdout_sha256": "4877aa74909e7a3e83e7f5c0ad8c4e92c200274eb2b896817aad9039a33e4b44"
+}
