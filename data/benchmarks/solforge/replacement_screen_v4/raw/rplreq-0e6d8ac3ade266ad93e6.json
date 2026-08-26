@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:17:56.247339+00:00",
+  "dispatch_sha256": "1792d4f9e4144c2833611a06bd028d0df909e775987d849e8b3dfad935cad2f1",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "7e8f678803d08371025fc9307f8b0fb82610fcafa098edf729c9607fac2369f1",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The ideal architecture requires iris recognition, root texture, dry wood, mineral residue, and continuous root-to-wood linkage. The current build already covers every function except that linkage. The distinct owned bridge candidate uniquely addresses the omission without adding sweetness; the two sweet-amber candidates duplicate the existing residue and conflict with the target.\",\"controlled_comparison\":{\"control\":\"Current build, unchanged.\",\"test\":\"One isolated arm using only the distinct dry root-to-wood bridge candidate, with an equal offset elsewhere so total quantity remains constant and all other relationships remain fixed.\",\"interpretation\":\"Only a bridge-specific improvement supports the augmentation hypothesis; no sensory or liking outcome is claimed before testing.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidates_reviewed\":3,\"redundant_candidates_rejected\":2,\"target_faithful_candidates_remaining\":1,\"proposed_interventions\":1,\"constant_total_change\":0},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Design one constant-total control-versus-bridge comparison; execution requires separate authority and V5 inventory reparse confirmation.\"],\"reason_codes\":[\"MISSING_ROOT_WOOD_CONTINUITY\",\"DISTINCT_BRIDGE_TARGET_MATCH\",\"REDUNDANT_SWEET_AMBER_REJECTED\",\"NO_ADDED_SWEETNESS\",\"CONSTANT_TOTAL_REQUIRED\",\"V5_REPARSE_REQUIRED\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "b351c6ac8f20ea1395e2d5647f0ca77b3b847e4e5cc4df96a5c569bc0744897f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-0e6d8ac3ade266ad93e6",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:16:56.851406+00:00",
+  "stderr_sha256": "959aeffb282a1862539b5d6aeb5452bab433c9bffde9c6cd09de5f7dd9b3d392",
+  "stderr_tail": "ers\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command \\\\\\\"Get-Content -Raw -LiteralPath 'C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\\deepluna-chat\\\\\\\\\\\\\\\\SKILL.md'\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The ideal architecture requires iris recognition, root texture, dry wood, mineral residue, and continuous root-to-wood linkage. The current build already covers every function except that linkage. The distinct owned bridge candidate uniquely addresses the omission without adding sweetness; the two sweet-amber candidates duplicate the existing residue and conflict with the target.\",\"controlled_comparison\":{\"control\":\"Current build, unchanged.\",\"test\":\"One isolated arm using only the distinct dry root-to-wood bridge candidate, with an equal offset elsewhere so total quantity remains constant and all other relationships remain fixed.\",\"interpretation\":\"Only a bridge-specific improvement supports the augmentation hypothesis; no sensory or liking outcome is claimed before testing.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidates_reviewed\":3,\"redundant_candidates_rejected\":2,\"target_faithful_candidates_remaining\":1,\"proposed_interventions\":1,\"constant_total_change\":0},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Design one constant-total control-versus-bridge comparison; execution requires separate authority and V5 inventory reparse confirmation.\"],\"reason_codes\":[\"MISSING_ROOT_WOOD_CONTINUITY\",\"DISTINCT_BRIDGE_TARGET_MATCH\",\"REDUNDANT_SWEET_AMBER_REJECTED\",\"NO_ADDED_SWEETNESS\",\"CONSTANT_TOTAL_REQUIRED\",\"V5_REPARSE_REQUIRED\"]}}\ntokens used\n29,150\n",
+  "stdout_sha256": "ab582f2805343e07ba278940972f71d3b2711b740f86290948a397cb5d5197a2"
+}

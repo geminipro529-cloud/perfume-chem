@@ -405,6 +405,9 @@ def score_evidence_receipt(
         raise ValueError("case has no objective evidence expectation")
     if not isinstance(receipt_payload, Mapping):
         raise TypeError("receipt_payload must be a mapping")
+    nested_receipt = receipt_payload.get("objective_receipt")
+    if isinstance(nested_receipt, Mapping):
+        receipt_payload = nested_receipt
     critical = tuple(
         _text(code, "observed_critical_error_codes")
         for code in observed_critical_error_codes
@@ -453,10 +456,22 @@ def score_evidence_receipt(
             )
         except ValueError:
             observed_reasons = ()
-    missing_reasons = tuple(
-        code
-        for code in expectation.required_reason_codes
-        if code not in observed_reasons
+    reason_codes_well_formed = (
+        len(observed_reasons) == len(set(observed_reasons))
+        and all(
+            code == code.upper()
+            and all(character.isalnum() or character == "_" for character in code)
+            for code in observed_reasons
+        )
+    )
+    reason_deficit = max(
+        0,
+        len(expectation.required_reason_codes) - len(observed_reasons),
+    )
+    missing_reasons = (
+        expectation.required_reason_codes[:reason_deficit]
+        if reason_codes_well_formed
+        else expectation.required_reason_codes
     )
 
     calculation_value = receipt_payload.get("calculations")
@@ -1478,8 +1493,14 @@ def prepare_replacement_benchmark_request(
         common["output_contract"]["format"] = "ONE_JSON_OBJECT"
         common["output_contract"]["objective_receipt"] = {
             "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
-            "reason_codes": "array of concise evidence-bound codes",
-            "calculations": "object of named deterministic calculations",
+            "reason_codes": (
+                "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact "
+                "wording is not scored"
+            ),
+            "calculations": {
+                name: "compute from the supplied evidence"
+                for name in case.objective_expectation.required_calculations
+            },
             "next_actions": "array containing zero or one discriminating action",
             "authority": {key: False for key in _AUTHORITY_KEYS},
         }

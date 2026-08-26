@@ -245,7 +245,7 @@ def test_objective_receipt_gives_full_credit_to_correct_abstention() -> None:
         case,
         {
             "decision_state": "NO_AUGMENTATION",
-            "reason_codes": ["COMPLETE_TARGET_ARCHITECTURE", "COUNT_IS_NON_EVIDENCE"],
+            "reason_codes": ["TARGET_COMPLETE", "COUNT_DOES_NOT_ADD_EVIDENCE"],
             "calculations": {"unmet_target_function_count": 0},
             "next_actions": [],
             "authority": {
@@ -325,6 +325,8 @@ def test_v4_prompt_requests_objective_receipt_without_leaking_answer_key() -> No
     assert case.expected_decision not in serialized
     for reason_code in case.objective_expectation.required_reason_codes:
         assert reason_code not in serialized
+    for calculation_name in case.objective_expectation.required_calculations:
+        assert calculation_name in serialized
 
 
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:
