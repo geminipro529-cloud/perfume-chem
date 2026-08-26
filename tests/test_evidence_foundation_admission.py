@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GOVERNANCE = ROOT / "data/governance/evidence_foundation_admission_v1.json"
 SCREEN_ROOT = ROOT / "data/benchmarks/solforge/evidence_foundation_screen_v2"
 CORPUS = ROOT / "tests/fixtures/complexity_replacement_benchmark_cases_v8.json"
+RETEST = ROOT / "data/governance/protected_evidence_retest_admission_v1.json"
 
 
 def _file_sha256(path: Path) -> str:
@@ -94,3 +95,27 @@ def test_current_registry_exposes_only_the_previously_admitted_delta_engine() ->
     assert "temporal-oav-error-sentinel" not in {
         module.module_id for module in registry.modules
     }
+
+
+def test_protected_evidence_retest_is_hash_bound_and_rejects_both_learners() -> None:
+    payload = json.loads(RETEST.read_text(encoding="utf-8"))
+
+    assert _file_sha256(RETEST) == _sidecar_sha256(RETEST)
+    assert payload["decision"] == "ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED"
+    assert payload["model_identity"]["model"] == "gpt-5.6-sol"
+    assert payload["model_identity"]["reasoning_effort"] == "xhigh"
+    assert payload["model_identity"]["fast_mode"] == "NOT_EXPOSED"
+    assert payload["module_dispositions"]["architectural-delta-engine"][
+        "runtime_reachable"
+    ] is True
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        module = payload["module_dispositions"][module_id]
+        assert module["state"] == "RETIRED_BENCHMARK_UNDERPERFORMER"
+        assert module["runtime_reachable"] is False
+    confirmation = payload["benchmark_evidence"][-1]["combined_six_case_result"]
+    assert confirmation["wins_vs_plain"] == 3
+    assert confirmation["wins_vs_noop"] == 3
+    assert confirmation["median_gain_vs_plain"] == 1.0
+    assert confirmation["median_gain_vs_noop"] == 1.0
+    assert confirmation["admitted"] is False
+    assert all(value is False for value in payload["authority"].values())

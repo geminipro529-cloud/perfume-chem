@@ -12,18 +12,19 @@ from engine.perception.complexity_registry import (
 
 ROOT = Path(__file__).resolve().parents[1]
 V6 = ROOT / "configs/complexity/complexity_module_registry_v6.json"
+V7 = ROOT / "configs/complexity/complexity_module_registry_v7.json"
 
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def test_v6_is_an_isolation_repair_with_no_new_admission() -> None:
-    payload = json.loads(V6.read_text(encoding="utf-8"))
+def test_v7_freezes_retest_failures_with_no_new_admission() -> None:
+    payload = json.loads(V7.read_text(encoding="utf-8"))
     registry = load_current_complexity_registry(ROOT)
 
-    assert payload["change_class"] == "RUNTIME_ISOLATION_REPAIR_NO_NEW_ADMISSION"
-    assert registry.schema_version == "complexity_module_registry_v6"
+    assert payload["change_class"] == "BENCHMARK_RETEST_TOMBSTONES_NO_NEW_ADMISSION"
+    assert registry.schema_version == "complexity_module_registry_v7"
     assert {module.module_id for module in registry.modules if module.runtime_eligible} == {
         "architectural-delta-engine"
     }
@@ -44,31 +45,40 @@ def test_v6_is_an_isolation_repair_with_no_new_admission() -> None:
     assert census.hash_drift == ()
 
 
-def test_v6_preserves_every_predecessor_and_binds_current_bytes() -> None:
-    payload = json.loads(V6.read_text(encoding="utf-8"))
+def test_v7_preserves_every_predecessor_and_binds_current_bytes() -> None:
+    payload = json.loads(V7.read_text(encoding="utf-8"))
     for item in payload["predecessor_registry_chain"]:
-        assert _sha256(V6.parent / item["path"]) == item["sha256"]
+        assert _sha256(V7.parent / item["path"]) == item["sha256"]
 
     runtime_paths = {item["path"] for item in payload["runtime_bindings"]}
     provenance_paths = {item["path"] for item in payload["provenance_bindings"]}
     assert runtime_paths.isdisjoint(provenance_paths)
-    for group in ("runtime_bindings", "provenance_bindings", "screen_evidence"):
+    for group in ("runtime_bindings", "provenance_bindings", "benchmark_evidence"):
         for item in payload[group]:
             assert _sha256(ROOT / item["path"]) == item["sha256"]
 
 
-def test_v6_failed_screen_evidence_is_all_stop() -> None:
-    payload = json.loads(V6.read_text(encoding="utf-8"))
-    decisions_path = next(
-        ROOT / item["path"]
-        for item in payload["screen_evidence"]
-        if item["path"].endswith("screen_decisions.json")
-    )
-    decisions = json.loads(decisions_path.read_text(encoding="utf-8"))
+def test_v7_retest_evidence_retires_only_failed_replacements() -> None:
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    status_path = ROOT / payload["benchmark_evidence"][0]["path"]
+    status = json.loads(status_path.read_text(encoding="utf-8"))
 
-    assert {row["module_id"] for row in decisions["decisions"]} == {
-        "temporal_oav_error_sentinel",
-        "temporal_sensory_ledger",
-        "hedonic_preference_learner",
+    assert status["decision"] == "ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED"
+    assert status["module_dispositions"] == {
+        "architectural-delta-engine": {
+            "state": "ADMITTED_RUNTIME",
+            "runtime_reachable": True,
+            "basis": "PRIOR_EXACT_SCOPE_ADMISSION_RETAINED_NO_SCOPE_EXPANSION",
+        },
+        "temporal-sensory-ledger": {
+            "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+            "runtime_reachable": False,
+            "basis": "FAILED_REPAIRED_SCREEN_STRICT_WIN_THRESHOLD",
+        },
+        "hedonic-preference-learner": {
+            "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+            "runtime_reachable": False,
+            "basis": "FAILED_COMBINED_CONFIRMATION_WIN_AND_MEDIAN_GAIN_THRESHOLDS",
+        },
     }
-    assert {row["state"] for row in decisions["decisions"]} == {"STOP"}
+    assert all(value is False for value in status["authority"].values())

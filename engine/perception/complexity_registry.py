@@ -23,12 +23,13 @@ _RUNTIME_STATES = frozenset(
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
 CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
-    "configs/complexity/complexity_module_registry_v6.json"
+    "configs/complexity/complexity_module_registry_v7.json"
 )
 _V5_ARCHITECTURAL_DELTA_SHA256 = (
     "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
 )
 _V6_ARCHITECTURAL_DELTA_SHA256 = _V5_ARCHITECTURAL_DELTA_SHA256
+_V7_ARCHITECTURAL_DELTA_SHA256 = _V6_ARCHITECTURAL_DELTA_SHA256
 
 
 class ModuleState(str, Enum):
@@ -1024,6 +1025,215 @@ def _load_registry_v6(
     )
 
 
+def _load_registry_v7(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    """Load the post-retest registry while preserving V6 as frozen provenance."""
+
+    required = {
+        "schema_version",
+        "change_class",
+        "predecessor_registry_chain",
+        "base_registry",
+        "module_overrides",
+        "benchmark_evidence",
+        "runtime_bindings",
+        "provenance_bindings",
+        "authority_flags",
+    }
+    if set(payload) != required:
+        raise ValueError("complexity registry v7 top-level keys are closed")
+    if payload.get("change_class") != "BENCHMARK_RETEST_TOMBSTONES_NO_NEW_ADMISSION":
+        raise ValueError("V7 change class must deny new admission")
+
+    chain = payload.get("predecessor_registry_chain")
+    expected_names = [
+        f"complexity_module_registry_v{version}.json" for version in range(1, 7)
+    ]
+    if not isinstance(chain, list) or len(chain) != len(expected_names):
+        raise ValueError("V7 predecessor chain must contain exact V1 through V6")
+    chain_paths: dict[str, Path] = {}
+    for expected_name, item in zip(expected_names, chain, strict=True):
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V7 predecessor entries are closed")
+        name = _nonblank(item.get("path"), "predecessor path")
+        digest = _nonblank(item.get("sha256"), "predecessor sha256")
+        if name != expected_name or not _SHA256.fullmatch(digest):
+            raise ValueError("V7 predecessor order or hash syntax is invalid")
+        path = registry_path.parent / name
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"V7 predecessor hash mismatch: {name}")
+        chain_paths[name] = path
+
+    base_record = payload.get("base_registry")
+    if not isinstance(base_record, dict) or set(base_record) != {"path", "sha256"}:
+        raise ValueError("V7 base registry must be one closed record")
+    if base_record.get("path") != "complexity_module_registry_v3.json":
+        raise ValueError("V7 must reconstruct from the source-stable V3 registry")
+    if base_record.get("sha256") != next(
+        item["sha256"]
+        for item in chain
+        if item["path"] == "complexity_module_registry_v3.json"
+    ):
+        raise ValueError("V7 base registry must match the frozen V3 predecessor")
+    base = load_complexity_registry(
+        project_root,
+        chain_paths["complexity_module_registry_v3.json"],
+    )
+    if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
+        raise ValueError("V7 authority flags must be the exact all-false mapping")
+
+    def validate_bindings(
+        field_name: str,
+        expected_paths: set[str],
+    ) -> dict[str, Path]:
+        rows = payload.get(field_name)
+        if not isinstance(rows, list) or len(rows) != len(expected_paths):
+            raise ValueError(f"V7 {field_name} must contain exact records")
+        observed: dict[str, Path] = {}
+        for item in rows:
+            if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+                raise ValueError(f"V7 {field_name} entries are closed")
+            relative = _relative_path(item.get("path"), f"{field_name} path")
+            digest = _nonblank(item.get("sha256"), f"{field_name} sha256")
+            path = _inside_root(project_root, relative)
+            if (
+                not _SHA256.fullmatch(digest)
+                or not path.is_file()
+                or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+            ):
+                raise ValueError(f"V7 {field_name} hash mismatch: {relative}")
+            observed[relative] = path
+        if set(observed) != expected_paths:
+            raise ValueError(f"V7 {field_name} paths must be exact")
+        return observed
+
+    benchmark_paths = {
+        "data/governance/protected_evidence_retest_admission_v1.json",
+        "data/governance/protected_evidence_retest_admission_v1.sha256",
+    }
+    benchmark = validate_bindings("benchmark_evidence", benchmark_paths)
+    status_path = benchmark[
+        "data/governance/protected_evidence_retest_admission_v1.json"
+    ]
+    status = json.loads(status_path.read_text(encoding="utf-8"))
+    if (
+        not isinstance(status, Mapping)
+        or status.get("decision")
+        != "ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED"
+    ):
+        raise ValueError("V7 benchmark evidence must retain architectural-only runtime")
+    dispositions = status.get("module_dispositions")
+    if not isinstance(dispositions, Mapping):
+        raise ValueError("V7 benchmark evidence lacks module dispositions")
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        disposition = dispositions.get(module_id)
+        if (
+            not isinstance(disposition, Mapping)
+            or disposition.get("state") != "RETIRED_BENCHMARK_UNDERPERFORMER"
+            or disposition.get("runtime_reachable") is not False
+        ):
+            raise ValueError("V7 failed evidence modules must remain retired")
+
+    runtime_paths = {
+        "engine/perception/complexity_registry.py",
+        "engine/perception/architectural_delta.py",
+        "engine/solforge/architectural_adapter.py",
+        "engine/solforge/runtime.py",
+        "scripts/intervention_recommend.py",
+    }
+    runtime = validate_bindings("runtime_bindings", runtime_paths)
+    provenance_paths = {
+        "engine/hedonic_evidence.py",
+        "engine/hedonic_model.py",
+        "engine/pipeline/oav_evidence.py",
+        "engine/preference.py",
+        "engine/preference_davidson.py",
+        "engine/preference_validation.py",
+        "engine/sensory/ledger.py",
+        "engine/solforge/adapters.py",
+        "engine/solforge/orchestrator.py",
+        "engine/solforge/protected_evidence.py",
+        "engine/solforge/protected_evidence_corpus.py",
+    }
+    provenance = validate_bindings("provenance_bindings", provenance_paths)
+    if set(runtime).intersection(provenance):
+        raise ValueError("V7 runtime and provenance bindings must be disjoint")
+
+    overrides = payload.get("module_overrides")
+    expected_override_ids = {
+        "advanced-musk-intelligence",
+        "architectural-delta-engine",
+        "hedonic-evidence-gate-v2",
+        "hedonic-model-future",
+        "hedonic-preference-learner",
+        "solforge-shadow-orchestrator",
+        "temporal-sensory-ledger",
+    }
+    if not isinstance(overrides, list) or {
+        item.get("module_id") for item in overrides if isinstance(item, dict)
+    } != expected_override_ids:
+        raise ValueError("V7 module overrides must cover the exact isolation set")
+    allowed_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    for override in overrides:
+        if not isinstance(override, dict) or set(override) != allowed_override_fields:
+            raise ValueError("V7 module override schema is closed")
+        module_id = _nonblank(override.get("module_id"), "module override module_id")
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown V7 module override: {module_id}")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root,
+            row,
+        )
+
+    runtime_modules = tuple(module for module in modules if module.runtime_eligible)
+    if tuple(module.module_id for module in runtime_modules) != (
+        "architectural-delta-engine",
+    ):
+        raise ValueError("V7 may retain only architectural-delta-engine at runtime")
+    architecture = runtime_modules[0]
+    if (
+        architecture.state is not ModuleState.ADMITTED_RUNTIME
+        or architecture.import_path != "engine.perception.architectural_delta"
+        or architecture.sha256 != _V7_ARCHITECTURAL_DELTA_SHA256
+    ):
+        raise ValueError("V7 architectural runtime binding is invalid")
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        module = modules[index_by_id[module_id]]
+        if (
+            module.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+            or module.import_path is not None
+        ):
+            raise ValueError("V7 underperformers must remain runtime-unreachable")
+    shadow = modules[index_by_id["solforge-shadow-orchestrator"]]
+    if shadow.state is not ModuleState.PROVENANCE_TOMBSTONE or shadow.import_path:
+        raise ValueError("V7 full shadow orchestrator must remain a tombstone")
+
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v7",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -1031,6 +1241,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v7":
+        return _load_registry_v7(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v6":
         return _load_registry_v6(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v5":
@@ -1111,8 +1323,8 @@ def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
         project_root,
         project_root / CURRENT_COMPLEXITY_REGISTRY_PATH,
     )
-    if registry.schema_version != "complexity_module_registry_v6":
-        raise ValueError("current complexity runtime must use registry V6")
+    if registry.schema_version != "complexity_module_registry_v7":
+        raise ValueError("current complexity runtime must use registry V7")
     runtime_modules = tuple(item for item in registry.modules if item.runtime_eligible)
     if tuple(item.module_id for item in runtime_modules) != (
         "architectural-delta-engine",
@@ -1156,13 +1368,13 @@ def census_complexity_artifacts(
     project_root = root.resolve()
     hash_drift: list[str] = []
     missing: list[str] = []
-    for module in registry.modules:
-        path = _inside_root(project_root, module.path)
+    for descriptor in registry.modules:
+        path = _inside_root(project_root, descriptor.path)
         if not path.is_file():
-            missing.append(module.path)
+            missing.append(descriptor.path)
             continue
-        if hashlib.sha256(path.read_bytes()).hexdigest() != module.sha256:
-            hash_drift.append(module.path)
+        if hashlib.sha256(path.read_bytes()).hexdigest() != descriptor.sha256:
+            hash_drift.append(descriptor.path)
 
     module_paths = {item.path.casefold(): item for item in registry.modules}
     discovered: set[str] = set()
@@ -1189,10 +1401,14 @@ def census_complexity_artifacts(
     unclassified: list[str] = []
     multiply_classified: list[str] = []
     for relative in sorted(discovered, key=str.casefold):
-        module = module_paths.get(relative.casefold())
-        if module is not None:
+        classified_module = module_paths.get(relative.casefold())
+        if classified_module is not None:
             findings.append(
-                CensusFinding(relative, module.state.value, f"module:{module.module_id}")
+                CensusFinding(
+                    relative,
+                    classified_module.state.value,
+                    f"module:{classified_module.module_id}",
+                )
             )
             continue
         matches: list[tuple[str, str]] = []

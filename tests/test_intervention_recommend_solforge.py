@@ -116,7 +116,7 @@ def test_solforge_no_change_writes_atomic_hash_named_records(
     assert json.loads(decision_file.read_text(encoding="utf-8"))["decision"] == "NO_CHANGE"
     registry_path = (
         Path(__file__).resolve().parents[1]
-        / "configs/complexity/complexity_module_registry_v6.json"
+        / "configs/complexity/complexity_module_registry_v7.json"
     )
     assert manifest["complexity_runtime_registry_sha256"] == hashlib.sha256(
         registry_path.read_bytes()

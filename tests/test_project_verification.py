@@ -277,6 +277,24 @@ def test_backend_suite_timeout_has_full_run_margin():
     assert specs["backend-tests"].timeout_seconds == 1200
 
 
+def test_cross_layer_authority_report_runs_in_backend_dependency_environment():
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+    shards = engine_test_shards(PROJECT_ROOT)
+
+    assert "tests/test_scientific_data_authority_report.py" in shards[
+        "data-knowledge"
+    ]
+    assert "tests/test_scientific_data_authority_report.py" not in specs[
+        "engine-tests-data-knowledge"
+    ].command
+    report = specs["scientific-data-authority-report"]
+    assert report.cwd == "backend"
+    assert report.command[-2:] == (
+        "../tests/test_scientific_data_authority_report.py",
+        "-q",
+    )
+
+
 def test_ruff_checks_explicitly_disable_ansi_color():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 

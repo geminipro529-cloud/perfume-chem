@@ -32,6 +32,10 @@ KNOWN_LEGACY_LIMITATIONS = (
     "Composite natural OAV is olfactory headspace evidence, not regulatory constituent composition.",
 )
 
+_BACKEND_DEPENDENCY_TESTS = frozenset(
+    {"tests/test_scientific_data_authority_report.py"}
+)
+
 _ENGINE_TEST_SHARDS = {
     "truth-core": (
         "tests/test_artifact_rebind.py",
@@ -497,11 +501,14 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
     ]
 
     for shard_name, paths in _ENGINE_TEST_SHARDS.items():
+        engine_paths = tuple(
+            path for path in paths if path not in _BACKEND_DEPENDENCY_TESTS
+        )
         checks.append(
             CheckSpec(
                 f"engine-tests-{shard_name}",
                 pytest
-                + paths
+                + engine_paths
                 + (
                     "-q",
                     f"--junitxml=verification_runs/engine-{shard_name}.xml",
@@ -540,6 +547,17 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 ),
                 cwd="backend",
                 timeout_seconds=1200,
+            ),
+            CheckSpec(
+                "scientific-data-authority-report",
+                poetry
+                + (
+                    "run",
+                    "pytest",
+                    "../tests/test_scientific_data_authority_report.py",
+                    "-q",
+                ),
+                cwd="backend",
             ),
             CheckSpec(
                 "scientific-audit",
