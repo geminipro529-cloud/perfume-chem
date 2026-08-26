@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_screen_status_v1",
+  "state": "INVALIDATED_PRE_SCREEN_AFTER_CANARY",
+  "manifest_sha256": "78fe0a1e959b7abb6ba083684c3d1f3cdc2324e73baa46b97088ea3402e1c6e5",
+  "manifest_file_sha256": "c8a94c201f50f8d5527f3db60b2e093cdf222acc21b2d1b9f32ee9c98c54d506",
+  "completed_model_requests": 1,
+  "screen_decisions_produced": 0,
+  "invalidation_reasons": [
+    "ARCHITECTURAL_HOLD_PRECEDENCE_OVERBROAD"
+  ],
+  "disposition": "PRESERVE_CANARY_AND_NARROW_NATIVE_STATE_PROCEDURE_BEFORE_SCREEN",
+  "runtime_reachable": false,
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}
