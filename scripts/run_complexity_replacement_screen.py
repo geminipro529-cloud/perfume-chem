@@ -26,8 +26,11 @@ def _sha256(value: bytes) -> str:
 
 def _load_manifest(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict) or payload.get("phase") != "SCREEN":
-        raise ValueError("manifest must be one frozen SCREEN object")
+    if not isinstance(payload, dict) or payload.get("phase") not in {
+        "SCREEN",
+        "CONFIRM",
+    }:
+        raise ValueError("manifest must be one frozen SCREEN or CONFIRM object")
     unhashed = dict(payload)
     observed_manifest_sha256 = unhashed.pop("manifest_sha256", None)
     canonical = json.dumps(
