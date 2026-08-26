@@ -550,6 +550,10 @@ class SolForgeWorkbenchService:
             stdout, stderr = await asyncio.wait_for(
                 process.communicate(), timeout=self.config.timeout_seconds
             )
+        except asyncio.CancelledError:
+            process.kill()
+            await process.wait()
+            raise
         except TimeoutError as exc:
             process.kill()
             await process.wait()

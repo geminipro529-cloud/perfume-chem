@@ -214,8 +214,11 @@ class _FakeProcess:
         self.stderr = stderr
         self.block = block
         self.killed = False
+        self.waited = False
+        self.communicate_started = asyncio.Event()
 
     async def communicate(self) -> tuple[bytes, bytes]:
+        self.communicate_started.set()
         if self.block:
             await asyncio.Event().wait()
         return self.stdout, self.stderr
@@ -224,6 +227,7 @@ class _FakeProcess:
         self.killed = True
 
     async def wait(self) -> int:
+        self.waited = True
         return self.returncode
 
 
@@ -376,6 +380,40 @@ async def test_runner_maps_timeout_to_engine_timeout(runtime_config, monkeypatch
     with pytest.raises(WorkbenchFailure, match="ENGINE_TIMEOUT"):
         await service.run_design(_request(config))
     assert process.killed is True
+    assert process.waited is True
+
+
+@pytest.mark.asyncio
+async def test_runner_kills_child_and_releases_slot_when_cancelled(
+    runtime_config, monkeypatch
+) -> None:
+    blocked_process = _FakeProcess(block=True)
+    invocation = 0
+
+    async def fake_create_subprocess_exec(*argv, **_kwargs):
+        nonlocal invocation
+        invocation += 1
+        if invocation == 1:
+            return blocked_process
+        output_index = argv.index("--output-dir") + 1
+        _populate_valid_run(Path(argv[output_index]))
+        return _FakeProcess()
+
+    monkeypatch.setattr(asyncio, "create_subprocess_exec", fake_create_subprocess_exec)
+    service = SolForgeWorkbenchService(runtime_config)
+    first = asyncio.create_task(service.run_design(_request(runtime_config)))
+    await blocked_process.communicate_started.wait()
+
+    first.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await first
+
+    assert blocked_process.killed is True
+    assert blocked_process.waited is True
+    second = await asyncio.wait_for(
+        service.run_design(_request(runtime_config)), timeout=1
+    )
+    assert second.admitted_module_ids == ("architectural-delta-engine",)
 
 
 @pytest.mark.asyncio
