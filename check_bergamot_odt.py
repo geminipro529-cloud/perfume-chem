@@ -1,4 +1,5 @@
-from engine.odor_thresholds import lookup_odt_entry, ODT_DATA
+from engine.odor_thresholds import ODT_DATA, lookup_odt_entry
+
 for k, v in ODT_DATA.items():
     if 'bergamot' in k:
         print(f"  {k}: odt_air={v.get('odt_air','?')} odt_eth={v.get('odt_eth','?')}")

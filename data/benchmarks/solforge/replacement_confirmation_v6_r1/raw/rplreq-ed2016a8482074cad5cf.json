@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C01",
+  "completed_utc": "2026-08-26T07:37:02.808756+00:00",
+  "dispatch_sha256": "947042343d1afa0ecb07a1a2bcb37c5d270a22ded57cac1d740a364d92344d7d",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "5914d5c8f3a170c1fbf8da44d2b0a68c83168d25f0df229ac4e55cb2579c1186",
+  "output_text": "{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"The ideal architecture has one uncovered function: a soft skin musk extending the iris heart without detergent brightness or powder bulk. Ambrettolide 10% is the sole target-faithful candidate identified for that function. Habanolide and Romandolide are owned but are not evidence-supported replacements; Ethylene Brassylate remains unavailable unless refreshed. Keep this ideal intervention separate from the current-inventory build: procurement-pending status prevents physical execution but does not negate the computational proposal.\",\"controlled_comparison\":\"One constant-total computational A/B: current ideal architecture versus the same architecture with one isolated Ambrettolide 10% intervention, offset by an equal reduction of neutral formula mass; make no other musk or ratio changes.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"MISSING_TARGET_FUNCTION\",\"SINGLE_TARGET_FAITHFUL_DELTA\",\"PROCUREMENT_PENDING\",\"NO_SUPPORTED_OWNED_SUBSTITUTE\",\"PHYSICAL_EXECUTION_UNAVAILABLE\"],\"calculations\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0,\"physical_addition_authorized_count\":0},\"next_actions\":[\"At execution time, refresh inventory status for Ambrettolide 10% and the V5 Ethylene Brassylate record before deciding whether the controlled arm is compoundable.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "95ba99f61f34018ac1e2e9ff10e79a01ddba5cea214071c6a4ab45e65e484342",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ed2016a8482074cad5cf",
+  "role": "INVENTORY_MISMATCH",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.268958+00:00",
+  "stderr_sha256": "a6f0636de5c20155b3ecb71c24d3482c62dfd0f9a8da577ea680166f903a5260",
+  "stderr_tail": "g is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"The ideal architecture has one uncovered function: a soft skin musk extending the iris heart without detergent brightness or powder bulk. Ambrettolide 10% is the sole target-faithful candidate identified for that function. Habanolide and Romandolide are owned but are not evidence-supported replacements; Ethylene Brassylate remains unavailable unless refreshed. Keep this ideal intervention separate from the current-inventory build: procurement-pending status prevents physical execution but does not negate the computational proposal.\",\"controlled_comparison\":\"One constant-total computational A/B: current ideal architecture versus the same architecture with one isolated Ambrettolide 10% intervention, offset by an equal reduction of neutral formula mass; make no other musk or ratio changes.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"MISSING_TARGET_FUNCTION\",\"SINGLE_TARGET_FAITHFUL_DELTA\",\"PROCUREMENT_PENDING\",\"NO_SUPPORTED_OWNED_SUBSTITUTE\",\"PHYSICAL_EXECUTION_UNAVAILABLE\"],\"calculations\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0,\"physical_addition_authorized_count\":0},\"next_actions\":[\"At execution time, refresh inventory status for Ambrettolide 10% and the V5 Ethylene Brassylate record before deciding whether the controlled arm is compoundable.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n1,690\n",
+  "stdout_sha256": "478b3919f97cf0e35330c889631bc1b90fc66416bf488925ab23e9eedfcfa2a7"
+}

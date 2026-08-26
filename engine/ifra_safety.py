@@ -36,7 +36,6 @@ from typing import Any
 from engine.material_resolver import resolve_material
 from engine.skin_compartments import skin_partition
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # IFRA Maximum Use Levels — Category 4: Fine Fragrance
 # Values = max % in FINISHED product (not concentrate)
@@ -44,124 +43,195 @@ from engine.skin_compartments import skin_partition
 
 IFRA_CAT4_LIMITS: dict[str, float] = {
     # Aldehydes
-    "Aldehyde C10":            5.0,
-    "Aldehyde C11":            2.5,
+    "Aldehyde C10": 5.0,
+    "Aldehyde C11": 2.5,
     "Aldehyde C11 Undecylenic": 0.5,
-    "Aldehyde C12 MNA":        2.0,
-    "Hydroxycitronellal":      1.0,
-    "Cyclamen Aldehyde":       0.62,
-    "Cinnamaldehyde":          0.7,
-    "Citral":                  0.6,
-    "Anisaldehyde":            2.0,
+    "Aldehyde C12 MNA": 2.0,
+    "Hydroxycitronellal": 1.0,
+    "Cyclamen Aldehyde": 0.62,
+    "Cinnamaldehyde": 0.7,
+    "Citral": 0.6,
+    "Anisaldehyde": 2.0,
     # Alcohols / phenols
-    "Linalool":                15.0,  # unrestricted if peroxide < 20 mmol/L
-    "Geraniol":                3.2,
-    "Citronellol":             2.6,
-    "Phenethyl Alcohol":       5.0,
-    "Eugenol":                 0.5,
-    "Isoeugenol":              0.02,
-    "Guaiacol":                0.1,
-    "Methyl Salicylate":       0.6,
-    "cis-3-Hexenol":           0.4,
+    "Linalool": 15.0,  # unrestricted if peroxide < 20 mmol/L
+    "Geraniol": 3.2,
+    "Citronellol": 2.6,
+    "Phenethyl Alcohol": 5.0,
+    "Eugenol": 0.5,
+    "Isoeugenol": 0.02,
+    "Guaiacol": 0.1,
+    "Methyl Salicylate": 0.6,
+    "cis-3-Hexenol": 0.4,
     # Esters
-    "Benzyl Acetate":          8.5,
-    "Benzyl Benzoate":         12.5,
-    "Linalyl Acetate":         10.0,
-    "Hexyl Acetate":           5.0,
-    "Allyl Amyl Glycolate":    0.8,
-    "Methyl Anthranilate":     0.1,
+    "Benzyl Acetate": 8.5,
+    "Benzyl Benzoate": 12.5,
+    "Linalyl Acetate": 10.0,
+    "Hexyl Acetate": 5.0,
+    "Allyl Amyl Glycolate": 0.8,
+    "Methyl Anthranilate": 0.1,
     # Ionones
-    "Alpha Isomethyl Ionone":  7.26,
-    "Alpha Ionone":            1.85,
-    "Beta Ionone":             1.32,
+    "Alpha Isomethyl Ionone": 7.26,
+    "Alpha Ionone": 1.85,
+    "Beta Ionone": 1.32,
     # Ketones / lactones
-    "Coumarin":                2.78,
-    "Musk Ketone":             1.4,
-    "Oranger Crystals":        0.2,   # Methyl beta-naphthyl ketone; phototoxicity limit
-    "2-Acetonaphthone":        0.2,
+    "Coumarin": 2.78,
+    "Musk Ketone": 1.4,
+    "Oranger Crystals": 0.2,  # Methyl beta-naphthyl ketone; phototoxicity limit
+    "2-Acetonaphthone": 0.2,
     "Methyl beta-naphthyl ketone": 0.2,
-    "Maple Lactone":           5.0,
-    "Gamma Decalactone":       5.0,
-    "Gamma Undecalactone":     5.0,
-    "Delta Decalactone":       5.0,
-    "Raspberry Ketone":        5.0,
+    "Maple Lactone": 5.0,
+    "Gamma Decalactone": 5.0,
+    "Gamma Undecalactone": 5.0,
+    "Delta Decalactone": 5.0,
+    "Raspberry Ketone": 5.0,
     # Musks
-    "Galaxolide":              10.0,
-    "Habanolide":              15.0,
-    "Ethylene Brassylate":     15.0,
-    "Exaltolide":              15.0,
+    "Galaxolide": 10.0,
+    "Habanolide": 15.0,
+    "Ethylene Brassylate": 15.0,
+    "Exaltolide": 15.0,
     # Salicylates
-    "Benzyl Salicylate":       4.5,
-    "Hexyl Salicylate":        6.7,
+    "Benzyl Salicylate": 4.5,
+    "Hexyl Salicylate": 6.7,
     # Woody / amber
-    "Iso E Super":             20.0,
-    "Cashmeran":               10.0,
-    "Ambrox Super":            15.0,
-    "Cedarwood EO":            10.0,
-    "Vetiver EO":              10.0,
-    "Vetiver EO (India)":       10.0,
-    "Patchouli EO":            20.0,
+    "Iso E Super": 20.0,
+    "Cashmeran": 10.0,
+    "Ambrox Super": 15.0,
+    "Cedarwood EO": 10.0,
+    "Vetiver EO": 10.0,
+    "Vetiver EO (India)": 10.0,
+    "Patchouli EO": 20.0,
     # Balsamic
-    "Benzoin Resinoid":        5.0,
-    "Vanillin":                10.0,
-    "Ethyl Vanillin":          10.0,
-    "Labdanum Absolute":       5.0,
+    "Benzoin Resinoid": 5.0,
+    "Vanillin": 10.0,
+    "Ethyl Vanillin": 10.0,
+    "Labdanum Absolute": 5.0,
     # Mossy
-    "Evernyl":                 0.1,   # very restricted (oakmoss replacement)
+    "Evernyl": 0.1,  # very restricted (oakmoss replacement)
     # Animalic
-    "Indole":                  0.5,
-    "Isobutyl Quinoline":      0.5,
+    "Indole": 0.5,
+    "Isobutyl Quinoline": 0.5,
     # Terpenes (if not oxidized)
-    "D-Limonene":              15.0,
+    "D-Limonene": 15.0,
     # Florals
-    "Hedione":                 40.0,  # essentially unrestricted
-    "DBCA":                    20.0,
+    "Hedione": 40.0,  # essentially unrestricted
+    "DBCA": 20.0,
     # Essential oils — limits based on constituent allergens
-    "Bergamot FCF":            10.0,
-    "Bergamot FCF Sicilian":   10.0,
-    "Neroli EO":               10.0,
-    "Red Mandarin EO":         5.0,
-    "Blood Orange Sicilian":   5.0,
-    "Lavender EO":             8.0,
+    "Bergamot FCF": 10.0,
+    "Bergamot FCF Sicilian": 10.0,
+    "Neroli EO": 10.0,
+    "Red Mandarin EO": 5.0,
+    "Blood Orange Sicilian": 5.0,
+    "Lavender EO": 8.0,
     "Lavender EO (BONTAUX SAS)": 8.0,
-    "Clary Sage EO":           5.0,
-    "Cardamom EO":             5.0,
+    "Clary Sage EO": 5.0,
+    "Cardamom EO": 5.0,
     "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 5.0,
     "Ylang Comoros Complete EO": 4.0,
-    "Ylang Comoros III EO":    5.0,
-    "Champaca Flower EO":      3.0,
-    "Petitgrain EO":           10.0,
-    "Myrrh EO":                5.0,
-    "Olibanum Resinoid":       5.0,
-    "Carrot Seed EO":          5.0,
+    "Ylang Comoros III EO": 5.0,
+    "Champaca Flower EO": 3.0,
+    "Petitgrain EO": 10.0,
+    "Myrrh EO": 5.0,
+    "Olibanum Resinoid": 5.0,
+    "Carrot Seed EO": 5.0,
     # IFRA 51st Amendment — new restrictions (2023)
-    "Farnesol":                 2.2,    # IFRA 51st — Restriction + Specification
-    "Ylang Ylang EO":           0.8,    # IFRA 51st — Restriction (2020)
-    "Alpha Damascone":          0.02,   # IFRA 51st — Rose ketones family restriction
-    "Grapefruit FCF":           4.0,    # IFRA 51st — Phototoxicity restriction (furocoumarins)
-    "Bergamot EO":              0.4,    # IFRA 51st — Phototoxicity restriction; use FCF for higher concentrations
-    "Citronellyl Acetate":      2.5,    # IFRA 51st — New restriction 2023
+    "Farnesol": 2.2,  # IFRA 51st — Restriction + Specification
+    "Ylang Ylang EO": 0.8,  # IFRA 51st — Restriction (2020)
+    "Alpha Damascone": 0.02,  # IFRA 51st — Rose ketones family restriction
+    "Grapefruit FCF": 4.0,  # IFRA 51st — Phototoxicity restriction (furocoumarins)
+    "Bergamot EO": 0.4,  # IFRA 51st — Phototoxicity restriction; use FCF for higher concentrations
+    "Citronellyl Acetate": 2.5,  # IFRA 51st — New restriction 2023
     # Dihydromyrcenol is unrestricted but noted
-    "Dihydromyrcenol":         50.0,
+    "Dihydromyrcenol": 50.0,
     # Standard synthetics — very high limits (effectively unrestricted)
-        "Methyl Ionone Pure":      20.0,
-    "Florol":                  5.0,
-    "Bourgeonal":              5.0,
-    "Freesia HDI":             10.0,
-    "Lilyreal ND":             5.0,
-    "Nympheal":                5.0,
-    "Helional":                5.0,
+    "Methyl Ionone Pure": 20.0,
+    "Florol": 5.0,
+    "Bourgeonal": 5.0,
+    "Freesia HDI": 10.0,
+    "Lilyreal ND": 5.0,
+    "Nympheal": 5.0,
+    "Helional": 5.0,
     # Rose ketones / florals
-    "Damascone Beta":          0.02,   # IFRA 51st — Rose ketones family (same class as Alpha Damascone)
-    "Cis Jasmone":             5.0,    # Natural jasmine constituent — no IFRA restriction
-    "Peonile":                 5.0,    # Peony ester — no restriction; generous limit
+    "Damascone Beta": 0.02,  # IFRA 51st — Rose ketones family (same class as Alpha Damascone)
+    "Cis Jasmone": 5.0,  # Natural jasmine constituent — no IFRA restriction
+    "Peonile": 5.0,  # Peony ester — no restriction; generous limit
     # Green / leaf
-    "Leafovert":               5.0,    # Green leaf alcohol — no known restriction
+    "Leafovert": 5.0,  # Green leaf alcohol — no known restriction
     # Musks (macrocyclic — unrestricted)
-    "Romandolide":             10.0,   # Macrocyclic musk — no IFRA restriction
+    "Romandolide": 10.0,  # Macrocyclic musk — no IFRA restriction
     # Ambers
-    "Ambermax":                5.0,    # Amber material — no known restriction
+    "Ambermax": 5.0,  # Amber material — no known restriction
 }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# IFRA Version History — approximate/reconstructed from public data
+# These are for STRUCTURAL TESTING, not regulatory compliance.
+# All values are % of finished product (Cat4 leave-on).
+# ═══════════════════════════════════════════════════════════════════════════════
+
+IFRA_VERSION_HISTORY: dict[str, dict[str, float]] = {
+    "IFRA_51st_2025": {},  # Current — same as IFRA_CAT4_LIMITS
+    "IFRA_50th_2022": {
+        "Coumarin": 1.6,
+        "Lilial": 0.01,
+        "Lyral": 0.01,
+        "Eugenol": 2.5,
+        "Isoeugenol": 0.02,
+        "Cinnamal": 0.2,
+        "Citral": 0.6,
+        "Farnesol": 1.2,
+        "Geraniol": 1.5,
+        "Hydroxycitronellal": 1.0,
+        "Linalool": 1.0,
+        "Benzyl Alcohol": 1.0,
+        "Benzyl Benzoate": 3.0,
+        "Benzyl Cinnamate": 0.8,
+        "Benzyl Salicylate": 2.0,
+        "Citronellol": 1.5,
+        "Hexyl Cinnamal": 1.0,
+        "Limonene": 0.1,
+        "Methyl 2-Octynoate": 0.01,
+        "alpha-Isomethyl Ionone": 1.0,
+        "Evernyl": 0.5,
+        "Amyl Cinnamal": 0.1,
+        "Anisyl Alcohol": 0.5,
+    },
+    "IFRA_49th_2019": {
+        "Coumarin": 1.5,
+        "Lilial": 0.02,
+        "Lyral": 0.02,
+        "Eugenol": 2.5,
+        "Isoeugenol": 0.02,
+        "Cinnamal": 0.15,
+        "Citral": 0.6,
+        "Farnesol": 1.2,
+        "Geraniol": 1.5,
+        "Hydroxycitronellal": 1.0,
+        "Linalool": 1.0,
+        "Benzyl Alcohol": 1.0,
+        "Benzyl Benzoate": 3.5,
+        "Benzyl Salicylate": 2.5,
+        "Citronellol": 1.5,
+        "Limonene": 0.1,
+        "Methyl 2-Octynoate": 0.01,
+    },
+}
+
+
+def get_ifra_limit(material: str, rule_set: str = "IFRA_51st_2025") -> float | None:
+    """Return the IFRA Cat4 limit for a material under a specific rule set version."""
+    from engine.name_utils import normalize_name
+
+    key = normalize_name(material)
+    if rule_set in IFRA_VERSION_HISTORY:
+        versioned = IFRA_VERSION_HISTORY[rule_set]
+        for k, v in versioned.items():
+            if normalize_name(k) == key:
+                return v
+    for k, v in IFRA_CAT4_LIMITS.items():
+        if normalize_name(k) == key:
+            return v
+    return None
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -173,71 +243,214 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 EU_FRAGRANCE_ALLERGENS: dict[str, dict[str, Any]] = {
-    "Linalool":               {"cas": "78-70-6",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low",       "note": "Sensitizer when oxidized"},
-    "Limonene":               {"cas": "5989-27-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low",       "note": "D-Limonene; sensitizer when oxidized"},
-    "Citronellol":            {"cas": "106-22-9",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Geraniol":               {"cas": "106-24-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Citral":                 {"cas": "5392-40-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Neral + geranial mixture"},
-    "Eugenol":                {"cas": "97-53-0",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Isoeugenol":             {"cas": "97-54-1",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "high",      "note": "Strong sensitizer"},
-    "Cinnamaldehyde":         {"cas": "104-55-2",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "high",      "note": "Cinnamal; potent sensitizer"},
-    "Hydroxycitronellal":     {"cas": "107-75-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Cinnamyl Alcohol":       {"cas": "104-54-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Coumarin":               {"cas": "91-64-5",    "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Alpha Isomethyl Ionone": {"cas": "127-51-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Benzyl Alcohol":         {"cas": "100-51-6",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Benzyl Salicylate":      {"cas": "118-58-1",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Benzyl Benzoate":        {"cas": "120-51-4",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Benzyl Cinnamate":       {"cas": "103-41-3",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Farnesol":               {"cas": "4602-84-0",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Methyl 2-Octynoate":     {"cas": "111-12-6",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Anise Alcohol":          {"cas": "105-13-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Amyl Cinnamal":          {"cas": "122-40-7",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate"},
-    "Amylcinnamyl Alcohol":   {"cas": "101-85-9",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Hexyl Cinnamal":         {"cas": "101-86-0",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low"},
-    "Evernia Prunastri":      {"cas": "90028-68-5", "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "high",      "note": "Oakmoss extract (Evernyl substitute)"},
-    "Evernia Furfuracea":     {"cas": "90028-67-4", "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "high",      "note": "Treemoss extract"},
-    "d-Limonene":             {"cas": "5989-27-5",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low",       "note": "Alias for D-Limonene"},
+    "Linalool": {
+        "cas": "78-70-6",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+        "note": "Sensitizer when oxidized",
+    },
+    "Limonene": {
+        "cas": "5989-27-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+        "note": "D-Limonene; sensitizer when oxidized",
+    },
+    "Citronellol": {
+        "cas": "106-22-9",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Geraniol": {
+        "cas": "106-24-1",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Citral": {
+        "cas": "5392-40-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Neral + geranial mixture",
+    },
+    "Eugenol": {
+        "cas": "97-53-0",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Isoeugenol": {
+        "cas": "97-54-1",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "high",
+        "note": "Strong sensitizer",
+    },
+    "Cinnamaldehyde": {
+        "cas": "104-55-2",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "high",
+        "note": "Cinnamal; potent sensitizer",
+    },
+    "Hydroxycitronellal": {
+        "cas": "107-75-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Cinnamyl Alcohol": {
+        "cas": "104-54-1",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Coumarin": {
+        "cas": "91-64-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Alpha Isomethyl Ionone": {
+        "cas": "127-51-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Benzyl Alcohol": {
+        "cas": "100-51-6",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Benzyl Salicylate": {
+        "cas": "118-58-1",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Benzyl Benzoate": {
+        "cas": "120-51-4",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Benzyl Cinnamate": {
+        "cas": "103-41-3",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Farnesol": {
+        "cas": "4602-84-0",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Methyl 2-Octynoate": {
+        "cas": "111-12-6",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Anise Alcohol": {
+        "cas": "105-13-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Amyl Cinnamal": {
+        "cas": "122-40-7",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+    },
+    "Amylcinnamyl Alcohol": {
+        "cas": "101-85-9",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Hexyl Cinnamal": {
+        "cas": "101-86-0",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+    },
+    "Evernia Prunastri": {
+        "cas": "90028-68-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "high",
+        "note": "Oakmoss extract (Evernyl substitute)",
+    },
+    "Evernia Furfuracea": {
+        "cas": "90028-67-4",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "high",
+        "note": "Treemoss extract",
+    },
+    "d-Limonene": {
+        "cas": "5989-27-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+        "note": "Alias for D-Limonene",
+    },
     # Inventory-relevant 2023/1545 additions
-    "Linalyl Acetate":        {"cas": "115-95-7",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Added by EU 2023/1545; prehapten via oxidation/hydrolysis"},
-    "Methyl Salicylate":      {"cas": "119-36-8",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
-    "Hexyl Salicylate":       {"cas": "6259-76-3",  "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
-    "Citronellyl Acetate":    {"cas": "150-84-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
-    "Geranyl Acetate":        {"cas": "105-87-3",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "moderate",  "note": "Added by EU 2023/1545"},
-    "Vanillin":               {"cas": "121-33-5",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low",       "note": "Added by EU 2023/1545"},
-    "Ethyl Vanillin":         {"cas": "121-32-4",   "leave_on_threshold_pct": 0.001, "rinse_off_threshold_pct": 0.01,
-                               "risk": "low",       "note": "Modeled under EU 2023/1545 expanded fragrance-allergen regime"},
+    "Linalyl Acetate": {
+        "cas": "115-95-7",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Added by EU 2023/1545; prehapten via oxidation/hydrolysis",
+    },
+    "Methyl Salicylate": {
+        "cas": "119-36-8",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Added by EU 2023/1545",
+    },
+    "Hexyl Salicylate": {
+        "cas": "6259-76-3",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Added by EU 2023/1545",
+    },
+    "Citronellyl Acetate": {
+        "cas": "150-84-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Added by EU 2023/1545",
+    },
+    "Geranyl Acetate": {
+        "cas": "105-87-3",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "moderate",
+        "note": "Added by EU 2023/1545",
+    },
+    "Vanillin": {
+        "cas": "121-33-5",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+        "note": "Added by EU 2023/1545",
+    },
+    "Ethyl Vanillin": {
+        "cas": "121-32-4",
+        "leave_on_threshold_pct": 0.001,
+        "rinse_off_threshold_pct": 0.01,
+        "risk": "low",
+        "note": "Modeled under EU 2023/1545 expanded fragrance-allergen regime",
+    },
 }
 
 # Map inventory names to allergen names where they differ
@@ -251,7 +464,9 @@ _ALLERGEN_NAME_MAP: dict[str, str] = {
 
 def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) -> float:
     if leave_on:
-        return float(allergen_data.get("leave_on_threshold_pct", allergen_data.get("threshold_pct", 0.001)))
+        return float(
+            allergen_data.get("leave_on_threshold_pct", allergen_data.get("threshold_pct", 0.001))
+        )
     return float(allergen_data.get("rinse_off_threshold_pct", 0.01))
 
 
@@ -263,22 +478,34 @@ def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) ->
 # ═══════════════════════════════════════════════════════════════════════════════
 
 SENSITIZATION_DATA: dict[str, dict[str, Any]] = {
-    "Cinnamaldehyde":       {"ec3": 1.4,  "potency": "moderate", "source": "LLNA"},
-    "Isoeugenol":           {"ec3": 1.5,  "potency": "moderate", "source": "LLNA"},
-    "Hydroxycitronellal":   {"ec3": 9.7,  "potency": "moderate", "source": "LLNA"},
-    "Citral":               {"ec3": 6.1,  "potency": "moderate", "source": "LLNA"},
-    "Eugenol":              {"ec3": 5.5,  "potency": "moderate", "source": "LLNA"},
-    "Geraniol":             {"ec3": 7.2,  "potency": "moderate", "source": "LLNA"},
-    "Linalool":             {"ec3": 30.0, "potency": "weak",     "source": "LLNA",
-                             "note": "Sensitizes only when oxidized (hydroperoxides)"},
-    "D-Limonene":           {"ec3": 69.0, "potency": "weak",     "source": "LLNA",
-                             "note": "Sensitizes only when oxidized"},
-    "Alpha Isomethyl Ionone": {"ec3": 24.0, "potency": "weak",   "source": "LLNA"},
-    "Coumarin":             {"ec3": 25.0, "potency": "weak",     "source": "estimated"},
-    "Benzyl Benzoate":      {"ec3": 20.0, "potency": "weak",     "source": "LLNA"},
-    "Benzyl Salicylate":    {"ec3": 20.0, "potency": "weak",     "source": "estimated"},
-    "Musk Ketone":          {"ec3": 50.0, "potency": "weak",     "source": "estimated",
-                             "note": "Nitro musk; environmental persistence concern"},
+    "Cinnamaldehyde": {"ec3": 1.4, "potency": "moderate", "source": "LLNA"},
+    "Isoeugenol": {"ec3": 1.5, "potency": "moderate", "source": "LLNA"},
+    "Hydroxycitronellal": {"ec3": 9.7, "potency": "moderate", "source": "LLNA"},
+    "Citral": {"ec3": 6.1, "potency": "moderate", "source": "LLNA"},
+    "Eugenol": {"ec3": 5.5, "potency": "moderate", "source": "LLNA"},
+    "Geraniol": {"ec3": 7.2, "potency": "moderate", "source": "LLNA"},
+    "Linalool": {
+        "ec3": 30.0,
+        "potency": "weak",
+        "source": "LLNA",
+        "note": "Sensitizes only when oxidized (hydroperoxides)",
+    },
+    "D-Limonene": {
+        "ec3": 69.0,
+        "potency": "weak",
+        "source": "LLNA",
+        "note": "Sensitizes only when oxidized",
+    },
+    "Alpha Isomethyl Ionone": {"ec3": 24.0, "potency": "weak", "source": "LLNA"},
+    "Coumarin": {"ec3": 25.0, "potency": "weak", "source": "estimated"},
+    "Benzyl Benzoate": {"ec3": 20.0, "potency": "weak", "source": "LLNA"},
+    "Benzyl Salicylate": {"ec3": 20.0, "potency": "weak", "source": "estimated"},
+    "Musk Ketone": {
+        "ec3": 50.0,
+        "potency": "weak",
+        "source": "estimated",
+        "note": "Nitro musk; environmental persistence concern",
+    },
 }
 
 
@@ -287,13 +514,13 @@ SENSITIZATION_DATA: dict[str, dict[str, Any]] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 BANNED_MATERIALS: set[str] = {
-    "Lyral",            # HICC — banned EU August 2021
-    "Lilial",           # Butylphenyl Methylpropional — banned EU 2022, IFRA 49th Amendment
+    "Lyral",  # HICC — banned EU August 2021
+    "Lilial",  # Butylphenyl Methylpropional — banned EU 2022, IFRA 49th Amendment
     "Birch Tar Rectified",  # CAS 8001-88-5 — prohibited IFRA 51st Amendment (Birch wood pyrolysate)
-    "Musk Xylene",      # phased out (environmental persistence)
-    "Musk Ambrette",    # phototoxic, banned 1995
-    "Nitrobenzene",     # toxic
-    "6-Methylcoumarin", # phototoxic
+    "Musk Xylene",  # phased out (environmental persistence)
+    "Musk Ambrette",  # phototoxic, banned 1995
+    "Nitrobenzene",  # toxic
+    "6-Methylcoumarin",  # phototoxic
 }
 
 # Restricted materials (not banned, but jurisdiction-dependent limits)
@@ -303,8 +530,8 @@ RESTRICTED_MATERIALS: set[str] = {
 
 # IFRA 51st Amendment — materials reclassified as specification-only (not concentration limit)
 IFRA_SPECIFICATION_ONLY: set[str] = {
-    "Linalool",         # Specification standard: oxidation control (peroxide <20 mmol/L), not a hard limit
-    "Musk Ketone",      # Specification standard only under 51st Amendment
+    "Linalool",  # Specification standard: oxidation control (peroxide <20 mmol/L), not a hard limit
+    "Musk Ketone",  # Specification standard only under 51st Amendment
 }
 
 
@@ -312,15 +539,17 @@ IFRA_SPECIFICATION_ONLY: set[str] = {
 # Scoring Functions
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 @dataclass
 class IFRASafetyReport:
     """Complete IFRA compliance and allergen safety report."""
-    score: float                          # 0-100 composite safety score
-    ifra_score: float                     # 0-100 IFRA compliance
-    allergen_score: float                 # 0-100 allergen safety
-    ifra_violations: list[dict[str, Any]] # materials exceeding limits
-    ifra_warnings: list[dict[str, Any]]   # materials near limits (>70%)
-    allergen_declarations: list[str]      # EU allergens requiring label declaration
+
+    score: float  # 0-100 composite safety score
+    ifra_score: float  # 0-100 IFRA compliance
+    allergen_score: float  # 0-100 allergen safety
+    ifra_violations: list[dict[str, Any]]  # materials exceeding limits
+    ifra_warnings: list[dict[str, Any]]  # materials near limits (>70%)
+    allergen_declarations: list[str]  # EU allergens requiring label declaration
     sensitizer_flags: list[dict[str, Any]]
     banned_flags: list[str]
     diagnostics: list[str]
@@ -337,13 +566,19 @@ def _resolve_physchem(name: str) -> tuple[float | None, float | None, str, str]:
     logp_source = "registry:data_spine.logp"
     if logp is None:
         logp = getattr(profile, "clogp", None)
-        logp_source = "profile:ingredient_intelligence.clogp" if logp is not None else "default:skin_partition"
+        logp_source = (
+            "profile:ingredient_intelligence.clogp"
+            if logp is not None
+            else "default:skin_partition"
+        )
 
     mw = getattr(reg_mat, "mw_g_mol", None)
     mw_source = "registry:data_spine.mw"
     if mw is None:
         mw = getattr(profile, "mw", None)
-        mw_source = "profile:ingredient_intelligence.mw" if mw is not None else "default:skin_partition"
+        mw_source = (
+            "profile:ingredient_intelligence.mw" if mw is not None else "default:skin_partition"
+        )
 
     return (
         float(logp) if logp is not None else None,
@@ -409,23 +644,31 @@ def score_ifra_compliance(
         if limit is not None:
             ratio = pct_in_product / limit
             if ratio > 1.0:
-                violations.append({
-                    "material": name,
-                    "actual_pct": round(pct_in_product, 4),
-                    "limit_pct": limit,
-                    "ratio": round(ratio, 2),
-                    "severity": "critical" if ratio > 3.0 else "moderate" if ratio > 1.5 else "minor",
-                })
+                violations.append(
+                    {
+                        "material": name,
+                        "actual_pct": round(pct_in_product, 4),
+                        "limit_pct": limit,
+                        "ratio": round(ratio, 2),
+                        "severity": "critical"
+                        if ratio > 3.0
+                        else "moderate"
+                        if ratio > 1.5
+                        else "minor",
+                    }
+                )
             elif ratio > 0.7:
-                warnings.append({
-                    "material": name,
-                    "actual_pct": round(pct_in_product, 4),
-                    "limit_pct": limit,
-                    "usage_pct": round(ratio * 100, 1),
-                })
+                warnings.append(
+                    {
+                        "material": name,
+                        "actual_pct": round(pct_in_product, 4),
+                        "limit_pct": limit,
+                        "usage_pct": round(ratio * 100, 1),
+                    }
+                )
 
         # Check EU allergen declaration threshold
-        name_lower = name.lower()
+        name.lower()
         for allergen_name, allergen_data in EU_FRAGRANCE_ALLERGENS.items():
             mapped = _ALLERGEN_NAME_MAP.get(name, name)
             if mapped.lower() == allergen_name.lower() or name.lower() == allergen_name.lower():
@@ -438,14 +681,16 @@ def score_ifra_compliance(
         sens_data = SENSITIZATION_DATA.get(name)
         if sens_data and pct_in_product > 0.01:
             if sens_data["potency"] in ("moderate", "strong", "extreme"):
-                sensitizer_flags.append({
-                    "material": name,
-                    "potency": sens_data["potency"],
-                    "ec3": sens_data["ec3"],
-                    "pct_in_product": round(pct_in_product, 4),
-                    "fraction_into_skin": dermal_row["fraction_into_skin"],
-                    "effective_exposure_index": dermal_row["effective_exposure_index"],
-                })
+                sensitizer_flags.append(
+                    {
+                        "material": name,
+                        "potency": sens_data["potency"],
+                        "ec3": sens_data["ec3"],
+                        "pct_in_product": round(pct_in_product, 4),
+                        "fraction_into_skin": dermal_row["fraction_into_skin"],
+                        "effective_exposure_index": dermal_row["effective_exposure_index"],
+                    }
+                )
 
         # Check banned materials
         if name in BANNED_MATERIALS:
@@ -486,8 +731,7 @@ def score_ifra_compliance(
         ifra_score = 0.0
 
     # Composite
-    composite = (ifra_score * 0.5 + allergen_score * 0.3 +
-                 max(0, 100 - sens_penalty) * 0.2)
+    composite = ifra_score * 0.5 + allergen_score * 0.3 + max(0, 100 - sens_penalty) * 0.2
     dermal_exposure.sort(key=lambda row: row["effective_exposure_index"], reverse=True)
     uptake_weighted_sensitizers = sorted(
         sensitizer_flags,

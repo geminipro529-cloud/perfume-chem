@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:22:25.333568+00:00",
+  "dispatch_sha256": "8d3525c2379fc10019e7faf180e8bf9211ce4ed5ee57fd843c27f2ea5fb85cec",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "d73866ca41a1eadf6a3208e20a1bfa621e3648b23f43718c554b6603221b1a41",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has 2 records but only 1 expected value, so the duplicate excess record count is 1. Values 3 and 7 have distinct source hashes, and no provenance rule identifies a superseding record; therefore averaging them to 5 would conceal unresolved lineage rather than resolve it.\",\"controlled_comparison\":\"Treat 3 and 7 as conflicting candidate observations for the same P1/X/A2/repeat-1/timepoint-60/RICHNESS cell; do not use the proposed mean of 5 until provenance distinguishes them.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"calculations\":{\"duplicate_excess_record_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Determine, using an applicable provenance rule, whether either source record supersedes the other.\"],\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_HASHES\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_DOES_NOT_RESOLVE_PROVENANCE\"],\"physical_liking_state\":\"NOT TESTED\",\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "d5d00feb149e8f68f5935c6ddb4f74d30be6615211424e26f8303cf6a19beb16",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-2f85ea01a4caaebc62ec",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:03.866464+00:00",
+  "stderr_sha256": "c2dc3ae3ed43e3271a065b3da8a06df6c8177434d540f68f3c9f58ddd0f5dd21",
+  "stderr_tail": "ters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has 2 records but only 1 expected value, so the duplicate excess record count is 1. Values 3 and 7 have distinct source hashes, and no provenance rule identifies a superseding record; therefore averaging them to 5 would conceal unresolved lineage rather than resolve it.\",\"controlled_comparison\":\"Treat 3 and 7 as conflicting candidate observations for the same P1/X/A2/repeat-1/timepoint-60/RICHNESS cell; do not use the proposed mean of 5 until provenance distinguishes them.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"calculations\":{\"duplicate_excess_record_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Determine, using an applicable provenance rule, whether either source record supersedes the other.\"],\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_HASHES\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_DOES_NOT_RESOLVE_PROVENANCE\"],\"physical_liking_state\":\"NOT TESTED\",\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n15,389\n",
+  "stdout_sha256": "f768c2c6f340b5d56206d6446cd3615188271dd5e189cf39175562c9838e2183"
+}

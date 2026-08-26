@@ -1,0 +1,30 @@
+{
+  "absent_planned_path_count": 6,
+  "allowed_current_mismatch_count": 1,
+  "allowed_current_mismatch_paths": [
+    "engine/pipeline/gates.py"
+  ],
+  "archive_bytes": 118252544,
+  "archive_content_mismatch_count": 0,
+  "archive_path": "D:\\.backups\\perfume-chem\\build-c9-prewrite-20260803T060804+0700.tar",
+  "archive_sha256": "73568e822739f5a39e46f910323d9a296666169919ced28d3c4f3c30beefc870",
+  "branch": "codex/add-inventory-materials",
+  "content_hashes_verified": true,
+  "current_preserved_work_mismatch_count": 1,
+  "deleted_dirty_or_untracked_count": 0,
+  "dirty_or_untracked_count": 429,
+  "duplicate_member_count": 0,
+  "excluded_runtime_path_count": 1353,
+  "existing_dirty_or_untracked_count": 429,
+  "head": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+  "manifest_file_count": 431,
+  "path_preserving": true,
+  "restorable": true,
+  "schema": "c9-recovery-archive-verification-v1",
+  "status": "PASS",
+  "unexpected_current_mismatch_count": 0,
+  "unexpected_current_mismatch_paths": [],
+  "unsafe_member_count": 0,
+  "unused_allowed_current_mismatch_count": 0,
+  "unused_allowed_current_mismatch_paths": []
+}

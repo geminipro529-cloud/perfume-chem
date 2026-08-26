@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S02",
+  "completed_utc": "2026-08-26T07:22:05.811258+00:00",
+  "dispatch_sha256": "9cac14361f67192c0c03e41fcd4a5399d2c0fcf2408eb75a28fcb650540a2ca6",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "feb6d1597c23d1e9bc9b688770394d743064443f5cce400b47fa903dd5339e4e",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The balanced DEPTH panel requires 12 canonical cells, but only 11 were observed. The missing cell is A3, repeat 2, 1800 seconds, DEPTH. Because no interpolation was prespecified or authorized, the absent value must remain missing and a complete balanced-panel summary cannot be claimed.\",\"controlled_comparison\":\"Observed DEPTH results may be summarized descriptively with the missing canonical cell explicitly preserved, but the intended 3-assessor × 2-repeat × 2-timepoint balanced comparison is incomplete and must not be represented as fully balanced.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"missing_cell_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Obtain the missing A3, repeat 2, 1800-second DEPTH observation under the same protocol.\"],\"reason_codes\":[\"INCOMPLETE_CANONICAL_GRID\",\"MISSING_DEPTH_CELL\",\"NO_AUTHORIZED_INTERPOLATION\"]},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "d2e4fa263cc2647d8763558c5b3bb0ab73ec473497ca4f88082da5a225a3c481",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-7afee736892cc33c553a",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:50.872492+00:00",
+  "stderr_sha256": "f930ad9fbdad5f372b9723a1ceef1a08f8a754e9d2efb2ba4ce2ddf3d21bed49",
+  "stderr_tail": "rs\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"missing_cell_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The balanced DEPTH panel requires 12 canonical cells, but only 11 were observed. The missing cell is A3, repeat 2, 1800 seconds, DEPTH. Because no interpolation was prespecified or authorized, the absent value must remain missing and a complete balanced-panel summary cannot be claimed.\",\"controlled_comparison\":\"Observed DEPTH results may be summarized descriptively with the missing canonical cell explicitly preserved, but the intended 3-assessor × 2-repeat × 2-timepoint balanced comparison is incomplete and must not be represented as fully balanced.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"missing_cell_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Obtain the missing A3, repeat 2, 1800-second DEPTH observation under the same protocol.\"],\"reason_codes\":[\"INCOMPLETE_CANONICAL_GRID\",\"MISSING_DEPTH_CELL\",\"NO_AUTHORIZED_INTERPOLATION\"]},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n5,193\n",
+  "stdout_sha256": "b4c3c95242c0b1c65950eb39f9f7e5090b097211846a2659adf2f0896aac21f5"
+}

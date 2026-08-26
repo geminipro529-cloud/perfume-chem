@@ -1,0 +1,73 @@
+{
+  "schema": "build-c3-deepluna-final-audit-v1",
+  "recorded_at_utc": "2026-08-02T15:25:20.397Z",
+  "project_id": "perfume-chem",
+  "preflight": {
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "provider_calls_enabled": true,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0
+  },
+  "job": {
+    "job_id": "DS-ca0636fee988c53f6306f85b2eaca50d",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "cache_hit": false,
+    "tier": "FLASH",
+    "provider": "deepinfra",
+    "route": "deepinfra-priority",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "fallback_policy": "NO_LUNA",
+    "provider_calls": 1,
+    "cost_nano_usd": 8537265,
+    "prompt_tokens": 61793,
+    "completion_tokens": 723,
+    "total_tokens": 62516
+  },
+  "postflight": {
+    "readiness": "READY",
+    "spent_nano_usd": 444594123,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false,
+    "fallback_used": false
+  },
+  "provider_findings": {
+    "four_authoritative_exit_behaviors": "PASS",
+    "nine_families_without_capability_promotion": "PASS",
+    "contract_and_router_only_scope": "PASS",
+    "preliminary_pending_and_c4_closed_consistency": "PASS",
+    "negative_finding_count": 0,
+    "compact_packet_truncated_some_positive_finding_text": true
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "provider_claims_are_authoritative": false,
+    "required_reads_rechecked_locally": true,
+    "contract_counts_reproduced": true,
+    "focused_and_full_tests_reproduced": true,
+    "static_checks_reproduced": true,
+    "mutation_catches_reproduced": true,
+    "archive_and_preserved_work_reproduced": true,
+    "protected_state_reproduced": true,
+    "scope_reproduced": true,
+    "report_consistency_reproduced": true,
+    "concrete_contradiction_count": 0,
+    "unsupported_claim_count": 0
+  },
+  "limitations": [
+    "This receipt contains only a sanitized summary, not provider prompts, hidden reasoning, raw logs, database content, environment values, or credentials.",
+    "DeepLuna is supplemental; canonical repository state and local executable evidence remain authoritative.",
+    "The evidence commit and exact-commit replay are still pending, so C4 remains closed."
+  ],
+  "status": "PASS"
+}

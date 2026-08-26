@@ -1,0 +1,221 @@
+{
+    "schema":  "build-c11-authoritative-overlay-replay-v1",
+    "generated_at_utc":  "2026-08-03T04:14:45.8324088+00:00",
+    "repository":  "D:\\chatbots\\perfume-chem",
+    "head":  "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+    "branch":  "codex/add-inventory-materials",
+    "replay_mode":  "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY",
+    "external_pytest_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11-overlay-replay-pytest-20260803T111418+0700",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "explicit_timeouts":  true,
+    "sensitive_environment_values_removed_without_logging":  true,
+    "jobs":  [
+                 {
+                     "name":  "status-before",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11_status_snapshot.py"
+                                   ],
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T04:14:18.9860549+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:19.7904659+00:00",
+                     "duration_ms":  801,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/status-before.stdout.txt",
+                                    "bytes":  2243,
+                                    "sha256":  "5c2dedbdb8b80f6bac7a3020ce649ab135abe5716d818ab6709b904af467c567"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/status-before.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "focused-c0-c10",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11-overlay-replay-pytest-20260803T111418+0700\\focused",
+                                       "tests/test_c0_physical_model_inventory.py",
+                                       "tests/test_c1_thermophysical_contracts.py",
+                                       "tests/test_c2_matrix_environment.py",
+                                       "tests/test_c3_model_interface.py",
+                                       "tests/test_c4_equilibrium_models.py",
+                                       "tests/test_c5_calibration_program.py",
+                                       "tests/test_c6_dynamic_release.py",
+                                       "tests/test_c7_natural_lots.py",
+                                       "tests/test_c8_headspace_oav.py",
+                                       "tests/test_c9_unsupported_science.py",
+                                       "tests/test_c10_mixture_design.py",
+                                       "tests/test_c10_selection.py",
+                                       "tests/test_c10_historical.py"
+                                   ],
+                     "timeout_seconds":  900,
+                     "started_at_utc":  "2026-08-03T04:14:19.9340576+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:34.0341414+00:00",
+                     "duration_ms":  14100,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/focused-c0-c10.stdout.txt",
+                                    "bytes":  832,
+                                    "sha256":  "f92c1a77db7aa6e52ed41ff58b31a3d01df3548b1592d71edad1cab059080e48"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/focused-c0-c10.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "report-validator",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_evidence.py",
+                                       "--repo",
+                                       "D:\\chatbots\\perfume-chem",
+                                       "--status-helper",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11_status_snapshot.py",
+                                       "--expected-current-head",
+                                       "0607e4bc2e36bb1fc9ff3337d39d100c6605e424"
+                                   ],
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T04:14:34.0856833+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:35.1294691+00:00",
+                     "duration_ms":  1044,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/report-validator.stdout.txt",
+                                    "bytes":  1085,
+                                    "sha256":  "ddafd0048450254d70dc1ede449528f5263a8f03377b8d394adbed4f1730db04"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/report-validator.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "committed-manifest-validator",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_committed_state.py",
+                                       "--repo",
+                                       "D:\\chatbots\\perfume-chem",
+                                       "--manifest",
+                                       "docs/verification/c11/committed_evidence_manifest.json",
+                                       "--status-helper",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11_status_snapshot.py"
+                                   ],
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T04:14:35.1781404+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:44.9781727+00:00",
+                     "duration_ms":  9800,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/committed-manifest-validator.stdout.txt",
+                                    "bytes":  478,
+                                    "sha256":  "ab505a64d32d0d3b979d386e119db6a81969e01df55724a1d5c0ee64979321e7"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/committed-manifest-validator.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "status-after",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11_status_snapshot.py"
+                                   ],
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T04:14:44.9936011+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:45.5471260+00:00",
+                     "duration_ms":  553,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/status-after.stdout.txt",
+                                    "bytes":  2961,
+                                    "sha256":  "eefce13d34b669bc98e5b70eeda980200247f19d1f46a18fb207f675660ffab3"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/status-after.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "filtered-status-verification",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_status.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\authoritative-overlay\\0607e4b\\status-before.stdout.txt",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\authoritative-overlay\\0607e4b\\status-after.stdout.txt",
+                                       "0607e4bc2e36bb1fc9ff3337d39d100c6605e424"
+                                   ],
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T04:14:45.5667645+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:45.8183584+00:00",
+                     "duration_ms":  251,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/filtered-status-verification.stdout.txt",
+                                    "bytes":  416,
+                                    "sha256":  "57868167da2f85edd0a6e39f4c565ff4f3ca6c171bebe382b7f4728530c38e09"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/filtered-status-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "log-scan",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\scan_c8_logs.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\authoritative-overlay\\0607e4b"
+                                   ],
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T04:14:45.8960502+00:00",
+                     "finished_at_utc":  "2026-08-03T04:14:46.1380668+00:00",
+                     "duration_ms":  242,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/log-scan.stdout.txt",
+                                    "bytes":  3679,
+                                    "sha256":  "c537984f394a1ff3ce2ce6b1e05f8085b34ac227ec30e748180abab227c71df6"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/authoritative-overlay/0607e4b/log-scan.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

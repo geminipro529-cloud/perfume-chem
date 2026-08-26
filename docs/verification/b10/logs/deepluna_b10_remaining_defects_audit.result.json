@@ -1,0 +1,382 @@
+{
+  "recorded_at_utc": "2026-08-02T05:54:20.028Z",
+  "project_id": "perfume-chem",
+  "readiness": {
+    "activation": {
+      "production_eligible": true,
+      "runtime_accepted": true,
+      "windows_acl": "PROVEN"
+    },
+    "budget": {
+      "next_call_estimate_nano_usd": 1,
+      "open_reserved_nano_usd": 0,
+      "project_ceiling_nano_usd": 1000000000,
+      "spent_nano_usd": 350801523,
+      "unknown_reservations": 0
+    },
+    "capabilities": [
+      "accounting-policy-transition-v1",
+      "batch-dag-v1",
+      "detach-without-cancel-v1",
+      "durable-sol-head-producer-v1",
+      "durable-mutation-replay-v1",
+      "max-one-shot-v1",
+      "normalized-result-packet-v1",
+      "origin-bound-session-v1",
+      "public-identities-v1",
+      "runtime-build-identity-v1",
+      "sol-head-v1",
+      "typed-rpc-v1"
+    ],
+    "capacity": {
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "read_limit": 5,
+      "write_limit": 1
+    },
+    "circuits": {
+      "provider_calls_enabled": true,
+      "unavailable_pools": 0
+    },
+    "migration": {
+      "attestation_id": "4d8b8e361979330399b09a623ade8907fac6830152c60c692e3732d3590d1f7f",
+      "attested": true,
+      "operational_imports": 0,
+      "source_set_hash": "e494c157d9e710fd370f656ef02bbfc9bd2bf85e0c108bcc2887516f84b84808",
+      "unresolved_collisions": 0
+    },
+    "origin_id": 58,
+    "process_boot_id": "DI-d81834ec4b5bad085d2bcc3588de84fb",
+    "process_started_at_ms": 1785613944528,
+    "project_id": "perfume-chem",
+    "protocol_version": 3,
+    "readiness": "READY",
+    "reason_codes": [],
+    "rpc_schema_version": 2,
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "runtime_mode": "CANDIDATE_V2",
+    "schema_version": 1,
+    "server_release": "0.9.9",
+    "store_schema_version": 5
+  },
+  "metrics_before": {
+    "process_name": "DeepLuna Fast",
+    "version": "0.9.9",
+    "cumulative_budget_safe": true,
+    "daemon_active": true,
+    "check_dl": {
+      "activation": {
+        "production_eligible": true,
+        "runtime_accepted": true,
+        "windows_acl": "PROVEN"
+      },
+      "budget": {
+        "next_call_estimate_nano_usd": 1,
+        "open_reserved_nano_usd": 0,
+        "project_ceiling_nano_usd": 1000000000,
+        "spent_nano_usd": 350801523,
+        "unknown_reservations": 0
+      },
+      "capabilities": [
+        "accounting-policy-transition-v1",
+        "batch-dag-v1",
+        "detach-without-cancel-v1",
+        "durable-sol-head-producer-v1",
+        "durable-mutation-replay-v1",
+        "max-one-shot-v1",
+        "normalized-result-packet-v1",
+        "origin-bound-session-v1",
+        "public-identities-v1",
+        "runtime-build-identity-v1",
+        "sol-head-v1",
+        "typed-rpc-v1"
+      ],
+      "capacity": {
+        "active_reads": 0,
+        "active_writes": 0,
+        "queued": 0,
+        "read_limit": 5,
+        "write_limit": 1
+      },
+      "circuits": {
+        "provider_calls_enabled": true,
+        "unavailable_pools": 0
+      },
+      "migration": {
+        "attestation_id": "4d8b8e361979330399b09a623ade8907fac6830152c60c692e3732d3590d1f7f",
+        "attested": true,
+        "operational_imports": 0,
+        "source_set_hash": "e494c157d9e710fd370f656ef02bbfc9bd2bf85e0c108bcc2887516f84b84808",
+        "unresolved_collisions": 0
+      },
+      "origin_id": 58,
+      "process_boot_id": "DI-d81834ec4b5bad085d2bcc3588de84fb",
+      "process_started_at_ms": 1785613944528,
+      "project_id": "perfume-chem",
+      "protocol_version": 3,
+      "readiness": "READY",
+      "reason_codes": [],
+      "rpc_schema_version": 2,
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "runtime_mode": "CANDIDATE_V2",
+      "schema_version": 1,
+      "server_release": "0.9.9",
+      "store_schema_version": 5
+    },
+    "active_primary_profile": "deepinfra-fast",
+    "jobs": {
+      "total": 89,
+      "statuses": {
+        "QUEUED": 0,
+        "RUNNING": 0,
+        "TERMINAL": 89
+      },
+      "cache_hits": 0
+    },
+    "cache": {
+      "entries": 0,
+      "bytes": 0,
+      "retention_days": 30,
+      "max_bytes": 268435456
+    },
+    "providers": {
+      "primary": {
+        "profile_id": "deepinfra-fast",
+        "provider": "deepinfra",
+        "route": "deepinfra-priority",
+        "model": "deepseek-ai/DeepSeek-V4-Flash",
+        "service_tier": "priority",
+        "runs": 69,
+        "api_calls": 69,
+        "prompt_tokens": 2366415,
+        "completion_tokens": 53222,
+        "total_tokens": 2419637,
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 2365391
+      },
+      "luna": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "glm": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "local": {
+        "runs": 0,
+        "commands": 0,
+        "writes": 0,
+        "failures": 0
+      }
+    },
+    "batches": {
+      "provider_transmissions": 0,
+      "queued_batches": 0,
+      "queued_nodes": 0,
+      "reserved_nano_usd": 0,
+      "running_batches": 0,
+      "running_nodes": 0,
+      "schema_version": 1,
+      "spent_nano_usd": 0,
+      "terminal_batches": 0,
+      "terminal_nodes": 0,
+      "total_batches": 0,
+      "total_nodes": 0,
+      "unknown_transmissions": 0,
+      "waiting_nodes": 0
+    },
+    "codex_orchestration_enabled": false
+  },
+  "submission": {
+    "cache_hit": false,
+    "coalesced": false,
+    "evidence_verdict": "UNRESOLVED",
+    "execution_status": "INCOMPLETE",
+    "job_id": "DS-d5e23b4ea2e909c4e58e24b1bf2496f8",
+    "schema_version": 1,
+    "status": "QUEUED"
+  },
+  "terminal_status": {
+    "cache_hit": false,
+    "evidence_verdict": "POSITIVE",
+    "execution_status": "ACCEPTED",
+    "job_id": "DS-d5e23b4ea2e909c4e58e24b1bf2496f8",
+    "result_packet": {
+      "architecture_uncertainty": false,
+      "cache_hit": false,
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "negative_findings": [
+        "The explicit quarantine set in test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate is stale; it should include Magnolia EO to match the inventory observation.",
+        "backend-tests timeout (900s) is insufficient for a run that took 864.16s; a 1200-second timeout is needed to avoid spurious 124 failures."
+      ],
+      "positive_findings": [
+        "Magnolia EO is deliberately user-confirmed but chemically unidentified in inventory.txt line 98, matching the quarantine category 'naturals_missing_composite_evidence'.",
+        "The explicit expected set in test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate (lines 216-229) does not include Magnolia EO, confirming the test expectation",
+        "backend-tests CheckSpec has timeout_seconds=900 (line 405), and the default runner raises subprocess.TimeoutExpired with returncode 124 (lines 550-556)."
+      ],
+      "recommended_next_action": "Sol should approve the narrow test-only correction (add 'Magnolia EO' to the expected set) and the 1200-second timeout RED test, then delegate implementation to a bounded worker. No architecture or chemistry decisions are required.",
+      "residual_risks": [
+        "The RED test contract for a 1200-second backend timeout does not address process-lifecycle ambiguity: if the subprocess exits after the timeout but before the runner checks, the 0-"
+      ],
+      "result_protocol": 3,
+      "schema_version": 1,
+      "scientific_uncertainty": false,
+      "scope_deviation": false,
+      "status": "PASS",
+      "summary": "All five definition-of-done criteria are met with cited evidence. Magnolia EO is correctly absent from the explicit quarantine set in test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate; the inventory comment (line 98) confirms it is user-confirmed but chemically unidentified, so the test expectation is stale. The narrowest test-only correction is to add 'Magnolia EO' to the naturals_missing_composite_evidence set. Backend-tests timeout is 900 seconds (line 405); a 1200-second RED test contract is provided. No architecture or scientific interpretation was made; final gate"
+    },
+    "schema_version": 1,
+    "status": "PASS",
+    "subscriber_state": "TERMINAL"
+  },
+  "metrics_after": {
+    "process_name": "DeepLuna Fast",
+    "version": "0.9.9",
+    "cumulative_budget_safe": true,
+    "daemon_active": true,
+    "check_dl": {
+      "activation": {
+        "production_eligible": true,
+        "runtime_accepted": true,
+        "windows_acl": "PROVEN"
+      },
+      "budget": {
+        "next_call_estimate_nano_usd": 1,
+        "open_reserved_nano_usd": 0,
+        "project_ceiling_nano_usd": 1000000000,
+        "spent_nano_usd": 352662903,
+        "unknown_reservations": 0
+      },
+      "capabilities": [
+        "accounting-policy-transition-v1",
+        "batch-dag-v1",
+        "detach-without-cancel-v1",
+        "durable-sol-head-producer-v1",
+        "durable-mutation-replay-v1",
+        "max-one-shot-v1",
+        "normalized-result-packet-v1",
+        "origin-bound-session-v1",
+        "public-identities-v1",
+        "runtime-build-identity-v1",
+        "sol-head-v1",
+        "typed-rpc-v1"
+      ],
+      "capacity": {
+        "active_reads": 0,
+        "active_writes": 0,
+        "queued": 0,
+        "read_limit": 5,
+        "write_limit": 1
+      },
+      "circuits": {
+        "provider_calls_enabled": true,
+        "unavailable_pools": 0
+      },
+      "migration": {
+        "attestation_id": "4d8b8e361979330399b09a623ade8907fac6830152c60c692e3732d3590d1f7f",
+        "attested": true,
+        "operational_imports": 0,
+        "source_set_hash": "e494c157d9e710fd370f656ef02bbfc9bd2bf85e0c108bcc2887516f84b84808",
+        "unresolved_collisions": 0
+      },
+      "origin_id": 58,
+      "process_boot_id": "DI-d81834ec4b5bad085d2bcc3588de84fb",
+      "process_started_at_ms": 1785613944528,
+      "project_id": "perfume-chem",
+      "protocol_version": 3,
+      "readiness": "READY",
+      "reason_codes": [],
+      "rpc_schema_version": 2,
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "runtime_mode": "CANDIDATE_V2",
+      "schema_version": 1,
+      "server_release": "0.9.9",
+      "store_schema_version": 5
+    },
+    "active_primary_profile": "deepinfra-fast",
+    "jobs": {
+      "total": 90,
+      "statuses": {
+        "QUEUED": 0,
+        "RUNNING": 0,
+        "TERMINAL": 90
+      },
+      "cache_hits": 0
+    },
+    "cache": {
+      "entries": 0,
+      "bytes": 0,
+      "retention_days": 30,
+      "max_bytes": 268435456
+    },
+    "providers": {
+      "primary": {
+        "profile_id": "deepinfra-fast",
+        "provider": "deepinfra",
+        "route": "deepinfra-priority",
+        "model": "deepseek-ai/DeepSeek-V4-Flash",
+        "service_tier": "priority",
+        "runs": 70,
+        "api_calls": 70,
+        "prompt_tokens": 2378405,
+        "completion_tokens": 54121,
+        "total_tokens": 2432526,
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 2377381
+      },
+      "luna": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "glm": {
+        "runs": 0,
+        "elapsed_ms": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 0
+      },
+      "local": {
+        "runs": 0,
+        "commands": 0,
+        "writes": 0,
+        "failures": 0
+      }
+    },
+    "batches": {
+      "provider_transmissions": 0,
+      "queued_batches": 0,
+      "queued_nodes": 0,
+      "reserved_nano_usd": 0,
+      "running_batches": 0,
+      "running_nodes": 0,
+      "schema_version": 1,
+      "spent_nano_usd": 0,
+      "terminal_batches": 0,
+      "terminal_nodes": 0,
+      "total_batches": 0,
+      "total_nodes": 0,
+      "unknown_transmissions": 0,
+      "waiting_nodes": 0
+    },
+    "codex_orchestration_enabled": false
+  }
+}

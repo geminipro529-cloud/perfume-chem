@@ -6,7 +6,9 @@
 - OAV = concentration_ppm / ODT_ppm (dimensionless).
 - Every perceptibility claim must be backed by OAV. No exceptions.
 
-10 axes — 7 physics/experimental, 3 craftsmanship:
+Active diagnostics exclude any composition-derived liking or beauty axis.
+
+Legacy replay formerly exposed 10 axes:
   longevity   (×0.8) — MW, CLP, base note percentage
   sillage     (×0.8) — VP, projection boosters, note distribution
   synergy     (×0.5) — pairing rule hits + SynergyGraph
@@ -27,27 +29,31 @@ import math
 import re
 from typing import TYPE_CHECKING
 
-from .models import (
-    FormulaVector, ObjectiveWeights,
-    _lookup_material, analyze_formula_rule_coverage,
-    _gamma_from_logp, _get_logp,
-)
-from ..ingredient_intelligence import (
-    get_profile, get_all_profiles, DIMENSIONS, MaterialProfile,
-)
-from ..ingredient_catalog import find_ingredient
-from ..material_resolver import unknown_materials
+from ..diffusion_model import score_diffusion
+from ..dose_response import score_dose_response
+from ..hedonic_model import score_hedonic
 
 # ── Science modules ──
 from ..ifra_safety import score_ifra_compliance
+from ..ingredient_catalog import find_ingredient
+from ..ingredient_intelligence import (
+    DIMENSIONS,
+    get_profile,
+)
+from ..material_resolver import unknown_materials
+from ..psychophysics import CROSS_ADAPTATION_GROUPS, score_psychophysics
 from ..skin_interaction import score_skin_interaction
 from ..trigeminal import score_trigeminal
-from ..dose_response import score_dose_response
-from ..hedonic_model import score_hedonic
-from ..psychophysics import score_psychophysics, CROSS_ADAPTATION_GROUPS
-from ..diffusion_model import score_diffusion
+from .models import (
+    FormulaVector,
+    LegacyObjectiveWeightsV1,
+    ObjectiveWeights,
+    _lookup_material,
+    analyze_formula_rule_coverage,
+)
 
 if TYPE_CHECKING:
+    from ..pipeline.formula_state import FormulaState, MaterialState
     from ..synergy_graph import SynergyGraph
     from ..temporal_graph import TemporalProfile
 
@@ -57,14 +63,14 @@ class FormulaScorer:
 
     # Style-aware balance targets (Carles pyramid variants)
     BALANCE_TARGETS = {
-        "classical":   (20, 40, 40),
-        "chypre":      (15, 30, 55),
-        "cologne":     (40, 35, 25),
-        "skin_scent":  (10, 55, 35),
-        "oriental":    (15, 35, 50),
-        "soliflore":   (10, 60, 30),
-        "fougere":     (25, 40, 35),
-        "linear":      (33, 34, 33),
+        "classical": (20, 40, 40),
+        "chypre": (15, 30, 55),
+        "cologne": (40, 35, 25),
+        "skin_scent": (10, 55, 35),
+        "oriental": (15, 35, 50),
+        "soliflore": (10, 60, 30),
+        "fougere": (25, 40, 35),
+        "linear": (33, 34, 33),
     }
 
     # Richer style/category fingerprints used for downstream creative reasoning.
@@ -83,7 +89,15 @@ class FormulaScorer:
         "chypre": {
             "kind": "style",
             "balance": (15, 30, 55),
-            "keywords": {"chypre", "oakmoss", "moss", "labdanum", "patchouli", "bergamot", "evernyl"},
+            "keywords": {
+                "chypre",
+                "oakmoss",
+                "moss",
+                "labdanum",
+                "patchouli",
+                "bergamot",
+                "evernyl",
+            },
             "anchors": {"oakmoss", "evernyl", "labdanum", "patchouli"},
             "positive_dims": {"green": 1.3, "woody": 1.0, "freshness": 0.8, "smoky": 0.4},
             "negative_dims": {"sweetness": 0.7, "creamy": 0.4},
@@ -92,7 +106,14 @@ class FormulaScorer:
             "kind": "style",
             "balance": (40, 35, 25),
             "keywords": {"cologne", "bergamot", "citrus", "neroli", "lemon", "lime", "aldehyde"},
-            "anchors": {"bergamot", "cedrat", "citron", "neroli", "aldehyde c12 mna", "dihydromyrcenol"},
+            "anchors": {
+                "bergamot",
+                "cedrat",
+                "citron",
+                "neroli",
+                "aldehyde c12 mna",
+                "dihydromyrcenol",
+            },
             "positive_dims": {"freshness": 1.4, "radiance": 1.0, "green": 0.6},
             "negative_dims": {"sweetness": 0.6, "animalic": 0.3, "smoky": 0.3},
         },
@@ -107,24 +128,64 @@ class FormulaScorer:
         "oriental": {
             "kind": "style",
             "balance": (15, 35, 50),
-            "keywords": {"oriental", "amber", "resin", "balsam", "labdanum", "benzoin", "vanilla", "spice"},
+            "keywords": {
+                "oriental",
+                "amber",
+                "resin",
+                "balsam",
+                "labdanum",
+                "benzoin",
+                "vanilla",
+                "spice",
+            },
             "anchors": {"labdanum", "benzoin", "patchouli", "vanillin", "ambermax", "cashmeran"},
-            "positive_dims": {"warmth": 1.3, "sweetness": 1.0, "spicy": 0.8, "creamy": 0.6, "smoky": 0.4},
+            "positive_dims": {
+                "warmth": 1.3,
+                "sweetness": 1.0,
+                "spicy": 0.8,
+                "creamy": 0.6,
+                "smoky": 0.4,
+            },
             "negative_dims": {"freshness": 0.5, "green": 0.4},
         },
         "skin_scent": {
             "kind": "style",
             "balance": (10, 55, 35),
             "keywords": {"skin", "musk", "musky", "clean", "amber", "diffusive"},
-            "anchors": {"iso e super", "ambrox", "cashmeran", "habanolide", "galaxolide", "ethylene brassylate"},
+            "anchors": {
+                "iso e super",
+                "ambrox",
+                "cashmeran",
+                "habanolide",
+                "galaxolide",
+                "ethylene brassylate",
+            },
             "positive_dims": {"creamy": 1.2, "radiance": 1.0, "woody": 0.8, "warmth": 0.5},
             "negative_dims": {"smoky": 0.6, "animalic": 0.5},
         },
         "soliflore": {
             "kind": "style",
             "balance": (10, 60, 30),
-            "keywords": {"soliflore", "rose", "jasmine", "iris", "violet", "muguet", "lily", "peony", "powder"},
-            "anchors": {"rose absolute", "jasmine absolute", "orris", "iris", "peonile", "muguet", "heliotropin"},
+            "keywords": {
+                "soliflore",
+                "rose",
+                "jasmine",
+                "iris",
+                "violet",
+                "muguet",
+                "lily",
+                "peony",
+                "powder",
+            },
+            "anchors": {
+                "rose absolute",
+                "jasmine absolute",
+                "orris",
+                "iris",
+                "peonile",
+                "muguet",
+                "heliotropin",
+            },
             "positive_dims": {"floral": 1.4, "powdery": 1.0, "creamy": 0.6, "radiance": 0.5},
             "negative_dims": {"smoky": 0.6, "woody": 0.4, "spicy": 0.4, "green": 0.4},
         },
@@ -132,48 +193,131 @@ class FormulaScorer:
             "kind": "style",
             "balance": (33, 34, 33),
             "keywords": {"linear", "transparent", "diffusive", "modern", "clean"},
-            "anchors": {"hedione", "iso e super", "ambrox", "galaxolide", "habanolide", "dihydromyrcenol"},
+            "anchors": {
+                "hedione",
+                "iso e super",
+                "ambrox",
+                "galaxolide",
+                "habanolide",
+                "dihydromyrcenol",
+            },
             "positive_dims": {"radiance": 1.1, "freshness": 0.8, "creamy": 0.7, "woody": 0.5},
             "negative_dims": {"smoky": 0.4, "animalic": 0.4, "green": 0.3},
         },
         "iris_powdery": {
             "kind": "style",
             "balance": (8, 42, 50),
-            "keywords": {"iris", "irone", "orris", "powder", "ionone", "heliotropin",
-                         "orivone", "ultralia", "violet", "suede"},
-            "anchors": {"orivone", "alpha irone", "ultralia", "heliotropin",
-                        "musk ketone", "cashmeran", "coumarin", "beta ionone"},
-            "positive_dims": {"powdery": 1.3, "floral": 1.0, "creamy": 0.8,
-                              "radiance": 0.7, "warmth": 0.4},
+            "keywords": {
+                "iris",
+                "irone",
+                "orris",
+                "powder",
+                "ionone",
+                "heliotropin",
+                "orivone",
+                "ultralia",
+                "violet",
+                "suede",
+            },
+            "anchors": {
+                "orivone",
+                "alpha irone",
+                "ultralia",
+                "heliotropin",
+                "musk ketone",
+                "cashmeran",
+                "coumarin",
+                "beta ionone",
+            },
+            "positive_dims": {
+                "powdery": 1.3,
+                "floral": 1.0,
+                "creamy": 0.8,
+                "radiance": 0.7,
+                "warmth": 0.4,
+            },
             "negative_dims": {"green": 0.5, "animalic": 0.4, "smoky": 0.3},
         },
         "iris_crystalline": {
             "kind": "style",
             "balance": (12, 38, 50),
-            "keywords": {"iris", "irone", "crystalline", "mineral", "transparent",
-                         "cold", "architectural", "glass", "helional", "metallic"},
-            "anchors": {"alpha irone", "helional", "scentenal", "cyclamen aldehyde",
-                        "timberol", "javanol", "zenolide", "hedione",
-                        "clearwood", "iso e super", "norlimbanol dextro"},
-            "positive_dims": {"transparency": 1.5, "radiance": 1.2, "freshness": 1.0,
-                              "powdery": 0.8, "floral": 0.6},
-            "negative_dims": {"warmth": 0.8, "sweetness": 0.7, "creamy": 0.5,
-                              "animalic": 0.5, "smoky": 0.4},
+            "keywords": {
+                "iris",
+                "irone",
+                "crystalline",
+                "mineral",
+                "transparent",
+                "cold",
+                "architectural",
+                "glass",
+                "helional",
+                "metallic",
+            },
+            "anchors": {
+                "alpha irone",
+                "helional",
+                "scentenal",
+                "cyclamen aldehyde",
+                "timberol",
+                "javanol",
+                "zenolide",
+                "hedione",
+                "clearwood",
+                "iso e super",
+                "norlimbanol dextro",
+            },
+            "positive_dims": {
+                "transparency": 1.5,
+                "radiance": 1.2,
+                "freshness": 1.0,
+                "powdery": 0.8,
+                "floral": 0.6,
+            },
+            "negative_dims": {
+                "warmth": 0.8,
+                "sweetness": 0.7,
+                "creamy": 0.5,
+                "animalic": 0.5,
+                "smoky": 0.4,
+            },
         },
         # Broader category lenses
         "fresh": {
             "kind": "category",
             "balance": (35, 40, 25),
             "keywords": {"fresh", "citrus", "bergamot", "neroli", "green", "clean", "air", "lift"},
-            "anchors": {"bergamot", "cedrat", "dihydromyrcenol", "hedione", "linalool", "linalyl acetate"},
+            "anchors": {
+                "bergamot",
+                "cedrat",
+                "dihydromyrcenol",
+                "hedione",
+                "linalool",
+                "linalyl acetate",
+            },
             "positive_dims": {"freshness": 1.5, "radiance": 0.9, "green": 0.8},
             "negative_dims": {"sweetness": 0.5, "smoky": 0.4},
         },
         "floral": {
             "kind": "category",
             "balance": (15, 55, 30),
-            "keywords": {"floral", "flower", "rose", "jasmine", "iris", "muguet", "peony", "powdery"},
-            "anchors": {"rose absolute", "jasmine absolute", "orris", "iris", "peonile", "heliotropin"},
+            "keywords": {
+                "floral",
+                "flower",
+                "rose",
+                "jasmine",
+                "iris",
+                "muguet",
+                "peony",
+                "powdery",
+            },
+            "anchors": {
+                "rose absolute",
+                "jasmine absolute",
+                "orris",
+                "iris",
+                "peonile",
+                "heliotropin",
+            },
             "positive_dims": {"floral": 1.5, "powdery": 0.8, "creamy": 0.6, "radiance": 0.4},
             "negative_dims": {"smoky": 0.5, "green": 0.4},
         },
@@ -181,14 +325,30 @@ class FormulaScorer:
             "kind": "category",
             "balance": (15, 25, 60),
             "keywords": {"woody", "wood", "cedar", "patchouli", "vetiver", "sandalwood", "dry"},
-            "anchors": {"iso e super", "ambrox", "patchouli eo", "sandalwood eo", "cedarwood", "vetiver eo"},
+            "anchors": {
+                "iso e super",
+                "ambrox",
+                "patchouli eo",
+                "sandalwood eo",
+                "cedarwood",
+                "vetiver eo",
+            },
             "positive_dims": {"woody": 1.5, "smoky": 0.8, "warmth": 0.5, "creamy": 0.4},
             "negative_dims": {"freshness": 0.5, "floral": 0.4},
         },
         "amber": {
             "kind": "category",
             "balance": (15, 35, 50),
-            "keywords": {"amber", "warm", "resin", "balsam", "labdanum", "benzoin", "vanilla", "gourmand"},
+            "keywords": {
+                "amber",
+                "warm",
+                "resin",
+                "balsam",
+                "labdanum",
+                "benzoin",
+                "vanilla",
+                "gourmand",
+            },
             "anchors": {"labdanum", "benzoin", "vanillin", "ambermax", "cashmeran", "patchouli"},
             "positive_dims": {"warmth": 1.5, "sweetness": 1.0, "creamy": 0.7, "smoky": 0.4},
             "negative_dims": {"freshness": 0.5, "green": 0.4},
@@ -213,17 +373,26 @@ class FormulaScorer:
             "kind": "category",
             "balance": (10, 50, 40),
             "keywords": {"musk", "musky", "skin", "clean", "cotton", "soft"},
-            "anchors": {"galaxolide", "habanolide", "ethylene brassylate", "musk ketone", "ambrettolide"},
+            "anchors": {
+                "galaxolide",
+                "habanolide",
+                "ethylene brassylate",
+                "musk ketone",
+                "ambrettolide",
+            },
             "positive_dims": {"creamy": 1.3, "radiance": 1.0, "woody": 0.5},
             "negative_dims": {"smoky": 0.4, "animalic": 0.4},
         },
     }
 
-    def __init__(self, weights: ObjectiveWeights | None = None,
-                 synergy_graph: SynergyGraph | None = None,
-                 temporal_profile: TemporalProfile | None = None,
-                 catalog_index: dict | None = None,
-                 batch_volume_ml: float = 10.0):
+    def __init__(
+        self,
+        weights: ObjectiveWeights | None = None,
+        synergy_graph: SynergyGraph | None = None,
+        temporal_profile: TemporalProfile | None = None,
+        catalog_index: dict | None = None,
+        batch_volume_ml: float = 10.0,
+    ):
         self.weights = weights or ObjectiveWeights()
         self.synergy_graph = synergy_graph
         self.temporal_profile = temporal_profile
@@ -237,24 +406,33 @@ class FormulaScorer:
     # ── Catalog ↔ Style vocabulary bridge ──
     # Maps free-form catalog best_in/avoid_in tokens to STYLE_FINGERPRINTS keys.
     _STYLE_TOKEN_MAP: dict[str, set[str]] = {
-        "classical":  {"classical", "balanced", "elegant", "luxury", "polished"},
-        "chypre":     {"chypre", "oakmoss", "moss"},
+        "classical": {"classical", "balanced", "elegant", "luxury", "polished"},
+        "chypre": {"chypre", "oakmoss", "moss"},
         "chypre_classical": {"chypre", "oakmoss", "moss", "bergamot", "labdanum"},
         "chypre_floral": {"chypre", "rose", "jasmine", "moss"},
         "chypre_fruity": {"chypre", "fruit", "peach", "bergamot", "moss"},
         "chypre_green": {"chypre", "green", "galbanum", "moss"},
         "chypre_leathery": {"chypre", "leather", "birch", "moss"},
-        "cologne":    {"cologne", "citrus", "hesperidic", "sport"},
+        "cologne": {"cologne", "citrus", "hesperidic", "sport"},
         "citrus_classical": {"cologne", "citrus", "hesperidic", "neroli", "orange"},
         "citrus_aromatic": {"citrus", "aromatic", "lavender", "rosemary", "bergamot"},
-        "fougere":    {"fougere", "fougère", "aromatic", "herbal"},
+        "fougere": {"fougere", "fougère", "aromatic", "herbal"},
         "fougere_classical": {"fougere", "lavender", "coumarin", "moss", "bergamot"},
-        "oriental":   {"oriental", "amber", "resin", "balsamic", "gourmand", "sweet"},
+        "oriental": {"oriental", "amber", "resin", "balsamic", "gourmand", "sweet"},
         "oriental_classical": {"oriental", "amber", "benzoin", "vanilla", "incense"},
         "oriental_soft": {"soft", "amber", "lavender", "tonka", "vanilla"},
         "oriental_floral": {"floral", "amber", "rose", "ylang", "powdery"},
         "skin_scent": {"skin", "musk", "musky", "clean", "intimate", "minimal"},
-        "soliflore":  {"soliflore", "iris", "rose", "jasmine", "muguet", "violet", "tuberose", "powdery"},
+        "soliflore": {
+            "soliflore",
+            "iris",
+            "rose",
+            "jasmine",
+            "muguet",
+            "violet",
+            "tuberose",
+            "powdery",
+        },
         "floral_soliflore": {"soliflore", "rose", "single", "petal", "dewy"},
         "floral_bouquet": {"bouquet", "rose", "jasmine", "muguet", "floral"},
         "floral_white": {"white", "floral", "jasmine", "tuberose", "indolic"},
@@ -263,16 +441,23 @@ class FormulaScorer:
         "floral_powdery": {"powdery", "heliotrope", "iris", "violet"},
         "floral_green": {"green", "floral", "galbanum", "leaf"},
         "floral_aldehydic": {"aldehydic", "floral", "soapy", "sparkle"},
-        "iris_crystalline": {"crystalline", "mineral", "transparent", "cold iris", "glass", "architectural"},
-        "linear":     {"linear", "transparent", "diffusive", "modern"},
-        "fresh":      {"fresh", "aquatic", "ozone", "marine", "clean", "sport"},
-        "floral":     {"floral", "flower", "white floral", "indolic"},
-        "woody":      {"woody", "wood", "cedar", "sandalwood", "vetiver", "dry"},
-        "amber":      {"amber", "warm", "resinous", "vanilla", "gourmand"},
-        "green":      {"green", "leaf", "galbanum", "herbal"},
-        "spicy":      {"spicy", "pepper", "cardamom", "incense"},
-        "musky":      {"musk", "musky", "skin scent", "cotton"},
-        "leather":    {"leather", "suede", "animalic", "dark"},
+        "iris_crystalline": {
+            "crystalline",
+            "mineral",
+            "transparent",
+            "cold iris",
+            "glass",
+            "architectural",
+        },
+        "linear": {"linear", "transparent", "diffusive", "modern"},
+        "fresh": {"fresh", "aquatic", "ozone", "marine", "clean", "sport"},
+        "floral": {"floral", "flower", "white floral", "indolic"},
+        "woody": {"woody", "wood", "cedar", "sandalwood", "vetiver", "dry"},
+        "amber": {"amber", "warm", "resinous", "vanilla", "gourmand"},
+        "green": {"green", "leaf", "galbanum", "herbal"},
+        "spicy": {"spicy", "pepper", "cardamom", "incense"},
+        "musky": {"musk", "musky", "skin scent", "cotton"},
+        "leather": {"leather", "suede", "animalic", "dark"},
     }
 
     # ── Extended perfume taxonomy fingerprints from engine.knowledge ──
@@ -282,8 +467,24 @@ class FormulaScorer:
         "citrus_classical": {
             "kind": "subfamily",
             "balance": (42, 33, 25),
-            "keywords": {"cologne", "4711", "bergamot", "lemon", "orange", "neroli", "petitgrain", "lavender"},
-            "anchors": {"bergamot fcf oil sicilian", "lemon fcf oil sicilian", "orange peel eo", "oranger crystals", "nerol", "lavender eo"},
+            "keywords": {
+                "cologne",
+                "4711",
+                "bergamot",
+                "lemon",
+                "orange",
+                "neroli",
+                "petitgrain",
+                "lavender",
+            },
+            "anchors": {
+                "bergamot fcf oil sicilian",
+                "lemon fcf oil sicilian",
+                "orange peel eo",
+                "oranger crystals",
+                "nerol",
+                "lavender eo",
+            },
             "positive_dims": {"freshness": 1.5, "radiance": 0.8, "green": 0.6},
             "negative_dims": {"sweetness": 0.5, "smoky": 0.4, "animalic": 0.3},
         },
@@ -291,7 +492,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (35, 38, 27),
             "keywords": {"citrus", "aromatic", "herb", "bergamot", "lavender", "rosemary"},
-            "anchors": {"bergamot fcf", "lavender eo", "rosemary eo", "linalool", "linalyl acetate", "petitgrain"},
+            "anchors": {
+                "bergamot fcf",
+                "lavender eo",
+                "rosemary eo",
+                "linalool",
+                "linalyl acetate",
+                "petitgrain",
+            },
             "positive_dims": {"freshness": 1.3, "green": 0.9, "aromatic": 0.8},
             "negative_dims": {"sweetness": 0.5, "smoky": 0.4},
         },
@@ -299,7 +507,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (12, 58, 30),
             "keywords": {"soliflore", "single floral", "rose", "petal", "dewy", "tea rose"},
-            "anchors": {"phenethyl alcohol", "geraniol", "citronellol", "nerol", "rose oxide", "damascenone"},
+            "anchors": {
+                "phenethyl alcohol",
+                "geraniol",
+                "citronellol",
+                "nerol",
+                "rose oxide",
+                "damascenone",
+            },
             "positive_dims": {"floral": 1.6, "freshness": 0.5, "powdery": 0.4},
             "negative_dims": {"smoky": 0.4, "woody": 0.4, "animalic": 0.3},
         },
@@ -307,7 +522,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (18, 54, 28),
             "keywords": {"bouquet", "rose", "jasmine", "muguet", "aldehydic", "multi floral"},
-            "anchors": {"phenethyl alcohol", "hedione", "benzyl acetate", "hydroxycitronellal", "benzyl salicylate", "ylang ylang eo"},
+            "anchors": {
+                "phenethyl alcohol",
+                "hedione",
+                "benzyl acetate",
+                "hydroxycitronellal",
+                "benzyl salicylate",
+                "ylang ylang eo",
+            },
             "positive_dims": {"floral": 1.6, "radiance": 0.8, "creamy": 0.5},
             "negative_dims": {"smoky": 0.4, "green": 0.3},
         },
@@ -315,15 +537,35 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (16, 58, 26),
             "keywords": {"muguet", "lily of the valley", "dewy", "green floral", "diorissimo"},
-            "anchors": {"hydroxycitronellal", "bourgeonal", "lilyreal nd", "mayol", "cyclimal aldehyde", "farnesol"},
+            "anchors": {
+                "hydroxycitronellal",
+                "bourgeonal",
+                "lilyreal nd",
+                "mayol",
+                "cyclimal aldehyde",
+                "farnesol",
+            },
             "positive_dims": {"floral": 1.5, "green": 0.9, "freshness": 0.7},
             "negative_dims": {"sweetness": 0.4, "smoky": 0.4},
         },
         "floral_carnation": {
             "kind": "subfamily",
             "balance": (14, 52, 34),
-            "keywords": {"carnation", "clove", "spicy floral", "bellodgia", "eugenol", "isoeugenol"},
-            "anchors": {"eugenol", "isoeugenol", "phenethyl alcohol", "ylang ylang eo", "benzyl salicylate"},
+            "keywords": {
+                "carnation",
+                "clove",
+                "spicy floral",
+                "bellodgia",
+                "eugenol",
+                "isoeugenol",
+            },
+            "anchors": {
+                "eugenol",
+                "isoeugenol",
+                "phenethyl alcohol",
+                "ylang ylang eo",
+                "benzyl salicylate",
+            },
             "positive_dims": {"floral": 1.2, "spicy": 1.1, "warmth": 0.5},
             "negative_dims": {"freshness": 0.4, "smoky": 0.4},
         },
@@ -331,7 +573,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (12, 50, 38),
             "keywords": {"powdery", "heliotrope", "iris", "violet", "apres londee", "heliotropal"},
-            "anchors": {"alpha isomethyl ionone", "alpha ionone", "beta ionone", "heliotropal", "musk ketone", "vanillin"},
+            "anchors": {
+                "alpha isomethyl ionone",
+                "alpha ionone",
+                "beta ionone",
+                "heliotropal",
+                "musk ketone",
+                "vanillin",
+            },
             "positive_dims": {"powdery": 1.5, "floral": 1.0, "creamy": 0.7},
             "negative_dims": {"green": 0.4, "smoky": 0.3},
         },
@@ -339,7 +588,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (20, 46, 34),
             "keywords": {"green floral", "galbanum", "iris", "leaf", "stem", "no 19"},
-            "anchors": {"galbanum resinoid", "hydroxycitronellal", "mayol", "alpha isomethyl ionone", "vetiver eo", "evernyl"},
+            "anchors": {
+                "galbanum resinoid",
+                "hydroxycitronellal",
+                "mayol",
+                "alpha isomethyl ionone",
+                "vetiver eo",
+                "evernyl",
+            },
             "positive_dims": {"green": 1.4, "floral": 1.0, "freshness": 0.7},
             "negative_dims": {"sweetness": 0.5, "gourmand": 0.4},
         },
@@ -355,7 +611,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (15, 52, 33),
             "keywords": {"white floral", "jasmine", "gardenia", "tuberose", "narcotic", "indolic"},
-            "anchors": {"jasmine absolute", "gardenia", "tuberose", "ylang", "indole", "methyl anthranilate"},
+            "anchors": {
+                "jasmine absolute",
+                "gardenia",
+                "tuberose",
+                "ylang",
+                "indole",
+                "methyl anthranilate",
+            },
             "positive_dims": {"floral": 1.5, "creamy": 0.7, "animalic": 0.5},
             "negative_dims": {"green": 0.4, "freshness": 0.3},
         },
@@ -363,31 +626,79 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (25, 45, 30),
             "keywords": {"aldehydic", "floral", "sparkle", "chanel", "waxy", "soapy"},
-            "anchors": {"aldehyde c10", "aldehyde c11", "aldehyde c12 mna", "rose", "jasmine", "musk ketone"},
+            "anchors": {
+                "aldehyde c10",
+                "aldehyde c11",
+                "aldehyde c12 mna",
+                "rose",
+                "jasmine",
+                "musk ketone",
+            },
             "positive_dims": {"radiance": 1.2, "floral": 1.0, "powdery": 0.7, "freshness": 0.5},
             "negative_dims": {"green": 0.4, "smoky": 0.3},
         },
         "fougere_classical": {
             "kind": "subfamily",
             "balance": (24, 40, 36),
-            "keywords": {"fougere royale", "classical fougere", "lavender", "coumarin", "moss", "bergamot"},
-            "anchors": {"lavender eo", "coumarin", "evernyl", "bergamot fcf oil sicilian", "patchouli eo", "geraniol"},
+            "keywords": {
+                "fougere royale",
+                "classical fougere",
+                "lavender",
+                "coumarin",
+                "moss",
+                "bergamot",
+            },
+            "anchors": {
+                "lavender eo",
+                "coumarin",
+                "evernyl",
+                "bergamot fcf oil sicilian",
+                "patchouli eo",
+                "geraniol",
+            },
             "positive_dims": {"aromatic": 1.2, "green": 0.8, "freshness": 0.6, "woody": 0.5},
             "negative_dims": {"sweetness": 0.4, "gourmand": 0.4},
         },
         "woody_amber": {
             "kind": "subfamily",
             "balance": (12, 30, 58),
-            "keywords": {"woody", "amber", "ambrox", "iso e super", "transparent", "radiant", "modern"},
-            "anchors": {"ambrox super", "iso e super", "sandalore", "cashmeran", "norlimbanol dextro"},
+            "keywords": {
+                "woody",
+                "amber",
+                "ambrox",
+                "iso e super",
+                "transparent",
+                "radiant",
+                "modern",
+            },
+            "anchors": {
+                "ambrox super",
+                "iso e super",
+                "sandalore",
+                "cashmeran",
+                "norlimbanol dextro",
+            },
             "positive_dims": {"radiance": 1.2, "woody": 1.0, "warmth": 0.6, "creamy": 0.4},
             "negative_dims": {"green": 0.4, "animalic": 0.3},
         },
         "chypre_classical": {
             "kind": "subfamily",
             "balance": (16, 28, 56),
-            "keywords": {"classic chypre", "coty chypre", "bergamot", "labdanum", "oakmoss", "patchouli"},
-            "anchors": {"bergamot fcf oil sicilian", "evernyl", "patchouli eo", "labdanum absolute", "vetiver eo"},
+            "keywords": {
+                "classic chypre",
+                "coty chypre",
+                "bergamot",
+                "labdanum",
+                "oakmoss",
+                "patchouli",
+            },
+            "anchors": {
+                "bergamot fcf oil sicilian",
+                "evernyl",
+                "patchouli eo",
+                "labdanum absolute",
+                "vetiver eo",
+            },
             "positive_dims": {"green": 1.0, "woody": 1.0, "warmth": 0.5},
             "negative_dims": {"sweetness": 0.7, "creamy": 0.4},
         },
@@ -395,7 +706,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (16, 36, 48),
             "keywords": {"floral chypre", "rose", "jasmine", "moss", "patchouli", "miss dior"},
-            "anchors": {"phenethyl alcohol", "hedione", "patchouli eo", "evernyl", "bergamot fcf oil sicilian", "labdanum absolute"},
+            "anchors": {
+                "phenethyl alcohol",
+                "hedione",
+                "patchouli eo",
+                "evernyl",
+                "bergamot fcf oil sicilian",
+                "labdanum absolute",
+            },
             "positive_dims": {"floral": 1.2, "green": 0.8, "woody": 0.8},
             "negative_dims": {"sweetness": 0.6, "gourmand": 0.4},
         },
@@ -403,7 +721,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (18, 34, 48),
             "keywords": {"fruity chypre", "mitsouko", "peach", "bergamot", "moss", "patchouli"},
-            "anchors": {"bergamot fcf oil sicilian", "damascenone", "gamma undecalactone", "patchouli eo", "evernyl", "labdanum absolute"},
+            "anchors": {
+                "bergamot fcf oil sicilian",
+                "damascenone",
+                "gamma undecalactone",
+                "patchouli eo",
+                "evernyl",
+                "labdanum absolute",
+            },
             "positive_dims": {"green": 0.9, "woody": 0.8, "fruity": 0.7},
             "negative_dims": {"sweetness": 0.7, "creamy": 0.5},
         },
@@ -411,7 +736,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (18, 34, 48),
             "keywords": {"green chypre", "vent vert", "galbanum", "leafy", "moss", "patchouli"},
-            "anchors": {"galbanum resinoid", "bergamot fcf oil sicilian", "evernyl", "patchouli eo", "vetiver eo", "cyclamen aldehyde"},
+            "anchors": {
+                "galbanum resinoid",
+                "bergamot fcf oil sicilian",
+                "evernyl",
+                "patchouli eo",
+                "vetiver eo",
+                "cyclamen aldehyde",
+            },
             "positive_dims": {"green": 1.5, "freshness": 0.8, "woody": 0.7},
             "negative_dims": {"sweetness": 0.5, "gourmand": 0.4},
         },
@@ -419,47 +751,128 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (12, 30, 58),
             "keywords": {"leather chypre", "bandit", "ibq", "birch tar", "moss", "patchouli"},
-            "anchors": {"isobutyl quinoline", "birch tar rectified", "evernyl", "patchouli eo", "labdanum absolute", "vetiver eo"},
+            "anchors": {
+                "isobutyl quinoline",
+                "birch tar rectified",
+                "evernyl",
+                "patchouli eo",
+                "labdanum absolute",
+                "vetiver eo",
+            },
             "positive_dims": {"woody": 0.9, "smoky": 0.8, "green": 0.7},
             "negative_dims": {"sweetness": 0.6, "creamy": 0.4},
         },
         "woody_mineral": {
             "kind": "subfamily",
             "balance": (12, 28, 60),
-            "keywords": {"mineral", "cold", "transparent", "architectural", "stone", "jce", "ellena"},
-            "anchors": {"timberol", "javanol", "iso e super", "norlimbanol dextro", "scentenal", "clearwood"},
+            "keywords": {
+                "mineral",
+                "cold",
+                "transparent",
+                "architectural",
+                "stone",
+                "jce",
+                "ellena",
+            },
+            "anchors": {
+                "timberol",
+                "javanol",
+                "iso e super",
+                "norlimbanol dextro",
+                "scentenal",
+                "clearwood",
+            },
             "positive_dims": {"transparency": 1.4, "freshness": 0.8, "woody": 0.8},
             "negative_dims": {"warmth": 0.6, "sweetness": 0.5, "creamy": 0.4},
         },
         "oriental_classical": {
             "kind": "subfamily",
             "balance": (12, 30, 58),
-            "keywords": {"shalimar", "classic amber", "oriental", "benzoin", "vanilla", "incense", "citrus"},
-            "anchors": {"benzoin sumatra resinoid", "siam benzoin", "vanillin", "olibanum resinoid absolute", "patchouli eo", "bergamot fcf oil sicilian"},
+            "keywords": {
+                "shalimar",
+                "classic amber",
+                "oriental",
+                "benzoin",
+                "vanilla",
+                "incense",
+                "citrus",
+            },
+            "anchors": {
+                "benzoin sumatra resinoid",
+                "siam benzoin",
+                "vanillin",
+                "olibanum resinoid absolute",
+                "patchouli eo",
+                "bergamot fcf oil sicilian",
+            },
             "positive_dims": {"warmth": 1.5, "sweetness": 0.8, "smoky": 0.5, "creamy": 0.5},
             "negative_dims": {"green": 0.4, "marine": 0.4},
         },
         "oriental_soft": {
             "kind": "subfamily",
             "balance": (16, 34, 50),
-            "keywords": {"soft oriental", "jicky", "lavender", "bergamot", "tonka", "vanilla", "benzoin"},
-            "anchors": {"lavender eo", "bergamot fcf oil sicilian", "coumarin", "vanillin", "tonka bean fo", "benzoin sumatra resinoid"},
+            "keywords": {
+                "soft oriental",
+                "jicky",
+                "lavender",
+                "bergamot",
+                "tonka",
+                "vanilla",
+                "benzoin",
+            },
+            "anchors": {
+                "lavender eo",
+                "bergamot fcf oil sicilian",
+                "coumarin",
+                "vanillin",
+                "tonka bean fo",
+                "benzoin sumatra resinoid",
+            },
             "positive_dims": {"warmth": 1.1, "aromatic": 0.8, "freshness": 0.6, "creamy": 0.5},
             "negative_dims": {"marine": 0.4, "green": 0.4},
         },
         "oriental_amber": {
             "kind": "subfamily",
             "balance": (12, 28, 60),
-            "keywords": {"amber", "warm", "benzoin", "labdanum", "vanilla", "resinous", "grand soir"},
-            "anchors": {"benzoin resinoid", "labdanum absolute", "vanillin", "ambermax", "ambrox super"},
+            "keywords": {
+                "amber",
+                "warm",
+                "benzoin",
+                "labdanum",
+                "vanilla",
+                "resinous",
+                "grand soir",
+            },
+            "anchors": {
+                "benzoin resinoid",
+                "labdanum absolute",
+                "vanillin",
+                "ambermax",
+                "ambrox super",
+            },
             "positive_dims": {"warmth": 1.5, "creamy": 0.8, "sweetness": 0.7},
             "negative_dims": {"freshness": 0.4, "green": 0.3},
         },
         "oriental_floral": {
             "kind": "subfamily",
             "balance": (14, 40, 46),
-            "keywords": {"floral oriental", "floral amber", "lheure bleue", "rose", "ylang", "vanilla", "benzoin"},
-            "anchors": {"phenethyl alcohol", "ylang ylang eo", "benzoin sumatra resinoid", "vanillin", "heliotropal", "musk ketone"},
+            "keywords": {
+                "floral oriental",
+                "floral amber",
+                "lheure bleue",
+                "rose",
+                "ylang",
+                "vanilla",
+                "benzoin",
+            },
+            "anchors": {
+                "phenethyl alcohol",
+                "ylang ylang eo",
+                "benzoin sumatra resinoid",
+                "vanillin",
+                "heliotropal",
+                "musk ketone",
+            },
             "positive_dims": {"floral": 1.2, "warmth": 1.0, "powdery": 0.8, "creamy": 0.6},
             "negative_dims": {"green": 0.4, "marine": 0.4},
         },
@@ -474,8 +887,22 @@ class FormulaScorer:
         "gourmand_vanilla": {
             "kind": "subfamily",
             "balance": (8, 22, 70),
-            "keywords": {"gourmand", "vanilla", "caramel", "sweet", "ethyl maltol", "tonka", "dessert"},
-            "anchors": {"vanillin", "ethyl vanillin", "ethyl maltol", "coumarin", "benzoin resinoid"},
+            "keywords": {
+                "gourmand",
+                "vanilla",
+                "caramel",
+                "sweet",
+                "ethyl maltol",
+                "tonka",
+                "dessert",
+            },
+            "anchors": {
+                "vanillin",
+                "ethyl vanillin",
+                "ethyl maltol",
+                "coumarin",
+                "benzoin resinoid",
+            },
             "positive_dims": {"sweetness": 1.5, "creamy": 0.8, "warmth": 0.6},
             "negative_dims": {"freshness": 0.4, "green": 0.3, "smoky": 0.3},
         },
@@ -499,7 +926,13 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (8, 30, 62),
             "keywords": {"skin", "intimate", "warm", "bare", "exaltolide", "musk", "body"},
-            "anchors": {"ethylene brassylate", "exaltolide", "habanolide", "iso e super", "ambrox super"},
+            "anchors": {
+                "ethylene brassylate",
+                "exaltolide",
+                "habanolide",
+                "iso e super",
+                "ambrox super",
+            },
             "positive_dims": {"creamy": 1.0, "radiance": 0.7, "warmth": 0.6},
             "negative_dims": {"green": 0.4, "freshness": 0.3},
         },
@@ -507,7 +940,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (18, 42, 40),
             "keywords": {"mineral", "fougere", "aromatic", "cold", "stone", "lavender", "marine"},
-            "anchors": {"lavender eo", "dihydromyrcenol", "calone", "scentenal", "coumarin", "evernyl"},
+            "anchors": {
+                "lavender eo",
+                "dihydromyrcenol",
+                "calone",
+                "scentenal",
+                "coumarin",
+                "evernyl",
+            },
             "positive_dims": {"freshness": 1.1, "green": 0.8, "aromatic": 0.7, "woody": 0.5},
             "negative_dims": {"sweetness": 0.5, "creamy": 0.4},
         },
@@ -515,7 +955,14 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (18, 40, 42),
             "keywords": {"tonka", "mass appeal", "apple", "vanilla", "fruity", "fougere"},
-            "anchors": {"coumarin", "vanillin", "apritone", "lavender eo", "iso e super", "habanolide"},
+            "anchors": {
+                "coumarin",
+                "vanillin",
+                "apritone",
+                "lavender eo",
+                "iso e super",
+                "habanolide",
+            },
             "positive_dims": {"sweetness": 0.9, "freshness": 0.8, "fruity": 0.7, "aromatic": 0.6},
             "negative_dims": {"green": 0.4, "smoky": 0.3},
         },
@@ -523,15 +970,34 @@ class FormulaScorer:
             "kind": "subfamily",
             "balance": (15, 55, 30),
             "keywords": {"rose", "citronellol", "geraniol", "pea", "damascone", "tea rose"},
-            "anchors": {"citronellol", "geraniol", "phenethyl alcohol", "damascone beta", "rose oxide"},
+            "anchors": {
+                "citronellol",
+                "geraniol",
+                "phenethyl alcohol",
+                "damascone beta",
+                "rose oxide",
+            },
             "positive_dims": {"floral": 1.6, "green": 0.5, "freshness": 0.5},
             "negative_dims": {"smoky": 0.3, "animalic": 0.3, "spicy": 0.3},
         },
         "soliflore_jasmine": {
             "kind": "subfamily",
             "balance": (20, 52, 28),
-            "keywords": {"jasmine", "indolic", "hedione", "benzyl acetate", "cis jasmone", "narcotic"},
-            "anchors": {"hedione hc", "benzyl acetate", "cis jasmone", "indole", "methyl anthranilate"},
+            "keywords": {
+                "jasmine",
+                "indolic",
+                "hedione",
+                "benzyl acetate",
+                "cis jasmone",
+                "narcotic",
+            },
+            "anchors": {
+                "hedione hc",
+                "benzyl acetate",
+                "cis jasmone",
+                "indole",
+                "methyl anthranilate",
+            },
             "positive_dims": {"floral": 1.5, "animalic": 0.5, "radiance": 0.5},
             "negative_dims": {"smoky": 0.3, "green": 0.4},
         },
@@ -626,9 +1092,10 @@ class FormulaScorer:
         # Score: ratio of aligned materials, with penalty for misaligned
         alignment_ratio = (aligned - misaligned * 0.5) / total
         score = max(0.0, min(15.0, round(15.0 * alignment_ratio, 1)))
-        diagnostics.insert(0,
+        diagnostics.insert(
+            0,
             f"archetype: {aligned} aligned, {misaligned} misaligned, "
-            f"{neutral} neutral → {score}/15"
+            f"{neutral} neutral → {score}/15",
         )
         return score, diagnostics
 
@@ -641,7 +1108,7 @@ class FormulaScorer:
         """Return ranked style/category candidates with signal breakdowns."""
         # Per-FV cache (keyed on fv identity + params)
         cache_key = (id(fv), limit, include_categories)
-        if not hasattr(self, '_sfc_cache'):
+        if not hasattr(self, "_sfc_cache"):
             self._sfc_cache = {}
         if cache_key in self._sfc_cache:
             return self._sfc_cache[cache_key]
@@ -691,10 +1158,15 @@ class FormulaScorer:
             else:
                 balance_score = 50.0
 
-            positive_score = sum(radar.get(dim, 0.0) * weight for dim, weight in positive_dims.items())
+            positive_score = sum(
+                radar.get(dim, 0.0) * weight for dim, weight in positive_dims.items()
+            )
             positive_score = min(positive_score * 2.0, 30.0)
 
-            negative_score = sum(max(radar.get(dim, 0.0) - 2.5, 0.0) * weight for dim, weight in negative_dims.items())
+            negative_score = sum(
+                max(radar.get(dim, 0.0) - 2.5, 0.0) * weight
+                for dim, weight in negative_dims.items()
+            )
             negative_score = min(negative_score * 2.0, 18.0)
 
             breadth_bonus = 0.0
@@ -714,9 +1186,13 @@ class FormulaScorer:
                 if label in {"fresh", "green"}:
                     breadth_bonus = 8.0 if radar.get("freshness", 0) > 3.0 else 2.0
                 elif label in {"floral", "musky"}:
-                    breadth_bonus = 8.0 if radar.get("floral", 0) > 3.0 or radar.get("creamy", 0) > 3.0 else 2.0
+                    breadth_bonus = (
+                        8.0 if radar.get("floral", 0) > 3.0 or radar.get("creamy", 0) > 3.0 else 2.0
+                    )
                 elif label in {"woody", "amber"}:
-                    breadth_bonus = 8.0 if radar.get("woody", 0) > 3.0 or radar.get("warmth", 0) > 3.0 else 2.0
+                    breadth_bonus = (
+                        8.0 if radar.get("woody", 0) > 3.0 or radar.get("warmth", 0) > 3.0 else 2.0
+                    )
                 elif label == "spicy":
                     breadth_bonus = 8.0 if radar.get("spicy", 0) > 2.5 else 2.0
 
@@ -737,22 +1213,28 @@ class FormulaScorer:
                 - negative_score
             )
             score = round(max(0.0, min(raw_score, 100.0)), 1)
-            candidates.append({
-                "style": label,
-                "kind": profile.get("kind", "style"),
-                "score": score,
-                "confidence": 0.0,  # filled after ranking
-                "signals": {
-                    "matched_keywords": matched_keywords,
-                    "matched_anchors": matched_anchors,
-                    "balance_target": target,
-                    "balance_score": round(balance_score, 1),
-                    "positive_dims": {dim: round(radar.get(dim, 0.0), 2) for dim in positive_dims},
-                    "negative_dims": {dim: round(radar.get(dim, 0.0), 2) for dim in negative_dims},
-                    "radar": {dim: round(val, 2) for dim, val in radar.items()},
-                    "note_distribution": {k: round(v, 2) for k, v in dist.items()},
-                },
-            })
+            candidates.append(
+                {
+                    "style": label,
+                    "kind": profile.get("kind", "style"),
+                    "score": score,
+                    "confidence": 0.0,  # filled after ranking
+                    "signals": {
+                        "matched_keywords": matched_keywords,
+                        "matched_anchors": matched_anchors,
+                        "balance_target": target,
+                        "balance_score": round(balance_score, 1),
+                        "positive_dims": {
+                            dim: round(radar.get(dim, 0.0), 2) for dim in positive_dims
+                        },
+                        "negative_dims": {
+                            dim: round(radar.get(dim, 0.0), 2) for dim in negative_dims
+                        },
+                        "radar": {dim: round(val, 2) for dim, val in radar.items()},
+                        "note_distribution": {k: round(v, 2) for k, v in dist.items()},
+                    },
+                }
+            )
 
         candidates.sort(key=lambda item: (item["score"], item["style"]), reverse=True)
 
@@ -807,13 +1289,17 @@ class FormulaScorer:
         style_candidates = [c for c in candidates if c.get("kind") == "style"]
         category_candidates = [c for c in candidates if c.get("kind") == "category"]
 
-        primary = candidates[0] if candidates else {
-            "style": self.detect_style(fv),
-            "kind": "style",
-            "score": 0.0,
-            "confidence": 0.0,
-            "signals": {},
-        }
+        primary = (
+            candidates[0]
+            if candidates
+            else {
+                "style": self.detect_style(fv),
+                "kind": "style",
+                "score": 0.0,
+                "confidence": 0.0,
+                "signals": {},
+            }
+        )
 
         return {
             "dominant_style": self.detect_style(fv),
@@ -853,9 +1339,15 @@ class FormulaScorer:
                 str(item.get("style")).lower().strip()
                 for item in fingerprint.get("candidates", [])
                 if isinstance(item, dict) and item.get("style")
-            ] if isinstance(fingerprint, dict) else [],
-            "radar": dict(fingerprint.get("radar", {})) if isinstance(fingerprint, dict) else self.formula_character_radar(fv),
-            "note_distribution": dict(fingerprint.get("note_distribution", {})) if isinstance(fingerprint, dict) else fv.note_distribution(),
+            ]
+            if isinstance(fingerprint, dict)
+            else [],
+            "radar": dict(fingerprint.get("radar", {}))
+            if isinstance(fingerprint, dict)
+            else self.formula_character_radar(fv),
+            "note_distribution": dict(fingerprint.get("note_distribution", {}))
+            if isinstance(fingerprint, dict)
+            else fv.note_distribution(),
             "top_materials": [name for name, _ in weighted_materials[:8]],
         }
 
@@ -871,11 +1363,13 @@ class FormulaScorer:
         must_avoid: list[str] | None = None,
     ) -> dict[str, object]:
         """Score how well a candidate preserves the baseline perfume identity."""
+
         def _descriptor_matches(text: str, descriptor: str) -> bool:
             tokens = [
                 token
                 for token in re.split(r"[^a-z0-9]+", descriptor.lower())
-                if token and token not in {"dominant", "led", "lead", "keep", "preserve", "note", "accord"}
+                if token
+                and token not in {"dominant", "led", "lead", "keep", "preserve", "note", "accord"}
             ]
             if not tokens:
                 return descriptor.lower() in text
@@ -904,7 +1398,9 @@ class FormulaScorer:
         candidate_radar = dict(fingerprint.get("radar", candidate_scores.get("_radar", {})))
         base_dist = dict(base_signature.get("note_distribution", {}))
         candidate_dist = dict(fingerprint.get("note_distribution", {}))
-        base_top_materials = [str(name).lower().strip() for name in base_signature.get("top_materials", [])]
+        base_top_materials = [
+            str(name).lower().strip() for name in base_signature.get("top_materials", [])
+        ]
         candidate_top_materials: list[str] = []
         if candidate_fv is not None:
             weighted_materials = sorted(
@@ -912,7 +1408,9 @@ class FormulaScorer:
                 key=lambda item: (item[1], item[0]),
                 reverse=True,
             )
-            candidate_top_materials = [str(name).lower().strip() for name, _ in weighted_materials[:8]]
+            candidate_top_materials = [
+                str(name).lower().strip() for name, _ in weighted_materials[:8]
+            ]
 
         style_alignment = 45.0
         if base_dominant and candidate_dominant == base_dominant:
@@ -950,12 +1448,18 @@ class FormulaScorer:
         normalized_target_style = str(target_style or "").lower().strip()
         if normalized_target_style:
             target_checks.append(
-                100.0 if normalized_target_style == candidate_dominant or normalized_target_style in candidate_labels else 60.0
+                100.0
+                if normalized_target_style == candidate_dominant
+                or normalized_target_style in candidate_labels
+                else 60.0
             )
         normalized_category = str(category_hint or "").lower().strip()
         if normalized_category:
             target_checks.append(
-                100.0 if normalized_category == candidate_dominant or normalized_category in candidate_labels else 70.0
+                100.0
+                if normalized_category == candidate_dominant
+                or normalized_category in candidate_labels
+                else 70.0
             )
         target_alignment = sum(target_checks) / len(target_checks) if target_checks else 100.0
 
@@ -969,10 +1473,14 @@ class FormulaScorer:
         if not candidate_text:
             candidate_text = " ".join(base_top_materials)
 
-        preserve_terms = [str(term).lower().strip() for term in (must_preserve or []) if str(term).strip()]
+        preserve_terms = [
+            str(term).lower().strip() for term in (must_preserve or []) if str(term).strip()
+        ]
         if preserve_terms:
             preserve_scores = []
-            baseline_text = " ".join([*(base_top_materials or []), base_dominant or "", base_primary or ""]).strip()
+            baseline_text = " ".join(
+                [*(base_top_materials or []), base_dominant or "", base_primary or ""]
+            ).strip()
             for term in preserve_terms:
                 if _descriptor_matches(candidate_text, term):
                     preserve_scores.append(100.0)
@@ -984,9 +1492,13 @@ class FormulaScorer:
         else:
             preserve_alignment = 100.0
 
-        avoid_terms = [str(term).lower().strip() for term in (must_avoid or []) if str(term).strip()]
+        avoid_terms = [
+            str(term).lower().strip() for term in (must_avoid or []) if str(term).strip()
+        ]
         if avoid_terms:
-            avoid_scores = [35.0 if _descriptor_matches(candidate_text, term) else 100.0 for term in avoid_terms]
+            avoid_scores = [
+                35.0 if _descriptor_matches(candidate_text, term) else 100.0 for term in avoid_terms
+            ]
             avoid_alignment = sum(avoid_scores) / len(avoid_scores)
         else:
             avoid_alignment = 100.0
@@ -1010,11 +1522,17 @@ class FormulaScorer:
 
         drift_notes: list[str] = []
         if base_dominant and candidate_dominant and candidate_dominant != base_dominant:
-            drift_notes.append(f"dominant style shifts from {base_dominant} to {candidate_dominant}")
+            drift_notes.append(
+                f"dominant style shifts from {base_dominant} to {candidate_dominant}"
+            )
         if mean_radar_delta > 0.45:
-            drift_notes.append(f"character radar drift is moderate ({mean_radar_delta:.2f} average delta)")
+            drift_notes.append(
+                f"character radar drift is moderate ({mean_radar_delta:.2f} average delta)"
+            )
         if pyramid_distance > 4.0:
-            drift_notes.append(f"note pyramid drift is noticeable ({pyramid_distance:.1f} distance)")
+            drift_notes.append(
+                f"note pyramid drift is noticeable ({pyramid_distance:.1f} distance)"
+            )
         if preserve_terms and preserve_alignment < 80.0:
             drift_notes.append("one or more must-preserve cues weaken")
         if avoid_terms and avoid_alignment < 100.0:
@@ -1167,8 +1685,9 @@ class FormulaScorer:
         list. Range: 0-100.
         """
         tp = self.temporal_profile
-        if tp is not None and hasattr(tp, 'projection_cm') and tp.projection_cm is not None:
+        if tp is not None and hasattr(tp, "projection_cm") and tp.projection_cm is not None:
             import numpy as np
+
             proj = tp.projection_cm
             # Average projection over first 2 hours (the "sillage window")
             t = tp.time_hours
@@ -1193,8 +1712,7 @@ class FormulaScorer:
 
     def _score_sillage_heuristic(self, fv: FormulaVector) -> float:
         """Heuristic sillage score from VP, volatility index, and boosters."""
-        avg_vp = fv.avg_property("vp")
-        vi = fv.weighted_volatility_index()
+        avg_vp, vi = self._thermodynamic_projection_properties(fv)
         dist = fv.note_distribution()
 
         score = 0.0
@@ -1234,23 +1752,38 @@ class FormulaScorer:
         # Derived from ingredient_intelligence profiles where texture includes
         # "diffusion", "bloom", or "projection" and VP > 0.005
         from engine.name_utils import normalize_name
+
         boosters = {
-            "hedione", "iso e super", "ambrox super", "dihydromyrcenol",
-            "cashmeran", "galaxolide", "habanolide", "paradisone",
-            "benzyl salicylate", "hexyl salicylate",
+            "hedione",
+            "iso e super",
+            "ambrox super",
+            "dihydromyrcenol",
+            "cashmeran",
+            "galaxolide",
+            "habanolide",
+            "paradisone",
+            "benzyl salicylate",
+            "hexyl salicylate",
             # Modern diffusers
-            "scentenal", "dynascone", "nympheal", "lilyreal nd",
-            "floralozone", "helional", "allyl amyl glycolate",
+            "scentenal",
+            "dynascone",
+            "nympheal",
+            "lilyreal nd",
+            "floralozone",
+            "helional",
+            "allyl amyl glycolate",
             # Macrocyclic musks (bloom projection)
-            "ambrettolide", "exaltolide", "ethylene brassylate",
-            "romandolide", "tonalide",
+            "ambrettolide",
+            "exaltolide",
+            "ethylene brassylate",
+            "romandolide",
+            "tonalide",
             # Woody diffusers
-            "clearwood", "javanol", "sandalore",
+            "clearwood",
+            "javanol",
+            "sandalore",
         }
-        booster_count = sum(
-            1 for name in fv.ingredient_list()
-            if normalize_name(name) in boosters
-        )
+        booster_count = sum(1 for name in fv.ingredient_list() if normalize_name(name) in boosters)
         score += min(booster_count * 5, 30)
 
         # Sustained-projection bonus: heart-diffuser-heavy EDPs generate
@@ -1295,7 +1828,7 @@ class FormulaScorer:
         contribution is weighted by the perceptibility of both materials:
         pairs where either material has OAV < 1 are discounted.
         """
-        oav_data = getattr(self, "_material_oavs", None)
+        oav_data = self._thermodynamic_oav_map(fv)
         ingredients = fv.ingredient_list()
 
         # ── Effect-weighted pairing rules ──
@@ -1343,7 +1876,7 @@ class FormulaScorer:
 
             clashes = []
             for i, a in enumerate(ingredients):
-                for b in ingredients[i + 1:]:
+                for b in ingredients[i + 1 :]:
                     w = sg.pair_synergy(a, b)
                     if w < -0.2:
                         clashes.append((a, b, round(w, 3)))
@@ -1428,35 +1961,85 @@ class FormulaScorer:
         from engine.name_utils import normalize_name
 
         # Premium captive canon (Boix Camps 2014, Ch. 7–9; Burr 2008 Appx.).
-        _PREMIUM_SYNTHETICS = {
+        _premium_synthetics = {
             # Macrocyclic / alicyclic musks
-            "ambrettolide", "habanolide", "romandolide", "ethylene brassylate",
-            "exaltolide", "muscenone", "nirvanolide", "velvione", "zenolide",
+            "ambrettolide",
+            "habanolide",
+            "romandolide",
+            "ethylene brassylate",
+            "exaltolide",
+            "muscenone",
+            "nirvanolide",
+            "velvione",
+            "zenolide",
             "macrolide",
             # Ambers — crystalline / mineral / warm
-            "ambrox super", "ambrox", "ambrofix", "ambermax", "amberwood f",
-            "cetalox", "ysamber k", "cedramber", "cedamber",
+            "ambrox super",
+            "ambrox",
+            "ambrofix",
+            "ambermax",
+            "amberwood f",
+            "cetalox",
+            "ysamber k",
+            "cedramber",
+            "cedamber",
             # Premium woods and captives
-            "iso e super", "javanol", "ebanol", "bacdanol", "sandalore",
-            "polysantol", "norlimbanol", "norlimbanol dextro", "clearwood",
-            "timberol", "kephalis", "koavone", "vertofix coeur", "azarbre",
-            "cashmeran", "georgywood", "okoumal", "sylvamber",
+            "iso e super",
+            "javanol",
+            "ebanol",
+            "bacdanol",
+            "sandalore",
+            "polysantol",
+            "norlimbanol",
+            "norlimbanol dextro",
+            "clearwood",
+            "timberol",
+            "kephalis",
+            "koavone",
+            "vertofix coeur",
+            "azarbre",
+            "cashmeran",
+            "georgywood",
+            "okoumal",
+            "sylvamber",
             # Radiance / Hedione family
-            "hedione", "hedione hc", "paradisone", "methyl dihydrojasmonate",
+            "hedione",
+            "hedione hc",
+            "paradisone",
+            "methyl dihydrojasmonate",
             # Premium florals
-            "dbca", "lilyreal", "mayol", "bourgeonal", "florhydral",
-            "cyclamen aldehyde", "alpha irone", "alpha ionone",
-            "beta ionone", "methyl ionone", "orivone", "ultralia",
-            "farnesol", "paradisamide", "peonile",
+            "dbca",
+            "lilyreal",
+            "mayol",
+            "bourgeonal",
+            "florhydral",
+            "cyclamen aldehyde",
+            "alpha irone",
+            "alpha ionone",
+            "beta ionone",
+            "methyl ionone",
+            "orivone",
+            "ultralia",
+            "farnesol",
+            "paradisamide",
+            "peonile",
             # Mineral / ozonic / aldehydic
-            "helional", "scentenal", "floralozone", "calone", "triplal",
+            "helional",
+            "scentenal",
+            "floralozone",
+            "calone",
+            "triplal",
             # Gourmand / lactonic
-            "lactoscone", "prismantol", "gamma decalactone", "delta decalactone",
+            "lactoscone",
+            "prismantol",
+            "gamma decalactone",
+            "delta decalactone",
             # Salicylate fixative architecture
-            "hexyl salicylate", "benzyl salicylate",
+            "hexyl salicylate",
+            "benzyl salicylate",
         }
-        _NATURAL_SUFFIXES = ("eo", "absolute", "resinoid", "co2")
-        _PREBLEND_MARKERS = ("ftec", " fo", "fleuressence", "accord", "core")
+        _natural_suffixes = ("eo", "absolute", "resinoid", "co2")
+        _preblend_markers = ("ftec", " fo", "fleuressence", "accord", "core")
 
         eff = fv.effective_ingredients()
         if not eff:
@@ -1470,15 +2053,16 @@ class FormulaScorer:
         filler_mass = 0.0
         n_filler = 0
         effect_sum = 0.0
-        n_declared = 0                    # declared notes (≥1× ODT or unknown)
+        n_declared = 0  # declared notes (≥1× ODT or unknown)
         dominant_counts: dict[str, int] = {}
         roles_used: set[str] = set()
-        trace_shadow_count = 0            # Ellena shadow zone (0.1–1.0× ODT)
+        trace_shadow_count = 0  # Ellena shadow zone (0.1–1.0× ODT)
         note_mass = {"top": 0.0, "heart": 0.0, "base": 0.0}
         # Perplexity 2026-04-23 extensions
         or_family_counts: dict[str, int] = {}
         hedonic_weighted = 0.0
         hedonic_mass = 0.0
+        thermodynamic_rows = self._thermodynamic_material_map(fv)
 
         # Ellena/Roudnitska principle: materials in the shadow zone are not
         # "notes" — they are compositional grain below perception threshold.
@@ -1488,21 +2072,15 @@ class FormulaScorer:
             norm = normalize_name(name)
             prof = get_profile(name)
 
-            # Classify dose zone first. We compare concentrate-level dose
-            # (ppm_in_conc = pct * 10000) against odt_ppm (ppm in ethanol
-            # solution) — the only unit pair that is dimensionally coherent.
-            # odt (ppb-in-air) is kept for headspace/temporal math elsewhere.
-            # Raoult correction: multiply by γᵢ (activity_coef) so that
-            # matrix-suppressed materials (Hedione γ≈0.6, salicylates γ≈0.7)
-            # are classified by their *effective* airborne dose, not mass.
+            # Classify the perceptual zone from canonical headspace OAV. This
+            # preserves one ppm -> mole fraction -> gamma*VP -> air ODT chain
+            # instead of mixing concentrate ppm with a profile-level gamma.
             is_shadow = False
             is_silent = False
-            odt_ref = getattr(prof, "odt_ppm", None) if prof else None
-            gamma = getattr(prof, "activity_coef", 1.0) if prof else 1.0
             dose_ratio = 0.0
-            if odt_ref and odt_ref > 0:
-                ppm_in_conc = pct * 10000.0 * max(gamma, 0.1)
-                dose_ratio = ppm_in_conc / odt_ref
+            thermo_row = thermodynamic_rows.get(name)
+            if thermo_row is not None and thermo_row.oav is not None:
+                dose_ratio = max(0.0, float(thermo_row.oav))
                 if dose_ratio < 0.1:
                     is_silent = True
                 elif dose_ratio <= 1.0:
@@ -1517,15 +2095,15 @@ class FormulaScorer:
                 continue
 
             # Declared note: participates in all mass/character components.
-            is_preblend = any(m in norm for m in _PREBLEND_MARKERS)
+            is_preblend = any(m in norm for m in _preblend_markers)
             if is_preblend:
                 preblend_mass += pct
 
-            is_natural = any(norm.endswith(s) for s in _NATURAL_SUFFIXES)
+            is_natural = any(norm.endswith(s) for s in _natural_suffixes)
             if is_natural and not is_preblend:
                 natural_mass += pct
 
-            if norm in _PREMIUM_SYNTHETICS:
+            if norm in _premium_synthetics:
                 premium_mass += pct
 
             n_declared += 1
@@ -1537,12 +2115,11 @@ class FormulaScorer:
                 # rather than raw log(1+mass). n=1.5, K=3.0 places the
                 # half-max at 3× ODT, plateau ≈10× ODT — matching the
                 # psychophysical compression of ORN response.
-                strong = sum(max(0.0, v - 4.0)
-                             for v in prof.character.values())
+                strong = sum(max(0.0, v - 4.0) for v in prof.character.values())
                 if dose_ratio > 0:
-                    K = 3.0
+                    K = 3.0  # noqa: N806
                     n = 1.5
-                    impact = (dose_ratio ** n) / (dose_ratio ** n + K ** n)
+                    impact = (dose_ratio**n) / (dose_ratio**n + K**n)
                     # Scale so saturation ≈ log1p(10) ≈ 2.4 (keeps the
                     # score range compatible with the pre-Hill calibration)
                     effect_sum += strong * impact * 2.4
@@ -1555,8 +2132,7 @@ class FormulaScorer:
                     dominant_counts[dom] = dominant_counts.get(dom, 0) + 1
 
                 if prof.or_family:
-                    or_family_counts[prof.or_family] = (
-                        or_family_counts.get(prof.or_family, 0) + 1)
+                    or_family_counts[prof.or_family] = or_family_counts.get(prof.or_family, 0) + 1
 
                 hed = getattr(prof, "hedonic", 0.0) or 0.0
                 hedonic_weighted += hed * pct
@@ -1635,14 +2211,19 @@ class FormulaScorer:
         or_overload = sum(max(0, c - 3) for c in or_family_counts.values())
         role_breadth = min(len(roles_used) * 2.0, 8.0)
         filler_frac = n_filler / max(n_declared, 1)
-        restraint_score = max(0.0,
-                              7.0 + role_breadth - redundancy * 0.8
-                              - or_overload * 1.0
-                              - filler_frac * 20.0)
+        restraint_score = max(
+            0.0, 7.0 + role_breadth - redundancy * 0.8 - or_overload * 1.0 - filler_frac * 20.0
+        )
         restraint_score = min(restraint_score, 15.0)
 
-        score = (natural_score + premium_score + architecture_score
-                 + effect_score + trace_score + restraint_score)
+        score = (
+            natural_score
+            + premium_score
+            + architecture_score
+            + effect_score
+            + trace_score
+            + restraint_score
+        )
         return round(max(0.0, min(score, 100.0)), 1)
 
     def score_texture(self, fv: FormulaVector) -> float:
@@ -1684,7 +2265,7 @@ class FormulaScorer:
         # ── Compute weighted-average character dimensions ──
         dim_sums: dict[str, float] = {d: 0.0 for d in DIMENSIONS}
         total_pct = 0.0
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        oav_data = self._thermodynamic_oav_map(fv)
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
@@ -1699,16 +2280,21 @@ class FormulaScorer:
         dims = {d: v / total_pct for d, v in dim_sums.items()}
 
         # ── Derived texture axes (from character dimensions) ──
-        roundness = (dims.get("creamy", 0) + dims.get("warmth", 0)
-                     + dims.get("sweetness", 0) * 0.5) / 2.5
-        crispness = (dims.get("freshness", 0) + dims.get("transparency", 0)
-                     + dims.get("green", 0) * 0.5) / 2.5
-        dryness = (dims.get("woody", 0) + dims.get("smoky", 0) * 0.7
-                   - dims.get("creamy", 0) * 0.3)
-        silkiness = (dims.get("floral", 0) * 0.6 + dims.get("creamy", 0) * 0.4
-                     + dims.get("transparency", 0) * 0.3)
-        harshness = (dims.get("spicy", 0) * 0.5 + dims.get("animalic", 0) * 0.5
-                     + dims.get("smoky", 0) * 0.3)
+        roundness = (
+            dims.get("creamy", 0) + dims.get("warmth", 0) + dims.get("sweetness", 0) * 0.5
+        ) / 2.5
+        crispness = (
+            dims.get("freshness", 0) + dims.get("transparency", 0) + dims.get("green", 0) * 0.5
+        ) / 2.5
+        dryness = dims.get("woody", 0) + dims.get("smoky", 0) * 0.7 - dims.get("creamy", 0) * 0.3
+        silkiness = (
+            dims.get("floral", 0) * 0.6
+            + dims.get("creamy", 0) * 0.4
+            + dims.get("transparency", 0) * 0.3
+        )
+        harshness = (
+            dims.get("spicy", 0) * 0.5 + dims.get("animalic", 0) * 0.5 + dims.get("smoky", 0) * 0.3
+        )
         # Clamp derived axes
         roundness = max(0, min(roundness, 10))
         crispness = max(0, min(crispness, 10))
@@ -1762,8 +2348,15 @@ class FormulaScorer:
         # ── 4. Roundness/harshness balance (0-20) ──
         # Harshness OK in leather/woody, but should be tempered in florals
         balance = 15
-        if style in ("floral", "white_floral", "fresh", "skin_scent",
-                      "soliflore", "iris_powdery", "iris_crystalline"):
+        if style in (
+            "floral",
+            "white_floral",
+            "fresh",
+            "skin_scent",
+            "soliflore",
+            "iris_powdery",
+            "iris_crystalline",
+        ):
             if harshness > 3:
                 balance -= (harshness - 3) * 3
         elif style in ("leather", "woody", "chypre"):
@@ -1823,7 +2416,7 @@ class FormulaScorer:
         """
         from engine.name_utils import normalize_name
 
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        oav_data = self._thermodynamic_oav_map(fv)
 
         # Map each formula material to its cross-adaptation group(s)
         # A material can appear in multiple groups (rare but possible)
@@ -1842,11 +2435,15 @@ class FormulaScorer:
 
         # Also check knowledge graph odor_family for materials not in
         # cross-adaptation groups (catches EOs, FTECs, etc.)
-        _FAMILY_MAP = {
-            "musk": "musk_extra", "floral": "floral_extra",
-            "woody": "woody_extra", "amber": "amber_extra",
-            "citrus": "citrus_extra", "green": "green_extra",
-            "balsamic": "balsamic_extra", "spicy": "spicy_extra",
+        _family_map = {
+            "musk": "musk_extra",
+            "floral": "floral_extra",
+            "woody": "woody_extra",
+            "amber": "amber_extra",
+            "citrus": "citrus_extra",
+            "green": "green_extra",
+            "balsamic": "balsamic_extra",
+            "spicy": "spicy_extra",
             "powdery": "powdery_extra",
         }
         for name in eff:
@@ -1857,15 +2454,18 @@ class FormulaScorer:
                 continue
             mat = _lookup_material(name)
             if mat:
-                fam = (mat.get("odor_family") or "").lower().split()[0] if mat.get("odor_family") else ""
-                mapped = _FAMILY_MAP.get(fam)
+                fam = (
+                    (mat.get("odor_family") or "").lower().split()[0]
+                    if mat.get("odor_family")
+                    else ""
+                )
+                mapped = _family_map.get(fam)
                 if mapped:
                     material_groups.setdefault(mapped, []).append(name)
 
         # ── Identify stacks (groups with 2+ materials) ──
         stacks: list[tuple[str, list[str]]] = [
-            (group, members) for group, members in material_groups.items()
-            if len(members) >= 2
+            (group, members) for group, members in material_groups.items() if len(members) >= 2
         ]
         n_stacks = len(stacks)
 
@@ -1915,7 +2515,7 @@ class FormulaScorer:
         Returns {dimension_name: 0-10 score}."""
         # Per-FV cache: radar is a pure function of ingredient percentages
         cache_key = id(fv)
-        if hasattr(self, '_radar_cache_key') and self._radar_cache_key == cache_key:
+        if hasattr(self, "_radar_cache_key") and self._radar_cache_key == cache_key:
             return self._radar_cache_val
         dim_sums: dict[str, float] = {d: 0.0 for d in DIMENSIONS}
         total_pct = 0.0
@@ -1936,25 +2536,192 @@ class FormulaScorer:
 
     # ── Science module axes (5 new scored dimensions) ──
 
+    @staticmethod
+    def _formula_vector_fingerprint(
+        fv: FormulaVector,
+    ) -> tuple[tuple[tuple[str, float], ...], tuple[tuple[str, float], ...]]:
+        """Return the raw-stock identity used to bind an injected state."""
+        ingredients = tuple(
+            sorted(
+                (str(name), max(0.0, float(value or 0.0)))
+                for name, value in fv.ingredients.items()
+            )
+        )
+        dilutions = tuple(
+            sorted(
+                (str(name), float(value))
+                for name, value in fv.dilutions.items()
+                if value is not None
+            )
+        )
+        return ingredients, dilutions
+
+    @classmethod
+    def _validate_formula_state_override(
+        cls,
+        fv: FormulaVector,
+        formula_state: FormulaState,
+    ) -> None:
+        """Reject injected state that does not describe this raw-stock vector."""
+        vector_raw = {
+            str(name): max(0.0, float(value or 0.0))
+            for name, value in fv.ingredients.items()
+            if float(value or 0.0) > 0.0
+        }
+        state_raw = {
+            row.name: max(0.0, float(row.raw_ul))
+            for row in formula_state.materials
+            if float(row.raw_ul) > 0.0
+        }
+        if set(vector_raw) != set(state_raw):
+            raise ValueError(
+                "formula_state material labels do not match FormulaVector raw stocks"
+            )
+
+        vector_total = sum(vector_raw.values())
+        state_total = sum(state_raw.values())
+        if (vector_total > 0.0) != (state_total > 0.0):
+            raise ValueError("formula_state raw total does not match FormulaVector")
+        if vector_total > 0.0 and state_total > 0.0:
+            for name in vector_raw:
+                vector_fraction = vector_raw[name] / vector_total
+                state_fraction = state_raw[name] / state_total
+                if not math.isclose(
+                    vector_fraction,
+                    state_fraction,
+                    rel_tol=1e-9,
+                    abs_tol=1e-12,
+                ):
+                    raise ValueError(
+                        f"formula_state raw proportion does not match FormulaVector: {name}"
+                    )
+
+        state_dilutions = {
+            row.name: float(row.dilution)
+            for row in formula_state.materials
+            if float(row.raw_ul) > 0.0
+        }
+        for name in vector_raw:
+            vector_dilution = float(fv.dilutions.get(name, 1.0) or 1.0)
+            if not math.isclose(
+                vector_dilution,
+                state_dilutions.get(name, 1.0),
+                rel_tol=1e-12,
+                abs_tol=1e-12,
+            ):
+                raise ValueError(
+                    f"formula_state dilution does not match FormulaVector: {name}"
+                )
+
+    def _formula_state_override_matches(self, fv: FormulaVector) -> bool:
+        """Return whether an injected state remains bound to this vector."""
+        return (
+            getattr(self, "_formula_state_override", None) is not None
+            and getattr(self, "_formula_state_override_fv", None) is fv
+            and getattr(self, "_formula_state_override_fingerprint", None)
+            == self._formula_vector_fingerprint(fv)
+        )
+
     def _science_ingredients(self, fv: FormulaVector) -> tuple[dict[str, float], dict[str, float]]:
-        """Extract ingredient amounts (µL) and dilution factors from FormulaVector."""
-        eff = fv.effective_ingredients()
-        cache_key = tuple(sorted(eff.items()))
-        if hasattr(self, '_sci_cache_key') and self._sci_cache_key == cache_key:
+        """Extract raw stock µL and stock fractions without double dilution."""
+        override = getattr(self, "_formula_state_override", None)
+        if self._formula_state_override_matches(fv):
+            return (
+                {row.name: float(row.raw_ul) for row in override.materials},
+                {
+                    row.name: float(row.dilution)
+                    for row in override.materials
+                    if float(row.dilution) != 1.0
+                },
+            )
+
+        raw = {
+            str(name): max(0.0, float(pct or 0.0))
+            for name, pct in fv.ingredients.items()
+        }
+        dilution_items = tuple(
+            sorted(
+                (str(name), float(value))
+                for name, value in fv.dilutions.items()
+                if value is not None
+            )
+        )
+        cache_key = (
+            tuple(sorted(raw.items())),
+            dilution_items,
+            float(self.batch_volume_ml),
+        )
+        if hasattr(self, "_sci_cache_key") and self._sci_cache_key == cache_key:
             return self._sci_cache_val
         # Convert percentages back to absolute µL using the configured batch
         # volume. Previously hardcoded to 10 mL — this caused silently-wrong
         # OAV values on any other batch size (e.g. 15 mL split, 30 mL build).
-        total = sum(eff.values()) or 1.0
+        total = sum(raw.values()) or 1.0
         batch_ul = self.batch_volume_ml * 1000.0
-        ingredients = {name: (pct / total) * batch_ul for name, pct in eff.items()}
+        ingredients = {name: (pct / total) * batch_ul for name, pct in raw.items()}
         # Dilution comes from the formula vector (FormulaVector.dilutions), not
         # ingredient profiles — profile-level dilution fields were removed as an
         # architectural fix (stock prep metadata doesn't belong on a molecule).
-        dilutions = {k: v for k, v in fv.dilutions.items() if v and v != 1.0}
+        dilutions = {
+            str(name): float(value)
+            for name, value in fv.dilutions.items()
+            if value is not None and float(value) != 1.0
+        }
         self._sci_cache_key = cache_key
         self._sci_cache_val = (ingredients, dilutions)
         return ingredients, dilutions
+
+    def _thermodynamic_state(self, fv: FormulaVector) -> FormulaState:
+        """Return the canonical physical state for this optimizer formula."""
+        from ..pipeline.formula_state import build_formula_state
+
+        override = getattr(self, "_formula_state_override", None)
+        if self._formula_state_override_matches(fv):
+            return override
+        ingredients, dilutions = self._science_ingredients(fv)
+        return build_formula_state(
+            ingredients,
+            dilutions,
+            batch_volume_ml=self.batch_volume_ml,
+        )
+
+    def _thermodynamic_material_map(self, fv: FormulaVector) -> dict[str, MaterialState]:
+        """Index canonical state rows by the exact formula label."""
+        return {row.name: row for row in self._thermodynamic_state(fv).materials}
+
+    def _thermodynamic_oav_map(self, fv: FormulaVector) -> dict[str, float]:
+        """Return state OAVs, with same-formula release authority when supplied."""
+        values = {
+            row.name: float(row.oav)
+            for row in self._thermodynamic_state(fv).materials
+            if row.oav is not None
+        }
+        if self._formula_state_override_matches(fv):
+            values.update(getattr(self, "_material_oavs", {}) or {})
+        return values
+
+    def _thermodynamic_projection_properties(
+        self, fv: FormulaVector
+    ) -> tuple[float | None, float | None]:
+        """Return active-mass weighted gamma*VP and gamma*VP/sqrt(MW)."""
+        vp_weight = 0.0
+        vp_sum = 0.0
+        vi_weight = 0.0
+        vi_sum = 0.0
+        for row in self._thermodynamic_state(fv).materials:
+            weight = max(0.0, float(row.active_g or 0.0))
+            vp = row.vp_pure_pa
+            if weight <= 0 or vp is None or vp <= 0:
+                continue
+            effective_vp = float(row.gamma) * float(vp)
+            vp_sum += weight * effective_vp
+            vp_weight += weight
+            if row.mw_g_mol is not None and row.mw_g_mol > 0:
+                vi_sum += weight * effective_vp / math.sqrt(float(row.mw_g_mol))
+                vi_weight += weight
+        avg_vp = vp_sum / vp_weight if vp_weight > 0 else None
+        volatility_index = vi_sum / vi_weight if vi_weight > 0 else None
+        return avg_vp, volatility_index
 
     def score_safety(self, fv: FormulaVector) -> float:
         """IFRA compliance + allergen + sensitization risk (0-100)."""
@@ -2023,9 +2790,12 @@ class FormulaScorer:
         Range: 0-100.
         """
         import math as _math
+
         from engine.name_utils import normalize_name
 
-        oav_data = getattr(self, "_material_oavs", {}) or {}
+        thermodynamic_state = self._thermodynamic_state(fv)
+        thermodynamic_rows = {row.name: row for row in thermodynamic_state.materials}
+        oav_data = self._thermodynamic_oav_map(fv)
         eff = fv.effective_ingredients()
         if not eff:
             return 20.0
@@ -2038,12 +2808,11 @@ class FormulaScorer:
         # ── 1. Transparency dominance (0-25) ──
         radar = self.formula_character_radar(fv)
         positive_axes = (
-            (radar.get("transparency", 0) * 1.5
+            radar.get("transparency", 0) * 1.5
             + radar.get("freshness", 0) * 0.6
             + radar.get("radiance", 0) * 0.8
-            + radar.get("green", 0) * 0.3)
-            * percept_ratio
-        )
+            + radar.get("green", 0) * 0.3
+        ) * percept_ratio
         negative_axes = (
             radar.get("warmth", 0) * 0.8
             + radar.get("sweetness", 0) * 0.9
@@ -2061,24 +2830,12 @@ class FormulaScorer:
         # VP diversity: materials at many different vapor pressures create
         # time-domain resolution.  Measured by how many VP decades are covered
         # and how evenly materials spread across them.
-        # Uses γ(logP)-corrected VP so hydrophobic musks appear at their
-        # real headspace position (higher than raw VP alone).
+        # Uses FormulaState's per-formula gamma-corrected VP.
         vp_values = []
         for name, pct in eff.items():
-            prof = get_profile(name)
-            vp = None
-            mat = _lookup_material(name)
-            if prof and prof.vp and prof.vp > 0:
-                vp = prof.vp
-            if vp is None:
-                # Fallback: material DB
-                if mat and mat.get("vp") and mat["vp"] > 0:
-                    vp = mat["vp"]
-            if vp is not None and vp > 0:
-                # Apply activity-coefficient correction for headspace VP
-                logp = _get_logp(name, mat)
-                gamma = _gamma_from_logp(logp)
-                vp_eff = vp * gamma
+            row = thermodynamic_rows.get(name)
+            if row is not None and row.vp_pure_pa is not None and row.vp_pure_pa > 0:
+                vp_eff = float(row.gamma) * float(row.vp_pure_pa)
                 vp_values.append((name, _math.log10(vp_eff), pct))
 
         temporal_score = 0.0
@@ -2150,7 +2907,9 @@ class FormulaScorer:
         smoke_penalty = max(0, radar.get("smoky", 0) - 0.5) * 3.0
         animal_penalty = max(0, radar.get("animalic", 0) - 0.5) * 3.0
         creamy_penalty = max(0, radar.get("creamy", 0) - 2.5) * 1.5
-        total_opacity_penalty = warmth_penalty + sweet_penalty + smoke_penalty + animal_penalty + creamy_penalty
+        total_opacity_penalty = (
+            warmth_penalty + sweet_penalty + smoke_penalty + animal_penalty + creamy_penalty
+        )
         negative_space_score = max(0, 15 - total_opacity_penalty)
 
         # ── 5. Dose discipline (0-15) ──
@@ -2169,29 +2928,26 @@ class FormulaScorer:
         # the headspace disproportionately are counted even if raw VP < 0.1 Pa.
         powerhouse_pct = 0.0
         for name, pct in eff.items():
-            prof = get_profile(name)
-            vp = None
-            mat_ph = _lookup_material(name)
-            if prof and prof.vp and prof.vp > 0:
-                vp = prof.vp
-            if vp is None and mat_ph and mat_ph.get("vp") and mat_ph["vp"] > 0:
-                vp = mat_ph["vp"]
-            if vp is not None:
-                logp = _get_logp(name, mat_ph)
-                gamma = _gamma_from_logp(logp)
-                if vp * gamma > 0.1:
-                    powerhouse_pct += pct
+            row = thermodynamic_rows.get(name)
+            if (
+                row is not None
+                and row.vp_pure_pa is not None
+                and float(row.gamma) * float(row.vp_pure_pa) > 0.1
+            ):
+                powerhouse_pct += pct
         if powerhouse_pct / total_pct > 0.25:
             dose_score -= (powerhouse_pct / total_pct - 0.25) * 15
 
         dose_score = max(0, min(dose_score, 15))
 
-        score = (transparency_score + temporal_score + channel_score
-                 + negative_space_score + dose_score)
+        score = (
+            transparency_score + temporal_score + channel_score + negative_space_score + dose_score
+        )
         return round(max(0, min(score, 100)), 1)
 
-    def score_family_alignment(self, fv: FormulaVector, family_key: str = "",
-                               bracket: str = "EdP") -> dict:
+    def score_family_alignment(
+        self, fv: FormulaVector, family_key: str = "", bracket: str = "EdP"
+    ) -> dict:
         """Score how well a formula aligns with its target perfume family taxonomy.
 
         Uses the complete perfume knowledge taxonomy (engine.knowledge.perfume_knowledge)
@@ -2206,13 +2962,13 @@ class FormulaScorer:
         Returns:
             dict with alignment scores and diagnostic data
         """
-        from engine.knowledge.perfume_knowledge import (
-            evaluate_pyramid_balance,
-            evaluate_oav_family_targets,
-            resolve_family_key,
-            get_oav_targets,
-        )
         from engine.ingredient_intelligence import get_profile
+        from engine.knowledge.perfume_knowledge import (
+            evaluate_oav_family_targets,
+            evaluate_pyramid_balance,
+            get_oav_targets,
+            resolve_family_key,
+        )
 
         resolved = resolve_family_key(family_key or "floral")
         targets = get_oav_targets(resolved)
@@ -2232,12 +2988,19 @@ class FormulaScorer:
                 material_oavs[name] = max(0.0, float(raw_pct.get(name, 0.0)))
 
         pyramid_eval = evaluate_pyramid_balance(
-            raw_pct, family=family_key, bracket=bracket, note_map=note_map,
+            raw_pct,
+            family=family_key,
+            bracket=bracket,
+            note_map=note_map,
         )
 
         top_eval = evaluate_oav_family_targets(material_oavs, material_families, family_key, "top")
-        heart_eval = evaluate_oav_family_targets(material_oavs, material_families, family_key, "heart")
-        base_eval = evaluate_oav_family_targets(material_oavs, material_families, family_key, "base")
+        heart_eval = evaluate_oav_family_targets(
+            material_oavs, material_families, family_key, "heart"
+        )
+        base_eval = evaluate_oav_family_targets(
+            material_oavs, material_families, family_key, "base"
+        )
 
         # Composite alignment score (0-100)
         pyramid_weight = 0.35
@@ -2248,7 +3011,9 @@ class FormulaScorer:
             eval_obj.overall_fit * oav_weights[window]
             for window, eval_obj in [("top", top_eval), ("heart", heart_eval), ("base", base_eval)]
         )
-        combined = (pyramid_score + oav_score) * 100.0 / (pyramid_weight + sum(oav_weights.values()))
+        combined = (
+            (pyramid_score + oav_score) * 100.0 / (pyramid_weight + sum(oav_weights.values()))
+        )
 
         return {
             "family_key": resolved,
@@ -2275,16 +3040,12 @@ class FormulaScorer:
         self._last_trigeminal_report = score_trigeminal(ingredients, dilutions)
         total_ul = sum(ingredients.values())
         self._last_dose_report = score_dose_response(ingredients, dilutions, total_ul)
-        # Build dynamic γ map from profiles for diffusion classification.
-        # This adjusts Kaw_eff by √γ so non-ideal mixing is reflected
-        # per-formula rather than relying on the static init-time value.
-        gamma_map: dict[str, float] = {}
-        for name in ingredients:
-            prof = get_profile(name)
-            if prof is not None:
-                g = getattr(prof, "activity_coef", None)
-                if g is not None:
-                    gamma_map[name] = float(g)
+        # Replace each diffusion row's reference gamma with FormulaState's
+        # per-formula value.
+        gamma_map = {
+            row.name: float(row.gamma)
+            for row in self._thermodynamic_state(fv).materials
+        }
         self._last_diffusion_report = score_diffusion(ingredients, dilutions, gamma_map)
         return {
             "trigeminal": self._last_trigeminal_report,
@@ -2302,7 +3063,6 @@ class FormulaScorer:
         "texture": "score_texture",
         "stacking_depth": "score_stacking_depth",
         "skin_performance": "score_skin_performance",
-        "hedonic": "score_hedonic",
         "perceptual_clarity": "score_perceptual_clarity",
         "photorealism": "score_photorealism",
     }
@@ -2312,12 +3072,55 @@ class FormulaScorer:
 
         Used for fast pre-screening in the recommendation engine.
         """
+        if axis == "hedonic":
+            raise ValueError("hedonic is evidence-gated")
         method_name = self._AXIS_DISPATCH.get(axis)
         if method_name is None:
             return 0.0
         return getattr(self, method_name)(fv)
 
-    def score(self, fv: FormulaVector) -> dict[str, object]:
+    def score(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+    ) -> dict[str, object]:
+        """Compute active diagnostics with liking explicitly NOT_TESTED."""
+
+        if self.weights.hedonic != 0:
+            raise ValueError("hedonic is evidence-gated")
+        return self._score_impl(
+            fv,
+            formula_state=formula_state,
+            objective_weights=self.weights.as_dict(),
+            include_legacy_hedonic=False,
+        )
+
+    def score_legacy_replay(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+        weights: LegacyObjectiveWeightsV1 | None = None,
+    ) -> dict[str, object]:
+        """Reproduce the frozen V1 heuristic payload for historical replay."""
+
+        legacy_weights = weights or LegacyObjectiveWeightsV1()
+        return self._score_impl(
+            fv,
+            formula_state=formula_state,
+            objective_weights=legacy_weights.as_dict(),
+            include_legacy_hedonic=True,
+        )
+
+    def _score_impl(
+        self,
+        fv: FormulaVector,
+        *,
+        formula_state: FormulaState | None = None,
+        objective_weights: dict[str, float],
+        include_legacy_hedonic: bool,
+    ) -> dict[str, object]:
         """Compute all scores with axis-specific synergy pre-multipliers.
 
         Synergy is NOT a standalone axis. It modifies other axes:
@@ -2330,13 +3133,25 @@ class FormulaScorer:
 
         Zero synergy pairs = zero boost = no penalty.
         """
+        # Canonical release callers inject their already-built state so every
+        # optimizer axis consumes identical thermodynamic/OAV authority.
+        if formula_state is not None:
+            self._validate_formula_state_override(fv, formula_state)
+        self._formula_state_override = formula_state
+        self._formula_state_override_fv = fv if formula_state is not None else None
+        self._formula_state_override_fingerprint = (
+            self._formula_vector_fingerprint(fv)
+            if formula_state is not None
+            else None
+        )
+
         # Clear per-FV caches for fresh scoring
         self._sfc_cache = {}
         self._last_synergy_detail = None
         unknown = unknown_materials(fv.ingredient_list())
 
         # Compute base scores first
-        scores = {
+        scores: dict[str, object] = {
             "longevity": self.score_longevity(fv),
             "sillage": self.score_sillage(fv),
             "synergy_raw": self.score_synergy(fv),
@@ -2344,10 +3159,11 @@ class FormulaScorer:
             "texture": self.score_texture(fv),
             "stacking_depth": self.score_stacking_depth(fv),
             "skin_performance": self.score_skin_performance(fv),
-            "hedonic": self.score_hedonic(fv),
             "perceptual_clarity": self.score_perceptual_clarity(fv),
             "photorealism": self.score_photorealism(fv),
         }
+        if include_legacy_hedonic:
+            scores["hedonic"] = self.score_hedonic(fv)
 
         # Run enhancer modules (trigeminal, dose-response, diffusion)
         self._run_enhancer_modules(fv)
@@ -2360,17 +3176,17 @@ class FormulaScorer:
             axis_total_mag = self._last_synergy_axis_mags
 
         # Map synergy axis -> scoring axis with boost factor (capped at 20%)
-        SYNERGY_BOOST_MAP = [
-            ("sillage",      "sillage", 0.04),
-            ("depth",        "stacking_depth", 0.04),
-            ("depth",        "skin_performance", 0.03),
-            ("texture",      "texture", 0.04),
-            ("performance",  "longevity", 0.04),
-            ("complexity",   "photorealism", 0.04),
+        _synergy_boost_map = [
+            ("sillage", "sillage", 0.04),
+            ("depth", "stacking_depth", 0.04),
+            ("depth", "skin_performance", 0.03),
+            ("texture", "texture", 0.04),
+            ("performance", "longevity", 0.04),
+            ("complexity", "photorealism", 0.04),
         ]
 
         synergy_info = {}
-        for syn_axis, score_key, factor in SYNERGY_BOOST_MAP:
+        for syn_axis, score_key, factor in _synergy_boost_map:
             total_mag = float(axis_total_mag.get(syn_axis, 0))
             boost = min(total_mag * factor, 0.20)  # cap at 20%
             if boost > 0.001:
@@ -2385,7 +3201,7 @@ class FormulaScorer:
         raw_syn = scores.pop("synergy_raw", 50)
         scores["synergy"] = raw_syn
 
-        weights = self.weights.as_dict()
+        weights = objective_weights
         total_weight = sum(weights.values()) or 1.0
 
         # Arithmetic mean
@@ -2421,7 +3237,7 @@ class FormulaScorer:
         if tp is not None:
             subliminal = []
             for name, mt in tp.materials.items():
-                peak_oav = float(mt.oav.max()) if hasattr(mt.oav, 'max') else 0
+                peak_oav = float(mt.oav.max()) if hasattr(mt.oav, "max") else 0
                 if peak_oav < 1.0:
                     subliminal.append((name, round(peak_oav, 2)))
 
@@ -2470,61 +3286,91 @@ class FormulaScorer:
             }
 
         # Synergy diagnostics — reuse from score_synergy() when available
-        if hasattr(self, '_last_synergy_detail') and self._last_synergy_detail is not None:
+        if hasattr(self, "_last_synergy_detail") and self._last_synergy_detail is not None:
             scores["_synergy_detail"] = self._last_synergy_detail
         elif self.synergy_graph is not None and self.synergy_graph.edges:
             ingredients = fv.ingredient_list()
             stacks = self.synergy_graph.find_synergy_stacks(ingredients, min_stack_size=3)
             clashes = []
             for i, a in enumerate(ingredients):
-                for b in ingredients[i + 1:]:
+                for b in ingredients[i + 1 :]:
                     w = self.synergy_graph.pair_synergy(a, b)
                     if w < -0.2:
                         clashes.append((a, b, round(w, 3)))
             scores["_synergy_detail"] = {
-                "formula_synergy_score": round(self.synergy_graph.formula_synergy_score(ingredients), 4),
+                "formula_synergy_score": round(
+                    self.synergy_graph.formula_synergy_score(ingredients), 4
+                ),
                 "synergy_stacks": [(s.name, s.avg_synergy) for s in stacks[:5]],
                 "clashes": clashes[:10],
                 "total_edges": len(self.synergy_graph.edges),
             }
 
         # Science module diagnostics (8 modules, rich reports)
-        scores["_science"] = {
+        science_diagnostics = {
             "skin": {
-                "reservoir_score": getattr(self, '_last_skin_report', None) and self._last_skin_report.reservoir_score,
-                "substantivity_score": getattr(self, '_last_skin_report', None) and self._last_skin_report.substantivity_score,
-                "diagnostics": getattr(self, '_last_skin_report', None) and self._last_skin_report.diagnostics,
-            },
-            "hedonic": {
-                "valence": getattr(self, '_last_hedonic_report', None) and self._last_hedonic_report.weighted_valence,
-                "pleasantness": getattr(self, '_last_hedonic_report', None) and self._last_hedonic_report.pleasantness_class,
-                "diagnostics": getattr(self, '_last_hedonic_report', None) and self._last_hedonic_report.diagnostics,
+                "reservoir_score": getattr(self, "_last_skin_report", None)
+                and self._last_skin_report.reservoir_score,
+                "substantivity_score": getattr(self, "_last_skin_report", None)
+                and self._last_skin_report.substantivity_score,
+                "diagnostics": getattr(self, "_last_skin_report", None)
+                and self._last_skin_report.diagnostics,
             },
             "psychophysics": {
-                "perceptible": getattr(self, '_last_psychophysics_report', None) and self._last_psychophysics_report.perceptible_count,
-                "suppression": getattr(self, '_last_psychophysics_report', None) and self._last_psychophysics_report.mixture_suppression_level,
-                "anosmia_risk": getattr(self, '_last_psychophysics_report', None) and self._last_psychophysics_report.anosmia_risk_materials,
-                "diagnostics": getattr(self, '_last_psychophysics_report', None) and self._last_psychophysics_report.diagnostics,
+                "perceptible": getattr(self, "_last_psychophysics_report", None)
+                and self._last_psychophysics_report.perceptible_count,
+                "suppression": getattr(self, "_last_psychophysics_report", None)
+                and self._last_psychophysics_report.mixture_suppression_level,
+                "anosmia_risk": getattr(self, "_last_psychophysics_report", None)
+                and self._last_psychophysics_report.anosmia_risk_materials,
+                "diagnostics": getattr(self, "_last_psychophysics_report", None)
+                and self._last_psychophysics_report.diagnostics,
             },
             "trigeminal": {
-                "dominant": getattr(self, '_last_trigeminal_report', None) and self._last_trigeminal_report.dominant_effect,
-                "diagnostics": getattr(self, '_last_trigeminal_report', None) and self._last_trigeminal_report.diagnostics,
+                "dominant": getattr(self, "_last_trigeminal_report", None)
+                and self._last_trigeminal_report.dominant_effect,
+                "diagnostics": getattr(self, "_last_trigeminal_report", None)
+                and self._last_trigeminal_report.diagnostics,
             },
             "dose_response": {
-                "overdosed": getattr(self, '_last_dose_report', None) and self._last_dose_report.overdosed,
-                "character_map": getattr(self, '_last_dose_report', None) and self._last_dose_report.character_map,
-                "diagnostics": getattr(self, '_last_dose_report', None) and self._last_dose_report.diagnostics,
+                "overdosed": getattr(self, "_last_dose_report", None)
+                and self._last_dose_report.overdosed,
+                "character_map": getattr(self, "_last_dose_report", None)
+                and self._last_dose_report.character_map,
+                "diagnostics": getattr(self, "_last_dose_report", None)
+                and self._last_dose_report.diagnostics,
             },
             "diffusion": {
-                "sillage_class": getattr(self, '_last_diffusion_report', None) and self._last_diffusion_report.sillage_class,
-                "field_pct": getattr(self, '_last_diffusion_report', None) and {
+                "sillage_class": getattr(self, "_last_diffusion_report", None)
+                and self._last_diffusion_report.sillage_class,
+                "field_pct": getattr(self, "_last_diffusion_report", None)
+                and {
                     "far": self._last_diffusion_report.far_field_pct,
                     "mid": self._last_diffusion_report.mid_field_pct,
                     "near": self._last_diffusion_report.near_field_pct,
                 },
-                "diagnostics": getattr(self, '_last_diffusion_report', None) and self._last_diffusion_report.diagnostics,
+                "diagnostics": getattr(self, "_last_diffusion_report", None)
+                and self._last_diffusion_report.diagnostics,
             },
         }
+        if include_legacy_hedonic:
+            science_diagnostics["hedonic"] = {
+                "valence": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.weighted_valence,
+                "pleasantness": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.pleasantness_class,
+                "diagnostics": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.diagnostics,
+            }
+        scores["_science"] = science_diagnostics
+        if not include_legacy_hedonic:
+            scores["_hedonic_evidence"] = {
+                "state": "NOT_TESTED",
+                "basis": (
+                    "No exact-scope blinded LIKING receipt supplied to FormulaScorer."
+                ),
+                "legacy_heuristic_available_for_replay": True,
+            }
 
         # Primary total uses geometric mean
         scores["total"] = scores["geometric_total"]

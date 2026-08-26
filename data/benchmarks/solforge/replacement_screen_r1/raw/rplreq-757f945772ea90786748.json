@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-757f945772ea90786748",
+  "case_id": "RPL-ARC-S03",
+  "module_id": "architectural_delta",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6418-8e08-83ec-b665-e05b46fe85d3",
+  "dispatch_sha256": "c7ae97c7b75a5c32478ed6a723b8d8e1145fac7cd1dbfa3aa9ae23e786934489",
+  "output_text": "{\"decision\":\"REJECT_NEROLI_AS_PRIMARY_CITRUS\",\"target_linked_reasoning\":\"Availability alone does not establish target fidelity. The target requires a peel-led bitter citrus opening without orange-blossom identity, while promoting Neroli 10% from support to primary risks shifting the recognizer toward orange blossom. Retain Neroli only as support unless controlled evidence shows otherwise. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Compare a peel-led reference using Neroli 10% only as support against the proposed Neroli-primary variant, holding all other materials and total citrus dosage constant; assess peel identity, bitterness, and emergence of orange-blossom character under the same protocol.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"}",
+  "output_sha256": "ef11dce2459e5f8bbe130a5a818c4e65c856f88915e89974a776171f781a1574",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

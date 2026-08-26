@@ -2,8 +2,8 @@
 
 All physical units in SI: Pa, K, mol, m³. Wt%/µL stays at the user-facing layer.
 """
-from .antoine import vp_pa, antoine_from_dhvap
 from .activity import gamma
+from .antoine import antoine_from_dhvap, vp_pa
 from .headspace import headspace_from_wt_pct, partial_pressures
 from .trajectory import evaporate
 

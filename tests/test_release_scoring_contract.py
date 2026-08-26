@@ -45,3 +45,33 @@ def test_unified_release_scoring_contract_has_provenance():
     assert "heuristic_inputs_used" in payload["provenance"]
     assert "confidence_penalties" in payload["provenance"]
     assert "repairability" in payload["provenance"]
+    assert payload["science_penalty"] == 0.0
+    assert (
+        payload["provenance"]["formula_science_coverage"]["scope"]
+        == "formula_runtime"
+    )
+    assert not any(
+        row.get("reason") == "sparse_science_coverage"
+        for row in payload["provenance"]["confidence_penalties"]
+    )
+    score_contract = payload["provenance"]["score_contract"]
+    assert score_contract["classification"] == "HEURISTIC_DIAGNOSTIC_INDICES"
+    assert score_contract["release_authority"] is False
+    assert score_contract["release_authorized_axes"] == []
+    assert (
+        score_contract["axis_authority"]["longevity"]
+        == "HEURISTIC_UNCALIBRATED_NOT_SKIN_LIFE"
+    )
+    assert (
+        score_contract["axis_authority"]["sillage"]
+        == "HEURISTIC_UNCALIBRATED_NOT_MEASURED_SILLAGE"
+    )
+    assert (
+        score_contract["axis_authority"]["skin_performance"]
+        == "HEURISTIC_UNVALIDATED_NOT_SKIN_OUTCOME"
+    )
+    assert all(
+        0.0 <= value <= 100.0
+        for key, value in payload["scores"].items()
+        if not key.startswith("_")
+    )

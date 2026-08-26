@@ -1,0 +1,25 @@
+{
+  "schema_version": "complexity_replacement_blind_judge_raw_v1",
+  "judge_request_id": "rpljudge-rpl-arc-s01",
+  "case_id": "RPL-ARC-S01",
+  "module_id": "architectural_delta",
+  "role": "POSITIVE",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "surface": "ChatGPT Work",
+  "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+  "conversation_id": "6a8e6da3-7ed0-83ec-ab46-67081de49a76",
+  "dispatch_sha256": "4bd81b38a495816073163c347d0af10483d730cd8a879edc47028720efb6b7b0",
+  "output_text": "{\"results\":[{\"candidate_id\":\"CANDIDATE-01-53302c88\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":19,\"depth_richness_reasoning\":15,\"next_discriminating_test\":14,\"module_safeguards\":14,\"authority_boundary\":5},\"rubric_score\":97,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Correctly selects only the evidenced owned candidate, rejects count-driven duplication, preserves the computational ceiling, and specifies the minimal isolated addition comparison. The statement that the candidate uniquely supplies the bridge is slightly stronger than the supplied fact, and the comparison does not explicitly name the target evaluation endpoints.\"},{\"candidate_id\":\"CANDIDATE-02-9ab21366\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":14,\"authority_boundary\":5},\"rubric_score\":99,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Faithfully advances the sole evidenced nonredundant addition, rejects redundant higher-count proposals, and gives the smallest controlled comparison with target-linked endpoints. It respects the liking and authority boundaries; explicit blinding would marginally strengthen the safeguard specification.\"},{\"candidate_id\":\"CANDIDATE-03-9ae9870d\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":100,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Fully matches the expected disposition, uses only the supplied nonredundancy and inventory evidence, rejects ingredient-count substitution, and proposes a blinded two-arm comparison measuring the exact unresolved target properties while holding all other variables constant. It grants no unsupported empirical authority.\"}]}",
+  "output_sha256": "e30fbf67d7e630acc413beaf01209cca6236348abc664a1b6eb317ab7f909e53",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

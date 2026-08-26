@@ -24,11 +24,9 @@ and published sources. Values marked _RECONSTRUCTED where not officially confirm
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Sequence
+from dataclasses import dataclass
 
-from ._shared_types import FragranceFamily, NoteTier, ConcentrationBracket
-
+from ._shared_types import ConcentrationBracket, FragranceFamily
 
 # ---------------------------------------------------------------------------
 # Structural skeleton dataclass
@@ -92,7 +90,8 @@ SAUVAGE_SKELETON = FormulaSkeleton(
     construction_method="platform-first (three-pillar)",
     tropical_notes=(
         "Ambroxan at 14.7% → 3.7% in 25% EdP → very high OAV even at 35°C. "
-        "VP ×2.8 actually improves Ambroxan in heat — amber blossoms with warmth. "
+        "VP rise is material-dependent in heat; amber projection in warmth depends "
+        "on base support and logP-rich anchors more than a fixed multiplier."
         "Sauvage is commonly perceived as stronger in Asian climates."
     ),
     anosmia_warnings=(
@@ -392,7 +391,8 @@ INTERLUDE_SKELETON = FormulaSkeleton(
     tropical_notes=(
         "Heavy resinous base (olibanum, cistus, opoponax, benzoin) survives tropical heat "
         "exceptionally well. The incense platform is climate-stable. Oregano and pimento top "
-        "notes are high-VP — may accelerate 2.8× at 35°C → increase by 2× for Bangkok parity. "
+        "notes are high-VP and can be perceived faster in heat; apply only "
+        "small base increases (roughly 1.5-2.5×) when needed for target retention. "
         "29% oil concentration provides built-in tropical heat buffer."
     ),
     anosmia_warnings=(
@@ -504,3 +504,5 @@ FIVE_LUXURY_PRINCIPLES: tuple[tuple[str, str, str], ...] = (
         "Layton: Norlimbanol at 8.5% as the 'Hedione of wood materials'",
     ),
 )
+
+

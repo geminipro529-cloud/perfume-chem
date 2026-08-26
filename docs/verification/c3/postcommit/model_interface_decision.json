@@ -1,0 +1,39 @@
+{
+  "schema": "build-c3-model-interface-decision-v1",
+  "recorded_at": "2026-08-02T22:46:59.0947385+07:00",
+  "decision": "PASS",
+  "evidence_commit": "d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91",
+  "exact_commit_replay": "docs/verification/c3/postcommit/exact-commit-replay.json",
+  "four_authoritative_exit_behaviors": {
+    "explicit_exact_model_selection": "PASS",
+    "no_silent_fallback": "PASS",
+    "stable_immutable_version_binding": "PASS",
+    "mandatory_out_of_domain_abstention": "PASS"
+  },
+  "other_required_gates": {
+    "focused_and_compatibility_tests": "PASS",
+    "complete_root_suite": "PASS",
+    "static_checks": "PASS",
+    "mutation_checks": "PASS",
+    "dependency_check": "PASS",
+    "recovery_archive": "PASS",
+    "protected_state": "PASS",
+    "scope": "PASS",
+    "log_hygiene": "PASS",
+    "deepluna_final_audit": "PASS",
+    "sol_reconciliation": "PASS",
+    "exact_commit_replay": "PASS"
+  },
+  "authority": {
+    "canonical_repository_and_executable_evidence_are_authoritative": true,
+    "provider_claims_are_authoritative": false,
+    "sol_is_final_acceptor": true
+  },
+  "limitations": [
+    "C3 establishes contracts and exact router enforcement only.",
+    "C3 implements no scientific equation and validates no prediction accuracy.",
+    "C3 changes no production caller and creates no persistence or migration.",
+    "C3 PASS is not Build C completion and does not authorize scientific release."
+  ],
+  "c4_open": true
+}

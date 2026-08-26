@@ -1,0 +1,7 @@
+{
+  "exit_code": 1,
+  "expected_failure": true,
+  "mutation": "ignore_input_reference_content_hash",
+  "result": "1 failed",
+  "timed_out": false
+}

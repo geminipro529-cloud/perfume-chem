@@ -18,7 +18,6 @@ import math
 from dataclasses import dataclass, field
 from typing import Optional
 
-
 MW_DATA: dict[str, dict] = {
     "limonene": {"mw": 136.2, "logp": 4.6, "tags": ["citrus", "fresh", "top"]},
     "d-limonene": {"mw": 136.2, "logp": 4.6, "tags": ["citrus", "fresh", "top"]},

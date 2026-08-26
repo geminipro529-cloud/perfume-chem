@@ -1,0 +1,21 @@
+{
+  "name": "pytest_b10_current_report_post_full",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_scientific_data_authority_report.py",
+    "-q"
+  ],
+  "started_at_utc": "2026-08-02T07:41:43.438Z",
+  "finished_at_utc": "2026-08-02T07:41:47.326Z",
+  "duration_seconds": 3.887,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_package_current_20260802\\pytest_b10_current_report_post_full.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_package_current_20260802\\pytest_b10_current_report_post_full.stderr.txt"
+}

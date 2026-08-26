@@ -1,0 +1,109 @@
+{
+  "schema_version": "perfume-chem-a0-authoritative-gate-v1",
+  "captured_at_date": "2026-08-01",
+  "phase": "A0",
+  "a0_exit_gate": "PASS",
+  "repository": {
+    "root": "D:\\chatbots\\perfume-chem",
+    "remote": "https://github.com/geminipro529-cloud/perfume-chem.git",
+    "branch": "codex/add-inventory-materials",
+    "head": "0fa0adff1533ffca1ad74e6e6904b1afc1b1d435",
+    "upstream": "origin/codex/add-inventory-materials",
+    "ahead": 84,
+    "behind": 0,
+    "worktree_count": 1,
+    "tracked_changed": 105,
+    "staged": 0,
+    "untracked_all_paths": 937
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "python_executable": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "poetry": "2.4.1",
+    "node": "26.3.0",
+    "npm": "11.16.0",
+    "os": "Windows 10.0.26100 AMD64"
+  },
+  "verification": {
+    "command": [
+      "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+      "scripts/pipeline_audit.py",
+      "project-verify",
+      "--json"
+    ],
+    "scope": "full",
+    "completion_gate": "PASS_WITH_SKIPS",
+    "passed": 19,
+    "failed": 0,
+    "skipped": [
+      "docker-build",
+      "docker-smoke-test"
+    ],
+    "docker_skip_reason": "Docker executable unavailable",
+    "junit_tests": 1702,
+    "junit_failures": 0,
+    "junit_errors": 0,
+    "junit_skipped": 0,
+    "backend_tests": 629,
+    "report": "verification_runs/project_verification.json",
+    "report_sha256": "6a20df73e01dcf8e7abaae5e729b4b23e195ba998ea4948a0dd40247c2923ee6",
+    "stdout_sha256": "0f7094af0286a419982412e3102abe7aaf79aea7bfdc6e2603ae50573213d5aa",
+    "stderr_bytes": 0,
+    "focused_architecture_tests": 35,
+    "focused_architecture_test_failures": 0
+  },
+  "recovery": {
+    "status": "PASS",
+    "source_archive_sha256": "4b1a4c325d1d69c5d54535b6ad14acda9872698c8bf00f9847753c0bdadb223b",
+    "source_manifest_sha256": "8e05bf58670d2bdb452c16961e0c78cb8b270d5479274463294535111e2f606a",
+    "bundle_sha256": "4d10101200fa321a1f44923f989c62ec35814fcc6ab8100d8b1504dfa89506ef",
+    "source_file_count": 4366,
+    "source_hash_mismatches": 0,
+    "semantic_git_diff_sha256": "0f0c17c7786c83cd7f0ee89370b3127c4175deca29aa9c28e49be3fe0598cc8d",
+    "formula_artifact_count": 535,
+    "formula_archive_sha256": "e58681bf79e34677d17c341d08701d9444dc2e3ac52c7e793eab7c5bb5b2772c",
+    "formula_hash_mismatches": 0,
+    "database_backup_status": "PASS",
+    "recovery_report_sha256": "30aad3115b59a8b64268e2ba7cc59a22eebc01a908a7a7772dbd01119924e762",
+    "database_report_sha256": "02597d94e02299d2f2f3fa772dabec0b2ba10f5106d04b03a57d9f16c9e8f4ce",
+    "formula_report_sha256": "3a82077354e35fa3adf3e7dbed1a9778f5fab5e42f92670b036bb6c1dbb8f967"
+  },
+  "database": {
+    "default_application_path": "D:\\chatbots\\perfume-chem\\perfume_chem.db",
+    "default_application_current_revision": null,
+    "alembic_head": "20260731_0012",
+    "alembic_branch_count": 0,
+    "migration_count": 14,
+    "backed_up_paths": [
+      "perfume_chem.db",
+      "data/perfumery_kb.db",
+      "test_perfume_chem.db",
+      "backend/test_perfume_chem.db"
+    ],
+    "quick_check_failures": 0
+  },
+  "architecture": {
+    "runtime_probe": "PASS",
+    "runtime_probe_sha256": "d20a985ff13b7eb672dd8b23dfa059d20b3d23ea3811496d711b163456b118bc",
+    "lab_routes": 62,
+    "sqlalchemy_tables": 97,
+    "legacy_write_violations": 0,
+    "adr": "docs/architecture/ADR-2026-08-01-a0-canonical-reconciliation.md",
+    "graph": "docs/architecture/a0_import_call_persistence_graph.md"
+  },
+  "release_readiness": {
+    "laboratory_beta_status": "ready",
+    "scientific_release_status": "blocked",
+    "external_blocker": "Held-out sensory validation has not passed"
+  },
+  "known_baseline_conditions": [
+    "Docker is unavailable, so the two optional Docker checks are skipped.",
+    "The default application database has no alembic_version row; startup would snapshot then upgrade it to head.",
+    "The existing Python 3.14 environment is unsupported for this gate; Python 3.11.15 is the recorded runtime.",
+    "git diff --check reports pre-existing trailing blank lines in two future_modules files.",
+    "The legacy /lab material-alias route directly commits one canonical table and is an A1 service-boundary defect.",
+    "Old A0 reports dated 2026-07-29 are historical and superseded by this evidence set."
+  ],
+  "secrets_policy": "Environment values and ignored secret-bearing files were not read or captured; presence is redacted.",
+  "exact_a1_starting_sha": "0fa0adff1533ffca1ad74e6e6904b1afc1b1d435"
+}

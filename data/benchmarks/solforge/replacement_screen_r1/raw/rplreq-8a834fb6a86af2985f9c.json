@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-8a834fb6a86af2985f9c",
+  "case_id": "RPL-ARC-S01",
+  "module_id": "architectural_delta",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03abc-2451-7e70-903d-2e9e6808bd32",
+  "dispatch_sha256": "ec69581b6baddad5c4634cef9b61715f2d77ecd29e9d24b1388bf266a817cc8b",
+  "output_text": "{\n  \"decision\": \"Select exactly one addition: the owned candidate with target-specific nonredundancy evidence. IDEAL TARGET: spare iris structure plus one dry mineral bridge, preserving negative space. CURRENT-INVENTORY BUILD: test that candidate only; reject all higher-count proposals as functionally duplicative.\",\n  \"target_linked_reasoning\": \"The candidate uniquely supplies the requested dry mineral bridge and has an isolated addition arm. Additional ingredients would increase count without adding target-linked depth, richness, or relationships.\",\n  \"controlled_comparison\": \"Compare the unchanged spare-iris control against one otherwise identical arm containing only the candidate addition. Hold all other ingredients and ratios constant. Physical liking: NOT TESTED.\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "53302c880041912b80323585ce327b95c3b64b294365e990fb1361565502fd78",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

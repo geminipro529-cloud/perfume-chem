@@ -1,0 +1,28 @@
+{
+  "case_id": "pareto_dominance",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_selection.py::test_selection_filters_hard_gates_then_pareto_then_explicit_utility"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_selection_filters_hard_gates_then_pareto_then_explicit_utility",
+  "finished_at_utc": "2026-08-03T01:38:59.596165Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/selection.py",
+  "source_sha256_after_restore": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "source_sha256_before": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "started_at_utc": "2026-08-03T01:38:57.517628Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "bcb0007c80cf44cfb613f3293111f30ebcf811e56dfb36323c37d358f46df16a",
+  "test_node": "tests/test_c10_selection.py::test_selection_filters_hard_gates_then_pareto_then_explicit_utility",
+  "timed_out": false
+}

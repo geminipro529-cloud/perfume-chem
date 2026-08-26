@@ -195,6 +195,9 @@ def evaluate_perfumer_logic(
         return evaluate_layton_dna(formula, family_archetype)
     if resolved == "aromatic_fougere":
         return evaluate_aromatic_fougere(formula, family_archetype)
+    archetype = infer_archetype(resolved, family_archetype)
+    if archetype and get_archetype(archetype) is not None:
+        return _report_from_archetype(formula, archetype, resolved)
     return _report("generic", [LogicCheck("perfumer_logic_brief", "WARN", "No brief-specific logic selected.")])
 
 

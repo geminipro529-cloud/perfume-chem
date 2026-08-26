@@ -1,0 +1,28 @@
+{
+  "case_id": "formula_bound_hard_gate",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_mixture_design.py::test_candidate_rejects_failed_or_unknown_formula_bound_gate"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_candidate_rejects_failed_or_unknown_formula_bound_gate",
+  "finished_at_utc": "2026-08-03T01:38:54.713434Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/mixture_design.py",
+  "source_sha256_after_restore": "bc2e21552fb91ae8a08185ffd67dd107ef807ff471adb9cf77eef0b1c33fd6c7",
+  "source_sha256_before": "bc2e21552fb91ae8a08185ffd67dd107ef807ff471adb9cf77eef0b1c33fd6c7",
+  "started_at_utc": "2026-08-03T01:38:52.222370Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "6ee712d511adfaaab05d7bbbef4403f58b407f85be843ee59423d19833adc542",
+  "test_node": "tests/test_c10_mixture_design.py::test_candidate_rejects_failed_or_unknown_formula_bound_gate",
+  "timed_out": false
+}

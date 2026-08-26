@@ -1,0 +1,31 @@
+{
+  "schema": "perfume-chem-b7-deepluna-gap-audit-receipt-v1",
+  "recorded_at_utc": "2026-08-02T01:52:00.878Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-2a94046a19579e81ee17fee5448e68dd",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider_calls": 1,
+  "prompt_tokens_delta": 12470,
+  "completion_tokens_delta": 692,
+  "spent_delta_nano_usd": 1870290,
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "scope_deviation": false,
+  "source_result_sha256": "3E97E7090D1A3A7FF726DD0FD055A557DB6E57B5FCE8F17544A6722CF00418C4",
+  "accepted_findings": [
+    "The plan and historical report visibly cover all eleven claim types.",
+    "The plan and historical report visibly cover all five decision states and typed canonical support.",
+    "The plan specifies fail-closed handling and negative promotion tests."
+  ],
+  "rejected_findings": [
+    {
+      "finding": "No current-evidence gaps were identified and B8 planning could proceed.",
+      "reason": "The worker was restricted to historical documents and did not inspect the current Alembic head, protected databases, executable tests, or working tree. Sol independently found stale 2026-07-31 metadata, a historical 0011 head, and a historical zero-byte root-database claim."
+    }
+  ],
+  "accepted_as_final_authority": false,
+  "sol_local_reproduction_required": true,
+  "sensitive_values": "REDACTED_NOT_COLLECTED"
+}

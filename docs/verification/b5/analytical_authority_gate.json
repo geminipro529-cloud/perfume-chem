@@ -1,0 +1,305 @@
+{
+  "schema": "build-b5-analytical-authority-gate-v2",
+  "generated_at_utc": "2026-08-02T01:10:24.7528199Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B5",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    "40751831f65da8de464d45fbd3ceb4b53d53536d"
+  ],
+  "implementation_head": "40751831f65da8de464d45fbd3ceb4b53d53536d",
+  "verification_head_before_report": "cc6cc950df23a0d332636cf4e3b85a74de4db529",
+  "phase_revision": "20260731_0009",
+  "repository_alembic_head": "20260731_0012",
+  "environment": {
+    "python": "3.11.15",
+    "pty": false,
+    "ansi_disabled": true,
+    "explicit_timeouts": true,
+    "stdout_stderr_separate": true,
+    "repository_log_encoding": "UTF-8 without BOM; raw PowerShell captures preserved in external run directory",
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b5_tables": 8,
+    "append_only_sqlite_triggers_per_table": 2,
+    "legacy_rows_promoted_by_migration": 0,
+    "primary_subject_types": 6,
+    "identity_authority_states": 6,
+    "quantitation_states": 3,
+    "stable_missing_requirement_codes": 17,
+    "stable_qualification_codes": 1,
+    "production_api_ui_optimizer_consumers_connected": 0,
+    "b6_regulatory_authority_implemented": false,
+    "phase_owned_implementation_delta_since_commit": 0
+  },
+  "commands": [
+    {
+      "name": "pytest_a2_science_b1_b2_b3_b4_b5_and_compatibility",
+      "command": "python -B -m pytest -p no:cacheprovider --color=no --basetemp=<external-writable-temp>/pytest-temp <canonical>/backend/tests/unit/test_a2_science_schema.py <canonical>/backend/tests/unit/test_a2_science_service.py <canonical>/backend/tests/integration/test_a2_science_migration.py <canonical>/backend/tests/integration/test_a2_science_export.py <canonical>/backend/tests/integration/test_a2_science_transactions.py <canonical>/backend/tests/unit/test_b1_source_schema.py <canonical>/backend/tests/unit/test_b1_source_service.py <canonical>/backend/tests/integration/test_b1_source_migration.py <canonical>/backend/tests/unit/test_b2_property_schema.py <canonical>/backend/tests/unit/test_b2_property_service.py <canonical>/backend/tests/integration/test_b2_property_migration.py <canonical>/backend/tests/unit/test_b3_legacy_threshold_adapter.py <canonical>/backend/tests/unit/test_b3_threshold_schema.py <canonical>/backend/tests/unit/test_b3_threshold_service.py <canonical>/backend/tests/integration/test_b3_threshold_migration.py <canonical>/backend/tests/unit/test_b4_legacy_rule_adapter.py <canonical>/backend/tests/unit/test_b4_rule_schema.py <canonical>/backend/tests/unit/test_b4_rule_service.py <canonical>/backend/tests/integration/test_b4_rule_migration.py <canonical>/backend/tests/unit/test_b5_analytical_schema.py <canonical>/backend/tests/unit/test_b5_analytical_service.py <canonical>/backend/tests/integration/test_b5_analytical_migration.py <canonical>/backend/tests/integration/test_b5_analytical_e2e.py <canonical>/backend/tests/integration/test_lab_migration.py <canonical>/backend/tests/integration/test_backup_restore.py -q",
+      "working_directory": "<external-writable-temp>/pytest-cwd",
+      "timeout_seconds": 600,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "248 passed in 349.74s (0:05:49)",
+      "stdout_path": "docs/verification/b5/logs/pytest.stdout.txt",
+      "stdout_bytes": 357,
+      "stdout_sha256": "603F4A3DD5E85884FDD926AC0A5382B95F9FD4B2E6DB660F72298EA21EA79DB1",
+      "stderr_path": "docs/verification/b5/logs/pytest.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "ruff_b5_exact_paths",
+      "command": "ruff check --no-cache --output-format concise app/models/lab.py app/models/lab_analytical.py app/repositories/lab.py app/repositories/lab_analytical.py app/services/lab_service.py app/services/lab_science.py app/services/lab_analytical.py alembic/versions/20260731_0009_b5_analytical_authority.py tests/unit/test_b5_analytical_schema.py tests/unit/test_b5_analytical_service.py tests/integration/test_b5_analytical_migration.py tests/integration/test_b5_analytical_e2e.py tests/integration/test_lab_migration.py tests/integration/test_backup_restore.py",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b5/logs/ruff.stdout.txt",
+      "stdout_bytes": 20,
+      "stdout_sha256": "A4443AFDCFB6D7363ADB285762515CCF7CF50473B1A05C20C1A50F6BED4D26B0",
+      "stderr_path": "docs/verification/b5/logs/ruff.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "mypy_b5_modules_and_a2_bridge",
+      "command": "python -B -m mypy --ignore-missing-imports --no-color-output --no-pretty --cache-dir=<external-writable-cache> app/models/lab_analytical.py app/repositories/lab_analytical.py app/services/lab_analytical.py app/services/lab_science.py",
+      "working_directory": "<canonical>/backend",
+      "timeout_seconds": 240,
+      "exit_code": 0,
+      "timed_out": false,
+      "result": "Success: no issues found in 4 source files",
+      "stdout_path": "docs/verification/b5/logs/mypy.stdout.txt",
+      "stdout_bytes": 44,
+      "stdout_sha256": "D9A5631F7D87A741FBECC3236286D1792D22D349FF13846D71CDC9217307BB76",
+      "stderr_path": "docs/verification/b5/logs/mypy.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    }
+  ],
+  "excluded_invocations": [
+    {
+      "run": "b5_final_gate_20260802T074559",
+      "accepted_as_gate_evidence": false,
+      "reason": "PowerShell ErrorActionPreference promoted startup stderr into a terminating wrapper error before the suite ran; stdout and stderr files were empty."
+    },
+    {
+      "run": "b5_final_gate_20260802T074648",
+      "result": "248 passed in 362.64s (0:06:02)",
+      "stdout_sha256": "2E1FC83347962CAAFE12A96045F4CEAE2FAD6AFDA29C46C7E1536DE9E66F8721",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "accepted_as_gate_evidence": false,
+      "reason": "The full suite output passed, but the Start-Process wrapper did not capture the child exit-code property. The unchanged suite was rerun under a proven direct-exit wrapper."
+    },
+    {
+      "run": "b5_final_gate_20260802T075355",
+      "exit_code": 4,
+      "accepted_as_gate_evidence": false,
+      "reason": "No tests ran because an inline PowerShell expression supplied an empty or invalid basetemp argument. A five-test wrapper probe then passed before the accepted full rerun."
+    }
+  ],
+  "migration_verification": {
+    "phase_revision": "20260731_0009",
+    "current_linear_head": "20260731_0012",
+    "head_count": 1,
+    "alembic_heads_output": "20260731_0012 (head)",
+    "phase_migration_test_in_cumulative_gate": true,
+    "downgrade_reupgrade_test_in_cumulative_gate": true,
+    "backup_restore_test_in_cumulative_gate": true,
+    "backup_restore_tracks_current_linear_head": true,
+    "migration_imports_zero_legacy_rows": true
+  },
+  "deepluna": {
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_pre_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "current_gap_audit": {
+      "job_id": "DS-1793498b9b079fe95226659f8cd5059a",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 3303180,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "accepted_as_supplemental_evidence": true,
+      "sol_local_reproduction_complete": true
+    },
+    "final_report_audit": {
+      "job_id": "DS-d27821a338c0d79720f0df5038bdc9f7",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 2983770,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "report_corrections_required": 0,
+      "receipt_path": "docs/verification/b5/logs/deepluna-final-audit.json",
+      "receipt_bytes": 1411,
+      "receipt_sha256": "BDF0D215637985B069C3D45BF6804B3F9534E80D3CB47922EE831C5E19FE5303",
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0,
+      "accepted_as_supplemental_evidence": true
+    },
+    "fresh_post_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "historical_audits": [
+      {
+        "job_id": "DS-76cea2b9f1bc4250e38d5f2580e33623",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "sol_reproduced_and_closed_a2_exact_claim_bypass": true
+      },
+      {
+        "job_id": "DS-ae24d8b17460b62519ec7c04a3efa92b",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "sol_found_defects_after_pass": 7
+      }
+    ],
+    "final_authority": "canonical repository state and locally reproduced executable evidence"
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256_before_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "sha256_after_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "mutated_by_b5_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256_before_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "sha256_after_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "connection_mode": "read-only immutable",
+      "mutated_by_b5_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/alembic/versions/20260731_0009_b5_analytical_authority.py": "1D0B6D887BB4FC4E2EAED3C377AA74710B617C6754CF8FA9A608C48BDF52A52F",
+    "backend/app/models/lab.py": "C9260A03E4BDA2D7814A94C3F49170674F53E9FEE597AA882268D29C9E224925",
+    "backend/app/models/lab_analytical.py": "A30714224B42504C291CCCC86816F7B8EA8CBC8464780D2A865845F4FBD885F4",
+    "backend/app/repositories/lab.py": "4A45DF4F47FA1A87082C23DBF4FE43F8B15CA4CC8F10B032FDAFB9F0E5E16280",
+    "backend/app/repositories/lab_analytical.py": "6590041C403E9C969D38BD483AC702043D8DFF8A1E5B9027E4F0E774F9C51FDA",
+    "backend/app/services/lab_service.py": "646CAB2CFCB2A83DCE2577175ED23A4F7409E21D0FB826D8ABAA586D156D096F",
+    "backend/app/services/lab_science.py": "DC24F40739FBD2D8249F8E9AD39206F2B1636B3E8A1C45957D5653EE78248DCD",
+    "backend/app/services/lab_analytical.py": "5C72FB4D2FCBCEF775A4908C1C3D231FB037B81B7F95FD055BC926FE3E3CDB90",
+    "backend/tests/integration/test_b5_analytical_e2e.py": "BB751120BFD4A65F7AC6A64AF7E38110028ACE0D60CF144194D3008512E1D121",
+    "backend/tests/integration/test_b5_analytical_migration.py": "2CB72E07A959E4FD16EF1DD8842602AAA9055350EACA870A258CFB1ED073F10E",
+    "backend/tests/integration/test_backup_restore.py": "721DC49A3491CCB74C4E987AD4EF476D81E252AC680A7F851B6046B0E404A003",
+    "backend/tests/integration/test_lab_migration.py": "441A62F5E2D109D9304D180488F305D0FCCB7D97D8D32FBDF8DF9DEAB2B33C7B",
+    "backend/tests/unit/test_b5_analytical_schema.py": "04AE8536C24ED02CC9625B626B4B06554F10472E85A6CD3BDFFE75013B505370",
+    "backend/tests/unit/test_b5_analytical_service.py": "3F849891744D71F8BDAEE378D9E9BE7AFA7ADB9EB345B1ADA854B9D2C44E7CF0",
+    "docs/superpowers/plans/2026-07-31-build-b5-analytical-authority.md": "B669A9459902AA40622B3FBCB24EFBF8F8AA994D6E815ECC73A895124BC2A3F6",
+    "docs/superpowers/specs/2026-07-31-build-b5-analytical-authority-design.md": "D84EFAA2925AA6CD95AA2C3204008E920117EA04828ACDAE0AEB52D3F6E3E5E2"
+  },
+  "recovery_archive": {
+    "purpose": "complete B5 report and log tree before current refresh",
+    "path": "outputs/b5-authoritative-recovery/20260802T074522/b5-evidence-before-refresh.zip",
+    "bytes": 11693,
+    "sha256": "72F6471154DFEDAA0C58DABC8CE1C2F9851679933343B0FCC6912E36D5EA3935",
+    "path_preserving": true,
+    "file_count": 12,
+    "restore_verification": "all 12 extracted files matched source SHA-256"
+  },
+  "exit_gate": {
+    "method_authority_is_versioned_source_bound_and_hash_bound": true,
+    "method_validation_is_claim_specific_scope_specific_and_digest_constrained": true,
+    "sequence_run_primary_subject_and_raw_files_are_exactly_bound": true,
+    "six_state_identity_authority_is_fail_closed": true,
+    "calibrated_quantity_matches_a2_peak_validation_matrix_analyte_and_method": true,
+    "hs_spme_requires_complete_conditions_and_matching_calibration_scope": true,
+    "gco_cannot_confer_exact_identity": true,
+    "blocking_qc_withholds_result_as_sql_null": true,
+    "qualifying_qc_caps_result_at_advisory": true,
+    "claim_applicability_is_compared_to_canonical_records": true,
+    "a2_exact_claim_requires_matching_b5_run_type_policy_and_direct_evidence": true,
+    "migration_imports_zero_legacy_rows": true,
+    "model_migration_constraint_index_fk_trigger_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "end_to_end_supported_blocking_and_qualifying_paths_pass": true,
+    "production_consumers_deferred_to_b9": true,
+    "local_gate_passed": true,
+    "final_audit_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "legacy_analytical_rows_promoted": 0,
+    "area_percent_as_formula_weight_percent": "PROHIBITED",
+    "gco_exact_identity": "PROHIBITED",
+    "production_analytical_consumption": "DEFERRED_TO_B9",
+    "next_phase": "B6_AFTER_B5_EVIDENCE_COMMIT"
+  },
+  "known_limitations": [
+    "B5 authority is valid only for the exact method, validation, run, peak, matrix, analyte, policy, evidence, and review scope.",
+    "No legacy analytical row is backfilled or promoted by migration.",
+    "No production API, UI, optimizer, or release consumer is connected until B9.",
+    "Historical DeepLuna PASS packets remain supplemental because one missed seven defects later reproduced by Sol.",
+    "Build B remains incomplete until B6 through B10 pass.",
+    "Scientific release remains blocked."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_before_report_edit": 105,
+    "untracked_files_before_report_edit": 1250,
+    "staged_entries_before_report_edit": 0,
+    "tracked_dirty_paths_before_report_commit": 109,
+    "untracked_files_before_report_commit": 1261,
+    "staged_entries_before_report_commit": 0,
+    "worktree_cleaned_or_reset": false,
+    "a0_recovery_archive": "preserved",
+    "b5_restore_verification": "all archived path hashes matched after extraction",
+    "historical_b5_archives_preserved": true
+  },
+  "historical_notes": {
+    "prior_report_generated_at_utc": "2026-07-30T22:06:57.9091141Z",
+    "prior_report_alembic_head": "20260731_0009",
+    "prior_report_pytest_result": "248 passed in 249.32s",
+    "prior_report_canonical_database_bytes": 0,
+    "post_audit_red_green_evidence": "historical notes retained; current green compatibility gate independently rerun",
+    "authority": "historical notes only; replaced by current executable and protected-state evidence"
+  }
+}

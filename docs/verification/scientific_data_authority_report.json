@@ -1,0 +1,798 @@
+{
+  "schema_version": "perfume-chem-scientific-data-authority-report-v1",
+  "generated_at_local": "2026-08-02T13:53:07+07:00",
+  "build": "B",
+  "phase": "B10",
+  "status": "PASS",
+  "authority_state": "READ_ONLY_NON_PROMOTING",
+  "release_authority": false,
+  "authority_statement": "This Build B report is read-only, non-promoting verification evidence. It does not authorize scientific release, legal compliance, safety certification, or real-world performance claims.",
+  "git_checkpoints": [
+    {
+      "role": "build_b_baseline_gate",
+      "commit_sha": "59637597706569360220e0354716ceeb4e4837ca"
+    },
+    {
+      "role": "final_runtime_implementation",
+      "commit_sha": "428684fa987b673856fd533e2dba617cf0705e6e"
+    },
+    {
+      "role": "final_pre_b10_gate",
+      "commit_sha": "a9c5e733c5ae74f78e37788afab82d63fe868416"
+    },
+    {
+      "role": "b10_report_input",
+      "commit_sha": "d34af7289be2944d9c0a884089359dd62b53da4b"
+    }
+  ],
+  "evidence_classes": [
+    "MEASURED",
+    "LITERATURE_DERIVED",
+    "SUPPLIER_PROVIDED",
+    "EMPIRICALLY_CALIBRATED",
+    "MODEL_ESTIMATED",
+    "HEURISTIC",
+    "SPECULATIVE",
+    "UNKNOWN"
+  ],
+  "source_inventory": {
+    "frozen_b0_inventory": {
+      "path": "docs/verification/b0/scientific_truth_inventory.json.gz",
+      "schema_version": "scientific-truth-inventory-v1",
+      "source_digest_count": 1043,
+      "compressed_bytes": 1506865,
+      "compressed_sha256": "3f287b86c29e645d879e3b2af59ddcf53d059c11509ecf85576a7c126f9daebc",
+      "decompressed_bytes": 26221111,
+      "decompressed_sha256": "1eb930343b33db9a60395567fa97748c428b416d46447beca9991448b4f7b779",
+      "forbidden_or_generated_path_count": 0
+    },
+    "b1_canonical_contract": {
+      "source_types": 18,
+      "workflow_states": 10,
+      "canonical_tables": 4,
+      "migrated_high_impact_values": 0,
+      "accepted_source_required_for_downstream_authority": true,
+      "exact_locator_and_artifact_digest_required": true,
+      "independence_and_derivation_links_explicit": true
+    }
+  },
+  "observation_inventory": {
+    "legacy_material_rows": 1262,
+    "legacy_property_observations": 23869,
+    "legacy_code_constants": 300,
+    "legacy_knowledge_rules": 3381,
+    "legacy_property_conflict_sets": 226,
+    "legacy_authority_labels": {
+      "UNKNOWN": 20949,
+      "UNATTRIBUTED_LEGACY": 1987,
+      "LEGACY_HEURISTIC": 505,
+      "LEGACY_TRACEABLE": 311,
+      "LOCAL_RECORD": 69,
+      "LITERATURE_DERIVED": 39,
+      "SUPPLIER_PROVIDED": 9
+    },
+    "non_null_legacy_properties": {
+      "cas": 61,
+      "density_25c_g_ml": 32,
+      "dhvap_kj_mol": 2,
+      "hedonic_valence": 137,
+      "ifra_max_pct_edp": 15,
+      "inchikey": 14,
+      "kaw_eff": 122,
+      "logp": 211,
+      "mw_g_mol": 289,
+      "odt_air_ppb": 92,
+      "odt_eth_ppm": 81,
+      "or_targets": 1260,
+      "smiles": 15,
+      "stevens_n": 2,
+      "trp_targets": 50,
+      "user_stock_dilution": 251,
+      "vp_25c_pa": 286
+    },
+    "canonical_observations_promoted_by_build_b_migrations": 0,
+    "current_working_tree": {
+      "material_rows": 1263,
+      "material_row_delta_from_b0": 1,
+      "inventory_raw_entries": 234,
+      "unique_normalized_entries": 218,
+      "unique_fragrance_entries": 213,
+      "available_fragrance_count": 210,
+      "duplicate_canonical_entries": 16,
+      "magnolia_eo": {
+        "source_label": "Magnolia EO",
+        "identity_authority": "UNKNOWN",
+        "unknown_dimensions": [
+          "species",
+          "plant_part",
+          "supplier",
+          "stock_strength",
+          "amount"
+        ],
+        "canonical_kb_promoted": false,
+        "quarantine_category": "naturals_missing_composite_evidence"
+      }
+    },
+    "interpretation": "Frozen B0 counts remain the scientific baseline. The one-row live delta is a source-level, identity-unknown inventory observation and is not a canonical migrated assertion."
+  },
+  "migrated_data": {
+    "canonical_tables_created": 40,
+    "canonical_migrated_or_backfilled_rows_total": 0,
+    "production_database_migrated": false,
+    "production_database_backfilled": false,
+    "phase_rows": [
+      {
+        "phase": "B1",
+        "migration_head": "20260730_0005",
+        "tables": 4,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B2",
+        "migration_head": "20260730_0006",
+        "tables": 5,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B3",
+        "migration_head": "20260730_0007",
+        "tables": 3,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B4",
+        "migration_head": "20260731_0008",
+        "tables": 6,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B5",
+        "migration_head": "20260731_0009",
+        "tables": 8,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B6",
+        "migration_head": "20260731_0010",
+        "tables": 7,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B7",
+        "migration_head": "20260731_0011",
+        "tables": 2,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B8",
+        "migration_head": "20260731_0012",
+        "tables": 5,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      },
+      {
+        "phase": "B9",
+        "migration_head": "20260731_0012",
+        "tables": 0,
+        "migrated_or_backfilled_rows": 0,
+        "status": "PASS"
+      }
+    ]
+  },
+  "conflicts": {
+    "legacy_property_conflict_sets": 226,
+    "legacy_rule_invalid_exact": 137,
+    "legacy_rule_duplicates": 68,
+    "legacy_rule_directed_cycles": 1,
+    "legacy_rule_blocking": 0,
+    "legacy_rule_numerical_models": 0,
+    "unresolved_blocking_property_conflict_effect": "WITHHOLD_AUTHORITY",
+    "silent_averaging_allowed": false,
+    "duplicate_promotion_allowed": false
+  },
+  "selected_assertion_policy": {
+    "explicit_candidate_set_required": true,
+    "selection_scope_must_match": true,
+    "policy_and_uncertainty_exposed": true,
+    "blocking_conflicts_withhold": true,
+    "explicit_id_retrieval_only": true,
+    "legacy_scalar_default_authority": "HEURISTIC_OR_UNKNOWN",
+    "legacy_values_promoted_implicitly": false
+  },
+  "odt_authority_by_context": {
+    "legacy_air_threshold_values": 92,
+    "legacy_ethanol_threshold_values": 81,
+    "legacy_odt_data_entries": 301,
+    "legacy_odt_verification_entries": 276,
+    "canonical_thresholds_promoted": 0,
+    "stable_mismatch_codes": 10,
+    "required_context_dimensions": [
+      "identity",
+      "grade",
+      "purity",
+      "stereochemistry",
+      "endpoint",
+      "route",
+      "medium",
+      "matrix",
+      "basis",
+      "conditions"
+    ],
+    "solution_to_air_conversion_without_partition_evidence": "PROHIBITED",
+    "strict_heuristic_fallback": false,
+    "compatible_oav_authority": "SCREENING_ONLY",
+    "mismatch_result": "WITHHELD"
+  },
+  "knowledge_rule_status": {
+    "legacy_records": 3381,
+    "canonical_rows_promoted": 0,
+    "invalid_exact": 137,
+    "duplicates": 68,
+    "directed_cycle_diagnostics": 1,
+    "authoritative_blocking_legacy_rules": 0,
+    "legacy_numerical_models": 0,
+    "identity_resolution_fixture_labels": 454,
+    "identity_resolution_fixture_authority": "REGRESSION_ONLY_NOT_CANONICAL",
+    "generic_or_unresolved_blocking_allowed": false,
+    "controlled_support_required_for_numerical_models": true
+  },
+  "analytical_method_validation_matrix": [
+    {
+      "control": "method_authority",
+      "status": "PASS",
+      "requirement": "Versioned method, accepted source, exact scope, and bound digest."
+    },
+    {
+      "control": "method_validation",
+      "status": "PASS",
+      "requirement": "Claim-specific criteria, uncertainty, review, and exact matrix/analyte/method scope."
+    },
+    {
+      "control": "calibration",
+      "status": "PASS",
+      "requirement": "Calibrated quantity must match analyte, method, matrix, applicability, and validation."
+    },
+    {
+      "control": "sequence_and_run",
+      "status": "PASS",
+      "requirement": "Ordered sequence and exact primary subject are bound atomically."
+    },
+    {
+      "control": "raw_file_attachment",
+      "status": "PASS",
+      "requirement": "Raw files and open exports are attached by content digest."
+    },
+    {
+      "control": "peak_identity",
+      "status": "PASS",
+      "requirement": "Six closed identity-authority states; library match alone cannot promote."
+    },
+    {
+      "control": "gc_o",
+      "status": "PASS",
+      "requirement": "Alignment window and assessor training are preserved; GC-O cannot confer exact chemical identity."
+    },
+    {
+      "control": "quality_control",
+      "status": "PASS",
+      "requirement": "Blocking QC withholds numerical result; qualifying QC caps authority at advisory."
+    },
+    {
+      "control": "claim_assessment",
+      "status": "PASS",
+      "requirement": "Exact applicability and canonical evidence are required; caller booleans cannot promote."
+    }
+  ],
+  "regulatory_snapshot_inventory": {
+    "recorded_local_date": "2026-07-31",
+    "result_states": [
+      "PASS_FOR_DECLARED_SCOPE",
+      "FAIL",
+      "UNKNOWN",
+      "NOT_EVALUATED"
+    ],
+    "official_source_checks": [
+      {
+        "authority": "IFRA",
+        "checked_on": "2026-07-31",
+        "source_url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-52nd-amendment-consultation-closed",
+        "recorded_status": "CONSULTATION",
+        "enforced": false,
+        "finding": "The 52nd Amendment consultation closed on 2026-06-12; formal notification was expected near the end of November 2026."
+      },
+      {
+        "authority": "European Union",
+        "checked_on": "2026-07-31",
+        "source_url": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj/eng",
+        "recorded_status": "CURRENT_FOR_RECORDED_DATE",
+        "enforced": true,
+        "finding": "The stored screen uses 0.001 percent leave-on and 0.01 percent rinse-off declaration thresholds with dated transition handling."
+      }
+    ],
+    "natural_profile_states": [
+      "COMPLETE_LOT_SPECIFIC",
+      "DOCUMENTED_PROXY",
+      "PARTIAL",
+      "UNKNOWN"
+    ],
+    "unknown_natural_composition_can_pass": false,
+    "source_currentness_requires_future_refresh": true,
+    "authority_boundary": "SCOPED_SCREENING_NOT_LEGAL_CERTIFICATION"
+  },
+  "runtime_call_graph": {
+    "before": [
+      "Legacy constants, material YAML, knowledge JSON or SQLite, and IFRA dictionaries",
+      "Direct engine consumers and helpers",
+      "Calculations, recommendations, and safety screens",
+      "Output claims without a unified claim-specific authority graph"
+    ],
+    "after": [
+      "B1 source document, extraction, and workflow authority",
+      "B2 typed observation, conflict set, and selected assertion",
+      "B3 contextual threshold and screening-only OAV assessment",
+      "B4 compiled knowledge rule with explicit endpoint and support",
+      "B5 validated analytical method, run, QC, uncertainty, and claim assessment",
+      "B6 dated regulatory source, composition profile, snapshot, and finding",
+      "B7 claim-specific authority decision and typed support links",
+      "B8 non-promoting lexicographic backfill priority and gap dashboard",
+      "B9 read-only strict or exploratory JSON, Markdown, and UI projection"
+    ]
+  },
+  "required_test_matrix": [
+    {
+      "category": "source_ingestion_and_digest_verification",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b1_source_service.py::test_source_document_versions_are_immutable_hash_chained_and_staged",
+        "backend/tests/unit/test_b1_source_service.py::test_ai_generated_source_and_extraction_are_not_auto_authoritative"
+      ],
+      "authority_boundary": "Sources are versioned, digest-bound, staged, and never made authoritative by ingestion alone."
+    },
+    {
+      "category": "exact_locator_preservation",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b1_source_service.py::test_extraction_preserves_table_context_and_starts_non_authoritative",
+        "backend/tests/unit/test_b2_property_service.py::test_property_observation_requires_exact_accepted_b1_linkage"
+      ],
+      "authority_boundary": "Page, table, row, scope, and source linkage remain explicit."
+    },
+    {
+      "category": "duplicate_and_independence_grouping",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b1_source_service.py::test_reconstruction_collapses_repeated_sources_to_one_independence_group",
+        "backend/tests/unit/test_b2_property_service.py::test_conflict_sets_preserve_values_methods_and_source_independence",
+        "backend/tests/unit/test_b4_rule_service.py::test_batch_diagnostics_are_stable_and_duplicates_do_not_stay_active"
+      ],
+      "authority_boundary": "Repeated lineage does not count as independent corroboration and duplicate rules do not remain active."
+    },
+    {
+      "category": "observation_round_trips",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b2_property_service.py::test_all_value_kinds_round_trip_and_not_detected_is_not_zero",
+        "backend/tests/unit/test_b2_property_service.py::test_assertion_reconstruction_uses_explicit_id_and_preserves_lineage"
+      ],
+      "authority_boundary": "Typed values, censoring, identity, uncertainty, and lineage round-trip without zero substitution."
+    },
+    {
+      "category": "selected_assertion_conflict_handling",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b2_property_service.py::test_unresolved_blocking_conflict_withholds_selected_assertion_authority",
+        "backend/tests/unit/test_b2_property_service.py::test_selected_assertion_requires_complete_consistent_candidates"
+      ],
+      "authority_boundary": "Unresolved blocking conflicts are visible and withhold selection authority."
+    },
+    {
+      "category": "unit_conversion_and_incompatibility",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b3_threshold_service.py::test_solution_threshold_never_converts_to_air_by_unit_conversion",
+        "backend/tests/unit/test_b3_threshold_service.py::test_cross_basis_conversion_is_withheld_even_with_prerequisites"
+      ],
+      "authority_boundary": "Unit conversion cannot fabricate cross-medium or cross-basis scientific comparability."
+    },
+    {
+      "category": "contextual_odt_matching",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b3_threshold_service.py::test_compatible_context_computes_only_a_screening_ratio",
+        "backend/tests/unit/test_b3_threshold_service.py::test_each_context_failure_withholds_oav"
+      ],
+      "authority_boundary": "OAV is computed only for an exact compatible threshold context and remains screening-only."
+    },
+    {
+      "category": "strict_science_mode",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b3_threshold_service.py::test_legacy_threshold_status_is_preserved_and_never_promoted",
+        "backend/tests/integration/test_b9_science_reporting_api.py::test_b9_empty_api_and_markdown_have_closed_nonpromoting_contract"
+      ],
+      "authority_boundary": "Strict mode has no heuristic fallback; unknown and withheld records remain visible."
+    },
+    {
+      "category": "oav_claim_boundaries",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b3_threshold_service.py::test_compatible_context_computes_only_a_screening_ratio",
+        "backend/tests/integration/test_b7_claim_authority_e2e.py::test_strict_b3_oav_produces_scoped_screening_not_exactness"
+      ],
+      "authority_boundary": "OAV cannot prove exact intensity, contribution percentage, similarity, safety, or release."
+    },
+    {
+      "category": "rule_compilation_and_invalid_reference_prevention",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b4_rule_service.py::test_group_endpoint_requires_an_existing_explicit_group",
+        "backend/tests/unit/test_b4_rule_service.py::test_missing_source_scope_withholds_authority_without_fallback",
+        "backend/tests/unit/test_b4_rule_service.py::test_directed_cycle_diagnostic_marks_only_rules_in_the_cycle"
+      ],
+      "authority_boundary": "Invalid, generic, unresolved, duplicate, or cyclic rules cannot silently become blocking numerical truth."
+    },
+    {
+      "category": "analytical_method_validation",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b5_analytical_service.py::test_method_validation_is_complete_hashed_and_explicitly_retrievable",
+        "backend/tests/unit/test_b5_analytical_service.py::test_passing_validation_requires_criteria_uncertainty_and_review"
+      ],
+      "authority_boundary": "Analytical claims require an exact, reviewed, source-bound validation scope."
+    },
+    {
+      "category": "calibration_qc_and_uncertainty",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b5_analytical_service.py::test_calibrated_quantity_requires_matching_calibration_scope",
+        "backend/tests/unit/test_b5_analytical_service.py::test_blocking_failed_qc_withholds_numerical_result",
+        "backend/tests/unit/test_b5_analytical_service.py::test_qualifying_failed_qc_caps_claim_at_advisory"
+      ],
+      "authority_boundary": "Calibration, uncertainty, applicability, and QC are claim-specific and fail closed."
+    },
+    {
+      "category": "gc_o_alignment",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b5_analytical_service.py::test_gco_authority_preserves_window_training_and_alignment",
+        "backend/tests/unit/test_b5_analytical_service.py::test_gco_authority_forbids_exact_identity_claim"
+      ],
+      "authority_boundary": "GC-O evidence preserves its sensory alignment scope and never confers exact chemical identity."
+    },
+    {
+      "category": "raw_file_attachment_and_digest",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b5_analytical_service.py::test_run_authority_binds_primary_subject_sequence_and_raw_files",
+        "backend/tests/integration/test_b5_analytical_e2e.py::test_b5_supported_chain_persists_exact_authority_and_a2_claim"
+      ],
+      "authority_boundary": "Run authority is bound to exact subjects, sequence entries, raw files, and content digests."
+    },
+    {
+      "category": "regulatory_dates_and_snapshot_versioning",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b6_regulatory_service.py::test_eu_allergen_thresholds_and_transition_boundaries_are_date_aware",
+        "backend/tests/unit/test_b6_regulatory_service.py::test_current_supersession_makes_old_source_unselectable",
+        "backend/tests/integration/test_b6_regulatory_migration.py::test_b6_database_guards_source_status_and_append_only_history"
+      ],
+      "authority_boundary": "Regulatory screens are dated, jurisdiction-scoped, versioned, and preserve unknown or superseded states."
+    },
+    {
+      "category": "natural_contribution_aggregation",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/unit/test_b6_regulatory_service.py::test_lot_specific_natural_profile_is_atomic_and_complete",
+        "backend/tests/integration/test_b6_regulatory_e2e.py::test_b6_migrated_eu_allergen_transition_and_natural_aggregation",
+        "backend/tests/integration/test_b6_regulatory_e2e.py::test_b6_migrated_unknown_natural_never_hides_known_failure"
+      ],
+      "authority_boundary": "Natural contributions aggregate only from explicit lot or documented proxy composition; unknown composition never passes."
+    },
+    {
+      "category": "negative_authority_promotion_cases",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/integration/test_b7_claim_authority_e2e.py::test_nonpromoting_property_evidence_never_authorizes_exactness",
+        "backend/tests/integration/test_b7_claim_authority_e2e.py::test_unknown_and_partial_natural_profiles_are_withheld",
+        "backend/tests/integration/test_a2_science_export.py::test_legacy_exports_do_not_invent_science_authority"
+      ],
+      "authority_boundary": "Heuristic, speculative, unknown, partial, stale, or mismatched evidence cannot promote authority."
+    },
+    {
+      "category": "api_and_report_provenance",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/integration/test_b9_science_reporting_api.py::test_b9_api_round_trips_provenance_and_keeps_weak_evidence_visible",
+        "backend/tests/integration/test_b9_science_reporting_api.py::test_b9_empty_api_and_markdown_have_closed_nonpromoting_contract"
+      ],
+      "authority_boundary": "API and Markdown projections expose provenance, authority labels, withholding reasons, and a read-only boundary."
+    },
+    {
+      "category": "export_import_backup_and_restore",
+      "status": "PASS",
+      "tests": [
+        "backend/tests/integration/test_a2_science_export.py::test_v3_export_import_is_byte_deterministic_and_idempotent",
+        "backend/tests/integration/test_backup_restore.py::test_live_backup_writes_consistent_snapshot_manifest_and_digest",
+        "backend/tests/integration/test_backup_restore.py::test_restore_validation_rejects_corrupt_digest_and_revision",
+        "backend/tests/integration/test_backup_restore.py::test_restore_stages_while_running_and_applies_only_in_maintenance_mode"
+      ],
+      "authority_boundary": "Science graphs export deterministically; backup and restore verify digests, revisions, staging, and maintenance-mode application."
+    }
+  ],
+  "verifier": {
+    "completion_gate": "PASS_WITH_SKIPS",
+    "verification_scope": "full",
+    "mandatory_passed": 19,
+    "failed": [],
+    "skipped": [
+      "docker-build",
+      "docker-smoke-test"
+    ],
+    "skip_reason": "Docker checks are optional and were not requested by the non-Docker Build B10 gate.",
+    "required_scientific_matrix": {
+      "test_files": 20,
+      "tests_passed": 274,
+      "pytest_duration_seconds": 425.11,
+      "wrapper_duration_seconds": 448.562,
+      "timeout_seconds": 900,
+      "timed_out": false,
+      "log": "docs/verification/b10/logs/pytest_b10_required_current_final.stdout.txt"
+    },
+    "full_project_run": {
+      "mandatory_checks": 19,
+      "wrapper_exit_code": 0,
+      "timed_out": false,
+      "wrapper_duration_seconds": 840.593,
+      "report_sha256": "2bae4f68dfa17fb9fb7d37f003429bd7df6f5682721ccd82672d3338b49433bb",
+      "log": "docs/verification/b10/logs/project_verification_full_final_source.json",
+      "engine_shards": {
+        "truth_core": 191,
+        "data_knowledge": 236,
+        "gates_families": 602,
+        "legacy": 69
+      },
+      "backend_tests": 630,
+      "backend_timeout_seconds": 1200,
+      "failed_attempts_before_pass": 2,
+      "failed_attempt_evidence": [
+        "docs/verification/b10/logs/project_verification_full_current_failed_inventory.json",
+        "docs/verification/b10/logs/project_verification_full_current_failed_timeout.json"
+      ],
+      "final_source_frozen": true,
+      "final_post_repairs_rerun_required_before_seal": true,
+      "protected_state_byte_identical_after_run": true
+    },
+    "package_verification": {
+      "status": "PASS",
+      "checks_passed": 22,
+      "files_scanned": 153,
+      "json_files_parsed": 63,
+      "json_parse_failures": 0,
+      "ansi_files": 0,
+      "sensitive_value_shape_hits": 0,
+      "recovery_archives_verified": 4,
+      "log": "docs/verification/b10/logs/b10_final_package_post_full.stdout.txt"
+    }
+  },
+  "protected_state": {
+    "perfume_chem.db": {
+      "bytes": 12288,
+      "before_sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "after_sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok",
+      "mode": "READ_ONLY_IMMUTABLE"
+    },
+    "data/perfumery_kb.db": {
+      "bytes": 2084864,
+      "before_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "after_sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "mode": "READ_ONLY_IMMUTABLE"
+    },
+    "data/perfumery_kb.db-wal": {
+      "bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "data/perfumery_kb.db-shm": {
+      "bytes": 32768,
+      "before_sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "after_sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    }
+  },
+  "recovery": {
+    "archives": [
+      {
+        "id": "b10_evidence_before_refresh",
+        "path": "outputs/b10-authoritative-recovery/20260802T111154/b10-evidence-before-refresh.zip",
+        "bytes": 59811,
+        "sha256": "2dcfeed4be62846fcfbba8440f76b57820bb8da5b511cec008faf810e4c23920",
+        "archive_entries": 53,
+        "restored_files": 53,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_verifier_outputs_before_run",
+        "path": "outputs/b10-authoritative-recovery/20260802T111154/b10-verifier-outputs-before-run.zip",
+        "bytes": 17489486,
+        "sha256": "cbb2df5a08450dbdb1216863e751a683ddeafdd8debad5132249ecfce01d43bc",
+        "archive_entries": 2645,
+        "restored_files": 2645,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_inventory_kb_before_repair",
+        "path": "outputs/b10-authoritative-recovery/20260802T120500/b10-inventory-kb-before-repair.zip",
+        "bytes": 331178,
+        "sha256": "c9a7294dd5507afbc9a5f90f4ec17e1ca020c622e5da7bc18e4701b5fc7a56d6",
+        "archive_entries": 9,
+        "restored_files": 8,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      },
+      {
+        "id": "b10_verifier_defects_before_repair",
+        "path": "outputs/b10-authoritative-recovery/20260802T055514Z/b10-verifier-defects-before-repair.zip",
+        "bytes": 15775,
+        "sha256": "64efb1452c2e73a0363730dc70643aebbd26965c7614bf6b6458d75bdb4ae90f",
+        "archive_entries": 4,
+        "restored_files": 3,
+        "restore_verified": true,
+        "unsafe_entries": 0
+      }
+    ]
+  },
+  "defects_closed": [
+    {
+      "id": "B10-D1",
+      "finding": "The canonical verifier omitted two new top-level tests from its explicit shards.",
+      "resolution": "Both tests were assigned to the data and knowledge shard; the shard manifest regression and full verifier passed."
+    },
+    {
+      "id": "B10-D2",
+      "finding": "Two full verifier runs inserted six synthetic interaction rows into the protected knowledge database and removed its runtime sidecars.",
+      "resolution": "The mutated state was archived, the exact pre-run main file and sidecars were restored, import-time seeding was removed, query connections became immutable, and all interaction tests now use isolated database copies with a live-hash invariant."
+    },
+    {
+      "id": "B10-D3",
+      "finding": "An initial independent inventory helper compared unique subject identifiers with B0 material-row count semantics.",
+      "resolution": "The helper was corrected to reproduce the canonical YAML row-count definition; every inventory check then passed without changing inventory data."
+    },
+    {
+      "id": "B10-D4",
+      "finding": "After interaction writes were isolated, live read paths in the material, rule, property-validation, and science-KB APIs still opened the repository database in writable WAL mode and removed pre-existing sidecars.",
+      "resolution": "All repository KB query paths now use explicit immutable read-only connections; science-KB population remains explicitly writable, its tests dynamically target a temporary database, all four engine shards pass independently, and every protected file remains byte-identical."
+    },
+    {
+      "id": "B10-D5",
+      "finding": "The historical B10 report and inventory helper described an obsolete B0 artifact and expected obsolete B1-B7 gate field locations.",
+      "resolution": "The historical helper failure was preserved as rejected evidence. A fresh read-only verifier now checks the sealed B0 digests and current gate schemas while separating the frozen 1,262-row baseline from the 1,263-row live source tree."
+    },
+    {
+      "id": "B10-D6",
+      "finding": "The live inventory gained Bergamot FCF oil Sicilian and an identity-unknown Magnolia EO label after fixed-count and unresolved-natural regression snapshots were written.",
+      "resolution": "Bergamot resolves through an existing exact alias; Magnolia is a new source-level observation with chemistry fields withheld. Exact inventory counts were refreshed to 210 and Magnolia remains in the unresolved-natural quarantine."
+    },
+    {
+      "id": "B10-D7",
+      "finding": "A complete disposable KB rebuild represented Magnolia deterministically but also changed 86 common material rows and multiple whole-table populations relative to the protected canonical KB.",
+      "resolution": "Two disposable builds were byte-identical and preserved Magnolia unknowns, but the broad unrelated logical drift blocked canonical replacement. The protected KB remained byte-identical and Magnolia was not promoted into it."
+    },
+    {
+      "id": "B10-D8",
+      "finding": "The backend suite completed 630 tests but the verifier killed its wrapper at the historical 900-second ceiling after 959.328 seconds.",
+      "resolution": "A RED verifier-contract test fixed the backend timeout at 1,200 seconds. The selected backend check then passed 630 tests and the final full verifier passed with no failures."
+    }
+  ],
+  "build_b_completion": [
+    {
+      "criterion": "runtime_values_traceable_or_explicitly_labeled",
+      "status": "SATISFIED",
+      "evidence": "B0 inventories every runtime value; B1-B2 require source or explicit non-promoting legacy labels, and zero legacy rows were silently promoted."
+    },
+    {
+      "criterion": "selected_values_expose_policy_and_uncertainty",
+      "status": "SATISFIED",
+      "evidence": "B2 selected assertions preserve candidate policy, uncertainty, lineage, and unresolved conflict state."
+    },
+    {
+      "criterion": "odts_are_contextual",
+      "status": "SATISFIED",
+      "evidence": "B3 stores explicit threshold context and withholds all ten mismatch classes."
+    },
+    {
+      "criterion": "oav_mismatches_fail_closed",
+      "status": "SATISFIED",
+      "evidence": "Current B3 and B7 tests show mismatched OAV is withheld and compatible OAV is screening-only."
+    },
+    {
+      "criterion": "advisory_rules_cannot_become_hidden_numerical_truth",
+      "status": "SATISFIED",
+      "evidence": "B4 generic or unresolved rules cannot block or become numerical; controlled matching support is mandatory."
+    },
+    {
+      "criterion": "analytical_claims_require_method_validation_and_qc",
+      "status": "SATISFIED",
+      "evidence": "B5 binds claims to exact method validation, calibration, uncertainty, raw data, QC, and applicability."
+    },
+    {
+      "criterion": "regulatory_screens_are_current_dated_scoped_and_preserve_unknowns",
+      "status": "SATISFIED",
+      "evidence": "B6 source and snapshot versions are dated and scoped; UNKNOWN and NOT_EVALUATED remain explicit and future refresh is required."
+    },
+    {
+      "criterion": "heuristic_data_remain_visibly_separate",
+      "status": "SATISFIED",
+      "evidence": "B0 authority labels and B9's eight evidence classes remain explicit; strict and exploratory views never promote heuristics."
+    },
+    {
+      "criterion": "full_verification_passes",
+      "status": "SATISFIED",
+      "evidence": "The final-source canonical non-Docker verifier reports PASS_WITH_SKIPS with 19 mandatory checks passed, no failures, 1,098 engine tests, 630 backend tests, and byte-identical protected state."
+    },
+    {
+      "criterion": "no_scientific_release_claim_is_made",
+      "status": "SATISFIED",
+      "evidence": "Every B1-B9 gate and this B10 report explicitly denies release, legal, certification, safety, and real-world performance authority."
+    }
+  ],
+  "claim_wording": {
+    "permitted": {
+      "ALLOW_EXACT": "The claim may be stated exactly for the recorded identity and condition scope only.",
+      "ALLOW_SCOPED": "The claim may be stated only with the recorded scope and qualifications.",
+      "ADVISORY_ONLY": "The observation may be described as preliminary advisory evidence.",
+      "WITHHOLD_UNKNOWN": "No affirmative scientific claim is permitted while critical requirements remain unknown.",
+      "BLOCK": "No affirmative scientific claim is permitted because a blocking condition is present."
+    },
+    "forbidden": [
+      "release-grade",
+      "certified",
+      "universally safe",
+      "unscoped equivalence"
+    ]
+  },
+  "remaining_unknowns": [
+    "No Build B migration promoted a real literature observation, threshold, analytical record, regulatory record, or knowledge rule; production canonical tables remain intentionally empty.",
+    "Magnolia EO remains an observed inventory label only: species, plant part, supplier, stock strength, amount, composition, and exact identity are unknown.",
+    "The protected knowledge DB has not been rebuilt from current source files because the reproducible disposable candidate contains broad unrelated logical drift; Magnolia is therefore not a canonical KB row.",
+    "Most frozen legacy observations remain UNKNOWN, UNATTRIBUTED_LEGACY, or LEGACY_HEURISTIC and cannot support stronger claims.",
+    "Legacy ODT values remain non-contextual unless explicitly adapted through B1-B3 with exact provenance and context.",
+    "The B4 corpus retains quarantined invalid exact rules, duplicates, and one directed-cycle diagnostic.",
+    "Regulatory source currentness must be refreshed for evaluation dates after the recorded 2026-07-31 checks.",
+    "No held-out sensory validation, real-world performance validation, legal approval, safety certification, or scientific release evidence exists.",
+    "Docker build and smoke checks were optional and not executed by the non-Docker B10 gate."
+  ],
+  "independent_review": {
+    "preimplementation_job_id": "DS-d5e23b4ea2e909c4e58e24b1bf2496f8",
+    "preimplementation_result": "PASS",
+    "final_review_job_id": "DS-204c549decc18c3c19787a9bc69b4592",
+    "final_review_status": "PASS",
+    "final_review_route": "DEEPINFRA_PRIORITY_DEEPSEEK_V4_FLASH",
+    "final_review_provider_calls": 1,
+    "final_review_prompt_tokens": 87754,
+    "final_review_completion_tokens": 923,
+    "final_review_luna_calls": 0,
+    "final_review_scope_deviation": false,
+    "sanitized_evidence": "docs/verification/b10/logs/deepluna_b10_current_final_audit.result.json",
+    "postseal_review_job_id": "DS-b5b28b7a2921c6132dda946a78a84f1d",
+    "postseal_review_status": "PASS",
+    "postseal_review_route": "DEEPINFRA_PRIORITY_DEEPSEEK_V4_FLASH",
+    "postseal_review_provider_calls": 1,
+    "postseal_review_prompt_tokens": 48080,
+    "postseal_review_completion_tokens": 885,
+    "postseal_review_luna_calls": 0,
+    "postseal_review_scope_deviation": false,
+    "postseal_sanitized_evidence": "docs/verification/b10/logs/deepluna_b10_postseal_final_audit.result.json",
+    "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION",
+    "provider_role": "SUPPLEMENTAL_READ_ONLY_NO_FINAL_AUTHORITY"
+  }
+}

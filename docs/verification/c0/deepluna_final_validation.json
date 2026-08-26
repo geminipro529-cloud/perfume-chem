@@ -1,0 +1,36 @@
+{
+  "schema_version": "c0-deepluna-final-validation-v1",
+  "recorded_at_utc": "2026-08-02T09:23:32.996Z",
+  "project_id": "perfume-chem",
+  "readiness": "READY",
+  "runtime_mode": "CANDIDATE_V2",
+  "server_release": "0.9.9",
+  "job_id": "DS-375b37a505088193c8ca6561df64b1d5",
+  "terminal_state": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "route": "FLASH",
+  "provider_route": "deepinfra-priority",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "fallback_policy": "NO_LUNA",
+  "result_record_sha256": "42e637c634a42d38f836cfb34dd5516ac4ce82845f2c99b2a4e61186b251d4b5",
+  "positive_findings": [
+    "Inventory covers all 15 required C0 categories with 48 implementation records and 29 call edges.",
+    "Every fixture selector is represented exactly once; source hashes are bound and verified by the verifier and tests.",
+    "The ADR declares one versioned engine.physics router, one selected implementation per claim, and explicitly states C0 changes no production runtime path."
+  ],
+  "negative_findings": [],
+  "residual_risks": [
+    "The skin duplicate-accounting defect with reservoir_pct 140.0 is disclosed and frozen but remains in production code because C0 does not fix behavior.",
+    "DeepLuna does not authorize C1; Sol must reproduce and accept the gate."
+  ],
+  "packet_note": "The provider packet summary ended with a malformed final phrase. No retry or fallback was attempted; Sol uses only the structured findings plus independent local reproduction.",
+  "local_reproduction": {
+    "verifier": "PASS: 48 implementations, 29 call edges, 24 fixtures",
+    "focused_pytest": "PASS: 24 tests",
+    "ruff_check": "PASS: zero findings",
+    "ruff_format": "PASS: two files already formatted",
+    "fixture_sha256": "e66c5e94217913db83487897079131dfef6e2e6d321ee4a7216e4c74302f89b8",
+    "staged_scope": "PASS: 24 C0 files, zero prohibited paths, git diff --cached --check exit 0"
+  },
+  "sol_acceptance": "ACCEPTED_AFTER_LOCAL_REPRODUCTION"
+}

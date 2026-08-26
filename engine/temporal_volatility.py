@@ -11,9 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from engine.odor_thresholds import ODT_DATA, MIXTURE_SUPPRESSION_FACTOR
 from engine.name_utils import normalize_name
-
+from engine.odor_thresholds import MIXTURE_SUPPRESSION_FACTOR, ODT_DATA
 
 VOLATILITY_WINDOWS: dict[str, dict] = {
     "immediate_opening": {"vp_min": 0.5,   "vp_max": 100.0, "evap_max_min": 30},

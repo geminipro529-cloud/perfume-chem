@@ -24,11 +24,7 @@ the dose-response is well-characterized, enabling sigmoidal hedonic modeling.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Mapping, Sequence
-
 from ._shared_types import HedgeShiftZone, MaterialShiftProfile
-
 
 # ---------------------------------------------------------------------------
 # Indole (CAS 120-72-9) — the classic sharp-cliff material

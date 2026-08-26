@@ -29,11 +29,11 @@ Fields are grouped by domain:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field, asdict, fields
+from dataclasses import asdict, dataclass, field, fields
 from typing import Any
 
-
 # ── Sub-records ────────────────────────────────────────────────────────────────
+
 
 @dataclass
 class Antoine:
@@ -41,6 +41,7 @@ class Antoine:
 
     Convert to Pa via ``P_pa = 133.322 * 10**(A − B / (C + T_celsius))``.
     """
+
     A: float | None = None
     B: float | None = None
     C: float | None = None
@@ -52,6 +53,7 @@ class Antoine:
 @dataclass
 class HSP:
     """Hansen Solubility Parameters (MPa^0.5)."""
+
     delta_d: float | None = None  # dispersion
     delta_p: float | None = None  # polar
     delta_h: float | None = None  # hydrogen-bond
@@ -61,19 +63,21 @@ class HSP:
 @dataclass
 class ORTarget:
     """One olfactory-receptor binding record."""
-    or_gene: str                      # e.g. "OR5A1"
-    ec50_uM: float | None = None      # half-max concentration, micromolar
-    hill: float | None = 1.0          # Hill coefficient, default 1
-    efficacy: float | None = 1.0      # 0–1 partial-agonist scaling
-    source: str | None = None         # "Mainland 2014" | "Trimmer 2019" | "homology"
+
+    or_gene: str  # e.g. "OR5A1"
+    ec50_um: float | None = None  # half-max concentration, micromolar
+    hill: float | None = 1.0  # Hill coefficient, default 1
+    efficacy: float | None = 1.0  # 0–1 partial-agonist scaling
+    source: str | None = None  # "Mainland 2014" | "Trimmer 2019" | "homology"
 
 
 @dataclass
 class TRPTargets:
     """Trigeminal / chemesthetic activation flags + intensities."""
-    TRPM8: float | None = None    # cold (menthol-class), 0–1
-    TRPA1: float | None = None    # pungent / electrophile, 0–1
-    TRPV1: float | None = None    # heat / capsaicin-class, 0–1
+
+    TRPM8: float | None = None  # cold (menthol-class), 0–1
+    TRPA1: float | None = None  # pungent / electrophile, 0–1
+    TRPV1: float | None = None  # heat / capsaicin-class, 0–1
     TRPV3: float | None = None
     nasal_pungency: float | None = None  # composite trigeminal score 0-1
 
@@ -81,14 +85,16 @@ class TRPTargets:
 @dataclass
 class SupplierRefs:
     """Cross-supplier identifiers and price snapshots."""
+
     perfumersworld_sku: str | None = None
     perfumersworld_price_usd_per_g: float | None = None
-    perfumersworld_form: str | None = None        # "neat" | "1% in DPG" | etc.
+    perfumersworld_form: str | None = None  # "neat" | "1% in DPG" | etc.
     perfumersworld_snapshot_date: str | None = None
     other: dict[str, Any] = field(default_factory=dict)
 
 
 # ── Top-level record ───────────────────────────────────────────────────────────
+
 
 @dataclass
 class Material:
@@ -106,13 +112,13 @@ class Material:
     density_25c_g_ml: float | None = None
     logp: float | None = None
     functional_groups: list[str] = field(default_factory=list)
-    chirality: str | None = None    # "R" | "S" | "racemic" | "achiral" | "mixture"
+    chirality: str | None = None  # "R" | "S" | "racemic" | "achiral" | "mixture"
 
     # --- vapor phase ---
     vp_25c_pa: float | None = None
     antoine: Antoine = field(default_factory=Antoine)
     dhvap_kj_mol: float | None = None
-    kaw_eff: float | None = None    # legacy effective air-water partition
+    kaw_eff: float | None = None  # legacy effective air-water partition
 
     # --- solubility / phase ---
     hsp: HSP = field(default_factory=HSP)
@@ -127,18 +133,18 @@ class Material:
     trp_targets: TRPTargets = field(default_factory=TRPTargets)
 
     # --- perception / regulatory ---
-    hedonic_valence: float | None = None    # −1 .. +1
+    hedonic_valence: float | None = None  # −1 .. +1
     ifra_max_pct_edp: float | None = None
 
     # --- inventory / supplier ---
-    user_stock_dilution: str | None = None    # "neat" | "10% in DPG" | "1% in TEC" | …
+    user_stock_dilution: str | None = None  # "neat" | "10% in DPG" | "1% in TEC" | …
     user_in_inventory: bool = False
     supplier: SupplierRefs = field(default_factory=SupplierRefs)
 
     # --- categorization ---
-    families: list[str] = field(default_factory=list)        # ["citrus","top"]
-    character: str | None = None                              # short blurb
-    notes: str | None = None                                  # freeform
+    families: list[str] = field(default_factory=list)  # ["citrus","top"]
+    character: str | None = None  # short blurb
+    notes: str | None = None  # freeform
 
     # --- provenance: per-field source tag ---
     provenance: dict[str, str] = field(default_factory=dict)
@@ -173,8 +179,7 @@ class Material:
         data["trp_targets"] = TRPTargets(**data["trp_targets"])
         data["supplier"] = SupplierRefs(**data["supplier"])
         data["or_targets"] = [
-            ORTarget(**t) if isinstance(t, dict) else t
-            for t in data.get("or_targets") or []
+            ORTarget(**t) if isinstance(t, dict) else t for t in data.get("or_targets") or []
         ]
         # filter unknown keys
         keep = {f.name for f in fields(cls)}
@@ -204,6 +209,7 @@ class Material:
 
 
 # ── Registry ───────────────────────────────────────────────────────────────────
+
 
 class MaterialRegistry:
     """In-memory material lookup, keyed by canonical_name and aliases."""

@@ -1,0 +1,37 @@
+{
+  "schema": "build-c11-draft-deepluna-audit-v1",
+  "job_id": "DS-f3f145a583cfb34968d298d6b6ca1d74",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "maximum_provider_calls": 1,
+  "cache_hit": false,
+  "provider_status": "BLOCKED",
+  "execution_status": "BLOCKED",
+  "evidence_verdict": "UNRESOLVED",
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": true,
+  "scope_deviation": false,
+  "provider_summary": "All 23 required categories are accounted for in the C11 draft packet. No contradictions or unsupported promotion language were found between the draft and the C10 final decision. The packet correctly preserves software-versus-empirical boundaries, with all scientific claims withheld or blocked pending real data.",
+  "provider_positive_findings": [
+    "All 23 requirement categories are accounted for in the C11 requirement crosswalk.",
+    "The C11 draft preserves the C10 decision that the historical 30k/35/97.76 claim is noncanonical and blocked.",
+    "The C11 draft states that Build D is not authorized and not started, matching the C10 final decision."
+  ],
+  "provider_negative_findings": [],
+  "provider_residual_risks": [
+    "The historical 30k/35/97.76 claim remains noncanonical because no reproducible artifact bundle exists.",
+    "No real instrument data, natural-lot profiles, or held-out C10 outcomes were available; empirical metrics were not computed.",
+    "The inherited clean-baseline limitation remains disclosed."
+  ],
+  "citation_coverage_complete": false,
+  "automatic_retry_performed": false,
+  "sol_reconciliation": {
+    "decision": "ACCEPT_AS_NONAUTHORITATIVE_CONSISTENCY_SIGNAL_ONLY",
+    "provider_block_preserved": true,
+    "provider_result_relabelled_as_pass": false,
+    "scientific_uncertainty_preserved": true,
+    "negative_finding_count": 0,
+    "local_validator_remains_authoritative": true,
+    "reason": "The worker found no packet contradiction but returned BLOCKED with scientific_uncertainty=true and omitted required line citations. The result cannot be a gate PASS; it corroborates only that the fail-closed scientific boundary is visible."
+  }
+}

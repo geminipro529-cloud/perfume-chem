@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 # SKU pattern: optional digit, 2 alpha (family), 5 digits.
@@ -119,7 +119,6 @@ def write_parsed_snapshot(entries: list[PWEntry], out_path: str | Path) -> None:
 
 
 if __name__ == "__main__":
-    import sys
 
     src = Path("knowledge/perfumersworld_stock.md")
     dst = Path("data/materials/_sources/perfumersworld_stock.parsed.json")

@@ -11,10 +11,9 @@ hard-wiring the recommendation policy into every caller.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Iterable, Literal, Mapping, Sequence
-import re
-
 
 InterventionMode = Literal["pre_mix", "post_mix", "between_mix"]
 

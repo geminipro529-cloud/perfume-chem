@@ -1,0 +1,1412 @@
+{
+  "schema": "build-c9-log-manifest-v1",
+  "scope": "all files under docs/verification/c9/logs except this manifest",
+  "matched_sensitive_values_recorded": false,
+  "final_successful_matrix_requires_empty_stderr": true,
+  "historical_failed_harness_stderr_is_preserved_and_non_authoritative": true,
+  "nonempty_stderr_files": [],
+  "files": [
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/clean-baseline-summary.json",
+      "bytes": 2438,
+      "sha256": "13b87d6ce64538e6c10ab0d9a27fa589051b2a032e60f326de4e64d592072056",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/harness-attempt-1-implementation-head.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/harness-attempt-1-implementation-head.stdout.txt",
+      "bytes": 3724,
+      "sha256": "dc13b757e526e5c93d9471fbe4defcee8b510230427e306057577fe2c327e6ea",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/harness-attempt-2-implementation-head.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/harness-attempt-2-implementation-head.stdout.txt",
+      "bytes": 3724,
+      "sha256": "7173191dc1771d20bd05f16002f5487705b5e01c180848e05f3f76af7561e55c",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/implementation-head.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/implementation-head.stdout.txt",
+      "bytes": 3724,
+      "sha256": "c016877677dece7dd94f736983e61ee87a553e62e723bbe1c2e8d323d981c295",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/parent-c8.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/clean-baseline/parent-c8.stdout.txt",
+      "bytes": 3724,
+      "sha256": "f4c679a27219e64298cc23151a0dd7e211ed623b0439e6b66bf65325f4e41462",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/archive-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/archive-verification.stdout.txt",
+      "bytes": 1155,
+      "sha256": "58a637d7ff0e5ba12ae08d2c43684c7d83fe8152cc588eb6b73dfd48724a6c3c",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/archive-verifier-contract-tests.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/archive-verifier-contract-tests.stdout.txt",
+      "bytes": 101,
+      "sha256": "bb23cb7315e19ffd0058651fa7c34b35a3a8deb59c3ea769074404e5f2b3437d",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/basedpyright-c9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/basedpyright-c9.stdout.txt",
+      "bytes": 30,
+      "sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/c0-inventory-verifier.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/c0-inventory-verifier.stdout.txt",
+      "bytes": 343,
+      "sha256": "62961cafc943484b891c7af6fdfcf55cd23e82b53f7c2d9a92a3ec84e17480f0",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/c5-empirical-boundary.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/c5-empirical-boundary.stdout.txt",
+      "bytes": 2367,
+      "sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-postflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-postflight.stdout.txt",
+      "bytes": 1358,
+      "sha256": "dd1a2a1c627da9d522c4329bc9d17c26ee596721c4a3e4b6e26b607620e61677",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-sol-focused.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-sol-focused.stdout.txt",
+      "bytes": 99,
+      "sha256": "79d64dca5d097a3f3caddfb5f6a17cab872ccd7083e80f7094225b25d180b15e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-sol-reproduction.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-sol-reproduction.stdout.txt",
+      "bytes": 592,
+      "sha256": "14f0c7819e86fa2ccad16db47752662ba2ff42de92bb776ef3014c93fb7b5d90",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-worker-result.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/deepluna-worker-result.stdout.txt",
+      "bytes": 2021,
+      "sha256": "f0b0de8875abae67ca0504479b38b29df75c3df26b5ee803f81f49a2e6b7f3f9",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/gate-run-metadata.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/gate-run-metadata.stdout.json",
+      "bytes": 65215,
+      "sha256": "2eeac639113e81664ce4c4c3079e4dea85321477c93054f9824dec75c3d1426c",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/log-scan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/log-scan.stdout.txt",
+      "bytes": 46621,
+      "sha256": "c09de80e9a66a179cf8295cb24494169da6f9dc414b091468bdadcaa0b48211f",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/mutation-evidence-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/mutation-evidence-verification.stdout.txt",
+      "bytes": 359,
+      "sha256": "4a1f5c2424a85945577ea7d1fbd80eb97d5dff996c0977565ef7b19986f64f42",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/mypy-c9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/mypy-c9.stdout.txt",
+      "bytes": 44,
+      "sha256": "d9a5631f7d87a741fbecc3236286d1792d22d349ff13846d71cdc9217307bb76",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pip-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pip-check.stdout.txt",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-after.stdout.txt",
+      "bytes": 703,
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-before.stdout.txt",
+      "bytes": 703,
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-state-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/protected-state-verification.stdout.txt",
+      "bytes": 993,
+      "sha256": "b306d993283b76391daf8dd0dda3436b1d96b2936e7529d6f8ef124bbbedf0c1",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c0-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c0-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "194725736e11e11a75ff5d1530718e8a722a55a832592a29c59e1ccfe8b9bec6",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c1-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c1-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "f77566d829de9bfc8c6c1f5ad080d92adbfc2253f906b1fd2e32e690bc0fcd20",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c2-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c2-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "5af2849c94bc84e234c8ee3202d32ea754b5049840545c7e4daa6467bddc0b89",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c3-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c3-compat.stdout.txt",
+      "bytes": 183,
+      "sha256": "6e2772efc5bf05abb25991feb61a6b51042d0ceba7bf796c95e54aefcfefbd19",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c4-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c4-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "e63bcc126914f8068c37e14092977d3a049acb508b058017887dfc46c34eea1a",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c5-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c5-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "268a1b4f72acd1649e6870a33de9b1a453e4169df85bd26486d0a3a438355ed2",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c6-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c6-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "300bb22dc2e719717fdf2c560fca0ae6eb6cbf460a473295394690cd6919a70d",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c7-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c7-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "617044463ede5acff95799a71ab41cdb49137be3ab8e59f3babfb03c61b4f350",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c8-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c8-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "b6c1dcd2da15b87a44e12f31c843b30ea1ae27bb2eac54797d731152655e87f4",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c9-dependency.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c9-dependency.stdout.txt",
+      "bytes": 100,
+      "sha256": "10a9efc0e4f046af1f97c5a0072a9edff680bcfaa7c784d8a64ced9ea08432a4",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c9-focused.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-c9-focused.stdout.txt",
+      "bytes": 101,
+      "sha256": "6f6f0f28d8a028c589314e68ab2debf4b3f43ad3945e8d33719066d7a996f5a9",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-pipeline-chemistry.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-pipeline-chemistry.stdout.txt",
+      "bytes": 115,
+      "sha256": "21af6e3aa78b053c30f87d14d1c2820f4a21ea3e6e87e02a84249ae01af25968",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-root-full.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/pytest-root-full.stdout.txt",
+      "bytes": 1978,
+      "sha256": "6eb32dc912f5b8e89797583bae401195efead054c73a725378865fe66c70e47f",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/reconcile-archive-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/reconcile-archive-verification.stdout.txt",
+      "bytes": 1135,
+      "sha256": "617a3b11c77fbae7337e41e98cb4f3fb52547e486c8395c81f211af2c2d48b58",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-check.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-format.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-format.stdout.txt",
+      "bytes": 26,
+      "sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-gates-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/ruff-c9-gates-check.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/scope-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/scope-verification.stdout.txt",
+      "bytes": 2355,
+      "sha256": "e75fc56851b49bb80abdd8f1653a40f6672a124e4086fb4b6ada2aa02004fd27",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-basedpyright.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-basedpyright.stdout.txt",
+      "bytes": 44,
+      "sha256": "f58c6636ff25060f6eb2bfbd2b459547fb4db16975eb99c581469075012552c6",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-mypy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-mypy.stdout.txt",
+      "bytes": 29,
+      "sha256": "343088eeb1381173c91b610830ce750209bb5e5b1b77f8f42c8fcf645b01c91b",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-node.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-node.stdout.txt",
+      "bytes": 9,
+      "sha256": "2c6e919d1934dee14561704b5159bcf51b55cfa5b7a1a7c9e29345c16e22c420",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-pytest.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-pytest.stdout.txt",
+      "bytes": 14,
+      "sha256": "e736fb72d5c1af14c1550d6863d1e7ddae5491537766a381a3258c10cc5db9d5",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-python.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-python.stdout.txt",
+      "bytes": 16,
+      "sha256": "d901007b84bfc7eb172ba21b077c642df7d6285ca37e9634f913f8dfb8f7b898",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-ruff.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final/version-ruff.stdout.txt",
+      "bytes": 13,
+      "sha256": "633fc4e8b8179891d1a9edd4e956e51bbcbbc4ab899ee530fb5690387e080dc4",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/archive-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/archive-verification.stdout.txt",
+      "bytes": 856,
+      "sha256": "0f26647bd674fcc4681e932ae131224ebec2dfb72a463d8672a770c411326eb9",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/basedpyright-c9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/basedpyright-c9.stdout.txt",
+      "bytes": 30,
+      "sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/c0-inventory-verifier.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/c0-inventory-verifier.stdout.txt",
+      "bytes": 343,
+      "sha256": "62961cafc943484b891c7af6fdfcf55cd23e82b53f7c2d9a92a3ec84e17480f0",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/c5-empirical-boundary.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/c5-empirical-boundary.stdout.txt",
+      "bytes": 2367,
+      "sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/gate-run-metadata.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/gate-run-metadata.stdout.json",
+      "bytes": 63266,
+      "sha256": "8be65a70f63e5970f880bd19350bf9c9f63a4b33e4507190fa6f7b07e0c7c17a",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/log-scan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/log-scan.stdout.txt",
+      "bytes": 26252,
+      "sha256": "b370e14b59a8be9beed971fd34f0b765780f5e22a54ba0d89af5b49eeafbc012",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/mutation-evidence-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/mutation-evidence-verification.stdout.txt",
+      "bytes": 359,
+      "sha256": "4a1f5c2424a85945577ea7d1fbd80eb97d5dff996c0977565ef7b19986f64f42",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/mypy-c9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/mypy-c9.stdout.txt",
+      "bytes": 44,
+      "sha256": "d9a5631f7d87a741fbecc3236286d1792d22d349ff13846d71cdc9217307bb76",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pip-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pip-check.stdout.txt",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-after.stdout.txt",
+      "bytes": 703,
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-before.stdout.txt",
+      "bytes": 703,
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-state-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/protected-state-verification.stdout.txt",
+      "bytes": 993,
+      "sha256": "b306d993283b76391daf8dd0dda3436b1d96b2936e7529d6f8ef124bbbedf0c1",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c0-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c0-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "29621ae89e36c43539ea5a11598b0e042bc609989b2ecc1e745e4a149180cab9",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c1-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c1-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "596281a07b9a463a2b0a276a94decd7d8010ab2fbdc85456316f5b1e8032dc3a",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c2-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c2-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "83b09f3cc4757d615e07bfa3d965215a3cc2b83deb29e55344627aa8372b322e",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c3-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c3-compat.stdout.txt",
+      "bytes": 183,
+      "sha256": "3c0477947e7f1274ca12062302ea94c4f242a330881a526ea43f685cbf949359",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c4-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c4-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "e3b2effce36b81bbb564c0a38d67400ee2ab2eb49f6af921f0261d75a341c18b",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c5-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c5-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "466c36cfd49dd921f8e918bfff036b25004d109aeb9bbfd4453dc14684b312db",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c6-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c6-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "ef588828ee1f1e30c5648435907582018e8fddde167631ddd3628b44fef5690d",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c7-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c7-compat.stdout.txt",
+      "bytes": 101,
+      "sha256": "97d6f15d5fad7acabcee141d17c67053fc81324fdd852e901b0f5d28650caf98",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c8-compat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c8-compat.stdout.txt",
+      "bytes": 182,
+      "sha256": "e3f7f012a3a150a37ca5537cf9818b715bf5c6f1f6512a096395350b69672ac7",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c9-dependency.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c9-dependency.stdout.txt",
+      "bytes": 100,
+      "sha256": "779feb861d7f77335d0f1fe9e218c12a3bdc6f7a067807bdace745133df6a194",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c9-focused.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-c9-focused.stdout.txt",
+      "bytes": 101,
+      "sha256": "32bb998a69159d2d3ab7198e42e682cfda816fb912ee4ef1cbe63b9f36f3ebb9",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-pipeline-chemistry.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-pipeline-chemistry.stdout.txt",
+      "bytes": 115,
+      "sha256": "01ea24e1f83bfcebc0ef32e96507e4c1b8c208e922a68a590066d431ccfc36f8",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-root-full.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/pytest-root-full.stdout.txt",
+      "bytes": 1978,
+      "sha256": "70f09e5a1c7a1799c8ffe53f7e91b1b30d32be15d2454d51e731feed65aa1911",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/reconcile-archive-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/reconcile-archive-verification.stdout.txt",
+      "bytes": 872,
+      "sha256": "4dfd1be135369817b464ee57cac724f3c30963e4340993c342171ea9e74be982",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-check.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-format.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-format.stdout.txt",
+      "bytes": 26,
+      "sha256": "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-gates-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/ruff-c9-gates-check.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/scope-verification.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/scope-verification.stdout.txt",
+      "bytes": 2355,
+      "sha256": "e75fc56851b49bb80abdd8f1653a40f6672a124e4086fb4b6ada2aa02004fd27",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-basedpyright.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-basedpyright.stdout.txt",
+      "bytes": 44,
+      "sha256": "f58c6636ff25060f6eb2bfbd2b459547fb4db16975eb99c581469075012552c6",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-mypy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-mypy.stdout.txt",
+      "bytes": 29,
+      "sha256": "343088eeb1381173c91b610830ce750209bb5e5b1b77f8f42c8fcf645b01c91b",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-node.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-node.stdout.txt",
+      "bytes": 9,
+      "sha256": "2c6e919d1934dee14561704b5159bcf51b55cfa5b7a1a7c9e29345c16e22c420",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-pytest.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-pytest.stdout.txt",
+      "bytes": 14,
+      "sha256": "e736fb72d5c1af14c1550d6863d1e7ddae5491537766a381a3258c10cc5db9d5",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-python.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-python.stdout.txt",
+      "bytes": 16,
+      "sha256": "d901007b84bfc7eb172ba21b077c642df7d6285ca37e9634f913f8dfb8f7b898",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-ruff.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/final-attempt-1-archive-contract-failure/version-ruff.stdout.txt",
+      "bytes": 13,
+      "sha256": "633fc4e8b8179891d1a9edd4e956e51bbcbbc4ab899ee530fb5690387e080dc4",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m1-human-receptor-species-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m1-human-receptor-species-mutated.stdout.txt",
+      "bytes": 1391,
+      "sha256": "85d18bc02374695f4bce3e23be4e042b9508f10436e874f7456c412339e44ed4",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m1-human-receptor-species-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m1-human-receptor-species-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "d23fdeba4e8d17b9d5e8db19f26d9e7d01ec662975d421b27b8d548b8fd7d7f0",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m2-adaptation-context-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m2-adaptation-context-mutated.stdout.txt",
+      "bytes": 1823,
+      "sha256": "24f14b9cda1b51cc6a4aa67787f068b49704d7327f976074f82c98991186f1a1",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m2-adaptation-context-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m2-adaptation-context-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "23130027588aa6e1697c999c0e7f35c28ffae561e85d856f25b988c220b8327b",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m3-broad-aging-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m3-broad-aging-mutated.stdout.txt",
+      "bytes": 1553,
+      "sha256": "6eea559261107b7fc609df5307f91d7898b61a030be976116e7cd06479b9def2",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m3-broad-aging-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m3-broad-aging-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "b7468a56449be725026f6528c73eb7447d146b68f4fae0b6012f55e02ab7e9ec",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m4-build-d-receipt-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m4-build-d-receipt-mutated.stdout.txt",
+      "bytes": 2072,
+      "sha256": "01c5b6b184aa2efdf95bc8f90f2ea56b98fef3fd1a08657b4530887969db93de",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m4-build-d-receipt-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/m4-build-d-receipt-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "0823a3386a208324b305f54fc6f485f5a05f8349c579be91780688525ab43862",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation/mutation-summary.json",
+      "bytes": 9813,
+      "sha256": "32bd378aaa6345bba263bc9b67c7ae65bcb99d54cae79516b8ecfe609f21097d",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/harness-attempt-1.json",
+      "bytes": 346,
+      "sha256": "4905d83396cd64ce40f94bee81bf7d5f9497d86b491ba86db9e54c4a20eefe44",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/harness-attempt-2.json",
+      "bytes": 376,
+      "sha256": "c85bf609684450e0167eb441d557d947ce569052ec500a3e05f710b9eecc192b",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m1-human-receptor-species-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m1-human-receptor-species-mutated.stdout.txt",
+      "bytes": 1391,
+      "sha256": "809e86595f319f0a3e37666ba241b60c01c95d10d2b0992d6e701cbd76c531ed",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m1-human-receptor-species-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m1-human-receptor-species-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "2c337be68995dddd5d767ed8b48fc126b56d9cdfafdbb843218a5cef07ca7de8",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m2-adaptation-context-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m2-adaptation-context-mutated.stdout.txt",
+      "bytes": 1823,
+      "sha256": "cb3e2b31014f7f818bd27ddca9146fc2c2794c46671b36ba80c291a1eb531bc2",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m2-adaptation-context-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m2-adaptation-context-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "f96417833fd5e93a3d81be11bf5b6550906fc626961ce09ca035dfc2ba8e70db",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m3-broad-aging-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m3-broad-aging-mutated.stdout.txt",
+      "bytes": 1553,
+      "sha256": "60f601e5e0e81f0fc4b8f9a75e5e74b69dcfc8c224167d3fb8e4953e82e4c06d",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m3-broad-aging-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m3-broad-aging-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "fdb54db4e81df3d58894d3cd891b7c9b9a6124822e9250647dfa7069752d4042",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m4-build-d-receipt-mutated.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m4-build-d-receipt-mutated.stdout.txt",
+      "bytes": 2072,
+      "sha256": "32d67338cdc653370676dfb0acd1e812dd3cabcafa6d52cede3d2ff0f9119311",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m4-build-d-receipt-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/m4-build-d-receipt-restored.stdout.txt",
+      "bytes": 100,
+      "sha256": "b829d78937c8ce3e6832b658a654a2b78c477b0834d9cf1d20fadc38ddc057bd",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c9/logs/mutation-attempt-3-malformed-summary/mutation-summary.json",
+      "bytes": 11250,
+      "sha256": "6fb6d48e1c61be1b5a4c410ab6830ad395852316ace1dd33b9f447e2fbf3afb8",
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    }
+  ],
+  "totals": {
+    "file_count": 199,
+    "bytes": 286430,
+    "invalid_utf8_files": 0,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "nonempty_stderr_file_count": 0
+  },
+  "passed": true
+}

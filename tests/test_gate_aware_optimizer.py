@@ -9,6 +9,7 @@ def _config(brief="generic"):
         brief=brief,
         allow_preblends=True,
         min_confidence_score=0.0,
+        audit_enabled=False,
     )
 
 
@@ -16,7 +17,7 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     raw_pct = {
         "Hedione": 25.0,
         "Iso E Super": 20.0,
-        "Habanolide": 12.0,
+        "Zenolide": 12.0,
         "Bergamot FCF": 10.0,
         "Linalool": 8.0,
         "Lavender EO": 7.0,
@@ -29,14 +30,17 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     result = optimize_until_release_ready(
         "Thai Aromatic Fougere Test",
         raw_pct,
+        stock_dilutions={"Evernyl": 0.2},
         config=_config("aromatic_fougere"),
         repair_pool={"Iso E Super": 2.0, "Vetiver EO": 1.0, "Patchouli EO": 1.0},
     )
 
     evernyl_ul = result.raw_concentrate_pct["Evernyl"] / 100.0 * 6000.0
+    evernyl_active_ul = evernyl_ul * 0.2
     safety_gate = {gate.gate: gate for gate in result.gate_report.gates}["safety_ifra_allergen"]
 
-    assert evernyl_ul <= 30.0
+    assert evernyl_ul <= 150.0
+    assert evernyl_active_ul <= 30.0
     assert safety_gate.status != "FAIL"
     assert any(
         action.gate == "safety_ifra_allergen"
@@ -46,15 +50,15 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     )
 
 
-def test_wrong_brief_candidate_triggers_rerun_callback():
+def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
     bad_raw_pct = {
         "Iso E Super": 25.0,
         "Ambrox Super": 20.0,
         "Hedione": 20.0,
-        "Habanolide": 15.0,
+        "Zenolide": 15.0,
         "Vanillin": 10.0,
         "Ethyl Vanillin": 3.0,
-        "Bergamot FCF": 7.0,
+        "Lemon FCF oil Sicilian": 7.0,
     }
     repaired_raw_pct = {
         "Bergamot FCF": 20.0,
@@ -65,7 +69,7 @@ def test_wrong_brief_candidate_triggers_rerun_callback():
         "Evernyl": 0.5,
         "Iso E Super": 25.0,
         "Vetiver EO": 5.0,
-        "Habanolide": 9.5,
+        "Zenolide": 9.5,
     }
     calls = []
 
@@ -82,9 +86,12 @@ def test_wrong_brief_candidate_triggers_rerun_callback():
     )
     gates = {gate.gate: gate for gate in result.gate_report.gates}
 
-    assert calls
-    assert any(action.gate == "optimizer_rerun" for action in result.repair_actions)
-    assert gates["perfumer_logic"].status != "FAIL"
+    assert calls == []
+    assert not any(action.gate == "optimizer_rerun" for action in result.repair_actions)
+    assert gates["perfumer_logic"].status == "WARN"
+    assert gates["perfumer_logic"].data["original_status"] == "FAIL"
+    assert gates["family_drift_detector"].status == "WARN"
+    assert gates["family_drift_detector"].data["original_status"] == "FAIL"
 
 
 def test_optimized_markdown_requires_embedded_gate_audit():
@@ -97,7 +104,7 @@ def test_optimized_markdown_requires_embedded_gate_audit():
         "Evernyl": 0.5,
         "Iso E Super": 25.0,
         "Vetiver EO": 5.0,
-        "Habanolide": 9.5,
+        "Zenolide": 9.5,
     }
     result = optimize_until_release_ready(
         "Audit Required Fougere",
@@ -117,11 +124,13 @@ def test_optimized_markdown_requires_embedded_gate_audit():
 
 def test_gate_aware_optimizer_records_chemistry_specific_block_actions():
     reactive = {
-        "Aldehyde C10": 20.0,
-        "Indole": 2.0,
-        "Hedione": 38.0,
-        "Iso E Super": 30.0,
-        "Habanolide": 10.0,
+        # Live stocks are Aldehyde C10 1% and Indole 10%; load enough raw
+        # stock for the active mixture to exercise the chemistry blocker.
+        "Aldehyde C10": 70.0,
+        "Indole": 20.0,
+        "Hedione": 5.0,
+        "Iso E Super": 4.0,
+        "Zenolide": 1.0,
     }
     phase_clash = {
         "Vanillin": 30.0,

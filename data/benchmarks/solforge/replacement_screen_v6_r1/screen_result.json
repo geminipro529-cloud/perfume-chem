@@ -1,0 +1,253 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "decisions": [
+    {
+      "module_id": "architectural_delta",
+      "placebo_wins": 1,
+      "plain_control_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED",
+        "CRITICAL_REGRESSION",
+        "CRITICAL_TRAP_NOT_PREVENTED"
+      ],
+      "state": "STOP"
+    },
+    {
+      "module_id": "temporal_sensory_ledger",
+      "placebo_wins": 1,
+      "plain_control_wins": 0,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED",
+        "CRITICAL_REGRESSION",
+        "CRITICAL_TRAP_NOT_PREVENTED"
+      ],
+      "state": "STOP"
+    },
+    {
+      "module_id": "hedonic_preference_learner",
+      "placebo_wins": 0,
+      "plain_control_wins": 0,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED",
+        "CRITICAL_REGRESSION",
+        "CRITICAL_TRAP_NOT_PREVENTED"
+      ],
+      "state": "STOP"
+    }
+  ],
+  "manifest_sha256": "bceed994e476e30f7b0e4007718ce7c4682353161d38da0e44159b26cd83acec",
+  "paired_scores": [
+    {
+      "case_id": "AUG-ARC-S01",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "architectural_delta",
+      "role": "POSITIVE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-S02",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "architectural_delta",
+      "role": "SAFE_COUNTERCASE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-S03",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "0",
+          "delta": "0",
+          "treatment_score": "0"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "0",
+          "delta": "0",
+          "treatment_score": "0"
+        }
+      ],
+      "critical_regression": true,
+      "critical_trap_pass": false,
+      "module_id": "architectural_delta",
+      "role": "CRITICAL_TRAP",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-TEM-S01",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "75",
+          "delta": "25",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "temporal_sensory_ledger",
+      "role": "POSITIVE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-TEM-S02",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "temporal_sensory_ledger",
+      "role": "SAFE_COUNTERCASE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-TEM-S03",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "-100",
+          "treatment_score": "0"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "-100",
+          "treatment_score": "0"
+        }
+      ],
+      "critical_regression": true,
+      "critical_trap_pass": false,
+      "module_id": "temporal_sensory_ledger",
+      "role": "CRITICAL_TRAP",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-HED-S01",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "hedonic_preference_learner",
+      "role": "POSITIVE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-HED-S02",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "critical_trap_pass": true,
+      "module_id": "hedonic_preference_learner",
+      "role": "SAFE_COUNTERCASE",
+      "safe_countercase_pass": true
+    },
+    {
+      "case_id": "AUG-HED-S03",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "0",
+          "delta": "0",
+          "treatment_score": "0"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "0",
+          "delta": "0",
+          "treatment_score": "0"
+        }
+      ],
+      "critical_regression": true,
+      "critical_trap_pass": false,
+      "module_id": "hedonic_preference_learner",
+      "role": "CRITICAL_TRAP",
+      "safe_countercase_pass": true
+    }
+  ],
+  "receipt_sha256": "ca48e1cec1055e632886dcf5f279836a099561d05e1b2acb14e673417da714d3",
+  "schema_version": "complexity_replacement_screen_result_v2"
+}

@@ -10,14 +10,22 @@ import threading
 import time
 from collections import deque
 from dataclasses import dataclass, field
+from importlib import import_module
 from pathlib import Path
-from typing import Deque, Dict, Optional
-
-import yaml
+from typing import Any, Deque, Dict, Optional, Protocol, cast
 
 from app.core.logging import get_logger
 
 logger = get_logger(__name__)
+
+
+class _YamlModule(Protocol):
+    """Typed surface used from the dynamically loaded PyYAML module."""
+
+    def safe_load(self, stream: object) -> Any: ...
+
+
+yaml = cast(_YamlModule, import_module("yaml"))
 
 
 @dataclass
@@ -43,7 +51,7 @@ class RateLimitWindow:
         self._cleanup(current_time)
         return len(self.requests) < self.max_requests
 
-    def get_usage(self, current_time: float) -> Dict:
+    def get_usage(self, current_time: float) -> dict[str, int]:
         """Get current usage stats"""
         self._cleanup(current_time)
         return {
@@ -72,7 +80,7 @@ class TokenBucket:
     tokens: float = field(init=False)
     last_update: float = field(init=False)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         self.tokens = self.capacity
         self.last_update = time.time()
 
@@ -133,7 +141,7 @@ class TokenCounter:
         total = self.get_total_tokens(current_time)
         return total + num_tokens <= self.max_tokens
 
-    def get_usage(self, current_time: float) -> Dict:
+    def get_usage(self, current_time: float) -> dict[str, int]:
         """Get current usage stats"""
         used = self.get_total_tokens(current_time)
         return {
@@ -193,7 +201,7 @@ class ProviderLimits:
     _token_counters: Dict[str, TokenCounter] = field(default_factory=dict, init=False)
     _lock: threading.RLock = field(default_factory=threading.RLock, init=False)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Initialize tracking structures"""
         # Request windows
         if self.requests_per_minute:
@@ -282,12 +290,12 @@ class ProviderLimits:
 
             return max(wait_times) if wait_times else 0.0
 
-    def get_usage(self) -> Dict:
+    def get_usage(self) -> dict[str, Any]:
         """Get usage statistics"""
         with self._lock:
             current_time = time.time()
 
-            usage = {
+            usage: dict[str, Any] = {
                 "provider": self.provider,
                 "requests": {},
                 "tokens": {}
@@ -461,7 +469,7 @@ class APIRateLimiter:
                     f"Rate limit exceeded for {provider} after {max_retries} retries: {reason}"
                 )
 
-    def get_usage(self, provider: Optional[str] = None) -> Dict:
+    def get_usage(self, provider: Optional[str] = None) -> dict[str, Any]:
         """
         Get usage statistics
 

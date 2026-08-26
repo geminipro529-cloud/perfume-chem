@@ -1,0 +1,28 @@
+{
+  "case_id": "legacy_numeric_authority",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--color=no",
+    "tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives"
+  ],
+  "exit_code": 1,
+  "expected_marker": "test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives",
+  "finished_at_utc": "2026-08-03T01:36:03.618440Z",
+  "marker_found_in_stdout": true,
+  "mutation_detected": true,
+  "replacement_count": 1,
+  "restored_exact_bytes": true,
+  "source_path": "engine/optimization/selection.py",
+  "source_sha256_after_restore": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "source_sha256_before": "02e96d7ad8eccfa61210495785d70fd3a0039822f65195904f0d7fd2c59898e8",
+  "started_at_utc": "2026-08-03T01:35:59.546406Z",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "da9a55ca0fe1422709989be2e58113dc8aca4f65ec34200bff8922726d571a94",
+  "test_node": "tests/test_c10_selection.py::test_c9_noncalibratable_legacy_surfaces_cannot_supply_numeric_objectives",
+  "timed_out": false
+}

@@ -24,14 +24,13 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from .material import Material, SupplierRefs
 from .loader import write_materials
+from .material import Material
 from .perfumersworld_parser import (
-    parse_pw_stock,
     index_by_base,
+    parse_pw_stock,
     write_parsed_snapshot,
 )
-
 
 REPO = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO / "data" / "materials"

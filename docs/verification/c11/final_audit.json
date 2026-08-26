@@ -1,0 +1,40 @@
+{
+  "schema": "build-c11-final-deepluna-audit-v1",
+  "generated_at_utc": "2026-08-03T04:21:47.5030171Z",
+  "job_id": "DS-6534c29499e8400d2b3ceb36f09962ce",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "maximum_provider_calls": 1,
+  "cache_hit": false,
+  "provider_status": "BLOCKED",
+  "execution_status": "BLOCKED",
+  "evidence_verdict": "UNRESOLVED",
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": true,
+  "scope_deviation": false,
+  "provider_summary": "Mechanical internal-consistency audit of the final-draft Build C11 evidence packet. All 23 requirement categories are accounted for. The report and normalized run manifest correctly distinguish the clean detached result (652 passed, 3 inherited failures) from the preserved authoritative overlay result (655 passed, 0 failed). Committed-blob evidence is present. The C10 historical 30k/35/97.76 claim remains blocked and noncanonical. Zero real instrument/lot/held-out observations are not promoted. Empirical metrics and scientific release remain blocked. Build D remains unauthorized and unstarted.",
+  "provider_positive_findings": [
+    "All 23 requirement categories are accounted for in the crosswalk.",
+    "The report correctly records the clean detached result as 652 passed, 3 inherited failures.",
+    "The report correctly records the authoritative overlay result as 655 passed, 0 failed."
+  ],
+  "provider_negative_findings": [],
+  "provider_residual_risks": [
+    "The historical 30k/35/97.76 claim remains noncanonical and blocked; no reproducible artifact bundle exists.",
+    "No real instrument data, natural-lot profiles, or held-out C10 outcomes were available; empirical metrics were not computed.",
+    "UNIFAC, COSMO-RS, and DIPPR-style execution remain absent or stubbed; only the ideal Raoult baseline is executable."
+  ],
+  "provider_recommended_next_action": "Run one fresh exact-project DeepLuna Fast consistency audit over the final-draft reports, crosswalk, normalized run manifest, committed manifest, replay manifests, and C10 boundary. Preserve any scientific uncertainty and do not begin Build D.",
+  "citation_coverage_complete": false,
+  "automatic_retry_performed": false,
+  "sol_reconciliation": {
+    "decision": "ACCEPT_MECHANICAL_CONSISTENCY_ONLY_PRESERVE_PROVIDER_BLOCK",
+    "packet_consistency_gate_passed": true,
+    "provider_block_preserved": true,
+    "provider_result_relabelled_as_pass": false,
+    "scientific_uncertainty_preserved": true,
+    "negative_finding_count": 0,
+    "local_validator_remains_authoritative": true,
+    "reason": "The worker found no mechanical contradiction and independently confirmed the 23-category crosswalk and both replay counts. Its BLOCKED/UNRESOLVED verdict is preserved because the missing empirical and historical scientific evidence is intentional and remains a release block; the result is accepted only as a bounded consistency signal."
+  }
+}

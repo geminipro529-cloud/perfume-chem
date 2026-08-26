@@ -12,12 +12,10 @@ Both systems run in parallel for comprehensive formula assessment.
 
 from dataclasses import dataclass
 from typing import Dict
-from pathlib import Path
 
-from engine.optimizer.scoring import FormulaScorer, FormulaVector
-from engine.ingredient_intelligence import get_profile, DIMENSIONS
 from engine.chemical_data_validator import is_blocked_chemical
-
+from engine.ingredient_intelligence import DIMENSIONS
+from engine.optimizer.scoring import FormulaVector
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 10-STAR RATING SYSTEM — Wearability & Consumer Appeal
@@ -59,7 +57,7 @@ class StarRatings:
 
 def rate_wearability(fv: FormulaVector, character_radar: Dict[str, float]) -> float:
     """Comfort and ease of wear — penalize challenging notes (animalic, smoky, heavy).
-    
+
     10 stars = clean, fresh, easy, comfortable
     5 stars = challenging, polarizing
     0 stars = unwearable, harsh
@@ -85,7 +83,7 @@ def rate_wearability(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
 
 def rate_versatility(fv: FormulaVector, character_radar: Dict[str, float]) -> float:
     """Season/occasion flexibility — balanced formulas score high, extreme profiles score low.
-    
+
     10 stars = works year-round, day/night, casual/formal
     5 stars = seasonal/occasional
     0 stars = extremely niche timing
@@ -95,7 +93,7 @@ def rate_versatility(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
     if len(dims) < 3:
         # Too few dimensions = not versatile
         return 3.0
-    
+
     mean_dim = sum(dims) / len(dims)
     if mean_dim < 0.1:
         return 5.0
@@ -103,23 +101,23 @@ def rate_versatility(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
 
     # Low CV = balanced = versatile
     versatility_score = 10.0 - (cv * 4.0)  # penalize high variation
-    
+
     # Bonus for having moderate everything (not extreme in any direction)
     extremes = sum(1 for d in dims if d > 7.0 or d < 0.5)
     versatility_score -= extremes * 0.8
-    
+
     # Bonus for freshness (day wearability) + warmth (night wearability)
     freshness = character_radar.get("freshness", 0)
     warmth = character_radar.get("warmth", 0)
     if freshness > 2.0 and warmth > 2.0:
         versatility_score += 1.5  # day + night capable
-    
+
     return max(0.0, min(10.0, versatility_score))
 
 
 def rate_originality(fv: FormulaVector, character_radar: Dict[str, float]) -> float:
     """Uniqueness and creativity — rare materials, unusual combinations.
-    
+
     10 stars = groundbreaking, never-smelled-before
     5 stars = competent but familiar
     0 stars = clone/generic
@@ -143,7 +141,7 @@ def rate_originality(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
         "Ultralia": 1.5,  # Ghost iris
         "Kephalis": 1.0,  # Woody-amber structure
     }
-    
+
     originality_score = 0.0
     eff = fv.effective_ingredients()
     for mat, pct in eff.items():
@@ -153,18 +151,18 @@ def rate_originality(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
             # Weight by active percentage (more impactful if high dosing)
             contribution = originality_materials[mat] * (pct / 100.0) * 20
             originality_score += contribution
-    
+
     # Bonus for unusual character combinations (e.g., smoky + fresh, animalic + powdery)
     smoky = character_radar.get("smoky", 0)
     fresh = character_radar.get("freshness", 0)
     if smoky > 2.0 and fresh > 2.0:
         originality_score += 1.5  # smoke + freshness is unusual
-    
+
     animalic = character_radar.get("animalic", 0)
     powdery = character_radar.get("powdery", 0)
     if animalic > 1.5 and powdery > 2.5:
         originality_score += 1.2  # animalic + powdery = vintage chypre feel
-    
+
     # Penalty for generic materials dominating
     generic_materials = ["Bergamot FCF", "D-Limonene", "Iso E Super", "Hedione"]
     generic_pct = sum(eff.get(m, 0) for m in generic_materials)
@@ -187,7 +185,7 @@ def rate_originality(fv: FormulaVector, character_radar: Dict[str, float]) -> fl
 def rate_sophistication(fv: FormulaVector, character_radar: Dict[str, float],
                          theory_score: float, complexity_score: float) -> float:
     """Refinement and artistry — uses complexity + theory scores as inputs.
-    
+
     10 stars = masterpiece-level perfumer work
     5 stars = competent commercial
     0 stars = amateur hour
@@ -239,7 +237,7 @@ def rate_sophistication(fv: FormulaVector, character_radar: Dict[str, float],
 def rate_signature_potential(fv: FormulaVector, character_radar: Dict[str, float],
                                originality: float) -> float:
     """Memorability and distinctiveness — ability to become someone's signature scent.
-    
+
     10 stars = "that's YOUR scent" identity-building
     5 stars = pleasant but forgettable
     0 stars = generic mall spray
@@ -284,42 +282,42 @@ def rate_signature_potential(fv: FormulaVector, character_radar: Dict[str, float
 def rate_mass_appeal(fv: FormulaVector, character_radar: Dict[str, float],
                       wearability: float) -> float:
     """Compliment factor and crowd-pleasing — vs niche/acquired taste.
-    
+
     10 stars = everyone loves it
     5 stars = divisive
     0 stars = only perfume nerds appreciate
     """
     # Mass appeal = high wearability + sweet/fresh/floral (safe notes)
     appeal_score = wearability * 0.5  # wearability is 50% of appeal
-    
+
     # Safe, crowd-pleasing characteristics
     sweetness = character_radar.get("sweetness", 0)
     freshness = character_radar.get("freshness", 0)
     floral = character_radar.get("floral", 0)
     creamy = character_radar.get("creamy", 0)
-    
+
     safe_score = (sweetness * 0.4 + freshness * 0.3 + floral * 0.2 + creamy * 0.1)
     appeal_score += safe_score
-    
+
     # Penalties for polarizing notes
     animalic = character_radar.get("animalic", 0)
     smoky = character_radar.get("smoky", 0)
     green = character_radar.get("green", 0)
-    
+
     polarizing_penalty = animalic * 1.5 + smoky * 1.2 + green * 0.5
     appeal_score -= polarizing_penalty
-    
+
     # Penalty for too complex (mass market prefers simple)
     dims_count = len([d for d in DIMENSIONS if character_radar.get(d, 0) > 1.0])
     if dims_count > 6:
         appeal_score -= 1.0  # too complex for mass market
-    
+
     return max(0.0, min(10.0, appeal_score))  # full 0-10 range
 
 
 def rate_gender_versatility(character_radar: Dict[str, float]) -> float:
     """Unisex rating — how well it wears across gender spectrum.
-    
+
     10 stars = perfectly unisex
     5 stars = leans masc/fem but wearable
     0 stars = strongly gendered
@@ -329,19 +327,19 @@ def rate_gender_versatility(character_radar: Dict[str, float]) -> float:
     spicy = character_radar.get("spicy", 0)
     smoky = character_radar.get("smoky", 0)
     masc_score = woody * 0.5 + spicy * 0.3 + smoky * 0.2
-    
+
     # Strongly feminine indicators
     floral = character_radar.get("floral", 0)
     powdery = character_radar.get("powdery", 0)
     sweetness = character_radar.get("sweetness", 0)
     fem_score = floral * 0.5 + powdery * 0.3 + sweetness * 0.2
-    
+
     # Neutral/unisex indicators
     freshness = character_radar.get("freshness", 0)
     creamy = character_radar.get("creamy", 0)
     radiance = character_radar.get("radiance", 0)
     neutral_score = freshness * 0.4 + creamy * 0.3 + radiance * 0.3
-    
+
     # Perfect unisex = balanced masc + fem, or high neutral
     # With radar 0-5, weighted scores typically 0-2.5
     gender_diff = abs(masc_score - fem_score)
@@ -362,13 +360,13 @@ def rate_gender_versatility(character_radar: Dict[str, float]) -> float:
     else:
         # Strong gendering
         versatility = 2.0 + neutral_score * 0.4
-    
+
     return max(0.0, min(10.0, versatility))
 
 
 def rate_age_range(character_radar: Dict[str, float]) -> float:
     """Broad age appropriateness — universal vs age-specific.
-    
+
     10 stars = 18-80 years, anyone can wear
     5 stars = specific age bracket (e.g., 25-40)
     0 stars = very age-specific (teen/elderly only)
@@ -377,18 +375,18 @@ def rate_age_range(character_radar: Dict[str, float]) -> float:
     freshness = character_radar.get("freshness", 0)
     creamy = character_radar.get("creamy", 0)
     universal_score = freshness * 0.5 + creamy * 0.3
-    
+
     # Mature/sophisticated notes (skew older)
     woody = character_radar.get("woody", 0)
     powdery = character_radar.get("powdery", 0)
     smoky = character_radar.get("smoky", 0)
     mature_score = woody * 0.4 + powdery * 0.3 + smoky * 0.3
-    
+
     # Youthful notes (skew younger)
     sweetness = character_radar.get("sweetness", 0)
     floral = character_radar.get("floral", 0)
     youthful_score = sweetness * 0.5 + floral * 0.3
-    
+
     # Balanced age profile = high universal + moderate mature/youthful
     # Radar values typically 0-5, so use proportional thresholds
     age_imbalance = abs(mature_score - youthful_score)
@@ -410,11 +408,11 @@ def rate_age_range(character_radar: Dict[str, float]) -> float:
 
 def rate_value_for_money(cost_score: float, quality_scores: Dict[str, float]) -> float:
     """Quality-to-cost ratio — bang for buck.
-    
+
     10 stars = exceptional value
     5 stars = fair price
     0 stars = overpriced
-    
+
     Args:
         cost_score: 0-100 cost score (lower = more expensive)
         quality_scores: dict of all other scores (longevity, sillage, etc.)
@@ -449,7 +447,6 @@ def rate_formula_elegance(fv: FormulaVector) -> float:
     5 stars = some filler, weak base, or poor proportions
     0 stars = random ingredient dump
     """
-    from engine.optimizer.models import classify_note
 
     eff = fv.effective_ingredients()
     n_ingredients = len(eff)
@@ -519,7 +516,7 @@ def compute_star_ratings(fv: FormulaVector, scores: Dict[str, float],
     age_range = rate_age_range(character_radar)
     formula_elegance = rate_formula_elegance(fv)
     value_for_money = rate_value_for_money(scores["cost"], scores)
-    
+
     return StarRatings(
         wearability=wearability,
         versatility=versatility,
@@ -543,7 +540,7 @@ def format_star_rating(stars: float) -> str:
     full = int(stars)
     half = 1 if (stars - full) >= 0.5 else 0
     empty = 10 - full - half
-    
+
     visual = "★" * full + ("⯨" * half) + ("☆" * empty)
     return f"{visual} {stars:.1f}/10"
 
@@ -556,7 +553,7 @@ def format_comprehensive_report(formula_name: str, fv: FormulaVector,
     lines.append("=" * 80)
     lines.append(f"  {formula_name}  ")
     lines.append("=" * 80)
-    
+
     # SECTION 1: 10-Star Ratings (Consumer/Wearability Focus)
     lines.append("\n  ★ 10-STAR RATINGS — Wearability & Consumer Appeal")
     lines.append("  " + "-" * 76)
@@ -565,7 +562,7 @@ def format_comprehensive_report(formula_name: str, fv: FormulaVector,
         key_display = key.replace("_", " ").title()
         lines.append(f"    {key_display:<25s} {format_star_rating(value)}")
     lines.append(f"\n    {'OVERALL STAR RATING':<25s} {format_star_rating(stars.average())}")
-    
+
     # SECTION 2: 0-100 Scores (Technical/Compositional Focus)
     lines.append("\n  ▣ 0-100 SCORES — Technical Composition Metrics")
     lines.append("  " + "-" * 76)
@@ -576,12 +573,12 @@ def format_comprehensive_report(formula_name: str, fv: FormulaVector,
             score = scores[ax]
             bar = "█" * int(score / 5) + "░" * (20 - int(score / 5))
             lines.append(f"    {ax:<20s} {bar} {score:5.1f}/100")
-    
+
     geom = scores.get("geometric_total", 0)
     arith = scores.get("arithmetic_total", 0)
     lines.append(f"\n    {'Geometric Mean':<20s} {'▓' * int(geom/5)}{'░' * (20-int(geom/5))} {geom:5.1f}/100 (primary)")
     lines.append(f"    {'Arithmetic Mean':<20s} {'▓' * int(arith/5)}{'░' * (20-int(arith/5))} {arith:5.1f}/100 (legacy)")
-    
+
     # SECTION 3: Character Radar (12 Dimensions)
     lines.append("\n  ◉ CHARACTER RADAR — 12 Olfactive Dimensions (0-10)")
     lines.append("  " + "-" * 76)
@@ -589,7 +586,7 @@ def format_comprehensive_report(formula_name: str, fv: FormulaVector,
         val = character_radar.get(dim, 0)
         bar = "▓" * int(val) + "░" * (10 - int(val))
         lines.append(f"    {dim:<15s} {bar} {val:4.1f}/10")
-    
+
     return "\n".join(lines)
 
 
@@ -604,16 +601,16 @@ def compare_rating_systems() -> str:
     doc.append("**Implemented:** March 28, 2026  ")
     doc.append("**Purpose:** Comprehensive formula evaluation using complementary methodologies\n")
     doc.append("---\n")
-    
+
     doc.append("## System Overview\n")
     doc.append("The perfume evaluation framework uses **two parallel rating systems**, each measuring different aspects:\n")
-    
+
     doc.append("### 1. ★ 10-Star Ratings — Wearability & Consumer Appeal")
     doc.append("**Scale:** 0.0–10.0 stars (★★★★★★★★★★)  ")
     doc.append("**Focus:** Subjective wearability, versatility, originality  ")
     doc.append("**Target audience:** Consumers, fragrance enthusiasts  ")
     doc.append("**Question answered:** *\"How will this perfume perform in real-world use?\"*\n")
-    
+
     doc.append("**Characteristics evaluated:**")
     doc.append("- **Wearability** — Comfort, not challenging, daily wearability")
     doc.append("- **Versatility** — Season/occasion flexibility, day-to-night capability")
@@ -625,13 +622,13 @@ def compare_rating_systems() -> str:
     doc.append("- **Age Range** — Broad age appropriateness (18-80 vs narrow)")
     doc.append("- **Formula Elegance** — Structural elegance, fixative anchoring, proportion rationality")
     doc.append("- **Value for Money** — Quality-to-cost ratio\n")
-    
+
     doc.append("### 2. ▣ 0-100 Scores — Technical Composition Metrics")
     doc.append("**Scale:** 0–100 points  ")
     doc.append("**Focus:** Objective structural quality, compositional excellence  ")
     doc.append("**Target audience:** Perfumers, chemists, technicians  ")
     doc.append("**Question answered:** *\"How well is this formula constructed technically?\"*\n")
-    
+
     doc.append("**Axes evaluated:**")
     doc.append("- **Longevity** — Duration on skin (VP, fixatives, tenacity)")
     doc.append("- **Sillage** — Diffusion, projection, radius")
@@ -643,7 +640,7 @@ def compare_rating_systems() -> str:
     doc.append("- **Character Balance** — Olfactive profile evenness (dimension CV)")
     doc.append("- **Synergy** — Ingredient pairing effectiveness")
     doc.append("- **Cost** — Material expense (inversely scored)\n")
-    
+
     doc.append("---\n")
     doc.append("## Key Differences\n")
     doc.append("| Aspect | ★ Star Ratings | ▣ Scores |")
@@ -655,23 +652,23 @@ def compare_rating_systems() -> str:
     doc.append("| **Examples** | Wearability, mass appeal, originality | Longevity, sillage, balance |")
     doc.append("| **Scoring Model** | Linear (0-10, higher = better) | Weighted mean (0-100, geometric) |")
     doc.append("| **Emphasis** | Real-world utility | Technical excellence |\n")
-    
+
     doc.append("---\n")
     doc.append("## Why Both Systems?\n")
     doc.append("**Example scenario:** A formula could score 9★ wearability (easy, comfortable, crowd-pleasing) but only 60/100 balance (top-heavy structure). This tells us:\n")
     doc.append("- ✅ **For consumers:** Great daily wear, pleasant, versatile")
     doc.append("- ⚠️ **For perfumers:** Structural weakness, needs rebalancing\n")
-    
+
     doc.append("Conversely, a formula might score 85/100 complexity (many dimensions, roles) but only 5★ wearability (challenging, polarizing). This means:\n")
     doc.append("- ⚠️ **For consumers:** Difficult, acquired taste, niche")
     doc.append("- ✅ **For perfumers:** Sophisticated construction, artistic achievement\n")
-    
+
     doc.append("**Use cases:**")
     doc.append("- **Optimization:** Use **scores** to identify technical flaws (balance, longevity), use **stars** to predict market reception")
     doc.append("- **Consumer guidance:** Present **stars** for purchase decisions (\"9★ versatility = wear year-round\")")
     doc.append("- **Perfumer training:** Present **scores** for compositional learning (\"balance 26/100 = fix top-to-base ratio\")")
     doc.append("- **Product positioning:** High stars + high scores = luxury niche; high stars + low scores = mass market; low stars + high scores = artistic/challenging\n")
-    
+
     doc.append("---\n")
     doc.append("## Implementation Notes\n")
     doc.append("- **Star ratings** computed from character radar + material analysis")
@@ -679,5 +676,5 @@ def compare_rating_systems() -> str:
     doc.append("- **Both run in parallel** — no conflict, complementary perspectives")
     doc.append("- **Geometric mean** used for score composite (penalizes weaknesses)")
     doc.append("- **Arithmetic mean** used for star composite (balanced overview)\n")
-    
+
     return "\n".join(doc)

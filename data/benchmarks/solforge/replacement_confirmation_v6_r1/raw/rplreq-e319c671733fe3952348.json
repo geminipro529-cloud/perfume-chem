@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C01",
+  "completed_utc": "2026-08-26T07:37:03.873762+00:00",
+  "dispatch_sha256": "1d3c9aa7c78cc957627c6dc1ac0b96877c1c1f330381a164c501b5ec2e5f1170",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "98b8a0bf56245dc41f7485fbdbc6c60f1904829082fd4ce73c508e5df5d38ce7",
+  "output_text": "{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"Ambrettolide 10% is the sole ideal candidate for extending the iris heart with a distinct soft-skin effect while avoiding detergent brightness and powder bulk. Its procurement-pending status prevents physical validation. Owned Habanolide and Romandolide cannot be assumed functionally equivalent, and Ethylene Brassylate remains unavailable unless refreshed evidence proves otherwise. Complexity is preserved through target-linked functional relationships, not ingredient count.\",\"controlled_comparison\":{\"status\":\"DESIGN_ONLY\",\"design\":\"Hold the iris context constant and compare Ambrettolide 10% against unchanged control, Habanolide, and Romandolide as separate arms when physically available.\",\"discriminators\":[\"soft-skin extension\",\"iris-heart continuity\",\"detergent brightness\",\"powder bulk\"],\"interpretation_limit\":\"No sensory preference or substitution claim is established.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"IDEAL_CANDIDATE_PROCUREMENT_PENDING\",\"ZERO_PHYSICALLY_COMPOUNDABLE_CANDIDATES\",\"OWNED_MUSKS_NOT_AUTOMATIC_SUBSTITUTES\",\"ETHYLENE_BRASSYLATE_UNCONFIRMED\"],\"calculations\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0,\"physical_addition_authorized_count\":0},\"next_actions\":[\"Verify whether Ambrettolide 10% has become physically compoundable before authorizing any controlled comparison.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "fcdf16a32177866e30219b81b7dfd290a9c749c078b83350b79571d6bf6356f5",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-e319c671733fe3952348",
+  "role": "INVENTORY_MISMATCH",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.268028+00:00",
+  "stderr_sha256": "0d75c0816d4cb8b09780d682e2b7358f972635338e80c3ff4f17f43fb377fde2",
+  "stderr_tail": "on_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"Ambrettolide 10% is the sole ideal candidate for extending the iris heart with a distinct soft-skin effect while avoiding detergent brightness and powder bulk. Its procurement-pending status prevents physical validation. Owned Habanolide and Romandolide cannot be assumed functionally equivalent, and Ethylene Brassylate remains unavailable unless refreshed evidence proves otherwise. Complexity is preserved through target-linked functional relationships, not ingredient count.\",\"controlled_comparison\":{\"status\":\"DESIGN_ONLY\",\"design\":\"Hold the iris context constant and compare Ambrettolide 10% against unchanged control, Habanolide, and Romandolide as separate arms when physically available.\",\"discriminators\":[\"soft-skin extension\",\"iris-heart continuity\",\"detergent brightness\",\"powder bulk\"],\"interpretation_limit\":\"No sensory preference or substitution claim is established.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"IDEAL_CANDIDATE_PROCUREMENT_PENDING\",\"ZERO_PHYSICALLY_COMPOUNDABLE_CANDIDATES\",\"OWNED_MUSKS_NOT_AUTOMATIC_SUBSTITUTES\",\"ETHYLENE_BRASSYLATE_UNCONFIRMED\"],\"calculations\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0,\"physical_addition_authorized_count\":0},\"next_actions\":[\"Verify whether Ambrettolide 10% has become physically compoundable before authorizing any controlled comparison.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,475\n",
+  "stdout_sha256": "5415c9e139977f2645079c8a06f57c1d477f42aa2dd5d8cf17230c97a2fb4772"
+}

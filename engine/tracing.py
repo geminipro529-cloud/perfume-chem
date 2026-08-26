@@ -9,8 +9,9 @@ Usage
     from engine.tracing import setup_tracing
     setup_tracing()          # connect to AI Toolkit on localhost:4318
 
-# The pipeline auto-initialises tracing on first use if setup_tracing()
-# was not called explicitly (useful during tests / ad-hoc runs).
+# Instrumentation is a no-op until an application entry point explicitly calls
+# setup_tracing(). Importing or running the reconstruction engine never starts
+# an exporter by itself.
 
 # Functions decorated with @traced("span.name") emit a span automatically.
 # The root pipeline span is set by the @traced decorator on
@@ -20,14 +21,80 @@ Usage
 from __future__ import annotations
 
 import functools
+import os
 from typing import Any, Callable, TypeVar
 
-from opentelemetry import trace
-from opentelemetry.sdk.resources import Resource
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.trace import StatusCode
+try:
+    from opentelemetry import trace
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.sdk.resources import Resource
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    from opentelemetry.trace import StatusCode
+except ImportError:  # pragma: no cover - exercised in environments without optional OTEL runtime.
+    class _NoopSpan:
+        def set_attribute(self, *args, **kwargs):  # pragma: no cover - fallback path
+            return None
+
+        def set_status(self, *args, **kwargs):  # pragma: no cover - fallback path
+            return None
+
+        def record_exception(self, *args, **kwargs):  # pragma: no cover - fallback path
+            return None
+
+    class _NoopTracer:
+        def start_as_current_span(self, name: str, **kwargs):  # pragma: no cover - fallback path
+            from contextlib import contextmanager
+
+            @contextmanager
+            def _scope():
+                yield _NoopSpan()
+
+            return _scope()
+
+    class _NoopTraceModule:
+        def get_tracer(self, *args, **kwargs):  # pragma: no cover - fallback path
+            return _NoopTracer()
+
+        def set_tracer_provider(self, *args, **kwargs):  # pragma: no cover
+            return None
+
+        def get_tracer_provider(self):  # pragma: no cover
+            return None
+
+    class _NoopResource:
+        @classmethod
+        def create(cls, *args, **kwargs):  # pragma: no cover - fallback path
+            return cls()
+
+    class _NoopExporter:
+        def __init__(self, *args, **kwargs):  # pragma: no cover - fallback path
+            pass
+
+    class _NoopBatchSpanProcessor:
+        def __init__(self, *args, **kwargs):  # pragma: no cover - fallback path
+            self.args = args
+            self.kwargs = kwargs
+
+    class _NoopTracerProvider:
+        def __init__(self, *args, **kwargs):  # pragma: no cover - fallback path
+            self.args = args
+            self.kwargs = kwargs
+
+        def add_span_processor(self, *args, **kwargs):  # pragma: no cover - fallback path
+            return None
+
+    class _NoopStatusCode:
+        ERROR = "ERROR"
+
+    _NOOP_TRACE = _NoopTraceModule()
+    trace = _NOOP_TRACE  # type: ignore[assignment]
+    OTLPSpanExporter = _NoopExporter  # type: ignore[assignment]
+    Resource = _NoopResource  # type: ignore[assignment]
+    TracerProvider = _NoopTracerProvider  # type: ignore[assignment]
+    BatchSpanProcessor = _NoopBatchSpanProcessor  # type: ignore[assignment]
+    _NOOP_TRACER = _NoopTracer()
+    StatusCode = _NoopStatusCode  # type: ignore[assignment]
 
 # ── Configuration ──────────────────────────────────────────────────
 OTLP_ENDPOINT = "http://localhost:4318/v1/traces"
@@ -40,17 +107,24 @@ _provider: TracerProvider | None = None
 # Setup
 # ══════════════════════════════════════════════════════════════════════
 
-def setup_tracing(endpoint: str = OTLP_ENDPOINT) -> None:
+def setup_tracing(endpoint: str | None = None) -> None:
     """Initialise the global TracerProvider with OTLP HTTP export.
 
-    Safe to call multiple times — subsequent calls are no-ops.
+    This is an explicit application-level opt-in. It is safe to call multiple
+    times, and ``OTEL_SDK_DISABLED=true`` keeps the SDK/exporter disabled.
+    ``OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`` is honored when no endpoint argument
+    is supplied.
     """
     global _provider
-    if _provider is not None:
+    if _provider is not None or os.getenv("OTEL_SDK_DISABLED", "").strip().lower() == "true":
         return
 
+    resolved_endpoint = endpoint or os.getenv(
+        "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT",
+        OTLP_ENDPOINT,
+    )
     resource = Resource.create({"service.name": SERVICE_NAME})
-    exporter = OTLPSpanExporter(endpoint=endpoint)
+    exporter = OTLPSpanExporter(endpoint=resolved_endpoint)
     provider = TracerProvider(resource=resource)
     provider.add_span_processor(BatchSpanProcessor(exporter))
     trace.set_tracer_provider(provider)
@@ -58,9 +132,9 @@ def setup_tracing(endpoint: str = OTLP_ENDPOINT) -> None:
 
 
 def get_tracer() -> trace.Tracer:
-    """Return the shared engine tracer, auto-initialising if needed."""
-    if _provider is None:
-        setup_tracing()
+    """Return the configured tracer or OpenTelemetry's valid no-op tracer."""
+    if trace is None:
+        return _NOOP_TRACER  # type: ignore[return-value]
     return trace.get_tracer(SERVICE_NAME)
 
 

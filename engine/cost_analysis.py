@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 # ── Material Cost Database ──────────────────────────────────────────
 # Approximate costs in USD per kg (industry bulk, not retail hobby)
 # Sources: Firmenich/Givaudan/IFF catalog ranges, trade publications

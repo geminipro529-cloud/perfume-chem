@@ -4,12 +4,136 @@ import engine.pipeline.gates as gates_module
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.oav_guard import OAVCheck
 from engine.optimizer.scoring import FormulaScorer
+from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from future_modules.edge_cases import MUSK_CLASS_COVERAGE
 from scripts.formula_release_gate import main as release_gate_main
 from scripts.verify_formula_workflow import parse_formula_markdown
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_osmanthus_dark_crystal_uses_both_distinct_cocoa_stocks():
+    formulas = parse_formula_markdown(
+        PROJECT_ROOT / "formulas" / "Osmanthus_Dark_Crystal_30mL_EdP.md"
+    )
+
+    assert len(formulas) == 1
+    formula = formulas[0]
+    assert formula["ingredients_ul"]["Cocoa Absolute"] == 40.0
+    assert formula["dilutions"]["Cocoa Absolute"] == 1.0
+    assert formula["ingredients_ul"]["Cocoa CO2 Extract"] == 250.0
+    assert formula["dilutions"]["Cocoa CO2 Extract"] == 0.077
+    assert "Cocoa CO2 Absolute" not in formula["ingredients_ul"]
+    assert sum(formula["ingredients_ul"].values()) == 5240.0
+
+
+def test_future_module_gates_accept_unknown_oav_and_current_api_contracts():
+    state = build_formula_state(
+        {
+            "Hedione": 350.0,
+            "Iso E Super": 250.0,
+            "Romandolide": 635.0,
+            "Cocoa CO2 Extract": 250.0,
+        },
+        {"Cocoa CO2 Extract": 0.077},
+        batch_volume_ml=30.0,
+    )
+    config = ReleaseGateConfig(audit_enabled=False)
+
+    balance = gates_module._gate_balance_axes(state, config)
+    character = gates_module._gate_character_shifts(state, config)
+    musk = gates_module._gate_musk_intelligence(state, config)
+
+    assert balance.status == "PASS"
+    assert "skipped" not in balance.detail.lower()
+    assert character.status in {"PASS", "WARN"}
+    assert "api mismatch" not in character.detail.lower()
+    assert musk.status == "PASS"
+    assert "api mismatch" not in musk.detail.lower()
+
+
+def test_edge_case_gate_uses_formula_specific_temperature_factors():
+    state = build_formula_state(
+        {
+            "Zenolide": 400.0,
+            "Ethylene Brassylate": 520.0,
+            "Ambrettolide": 100.0,
+            "Ambrox Super": 200.0,
+        },
+        {"Ambrettolide": 0.10, "Ambrox Super": 0.33},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+
+    result = gates_module._gate_edge_cases(
+        state,
+        ReleaseGateConfig(temperature_K=305.0, audit_enabled=False),
+    )
+
+    temperature = result.data["vp_temperature_factor"]
+    assert temperature["reference_temperature_K"] == 298.15
+    assert temperature["formula_temperature_K"] == 305.0
+    assert temperature["material_count"] == 4
+    assert 1.0 < temperature["min"] <= temperature["median"] <= temperature["max"]
+    assert "cc_factor" not in result.data
+    assert "Bangkok VP" not in result.detail
+    assert "formula VP factor" in result.detail
+    assert result.data["musk_coverage_pct"] > 90.0
+    assert "Musk coverage: 100%" in result.detail
+
+
+def test_musk_structural_classes_match_supplier_and_chemical_families():
+    assert "Ethylene Brassylate" in MUSK_CLASS_COVERAGE["macrocyclic"]
+    assert "Zenolide" in MUSK_CLASS_COVERAGE["macrocyclic"]
+    assert "Exaltolide" in MUSK_CLASS_COVERAGE["macrocyclic"]
+    assert "Romandolide" in MUSK_CLASS_COVERAGE["alicyclic"]
+    assert "Romandolide" not in MUSK_CLASS_COVERAGE["macrocyclic"]
+
+
+def test_low_hedione_is_not_mislabeled_as_olfactory_fatigue():
+    state = build_formula_state(
+        {"Hedione": 350.0, "Dipropylene Glycol": 5650.0},
+        batch_volume_ml=30.0,
+    )
+
+    result = gates_module._gate_olfactory_fatigue(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert result.status == "PASS"
+    assert "minimum for radiance" not in result.detail
+
+
+def test_high_modeled_oav_is_advisory_not_an_overdose_verdict():
+    state = build_formula_state(
+        {"Beta Ionone": 6000.0},
+        batch_volume_ml=30.0,
+    )
+    config = ReleaseGateConfig(audit_enabled=False)
+
+    overdose = gates_module._gate_oav_overdose_blocker(state, config)
+    fatigue = gates_module._gate_olfactory_fatigue(state, config)
+
+    assert overdose.status == "WARN"
+    assert overdose.data["release_authority"] is False
+    assert overdose.data["evidence_class"] == "MODELED_SCREENING_ONLY"
+    assert "use 1%" not in overdose.detail.lower()
+    assert fatigue.status != "FAIL"
+    assert "overdose" not in fatigue.detail.lower()
+
+
+def test_adaptation_tier_uses_material_family_for_named_citrus_oils():
+    state = build_formula_state(
+        {"Bergamot FCF": 100.0, "Hedione": 100.0, "Iso E Super": 100.0},
+        batch_volume_ml=30.0,
+    )
+    rows = {material.name: material for material in state.materials}
+
+    assert gates_module._adaptation_tier(rows["Bergamot FCF"]) == "fast"
+    assert gates_module._adaptation_tier(rows["Hedione"]) == "medium"
+    assert gates_module._adaptation_tier(rows["Iso E Super"]) == "slow"
 
 
 def _formula(
@@ -27,18 +151,29 @@ def _formula(
 
 
 def _trial_fougere():
+    ingredients = {
+        "Cedrat FCF oil Sicilian": 1200.0,
+        "Lavender EO (BONTAUX SAS)": 700.0,
+        "Linalyl Acetate": 600.0,
+        "Hedione": 900.0,
+        "Coumarin": 300.0,
+        "Evernyl": 10.0,
+        "Iso E Super": 1500.0,
+        "Cedarwood oil Virginia": 300.0,
+        "Zenolide": 490.0,
+    }
     return _formula(
-        {
-            "Bergamot FCF": 1200.0,
-            "Lavender EO": 700.0,
-            "Linalyl Acetate": 600.0,
-            "Hedione": 900.0,
-            "Coumarin": 300.0,
-            "Evernyl": 10.0,
-            "Iso E Super": 1500.0,
-            "Vetiver EO": 300.0,
-            "Habanolide": 490.0,
-        }
+        ingredients,
+        dilutions={
+            material: (
+                0.3
+                if material == "Coumarin"
+                else 0.2
+                if material == "Evernyl"
+                else 1.0
+            )
+            for material in ingredients
+        },
     )
 
 
@@ -189,15 +324,15 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
 
 | # | Material | Dilution | Amount (uL) | Amount (mL) |
 |---:|---|---:|---:|---:|
-| 1 | Bergamot FCF | neat | 1200 | 1.200 |
-| 2 | Lavender EO | neat | 700 | 0.700 |
-| 3 | Linalyl Acetate | neat | 600 | 0.600 |
-| 4 | Hedione | neat | 900 | 0.900 |
-| 5 | Coumarin | neat | 300 | 0.300 |
-| 6 | Evernyl | neat | 10 | 0.010 |
+    | 1 | Cedrat FCF oil Sicilian | neat | 1200 | 1.200 |
+    | 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 0.700 |
+    | 3 | Linalyl Acetate | neat | 600 | 0.600 |
+    | 4 | Hedione | neat | 900 | 0.900 |
+    | 5 | Coumarin | 30% | 300 | 0.300 |
+    | 6 | Evernyl | 20% | 10 | 0.010 |
 | 7 | Iso E Super | neat | 1500 | 1.500 |
-| 8 | Vetiver EO | neat | 300 | 0.300 |
-| 9 | Habanolide | neat | 490 | 0.490 |
+    | 8 | Cedarwood oil Virginia | neat | 300 | 0.300 |
+| 9 | Zenolide | neat | 490 | 0.490 |
 """,
         encoding="utf-8",
     )

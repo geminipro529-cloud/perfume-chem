@@ -18,12 +18,20 @@ Intervention modes:
 from __future__ import annotations
 
 import re
-from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from engine.optimizer.scoring import FormulaScorer, FormulaVector
+from engine.chemical_data_validator import is_blocked_chemical
+from engine.dose_response import CHARACTER_SHIFT_DATA
+from engine.gap_detector import GapDetector
+from engine.ingredient_catalog import find_ingredient
+from engine.intervention_context import (
+    InterventionContext,
+    ObservationProfile,
+    additive_dose_ul_from_pct,
+)
+from engine.inventory_parser import parse_inventory
 from engine.optimizer.models import (
     classify_note,
     get_theory_rules,
@@ -32,22 +40,17 @@ from engine.optimizer.models import (
     material_roudnitska_roles,
     materials_match,
 )
-from engine.inventory_parser import parse_inventory
-from engine.ingredient_catalog import find_ingredient
-from engine.chemical_data_validator import is_blocked_chemical
-from engine.intervention_context import (
-    InterventionContext,
-    ObservationProfile,
-    additive_dose_ul_from_pct,
-)
-from engine.psychophysics import GENETIC_ANOSMIA, CROSS_ADAPTATION_GROUPS
-from engine.dose_response import CHARACTER_SHIFT_DATA, HILL_PARAMS
-from engine.gap_detector import GapDetector
+from engine.optimizer.scoring import FormulaScorer, FormulaVector
+from engine.psychophysics import CROSS_ADAPTATION_GROUPS, GENETIC_ANOSMIA
 
 try:
     from engine.intervention_profiles import (
         get_profile as get_creative_profile,
+    )
+    from engine.intervention_profiles import (
         normalize_family_key,
+    )
+    from engine.intervention_profiles import (
         suggest_interventions as suggest_creative_interventions,
     )
 except Exception:  # pragma: no cover - keep engine stable if profiles drift
@@ -65,7 +68,11 @@ _INVENTORY_PATH = Path(__file__).resolve().parent.parent / "inventory.txt"
 # Skip solvents/carriers — these aren't fragrance materials
 _SKIP_CATEGORIES = {"solvents", "carriers"}
 _SKIP_MATERIALS = {
-    "ethanol 96%", "dpg", "ipm", "tec", "dep",
+    "ethanol 96%",
+    "dpg",
+    "ipm",
+    "tec",
+    "dep",
 }
 
 _INTERVENTION_MODES = {"pre_mix", "post_mix", "between_mix"}
@@ -107,41 +114,131 @@ _MODE_CONFIG: dict[str, dict[str, Any]] = {
 
 _MODE_AXIS_HINTS: dict[str, tuple[str, ...]] = {
     "radiance": (
-        "bright", "brightness", "lift", "lifting", "sparkle", "sparkling", "glow",
-        "luminous", "radiance", "radiant", "airy", "open", "airier", "diffusive",
+        "bright",
+        "brightness",
+        "lift",
+        "lifting",
+        "sparkle",
+        "sparkling",
+        "glow",
+        "luminous",
+        "radiance",
+        "radiant",
+        "airy",
+        "open",
+        "airier",
+        "diffusive",
     ),
     "sillage": (
-        "sillage", "trail", "trailing", "projection", "project", "spread", "bloom",
-        "diffuse", "diffusion", "presence", "radiate",
+        "sillage",
+        "trail",
+        "trailing",
+        "projection",
+        "project",
+        "spread",
+        "bloom",
+        "diffuse",
+        "diffusion",
+        "presence",
+        "radiate",
     ),
     "longevity": (
-        "lasting", "longevity", "tenacity", "tenacious", "anchor", "anchoring",
-        "drydown", "dry-down", "fade", "fading", "stick", "staying",
+        "lasting",
+        "longevity",
+        "tenacity",
+        "tenacious",
+        "anchor",
+        "anchoring",
+        "drydown",
+        "dry-down",
+        "fade",
+        "fading",
+        "stick",
+        "staying",
     ),
     "balance": (
-        "balance", "balanced", "smooth", "smoother", "blend", "blended", "bridge",
-        "bridging", "round", "rounded", "polish", "polished", "integration",
+        "balance",
+        "balanced",
+        "smooth",
+        "smoother",
+        "blend",
+        "blended",
+        "bridge",
+        "bridging",
+        "round",
+        "rounded",
+        "polish",
+        "polished",
+        "integration",
     ),
     "theory": (
-        "roudnitska", "classical", "classic", "elegant", "transparent", "skin",
-        "peau", "depth", "warmth", "warm", "modernist",
+        "roudnitska",
+        "classical",
+        "classic",
+        "elegant",
+        "transparent",
+        "skin",
+        "peau",
+        "depth",
+        "warmth",
+        "warm",
+        "modernist",
     ),
     "complexity": (
-        "complex", "complexity", "layer", "layered", "nuance", "nuanced",
-        "facet", "facets", "contrast", "signature", "dimension",
+        "complex",
+        "complexity",
+        "layer",
+        "layered",
+        "nuance",
+        "nuanced",
+        "facet",
+        "facets",
+        "contrast",
+        "signature",
+        "dimension",
     ),
     "character_balance": (
-        "sweet", "powder", "powdery", "spice", "spicy", "green", "floral",
-        "woody", "amber", "resin", "resinous", "fruity", "berry", "animalic",
-        "smoke", "smoky",
+        "sweet",
+        "powder",
+        "powdery",
+        "spice",
+        "spicy",
+        "green",
+        "floral",
+        "woody",
+        "amber",
+        "resin",
+        "resinous",
+        "fruity",
+        "berry",
+        "animalic",
+        "smoke",
+        "smoky",
     ),
     "synergy": (
-        "synergy", "synergistic", "cohesion", "cohesive", "integration", "integrated",
-        "blend", "bridging", "bridge",
+        "synergy",
+        "synergistic",
+        "cohesion",
+        "cohesive",
+        "integration",
+        "integrated",
+        "blend",
+        "bridging",
+        "bridge",
     ),
     "texture": (
-        "texture", "textural", "feel", "mouthfeel", "skinfeel", "creamy", "velvet",
-        "velvety", "soft", "smooth", "dry", "powder",
+        "texture",
+        "textural",
+        "feel",
+        "mouthfeel",
+        "skinfeel",
+        "creamy",
+        "velvet",
+        "velvety",
+        "soft",
+        "smooth",
+        "dry",
+        "powder",
     ),
 }
 
@@ -170,9 +267,9 @@ _MODE_EXPLANATIONS = {
 def _parse_dilution_from_name(raw: str) -> tuple[str, float]:
     """Extract dilution from inventory line like 'Alpha Irone (10%)'.
     Returns (clean_name, dilution_factor)."""
-    m = re.search(r'\((\d+(?:\.\d+)?)\s*%(?:\s*(?:in\s+)?(?:DPG|TEC|IPM|DEP))?\)', raw)
+    m = re.search(r"\((\d+(?:\.\d+)?)\s*%(?:\s*(?:in\s+)?(?:DPG|TEC|IPM|DEP))?\)", raw)
     if m:
-        clean = re.sub(r'\s*\(\d+(?:\.\d+)?%[^)]*\)', '', raw).strip()
+        clean = re.sub(r"\s*\(\d+(?:\.\d+)?%[^)]*\)", "", raw).strip()
         return clean, float(m.group(1)) / 100.0
     return raw.strip(), 1.0
 
@@ -463,10 +560,24 @@ def _iter_text_fragments(value: Any) -> list[str]:
         return fragments
     if isinstance(value, Mapping):
         for key in (
-            "intent", "intent_tags", "tags", "observations", "notes", "issues",
-            "targets", "goal", "goals", "problem", "problems", "feedback",
-            "issue_tags", "desired_effects", "must_preserve", "must_avoid",
-            "preserve", "avoid",
+            "intent",
+            "intent_tags",
+            "tags",
+            "observations",
+            "notes",
+            "issues",
+            "targets",
+            "goal",
+            "goals",
+            "problem",
+            "problems",
+            "feedback",
+            "issue_tags",
+            "desired_effects",
+            "must_preserve",
+            "must_avoid",
+            "preserve",
+            "avoid",
         ):
             if key in value:
                 fragments.extend(_iter_text_fragments(value[key]))
@@ -736,9 +847,7 @@ def _carles_provenance(
             f"{note_band} band is {actual:.1f}% now versus {target:.0f}% target for the detected {style} style."
         )
     else:
-        lines.append(
-            f"Supports the {note_band} band inside the detected {style} pyramid."
-        )
+        lines.append(f"Supports the {note_band} band inside the detected {style} pyramid.")
     return lines
 
 
@@ -746,7 +855,9 @@ def _roudnitska_provenance(material_name: str) -> list[str]:
     """Explain the recommendation through Roudnitska role logic."""
     roles = sorted(material_roudnitska_roles(material_name))
     if not roles:
-        return ["no explicit canonical role in the current knowledge graph; used here as a practical structural correction"]
+        return [
+            "no explicit canonical role in the current knowledge graph; used here as a practical structural correction"
+        ]
 
     pretty = [_ROUDNITSKA_ROLE_LABELS.get(role, role) for role in roles]
     if len(pretty) == 1:
@@ -758,7 +869,9 @@ def _jellinek_provenance(material_name: str) -> list[str]:
     """Explain the recommendation through Jellinek's psychological map."""
     quadrant_key = material_jellinek_quadrant_key(material_name)
     if not quadrant_key:
-        return ["no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"]
+        return [
+            "no explicit quadrant mapping in the current knowledge graph; treated as a structural rather than psychological correction"
+        ]
 
     quadrants = get_theory_rules().get("jellinek_map", {}).get("quadrants", {})
     info = quadrants.get(quadrant_key, {}) if isinstance(quadrants, Mapping) else {}
@@ -884,6 +997,7 @@ def _build_recommendation_provenance(
 # Recommendation dataclass
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 @dataclass
 class Recommendation:
     target_axis: str
@@ -914,11 +1028,9 @@ class Recommendation:
 _NON_AXES = {"arithmetic_total", "geometric_total", "total", "_radar", "detected_style"}
 
 
-
 def identify_weak_axes(scores: dict, n: int = 4) -> list[tuple[str, float]]:
     """Return the n weakest scoring axes, sorted ascending."""
-    axes = [(k, v) for k, v in scores.items()
-            if k not in _NON_AXES and isinstance(v, (int, float))]
+    axes = [(k, v) for k, v in scores.items() if k not in _NON_AXES and isinstance(v, (int, float))]
     axes.sort(key=lambda x: x[1])
     return axes[:n]
 
@@ -963,7 +1075,7 @@ def _annotate_warnings(
         receptor = anosmia["receptor"]
         if prev >= 0.05:
             rec.warnings.append(
-                f"⚠ ANOSMIA: {int(prev*100)}% of population has {receptor} anosmia "
+                f"⚠ ANOSMIA: {int(prev * 100)}% of population has {receptor} anosmia "
                 f"to {mat_name} — consider a redundancy material"
             )
 
@@ -1000,9 +1112,7 @@ def _annotate_warnings(
     for group_name, members in CROSS_ADAPTATION_GROUPS.items():
         if mat_name.lower() in [m.lower() for m in members]:
             conflicting = [
-                m for m in members
-                if m.lower() != mat_name.lower()
-                and m.lower() in existing_names
+                m for m in members if m.lower() != mat_name.lower() and m.lower() in existing_names
             ]
             if conflicting:
                 rec.warnings.append(
@@ -1075,28 +1185,29 @@ def generate_recommendations(
     for gf in _gap_fillers[:5]:
         inv_match = _material_in_inventory(gf["material"], inventory)
         if inv_match is not None:
-            creative_candidates.append((
-                gf["material"],
-                2.0,  # moderate dose
-                f"synergistic gap filler ({gf['synergy_count']} synergies: "
-                f"{', '.join(gf['synergy_partners'])})",
-                None,
-                None,
-            ))
+            creative_candidates.append(
+                (
+                    gf["material"],
+                    2.0,  # moderate dose
+                    f"synergistic gap filler ({gf['synergy_count']} synergies: "
+                    f"{', '.join(gf['synergy_partners'])})",
+                    None,
+                    None,
+                )
+            )
 
     # ── Map scoring axes to AXIS_CANDIDATES keys ──
     # The scorer uses 10 axes; AXIS_CANDIDATES uses a different taxonomy.
-    _AXIS_TO_CANDIDATES: dict[str, list[str]] = {
+    _axis_to_candidates: dict[str, list[str]] = {
         "longevity": ["longevity"],
         "sillage": ["sillage"],
         "texture": ["texture"],
         "synergy": ["synergy"],
         "stacking_depth": ["complexity"],
-        "skin_performance": ["texture"],       # skin-effect materials
-        "hedonic": ["character_balance"],
-        "perceptual_clarity": [],              # adding materials hurts clarity
-        "luxury": [],                          # usually high; no addition helps
-        "safety": [],                          # handled by dose-reduction below
+        "skin_performance": ["texture"],  # skin-effect materials
+        "perceptual_clarity": [],  # adding materials hurts clarity
+        "luxury": [],  # usually high; no addition helps
+        "safety": [],  # handled by dose-reduction below
     }
 
     candidates: list[Recommendation] = []
@@ -1104,12 +1215,11 @@ def generate_recommendations(
 
     for _wi, (axis, axis_score) in enumerate(weak_axes):
         # Resolve candidate pool through alias mapping
-        _cand_keys = _AXIS_TO_CANDIDATES.get(axis, [axis])
+        _cand_keys = _axis_to_candidates.get(axis, [axis])
         axis_candidates: list[tuple] = []
         for _ck in _cand_keys:
             axis_candidates.extend(
-                (mat, dose, rat, None, None)
-                for mat, dose, rat in AXIS_CANDIDATES.get(_ck, [])
+                (mat, dose, rat, None, None) for mat, dose, rat in AXIS_CANDIDATES.get(_ck, [])
             )
         if creative_candidates:
             axis_candidates = [
@@ -1197,46 +1307,51 @@ def generate_recommendations(
 
             mat_display = inv_item["name"]
             if inv_item["dilution"] < 1.0:
-                mat_display += f" ({int(inv_item['dilution']*100)}%)"
+                mat_display += f" ({int(inv_item['dilution'] * 100)}%)"
 
-            candidates.append(Recommendation(
-                target_axis=axis,
-                baseline_score=axis_score,
-                action=action,
-                material=mat_display,
-                dose_pct=round(add_pct, 1),
-                rationale=rationale,
-                new_axis_score=round(new_axis_score, 1),
-                delta=round(delta, 1),
-                new_composite=round(new_composite, 1),
-                composite_delta=round(composite_delta, 1),
-                mode=normalized_mode,
-                dose_ul=(
-                    additive_dose_ul_from_pct(add_pct, intervention.batch_volume_ml)
-                    if normalized_mode == "post_mix"
-                    else None
-                ),
-                family=creative_family,
-                profile=creative_profile,
-                identity_preservation=round(identity_score, 1),
-                identity_drift=round(max(0.0, 100.0 - identity_score), 1),
-                provenance=_build_recommendation_provenance(
-                    fv=fv,
-                    scores=scores,
-                    intervention=intervention,
-                    material_name=inv_item["name"],
-                    axis=axis,
-                    axis_score=axis_score,
-                    observations=observations,
-                    intent_tags=intent_tags,
-                    creative_family=creative_family,
-                    creative_profile=creative_profile,
-                    identity=identity,
-                ),
-            ))
+            candidates.append(
+                Recommendation(
+                    target_axis=axis,
+                    baseline_score=axis_score,
+                    action=action,
+                    material=mat_display,
+                    dose_pct=round(add_pct, 1),
+                    rationale=rationale,
+                    new_axis_score=round(new_axis_score, 1),
+                    delta=round(delta, 1),
+                    new_composite=round(new_composite, 1),
+                    composite_delta=round(composite_delta, 1),
+                    mode=normalized_mode,
+                    dose_ul=(
+                        additive_dose_ul_from_pct(add_pct, intervention.batch_volume_ml)
+                        if normalized_mode == "post_mix"
+                        else None
+                    ),
+                    family=creative_family,
+                    profile=creative_profile,
+                    identity_preservation=round(identity_score, 1),
+                    identity_drift=round(max(0.0, 100.0 - identity_score), 1),
+                    provenance=_build_recommendation_provenance(
+                        fv=fv,
+                        scores=scores,
+                        intervention=intervention,
+                        material_name=inv_item["name"],
+                        axis=axis,
+                        axis_score=axis_score,
+                        observations=observations,
+                        intent_tags=intent_tags,
+                        creative_family=creative_family,
+                        creative_profile=creative_profile,
+                        identity=identity,
+                    ),
+                )
+            )
             # Annotate with psychophysics / dose-response warnings
             _annotate_warnings(
-                candidates[-1], fv, mod_ings, mod_dils,
+                candidates[-1],
+                fv,
+                mod_ings,
+                mod_dils,
                 total_volume_ul=sum(fv.ingredients.values()) * 100,
             )
 
@@ -1286,6 +1401,7 @@ def generate_intervention_recommendations(
 # Formatting
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 def _stars_for_delta(composite_delta: float) -> str:
     """Convert composite delta to a 1-5 star impact rating."""
     if composite_delta >= 3.0:
@@ -1330,7 +1446,9 @@ def format_recommendations(
     for r in recs:
         axis_display = f"{r.target_axis}({r.baseline_score:.0f})"
         delta_display = f"+{r.delta:.1f}" if r.delta >= 0 else f"{r.delta:.1f}"
-        comp_display = f"+{r.composite_delta:.1f}" if r.composite_delta >= 0 else f"{r.composite_delta:.1f}"
+        comp_display = (
+            f"+{r.composite_delta:.1f}" if r.composite_delta >= 0 else f"{r.composite_delta:.1f}"
+        )
         stars = _stars_for_delta(r.composite_delta)
         rationale = r.rationale
         if normalized_mode == "post_mix" and r.dose_ul is not None:
@@ -1369,6 +1487,7 @@ def find_hidden_fixatives(vp_threshold: float = 1.0) -> list[dict]:
           "category": str, "families": list[str], "why": str }
     """
     from engine.ingredient_intelligence import _PROFILES
+
     results: list[dict] = []
     for mat_name, profile in _PROFILES.items():
         vp = profile.get("vp", None)
@@ -1386,13 +1505,15 @@ def find_hidden_fixatives(vp_threshold: float = 1.0) -> list[dict]:
             why_parts.append(f"VP={vp:.4f}Pa — below 0.01 threshold")
         else:
             why_parts.append(f"VP={vp:.4f}Pa")
-        results.append({
-            "name": mat_name,
-            "vp": vp,
-            "note": note,
-            "role": role,
-            "families": families,
-            "why": "; ".join(why_parts),
-        })
+        results.append(
+            {
+                "name": mat_name,
+                "vp": vp,
+                "note": note,
+                "role": role,
+                "families": families,
+                "why": "; ".join(why_parts),
+            }
+        )
     results.sort(key=lambda r: r["vp"])
     return results

@@ -1,0 +1,51 @@
+{
+    "schema":  "build-c5-supplemental-run-metadata-v1",
+    "expected_head":  "052bbdffcba0d7dc163fd6ef625bef1717cf32eb",
+    "generated_at":  "2026-08-03T01:27:44.1773832+07:00",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "sensitive_environment_values_removed_without_logging":  true,
+    "jobs":  [
+                 {
+                     "name":  "actual-data-absence",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_c5_data_absence.py"
+                                   ],
+                     "timeout_seconds":  120,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "duration_ms":  457,
+                     "stdout_sha256":  "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453",
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 },
+                 {
+                     "name":  "deepluna-sol-reproduction",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "tests/test_c5_calibration_program.py::test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch",
+                                       "tests/test_c5_calibration_program.py::test_split_rejects_each_cross_partition_leakage_dimension",
+                                       "tests/test_c5_calibration_program.py::test_held_out_release_requires_matching_pre_release_model_lock",
+                                       "tests/test_c5_calibration_program.py::test_evaluation_plan_requires_all_metrics_and_group_dimensions",
+                                       "tests/test_c5_calibration_program.py::test_empirical_assessment_is_blocked_without_actual_data_and_has_no_metrics",
+                                       "tests/test_c5_calibration_program.py::test_c5_module_does_not_import_legacy_calibration_or_analytical_ledgers"
+                                   ],
+                     "timeout_seconds":  180,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "duration_ms":  1265,
+                     "stdout_sha256":  "8cbd88f28ef1b5f11f9f529a2db375230fdbc8ceeb81001d910f7c49551c5e93",
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

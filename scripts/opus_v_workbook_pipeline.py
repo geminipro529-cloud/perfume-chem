@@ -22,7 +22,6 @@ from engine.opus_v_workbook import (
     write_json,
 )
 
-
 DEFAULT_WORKBOOK = "opus_v_luxury_edp_complete.xlsx"
 DEFAULT_OUT_DIR = Path("output/opus_v_workbook")
 DEFAULT_TARGETS = (10.0, 30.0, 50.0, 100.0)

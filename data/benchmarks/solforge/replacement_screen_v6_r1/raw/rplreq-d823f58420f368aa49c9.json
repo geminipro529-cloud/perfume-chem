@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:33:51.671647+00:00",
+  "dispatch_sha256": "131cc570ed192e0be5bf3717a666f87a5780fd2138e0025b152793ebfa3c1075",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "0fe469cef355423c571b5b6f8236356f8e3efab34b84f1d1e619a97d74343f17",
+  "output_text": "{\"decision_state\":\"DIAGNOSTIC\",\"target_linked_reasoning\":\"All observed winners were first-presented, so presentation position is perfectly confounded with product identity and observed liking. Directional product utilities and a claim that any product is more liked are not identifiable from the current evidence.\",\"controlled_comparison\":\"Eight blinded comparisons were observed, but each product occupied the first position only within a fixed subset and no reverse-order replicate was performed; therefore no position-controlled product comparison exists.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"PERFECT_POSITION_CONFOUND\",\"NO_REVERSE_ORDER_REPLICATES\",\"DIRECTIONAL_UTILITIES_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":{\"wins\":8,\"comparisons\":8,\"rate\":1.0,\"percent\":100}},\"next_actions\":[\"Repeat the same comparisons with presentation order reversed or deterministically counterbalanced to separate product preference from position.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "be3617f57b4050f8fdc72dfb17e61084882b65e0eee9750167a446a2d2d43ef9",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-d823f58420f368aa49c9",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:31.218433+00:00",
+  "stderr_sha256": "fc408a96d7e53b1d061db162350b64534b839372dafab98aff144ab81ae133a5",
+  "stderr_tail": "ation\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"first_position_win_rate\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"DIAGNOSTIC\",\"target_linked_reasoning\":\"All observed winners were first-presented, so presentation position is perfectly confounded with product identity and observed liking. Directional product utilities and a claim that any product is more liked are not identifiable from the current evidence.\",\"controlled_comparison\":\"Eight blinded comparisons were observed, but each product occupied the first position only within a fixed subset and no reverse-order replicate was performed; therefore no position-controlled product comparison exists.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"PERFECT_POSITION_CONFOUND\",\"NO_REVERSE_ORDER_REPLICATES\",\"DIRECTIONAL_UTILITIES_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":{\"wins\":8,\"comparisons\":8,\"rate\":1.0,\"percent\":100}},\"next_actions\":[\"Repeat the same comparisons with presentation order reversed or deterministically counterbalanced to separate product preference from position.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,502\n",
+  "stdout_sha256": "36f200b0026603e542178c0629af6039e078da4f5ae7a9ee3a042ae337b833ea"
+}

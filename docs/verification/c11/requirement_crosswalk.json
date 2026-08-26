@@ -1,0 +1,480 @@
+{
+  "all_requirements_accounted_for": true,
+  "all_test_nodes_present": true,
+  "blocked_requirement_interpretation": "C11-REQ-020 is satisfied only by reproducing fail-closed nonpromotion of the historical claim; the historical result itself remains blocked and noncanonical.",
+  "phase": "C11",
+  "requirement_count": 23,
+  "requirements": [
+    {
+      "all_test_nodes_present": true,
+      "authority": "SOFTWARE_CONTRACT_ONLY",
+      "evidence_digests": {
+        "docs/verification/c1/thermophysical_contracts_gate.json": "8a340ca592bd604c9d8b2ca78450fbbaadd5ef396322487739f38bb6d9ec5204"
+      },
+      "evidence_files": [
+        "docs/verification/c1/thermophysical_contracts_gate.json"
+      ],
+      "id": "C11-REQ-001",
+      "requirement": "property range and condition selection",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c1_thermophysical_contracts.py::test_identity_conditions_and_subset_support_are_explicit",
+        "tests/test_c1_thermophysical_contracts.py::test_exact_in_range_model_selection_returns_the_declared_model",
+        "tests/test_c1_thermophysical_contracts.py::test_request_scope_mismatch_withholds"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "REPRESENTATION_AND_SELECTION_ONLY_NO_EVALUATOR",
+      "evidence_digests": {
+        "docs/verification/c1/thermophysical_contracts_gate.json": "8a340ca592bd604c9d8b2ca78450fbbaadd5ef396322487739f38bb6d9ec5204"
+      },
+      "evidence_files": [
+        "docs/verification/c1/thermophysical_contracts_gate.json"
+      ],
+      "id": "C11-REQ-002",
+      "requirement": "vapor-pressure equation validity range",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c1_thermophysical_contracts.py::test_vapor_pressure_equation_model_preserves_every_declared_field",
+        "tests/test_c1_thermophysical_contracts.py::test_release_grade_extrapolation_always_withholds",
+        "tests/test_c1_thermophysical_contracts.py::test_model_outside_valid_range_is_extrapolation_even_if_b2_says_exact"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "UNIFAC_UNAVAILABLE",
+      "evidence_digests": {
+        "docs/verification/c0/physical_model_inventory.json": "b2e1f922805c4f0c6be298dd0cb7bf01780b37f6e69cf7a72882b22d351852ae",
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "evidence_files": [
+        "docs/verification/c0/physical_model_inventory.json",
+        "docs/verification/c4/equilibrium_model_gate.json"
+      ],
+      "id": "C11-REQ-003",
+      "requirement": "trusted UNIFAC reference or abstention",
+      "requirement_satisfied": true,
+      "status": "PASS_ABSTENTION",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+        "tests/test_c4_equilibrium_models.py::test_henry_empirical_unifac_and_cosmo_rs_are_explicitly_unavailable"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "DATA_ONLY_STUB_NO_MOLECULE_ASSIGNMENT_OR_GAMMA_SOLVER",
+      "evidence_digests": {
+        "docs/verification/c0/physical_model_inventory.json": "b2e1f922805c4f0c6be298dd0cb7bf01780b37f6e69cf7a72882b22d351852ae"
+      },
+      "evidence_files": [
+        "docs/verification/c0/physical_model_inventory.json"
+      ],
+      "id": "C11-REQ-004",
+      "requirement": "group-decomposition coverage",
+      "requirement_satisfied": true,
+      "status": "PASS_ABSTENTION",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_records_are_source_bound_and_claim_explicit",
+        "tests/test_c4_equilibrium_models.py::test_henry_empirical_unifac_and_cosmo_rs_are_explicitly_unavailable"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "NO_EXECUTABLE_OR_IMPORT_PRESENT",
+      "evidence_digests": {
+        "docs/verification/c0/physical_model_inventory.json": "b2e1f922805c4f0c6be298dd0cb7bf01780b37f6e69cf7a72882b22d351852ae",
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "evidence_files": [
+        "docs/verification/c0/physical_model_inventory.json",
+        "docs/verification/c4/equilibrium_model_gate.json"
+      ],
+      "id": "C11-REQ-005",
+      "requirement": "COSMO-RS import integrity",
+      "requirement_satisfied": true,
+      "status": "PASS_ABSTENTION",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c0_physical_model_inventory.py::test_inventory_records_are_source_bound_and_claim_explicit",
+        "tests/test_c4_equilibrium_models.py::test_henry_empirical_unifac_and_cosmo_rs_are_explicitly_unavailable"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "FAIL_CLOSED_NO_SILENT_FALLBACK",
+      "evidence_digests": {
+        "docs/verification/c3/model_interface_gate.json": "3eb6e15220777b497c9d4c8ea1adc42c82e9d07f3c82cd1cd85d65817c7054ce"
+      },
+      "evidence_files": [
+        "docs/verification/c3/model_interface_gate.json"
+      ],
+      "id": "C11-REQ-006",
+      "requirement": "explicit fallback",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c3_model_interface.py::test_unknown_selector_fails_closed_without_silent_fallback",
+        "tests/test_c3_model_interface.py::test_result_requires_complete_fallback_disclosure_for_model_change"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "IDEAL_RAOULT_NOT_ACCURACY_VALIDATED",
+      "evidence_digests": {
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "evidence_files": [
+        "docs/verification/c4/equilibrium_model_gate.json"
+      ],
+      "id": "C11-REQ-007",
+      "requirement": "ideal baseline",
+      "requirement_satisfied": true,
+      "status": "PASS_THEORETICAL_BASELINE_ONLY",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c4_equilibrium_models.py::test_pure_component_analytic_raoult_benchmark",
+        "tests/test_c4_equilibrium_models.py::test_binary_mass_fraction_analytic_raoult_benchmark_and_mass_closure"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "DECLARED_MATRIX_AND_ANALYTIC_BASELINE",
+      "evidence_digests": {
+        "docs/verification/c2/matrix_environment_gate.json": "c02f8516423669c92588e6d2464c65d33056462f24ae9b32719ae273f9fd4f11",
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "evidence_files": [
+        "docs/verification/c2/matrix_environment_gate.json",
+        "docs/verification/c4/equilibrium_model_gate.json"
+      ],
+      "id": "C11-REQ-008",
+      "requirement": "matrix mass and mole conservation",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c2_matrix_environment.py::test_exact_fraction_matrix_requires_fraction_closure",
+        "tests/test_c4_equilibrium_models.py::test_binary_mass_fraction_analytic_raoult_benchmark_and_mass_closure"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "NO_EMPIRICAL_CALIBRATION",
+      "evidence_digests": {
+        "docs/verification/c6/dynamic_release_gate.json": "93dd5a86f451ed1ff1cde5767378c98181917255c53a286526adc5f7e1458965",
+        "docs/verification/c8/headspace_oav_gate.json": "bef5407b35719ea4ec530f57a900fa7aaf56089ad38b9d56b37dfad6718cb331"
+      },
+      "evidence_files": [
+        "docs/verification/c6/dynamic_release_gate.json",
+        "docs/verification/c8/headspace_oav_gate.json"
+      ],
+      "id": "C11-REQ-009",
+      "requirement": "uncertainty propagation",
+      "requirement_satisfied": true,
+      "status": "PASS_NONSTATISTICAL_SENSITIVITY_ONLY",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c6_dynamic_release.py::test_uncertainty_propagates_as_nonstatistical_sensitivity_envelope",
+        "tests/test_c8_headspace_oav.py::test_headspace_oav_propagates_conservative_ratio_bounds"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "UNVALIDATED_SIMULATION_ONLY",
+      "evidence_digests": {
+        "docs/verification/c6/dynamic_release_gate.json": "93dd5a86f451ed1ff1cde5767378c98181917255c53a286526adc5f7e1458965"
+      },
+      "evidence_files": [
+        "docs/verification/c6/dynamic_release_gate.json"
+      ],
+      "id": "C11-REQ-010",
+      "requirement": "dynamic conservation and nonnegativity",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c6_dynamic_release.py::test_every_frame_is_nonnegative_and_mass_conservative",
+        "tests/test_c6_dynamic_release.py::test_per_step_closure_guard_rejects_sub_output_tolerance_leak"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "EXACT_SUBSTRATE_MODEL_BINDING_NO_CROSS_TRANSFER",
+      "evidence_digests": {
+        "docs/verification/c6/dynamic_release_gate.json": "93dd5a86f451ed1ff1cde5767378c98181917255c53a286526adc5f7e1458965"
+      },
+      "evidence_files": [
+        "docs/verification/c6/dynamic_release_gate.json"
+      ],
+      "id": "C11-REQ-011",
+      "requirement": "substrate separation",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c6_dynamic_release.py::test_each_substrate_kind_requires_its_own_exact_model",
+        "tests/test_c6_dynamic_release.py::test_cross_substrate_request_abstains_before_compute"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "PRESPECIFIED_SPLIT_AND_MODEL_LOCK",
+      "evidence_digests": {
+        "docs/verification/c5/calibration_program_gate.json": "dc76040dbdea3233fff717482c811273e03345b6f23dba4cf8ea6693b055c400"
+      },
+      "evidence_files": [
+        "docs/verification/c5/calibration_program_gate.json"
+      ],
+      "id": "C11-REQ-012",
+      "requirement": "leakage prevention",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c5_calibration_program.py::test_split_manifest_is_deterministic_and_requires_three_partitions",
+        "tests/test_c5_calibration_program.py::test_split_rejects_each_cross_partition_leakage_dimension",
+        "tests/test_c5_calibration_program.py::test_model_lock_binds_validation_only_and_all_authority_hashes"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "NO_EMPIRICAL_PERFORMANCE_BENCHMARK",
+      "evidence_digests": {
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf",
+        "docs/verification/c6/dynamic_release_gate.json": "93dd5a86f451ed1ff1cde5767378c98181917255c53a286526adc5f7e1458965"
+      },
+      "evidence_files": [
+        "docs/verification/c4/equilibrium_model_gate.json",
+        "docs/verification/c6/dynamic_release_gate.json"
+      ],
+      "id": "C11-REQ-013",
+      "requirement": "benchmark reproducibility",
+      "requirement_satisfied": true,
+      "status": "PASS_ANALYTIC_AND_DETERMINISTIC_ONLY",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c4_equilibrium_models.py::test_pure_component_analytic_raoult_benchmark",
+        "tests/test_c4_equilibrium_models.py::test_binary_mass_fraction_analytic_raoult_benchmark_and_mass_closure",
+        "tests/test_c6_dynamic_release.py::test_simulation_is_reproducible_and_canonical_under_input_order"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "ANSWERLESS_FAIL_CLOSED_ABSTENTION",
+      "evidence_digests": {
+        "docs/verification/c3/model_interface_gate.json": "3eb6e15220777b497c9d4c8ea1adc42c82e9d07f3c82cd1cd85d65817c7054ce",
+        "docs/verification/c4/equilibrium_model_gate.json": "f95c03612b6d0e84bd8a4b348fa126ea8f6c923baa29184299bf080c23bf57cf"
+      },
+      "evidence_files": [
+        "docs/verification/c3/model_interface_gate.json",
+        "docs/verification/c4/equilibrium_model_gate.json"
+      ],
+      "id": "C11-REQ-014",
+      "requirement": "applicability and abstention",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c3_model_interface.py::test_router_abstains_without_compute_for_noncomputable_states",
+        "tests/test_c4_equilibrium_models.py::test_applicability_abstains_for_unsupported_or_insufficient_context"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "EXACT_SIX_LEVEL_PRECEDENCE",
+      "evidence_digests": {
+        "docs/verification/c7/natural_lots_gate.json": "8ac8a63e6a4a1a7e4d6a85526dd8c96e7ad4a4cd9ce0ee3ed9f9ca93468304e3"
+      },
+      "evidence_files": [
+        "docs/verification/c7/natural_lots_gate.json"
+      ],
+      "id": "C11-REQ-015",
+      "requirement": "natural-lot precedence",
+      "requirement_satisfied": true,
+      "status": "PASS_CONTRACT_ONLY_NO_REAL_LOTS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c7_natural_lots.py::test_selection_uses_exact_six_level_precedence",
+        "tests/test_c7_natural_lots.py::test_every_lot_identity_axis_changes_content_hash"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "AREA_PERCENT_NEVER_CONCENTRATION",
+      "evidence_digests": {
+        "docs/verification/c7/natural_lots_gate.json": "8ac8a63e6a4a1a7e4d6a85526dd8c96e7ad4a4cd9ce0ee3ed9f9ca93468304e3"
+      },
+      "evidence_files": [
+        "docs/verification/c7/natural_lots_gate.json"
+      ],
+      "id": "C11-REQ-016",
+      "requirement": "area-percent safeguards",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c7_natural_lots.py::test_normalized_area_percent_cannot_masquerade_as_concentration",
+        "backend/tests/unit/test_b5_analytical_service.py::test_area_percent_cannot_claim_formula_weight_percent"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "OLFACTORY_REGULATORY_AUTHENTICITY_SEPARATE",
+      "evidence_digests": {
+        "docs/verification/c7/natural_lots_gate.json": "8ac8a63e6a4a1a7e4d6a85526dd8c96e7ad4a4cd9ce0ee3ed9f9ca93468304e3"
+      },
+      "evidence_files": [
+        "docs/verification/c7/natural_lots_gate.json"
+      ],
+      "id": "C11-REQ-017",
+      "requirement": "projection separation",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 2,
+      "test_nodes": [
+        "tests/test_c7_natural_lots.py::test_three_projection_families_are_separate_and_basis_preserving",
+        "tests/test_c7_natural_lots.py::test_regulatory_projection_requires_complete_mass_fraction_authority"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "CONTEXT_SPECIFIC_RECORDS_NO_GENERIC_MULTIPLIER",
+      "evidence_digests": {
+        "docs/verification/c8/headspace_oav_gate.json": "bef5407b35719ea4ec530f57a900fa7aaf56089ad38b9d56b37dfad6718cb331"
+      },
+      "evidence_files": [
+        "docs/verification/c8/headspace_oav_gate.json"
+      ],
+      "id": "C11-REQ-018",
+      "requirement": "interaction context",
+      "requirement_satisfied": true,
+      "status": "PASS_WITH_NUMERIC_EFFECTS_WITHHELD",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c8_headspace_oav.py::test_all_interaction_kinds_are_context_specific_records",
+        "tests/test_c8_headspace_oav.py::test_interaction_authorization_withholds_answer_on_every_mismatch",
+        "tests/test_c8_headspace_oav.py::test_uncalibrated_generic_interaction_rejects_a_numerical_effect"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "HARD_GATES_BEFORE_SCORING_AND_EXACT_HASH_HUMAN_REVIEW",
+      "evidence_digests": {
+        "docs/verification/c10/experiment_selection_gate.json": "0aa2bb9e55acdcc13cb0bc5ef7a675a880cc0c0a2754369bf252fb7ce90adc15",
+        "docs/verification/c10/final_decision.json": "612f224373d12e89d327a715598c340a9cd9c39c24e9a948f0edfd5c98df8920"
+      },
+      "evidence_files": [
+        "docs/verification/c10/experiment_selection_gate.json",
+        "docs/verification/c10/final_decision.json"
+      ],
+      "id": "C11-REQ-019",
+      "requirement": "constrained optimizer feasibility",
+      "requirement_satisfied": true,
+      "status": "PASS_SOFTWARE_FEASIBILITY_ONLY",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c10_mixture_design.py::test_constrained_mixture_generator_emits_only_feasible_integer_lattice_points",
+        "tests/test_c10_selection.py::test_infeasible_candidates_never_reach_acquisition_scoring",
+        "tests/test_c10_selection.py::test_proposal_requires_exact_hash_pass_human_review_before_execution"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "CORRECT_FAIL_CLOSED_NONPROMOTION",
+      "evidence_digests": {
+        "docs/verification/c10/experiment_selection_gate.json": "0aa2bb9e55acdcc13cb0bc5ef7a675a880cc0c0a2754369bf252fb7ce90adc15",
+        "docs/verification/c10/final_decision.json": "612f224373d12e89d327a715598c340a9cd9c39c24e9a948f0edfd5c98df8920"
+      },
+      "evidence_files": [
+        "docs/verification/c10/experiment_selection_gate.json",
+        "docs/verification/c10/final_decision.json"
+      ],
+      "id": "C11-REQ-020",
+      "requirement": "historical 30k regression",
+      "requirement_satisfied": true,
+      "status": "BLOCKED_MISSING_REPRODUCIBLE_ARTIFACT_BUNDLE",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c10_historical.py::test_historical_numbers_are_reported_unverified_not_canonical",
+        "tests/test_c10_historical.py::test_missing_historical_implementation_inputs_and_results_fail_closed",
+        "tests/test_c10_historical.py::test_exact_replay_receipt_can_match_report_but_does_not_replace_c11_replay"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "UNSUPPORTED_OUTCOMES_REQUIRE_EXACT_BUILD_D_RECEIPT",
+      "evidence_digests": {
+        "docs/verification/c8/headspace_oav_gate.json": "bef5407b35719ea4ec530f57a900fa7aaf56089ad38b9d56b37dfad6718cb331",
+        "docs/verification/c9/unsupported_science_gate.json": "faa67ff94a600674f2fef53d3dc7cc88ec31bb7417021a0419277bb647da15bc"
+      },
+      "evidence_files": [
+        "docs/verification/c8/headspace_oav_gate.json",
+        "docs/verification/c9/unsupported_science_gate.json"
+      ],
+      "id": "C11-REQ-021",
+      "requirement": "negative claims",
+      "requirement_satisfied": true,
+      "status": "PASS_WITHHELD",
+      "test_node_count": 3,
+      "test_nodes": [
+        "tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied",
+        "tests/test_c9_unsupported_science.py::test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt",
+        "tests/test_c9_unsupported_science.py::test_one_aging_process_never_promotes_universal_shelf_life"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "DETERMINISTIC_LOCATOR_PRESERVING_REPORTS",
+      "evidence_digests": {
+        "docs/verification/c9/unsupported_science_gate.json": "faa67ff94a600674f2fef53d3dc7cc88ec31bb7417021a0419277bb647da15bc"
+      },
+      "evidence_files": [
+        "docs/verification/c9/unsupported_science_gate.json"
+      ],
+      "id": "C11-REQ-022",
+      "requirement": "API and report provenance",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 3,
+      "test_nodes": [
+        "backend/tests/unit/test_b9_science_reporting.py::test_b9_report_and_markdown_are_deterministic_and_preserve_locators",
+        "backend/tests/unit/test_b9_science_reporting.py::test_b9_repository_has_exact_read_only_collection_map",
+        "backend/tests/unit/test_lab_assistant.py::test_supported_assistant_packet_is_byte_stable_and_complete"
+      ]
+    },
+    {
+      "all_test_nodes_present": true,
+      "authority": "PORTABILITY_AND_RECOVERY_SOFTWARE_CONTRACT",
+      "evidence_digests": {
+        "docs/verification/b2/property_authority_gate.json": "4a179f8cc3942ad864b3626cf27d0463305f1a7910eb6f6d61d9a37dc97d456d",
+        "docs/verification/c5/calibration_program_gate.json": "dc76040dbdea3233fff717482c811273e03345b6f23dba4cf8ea6693b055c400"
+      },
+      "evidence_files": [
+        "docs/verification/c5/calibration_program_gate.json",
+        "docs/verification/b2/property_authority_gate.json"
+      ],
+      "id": "C11-REQ-023",
+      "requirement": "export, import, backup, and restore",
+      "requirement_satisfied": true,
+      "status": "PASS",
+      "test_node_count": 5,
+      "test_nodes": [
+        "tests/test_c5_calibration_program.py::test_real_jsonl_import_accepts_exact_b5_bound_record",
+        "tests/test_c5_calibration_program.py::test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch",
+        "backend/tests/integration/test_backup_restore.py::test_live_backup_writes_consistent_snapshot_manifest_and_digest",
+        "backend/tests/integration/test_backup_restore.py::test_restore_validation_rejects_corrupt_digest_and_revision",
+        "backend/tests/integration/test_backup_restore.py::test_restore_stages_while_running_and_applies_only_in_maintenance_mode"
+      ]
+    }
+  ],
+  "schema": "build-c11-requirement-crosswalk-v1",
+  "source_commit": "f8d8c6836643cf8bd7693d1e6672daded9629c69"
+}

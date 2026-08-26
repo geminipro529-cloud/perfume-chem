@@ -1,0 +1,40 @@
+{
+  "schema": "c8-mutation-harness-attempts-v1",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "HARNESS_FAILURE",
+      "failure_class": "unsupported_local_path_api",
+      "detail": "The host PowerShell runtime did not provide System.IO.Path.GetRelativePath.",
+      "source_restored_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+      "preserved_prefix": "harness-attempt1."
+    },
+    {
+      "attempt": 2,
+      "status": "HARNESS_FAILURE",
+      "failure_class": "null_process_exit_code",
+      "detail": "Start-Process produced null exit-code fields after redirected executions.",
+      "source_restored_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+      "preserved_prefix": "harness-attempt2."
+    },
+    {
+      "attempt": 3,
+      "status": "HARNESS_FAILURE",
+      "failure_class": "false_zero_process_exit_code",
+      "detail": "Start-Process reported zero while pytest stdout recorded failing mutation guards.",
+      "source_restored_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+      "preserved_prefix": "harness-attempt3."
+    },
+    {
+      "attempt": 4,
+      "status": "PASS",
+      "failure_class": null,
+      "detail": "Direct System.Diagnostics.Process execution captured authoritative exit codes.",
+      "source_restored_sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+      "summary": "mutation-summary.json"
+    }
+  ],
+  "failed_attempt_count": 3,
+  "passing_attempt": 4,
+  "failed_attempts_preserved": true
+}

@@ -1,0 +1,159 @@
+{
+  "archive": {
+    "archive_sha256": "09fc1acf0d90f586e420f2eff5e9534f823f0d81292d4ba792eaefd3de9c5f5f",
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "restorable": true,
+    "status": "PASS"
+  },
+  "authority_limits": {
+    "c5_remains_blocked_pending_data": true,
+    "c8_is_screening_not_exact_intensity": true,
+    "generic_interaction_numeric_adjustment_forbidden": true,
+    "no_empirical_or_production_promotion": true,
+    "sensomics_required_for_tested_context_effects": true
+  },
+  "c5_empirical_boundary": {
+    "actual_instrument_data_found": false,
+    "empirical_status_required": "BLOCKED_PENDING_DATA",
+    "passed": true
+  },
+  "changed_paths": [
+    "docs/superpowers/plans/2026-08-03-build-c8-headspace-oav.md",
+    "docs/superpowers/specs/2026-08-03-build-c8-headspace-oav-design.md",
+    "engine/physics/__init__.py",
+    "engine/physics/headspace_oav.py",
+    "engine/project_verification.py",
+    "tests/test_c3_model_interface.py",
+    "tests/test_c8_headspace_oav.py"
+  ],
+  "forbidden_scope_findings": {
+    "database_paths": [],
+    "legacy_paths": [],
+    "migration_paths": [],
+    "production_caller_paths": [],
+    "scientific_artifact_paths": []
+  },
+  "hashes": {
+    "engine/physics/headspace_oav.py": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "gate-run-metadata.stdout.json": "8676e5cc8935bd377e7aefbc27975d4fe4c6e6e3e45eef237bb5acb04f8379c3",
+    "tests/test_c8_headspace_oav.py": "a7621b2169aa62029ab85a7b6236046970c85e9f1c9fcf43692c61a0d25a45a3"
+  },
+  "head": "511504f1fd3e1c195a909dbab31836398d608dd5",
+  "log_hygiene": {
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "file_count": 114,
+    "invalid_utf8_files": 0
+  },
+  "matrix": {
+    "all_pass": true,
+    "failed_jobs": [],
+    "job_count": 31,
+    "nonempty_stderr_count": 0,
+    "timeout_count": 0
+  },
+  "mutation": {
+    "byte_exact_restoration": true,
+    "failed_harness_attempts_preserved": 3,
+    "implementation_sha256_after": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "implementation_sha256_before": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "mutations_killed": 4,
+    "nonempty_stderr": 0,
+    "passed": true,
+    "restoration_checks_passed": 4,
+    "schema": "build-c8-mutation-evidence-verification-v1",
+    "test_sha256": "a7621b2169aa62029ab85a7b6236046970c85e9f1c9fcf43692c61a0d25a45a3",
+    "timeouts": 0
+  },
+  "permitted_claims": [
+    "PREDICTED_EQUILIBRIUM_HEADSPACE",
+    "PREDICTED_PHYSICAL_RELEASE",
+    "ABOVE_THRESHOLD_SCREENING",
+    "CANDIDATE_ODORANT_PRIORITIZATION",
+    "EXPERIMENT_SELECTION"
+  ],
+  "phase_parent": "cae5b2652e58181a95f4dd1618057041b14d645f",
+  "protected_state": {
+    "before_after_identical": true,
+    "database_quick_checks_ok": true,
+    "passed": true
+  },
+  "public_export_count": 39,
+  "public_exports": [
+    "BoundedQuantity",
+    "C8Claim",
+    "C8ClaimDecision",
+    "C8ClaimStatus",
+    "C8_SENSOMICS_SEQUENCE",
+    "EvidenceReference",
+    "GasConcentrationEvidence",
+    "GasConcentrationOrigin",
+    "GasPhaseContext",
+    "HeadspaceOAVAssessment",
+    "HeadspaceOAVContractError",
+    "InteractionAdjustmentDecision",
+    "InteractionAdjustmentRequest",
+    "InteractionAdjustmentStatus",
+    "InteractionAdjustmentTarget",
+    "InteractionApplicableRange",
+    "InteractionCalibrationState",
+    "InteractionConcentration",
+    "InteractionEvidence",
+    "InteractionEvidenceKind",
+    "InteractionKind",
+    "InteractionNumericalEffect",
+    "OAVAssessmentStatus",
+    "OAVScreeningClass",
+    "OdorThresholdEvidence",
+    "PERMITTED_C8_CLAIMS",
+    "SensomicsAssessment",
+    "SensomicsClaim",
+    "SensomicsProgram",
+    "SensomicsStage",
+    "SensomicsStageRecord",
+    "SensomicsStageStatus",
+    "ThresholdAuthority",
+    "ThresholdKind",
+    "WITHHELD_C8_CLAIMS",
+    "authorize_interaction_adjustment",
+    "calculate_headspace_oav",
+    "evaluate_c8_claim",
+    "evaluate_sensomics_claim"
+  ],
+  "schema": "build-c8-sol-audit-packet-v1",
+  "scope_passed": true,
+  "sensomics_sequence": [
+    "REPRESENTATIVE_SAMPLING_EXTRACTION",
+    "ODOR_ACTIVE_SCREENING",
+    "IDENTITY_CONFIRMATION",
+    "QUANTITATIVE_MEASUREMENT",
+    "CONTEXT_MATCHED_OAV_PRIORITIZATION",
+    "FULL_RECOMBINATION",
+    "OMISSION_ADDITION_EXPERIMENTS",
+    "SENSORY_COMPARISON"
+  ],
+  "test_counts": {
+    "pytest-c0-compat": 24,
+    "pytest-c1-compat": 96,
+    "pytest-c2-compat": 79,
+    "pytest-c3-compat": 105,
+    "pytest-c4-compat": 41,
+    "pytest-c5-compat": 38,
+    "pytest-c6-compat": 53,
+    "pytest-c7-compat": 49,
+    "pytest-c8-dependency": 1,
+    "pytest-c8-focused": 78,
+    "pytest-root-full": 1661
+  },
+  "withheld_claims": [
+    "EXACT_PERCEIVED_INTENSITY",
+    "PERCENT_MIXTURE_CONTRIBUTION",
+    "PLEASANTNESS",
+    "TARGET_SIMILARITY",
+    "FAMILY_IDENTITY",
+    "LONGEVITY",
+    "SILLAGE",
+    "CONSUMER_PREFERENCE"
+  ]
+}

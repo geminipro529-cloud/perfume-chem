@@ -50,6 +50,17 @@ def test_oav_intelligence_contract_and_family_mapping():
         "unmapped_materials",
     }
     assert payload["family_target_alignment"]["materials"]
+    hedione = next(
+        row
+        for row in payload["performance_projection"]["materials"]
+        if row["mapped_material"].casefold() == "hedione"
+    )
+    assert "bangkok_shift" not in hedione
+    assert "paris_vp_pa" not in hedione
+    assert "paris_half_life_min" not in hedione
+    assert hedione["formula_temperature_shift"]["vp_ratio"] > 1.0
+    assert hedione["formula_temperature_shift"]["half_life_projection"] is None
+    assert "not rescaled" in hedione["formula_temperature_shift"]["limitation"]
 
 
 def test_oav_intelligence_surfaces_shift_zone_failures():
@@ -110,6 +121,19 @@ def test_oav_intelligence_maps_historical_archetypes_to_supported_family_targets
             family_archetype=archetype,
         )
         assert result.as_dict()["mapped_family"] == expected
+
+
+def test_oav_intelligence_maps_woody_floral_musk_before_generic_floral():
+    result = _analyze(
+        {
+            "Hedione": 900.0,
+            "Iso E Super": 1500.0,
+            "Ethylene Brassylate": 500.0,
+        },
+        family_archetype="woody_floral_musk.classic",
+    )
+
+    assert result.as_dict()["mapped_family"] == "woody_amber"
 
 
 def test_gate_formula_exposes_oav_intelligence_gate():

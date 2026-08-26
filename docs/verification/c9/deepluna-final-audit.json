@@ -1,0 +1,111 @@
+{
+  "schema": "build-c9-deepluna-final-audit-v1",
+  "status": "PASS",
+  "exact_project": {
+    "workspace": "D:/chatbots/perfume-chem",
+    "project_id": "workspace-712a446e211c45e1b9d1",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9"
+  },
+  "final_job": {
+    "job_id": "DS-303409a64898b0bfb2398a35d6ebbc42",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "route": "FLASH",
+    "provider_profile": "deepinfra-fast",
+    "provider": "deepinfra",
+    "provider_route": "deepinfra-priority",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "maximum_provider_calls": 1,
+    "fallback_policy": "NO_LUNA",
+    "cache_hit": false,
+    "negative_findings": [],
+    "positive_finding_count": 3,
+    "summary": "Build C9 unsupported-science quarantine audit: all packet counts, vocabularies, and authority boundaries are mechanically consistent with the cited source and tests. Every authority boundary has an executable fail-closed guard. The matrix, mutation, archive, and inherited-baseline statements are internally consistent. The clean-commit baseline limitation is truthfully disclosed and preserved as a residual risk. No contradictions or missing mechanical guards were found.",
+    "normalized_packet_limit": "The normalized result exposed no line citations and visibly truncated some list entries. No retry was made because the one-call Fast contract was exhausted; Sol reproduction is mandatory."
+  },
+  "worker_scope": {
+    "read_only": true,
+    "file_modifications": 0,
+    "architecture_decisions_delegated": false,
+    "scientific_interpretation_delegated": false,
+    "security_or_scope_decisions_delegated": false,
+    "final_acceptance_delegated": false
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "log": "docs/verification/c9/logs/final/deepluna-sol-reproduction.stdout.txt",
+    "stderr_bytes": 0,
+    "public_export_count": 33,
+    "aging_process_count": 5,
+    "unsupported_outcome_count": 5,
+    "legacy_surface_count": 19,
+    "matrix_job_count": 36,
+    "root_test_count": 1689,
+    "mutations_killed": 4,
+    "inherited_missing_assigned_test_count": 17,
+    "all_worker_positive_findings_reproduced": true,
+    "worker_negative_finding_count": 0,
+    "sol_final_authority_retained": true
+  },
+  "residual_risks": {
+    "standalone_clean_tree_not_claimed": true,
+    "verified_preserved_authoritative_overlay_required": true,
+    "inherited_missing_assigned_test_count": 17,
+    "actual_instrument_data_found": false,
+    "empirical_promotion_allowed": false
+  },
+  "postflight": {
+    "schema": "build-c9-deepluna-postflight-v1",
+    "readiness": "READY",
+    "reason_codes": [],
+    "exact_project": {
+      "workspace": "D:/chatbots/perfume-chem",
+      "project_id": "workspace-712a446e211c45e1b9d1",
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9"
+    },
+    "capacity": {
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "read_limit": 5,
+      "write_limit": 1
+    },
+    "budget": {
+      "spent_nano_usd_before": 54791748,
+      "spent_nano_usd_after": 58720923,
+      "accepted_audit_delta_nano_usd": 3929175,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0,
+      "project_ceiling_nano_usd": 1000000000,
+      "cumulative_budget_safe": true
+    },
+    "provider": {
+      "profile_id": "deepinfra-fast",
+      "provider": "deepinfra",
+      "route": "deepinfra-priority",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "service_tier": "priority",
+      "cumulative_runs": 8,
+      "cumulative_api_calls": 8,
+      "cumulative_prompt_tokens": 142067,
+      "cumulative_completion_tokens": 5981,
+      "cumulative_total_tokens": 148048
+    },
+    "fallback_usage": {
+      "luna_runs": 0,
+      "glm_runs": 0
+    },
+    "codex_orchestration_enabled": false,
+    "batches": {
+      "running": 0,
+      "queued": 0,
+      "unknown_transmissions": 0
+    }
+  }
+}

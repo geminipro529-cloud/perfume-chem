@@ -1,0 +1,165 @@
+F..                                                                      [100%]
+================================== FAILURES ===================================
+_ test_router_abstains_without_compute_for_noncomputable_states[OUTSIDE_APPLICABILITY_DOMAIN] _
+
+state = <ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN: 'OUTSIDE_APPLICABILITY_DOMAIN'>
+
+    @pytest.mark.parametrize(
+        "state",
+        [
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+        ],
+    )
+    def test_router_abstains_without_compute_for_noncomputable_states(
+        state: ApplicabilityState,
+    ) -> None:
+        adapter = RecordingAdapter(routing_release(), state=state)
+        router = VersionedModelRouter((adapter,))
+        request = versioned_request(requested_model=adapter.release.selector)
+        try:
+>           result = router.predict_equilibrium_headspace(request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c3_model_interface.py:1280:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\model_interface.py:2050: in predict_equilibrium_headspace
+    return self._execute(
+engine\physics\model_interface.py:2039: in _execute
+    return self._computed_result(
+engine\physics\model_interface.py:1997: in _computed_result
+    return VersionedModelResult(
+<string>:18: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'VersionedModelResult' object has no attribute 'content_sha256'") raised in repr()] VersionedModelResult object at 0x20fb133c540>
+
+    def __post_init__(self) -> None:
+        status = _direct_enum(ModelResultStatus, self.status, "status")
+        operation = _direct_enum(ModelOperation, self.operation, "operation")
+        if not isinstance(self.requested_model, ModelSelector):
+            raise ModelInterfaceContractError("requested_model must be a ModelSelector")
+        if not isinstance(self.bound_model, ModelRelease):
+            raise ModelInterfaceContractError("bound_model must be a ModelRelease")
+        if not isinstance(self.request, VersionedModelRequest):
+            raise ModelInterfaceContractError("request must be a VersionedModelRequest")
+        if operation is not self.request.operation:
+            raise ModelInterfaceContractError("result operation must match the request operation")
+        if self.requested_model != self.request.requested_model:
+            raise ModelInterfaceContractError("result requested_model must match the request")
+        if self.output is not None and not isinstance(self.output, ModelOutput):
+            raise ModelInterfaceContractError("output must be a ModelOutput or None")
+        uncertainty_mapping = _uncertainty_mapping(self.uncertainty)
+        if not isinstance(self.applicability, ApplicabilityResult):
+            raise ModelInterfaceContractError("applicability must be an ApplicabilityResult")
+        if self.applicability.request_sha256 != self.request.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability request hash must match the result request"
+            )
+        if self.applicability.domain_sha256 != self.bound_model.applicability_domain.content_sha256:
+            raise ModelInterfaceContractError(
+                "applicability domain hash must match the bound model domain"
+            )
+        missing_inputs = _strings(self.missing_inputs, "missing_inputs")
+        warnings = _strings(self.warnings, "warnings")
+        if missing_inputs != self.applicability.missing_inputs:
+            raise ModelInterfaceContractError(
+                "result missing_inputs must match applicability missing_inputs"
+            )
+        if not set(self.applicability.warnings).issubset(warnings):
+            raise ModelInterfaceContractError("result warnings must include applicability warnings")
+        evidence_class = _direct_enum(
+            ModelEvidenceClass,
+            self.evidence_class,
+            "evidence_class",
+        )
+        if evidence_class is not self.bound_model.evidence_class:
+            raise ModelInterfaceContractError("result evidence_class must match the bound model")
+        may_feed_oav = _boolean(
+            self.may_feed_oav_screening,
+            "may_feed_oav_screening",
+        )
+        if may_feed_oav and not self.bound_model.may_feed_oav_screening:
+            raise ModelInterfaceContractError("result cannot exceed the bound model OAV authority")
+        permitted = _strings(
+            self.permitted_claim_wording,
+            "permitted_claim_wording",
+            require_nonempty=True,
+        )
+        forbidden = _strings(
+            self.forbidden_claim_wording,
+            "forbidden_claim_wording",
+            require_nonempty=True,
+        )
+        if permitted != self.bound_model.permitted_claim_wording:
+            raise ModelInterfaceContractError("permitted claim wording must match the bound model")
+        if forbidden != self.bound_model.forbidden_claim_wording:
+            raise ModelInterfaceContractError("forbidden claim wording must match the bound model")
+        if self.fallback is not None and not isinstance(self.fallback, FallbackDisclosure):
+            raise ModelInterfaceContractError("fallback must be a FallbackDisclosure or None")
+        if self.bound_model.selector == self.requested_model:
+            if self.fallback is not None:
+                raise ModelInterfaceContractError(
+                    "fallback must be absent when the requested model is bound"
+                )
+        else:
+            if self.fallback is None:
+                raise ModelInterfaceContractError(
+                    "a changed bound model requires fallback disclosure"
+                )
+            if self.fallback.requested_model != self.requested_model:
+                raise ModelInterfaceContractError(
+                    "fallback requested model must match the result requested model"
+                )
+            if self.fallback.fallback_model != self.bound_model.selector:
+                raise ModelInterfaceContractError(
+                    "fallback model must match the bound model selector"
+                )
+        noncomputable_states = {
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+        }
+        if status is ModelResultStatus.COMPUTED:
+            if self.output is None:
+                raise ModelInterfaceContractError("a COMPUTED result requires output")
+            if self.applicability.state in noncomputable_states:
+>               raise ModelInterfaceContractError(
+                    f"a COMPUTED result cannot use {self.applicability.state.value}"
+                )
+E               engine.physics.model_interface.ModelInterfaceContractError: a COMPUTED result cannot use OUTSIDE_APPLICABILITY_DOMAIN
+
+engine\physics\model_interface.py:1520: ModelInterfaceContractError
+
+During handling of the above exception, another exception occurred:
+
+state = <ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN: 'OUTSIDE_APPLICABILITY_DOMAIN'>
+
+    @pytest.mark.parametrize(
+        "state",
+        [
+            ApplicabilityState.OUTSIDE_APPLICABILITY_DOMAIN,
+            ApplicabilityState.INSUFFICIENT_INPUT,
+            ApplicabilityState.MODEL_NOT_VALIDATED,
+        ],
+    )
+    def test_router_abstains_without_compute_for_noncomputable_states(
+        state: ApplicabilityState,
+    ) -> None:
+        adapter = RecordingAdapter(routing_release(), state=state)
+        router = VersionedModelRouter((adapter,))
+        request = versioned_request(requested_model=adapter.release.selector)
+        try:
+            result = router.predict_equilibrium_headspace(request)
+        finally:
+            assert adapter.applicability_calls == 1
+>           assert adapter.compute_calls == 0
+E           assert 1 == 0
+E            +  where 1 = <test_c3_model_interface.RecordingAdapter object at 0x0000020FB1224C10>.compute_calls
+
+tests\test_c3_model_interface.py:1283: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c3_model_interface.py::test_router_abstains_without_compute_for_noncomputable_states[OUTSIDE_APPLICABILITY_DOMAIN]
+1 failed, 2 passed in 0.66s

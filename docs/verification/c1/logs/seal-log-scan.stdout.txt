@@ -1,0 +1,308 @@
+{
+  "schema": "c1-seal-log-scan-v1",
+  "files": [
+    {
+      "path": "docs/verification/c1/logs/basedpyright-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/basedpyright-final.stdout.txt",
+      "bytes": 31,
+      "sha256": "ac72803fbd2b9b95abc63446ddcc9ddc17035ea5075634adfe79477f897e75f6",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/basedpyright-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/basedpyright-seal.stdout.txt",
+      "bytes": 30,
+      "sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/deepluna-final-audit.json",
+      "bytes": 3007,
+      "sha256": "b52b5c126297cf45992f162505bf2c04c8af6d48800bc42c641c3295715f16ec",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/log-scan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/log-scan.stdout.txt",
+      "bytes": 3086,
+      "sha256": "c37e465c863b4d8b0e2e8f889bee91bb245f5741133168e341b18a2f896f7f83",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/mypy-backend-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/mypy-backend-final.stdout.txt",
+      "bytes": 43,
+      "sha256": "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/mypy-backend-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/mypy-backend-seal.stdout.txt",
+      "bytes": 43,
+      "sha256": "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/protected-state-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/protected-state-after.stdout.txt",
+      "bytes": 411,
+      "sha256": "50a933c98c4a6806c23578f68821b4d8dbcd03ac671bd9ecd423938a487e4655",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/protected-state-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/protected-state-before.stdout.txt",
+      "bytes": 412,
+      "sha256": "478f00d2900a8269a62ed160442bef6702569c47746f560ed72a0072d02f429e",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-backend-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-backend-final.stdout.txt",
+      "bytes": 102,
+      "sha256": "9123e1c83b47582959dfd0dab181fd4c5797b25c048f1c8cc6b0340f61509f90",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-backend-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-backend-seal.stdout.txt",
+      "bytes": 102,
+      "sha256": "529882fe78704d3a316d57d0b00042f63d44b019e9f3356c5e393ae89535df3f",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-root-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-root-final.stdout.txt",
+      "bytes": 183,
+      "sha256": "4e472c51c7d19099e9a6245a11f3295681121e87d0ed3df71af68d0a3ca8641e",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-root-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/pytest-root-seal.stdout.txt",
+      "bytes": 183,
+      "sha256": "9168cafd3cb0f878ce16d7c1747eba767bec98350e4c692d2fc82f6282bf3078",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/recovery-archive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/recovery-archive.stdout.txt",
+      "bytes": 1028,
+      "sha256": "1e6d3b2f4fe11047bba352d8c1ed8215f8774d4fba9d466c0f3bc17403d610f9",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-backend-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-backend-final.stdout.txt",
+      "bytes": 20,
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-backend-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-backend-seal.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-root-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-root-final.stdout.txt",
+      "bytes": 20,
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-root-seal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/ruff-root-seal.stdout.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/scope-audit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/scope-audit.stdout.txt",
+      "bytes": 3344,
+      "sha256": "55524f5cb772b17b5e8c5d850aabc3585281c4c206b8750b8788f0c6e75d0fe9",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/seal-run-metadata.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    {
+      "path": "docs/verification/c1/logs/seal-run-metadata.stdout.txt",
+      "bytes": 12013,
+      "sha256": "e829ba369ab04545b4204cc7997c088b69f831f1fdcd22553534dd9a5558716d",
+      "utf8_valid": true,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    }
+  ],
+  "totals": {
+    "file_count": 37,
+    "invalid_utf8_files": 0,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0
+  },
+  "matched_values_recorded": false
+}

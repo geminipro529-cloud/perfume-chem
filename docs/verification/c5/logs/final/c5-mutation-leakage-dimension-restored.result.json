@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c5-mutation-result-v1",
+    "name":  "c5-mutation-leakage-dimension-restored",
+    "target":  "tests/test_c5_calibration_program.py::test_split_rejects_each_cross_partition_leakage_dimension",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1128,
+    "started_at_utc":  "2026-08-02T18:18:01.6390541+00:00",
+    "stdout_sha256":  "eca7e3a6bc1d3b6f623fa007ed08e6df1f37574cdde3bc30f2d8277a7cc92830",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

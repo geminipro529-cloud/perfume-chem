@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-a9699d2dbe02d0401b25",
+  "case_id": "RPL-TEM-S01",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6494-a6f8-83ec-aeb5-85788652ac0f",
+  "dispatch_sha256": "f9afe105ef9e8ddd325f009c67ea61e09e171b26093a5ec4cb8305722be55497",
+  "output_text": "{\"decision\":\"OBSERVED_OPENING_TO_HEART_TRANSITION\",\"target_linked_reasoning\":\"DEPTH_INTENSITY decreases from 7–8 at 60 seconds (median 7.5) to 4–5 at 1800 seconds (median 4.5). Every assessor-repeat pair shows a 3-point decline. Within-assessor repeat spreads are 1.0 point at each timepoint, meeting the declared repeatability limit. The complete balanced design supports this descriptive temporal finding for BLIND-A only. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Compare paired 60-second and 1800-second DEPTH_INTENSITY values within each assessor and repeat under the same qualified protocol and balanced schedule; the observed paired change is consistently −3 points.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "f5c90e044ca10f6c6377501de7472a32c7ea4b92fe6cc0b01e2d3286385ce62b",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

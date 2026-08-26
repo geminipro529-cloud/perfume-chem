@@ -9,10 +9,7 @@ Example: juniper_in_non_fougere → aromatic_green_drift
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Callable, Mapping
-
-from engine.name_utils import normalize_name
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True, slots=True)

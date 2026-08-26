@@ -1,0 +1,96 @@
+{
+  "schema_version": "solforge_vertical_slice_cases_v1",
+  "cases": [
+    {
+      "case_id": "ZERO_CITRUS_NO_CHANGE",
+      "target_identity": "austere sweet orris root with deliberate negative space and no citrus",
+      "ideal_architecture": {"heart": ["sweet orris root"], "base": ["dry rhizome"]},
+      "current_inventory_build": {"materials": {"Orris accord": 1.0}},
+      "criterion": "DEPTH",
+      "hypothesis": null,
+      "expected_stage": "DECIDED",
+      "expected_decision": "NO_CHANGE",
+      "expected_arm_ids": [],
+      "expected_blocker_codes": []
+    },
+    {
+      "case_id": "NEROLI_SUPPORT_BRIDGE",
+      "target_identity": "orange blossom heart with a restrained bitter floral transition",
+      "ideal_architecture": {"top": ["bitter floral lift"], "heart": ["orange blossom"]},
+      "current_inventory_build": {"materials": {"Hedione": 0.9, "carrier": 0.1}},
+      "criterion": "DEPTH",
+      "hypothesis": {
+        "hypothesis_id": "NEROLI-SUPPORT",
+        "claim": "Test Neroli EO 10% as a support bridge.",
+        "target_function": "support bridge",
+        "material_names": ["Neroli EO 10%"],
+        "intervention_kind": "ADDITION",
+        "expected_behavior": "test floral-citrus continuity at the heart transition",
+        "rationale": "target-functional support isolate",
+        "nary_factors": []
+      },
+      "expected_stage": "DECIDED",
+      "expected_decision": "TEST_NEXT",
+      "expected_arm_ids": ["CONTROL", "NEROLI_SUPPORT"],
+      "expected_blocker_codes": []
+    },
+    {
+      "case_id": "ONE_PRECISE_MUSK",
+      "target_identity": "quiet mineral skin with one dry radiant musk plane",
+      "ideal_architecture": {"base": ["dry radiant musk"], "space": ["mineral air"]},
+      "current_inventory_build": {"materials": {"Iso E Super": 0.9, "carrier": 0.1}},
+      "criterion": "DEPTH",
+      "hypothesis": {
+        "hypothesis_id": "ONE-HABANOLIDE",
+        "claim": "Test one precise Habanolide function.",
+        "target_function": "dry radiant musk",
+        "material_names": ["Habanolide"],
+        "intervention_kind": "ADDITION",
+        "expected_behavior": "test one spatial dry-musk transition",
+        "rationale": "one material owns the declared target function",
+        "nary_factors": []
+      },
+      "expected_stage": "DECIDED",
+      "expected_decision": "TEST_NEXT",
+      "expected_arm_ids": ["CONTROL", "ONE_HABANOLIDE"],
+      "expected_blocker_codes": []
+    },
+    {
+      "case_id": "HABANOLIDE_ROMANDOLIDE_FACTORIAL",
+      "target_identity": "mineral skin architecture testing dry radiance against soft texture",
+      "ideal_architecture": {"base": ["dry radiance", "soft skin texture"]},
+      "current_inventory_build": {"materials": {"Iso E Super": 0.9, "carrier": 0.1}},
+      "criterion": "DEPTH",
+      "hypothesis": {
+        "hypothesis_id": "HAB-ROM-FACTORIAL",
+        "claim": "Test a complete two-factor musk interaction design.",
+        "target_function": "radiance|texture",
+        "material_names": ["Habanolide", "Romandolide"],
+        "intervention_kind": "NARY_DESIGN",
+        "expected_behavior": "test whether the two distinct functions interact",
+        "rationale": "Habanolide supplies radiance; Romandolide supplies texture",
+        "nary_factors": ["Habanolide", "Romandolide"]
+      },
+      "expected_stage": "DECIDED",
+      "expected_decision": "TEST_NEXT",
+      "expected_arm_ids": ["CONTROL", "HABANOLIDE", "ROMANDOLIDE", "HABANOLIDE_X_ROMANDOLIDE"],
+      "expected_blocker_codes": []
+    }
+  ],
+  "inventory_rows": [
+    ["Neroli EO 10%", "HAVE — DILUTION", "Neroli EO 10% in DPG"],
+    ["Habanolide", "HAVE — NEAT", "Habanolide neat/as supplied"],
+    ["Romandolide", "HAVE — NEAT", "Romandolide neat/as supplied"],
+    ["Ambrettolide 10%", "PLANNED ACQUISITION", null],
+    ["Ethylene Brassylate", "MISSING", null]
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

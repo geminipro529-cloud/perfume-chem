@@ -14,7 +14,6 @@ from engine.ingredient_intelligence import find_similar, get_profile
 from engine.inventory_parser import parse_inventory
 from engine.material_identity import resolve_material_identity
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_PATH = PROJECT_ROOT / "data" / "knowledge_graph" / "ingredient_catalog.json"
 SHOPPING_LIST_PATH = PROJECT_ROOT / "shopping_list.md"

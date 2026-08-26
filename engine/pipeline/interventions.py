@@ -13,7 +13,6 @@ from engine.formula_recommendations import generate_intervention_recommendations
 from engine.intervention_context import InterventionContext
 from engine.optimizer.models import FormulaVector
 
-
 SEVERITY_RANK = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3, "INFO": 4}
 
 

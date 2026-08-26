@@ -1,0 +1,97 @@
+F........                                                                [100%]
+================================== FAILURES ===================================
+_ test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas0-threshold0-ABOVE_THRESHOLD_SCREENING-outside model domain] _
+
+gas = GasConcentrationEvidence(evidence_id='gas-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=10.0, unit='ppb...bbbbbbb', within_model_domain=False, content_sha256='cd3a41cfcf0259c89c205092134e0ec69cbf1092afcf3d89552867bd7588b9f7')
+threshold = OdorThresholdEvidence(threshold_id='threshold-1', analyte_id='cas:78-70-6', quantity=BoundedQuantity(value=2.0, unit='...9e66f47973219203cceb54e16cb27cc5c'), content_sha256='ac3c4871edb4be54ba3aab1586283aa7e3b8d9e59cb202b58bf703717e748528')
+claim = <C8Claim.ABOVE_THRESHOLD_SCREENING: 'ABOVE_THRESHOLD_SCREENING'>
+reason_fragment = 'outside model domain'
+
+    @pytest.mark.parametrize(
+        ("gas", "threshold", "claim", "reason_fragment"),
+        [
+            (
+                gas_evidence(origin=GasConcentrationOrigin.PREDICTED, within_model_domain=False),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "outside model domain",
+            ),
+            (
+                gas_evidence(analyte_id="cas:other"),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "analyte",
+            ),
+            (
+                gas_evidence(gas_context=context(matrix_id="matrix-other")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "context",
+            ),
+            (
+                gas_evidence(gas_quantity=quantity(unit="ug_m3")),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "unit",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(authority=ThresholdAuthority.PROXY),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "authority",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(kind=ThresholdKind.RECOGNITION),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "detection threshold",
+            ),
+            (
+                gas_evidence(
+                    gas_quantity=quantity(
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                threshold_evidence(),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(
+                    threshold_quantity=quantity(
+                        value=2.0,
+                        lower_bound=None,
+                        upper_bound=None,
+                        uncertainty_basis="UNKNOWN",
+                    )
+                ),
+                C8Claim.ABOVE_THRESHOLD_SCREENING,
+                "uncertainty",
+            ),
+            (
+                gas_evidence(),
+                threshold_evidence(),
+                C8Claim.EXACT_PERCEIVED_INTENSITY,
+                "claim",
+            ),
+        ],
+    )
+    def test_headspace_oav_abstains_answerlessly_on_every_failed_precondition(
+        gas: GasConcentrationEvidence,
+        threshold: OdorThresholdEvidence,
+        claim: C8Claim,
+        reason_fragment: str,
+    ) -> None:
+        result = calculate_headspace_oav(gas, threshold, claim=claim)
+>       assert result.status is OAVAssessmentStatus.ABSTAINED
+E       AssertionError: assert <OAVAssessmentStatus.COMPUTED: 'COMPUTED'> is <OAVAssessmentStatus.ABSTAINED: 'ABSTAINED'>
+E        +  where <OAVAssessmentStatus.COMPUTED: 'COMPUTED'> = HeadspaceOAVAssessment(status=<OAVAssessmentStatus.COMPUTED: 'COMPUTED'>, claim=<C8Claim.ABOVE_THRESHOLD_SCREENING: 'A..., 'It is not consumer preference.'), content_sha256='188e543dfd8bb8109045d2decfbfbb43d2b54e2bca882adef92a52a8dd824aab').status
+E        +  and   <OAVAssessmentStatus.ABSTAINED: 'ABSTAINED'> = OAVAssessmentStatus.ABSTAINED
+
+tests\test_c8_headspace_oav.py:708: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c8_headspace_oav.py::test_headspace_oav_abstains_answerlessly_on_every_failed_precondition[gas0-threshold0-ABOVE_THRESHOLD_SCREENING-outside model domain]
+1 failed, 8 passed in 0.58s

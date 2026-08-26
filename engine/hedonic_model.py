@@ -28,9 +28,8 @@ Sources:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import math
-
+from dataclasses import dataclass
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Hedonic Valence Data
@@ -101,8 +100,6 @@ HEDONIC_VALENCE: dict[str, float] = {
     "Methyl Pamplemousse":    0.68,
     "Neroli EO":              0.80,
     "Petitgrain EO":          0.72,
-    # ── Neutral / context-dependent ──
-    "Iso E Super":            0.55,
     "Aldehyde C10":           0.40,  # pleasant in context, raw = waxy
     "Aldehyde C11":           0.38,
     "Aldehyde C11 Undecylenic": 0.35,

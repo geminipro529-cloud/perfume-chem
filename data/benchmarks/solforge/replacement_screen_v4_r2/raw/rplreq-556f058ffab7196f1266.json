@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:21:50.870732+00:00",
+  "dispatch_sha256": "c7373519786341b6db28766301ae991c17256abb918bcbf92c286010316e494c",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "9f33648962e628dded5765abf424f76c5e3be4a6b48bcfeec981c0bb7217541b",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Replacing 2.0 parts of the citrus support block with 2.0 parts Neroli 10% keeps the formula at 100.0 parts but promotes an orange-blossom identity that conflicts with the bitter lemon-peel and green-tea target. No blinded evidence supports this inversion, and Neroli 10% availability requires execution-time verification.\",\"controlled_comparison\":\"Blindly compare the 100.0-part baseline (8.0 parts citrus support) against the 100.0-part candidate (6.0 parts citrus support plus 2.0 parts Neroli 10%), judging preservation of bitter lemon-peel/green-tea identity and whether orange blossom becomes central.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"calculations\":{\"candidate_total_parts\":100.0},\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_IDENTITY_CONFLICT\",\"NO_BLINDED_SUPPORT\",\"INVENTORY_VERIFICATION_REQUIRED\"],\"next_actions\":[\"Run the specified blinded baseline-versus-candidate comparison after verifying Neroli 10% at execution.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "027909e2d3cc5e8e2bddc380ed70ffcd08c873979e12ad23e3806447e81ad65f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-556f058ffab7196f1266",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.839997+00:00",
+  "stderr_sha256": "4df295b91baa39de22e59bc6477c76ca401cd47e39d4cab3eeefd9f52d6ec864",
+  "stderr_tail": "ory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Replacing 2.0 parts of the citrus support block with 2.0 parts Neroli 10% keeps the formula at 100.0 parts but promotes an orange-blossom identity that conflicts with the bitter lemon-peel and green-tea target. No blinded evidence supports this inversion, and Neroli 10% availability requires execution-time verification.\",\"controlled_comparison\":\"Blindly compare the 100.0-part baseline (8.0 parts citrus support) against the 100.0-part candidate (6.0 parts citrus support plus 2.0 parts Neroli 10%), judging preservation of bitter lemon-peel/green-tea identity and whether orange blossom becomes central.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"calculations\":{\"candidate_total_parts\":100.0},\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_IDENTITY_CONFLICT\",\"NO_BLINDED_SUPPORT\",\"INVENTORY_VERIFICATION_REQUIRED\"],\"next_actions\":[\"Run the specified blinded baseline-versus-candidate comparison after verifying Neroli 10% at execution.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n5,379\n",
+  "stdout_sha256": "778db92e1106007a121f20290b65bad226f5fd687ebeef68faa24ef08e8e7fb5"
+}

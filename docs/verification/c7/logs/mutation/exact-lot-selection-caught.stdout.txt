@@ -1,0 +1,57 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_selection_requires_exact_lot_supplier_and_proxy_scope_matches ______
+
+    def test_selection_requires_exact_lot_supplier_and_proxy_scope_matches() -> None:
+        wrong_lot = profile(
+            profile_id="profile-wrong-lot",
+            authority=CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE,
+            observations=(area_observation(source_lot_id="other"),),
+            unresolved=present_unresolved(
+                unresolved_observation(source_lot_id="other"),
+            ),
+            lot_id="other",
+            source_documents=(source_document(document_id="doc-wrong-lot", subject_lot_id="other"),),
+        )
+        wrong_batch = profile(
+            profile_id="profile-wrong-batch",
+            authority=CompositionAuthority.SUPPLIER_BATCH_SPECIFIC,
+            observations=(
+                constituent(
+                    source_lot_id="batch-99",
+                    origin=ObservationOrigin.SUPPLIER_BATCH_REPORTED,
+                    analytical_run_id=None,
+                ),
+            ),
+            unresolved=UnresolvedFractionDisclosure(
+                state=UnresolvedDisclosureState.NOT_REPORTED,
+                observations=(),
+                review_method_id=None,
+                source_ids=("supplier:example",),
+                limitations=("supplier document did not disclose unknown fraction",),
+            ),
+            lot_id=None,
+            supplier_lot="batch-99",
+            source_documents=(
+                source_document(document_id="doc-wrong-batch", subject_lot_id="batch-99"),
+            ),
+        )
+        wrong_species = replace(
+            specific_literature_profile(),
+            botanical_species="Lavandula latifolia",
+        )
+        selected = select_natural_composition(
+            request(),
+            (wrong_lot, wrong_batch, wrong_species, generic_profile()),
+        )
+>       assert selected.selected_authority is CompositionAuthority.GENERIC_MATERIAL_PROXY
+E       AssertionError: assert <CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE: 'EXACT_LOT_RELATIVE_PROFILE'> is <CompositionAuthority.GENERIC_MATERIAL_PROXY: 'GENERIC_MATERIAL_PROXY'>
+E        +  where <CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE: 'EXACT_LOT_RELATIVE_PROFILE'> = NaturalCompositionSelection(request_sha256='edae0fff51afecbbc3dfbbed255025b114c4265defcbd853c80dcb0a6cc931ce', status=...no numerical coverage is implied.'), content_sha256='3afa162d1ee728256cd50dd6824b55cb03b44506acbcedc01e42e3c61912928a').selected_authority
+E        +  and   <CompositionAuthority.GENERIC_MATERIAL_PROXY: 'GENERIC_MATERIAL_PROXY'> = CompositionAuthority.GENERIC_MATERIAL_PROXY
+
+tests\test_c7_natural_lots.py:958: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c7_natural_lots.py::test_selection_requires_exact_lot_supplier_and_proxy_scope_matches - AssertionError: assert <CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE: 'EXACT_LOT_RELATIVE_PROFILE'> is <CompositionAuthority.GENERIC_MATERIAL_PROXY: 'GENERIC_MATERIAL_PROXY'>
+ +  where <CompositionAuthority.EXACT_LOT_RELATIVE_PROFILE: 'EXACT_LOT_RELATIVE_PROFILE'> = NaturalCompositionSelection(request_sha256='edae0fff51afecbbc3dfbbed255025b114c4265defcbd853c80dcb0a6cc931ce', status=...no numerical coverage is implied.'), content_sha256='3afa162d1ee728256cd50dd6824b55cb03b44506acbcedc01e42e3c61912928a').selected_authority
+ +  and   <CompositionAuthority.GENERIC_MATERIAL_PROXY: 'GENERIC_MATERIAL_PROXY'> = CompositionAuthority.GENERIC_MATERIAL_PROXY
+1 failed in 0.68s

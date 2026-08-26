@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "sensory-label-restored",
+    "target":  "tests/test_c6_dynamic_release.py::test_process_layers_and_output_labels_are_closed_and_separate",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1468,
+    "started_at_utc":  "2026-08-02T19:32:06.9615280+00:00",
+    "stdout_sha256":  "76ad25bb0c6892d58334160d4e79d70c2c1c4841fa039be300479d3dedd5912e",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

@@ -1,0 +1,69 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+________________ test_engine_shards_cover_every_test_file_once ________________
+
+    def test_engine_shards_cover_every_test_file_once():
+        shards = engine_test_shards(PROJECT_ROOT)
+        assigned = [path for paths in shards.values() for path in paths]
+        discovered = sorted(
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in (PROJECT_ROOT / "tests").glob("test_*.py")
+        )
+    
+>       assert sorted(assigned) == discovered
+E       AssertionError: assert ['tests/test_...bind.py', ...] == ['tests/test_...tion.py', ...]
+E         
+E         At index 2 diff: 'tests/test_accord_graph.py' != 'tests/test_analytical_ledger.py'
+E         Left contains 17 more items, first extra item: 'tests/test_release_scoring_contract.py'
+E         Use -v to get more diff
+
+tests\test_project_verification.py:69: AssertionError
+_____ test_material_panel_matches_inventory_snapshot_and_required_domains _____
+
+    def test_material_panel_matches_inventory_snapshot_and_required_domains() -> None:
+        program = _program()
+        inventory_path = ROOT / "inventory.txt"
+>       assert hashlib.sha256(inventory_path.read_bytes()).hexdigest() == C5_INVENTORY_SHA256
+E       AssertionError: assert '44b5df5eb41d...5b6274ff1bcf3' == '9d778721db1f...501be70fe0eb8'
+E         
+E         - 9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8
+E         + 44b5df5eb41d1aa5c3a05da2d47653bc3983097a28dfbd3b38c5b6274ff1bcf3
+
+tests\test_c5_calibration_program.py:362: AssertionError
+______ test_inventory_covers_every_c0_category_and_only_allowed_classes _______
+
+    def test_inventory_covers_every_c0_category_and_only_allowed_classes() -> None:
+        inventory = load_inventory(INVENTORY_PATH)
+        errors = validate_inventory(inventory, root=ROOT, adr_path=ADR_PATH)
+>       assert errors == []
+E       AssertionError: assert ['C0-PM-001: ...tion.py', ...] == []
+E         
+E         Left contains 83 more items, first extra item: 'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: expected 76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual 36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb'
+E         Use -v to get more diff
+
+tests\test_c0_physical_model_inventory.py:44: AssertionError
+_____________________ test_legacy_fixture_lock_and_replay _____________________
+
+    def test_legacy_fixture_lock_and_replay() -> None:
+        inventory = load_inventory(INVENTORY_PATH)
+        fixtures = load_legacy_fixtures(FIXTURE_PATH)
+        errors = validate_legacy_fixtures(
+            fixtures,
+            inventory,
+            root=ROOT,
+            fixture_path=FIXTURE_PATH,
+            fixture_sha_path=FIXTURE_SHA_PATH,
+        )
+>       assert errors == []
+E       AssertionError: assert ['C0-LH-001: ...vity.py', ...] == []
+E         
+E         Left contains 19 more items, first extra item: 'C0-LH-001: stale source hash for engine/pipeline/formula_state.py'
+E         Use -v to get more diff
+
+tests\test_c0_physical_model_inventory.py:196: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once
+FAILED tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains
+FAILED tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes
+FAILED tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay
+4 failed in 3.28s

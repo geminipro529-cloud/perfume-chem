@@ -35,6 +35,7 @@ def _registry():
         return None
 
 
+@lru_cache(maxsize=4096)
 def resolve_material(name: str) -> ResolvedMaterial:
     """Resolve one label without manufacturing fallback material identity."""
     requested = str(name or "").strip()
@@ -56,6 +57,12 @@ def resolve_material(name: str) -> ResolvedMaterial:
         registry_material=reg_mat,
         is_known=bool(profile or reg_mat),
     )
+
+
+def clear_material_resolver_cache() -> None:
+    """Invalidate registry-backed resolution after an in-process data edit."""
+    resolve_material.cache_clear()
+    _registry.cache_clear()
 
 
 def unknown_materials(names: Iterable[str]) -> list[str]:

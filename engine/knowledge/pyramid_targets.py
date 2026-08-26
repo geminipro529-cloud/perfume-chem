@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from engine.knowledge.perfume_taxonomy import ConcentrationBracket, PerfumeFamily
+from engine.knowledge.perfume_taxonomy import ConcentrationBracket
 
 
 @dataclass(frozen=True, slots=True)

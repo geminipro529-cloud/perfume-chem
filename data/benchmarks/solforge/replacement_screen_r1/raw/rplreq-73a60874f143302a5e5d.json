@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-73a60874f143302a5e5d",
+  "case_id": "RPL-TEM-S02",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e64f9-8e80-83ec-a19e-2362c6995bd2",
+  "dispatch_sha256": "d6fa5a32a99ab2e6e8f903a4d826ed90db375c6fb251092cfbc23af499b93ece",
+  "output_text": "{\"decision\":\"DIAGNOSTIC: preserve the missing repeat-timepoint cell and report only observed temporal summaries.\",\"target_linked_reasoning\":\"The qualified protocol permits analysis of recorded cells, but the absent source observation cannot be reconstructed from neighboring timepoints because interpolation was not authorized. Any transition crossing that cell and any complete-grid repeatability claim remain unresolved. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Under the same qualified protocol, repeat the affected assessor/sample schedule to obtain the missing timepoint prospectively, then compare complete matched repeats without backfilling the original cell.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "646dd4983235f4c40a2ef0cf29df640f39becd4cba1b93aeddf46c6f492d6c00",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

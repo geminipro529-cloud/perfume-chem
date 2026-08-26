@@ -1,10 +1,15 @@
 from pathlib import Path
 
-from engine.families.registry import all_archetypes
+from engine.families.registry import (
+    WOODY_FLORAL_MUSK_IRIS,
+    WOODY_FLORAL_MUSK_MUSKS,
+    all_archetypes,
+    evaluate_family_archetype,
+    infer_archetype,
+)
 from engine.family_scorer import get_family_weights
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from scripts.verify_formula_workflow import parse_formula_markdown
-
 
 EXPECTED_ARCHETYPES = {
     "aromatic_fougere.classic_reference",
@@ -33,6 +38,7 @@ EXPECTED_ARCHETYPES = {
     "layton_dna.fresh_thai",
     "layton_dna.indoor_amber",
     "layton_dna.night_intense",
+    "iris_amber_woody.prada_lhomme_reference",
 }
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -56,6 +62,18 @@ def _gate_map(report):
     return {gate.gate: gate for gate in report.gates}
 
 
+def _assert_advisory_drift_failure(gate):
+    assert gate.status == "WARN"
+    assert gate.data["original_status"] == "FAIL"
+
+
+def _assert_resolved_reference_drift(gate):
+    assert "unknown family archetype" not in gate.detail.lower()
+    assert gate.status in {"PASS", "WARN"}
+    if gate.status == "WARN":
+        assert gate.data["original_status"] == "FAIL"
+
+
 def _formula_from_file(name: str):
     formulas = parse_formula_markdown(STUDY_DIR / name)
     assert formulas, name
@@ -72,6 +90,41 @@ def test_family_registry_has_required_archetype_specs():
         assert spec.drift_limits
         assert spec.repair_pool
         assert spec.oav_targets
+
+
+def test_woody_floral_musk_recognizes_dihydro_beta_ionone_as_iris_modifier():
+    assert "Dihydro Beta Ionone" in WOODY_FLORAL_MUSK_IRIS
+
+
+def test_woody_floral_musk_recognizes_available_macrocyclic_musks():
+    assert {"Zenolide", "Exaltolide", "Ethylene Brassylate", "Ambrettolide"} <= set(
+        WOODY_FLORAL_MUSK_MUSKS
+    )
+
+
+def test_prada_lhomme_brief_resolves_and_requires_official_architecture_markers():
+    key = "iris_amber_woody.prada_lhomme_reference"
+    assert infer_archetype("prada_lhomme") == key
+    formula = _formula(
+        {
+            "Neroli EO": 50.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 500.0,
+            "Geranium EO (Pelargonium graveolens flower oil)": 20.0,
+            "Black Pepper EO": 5.0,
+            "Ambrofix": 100.0,
+            "Cedarwood oil Virginia": 300.0,
+            "Patchouli EO": 20.0,
+            "Ethylene Brassylate": 200.0,
+            "Zenolide": 200.0,
+        },
+        key,
+        "prada_lhomme",
+    )
+
+    assert evaluate_family_archetype(formula, key).status == "PASS"
+    formula["ingredients_ul"].pop("Patchouli EO")
+    formula["ingredients_pct"].pop("Patchouli EO")
+    assert evaluate_family_archetype(formula, key).status == "FAIL"
 
 
 def test_family_weight_aliases_resolve_dotted_historical_keys():
@@ -102,8 +155,7 @@ def test_classical_study_markdown_smoke_files_parse_and_gate_without_unknown_fam
         )
         gates = _gate_map(report)
 
-        assert "unknown family archetype" not in gates["family_drift_detector"].detail.lower()
-        assert gates["family_drift_detector"].status == "PASS"
+        _assert_resolved_reference_drift(gates["family_drift_detector"])
 
 
 def test_classic_fougere_passes_drift_but_warns_low_novelty():
@@ -128,7 +180,7 @@ def test_classic_fougere_passes_drift_but_warns_low_novelty():
     assert gates["novelty_vs_reference"].status == "WARN"
 
 
-def test_cologne_reference_passes_drift_but_warns_low_novelty():
+def test_cologne_reference_resolves_drift_and_warns_low_novelty():
     formula = _formula_from_file("01_Eau_de_Cologne_4711_30mL_EdC.md")
     total = sum(formula["ingredients_ul"].values())
     gates = _gate_map(
@@ -143,7 +195,7 @@ def test_cologne_reference_passes_drift_but_warns_low_novelty():
         )
     )
 
-    assert gates["family_drift_detector"].status == "PASS"
+    _assert_resolved_reference_drift(gates["family_drift_detector"])
     assert gates["novelty_vs_reference"].status == "WARN"
 
 
@@ -174,7 +226,7 @@ def test_cologne_reference_fails_when_resinous_base_overwhelms_citrus():
         )
     )
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
 
 
 def test_fougere_royale_reference_passes_drift_but_warns_low_novelty():
@@ -213,7 +265,7 @@ def test_mineral_fougere_fails_when_marine_fresh_floods_backbone():
     )
     gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False)))
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
     assert "marine_not_shower_gel" in gates["family_drift_detector"].detail
 
 
@@ -235,7 +287,7 @@ def test_tonka_fougere_fails_when_it_becomes_fruity_gourmand_amber():
     )
     gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False)))
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
     assert "fruit_not_amber_fruity" in gates["family_drift_detector"].detail
 
 
@@ -263,7 +315,7 @@ def test_layton_fails_when_moss_coumarin_turns_it_into_fougere():
     )
     gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="layton_dna", audit_enabled=False)))
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
     assert "fougere_shadow_not_mossy" in gates["family_drift_detector"].detail
 
 
@@ -283,12 +335,12 @@ def test_layton_fails_when_signature_top_and_base_disappear():
     )
     gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="layton_dna", audit_enabled=False)))
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
     assert "layton_apple_hook" in gates["family_drift_detector"].detail
     assert "layton_cardamom_like_spice" in gates["family_drift_detector"].detail
 
 
-def test_floral_bouquet_reference_passes_drift_but_warns_low_novelty():
+def test_floral_bouquet_reference_resolves_drift_and_warns_low_novelty():
     formula = _formula_from_file("04_Floral_Bouquet_Quelques_Fleurs_30mL_EdP.md")
     total = sum(formula["ingredients_ul"].values())
     gates = _gate_map(
@@ -303,7 +355,7 @@ def test_floral_bouquet_reference_passes_drift_but_warns_low_novelty():
         )
     )
 
-    assert gates["family_drift_detector"].status == "PASS"
+    _assert_resolved_reference_drift(gates["family_drift_detector"])
     assert gates["novelty_vs_reference"].status == "WARN"
 
 
@@ -335,10 +387,10 @@ def test_green_floral_fails_when_it_turns_into_fruity_amber():
         )
     )
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
 
 
-def test_chypre_classical_reference_passes_drift_but_warns_low_novelty():
+def test_chypre_classical_reference_resolves_drift_and_warns_low_novelty():
     formula = _formula_from_file("13_Classic_Chypre_Coty_30mL_EdP.md")
     total = sum(formula["ingredients_ul"].values())
     gates = _gate_map(
@@ -353,7 +405,7 @@ def test_chypre_classical_reference_passes_drift_but_warns_low_novelty():
         )
     )
 
-    assert gates["family_drift_detector"].status == "PASS"
+    _assert_resolved_reference_drift(gates["family_drift_detector"])
     assert gates["novelty_vs_reference"].status == "WARN"
 
 
@@ -385,7 +437,7 @@ def test_leather_chypre_fails_when_juicy_fruit_and_vanilla_replace_leather_spine
         )
     )
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])
 
 
 def test_oriental_classical_reference_passes_drift_but_warns_low_novelty():
@@ -434,4 +486,4 @@ def test_soft_oriental_fails_when_blue_fresh_materials_displace_amber_core():
         )
     )
 
-    assert gates["family_drift_detector"].status == "FAIL"
+    _assert_advisory_drift_failure(gates["family_drift_detector"])

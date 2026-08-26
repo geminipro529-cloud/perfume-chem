@@ -1,0 +1,60 @@
+{
+  "schema": "build-c9-authoritative-overlay-replay-v1",
+  "status": "PASS",
+  "implementation_head": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+  "evidence_commit": "15ef82838059c67768c06e896ed4432c597c212f",
+  "replay_mode": "EXACT_COMMIT_PLUS_VERIFIED_PRESERVED_AUTHORITATIVE_OVERLAY",
+  "standalone_clean_tree_claimed": false,
+  "attempts": {
+    "count": 2,
+    "passing_attempt": 2,
+    "attempt_1": {
+      "status": "HARNESS_CONFIGURATION_FAILURE",
+      "repository_behavior_failure": false,
+      "failed_job": "evidence-validation",
+      "reason": "The generic validator defaulted to the implementation head because the replay harness does not forward validator arguments.",
+      "metadata_path": "docs/verification/c9/postcommit/replay-attempt-1-validator-argument/replay-metadata.stdout.json",
+      "metadata_sha256": "86c8c45d6ebf9045abc068319a04c4252921b415960662a51402db60c31380c6"
+    },
+    "attempt_2": {
+      "status": "PASS",
+      "job_count": 37,
+      "failed_job_count": 0,
+      "timeout_count": 0,
+      "stderr_bytes": 0,
+      "metadata_path": "docs/verification/c9/postcommit/replay/replay-metadata.stdout.json",
+      "metadata_sha256": "7cc2b3e721c9ec0aca43d7dbf2e8b613600bc3f20420c3185d5f469b91babe43"
+    }
+  },
+  "test_counts": {
+    "pytest-c9-focused": 28,
+    "pytest-pipeline-chemistry": 3,
+    "pytest-c8-compat": 78,
+    "pytest-c7-compat": 49,
+    "pytest-c6-compat": 53,
+    "pytest-c5-compat": 38,
+    "pytest-c4-compat": 41,
+    "pytest-c3-compat": 105,
+    "pytest-c2-compat": 79,
+    "pytest-c1-compat": 96,
+    "pytest-c0-compat": 24,
+    "pytest-root-full": 1689,
+    "pytest-c9-dependency": 1,
+    "archive-verifier-contract-tests": 4
+  },
+  "committed_evidence_validation": "PASS",
+  "evidence_commit_scope_validation": "PASS",
+  "archive_verification": "PASS",
+  "protected_state_verification": "PASS",
+  "log_hygiene": {
+    "manifest_path": "docs/verification/c9/postcommit/replay-manifest.json",
+    "manifest_sha256": "857ae4ca76266782d61235a8959a8a1a176c0e412c55674530ebc47b7235a424",
+    "covered_file_count": 152,
+    "invalid_utf8_files": 0,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0
+  },
+  "inherited_clean_baseline_limitation_retained": true,
+  "empirical_promotion_allowed": false,
+  "c10_open": true
+}

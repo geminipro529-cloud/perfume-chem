@@ -1,0 +1,62 @@
+{
+  "schema_version": "solforge_candidate_status_v1",
+  "program_id": "SOLFORGE-ABCD-20260825",
+  "recorded_at": "2026-08-25T21:05:09.0187965+07:00",
+  "runtime_state": "RETIRED_BENCHMARK_UNDERPERFORMER_REBUILD_REQUIRED",
+  "runtime_reachable": false,
+  "modules": [
+    "architectural-delta-engine",
+    "temporal-sensory-ledger",
+    "hedonic-preference-learner"
+  ],
+  "implemented_controls": [
+    "Adverse sensory incidents trigger a fail-closed protocol HOLD.",
+    "Declared within-assessor repeatability thresholds are audited before temporal evidence can complete.",
+    "Live benchmark manifests execute SCREEN before CONFIRM.",
+    "Every external request freezes and hashes the exact dispatch text submitted to the model.",
+    "Paired score differences below one point are nondirectional ties in screening and confirmation.",
+    "Any judged critical error requires a zero rubric score and blocks promotion.",
+    "Confirmation recomputes each PROCEED decision from the actual hash-verified screen receipt.",
+    "Rollback makes a candidate runtime-unreachable, preserves source and evidence bytes, and requires post-restore verification."
+  ],
+  "prior_run_tombstone": {
+    "status_path": "data/governance/complexity_replacement_candidate_status_20260824.json",
+    "status_sha256": "66ac0c4dd83485de2e00a06fe508f6f53f43ab8e8ee5e062e5668ca879d51aee",
+    "run_id": "RPL-XHIGH-20260824-v3-formal-01",
+    "completed_outputs": 3,
+    "state": "SUPERSEDED_PARTIAL_UNSCORED"
+  },
+  "next_benchmark": {
+    "schema": "complexity_replacement_benchmark_manifest_v5_blinded",
+    "phase": "SCREEN",
+    "planned_outputs": 27,
+    "completed_outputs": 27,
+    "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
+    "status_sha256": "f21be482071de226bb3f9f279e3c08b4c7cfdc33e5aac8b70bbe9611cce6e50b",
+    "screen_receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+    "screen_result_sha256": "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a",
+    "admission_decision": "ALL_STOP_REBUILD_REQUIRED",
+    "old_frozen_requests_resumed": false
+  },
+  "source_hashes": {
+    "engine/sensory/ledger.py": "f1d9078b7907a75b4aca0242da7228508952fb0b4cae17cd93977961f0b5da3c",
+    "engine/perception/complexity_replacement_benchmark.py": "0723489dcfdd1edb33683e875b87477072c2f169b278d8ddd858102fcb9d88e5",
+    "engine/perception/complexity_module_retest.py": "a0a300bd81797f0c77db12f91735ad4a7dbf5e032505fa0b9d210203ecab6cb5",
+    "configs/complexity/complexity_module_registry_v2.json": "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500",
+    "tests/fixtures/complexity_replacement_retest_cases_v3.json": "16fb9fa5694ea545b36fff0460631becc4e6bef4b2e5f3bd8b1f8dd9babdaed3",
+    "configs/complexity/complexity_replacement_benchmark_rubric_v1.json": "2a91fe926f7316d1f5ec2d07b41e0a4829932a343fc978d5de3da88c39905bc9",
+    "docs/SOLFORGE_ABCD_PROGRAM.md": "557f385be2663d2a1547e182394cf3572443c0639775c50b182328fc09f010de"
+  },
+  "authority": {
+    "runtime_admission": false,
+    "formula_change": false,
+    "inventory_change": false,
+    "compounding": false,
+    "sensory_claim": false,
+    "hedonic_claim": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

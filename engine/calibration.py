@@ -16,12 +16,11 @@ Workflow:
 
 import json
 import sqlite3
-import math
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
-from engine.optimizer.models import DB_PATH
 
+from engine.optimizer.models import DB_PATH
 
 # Axis mapping: scoring axis → outcome column name
 AXIS_TO_RATING = {

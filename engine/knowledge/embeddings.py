@@ -11,10 +11,7 @@ Usage:
 """
 
 import json
-import os
-import re
 from pathlib import Path
-from typing import Optional
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "embeddings"

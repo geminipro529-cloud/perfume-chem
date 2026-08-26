@@ -7,18 +7,21 @@ subsequent OAV/gate analysis.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
+from math import isclose, isfinite
 from typing import Any, Mapping
 
-from engine.inventory_parser import parse_inventory
+from engine.calibration.hashing import stable_file_hash, stable_json_hash
+from engine.inventory_parser import INVENTORY_PATH, parse_inventory
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
     build_literature_rule_contract,
 )
+from engine.name_utils import normalize_name
 from engine.odt_verifier import verify_entry
 from engine.pipeline.formula_state import FormulaState
 from engine.schema_validator import SchemaValidator
-from engine.science_audit import build_science_audit_contract, coverage_confidence_penalty
 
 
 @dataclass(frozen=True, slots=True)
@@ -51,12 +54,268 @@ class PreflightReport:
         }
 
 
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_DOSE_RECEIPT_SCHEMA = "formula-dose-receipt-v1"
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseLineReceipt:
+    """One immutable planned-volume dose bound to one exact physical stock."""
+
+    material_name: str
+    raw_ul: float
+    active_ul: float | None
+    stock_fraction: float | None
+    fraction_basis: str
+    carrier: str
+    stock_id: str | None
+    stock_authority: str | None
+    inventory_authority: str | None
+    source_rows: tuple[int, ...]
+    status: str
+    blockers: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        name = str(self.material_name).strip()
+        if not name:
+            raise ValueError("dose receipt material_name must not be blank")
+        raw_ul = float(self.raw_ul)
+        if not isfinite(raw_ul) or raw_ul <= 0.0:
+            raise ValueError(f"{name}: dose receipt raw_ul must be finite and positive")
+        fraction = None if self.stock_fraction is None else float(self.stock_fraction)
+        if fraction is not None and (not isfinite(fraction) or not 0.0 < fraction <= 1.0):
+            raise ValueError(f"{name}: dose receipt stock_fraction must be in (0, 1]")
+        active_ul = None if self.active_ul is None else float(self.active_ul)
+        if active_ul is not None and (not isfinite(active_ul) or active_ul < 0.0):
+            raise ValueError(f"{name}: dose receipt active_ul must be finite and nonnegative")
+        status = str(self.status).strip().upper()
+        if status not in {"BOUND", "ABSTAINED"}:
+            raise ValueError(f"{name}: dose receipt line status is invalid")
+        blockers = tuple(sorted({str(item).strip() for item in self.blockers if str(item).strip()}))
+        source_rows = tuple(sorted({int(value) for value in self.source_rows}))
+        if status == "BOUND":
+            required = (
+                fraction,
+                active_ul,
+                str(self.stock_id or "").strip(),
+                str(self.stock_authority or "").strip(),
+                str(self.inventory_authority or "").strip(),
+            )
+            if any(value in {None, ""} for value in required) or not source_rows:
+                raise ValueError(f"{name}: bound dose receipt line lacks stock lineage")
+            if blockers:
+                raise ValueError(f"{name}: bound dose receipt line cannot carry blockers")
+            if fraction is None or active_ul is None or not isclose(
+                active_ul, raw_ul * fraction, rel_tol=0.0, abs_tol=1e-12
+            ):
+                raise ValueError(f"{name}: dose receipt active quantity is inconsistent")
+        elif not blockers:
+            raise ValueError(f"{name}: abstained dose receipt line requires blockers")
+        object.__setattr__(self, "material_name", name)
+        object.__setattr__(self, "raw_ul", raw_ul)
+        object.__setattr__(self, "active_ul", active_ul)
+        object.__setattr__(self, "stock_fraction", fraction)
+        object.__setattr__(self, "fraction_basis", str(self.fraction_basis).strip())
+        object.__setattr__(self, "carrier", str(self.carrier).strip())
+        object.__setattr__(self, "stock_id", str(self.stock_id).strip() if self.stock_id else None)
+        object.__setattr__(
+            self,
+            "stock_authority",
+            str(self.stock_authority).strip() if self.stock_authority else None,
+        )
+        object.__setattr__(
+            self,
+            "inventory_authority",
+            str(self.inventory_authority).strip() if self.inventory_authority else None,
+        )
+        object.__setattr__(self, "source_rows", source_rows)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "blockers", blockers)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "material_name": self.material_name,
+            "raw_ul": self.raw_ul,
+            "active_ul": self.active_ul,
+            "stock_fraction": self.stock_fraction,
+            "fraction_basis": self.fraction_basis,
+            "carrier": self.carrier,
+            "stock_id": self.stock_id,
+            "stock_authority": self.stock_authority,
+            "inventory_authority": self.inventory_authority,
+            "source_rows": list(self.source_rows),
+            "status": self.status,
+            "blockers": list(self.blockers),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseReceipt:
+    """Content-addressed V5 stock/dose identity for one formula input."""
+
+    formula_name: str
+    formula_input_sha256: str
+    legacy_formula_hash: str
+    inventory_snapshot_sha256: str
+    inventory_source_workbook_sha256: str
+    inventory_authority_sheet: str
+    lines: tuple[FormulaDoseLineReceipt, ...]
+    status: str
+    reasons: tuple[str, ...]
+    receipt_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        formula_name = str(self.formula_name).strip()
+        if not formula_name:
+            raise ValueError("dose receipt formula_name must not be blank")
+        for value, label in (
+            (self.formula_input_sha256, "formula_input_sha256"),
+            (self.legacy_formula_hash, "legacy_formula_hash"),
+            (self.inventory_snapshot_sha256, "inventory_snapshot_sha256"),
+            (self.inventory_source_workbook_sha256, "inventory_source_workbook_sha256"),
+        ):
+            if not _SHA256_RE.fullmatch(str(value)):
+                raise ValueError(f"dose receipt {label} must be lowercase SHA-256")
+        lines = tuple(sorted(self.lines, key=lambda row: row.material_name.casefold()))
+        if not lines:
+            raise ValueError("dose receipt requires at least one positive dose line")
+        if len({line.material_name.casefold() for line in lines}) != len(lines):
+            raise ValueError("dose receipt material names must be unique")
+        status = str(self.status).strip().upper()
+        reasons = tuple(sorted({str(item).strip() for item in self.reasons if str(item).strip()}))
+        if status == "BOUND":
+            if reasons or any(line.status != "BOUND" for line in lines):
+                raise ValueError("bound dose receipt cannot contain unresolved lines")
+        elif status == "ABSTAINED":
+            if not reasons:
+                raise ValueError("abstained dose receipt requires a reason")
+        else:
+            raise ValueError("dose receipt status must be BOUND or ABSTAINED")
+        object.__setattr__(self, "formula_name", formula_name)
+        object.__setattr__(self, "inventory_authority_sheet", str(self.inventory_authority_sheet).strip())
+        object.__setattr__(self, "lines", lines)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "reasons", reasons)
+        object.__setattr__(self, "receipt_sha256", stable_json_hash(self._payload()))
+
+    def _payload(self) -> dict[str, Any]:
+        return {
+            "schema": _DOSE_RECEIPT_SCHEMA,
+            "formula_name": self.formula_name,
+            "formula_input_sha256": self.formula_input_sha256,
+            "legacy_formula_hash": self.legacy_formula_hash,
+            "inventory_snapshot_sha256": self.inventory_snapshot_sha256,
+            "inventory_source_workbook_sha256": self.inventory_source_workbook_sha256,
+            "inventory_authority_sheet": self.inventory_authority_sheet,
+            "lines": [line.as_dict() for line in self.lines],
+            "status": self.status,
+            "reasons": list(self.reasons),
+            "quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+            "physical_metrology_authority": False,
+            "release_authority": False,
+        }
+
+    def as_dict(self) -> dict[str, Any]:
+        return {**self._payload(), "receipt_sha256": self.receipt_sha256}
+
+
+def build_formula_dose_receipt(
+    formula: Mapping[str, Any],
+    stock_contract: PreflightCheck | None = None,
+) -> FormulaDoseReceipt:
+    """Build a deterministic compatibility receipt without granting stock authority."""
+
+    contract = stock_contract or resolve_inventory_stock_contract(formula)
+    resolved = {
+        str(name): dict(spec or {})
+        for name, spec in dict(contract.data.get("resolved_stock_specs", {}) or {}).items()
+    }
+    issues = {
+        str(item.get("material", "")).casefold(): str(
+            item.get("reason", "inventory_stock_contract_failed")
+        )
+        for item in contract.data.get("issues", [])
+    }
+    dilutions = dict(formula.get("dilutions", {}) or {})
+    lines: list[FormulaDoseLineReceipt] = []
+    reasons: list[str] = []
+    for raw_name, raw_value in sorted(
+        dict(formula.get("ingredients_ul", {}) or {}).items(),
+        key=lambda item: str(item[0]).casefold(),
+    ):
+        name = str(raw_name)
+        raw_ul = float(raw_value or 0.0)
+        if raw_ul <= 0.0:
+            continue
+        spec = resolved.get(name, {})
+        raw_fraction = spec.get("fraction", dilutions.get(name))
+        fraction = None if raw_fraction is None else float(raw_fraction)
+        blocker = issues.get(name.casefold())
+        source_rows = tuple(int(row) for row in spec.get("source_rows", ()) or ())
+        lineage_complete = bool(
+            fraction is not None
+            and spec.get("stock_id")
+            and spec.get("authority")
+            and spec.get("inventory_authority")
+            and source_rows
+        )
+        if contract.status != "PASS" or not lineage_complete:
+            blocker = blocker or "legacy_stock_lineage_not_exactly_bound"
+        status = "ABSTAINED" if blocker else "BOUND"
+        blockers = (blocker,) if blocker else ()
+        if blocker:
+            reasons.append(f"{name}:{blocker}")
+        lines.append(
+            FormulaDoseLineReceipt(
+                material_name=name,
+                raw_ul=raw_ul,
+                active_ul=raw_ul * fraction if fraction is not None else None,
+                stock_fraction=fraction,
+                fraction_basis=str(spec.get("fraction_basis", "unspecified")),
+                carrier=str(spec.get("carrier", "")),
+                stock_id=str(spec.get("stock_id", "")).strip() or None,
+                stock_authority=str(spec.get("authority", "")).strip() or None,
+                inventory_authority=str(spec.get("inventory_authority", "")).strip()
+                or None,
+                source_rows=source_rows,
+                status=status,
+                blockers=blockers,
+            )
+        )
+    input_hash = stable_json_hash(
+        {
+            "name": str(formula.get("name", "Formula")),
+            "ingredients_ul": dict(formula.get("ingredients_ul", {}) or {}),
+            "dilutions": dilutions,
+        }
+    )
+    inventory_hash = str(
+        contract.data.get("inventory_snapshot_sha256") or stable_file_hash(INVENTORY_PATH)
+    )
+    return FormulaDoseReceipt(
+        formula_name=str(formula.get("name", "Formula")),
+        formula_input_sha256=input_hash,
+        legacy_formula_hash=input_hash,
+        inventory_snapshot_sha256=inventory_hash,
+        inventory_source_workbook_sha256=inventory_hash,
+        inventory_authority_sheet="LEGACY_INVENTORY_SNAPSHOT_COMPATIBILITY",
+        lines=tuple(lines),
+        status="BOUND" if lines and not reasons else "ABSTAINED",
+        reasons=tuple(reasons),
+    )
+
+
 def _status_from_checks(checks: list[PreflightCheck]) -> str:
     if any(check.status == "FAIL" for check in checks):
         return "FAIL"
     if any(check.status == "WARN" for check in checks):
         return "WARN"
     return "PASS"
+
+
+def _literal_inventory_key(name: str) -> str:
+    """Normalize only spaces/case (no alias expansion)."""
+    return " ".join((name or "").strip().lower().split())
 
 
 def _input_normalization_check(formula: Mapping[str, Any]) -> PreflightCheck:
@@ -143,26 +402,87 @@ def _knowledge_rule_quality_check() -> tuple[PreflightCheck, float]:
     )
 
 
-def _science_check() -> tuple[PreflightCheck, float]:
-    contract = build_science_audit_contract()
-    penalty = coverage_confidence_penalty(contract)
-    status = "PASS"
-    detail = "Science coverage supports deterministic runtime use."
-    if penalty >= 20.0:
-        status = "WARN"
-        detail = f"Sparse science coverage triggers {penalty:.1f} confidence penalty."
+def _science_check(state: FormulaState) -> tuple[PreflightCheck, float]:
+    """Report formula-scoped model coverage without importing catalogue gaps.
+
+    Dedicated ODT, data-authority, and state-sanity checks own release
+    confidence.  The catalogue audit remains useful project-health context but
+    has no authority to penalize a formula that does not use its sparse rows.
+    """
+    materials = tuple(state.materials)
+    denominator = max(len(materials), 1)
+
+    def coverage(predicate) -> float:
+        return round(
+            100.0 * sum(1 for material in materials if predicate(material))
+            / denominator,
+            3,
+        )
+
+    runtime_coverage = {
+        "known_identity_pct": coverage(lambda material: material.is_known),
+        "mw_available_pct": coverage(
+            lambda material: material.mw_g_mol is not None
+            and material.mw_g_mol > 0.0
+        ),
+        "vp_available_pct": coverage(
+            lambda material: material.vp_pure_pa is not None
+            and material.vp_pure_pa > 0.0
+        ),
+        "odt_available_pct": coverage(
+            lambda material: material.odt_air_ppm is not None
+            and material.odt_air_ppm > 0.0
+        ),
+        "oav_available_pct": coverage(lambda material: material.oav is not None),
+        "hsp_available_pct": coverage(lambda material: material.hsp is not None),
+        "ifra_structured_pct": coverage(
+            lambda material: material.ifra_limit_pct is not None
+        ),
+    }
+    core_fields = (
+        "known_identity_pct",
+        "mw_available_pct",
+        "vp_available_pct",
+        "odt_available_pct",
+    )
+    core_complete = all(runtime_coverage[field] >= 100.0 for field in core_fields)
+    status = "PASS" if core_complete else "WARN"
+    detail = (
+        "Formula runtime coverage is complete for identity, MW, VP, and ODT; "
+        "optional axes remain explicitly advisory."
+        if core_complete
+        else "Formula runtime has missing core inputs; dedicated fail-closed checks own the release verdict."
+    )
     return (
         PreflightCheck(
             "science_coverage",
             status,
             detail,
             {
-                "coverage_pct": contract.get("data_coverage_pct", {}),
-                "known_weaknesses": contract.get("weaknesses", []),
-                "confidence_penalty": round(penalty, 3),
+                "scope": "formula_runtime",
+                "material_count": len(materials),
+                "runtime_input_coverage_pct": runtime_coverage,
+                "catalogue_context": {
+                    "scope": "full_material_catalogue",
+                    "evaluated_in_formula_preflight": False,
+                    "coverage_report": (
+                        "engine.science_audit.build_science_audit_contract"
+                    ),
+                    "formula_penalty_authority": False,
+                },
+                "limitations": [
+                    "Catalogue completeness is evaluated by project audit, not per formula.",
+                    "Missing optional axes remain unsupported; no values are fabricated.",
+                ],
+                "confidence_penalty": 0.0,
+                "penalty_owners": [
+                    "odt_authority",
+                    "data_authority",
+                    "material_identity_and_physics",
+                ],
             },
         ),
-        penalty,
+        0.0,
     )
 
 
@@ -264,46 +584,355 @@ def _data_authority_check(state: FormulaState) -> tuple[PreflightCheck, float]:
 
 
 def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
-    """Verify every formula material's dilution matches what inventory.txt holds.
-
-    A mismatch between the dilution stated in the formula and the stock dilution
-    in inventory leads to incorrect active-mass calculations, OAV errors, and
-    faulty gate conclusions. This check flags any material whose formula dilution
-    differs from ALL available inventory dilutions for that material by more than 5%.
-
-    Uses non-unique inventory so that entries like "Cashmeran (neat)" and
-    "Cashmeran (20%)" are both considered — the formula may rightly use either.
-    """
+    """Fail closed unless every formula row identifies one live inventory stock."""
     from collections import defaultdict
 
-    # Build a map: name → set of available dilutions (non-unique, so we see ALL stock variants)
-    inv_by_name: dict[str, set[float]] = defaultdict(set)
-    for record in parse_inventory(unique=False, include_solvents=True, include_unavailable=False):
-        inv_by_name[record.name.lower()].add(record.dilution)
-
-    mismatches: list[dict] = []
-    for name, raw_dil in (formula.get("dilutions", {}) or {}).items():
-        formula_dil = float(raw_dil) if raw_dil is not None else 1.0
-        norm = name.lower()
-        available = inv_by_name.get(norm, {1.0})
-        # PASS if any inventory variant matches within tolerance
-        if any(abs(formula_dil - inv_dil) <= 0.05 for inv_dil in available):
-            continue
-        mismatches.append({
-            "material": name,
-            "formula_dilution": round(formula_dil, 4),
-            "inventory_dilutions": sorted(round(d, 4) for d in available),
-        })
-
-    if mismatches:
-        names = sorted(m["material"] for m in mismatches)
-        return PreflightCheck(
-            "dilution_consistency",
-            "WARN",
-            f"{len(mismatches)} material(s) have dilution mismatches with inventory: {', '.join(names)}",
-            {"mismatches": mismatches},
+    exact_identity: dict[str, list] = defaultdict(list)
+    legacy_identity: dict[str, list] = defaultdict(list)
+    literal_identity: dict[str, list] = defaultdict(list)
+    for record in parse_inventory(
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    ):
+        exact_identity[normalize_name(record.identity_name or record.name)].append(record)
+        legacy_identity[normalize_name(record.name)].append(record)
+        literal_identity[_literal_inventory_key(record.identity_name or record.name)].append(
+            record
         )
-    return PreflightCheck("dilution_consistency", "PASS", "All dilutions match inventory stock.")
+
+    ingredients = formula.get("ingredients_ul", {}) or {}
+    dilutions = formula.get("dilutions", {}) or {}
+    stock_specs = formula.get("stock_specs", {}) or {}
+    issues: list[dict[str, Any]] = []
+    matched: list[dict[str, Any]] = []
+    resolved_stock_specs: dict[str, dict[str, Any]] = {}
+    declared_active_ul = 0.0
+    projected_live_active_ul = 0.0
+    live_projection_complete = True
+    grouped_active_impact: dict[str, dict[str, Any]] = {}
+    for name in ingredients:
+        norm = normalize_name(name)
+        candidates = exact_identity.get(norm) or legacy_identity.get(norm) or []
+        if len(candidates) > 1:
+            literal_candidates = literal_identity.get(_literal_inventory_key(name))
+            if literal_candidates:
+                candidates = literal_candidates
+        spec = dict(stock_specs.get(name, {}) or {})
+        formula_dil = float(spec.get("fraction", dilutions.get(name, 1.0)) or 1.0)
+        raw_ul = float(ingredients.get(name, 0.0) or 0.0)
+        declared_active_ul += raw_ul * formula_dil
+        formula_basis = str(spec.get("fraction_basis", "unspecified"))
+        formula_carrier = normalize_name(str(spec.get("carrier", "")))
+        declared = bool(spec.get("declared", name in dilutions))
+        if spec.get("conflict"):
+            live_projection_complete = False
+            issues.append({"material": name, "reason": "conflicting_stock_rows"})
+            continue
+        if not candidates:
+            live_projection_complete = False
+            issues.append({"material": name, "reason": "not_in_inventory"})
+            continue
+        owned = [record for record in candidates if record.status == "owned"]
+        group_label = owned[0].name if owned else candidates[0].name
+        group = grouped_active_impact.setdefault(
+            group_label,
+            {
+                "declared_active_ul": 0.0,
+                "projected_live_active_ul": 0.0,
+                "live_projection_complete": True,
+            },
+        )
+        group["declared_active_ul"] += raw_ul * formula_dil
+        if len(owned) == 1:
+            projected_live_active_ul += raw_ul * owned[0].dilution
+            group["projected_live_active_ul"] += raw_ul * owned[0].dilution
+        else:
+            live_projection_complete = False
+            group["live_projection_complete"] = False
+        if not owned:
+            issues.append(
+                {
+                    "material": name,
+                    "reason": "inventory_stock_unavailable",
+                    "statuses": sorted({record.status for record in candidates}),
+                }
+            )
+            continue
+        if not declared:
+            issues.append(
+                {
+                    "material": name,
+                    "reason": "stock_fraction_not_declared",
+                    "inventory_dilutions": sorted({record.dilution for record in owned}),
+                }
+            )
+            continue
+
+        fraction_matches = [
+            record for record in owned if abs(formula_dil - record.dilution) <= 0.005
+        ]
+        if not fraction_matches:
+            live_dilutions = sorted({round(record.dilution, 6) for record in owned})
+            multipliers = [
+                round(record.dilution / formula_dil, 4)
+                for record in owned
+                if formula_dil > 0
+            ]
+            issues.append(
+                {
+                    "material": name,
+                    "reason": "stock_fraction_mismatch",
+                    "formula_dilution": round(formula_dil, 6),
+                    "inventory_dilutions": live_dilutions,
+                    "active_multiplier_if_live_stock_used": multipliers,
+                }
+            )
+            continue
+
+        compatible = []
+        basis_mismatches = []
+        carrier_mismatches = []
+        for record in fraction_matches:
+            inventory_basis = record.fraction_basis
+            if (
+                formula_basis != "unspecified"
+                and inventory_basis != "unspecified"
+                and formula_basis != inventory_basis
+            ):
+                basis_mismatches.append(inventory_basis)
+                continue
+            inventory_carrier = normalize_name(record.carrier)
+            if formula_carrier and inventory_carrier and formula_carrier != inventory_carrier:
+                carrier_mismatches.append(inventory_carrier)
+                continue
+            compatible.append(record)
+        if not compatible:
+            issues.append(
+                {
+                    "material": name,
+                    "reason": (
+                        "stock_fraction_basis_mismatch"
+                        if basis_mismatches
+                        else "stock_carrier_mismatch"
+                    ),
+                    "formula_basis": formula_basis,
+                    "inventory_bases": sorted(set(basis_mismatches)),
+                    "formula_carrier": formula_carrier,
+                    "inventory_carriers": sorted(set(carrier_mismatches)),
+                }
+            )
+            continue
+        if len(compatible) > 1:
+            issues.append(
+                {
+                    "material": name,
+                    "reason": "ambiguous_live_stock",
+                    "variants": [record.raw_name for record in compatible],
+                }
+            )
+            continue
+        record = compatible[0]
+        resolved_stock_specs[name] = {
+            "fraction": formula_dil,
+            "fraction_basis": (
+                record.fraction_basis
+                if record.fraction_basis != "unspecified"
+                else formula_basis
+            ),
+            "carrier": record.carrier or str(spec.get("carrier", "")),
+            "approximate": bool(record.approximate or spec.get("approximate", False)),
+            "declared": True,
+            "authority": "formula_row+inventory_snapshot",
+        }
+        matched.append(
+            {
+                "material": name,
+                "inventory_identity": record.identity_name or record.name,
+                "fraction": record.dilution,
+                "fraction_basis": record.fraction_basis,
+                "carrier": record.carrier,
+            }
+        )
+
+    active_impact: dict[str, Any] = {
+        "declared_active_ul": round(declared_active_ul, 6),
+        "live_projection_complete": live_projection_complete,
+    }
+    if live_projection_complete:
+        active_impact.update(
+            {
+                "projected_live_active_ul": round(projected_live_active_ul, 6),
+                "active_multiplier_if_live_stocks_used": round(
+                    projected_live_active_ul / declared_active_ul,
+                    6,
+                )
+                if declared_active_ul > 0
+                else None,
+            }
+        )
+    active_impact_by_inventory_material: dict[str, dict[str, Any]] = {}
+    for material, raw_impact in sorted(grouped_active_impact.items()):
+        impact = {
+            "declared_active_ul": round(raw_impact["declared_active_ul"], 6),
+            "live_projection_complete": bool(
+                raw_impact["live_projection_complete"]
+            ),
+        }
+        if impact["live_projection_complete"]:
+            projected = float(raw_impact["projected_live_active_ul"])
+            declared = float(raw_impact["declared_active_ul"])
+            impact.update(
+                {
+                    "projected_live_active_ul": round(projected, 6),
+                    "active_multiplier_if_live_stocks_used": (
+                        round(projected / declared, 6) if declared > 0 else None
+                    ),
+                }
+            )
+        active_impact_by_inventory_material[material] = impact
+    data = {
+        "inventory_snapshot_sha256": stable_file_hash(INVENTORY_PATH),
+        "matched_stocks": matched,
+        "resolved_stock_specs": resolved_stock_specs,
+        "issues": issues,
+        "active_impact": active_impact,
+        "active_impact_by_inventory_material": active_impact_by_inventory_material,
+    }
+    if issues:
+        names = sorted(str(issue["material"]) for issue in issues)
+        return PreflightCheck(
+            "inventory_stock_contract",
+            "FAIL",
+            f"{len(issues)} material stock contract failure(s): {', '.join(names)}",
+            data,
+        )
+    return PreflightCheck(
+        "inventory_stock_contract",
+        "PASS",
+        "Every formula row resolves uniquely to a declared live inventory stock.",
+        data,
+    )
+
+
+def resolve_inventory_stock_contract(formula: Mapping[str, Any]) -> PreflightCheck:
+    """Public stock-authority boundary shared by state builders and preflight."""
+
+    return _dilution_consistency_check(formula)
+
+
+def resolved_stock_specs_for_state(
+    formula: Mapping[str, Any],
+    stock_contract: PreflightCheck | None = None,
+) -> dict[str, dict[str, object]]:
+    """Merge formula declarations with uniquely resolved live-stock semantics."""
+
+    merged = {
+        str(name): dict(spec or {})
+        for name, spec in (formula.get("stock_specs", {}) or {}).items()
+    }
+    contract = stock_contract or resolve_inventory_stock_contract(formula)
+    for name, spec in dict(contract.data.get("resolved_stock_specs", {}) or {}).items():
+        merged[str(name)] = dict(spec or {})
+    return merged
+
+
+def _quantitative_authority_check(
+    state: FormulaState,
+    *,
+    require_exact_ppm: bool,
+    require_exact_finished_product_ppm: bool = False,
+) -> PreflightCheck:
+    authority = state.quantitative_authority
+    concentrate_ready = state.exact_mass_ppm_available
+    finished_ready = state.exact_finished_product_ppm_available
+    if concentrate_ready and (
+        finished_ready or not require_exact_finished_product_ppm
+    ):
+        return PreflightCheck(
+            "quantitative_authority",
+            "PASS",
+            "Exact active concentrate ppm w/w is available; headspace OAV remains modeled.",
+            authority,
+        )
+    status = (
+        "FAIL"
+        if require_exact_ppm or require_exact_finished_product_ppm
+        else "WARN"
+    )
+    if require_exact_finished_product_ppm and not finished_ready:
+        detail = (
+            "Exact finished-product ppm w/w is unavailable; commercial safety/release claims are blocked."
+        )
+    elif require_exact_ppm:
+        detail = (
+            "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked."
+        )
+    else:
+        detail = (
+            "Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only."
+        )
+    return PreflightCheck("quantitative_authority", status, detail, authority)
+
+
+def _headspace_scope_check(
+    state: FormulaState,
+    *,
+    require_finished_product_scope: bool,
+) -> PreflightCheck:
+    basis = state.headspace_basis
+    data = {
+        "headspace_basis": basis,
+        "matrix_source": state.matrix_source,
+        "matrix_moles": state.matrix_moles,
+        "stock_carrier_inclusion": state.stock_carrier_inclusion,
+        "model_class": "HEURISTIC_NOT_MEASURED",
+    }
+    if basis == "MODELED_FINISHED_PRODUCT_EXPLICIT_MATRIX":
+        return PreflightCheck(
+            "headspace_scope",
+            "PASS",
+            "Modeled headspace uses the explicitly supplied finished-product matrix; it remains a heuristic, not measured headspace.",
+            data,
+        )
+    if require_finished_product_scope:
+        return PreflightCheck(
+            "headspace_scope",
+            "FAIL",
+            "Finished-product headspace was requested, but the complete solvent and diluted-stock carrier matrix is not explicit.",
+            data,
+        )
+    if basis == "MODELED_ACTIVE_CONCENTRATE_SCREEN":
+        detail = (
+            "Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted."
+        )
+    else:
+        detail = (
+            "Headspace/OAV uses a partial or proxy finished matrix; unresolved stock carriers prevent complete finished-product scope."
+        )
+    return PreflightCheck("headspace_scope", "WARN", detail, data)
+
+
+def _natural_composite_coverage_check(state: FormulaState) -> PreflightCheck:
+    missing = sorted(
+        material.name
+        for material in state.materials
+        if material.sources.get("oav_model") == "unknown:composite_decomposition_missing"
+        and not material.is_opaque_preblend
+    )
+    if missing:
+        return PreflightCheck(
+            "natural_composite_coverage",
+            "FAIL",
+            "Natural mixtures lack required composite GC-O decomposition: "
+            + ", ".join(missing),
+            {"materials": missing},
+        )
+    return PreflightCheck(
+        "natural_composite_coverage",
+        "PASS",
+        "Every natural mixture uses the composite OAV model.",
+    )
 
 
 def _state_sanity_check(state: FormulaState) -> PreflightCheck:
@@ -340,11 +969,18 @@ def _state_sanity_check(state: FormulaState) -> PreflightCheck:
     )
 
 
-def run_release_preflight(formula: Mapping[str, Any], state: FormulaState) -> PreflightReport:
+def run_release_preflight(
+    formula: Mapping[str, Any],
+    state: FormulaState,
+    *,
+    require_exact_ppm: bool = False,
+    require_exact_finished_product_ppm: bool = False,
+    stock_contract: PreflightCheck | None = None,
+) -> PreflightReport:
     checks: list[PreflightCheck] = []
     total_penalty = 0.0
     checks.append(_input_normalization_check(formula))
-    checks.append(_dilution_consistency_check(formula))
+    checks.append(stock_contract or resolve_inventory_stock_contract(formula))
     checks.append(_schema_check())
     checks.append(_literature_check())
     knowledge_check, knowledge_penalty = _knowledge_rule_quality_check()
@@ -356,10 +992,24 @@ def run_release_preflight(formula: Mapping[str, Any], state: FormulaState) -> Pr
     authority_check, authority_penalty = _data_authority_check(state)
     checks.append(authority_check)
     total_penalty += authority_penalty
-    science_check, science_penalty = _science_check()
+    science_check, science_penalty = _science_check(state)
     checks.append(science_check)
     total_penalty += science_penalty
     checks.append(_state_sanity_check(state))
+    checks.append(
+        _quantitative_authority_check(
+            state,
+            require_exact_ppm=require_exact_ppm,
+            require_exact_finished_product_ppm=require_exact_finished_product_ppm,
+        )
+    )
+    checks.append(
+        _headspace_scope_check(
+            state,
+            require_finished_product_scope=require_exact_finished_product_ppm,
+        )
+    )
+    checks.append(_natural_composite_coverage_check(state))
 
     warnings = tuple(check.detail for check in checks if check.status == "WARN")
     return PreflightReport(

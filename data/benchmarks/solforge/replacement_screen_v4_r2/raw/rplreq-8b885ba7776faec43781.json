@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:22:36.386553+00:00",
+  "dispatch_sha256": "3d599f97b77ed75ff7a103ea9a9e5c5028a267efd7e208cdf8f52bcb59766bb4",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "3906765549e633dee42d5ef4b34f82fa5782a1b129dd4ac525b46282cd5fb388",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The first-presented item won 8 of 8 comparisons (100%), but presentation position is perfectly confounded with product identity within fixed subsets. Without reverse-order replicates, the observed wins cannot distinguish product liking from a positional effect; therefore no product can be declared more liked.\",\"controlled_comparison\":\"Repeat the blinded comparisons with randomized, counterbalanced presentation order and reverse-order replicates for each product pairing.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":\"8/8 = 100%\"},\"decision_state\":\"HOLD\",\"next_actions\":[\"Run randomized, counterbalanced reverse-order replicates for every pairing.\"],\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "e24401806c87df8710c12bb753a36b51bb10c0dba6f173449d931c86f805e8a3",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-8b885ba7776faec43781",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:23.764821+00:00",
+  "stderr_sha256": "dd4e200a8070d4132dd4b105b080d08ec2c806d6d3384ad582b2d98c48f35a91",
+  "stderr_tail": "\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"first_position_win_rate\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The first-presented item won 8 of 8 comparisons (100%), but presentation position is perfectly confounded with product identity within fixed subsets. Without reverse-order replicates, the observed wins cannot distinguish product liking from a positional effect; therefore no product can be declared more liked.\",\"controlled_comparison\":\"Repeat the blinded comparisons with randomized, counterbalanced presentation order and reverse-order replicates for each product pairing.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":\"8/8 = 100%\"},\"decision_state\":\"HOLD\",\"next_actions\":[\"Run randomized, counterbalanced reverse-order replicates for every pairing.\"],\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n5,171\n",
+  "stdout_sha256": "cdc0d72a767d29b13f22724b81d2f77814558da31a43374045915560cea2be14"
+}

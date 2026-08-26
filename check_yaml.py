@@ -1,5 +1,6 @@
-import yaml
 from pathlib import Path
+
+import yaml
 
 checks = ['methyl anthranilate', 'ambrettolide', 'bergamot fcf sicilian', 'bergamot fcf oil sicilian', 'blood orange sicilian', 'blood orange oil sicilian']
 found = set()
@@ -19,6 +20,7 @@ for c in checks:
 print()
 # Also check formulas resolve correctly
 from engine.inventory_parser import _canonical_name, _parse_dilution
+
 tests = [
     "Bergamot FCF oil Sicilian",
     "Blood Orange oil Sicilian",

@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-85c45ea92590fef3f69b",
+  "case_id": "RPL-TEM-S03",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6538-7434-83ec-9879-493f70c7d6f0",
+  "dispatch_sha256": "5149298675e37ca1ecc23f144915ce4c161367abf64673b9427ce2e227d4ce82",
+  "output_text": "{\"decision\":\"HOLD_DUPLICATE_CANONICAL_CELL\",\"target_linked_reasoning\":\"The two rows map to the same canonical cell—protocol, sample, assessor, repeat, timepoint, and endpoint—but contain conflicting values. The qualified protocol does not resolve this identity conflict. Preserve both rows and their disagreement; do not select, average, deduplicate, or use the cell in panel summaries or transition claims until provenance resolves which value is authoritative. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Verify sequence and schedule hash plus source-record provenance for both rows. If one row is demonstrably erroneous, retain the traceable authoritative value; otherwise repeat that exact protocol–sample–assessor–repeat–timepoint–endpoint observation under the qualified protocol and compare it with both preserved values.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "63c42867340094dfc82595f5b6ee6819591afaae6ded6ecb3253548f0a230b94",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

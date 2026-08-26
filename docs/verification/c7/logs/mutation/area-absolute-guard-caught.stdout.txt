@@ -1,0 +1,17 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_normalized_area_percent_cannot_masquerade_as_concentration _______
+
+    def test_normalized_area_percent_cannot_masquerade_as_concentration() -> None:
+        area = area_observation(value=62.5)
+        assert area.basis is ConstituentBasis.NORMALIZED_AREA_PERCENT
+        assert area.value == 62.5
+>       assert area.supports_absolute_composition is False
+E       AssertionError: assert True is False
+E        +  where True = ConstituentObservation(observation_id='obs-area-linalool', source_lot_id='lot-1', chemical_id='cas:78-70-6', chemical_...=<ReviewState.REVIEWED: 'REVIEWED'>, content_sha256='68fb3e9b2a5a3f59e1c74547bd16caa6ec67ad1e0ec072cfa5c38bc510c0dfe4').supports_absolute_composition
+
+tests\test_c7_natural_lots.py:658: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c7_natural_lots.py::test_normalized_area_percent_cannot_masquerade_as_concentration - AssertionError: assert True is False
+ +  where True = ConstituentObservation(observation_id='obs-area-linalool', source_lot_id='lot-1', chemical_id='cas:78-70-6', chemical_...=<ReviewState.REVIEWED: 'REVIEWED'>, content_sha256='68fb3e9b2a5a3f59e1c74547bd16caa6ec67ad1e0ec072cfa5c38bc510c0dfe4').supports_absolute_composition
+1 failed in 0.55s

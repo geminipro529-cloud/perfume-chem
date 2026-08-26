@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "closure-guard-restored",
+    "target":  "tests/test_c6_dynamic_release.py::test_per_step_closure_guard_rejects_sub_output_tolerance_leak",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1428,
+    "started_at_utc":  "2026-08-02T19:30:31.5873036+00:00",
+    "stdout_sha256":  "69de30081207b2e691c89921084505ee58d1a75b0250ca65c87b22f3265c0d99",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "build-c2-protected-state-and-scope-v1",
+  "recorded_at": "2026-08-02T19:49:57.2757734+07:00",
+  "branch": "codex/add-inventory-materials",
+  "phase_parent": "e6c6d5bed3a41362e21bf07752a98fd952781a59",
+  "implementation_parent": "68b9f000bfb308a6d945ffb1e10b22786fcda91e",
+  "verification_head": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+  "committed_changed_paths": [
+    "docs/superpowers/plans/2026-08-02-build-c2-matrix-environment.md",
+    "docs/superpowers/specs/2026-08-02-build-c2-matrix-environment-design.md",
+    "engine/physics/__init__.py",
+    "engine/physics/matrix_environment.py",
+    "engine/project_verification.py",
+    "tests/test_c1_thermophysical_contracts.py",
+    "tests/test_c2_matrix_environment.py"
+  ],
+  "scope_exceptions": [
+    {
+      "path": "tests/test_c1_thermophysical_contracts.py",
+      "reason": "Preserve the complete C1 public subset while C2 owns the exact combined engine.physics allowlist."
+    },
+    {
+      "path": "engine/project_verification.py",
+      "reason": "Register the previously omitted C0/C1 tests and the C2 test in the explicit truth-core shard; this closed the only full-suite failure."
+    }
+  ],
+  "forbidden_committed_path_count": 0,
+  "migration_path_count": 0,
+  "database_path_count": 0,
+  "generated_scientific_artifact_path_count": 0,
+  "production_physical_caller_path_count": 0,
+  "legacy_matrix_or_ledger_path_count": 0,
+  "index_staged_path_count_before_evidence": 0,
+  "preserved_dirty_or_untracked_manifest_file_count": 429,
+  "preserved_dirty_or_untracked_mismatch_count": 0,
+  "protected_databases": [
+    {
+      "path": "perfume_chem.db",
+      "bytes_before": 12288,
+      "bytes_after": 12288,
+      "sha256_before": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "sha256_after": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok",
+      "unchanged": true
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "bytes_before": 2084864,
+      "bytes_after": 2084864,
+      "sha256_before": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "sha256_after": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok",
+      "unchanged": true
+    }
+  ]
+}

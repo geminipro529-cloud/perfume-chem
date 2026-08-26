@@ -1,8 +1,8 @@
+from engine.knowledge.literature_rules import build_knowledge_rule_quality_contract
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
-from engine.knowledge.literature_rules import build_knowledge_rule_quality_contract
 
 
 def _formula():

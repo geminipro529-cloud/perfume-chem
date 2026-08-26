@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-c6d1aba64d31d670660c",
+  "case_id": "RPL-TEM-S01",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e648c-5aa4-83ec-be68-a1fa2168be68",
+  "dispatch_sha256": "423758e13f76797eadba876a9505d9e3a72623c3b46109aedbd820d0e7d89712",
+  "output_text": "{\"decision\":\"OBSERVED_OPENING_TO_HEART_TRANSITION\",\"target_linked_reasoning\":\"Across the complete qualified cell grid, median DEPTH_INTENSITY declined from 7.5 at 60 seconds to 4.5 at 1800 seconds, a 3.0-point observed decrease. Every assessor showed the same 3-point decline in both repeats. Within-assessor repeat spread was 1.0 point at each timepoint, meeting the declared maximum, and the Williams presentation schedule was balanced with a matching hash. This supports only a protocol-bound observational transition, not a generalized sensory, liking, stability, safety, or release claim. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Evaluate BLIND-A alongside a blinded comparator under the same qualified protocol, balanced Williams sequence, repeats, endpoints, and timepoints; compare assessor-matched opening-to-heart changes to determine whether the observed decline discriminates BLIND-A from the comparator.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "2e30536f345c799271996a524b7b5d853181b7dc014fdc4d1d5764136829fd7a",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

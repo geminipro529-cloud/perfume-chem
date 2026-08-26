@@ -1,0 +1,38 @@
+{
+  "schema_version": "perfume-chem-command-evidence-v2",
+  "name": "pytest_b8_projection",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": ".",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "command": [
+    "-B",
+    "-m",
+    "pytest",
+    "tests/test_b8_backfill_dashboard.py",
+    "--color=no",
+    "-q",
+    "--basetemp=<external>/pytest-projection-temp"
+  ],
+  "environment": {
+    "non_pty": true,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
+  },
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "exit_code": 0,
+  "tests_passed": 2,
+  "pytest_duration_seconds": 0.53,
+  "stdout": {
+    "path": "logs/pytest_b8_projection.stdout.txt",
+    "bytes": 100,
+    "sha256": "e4f3f5c44fecf04b4f167146e45a69b8b2a1741ead6ec228f18ad3b542bc9954"
+  },
+  "stderr": {
+    "path": "logs/pytest_b8_projection.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
+}

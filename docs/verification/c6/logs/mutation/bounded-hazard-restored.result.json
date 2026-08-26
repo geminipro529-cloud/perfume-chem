@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "bounded-hazard-restored",
+    "target":  "tests/test_c6_dynamic_release.py::test_bounded_hazard_prevents_negative_mass_under_extreme_rates",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1657,
+    "started_at_utc":  "2026-08-02T19:31:35.1264331+00:00",
+    "stdout_sha256":  "692ec1018922985bb52a2102b4f1777ae89a33fcba25c0a94c23e6283f1759c6",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

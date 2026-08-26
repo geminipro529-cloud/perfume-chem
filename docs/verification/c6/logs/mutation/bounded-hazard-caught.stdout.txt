@@ -1,0 +1,54 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_bounded_hazard_prevents_negative_mass_under_extreme_rates ________
+
+    def test_bounded_hazard_prevents_negative_mass_under_extreme_rates() -> None:
+        kind = ApplicationEnvironmentKind.FABRIC
+        extreme = tuple(
+            replace(
+                component_parameters(component_id, kind),
+                diffusion_coefficient_m2_s=1e6,
+                mass_transfer_coefficient_m_s=1e6,
+                sorption_rate_s_minus_1=1e6,
+                desorption_rate_s_minus_1=1e6,
+                sink_rate_s_minus_1=1e6,
+            )
+            for component_id in ("component:ethanol", "component:active")
+        )
+        model = substrate_model(kind, components=extreme)
+        matrix_value, environment_value, inputs, _, _, _ = executable_case(
+            kind,
+            duration_s=10.0,
+            time_step_s=10.0,
+            model=model,
+        )
+>       simulation = simulate_dynamic_release(matrix_value, environment_value, inputs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c6_dynamic_release.py:656: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\dynamic_release.py:1719: in simulate_dynamic_release
+    trajectories = tuple(
+engine\physics\dynamic_release.py:1720: in <genexpr>
+    _simulate_scenario(matrix, environment, input_set, scenario) for scenario in RateScenario
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\physics\dynamic_release.py:1671: in _simulate_scenario
+    _advance_states(states, input_set, scenario, rates)
+engine\physics\dynamic_release.py:1615: in _advance_states
+    state.condensed_mass_mg = _clean_mass(condensed, "condensed mass")
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = -39996000397.96001, field_name = 'condensed mass'
+
+    def _clean_mass(value: float, field_name: str) -> float:
+        if not math.isfinite(value):
+            raise DynamicReleaseContractError(f"{field_name} became non-finite")
+        if value < -_MACHINE_NEGATIVE_TOLERANCE_MG:
+>           raise DynamicReleaseContractError(f"{field_name} became negative")
+E           engine.physics.dynamic_release.DynamicReleaseContractError: condensed mass became negative
+
+engine\physics\dynamic_release.py:1225: DynamicReleaseContractError
+=========================== short test summary info ===========================
+FAILED tests/test_c6_dynamic_release.py::test_bounded_hazard_prevents_negative_mass_under_extreme_rates - engine.physics.dynamic_release.DynamicReleaseContractError: condensed mass became negative
+1 failed in 0.86s

@@ -1,0 +1,104 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+___ test_router_rejects_duplicate_selectors_despite_release_drift[changes0] ___
+
+changes = {'coefficient_set_sha256': '1111111111111111111111111111111111111111111111111111111111111111'}
+
+    @pytest.mark.parametrize(
+        "changes",
+        [
+            {"coefficient_set_sha256": digest("1")},
+            {"code_commit": "1" * 40},
+            {"training_data_sha256": digest("2")},
+            {"applicability_domain": replace(domain(), domain_version="2")},
+        ],
+    )
+    def test_router_rejects_duplicate_selectors_despite_release_drift(
+        changes: dict[str, object],
+    ) -> None:
+        baseline = routing_release()
+        changed = replace(baseline, **changes)
+        assert changed.selector == baseline.selector
+        assert changed.content_sha256 != baseline.content_sha256
+>       with pytest.raises(ModelInterfaceContractError, match="duplicate.*selector"):
+E       Failed: DID NOT RAISE ModelInterfaceContractError
+
+tests\test_c3_model_interface.py:1169: Failed
+___ test_router_rejects_duplicate_selectors_despite_release_drift[changes1] ___
+
+changes = {'code_commit': '1111111111111111111111111111111111111111'}
+
+    @pytest.mark.parametrize(
+        "changes",
+        [
+            {"coefficient_set_sha256": digest("1")},
+            {"code_commit": "1" * 40},
+            {"training_data_sha256": digest("2")},
+            {"applicability_domain": replace(domain(), domain_version="2")},
+        ],
+    )
+    def test_router_rejects_duplicate_selectors_despite_release_drift(
+        changes: dict[str, object],
+    ) -> None:
+        baseline = routing_release()
+        changed = replace(baseline, **changes)
+        assert changed.selector == baseline.selector
+        assert changed.content_sha256 != baseline.content_sha256
+>       with pytest.raises(ModelInterfaceContractError, match="duplicate.*selector"):
+E       Failed: DID NOT RAISE ModelInterfaceContractError
+
+tests\test_c3_model_interface.py:1169: Failed
+___ test_router_rejects_duplicate_selectors_despite_release_drift[changes2] ___
+
+changes = {'training_data_sha256': '2222222222222222222222222222222222222222222222222222222222222222'}
+
+    @pytest.mark.parametrize(
+        "changes",
+        [
+            {"coefficient_set_sha256": digest("1")},
+            {"code_commit": "1" * 40},
+            {"training_data_sha256": digest("2")},
+            {"applicability_domain": replace(domain(), domain_version="2")},
+        ],
+    )
+    def test_router_rejects_duplicate_selectors_despite_release_drift(
+        changes: dict[str, object],
+    ) -> None:
+        baseline = routing_release()
+        changed = replace(baseline, **changes)
+        assert changed.selector == baseline.selector
+        assert changed.content_sha256 != baseline.content_sha256
+>       with pytest.raises(ModelInterfaceContractError, match="duplicate.*selector"):
+E       Failed: DID NOT RAISE ModelInterfaceContractError
+
+tests\test_c3_model_interface.py:1169: Failed
+___ test_router_rejects_duplicate_selectors_despite_release_drift[changes3] ___
+
+changes = {'applicability_domain': ApplicabilityDomain(domain_id='domain:ideal-raoult:ethanol-water', domain_version='2', suppor...aration invalidates the baseline'), content_sha256='ec449e071e05a11b3d4016fbfd54dd4f25d303f1da7e38c7df3566e74b704c51')}
+
+    @pytest.mark.parametrize(
+        "changes",
+        [
+            {"coefficient_set_sha256": digest("1")},
+            {"code_commit": "1" * 40},
+            {"training_data_sha256": digest("2")},
+            {"applicability_domain": replace(domain(), domain_version="2")},
+        ],
+    )
+    def test_router_rejects_duplicate_selectors_despite_release_drift(
+        changes: dict[str, object],
+    ) -> None:
+        baseline = routing_release()
+        changed = replace(baseline, **changes)
+        assert changed.selector == baseline.selector
+        assert changed.content_sha256 != baseline.content_sha256
+>       with pytest.raises(ModelInterfaceContractError, match="duplicate.*selector"):
+E       Failed: DID NOT RAISE ModelInterfaceContractError
+
+tests\test_c3_model_interface.py:1169: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c3_model_interface.py::test_router_rejects_duplicate_selectors_despite_release_drift[changes0]
+FAILED tests/test_c3_model_interface.py::test_router_rejects_duplicate_selectors_despite_release_drift[changes1]
+FAILED tests/test_c3_model_interface.py::test_router_rejects_duplicate_selectors_despite_release_drift[changes2]
+FAILED tests/test_c3_model_interface.py::test_router_rejects_duplicate_selectors_despite_release_drift[changes3]
+4 failed in 0.77s

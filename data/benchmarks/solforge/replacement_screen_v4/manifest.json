@@ -1,0 +1,2013 @@
+{
+  "admission_policy": {
+    "final": "at least 4/6 wins and median paired gain >= 5 against each control, zero critical errors",
+    "screen": "at least 2/3 wins against each control and zero critical regressions"
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "corpus_sha256": "1f75ed36f4685091ffba668a38a27a7553c1ef869db7805de281b74bda18cb76",
+  "execution_gate": {
+    "confirmation_requires_screen_receipt": true,
+    "confirmation_requires_screen_state": "PROCEED",
+    "screen_first": true
+  },
+  "manifest_sha256": "c1bad0372fa15825dbefaba3c7de7c8e23cddef07304b43d90e60e0ee7d347bf",
+  "model_identity": {
+    "context": "FRESH_PROJECTLESS_CONVERSATION",
+    "model": "gpt-5.6-sol",
+    "product": "Codex",
+    "provider": "OpenAI",
+    "reasoning_effort": "xhigh",
+    "surface": "Codex projectless task"
+  },
+  "old_frozen_requests_resumed": false,
+  "phase": "SCREEN",
+  "request_count": 27,
+  "requests": [
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-S01",
+      "common_input_sha256": "c1de077823796fb6aa3639427d9ae357cf145963d877122f414de2768fea5668",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "ac2cda249ffffaa9ecd2328855b60e98854592b8192ece44495b44cf74514d04",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"candidate_count_before_filter\":3,\"constant_total_required\":true,\"redundant_candidate_count\":2},\"facts\":[\"The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.\",\"The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.\",\"Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.\",\"Only the distinct bridge candidate remains after target-function and redundancy filtering.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"distinct_bridge\":\"OWNED\",\"redundant_candidates\":2},\"target_identity\":\"A dry mineral iris with a continuous root-to-wood transition and no added sweetness.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S01-control-1f6d64bd46c11630",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "candidate_count_before_filter": 3,
+            "constant_total_required": true,
+            "redundant_candidate_count": 2
+          },
+          "facts": [
+            "The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.",
+            "The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.",
+            "Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.",
+            "Only the distinct bridge candidate remains after target-function and redundancy filtering."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "distinct_bridge": "OWNED",
+            "redundant_candidates": 2
+          },
+          "target_identity": "A dry mineral iris with a continuous root-to-wood transition and no added sweetness."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "c1de077823796fb6aa3639427d9ae357cf145963d877122f414de2768fea5668",
+      "request_id": "rplreq-5692853ef4400710472d",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-S01",
+      "common_input_sha256": "c1de077823796fb6aa3639427d9ae357cf145963d877122f414de2768fea5668",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "1792d4f9e4144c2833611a06bd028d0df909e775987d849e8b3dfad935cad2f1",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"candidate_count_before_filter\":3,\"constant_total_required\":true,\"redundant_candidate_count\":2},\"facts\":[\"The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.\",\"The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.\",\"Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.\",\"Only the distinct bridge candidate remains after target-function and redundancy filtering.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"distinct_bridge\":\"OWNED\",\"redundant_candidates\":2},\"target_identity\":\"A dry mineral iris with a continuous root-to-wood transition and no added sweetness.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S01-treatment-30ba9fe0da961259",
+      "packet_byte_count": 695,
+      "packet_sha256": "0d6685eb32e8e8b8a8f3edb3c70c0f8ffc1c629ede5c2b3051db9bfb4c37b96c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "candidate_count_before_filter": 3,
+            "constant_total_required": true,
+            "redundant_candidate_count": 2
+          },
+          "facts": [
+            "The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.",
+            "The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.",
+            "Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.",
+            "Only the distinct bridge candidate remains after target-function and redundancy filtering."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "distinct_bridge": "OWNED",
+            "redundant_candidates": 2
+          },
+          "target_identity": "A dry mineral iris with a continuous root-to-wood transition and no added sweetness."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "b351c6ac8f20ea1395e2d5647f0ca77b3b847e4e5cc4df96a5c569bc0744897f",
+      "request_id": "rplreq-0e6d8ac3ade266ad93e6",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-S01",
+      "common_input_sha256": "c1de077823796fb6aa3639427d9ae357cf145963d877122f414de2768fea5668",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "62cbd03c7b328e135de1103720f0dd3075627675984f7ec9132d4ce2e336d4aa",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"candidate_count_before_filter\":3,\"constant_total_required\":true,\"redundant_candidate_count\":2},\"facts\":[\"The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.\",\"The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.\",\"Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.\",\"Only the distinct bridge candidate remains after target-function and redundancy filtering.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"distinct_bridge\":\"OWNED\",\"redundant_candidates\":2},\"target_identity\":\"A dry mineral iris with a continuous root-to-wood transition and no added sweetness.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S01-placebo-9401969ac8813d88",
+      "packet_byte_count": 695,
+      "packet_sha256": "2f90847b37df0151b4db778f0a88a26f73391602b0bd864e095a3565301bf707",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "candidate_count_before_filter": 3,
+            "constant_total_required": true,
+            "redundant_candidate_count": 2
+          },
+          "facts": [
+            "The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.",
+            "The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.",
+            "Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.",
+            "Only the distinct bridge candidate remains after target-function and redundancy filtering."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "distinct_bridge": "OWNED",
+            "redundant_candidates": 2
+          },
+          "target_identity": "A dry mineral iris with a continuous root-to-wood transition and no added sweetness."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "05f57d10031ab3c5c2052515444398bdcc8fc7c0f53929bed2c64558cbb68c9f",
+      "request_id": "rplreq-8270f0e2590317a9e38d",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-S02",
+      "common_input_sha256": "799796fc0f38c826aac20306dc0cecdde27cd3f5a262ad660a9f8fa147b6f174",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "1885005e0d13f6c332dd86e682c94edc8093dcdf96fd9ab4f8ced0b8792b39e2",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_target_function_count\":4,\"declared_target_function_count\":4},\"facts\":[\"Every declared target function is strongly covered by the current architecture.\",\"The proposal to add five materials is justified only by ingredient count and prestige.\",\"No omission loss, missing function, or nonredundant relation has been identified.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"target_functions_covered\":4,\"target_functions_missing\":0},\"target_identity\":\"A minimal translucent iris in which negative space and exact material choice are the intended richness.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S02-control-5127ffd8288c7dd0",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_target_function_count": 4,
+            "declared_target_function_count": 4
+          },
+          "facts": [
+            "Every declared target function is strongly covered by the current architecture.",
+            "The proposal to add five materials is justified only by ingredient count and prestige.",
+            "No omission loss, missing function, or nonredundant relation has been identified."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "target_functions_covered": 4,
+            "target_functions_missing": 0
+          },
+          "target_identity": "A minimal translucent iris in which negative space and exact material choice are the intended richness."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "799796fc0f38c826aac20306dc0cecdde27cd3f5a262ad660a9f8fa147b6f174",
+      "request_id": "rplreq-0491b3633667f2b56be8",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-S02",
+      "common_input_sha256": "799796fc0f38c826aac20306dc0cecdde27cd3f5a262ad660a9f8fa147b6f174",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "0ba3b7d9b46719f4e18e4e48eada53d618dc702a09479983813e6318e54cd073",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_target_function_count\":4,\"declared_target_function_count\":4},\"facts\":[\"Every declared target function is strongly covered by the current architecture.\",\"The proposal to add five materials is justified only by ingredient count and prestige.\",\"No omission loss, missing function, or nonredundant relation has been identified.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"target_functions_covered\":4,\"target_functions_missing\":0},\"target_identity\":\"A minimal translucent iris in which negative space and exact material choice are the intended richness.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S02-treatment-dabbf6515945508e",
+      "packet_byte_count": 695,
+      "packet_sha256": "0d6685eb32e8e8b8a8f3edb3c70c0f8ffc1c629ede5c2b3051db9bfb4c37b96c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_target_function_count": 4,
+            "declared_target_function_count": 4
+          },
+          "facts": [
+            "Every declared target function is strongly covered by the current architecture.",
+            "The proposal to add five materials is justified only by ingredient count and prestige.",
+            "No omission loss, missing function, or nonredundant relation has been identified."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "target_functions_covered": 4,
+            "target_functions_missing": 0
+          },
+          "target_identity": "A minimal translucent iris in which negative space and exact material choice are the intended richness."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "668b884656757ac323ecc3c09d09e23819be69180e16adc1140475a84d1568dc",
+      "request_id": "rplreq-690c6822157c3ef7589b",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-S02",
+      "common_input_sha256": "799796fc0f38c826aac20306dc0cecdde27cd3f5a262ad660a9f8fa147b6f174",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "69554583b664991ab571a0980934332b869eac5d5546a33da36355b501203750",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_target_function_count\":4,\"declared_target_function_count\":4},\"facts\":[\"Every declared target function is strongly covered by the current architecture.\",\"The proposal to add five materials is justified only by ingredient count and prestige.\",\"No omission loss, missing function, or nonredundant relation has been identified.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"target_functions_covered\":4,\"target_functions_missing\":0},\"target_identity\":\"A minimal translucent iris in which negative space and exact material choice are the intended richness.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S02-placebo-b82826f3e320cebc",
+      "packet_byte_count": 695,
+      "packet_sha256": "2f90847b37df0151b4db778f0a88a26f73391602b0bd864e095a3565301bf707",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_target_function_count": 4,
+            "declared_target_function_count": 4
+          },
+          "facts": [
+            "Every declared target function is strongly covered by the current architecture.",
+            "The proposal to add five materials is justified only by ingredient count and prestige.",
+            "No omission loss, missing function, or nonredundant relation has been identified."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "target_functions_covered": 4,
+            "target_functions_missing": 0
+          },
+          "target_identity": "A minimal translucent iris in which negative space and exact material choice are the intended richness."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "77a33a314998955544c03ffda530b9434ac27242b4cfed682c846aca788afced",
+      "request_id": "rplreq-9f909a0c2d08cbd480ae",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-S03",
+      "common_input_sha256": "fa22159f7e04785cbdedef2abbc5aad875bf678620a70b2289452ccb6c0aca86",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "5811c7abe301e92613b245ea660df49590d277e303d4cd060f2422eef480ca95",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"added_parts\":2.0,\"baseline_total_parts\":100.0,\"removed_parts\":2.0},\"facts\":[\"The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.\",\"A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.\",\"Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.\",\"No blinded comparison supports that target inversion.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"neroli_10_percent\":\"VERIFY_AT_EXECUTION\"},\"target_identity\":\"A bitter lemon-peel and green-tea opening; orange blossom is not a central subject.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S03-control-6c23ff2af94f3e57",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "added_parts": 2.0,
+            "baseline_total_parts": 100.0,
+            "removed_parts": 2.0
+          },
+          "facts": [
+            "The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.",
+            "A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.",
+            "Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.",
+            "No blinded comparison supports that target inversion."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "neroli_10_percent": "VERIFY_AT_EXECUTION"
+          },
+          "target_identity": "A bitter lemon-peel and green-tea opening; orange blossom is not a central subject."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "fa22159f7e04785cbdedef2abbc5aad875bf678620a70b2289452ccb6c0aca86",
+      "request_id": "rplreq-66cb471595892213e57d",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-S03",
+      "common_input_sha256": "fa22159f7e04785cbdedef2abbc5aad875bf678620a70b2289452ccb6c0aca86",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "32d4d1dcbfd794a43beca9bd7a95ae2d8db194620194d80066f7e0947e1a4803",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"added_parts\":2.0,\"baseline_total_parts\":100.0,\"removed_parts\":2.0},\"facts\":[\"The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.\",\"A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.\",\"Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.\",\"No blinded comparison supports that target inversion.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"neroli_10_percent\":\"VERIFY_AT_EXECUTION\"},\"target_identity\":\"A bitter lemon-peel and green-tea opening; orange blossom is not a central subject.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S03-treatment-951e27a036f246b1",
+      "packet_byte_count": 695,
+      "packet_sha256": "0d6685eb32e8e8b8a8f3edb3c70c0f8ffc1c629ede5c2b3051db9bfb4c37b96c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "added_parts": 2.0,
+            "baseline_total_parts": 100.0,
+            "removed_parts": 2.0
+          },
+          "facts": [
+            "The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.",
+            "A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.",
+            "Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.",
+            "No blinded comparison supports that target inversion."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "neroli_10_percent": "VERIFY_AT_EXECUTION"
+          },
+          "target_identity": "A bitter lemon-peel and green-tea opening; orange blossom is not a central subject."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "fdb347eaabd9e2fb6c81199018b91958f8907bc6d5b2928e92bfb64f5db451c9",
+      "request_id": "rplreq-af8375ffbfe5c5819ff1",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-S03",
+      "common_input_sha256": "fa22159f7e04785cbdedef2abbc5aad875bf678620a70b2289452ccb6c0aca86",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "274cc969b74af749ed9d34c7be49191097df28453aa438920d5cd696a84e1e3b",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"added_parts\":2.0,\"baseline_total_parts\":100.0,\"removed_parts\":2.0},\"facts\":[\"The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.\",\"A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.\",\"Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.\",\"No blinded comparison supports that target inversion.\"],\"inventory_state\":{\"authority\":\"V5_REPARSE_REQUIRED\",\"neroli_10_percent\":\"VERIFY_AT_EXECUTION\"},\"target_identity\":\"A bitter lemon-peel and green-tea opening; orange blossom is not a central subject.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-S03-placebo-f5b8dd76cefa2e13",
+      "packet_byte_count": 695,
+      "packet_sha256": "2f90847b37df0151b4db778f0a88a26f73391602b0bd864e095a3565301bf707",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "added_parts": 2.0,
+            "baseline_total_parts": 100.0,
+            "removed_parts": 2.0
+          },
+          "facts": [
+            "The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.",
+            "A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.",
+            "Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.",
+            "No blinded comparison supports that target inversion."
+          ],
+          "inventory_state": {
+            "authority": "V5_REPARSE_REQUIRED",
+            "neroli_10_percent": "VERIFY_AT_EXECUTION"
+          },
+          "target_identity": "A bitter lemon-peel and green-tea opening; orange blossom is not a central subject."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "ab49d5c4cc7beed6b80ddc8263c0ee9884214bb087f5a508ecc5ae98eaf5f30b",
+      "request_id": "rplreq-fb210ef81462707c5db6",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-TEM-S01",
+      "common_input_sha256": "4ebe84c2f061531f900f236f85620c9662e54bd0cc2e8a01b4850d1f27c9b3fa",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "30fe29519e6dbf7b7e4b648958d1706e985d36f92d420c62822a8653b8bc7f9e",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"values_by_timepoint_seconds\":{\"1800\":[5,5,6,6],\"60\":[2,3,3,4]}},\"facts\":[\"The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.\",\"Observed depth values at 60 seconds are 2, 3, 3, and 4.\",\"Observed depth values at 1800 seconds are 5, 5, 6, and 6.\",\"No assessor disagreement threshold, order imbalance, or missing cell is triggered.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Determine whether observed dry-wood depth rises between one minute and thirty minutes.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S01-control-aa0d33fc572a1adb",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "endpoint_id": "DEPTH",
+            "protocol_id": "AUG-TEM-S01",
+            "schedule_hash": "sched-aug-tem-s01",
+            "values_by_timepoint_seconds": {
+              "1800": [
+                5,
+                5,
+                6,
+                6
+              ],
+              "60": [
+                2,
+                3,
+                3,
+                4
+              ]
+            }
+          },
+          "facts": [
+            "The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.",
+            "Observed depth values at 60 seconds are 2, 3, 3, and 4.",
+            "Observed depth values at 1800 seconds are 5, 5, 6, and 6.",
+            "No assessor disagreement threshold, order imbalance, or missing cell is triggered."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Determine whether observed dry-wood depth rises between one minute and thirty minutes."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "4ebe84c2f061531f900f236f85620c9662e54bd0cc2e8a01b4850d1f27c9b3fa",
+      "request_id": "rplreq-91822377838c45914041",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-TEM-S01",
+      "common_input_sha256": "4ebe84c2f061531f900f236f85620c9662e54bd0cc2e8a01b4850d1f27c9b3fa",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "2243bcf13999d3d5e44a4e2a6c9eebf36497023cff686e84d66e03fbc2c4e55a",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"values_by_timepoint_seconds\":{\"1800\":[5,5,6,6],\"60\":[2,3,3,4]}},\"facts\":[\"The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.\",\"Observed depth values at 60 seconds are 2, 3, 3, and 4.\",\"Observed depth values at 1800 seconds are 5, 5, 6, and 6.\",\"No assessor disagreement threshold, order imbalance, or missing cell is triggered.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Determine whether observed dry-wood depth rises between one minute and thirty minutes.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\\n- Separate temporal scopes and report only observed transitions.\\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\\nAuthority limits:\\n- No predicted volatility may be converted into perceived behavior.\\n- No sensory, liking, stability, safety, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S01-treatment-1a54d3605d607a2c",
+      "packet_byte_count": 596,
+      "packet_sha256": "784615b9cd8721a02f3a534c65859f75dbfa4e8da9078d15924614162657f52c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "endpoint_id": "DEPTH",
+            "protocol_id": "AUG-TEM-S01",
+            "schedule_hash": "sched-aug-tem-s01",
+            "values_by_timepoint_seconds": {
+              "1800": [
+                5,
+                5,
+                6,
+                6
+              ],
+              "60": [
+                2,
+                3,
+                3,
+                4
+              ]
+            }
+          },
+          "facts": [
+            "The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.",
+            "Observed depth values at 60 seconds are 2, 3, 3, and 4.",
+            "Observed depth values at 1800 seconds are 5, 5, 6, and 6.",
+            "No assessor disagreement threshold, order imbalance, or missing cell is triggered."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Determine whether observed dry-wood depth rises between one minute and thirty minutes."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\n- Separate temporal scopes and report only observed transitions.\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\nAuthority limits:\n- No predicted volatility may be converted into perceived behavior.\n- No sensory, liking, stability, safety, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "739788015a5e8c7efbb681db374658aa398125dc4f9bb993e1657d7a04909785",
+      "request_id": "rplreq-46558d4fa5f62a6524fa",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-TEM-S01",
+      "common_input_sha256": "4ebe84c2f061531f900f236f85620c9662e54bd0cc2e8a01b4850d1f27c9b3fa",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "cbd27aef5d6be8b61263e749e0cfb4d755e7ac7b52e635965709b413b30d9f6b",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"values_by_timepoint_seconds\":{\"1800\":[5,5,6,6],\"60\":[2,3,3,4]}},\"facts\":[\"The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.\",\"Observed depth values at 60 seconds are 2, 3, 3, and 4.\",\"Observed depth values at 1800 seconds are 5, 5, 6, and 6.\",\"No assessor disagreement threshold, order imbalance, or missing cell is triggered.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Determine whether observed dry-wood depth rises between one minute and thirty minutes.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S01-placebo-97bc0d8a42bb3d83",
+      "packet_byte_count": 596,
+      "packet_sha256": "ea6e537e167e0365e61d6f80bb5d142e9310cb0baf1c4e6b5665d69b1515ac0a",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "endpoint_id": "DEPTH",
+            "protocol_id": "AUG-TEM-S01",
+            "schedule_hash": "sched-aug-tem-s01",
+            "values_by_timepoint_seconds": {
+              "1800": [
+                5,
+                5,
+                6,
+                6
+              ],
+              "60": [
+                2,
+                3,
+                3,
+                4
+              ]
+            }
+          },
+          "facts": [
+            "The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.",
+            "Observed depth values at 60 seconds are 2, 3, 3, and 4.",
+            "Observed depth values at 1800 seconds are 5, 5, 6, and 6.",
+            "No assessor disagreement threshold, order imbalance, or missing cell is triggered."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Determine whether observed dry-wood depth rises between one minute and thirty minutes."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "b59f7793c8ad3faa6e4665b45358d8ac3bf330f7eb6c7b8d8beaeb0c9ae56b4c",
+      "request_id": "rplreq-219c064bc824a8ea5954",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-TEM-S02",
+      "common_input_sha256": "4bf260828e5437a8437033f8f8ee143bf38123073bdf0aaf801a25aa531d953c",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "c7d63cda36f56d35303e0dffdfea40fda472abe1584b9871b8a6ebd6f6afd51d",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"missing_cell_key\":[\"AUG-TEM-S02\",\"BLIND-A\",\"A3\",2,1800,\"DEPTH\"],\"observed_cell_count\":11,\"required_cell_count\":12},\"facts\":[\"The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.\",\"Exactly 11 canonical cells were observed.\",\"The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.\",\"No interpolation rule was prespecified or authorized.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Summarize a balanced depth panel while preserving one absent canonical cell.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S02-control-7ef9e578b628ebe3",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "missing_cell_key": [
+              "AUG-TEM-S02",
+              "BLIND-A",
+              "A3",
+              2,
+              1800,
+              "DEPTH"
+            ],
+            "observed_cell_count": 11,
+            "required_cell_count": 12
+          },
+          "facts": [
+            "The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.",
+            "Exactly 11 canonical cells were observed.",
+            "The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.",
+            "No interpolation rule was prespecified or authorized."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Summarize a balanced depth panel while preserving one absent canonical cell."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "4bf260828e5437a8437033f8f8ee143bf38123073bdf0aaf801a25aa531d953c",
+      "request_id": "rplreq-b50ca952a381dfea0c4e",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-TEM-S02",
+      "common_input_sha256": "4bf260828e5437a8437033f8f8ee143bf38123073bdf0aaf801a25aa531d953c",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "84837399fc589f2d794ed13d760a76453e227f366d5f0f00ecddfd64081a078d",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"missing_cell_key\":[\"AUG-TEM-S02\",\"BLIND-A\",\"A3\",2,1800,\"DEPTH\"],\"observed_cell_count\":11,\"required_cell_count\":12},\"facts\":[\"The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.\",\"Exactly 11 canonical cells were observed.\",\"The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.\",\"No interpolation rule was prespecified or authorized.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Summarize a balanced depth panel while preserving one absent canonical cell.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\\n- Separate temporal scopes and report only observed transitions.\\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\\nAuthority limits:\\n- No predicted volatility may be converted into perceived behavior.\\n- No sensory, liking, stability, safety, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S02-treatment-c5a5ce7d2c6a081c",
+      "packet_byte_count": 596,
+      "packet_sha256": "784615b9cd8721a02f3a534c65859f75dbfa4e8da9078d15924614162657f52c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "missing_cell_key": [
+              "AUG-TEM-S02",
+              "BLIND-A",
+              "A3",
+              2,
+              1800,
+              "DEPTH"
+            ],
+            "observed_cell_count": 11,
+            "required_cell_count": 12
+          },
+          "facts": [
+            "The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.",
+            "Exactly 11 canonical cells were observed.",
+            "The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.",
+            "No interpolation rule was prespecified or authorized."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Summarize a balanced depth panel while preserving one absent canonical cell."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\n- Separate temporal scopes and report only observed transitions.\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\nAuthority limits:\n- No predicted volatility may be converted into perceived behavior.\n- No sensory, liking, stability, safety, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "8e45f7cf9730ecccc6a94e8601cc0c4a7ff27cac0cfb21ffb8342aef31e3545c",
+      "request_id": "rplreq-cb99cc6c432243ef41d4",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-TEM-S02",
+      "common_input_sha256": "4bf260828e5437a8437033f8f8ee143bf38123073bdf0aaf801a25aa531d953c",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "31f2d6670e702d449517bff6f3c7acdd1fb8e9af59efceb38a575948fe4b8dbb",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"missing_cell_key\":[\"AUG-TEM-S02\",\"BLIND-A\",\"A3\",2,1800,\"DEPTH\"],\"observed_cell_count\":11,\"required_cell_count\":12},\"facts\":[\"The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.\",\"Exactly 11 canonical cells were observed.\",\"The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.\",\"No interpolation rule was prespecified or authorized.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Summarize a balanced depth panel while preserving one absent canonical cell.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S02-placebo-51f81306b98b6e74",
+      "packet_byte_count": 596,
+      "packet_sha256": "ea6e537e167e0365e61d6f80bb5d142e9310cb0baf1c4e6b5665d69b1515ac0a",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "missing_cell_key": [
+              "AUG-TEM-S02",
+              "BLIND-A",
+              "A3",
+              2,
+              1800,
+              "DEPTH"
+            ],
+            "observed_cell_count": 11,
+            "required_cell_count": 12
+          },
+          "facts": [
+            "The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.",
+            "Exactly 11 canonical cells were observed.",
+            "The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.",
+            "No interpolation rule was prespecified or authorized."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Summarize a balanced depth panel while preserving one absent canonical cell."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "ecb950f9d3166fe624e1f832d9185fc9e5a0b998436cb64d8911858336273103",
+      "request_id": "rplreq-160abbe2caa2c36179f5",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-TEM-S03",
+      "common_input_sha256": "486c272ce5908b1c2168e0ff16cffd8e52742079379b662837b36ed90117d718",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "f2126105bbb06ea477789c80adb94d8dbff8dac007571dfc0bbc3a85acbb4a85",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"canonical_cell_record_count\":2,\"distinct_source_hash_count\":2,\"distinct_values\":[3,7]},\"facts\":[\"Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.\",\"The duplicate values are 3 and 7 and have different source row hashes.\",\"A proposal averages them to 5 and continues the analysis.\",\"No provenance rule establishes which record supersedes the other.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Audit a temporal ledger containing two values for one canonical cell.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S03-control-50a5486e62bd3f87",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "canonical_cell_record_count": 2,
+            "distinct_source_hash_count": 2,
+            "distinct_values": [
+              3,
+              7
+            ]
+          },
+          "facts": [
+            "Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.",
+            "The duplicate values are 3 and 7 and have different source row hashes.",
+            "A proposal averages them to 5 and continues the analysis.",
+            "No provenance rule establishes which record supersedes the other."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Audit a temporal ledger containing two values for one canonical cell."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "486c272ce5908b1c2168e0ff16cffd8e52742079379b662837b36ed90117d718",
+      "request_id": "rplreq-2f4e234d087445894738",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-TEM-S03",
+      "common_input_sha256": "486c272ce5908b1c2168e0ff16cffd8e52742079379b662837b36ed90117d718",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "b2b6f825f418bd427e81b6e747f0b06bf9ce20bed73db9e51b0078d61546c2d6",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"canonical_cell_record_count\":2,\"distinct_source_hash_count\":2,\"distinct_values\":[3,7]},\"facts\":[\"Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.\",\"The duplicate values are 3 and 7 and have different source row hashes.\",\"A proposal averages them to 5 and continues the analysis.\",\"No provenance rule establishes which record supersedes the other.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Audit a temporal ledger containing two values for one canonical cell.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\\n- Separate temporal scopes and report only observed transitions.\\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\\nAuthority limits:\\n- No predicted volatility may be converted into perceived behavior.\\n- No sensory, liking, stability, safety, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S03-treatment-2ec39b0381c4aebf",
+      "packet_byte_count": 596,
+      "packet_sha256": "784615b9cd8721a02f3a534c65859f75dbfa4e8da9078d15924614162657f52c",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "canonical_cell_record_count": 2,
+            "distinct_source_hash_count": 2,
+            "distinct_values": [
+              3,
+              7
+            ]
+          },
+          "facts": [
+            "Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.",
+            "The duplicate values are 3 and 7 and have different source row hashes.",
+            "A proposal averages them to 5 and continues the analysis.",
+            "No provenance rule establishes which record supersedes the other."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Audit a temporal ledger containing two values for one canonical cell."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.\n- Hold conflicting duplicate cells and preserve missing cells without interpolation.\n- Separate temporal scopes and report only observed transitions.\n- Admit within-sniff timing only for explicitly qualified apparatus and timing protocols.\nAuthority limits:\n- No predicted volatility may be converted into perceived behavior.\n- No sensory, liking, stability, safety, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "e06534fa5add817d6469873355e0bb0f486030c6a2e66fdcfa71c04129b6e9b8",
+      "request_id": "rplreq-5d6995ca9ae1d241b086",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-TEM-S03",
+      "common_input_sha256": "486c272ce5908b1c2168e0ff16cffd8e52742079379b662837b36ed90117d718",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "af9231de7a710f0b311c2e492942376eba5511805aa5abf7cedcc0cf53899a11",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"evidence_payload\":{\"canonical_cell_record_count\":2,\"distinct_source_hash_count\":2,\"distinct_values\":[3,7]},\"facts\":[\"Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.\",\"The duplicate values are 3 and 7 and have different source row hashes.\",\"A proposal averages them to 5 and continues the analysis.\",\"No provenance rule establishes which record supersedes the other.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"},\"target_identity\":\"Audit a temporal ledger containing two values for one canonical cell.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_sensory_ledger",
+      "nonce": "AUG-TEM-S03-placebo-4ed2621432a220ad",
+      "packet_byte_count": 596,
+      "packet_sha256": "ea6e537e167e0365e61d6f80bb5d142e9310cb0baf1c4e6b5665d69b1515ac0a",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+          "evidence_payload": {
+            "canonical_cell_record_count": 2,
+            "distinct_source_hash_count": 2,
+            "distinct_values": [
+              3,
+              7
+            ]
+          },
+          "facts": [
+            "Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.",
+            "The duplicate values are 3 and 7 and have different source row hashes.",
+            "A proposal averages them to 5 and continues the analysis.",
+            "No provenance rule establishes which record supersedes the other."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"
+          },
+          "target_identity": "Audit a temporal ledger containing two values for one canonical cell."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "7619e5779269601cf5f6231d9ba443eefc4ec795a92b7bc12ec7a9c900f8129b",
+      "request_id": "rplreq-33ab432d1ffcddbb9abb",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-HED-S01",
+      "common_input_sha256": "f689019c78993f98511753a58a15616937497d91f6dd1cfe9fd5c32875af47f0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "2925c24ee4497879ff3c28664a9a9541cc8c32edfbbc4db3a76b1a1806ab8e1c",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"criterion\":\"DEPTH\",\"directional_outcomes\":6,\"next_pair\":[\"B\",\"C\"],\"ties\":2,\"total_outcomes\":8},\"facts\":[\"The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.\",\"Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.\",\"The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.\",\"The B-versus-C pair has the widest interval and is the deterministic next comparison.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Learn only the scoped depth preference from blinded, connected, order-balanced comparisons.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S01-control-7676d42d9cd8cbf6",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "criterion": "DEPTH",
+            "directional_outcomes": 6,
+            "next_pair": [
+              "B",
+              "C"
+            ],
+            "ties": 2,
+            "total_outcomes": 8
+          },
+          "facts": [
+            "The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.",
+            "Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.",
+            "The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.",
+            "The B-versus-C pair has the widest interval and is the deterministic next comparison."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Learn only the scoped depth preference from blinded, connected, order-balanced comparisons."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "f689019c78993f98511753a58a15616937497d91f6dd1cfe9fd5c32875af47f0",
+      "request_id": "rplreq-28a3fb364c53696dedc1",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-HED-S01",
+      "common_input_sha256": "f689019c78993f98511753a58a15616937497d91f6dd1cfe9fd5c32875af47f0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "894f49d5de49d07c9c8f7b79aaa061bfd870b559efeb4b08bb543b0f021840f6",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"criterion\":\"DEPTH\",\"directional_outcomes\":6,\"next_pair\":[\"B\",\"C\"],\"ties\":2,\"total_outcomes\":8},\"facts\":[\"The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.\",\"Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.\",\"The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.\",\"The B-versus-C pair has the widest interval and is the deterministic next comparison.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Learn only the scoped depth preference from blinded, connected, order-balanced comparisons.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\\n- Use deterministic assessor-cluster resampling when assessor identities exist.\\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\\nAuthority limits:\\n- No synthetic beauty score and no composition-derived liking claim.\\n- No formula, purchase, physical, safety, publication, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S01-treatment-64000f59c9fcab93",
+      "packet_byte_count": 605,
+      "packet_sha256": "b802d9000a7c1b351e64ea581f0678498ba1dadf28de2e61a0831de895cc9e61",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "criterion": "DEPTH",
+            "directional_outcomes": 6,
+            "next_pair": [
+              "B",
+              "C"
+            ],
+            "ties": 2,
+            "total_outcomes": 8
+          },
+          "facts": [
+            "The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.",
+            "Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.",
+            "The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.",
+            "The B-versus-C pair has the widest interval and is the deterministic next comparison."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Learn only the scoped depth preference from blinded, connected, order-balanced comparisons."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\n- Use deterministic assessor-cluster resampling when assessor identities exist.\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\nAuthority limits:\n- No synthetic beauty score and no composition-derived liking claim.\n- No formula, purchase, physical, safety, publication, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "ab375705b7224020a7f8dc81f0b398c5f480232e5fc86ce246950c7b3b6b4ef8",
+      "request_id": "rplreq-94f6b6b7580260f7ae21",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-HED-S01",
+      "common_input_sha256": "f689019c78993f98511753a58a15616937497d91f6dd1cfe9fd5c32875af47f0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "a03508c40314d43ba6fe4046bf54c35af5a31a9b37de2ba840d2f09709e57201",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"criterion\":\"DEPTH\",\"directional_outcomes\":6,\"next_pair\":[\"B\",\"C\"],\"ties\":2,\"total_outcomes\":8},\"facts\":[\"The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.\",\"Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.\",\"The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.\",\"The B-versus-C pair has the widest interval and is the deterministic next comparison.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Learn only the scoped depth preference from blinded, connected, order-balanced comparisons.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S01-placebo-0fa28695f4a300a9",
+      "packet_byte_count": 605,
+      "packet_sha256": "12a89a37925b5a93f318a554e993aa85811c278600987114ed5343215ffe2df7",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "criterion": "DEPTH",
+            "directional_outcomes": 6,
+            "next_pair": [
+              "B",
+              "C"
+            ],
+            "ties": 2,
+            "total_outcomes": 8
+          },
+          "facts": [
+            "The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.",
+            "Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.",
+            "The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.",
+            "The B-versus-C pair has the widest interval and is the deterministic next comparison."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Learn only the scoped depth preference from blinded, connected, order-balanced comparisons."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "88874d3d6045e20bfb7482dd089d2ffc8d340d7ca8690fcb92259c26331d9a43",
+      "request_id": "rplreq-89bd7e6f59112bedc920",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-HED-S02",
+      "common_input_sha256": "f2e29779eb79b9f01f2bb3dcfc9881723afeb39bf1785ccca22e85ca3dc35ca8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "8978a9777a40356de5052b81426c7c74b828b552b81d87f9b18484204ab44e4a",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"candidate_count\":4,\"component_members\":[[\"A\",\"B\"],[\"C\",\"D\"]],\"connected_component_count\":2},\"facts\":[\"Observed comparisons connect A with B and C with D.\",\"No comparison links either component to the other.\",\"The proposal reports one global utility ranking A through D.\",\"One bridge comparison can connect the components without claiming a current global ranking.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Fit a depth preference graph only when every candidate belongs to one connected comparison component.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S02-control-6284b6f40ed55da8",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "candidate_count": 4,
+            "component_members": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "connected_component_count": 2
+          },
+          "facts": [
+            "Observed comparisons connect A with B and C with D.",
+            "No comparison links either component to the other.",
+            "The proposal reports one global utility ranking A through D.",
+            "One bridge comparison can connect the components without claiming a current global ranking."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Fit a depth preference graph only when every candidate belongs to one connected comparison component."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "f2e29779eb79b9f01f2bb3dcfc9881723afeb39bf1785ccca22e85ca3dc35ca8",
+      "request_id": "rplreq-b14d2f562b5adc62a686",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-HED-S02",
+      "common_input_sha256": "f2e29779eb79b9f01f2bb3dcfc9881723afeb39bf1785ccca22e85ca3dc35ca8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "76d0c3b58ac82ea8be0fcfcb67a67ac395e8389c7dd222f1ecc5f80ba9ec79e4",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"candidate_count\":4,\"component_members\":[[\"A\",\"B\"],[\"C\",\"D\"]],\"connected_component_count\":2},\"facts\":[\"Observed comparisons connect A with B and C with D.\",\"No comparison links either component to the other.\",\"The proposal reports one global utility ranking A through D.\",\"One bridge comparison can connect the components without claiming a current global ranking.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Fit a depth preference graph only when every candidate belongs to one connected comparison component.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\\n- Use deterministic assessor-cluster resampling when assessor identities exist.\\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\\nAuthority limits:\\n- No synthetic beauty score and no composition-derived liking claim.\\n- No formula, purchase, physical, safety, publication, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S02-treatment-b6044705cd0cafb2",
+      "packet_byte_count": 605,
+      "packet_sha256": "b802d9000a7c1b351e64ea581f0678498ba1dadf28de2e61a0831de895cc9e61",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "candidate_count": 4,
+            "component_members": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "connected_component_count": 2
+          },
+          "facts": [
+            "Observed comparisons connect A with B and C with D.",
+            "No comparison links either component to the other.",
+            "The proposal reports one global utility ranking A through D.",
+            "One bridge comparison can connect the components without claiming a current global ranking."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Fit a depth preference graph only when every candidate belongs to one connected comparison component."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\n- Use deterministic assessor-cluster resampling when assessor identities exist.\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\nAuthority limits:\n- No synthetic beauty score and no composition-derived liking claim.\n- No formula, purchase, physical, safety, publication, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "cd9b44e4707c0099a7a8d0c47bb1caec65b5f1513ebc034bba7fc388dc809327",
+      "request_id": "rplreq-477fc4de26327307d5f4",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-HED-S02",
+      "common_input_sha256": "f2e29779eb79b9f01f2bb3dcfc9881723afeb39bf1785ccca22e85ca3dc35ca8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "aa7b22e07d9d26a06ad85a1cb05ae5d893f87869365436a30de76f54fae9bdde",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"candidate_count\":4,\"component_members\":[[\"A\",\"B\"],[\"C\",\"D\"]],\"connected_component_count\":2},\"facts\":[\"Observed comparisons connect A with B and C with D.\",\"No comparison links either component to the other.\",\"The proposal reports one global utility ranking A through D.\",\"One bridge comparison can connect the components without claiming a current global ranking.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Fit a depth preference graph only when every candidate belongs to one connected comparison component.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S02-placebo-4c687dff0f206fb7",
+      "packet_byte_count": 605,
+      "packet_sha256": "12a89a37925b5a93f318a554e993aa85811c278600987114ed5343215ffe2df7",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "candidate_count": 4,
+            "component_members": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "connected_component_count": 2
+          },
+          "facts": [
+            "Observed comparisons connect A with B and C with D.",
+            "No comparison links either component to the other.",
+            "The proposal reports one global utility ranking A through D.",
+            "One bridge comparison can connect the components without claiming a current global ranking."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Fit a depth preference graph only when every candidate belongs to one connected comparison component."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "227b81d1b7c4b79b87613d81963907533ba0d2eb82d13681b9b9af9e38070155",
+      "request_id": "rplreq-1933f874e2a1cd21deb5",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-HED-S03",
+      "common_input_sha256": "9ab184eb483a41e071a0ae2a78874ef95f2547f97c5d809d48f7c984bd998db0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "f3a0879b1675a8330efb488af324b4d390d6fd06dca08995a2c84159fdb386fe",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"comparison_count\":8,\"first_presented_wins\":8,\"reverse_order_replicates\":0},\"facts\":[\"Across eight blinded comparisons, the first-presented item wins all eight times.\",\"Each product is first in only one fixed subset and no reverse-order replicate exists.\",\"The proposal fits directional product utilities and declares the leading product more liked.\",\"The positional effect cannot be separated from product preference.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Determine liking preference when presentation position is perfectly confounded with the observed winner.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S03-control-b6e622b51a1dd510",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "comparison_count": 8,
+            "first_presented_wins": 8,
+            "reverse_order_replicates": 0
+          },
+          "facts": [
+            "Across eight blinded comparisons, the first-presented item wins all eight times.",
+            "Each product is first in only one fixed subset and no reverse-order replicate exists.",
+            "The proposal fits directional product utilities and declares the leading product more liked.",
+            "The positional effect cannot be separated from product preference."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Determine liking preference when presentation position is perfectly confounded with the observed winner."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "9ab184eb483a41e071a0ae2a78874ef95f2547f97c5d809d48f7c984bd998db0",
+      "request_id": "rplreq-e733ea79a90634cc11bc",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-HED-S03",
+      "common_input_sha256": "9ab184eb483a41e071a0ae2a78874ef95f2547f97c5d809d48f7c984bd998db0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "74e05f9f30498649aa381df4c82bb3f42f09f889ab2a0d829178bb79da774814",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"comparison_count\":8,\"first_presented_wins\":8,\"reverse_order_replicates\":0},\"facts\":[\"Across eight blinded comparisons, the first-presented item wins all eight times.\",\"Each product is first in only one fixed subset and no reverse-order replicate exists.\",\"The proposal fits directional product utilities and declares the leading product more liked.\",\"The positional effect cannot be separated from product preference.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Determine liking preference when presentation position is perfectly confounded with the observed winner.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\\n- Use deterministic assessor-cluster resampling when assessor identities exist.\\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\\nAuthority limits:\\n- No synthetic beauty score and no composition-derived liking claim.\\n- No formula, purchase, physical, safety, publication, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S03-treatment-c9f8893152d7c838",
+      "packet_byte_count": 605,
+      "packet_sha256": "b802d9000a7c1b351e64ea581f0678498ba1dadf28de2e61a0831de895cc9e61",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "comparison_count": 8,
+            "first_presented_wins": 8,
+            "reverse_order_replicates": 0
+          },
+          "facts": [
+            "Across eight blinded comparisons, the first-presented item wins all eight times.",
+            "Each product is first in only one fixed subset and no reverse-order replicate exists.",
+            "The proposal fits directional product utilities and declares the leading product more liked.",
+            "The positional effect cannot be separated from product preference."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Determine liking preference when presentation position is perfectly confounded with the observed winner."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Fit target fidelity, depth, richness, and liking as separate scoped criteria.\n- Retain ties as indifference evidence and use an explicit tie model when fitted.\n- Use deterministic assessor-cluster resampling when assessor identities exist.\n- Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence.\nAuthority limits:\n- No synthetic beauty score and no composition-derived liking claim.\n- No formula, purchase, physical, safety, publication, or release authority.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "875a8e11a8ebcec6fb230020828edd45db021431d77c0bc7a727c8782f3b5df4",
+      "request_id": "rplreq-2061232f5d40f25db0d0",
+      "role": "CRITICAL_TRAP"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-HED-S03",
+      "common_input_sha256": "9ab184eb483a41e071a0ae2a78874ef95f2547f97c5d809d48f7c984bd998db0",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "b35b9d46b3087fa8c6b591f79e14863b3911726d7314182f58e8394d27dd37ad",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"evidence_payload\":{\"comparison_count\":8,\"first_presented_wins\":8,\"reverse_order_replicates\":0},\"facts\":[\"Across eight blinded comparisons, the first-presented item wins all eight times.\",\"Each product is first in only one fixed subset and no reverse-order replicate exists.\",\"The proposal fits directional product utilities and declares the leading product more liked.\",\"The positional effect cannot be separated from product preference.\"],\"inventory_state\":{\"state\":\"NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE\"},\"target_identity\":\"Determine liking preference when presentation position is perfectly confounded with the observed winner.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":\"object of named deterministic calculations\",\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of concise evidence-bound codes\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "hedonic_preference_learner",
+      "nonce": "AUG-HED-S03-placebo-c45805d7c68519f4",
+      "packet_byte_count": 605,
+      "packet_sha256": "12a89a37925b5a93f318a554e993aa85811c278600987114ed5343215ffe2df7",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+          "evidence_payload": {
+            "comparison_count": 8,
+            "first_presented_wins": 8,
+            "reverse_order_replicates": 0
+          },
+          "facts": [
+            "Across eight blinded comparisons, the first-presented item wins all eight times.",
+            "Each product is first in only one fixed subset and no reverse-order replicate exists.",
+            "The proposal fits directional product utilities and declares the leading product more liked.",
+            "The positional effect cannot be separated from product preference."
+          ],
+          "inventory_state": {
+            "state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"
+          },
+          "target_identity": "Determine liking preference when presentation position is perfectly confounded with the observed winner."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": "object of named deterministic calculations",
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of concise evidence-bound codes"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "2920575628302328249bfc44ade1b9976c08cfbba851bff0cbf380fbf94ef28b",
+      "request_id": "rplreq-4c762ee105adcdd96db2",
+      "role": "CRITICAL_TRAP"
+    }
+  ],
+  "rollback_policy": {
+    "action": "Make the candidate runtime-unreachable and restore the last validated registry state while preserving source and evidence bytes.",
+    "formula_mutation_authorized": false,
+    "post_admission_triggers": [
+      "critical regression",
+      "registry hash drift",
+      "reproducibility failure",
+      "authority-boundary violation"
+    ],
+    "post_restore_verification": [
+      "registry hash equals the last validated registry hash",
+      "candidate import paths remain runtime-unreachable",
+      "authority flags remain false",
+      "focused freeze and ensemble tests pass"
+    ],
+    "post_restore_verification_required": true,
+    "release_authority": false,
+    "rollback_failure_state": "HOLD_RUNTIME_UNREACHABLE",
+    "runtime_reachable_during_benchmark": false,
+    "runtime_reenable_requires_fresh_admission": true,
+    "source_deletion_authorized": false
+  },
+  "rubric_sha256": "2a91fe926f7316d1f5ec2d07b41e0a4829932a343fc978d5de3da88c39905bc9",
+  "run_nonce": "solforge-evidence-augmentation-v4-screen-r1-20260826",
+  "schema_version": "complexity_replacement_benchmark_manifest_v5_blinded",
+  "screen_decisions": [],
+  "screen_receipt_sha256": null
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "complexity_module_registry_v4",
+  "base_registry_chain": [
+    {
+      "path": "complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    },
+    {
+      "path": "complexity_module_registry_v2.json",
+      "sha256": "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500"
+    },
+    {
+      "path": "complexity_module_registry_v3.json",
+      "sha256": "44ecf5268e494121d132dcf99586e099cc4b8819b2367ce08ef7da9c1af37476"
+    }
+  ],
+  "module_overrides": [
+    {
+      "module_id": "architectural-delta-engine",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_solforge_architectural_adapter.py"
+      ],
+      "notes": [
+        "V2 conditional evidence compiler; screening and runtime admission remain pending.",
+        "Ingredient count, inventory availability, and product prose grant no target-fit or sensory authority."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_solforge_evidence_adapters.py"
+      ],
+      "notes": [
+        "V2 observed-only sufficiency audit; screening and runtime admission remain pending.",
+        "Missing observations stay missing and predicted volatility never becomes perceived behavior."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_preference_davidson.py",
+        "tests/test_preference_validation.py",
+        "tests/test_hedonic_evidence_gate_v2.py"
+      ],
+      "notes": [
+        "V2 Davidson and assessor-cluster evidence learner; screening and runtime admission remain pending.",
+        "Liking, depth, richness, integration, and target fidelity remain separate exact-scope criteria."
+      ]
+    },
+    {
+      "module_id": "hedonic-evidence-gate-v2",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "import_path": null,
+      "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_solforge_evidence_adapters.py"
+      ],
+      "notes": [
+        "Exact-scope V2 liking gate with deterministic clustered and proper-scoring receipts.",
+        "No composition-derived beauty score or formula, sensory, safety, release, or runtime authority."
+      ]
+    },
+    {
+      "module_id": "solforge-shadow-orchestrator",
+      "state": "EXPERIMENT_COMPILER",
+      "import_path": null,
+      "sha256": "f10e465d4221e280fc543ea0bbaed8899a6eac36a34b829c891f6f594ee31088",
+      "evidence_refs": [
+        "data/governance/solforge_gate_foundation_acceptance_v1.json",
+        "tests/test_solforge_orchestrator.py",
+        "tests/test_solforge_runtime_isolation.py"
+      ],
+      "notes": [
+        "Routes a structured delta only for AUGMENT and preserves every receipt hash.",
+        "NO_AUGMENTATION emits no module prose; HOLD emits blockers and forbidden-inference codes only."
+      ]
+    }
+  ],
+  "module_additions": [],
+  "source_bindings": [
+    {
+      "path": "engine/evidence/augmentation.py",
+      "sha256": "2dcae6869aa7aaf8de669f32959982fdd589455d229548773183204cd69bbfda"
+    },
+    {
+      "path": "engine/hedonic_evidence.py",
+      "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c"
+    },
+    {
+      "path": "engine/perception/architectural_delta.py",
+      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+    },
+    {
+      "path": "engine/preference.py",
+      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878"
+    },
+    {
+      "path": "engine/preference_davidson.py",
+      "sha256": "ad008d052d1de4ae62109f3abefa41ea7bb1533dcad2c76b33dd6f3a3cd4b1cd"
+    },
+    {
+      "path": "engine/preference_validation.py",
+      "sha256": "a5aa2beaf7ab59030b058bd98629ba11280206767359c142159a8f997ba7dd69"
+    },
+    {
+      "path": "engine/sensory/ledger.py",
+      "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71"
+    },
+    {
+      "path": "engine/solforge/orchestrator.py",
+      "sha256": "f10e465d4221e280fc543ea0bbaed8899a6eac36a34b829c891f6f594ee31088"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

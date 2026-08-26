@@ -1,5 +1,7 @@
 """Inspect pipeline audit logs and scan historical formula outputs."""
 
+# ruff: noqa: E402 - repository root must be registered before engine imports
+
 from __future__ import annotations
 
 import argparse
@@ -8,7 +10,6 @@ import json
 import sys
 from pathlib import Path
 
-
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -16,17 +17,33 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.pipeline.audit_log import load_events, summarize_events, suggest_repairs
-from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
     build_literature_rule_contract,
 )
 from engine.odor_thresholds import ODT_VERIFICATION
-from engine.science_audit import build_science_audit_contract
+from engine.perception.complexity_benchmark import (
+    prepare_complexity_benchmark,
+    prepare_relevant_ablations,
+    run_complexity_census,
+    score_complexity_run,
+    validate_complexity_run,
+    write_complexity_benchmark_receipt,
+)
+from engine.pipeline.audit_log import load_events, suggest_repairs, summarize_events
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.project_verification import (
+    default_verification_report_path,
+    run_project_verification,
+    write_verification_report,
+)
 from engine.schema_validator import SchemaValidator
+from engine.science_audit import build_science_audit_contract
+from scripts.formula_release_gate import (
+    current_repository_evidence_hashes,
+    validate_pipeline_analysis_artifact,
+)
 from scripts.verify_formula_workflow import parse_formula_markdown
-
 
 DISCONNECTED_MODULE_STATUS = {
     "engine.optimizer.gate_aware": "promote",
@@ -58,16 +75,12 @@ def _data_authority_coverage_report() -> dict:
         "odt_verification_counts": by_vfy,
         "odt_authoritative_pct": round(
             100.0
-            * sum(
-                by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST")
-            )
+            * sum(by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST"))
             / total,
             1,
         ),
         "odt_heuristic_pct": round(
-            100.0
-            * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN"))
-            / total,
+            100.0 * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN")) / total,
             1,
         ),
         "science_coverage_pct": science.get("data_coverage_pct", {}),
@@ -122,9 +135,7 @@ def _is_scratch_formula_path(path: Path) -> bool:
     return path.name.startswith("_")
 
 
-def _matching_formula_paths(
-    pattern: str, *, include_scratch: bool = False
-) -> list[Path]:
+def _matching_formula_paths(pattern: str, *, include_scratch: bool = False) -> list[Path]:
     paths = [Path(path) for path in glob.glob(str(PROJECT_ROOT / pattern), recursive=True)]
     paths = sorted(paths)
     if include_scratch:
@@ -162,7 +173,23 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
         ifra_headroom = 0.8 if commercial_mode else 1.0
 
     reports = []
+    from engine.formula_metadata import pipeline_preflight_guard as _preflight
+
     for path in sorted(paths):
+        preflight = _preflight(str(path), brief=args.brief)
+        if not preflight.ok():
+            reports.append(
+                {
+                    "file": str(path),
+                    "preflight": {
+                        "status": "BLOCKED",
+                        "hard_blocks": preflight.hard_blocks,
+                        "warnings": preflight.warnings,
+                    },
+                    "formulas": [],
+                }
+            )
+            continue
         try:
             formulas = parse_formula_markdown(path)
         except Exception as exc:
@@ -175,9 +202,7 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                 family_archetype=args.family_archetype,
                 allow_preblends=args.allow_preblends,
                 commercial_mode=commercial_mode,
-                commercial_confidence_policy="warn"
-                if args.commercial_trial
-                else "block",
+                commercial_confidence_policy="warn" if args.commercial_trial else "block",
                 ifra_headroom=ifra_headroom,
                 batch_scaling_targets_ml=tuple(args.scaling_target_ml or ()),
                 audit_enabled=not args.no_audit,
@@ -191,17 +216,11 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                     "status": report.status,
                     "commercial_readiness": report.commercial_readiness,
                     "audit_event_id": report.audit_event_id,
-                    "failed_gates": [
-                        gate.gate for gate in report.gates if gate.status == "FAIL"
-                    ],
-                    "warn_gates": [
-                        gate.gate for gate in report.gates if gate.status == "WARN"
-                    ],
+                    "failed_gates": [gate.gate for gate in report.gates if gate.status == "FAIL"],
+                    "warn_gates": [gate.gate for gate in report.gates if gate.status == "WARN"],
                 }
             )
-        reports.append(
-            {"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports}
-        )
+        reports.append({"file": str(path.relative_to(PROJECT_ROOT)), "formulas": file_reports})
 
     if args.json:
         _print_json({"scanned_files": len(paths), "results": reports})
@@ -247,9 +266,7 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     disconnected_modules = _disconnected_module_status_report()
     evidence_posture = _evidence_posture_report()
 
-    formula_paths = _matching_formula_paths(
-        args.glob, include_scratch=args.include_scratch
-    )
+    formula_paths = _matching_formula_paths(args.glob, include_scratch=args.include_scratch)
     formula_paths = sorted(formula_paths)[: max(1, int(args.sample_limit))]
     representative: list[dict] = []
     for path in formula_paths:
@@ -355,18 +372,158 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_artifact_verify(args: argparse.Namespace) -> int:
+    """Validate persisted analysis provenance without re-running formula science."""
+
+    paths = _matching_formula_paths(
+        args.glob,
+        include_scratch=args.include_scratch,
+    )
+    if not paths:
+        payload = {
+            "status": "FAIL",
+            "reason": f"No files matched {args.glob!r}",
+            "files": [],
+        }
+        if args.json:
+            _print_json(payload)
+        else:
+            print(payload["reason"])
+        return 1
+
+    rows = []
+    counts: dict[str, int] = {}
+    repository_hashes = current_repository_evidence_hashes()
+    for path in paths:
+        try:
+            result = validate_pipeline_analysis_artifact(
+                path,
+                repository_hashes=repository_hashes,
+            )
+        except Exception as exc:  # fail closed for persisted evidence validation
+            result = {"status": "TAMPERED", "issues": [f"validator_error:{exc}"]}
+        status = str(result.get("status", "TAMPERED"))
+        counts[status] = counts.get(status, 0) + 1
+        rows.append(
+            {
+                "file": str(path.relative_to(PROJECT_ROOT)),
+                **result,
+            }
+        )
+
+    blocking_statuses = {"STALE", "TAMPERED"}
+    blockers = [row for row in rows if row["status"] in blocking_statuses]
+    overall = "FAIL" if blockers else "WARN" if counts.get("UNBOUND_LEGACY", 0) else "PASS"
+    payload = {
+        "status": overall,
+        "policy": {
+            "blocking": sorted(blocking_statuses),
+            "unbound_legacy_is_current": False,
+            "none_is_current": False,
+            "quarantined_is_current": False,
+            "quarantined_release_authority": False,
+        },
+        "counts": dict(sorted(counts.items())),
+        "files": rows,
+    }
+    if args.json:
+        _print_json(payload)
+    else:
+        print(f"Artifact verification: {overall}")
+        for status, count in sorted(counts.items()):
+            print(f"  {status:<15} {count}")
+        for row in blockers:
+            print(f"  BLOCK {row['file']}: {', '.join(row.get('issues', []))}")
+    return 1 if blockers else 0
+
+
+def _cmd_project_verify(args: argparse.Namespace) -> int:
+    try:
+        report = run_project_verification(
+            project_root=PROJECT_ROOT,
+            selected=args.only,
+            quick=args.quick,
+            include_docker=args.include_docker,
+        )
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+    output_path = (
+        PROJECT_ROOT / args.output
+        if args.output is not None
+        else default_verification_report_path(PROJECT_ROOT, report)
+    )
+    write_verification_report(report, output_path)
+    payload = report.as_dict()
+    if args.json:
+        _print_json(payload)
+    else:
+        print(f"Completion gate: {payload['completion_gate']}")
+        for check in payload["checks"]:
+            suffix = f" - {check['reason']}" if check.get("reason") else ""
+            print(f"  {check['status']:<7} {check['name']}{suffix}")
+        print(f"Report: {output_path.relative_to(PROJECT_ROOT)}")
+    return 1 if report.completion_gate == "FAIL" else 0
+
+
+def _cmd_complexity_benchmark(args: argparse.Namespace) -> int:
+    handlers = {
+        "census": run_complexity_census,
+        "prepare": prepare_complexity_benchmark,
+        "validate": validate_complexity_run,
+        "score": score_complexity_run,
+        "ablate": prepare_relevant_ablations,
+        "receipt": write_complexity_benchmark_receipt,
+    }
+    try:
+        payload = handlers[args.operation](
+            project_root=PROJECT_ROOT,
+            run_dir=PROJECT_ROOT / args.run_dir,
+        )
+    except ValueError as exc:
+        payload = {
+            "state": "BENCHMARK_BLOCKED",
+            "operation": args.operation,
+            "provider_calls": 0,
+            "run_dir": args.run_dir,
+            "artifacts": [],
+            "blockers": [str(exc)],
+        }
+        _print_json(payload)
+        return 2
+    _print_json(payload)
+    return (
+        1
+        if payload["state"] == "HOLD"
+        or str(payload["state"]).startswith("BENCHMARK_BLOCKED")
+        else 0
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Review pipeline audit logs and historical formula outputs."
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    summarize = sub.add_parser(
-        "summarize", help="Summarize JSONL pipeline audit events."
-    )
+    summarize = sub.add_parser("summarize", help="Summarize JSONL pipeline audit events.")
     summarize.add_argument("--path", default=None)
     summarize.add_argument("--json", action="store_true")
     summarize.set_defaults(func=_cmd_summarize)
+
+    artifact_verify = sub.add_parser(
+        "artifact-verify",
+        help="Validate formula analysis bindings, hashes, and staleness.",
+    )
+    artifact_verify.add_argument("--glob", default="formulas/**/*.md")
+    artifact_verify.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas.",
+    )
+    artifact_verify.add_argument("--json", action="store_true")
+    artifact_verify.set_defaults(func=_cmd_artifact_verify)
 
     scan = sub.add_parser(
         "scan-formulas",
@@ -390,6 +547,7 @@ def main(argv: list[str] | None = None) -> int:
             "floral_aldehydic_amber",
             "woody_floral_musk",
             "gourmand_floral",
+            "prada_lhomme",
         ],
     )
     scan.add_argument("--family-archetype", default="")
@@ -442,6 +600,56 @@ def main(argv: list[str] | None = None) -> int:
     verify.add_argument("--no-audit", action="store_true")
     verify.add_argument("--json", action="store_true")
     verify.set_defaults(func=_cmd_verify)
+
+    project_verify = sub.add_parser(
+        "project-verify",
+        help="Run bounded Phase 0 repository checks and emit completion evidence.",
+    )
+    project_verify.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        help="Run one named check; repeat to select multiple checks.",
+    )
+    project_verify.add_argument(
+        "--quick",
+        action="store_true",
+        help="Run the canonical truth, science, data, and golden checks only.",
+    )
+    project_verify.add_argument(
+        "--include-docker",
+        action="store_true",
+        help="Run optional Docker build and smoke checks when Docker is available.",
+    )
+    project_verify.add_argument(
+        "--output",
+        default=None,
+        help=(
+            "Repository-relative JSON report path. By default, full evidence uses "
+            "project_verification.json and non-full evidence uses a scope suffix."
+        ),
+    )
+    project_verify.add_argument("--json", action="store_true")
+    project_verify.set_defaults(func=_cmd_project_verify)
+
+    complexity = sub.add_parser(
+        "complexity-benchmark",
+        help=(
+            "Prepare, validate, score, and receipt the local complexity xhigh "
+            "benchmark."
+        ),
+    )
+    complexity.add_argument(
+        "--operation",
+        required=True,
+        choices=("census", "prepare", "validate", "score", "ablate", "receipt"),
+    )
+    complexity.add_argument(
+        "--run-dir",
+        default="output/complexity_xhigh_benchmark/current",
+    )
+    complexity.add_argument("--json", action="store_true")
+    complexity.set_defaults(func=_cmd_complexity_benchmark)
 
     args = parser.parse_args(argv)
     return int(args.func(args))

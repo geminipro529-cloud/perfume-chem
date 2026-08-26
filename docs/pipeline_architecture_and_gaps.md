@@ -7,6 +7,78 @@
 > **⚠️ RULE: Optimize for the name, not just the numbers.**  
 > When optimizing through this pipeline, the target is always the **name / concept / original brief** of the perfume, not the numerical scores. Gates and optimizers are tools — the formula name is the north star.
 
+## 2026-07-19 Run Evidence Contract
+
+The release path now separates four independent authorities. A result may be
+useful as a creative diagnostic while still being forbidden from authorizing a
+dose, safety decision, named-reference ratio, or current persisted analysis.
+
+| Authority | Required evidence | Failure policy |
+|---|---|---|
+| Stock | One owned inventory identity per row; matching fraction, physical basis, and carrier | Hard FAIL |
+| Quantitative | Complete mass chain for exact concentrate ppm w/w; finished-product mass chain for commercial release | Hard FAIL when a quantitative or commercial claim requests it; otherwise explicit modeled WARN |
+| Claim | Explicit claim mode, versioned reference contract, and supported scope | Hard FAIL |
+| Artifact | Formula-definition, config, inventory, scientific-input, pipeline-source, and analysis hashes | STALE/TAMPERED hard failure; legacy reports are unbound and never current |
+
+The executable flow is:
+
+```text
+formula source
+  -> strip generated analysis before parsing
+  -> resolve live inventory stock identity
+  -> build exact-or-explicitly-modeled ppm/ODT/OAV state
+  -> enforce named-reference evidence scope
+  -> run hard truth gates and advisory aesthetic gates
+  -> render analysis
+  -> atomically persist + immediately re-read and verify the bound artifact
+```
+
+Key invariants:
+
+1. OAV remains `MODELED_HEURISTIC`; it is never a sensory-likeness percentage.
+2. Pairwise Carles diagnostics use active mass ppm, never OAV ratios.
+3. Single-material share uses active mass, never raw diluted-stock volume.
+4. A generic brief cannot be inferred as chypre, fougere, or another named family from layer dominance.
+5. Generated analysis can never become formula input. Legacy headings and the new sentinel block are removed before table parsing and formula hashing.
+6. Optimizer candidates inherit live inventory dilutions before gating; missing or ambiguous stocks remain blocked.
+7. Natural mixtures without composite GC-O decomposition remain hard failures.
+
+Named-reference metadata is explicit:
+
+```markdown
+**Claim mode:** named_reference
+**Reference contract:** montblanc_explorer_official_notes_v1
+**Reference scope:** architecture
+```
+
+The current Explorer and Aventus contracts are based on official note
+architectures ([Montblanc](https://www.montblanc.com/en-ph/fragrances/collection/explorer),
+[Creed](https://creedboutique.com/products/aventus)). They authorize architecture
+checks only. They do not contain formula ratios, GC-MS composition, or sensory
+equivalence evidence, so `quantitative_similarity` and `sensory_similarity`
+remain blocked.
+
+Persisted evidence uses deterministic JSON hashing aligned with the repository
+subset of [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785.html), provenance
+entities and derivations modeled after [W3C PROV-DM](https://www.w3.org/TR/prov-dm/),
+and an explicit unbroken input chain consistent with
+[NIST metrological traceability](https://www.nist.gov/metrology/metrological-traceability).
+The authority boundary also reflects the published limitation that OAV alone
+does not reliably identify every odor-impact compound
+([Audouin et al., 2001](https://experts.umn.edu/en/publications/limitations-in-the-use-of-odor-activity-values-to-determine-impor/)).
+
+Verification commands:
+
+```powershell
+python scripts/pipeline_audit.py artifact-verify --json
+python scripts/pipeline_audit.py project-verify --quick --json
+python scripts/pipeline_audit.py project-verify --json
+```
+
+This contract prevents the documented data/provenance failure classes. It does
+not promise that a mathematically valid perfume will smell good; sensory quality
+and likeness still require blinded smelling, reference comparison, and wear data.
+
 ## 1. CURRENT ARCHITECTURE
 
 ### Entry Point

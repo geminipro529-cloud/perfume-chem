@@ -12,9 +12,12 @@ Inspired by pharma CADD applicability-domain analysis.
 
 import math
 import sqlite3
+
 from engine.calibration.store import count_outcome_records
 from engine.optimizer.models import (
-    _lookup_material, analyze_formula_rule_coverage, DB_PATH,
+    DB_PATH,
+    _lookup_material,
+    analyze_formula_rule_coverage,
 )
 
 # Fields that matter most for scoring accuracy
@@ -74,7 +77,7 @@ class ConfidenceScorer:
 
     def pairing_confidence(self, ingredients: dict[str, float]) -> float:
         """What fraction of ingredient pairs are covered by known rules? 0-100.
-        
+
         Now weighted by effect magnitude — a pair with magnitude 3.0 synergy
         contributes more than a magnitude 1.0 pairing.
         """

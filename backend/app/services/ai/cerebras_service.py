@@ -7,9 +7,10 @@ Solves two key issues:
 """
 
 import json
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, Iterable, List, Optional, cast
 
 from openai import AsyncOpenAI
+from openai.types.chat import ChatCompletionToolParam
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from app.core.config import get_settings
@@ -233,7 +234,7 @@ class CerebrasService(BaseAIService):
                 if cached:
                     if self.verbose:
                         logger.info("Cache hit for Cerebras completion")
-                    return cached
+                    return cast(str, cached)
 
             # Acquire rate limit
             estimated_tokens = self._estimate_tokens(prompt, max_tokens)
@@ -258,7 +259,7 @@ class CerebrasService(BaseAIService):
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens,
                 temperature=temperature,
-                tools=normalized_tools,  # Pass normalized tools
+                tools=cast(Iterable[ChatCompletionToolParam], normalized_tools),
                 **kwargs_clean
             )
 
@@ -322,7 +323,7 @@ class CerebrasService(BaseAIService):
                 max_tokens=max_tokens,
                 temperature=temperature,
                 stream=True,
-                tools=normalized_tools,  # Pass normalized tools
+                tools=cast(Iterable[ChatCompletionToolParam], normalized_tools),
                 **kwargs_clean
             )
 
@@ -374,7 +375,7 @@ class CerebrasService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -464,7 +465,7 @@ class CerebrasService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -506,7 +507,7 @@ class CerebrasService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             if dosage_info:
                 result["validated_dosage"] = dosage_info
             return result
@@ -515,4 +516,4 @@ class CerebrasService(BaseAIService):
 
     def get_usage_stats(self) -> Dict:
         """Get rate limit usage statistics"""
-        return self.rate_limiter.get_usage("cerebras")
+        return cast(Dict[str, Any], self.rate_limiter.get_usage("cerebras"))

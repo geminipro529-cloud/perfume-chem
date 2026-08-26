@@ -1,6 +1,7 @@
 """OAV ratio analysis for Tropicale Gourmande v2 — validate against literature benchmarks."""
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 if sys.platform == "win32":
@@ -8,10 +9,9 @@ if sys.platform == "win32":
 
 import re
 
-from engine.optimizer.models import FormulaVector
+from engine.odor_thresholds import ODT_DATA
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.simulator import simulate_formula
-from engine.odor_thresholds import ODT_DATA
 
 # Parse formula
 formula_path = Path("formulas/Tropicale_Gourmande_30mL_EDP.md")
@@ -228,7 +228,7 @@ try:
         print(f"  {win:<15} {p_sum:>12.1f} {c_sum:>12.1f} {v_sum:>12.1f} {ratio:>10.1f} {total_vap:>10.3f}")
 
     # Evolution arc check
-    print(f"\n  PINEAPPLE:VANILLA RATIO EVOLUTION (should start >>1:1, end <<1:1):")
+    print("\n  PINEAPPLE:VANILLA RATIO EVOLUTION (should start >>1:1, end <<1:1):")
     for i, frame in enumerate(frames):
         win = window_names[i] if i < len(window_names) else f"t{i}"
         if hasattr(frame, 'materials'):

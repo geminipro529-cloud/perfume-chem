@@ -1,0 +1,276 @@
+{
+  "schema_version": "solforge_scientific_programs_v1",
+  "programs": [
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "ARCHITECTURAL_DELTA",
+      "module_id": "architectural-delta-engine",
+      "claim": "A target-first compiler increases interpretable valid-action or justified-withholding yield versus unconstrained advice.",
+      "exact_scope": "Frozen software cases with exact inventory snapshots and one shared Sol hypothesis output per condition.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "VALID_DECISION_YIELD", "criterion": "SOFTWARE_DECISION_YIELD", "measure": "Proportion of cases producing one legal controlled experiment or a justified hold", "primary": true, "physical_observation_required": false},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "TARGET_FIDELITY", "criterion": "TARGET_FIDELITY", "measure": "Blinded target-faithfulness judgment for the proposed experiment", "primary": false, "physical_observation_required": false}
+      ],
+      "primary_endpoint_id": "VALID_DECISION_YIELD",
+      "controls": ["Plain Sol advice from the identical frozen output", "Length-matched no-op formatting of the identical frozen output"],
+      "failure_criteria": ["Any critical authority or experimental-design error", "Action or justified-withholding yield below the preregistered threshold"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Deterministic compiler and hash verifier"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Condition labels concealed from judges"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Randomized packet condition order"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Byte-identical deterministic replay"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One frozen case and one shared model output"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on any critical error or invariant miss"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "SHADOW_VALIDATED on software success; otherwise RESEARCH_ONLY or PROVENANCE_TOMBSTONE",
+      "source_record_ids": ["NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "TEMPORAL_LEDGER",
+      "module_id": "temporal-sensory-ledger",
+      "claim": "Hash-bound repeated observations can measure assessor-repeatable emergence, recurrence, and transitions without interpolation.",
+      "exact_scope": "Declared protocol, samples, assessors, repeats, timepoints, endpoints, and presentation schedule.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "TRANSITION_REPEATABILITY", "criterion": "DEPTH", "measure": "Replicated assessor-level temporal transition agreement", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "SEPARATE_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response at a frozen timepoint", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "TRANSITION_REPEATABILITY",
+      "controls": ["Repeated control sample", "Missing-cell and duplicate-cell negative controls"],
+      "failure_criteria": ["Duplicate canonical cell", "Order imbalance", "Repeatability threshold failure", "Unqualified within-sniff timing"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Qualified timing apparatus for within-sniff data; ordinary clocked sessions otherwise"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Williams-balanced presentation schedule"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Declared maximum within-assessor repeat spread"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One assessor-sample-repeat-timepoint-endpoint cell"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on safety event or protocol hold"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "DIAGNOSTIC_ONLY until prospective physical repeats pass",
+      "source_record_ids": ["LABBE-2009", "ZHOU-2024", "ISO-8586-2023", "ISO-13299-2016"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "PREFERENCE_LEARNER",
+      "module_id": "hedonic-preference-learner",
+      "claim": "Criterion-isolated paired comparisons predict held-out choices above a declared baseline only at the exact assessor and protocol scope.",
+      "exact_scope": "One criterion, connected item graph, declared assessors, balanced order, protocol, timepoint, and held-out partition.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "HELDOUT_ACCURACY", "criterion": "TARGET_FIDELITY", "measure": "Held-out pairwise prediction accuracy above the declared baseline", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "LIKING_ACCURACY", "criterion": "LIKING", "measure": "Separate held-out liking prediction at the identical declared scope", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "HELDOUT_ACCURACY",
+      "controls": ["Declared majority or chance baseline", "Order-balanced repeated pairs"],
+      "failure_criteria": ["Disconnected graph", "Order confounding", "Criterion mixing", "Failure to beat held-out baseline"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Hash-bound comparison intake"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque pair identities"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Both first-position orders within each pair"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Assessor-cluster bootstrap and repeated comparisons"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One assessor-specific pairwise choice"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Withhold on sparse, unscoped, or baseline-failing evidence"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "DIAGNOSTIC_ONLY until exact-scope held-out physical validation",
+      "source_record_ids": ["ARSHAMIAN-2022", "LIU-2020", "ISO-11136-2014"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "PERCEPTUAL_TOPOLOGY",
+      "module_id": "universal-perceptual-topology-core",
+      "claim": "Relational features proposed by topology become meaningful only when ratio and omission trials are discriminable and repeatable.",
+      "exact_scope": "Matched-total ratio and omission trials for one declared relational feature and endpoint.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "RELATIONAL_DISCRIMINATION", "criterion": "TARGET_FIDELITY", "measure": "Blinded discrimination and repeatability of the declared relational feature", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "RELATIONAL_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response for the same physical arms", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "RELATIONAL_DISCRIMINATION",
+      "controls": ["Matched-total control", "Single-factor omission arms"],
+      "failure_criteria": ["Feature is not discriminable", "Feature is not repeatable", "Pairwise evidence is used to claim an untested interaction"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Gravimetric matched-total sample preparation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Replicate across sessions"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One declared ratio or omission arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop when discriminability or repeatability fails"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY until physical relational features replicate",
+      "source_record_ids": ["FRANK-2017", "NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "ART_COMPOSITION_TOPOLOGY",
+      "module_id": "perfumery-art-composition-topology-v1",
+      "claim": "Matched-total perturbations can locate repeatable boundaries in a declared compositional relation.",
+      "exact_scope": "One relation, one perturbation window, fixed materials and total dose, repeated physical assessments.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "BOUNDARY_REPEATABILITY", "criterion": "RICHNESS", "measure": "Replicated boundary in the declared perceptual relation under matched-total perturbation", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "BOUNDARY_LIKING", "criterion": "LIKING", "measure": "Separate liking comparison around the replicated boundary", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "BOUNDARY_REPEATABILITY",
+      "controls": ["Center-point formula", "Both perturbation directions at matched total"],
+      "failure_criteria": ["Boundary does not replicate", "Target identity changes across the window", "Uncontrolled materials differ between arms"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Gravimetric preparation and fixed application dose"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Independent session replication"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One matched-total perturbation arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on target drift or failed replication"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY until physical boundaries replicate",
+      "source_record_ids": ["NIST-MIXTURE-DESIGN", "ISO-13299-2016"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "WOOD_DEPTH",
+      "module_id": "wood-depth-model-v2",
+      "claim": "Wood depth can be tested as a target-linked effect distinct from intensity, darkness, total wood dose, and material multiplicity.",
+      "exact_scope": "One wood target with matched-total ratio or omission arms and separately rated depth, intensity, and darkness.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "WOOD_DEPTH_RATING", "criterion": "DEPTH", "measure": "Blinded depth difference after adjustment for separately observed intensity and dark character", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "WOOD_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response for the same arms", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "WOOD_DEPTH_RATING",
+      "controls": ["Matched total wood dose", "Intensity and dark-character ratings", "Single ratio or omission change"],
+      "failure_criteria": ["Depth cannot be separated from intensity or dark character", "Total active dose differs", "Target identity drifts"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Gravimetric preparation and fixed application substrate"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Repeated sessions with declared spread threshold"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One matched-total wood arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on confounding or safety event"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY pending physical depth evidence",
+      "source_record_ids": ["FRANK-2017", "ISO-13299-2016", "NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "CITRUS_ARCHITECTURE",
+      "module_id": "citrus-architecture-research",
+      "claim": "Primary citrus and heart echoes must be selected by target identity and tested across timepoints, with zero citrus allowed.",
+      "exact_scope": "One declared citrus target, extraction and stock identity, support bridge, matched control, and fixed timepoints.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "CITRUS_TARGET_FIDELITY", "criterion": "TARGET_FIDELITY", "measure": "Blinded target-identity fidelity and citrus continuity across preregistered timepoints", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "CITRUS_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response at a frozen timepoint", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "CITRUS_TARGET_FIDELITY",
+      "controls": ["Target-faithful no-citrus control when appropriate", "Primary-citrus-only arm", "Support-bridge arm"],
+      "failure_criteria": ["Neroli support replaces a non-orange-blossom target", "Inventory or extraction identity is unresolved", "Continuity is inferred from volatility rather than observed"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Exact stock refs, fixed substrate, and clocked assessments"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Repeated sessions across fixed timepoints"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One target-specific citrus architecture arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on target drift, stock mismatch, or safety event"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY pending target-specific physical trials",
+      "source_record_ids": ["MCCLINTOCK-2020", "LABBE-2009", "ISO-13299-2016"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "MUSK_ARCHITECTURE",
+      "module_id": "musk-architecture-research",
+      "claim": "Zero or one target-functional musk is the default; layering requires distinct roles and a complete focused interaction design.",
+      "exact_scope": "Single-musk omissions or one complete two-factor matched-total interaction with exact inventory states.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "MUSK_FUNCTION", "criterion": "TARGET_FIDELITY", "measure": "Blinded target-functional difference across single, omission, or complete interaction arms", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "MUSK_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response for surviving arms", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "MUSK_FUNCTION",
+      "controls": ["Zero-musk control", "Single-musk arms", "Control, A, B, and A plus B for any interaction claim"],
+      "failure_criteria": ["Generic layering rationale", "Missing interaction arm", "Exception musk without explicit target role", "Unavailable physical stock"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Exact stock refs and matched-total gravimetric preparation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Williams-balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Repeated assessor sessions"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One matched-total musk arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on incomplete design, stock mismatch, or safety event"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY pending physical single-musk or factorial evidence",
+      "source_record_ids": ["FRANK-2017", "NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "FLORAL_ORRIS_ARCHITECTURE",
+      "module_id": "floral-orris-architecture-research",
+      "claim": "Soliflores, selected multi-flower relations, and sweet orris require recognizer-preserving ratio and omission evidence rather than material multiplicity.",
+      "exact_scope": "One soliflore, two-flower relation, selected three- or four-flower hypothesis, or sweet-orris target with matched controls.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "FLORAL_ORRIS_IDENTITY", "criterion": "TARGET_FIDELITY", "measure": "Blinded target recognizer and relational fidelity under matched ratio or omission trials", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "FLORAL_ORRIS_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response for the same target-specific arms", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "FLORAL_ORRIS_IDENTITY",
+      "controls": ["Target recognizer control", "Single-family omissions", "Complete focused interaction arms when claimed"],
+      "failure_criteria": ["Flower multiplicity substitutes for a relation", "Sweet orris collapses into generic floral powder", "Uncontrolled target or total dose"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Exact stock refs and fixed application dose"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Repeated target-identity judgments"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One target-specific floral or orris arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on target collapse, design incompleteness, or safety event"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY pending physical target-recognition trials",
+      "source_record_ids": ["FRANK-2017", "ISO-13299-2016", "NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    },
+    {
+      "schema_version": "solforge_scientific_program_v1",
+      "program_id": "AMBER_RESIN_INCENSE_ARCHITECTURE",
+      "module_id": "amber-resin-incense-architecture-research",
+      "claim": "Storax, benzoin, myrrh, frankincense or olibanum, balsamic, vanilla, labdanum, and wood functions require recognizer-first ratio, omission, and temporal trials.",
+      "exact_scope": "One declared amber, resin, or incense target with exact natural-material stock identity and matched ratio or omission arms.",
+      "endpoints": [
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "AMBER_TARGET_FIDELITY", "criterion": "TARGET_FIDELITY", "measure": "Blinded target recognizer and temporal continuity across matched ratio or omission arms", "primary": true, "physical_observation_required": true},
+        {"schema_version": "solforge_program_endpoint_v1", "endpoint_id": "AMBER_LIKING", "criterion": "LIKING", "measure": "Separate paired liking response for the same physical arms", "primary": false, "physical_observation_required": true}
+      ],
+      "primary_endpoint_id": "AMBER_TARGET_FIDELITY",
+      "controls": ["Recognizer control", "Single-resin omissions", "Matched-total ratio window"],
+      "failure_criteria": ["Natural-material identity or stock basis is unresolved", "Dark character is treated as depth", "Liking is inferred from resin identity"],
+      "protocol_requirements": [
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "APPARATUS", "requirement": "Exact stock refs, gravimetric preparation, and clocked assessments"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "BLINDING", "requirement": "Opaque sample codes"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "ORDER", "requirement": "Balanced presentation"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "REPEATABILITY", "requirement": "Repeated temporal target-recognition sessions"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "SAMPLE_UNIT", "requirement": "One exact-stock amber, resin, or incense arm"},
+        {"schema_version": "solforge_program_protocol_requirement_v1", "requirement_id": "STOPPING", "requirement": "Stop on stock ambiguity, target drift, or safety event"}
+      ],
+      "required_conclusion_level": "PROTOCOL_VALIDATED",
+      "result_disposition": "RESEARCH_ONLY pending physical recognizer and temporal trials",
+      "source_record_ids": ["FRANK-2017", "LABBE-2009", "ISO-13299-2016", "NIST-MIXTURE-DESIGN"],
+      "forbidden_proxies": ["ingredient count", "formula frequency", "supplier prose", "price", "prestige", "oav sum", "modeled volatility", "darkness", "loudness", "complexity jargon"],
+      "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+    }
+  ],
+  "authority_flags": {"formula": false, "hedonic": false, "physical_execution": false, "release": false, "safety": false, "sensory": false}
+}

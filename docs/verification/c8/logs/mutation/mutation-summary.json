@@ -1,0 +1,118 @@
+{
+    "schema":  "c8-mutation-summary-v1",
+    "source_path":  "engine/physics/headspace_oav.py",
+    "original_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "final_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+    "mutation_count":  4,
+    "killed_count":  4,
+    "restored_pass_count":  4,
+    "timeout_count":  0,
+    "stderr_nonempty_count":  0,
+    "results":  [
+                    {
+                        "name":  "predicted_domain_guard",
+                        "selector":  "tests/test_c8_headspace_oav.py::test_headspace_oav_abstains_answerlessly_on_every_failed_precondition",
+                        "original_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "mutated_sha256":  "215390f218269afa847ee59c6995d1e2f7abda7c462de4957148415ef4f195e9",
+                        "restored_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "target_occurrences":  1,
+                        "mutated":  {
+                                        "exit_code":  1,
+                                        "timed_out":  false,
+                                        "stdout_path":  "docs/verification/c8/logs/mutation/predicted_domain_guard.mutated.stdout.txt",
+                                        "stderr_path":  "docs/verification/c8/logs/mutation/predicted_domain_guard.mutated.stderr.txt",
+                                        "stdout_bytes":  4682,
+                                        "stderr_bytes":  0
+                                    },
+                        "restored":  {
+                                         "exit_code":  0,
+                                         "timed_out":  false,
+                                         "stdout_path":  "docs/verification/c8/logs/mutation/predicted_domain_guard.restored.stdout.txt",
+                                         "stderr_path":  "docs/verification/c8/logs/mutation/predicted_domain_guard.restored.stderr.txt",
+                                         "stdout_bytes":  100,
+                                         "stderr_bytes":  0
+                                     },
+                        "killed":  true,
+                        "restored_pass":  true
+                    },
+                    {
+                        "name":  "bounded_uncertainty_guard",
+                        "selector":  "tests/test_c8_headspace_oav.py::test_headspace_oav_abstains_answerlessly_on_every_failed_precondition",
+                        "original_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "mutated_sha256":  "3e5260d94c068b8ef7ab069560971d0de1a8f7ae21bf0a04403382ed4bd64cc0",
+                        "restored_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "target_occurrences":  1,
+                        "mutated":  {
+                                        "exit_code":  1,
+                                        "timed_out":  false,
+                                        "stdout_path":  "docs/verification/c8/logs/mutation/bounded_uncertainty_guard.mutated.stdout.txt",
+                                        "stderr_path":  "docs/verification/c8/logs/mutation/bounded_uncertainty_guard.mutated.stderr.txt",
+                                        "stdout_bytes":  15100,
+                                        "stderr_bytes":  0
+                                    },
+                        "restored":  {
+                                         "exit_code":  0,
+                                         "timed_out":  false,
+                                         "stdout_path":  "docs/verification/c8/logs/mutation/bounded_uncertainty_guard.restored.stdout.txt",
+                                         "stderr_path":  "docs/verification/c8/logs/mutation/bounded_uncertainty_guard.restored.stderr.txt",
+                                         "stdout_bytes":  100,
+                                         "stderr_bytes":  0
+                                     },
+                        "killed":  true,
+                        "restored_pass":  true
+                    },
+                    {
+                        "name":  "generic_numeric_effect_guard",
+                        "selector":  "tests/test_c8_headspace_oav.py::test_uncalibrated_generic_interaction_rejects_a_numerical_effect",
+                        "original_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "mutated_sha256":  "0fb50ea92fa7ccc5afb6debd71bc888168203cae628c00b2115d1f599beae4ee",
+                        "restored_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "target_occurrences":  1,
+                        "mutated":  {
+                                        "exit_code":  1,
+                                        "timed_out":  false,
+                                        "stdout_path":  "docs/verification/c8/logs/mutation/generic_numeric_effect_guard.mutated.stdout.txt",
+                                        "stderr_path":  "docs/verification/c8/logs/mutation/generic_numeric_effect_guard.mutated.stderr.txt",
+                                        "stdout_bytes":  716,
+                                        "stderr_bytes":  0
+                                    },
+                        "restored":  {
+                                         "exit_code":  0,
+                                         "timed_out":  false,
+                                         "stdout_path":  "docs/verification/c8/logs/mutation/generic_numeric_effect_guard.restored.stdout.txt",
+                                         "stderr_path":  "docs/verification/c8/logs/mutation/generic_numeric_effect_guard.restored.stderr.txt",
+                                         "stdout_bytes":  100,
+                                         "stderr_bytes":  0
+                                     },
+                        "killed":  true,
+                        "restored_pass":  true
+                    },
+                    {
+                        "name":  "unsupported_claim_guard",
+                        "selector":  "tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied",
+                        "original_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "mutated_sha256":  "1c33d12f833354143918bd92872702b792081dfd491de7209916891cb15f753c",
+                        "restored_sha256":  "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1",
+                        "target_occurrences":  1,
+                        "mutated":  {
+                                        "exit_code":  1,
+                                        "timed_out":  false,
+                                        "stdout_path":  "docs/verification/c8/logs/mutation/unsupported_claim_guard.mutated.stdout.txt",
+                                        "stderr_path":  "docs/verification/c8/logs/mutation/unsupported_claim_guard.mutated.stderr.txt",
+                                        "stdout_bytes":  20710,
+                                        "stderr_bytes":  0
+                                    },
+                        "restored":  {
+                                         "exit_code":  0,
+                                         "timed_out":  false,
+                                         "stdout_path":  "docs/verification/c8/logs/mutation/unsupported_claim_guard.restored.stdout.txt",
+                                         "stderr_path":  "docs/verification/c8/logs/mutation/unsupported_claim_guard.restored.stderr.txt",
+                                         "stdout_bytes":  100,
+                                         "stderr_bytes":  0
+                                     },
+                        "killed":  true,
+                        "restored_pass":  true
+                    }
+                ],
+    "decision":  "PASS"
+}

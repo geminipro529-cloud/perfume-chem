@@ -1,0 +1,45 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_process_layers_and_output_labels_are_closed_and_separate ________
+
+    def test_process_layers_and_output_labels_are_closed_and_separate() -> None:
+        assert [item.value for item in PhysicalProcessLayer] == [
+            "EQUILIBRIUM_PARTITION",
+            "MASS_TRANSFER_AND_EVAPORATION",
+            "SUBSTRATE_SORPTION",
+            "PHYSICAL_HEADSPACE_TRAJECTORY",
+            "OLFACTORY_ADAPTATION",
+            "PERCEIVED_INTENSITY",
+            "TEMPORAL_ATTRIBUTE_PROFILE",
+        ]
+>       assert tuple(item.value for item in PhysicalTrajectoryLabel) == (
+            "PREDICTED_HEADSPACE_TRAJECTORY",
+            "PREDICTED_RELEASE_TRAJECTORY",
+            "ESTIMATED_PHYSICAL_PERSISTENCE",
+        )
+E       AssertionError: assert ('PREDICTED_H...ED_INTENSITY') == ('PREDICTED_H..._PERSISTENCE')
+E         
+E         Left contains one more item: 'PERCEIVED_INTENSITY'
+E         
+E         Full diff:
+E           (
+E               'PREDICTED_HEADSPACE_TRAJECTORY',
+E               'PREDICTED_RELEASE_TRAJECTORY',
+E               'ESTIMATED_PHYSICAL_PERSISTENCE',
+E         +     'PERCEIVED_INTENSITY',
+E           )
+
+tests\test_c6_dynamic_release.py:412: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c6_dynamic_release.py::test_process_layers_and_output_labels_are_closed_and_separate - AssertionError: assert ('PREDICTED_H...ED_INTENSITY') == ('PREDICTED_H..._PERSISTENCE')
+  
+  Left contains one more item: 'PERCEIVED_INTENSITY'
+  
+  Full diff:
+    (
+        'PREDICTED_HEADSPACE_TRAJECTORY',
+        'PREDICTED_RELEASE_TRAJECTORY',
+        'ESTIMATED_PHYSICAL_PERSISTENCE',
+  +     'PERCEIVED_INTENSITY',
+    )
+1 failed in 0.57s

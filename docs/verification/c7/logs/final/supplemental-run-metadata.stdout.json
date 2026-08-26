@@ -1,0 +1,68 @@
+{
+    "schema":  "build-c7-supplemental-run-metadata-v1",
+    "generated_at":  "2026-08-03T04:04:42.7676349+07:00",
+    "non_pty":  true,
+    "stdout_stderr_separate":  true,
+    "nonempty_stderr_is_failure":  true,
+    "jobs":  [
+                 {
+                     "name":  "deepluna-sol-reproduction",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "tests/test_c7_natural_lots.py::test_c7_closed_vocabularies_and_precedence_are_exact",
+                                       "tests/test_c7_natural_lots.py::test_every_lot_identity_axis_changes_content_hash",
+                                       "tests/test_c7_natural_lots.py::test_quantitative_constituent_bases_retain_value_and_authority",
+                                       "tests/test_c7_natural_lots.py::test_normalized_area_percent_cannot_masquerade_as_concentration",
+                                       "tests/test_c7_natural_lots.py::test_exact_lot_measurements_require_exact_run_and_source_lot",
+                                       "tests/test_c7_natural_lots.py::test_every_unresolved_fraction_kind_remains_visible",
+                                       "tests/test_c7_natural_lots.py::test_unresolved_disclosure_cannot_be_omitted_or_misstated",
+                                       "tests/test_c7_natural_lots.py::test_selection_uses_exact_six_level_precedence",
+                                       "tests/test_c7_natural_lots.py::test_selection_discloses_every_fallback",
+                                       "tests/test_c7_natural_lots.py::test_selection_requires_exact_lot_supplier_and_proxy_scope_matches",
+                                       "tests/test_c7_natural_lots.py::test_equal_rank_disagreement_is_ambiguous_and_no_profile_abstains",
+                                       "tests/test_c7_natural_lots.py::test_three_projection_families_are_separate_and_basis_preserving",
+                                       "tests/test_c7_natural_lots.py::test_regulatory_projection_requires_complete_mass_fraction_authority",
+                                       "tests/test_c7_natural_lots.py::test_projection_entry_cannot_relabel_its_source_basis",
+                                       "tests/test_c7_natural_lots.py::test_authenticity_comparison_uses_only_basis_compatible_values",
+                                       "tests/test_c7_natural_lots.py::test_authenticity_deviation_chemotype_and_indicator_decisions_are_explicit",
+                                       "tests/test_c7_natural_lots.py::test_aging_series_versions_state_without_changing_lot_identity",
+                                       "tests/test_c7_natural_lots.py::test_aging_series_rejects_identity_time_sequence_and_hash_drift",
+                                       "tests/test_c7_natural_lots.py::test_c7_module_has_no_legacy_backend_database_oav_or_sensory_dependency",
+                                       "tests/test_c3_model_interface.py::test_c3_types_are_explicitly_exported_from_engine_physics"
+                                   ],
+                     "started_at_utc":  "2026-08-02T21:04:37.3937795+00:00",
+                     "duration_ms":  3368,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout_path":  "docs/verification/c7/logs/final/deepluna-sol-reproduction.stdout.txt",
+                     "stdout_sha256":  "cdfc2e1e7a8f7973bf30279c8a9e3f13e1d0d15cf0f6739e1778129b4e939132",
+                     "stderr_path":  "docs/verification/c7/logs/final/deepluna-sol-reproduction.stderr.txt",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 },
+                 {
+                     "name":  "deepluna-postflight",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\run_deepluna_exact_health.mjs"
+                                   ],
+                     "started_at_utc":  "2026-08-02T21:04:40.9090245+00:00",
+                     "duration_ms":  1835,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout_path":  "docs/verification/c7/logs/final/deepluna-postflight.stdout.txt",
+                     "stdout_sha256":  "d79fd97fb0cd329b6f7f6fac3fdc7339808112de44176f7e7e10046f8c1b1e58",
+                     "stderr_path":  "docs/verification/c7/logs/final/deepluna-postflight.stderr.txt",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

@@ -1,0 +1,467 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/perfumery/meaningful-complexity-audit-v2.schema.json",
+  "title": "Meaningful Complexity Audit v2",
+  "type": "object",
+  "required": [
+    "formula_id",
+    "formula_class",
+    "inventory_lock",
+    "formula_rows",
+    "interaction_records",
+    "gate_results",
+    "summary",
+    "formula_hash"
+  ],
+  "properties": {
+    "formula_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formula_name": {
+      "type": "string"
+    },
+    "formula_class": {
+      "type": "string",
+      "enum": [
+        "compact_functional_module",
+        "high_complexity_accord",
+        "high_complexity_perfume"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "inventory_lock": {
+      "type": "object",
+      "required": [
+        "file_name",
+        "version",
+        "sha256"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        }
+      }
+    },
+    "formula_rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/formulaRow"
+      }
+    },
+    "interaction_records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interactionRecord"
+      }
+    },
+    "gate_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/gateResult"
+      }
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "formula_hash": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "blocked_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "formulaRow": {
+      "type": "object",
+      "required": [
+        "row_id",
+        "canonical_material",
+        "stock_label",
+        "parts_per_1000",
+        "primary_function",
+        "phase_roles",
+        "evidence_class",
+        "ablation_class",
+        "counted_as_complexity"
+      ],
+      "properties": {
+        "row_id": {
+          "type": "string"
+        },
+        "canonical_material": {
+          "type": "string"
+        },
+        "stock_label": {
+          "type": "string"
+        },
+        "active_fraction": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "solvent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "product_basis": {
+          "type": "boolean"
+        },
+        "parts_per_1000": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "dose_1ml_ul": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dose_5ml_ul": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dose_30ml_ul": {
+          "type": "number",
+          "minimum": 0
+        },
+        "primary_function": {
+          "type": "string"
+        },
+        "secondary_functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensory_system": {
+          "type": "string"
+        },
+        "phase_roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "opening",
+              "heart",
+              "drydown",
+              "late_drydown"
+            ]
+          },
+          "minItems": 1
+        },
+        "bridge_from": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bridge_to": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "interaction_effects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dose_rationale": {
+          "type": "string"
+        },
+        "alternatives_considered": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redundancy_review": {
+          "type": "string"
+        },
+        "evidence_class": {
+          "type": "string",
+          "enum": [
+            "official",
+            "peer_reviewed_primary",
+            "patent",
+            "supplier_technical",
+            "formula_ancestry",
+            "public_reconstruction",
+            "sensory_hypothesis"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "uncertainty": {
+          "type": "string"
+        },
+        "ablation_class": {
+          "type": "string",
+          "enum": [
+            "IDENTITY CRITICAL",
+            "STRUCTURALLY IMPORTANT",
+            "TEXTURAL SUPPORT",
+            "MICROTEXTURE / PHYSICAL CONFIRMATION",
+            "REDUNDANT / REMOVE",
+            "TECHNICAL"
+          ]
+        },
+        "ablation_impact": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "perturbation_class": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "physical_confirmation_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "counted_as_complexity": {
+          "type": "boolean"
+        },
+        "inventory_status": {
+          "type": "string"
+        },
+        "execution_lock": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "interactionRecord": {
+      "type": "object",
+      "required": [
+        "source_system",
+        "target_system",
+        "effect_type",
+        "expected_effect",
+        "confidence"
+      ],
+      "properties": {
+        "source_system": {
+          "type": "string"
+        },
+        "target_system": {
+          "type": "string"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effect_type": {
+          "type": "string",
+          "enum": [
+            "enhancement",
+            "suppression",
+            "masking",
+            "rounding",
+            "sharpening",
+            "diffusion_change",
+            "persistence_change",
+            "texture_change",
+            "sweetness_change",
+            "dryness_change",
+            "temperature_change",
+            "bridge",
+            "collision_risk",
+            "uncertain"
+          ]
+        },
+        "dose_window": {
+          "type": "string"
+        },
+        "phase": {
+          "type": "string"
+        },
+        "expected_effect": {
+          "type": "string"
+        },
+        "failure_mode": {
+          "type": "string"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "physical_test": {
+          "type": "string"
+        }
+      }
+    },
+    "gateResult": {
+      "type": "object",
+      "required": [
+        "gate_id",
+        "state"
+      ],
+      "properties": {
+        "gate_id": {
+          "type": "string",
+          "pattern": "^G([0-9]|1[0-4])$"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "CONDITIONAL",
+            "HOLD",
+            "FAIL",
+            "REBUILD",
+            "NOT_RUN"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "distinct_odor_materials",
+        "counted_complexity_rows",
+        "microtexture_rows",
+        "technical_rows",
+        "functional_row_ratio",
+        "microtexture_ratio",
+        "final_state"
+      ],
+      "properties": {
+        "distinct_odor_materials": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "counted_complexity_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "microtexture_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "technical_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "identity_critical_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "structural_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "textural_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "functional_row_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "microtexture_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "bridge_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "monte_carlo_pass_probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "final_state": {
+          "type": "string",
+          "enum": [
+            "COMPUTATIONAL DESIGN PASS",
+            "CONDITIONAL",
+            "HOLD",
+            "REBUILD"
+          ]
+        }
+      }
+    }
+  }
+}

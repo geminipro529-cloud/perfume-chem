@@ -18,8 +18,6 @@ protocol. Covers:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Sequence
-
 
 # ---------------------------------------------------------------------------
 # Blotter evaluation schedule

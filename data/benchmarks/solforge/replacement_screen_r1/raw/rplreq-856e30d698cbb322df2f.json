@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-856e30d698cbb322df2f",
+  "case_id": "RPL-ARC-S02",
+  "module_id": "architectural_delta",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03ab7-e79e-7131-bb71-d1ef33bd029d",
+  "dispatch_sha256": "a743c252dd451f40935fa5c7f5e54d664ffe56caf1d17375e864e8a87f389820",
+  "output_text": "{\n  \"decision\": \"REJECT_ADDITION\",\n  \"target_linked_reasoning\": \"The transparent floral architecture is complete, and its restraint is intentional. No target function is missing or weakly covered; ingredient count alone does not establish target-linked depth, richness, or relationships. The candidate is also redundant with current V5 stock.\",\n  \"controlled_comparison\": \"Retain the current architecture as the control. Do not test the redundant candidate unless a specific target-linked deficiency and one-variable hypothesis are first defined.\",\n  \"physical_liking_state\": \"NOT TESTED\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "57a2d733924fe13dbee08ba5dc62110f662dc8568110282dd567c97b6208fca5",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

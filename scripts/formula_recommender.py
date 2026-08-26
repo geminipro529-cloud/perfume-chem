@@ -1,7 +1,6 @@
 """Formula Recommendations — material swap suggestions from diagnosis + OAV table.
 Reads the pipeline output and suggests specific swaps."""
 from __future__ import annotations
-from typing import Any
 
 VP_SCALE = {
     "extreme": (100, 500),    # aldehydes, citrus EOs
@@ -41,14 +40,14 @@ def suggest_swap(oav_table: list[dict], material_name: str) -> dict | None:
         if m.get("name") == material_name:
             oav = m.get("oav", 0) or 0
             vp = m.get("vp_pa", 0) or 0
-            note = m.get("note", "")
+            m.get("note", "")
             if oav >= 1.0:
                 return None  # already perceptible
-            
+
             fam = _get_family(material_name)
             if not fam:
                 return None
-            
+
             # Find higher-VP alternative in same family
             candidates = []
             for alt in SAME_FAMILY[fam]:
@@ -61,7 +60,7 @@ def suggest_swap(oav_table: list[dict], material_name: str) -> dict | None:
                         if alt_oav >= 1.0:
                             candidates.append((alt_oav, alt, row.get("active_ul", 0)))
                         break
-            
+
             if candidates:
                 candidates.sort(key=lambda x: -x[0])
                 return {
@@ -77,9 +76,9 @@ def suggest_swap(oav_table: list[dict], material_name: str) -> dict | None:
 def generate_recommendations(report: dict) -> list[dict]:
     """Generate prioritized material swap recommendations."""
     oav_table = report.get("oav_table", [])
-    diagnosis = report.get("diagnosis", [])
+    report.get("diagnosis", [])
     suggestions = []
-    
+
     # Find dormant character materials
     for m in oav_table:
         oav = m.get("oav", 0) or 0
@@ -88,5 +87,5 @@ def generate_recommendations(report: dict) -> list[dict]:
             swap = suggest_swap(oav_table, m.get("name", ""))
             if swap:
                 suggestions.append(swap)
-    
+
     return suggestions

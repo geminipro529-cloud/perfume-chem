@@ -16,9 +16,8 @@ This module provides:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Mapping, Sequence
-
+from dataclasses import dataclass
+from typing import Sequence
 
 # ---------------------------------------------------------------------------
 # Brief element → material translation

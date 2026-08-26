@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from engine.kb_schema import create_database
 from engine import formula_memory
+from engine.kb_schema import create_database
 
 # ---------------------------------------------------------------------------
 # Fixtures

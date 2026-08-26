@@ -18,6 +18,7 @@ Score = w_match · trajectory_match
 Uses scipy.optimize.differential_evolution if available, else a homebrew
 random-restart hill-climb. Both consume the same objective function.
 """
+
 from __future__ import annotations
 
 import math
@@ -27,6 +28,7 @@ from typing import Callable, Mapping, Sequence
 
 try:
     from scipy.optimize import differential_evolution as _scipy_de  # type: ignore
+
     _HAS_SCIPY = True
 except Exception:
     _HAS_SCIPY = False
@@ -34,18 +36,19 @@ except Exception:
 
 @dataclass(slots=True)
 class OAVObjective:
-    materials: list[str]                     # ordered material list
-    bounds: list[tuple[float, float]]        # wt% per material
+    materials: list[str]  # ordered material list
+    bounds: list[tuple[float, float]]  # wt% per material
     target_envelope: dict[str, dict[str, float]]
     headspace_fn: Callable[[Mapping[str, float]], dict[str, dict[str, float]]]
-    families: dict[str, str]                  # material → OR family
-    weights: dict[str, float] = field(default_factory=lambda: dict(
-        match=1.0, novelty=0.5, adapt=0.3, ifra=2.0, stable=0.2))
+    families: dict[str, str]  # material → OR family
+    weights: dict[str, float] = field(
+        default_factory=lambda: dict(match=1.0, novelty=0.5, adapt=0.3, ifra=2.0, stable=0.2)
+    )
 
 
-def _envelope_match(profile: dict[str, dict[str, float]],
-                    families: dict[str, str],
-                    target: dict[str, float]) -> float:
+def _envelope_match(
+    profile: dict[str, dict[str, float]], families: dict[str, str], target: dict[str, float]
+) -> float:
     """L2 closeness between observed family-summed OAV and target (single window)."""
     obs: dict[str, float] = {}
     for mat, m in profile.items():
@@ -62,7 +65,10 @@ def score_formula_oav(
     obj: OAVObjective,
     *,
     evaporation_windows: Sequence[tuple[str, float]] = (
-        ("top", 60.0), ("heart", 1800.0), ("base", 14400.0)),
+        ("top", 60.0),
+        ("heart", 1800.0),
+        ("base", 14400.0),
+    ),
 ) -> float:
     """Single-shot scalar score (higher = better). The headspace_fn supplied
     by the caller may itself integrate the trajectory; we keep this layer
@@ -113,6 +119,7 @@ def differential_evolution_oav(
     seed: int | None = None,
 ) -> tuple[dict[str, float], float]:
     """Search wt% within `obj.bounds`, return (best_wt_pct, best_score)."""
+
     def neg_score(x):
         wt = {m: float(v) for m, v in zip(obj.materials, x)}
         return -score_formula_oav(wt, obj)
@@ -137,7 +144,7 @@ def differential_evolution_oav(
     n = len(lo)
     pop = [[rng.uniform(lo[i], hi[i]) for i in range(n)] for _ in range(popsize)]
     fitness = [neg_score(p) for p in pop]
-    F, CR = 0.7, 0.9
+    F, CR = 0.7, 0.9  # noqa: N806
     for _ in range(maxiter):
         for j in range(popsize):
             idxs = rng.sample([i for i in range(popsize) if i != j], 3)
@@ -165,8 +172,7 @@ if __name__ == "__main__":
     obj = OAVObjective(
         materials=["Limonene", "Hedione", "Iso E Super"],
         bounds=[(0, 5), (0, 8), (0, 15)],
-        target_envelope={"top": {"citrus": 0.8}, "heart": {"floral": 0.6},
-                         "base": {"wood": 1.0}},
+        target_envelope={"top": {"citrus": 0.8}, "heart": {"floral": 0.6}, "base": {"wood": 1.0}},
         headspace_fn=fake_headspace,
         families={"Limonene": "citrus", "Hedione": "floral", "Iso E Super": "wood"},
     )

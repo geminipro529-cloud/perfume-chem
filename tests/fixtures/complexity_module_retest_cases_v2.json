@@ -1,0 +1,208 @@
+{
+  "schema_version": "complexity_module_retest_cases_v2",
+  "base_corpus": "complexity_module_retest_cases_v1.json",
+  "case_overrides": [
+    {
+      "case_id": "CM-MUS-01",
+      "target_name": "Metallic Linen Aura",
+      "target_identity": "one narrow radiant clean-musk aura without a generic laundry cloud",
+      "facts": [
+        "Habanolide is owned neat/as supplied under the V5 inventory authority.",
+        "One exact Habanolide plane is the strongest-single baseline; no second musk has a distinct role."
+      ],
+      "inventory_state": {
+        "Habanolide": "OWNED_NEAT_AS_SUPPLIED"
+      },
+      "expected_decision": "ONE_HABANOLIDE_NEAT",
+      "native_result_patch": {
+        "state": "PASS",
+        "architecture_mode": "SPARSE",
+        "target_ideal_state": "DESIGN_AVAILABLE",
+        "current_inventory_build_state": "BUILD_IDENTIFIED",
+        "selected": [
+          {
+            "material": "Habanolide",
+            "role": "PROJECTION",
+            "target_function": "one narrow radiant clean-musk aura",
+            "why_nonredundant": "no other musk plane is admitted",
+            "inventory_state": "OWNED",
+            "exact_stock_ref": "inventory-v5:Habanolide:neat-as-supplied"
+          }
+        ],
+        "issue_codes": []
+      }
+    },
+    {
+      "case_id": "CM-MUS-03",
+      "target_name": "Four-Musk Count Trap",
+      "target_identity": "one restrained musk-depth plane with intentional negative space",
+      "brief": "Add every named musk because more materials imply more complexity.",
+      "facts": [
+        "Ambrettolide 10%, Romandolide, Habanolide and Ethylene Brassylate are all assigned the same depth role.",
+        "No pairwise nonredundancy or omission evidence is supplied."
+      ],
+      "inventory_state": {
+        "Ambrettolide 10% in DPG": "PLANNED_ACQUISITION_DESIGN_AVAILABLE",
+        "Romandolide": "OWNED_NEAT_AS_SUPPLIED",
+        "Habanolide": "OWNED_NEAT_AS_SUPPLIED",
+        "Ethylene Brassylate": "MISSING_HIGH_VALUE_EXPANSION"
+      },
+      "expected_decision": "HOLD_REDUNDANT_MUSK_ROLE",
+      "critical_error": "MUSK_COUNT_PROVES_RICHNESS",
+      "native_result_patch": {
+        "state": "HOLD",
+        "architecture_mode": "LAYERED",
+        "selected": [
+          {"material": "Ambrettolide 10% in DPG", "role": "DEPTH", "target_function": "warm depth", "why_nonredundant": "not demonstrated", "inventory_state": "PLANNED_ACQUISITION", "exact_stock_ref": null},
+          {"material": "Romandolide", "role": "DEPTH", "target_function": "clean depth", "why_nonredundant": "not demonstrated", "inventory_state": "OWNED", "exact_stock_ref": "inventory-v5:Romandolide:neat-as-supplied"},
+          {"material": "Habanolide", "role": "DEPTH", "target_function": "radiant depth", "why_nonredundant": "not demonstrated", "inventory_state": "OWNED", "exact_stock_ref": "inventory-v5:Habanolide:neat-as-supplied"},
+          {"material": "Ethylene Brassylate", "role": "DEPTH", "target_function": "soft body depth", "why_nonredundant": "not demonstrated", "inventory_state": "MISSING", "exact_stock_ref": null}
+        ],
+        "issue_codes": ["REDUNDANT_MUSK_ROLE", "PAIRWISE_NONREDUNDANCY_MISSING"]
+      }
+    },
+    {
+      "case_id": "CM-MUS-04",
+      "target_name": "Planned Ambrettolide",
+      "target_identity": "warm intimate skin depth with no invented physical stock",
+      "facts": [
+        "Ambrettolide 10% in DPG is planned acquisition and computationally design-available.",
+        "Physical receipt and ExactStockRef remain absent."
+      ],
+      "inventory_state": {
+        "Ambrettolide 10% in DPG": "PLANNED_ACQUISITION_DESIGN_AVAILABLE_PROCUREMENT_PENDING"
+      },
+      "expected_decision": "AMBRETTOLIDE_TARGET_ONLY_HOLD_BUILD",
+      "critical_error": "CLAIM_AMBRETTOLIDE_PHYSICAL_STOCK",
+      "native_result_patch": {
+        "state": "PASS",
+        "architecture_mode": "SPARSE",
+        "target_ideal_state": "DESIGN_AVAILABLE",
+        "current_inventory_build_state": "HOLD_PROCUREMENT_REQUIRED",
+        "selected": [
+          {
+            "material": "Ambrettolide 10% in DPG",
+            "role": "DEPTH",
+            "target_function": "warm intimate skin depth",
+            "why_nonredundant": "only admitted musk hypothesis",
+            "inventory_state": "PLANNED_ACQUISITION",
+            "exact_stock_ref": null
+          }
+        ],
+        "issue_codes": []
+      }
+    },
+    {
+      "case_id": "CM-MUS-05",
+      "target_name": "Romandolide Single-Musk Baseline",
+      "target_identity": "one soft clean skin-depth plane with no powder",
+      "facts": [
+        "Romandolide is owned neat/as supplied under the V5 inventory authority.",
+        "A second clean musk is not justified by a distinct target function."
+      ],
+      "inventory_state": {
+        "Romandolide": "OWNED_NEAT_AS_SUPPLIED"
+      },
+      "expected_decision": "ROMANDOLIDE_ZERO_VERSUS_SINGLE",
+      "native_result_patch": {
+        "state": "PASS",
+        "architecture_mode": "SPARSE",
+        "target_ideal_state": "DESIGN_AVAILABLE",
+        "current_inventory_build_state": "BUILD_IDENTIFIED",
+        "selected": [
+          {
+            "material": "Romandolide",
+            "role": "DEPTH",
+            "target_function": "one soft clean skin-depth plane",
+            "why_nonredundant": "no other musk is admitted",
+            "inventory_state": "OWNED",
+            "exact_stock_ref": "inventory-v5:Romandolide:neat-as-supplied"
+          }
+        ],
+        "issue_codes": []
+      }
+    },
+    {
+      "case_id": "CM-MUS-06",
+      "target_name": "Ethylene Brassylate Expansion",
+      "target_identity": "broad soft clean musk body tested as one missing architecture branch",
+      "facts": [
+        "Ethylene Brassylate is not in the V5 current inventory.",
+        "Its high-value expansion rank is a design hypothesis, not proof of beauty or physical availability."
+      ],
+      "inventory_state": {
+        "Ethylene Brassylate": "MISSING_HIGH_VALUE_EXPANSION"
+      },
+      "expected_decision": "ETHYLENE_BRASSYLATE_TARGET_ONLY_HOLD_BUILD",
+      "critical_error": "CLAIM_MISSING_MUSK_AS_OWNED",
+      "native_result_patch": {
+        "state": "PASS",
+        "architecture_mode": "SPARSE",
+        "target_ideal_state": "DESIGN_AVAILABLE",
+        "current_inventory_build_state": "HOLD_PROCUREMENT_REQUIRED",
+        "selected": [
+          {
+            "material": "Ethylene Brassylate",
+            "role": "TEXTURE",
+            "target_function": "test a broad soft clean musk body",
+            "why_nonredundant": "the proposed geometry is absent from current stock",
+            "inventory_state": "MISSING",
+            "exact_stock_ref": null
+          }
+        ],
+        "issue_codes": []
+      }
+    },
+    {
+      "case_id": "CM-CIT-01",
+      "target_name": "Neroli Floral Handoff",
+      "target_identity": "dry bitter bergamot prism opening into an orange-blossom floral heart",
+      "facts": [
+        "Bergamot owns the primary dry bitter citrus prism.",
+        "Neroli EO 10% in DPG is owned only at 10% and supplies a distinct floral-transition bridge."
+      ],
+      "inventory_state": {
+        "Bergamot FCF Oil Sicilian": "OWNED",
+        "Neroli EO 10% in DPG": "OWNED_10_PERCENT_DPG_ONLY_SUPPORT_ONLY"
+      },
+      "expected_decision": "BERGAMOT_PLUS_NEROLI_10PCT_BRIDGE",
+      "native_result_patch": {
+        "state": "PASS",
+        "target_ideal": {
+          "primary": "Bergamot FCF Oil Sicilian",
+          "support": "Neroli EO 10% in DPG",
+          "transition_to_heart": "hands the bitter citrus prism through neroli into the orange-blossom heart"
+        },
+        "current_inventory_build": {
+          "primary": "Bergamot FCF Oil Sicilian",
+          "support": "Neroli EO 10% in DPG",
+          "primary_stock_ref": "inventory-v5:Bergamot FCF Oil Sicilian:exact-stock",
+          "support_stock_ref": "inventory-v5:Neroli EO 10% in DPG",
+          "state": "BUILD_IDENTIFIED"
+        },
+        "issue_codes": []
+      }
+    },
+    {
+      "case_id": "CM-CIT-03",
+      "target_name": "Neroli Primary Substitution Trap",
+      "target_identity": "one clear cold bitter peel line entering an orange-blossom heart",
+      "brief": "Use Neroli 10% as the primary citrus because it connects to the floral heart.",
+      "facts": [
+        "Neroli EO 10% in DPG is support-only in this architecture.",
+        "No target-fit primary cold bitter peel material is established."
+      ],
+      "inventory_state": {
+        "Neroli EO 10% in DPG": "OWNED_10_PERCENT_DPG_ONLY_SUPPORT_ONLY"
+      },
+      "expected_decision": "HOLD_NO_TARGET_FIT_PRIMARY",
+      "critical_error": "NEROLI_BRIDGE_REPLACES_PRIMARY_CITRUS",
+      "native_result_patch": {
+        "state": "HOLD",
+        "target_ideal": {"primary": null, "support": null, "transition_to_heart": null},
+        "current_inventory_build": {"primary": null, "support": null, "primary_stock_ref": null, "support_stock_ref": null, "state": "HOLD_NO_TARGET_SELECTION"},
+        "issue_codes": ["NO_TARGET_FIT_PRIMARY"]
+      }
+    }
+  ]
+}

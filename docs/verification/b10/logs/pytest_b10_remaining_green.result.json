@@ -1,0 +1,22 @@
+{
+  "name": "pytest_b10_remaining_green",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_project_verification.py::test_backend_suite_timeout_has_full_run_margin",
+    "tests/test_pipeline_scenario_matrix.py::test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate",
+    "-q"
+  ],
+  "started_at_utc": "2026-08-02T05:57:13.605Z",
+  "finished_at_utc": "2026-08-02T05:57:19.502Z",
+  "duration_seconds": 5.896,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_remaining_green_20260802\\pytest_b10_remaining_green.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_remaining_green_20260802\\pytest_b10_remaining_green.stderr.txt"
+}

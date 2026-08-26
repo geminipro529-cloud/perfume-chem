@@ -1,0 +1,19 @@
+{
+    "name":  "node_check_b9",
+    "cwd":  "D:\\chatbots\\perfume-chem",
+    "command":  [
+                    "node",
+                    "--check",
+                    "backend\\app\\static\\lab.js"
+                ],
+    "started_at_utc":  "2026-08-02T03:47:27.204Z",
+    "finished_at_utc":  "2026-08-02T03:47:27.382Z",
+    "duration_seconds":  0.177,
+    "timeout_seconds":  60,
+    "timed_out":  false,
+    "exit_code":  0,
+    "signal":  null,
+    "spawn_error":  null,
+    "stdout_path":  "D:\\chatbots\\perfume-chem\\docs\\verification\\b9\\logs\\node_check_b9.stdout.txt",
+    "stderr_path":  "D:\\chatbots\\perfume-chem\\docs\\verification\\b9\\logs\\node_check_b9.stderr.txt"
+}

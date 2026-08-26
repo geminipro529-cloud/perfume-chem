@@ -14,14 +14,12 @@ Author: Safety-First Chemistry Assistant
 Last Updated: 2026-01-13
 """
 
-import csv
 import json
 import os
-import re
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 _ENGINE_ROOT = Path(__file__).resolve().parent.parent
 
@@ -40,20 +38,20 @@ class TrustedSource(Enum):
     TGSC = "The Good Scents Company"
     PUBCHEM = "PubChem"
     CHEMSPIDER = "ChemSpider"
-    
+
     # Tier 2: Supplier catalogs (verified)
     PERFUMERSWORLD = "PerfumersWorld Catalog"
     SIGMA_ALDRICH = "Sigma-Aldrich"
-    
+
     # Tier 3: Formulation databases
     DATA_SPINE = "Local Data Spine"
     USER_INVENTORY = "User Chemical Inventory"
     FORMULATION_HISTORY = "Historical Formulations"
-    
+
     # Tier 4: Secondary sources (requires corroboration)
     FRAGRANTICA = "Fragrantica"
     BASENOTES = "Basenotes"
-    
+
     # NEVER USE ALONE
     CHAT_MEMORY = "Previous Conversation (VERIFY BEFORE USE)"
 
@@ -64,74 +62,74 @@ class ChemicalDataRecord:
     # Identity
     name: str
     cas_number: Optional[str] = None
-    
+
     # Physical/Chemical
     molecular_formula: Optional[str] = None
     molecular_weight: Optional[float] = None
     log_p: Optional[float] = None
     vapor_pressure: Optional[float] = None
-    
+
     # Olfactory
     odor_description: Optional[str] = None
     odor_threshold: Optional[float] = None
     usage_rate_min: Optional[float] = None  # Percentage
     usage_rate_max: Optional[float] = None  # Percentage
-    
+
     # Commercial
     price_per_ml: Optional[float] = None
     supplier: Optional[str] = None
     availability: Optional[str] = None
-    
+
     # Safety
     ifra_status: Optional[str] = None
-    
+
     # Provenance (CRITICAL)
     data_sources: List[TrustedSource] = None
     verification_date: Optional[str] = None
     confidence_score: float = 0.0
-    
+
     def __post_init__(self):
         if self.data_sources is None:
             self.data_sources = []
-    
+
     def calculate_confidence(self) -> float:
         """Calculate confidence score (0-100)"""
         score = 0.0
-        
+
         # Identity verification (30 points)
         if self.cas_number:
             score += 15
         if len(self.data_sources) >= 2:
             score += 15
-        
+
         # Olfactory data (40 points - MOST CRITICAL for perfumery)
         if self.odor_description:
             score += 20
         if self.usage_rate_min is not None and self.usage_rate_max is not None:
             score += 20
-        
+
         # Physical data (20 points)
         if self.log_p is not None:
             score += 10
         if self.vapor_pressure is not None:
             score += 10
-        
+
         # Commercial data (10 points)
         if self.price_per_ml is not None:
             score += 10
-        
+
         self.confidence_score = score
         return score
-    
+
     def get_data_quality(self) -> DataQuality:
         """Determine if this chemical can be recommended"""
         confidence = self.calculate_confidence()
-        
+
         # STRICT RULES:
         # - Must have odor description from trusted source
         # - Must have usage rate OR well-documented in formulations
         # - Must have price if recommending purchase
-        
+
         if confidence >= 70:
             return DataQuality.VERIFIED
         elif confidence >= 50:
@@ -140,18 +138,18 @@ class ChemicalDataRecord:
             return DataQuality.INSUFFICIENT
         else:
             return DataQuality.UNKNOWN
-    
+
     def can_recommend(self) -> Tuple[bool, str]:
         """
         Returns (can_recommend, reason)
-        
+
         ONLY return True if VERIFIED quality
         """
         quality = self.get_data_quality()
-        
+
         if quality == DataQuality.VERIFIED:
             return True, "Verified data from multiple sources"
-        
+
         # Build specific failure reason
         missing = []
         if not self.odor_description:
@@ -162,7 +160,7 @@ class ChemicalDataRecord:
             missing.append("CAS number")
         if not self.data_sources or len(self.data_sources) < 2:
             missing.append("multiple source verification")
-        
+
         reason = f"Insufficient data: missing {', '.join(missing)}"
         return False, reason
 
@@ -170,40 +168,40 @@ class ChemicalDataRecord:
 class ChemicalKnowledgeBase:
     """
     Central knowledge base for chemical data
-    
+
     CRITICAL: All recommendations must query this first
     """
-    
-    def __init__(self, 
+
+    def __init__(self,
                  inventory_path: str = "knowledge/chemical_inventory.md",
                  tgsc_path: str = "tgsc_ingredients_all.csv",
                  perfumersworld_path: str = "perfumersworld_ABC_families/"):
         self.inventory_path = inventory_path
         self.tgsc_path = tgsc_path
         self.perfumersworld_path = perfumersworld_path
-        
+
         # Cache for validated chemicals
         self.verified_chemicals: Dict[str, ChemicalDataRecord] = {}
         self.flagged_chemicals: Dict[str, str] = {}  # name -> reason flagged
-    
+
     def lookup_chemical(self, name: str) -> Optional[ChemicalDataRecord]:
         """
         Look up chemical in all trusted sources
-        
+
         Returns None if insufficient data
         """
         # Check cache first
         if name.lower() in self.verified_chemicals:
             return self.verified_chemicals[name.lower()]
-        
+
         # Check flagged list
         if name.lower() in self.flagged_chemicals:
             return None  # Already determined insufficient
-        
+
         # Build record from sources
         record = ChemicalDataRecord(name=name)
         sources = []
-        
+
         # Source 1: ingredient_intelligence profiles (returns MaterialProfile dataclass)
         try:
             from .ingredient_intelligence import get_profile
@@ -232,7 +230,7 @@ class ChemicalKnowledgeBase:
                 sources.append(TrustedSource.FORMULATION_HISTORY)
         except (ImportError, Exception):
             pass
-        
+
         # Source 2: material_properties.json
         try:
             from .data_spine.loader import load_registry
@@ -274,7 +272,7 @@ class ChemicalKnowledgeBase:
                         break
         except (IOError, json.JSONDecodeError):
             pass
-        
+
         # Source 4: compounds.json (IFRA limits, CAS, MW)
         try:
             compounds_path = os.path.join(
@@ -299,40 +297,40 @@ class ChemicalKnowledgeBase:
                         break
         except (IOError, json.JSONDecodeError):
             pass
-        
+
         record.data_sources = sources
         record.calculate_confidence()
-        
+
         # Cache the result
         self.verified_chemicals[name.lower()] = record
         return record
-    
+
     def validate_for_recommendation(self, name: str) -> Tuple[bool, Optional[ChemicalDataRecord], str]:
         """
         Validate a chemical before recommending
-        
+
         Returns: (can_recommend, data_record, explanation)
-        
+
         USE THIS BEFORE EVERY RECOMMENDATION!
         """
         record = self.lookup_chemical(name)
-        
+
         if record is None:
             return False, None, f"No data found for {name} in trusted sources"
-        
+
         can_rec, reason = record.can_recommend()
-        
+
         if not can_rec:
             # Flag it to prevent future recommendations
             self.flagged_chemicals[name.lower()] = reason
-        
+
         return can_rec, record, reason
-    
-    def get_alternatives_with_data(self, category: str, 
+
+    def get_alternatives_with_data(self, category: str,
                                    minimum_confidence: float = 70.0) -> List[ChemicalDataRecord]:
         """
         Get list of alternatives in a category that have VERIFIED data
-        
+
         Only returns chemicals that pass validation.
         Category matches against note (top/heart/base), role, or dominant
         character dimension.
@@ -356,24 +354,24 @@ class ChemicalKnowledgeBase:
                 record = self.lookup_chemical(prof_name)
                 if record and record.confidence_score >= minimum_confidence:
                     results.append(record)
-        
+
         results.sort(key=lambda r: r.confidence_score, reverse=True)
         return results
-    
+
     def flag_chemical(self, name: str, reason: str):
         """Manually flag a chemical as unrecommendable"""
         self.flagged_chemicals[name.lower()] = reason
         print(f"⚠️ FLAGGED: {name} - {reason}")
-    
+
     def report_knowledge_gaps(self) -> str:
         """Generate report of chemicals with insufficient data"""
         report = "# Knowledge Gaps Report\n\n"
         report += f"Total flagged chemicals: {len(self.flagged_chemicals)}\n\n"
-        
+
         for name, reason in sorted(self.flagged_chemicals.items()):
             report += f"## {name.title()}\n"
             report += f"**Reason:** {reason}\n\n"
-        
+
         return report
 
 
@@ -381,7 +379,7 @@ class ChemicalKnowledgeBase:
 def require_verified_data(func):
     """
     Decorator that prevents recommendations without verified data
-    
+
     Usage:
         @require_verified_data
         def recommend_chemical(self, name: str, ...):
@@ -391,17 +389,17 @@ def require_verified_data(func):
         kb = getattr(self, 'knowledge_base', None)
         if kb is None:
             raise RuntimeError("ChemicalKnowledgeBase not initialized!")
-        
+
         can_rec, record, reason = kb.validate_for_recommendation(name)
-        
+
         if not can_rec:
             print(f"❌ BLOCKED RECOMMENDATION: {name}")
             print(f"   Reason: {reason}")
             return None  # Do not proceed
-        
+
         print(f"✅ VERIFIED: {name} (confidence: {record.confidence_score}%)")
         return func(self, name, *args, record=record, **kwargs)
-    
+
     return wrapper
 
 
@@ -425,21 +423,21 @@ def is_blocked_chemical(name: str) -> bool:
 def initialize_knowledge_base() -> ChemicalKnowledgeBase:
     """Initialize knowledge base with pre-flagged chemicals"""
     kb = ChemicalKnowledgeBase()
-    
+
     for name, reason in FLAGGED_CHEMICALS.items():
         kb.flag_chemical(name, reason)
-    
+
     return kb
 
 
 if __name__ == "__main__":
     # Test
     kb = initialize_knowledge_base()
-    
+
     # Test Orivone with the current validated data path
     can_rec, record, reason = kb.validate_for_recommendation("Orivone")
     print(f"\nOrivone validation: {can_rec}")
     print(f"Reason: {reason}")
-    
+
     # Generate gap report
     print("\n" + kb.report_knowledge_gaps())

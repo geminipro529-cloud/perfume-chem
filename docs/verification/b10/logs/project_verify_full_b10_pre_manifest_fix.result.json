@@ -1,0 +1,23 @@
+{
+  "name": "project_verify_full_b10",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-B",
+    "scripts\\pipeline_audit.py",
+    "project-verify",
+    "--output",
+    "docs/verification/b10/logs/project_verification_full.json",
+    "--json"
+  ],
+  "started_at_utc": "2026-07-31T03:45:34.573Z",
+  "finished_at_utc": "2026-07-31T04:00:20.309Z",
+  "duration_seconds": 885.735,
+  "timeout_seconds": 3600,
+  "timed_out": false,
+  "exit_code": 1,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\project_verify_full_b10.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\project_verify_full_b10.stderr.txt"
+}

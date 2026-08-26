@@ -676,7 +676,7 @@ Coumarin (20%) + Ethyl Safranate + Tonka Bean FO + Labdanum + Ethyl Maltol + Van
 **Gender tradition:** Broadly unisex
 
 ### Character
-Warm, bodily, skin-close, intimate. At low doses: the richness of human skin, warmth, intimacy. At high doses: feral, sweaty, pissy, animalic in the literal sense. The animalic quality is fundamentally linked to the concept of *pheromone-adjacency* — making the wearer smell more human and sensual. Indole (present in jasmine and feces at different concentrations) is a key animalic floral modifier.
+Warm, bodily, skin-close, intimate. At low doses: the richness of human skin, warmth, intimacy. At high doses: feral, sweaty, pissy, animalic in the literal sense. These are learned and context-sensitive sensory associations, not evidence of a human pheromone or guaranteed neurotransmitter response. Indole (present in jasmine and fecal odors at different concentrations) is a key animalic floral modifier.
 
 **Ethical context:** Natural animal-derived materials (civet, castoreum, musk deer) are now almost universally replaced by synthetics or not used. Ambergris from floating specimens is still harvested ethically but rare. Musk Ketone is a synthetic nitro-musk with good animalic effect.
 
@@ -688,13 +688,13 @@ Warm, bodily, skin-close, intimate. At low doses: the richness of human skin, wa
 Guerlain Jicky (1889 — coumarin + animalic), Guerlain Shalimar (civet base), Yves Saint Laurent Kouros (heavily animalic), Robert Piguet Bandit
 
 ### Buildable from Inventory: ⚠️ PARTIALLY BUILDABLE
-- Have: Musk Ketone (10%) ✅ — some nitro-musk animalic character
+- Musk Ketone is depleted; do not formulate with it from this reference.
 - Have: Indole (10%) ✅ — animalic floral facet
 - Have: Isobutyl Quinoline (10%) ✅ — leather/animalic
 - Have: Labdanum ✅ — animalic warmth
-- Have: Macrolide, Habanolide, Exaltolide — musky, some animalic facets
+- Have: Zenolide, Ambrettolide (10%), Exaltolide (10%), and Ethylene Brassylate — clean/skin-like musk support, not civet substitutes
 - **Missing:** Civet, Castoreum, Ambergris naturals
-- **Assessment:** Can create an animalic *effect* with Musk Ketone + Indole + Labdanum + IBQ; will not match the raw, barnyard quality of true civet-forward formulas
+- **Assessment:** Can create an animalic *effect* with Indole + Labdanum + IBQ over the available musk chord; will not match the raw, barnyard quality of true civet-forward formulas
 
 ---
 
@@ -727,9 +727,7 @@ Guerlain Jicky (1889 — coumarin + animalic), Guerlain Shalimar (civet base), Y
 | Tobacco / Coumarinic | Amber | Coumarin + Ethyl Safranate + Tonka | Low | ✅ Full |
 | Animalic | Amber | Musk Ketone + Indole + Labdanum | Moderate | ⚠️ Partial |
 
-**Families with full materials:** 20 of 22  
-**Families with partial materials:** 2 of 22 (Chypre — near-full; Animalic — usable synthetic versions)  
-**Families impossible to build:** 0
+**Authority note:** This 22-family table is a teaching overview, not a live buildability gate. The deterministic audit currently distinguishes 71 taxonomy subfamilies, 36 registered archetype contracts, live anchor identity, explicit formula declarations, and physical-batch evidence. Unregistered or unmapped families remain `UNMODELED_NO_BUILDABILITY_CLAIM`; an inventory identity match does not prove a safe, accurate, or physically made perfume. Use `engine.range_gap_analysis.analyze_range_coverage()` for the current report.
 
 ---
 
@@ -772,7 +770,7 @@ Modern perfumery rarely stays in one box. The most interesting fragrances combin
 | Hedione | Floral/Jasmine/diffusion | ✅ |
 | Ethyl Maltol | Gourmand (cotton candy) | ✅ (10%) |
 | Coumarin | Fougère/Tobacco (hay, sweet) | ✅ (20%) |
-| Galaxolide/Habanolide | All families (musky base) | ✅ |
+| Zenolide / Ambrettolide / Exaltolide / Ethylene Brassylate | All families (available musky base options; verify live dilution) | ✅ |
 | Isobutyl Quinoline | Leather/Animalic | ✅ (10%) |
 | Helional | Aquatic/Marine (sea mist) | ✅ |
 | Raspberry Ketone | Fruity/Gourmand | ✅ |
@@ -783,7 +781,7 @@ Modern perfumery rarely stays in one box. The most interesting fragrances combin
 # APPENDIX B: REGULATORY NOTES
 
 - **Oakmoss (Evernia prunastri):** IFRA restricted (atranol/chloroatranol allergens). Evernyl available as functional substitute.
-- **Nitro Musks:** Musk Xylene/Tibetene — banned. Musk Ketone — restricted, available in small amounts. Macrolide musks preferred.
+- **Nitro Musks:** Musk Xylene/Tibetene — banned. Musk Ketone is restricted and currently depleted. Available musk choices are Zenolide, Ambrettolide 10%, Exaltolide 10%, and Ethylene Brassylate.
 - **Coumarin:** IFRA-restricted at higher concentrations in leave-on products.
 - **Isobutyl Quinoline:** Not broadly restricted but use carefully in skin-contact formulations.
 - **Cinnamaldehyde:** Common allergen — IFRA guidelines apply.
@@ -792,4 +790,4 @@ Modern perfumery rarely stays in one box. The most interesting fragrances combin
 ---
 
 *Sources: Wikipedia — Perfume, Fragrance wheel, Chypre, Fougère, Gourmand (fragrance); Michael Edwards Fragrances of the World 2006 classification scheme; industry standard practice.*
-*Last updated: 2026-03-26*
+*Last updated: 2026-07-19; live inventory and deterministic audits supersede static availability prose.*

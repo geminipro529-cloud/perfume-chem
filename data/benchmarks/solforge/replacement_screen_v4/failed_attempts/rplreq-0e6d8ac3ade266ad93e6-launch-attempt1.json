@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:16:18.747716+00:00",
+  "dispatch_sha256": "1792d4f9e4144c2833611a06bd028d0df909e775987d849e8b3dfad935cad2f1",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 2,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_text": "",
+  "phase": "SCREEN",
+  "prompt_sha256": "b351c6ac8f20ea1395e2d5647f0ca77b3b847e4e5cc4df96a5c569bc0744897f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-0e6d8ac3ade266ad93e6",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:16:18.705339+00:00",
+  "stderr_sha256": "c206a405769cb087010d604fab55fd38b0612d2dfc6435797cfba6df5240b7e7",
+  "stderr_tail": "error: unexpected argument '--ask-for-approval' found\n\n  tip: to pass '--ask-for-approval' as a value, use '-- --ask-for-approval'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.\n",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

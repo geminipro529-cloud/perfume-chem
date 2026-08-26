@@ -1,0 +1,78 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_bubble_pressure_above_system_pressure_abstains_before_compute ______
+
+    def test_bubble_pressure_above_system_pressure_abstains_before_compute() -> None:
+        matrix = exact_matrix(pressure_pa=100.0)
+        inputs = input_set(vapor_pressures_pa=(200.0, 200.0))
+        _, _, request, router = executable_case(matrix=matrix, inputs=inputs)
+>       result = router.predict_equilibrium_headspace(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c4_equilibrium_models.py:786:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\model_interface.py:2051: in predict_equilibrium_headspace
+    return self._execute(
+engine\physics\model_interface.py:2037: in _execute
+    computation = registration.adapter.compute(request, applicability)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <engine.physics.equilibrium.IdealRaoultAdapter object at 0x0000019A8ABDDB10>
+request = VersionedModelRequest(request_id='request:c4:formula-17:ideal-raoult', operation=<ModelOperation.PREDICT_EQUILIBRIUM_H...24aaab5ccf60ce0eac045b1b7852822'),), content_sha256='3ef8ab5cd3fb43af2d2015df00e97e647c3ee585194b0fca7a9b7d355516395e')
+applicability = ApplicabilityResult(state=<ApplicabilityState.IN_DOMAIN: 'IN_DOMAIN'>, domain_sha256='e12f127a6a46ee1c9b4b488ee30bba40...',), missing_inputs=(), warnings=(), content_sha256='bba0bb3f773bd6f799955bdde5bad908ad1e6a267b8b444e1469fc5bb637e22c')
+
+    def compute(
+        self,
+        request: VersionedModelRequest,
+        applicability: ApplicabilityResult,
+    ) -> ModelComputation:
+        if not isinstance(applicability, ApplicabilityResult):
+            raise EquilibriumModelContractError("applicability must be an ApplicabilityResult")
+        if applicability.state not in {
+            ApplicabilityState.IN_DOMAIN,
+            ApplicabilityState.NEAR_DOMAIN_WITH_WARNING,
+        }:
+            raise EquilibriumModelContractError("ideal computation requires an applicable request")
+        if applicability.request_sha256 != request.content_sha256:
+            raise EquilibriumModelContractError(
+                "applicability request hash does not match the request"
+            )
+        if applicability.domain_sha256 != self.release.applicability_domain.content_sha256:
+            raise EquilibriumModelContractError(
+                "applicability domain hash does not match the release"
+            )
+        calculation = self._derive_composition(request)
+        matrix = request.context.matrix
+        if matrix.temperature is None or matrix.pressure is None:
+            raise EquilibriumModelContractError(
+                "applicable ideal computation requires temperature and pressure"
+            )
+        system_pressure = matrix.pressure.value
+        component_payloads: list[dict[str, object]] = []
+        partial_pressures: list[float] = []
+        for term in calculation.terms:
+            partial_pressure = term.mole_fraction * term.pure_vapor_pressure_pa
+            partial_pressures.append(partial_pressure)
+            component_payloads.append(
+                {
+                    "component_id": term.component_id,
+                    "identity_sha256": term.identity_sha256,
+                    "liquid_mole_fraction": term.mole_fraction,
+                    "pure_vapor_pressure_pa": term.pure_vapor_pressure_pa,
+                    "activity_coefficient": 1.0,
+                    "partial_pressure_pa": partial_pressure,
+                    "system_pressure_fraction": partial_pressure / system_pressure,
+                }
+            )
+        bubble_pressure = math.fsum(partial_pressures)
+        if bubble_pressure - system_pressure > _CLOSURE_TOLERANCE:
+>           raise EquilibriumModelContractError(
+                "ideal bubble pressure exceeds declared system pressure"
+            )
+E           engine.physics.equilibrium.EquilibriumModelContractError: ideal bubble pressure exceeds declared system pressure
+
+engine\physics\equilibrium.py:1136: EquilibriumModelContractError
+=========================== short test summary info ===========================
+FAILED tests/test_c4_equilibrium_models.py::test_bubble_pressure_above_system_pressure_abstains_before_compute
+1 failed in 0.55s

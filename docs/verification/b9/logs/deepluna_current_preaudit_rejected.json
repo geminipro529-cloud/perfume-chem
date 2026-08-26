@@ -1,0 +1,30 @@
+{
+  "schema_version": "perfume-chem-deepluna-audit-reconciliation-v1",
+  "recorded_at_utc": "2026-08-02T03:46:39.274Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-b6e01a2109066d46826243bce80a940a",
+  "worker_status": "PASS",
+  "sol_disposition": "REJECTED_FOR_GATE_ACCEPTANCE",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "provider_calls": 1,
+  "prompt_tokens": 41325,
+  "completion_tokens": 798,
+  "total_tokens": 42123,
+  "spent_nano_usd": 5794335,
+  "open_reserved_nano_usd_after": 0,
+  "unknown_reservations_after": 0,
+  "accepted_mechanical_findings": [
+    "The implementation defines all eight required evidence labels.",
+    "Strict and exploratory views preserve strict eligibility and evidence labels.",
+    "The worker found no implementation gap within its bounded source scope."
+  ],
+  "rejection_reasons": [
+    "The worker repeated the historical cumulative count of 462 after current local execution proved 463.",
+    "The worker claimed no stale report fields even though the report still recorded 2026-07-31 executions, a zero-byte root database, and the historical TAR recovery archive.",
+    "The worker recommended B10 authorization despite an explicit instruction that only Sol may authorize the next phase."
+  ],
+  "authority_boundary": "The receipt is historical worker evidence only. It does not pass B9 or authorize B10."
+}

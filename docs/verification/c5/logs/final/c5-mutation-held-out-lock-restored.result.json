@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c5-mutation-result-v1",
+    "name":  "c5-mutation-held-out-lock-restored",
+    "target":  "tests/test_c5_calibration_program.py::test_held_out_release_requires_matching_pre_release_model_lock",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1234,
+    "started_at_utc":  "2026-08-02T18:18:31.6353109+00:00",
+    "stdout_sha256":  "69de30081207b2e691c89921084505ee58d1a75b0250ca65c87b22f3265c0d99",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

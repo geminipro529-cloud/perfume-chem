@@ -7,8 +7,10 @@ from engine.pipeline.interventions import (
     diagnose_gates,
     diagnose_industry,
     diagnose_oav_table,
-    diagnose_release_report as diagnose_all,
     diagnose_vp_pairs,
+)
+from engine.pipeline.interventions import (
+    diagnose_release_report as diagnose_all,
 )
 
 __all__ = [

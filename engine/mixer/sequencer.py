@@ -11,8 +11,8 @@ Rules (priority order):
   8. Ethanol / DPG / IPM (solvents) always last
 """
 
-from engine.optimizer.models import _lookup_material, classify_note
 from engine.mixer.prebonding import PreBondingAnalyzer, is_crystalline
+from engine.optimizer.models import _lookup_material, classify_note
 
 # Materials that are solvents/carriers — always added last
 SOLVENTS = {"ethanol", "dpg", "ipm", "isopropyl myristate", "dipropylene glycol"}

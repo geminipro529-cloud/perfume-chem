@@ -47,15 +47,13 @@ profile_index: dict[str, tuple[str, dict]] = {
     normalize_name(k): (k, v) for k, v in _PROFILES.items()
 }
 hill_index: dict[str, dict] = {normalize_name(k): v for k, v in HILL_PARAMS.items()}
-charshift_index: dict[str, list] = {
-    normalize_name(k): v for k, v in CHARACTER_SHIFT_DATA.items()
-}
-ifra_index: dict[str, float] = {
-    normalize_name(k): v for k, v in IFRA_CAT4_LIMITS.items()
-}
+charshift_index: dict[str, list] = {normalize_name(k): v for k, v in CHARACTER_SHIFT_DATA.items()}
+ifra_index: dict[str, float] = {normalize_name(k): v for k, v in IFRA_CAT4_LIMITS.items()}
 
 # Known CAS numbers (literature cross-referenced)
 CAS_MAP: dict[str, str] = {
+    "2-acetyl pyrazine": "22047-25-2",
+    "adoxal": "141-13-9",
     "aldehyde c10": "112-31-2",
     "aldehyde c11": "112-44-7",
     "aldehyde c11 undecylenic": "112-45-8",
@@ -93,12 +91,15 @@ CAS_MAP: dict[str, str] = {
     "beta ionone": "14901-07-6",
     "beta-pinene": "127-91-3",
     "birch tar rectified": "8001-88-5",
+    "black agarwood artificial": "proprietary",
     "bourgeonal": "18127-01-0",
     "calone": "28940-11-6",
     "cardamom ftec": "proprietary",
     "cashmeran": "33704-61-9",
+    "castoreum synthetic": "proprietary",
     "cedramber": "19870-74-7",
     "cedamber": "19870-74-7",
+    "champignol": "3687-48-7",
     "cinnamaldehyde": "104-55-2",
     "cinnamyl alcohol": "104-54-1",
     "cis-3-hexenol": "928-96-1",
@@ -109,6 +110,7 @@ CAS_MAP: dict[str, str] = {
     "citronellol": "106-22-9",
     "civetone": "542-46-1",
     "clearwood": "proprietary",
+    "coriander essential oil": "8008-52-4",
     "coumarin": "91-64-5",
     "cyclamen aldehyde": "103-95-7",
     "damascenone": "23696-85-7",
@@ -145,6 +147,7 @@ CAS_MAP: dict[str, str] = {
     "hexyl salicylate": "6259-76-3",
     "hydroxycitronellal": "107-75-5",
     "indole": "120-72-9",
+    "jasmine absolute": "8022-96-6",
     "iso e super": "54464-57-2",
     "isobutyl quinoline": "1333-58-0",
     "isoeugenol": "97-54-1",
@@ -184,6 +187,7 @@ CAS_MAP: dict[str, str] = {
     "raspberry ketone": "5471-51-2",
     "romandolide": "380009-87-8",
     "rose oxide": "16409-43-1",
+    "safraleine": "54440-17-4",
     "sandalore": "65113-99-7",
     "scentenal": "86803-90-9",
     "siam benzoin": "9000-72-0",
@@ -201,6 +205,7 @@ CAS_MAP: dict[str, str] = {
     "vetikon": "7403-42-1",
     "vetival": "proprietary",
     "vetiveryl acetate": "117-98-6",
+    "violet leaf absolute": "8024-41-7",
     "zenolide": "proprietary",
 }
 
@@ -445,9 +450,7 @@ def anosmic_risk(mw: float | None, odt_air: float | None, or_family: str | None)
         return "unknown"
     is_heavy = mw >= 220
     is_high_threshold = (odt_air or 999) > 10.0
-    is_musk_amber = any(
-        t in (or_family or "").lower() for t in ["musk", "amber", "macrocyclic"]
-    )
+    is_musk_amber = any(t in (or_family or "").lower() for t in ["musk", "amber", "macrocyclic"])
     if (is_heavy and is_high_threshold) or (is_heavy and is_musk_amber):
         return "high — specific anosmia risk (heavy musk/amber, MW≥220)"
     if (odt_air or 999) < 0.01:
@@ -502,9 +505,12 @@ def infer_odor_family(profile: dict | None, norm_name: str) -> str:
 def infer_odor_profile(profile: dict | None, odt_char: str | None, name: str) -> str:
     if profile and profile.get("character"):
         chars = profile["character"]
-        sorted_chars = sorted(chars.items(), key=lambda x: -x[1])
-        parts = [f"{k}-like ({v})" if v > 5 else k for k, v in sorted_chars[:4]]
-        return ", ".join(parts) + " character."
+        if isinstance(chars, dict):
+            sorted_chars = sorted(chars.items(), key=lambda x: -x[1])
+            parts = [f"{k}-like ({v})" if v > 5 else k for k, v in sorted_chars[:4]]
+            return ", ".join(parts) + " character."
+        if isinstance(chars, str):
+            return chars.strip(" .") + " character."
     if odt_char:
         return odt_char.capitalize() + "."
     return f"{name} — odor profile pending literature review."
@@ -527,6 +533,7 @@ if MP_PATH.exists():
 
 inventory = parse_inventory(Path("inventory.txt"))
 inventory_dilutions = {m.name: m.dilution for m in inventory}
+inventory_records = {m.name: m for m in inventory}
 inventory_names = [m.name for m in inventory]
 output = []
 audit_flags: list[dict] = []
@@ -625,9 +632,7 @@ for inv_name in sorted(inventory_names):
     # ── IFRA ─────────────────────────────────────────────────────
     ifra_limit = ifra_index.get(norm) or ifra_index.get(canonical_norm)
     entry["ifra_cat4_limit_pct"] = ifra_limit
-    entry["ifra_banned"] = (
-        inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
-    )
+    entry["ifra_banned"] = inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
     entry["ifra_restricted"] = (
         inv_name in RESTRICTED_MATERIALS or (canonical or "") in RESTRICTED_MATERIALS
     )
@@ -683,6 +688,14 @@ for inv_name in sorted(inventory_names):
 
     # ── Dilution ─────────────────────────────────────────────────
     entry["dilution_pct"] = inventory_dilutions.get(inv_name)
+    entry["in_inventory"] = True
+    inventory_record = inventory_records[inv_name]
+    if inventory_record.dilution >= 0.999:
+        entry["stock_form"] = "neat"
+    else:
+        stock_pct = f"{inventory_record.dilution * 100:g}%"
+        carrier = inventory_record.carrier.upper()
+        entry["stock_form"] = f"{stock_pct} in {carrier}" if carrier else f"{stock_pct} dilution"
 
     # ── Remaining fields (null if empty) ─────────────────────────
     for null_field in [
@@ -740,9 +753,7 @@ for inv_name in sorted(inventory_names):
     ):
         # Detect useless CAS (generic proprietaries often have bogus CAS)
         if cas_val.lower().startswith("proprietary"):
-            pc_warnings.append(
-                f"CAS '{cas_val}' is proprietary — PubChem lookup skipped"
-            )
+            pc_warnings.append(f"CAS '{cas_val}' is proprietary — PubChem lookup skipped")
         else:
             pub = fetch_pubchem(cas_val)
             if pub:
@@ -764,11 +775,7 @@ for inv_name in sorted(inventory_names):
                 # ── Auto-override cLogP from PubChem when divergence > 0.5 ──
                 pc_logp = pub.get("logp_pubchem")
                 db_logp = entry.get("clp")
-                if (
-                    pc_logp is not None
-                    and db_logp is not None
-                    and abs(db_logp - pc_logp) > 0.5
-                ):
+                if pc_logp is not None and db_logp is not None and abs(db_logp - pc_logp) > 0.5:
                     flag = check_divergence("logp", db_logp, pc_logp)
                     if flag:
                         flag["name"] = inv_name
@@ -856,7 +863,7 @@ for norm_key, mp_entry in existing_index.items():
         _role = entry.get("role")
         _mw = entry.get("mw")
         _or_fam = entry.get("or_family")
-        if entry.get("oav_typical") is None and _odt_eth is not None:
+        if entry.get("oav_typical") is None and _odt_eth is not None and float(_odt_eth) > 0:
             _dose = typical_dose_pct(_norm, _role, _odt_eth)
             entry["oav_dose_pct"] = _dose
             entry["oav_typical"] = round(_dose * 10000 / _odt_eth, 1)
@@ -868,9 +875,7 @@ for norm_key, mp_entry in existing_index.items():
             entry["odor_family"] = infer_odor_family(_profile, _norm)
         if not entry.get("odor_profile"):
             _char = odt_char_index.get(_norm)
-            entry["odor_profile"] = infer_odor_profile(
-                _profile, _char, entry.get("name", "")
-            )
+            entry["odor_profile"] = infer_odor_profile(_profile, _char, entry.get("name", ""))
 
         # IFRA standard type
         if entry.get("ifra_standard_type") is None:
@@ -956,23 +961,16 @@ for f, label in FIELDS:
     count = sum(
         1
         for m in output
-        if m.get(f) is not None
-        and m.get(f) != []
-        and m.get(f) != ""
-        and m.get(f) != False
+        if m.get(f) is not None and m.get(f) != [] and m.get(f) != "" and m.get(f) != False
     )
     pct = round(count / total * 100) if total else 0
     bar = "█" * (pct // 5) + "░" * (20 - pct // 5)
     print(f"  {label:<23} {count:>4}/{total} {bar} {pct}%")
 
 if audit_flags:
-    print(
-        f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json"
-    )
+    print(f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json")
     for a in audit_flags[:5]:
         for f in a["flags"]:
-            print(
-                f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}"
-            )
+            print(f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}")
     if len(audit_flags) > 5:
         print(f"    ... and {len(audit_flags) - 5} more")

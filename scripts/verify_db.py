@@ -1,4 +1,5 @@
 import sqlite3
+
 conn = sqlite3.connect('perfume_chem.db')
 c = conn.cursor()
 tables = c.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()

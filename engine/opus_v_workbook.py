@@ -9,7 +9,6 @@ from typing import Any
 
 from openpyxl import load_workbook
 
-
 FORMULA_SHEETS = ("Brand Reconstructions", "Iris Editions", "Opus V Originals")
 DEFAULT_EDP_CONCENTRATION_PCT = 20.0
 DEFAULT_FINAL_PRODUCT_DENSITY_G_PER_ML = 1.0

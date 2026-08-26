@@ -13,7 +13,7 @@ Rate limiting: Uses the 'llamacpp' provider configuration in rate_limits.yaml.
 """
 
 import json
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, List, Optional, cast
 
 from tenacity import retry, stop_after_attempt, wait_exponential
 
@@ -179,7 +179,7 @@ class LlamaCppService(BaseAIService):
                 if cached:
                     if self.verbose:
                         logger.info("Cache hit for Llama.cpp completion")
-                    return cached
+                    return cast(str, cached)
 
             # Acquire rate limit
             estimated_tokens = self._estimate_tokens(prompt, max_tokens)
@@ -200,7 +200,10 @@ class LlamaCppService(BaseAIService):
                 **kwargs
             )
 
-            result = response['choices'][0]['message']['content'] if response['choices'] else ""
+            result = cast(
+                str,
+                response['choices'][0]['message']['content'] if response['choices'] else ""
+            )
 
             # Record usage if available
             if 'usage' in response:
@@ -307,7 +310,7 @@ class LlamaCppService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -397,7 +400,7 @@ class LlamaCppService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -439,7 +442,7 @@ class LlamaCppService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             if dosage_info:
                 result["validated_dosage"] = dosage_info
             return result
@@ -448,4 +451,4 @@ class LlamaCppService(BaseAIService):
 
     def get_usage_stats(self) -> Dict:
         """Get rate limit usage statistics"""
-        return self.rate_limiter.get_usage("llamacpp")
+        return cast(Dict[str, Any], self.rate_limiter.get_usage("llamacpp"))

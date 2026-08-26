@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S02",
+  "completed_utc": "2026-08-26T07:33:15.244659+00:00",
+  "dispatch_sha256": "5e29fd07b3d259bd3d588208111a02213be3b6bc5250307aa7a94e6840594baa",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "cf4de9cdae6779aa3e5332fbf49327410a52a592c9a64262bb617b18cd849bc5",
+  "output_text": "{\"decision_state\":\"INCOMPLETE\",\"target_linked_reasoning\":\"The balanced DEPTH panel requires 12 canonical cells, but only 11 were observed. The single nonconflicting absence is A3, repeat 2, timepoint 1800 seconds. Because interpolation was neither prespecified nor authorized, the missing cell must be preserved and the panel cannot be represented as complete or fully balanced.\",\"controlled_comparison\":\"Observed DEPTH data cover 11 of 12 required assessor-by-repeat-by-timepoint cells. Any summary must remain observational, identify the absent canonical cell, and avoid imputing its value or asserting an unobserved transition.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SINGLE_CANONICAL_CELL_MISSING\",\"NO_AUTHORIZED_INTERPOLATION\",\"NONCONFLICTING_INCOMPLETE_PANEL\"],\"calculations\":{\"required_cell_count\":12,\"observed_cell_count\":11,\"missing_cell_count\":1},\"next_actions\":[\"Collect A3 repeat 2 at 1800 seconds for DEPTH under the same scope-matched protocol, sequence, and schedule hash.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "afff354b334db819940363072f9ed9ca9bc788f03e57f5e68129e195bc24ce91",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-1812abbb34fb0571d4df",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:57.494874+00:00",
+  "stderr_sha256": "2bd2f64fc48fd442d678f5779a3293ce3730f8a3238d1520a6fa35478237b5c5",
+  "stderr_tail": "false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"missing_cell_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"INCOMPLETE\",\"target_linked_reasoning\":\"The balanced DEPTH panel requires 12 canonical cells, but only 11 were observed. The single nonconflicting absence is A3, repeat 2, timepoint 1800 seconds. Because interpolation was neither prespecified nor authorized, the missing cell must be preserved and the panel cannot be represented as complete or fully balanced.\",\"controlled_comparison\":\"Observed DEPTH data cover 11 of 12 required assessor-by-repeat-by-timepoint cells. Any summary must remain observational, identify the absent canonical cell, and avoid imputing its value or asserting an unobserved transition.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SINGLE_CANONICAL_CELL_MISSING\",\"NO_AUTHORIZED_INTERPOLATION\",\"NONCONFLICTING_INCOMPLETE_PANEL\"],\"calculations\":{\"required_cell_count\":12,\"observed_cell_count\":11,\"missing_cell_count\":1},\"next_actions\":[\"Collect A3 repeat 2 at 1800 seconds for DEPTH under the same scope-matched protocol, sequence, and schedule hash.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,495\n",
+  "stdout_sha256": "6ade59e9e9d36fce8b5e1694bf2a91215f2922b5d0a82f55c08812b72839fd56"
+}

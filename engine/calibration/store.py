@@ -9,7 +9,6 @@ from typing import Iterable
 
 from .models import CalibrationRecord
 
-
 DEFAULT_CALIBRATION_PATH = Path(__file__).resolve().parents[2] / "data" / "calibration" / "wear_tests.jsonl"
 
 

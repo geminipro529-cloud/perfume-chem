@@ -1,0 +1,494 @@
+{
+  "schema": "build-c1-thermophysical-contracts-gate-v1",
+  "generated_at": "2026-08-02T18:49:49.5587580+07:00",
+  "decision": "PASS",
+  "decision_reason": "The C1 implementation contract, evidence commit, post-commit matrix, protected-state check, scope reconciliation, and final exact-project DeepLuna audit all passed.",
+  "build": "C",
+  "phase": "C1",
+  "branch": "codex/add-inventory-materials",
+  "phase_parent": "fddc07c12d914b8de9f81f2ecbb5c9423a6880a6",
+  "verification_head_before_report": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+  "implementation_commits": [
+    "488f05c7070330e06d9a39690b7438210065c4ee",
+    "cce9975d4440c2b72fbc9649832f59e73aa20854",
+    "2879ad4fe5a326e8825fcddae927ed63faeef960",
+    "fa9c0260babe354843e258cb375cd1d72654a0cb",
+    "26f9bb8943f4da7ba263655c4acf4c2269b215cc",
+    "9e7785639171d526043bb7cc41481936425a2fe6",
+    "ab50a9144d84094a9ab234a1b7202bccd025e774",
+    "8c29acd6aaed4a1324ee925b743ce131f9875d15"
+  ],
+  "environment": {
+    "root_python": "3.11.15",
+    "root_pytest": "9.1.1",
+    "root_ruff": "0.15.15",
+    "backend_python": "3.11.15",
+    "backend_pytest": "7.4.4",
+    "backend_ruff": "0.15.15",
+    "backend_mypy": "1.19.1",
+    "node": "26.3.0",
+    "basedpyright": "1.39.8",
+    "pty": false,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "external_pytest_temp": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "contract_counts": {
+    "thermophysical_properties": 16,
+    "vapor_pressure_representation_tags": 6,
+    "uncertainty_shapes": 6
+  },
+  "contract_values": {
+    "thermophysical_properties": [
+      "vapor_pressure",
+      "molecular_weight",
+      "density",
+      "boiling_point",
+      "enthalpy_of_vaporization",
+      "water_solubility",
+      "solvent_solubility",
+      "logp",
+      "logkow",
+      "henry_constant",
+      "activity_coefficient_parameters",
+      "diffusion_coefficient",
+      "mass_transfer_parameters",
+      "substrate_sorption_parameters",
+      "heat_capacity",
+      "phase_data"
+    ],
+    "vapor_pressure_representation_tags": [
+      "MEASURED_TABLE",
+      "ANTOINE",
+      "WAGNER",
+      "DIPPR_STYLE",
+      "CLAUSIUS_CLAPEYRON",
+      "OTHER_DECLARED_FORM"
+    ],
+    "uncertainty_shapes": [
+      "STANDARD_UNCERTAINTY",
+      "INTERVAL",
+      "EMPIRICAL_DISTRIBUTION",
+      "PARAMETER_COVARIANCE",
+      "BOUNDED_RANGE",
+      "UNKNOWN"
+    ]
+  },
+  "implemented_boundary": {
+    "condition_aware": true,
+    "exact_identity_scope": true,
+    "source_provenance_required": true,
+    "coefficient_convention_units_range_required": true,
+    "phase_and_purity_assumptions_represented": true,
+    "fit_evidence_and_uncertainty_represented": true,
+    "measured_table_and_equation_shapes_exclusive": true,
+    "b2_selected_assertion_adapter": true,
+    "release_extrapolation_withheld": true,
+    "exploratory_extrapolation_requires_dual_opt_in": true,
+    "exploratory_extrapolation_remains_advisory": true,
+    "advisory_b2_authority_not_upgraded": true,
+    "exact_missing_reasons": true,
+    "equation_evaluation_implemented": false,
+    "runtime_caller_migrated": false,
+    "database_or_migration_changed": false,
+    "real_property_data_promoted": false,
+    "scientific_release_authority": false
+  },
+  "changed_path_scope": {
+    "allowlist": [
+      "backend/app/services/lab_properties.py",
+      "backend/tests/unit/test_b2_property_service.py",
+      "docs/superpowers/plans/2026-08-02-build-c1-thermophysical-contracts.md",
+      "docs/superpowers/specs/2026-08-02-build-c1-thermophysical-contracts-design.md",
+      "docs/verification/c0/physical_model_inventory.json",
+      "engine/physics/__init__.py",
+      "engine/physics/properties.py",
+      "engine/physics/selection.py",
+      "engine/physics/vapor_pressure.py",
+      "tests/test_c1_thermophysical_contracts.py"
+    ],
+    "unexpected_paths": [],
+    "migration_paths": [],
+    "database_files": [],
+    "c2_paths": [],
+    "headspace_temporal_optimizer_paths": [],
+    "production_caller_migration": false,
+    "legacy_estimator_import_matches": [],
+    "scoped_diff_check_messages": [],
+    "scope_log": "docs/verification/c1/logs/scope-audit.stdout.txt",
+    "scope_log_sha256": "55524f5cb772b17b5e8c5d850aabc3585281c4c206b8750b8788f0c6e75d0fe9"
+  },
+  "commands": [
+    {
+      "name": "pytest_root_c1_c0_seal",
+      "working_directory": "D:\\chatbots\\perfume-chem",
+      "command": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe -m pytest -q -p no:cacheprovider --basetemp <external-writable-temp>/root tests/test_c1_thermophysical_contracts.py tests/test_c0_physical_model_inventory.py",
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 2958,
+      "result": "120 passed in 2.27s",
+      "stdout_path": "docs/verification/c1/logs/pytest-root-seal.stdout.txt",
+      "stdout_bytes": 183,
+      "stdout_sha256": "9168cafd3cb0f878ce16d7c1747eba767bec98350e4c692d2fc82f6282bf3078",
+      "stderr_path": "docs/verification/c1/logs/pytest-root-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "pytest_backend_b1_b2_seal",
+      "working_directory": "D:\\chatbots\\perfume-chem\\backend",
+      "command": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe -m pytest -q -p no:cacheprovider --basetemp <external-writable-temp>/backend tests/unit/test_b2_property_service.py tests/unit/test_b2_property_schema.py tests/unit/test_b1_source_service.py",
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 44715,
+      "result": "48 passed in 41.02s",
+      "stdout_path": "docs/verification/c1/logs/pytest-backend-seal.stdout.txt",
+      "stdout_bytes": 102,
+      "stdout_sha256": "529882fe78704d3a316d57d0b00042f63d44b019e9f3356c5e393ae89535df3f",
+      "stderr_path": "docs/verification/c1/logs/pytest-backend-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ruff_root_c1_paths",
+      "working_directory": "D:\\chatbots\\perfume-chem",
+      "command": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe -m ruff check engine/physics/__init__.py engine/physics/properties.py engine/physics/selection.py engine/physics/vapor_pressure.py tests/test_c1_thermophysical_contracts.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 191,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/c1/logs/ruff-root-seal.stdout.txt",
+      "stdout_bytes": 19,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_path": "docs/verification/c1/logs/ruff-root-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ruff_backend_c1_paths",
+      "working_directory": "D:\\chatbots\\perfume-chem\\backend",
+      "command": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe -m ruff check app/services/lab_properties.py tests/unit/test_b2_property_service.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 140,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/c1/logs/ruff-backend-seal.stdout.txt",
+      "stdout_bytes": 19,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_path": "docs/verification/c1/logs/ruff-backend-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "basedpyright_engine_physics",
+      "working_directory": "D:\\chatbots\\perfume-chem",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\ASUS\\AppData\\Roaming\\npm\\node_modules\\basedpyright\\index.js engine/physics",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 1475,
+      "result": "0 errors, 0 warnings, 0 notes",
+      "stdout_path": "docs/verification/c1/logs/basedpyright-seal.stdout.txt",
+      "stdout_bytes": 30,
+      "stdout_sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c",
+      "stderr_path": "docs/verification/c1/logs/basedpyright-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mypy_backend_service_scoped",
+      "working_directory": "D:\\chatbots\\perfume-chem",
+      "command": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe -m mypy --follow-imports=skip backend/app/services/lab_properties.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "process_duration_ms": 330,
+      "result": "Success: no issues found in 1 source file",
+      "stdout_path": "docs/verification/c1/logs/mypy-backend-seal.stdout.txt",
+      "stdout_bytes": 43,
+      "stdout_sha256": "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff",
+      "stderr_path": "docs/verification/c1/logs/mypy-backend-seal.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "seal_run_metadata": {
+    "path": "docs/verification/c1/logs/seal-run-metadata.stdout.txt",
+    "bytes": 12013,
+    "sha256": "e829ba369ab04545b4204cc7997c088b69f831f1fdcd22553534dd9a5558716d",
+    "all_pass": true
+  },
+  "log_scan": {
+    "path": "docs/verification/c1/logs/seal-log-scan.stdout.txt",
+    "bytes": 10607,
+    "sha256": "b4d58fb5419ef795d09e9dd7652ee2dfe2a94935ee4d24b94fcf699aab409674",
+    "files_scanned": 37,
+    "invalid_utf8_files": 0,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "matched_values_recorded": false
+  },
+  "gate_evidence_commit": {
+    "commit": "49349802de6960940e368fe7d23bab37ffe92bc9",
+    "parent": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+    "subject": "test(c1): seal thermophysical contract gate",
+    "path_count": 42,
+    "all_paths_under_docs_verification_c1": true,
+    "index_staged_path_count_before_postcommit_receipt": 0
+  },
+  "post_commit_verification": {
+    "verified_commit": "49349802de6960940e368fe7d23bab37ffe92bc9",
+    "summary_path": "docs/verification/c1/postcommit/summary.json",
+    "summary_bytes": 9985,
+    "summary_sha256": "9be1dc8781868033bc9a0bf1d33e760ebf6359c3bcdc6a2ff2876dadba3eec58",
+    "protected_state_and_scope_path": "docs/verification/c1/postcommit/protected-state-and-scope.json",
+    "protected_state_and_scope_bytes": 869,
+    "protected_state_and_scope_sha256": "fd57d0d43b85649b22c2f8399dc6a3f14bc2df5280279970f9b13422f1c5e31b",
+    "command_count": 6,
+    "root_tests": "120 passed in 2.79s",
+    "backend_compatibility_tests": "48 passed in 43.12s",
+    "ruff_root": "All checks passed!",
+    "ruff_backend": "All checks passed!",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "Success: no issues found in 1 source file",
+    "all_stderr_empty": true,
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "protected_state_preserved": true,
+    "commit_scope_evidence_only": true,
+    "passed": true
+  },
+  "protected_state": {
+    "before_log": {
+      "path": "docs/verification/c1/logs/protected-state-before.stdout.txt",
+      "bytes": 412,
+      "sha256": "478f00d2900a8269a62ed160442bef6702569c47746f560ed72a0072d02f429e"
+    },
+    "after_log": {
+      "path": "docs/verification/c1/logs/protected-state-after.stdout.txt",
+      "bytes": 411,
+      "sha256": "50a933c98c4a6806c23578f68821b4d8dbcd03ac671bd9ecd423938a487e4655"
+    },
+    "databases": [
+      {
+        "path": "perfume_chem.db",
+        "bytes": 12288,
+        "sha256_before": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+        "sha256_after": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+        "quick_check_before": "ok",
+        "quick_check_after": "ok",
+        "mutated": false
+      },
+      {
+        "path": "data/perfumery_kb.db",
+        "bytes": 2084864,
+        "sha256_before": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+        "sha256_after": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+        "quick_check_before": "ok",
+        "quick_check_after": "ok",
+        "mutated": false
+      }
+    ],
+    "all_records_equal": true
+  },
+  "recovery": {
+    "c1_prewrite_archive": {
+      "path": "D:\\.backups\\perfume-chem\\build-c1-prewrite-20260802T163623+0700.tar",
+      "bytes": 118418432,
+      "sha256": "ee3f9963fbb2f3937642c3ebd60ecac37bfed6fe6e2e1fe722af7288db305237",
+      "archive_member_count": 446,
+      "creation_source_file_count": 444,
+      "archive_control_member_count": 2,
+      "unsafe_member_count": 0,
+      "creation_extraction_verified": true,
+      "creation_file_hashes_verified": true,
+      "archived_dirty_or_untracked_count": 429,
+      "excluded_runtime_path_count": 1163,
+      "absent_planned_path_count": 8,
+      "verification_log": "docs/verification/c1/logs/recovery-archive.stdout.txt",
+      "verification_log_sha256": "1e6d3b2f4fe11047bba352d8c1ed8215f8774d4fba9d466c0f3bc17403d610f9"
+    },
+    "protected_log_encoding_backup": {
+      "path": "D:\\.backups\\perfume-chem\\c1-log-encoding-prewrite-20260802T175916+0700.tar",
+      "bytes": 4096,
+      "sha256": "324536596e4bdeaf509a154cdaec9906f17110e7daf35458ade4131d2f29aa3e",
+      "member_count": 2,
+      "extracted_hashes_match": true
+    }
+  },
+  "c0_compatibility_transition": {
+    "record_id": "C0-PM-017",
+    "change": "The historical executable-absence query excludes only engine/physics/vapor_pressure.py.",
+    "reason": "C1 introduces the declared DIPPR_STYLE representation tag but no equation evaluator. The C1 AST boundary test independently prohibits evaluator functions.",
+    "executable_dippr_support_claimed": false,
+    "c0_c1_combined_tests_passed": true
+  },
+  "deepluna": {
+    "project_id": "perfume-chem",
+    "route": "FLASH",
+    "provider": "deepinfra",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_exact_project_preflight": {
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "windows_acl": "PROVEN",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "read_limit": 5,
+      "write_limit": 1,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0,
+      "spent_nano_usd_before_pre_gate_audit": 403536303
+    },
+    "wrong_binding_rejection": {
+      "active_task_project_id": "workspace-712a446e211c45e1b9d1",
+      "canonical_workspace": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the",
+      "accepted_as_perfume_chem_authority": false,
+      "repository_content_transmitted": false
+    },
+    "pretransmission_encoding_rejection": {
+      "status": "LOCAL_REJECTED_BEFORE_PROVIDER",
+      "reason": "Two protected-state logs were UTF-16LE and violated the required UTF-8 evidence contract.",
+      "provider_calls": 0,
+      "remediation": "Both files were archived, decoded once, rewritten as UTF-8 without BOM, and verified content-equivalent."
+    },
+    "pre_gate_inventory_audit": {
+      "job_id": "DS-8a3ed3ab020815193ce65d3494408c44",
+      "terminal_state": "FAIL",
+      "evidence_verdict": "UNRESOLVED",
+      "execution_status": "INCOMPLETE",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 1123875,
+      "negative_findings": [
+        "thermophysical_contracts_gate.json was absent",
+        "thermophysical_contracts_gate.md was absent"
+      ],
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0,
+      "accepted_as_pre_gate_inventory_only": true
+    },
+    "post_pre_gate_accounting": {
+      "readiness": "READY",
+      "spent_nano_usd": 404660178,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0
+    },
+    "final_report_audit": {
+      "job_id": "DS-52255c807ef88e1d592d31cbdf17d9d7",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "input_tokens": 70712,
+      "output_tokens": 752,
+      "spent_delta_nano_usd": 9749160,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "required_reads_receipted": true,
+      "receipt_path": "docs/verification/c1/logs/deepluna-final-audit.json",
+      "receipt_bytes": 3007,
+      "receipt_sha256": "b52b5c126297cf45992f162505bf2c04c8af6d48800bc42c641c3295715f16ec",
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0,
+      "accepted_as_supplemental_evidence": true
+    }
+  },
+  "diagnostics_and_corrections": [
+    {
+      "issue": "The first final-log capture produced green output but null child exit codes.",
+      "disposition": "Rejected as gate authority and moved intact to the scratch recovery directory c1-capture-attempt1-20260802."
+    },
+    {
+      "issue": "The first archive recheck compared 446 total tar members with 444 creation source files.",
+      "disposition": "Corrected by recording 444 source files plus 2 archive-control members; archive integrity and extraction hashes remained verified."
+    },
+    {
+      "issue": "Protected-state logs remained UTF-16LE after the earlier normalization pass.",
+      "disposition": "A local provider admission rejected them before transmission. The exact files were archived and rewritten to UTF-8 without BOM with equal decoded content."
+    },
+    {
+      "issue": "The first fresh seal matrix exposed two C1-introduced backend Ruff import-order failures and a mypy invocation-root mismatch.",
+      "disposition": "Ruff's exact read-only diff drove the formatting-only commit 8c29acd6aaed4a1324ee925b743ce131f9875d15. Mypy was rerun from the supported repository root. The rejected attempt's 14 files were moved intact to c1-seal-attempt1-20260802T180733+0700, and the complete seal matrix then passed."
+    }
+  ],
+  "file_hashes": {
+    "backend/app/services/lab_properties.py": "cbe04e92dbf96f45dbd7dcb372da9604cf8b000e2991a68291913b1684f99d79",
+    "backend/tests/unit/test_b2_property_service.py": "a6c374bdf608b59b18437b41d51b698d3476b1e02f30a5000bf79de8e56ea79e",
+    "docs/superpowers/plans/2026-08-02-build-c1-thermophysical-contracts.md": "51ae9d560c85f458044492d180c300e06303bae528ab4365b69d06157ed705f7",
+    "docs/superpowers/specs/2026-08-02-build-c1-thermophysical-contracts-design.md": "c3c98d773242a0332ca4484710fdb8b2f5fed7baece1a6e96c64a64ebc3595da",
+    "docs/verification/c0/physical_model_inventory.json": "764ea0c1bbcd346bad47a9ceeb772dfe12d1b689447376f80712088909cc6f28",
+    "engine/physics/__init__.py": "d0bcdc8be1a05c161693b267d17625284535115e0d0290cf435a34812a2bd20d",
+    "engine/physics/properties.py": "860ad3d6a19910c11d2893377252dd365b58210ec635eb81c9362e3ba75681ac",
+    "engine/physics/selection.py": "2aef2f231729e0816a4b46684a357eac18fd5ab03961cfe5f1ffeddd34659ed6",
+    "engine/physics/vapor_pressure.py": "bc62cd30adc4cd988d018619e39237815639aa2afe3a5533fd79530785962261",
+    "tests/test_c1_thermophysical_contracts.py": "34188bc7b09aa39534ffd190a11356dde1905bbd9cda39cb1ff1a9159ba65845"
+  },
+  "known_limitations": [
+    "C1 represents vapor-pressure equations and measured tables but does not evaluate them.",
+    "C1 does not provide a unit-conversion engine; temperature declarations are Kelvin-only at this boundary.",
+    "No production caller has migrated to engine.physics.",
+    "No database migration, canonical database write, or real-property data promotion occurs in C1.",
+    "C1 does not change headspace, temporal release, optimizer, or release behavior.",
+    "C1 contract validity is not scientific validation of coefficients, measurements, models, or perfume performance.",
+    "Scientific release remains blocked."
+  ],
+  "exit_gate": {
+    "closed_property_vocabulary": true,
+    "condition_and_identity_aware": true,
+    "provenance_rich": true,
+    "six_uncertainty_shapes": true,
+    "six_vapor_representation_tags": true,
+    "b2_selected_assertion_adapter_complete": true,
+    "release_extrapolation_withheld": true,
+    "exploratory_advisory_guards_complete": true,
+    "missing_evidence_withholds_without_legacy_estimator": true,
+    "public_boundary_has_no_equation_evaluator": true,
+    "c0_c1_tests_passed": true,
+    "b1_b2_compatibility_tests_passed": true,
+    "static_checks_passed": true,
+    "protected_state_preserved": true,
+    "recovery_archive_verified": true,
+    "scope_closed": true,
+    "final_deepluna_audit_passed": true,
+    "sol_final_reconciliation_complete": true,
+    "gate_evidence_committed": true,
+    "post_commit_verification_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "c1_contract_gate": "PASS",
+    "build_c_complete": false,
+    "c2_open": true,
+    "scientific_release": "BLOCKED",
+    "final_authority": "canonical repository state, executable tests, database constraints, reproducible artifacts, and collected experimental evidence"
+  },
+  "worktree_preservation": {
+    "status_entry_count_at_scope_audit": 346,
+    "staged_entries_at_scope_audit": 0,
+    "worktree_clean": false,
+    "worktree_cleaned_or_reset": false,
+    "unrelated_work_modified_by_c1_gate": false
+  }
+}

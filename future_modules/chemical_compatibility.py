@@ -21,11 +21,9 @@ over-dosing strategies for known degradation pathways.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Sequence
 
 from ._shared_types import ChemicalReaction, CompatibilityReport, SolubilityRisk
-
 
 # ---------------------------------------------------------------------------
 # Reaction database

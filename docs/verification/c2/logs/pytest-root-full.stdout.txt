@@ -1,0 +1,233 @@
+........................................................................ [  5%]
+........................................................................ [ 11%]
+........................................................................ [ 16%]
+........................................................................ [ 22%]
+........................................................................ [ 27%]
+........................................................................ [ 33%]
+........................................................................ [ 38%]
+........................................................................ [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 55%]
+........................................................................ [ 61%]
+........................................................................ [ 66%]
+........................................................................ [ 72%]
+.F...................................................................... [ 77%]
+........................................................................ [ 83%]
+........................................................................ [ 88%]
+........................................................................ [ 94%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_engine_shards_cover_every_test_file_once ________________
+
+    def test_engine_shards_cover_every_test_file_once():
+        shards = engine_test_shards(PROJECT_ROOT)
+        assigned = [path for paths in shards.values() for path in paths]
+        discovered = sorted(
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in (PROJECT_ROOT / "tests").glob("test_*.py")
+        )
+    
+>       assert sorted(assigned) == discovered
+E       AssertionError: assert ['tests/test_...bind.py', ...] == ['tests/test_...bind.py', ...]
+E         
+E         At index 13 diff: 'tests/test_calibration_feedback.py' != 'tests/test_c0_physical_model_inventory.py'
+E         Right contains 3 more items, first extra item: 'tests/test_verify_formula_workflow_parser.py'
+E         
+E         Full diff:
+E           [
+E               'tests/test_a1_audit_contract_gaps.py',
+E               'tests/test_a1_authoritative_contracts.py',
+E               'tests/test_accord_graph.py',
+E               'tests/test_analytical_ledger.py',
+E               'tests/test_aromachemical_expansion.py',
+E               'tests/test_artifact_rebind.py',
+E               'tests/test_authority_derivation.py',
+E               'tests/test_authority_gates.py',
+E               'tests/test_b8_backfill_dashboard.py',
+E               'tests/test_bottle_addition.py',
+E               'tests/test_bottle_console.py',
+E               'tests/test_bottle_events.py',
+E               'tests/test_brand_profiles.py',
+E         -     'tests/test_c0_physical_model_inventory.py',
+E         -     'tests/test_c1_thermophysical_contracts.py',
+E         -     'tests/test_c2_matrix_environment.py',
+E               'tests/test_calibration_feedback.py',
+E               'tests/test_canonical_hashing.py',
+E               'tests/test_canonical_quantities.py',
+E               'tests/test_canonical_serialization.py',
+E               'tests/test_ci_contract.py',
+E               'tests/test_classical_family_resolution.py',
+E               'tests/test_data_spine_loader.py',
+E               'tests/test_diffusion_regression.py',
+E               'tests/test_engine_compilation.py',
+E               'tests/test_evidence_ledger.py',
+E               'tests/test_experiments_planner.py',
+E               'tests/test_family_archetypes.py',
+E               'tests/test_family_gate_applicability.py',
+E               'tests/test_formula_memory.py',
+E               'tests/test_gate_aware_optimizer.py',
+E               'tests/test_golden_formula_regression.py',
+E               'tests/test_ifra_safety.py',
+E               'tests/test_interaction_graph.py',
+E               'tests/test_intervention_trial.py',
+E               'tests/test_interventions.py',
+E               'tests/test_inventory_material_additions.py',
+E               'tests/test_inventory_operations.py',
+E               'tests/test_inventory_stock_model.py',
+E               'tests/test_kb_migration.py',
+E               'tests/test_kb_query.py',
+E               'tests/test_literature_rules_contract.py',
+E               'tests/test_llm_cache.py',
+E               'tests/test_mixture.py',
+E               'tests/test_oav_authority.py',
+E               'tests/test_oav_intelligence.py',
+E               'tests/test_optimizer_determinism.py',
+E               'tests/test_optimizer_thermodynamic_unification.py',
+E               'tests/test_pipeline_audit_verify.py',
+E               'tests/test_pipeline_formula_state.py',
+E               'tests/test_pipeline_gates.py',
+E               'tests/test_pipeline_interventions.py',
+E               'tests/test_pipeline_part4.py',
+E               'tests/test_pipeline_part5.py',
+E               'tests/test_pipeline_preflight.py',
+E               'tests/test_pipeline_robustness.py',
+E               'tests/test_pipeline_scenario_matrix.py',
+E               'tests/test_preference.py',
+E               'tests/test_project_verification.py',
+E               'tests/test_property_estimator.py',
+E               'tests/test_provenance_model.py',
+E               'tests/test_quantities.py',
+E               'tests/test_range_gap_analysis.py',
+E               'tests/test_receptor_evidence_quarantine.py',
+E               'tests/test_reconstruction_allergen_authority.py',
+E               'tests/test_reconstruction_anti_compression.py',
+E               'tests/test_reconstruction_bridge.py',
+E               'tests/test_reconstruction_chassis.py',
+E               'tests/test_reconstruction_ensembles.py',
+E               'tests/test_reconstruction_identity.py',
+E               'tests/test_reconstruction_quantity.py',
+E               'tests/test_reconstruction_rank_prior.py',
+E               'tests/test_reconstruction_unknowns.py',
+E               'tests/test_release_readiness.py',
+E               'tests/test_release_scoring_contract.py',
+E               'tests/test_reports_generator.py',
+E               'tests/test_run_evidence_contract.py',
+E               'tests/test_safety_assessment.py',
+E               'tests/test_safety_regulatory.py',
+E               'tests/test_science_audit.py',
+E               'tests/test_science_kb.py',
+E               'tests/test_scientific_contract.py',
+E               'tests/test_scientific_data_authority_report.py',
+E               'tests/test_scientific_truth_inventory.py',
+E               'tests/test_sensory_ledger.py',
+E               'tests/test_target_formula.py',
+E               'tests/test_tracing.py',
+E               'tests/test_units_concentration.py',
+E               'tests/test_verify_formula_workflow_parser.py',
+E               'tests/test_versioning_formula.py',
+E               'tests/test_workbench.py',
+E           ]
+
+tests\test_project_verification.py:69: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once - AssertionError: assert ['tests/test_...bind.py', ...] == ['tests/test_...bind.py', ...]
+  
+  At index 13 diff: 'tests/test_calibration_feedback.py' != 'tests/test_c0_physical_model_inventory.py'
+  Right contains 3 more items, first extra item: 'tests/test_verify_formula_workflow_parser.py'
+  
+  Full diff:
+    [
+        'tests/test_a1_audit_contract_gaps.py',
+        'tests/test_a1_authoritative_contracts.py',
+        'tests/test_accord_graph.py',
+        'tests/test_analytical_ledger.py',
+        'tests/test_aromachemical_expansion.py',
+        'tests/test_artifact_rebind.py',
+        'tests/test_authority_derivation.py',
+        'tests/test_authority_gates.py',
+        'tests/test_b8_backfill_dashboard.py',
+        'tests/test_bottle_addition.py',
+        'tests/test_bottle_console.py',
+        'tests/test_bottle_events.py',
+        'tests/test_brand_profiles.py',
+  -     'tests/test_c0_physical_model_inventory.py',
+  -     'tests/test_c1_thermophysical_contracts.py',
+  -     'tests/test_c2_matrix_environment.py',
+        'tests/test_calibration_feedback.py',
+        'tests/test_canonical_hashing.py',
+        'tests/test_canonical_quantities.py',
+        'tests/test_canonical_serialization.py',
+        'tests/test_ci_contract.py',
+        'tests/test_classical_family_resolution.py',
+        'tests/test_data_spine_loader.py',
+        'tests/test_diffusion_regression.py',
+        'tests/test_engine_compilation.py',
+        'tests/test_evidence_ledger.py',
+        'tests/test_experiments_planner.py',
+        'tests/test_family_archetypes.py',
+        'tests/test_family_gate_applicability.py',
+        'tests/test_formula_memory.py',
+        'tests/test_gate_aware_optimizer.py',
+        'tests/test_golden_formula_regression.py',
+        'tests/test_ifra_safety.py',
+        'tests/test_interaction_graph.py',
+        'tests/test_intervention_trial.py',
+        'tests/test_interventions.py',
+        'tests/test_inventory_material_additions.py',
+        'tests/test_inventory_operations.py',
+        'tests/test_inventory_stock_model.py',
+        'tests/test_kb_migration.py',
+        'tests/test_kb_query.py',
+        'tests/test_literature_rules_contract.py',
+        'tests/test_llm_cache.py',
+        'tests/test_mixture.py',
+        'tests/test_oav_authority.py',
+        'tests/test_oav_intelligence.py',
+        'tests/test_optimizer_determinism.py',
+        'tests/test_optimizer_thermodynamic_unification.py',
+        'tests/test_pipeline_audit_verify.py',
+        'tests/test_pipeline_formula_state.py',
+        'tests/test_pipeline_gates.py',
+        'tests/test_pipeline_interventions.py',
+        'tests/test_pipeline_part4.py',
+        'tests/test_pipeline_part5.py',
+        'tests/test_pipeline_preflight.py',
+        'tests/test_pipeline_robustness.py',
+        'tests/test_pipeline_scenario_matrix.py',
+        'tests/test_preference.py',
+        'tests/test_project_verification.py',
+        'tests/test_property_estimator.py',
+        'tests/test_provenance_model.py',
+        'tests/test_quantities.py',
+        'tests/test_range_gap_analysis.py',
+        'tests/test_receptor_evidence_quarantine.py',
+        'tests/test_reconstruction_allergen_authority.py',
+        'tests/test_reconstruction_anti_compression.py',
+        'tests/test_reconstruction_bridge.py',
+        'tests/test_reconstruction_chassis.py',
+        'tests/test_reconstruction_ensembles.py',
+        'tests/test_reconstruction_identity.py',
+        'tests/test_reconstruction_quantity.py',
+        'tests/test_reconstruction_rank_prior.py',
+        'tests/test_reconstruction_unknowns.py',
+        'tests/test_release_readiness.py',
+        'tests/test_release_scoring_contract.py',
+        'tests/test_reports_generator.py',
+        'tests/test_run_evidence_contract.py',
+        'tests/test_safety_assessment.py',
+        'tests/test_safety_regulatory.py',
+        'tests/test_science_audit.py',
+        'tests/test_science_kb.py',
+        'tests/test_scientific_contract.py',
+        'tests/test_scientific_data_authority_report.py',
+        'tests/test_scientific_truth_inventory.py',
+        'tests/test_sensory_ledger.py',
+        'tests/test_target_formula.py',
+        'tests/test_tracing.py',
+        'tests/test_units_concentration.py',
+        'tests/test_verify_formula_workflow_parser.py',
+        'tests/test_versioning_formula.py',
+        'tests/test_workbench.py',
+    ]
+1 failed, 1296 passed in 57.50s

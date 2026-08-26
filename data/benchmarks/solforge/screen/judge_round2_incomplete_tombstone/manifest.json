@@ -1,0 +1,46 @@
+{
+  "schema_version": "solforge_judge_round_tombstone_v1",
+  "round": 2,
+  "status": "INCOMPLETE_NOT_SCORED",
+  "reason": "Ten exact minimized-source judge outputs completed. SCR-MUSK-08 and SCR-MUSK-09 repeatedly timed out before a task ID was returned. The packet was subsequently minimized, so this partial round cannot be mixed with the successor protocol.",
+  "completed_case_ids": [
+    "SCR-CITRUS-01",
+    "SCR-CITRUS-02",
+    "SCR-CITRUS-03",
+    "SCR-COUNT-04",
+    "SCR-MUSK-05",
+    "SCR-MUSK-06",
+    "SCR-MUSK-07",
+    "SCR-EVIDENCE-10",
+    "SCR-PREF-11",
+    "SCR-AMBER-12"
+  ],
+  "missing_case_ids": ["SCR-MUSK-08", "SCR-MUSK-09"],
+  "completed_task_ids": [
+    "01a03a53-cf12-7141-abc0-395b5d5524c2",
+    "01a03a53-d70a-7a41-a086-1c201dd4492a",
+    "01a03a53-dec4-7893-8a31-46de3838480e",
+    "01a03a53-e709-7923-93e3-be3ba07ca1cf",
+    "01a03a65-5394-7f12-ae52-ced90db0b128",
+    "01a03a65-89ef-7f11-b480-3b9e9895c9cd",
+    "01a03a6c-ff4c-7d60-a9aa-0dbf06f11d85",
+    "01a03a68-f825-7371-8db5-419dba01dad1",
+    "01a03a69-2927-7482-b1c5-3e19a5bf715f",
+    "01a03a6c-c6b8-7aa1-9e2c-c76f8bab0187"
+  ],
+  "failed_creation_events": [
+    "SCR-MUSK-07: transient xhigh model-validation error before successful retry",
+    "SCR-MUSK-08: four create_thread timeouts without a returned task ID",
+    "SCR-MUSK-09: two create_thread timeouts without a returned task ID"
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

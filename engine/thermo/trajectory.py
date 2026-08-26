@@ -8,12 +8,13 @@ emerge naturally as the matrix becomes increasingly fragrance-rich.
 Integration: explicit Euler with adaptive step (no scipy hard-dep). Drops in
 scipy.solve_ivp if available for stiffer mixtures.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Mapping
 
-from .headspace import headspace_from_wt_pct, R_GAS, HeadspaceComponent
+from .headspace import R_GAS, HeadspaceComponent, headspace_from_wt_pct
 
 
 @dataclass(slots=True)
@@ -27,12 +28,12 @@ class TrajectoryFrame:
 def evaporate(
     wt_pct: Mapping[str, float],
     *,
-    initial_mass_g: float = 0.05,        # 50 mg = ~typical wrist drop
-    surface_area_m2: float = 5e-4,       # ~5 cm²
-    kg_m_s: float = 0.005,               # mass-transfer coeff (still air ≈ 5e-3)
-    T_K: float = 305.0,
-    duration_s: float = 7200.0,          # 2 h default
-    n_steps: int = 240,                  # 30 s frames
+    initial_mass_g: float = 0.05,  # 50 mg = ~typical wrist drop
+    surface_area_m2: float = 5e-4,  # ~5 cm²
+    kg_m_s: float = 0.005,  # mass-transfer coeff (still air ≈ 5e-3)
+    T_K: float = 305.0,  # noqa: N803
+    duration_s: float = 7200.0,  # 2 h default
+    n_steps: int = 240,  # 30 s frames
     mw_table: Mapping[str, float] | None = None,
     vp_table: Mapping[str, float] | None = None,
     antoine_table: Mapping[str, tuple[float, float, float]] | None = None,
@@ -84,12 +85,14 @@ def evaporate(
                     bloom.append(k)
             prev_gamma[k] = c.gamma
 
-        out.append(TrajectoryFrame(
-            t_seconds=t,
-            moles_remaining=dict(moles),
-            headspace=hs,
-            bloom_events=bloom,
-        ))
+        out.append(
+            TrajectoryFrame(
+                t_seconds=t,
+                moles_remaining=dict(moles),
+                headspace=hs,
+                bloom_events=bloom,
+            )
+        )
 
         if step == n_steps:
             break
@@ -110,9 +113,8 @@ if __name__ == "__main__":
         "Limonene": (16.5, 1.1, 4.2),
         "Iso E Super": (16.0, 1.5, 3.0),
     }
-    traj = evaporate(wt, mw_table=mw, vp_table=vp, hsp_table=hsp,
-                     duration_s=3600, n_steps=12)
+    traj = evaporate(wt, mw_table=mw, vp_table=vp, hsp_table=hsp, duration_s=3600, n_steps=12)
     for f in traj:
         rem = sum(f.moles_remaining.values())
         bloom = ",".join(f.bloom_events) if f.bloom_events else "-"
-        print(f"t={f.t_seconds/60:5.1f}min  total_mol={rem:.4e}  bloom={bloom}")
+        print(f"t={f.t_seconds / 60:5.1f}min  total_mol={rem:.4e}  bloom={bloom}")

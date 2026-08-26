@@ -1,0 +1,141 @@
+{
+  "passed": [
+    "backend-tests"
+  ],
+  "failed": [],
+  "skipped": [],
+  "known_legacy_limitations": [
+    "Full-engine Ruff cleanup remains legacy debt; the canonical truth-core slice is blocking.",
+    "Compatibility requests may omit the finished solvent matrix; strict mode requires it, and headspace remains modeled rather than measured.",
+    "Temporal evolution is heuristic and is not calibrated to skin or blotter measurements.",
+    "Longevity, sillage, receptor activation, and emotion outputs remain unsupported; preference fits remain UNKNOWN until held-out validation passes.",
+    "Composite natural OAV is olfactory headspace evidence, not regulatory constituent composition."
+  ],
+  "scientific_data_coverage": {
+    "odt_verification_counts": {
+      "PEER_CROSS": 1,
+      "PEER_SINGLE": 72,
+      "DERIVED": 90,
+      "PEER_EST": 14,
+      "UNVERIFIED": 108,
+      "UNKNOWN": 1
+    },
+    "science_coverage_pct": {
+      "mw": 22.88202692003167,
+      "logp": 16.706254948535232,
+      "vp_25c": 22.64449722882027,
+      "antoine": 0.0,
+      "dhvap": 0.1583531274742676,
+      "hsp": 0.0,
+      "odt_air": 7.28424386381631,
+      "or_targets": 0.0,
+      "ifra": 1.187648456057007,
+      "hedonic": 10.84718923198733,
+      "trp": 3.9588281868566906,
+      "smiles": 1.187648456057007,
+      "cas": 4.829770387965162
+    }
+  },
+  "golden_output_changes": {
+    "status": "unchanged",
+    "changed": false,
+    "expected_sha256": "0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec",
+    "actual_sha256": "0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec"
+  },
+  "docker_status": "SKIPPED",
+  "verification_scope": "partial",
+  "selected_checks": [
+    "backend-tests"
+  ],
+  "omitted_checks": [
+    "engine-compile",
+    "engine-lint",
+    "engine-typecheck",
+    "formula-artifact-validation",
+    "engine-tests-truth-core",
+    "engine-tests-data-knowledge",
+    "engine-tests-gates-families",
+    "engine-tests-legacy",
+    "backend-lint",
+    "backend-typecheck",
+    "scientific-audit",
+    "material-data-validation",
+    "knowledge-rule-validation",
+    "golden-formula-regression",
+    "golden-api-regression",
+    "package-build",
+    "package-wheel-smoke",
+    "docker-build",
+    "docker-smoke-test"
+  ],
+  "completion_gate": "NOT_EVALUATED",
+  "release_readiness": {
+    "laboratory_beta_status": "blocked",
+    "scientific_release_status": "blocked",
+    "axes": {
+      "code": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Required code checks have failures or were not fully evaluated."
+        ]
+      },
+      "data": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Required data contracts are incomplete or failing."
+        ]
+      },
+      "validation": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Local validation has failures or was not fully evaluated.",
+          "Held-out sensory validation has not passed."
+        ]
+      },
+      "infrastructure": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Migration verification has not passed.",
+          "Backup and restore verification has not passed."
+        ]
+      }
+    },
+    "external_blockers": [
+      "held-out sensory validation is still required"
+    ],
+    "evidence": {
+      "classification": "EXACT",
+      "basis": "Boolean release gates reported independently by axis without score blending.",
+      "sources": [
+        "engine.release_readiness"
+      ],
+      "assumptions": [],
+      "limitations": [
+        "A ready gate means its declared checks passed; it does not expand their scientific scope."
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "backend-tests",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+        "run",
+        "pytest",
+        "-q",
+        "--basetemp=../output/verification-temp/backend-pytest",
+        "--junitxml=../verification_runs/backend.xml"
+      ],
+      "duration_seconds": 806.594,
+      "stdout_tail": "........................................................................ [ 11%]\n........................................................................ [ 22%]\n........................................................................ [ 34%]\n........................................................................ [ 45%]\n........................................................................ [ 57%]\n........................................................................ [ 68%]\n........................................................................ [ 80%]\n........................................................................ [ 91%]\n......................................................                   [100%]\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\backend.xml --\n630 passed in 786.21s (0:13:06)",
+      "stderr_tail": "",
+      "reason": null
+    }
+  ]
+}

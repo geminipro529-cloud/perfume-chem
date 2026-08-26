@@ -1,0 +1,59 @@
+{
+  "schema_version": "perfume_chem_complexity_native_module_admission_v1",
+  "recorded_at": "2026-08-22T18:34:28.7992415+07:00",
+  "state": "NATIVE_CLEAN_ROOM_BASELINE_ADMITTED",
+  "source_package_code_installed": false,
+  "native_modules": [
+    {
+      "path": "engine/perception/construction_complexity.py",
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1"
+    },
+    {
+      "path": "engine/perception/complexity_expansion.py",
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e"
+    },
+    {
+      "path": "engine/scientific_validation/complexity_design_contracts.py",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968"
+    },
+    {
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710"
+    },
+    {
+      "path": "engine/physics/model_lifecycle.py",
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf"
+    },
+    {
+      "path": "engine/sensory/within_sniff.py",
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa"
+    },
+    {
+      "path": "engine/sensory/temporal_observations.py",
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b"
+    },
+    {
+      "path": "engine/sensory/order_balance.py",
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c"
+    },
+    {
+      "path": "engine/sensory/panel_contract.py",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc"
+    }
+  ],
+  "focused_tests": {
+    "passed": 56,
+    "failed": 0
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  }
+}

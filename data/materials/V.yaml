@@ -9,6 +9,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -45,6 +46,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -81,6 +83,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -120,6 +123,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -164,6 +168,7 @@
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.0003, corrected to 0.2)
   vp_25c_pa: 0.2
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0002
@@ -222,6 +227,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -257,6 +263,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -292,6 +299,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -327,6 +335,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -365,6 +374,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.3)
   vp_25c_pa: 0.3
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -405,6 +415,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -416,8 +427,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 1.0  # material intake batch 2026-08-07
+  user_in_inventory: true  # material intake batch 2026-08-07
   supplier:
     perfumersworld_sku: 3LJ01926
     perfumersworld_price_usd_per_g: 0.08
@@ -440,6 +451,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -475,6 +487,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -513,6 +526,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.08, corrected to 0.0112)
   vp_25c_pa: 0.0112
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0005
@@ -552,6 +566,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -590,6 +605,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.2, corrected to 6.53)
   vp_25c_pa: 6.53
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0008
@@ -637,6 +653,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 4.16
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0012
@@ -676,6 +693,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.05, corrected to 0.003)
   vp_25c_pa: 0.003
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0003
@@ -722,6 +740,7 @@
   - essential oil
   chirality:
   vp_25c_pa: 0.04
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0002
@@ -761,6 +780,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -797,6 +817,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -833,6 +854,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -870,6 +892,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -909,6 +932,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -947,6 +971,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.01)
   vp_25c_pa: 0.01
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -975,29 +1000,35 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Violet Leaf Absolute
-  aliases: []
-  cas:
+  aliases:
+  - violet leaf absolute 10% in dpg
+  - Violet Leaf Absolute (10% in DPG)
+  cas: 8024-41-7
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 220.0
   density_25c_g_ml:
-  logp:
-  functional_groups: []
+  logp: 4.0
+  functional_groups:
+  - natural_mixture
+  - aldehyde
+  - lipid
   chirality:
-  vp_25c_pa:
+  vp_25c_pa: 0.005
+  vp_source: natural_mixture_proxy
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
-  odt_eth_ppm:
+  odt_air_ppb: 0.2
+  odt_eth_ppm: 0.02
   stevens_n:
   or_targets: []
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 0.1
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 8IG00469
     perfumersworld_price_usd_per_g: 14.0
@@ -1008,11 +1039,19 @@
       - form: 10.0% in DPG
         sku: 5IG07712
         price_usd_per_g: 1.5
-  families: []
-  character:
-  notes:
+  families:
+  - natural
+  - green
+  - violet_leaf
+  - aldehydic
+  character: Green, watery cucumber-leaf and violet-leaf absolute with fatty, earthy depth.
+  notes: 10% in DPG user stock. Natural mixture; composite OAV uses the repository violet-leaf constituent profile and origin variability remains.
   provenance:
+    cas: supplier:8IG00469
+    composition: natural_mixture_no_batch_gc_ms
+    composite_oav: engine.pipeline.natural_absolute_decomposition
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    user_in_inventory: inventory.txt
 - canonical_name: Virgin Coconut Oil - Fixed Oil
   aliases: []
   cas:
@@ -1024,6 +1063,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1059,6 +1099,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:

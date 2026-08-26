@@ -30,7 +30,7 @@ from typing import Optional
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from engine.pubchem_client import lookup_material, cache_stats
+from engine.pubchem_client import cache_stats, lookup_material  # noqa: E402  # sys.path
 
 # Tier-1 confidence source → Tier-3 fallback
 CONFIDENCE_RANK = {
@@ -104,9 +104,7 @@ def validate_material(
                                 "field": "mw",
                                 "local": local_mw,
                                 "pubchem": pub_mw,
-                                "pct_diff": round(
-                                    abs(pub_mw - local_mw) / pub_mw * 100, 2
-                                ),
+                                "pct_diff": round(abs(pub_mw - local_mw) / pub_mw * 100, 2),
                             }
                         )
                 # Compare logP
@@ -120,19 +118,13 @@ def validate_material(
                                 "local": local_lp,
                                 "pubchem": pub_lp,
                                 "pct_diff": round(
-                                    abs(pub_lp - local_lp)
-                                    / max(abs(pub_lp), 0.01)
-                                    * 100,
+                                    abs(pub_lp - local_lp) / max(abs(pub_lp), 0.01) * 100,
                                     2,
                                 ),
                             }
                         )
                 # Fill missing CAS
-                if (
-                    "cas" in fields
-                    and pubchem_data.get("inchikey")
-                    and not result.get("cas")
-                ):
+                if "cas" in fields and pubchem_data.get("inchikey") and not result.get("cas"):
                     # InChIKey encodes structure but isn't CAS. We only use it as a hint.
                     pass
         except Exception:
@@ -251,16 +243,12 @@ def _query_local(name: str, fields: list[str]) -> dict:
     return out
 
 
-def batch_validate(
-    materials: list[str], fields: Optional[list[str]] = None
-) -> list[dict]:
+def batch_validate(materials: list[str], fields: Optional[list[str]] = None) -> list[dict]:
     """Validate a batch of materials. Returns list of validate_material() results."""
     return [validate_material(m, fields=fields) for m in materials]
 
 
-def generate_audit_report(
-    materials: list[str], output_file: Optional[str] = None
-) -> str:
+def generate_audit_report(materials: list[str], output_file: Optional[str] = None) -> str:
     """Generate a material audit report for a list of materials.
 
     Args:
@@ -278,20 +266,14 @@ def generate_audit_report(
 
     # Summary
     fresh = sum(1 for r in all_results if r.get("pubchem_fresh"))
-    cached = sum(
-        1 for r in all_results if r.get("pubchem_data") and not r.get("pubchem_fresh")
-    )
+    cached = sum(1 for r in all_results if r.get("pubchem_data") and not r.get("pubchem_fresh"))
     no_pubchem = sum(1 for r in all_results if not r.get("pubchem_data"))
     with_conflicts = sum(1 for r in all_results if r.get("conflicts"))
     local_only = sum(1 for r in all_results if r.get("source_summary") == "local_only")
-    local_plus_pubchem = sum(
-        1 for r in all_results if r.get("source_summary") == "local+pubchem"
-    )
+    local_plus_pubchem = sum(1 for r in all_results if r.get("source_summary") == "local+pubchem")
 
     lines.append("## Summary")
-    lines.append(
-        f"- **Local data present**: {local_only + local_plus_pubchem}/{len(materials)}"
-    )
+    lines.append(f"- **Local data present**: {local_only + local_plus_pubchem}/{len(materials)}")
     lines.append(f"- **PubChem fresh (live API)**: {fresh}")
     lines.append(f"- **PubChem cached**: {cached}")
     lines.append(f"- **No PubChem data**: {no_pubchem}")
@@ -343,14 +325,10 @@ def generate_audit_report(
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Material validator with PubChem MCP cross-check"
-    )
+    parser = argparse.ArgumentParser(description="Material validator with PubChem MCP cross-check")
     parser.add_argument("--name", help="Single material name to validate")
     parser.add_argument("--report", help="File path to write audit report")
-    parser.add_argument(
-        "--materials", nargs="+", help="List of material names for batch audit"
-    )
+    parser.add_argument("--materials", nargs="+", help="List of material names for batch audit")
     args = parser.parse_args()
 
     if args.name:
@@ -390,8 +368,6 @@ if __name__ == "__main__":
             "Habanolide",
             "Benzyl salicylate",
         ]
-        report = generate_audit_report(
-            default, args.report or "output/material_audit.md"
-        )
+        report = generate_audit_report(default, args.report or "output/material_audit.md")
         print(report)
         print(f"\nReport written to {args.report or 'output/material_audit.md'}")

@@ -19,7 +19,7 @@ CLI
     python -m engine.data_spine.audit           # report field-completeness gaps
 """
 
-from .material import Material, MaterialRegistry
 from .loader import load_registry
+from .material import Material, MaterialRegistry
 
 __all__ = ["Material", "MaterialRegistry", "load_registry"]

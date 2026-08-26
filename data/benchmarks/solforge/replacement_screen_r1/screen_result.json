@@ -1,0 +1,55 @@
+{
+  "schema_version": "complexity_replacement_screen_result_v1",
+  "run_id": "RPL-XHIGH-20260826-SCREEN-R1",
+  "manifest_sha256": "07261210393c646dba8483381817fc031ff176350b5c8e16ad56be3a2fd1379d",
+  "judge_manifest_sha256": "f6797796702036539fd198b085190b09855115820b36aa266fbc5c453a4e5f42",
+  "receipt_path": "data/benchmarks/solforge/replacement_screen_r1/receipt.json",
+  "receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+  "judge_output_count": 9,
+  "scored_output_count": 27,
+  "critical_error_count": 0,
+  "state": "ALL_STOP",
+  "confirmation_authorized": false,
+  "decisions": [
+    {
+      "module_id": "architectural_delta",
+      "state": "STOP",
+      "plain_control_wins": 1,
+      "placebo_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ]
+    },
+    {
+      "module_id": "temporal_sensory_ledger",
+      "state": "STOP",
+      "plain_control_wins": 1,
+      "placebo_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ]
+    },
+    {
+      "module_id": "hedonic_preference_learner",
+      "state": "STOP",
+      "plain_control_wins": 0,
+      "placebo_wins": 2,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED"
+      ]
+    }
+  ],
+  "runtime_reachable": false,
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

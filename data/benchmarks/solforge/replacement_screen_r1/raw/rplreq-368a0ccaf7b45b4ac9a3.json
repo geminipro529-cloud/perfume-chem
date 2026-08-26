@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-368a0ccaf7b45b4ac9a3",
+  "case_id": "RPL-TEM-S03",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6530-46f8-83ec-95a1-e38246f7cb98",
+  "dispatch_sha256": "5474a4bcc18ad20612c36d91eec05bb3f51b22ef4ed873093c480b1c16b8dca9",
+  "output_text": "{\"decision\":\"HOLD: quarantine the conflicting duplicate canonical cell and withhold any summary that depends on it.\",\"target_linked_reasoning\":\"The two rows have identical protocol, sample, assessor, repeat, timepoint, and endpoint identities but disagree in value. They cannot both represent one canonical observation, and there is no evidence authorizing selection, averaging, or deduplication. Preserve both records and flag the cell as unresolved. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Audit the source records against an authoritative entry or provenance trail to determine whether one value is erroneous. If unresolved, repeat the same canonical observation under the qualified protocol; admit one verified value before recomputing panel summaries.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "5bbe8462741191ddaa35e47ed61ed882af3efc5e6df9ea6470ce60cc8bea0177",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

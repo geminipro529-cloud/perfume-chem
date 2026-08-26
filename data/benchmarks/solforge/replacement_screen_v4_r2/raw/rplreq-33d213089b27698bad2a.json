@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:22:14.127987+00:00",
+  "dispatch_sha256": "7b8e40c90703c82128de93a131a864ccf546d31eb4bd8a85f11eb0936397ca25",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "d037150cb6f4382b9a61109f4242aa29bc5db34a4281c180360fff7b53dbef84",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell contains two conflicting observed values (3 and 7) with distinct source hashes. Because no provenance rule establishes supersession, neither value may be selected or replaced by their average; continuing with 5 would create an unsupported derived observation.\",\"controlled_comparison\":{\"cell_identity\":{\"protocol\":\"P1\",\"sample\":\"X\",\"assessor\":\"A2\",\"repeat\":1,\"timepoint\":60,\"endpoint\":\"RICHNESS\"},\"observed_values\":[3,7],\"canonical_cell_record_count\":2,\"distinct_source_hash_count\":2,\"duplicate_excess_record_count\":1,\"proposed_average\":5,\"disposition\":\"QUARANTINE_CONFLICTING_CELL\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}},\"reason_codes\":[\"CONFLICTING_DUPLICATE_CELL\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_UNSUPPORTED\"],\"next_actions\":[\"Establish an evidence-backed provenance or supersession rule that discriminates between the two source records; otherwise retain the cell on hold.\"]}",
+  "phase": "SCREEN",
+  "prompt_sha256": "955e5ce809b3661fe7c25c00cdf387f9e5f7d3a75db72facf5607d69d2d235f4",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-33d213089b27698bad2a",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:57.612887+00:00",
+  "stderr_sha256": "f9258e158469df3e48ea24b412fda00160d0a2f135e4bcb442db949a2384e199",
+  "stderr_tail": "hase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell contains two conflicting observed values (3 and 7) with distinct source hashes. Because no provenance rule establishes supersession, neither value may be selected or replaced by their average; continuing with 5 would create an unsupported derived observation.\",\"controlled_comparison\":{\"cell_identity\":{\"protocol\":\"P1\",\"sample\":\"X\",\"assessor\":\"A2\",\"repeat\":1,\"timepoint\":60,\"endpoint\":\"RICHNESS\"},\"observed_values\":[3,7],\"canonical_cell_record_count\":2,\"distinct_source_hash_count\":2,\"duplicate_excess_record_count\":1,\"proposed_average\":5,\"disposition\":\"QUARANTINE_CONFLICTING_CELL\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}},\"reason_codes\":[\"CONFLICTING_DUPLICATE_CELL\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_UNSUPPORTED\"],\"next_actions\":[\"Establish an evidence-backed provenance or supersession rule that discriminates between the two source records; otherwise retain the cell on hold.\"]}\ntokens used\n5,260\n",
+  "stdout_sha256": "e4189a65b60f150f6d0978b0597c9eba67b939706836aac79747b4a5c45cfa4e"
+}

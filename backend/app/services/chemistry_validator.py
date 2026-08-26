@@ -6,13 +6,15 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional, cast
 
 logger = logging.getLogger(__name__)
 
 # Reference paths
 BACKEND_DATA_DIR = Path(__file__).parent.parent.parent / "data"
 DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
+
+JsonObject = dict[str, Any]
 
 
 class ValidationSeverity(Enum):
@@ -32,7 +34,7 @@ class ValidationIssue:
     current_value: Optional[float] = None
     recommended_value: Optional[float] = None
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> JsonObject:
         """Convert to dictionary for JSON serialization"""
         return {
             "severity": self.severity.value,
@@ -47,9 +49,9 @@ class ValidationIssue:
 class ChemistryValidator:
     """Validates perfume formulations against chemistry rules and safety limits"""
 
-    def __init__(self):
-        self.potency_data: Dict[str, Any] = {}
-        self.compounds_data: Dict[str, Any] = {}
+    def __init__(self) -> None:
+        self.potency_data: JsonObject = {}
+        self.compounds_data: dict[str, JsonObject] = {}
         self._load_potency_data()
         self._load_compounds_data()
 
@@ -59,7 +61,7 @@ class ChemistryValidator:
         try:
             if potency_file.exists():
                 with open(potency_file, 'r', encoding='utf-8') as f:
-                    self.potency_data = json.load(f)
+                    self.potency_data = cast(JsonObject, json.load(f))
                 logger.info(f"Loaded potency data for {len(self.potency_data.get('chemicals', {}))} chemicals")
             else:
                 logger.warning(f"Potency data file not found: {potency_file}")
@@ -74,11 +76,13 @@ class ChemistryValidator:
         try:
             if compounds_file.exists():
                 with open(compounds_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
+                    data = cast(JsonObject, json.load(f))
                     # Index by name for faster lookup
                     self.compounds_data = {
                         compound["name"].lower(): compound
-                        for compound in data.get("compounds", [])
+                        for compound in cast(
+                            list[JsonObject], data.get("compounds", [])
+                        )
                     }
                 logger.info(f"Loaded IFRA data for {len(self.compounds_data)} compounds")
             else:
@@ -88,16 +92,22 @@ class ChemistryValidator:
             logger.error(f"Failed to load compounds data: {e}")
             self.compounds_data = {}
 
+    def _chemicals(self) -> dict[str, JsonObject]:
+        """Return the typed chemical mapping from the JSON data boundary."""
+        return cast(
+            dict[str, JsonObject], self.potency_data.get("chemicals", {})
+        )
+
     def _normalize_chemical_name(self, name: str) -> str:
         """Normalize chemical name for matching"""
         # Handle common variations
         normalized = name.strip()
         # Try direct match first
-        if normalized in self.potency_data.get("chemicals", {}):
+        chemicals = self._chemicals()
+        if normalized in chemicals:
             return normalized
 
         # Try lowercase match
-        chemicals = self.potency_data.get("chemicals", {})
         for chem_name in chemicals:
             if chem_name.lower() == normalized.lower():
                 return chem_name
@@ -110,26 +120,26 @@ class ChemistryValidator:
 
         return normalized
 
-    def _get_chemical_data(self, name: str) -> Optional[Dict[str, Any]]:
+    def _get_chemical_data(self, name: str) -> Optional[JsonObject]:
         """Get chemical data from potency database"""
         normalized = self._normalize_chemical_name(name)
-        return self.potency_data.get("chemicals", {}).get(normalized)
+        return self._chemicals().get(normalized)
 
     def _get_ifra_limit(self, name: str) -> Optional[float]:
         """Get IFRA limit for a chemical from compounds database"""
         normalized = name.lower().strip()
         compound = self.compounds_data.get(normalized)
         if compound:
-            return compound.get("ifra_limit")
+            return cast(Optional[float], compound.get("ifra_limit"))
 
         # Try partial matching
         for key, compound in self.compounds_data.items():
             if key in normalized or normalized in key:
-                return compound.get("ifra_limit")
+                return cast(Optional[float], compound.get("ifra_limit"))
 
         return None
 
-    def validate_formula(self, ingredients: List[Dict]) -> List[ValidationIssue]:
+    def validate_formula(self, ingredients: list[JsonObject]) -> list[ValidationIssue]:
         """
         Full validation of a formula.
 
@@ -139,16 +149,18 @@ class ChemistryValidator:
         Returns:
             List of ValidationIssue objects
         """
-        issues = []
+        issues: list[ValidationIssue] = []
         issues.extend(self._check_total_percentage(ingredients))
         issues.extend(self._check_potency_limits(ingredients))
         issues.extend(self._check_ifra_limits(ingredients))
         issues.extend(self._check_note_pyramid(ingredients))
         return issues
 
-    def _check_total_percentage(self, ingredients: List[Dict]) -> List[ValidationIssue]:
+    def _check_total_percentage(
+        self, ingredients: list[JsonObject]
+    ) -> list[ValidationIssue]:
         """Ensure ingredients sum to approximately 100%"""
-        issues = []
+        issues: list[ValidationIssue] = []
 
         total = sum(ing.get("percentage", 0) for ing in ingredients)
 
@@ -183,10 +195,15 @@ class ChemistryValidator:
 
         return issues
 
-    def _check_potency_limits(self, ingredients: List[Dict]) -> List[ValidationIssue]:
+    def _check_potency_limits(
+        self, ingredients: list[JsonObject]
+    ) -> list[ValidationIssue]:
         """Check each chemical against potency database limits"""
-        issues = []
-        potency_categories = self.potency_data.get("potency_categories", {})
+        issues: list[ValidationIssue] = []
+        potency_categories = cast(
+            dict[str, JsonObject],
+            self.potency_data.get("potency_categories", {}),
+        )
 
         for ing in ingredients:
             name = ing.get("name", "Unknown")
@@ -255,9 +272,11 @@ class ChemistryValidator:
 
         return issues
 
-    def _check_ifra_limits(self, ingredients: List[Dict]) -> List[ValidationIssue]:
+    def _check_ifra_limits(
+        self, ingredients: list[JsonObject]
+    ) -> list[ValidationIssue]:
         """Check IFRA safety limits from compounds database"""
-        issues = []
+        issues: list[ValidationIssue] = []
 
         for ing in ingredients:
             name = ing.get("name", "Unknown")
@@ -288,9 +307,11 @@ class ChemistryValidator:
 
         return issues
 
-    def _check_note_pyramid(self, ingredients: List[Dict]) -> List[ValidationIssue]:
+    def _check_note_pyramid(
+        self, ingredients: list[JsonObject]
+    ) -> list[ValidationIssue]:
         """Ensure proper top/heart/base distribution in the formula"""
-        issues = []
+        issues: list[ValidationIssue] = []
 
         # Calculate distribution by note
         note_totals = {"top": 0.0, "heart": 0.0, "base": 0.0, "unknown": 0.0}
@@ -316,7 +337,10 @@ class ChemistryValidator:
             return issues
 
         # Get guidelines
-        guidelines = self.potency_data.get("note_distribution_guidelines", {})
+        guidelines = cast(
+            dict[str, JsonObject],
+            self.potency_data.get("note_distribution_guidelines", {}),
+        )
 
         # Check each layer
         for note_type in ["top", "heart", "base"]:
@@ -352,7 +376,9 @@ class ChemistryValidator:
 
         return issues
 
-    def auto_correct_formula(self, ingredients: List[Dict]) -> Tuple[List[Dict], List[str]]:
+    def auto_correct_formula(
+        self, ingredients: list[JsonObject]
+    ) -> tuple[list[JsonObject], list[str]]:
         """
         Attempt to fix issues and return corrected formula with change log.
 
@@ -362,8 +388,8 @@ class ChemistryValidator:
         Returns:
             Tuple of (corrected ingredients, list of change descriptions)
         """
-        corrected = []
-        changes = []
+        corrected: list[JsonObject] = []
+        changes: list[str] = []
         total_reduction = 0.0
 
         for ing in ingredients:
@@ -418,7 +444,7 @@ class ChemistryValidator:
 
         return corrected, changes
 
-    def get_dosage_guidelines(self, chemical_name: str) -> Optional[Dict[str, Any]]:
+    def get_dosage_guidelines(self, chemical_name: str) -> Optional[JsonObject]:
         """
         Get recommended dosage for a chemical.
 
@@ -433,7 +459,11 @@ class ChemistryValidator:
             return None
 
         potency = chem_data.get("potency", "medium")
-        potency_cat = self.potency_data.get("potency_categories", {}).get(potency, {})
+        potency_categories = cast(
+            dict[str, JsonObject],
+            self.potency_data.get("potency_categories", {}),
+        )
+        potency_cat = potency_categories.get(potency, {})
 
         return {
             "chemical": chemical_name,
@@ -449,11 +479,13 @@ class ChemistryValidator:
             "ifra_limit": self._get_ifra_limit(chemical_name)
         }
 
-    def get_all_dosage_guidelines(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_dosage_guidelines(self) -> dict[str, JsonObject]:
         """Get dosage guidelines for all known chemicals"""
-        guidelines = {}
-        for name in self.potency_data.get("chemicals", {}):
-            guidelines[name] = self.get_dosage_guidelines(name)
+        guidelines: dict[str, JsonObject] = {}
+        for name in self._chemicals():
+            guidelines[name] = cast(
+                JsonObject, self.get_dosage_guidelines(name)
+            )
         return guidelines
 
     def format_dosage_for_prompt(self) -> str:
@@ -461,14 +493,22 @@ class ChemistryValidator:
         lines = ["## DOSAGE GUIDELINES BY POTENCY\n"]
 
         # Group by potency
-        by_potency = {"extreme": [], "high": [], "medium": [], "low": []}
+        by_potency: dict[str, list[tuple[str, JsonObject]]] = {
+            "extreme": [],
+            "high": [],
+            "medium": [],
+            "low": [],
+        }
 
-        for name, data in self.potency_data.get("chemicals", {}).items():
+        for name, data in self._chemicals().items():
             potency = data.get("potency", "medium")
             if potency in by_potency:
                 by_potency[potency].append((name, data))
 
-        potency_categories = self.potency_data.get("potency_categories", {})
+        potency_categories = cast(
+            dict[str, JsonObject],
+            self.potency_data.get("potency_categories", {}),
+        )
 
         for potency in ["extreme", "high", "medium", "low"]:
             cat = potency_categories.get(potency, {})

@@ -1,8 +1,9 @@
 """Cross-validate external AHS report ODT values against pipeline ODT_DATA."""
 import sys
+
 sys.path.insert(0, r"D:\chatbots\perfume-chem")
-from engine.odor_thresholds import ODT_DATA
 from engine.name_utils import normalize_name
+from engine.odor_thresholds import ODT_DATA
 
 report_odts = {
     "Limonene": 10,

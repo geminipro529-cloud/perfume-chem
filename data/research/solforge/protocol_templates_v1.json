@@ -1,0 +1,85 @@
+{
+  "schema_version": "solforge_protocol_templates_v1",
+  "templates": [
+    {
+      "template_id": "OMISSION-ALTERNATIVE-V1",
+      "design_class": "OMISSION_ALTERNATIVE",
+      "arm_ids": ["CONTROL", "A"],
+      "primary_endpoint": "TARGET_FIDELITY",
+      "secondary_endpoints": ["DEPTH", "RICHNESS", "LIKING"],
+      "washout_seconds": 60,
+      "repeat_count": 2,
+      "assessor_scope": "Declared owner or trained panel; scopes analyzed separately",
+      "stopping_rule": "Stop on safety event, stock mismatch, or protocol deviation",
+      "safety_stop": "Any assessor adverse event halts evidentiary promotion"
+    },
+    {
+      "template_id": "RATIO-WINDOW-V1",
+      "design_class": "RATIO_WINDOW",
+      "arm_ids": ["CONTROL", "A", "B"],
+      "primary_endpoint": "TARGET_FIDELITY",
+      "secondary_endpoints": ["DEPTH", "RICHNESS", "LIKING"],
+      "washout_seconds": 60,
+      "repeat_count": 2,
+      "assessor_scope": "Declared owner or trained panel; scopes analyzed separately",
+      "stopping_rule": "Stop on target drift, unmatched dose, safety event, or protocol deviation",
+      "safety_stop": "Any assessor adverse event halts evidentiary promotion"
+    },
+    {
+      "template_id": "TWO-FACTOR-FOUR-ARM-V1",
+      "design_class": "TWO_FACTOR_FOUR_ARM_MIXTURE",
+      "arm_ids": ["CONTROL", "A", "B", "A_X_B"],
+      "primary_endpoint": "TARGET_FIDELITY",
+      "secondary_endpoints": ["DEPTH", "RICHNESS", "LIKING"],
+      "washout_seconds": 90,
+      "repeat_count": 2,
+      "assessor_scope": "Declared owner or trained panel; scopes analyzed separately",
+      "stopping_rule": "Stop on missing arm, unmatched dose, safety event, or protocol deviation",
+      "safety_stop": "Any assessor adverse event halts evidentiary promotion"
+    },
+    {
+      "template_id": "TEMPORAL-REPEATED-MEASURES-V1",
+      "design_class": "TEMPORAL_REPEATED_MEASURES",
+      "arm_ids": ["CONTROL", "A"],
+      "primary_endpoint": "TEMPORAL_TRANSITION_REPEATABILITY",
+      "secondary_endpoints": ["TARGET_FIDELITY", "DEPTH", "RICHNESS"],
+      "washout_seconds": 120,
+      "repeat_count": 2,
+      "assessor_scope": "Qualified named assessors with fixed timepoints and sessions",
+      "stopping_rule": "Stop on missing qualification, duplicate cells, safety event, or protocol deviation",
+      "safety_stop": "Any assessor adverse event halts evidentiary promotion"
+    },
+    {
+      "template_id": "CRITERION-PAIRWISE-LIKING-V1",
+      "design_class": "CRITERION_PAIRWISE_LIKING",
+      "arm_ids": ["CONTROL", "A"],
+      "primary_endpoint": "PAIRWISE_LIKING",
+      "secondary_endpoints": ["INTENSITY_CONTROL", "TEST_RETEST"],
+      "washout_seconds": 60,
+      "repeat_count": 2,
+      "assessor_scope": "Owner, trained panel, or consumers declared and analyzed separately",
+      "stopping_rule": "Stop on order imbalance, baseline failure, safety event, or protocol deviation",
+      "safety_stop": "Any assessor adverse event halts evidentiary promotion"
+    },
+    {
+      "template_id": "SOFTWARE-DECISION-YIELD-V1",
+      "design_class": "SOFTWARE_DECISION_YIELD",
+      "arm_ids": ["CONTROL", "A", "B"],
+      "primary_endpoint": "VALID_DECISION_YIELD",
+      "secondary_endpoints": ["TARGET_FIDELITY", "EXPERIMENTAL_USEFULNESS", "EVIDENCE_EFFICIENCY"],
+      "washout_seconds": 1,
+      "repeat_count": 2,
+      "assessor_scope": "Independent blinded software judges",
+      "stopping_rule": "Stop on critical error, invariant miss, resampling, or unblinding",
+      "safety_stop": "Not a physical protocol; any authority escalation halts admission"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

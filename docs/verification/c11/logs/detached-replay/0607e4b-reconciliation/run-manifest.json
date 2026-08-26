@@ -1,0 +1,132 @@
+{
+    "schema":  "build-c11-detached-replay-reconciliation-v1",
+    "generated_at_utc":  "2026-08-03T04:12:45.7511271+00:00",
+    "replay_root":  "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+    "replay_head":  "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+    "detached":  true,
+    "external_pytest_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11-detached-replay-pytest-20260803T111234+0700",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "explicit_timeouts":  true,
+    "sensitive_environment_values_removed_without_logging":  true,
+    "jobs":  [
+                 {
+                     "name":  "report-validator",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_evidence.py",
+                                       "--repo",
+                                       "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+                                       "--expected-current-head",
+                                       "0607e4bc2e36bb1fc9ff3337d39d100c6605e424",
+                                       "--replay-clean"
+                                   ],
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T04:12:35.2280787+00:00",
+                     "finished_at_utc":  "2026-08-03T04:12:35.8891103+00:00",
+                     "duration_ms":  659,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/report-validator.stdout.txt",
+                                    "bytes":  1019,
+                                    "sha256":  "77743642920189655f51112969e3deeeccea3422bea0d98fdcfd071d54d4ff3f"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/report-validator.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "committed-manifest-validator",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_committed_state.py",
+                                       "--repo",
+                                       "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+                                       "--manifest",
+                                       "docs/verification/c11/committed_evidence_manifest.json",
+                                       "--status-helper",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c11_status_snapshot.py"
+                                   ],
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T04:12:36.0405681+00:00",
+                     "finished_at_utc":  "2026-08-03T04:12:45.0479111+00:00",
+                     "duration_ms":  9010,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/committed-manifest-validator.stdout.txt",
+                                    "bytes":  479,
+                                    "sha256":  "9515fdb770ea096b56de656a7c5c2399fa938b212236e721e365cd8db6fd0bc9"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/committed-manifest-validator.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "detached-baseline-classification",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c11_detached_baseline.py",
+                                       "--replay-repo",
+                                       "D:\\.worktrees\\perfume-chem\\c10-replay-19b993a1",
+                                       "--stdout",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\detached-replay\\0607e4b\\focused-c0-c10.stdout.txt",
+                                       "--stderr",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\detached-replay\\0607e4b\\focused-c0-c10.stderr.txt"
+                                   ],
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T04:12:45.0726709+00:00",
+                     "finished_at_utc":  "2026-08-03T04:12:45.6158684+00:00",
+                     "duration_ms":  542,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/detached-baseline-classification.stdout.txt",
+                                    "bytes":  1284,
+                                    "sha256":  "513c8cdea57c010c7ced747fd098e01010f55d50c746dfe692877bb2f0454ef4"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/detached-baseline-classification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "log-scan",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\scan_c8_logs.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c11\\logs\\detached-replay\\0607e4b-reconciliation"
+                                   ],
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T04:12:45.8156360+00:00",
+                     "finished_at_utc":  "2026-08-03T04:12:46.0810396+00:00",
+                     "duration_ms":  265,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/log-scan.stdout.txt",
+                                    "bytes":  2175,
+                                    "sha256":  "d7707282001ff6f3a0acdc841696296abcf6ecb34813d16205c0c1a34d22e9ae"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c11/logs/detached-replay/0607e4b-reconciliation/log-scan.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "replay_status_before_count":  0,
+    "replay_status_after_count":  0,
+    "all_pass":  true
+}

@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
@@ -15,7 +14,6 @@ import math
 
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
-
 
 SOURCE_PATH = PROJECT_ROOT / "Orris_Damascone_10_Deep_Luxury_30mL.md"
 OUTPUT_PATH = PROJECT_ROOT / "Orris_Damascone_10_Deep_Luxury_30mL_Optimized.md"
@@ -407,7 +405,7 @@ def render_markdown(results: list[OptimizationResult]) -> str:
     lines.append("")
     lines.append("1. Blend the optimized `3.00 mL` additions first.")
     lines.append(f"2. Add `4.50 mL` of your fixed `{ACCORD_NAME}`.")
-    lines.append(f"3. Add `22.50 mL` ethanol 96%.")
+    lines.append("3. Add `22.50 mL` ethanol 96%.")
     lines.append("4. Rest `14-21 days` before serious judgement.")
     lines.append("")
     return "\n".join(lines)

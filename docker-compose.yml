@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   api:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
     environment:
@@ -15,8 +13,11 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - OTEL_OTLP_ENDPOINT=http://jaeger:4318
     volumes:
-      - ./backend/data:/app/data
-      - ./backend/app:/app/app
+      - ./backend/data:/app/backend/data
+      - ./backend/app:/app/backend/app
+      - ./backend/config:/app/backend/config:ro
+      - ./engine:/app/engine
+      - ./data:/app/data:ro
     depends_on:
       - redis
       - jaeger

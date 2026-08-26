@@ -1,0 +1,251 @@
+from __future__ import annotations
+
+import copy
+import hashlib
+from pathlib import Path
+
+import pytest
+
+from scripts.verify_c0_physical_model_inventory import (
+    ALLOWED_CLASSIFICATIONS,
+    LEGACY_CAPTURES,
+    REQUIRED_CATEGORIES,
+    canonical_json_bytes,
+    capture_legacy_case,
+    compare_normalized,
+    load_inventory,
+    load_legacy_fixtures,
+    validate_inventory,
+    validate_legacy_fixtures,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+INVENTORY_PATH = ROOT / "docs" / "verification" / "c0" / "physical_model_inventory.json"
+ADR_PATH = ROOT / "docs" / "architecture" / "ADR-2026-08-02-c0-physical-model-consolidation.md"
+FIXTURE_PATH = ROOT / "tests" / "fixtures" / "c0_legacy_physical_model_cases.json"
+FIXTURE_SHA_PATH = ROOT / "tests" / "fixtures" / "c0_legacy_physical_model_cases.sha256"
+
+
+def _write_temporary_fixture_lock(tmp_path: Path, fixtures: dict[str, object]) -> tuple[Path, Path]:
+    fixture_path = tmp_path / "fixtures.json"
+    fixture_sha_path = tmp_path / "fixtures.sha256"
+    fixture_bytes = canonical_json_bytes(fixtures, trailing_newline=True)
+    fixture_path.write_bytes(fixture_bytes)
+    fixture_sha_path.write_text(
+        f"{hashlib.sha256(fixture_bytes).hexdigest()}  fixtures.json\n",
+        encoding="ascii",
+    )
+    return fixture_path, fixture_sha_path
+
+
+def test_inventory_covers_every_c0_category_and_only_allowed_classes() -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    errors = validate_inventory(inventory, root=ROOT, adr_path=ADR_PATH)
+    assert errors == []
+
+    assert set(inventory["required_categories"]) == REQUIRED_CATEGORIES
+    represented = {record["category"] for record in inventory["implementations"]}
+    assert represented >= REQUIRED_CATEGORIES
+    assert {
+        record["classification"] for record in inventory["implementations"]
+    } <= ALLOWED_CLASSIFICATIONS
+
+
+def test_inventory_records_are_source_bound_and_claim_explicit() -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    required_fields = {
+        "id",
+        "category",
+        "name",
+        "classification",
+        "source",
+        "inputs",
+        "outputs",
+        "conditions",
+        "consumers",
+        "evidence_labels",
+        "tests",
+        "claim_impact",
+        "runtime_status",
+        "disposition",
+        "source_sha256",
+    }
+
+    identifiers: set[str] = set()
+    for record in inventory["implementations"]:
+        assert required_fields <= record.keys(), record.get("id")
+        assert record["id"] not in identifiers
+        identifiers.add(record["id"])
+        assert record["claim_impact"].strip()
+        assert record["disposition"].strip()
+        assert record["runtime_status"].strip()
+
+    assert inventory["call_edges"]
+    assert all(edge["callee_id"] in identifiers for edge in inventory["call_edges"])
+
+
+def test_consolidation_adr_declares_one_router_and_no_c0_runtime_change() -> None:
+    text = ADR_PATH.read_text(encoding="utf-8")
+    required_statements = (
+        "engine.physics",
+        "one selected implementation",
+        "Build B selected assertions",
+        "Laboratory Beta",
+        "WITHHELD",
+        "C0 changes no production runtime path",
+        "LEGACY_HEURISTIC",
+        "Claim-family routing decision",
+        "Property scalars and vapor pressure",
+        "Equilibrium headspace and OAV",
+        "Temporal release and trajectory",
+        "Natural-material decomposition",
+        "Receptor, adaptation, dose-response, psychophysics, and hedonic",
+        "UNIFAC, DIPPR-style, and COSMO-RS",
+    )
+    for statement in required_statements:
+        assert statement in text
+
+
+def test_every_declared_legacy_capture_has_exactly_one_frozen_case() -> None:
+    assert FIXTURE_PATH.is_file(), "C0 legacy fixture file has not been frozen"
+    fixtures = load_legacy_fixtures(FIXTURE_PATH)
+    selectors = [case["selector"] for case in fixtures["cases"]]
+
+    assert set(selectors) == set(LEGACY_CAPTURES)
+    assert len(selectors) == len(LEGACY_CAPTURES)
+
+
+def test_skin_interaction_duplicate_accounting_is_disclosed_and_locked() -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    record = next(item for item in inventory["implementations"] if item["id"] == "C0-PM-040")
+    claim_impact = record["claim_impact"].casefold()
+    assert "duplicate" in claim_impact
+    assert "100%" in claim_impact
+
+    assert FIXTURE_PATH.is_file(), "C0 legacy fixture file has not been frozen"
+    fixtures = load_legacy_fixtures(FIXTURE_PATH)
+    skin_case = next(
+        case for case in fixtures["cases"] if case["selector"] == "skin_interaction_v1"
+    )
+    reservoir_materials = skin_case["output"]["reservoir_materials"]
+    names = [item["material"] for item in reservoir_materials]
+    assert len(names) > len(set(names))
+    assert skin_case["output"]["permeability_profile"]["reservoir_pct"] > 100.0
+
+
+def test_fixture_validator_rejects_missing_and_duplicate_selectors(tmp_path: Path) -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    fixtures = load_legacy_fixtures(FIXTURE_PATH)
+
+    missing = copy.deepcopy(fixtures)
+    missing["cases"] = missing["cases"][:-1]
+    fixture_path, fixture_sha_path = _write_temporary_fixture_lock(tmp_path, missing)
+    errors = validate_legacy_fixtures(
+        missing,
+        inventory,
+        root=ROOT,
+        fixture_path=fixture_path,
+        fixture_sha_path=fixture_sha_path,
+    )
+    assert any("missing legacy selectors" in error for error in errors)
+
+    duplicate = copy.deepcopy(fixtures)
+    duplicate_case = copy.deepcopy(duplicate["cases"][0])
+    duplicate_case["id"] = f"{duplicate_case['id']}-DUPLICATE"
+    duplicate["cases"].append(duplicate_case)
+    fixture_path, fixture_sha_path = _write_temporary_fixture_lock(tmp_path, duplicate)
+    errors = validate_legacy_fixtures(
+        duplicate,
+        inventory,
+        root=ROOT,
+        fixture_path=fixture_path,
+        fixture_sha_path=fixture_sha_path,
+    )
+    assert any("duplicate legacy selector" in error for error in errors)
+
+
+def test_fixture_validator_binds_hashes_to_declared_implementation(tmp_path: Path) -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    fixtures = copy.deepcopy(load_legacy_fixtures(FIXTURE_PATH))
+    unrelated = ROOT / "pyproject.toml"
+    fixtures["cases"][0]["source_sha256"] = {
+        "pyproject.toml": hashlib.sha256(unrelated.read_bytes()).hexdigest()
+    }
+    fixture_path, fixture_sha_path = _write_temporary_fixture_lock(tmp_path, fixtures)
+
+    errors = validate_legacy_fixtures(
+        fixtures,
+        inventory,
+        root=ROOT,
+        fixture_path=fixture_path,
+        fixture_sha_path=fixture_sha_path,
+    )
+    assert any("does not bind implementation source" in error for error in errors)
+
+
+def test_legacy_fixture_lock_and_replay() -> None:
+    inventory = load_inventory(INVENTORY_PATH)
+    fixtures = load_legacy_fixtures(FIXTURE_PATH)
+    errors = validate_legacy_fixtures(
+        fixtures,
+        inventory,
+        root=ROOT,
+        fixture_path=FIXTURE_PATH,
+        fixture_sha_path=FIXTURE_SHA_PATH,
+    )
+    assert errors == []
+
+    expected_sha = FIXTURE_SHA_PATH.read_text(encoding="ascii").strip().split()[0]
+    assert (
+        hashlib.sha256(canonical_json_bytes(fixtures, trailing_newline=True)).hexdigest()
+        == expected_sha
+    )
+
+    for case in fixtures["cases"]:
+        actual = capture_legacy_case(case["selector"], case["input"])
+        differences = compare_normalized(
+            case["output"],
+            actual,
+            absolute_tolerance=float(case.get("absolute_tolerance", 1e-9)),
+            relative_tolerance=float(case.get("relative_tolerance", 1e-9)),
+        )
+        assert differences == [], f"{case['id']}: {differences}"
+
+
+def test_every_legacy_fixture_is_non_promoting_and_source_bound() -> None:
+    fixtures = load_legacy_fixtures(FIXTURE_PATH)
+    fixture_ids: set[str] = set()
+    for case in fixtures["cases"]:
+        assert case["id"] not in fixture_ids
+        fixture_ids.add(case["id"])
+        assert case["classification"] == "LEGACY_HEURISTIC"
+        assert "not scientific validation" in case["warning"].casefold()
+        assert (
+            case["input_sha256"] == hashlib.sha256(canonical_json_bytes(case["input"])).hexdigest()
+        )
+        assert case["source_sha256"]
+        assert case["selector"]
+
+
+@pytest.mark.parametrize(
+    "category",
+    (
+        "formula_state_headspace",
+        "temporal_simulator_trajectory",
+        "thermo_headspace",
+        "vapor_pressure_estimation",
+        "antoine_clausius_clapeyron_dippr",
+        "activity_coefficients",
+        "unifac",
+        "hansen_solubility_distance",
+        "cosmo_rs",
+        "dose_response_psychophysics",
+        "natural_material_decomposition",
+        "maturation_aging_kinetics",
+        "receptor_models",
+        "adaptation",
+        "hedonic_longevity_sillage_diffusion_projection",
+    ),
+)
+def test_master_prompt_category_name_is_stable(category: str) -> None:
+    assert category in REQUIRED_CATEGORIES

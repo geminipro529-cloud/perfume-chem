@@ -17,12 +17,10 @@ Includes Roudnitska test (stop criterion) and distance-based evaluation protocol
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from enum import StrEnum
+from dataclasses import dataclass
 from typing import Sequence
 
-from ._shared_types import IterationStage, MACERATION_STAGES
-
+from ._shared_types import MACERATION_STAGES, IterationStage
 
 # ---------------------------------------------------------------------------
 # Iteration stages
@@ -286,7 +284,7 @@ def evaluate_stage_compliance(
     # Parse the allowed action for constraints
     if "never fix bad skeleton by adding materials" in current.allowed_action:
         if changes_made > 0:
-            return False, f"T=0 day: adjust RATIOS only, don't add/remove materials"
+            return False, "T=0 day: adjust RATIOS only, don't add/remove materials"
         return True, "Ratios only at T=0"
 
     if "remove/reduce 1-2 worst offenders" in current.allowed_action:

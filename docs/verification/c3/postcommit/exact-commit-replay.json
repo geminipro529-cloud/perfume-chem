@@ -1,0 +1,86 @@
+{
+  "schema": "build-c3-exact-commit-replay-v1",
+  "recorded_at": "2026-08-02T22:46:59.0947385+07:00",
+  "evidence_commit": "d6c4b6b31bfc70c11e37a7bd6f94a5b1acba8b91",
+  "implementation_head": "37ad809edc4c9b29ba7da090d605f854a49f1826",
+  "phase_parent": "f5ae19227e75dee30fe101b4324e1f54283174e3",
+  "replay": {
+    "metadata_path": "docs/verification/c3/postcommit/replay-final/replay-metadata.stdout.json",
+    "metadata_sha256": "2925d516d88953c6a8ea21639c7f9bc83f6283d677dcb78649923d197427e02b",
+    "job_count": 17,
+    "failed_job_count": 0,
+    "timed_out_job_count": 0,
+    "nonempty_stderr_count": 0,
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "status": "PASS"
+  },
+  "tests": {
+    "c3_focused": "105 passed",
+    "c2_compatibility": "79 passed",
+    "c1_compatibility": "96 passed",
+    "c0_compatibility": "24 passed",
+    "complete_root": "1402 passed",
+    "dependency_invariant": "1 passed"
+  },
+  "static": {
+    "ruff_check": "PASS",
+    "ruff_format": "PASS",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "no issues"
+  },
+  "recovery_archive": {
+    "status": "PASS",
+    "sha256": "fd4e38ff22b9a611fe46b61454f8705eb4b989615c7780a526bf2b813ef3196e",
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "preserved_dirty_or_untracked_count": 429
+  },
+  "protected_state": {
+    "status": "PASS",
+    "before_after_identical": true,
+    "matches_c2_baseline": true,
+    "database_quick_checks_ok": true
+  },
+  "scope": {
+    "status": "PASS",
+    "implementation_path_count": 7,
+    "evidence_commit_path_count": 65,
+    "evidence_paths_scoped_to_c3": true,
+    "migration_path_count": 0,
+    "database_path_count": 0,
+    "scientific_artifact_path_count": 0,
+    "production_caller_path_count": 0,
+    "compatibility_or_legacy_path_count": 0
+  },
+  "evidence_validation": {
+    "status": "PASS",
+    "mode_at_replay": "precommit",
+    "log_manifest_entries_verified": 61,
+    "protected_database_count": 2
+  },
+  "replay_manifest": {
+    "path": "docs/verification/c3/postcommit/replay-manifest.json",
+    "bytes": 10222,
+    "sha256": "1c26b38c34a43a4eb2289b4a8b460c7012b9685f10ffad29c573826e83b57f1b",
+    "covered_file_count": 36,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "matched_values_recorded": false
+  },
+  "non_authoritative_launcher_attempt": {
+    "status": "PRE_EXECUTION_FAILURE",
+    "cause": "The first launcher Git probe inherited the scratch working directory instead of the repository.",
+    "provider_calls": 0,
+    "test_jobs_started": 0,
+    "evidence_files_created": 0,
+    "database_actions": 0,
+    "repository_file_changes": 0,
+    "authoritative_replacement": "docs/verification/c3/postcommit/replay-final"
+  },
+  "status": "PASS"
+}

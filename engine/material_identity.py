@@ -13,11 +13,11 @@ trade usage, especially the iris / orris stack.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import re
 import unicodedata
+from dataclasses import dataclass
+from functools import lru_cache
 from typing import Any
-
 
 _GREEK_MAP = str.maketrans({
     "α": "alpha",
@@ -28,6 +28,7 @@ _GREEK_MAP = str.maketrans({
 })
 
 
+@lru_cache(maxsize=8192)
 def _normalize_text(value: str) -> str:
     text = unicodedata.normalize("NFKD", str(value or ""))
     text = text.translate(_GREEK_MAP)
@@ -162,6 +163,7 @@ for _identity in _IRIS_IDENTITIES:
 del _identity, _key
 
 
+@lru_cache(maxsize=4096)
 def resolve_material_identity(name: str | None) -> MaterialIdentity | None:
     """Return the confirmed identity for a material label, alias, or CAS."""
 

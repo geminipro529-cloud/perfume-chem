@@ -1,0 +1,12 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________ test_unresolved_disclosure_cannot_be_omitted_or_misstated __________
+
+    def test_unresolved_disclosure_cannot_be_omitted_or_misstated() -> None:
+>       with pytest.raises(NaturalLotContractError, match="unresolved"):
+E       Failed: DID NOT RAISE NaturalLotContractError
+
+tests\test_c7_natural_lots.py:745: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c7_natural_lots.py::test_unresolved_disclosure_cannot_be_omitted_or_misstated - Failed: DID NOT RAISE NaturalLotContractError
+1 failed in 0.54s

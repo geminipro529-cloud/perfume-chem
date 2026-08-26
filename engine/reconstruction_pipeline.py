@@ -39,72 +39,69 @@ Usage:
 
 from __future__ import annotations
 
-import json
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Optional
 
-# ── Tracing ───────────────────────────────────────────────────────
-from engine.tracing import traced
+from engine.allergen_solver import (
+    AllergenSolverResult,
+    solve_allergen_ratios,
+)
+from engine.captive_availability import (
+    CaptiveAnalysisResult,
+    analyze_captive_availability,
+)
+from engine.cost_analysis import (
+    COGAnalysisResult,
+    analyze_cost_of_goods,
+)
+from engine.ifra_constraints import (
+    IFRAAnalysisResult,
+    compute_ifra_windows,
+)
+from engine.material_interactions import (
+    InteractionAnalysisResult,
+    analyze_material_interactions,
+)
+from engine.molecular_weight_distribution import (
+    MWAnalysisResult,
+    analyze_mw_distribution,
+)
+from engine.odor_thresholds import (
+    ODTAnalysisResult,
+    analyze_odor_thresholds,
+)
+from engine.perfumer_signature import (
+    SignatureAnalysisResult,
+    analyze_perfumer_signature,
+)
+from engine.regulatory_timeline import (
+    RegulatoryAnalysisResult,
+    analyze_regulatory_timeline,
+)
 
 # ── Internal module imports ────────────────────────────────────────
 from engine.reverse_engineer import (
-    EvidencePool,
     EvidenceItem,
+    EvidencePool,
     ReconstructedFormula,
-    reverse_engineer,
+    format_reconstruction_report,
     parse_allergen_list,
     parse_note_pyramid,
     parse_review_consensus,
-    format_reconstruction_report,
-)
-from engine.ifra_constraints import (
-    compute_ifra_windows,
-    format_ifra_report,
-    IFRAAnalysisResult,
-)
-from engine.perfumer_signature import (
-    analyze_perfumer_signature,
-    SignatureAnalysisResult,
-)
-from engine.cost_analysis import (
-    analyze_cost_of_goods,
-    COGAnalysisResult,
-)
-from engine.odor_thresholds import (
-    analyze_odor_thresholds,
-    ODTAnalysisResult,
-)
-from engine.allergen_solver import (
-    solve_allergen_ratios,
-    AllergenSolverResult,
-)
-from engine.material_interactions import (
-    analyze_material_interactions,
-    InteractionAnalysisResult,
-)
-from engine.vapor_pressure_modeling import (
-    analyze_vapor_pressure,
-    VPAnalysisResult,
+    reverse_engineer,
 )
 from engine.temporal_volatility import (
-    analyze_temporal_consistency,
     TemporalAnalysisResult,
-)
-from engine.captive_availability import (
-    analyze_captive_availability,
-    CaptiveAnalysisResult,
-)
-from engine.regulatory_timeline import (
-    analyze_regulatory_timeline,
-    RegulatoryAnalysisResult,
-)
-from engine.molecular_weight_distribution import (
-    analyze_mw_distribution,
-    MWAnalysisResult,
+    analyze_temporal_consistency,
 )
 
+# ── Tracing ───────────────────────────────────────────────────────
+from engine.tracing import traced
+from engine.vapor_pressure_modeling import (
+    VPAnalysisResult,
+    analyze_vapor_pressure,
+)
 
 # ══════════════════════════════════════════════════════════════════════
 # Input specification
@@ -128,6 +125,7 @@ class FragranceSpec:
 
     # Allergen declaration (ordered list from box)
     declared_allergens: list[str] = field(default_factory=list)
+    allergen_label_regime_complete: bool = False
 
     # Community review data: note → fraction of reviewers detecting
     community_votes: dict[str, float] = field(default_factory=dict)
@@ -369,7 +367,10 @@ def run_reconstruction_pipeline(spec: FragranceSpec) -> PipelineReport:
     if not bayesian.actionable:
         bayesian_insights.append("Not yet actionable — need more CONFIRMED materials (≥80% mass)")
     if n_confirmed < 5:
-        bayesian_insights.append(f"Only {n_confirmed} confirmed materials — add GC-MS or allergen data")
+        bayesian_insights.append(
+            f"Only {n_confirmed} confirmed materials — add GC-MS or "
+            "source-specific material evidence"
+        )
 
     report.category_scores.append(CategoryScore(
         category="BAYESIAN_POSTERIOR",
@@ -385,6 +386,7 @@ def run_reconstruction_pipeline(spec: FragranceSpec) -> PipelineReport:
             declared_allergens=spec.declared_allergens,
             concentration_pct=spec.concentration_pct,
             target_name=spec.name,
+            label_regime_complete=spec.allergen_label_regime_complete,
         )
         report.ifra_result = ifra
 
@@ -392,13 +394,20 @@ def run_reconstruction_pipeline(spec: FragranceSpec) -> PipelineReport:
         if ifra.restricted_materials:
             ifra_insights.append(f"IFRA-restricted: {', '.join(ifra.restricted_materials)}")
         if ifra.absent_allergens:
-            ifra_insights.append(f"{len(ifra.absent_allergens)} allergens absent — eliminates materials")
+            ifra_insights.append(
+                f"{len(ifra.absent_allergens)} allergens not declared above the "
+                "verified threshold; source materials remain unresolved"
+            )
 
         report.category_scores.append(CategoryScore(
             category="ALLERGEN_EVIDENCE",
-            score=ifra.score,
-            label=_label_score(ifra.score),
-            detail=f"{ifra.total_constrained} declared allergens, {len(ifra.restricted_materials)} IFRA-restricted",
+            score=0.0,
+            label=_label_score(0.0),
+            detail=(
+                f"Diagnostic only: {ifra.total_constrained} declared constituents, "
+                f"{len(ifra.restricted_materials)} with legacy quantitative "
+                "screening entries; no reconstruction-confidence credit"
+            ),
             actionable_insights=ifra_insights,
         ))
     else:
@@ -421,20 +430,27 @@ def run_reconstruction_pipeline(spec: FragranceSpec) -> PipelineReport:
         report.allergen_result = allergen_sol
 
         chem_insights = []
-        for solved in allergen_sol.solved_naturals:
-            chem_insights.append(
-                f"{solved.material}: {solved.best_estimate_pct:.2f}% "
-                f"({solved.method}, conf={solved.confidence:.2f})"
+        for equation in allergen_sol.equations:
+            possible_sources = ", ".join(
+                source for source, _ in equation.contributing_sources[:4]
             )
-        if allergen_sol.deficit_analysis:
-            for allergen, deficit in allergen_sol.deficit_analysis.items():
-                chem_insights.append(f"Deficit in {allergen}: {deficit:.3f}% — implies synthetic addition")
+            chem_insights.append(
+                f"{equation.allergen}: constituent present above the applicable "
+                f"label threshold; raw-material source unresolved"
+                + (f" (possible sources: {possible_sources})" if possible_sources else "")
+            )
+        if not chem_insights:
+            chem_insights.append("No recognized declared allergen constituents.")
 
         report.category_scores.append(CategoryScore(
             category="ALLERGEN_CHEMISTRY",
-            score=allergen_sol.score,
-            label=_label_score(allergen_sol.score),
-            detail=f"{len(allergen_sol.solved_naturals)} naturals back-calculated from {len(allergen_sol.equations)} allergen equations",
+            score=0.0,
+            label=_label_score(0.0),
+            detail=(
+                f"{allergen_sol.authority}: no natural percentages or standalone "
+                f"material identities inferred from {len(allergen_sol.equations)} "
+                "label declarations"
+            ),
             actionable_insights=chem_insights,
         ))
     else:
@@ -837,8 +853,14 @@ def format_pipeline_report(report: PipelineReport) -> str:
     lines.append("── HOW TO IMPROVE EACH CATEGORY ──")
     improvement_map = {
         "BAYESIAN_POSTERIOR": "Add GC-MS peaks, patent formulas, or perfumer disclosures",
-        "ALLERGEN_EVIDENCE": "Photograph allergen box list; check IFRA amendments for batch year",
-        "ALLERGEN_CHEMISTRY": "Provide allergen ratios (citronellol:geraniol, etc.) from literature",
+        "ALLERGEN_EVIDENCE": (
+            "Verify market, batch date, applicable label regime, and complete "
+            "constituent declaration"
+        ),
+        "ALLERGEN_CHEMISTRY": (
+            "Obtain target-batch GC-MS or source-specific formula evidence; "
+            "typical natural ratios cannot identify the target formula"
+        ),
         "PERFUMER_ATTRIBUTION": "Identify perfumer; study their other formulas for material patterns",
         "ECONOMIC_PLAUSIBILITY": "Estimate material concentrations; check retail price consistency",
         "PERCEPTUAL_CONSISTENCY": "Collect community note votes from Fragrantica/Parfumo/Basenotes",

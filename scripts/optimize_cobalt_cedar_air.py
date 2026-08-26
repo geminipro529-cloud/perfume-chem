@@ -1,8 +1,7 @@
 """Constrained optimizer for Cobalt Cedar Air (Bleu de Chanel-class).
 
-Optimizes along 6 user-requested axes — mass-market (hedonic proxy), luxury,
-depth (stacking_depth), texture, longevity, projection (sillage) — while
-keeping total drift < 0.25 mL so the smell character is preserved.
+Optimizes physical and structural diagnostics while keeping total drift below
+0.25 mL. Liking remains NOT_TESTED until a blinded comparison is supplied.
 """
 from __future__ import annotations
 
@@ -46,7 +45,7 @@ CUSTOM_WEIGHTS = ObjectiveWeights(
     luxury=0.3,
     texture=0.3,
     stacking_depth=0.3,
-    hedonic=1.0,                # smell / crowd-pleasing appeal
+    hedonic=0.0,                # observed liking is evidence-gated
     synergy=0.2,
     skin_performance=1.0,       # skin kinetics = longevity contributor
     perceptual_clarity=0.5,     # smell clarity / no muddled notes
@@ -61,7 +60,6 @@ AXES = (
     "luxury",
     "texture",
     "stacking_depth",
-    "hedonic",
     "synergy",
     "skin_performance",
     "perceptual_clarity",
@@ -204,7 +202,6 @@ def candidate_key(scores: dict[str, float], *, drift: float) -> tuple:
         round(scores["total"], 3),
         round(scores["longevity"], 2),
         round(scores["sillage"], 2),
-        round(scores["hedonic"], 2),
         round(scores["skin_performance"], 2),
         round(scores["perceptual_clarity"], 2),
         -round(drift, 3),
@@ -219,7 +216,6 @@ def optimize(amounts: dict[str, float]) -> OptimizationResult:
     givers = [m for m in all_mats if original[m] > 0.040 and m not in LOCKED_MATERIALS]
     # Receivers: all materials, exclude locked
     receivers = [m for m in all_mats if m not in LOCKED_MATERIALS]
-    mats = all_mats  # for iteration display
 
     history: list[str] = []
 
@@ -329,7 +325,7 @@ def render_markdown(result: OptimizationResult) -> str:
     lines.append("|---|---|---|")
     lines.append("| longevity | 1.0 | MW + fixative load — core target |")
     lines.append("| projection (sillage) | 1.0 | VP + boosters — core target |")
-    lines.append("| smell (hedonic) | 1.0 | intrinsic pleasantness — core target |")
+    lines.append("| liking | — | NOT_TESTED; requires blinded exact-scope evidence |")
     lines.append("| skin performance | 1.0 | reservoir kinetics — longevity contributor |")
     lines.append("| perceptual clarity | 0.5 | mixture suppression — smell clarity |")
     lines.append("| luxury | 0.3 | ingredient quality |")

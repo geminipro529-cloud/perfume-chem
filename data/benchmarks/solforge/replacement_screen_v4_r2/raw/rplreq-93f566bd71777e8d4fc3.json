@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S01",
+  "completed_utc": "2026-08-26T07:22:03.864870+00:00",
+  "dispatch_sha256": "17b0d86cf813ad4d2c598789c3e7c2a8ffc0e0d509d43f8ea2e38c0acf070b0b",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "9cc10dc43669b85361aa007a371a5e8286f884467ce4dc10eb02843d729def0e",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Observed dry-wood depth increases from one minute to thirty minutes in this sample. The median rises by 2.5 depth units; this supports only an observational summary, not a causal or generalizable conclusion.\",\"controlled_comparison\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"at_60_seconds\":{\"values\":[2,3,3,4],\"median\":3},\"at_1800_seconds\":{\"values\":[5,5,6,6],\"median\":5.5},\"median_transition\":2.5,\"direction\":\"RISE\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"reason_codes\":[\"OBSERVED_DEPTH_RISE\",\"COMPLETE_CONTROLLED_COMPARISON\",\"NO_TRIGGERED_QUALITY_FLAGS\"],\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"inventory_state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "f4329dfe7d2f37025cd77f9b80f281d2fc13e23a24b9e6c2c90d85ff4127c6c3",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-93f566bd71777e8d4fc3",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:50.381835+00:00",
+  "stderr_sha256": "e3f1446d002584388acebc81032315c5398d6060efe1a7a9072f2cc75f3fc14a",
+  "stderr_tail": "xxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_1800_seconds\":\"compute from the supplied evidence\",\"median_at_60_seconds\":\"compute from the supplied evidence\",\"median_transition\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Observed dry-wood depth increases from one minute to thirty minutes in this sample. The median rises by 2.5 depth units; this supports only an observational summary, not a causal or generalizable conclusion.\",\"controlled_comparison\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"at_60_seconds\":{\"values\":[2,3,3,4],\"median\":3},\"at_1800_seconds\":{\"values\":[5,5,6,6],\"median\":5.5},\"median_transition\":2.5,\"direction\":\"RISE\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"reason_codes\":[\"OBSERVED_DEPTH_RISE\",\"COMPLETE_CONTROLLED_COMPARISON\",\"NO_TRIGGERED_QUALITY_FLAGS\"],\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"inventory_state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\"}\ntokens used\n5,266\n",
+  "stdout_sha256": "4a57a4bdbf3f57ffd809ba4cd5cf1050d90f23025cfbf248e40b1deecbcc5639"
+}

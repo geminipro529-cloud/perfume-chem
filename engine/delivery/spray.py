@@ -4,6 +4,7 @@ Log-normal droplet size distribution (typical perfume atomiser:
 σ_g ≈ 1.5, Dv50 ≈ 30 µm). d²-law for in-flight evaporation. Stokes settling
 to estimate skin-vs-air partition of the cloud.
 """
+
 from __future__ import annotations
 
 import math
@@ -13,13 +14,14 @@ from dataclasses import dataclass
 @dataclass(slots=True)
 class DropletStats:
     diameters_um: list[float]
-    counts: list[float]            # relative
+    counts: list[float]  # relative
     dv50_um: float
     dv90_um: float
 
 
-def droplet_distribution(dv50_um: float = 30.0, sigma_g: float = 1.5,
-                         n_bins: int = 30) -> DropletStats:
+def droplet_distribution(
+    dv50_um: float = 30.0, sigma_g: float = 1.5, n_bins: int = 30
+) -> DropletStats:
     """Sample a log-normal distribution by volume."""
     mu = math.log(dv50_um)
     sigma = math.log(sigma_g)
@@ -28,7 +30,6 @@ def droplet_distribution(dv50_um: float = 30.0, sigma_g: float = 1.5,
     d_min = math.exp(mu - 3.0 * sigma)
     d_max = math.exp(mu + 3.0 * sigma)
     log_step = (math.log(d_max) - math.log(d_min)) / (n_bins - 1)
-    cum_vol = 0.0
     rows = []
     for i in range(n_bins):
         d = math.exp(math.log(d_min) + i * log_step)
@@ -54,19 +55,21 @@ def droplet_distribution(dv50_um: float = 30.0, sigma_g: float = 1.5,
     return DropletStats(diams, counts, dv50, dv90)
 
 
-def stokes_settling_velocity(d_um: float,
-                              rho_drop_kg_m3: float = 900.0,
-                              rho_air_kg_m3: float = 1.2,
-                              mu_air_pa_s: float = 1.8e-5,
-                              g: float = 9.81) -> float:
+def stokes_settling_velocity(
+    d_um: float,
+    rho_drop_kg_m3: float = 900.0,
+    rho_air_kg_m3: float = 1.2,
+    mu_air_pa_s: float = 1.8e-5,
+    g: float = 9.81,
+) -> float:
     """Terminal velocity for a small spherical droplet (m/s)."""
     d_m = d_um * 1e-6
     return (d_m * d_m * (rho_drop_kg_m3 - rho_air_kg_m3) * g) / (18.0 * mu_air_pa_s)
 
 
-def droplet_d2_evaporation(d0_um: float, K_um2_s: float, t_s: float) -> float:
+def droplet_d2_evaporation(d0_um: float, k_um2_s: float, t_s: float) -> float:
     """d²-law:  d² = d0² − K·t. Returns diameter at time t (µm)."""
-    d2 = d0_um * d0_um - K_um2_s * t_s
+    d2 = d0_um * d0_um - k_um2_s * t_s
     if d2 <= 0:
         return 0.0
     return math.sqrt(d2)
@@ -77,6 +80,6 @@ if __name__ == "__main__":
     print(f"Dv50 = {stats.dv50_um:.1f} µm   Dv90 = {stats.dv90_um:.1f} µm")
     for d in [5, 30, 100]:
         v = stokes_settling_velocity(d)
-        print(f"d={d}µm  vt={v*1000:.3f} mm/s")
+        print(f"d={d}µm  vt={v * 1000:.3f} mm/s")
     # Ethanol K ≈ 1000 µm²/s in still air at 20 °C
     print(f"30 µm ethanol drop after 0.5 s: {droplet_d2_evaporation(30, 1000, 0.5):.1f} µm")

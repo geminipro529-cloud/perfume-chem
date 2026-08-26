@@ -24,11 +24,7 @@ get_references_by_topic() for curated reading lists.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Sequence
-
 from ._shared_types import Reference, ReferenceTier
-
 
 # ---------------------------------------------------------------------------
 # Tier A: Peer-Reviewed Journal Articles

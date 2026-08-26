@@ -14,9 +14,8 @@ import json
 import math
 import statistics
 import sys
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Mapping
 
 # Fix stdout encoding for Unicode characters (→, µ, etc.)
 if hasattr(sys.stdout, "reconfigure"):
@@ -27,36 +26,27 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 # ── Real engine imports ─────────────────────────────────────────────
-from engine.pipeline.formula_state import FormulaState, MaterialState, build_formula_state
-from engine.pipeline.simulator import simulate_formula, SimulationFrame, DEFAULT_WINDOWS
+from engine.confidence import ConfidenceScorer
+from engine.families.registry import (
+    BRIEF_DEFAULTS,
+    ArchetypeSpec,
+    evaluate_family_archetype,
+    get_archetype,
+    infer_archetype,
+)
+from engine.ingredient_intelligence import get_profile
+from engine.knowledge.pyramid_targets import OAV_TARGETS_BY_FAMILY, PYRAMID_RATIOS
+from engine.material_resolver import resolve_material
+from engine.name_utils import normalize_name
+from engine.odor_thresholds import ODT_DATA
+from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.pipeline.gates import (
-    ReleaseGateConfig,
-    gate_formula,
-    GateReport,
-    GateResult,
     DEFAULT_CONCENTRATE_UL,
+    ReleaseGateConfig,
 )
 from engine.pipeline.oav_intelligence import analyze_oav_intelligence
 from engine.pipeline.robustness import audit_formula_robustness
-from engine.pipeline.audit_log import config_summary
-from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
-
-from engine.families.registry import (
-    evaluate_family_archetype,
-    infer_archetype,
-    get_archetype,
-    ArchetypeSpec,
-    BRIEF_DEFAULTS,
-)
-
-from engine.odor_thresholds import ODT_DATA
-from engine.name_utils import normalize_name
-from engine.material_resolver import resolve_material
-from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
-from engine.confidence import ConfidenceScorer
-from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
-from engine.knowledge.pyramid_targets import PYRAMID_RATIOS, OAV_TARGETS_BY_FAMILY
-from engine.ingredient_intelligence import get_profile, MaterialProfile
+from engine.pipeline.simulator import SimulationFrame, simulate_formula
 
 # ═════════════════════════════════════════════════════════════════════
 # Stage Results
@@ -399,7 +389,7 @@ def stage8_family_fit(ctx: dict) -> StageResult:
     spec = get_archetype(archetype_key)
 
     failures = [c for c in evaluation.checks if c.status == "FAIL"]
-    warns = [c for c in evaluation.checks if c.status == "WARN"]
+    [c for c in evaluation.checks if c.status == "WARN"]
 
     data = {
         "archetype": evaluation.archetype,
@@ -1501,7 +1491,8 @@ def _print_repair_log(runs: list):
 
 def _print_analysis(result: dict):
     """Print full formatted analysis directly from orchestrator data."""
-    import math, statistics
+    import math
+    import statistics
     stage_map = {st["name"]: st for st in result.get("stages", [])}
     s = result.get("summary", {})
     oav_stage = stage_map.get("oav_computation", {})
@@ -1716,7 +1707,7 @@ def _print_analysis(result: dict):
         print(f"  Evaporation: {evap:.0f}% over 4h")
         print(f"  Vapor: {fw.get('total_vapor_ppm',0):.1f} > {lw.get('total_vapor_ppm',0):.1f} ppm")
         print(f"  Base @ drydown: {persist:.0f}%")
-        print(f"  Est. skin life: 6-8h moderate + 2-4h skin scent")
+        print("  Est. skin life: 6-8h moderate + 2-4h skin scent")
     print()
 
     print("### 7. Balance")
@@ -1793,7 +1784,7 @@ def _print_formatted(result: dict):
     if repair:
         suggestions = repair[0].get("data", {}).get("suggestions", []) if isinstance(repair[0], dict) else getattr(repair[0], "data", {}).get("suggestions", [])
         if suggestions:
-            print(f"\n  \u2192 Repair suggestions:")
+            print("\n  \u2192 Repair suggestions:")
             for s_ in suggestions:
                 print(f"    - {s_}")
     print()

@@ -16,15 +16,15 @@ from pathlib import Path
 
 def update_env_file(provider: str):
     """Update AI_PROVIDER in .env file"""
-    
+
     valid_providers = ["cerebras", "openai", "baseten", "huggingface", "ollama"]
     if provider.lower() not in valid_providers:
         print(f"[ERROR] Invalid provider: {provider}")
         print(f"   Valid options: {', '.join(valid_providers)}")
         return False
-    
+
     env_file = Path(__file__).parent / ".env"
-    
+
     # Read current .env
     if env_file.exists():
         with open(env_file, 'r') as f:
@@ -32,7 +32,7 @@ def update_env_file(provider: str):
     else:
         print("[WARN] .env file not found, creating new one...")
         lines = []
-    
+
     # Update or add AI_PROVIDER
     updated = False
     for i, line in enumerate(lines):
@@ -40,18 +40,18 @@ def update_env_file(provider: str):
             lines[i] = f"AI_PROVIDER={provider.lower()}\n"
             updated = True
             break
-    
+
     if not updated:
         # Add to top of file
         lines.insert(0, f"AI_PROVIDER={provider.lower()}\n")
-    
+
     # Write back
     with open(env_file, 'w') as f:
         f.writelines(lines)
-    
+
     print(f"[OK] Switched to {provider.upper()}")
     print(f"   File: {env_file}")
-    
+
     # Show requirements
     if provider.lower() == "cerebras":
         print("\n[INFO] Required settings:")
@@ -77,7 +77,7 @@ def update_env_file(provider: str):
         print("\n[INFO] Optional settings:")
         print("   OLLAMA_TLS_SKIP_VERIFY=1 (if using self-signed cert)")
         print("   OLLAMA_API_KEY=not required (Ollama doesn't require API key)")
-    
+
     print("\n[INFO] Restart your FastAPI server for changes to take effect")
     return True
 
@@ -85,18 +85,18 @@ def update_env_file(provider: str):
 def show_current():
     """Show current provider"""
     env_file = Path(__file__).parent / ".env"
-    
+
     if not env_file.exists():
         print("[WARN] No .env file found")
         return
-    
+
     with open(env_file, 'r') as f:
         for line in f:
             if line.startswith("AI_PROVIDER="):
                 provider = line.strip().split("=")[1]
                 print(f"Current provider: {provider.upper()}")
                 return
-    
+
     print("[WARN] AI_PROVIDER not set in .env (defaulting to Cerebras)")
 
 
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     print("AI Provider Switcher")
     print("=" * 60)
     print()
-    
+
     if len(sys.argv) < 2:
         print("Usage: python switch_provider.py [cerebras|openai|baseten|huggingface|ollama]")
         print()

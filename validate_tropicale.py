@@ -1,23 +1,22 @@
 """Validate Tropicale Gourmande — OAV, gates, scoring, star ratings."""
+
 import sys
-import os
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 import re
-import math
 
+from engine.family_scorer import FamilyAwareScorer
+from engine.formula_rating import compute_star_ratings
+from engine.odor_thresholds import ODT_DATA
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
-from engine.family_scorer import FamilyAwareScorer
-from engine.formula_rating import compute_star_ratings, format_star_rating
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import gate_formula
-from engine.ingredient_intelligence import get_profile
-from engine.odor_thresholds import ODT_DATA
 
 SEP = "=" * 70
 DIV = "-" * 70
@@ -30,10 +29,7 @@ ingredients_ul: dict[str, float] = {}
 dilutions: dict[str, float] = {}
 
 for line in text.split("\n"):
-    m = re.match(
-        r'\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|',
-        line
-    )
+    m = re.match(r"\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|", line)
     if m:
         name = m.group(2).strip().replace("**", "")
         dil_raw = m.group(3).strip().lower()
@@ -54,7 +50,7 @@ print(SEP)
 print("  TROPICALE GOURMANDE — FULL VALIDATION REPORT (30 mL EDP, 16.0%)")
 print(SEP)
 print(f"\n  Parsed {len(ingredients_ul)} materials, total concentrate: {total_ul:.0f} uL")
-print(f"  Concentrate: {total_ul/30000*100:.1f}% in 30 mL EDP\n")
+print(f"  Concentrate: {total_ul / 30000 * 100:.1f}% in 30 mL EDP\n")
 
 # ═══════════ 1. PHYSICAL OAV (headspace via Modified Raoult) ═══════════
 print(DIV)
@@ -78,8 +74,10 @@ try:
     total_active_g = sum(ms.active_g for ms in state.materials)
     print(f"\n  Total active mass: {total_active_g:.4f} g")
     print(f"  Total moles:       {total_moles:.6f} mol")
-    print(f"\n  {'Material':<28} {'VP(Pa)':>8} {'gamma':>6} {'x(mol%)':>8} {'p_part':>10} {'vap_ppb':>10} {'ODT_ppb':>10} {'OAV':>10}")
-    print(f"  {'-'*26} {'-'*8} {'-'*6} {'-'*8} {'-'*10} {'-'*10} {'-'*10} {'-'*10}")
+    print(
+        f"\n  {'Material':<28} {'VP(Pa)':>8} {'gamma':>6} {'x(mol%)':>8} {'p_part':>10} {'vap_ppb':>10} {'ODT_ppb':>10} {'OAV':>10}"
+    )
+    print(f"  {'-' * 26} {'-' * 8} {'-' * 6} {'-' * 8} {'-' * 10} {'-' * 10} {'-' * 10} {'-' * 10}")
 
     for ms in state.materials:
         oav_val = ms.oav or 0.0
@@ -89,22 +87,31 @@ try:
         mf = (ms.mole_fraction or 0.0) * 100
         pp = ms.partial_pressure_pa or 0.0
         odt = ms.odt_air_ppm or 0.0
-        print(f"  {ms.name:<28} {vp:>8.4f} {gamma:>6.2f} {mf:>7.3f}% {pp:>10.2e} {vap_ppb:>10.3f} {odt:>10.4f} {oav_val:>10.2f}")
+        print(
+            f"  {ms.name:<28} {vp:>8.4f} {gamma:>6.2f} {mf:>7.3f}% {pp:>10.2e} {vap_ppb:>10.3f} {odt:>10.4f} {oav_val:>10.2f}"
+        )
         all_oavs.append(oav_val)
 
     for o in all_oavs:
-        if o >= 50: n_dominant += 1
-        elif o >= 1: n_perceptible += 1
-        else: n_subliminal += 1
+        if o >= 50:
+            n_dominant += 1
+        elif o >= 1:
+            n_perceptible += 1
+        else:
+            n_subliminal += 1
     n_perceptible += n_dominant  # dominant are also perceptible
 
-    print(f"\n  Summary: {n_perceptible} perceptible (incl. {n_dominant} dominant), {n_subliminal} subliminal")
+    print(
+        f"\n  Summary: {n_perceptible} perceptible (incl. {n_dominant} dominant), {n_subliminal} subliminal"
+    )
     if all_oavs:
         avg_oav = sum(all_oavs) / len(all_oavs)
         print(f"  OAV range: {min(all_oavs):.1f} - {max(all_oavs):.0f} | avg: {avg_oav:.0f}")
 
-    ranked = sorted([(ms.name, ms.oav) for ms in state.materials if ms.oav > 0], key=lambda x: -x[1])
-    print(f"\n  Top 5 headspace OAV leaders:")
+    ranked = sorted(
+        [(ms.name, ms.oav) for ms in state.materials if ms.oav > 0], key=lambda x: -x[1]
+    )
+    print("\n  Top 5 headspace OAV leaders:")
     for i, (nm, ov) in enumerate(ranked[:5], 1):
         print(f"    {i}. {nm:<28} OAV={ov:.0f}")
 
@@ -139,8 +146,18 @@ print("  3. GENERIC 10-AXIS SCORING")
 print(DIV)
 
 fv = FormulaVector(ingredients=pct, dilutions=dilutions)
-axes = ["longevity", "sillage", "synergy", "luxury", "texture",
-        "stacking_depth", "skin_performance", "hedonic", "perceptual_clarity", "photorealism"]
+axes = [
+    "longevity",
+    "sillage",
+    "synergy",
+    "luxury",
+    "texture",
+    "stacking_depth",
+    "skin_performance",
+    "hedonic",
+    "perceptual_clarity",
+    "photorealism",
+]
 scores = {}
 geo_generic = 0.0
 
@@ -149,7 +166,7 @@ try:
     scores = scorer.score(fv)
 
     print(f"\n  {'Axis':<22} {'Score':>8} {'Rating':>12}")
-    print(f"  {'-'*22} {'-'*8} {'-'*12}")
+    print(f"  {'-' * 22} {'-' * 8} {'-' * 12}")
     for ax in axes:
         val = scores.get(ax, 0)
         stars = "X" * round(val / 10) + "." * (10 - round(val / 10))
@@ -174,15 +191,22 @@ try:
     fam_scorer = FamilyAwareScorer()
     fam_scores = fam_scorer.score(fv, family="gourmand")
 
-    print(f"\n  Gourmand weight profile: hedonic=1.0, longevity=0.9, luxury=0.8, texture=0.8")
-    print(f"  De-emphasized: photorealism=0.3, perceptual_clarity=0.4")
+    print("\n  Gourmand weight profile: hedonic=1.0, longevity=0.9, luxury=0.8, texture=0.8")
+    print("  De-emphasized: photorealism=0.3, perceptual_clarity=0.4")
     print(f"\n  {'Axis':<22} {'Score':>8} {'Weight':>8} {'Contrib':>10} {'Rating':>12}")
-    print(f"  {'-'*22} {'-'*8} {'-'*8} {'-'*10} {'-'*12}")
+    print(f"  {'-' * 22} {'-' * 8} {'-' * 8} {'-' * 10} {'-' * 12}")
 
     weights = {
-        "longevity": 0.9, "sillage": 0.7, "synergy": 0.7, "luxury": 0.8,
-        "texture": 0.8, "stacking_depth": 0.6, "skin_performance": 0.7,
-        "hedonic": 1.0, "perceptual_clarity": 0.4, "photorealism": 0.3,
+        "longevity": 0.9,
+        "sillage": 0.7,
+        "synergy": 0.7,
+        "luxury": 0.8,
+        "texture": 0.8,
+        "stacking_depth": 0.6,
+        "skin_performance": 0.7,
+        "hedonic": 1.0,
+        "perceptual_clarity": 0.4,
+        "photorealism": 0.3,
     }
 
     for ax in axes:
@@ -200,6 +224,7 @@ try:
 except Exception as e:
     print(f"\n  [ERROR] FamilyAwareScorer: {e}")
     import traceback
+
     traceback.print_exc()
 
 # ═══════════ 5. STAR RATINGS ═══════════
@@ -212,9 +237,16 @@ try:
     stars = compute_star_ratings(fv, scores, character_radar=radar)
 
     rating_fields = [
-        "wearability", "versatility", "originality", "sophistication",
-        "signature_potential", "mass_appeal", "gender_versatility",
-        "age_range", "formula_elegance", "value_for_money"
+        "wearability",
+        "versatility",
+        "originality",
+        "sophistication",
+        "signature_potential",
+        "mass_appeal",
+        "gender_versatility",
+        "age_range",
+        "formula_elegance",
+        "value_for_money",
     ]
 
     print()
@@ -226,6 +258,7 @@ try:
 except Exception as e:
     print(f"\n  [ERROR] Star ratings: {e}")
     import traceback
+
     traceback.print_exc()
 
 # ═══════════ 6. CONCENTRATE OAV vs ODT_eth ═══════════
@@ -233,8 +266,10 @@ print(f"\n{DIV}")
 print("  6. CONCENTRATE-LEVEL OAV vs ODT_ethanol")
 print(DIV)
 
-print(f"\n  {'Material':<30} {'Active uL':>10} {'Conc ppm':>12} {'ODT_eth':>10} {'OAV_conc':>10} {'Band':>12}")
-print(f"  {'-'*30} {'-'*10} {'-'*12} {'-'*10} {'-'*10} {'-'*12}")
+print(
+    f"\n  {'Material':<30} {'Active uL':>10} {'Conc ppm':>12} {'ODT_eth':>10} {'OAV_conc':>10} {'Band':>12}"
+)
+print(f"  {'-' * 30} {'-' * 10} {'-' * 12} {'-' * 10} {'-' * 10} {'-' * 12}")
 
 oav_bands = {"DOMINANT": 0, "STRONG": 0, "CLEAR": 0, "WEAK": 0, "BELOW": 0}
 no_odt = []
@@ -250,16 +285,25 @@ for name, ul in ingredients_ul.items():
 
     if odt_eth and odt_eth > 0:
         oav_conc = conc_ppm / odt_eth
-        if oav_conc > 100000: band = "DOMINANT"
-        elif oav_conc > 1000: band = "STRONG"
-        elif oav_conc > 50: band = "CLEAR"
-        elif oav_conc > 1: band = "WEAK"
-        else: band = "BELOW"
+        if oav_conc > 100000:
+            band = "DOMINANT"
+        elif oav_conc > 1000:
+            band = "STRONG"
+        elif oav_conc > 50:
+            band = "CLEAR"
+        elif oav_conc > 1:
+            band = "WEAK"
+        else:
+            band = "BELOW"
         oav_bands[band] += 1
-        print(f"  {name:<30} {active_ul:>10.1f} {conc_ppm:>12.0f} {odt_eth:>10.4f} {oav_conc:>10.1f} {band:>12}")
+        print(
+            f"  {name:<30} {active_ul:>10.1f} {conc_ppm:>12.0f} {odt_eth:>10.4f} {oav_conc:>10.1f} {band:>12}"
+        )
     else:
         no_odt.append(name)
-        print(f"  {name:<30} {active_ul:>10.1f} {conc_ppm:>12.0f} {'N/A':>10} {'--':>10} {'NO ODT':>12}")
+        print(
+            f"  {name:<30} {active_ul:>10.1f} {conc_ppm:>12.0f} {'N/A':>10} {'--':>10} {'NO ODT':>12}"
+        )
 
 print(f"\n  Band distribution: {oav_bands}")
 if no_odt:
@@ -271,7 +315,7 @@ print("  7. FINAL-PRODUCT OAV (concentrate / 6 for 16% EDP dilution)")
 print(DIV)
 
 print(f"\n  {'Material':<30} {'Conc OAV':>12} {'Final OAV':>12} {'Perceptibility':>18}")
-print(f"  {'-'*30} {'-'*12} {'-'*12} {'-'*18}")
+print(f"  {'-' * 30} {'-' * 12} {'-' * 12} {'-' * 18}")
 
 for name, ul in ingredients_ul.items():
     dil = dilutions.get(name, 1.0)
@@ -285,12 +329,18 @@ for name, ul in ingredients_ul.items():
     if odt_eth and odt_eth > 0:
         oav_conc = conc_ppm / odt_eth
         oav_final = oav_conc / 6.25  # 16% dilution ≈ /6.25
-        if oav_final > 1000: percept = "VERY DOMINANT"
-        elif oav_final > 100: percept = "DOMINANT"
-        elif oav_final > 50: percept = "STRONG"
-        elif oav_final > 5: percept = "CLEAR"
-        elif oav_final > 1: percept = "WEAK"
-        else: percept = "SUBLIMINAL"
+        if oav_final > 1000:
+            percept = "VERY DOMINANT"
+        elif oav_final > 100:
+            percept = "DOMINANT"
+        elif oav_final > 50:
+            percept = "STRONG"
+        elif oav_final > 5:
+            percept = "CLEAR"
+        elif oav_final > 1:
+            percept = "WEAK"
+        else:
+            percept = "SUBLIMINAL"
         print(f"  {name:<30} {oav_conc:>12.1f} {oav_final:>12.1f} {percept:>18}")
     else:
         print(f"  {name:<30} {'--':>12} {'--':>12} {'NO ODT DATA':>18}")
@@ -325,7 +375,7 @@ print("""
 
   - Recommended gourmand OAV ranges (Zarzo + Teixeira synthesis):
     * Vanilla-base note: OAV 10-100 in final product
-    * Lactone heart: OAV 5-50 in final product  
+    * Lactone heart: OAV 5-50 in final product
     * Fruit top: OAV 50-200 in final product (must cut through base sweetness)
     * Musk drydown: OAV 1-10 (subliminal-but-present, Laing limit)
 
@@ -373,7 +423,7 @@ if not heliotropin_odt and not heliotropin_odt2:
     print("             Expected ODT_eth ~5 ppm (piperonal range), giving OAV ~3,750 in conc.")
 
 
-print(f"""
+print("""
   COCONUT NOTE: Without C18 (gamma-octalactone), coconut character is a
   constructed lactone illusion (gamma-decalactone + gamma-undecalactone +
   delta-decalactone + maple lactone). Literature shows multi-lactone

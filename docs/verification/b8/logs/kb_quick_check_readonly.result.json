@@ -1,0 +1,27 @@
+{
+  "schema_version": "perfume-chem-command-evidence-v2",
+  "name": "kb_quick_check_readonly",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": ".",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "mode": "read_only_immutable",
+  "database": "data/perfumery_kb.db",
+  "non_pty": true,
+  "timeout_seconds": 60,
+  "timed_out": false,
+  "exit_code": 0,
+  "duration_seconds": 0.35,
+  "quick_check": ["ok"],
+  "stdout": {
+    "path": "logs/kb_quick_check_readonly.stdout.txt",
+    "bytes": 56,
+    "sha256": "48efca0d0107ab83e6b6084e5f4029a734cfdf11277beda14d7c1bb564269e27"
+  },
+  "stderr": {
+    "path": "logs/kb_quick_check_readonly.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
+}

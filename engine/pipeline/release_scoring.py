@@ -9,16 +9,18 @@ from typing import Any, Mapping
 
 from engine.optimizer.models import FormulaVector, ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
-from engine.science_audit import (
-    build_science_audit_contract,
-    coverage_confidence_penalty,
-)
 
 _DETERMINISTIC_REPAIRABLE_GATES = {
     "safety_ifra_allergen",
     "pipette_floor_neat_traces",
     "exact_subtotal",
     "robustness_perturbation",
+}
+
+_UNSUPPORTED_PERFORMANCE_AXES = {
+    "longevity": "HEURISTIC_UNCALIBRATED_NOT_SKIN_LIFE",
+    "sillage": "HEURISTIC_UNCALIBRATED_NOT_MEASURED_SILLAGE",
+    "skin_performance": "HEURISTIC_UNVALIDATED_NOT_SKIN_OUTCOME",
 }
 
 
@@ -50,22 +52,49 @@ def _extract_balance_fit(gate_report: Mapping[str, Any]) -> float:
 
 
 def _numeric_scores_only(scores: Mapping[str, Any]) -> dict[str, Any]:
+    bounded: dict[str, Any] = {}
+    for key, value in scores.items():
+        if key.startswith("_"):
+            bounded[key] = value
+        elif isinstance(value, (int, float)):
+            bounded[key] = min(100.0, max(0.0, float(value)))
+    return bounded
+
+
+def _formula_science_preflight(
+    gate_report: Mapping[str, Any],
+) -> tuple[dict[str, Any], float]:
+    """Reuse the formula-scoped preflight contract; never rescan the catalogue."""
+    preflight = gate_report.get("preflight", {}) or {}
+    for check in preflight.get("checks", []) or []:
+        if check.get("check_name") != "science_coverage":
+            continue
+        data = dict(check.get("data", {}) or {})
+        return data, float(data.get("confidence_penalty", 0.0) or 0.0)
     return {
-        key: value
-        for key, value in scores.items()
-        if isinstance(value, (int, float)) or key.startswith("_")
-    }
+        "scope": "formula_runtime",
+        "status": "UNAVAILABLE",
+        "confidence_penalty": 0.0,
+        "limitation": "Formula science preflight was not supplied.",
+    }, 0.0
 
 
 def _build_formula_vector(
     formula: Mapping[str, Any], dilutions: Mapping[str, float]
 ) -> FormulaVector:
     total_ul = sum(float(v or 0.0) for v in formula["ingredients_ul"].values()) or 1.0
-    pct_ings: dict[str, float] = {}
-    for name, ul in formula["ingredients_ul"].items():
-        dil = float(dilutions.get(name, 1.0) or 1.0)
-        pct_ings[str(name)] = (float(ul or 0.0) * dil / total_ul) * 100.0
-    return FormulaVector(ingredients=pct_ings)
+    raw_pct = {
+        str(name): (float(ul or 0.0) / total_ul) * 100.0
+        for name, ul in formula["ingredients_ul"].items()
+    }
+    return FormulaVector(
+        ingredients=raw_pct,
+        dilutions={
+            str(name): float(value)
+            for name, value in dilutions.items()
+            if value is not None
+        },
+    )
 
 
 def compute_unified_release_scores(
@@ -80,11 +109,11 @@ def compute_unified_release_scores(
     scorer._material_oavs = {
         row.name: (row.oav or 0.0) for row in oav_result.material_rows
     }
-    raw_scores = scorer.score(fv)
+    raw_scores = scorer.score_legacy_replay(fv, formula_state=oav_result.state)
     scores = _numeric_scores_only(raw_scores)
 
     percept = [row for row in oav_result.material_rows if (row.oav or 0.0) >= 1.0]
-    n_percept = len(percept)
+    len(percept)
     oavs = [float(row.oav or 0.0) for row in percept]
     total_oav = sum(oavs) or 1.0
     opening_oav = sum(float(row.oav or 0.0) for row in percept if row.note == "top")
@@ -196,8 +225,9 @@ def compute_unified_release_scores(
         "cost_efficiency": round(cost_efficiency, 1),
     }
 
-    science_contract = build_science_audit_contract()
-    science_penalty = coverage_confidence_penalty(science_contract)
+    formula_science_coverage, science_penalty = _formula_science_preflight(
+        gate_report
+    )
     authoritative_inputs: list[str] = []
     heuristic_inputs: list[str] = []
     for row in oav_result.material_rows:
@@ -250,6 +280,7 @@ def compute_unified_release_scores(
         ],
         "fallback_reasons": fallback_reasons,
         "science_penalty": round(science_penalty, 3),
+        "formula_science_coverage": formula_science_coverage,
         "intelligence_status": getattr(oav_result, "intelligence_status", "UNKNOWN"),
         "intelligence_warning_reasons": list(
             getattr(oav_result, "intelligence_warning_reasons", ()) or ()
@@ -272,6 +303,40 @@ def compute_unified_release_scores(
                 else "mixed"
                 if repairable and nonrepairable
                 else "rerun_required"
+            ),
+        },
+        "score_contract": {
+            "classification": "HEURISTIC_DIAGNOSTIC_INDICES",
+            "scale": {"minimum": 0.0, "maximum": 100.0},
+            "release_authority": False,
+            "calibration_required_for_outcome_claims": True,
+            "release_authorized_axes": [],
+            "axis_authority": {
+                key: (
+                    _UNSUPPORTED_PERFORMANCE_AXES[key]
+                    if key in _UNSUPPORTED_PERFORMANCE_AXES
+                    else (
+                        "DIAGNOSTIC_AGGREGATE_NOT_RELEASE_AUTHORITY"
+                        if key
+                        in {
+                            "total",
+                            "arithmetic_total",
+                            "geometric_total",
+                        }
+                        else "HEURISTIC_DIAGNOSTIC_INDEX"
+                    )
+                )
+                for key in sorted(
+                    key for key in scores if not str(key).startswith("_")
+                )
+            },
+            "unsupported_outcome_claims": [
+                "estimated_longevity_hours",
+                "measured_sillage_or_projection_distance",
+                "skin_performance_outcome",
+            ],
+            "industry_10_authority": (
+                "HEURISTIC_DIAGNOSTIC_INDICES_DESPITE_LEGACY_NAME"
             ),
         },
     }

@@ -4,6 +4,7 @@ SILLAGE_PREDICTION category module. Uses Antoine equation constants and boiling
 point data to estimate evaporation behavior, sillage radius, and head-note vs
 base-note classification. Cross-validates against reviewer note detection timing.
 """
+
 from __future__ import annotations
 
 import math
@@ -11,58 +12,59 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 # ── Reference constants ──
-_ETHANOL_VP_25C: float = 59.0    # mmHg at 25°C (fast-evaporation benchmark)
-_LINALOOL_VP_25C: float = 0.16   # mmHg at 25°C (perfumery volatility reference)
+_ETHANOL_VP_25C: float = 59.0  # mmHg at 25°C (fast-evaporation benchmark)
+_LINALOOL_VP_25C: float = 0.16  # mmHg at 25°C (perfumery volatility reference)
 
 # ── Vapor pressure data ──
 VAPOR_PRESSURE_DATA: dict[str, dict] = {
     # {vp_25c: float (mmHg), bp_c: int, class: str ("top"/"heart"/"base"), mw: float}
     # Top/head notes (high VP, bp < 200°C)
-    "limonene":               {"vp_25c": 2.0,    "bp_c": 176, "class": "top",   "mw": 136.2},
-    "bergamot":               {"vp_25c": 0.8,    "bp_c": 185, "class": "top",   "mw": 136.2},
-    "d-limonene":             {"vp_25c": 2.0,    "bp_c": 176, "class": "top",   "mw": 136.2},
-    "linalyl acetate":        {"vp_25c": 0.10,   "bp_c": 220, "class": "top",   "mw": 196.3},
-    "citronellol":            {"vp_25c": 0.04,   "bp_c": 225, "class": "heart", "mw": 156.3},
-    "geraniol":               {"vp_25c": 0.03,   "bp_c": 230, "class": "heart", "mw": 154.2},
-    "eugenol":                {"vp_25c": 0.02,   "bp_c": 254, "class": "heart", "mw": 164.2},
+    "limonene": {"vp_25c": 2.0, "bp_c": 176, "class": "top", "mw": 136.2},
+    "bergamot": {"vp_25c": 0.8, "bp_c": 185, "class": "top", "mw": 136.2},
+    "d-limonene": {"vp_25c": 2.0, "bp_c": 176, "class": "top", "mw": 136.2},
+    "linalyl acetate": {"vp_25c": 0.10, "bp_c": 220, "class": "top", "mw": 196.3},
+    "citronellol": {"vp_25c": 0.04, "bp_c": 225, "class": "heart", "mw": 156.3},
+    "geraniol": {"vp_25c": 0.03, "bp_c": 230, "class": "heart", "mw": 154.2},
+    "eugenol": {"vp_25c": 0.02, "bp_c": 254, "class": "heart", "mw": 164.2},
     # Heart notes (moderate VP, bp 200–280°C)
-    "hedione":                {"vp_25c": 0.008,  "bp_c": 265, "class": "heart", "mw": 226.3},
-    "cis-jasmone":            {"vp_25c": 0.05,   "bp_c": 262, "class": "heart", "mw": 164.2},
-    "rose oxide":             {"vp_25c": 0.20,   "bp_c": 202, "class": "heart", "mw": 154.2},
-    "phenethyl alcohol":      {"vp_25c": 0.10,   "bp_c": 220, "class": "heart", "mw": 122.2},
-    "hydroxycitronellal":     {"vp_25c": 0.008,  "bp_c": 241, "class": "heart", "mw": 172.3},
-    "alpha irone":            {"vp_25c": 0.01,   "bp_c": 265, "class": "heart", "mw": 192.3},
-    "alpha-isomethyl ionone": {"vp_25c": 0.005,  "bp_c": 270, "class": "heart", "mw": 206.3},
-    "iso e super":            {"vp_25c": 0.003,  "bp_c": 278, "class": "heart", "mw": 204.3},
-    "coumarin":               {"vp_25c": 0.002,  "bp_c": 301, "class": "base",  "mw": 146.2},
-    "indole":                 {"vp_25c": 0.04,   "bp_c": 253, "class": "heart", "mw": 117.1},
-    "linalool":               {"vp_25c": 0.16,   "bp_c": 198, "class": "top",   "mw": 154.2},
-    "benzyl alcohol":         {"vp_25c": 0.13,   "bp_c": 205, "class": "heart", "mw": 108.1},
+    "hedione": {"vp_25c": 0.008, "bp_c": 265, "class": "heart", "mw": 226.3},
+    "cis-jasmone": {"vp_25c": 0.05, "bp_c": 262, "class": "heart", "mw": 164.2},
+    "rose oxide": {"vp_25c": 0.20, "bp_c": 202, "class": "heart", "mw": 154.2},
+    "phenethyl alcohol": {"vp_25c": 0.10, "bp_c": 220, "class": "heart", "mw": 122.2},
+    "hydroxycitronellal": {"vp_25c": 0.008, "bp_c": 241, "class": "heart", "mw": 172.3},
+    "alpha irone": {"vp_25c": 0.01, "bp_c": 265, "class": "heart", "mw": 192.3},
+    "alpha-isomethyl ionone": {"vp_25c": 0.005, "bp_c": 270, "class": "heart", "mw": 206.3},
+    "iso e super": {"vp_25c": 0.003, "bp_c": 278, "class": "heart", "mw": 204.3},
+    "coumarin": {"vp_25c": 0.002, "bp_c": 301, "class": "base", "mw": 146.2},
+    "indole": {"vp_25c": 0.04, "bp_c": 253, "class": "heart", "mw": 117.1},
+    "linalool": {"vp_25c": 0.16, "bp_c": 198, "class": "top", "mw": 154.2},
+    "benzyl alcohol": {"vp_25c": 0.13, "bp_c": 205, "class": "heart", "mw": 108.1},
     # Base notes (low VP, bp > 280°C)
-    "benzyl salicylate":      {"vp_25c": 0.001,  "bp_c": 320, "class": "base",  "mw": 228.2},
-    "ambrox":                 {"vp_25c": 0.002,  "bp_c": 290, "class": "base",  "mw": 236.4},
-    "galaxolide":             {"vp_25c": 0.0005, "bp_c": 330, "class": "base",  "mw": 258.4},
-    "habanolide":             {"vp_25c": 0.001,  "bp_c": 320, "class": "base",  "mw": 254.4},
-    "patchouli alcohol":      {"vp_25c": 0.001,  "bp_c": 285, "class": "base",  "mw": 222.4},
-    "vetiver":                {"vp_25c": 0.001,  "bp_c": 300, "class": "base",  "mw": 222.0},
-    "cedarwood":              {"vp_25c": 0.003,  "bp_c": 280, "class": "base",  "mw": 204.4},
-    "labdanum":               {"vp_25c": 0.0005, "bp_c": 340, "class": "base",  "mw": 210.0},
-    "benzoin resinoid":       {"vp_25c": 0.0003, "bp_c": 350, "class": "base",  "mw": 228.2},
-    "ethyl vanillin":         {"vp_25c": 0.001,  "bp_c": 295, "class": "base",  "mw": 166.2},
-    "farnesol":               {"vp_25c": 0.0005, "bp_c": 283, "class": "base",  "mw": 222.4},
-    "benzyl benzoate":        {"vp_25c": 0.001,  "bp_c": 323, "class": "base",  "mw": 212.2},
+    "benzyl salicylate": {"vp_25c": 0.001, "bp_c": 320, "class": "base", "mw": 228.2},
+    "ambrox": {"vp_25c": 0.002, "bp_c": 290, "class": "base", "mw": 236.4},
+    "galaxolide": {"vp_25c": 0.0005, "bp_c": 330, "class": "base", "mw": 258.4},
+    "habanolide": {"vp_25c": 0.001, "bp_c": 320, "class": "base", "mw": 254.4},
+    "patchouli alcohol": {"vp_25c": 0.001, "bp_c": 285, "class": "base", "mw": 222.4},
+    "vetiver": {"vp_25c": 0.001, "bp_c": 300, "class": "base", "mw": 222.0},
+    "cedarwood": {"vp_25c": 0.003, "bp_c": 280, "class": "base", "mw": 204.4},
+    "labdanum": {"vp_25c": 0.0005, "bp_c": 340, "class": "base", "mw": 210.0},
+    "benzoin resinoid": {"vp_25c": 0.0003, "bp_c": 350, "class": "base", "mw": 228.2},
+    "ethyl vanillin": {"vp_25c": 0.001, "bp_c": 295, "class": "base", "mw": 166.2},
+    "farnesol": {"vp_25c": 0.0005, "bp_c": 283, "class": "base", "mw": 222.4},
+    "benzyl benzoate": {"vp_25c": 0.001, "bp_c": 323, "class": "base", "mw": 212.2},
 }
 
 
 # ── Result dataclasses ──
 
+
 @dataclass
 class VPConstraint:
     material: str
-    vp_25c: float           # mmHg
-    bp_c: int               # boiling point °C
-    predicted_class: str    # "top" / "heart" / "base"
-    volatility_index: float # 0–100, relative to linalool reference
+    vp_25c: float  # mmHg
+    bp_c: int  # boiling point °C
+    predicted_class: str  # "top" / "heart" / "base"
+    volatility_index: float  # 0–100, relative to linalool reference
     estimated_evap_time_min: float  # minutes at 25°C on skin
     in_correct_layer: bool  # matches declared note pyramid layer
 
@@ -76,10 +78,11 @@ class VPAnalysisResult:
     base_note_materials: list[str] = field(default_factory=list)
     misclassified_materials: list[str] = field(default_factory=list)
     sillage_index: float = 0.0  # 0–100, higher = better projected sillage
-    score: float = 0.0          # 0–100 SILLAGE_PREDICTION category score
+    score: float = 0.0  # 0–100 SILLAGE_PREDICTION category score
 
 
 # ── Internal helpers ──
+
 
 def _normalize_name(name: str) -> str:
     """Lowercase and strip whitespace for lookup."""
@@ -125,8 +128,8 @@ def _compute_evap_time(vp_25c: float) -> float:
     # Fit: ln(15) = ln(a) + b*ln(2.0) and ln(60) = ln(a) + b*ln(0.16)
     # b = (ln(15)-ln(60)) / (ln(2.0)-ln(0.16))
     b = (math.log(15.0) - math.log(60.0)) / (math.log(2.0) - math.log(0.16))
-    a = 60.0 / (0.16 ** b)
-    raw = a * (vp_25c ** b)
+    a = 60.0 / (0.16**b)
+    raw = a * (vp_25c**b)
     return max(5.0, min(600.0, raw))
 
 
@@ -151,10 +154,11 @@ def _declared_layer(material: str, pyramid: dict[str, list[str]]) -> Optional[st
 
 # ── Main public function ──
 
+
 def analyze_vapor_pressure(
     target_name: str,
     material_posteriors: dict[str, float],  # material → posterior probability
-    declared_pyramid: dict[str, list[str]], # {"top": [...], "heart": [...], "base": [...]}
+    declared_pyramid: dict[str, list[str]],  # {"top": [...], "heart": [...], "base": [...]}
     concentrate_pct: float = 25.0,
 ) -> VPAnalysisResult:
     """Analyze vapor pressure behavior of materials in a fragrance formula.
@@ -181,7 +185,7 @@ def analyze_vapor_pressure(
     result = VPAnalysisResult(target_name=target_name)
 
     # Posterior threshold — only analyze materials with meaningful probability
-    _POSTERIOR_THRESHOLD = 0.4
+    _posterior_threshold = 0.4
 
     n_classified = 0
     n_total = 0
@@ -190,7 +194,7 @@ def analyze_vapor_pressure(
     sillage_weight_sum = 0.0
 
     for material, posterior in material_posteriors.items():
-        if posterior < _POSTERIOR_THRESHOLD:
+        if posterior < _posterior_threshold:
             continue
 
         vp_data = _lookup_vp(material)
@@ -202,7 +206,7 @@ def analyze_vapor_pressure(
 
         vp_25c: float = vp_data["vp_25c"]
         bp_c: int = int(vp_data["bp_c"])
-        db_class: str = vp_data["class"]
+        vp_data["class"]
 
         volatility_index = _compute_volatility_index(vp_25c)
         evap_time = _compute_evap_time(vp_25c)
@@ -266,6 +270,7 @@ def analyze_vapor_pressure(
 
 # ── Format function ──
 
+
 def format_vp_report(result: VPAnalysisResult) -> str:
     """Format vapor pressure analysis as a text report.
 
@@ -277,11 +282,11 @@ def format_vp_report(result: VPAnalysisResult) -> str:
     lines.append("=" * 72)
 
     # Header
-    col_mat  = 24
-    col_vp   = 10
-    col_cls  = 8
+    col_mat = 24
+    col_vp = 10
+    col_cls = 8
     col_evap = 11
-    col_ok   = 12
+    col_ok = 12
 
     header = (
         f"{'Material':<{col_mat}} | "
@@ -320,11 +325,19 @@ def format_vp_report(result: VPAnalysisResult) -> str:
 
     # Summary block
     lines.append("")
-    lines.append(f"  Top note materials  : {', '.join(result.top_note_materials) or 'none detected'}")
-    lines.append(f"  Heart note materials: {', '.join(result.heart_note_materials) or 'none detected'}")
-    lines.append(f"  Base note materials : {', '.join(result.base_note_materials) or 'none detected'}")
+    lines.append(
+        f"  Top note materials  : {', '.join(result.top_note_materials) or 'none detected'}"
+    )
+    lines.append(
+        f"  Heart note materials: {', '.join(result.heart_note_materials) or 'none detected'}"
+    )
+    lines.append(
+        f"  Base note materials : {', '.join(result.base_note_materials) or 'none detected'}"
+    )
     if result.misclassified_materials:
-        lines.append(f"  Misclassified (wrong pyramid layer): {', '.join(result.misclassified_materials)}")
+        lines.append(
+            f"  Misclassified (wrong pyramid layer): {', '.join(result.misclassified_materials)}"
+        )
     lines.append("")
     lines.append(f"  Sillage index : {result.sillage_index:.1f} / 100")
     lines.append(f"  Module score  : {result.score:.1f} / 100")

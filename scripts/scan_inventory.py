@@ -18,8 +18,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.inventory_parser import parse_inventory
 from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_inventory
 from engine.odor_thresholds import ODT_DATA
 
 
@@ -38,61 +38,209 @@ def scan(quick: bool = False) -> None:
     inv = parse_inventory()
     mats = sorted([m.name for m in inv], key=lambda x: x.lower())
 
-    CATEGORY_MAP = [
-        ("SOLVENTS / CARRIERS",     ["solvent", "ethanol", "dpg", "dep", "ipm", "tec", "myristic"]),
-        ("CITRUS / TOP",            ["citrus", "bergamot", "grapefruit", "cedrat", "mandarin",
-                                      "orange", "lemon", "lime", "citronellal", "citral",
-                                      "limonene", "linalool", "linalyl", "petitgrain",
-                                      "apritone", "pamzest", "methyl pamplemousse",
-                                      "aldehyd", "hexyl acetate", "lemonile", "terpinyl"]),
-        ("GREEN / FRESH / MARINE",   ["dihydromyrcenol", "cis-3", "verdox", "galbanum",
-                                      "cyclamen", "scentenal", "calone", "floralozone",
-                                      "undecavertol", "dynascone", "parmavert", "leafovert",
-                                      "triplal", "geosmin"]),
-        ("FLORAL",                   ["hedione", "jasmone", "jessemal", "hydroxycitronellal",
-                                      "phenethyl", "cinnamyl", "florol", "peonile",
-                                      "aurantiol", "geraniol", "citronellol", "rhodinol",
-                                      "rose oxide", "benzyl salicylate", "benzyl benzoate",
-                                      "benzyl acetate", "indole", "bourgeonal", "freesia",
-                                      "lilyreal", "lilial", "cyclimal", "nympheal",
-                                      "helional", "ylang", "champaca", "methyl benzoate",
-                                      "p-cresyl", "paradisamide", "cis jasmone",
-                                      "methyl salicylate", "methyl anthranilate",
-                                      "damascone", "damascenone", "damascol",
-                                      "heliotrop", "aca", "pedmc", "farnesol", "mayol",
-                                      "oranger crystals", "nerol", "nerolin", "coumarin"]),
-        ("IRIS / VIOLET",            ["irone", "ionone", "irotyl", "orivone", "ultralia",
-                                      "iris", "orris", "carrot seed"]),
-        ("WOODS / AMBER / STRUCTURE",["iso e super", "cashmeran", "polysantol", "cedramber",
-                                      "ambermax", "amber core", "ebanol", "sandalore",
-                                      "vetival", "vertofix", "suederal", "javanol",
-                                      "amberwood", "ambrox", "ambrofix", "timberol",
-                                      "koavone", "cedarwood", "vetiver", "nagarmortha",
-                                      "vetikon", "clearwood", "norlimbanol", "azarbre",
-                                      "kephalis", "evernyl"]),
-        ("MUSKS",                    ["galaxolide", "tonalide", "habanolide", "zenolide",
-                                      "romandolide", "exaltolide", "macrolide",
-                                      "ambrettolide", "musk", "ethylene brassylate"]),
-        ("SWEET / GOURMAND / BALSAMIC", ["ethyl maltol", "vanillin", "maple lactone",
-                                          "raspberry ketone", "benzoin", "anisaldehyde",
-                                          "decalactone", "undecylactone", "allyl amyl"]),
-        ("LEATHER / SMOKY / PHENOLIC",["tobacco", "isobutyl quinoline", "birch tar",
-                                       "costus", "guaiacol", "skatole"]),
-        ("SPICE / AROMATIC",         ["black pepper", "cardamom", "ethyl safranate",
-                                      "eugenol", "isoeugenol", "cinnamaldehyde",
-                                      "lavender", "spike lavender", "beta-pinene",
-                                      "pine eo", "juniper", "rosemary", "clary sage",
-                                      "patchouli", "olibanum"]),
-        ("ACCORD BASES / OTHER",     ["jasmine fo", "leather fo", "tonka bean fo",
-                                      "sandalwood fo", "melonal", "dbca",
-                                      "methyl nonyl ketone"]),
+    category_map = [
+        ("SOLVENTS / CARRIERS", ["solvent", "ethanol", "dpg", "dep", "ipm", "tec", "myristic"]),
+        (
+            "CITRUS / TOP",
+            [
+                "citrus",
+                "bergamot",
+                "grapefruit",
+                "cedrat",
+                "mandarin",
+                "orange",
+                "lemon",
+                "lime",
+                "citronellal",
+                "citral",
+                "limonene",
+                "linalool",
+                "linalyl",
+                "petitgrain",
+                "apritone",
+                "pamzest",
+                "methyl pamplemousse",
+                "aldehyd",
+                "hexyl acetate",
+                "lemonile",
+                "terpinyl",
+            ],
+        ),
+        (
+            "GREEN / FRESH / MARINE",
+            [
+                "dihydromyrcenol",
+                "cis-3",
+                "verdox",
+                "galbanum",
+                "cyclamen",
+                "scentenal",
+                "calone",
+                "floralozone",
+                "undecavertol",
+                "dynascone",
+                "parmavert",
+                "leafovert",
+                "triplal",
+                "geosmin",
+            ],
+        ),
+        (
+            "FLORAL",
+            [
+                "hedione",
+                "jasmone",
+                "jessemal",
+                "hydroxycitronellal",
+                "phenethyl",
+                "cinnamyl",
+                "florol",
+                "peonile",
+                "aurantiol",
+                "geraniol",
+                "citronellol",
+                "rhodinol",
+                "rose oxide",
+                "benzyl salicylate",
+                "benzyl benzoate",
+                "benzyl acetate",
+                "indole",
+                "bourgeonal",
+                "freesia",
+                "lilyreal",
+                "lilial",
+                "cyclimal",
+                "nympheal",
+                "helional",
+                "ylang",
+                "champaca",
+                "methyl benzoate",
+                "p-cresyl",
+                "paradisamide",
+                "cis jasmone",
+                "methyl salicylate",
+                "methyl anthranilate",
+                "damascone",
+                "damascenone",
+                "damascol",
+                "heliotrop",
+                "aca",
+                "pedmc",
+                "farnesol",
+                "mayol",
+                "oranger crystals",
+                "nerol",
+                "nerolin",
+                "coumarin",
+            ],
+        ),
+        (
+            "IRIS / VIOLET",
+            ["irone", "ionone", "irotyl", "orivone", "ultralia", "iris", "orris", "carrot seed"],
+        ),
+        (
+            "WOODS / AMBER / STRUCTURE",
+            [
+                "iso e super",
+                "cashmeran",
+                "polysantol",
+                "cedramber",
+                "ambermax",
+                "amber core",
+                "ebanol",
+                "sandalore",
+                "vetival",
+                "vertofix",
+                "suederal",
+                "javanol",
+                "amberwood",
+                "ambrox",
+                "ambrofix",
+                "timberol",
+                "koavone",
+                "cedarwood",
+                "vetiver",
+                "nagarmortha",
+                "vetikon",
+                "clearwood",
+                "norlimbanol",
+                "azarbre",
+                "kephalis",
+                "evernyl",
+            ],
+        ),
+        (
+            "MUSKS",
+            [
+                "galaxolide",
+                "tonalide",
+                "habanolide",
+                "zenolide",
+                "romandolide",
+                "exaltolide",
+                "macrolide",
+                "ambrettolide",
+                "musk",
+                "ethylene brassylate",
+            ],
+        ),
+        (
+            "SWEET / GOURMAND / BALSAMIC",
+            [
+                "ethyl maltol",
+                "vanillin",
+                "maple lactone",
+                "raspberry ketone",
+                "benzoin",
+                "anisaldehyde",
+                "decalactone",
+                "undecylactone",
+                "allyl amyl",
+            ],
+        ),
+        (
+            "LEATHER / SMOKY / PHENOLIC",
+            ["tobacco", "isobutyl quinoline", "birch tar", "costus", "guaiacol", "skatole"],
+        ),
+        (
+            "SPICE / AROMATIC",
+            [
+                "black pepper",
+                "cardamom",
+                "ethyl safranate",
+                "eugenol",
+                "isoeugenol",
+                "cinnamaldehyde",
+                "lavender",
+                "spike lavender",
+                "beta-pinene",
+                "pine eo",
+                "juniper",
+                "rosemary",
+                "clary sage",
+                "patchouli",
+                "olibanum",
+            ],
+        ),
+        (
+            "ACCORD BASES / OTHER",
+            [
+                "jasmine fo",
+                "leather fo",
+                "tonka bean fo",
+                "sandalwood fo",
+                "melonal",
+                "dbca",
+                "methyl nonyl ketone",
+            ],
+        ),
     ]
 
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"  INVENTORY — {len(mats)} materials")
-    print(f"{'='*70}")
+    print(f"{'=' * 70}")
 
-    for cat_name, keywords in CATEGORY_MAP:
+    for cat_name, keywords in category_map:
         cat_mats = [m for m in mats if any(kw in m.lower() for kw in keywords)]
         if not cat_mats:
             continue
@@ -115,7 +263,11 @@ def scan(quick: bool = False) -> None:
             vfy_str = f" [{vfy}]" if vfy else ""
 
             char = profile.character if profile else {}
-            char_str = " | ".join(f"{k}={v}" for k, v in sorted(char.items(), key=lambda x: -x[1])[:4]) if char else ""
+            char_str = (
+                " | ".join(f"{k}={v}" for k, v in sorted(char.items(), key=lambda x: -x[1])[:4])
+                if char
+                else ""
+            )
 
             syns = profile.synergies if profile and profile.synergies else []
             syn_str = f"  ⟷ {', '.join(syns[:4])}" if syns else ""
@@ -130,7 +282,9 @@ def scan(quick: bool = False) -> None:
             # Mark if ODT data is missing
             missing = " ⚠️ NO ODT" if odt_val == "—" else ""
 
-            print(f"  {display:35s} {note:5s} {role:12s} ODT={str(odt_val):>8s} ppb{vfy_str}{missing}")
+            print(
+                f"  {display:35s} {note:5s} {role:12s} ODT={str(odt_val):>8s} ppb{vfy_str}{missing}"
+            )
             if char_str:
                 print(f"  {'':35s} {char_str}")
             if syn_str:
@@ -138,9 +292,9 @@ def scan(quick: bool = False) -> None:
             if phys:
                 print(f"  {'':35s}{phys}")
 
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"  DONE — {len(mats)} materials")
-    print(f"{'='*70}\n")
+    print(f"{'=' * 70}\n")
 
 
 def blind_spot_check(formula_path: str) -> None:
@@ -156,9 +310,9 @@ def blind_spot_check(formula_path: str) -> None:
 
     for f in formulas:
         ings = f.get("ingredients_ul", {})
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"  Checking: {Path(formula_path).name}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         for mat in ings:
             mat_clean = mat.lower().strip()
             found = mat_clean in inv_names

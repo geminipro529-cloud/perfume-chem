@@ -1,0 +1,538 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "corpus_sha256": "75dbeada938e3ba403c96c0f0245ea8392dddf67447ee2bf0c9efe78b6c43580",
+  "manifest_sha256": "554bb43a35fd471a15bb5bcc92660f75808d6508dcf0c1360ae72b2f7c38e5a9",
+  "result_count": 9,
+  "results": [
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C01",
+      "critical_error_codes": [],
+      "dispatch_sha256": "1d3c9aa7c78cc957627c6dc1ac0b96877c1c1f330381a164c501b5ec2e5f1170",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": false,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "70",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "98b8a0bf56245dc41f7485fbdbc6c60f1904829082fd4ce73c508e5df5d38ce7",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "ideal_candidate_count": 1,
+          "physical_addition_authorized_count": 0,
+          "physically_compoundable_candidate_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": {
+          "design": "Hold the iris context constant and compare Ambrettolide 10% against unchanged control, Habanolide, and Romandolide as separate arms when physically available.",
+          "discriminators": [
+            "soft-skin extension",
+            "iris-heart continuity",
+            "detergent brightness",
+            "powder bulk"
+          ],
+          "interpretation_limit": "No sensory preference or substitution claim is established.",
+          "status": "DESIGN_ONLY"
+        },
+        "decision_state": "HOLD",
+        "next_actions": [
+          "Verify whether Ambrettolide 10% has become physically compoundable before authorizing any controlled comparison."
+        ],
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "IDEAL_CANDIDATE_PROCUREMENT_PENDING",
+          "ZERO_PHYSICALLY_COMPOUNDABLE_CANDIDATES",
+          "OWNED_MUSKS_NOT_AUTOMATIC_SUBSTITUTES",
+          "ETHYLENE_BRASSYLATE_UNCONFIRMED"
+        ],
+        "target_linked_reasoning": "Ambrettolide 10% is the sole ideal candidate for extending the iris heart with a distinct soft-skin effect while avoiding detergent brightness and powder bulk. Its procurement-pending status prevents physical validation. Owned Habanolide and Romandolide cannot be assumed functionally equivalent, and Ethylene Brassylate remains unavailable unless refreshed evidence proves otherwise. Complexity is preserved through target-linked functional relationships, not ingredient count."
+      },
+      "raw_result_file_sha256": "5f8d6092c2c12ac12cfb05894e474391e827863ed8434028e40886397222035e",
+      "request_id": "rplreq-e319c671733fe3952348",
+      "role": "INVENTORY_MISMATCH",
+      "rubric_score": "70"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C01",
+      "critical_error_codes": [],
+      "dispatch_sha256": "947042343d1afa0ecb07a1a2bcb37c5d270a22ded57cac1d740a364d92344d7d",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": true,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "100",
+        "state": "PASS"
+      },
+      "output_sha256": "5914d5c8f3a170c1fbf8da44d2b0a68c83168d25f0df229ac4e55cb2579c1186",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "ideal_candidate_count": 1,
+          "physical_addition_authorized_count": 0,
+          "physically_compoundable_candidate_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": "One constant-total computational A/B: current ideal architecture versus the same architecture with one isolated Ambrettolide 10% intervention, offset by an equal reduction of neutral formula mass; make no other musk or ratio changes.",
+        "decision_state": "PROPOSED",
+        "next_actions": [
+          "At execution time, refresh inventory status for Ambrettolide 10% and the V5 Ethylene Brassylate record before deciding whether the controlled arm is compoundable."
+        ],
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "MISSING_TARGET_FUNCTION",
+          "SINGLE_TARGET_FAITHFUL_DELTA",
+          "PROCUREMENT_PENDING",
+          "NO_SUPPORTED_OWNED_SUBSTITUTE",
+          "PHYSICAL_EXECUTION_UNAVAILABLE"
+        ],
+        "target_linked_reasoning": "The ideal architecture has one uncovered function: a soft skin musk extending the iris heart without detergent brightness or powder bulk. Ambrettolide 10% is the sole target-faithful candidate identified for that function. Habanolide and Romandolide are owned but are not evidence-supported replacements; Ethylene Brassylate remains unavailable unless refreshed. Keep this ideal intervention separate from the current-inventory build: procurement-pending status prevents physical execution but does not negate the computational proposal."
+      },
+      "raw_result_file_sha256": "183d38e663824777ab69ded6de451ed93d98cc1d305da316132f31935ef327f8",
+      "request_id": "rplreq-ed2016a8482074cad5cf",
+      "role": "INVENTORY_MISMATCH",
+      "rubric_score": "100"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C01",
+      "critical_error_codes": [],
+      "dispatch_sha256": "9a6dd26b7f55036d2b19ed10a6ec6e43fd57f7006954d9ace89a24de7f070429",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": false,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "70",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "04e48c229701a83313242ce810edad54aebf13486fc8136ba60b0c655a46a6b0",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "physical_addition_authorized_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": "Once materials are physically available and execution is separately authorized, compare the Ambrettolide 10% design against otherwise identical Habanolide and Romandolide variants, varying only the musk function and assessing skin softness, iris extension, detergent brightness, and powder bulk. Physical liking remains NOT TESTED.",
+        "decision_state": "HOLD",
+        "next_actions": [
+          "Run the execution-time V5 inventory reparse to discriminate whether Ethylene Brassylate remains missing; do not treat the result as authorization to substitute or compound."
+        ],
+        "reason_codes": [
+          "TARGET_FUNCTION_PRESERVED",
+          "IDEAL_MATERIAL_PROCUREMENT_PENDING",
+          "NO_COMPOUNDABLE_CANDIDATE",
+          "OWNED_MUSKS_NOT_FUNCTIONALLY_EQUIVALENT",
+          "ETHYLENE_BRASSYLATE_STATUS_UNCERTAIN",
+          "PHYSICAL_LIKING_NOT_TESTED"
+        ],
+        "target_linked_reasoning": "Retain Ambrettolide 10% as the sole ideal candidate for soft skin extension of the iris heart without detergent brightness or powder bulk. Procurement is pending, so no candidate is currently compoundable; owned Habanolide and Romandolide are not evidence-supported automatic replacements."
+      },
+      "raw_result_file_sha256": "38a934532626801849e1424ccc318a1d582cc796a8fc7da4e1c2d27b8c7590d1",
+      "request_id": "rplreq-b869d7883389c41ec033",
+      "role": "INVENTORY_MISMATCH",
+      "rubric_score": "70"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C02",
+      "critical_error_codes": [],
+      "dispatch_sha256": "995d87a3585aa9ed582c9075523968c288967925c394cff712946204c401ed52",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": true,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": false,
+        "score": "90",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "aa7acb5cd88b20a818e15b32ed292508a31bfcbd45591c24b5f0b132d4b4de2d",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "covered_musk_function_count": 1,
+          "declared_musk_function_count": 1,
+          "unmet_musk_function_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": {
+          "baseline": "Habanolide alone",
+          "discriminator": "A distinct, reproducible contribution to the declared target beyond the already-covered musk function",
+          "variant": "Habanolide plus Romandolide, all other variables held constant"
+        },
+        "decision_state": "NO_CHANGE",
+        "next_actions": [
+          "Only if further differentiation is sought, conduct the specified controlled comparison and retain Romandolide only upon evidence of a distinct target-linked contribution."
+        ],
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "DECLARED_FUNCTION_ALREADY_COVERED",
+          "SECOND_MUSK_FUNCTION_UNSPECIFIED",
+          "NONREDUNDANCY_NOT_ESTABLISHED",
+          "INGREDIENT_COUNT_NOT_COMPLEXITY"
+        ],
+        "target_linked_reasoning": "The single declared musk function is already covered by Habanolide. Romandolide is proposed only to increase ingredient count, with no evidence of a distinct target-linked function, added depth, or nonredundancy. The current composition therefore satisfies the stated cool diffusive mineral musk-tail target without replacement or addition."
+      },
+      "raw_result_file_sha256": "9bb0f983e437201cf41fd92b0464cee12bf349773447e76cb042e37b2475003c",
+      "request_id": "rplreq-be3050e8cfc748bba37b",
+      "role": "CONTROL",
+      "rubric_score": "90"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C02",
+      "critical_error_codes": [],
+      "dispatch_sha256": "d95a1971b805cc7d60179c167aeb53b2b2628a7dca63c03e0c4c5bf092f96ac2",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": true,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "100",
+        "state": "PASS"
+      },
+      "output_sha256": "6f7c2ad9e4541ed43da6984220dac5335cdbe00fb518b32476ee7025e5da670b",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "covered_musk_function_count": 1,
+          "declared_musk_function_count": 1,
+          "unmet_musk_function_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": null,
+        "decision_state": "NO_CHANGE",
+        "next_actions": [],
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "ALL_TARGET_FUNCTIONS_COVERED",
+          "SECOND_MUSK_FUNCTION_UNDECLARED",
+          "COUNT_ONLY_EXPANSION"
+        ],
+        "target_linked_reasoning": "The target requires one cool diffusive mineral musk function. Habanolide already covers that function, so adding Romandolide would increase ingredient count without supplying a distinct target-linked function or supported nonredundancy."
+      },
+      "raw_result_file_sha256": "c2f036cc773ef4b3bbf4ae7edf3be3013114fc8ee032eecc920a1de4808378d6",
+      "request_id": "rplreq-5b53f10a6617d0d2d57f",
+      "role": "CONTROL",
+      "rubric_score": "100"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C02",
+      "critical_error_codes": [],
+      "dispatch_sha256": "84ca6af62a731a5fed7dc877c0d6e45db739fcc60a9fa81fc555eb0ba8a065a9",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": true,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": false,
+        "score": "90",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "5dfcac8b504a9d3d885c5722be5ed03fc629bd07f802ad72c4c1f700e1e4dc1e",
+      "parse_error": null,
+      "parsed_receipt": {
+        "authority": {
+          "formula": false,
+          "inventory": false,
+          "physical_execution": false,
+          "publication": false,
+          "purchase": false,
+          "release": false,
+          "safety": false,
+          "sensory": false
+        },
+        "calculations": {
+          "covered_musk_function_count": 1,
+          "declared_musk_function_count": 1,
+          "physical_liking_state": "NOT TESTED",
+          "unmet_musk_function_count": 0
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": "Compare Habanolide alone against a Habanolide–Romandolide stack at matched total musk dose under blinded evaluation; retain the stack only if it demonstrates a distinct, reproducible target-linked contribution.",
+        "decision_state": "NO_CHANGE",
+        "next_actions": [
+          "Run the blinded matched-total-dose comparison of Habanolide alone versus the two-musk stack."
+        ],
+        "reason_codes": [
+          "DECLARED_FUNCTION_COVERED",
+          "SECOND_MUSK_FUNCTION_UNSPECIFIED",
+          "NONREDUNDANCY_NOT_ESTABLISHED",
+          "PHYSICAL_LIKING_NOT_TESTED"
+        ],
+        "target_linked_reasoning": "Habanolide already covers the single declared cool, diffusive, mineral musk function, so the evidence shows no unmet target function. Adding Romandolide would increase ingredient count without supplied evidence of distinct target-linked depth, richness, relationship, or nonredundancy."
+      },
+      "raw_result_file_sha256": "f40a49bb89d1a6553b1a48f3cf1e30147513f7250f04668ab5c512d14946d6b0",
+      "request_id": "rplreq-06f0257f9576dc85b0a3",
+      "role": "CONTROL",
+      "rubric_score": "90"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C03",
+      "critical_error_codes": [
+        "UNSEEN_VARIANT_CRITICAL_FAILURE"
+      ],
+      "dispatch_sha256": "cbfa9dc4adc84e03b84cbc30b304b14a17e6de3b4e792b7d21de726d5aa69fa7",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": false,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "70",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "fd8bbe7a36f45513abf68e246699803a0816eaced63ffed7574681f9f73267e7",
+      "parse_error": null,
+      "parsed_receipt": {
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": "Use a constant-total 2×2 comparison: base, Tonalide-only, dry-wood-modifier-only, and Tonalide-plus-modifier joint arm. The missing joint arm is necessary to distinguish interaction from additive individual effects.",
+        "decision": "AUGMENT",
+        "objective_receipt": {
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "required_isolated_arm_count": 4
+          },
+          "decision_state": "AUGMENT",
+          "next_actions": [
+            "Complete the constant-total four-arm factorial by testing the missing joint Tonalide-plus-dry-wood arm after Tonalide stock is confirmed."
+          ],
+          "reason_codes": [
+            "TARGET_REQUIRES_TONALIDE_EXCEPTION",
+            "JOINT_INTERACTION_UNOBSERVED",
+            "FULL_FACTORIAL_REQUIRED",
+            "TONALIDE_STOCK_UNVERIFIED"
+          ]
+        },
+        "physical_liking_state": "NOT TESTED",
+        "target_linked_reasoning": "The target specifically requires the dated animalic-powder Tonalide shadow beneath dry woods, so Tonalide is a justified design exception. Existing pairwise observations isolate each factor but cannot establish the target-linked layered relationship because the Tonalide-by-dry-wood interaction is unobserved."
+      },
+      "raw_result_file_sha256": "4329edb228d94abb74ad72ab38af0722ab988052813e43ac2d86c293461f89a7",
+      "request_id": "rplreq-b4d80044160dc726f806",
+      "role": "UNSEEN_VARIANT",
+      "rubric_score": "0"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C03",
+      "critical_error_codes": [],
+      "dispatch_sha256": "bbc7af5a54287258479a00241a68b0cf106dead820ed966b3a0ff9939cbd6d8c",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": true,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "100",
+        "state": "PASS"
+      },
+      "output_sha256": "28113583dfbfc07791f4e94a4b09c8e516923b2772f8e81bb316a82fb1f1b971",
+      "parse_error": null,
+      "parsed_receipt": {
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": {
+          "arms": [
+            "base",
+            "Tonalide-only",
+            "dry-wood-modifier-only",
+            "Tonalide-plus-dry-wood-modifier"
+          ],
+          "design": "constant-total 2x2 full factorial",
+          "required_isolated_arm_count": 4
+        },
+        "decision": "HOLD",
+        "next_actions": [
+          "Run one constant-total four-arm comparison covering base, Tonalide-only, modifier-only, and joint conditions, subject to Tonalide stock verification."
+        ],
+        "objective_receipt": {
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "required_isolated_arm_count": 4
+          }
+        },
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "TARGET_FAITHFUL_TONALIDE_EXCEPTION",
+          "UNOBSERVED_JOINT_INTERACTION",
+          "FULL_FACTORIAL_REQUIRED"
+        ],
+        "target_linked_reasoning": "Tonalide is target-faithful because the dated animalic-powder shadow explicitly permits its exception, and the dry-wood modifier serves the required dry-wood layer. However, existing pairwise observations cannot establish Tonalide-by-dry-wood layered synergy because the joint arm is unobserved. Tonalide stock also requires verification before any inventory-dependent execution."
+      },
+      "raw_result_file_sha256": "85fe311ee1c1a9561b07625c59dec4d8c16cba2ab328cc62cd129e5236a48c23",
+      "request_id": "rplreq-0e38677fa8f5201a2134",
+      "role": "UNSEEN_VARIANT",
+      "rubric_score": "100"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C03",
+      "critical_error_codes": [
+        "UNSEEN_VARIANT_CRITICAL_FAILURE"
+      ],
+      "dispatch_sha256": "ac0e1b1c413b90c1a288e1e5a99ff93ef199ae91cfffa937c2ef096528e58b53",
+      "module_id": "architectural_delta",
+      "objective_score": {
+        "authority_pass": true,
+        "calculation_mismatches": [],
+        "critical_error_codes": [],
+        "decision_state_match": false,
+        "full_credit_no_augmentation": false,
+        "missing_reason_codes": [],
+        "next_action_count_pass": true,
+        "score": "70",
+        "state": "PARTIAL"
+      },
+      "output_sha256": "30149847e05d71ad4e447f092a4aa8dfe1794ad83bf9865c1b4cf1f4664d256c",
+      "parse_error": null,
+      "parsed_receipt": {
+        "calculations": {
+          "required_isolated_arm_count": 4
+        },
+        "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+        "controlled_comparison": "At constant total, compare four isolated arms: base; base plus Tonalide only; base plus dry-wood modifier only; and base plus both. Estimate the interaction from the joint response relative to the two single-factor effects.",
+        "decision": "AUGMENT",
+        "next_actions": [
+          "After verifying Tonalide stock, run the constant-total four-arm 2×2 factorial comparison."
+        ],
+        "objective_receipt": {
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          }
+        },
+        "physical_liking_state": "NOT TESTED",
+        "reason_codes": [
+          "TARGET_REQUIRES_TONALIDE_EXCEPTION",
+          "JOINT_INTERACTION_UNOBSERVED",
+          "FULL_FACTORIAL_REQUIRED",
+          "TONALIDE_STOCK_UNVERIFIED"
+        ],
+        "target_linked_reasoning": "The target explicitly requires a dated animalic-powder musk shadow, making Tonalide a justified exception beneath the owned dry-wood modifier, subject to stock verification. Existing pairwise observations cannot establish Tonalide-by-dry-wood synergy because the joint arm is unobserved."
+      },
+      "raw_result_file_sha256": "71e7d3ec623580504f5349703ffdd3faf01414d7172e6678b6f77a6f6b740ba0",
+      "request_id": "rplreq-588d89644c7db89892ed",
+      "role": "UNSEEN_VARIANT",
+      "rubric_score": "0"
+    }
+  ],
+  "schema_version": "complexity_replacement_objective_scores_v1",
+  "scorer_file_sha256": "b680c99a345c6d98b907ca6fe6c474b1ee9b2c6fa54f4e41d4349c2b50fc2f9b"
+}

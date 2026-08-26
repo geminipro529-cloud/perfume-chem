@@ -1,0 +1,28 @@
+{
+  "schema": "c2-log-scan-v1",
+  "recorded_at": "2026-08-02T19:49:57.2757734+07:00",
+  "all_historical_and_final_logs": {
+    "file_count": 63,
+    "ansi_escape_bytes": 4,
+    "invalid_utf8_file_count": 0,
+    "credential_pattern_match_count": 0,
+    "ansi_paths": [
+      "docs/verification/c2/logs/ruff-c2-check.stdout.txt",
+      "docs/verification/c2/logs/final/ruff-c2-check.stdout.txt"
+    ]
+  },
+  "authoritative_final_logs": {
+    "file_count": 32,
+    "ansi_escape_bytes": 0,
+    "invalid_utf8_file_count": 0,
+    "credential_pattern_match_count": 0
+  },
+  "superseded_final_log": "docs/verification/c2/logs/final/ruff-c2-check.stdout.txt",
+  "authoritative_ruff_stdout": "docs/verification/c2/logs/final/ruff-c2-check-noansi.stdout.txt",
+  "authoritative_ruff_stderr": "docs/verification/c2/logs/final/ruff-c2-check-noansi.stderr.txt",
+  "authoritative_ruff_metadata": "docs/verification/c2/logs/final/ruff-c2-check-noansi.metadata.json",
+  "notes": [
+    "The two ANSI-bearing Ruff logs are retained as historical evidence and are not gate-bearing.",
+    "The no-ANSI Ruff rerun removed FORCE_COLOR, exited zero, and contains zero escape bytes."
+  ]
+}

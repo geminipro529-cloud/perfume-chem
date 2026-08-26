@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:22:35.284046+00:00",
+  "dispatch_sha256": "cdbf9270c3dee5802b6387f4d81792399889475af2cfa7c28e5ffe2e84db1115",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "3478223dd70ccaa4901b81c381e1c9b2fb3da0a3f4156b4efcbe445f5146c709",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"All 8 observed winners were first-presented (first-position win rate 8/8 = 1.0). Because product identity and presentation position are perfectly confounded and no reverse-order replicates exist, directional product utilities cannot identify which product is more liked. The proposed leading-product claim must therefore be withheld.\",\"controlled_comparison\":\"No position-controlled product comparison is available; each result is compatible with either product liking or a first-position effect.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":1.0},\"reason_codes\":[\"PERFECT_ORDER_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"next_actions\":[\"Run blinded reverse-order replicates with each product presented equally often in each position.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "7deeedc33eaf61c57954a245a9df19f68c6d2d856204cb9097f202fc4111b8df",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-9693827df717bd2fd29f",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:20.126579+00:00",
+  "stderr_sha256": "8e55ae84bfba5c0d08681d84c62e54f4795b4c1c96efde21965bcaa8b1f955c0",
+  "stderr_tail": "mat\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"first_position_win_rate\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"All 8 observed winners were first-presented (first-position win rate 8/8 = 1.0). Because product identity and presentation position are perfectly confounded and no reverse-order replicates exist, directional product utilities cannot identify which product is more liked. The proposed leading-product claim must therefore be withheld.\",\"controlled_comparison\":\"No position-controlled product comparison is available; each result is compatible with either product liking or a first-position effect.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"first_position_win_rate\":1.0},\"reason_codes\":[\"PERFECT_ORDER_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"next_actions\":[\"Run blinded reverse-order replicates with each product presented equally often in each position.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n5,305\n",
+  "stdout_sha256": "bb8694ebeb07717365c2289d36c46280204ff51758c6f7403146e5cab68e4488"
+}

@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c7-mutation-result-v1",
+    "name":  "exact-lot-selection-caught",
+    "target":  "tests/test_c7_natural_lots.py::test_selection_requires_exact_lot_supplier_and_proxy_scope_matches",
+    "expected_exit_code":  1,
+    "exit_code":  1,
+    "timed_out":  false,
+    "duration_ms":  1629,
+    "started_at_utc":  "2026-08-02T20:52:05.9540105+00:00",
+    "stdout_sha256":  "5df815a60d8ce7347752e8c73789d08c5044e56e6b7bd496d6ef40843b50e1d0",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

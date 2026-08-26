@@ -1,0 +1,24 @@
+{
+  "name": "c0-verifier",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "scripts/verify_c0_physical_model_inventory.py",
+    "--inventory",
+    "docs/verification/c0/physical_model_inventory.json",
+    "--fixtures",
+    "tests/fixtures/c0_legacy_physical_model_cases.json",
+    "--fixture-sha",
+    "tests/fixtures/c0_legacy_physical_model_cases.sha256"
+  ],
+  "started_at_utc": "2026-08-02T09:26:32.115Z",
+  "finished_at_utc": "2026-08-02T09:26:34.770Z",
+  "duration_seconds": 2.654,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c0\\logs\\c0-verifier.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c0\\logs\\c0-verifier.stderr.txt"
+}

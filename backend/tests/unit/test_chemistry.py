@@ -1,16 +1,17 @@
 """Test chemistry calculations"""
 
 import pytest
+
 from app.domain.ingredients.chemistry import (
+    DilutionCalculationError,
+    FormulaBalanceError,
     calculate_dilution,
     calculate_drops_to_ml,
     calculate_ml_to_drops,
-    validate_formula_balance,
     calculate_note_distribution,
     estimate_longevity,
     estimate_sillage,
-    DilutionCalculationError,
-    FormulaBalanceError
+    validate_formula_balance,
 )
 
 
@@ -21,7 +22,7 @@ def test_calculate_dilution():
         concentrate_percent=100.0,
         target_percent=10.0
     )
-    
+
     assert result["total_volume"] == 100.0
     assert result["solvent_to_add"] == 90.0
     assert result["final_concentration"] == 10.0
@@ -76,9 +77,9 @@ def test_calculate_note_distribution():
         {"name": "Rose", "volatility": "heart", "percentage": 30.0},
         {"name": "Sandalwood", "volatility": "base", "percentage": 50.0}
     ]
-    
+
     distribution = calculate_note_distribution(ingredients)
-    
+
     assert distribution["top"] == 20.0
     assert distribution["heart"] == 30.0
     assert distribution["base"] == 50.0
@@ -88,7 +89,7 @@ def test_estimate_longevity():
     """Test longevity estimation"""
     note_dist = {"top": 20.0, "heart": 30.0, "base": 50.0}
     longevity = estimate_longevity(note_dist)
-    
+
     assert 1.0 <= longevity <= 24.0
     assert longevity > 6.0  # Should be long-lasting with high base notes
 
@@ -96,5 +97,5 @@ def test_estimate_longevity():
 def test_estimate_sillage():
     """Test sillage estimation"""
     sillage = estimate_sillage(top_percent=30.0, concentration=15.0)
-    
+
     assert sillage in ["intimate", "moderate", "strong", "enormous"]

@@ -1,0 +1,1263 @@
+{
+  "schema_version": "complexity_xhigh_cases_v1",
+  "benchmark_definition": {
+    "comparison": "plain ChatGPT xhigh versus the same model and effort with the exact separated complexity bundle",
+    "case_count": 16,
+    "control_context": "fresh projectless context with no prior case transcript",
+    "treatment_delta": "complexity bundle only",
+    "physical_liking_state": "NOT_TESTED",
+    "decision_threshold": {
+      "minimum_treatment_wins": 12,
+      "minimum_median_paired_gain": 5,
+      "maximum_new_critical_regressions": 0,
+      "maximum_category_median_regression": 2
+    }
+  },
+  "rubric": {
+    "response_contract_v1": {
+      "target_identity_and_functional_architecture": {
+        "weight": 20,
+        "units": [
+          "target contract",
+          "functional roles",
+          "temporal handoffs",
+          "restraint and failure boundaries"
+        ]
+      },
+      "integrated_depth_richness_and_hedonic_potential": {
+        "weight": 20,
+        "units": [
+          "identity-linked depth",
+          "coherent contrast and texture",
+          "interaction coherence",
+          "testable hedonic-potential hypothesis"
+        ]
+      },
+      "accuracy_provenance_and_authority": {
+        "weight": 20,
+        "units": [
+          "case-fact accuracy",
+          "claim-linked provenance",
+          "conflict and authority handling",
+          "empirical boundaries"
+        ]
+      },
+      "missing_impact_and_target_build_separation": {
+        "weight": 15,
+        "units": [
+          "inventory-independent target",
+          "current-build coverage separation",
+          "candidate impact status and comparison"
+        ]
+      },
+      "controlled_test_quality": {
+        "weight": 15,
+        "units": [
+          "isolation and controls",
+          "dose time and substrate design",
+          "blinding endpoints and decision rule"
+        ]
+      },
+      "uncertainty_actionability_and_concision": {
+        "weight": 10,
+        "units": [
+          "uncertainty linked to action",
+          "concise NOT TESTED authority boundary"
+        ]
+      },
+      "unit_anchors": {
+        "5": "correct case-specific fact to architectural consequence to test or decision chain",
+        "2": "correct direction but incomplete or insufficiently case-specific",
+        "0": "absent generic contradictory decorative or unsupported"
+      },
+      "anti_gaming": "material count module count terminology prestige novelty response length and jargon earn zero"
+    }
+  },
+  "hard_gates": {
+    "run_validity": {
+      "V01_CONTEXT": "prior turns memory personalization or cross-case context",
+      "V02_HASH": "missing or mismatched case evidence bundle output or rubric hash",
+      "V03_ASYMMETRY": "different model effort tools retrieval limit retry or truncation handling",
+      "V04_BLIND": "reviewer can identify the arm",
+      "V05_RETRY": "selective regeneration or cherry-picking"
+    },
+    "content": {
+      "C01_TARGET": "inventory count or template materially redefines the target",
+      "C02_SEPARATION": "target ideal and physical build are conflated",
+      "C03_INVENTORY": "stock strength active fraction basis availability or ExactStockRef is invented",
+      "C04_EVIDENCE": "citation is fabricated or evidence authority is inflated",
+      "C05_EMPIRICAL": "physical liking similarity stability measured headspace strict OAV safety or compliance is claimed without evidence",
+      "C06_MUSK": "Tonalide Macrolide or Musk Ketone is integrated without the complete target exception",
+      "C07_GAMING": "count verbosity jargon or novelty is decisive evidence of depth or hedonic potential",
+      "C08_CONFLICT": "same-scope conflict is silently resolved",
+      "C09_TEST": "a causal interaction or winner is claimed from absent or confounded data",
+      "C10_AUTHORITY": "the response claims final or release authority"
+    }
+  },
+  "shared_invariants": {
+    "useful_depth_v1": {
+      "positive_evidence": [
+        "identity-linked facets",
+        "coherent perceptual planes, contrasts, and textures",
+        "meaningful temporal unfolding",
+        "testable hedonic-potential mechanisms",
+        "restraint, spacing, dosage control, or negative space"
+      ],
+      "invalid_proxies": [
+        "ingredient count",
+        "module count",
+        "interaction count",
+        "descriptor count",
+        "novelty",
+        "response length",
+        "jargon",
+        "technical density"
+      ],
+      "claim_ceiling": "DESIGN_HYPOTHESIS_NOT_TESTED",
+      "musk_policy": {
+        "selection_rule": "one exact musk or distinct-role layers; never reward musk count",
+        "exception_only_materials": [
+          "Tonalide",
+          "Macrolide",
+          "Musk Ketone"
+        ],
+        "exception_fields": [
+          "target_tonal_role",
+          "why_alternatives_fail",
+          "loss_if_omitted",
+          "failure_mode",
+          "omission_control",
+          "alternative_control"
+        ],
+        "current_depleted_exception_state": "HOLD_PROCUREMENT_REQUIRED"
+      }
+    },
+    "required_depth_fields": [
+      "identity_linked_facets",
+      "coherent_richness",
+      "temporal_unfolding",
+      "restraint_or_subtraction",
+      "hedonic_potential_hypotheses",
+      "complication_risks"
+    ],
+    "required_claim_states": [
+      "DESIGN_HYPOTHESIS_NOT_TESTED",
+      "NOT_TESTED",
+      "HOLD"
+    ],
+    "forbidden_claims": [
+      "row count proves quality",
+      "more ingredients means more richness",
+      "module count proves depth",
+      "physical liking is established",
+      "modeled headspace is measured headspace",
+      "planned or depleted stock was physically added"
+    ],
+    "required_sections": [
+      "target_identity",
+      "functional_architecture",
+      "depth_and_richness_analysis",
+      "target_ideal_formula",
+      "current_inventory_build",
+      "missing_chemical_impact",
+      "controlled_test_plan",
+      "claims",
+      "conflicts_and_holds",
+      "answer_markdown"
+    ]
+  },
+  "shared_module_inputs": {
+    "construction_sparse": {
+      "materials": [
+        {
+          "name": "Iris core",
+          "oav": 8.0,
+          "intensity": 1.8,
+          "functional_groups": [
+            "iris"
+          ]
+        },
+        {
+          "name": "Zenolide",
+          "oav": 2.0,
+          "intensity": 1.1,
+          "functional_groups": [
+            "musk"
+          ]
+        }
+      ],
+      "frames": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "materials": [
+            {
+              "name": "Iris core",
+              "oav": 8.0,
+              "intensity": 1.8
+            },
+            {
+              "name": "Zenolide",
+              "oav": 1.2,
+              "intensity": 0.8
+            }
+          ]
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 7200.0,
+          "materials": [
+            {
+              "name": "Iris core",
+              "oav": 2.0,
+              "intensity": 0.9
+            },
+            {
+              "name": "Zenolide",
+              "oav": 2.0,
+              "intensity": 1.1
+            }
+          ]
+        }
+      ],
+      "inputs": {
+        "foreground_materials": [
+          "Iris core"
+        ],
+        "background_materials": [
+          "Zenolide"
+        ]
+      }
+    },
+    "construction_layered": {
+      "materials": [
+        {
+          "name": "Iris core",
+          "oav": 8.0,
+          "intensity": 1.8
+        },
+        {
+          "name": "Zenolide",
+          "oav": 2.0,
+          "intensity": 1.0
+        },
+        {
+          "name": "Habanolide",
+          "oav": 1.4,
+          "intensity": 0.7
+        }
+      ],
+      "frames": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "materials": [
+            {
+              "name": "Iris core",
+              "oav": 8.0,
+              "intensity": 1.8
+            },
+            {
+              "name": "Habanolide",
+              "oav": 1.4,
+              "intensity": 0.7
+            }
+          ]
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 7200.0,
+          "materials": [
+            {
+              "name": "Iris core",
+              "oav": 2.0,
+              "intensity": 0.9
+            },
+            {
+              "name": "Zenolide",
+              "oav": 2.0,
+              "intensity": 1.0
+            }
+          ]
+        }
+      ],
+      "inputs": {
+        "foreground_materials": [
+          "Iris core"
+        ],
+        "background_materials": [
+          "Zenolide",
+          "Habanolide"
+        ]
+      }
+    },
+    "construction_compact": {
+      "materials": [
+        {
+          "name": "Recognizer",
+          "oav": 12.0,
+          "intensity": 2.1
+        },
+        {
+          "name": "Bridge",
+          "oav": 4.0,
+          "intensity": 1.3
+        },
+        {
+          "name": "Texture",
+          "oav": 2.0,
+          "intensity": 0.9
+        },
+        {
+          "name": "Residue",
+          "oav": 1.2,
+          "intensity": 0.6
+        }
+      ],
+      "frames": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "materials": [
+            {
+              "name": "Recognizer",
+              "oav": 12.0,
+              "intensity": 2.1
+            },
+            {
+              "name": "Bridge",
+              "oav": 4.0,
+              "intensity": 1.3
+            }
+          ]
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 7200.0,
+          "materials": [
+            {
+              "name": "Texture",
+              "oav": 2.0,
+              "intensity": 0.9
+            },
+            {
+              "name": "Residue",
+              "oav": 1.2,
+              "intensity": 0.6
+            }
+          ]
+        }
+      ],
+      "inputs": {
+        "foreground_materials": [
+          "Recognizer",
+          "Bridge"
+        ],
+        "background_materials": [
+          "Texture",
+          "Residue"
+        ]
+      }
+    },
+    "construction_bloated": {
+      "materials": [
+        {"name": "Recognizer", "oav": 12.0, "intensity": 2.1},
+        {"name": "Recognizer 10%", "oav": 10.0, "intensity": 2.0},
+        {"name": "Recognizer trace", "oav": 0.2, "intensity": 0.1},
+        {"name": "Bridge", "oav": 4.0, "intensity": 1.3},
+        {"name": "Bridge duplicate", "oav": 3.8, "intensity": 1.2},
+        {"name": "Support 01", "oav": 1.1, "intensity": 0.6},
+        {"name": "Support 02", "oav": 1.1, "intensity": 0.6},
+        {"name": "Support 03", "oav": 1.1, "intensity": 0.6},
+        {"name": "Support 04", "oav": 0.8, "intensity": 0.4},
+        {"name": "Support 05", "oav": 0.7, "intensity": 0.3},
+        {"name": "Decorative 01", "oav": 0.2, "intensity": 0.1},
+        {"name": "Decorative 02", "oav": 0.2, "intensity": 0.1},
+        {"name": "Decorative 03", "oav": 0.2, "intensity": 0.1},
+        {"name": "Decorative 04", "oav": 0.2, "intensity": 0.1},
+        {"name": "Decorative 05", "oav": 0.2, "intensity": 0.1},
+        {"name": "Decorative 06", "oav": 0.1, "intensity": 0.1},
+        {"name": "Decorative 07", "oav": 0.1, "intensity": 0.1},
+        {"name": "Decorative 08", "oav": 0.1, "intensity": 0.1},
+        {"name": "Decorative 09", "oav": 0.1, "intensity": 0.1},
+        {"name": "Decorative 10", "oav": 0.1, "intensity": 0.1}
+      ],
+      "frames": [
+        {
+          "label": "opening",
+          "t_seconds": 0.0,
+          "materials": [
+            {"name": "Recognizer", "oav": 12.0, "intensity": 2.1},
+            {"name": "Bridge", "oav": 4.0, "intensity": 1.3},
+            {"name": "Support 01", "oav": 1.1, "intensity": 0.6}
+          ]
+        },
+        {
+          "label": "drydown",
+          "t_seconds": 7200.0,
+          "materials": [
+            {"name": "Recognizer", "oav": 2.0, "intensity": 0.9},
+            {"name": "Support 02", "oav": 1.1, "intensity": 0.6},
+            {"name": "Support 03", "oav": 1.1, "intensity": 0.6}
+          ]
+        }
+      ],
+      "inputs": {
+        "foreground_materials": ["Recognizer", "Bridge"],
+        "background_materials": ["Support 01", "Support 02", "Support 03"]
+      }
+    },
+    "musk_sparse": {
+      "target_identity": "quiet violet textile with negative space",
+      "target_brief": null,
+      "candidates": [
+        {
+          "material": "Zenolide",
+          "role": "DEPTH",
+          "target_function": "one cool clean skin-depth plane without laundry bloom",
+          "why_nonredundant": "the architecture has no other musk plane",
+          "inventory_state": "OWNED",
+          "exact_stock_ref": "inventory:Zenolide:neat",
+          "exception": null,
+          "fingerprint": null
+        }
+      ],
+      "pairwise_nonredundancy": []
+    },
+    "musk_layered": {
+      "target_identity": "dry iris with close skin depth and a narrow metallic aura",
+      "target_brief": {
+        "required_character": "dry iris over quiet skin with a narrow metallic aura",
+        "unwanted_character": "laundry bloom and sweet blur",
+        "temporal_behavior": "airy lift settling into close skin depth",
+        "projection_intimacy": "narrow aura over an intimate base",
+        "texture": "dry fine-grained skin and metal contrast",
+        "system_connections": ["iris heart", "dry woods base"]
+      },
+      "candidates": [
+        {
+          "material": "Zenolide",
+          "role": "DEPTH",
+          "target_function": "close dry skin depth under the iris",
+          "why_nonredundant": "owns the intimate base plane",
+          "inventory_state": "OWNED",
+          "exact_stock_ref": "inventory:Zenolide:neat",
+          "exception": null,
+          "fingerprint": {
+            "material": "Zenolide",
+            "exact_target_effect": "close dry skin depth",
+            "temporal_window": "late heart through drydown",
+            "texture_axis": "dry skin",
+            "projection_axis": "intimate",
+            "character_axis": "cool clean",
+            "interaction_risks": ["can flatten iris if dominant"],
+            "evidence_refs": ["design-hypothesis:cx-a02"],
+            "claim_status": "PHYSICAL_TEST_REQUIRED"
+          }
+        },
+        {
+          "material": "Habanolide",
+          "role": "PROJECTION",
+          "target_function": "narrow metallic aura above the iris",
+          "why_nonredundant": "owns the controlled outward aura",
+          "inventory_state": "OWNED",
+          "exact_stock_ref": "inventory:Habanolide:neat",
+          "exception": null,
+          "fingerprint": {
+            "material": "Habanolide",
+            "exact_target_effect": "narrow metallic aura",
+            "temporal_window": "opening through late heart",
+            "texture_axis": "metallic air",
+            "projection_axis": "narrow outward aura",
+            "character_axis": "cool metal",
+            "interaction_risks": ["can create detergent lift if overasserted"],
+            "evidence_refs": ["design-hypothesis:cx-a02"],
+            "claim_status": "PHYSICAL_TEST_REQUIRED"
+          }
+        }
+      ],
+      "pairwise_nonredundancy": [
+        {
+          "material_a": "Zenolide",
+          "material_b": "Habanolide",
+          "distinct_function_a": "close dry skin depth under the iris",
+          "distinct_function_b": "narrow metallic aura above the iris",
+          "loss_if_a_omitted": "the base becomes hollow and loses intimacy",
+          "loss_if_b_omitted": "the iris loses its controlled aura",
+          "collision_risk": "metallic cleanliness could flatten the skin contrast",
+          "controlled_comparison": "full layer versus strongest single musk and each one-at-a-time omission"
+        }
+      ]
+    },
+    "musk_exception_block": {
+      "target_identity": "clean restrained musk with no evidence for blocked materials",
+      "target_brief": null,
+      "candidates": [
+        {
+          "material": "Tonalide",
+          "role": "DEPTH",
+          "target_function": "generic support",
+          "why_nonredundant": "no unique function established",
+          "inventory_state": "DEPLETED",
+          "exact_stock_ref": null,
+          "exception": null,
+          "fingerprint": null
+        },
+        {
+          "material": "Macrolide",
+          "role": "PROJECTION",
+          "target_function": "generic support",
+          "why_nonredundant": "no unique function established",
+          "inventory_state": "DEPLETED",
+          "exact_stock_ref": null,
+          "exception": null,
+          "fingerprint": null
+        },
+        {
+          "material": "Musk Ketone",
+          "role": "CHARACTER_ECHO",
+          "target_function": "generic support",
+          "why_nonredundant": "no unique function established",
+          "inventory_state": "DEPLETED",
+          "exact_stock_ref": null,
+          "exception": null,
+          "fingerprint": null
+        }
+      ],
+      "pairwise_nonredundancy": []
+    },
+    "musk_macrolide_exception": {
+      "target_identity": "minimal skin whisper requiring a uniquely soft disappearing residue",
+      "target_brief": null,
+      "candidates": [
+        {
+          "material": "Macrolide",
+          "role": "CHARACTER_ECHO",
+          "target_function": "specific barely-there residue that preserves the disappearing target",
+          "why_nonredundant": "admitted alternatives leave a stronger or cleaner signature",
+          "inventory_state": "DEPLETED",
+          "exact_stock_ref": null,
+          "exception": {
+            "material": "Macrolide",
+            "target_tonal_role": "barely-there soft residue at the edge of disappearance",
+            "why_alternatives_fail": "the strongest alternatives leave a more projected or identifiable clean trail",
+            "loss_if_omitted": "the transition from skin warmth to disappearance becomes abrupt",
+            "failure_mode": "too much creates anonymous soft blur",
+            "omission_control": "same architecture with Macrolide omitted and carrier matched",
+            "alternative_control": "same architecture with the strongest clean macrocyclic alternative in the same role"
+          },
+          "fingerprint": null
+        }
+      ],
+      "pairwise_nonredundancy": []
+    },
+    "admission_design_pass": {
+      "operation": "model_admission",
+      "model_id": "CX-DESIGN",
+      "version": "1.0.0",
+      "claim_scope": "DESIGN",
+      "parent_model_ids": ["CX-DESIGN-v0"],
+      "source_hashes": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "supersession_state": "ADDITIVE",
+      "gate_evidence": [
+        {"gate_id": "M0", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M1", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M5", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M16", "state": "PASS", "evidence_links": [], "reason": null}
+      ],
+      "formula_sha256": null,
+      "oav_binding": null,
+      "repository_canary_pass": false,
+      "no_scalar_compensation": true
+    },
+    "admission_design_pending": {
+      "operation": "model_admission",
+      "model_id": "CX-DESIGN",
+      "version": "1.0.0",
+      "claim_scope": "DESIGN",
+      "parent_model_ids": ["CX-DESIGN-v0"],
+      "source_hashes": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "supersession_state": "ADDITIVE",
+      "gate_evidence": [
+        {"gate_id": "M0", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M1", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M5", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M16", "state": "HOLD", "evidence_links": [], "reason": "procurement pending and ExactStockRef absent"}
+      ],
+      "formula_sha256": null,
+      "oav_binding": null,
+      "repository_canary_pass": false,
+      "no_scalar_compensation": true
+    },
+    "admission_design_conflict": {
+      "operation": "model_admission",
+      "model_id": "CX-DESIGN",
+      "version": "1.0.0",
+      "claim_scope": "DESIGN",
+      "parent_model_ids": ["CX-DESIGN-v0"],
+      "source_hashes": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "supersession_state": "ADDITIVE",
+      "gate_evidence": [
+        {"gate_id": "M0", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M1", "state": "CONFLICT_HOLD", "evidence_links": [], "reason": "same-scope stock-strength sources conflict"},
+        {"gate_id": "M5", "state": "PASS", "evidence_links": [], "reason": null},
+        {"gate_id": "M16", "state": "PASS", "evidence_links": [], "reason": null}
+      ],
+      "formula_sha256": null,
+      "oav_binding": null,
+      "repository_canary_pass": false,
+      "no_scalar_compensation": true
+    },
+    "expansion_default": {
+      "registry": {
+        "domains": [{"domain_id": "DX-01"}, {"domain_id": "DX-02"}],
+        "directions": [
+          {
+            "direction_id": "ED-001",
+            "domain_id": "DX-01",
+            "title": "Functional contrast",
+            "origin": "INHERITED_V1",
+            "current_state": "FORMAL MODEL / REGISTRY",
+            "priority": "P0",
+            "evidence_ceiling": "DESIGN",
+            "formula_mutation_authorized": false
+          },
+          {
+            "direction_id": "ED-002",
+            "domain_id": "DX-02",
+            "title": "Temporal handoff",
+            "origin": "NEW_V2_FRONTIER",
+            "current_state": "MISSING_OR_UNDERFORMALIZED",
+            "priority": "P1",
+            "evidence_ceiling": "DESIGN_ONLY",
+            "mechanism_contract": "Compare matched alternatives over time.",
+            "first_discriminator": "Blind timepoint-specific difference.",
+            "failure_mode": "Apparatus or order artifact.",
+            "formula_mutation_authorized": false
+          }
+        ]
+      },
+      "source_package_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "frontier_values": [
+        {"direction_id": "ED-001", "impact": 0.8, "information_gain": 0.8},
+        {"direction_id": "ED-002", "impact": 0.6, "information_gain": 0.9}
+      ],
+      "discovery_rounds": [],
+      "declared_scope": "bounded benchmark review"
+    },
+    "nary_design": {
+      "operation": "nary_interaction",
+      "candidate": {
+        "interaction_id": "floral-suede-one",
+        "evidence_state": "EXPERIMENT_DESIGN",
+        "participants": [
+          {"material_id": "osmanthus", "role": "foreground", "ratio": "0.5"},
+          {"material_id": "suede", "role": "bridge", "ratio": "0.3"},
+          {"material_id": "musk", "role": "support", "ratio": "0.2"}
+        ],
+        "formula_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "formula_signature_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "matrix_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "pairwise_evidence_refs": ["PAIR-1", "PAIR-2"],
+        "causal_isolate_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "experiment_design_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+        "experiment_execution_sha256": null,
+        "observation_receipt_sha256s": [],
+        "oav_binding": {
+          "formula_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "dose_receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "oav_result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "quantitative_ppm_status": "PASS",
+          "odt_authority_status": "PASS",
+          "odt_coverage_status": "PASS",
+          "natural_composite_coverage_status": "PASS",
+          "headspace_scope_status": "PASS",
+          "receipt_binding_status": "BOUND_GATE_RECEIPT",
+          "strict_oav_status": "NOT_TESTED",
+          "pre_mix_gate_status": "PASS",
+          "planned_active_equivalence_status": "PASS",
+          "formula_is_revision": false,
+          "parent_formula_sha256": null,
+          "oav_per_time_role": "SCREENING_ONLY"
+        }
+      }
+    },
+    "nary_hypothesis": {
+      "operation": "nary_interaction",
+      "candidate": {
+        "interaction_id": "floral-suede-one",
+        "evidence_state": "HYPOTHESIS",
+        "participants": [
+          {"material_id": "osmanthus", "role": "foreground", "ratio": "0.5"},
+          {"material_id": "suede", "role": "bridge", "ratio": "0.3"},
+          {"material_id": "musk", "role": "support", "ratio": "0.2"}
+        ],
+        "formula_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "formula_signature_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "matrix_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "pairwise_evidence_refs": ["PAIR-1", "PAIR-2"],
+        "causal_isolate_sha256": null,
+        "experiment_design_sha256": null,
+        "experiment_execution_sha256": null,
+        "observation_receipt_sha256s": [],
+        "oav_binding": null
+      }
+    },
+    "within_sniff_valid": {
+      "operation": "within_sniff",
+      "sequence_id": "WS-01",
+      "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "apparatus_kind": "PULSE_OLFACTOMETER",
+      "apparatus_receipt_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "pulses": [
+        {"channel": "A", "onset_ms": "0", "duration_ms": "80", "delivered_mass": "1", "delivered_mass_unit": "mg"},
+        {"channel": "B", "onset_ms": "80", "duration_ms": "80", "delivered_mass": "1", "delivered_mass_unit": "mg"}
+      ],
+      "counterbalanced_orders": [["A", "B"], ["B", "A"]],
+      "claim_ceiling": "DESIGN_ONLY",
+      "matched_total_delivered_mass": true,
+      "oav_binding": {
+        "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dose_receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "oav_result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "quantitative_ppm_status": "PASS",
+        "odt_authority_status": "PASS",
+        "odt_coverage_status": "PASS",
+        "natural_composite_coverage_status": "PASS",
+        "headspace_scope_status": "PASS",
+        "receipt_binding_status": "BOUND_GATE_RECEIPT",
+        "strict_oav_status": "ABSTAINED",
+        "pre_mix_gate_status": "PASS",
+        "planned_active_equivalence_status": "NOT_APPLICABLE_NEW_FORMULA",
+        "formula_is_revision": false,
+        "parent_formula_sha256": null,
+        "oav_per_time_role": "SCREENING_ONLY"
+      },
+      "apparatus_qualified": false,
+      "delivered_mass_receipt_sha256": null,
+      "evidence_links": []
+    },
+    "within_sniff_static": {
+      "operation": "within_sniff",
+      "sequence_id": "WS-01",
+      "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "apparatus_kind": "STATIC_BLOTTER",
+      "apparatus_receipt_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "pulses": [
+        {"channel": "A", "onset_ms": "0", "duration_ms": "80", "delivered_mass": "1", "delivered_mass_unit": "mg"},
+        {"channel": "B", "onset_ms": "80", "duration_ms": "80", "delivered_mass": "1", "delivered_mass_unit": "mg"}
+      ],
+      "counterbalanced_orders": [["A", "B"], ["B", "A"]],
+      "claim_ceiling": "DESIGN_ONLY",
+      "matched_total_delivered_mass": true,
+      "oav_binding": {
+        "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dose_receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "oav_result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "quantitative_ppm_status": "PASS",
+        "odt_authority_status": "PASS",
+        "odt_coverage_status": "PASS",
+        "natural_composite_coverage_status": "PASS",
+        "headspace_scope_status": "PASS",
+        "receipt_binding_status": "BOUND_GATE_RECEIPT",
+        "strict_oav_status": "ABSTAINED",
+        "pre_mix_gate_status": "PASS",
+        "planned_active_equivalence_status": "NOT_APPLICABLE_NEW_FORMULA",
+        "formula_is_revision": false,
+        "parent_formula_sha256": null,
+        "oav_per_time_role": "SCREENING_ONLY"
+      },
+      "apparatus_qualified": false,
+      "delivered_mass_receipt_sha256": null,
+      "evidence_links": []
+    },
+    "admission_analytical_strict": {
+      "operation": "model_admission",
+      "model_id": "CX-OAV",
+      "version": "1.0.0",
+      "claim_scope": "ANALYTICAL",
+      "parent_model_ids": ["CX-OAV-v0"],
+      "source_hashes": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "supersession_state": "ADDITIVE",
+      "gate_evidence": [
+        {"gate_id": "M0", "state": "PASS", "evidence_links": ["receipt:M0"], "reason": null},
+        {"gate_id": "M1", "state": "PASS", "evidence_links": ["receipt:M1"], "reason": null},
+        {"gate_id": "M2", "state": "PASS", "evidence_links": ["receipt:M2"], "reason": null},
+        {"gate_id": "M3", "state": "PASS", "evidence_links": ["receipt:M3"], "reason": null},
+        {"gate_id": "M4", "state": "PASS", "evidence_links": ["receipt:M4"], "reason": null},
+        {"gate_id": "M5", "state": "PASS", "evidence_links": ["receipt:M5"], "reason": null},
+        {"gate_id": "M7", "state": "PASS", "evidence_links": ["receipt:M7"], "reason": null},
+        {"gate_id": "M12", "state": "PASS", "evidence_links": ["receipt:M12"], "reason": null},
+        {"gate_id": "M13", "state": "PASS", "evidence_links": ["receipt:M13"], "reason": null},
+        {"gate_id": "M14", "state": "PASS", "evidence_links": ["receipt:M14"], "reason": null},
+        {"gate_id": "M16", "state": "PASS", "evidence_links": ["receipt:M16"], "reason": null}
+      ],
+      "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "oav_binding": {
+        "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dose_receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "oav_result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "quantitative_ppm_status": "PASS",
+        "odt_authority_status": "PASS",
+        "odt_coverage_status": "PASS",
+        "natural_composite_coverage_status": "PASS",
+        "headspace_scope_status": "PASS",
+        "receipt_binding_status": "BOUND_GATE_RECEIPT",
+        "strict_oav_status": "COMPUTED",
+        "pre_mix_gate_status": "PASS",
+        "planned_active_equivalence_status": "NOT_APPLICABLE_NEW_FORMULA",
+        "formula_is_revision": false,
+        "parent_formula_sha256": null,
+        "oav_per_time_role": "SCREENING_ONLY"
+      },
+      "repository_canary_pass": false,
+      "no_scalar_compensation": true
+    },
+    "admission_analytical_modeled": {
+      "operation": "model_admission",
+      "model_id": "CX-OAV",
+      "version": "1.0.0",
+      "claim_scope": "ANALYTICAL",
+      "parent_model_ids": ["CX-OAV-v0"],
+      "source_hashes": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "supersession_state": "ADDITIVE",
+      "gate_evidence": [
+        {"gate_id": "M0", "state": "PASS", "evidence_links": ["receipt:M0"], "reason": null},
+        {"gate_id": "M1", "state": "PASS", "evidence_links": ["receipt:M1"], "reason": null},
+        {"gate_id": "M2", "state": "PASS", "evidence_links": ["receipt:M2"], "reason": null},
+        {"gate_id": "M3", "state": "PASS", "evidence_links": ["receipt:M3"], "reason": null},
+        {"gate_id": "M4", "state": "PASS", "evidence_links": ["receipt:M4"], "reason": null},
+        {"gate_id": "M5", "state": "PASS", "evidence_links": ["receipt:M5"], "reason": null},
+        {"gate_id": "M7", "state": "PASS", "evidence_links": ["receipt:M7"], "reason": null},
+        {"gate_id": "M12", "state": "PASS", "evidence_links": ["receipt:M12"], "reason": null},
+        {"gate_id": "M13", "state": "PASS", "evidence_links": ["receipt:M13"], "reason": null},
+        {"gate_id": "M14", "state": "PASS", "evidence_links": ["receipt:M14"], "reason": null},
+        {"gate_id": "M16", "state": "PASS", "evidence_links": ["receipt:M16"], "reason": null}
+      ],
+      "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "oav_binding": {
+        "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dose_receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "oav_result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "quantitative_ppm_status": "PASS",
+        "odt_authority_status": "PASS",
+        "odt_coverage_status": "PASS",
+        "natural_composite_coverage_status": "PASS",
+        "headspace_scope_status": "MODELED_ONLY",
+        "receipt_binding_status": "BOUND_GATE_RECEIPT",
+        "strict_oav_status": "ABSTAINED",
+        "pre_mix_gate_status": "PASS",
+        "planned_active_equivalence_status": "NOT_APPLICABLE_NEW_FORMULA",
+        "formula_is_revision": false,
+        "parent_formula_sha256": null,
+        "oav_per_time_role": "SCREENING_ONLY"
+      },
+      "repository_canary_pass": false,
+      "no_scalar_compensation": true
+    }
+  },
+  "contrastive_pairs": [
+    {"pair_id": "P01", "case_ids": ["CX-A01", "CX-A02"], "single_changed_fact": "the target independently requires one musk function versus two distinct nonredundant musk functions"},
+    {"pair_id": "P02", "case_ids": ["CX-A03", "CX-A04"], "single_changed_fact": "functional independence is replaced by redundant rows while the apparent material count rises"},
+    {"pair_id": "P03", "case_ids": ["CX-B01", "CX-B02"], "single_changed_fact": "the exact specialist stock changes from owned and verified to procurement pending"},
+    {"pair_id": "P04", "case_ids": ["CX-B03", "CX-B04"], "single_changed_fact": "same-scope stock sources change from consistent to conflicting"},
+    {"pair_id": "P05", "case_ids": ["CX-C01", "CX-C02"], "single_changed_fact": "the named blocked musks change from generic padding to one complete target-specific exception"},
+    {"pair_id": "P06", "case_ids": ["CX-C03", "CX-C04"], "single_changed_fact": "the same n-ary interaction changes from experiment-design evidence to structured hypothesis only"},
+    {"pair_id": "P07", "case_ids": ["CX-D01", "CX-D02"], "single_changed_fact": "the delivery apparatus changes from counterbalanced pulse delivery to a static blotter"},
+    {"pair_id": "P08", "case_ids": ["CX-D03", "CX-D04"], "single_changed_fact": "matched measured gas-phase evidence is replaced by modeled headspace only"}
+  ],
+  "cases": [
+    {
+      "case_id": "CX-A01",
+      "category": "TARGET_ARCHITECTURE",
+      "target_name": "Sparse Violet Textile",
+      "target_identity": "violet textile detail with one cool clean skin-depth musk and deliberate negative space",
+      "brief": "One verified Zenolide plane already supplies the required skin-depth function. Decide whether any additional musk would add target-linked depth or merely blur the violet textile detail.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-a01"],
+      "evidence_sha256s": ["1111111111111111111111111111111111111111111111111111111111111111"],
+      "relevant_families": ["construction_profile", "musk_design_restraint"],
+      "module_input_refs": {"construction_profile": "construction_sparse", "musk_design_restraint": "musk_sparse"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["REDUNDANCY", "NEEDED_SUBTRACTION"],
+        "critical_traps": ["C06_MUSK", "C07_GAMING"],
+        "musk_case_mode": "SPARSE",
+        "exception_materials": [],
+        "case_key": "one precise musk is sufficient; do not force a chord"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-A01-0000000000000001"
+    },
+    {
+      "case_id": "CX-A02",
+      "category": "TARGET_ARCHITECTURE",
+      "target_name": "Layered Iris Skin and Metal",
+      "target_identity": "dry iris requiring both close skin depth and a narrow metallic aura",
+      "brief": "The target independently requires an intimate dry skin plane and a narrow metallic aura. Evaluate the two-musks design only through target brief, material fingerprints, every pairwise distinction, strongest-single control, and one-at-a-time omissions.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-a02"],
+      "evidence_sha256s": ["2222222222222222222222222222222222222222222222222222222222222222"],
+      "relevant_families": ["construction_profile", "musk_design_restraint"],
+      "module_input_refs": {"construction_profile": "construction_layered", "musk_design_restraint": "musk_layered"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["REDUNDANCY", "MUD"],
+        "critical_traps": ["C06_MUSK", "C09_TEST"],
+        "musk_case_mode": "LAYERED",
+        "exception_materials": [],
+        "case_key": "layering is conditional on complete pairwise nonredundancy and controls"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-A02-0000000000000002"
+    },
+    {
+      "case_id": "CX-A03",
+      "category": "TARGET_ARCHITECTURE",
+      "target_name": "Compact Complete Architecture",
+      "target_identity": "compact identity with recognizer bridge texture and residue functions",
+      "brief": "The compact design has four functionally independent roles and a legible opening-to-residue handoff. Assess depth without penalizing its low row count or inventing physical liking.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-a03"],
+      "evidence_sha256s": ["3333333333333333333333333333333333333333333333333333333333333333"],
+      "relevant_families": ["construction_profile"],
+      "module_input_refs": {"construction_profile": "construction_compact"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["BLOAT", "NEEDED_SUBTRACTION"],
+        "critical_traps": ["C07_GAMING", "C05_EMPIRICAL"],
+        "case_key": "compact functionally complete architecture is not penalized for sparsity"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-A03-0000000000000003"
+    },
+    {
+      "case_id": "CX-A04",
+      "category": "TARGET_ARCHITECTURE",
+      "target_name": "Eighty-Two Row Decorative Bloat",
+      "target_identity": "same recognizer target obscured by duplicate strengths redundant supports and decorative traces",
+      "brief": "The supplied 82 rows collapse to 20 representative unique labels after carriers and duplicate strengths are compacted; most surviving supports are functionally redundant or below their declared perceptual purpose. Diagnose and prune rather than praising count or technical density.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-a04"],
+      "evidence_sha256s": ["4444444444444444444444444444444444444444444444444444444444444444"],
+      "relevant_families": ["construction_profile"],
+      "module_input_refs": {"construction_profile": "construction_bloated"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["BLOAT", "REDUNDANCY", "MUD", "SUPERFICIAL_DIVERSITY", "NEEDED_SUBTRACTION"],
+        "critical_traps": ["C01_TARGET", "C07_GAMING"],
+        "case_key": "high count with weak functional independence requires pruning"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-A04-0000000000000004"
+    },
+    {
+      "case_id": "CX-B01",
+      "category": "RECONSTRUCTION_REVISION",
+      "target_name": "Owned Muguet Specialist",
+      "target_identity": "muguet reconstruction whose specialist row has verified identity and stock reference",
+      "brief": "The target architecture is fixed independently of inventory. The exact specialist is owned with verified strength basis carrier and ExactStockRef; state what remains test-required before current-build integration.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-b01"],
+      "evidence_sha256s": ["5555555555555555555555555555555555555555555555555555555555555555"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_pass"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C03_INVENTORY", "C05_EMPIRICAL"],
+        "case_key": "owned verified stock may enter only under controlled comparison"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-B01-0000000000000005"
+    },
+    {
+      "case_id": "CX-B02",
+      "category": "RECONSTRUCTION_REVISION",
+      "target_name": "Procurement-Pending Muguet Specialist",
+      "target_identity": "same muguet reconstruction with the specialist row procurement pending",
+      "brief": "Only availability changes: the specialist is procurement pending and lacks live ExactStockRef. Keep target architecture unchanged, exclude it from current build, and classify the functional loss without inventing a substitute.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-b02"],
+      "evidence_sha256s": ["6666666666666666666666666666666666666666666666666666666666666666"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_pending"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C02_SEPARATION", "C03_INVENTORY"],
+        "case_key": "procurement pending remains target-only and current-build HOLD"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-B02-0000000000000006"
+    },
+    {
+      "case_id": "CX-B03",
+      "category": "RECONSTRUCTION_REVISION",
+      "target_name": "Consistent Incense Tincture Basis",
+      "target_identity": "incense reconstruction with one verified product basis strength and source lineage",
+      "brief": "Same-scope sources agree on composition strength and product basis. Use only the verified basis while preserving solubility maturation and controlled-comparison holds.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-b03"],
+      "evidence_sha256s": ["7777777777777777777777777777777777777777777777777777777777777777"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_pass"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C03_INVENTORY"],
+        "case_key": "verified product basis is usable but no sensory result is inferred"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-B03-0000000000000007"
+    },
+    {
+      "case_id": "CX-B04",
+      "category": "RECONSTRUCTION_REVISION",
+      "target_name": "Conflicted Incense Tincture Basis",
+      "target_identity": "same incense reconstruction with conflicting same-scope strength records",
+      "brief": "Only source consistency changes: two current same-scope records disagree on product-basis strength. Do not invent active equivalence; preserve target intent and hold the weighable build.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-b04"],
+      "evidence_sha256s": ["8888888888888888888888888888888888888888888888888888888888888888"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_conflict"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C03_INVENTORY", "C08_CONFLICT"],
+        "case_key": "same-scope conflict remains explicit HOLD"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-B04-0000000000000008"
+    },
+    {
+      "case_id": "CX-C01",
+      "category": "MISSING_CHEMICAL_IMPACT",
+      "target_name": "Use Every Musk Request",
+      "target_identity": "clean restrained musk image with no target evidence for blocked legacy tones",
+      "brief": "A request says to use every available musk for complexity, but provides no target-specific need for Tonalide, Macrolide, or Musk Ketone. Decide under the exception and anti-padding rules; all three current stocks are depleted.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-c01"],
+      "evidence_sha256s": ["9999999999999999999999999999999999999999999999999999999999999999"],
+      "relevant_families": ["complexity_expansion", "musk_design_restraint"],
+      "module_input_refs": {"complexity_expansion": "expansion_default", "musk_design_restraint": "musk_exception_block"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["BLOAT", "REDUNDANCY", "INCOHERENT_NOVELTY", "NEEDED_SUBTRACTION"],
+        "critical_traps": ["C06_MUSK", "C07_GAMING"],
+        "musk_case_mode": "EXCEPTION_BLOCK",
+        "exception_materials": ["Tonalide", "Macrolide", "Musk Ketone"],
+        "case_key": "all named exception musks are omitted without a complete design call"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-C01-0000000000000009"
+    },
+    {
+      "case_id": "CX-C02",
+      "category": "MISSING_CHEMICAL_IMPACT",
+      "target_name": "Macrolide Target Exception",
+      "target_identity": "minimal skin whisper requiring a uniquely soft disappearing residue",
+      "brief": "A complete design dossier specifically requires Macrolide's barely-there residue and includes omission and strongest-alternative controls. Current Macrolide stock is depleted. Preserve ideal versus current-build separation and state what remains untested.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-c02"],
+      "evidence_sha256s": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+      "relevant_families": ["complexity_expansion", "musk_design_restraint"],
+      "module_input_refs": {"complexity_expansion": "expansion_default", "musk_design_restraint": "musk_macrolide_exception"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["INCOHERENT_NOVELTY", "NEEDED_SUBTRACTION"],
+        "critical_traps": ["C02_SEPARATION", "C03_INVENTORY", "C06_MUSK"],
+        "musk_case_mode": "EXCEPTION_TARGET_ONLY",
+        "exception_materials": ["Macrolide"],
+        "case_key": "complete exception is ideal-design available but current-build procurement HOLD"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-C02-000000000000000a"
+    },
+    {
+      "case_id": "CX-C03",
+      "category": "MISSING_CHEMICAL_IMPACT",
+      "target_name": "Osmanthus Suede Experiment Design",
+      "target_identity": "osmanthus suede interaction evaluated under a bound formula matrix and preregistered experiment design",
+      "brief": "The n-ary interaction has a formula-bound screening receipt, causal-isolate hash, and experiment-design receipt but no performed observations. State the bounded design status without promoting sensory truth.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-c03"],
+      "evidence_sha256s": ["bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"],
+      "relevant_families": ["admission_lifecycle", "experimental_design"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_pass", "experimental_design": "nary_design"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C04_EVIDENCE", "C09_TEST"],
+        "case_key": "experiment design is ready but no interaction winner or sensory benefit is established"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-C03-000000000000000b"
+    },
+    {
+      "case_id": "CX-C04",
+      "category": "MISSING_CHEMICAL_IMPACT",
+      "target_name": "Osmanthus Suede Structured Hypothesis",
+      "target_identity": "same osmanthus suede interaction with structured-hypothesis evidence only",
+      "brief": "Only evidence state changes: the same participants and matrix have no causal-isolate or experiment-design receipt. Reduce certainty to hypothesis-only and require direct controlled testing.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-c04"],
+      "evidence_sha256s": ["cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"],
+      "relevant_families": ["admission_lifecycle", "experimental_design"],
+      "module_input_refs": {"admission_lifecycle": "admission_design_pass", "experimental_design": "nary_hypothesis"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C04_EVIDENCE", "C09_TEST"],
+        "case_key": "structured hypothesis cannot be promoted to supported interaction"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-C04-000000000000000c"
+    },
+    {
+      "case_id": "CX-D01",
+      "category": "EXPERIMENTAL_EVIDENCE_DESIGN",
+      "target_name": "Counterbalanced Pulse Handoff",
+      "target_identity": "within-sniff temporal handoff tested with matched counterbalanced pulse delivery",
+      "brief": "The apparatus is a pulse olfactometer with matched delivered mass and reversed orders. Evaluate design validity while keeping perceived temporal depth and liking untested.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-d01"],
+      "evidence_sha256s": ["dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+      "relevant_families": ["construction_profile", "temporal_sensory_integrity"],
+      "module_input_refs": {"construction_profile": "construction_compact", "temporal_sensory_integrity": "within_sniff_valid"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["FLAT_DEVELOPMENT"],
+        "critical_traps": ["C05_EMPIRICAL", "C09_TEST"],
+        "case_key": "valid design does not equal observed perceptual depth"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-D01-000000000000000d"
+    },
+    {
+      "case_id": "CX-D02",
+      "category": "EXPERIMENTAL_EVIDENCE_DESIGN",
+      "target_name": "Static Blotter Handoff Claim",
+      "target_identity": "same claimed within-sniff handoff delivered on a static blotter",
+      "brief": "Only the apparatus changes: a static blotter is mislabeled as controlled pulse delivery. Reject the within-sniff claim and explain the exact apparatus control needed.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-d02"],
+      "evidence_sha256s": ["eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"],
+      "relevant_families": ["construction_profile", "temporal_sensory_integrity"],
+      "module_input_refs": {"construction_profile": "construction_compact", "temporal_sensory_integrity": "within_sniff_static"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": true,
+        "complication_failure_modes": ["FLAT_DEVELOPMENT", "SUPERFICIAL_DIVERSITY"],
+        "critical_traps": ["C05_EMPIRICAL", "C09_TEST"],
+        "case_key": "static blotter cannot establish within-sniff handoff"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-D02-000000000000000e"
+    },
+    {
+      "case_id": "CX-D03",
+      "category": "EXPERIMENTAL_EVIDENCE_DESIGN",
+      "target_name": "Measured Gas-Phase OAV Inputs",
+      "target_identity": "analytical comparison with measured gas-phase concentration at matched matrix and timepoint",
+      "brief": "Strict analytical OAV inputs are receipt-bound and computed for the exact matrix and timepoint. State what may be calculated and what still cannot be called percent sensory contribution or physical liking.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-d03"],
+      "evidence_sha256s": ["ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_analytical_strict"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C04_EVIDENCE", "C05_EMPIRICAL"],
+        "case_key": "strict OAV is analytical evidence not sensory contribution or liking"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-D03-000000000000000f"
+    },
+    {
+      "case_id": "CX-D04",
+      "category": "EXPERIMENTAL_EVIDENCE_DESIGN",
+      "target_name": "Modeled Headspace OAV Inputs",
+      "target_identity": "same analytical comparison with modeled headspace only",
+      "brief": "Only measurement state changes: gas-phase concentration is modeled rather than measured and strict OAV is abstained. Withhold strict and measured-headspace language while reporting bounded modeled quantities.",
+      "inventory_authority_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "inventory_reconciliation_state": "MATCH",
+      "evidence_refs": ["corpus:cx-d04"],
+      "evidence_sha256s": ["0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"],
+      "relevant_families": ["admission_lifecycle"],
+      "module_input_refs": {"admission_lifecycle": "admission_analytical_modeled"},
+      "expected_invariants": {
+        "complexity_definition_ref": "useful_depth_v1",
+        "valid_response_ref": "response_contract_v1",
+        "anti_complication_case": false,
+        "complication_failure_modes": [],
+        "critical_traps": ["C04_EVIDENCE", "C05_EMPIRICAL"],
+        "case_key": "modeled headspace cannot be relabeled measured or strict"
+      },
+      "permitted_claim_ceiling": "COMPUTATIONAL_DESIGN_ONLY",
+      "nonce": "CX-D04-0000000000000010"
+    }
+  ]
+}

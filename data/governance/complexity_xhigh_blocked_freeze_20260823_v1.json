@@ -1,0 +1,167 @@
+{
+  "schema_version": "complexity_xhigh_blocked_freeze_v1",
+  "receipt_id": "complexity-xhigh-blocked-freeze-20260823-v1",
+  "benchmark_state": "FROZEN_BLOCKED_PENDING_CHAT",
+  "freeze_reason": "USER_REQUESTED_RESULTS_AND_STOP_BEFORE_UNFINISHED_MODULE_CHATS",
+  "run_id": "CMR-20260823-decision-cards-v2",
+  "model_identity": "ChatGPT 5.6 Sol Extra High",
+  "surface": "Work",
+  "context_contract": "FRESH_PROJECTLESS_CONVERSATION_PER_REQUEST",
+  "source_pins": {
+    "screen_manifest": {
+      "path": "output/complexity_module_retest/CMR-20260823-decision-cards-v2/screen_manifest.json",
+      "sha256": "5c9539853454306be6020b9c0d2a7abce733a84f46f413ad424ddbedf298f5b2"
+    },
+    "screen_envelopes": {
+      "path": "output/complexity_module_retest/CMR-20260823-decision-cards-v2/screen_envelopes.json",
+      "sha256": "cb23e6ea08a37a3c3d16990473f606c387ebc3ecc75dd85db1e6d9f9948d7e47"
+    },
+    "initial_response_integrity_audit": {
+      "path": "output/complexity_module_retest/CMR-20260823-decision-cards-v2/response_integrity_audit.json",
+      "sha256": "0428963e4c66442360e8298cb6488f16ce8cf4906f619d5036dd0528ce7b548d",
+      "responses_visually_reverified": 16,
+      "clipboard_corrections": 3
+    },
+    "inventory_amended_candidate_freeze": {
+      "path": "data/governance/complexity_decision_card_candidate_freeze_20260823_v3.json",
+      "sha256": "bf86b3a3f5345ef4b269364228b85bf6398579eca87f96cb041bd0e8cdd75923"
+    },
+    "complete_inventory_catalog": {
+      "path": "data/governance/complexity_inventory_catalog_v1.json",
+      "sha256": "bdc3904b97cefc4bad34e0914c706455d50d383f331587385e9eb35539b1b037"
+    },
+    "repository_head": "960a6765a0b0c151ad6a320229b3bba2cc0d71b3"
+  },
+  "execution_census": {
+    "planned_requests": 60,
+    "completed_responses": 33,
+    "succeeded_responses": 33,
+    "pending_requests": 27,
+    "response_hash_errors": 0,
+    "visible_dom_receipts": 20,
+    "prior_copy_receipts_visually_reverified": 13
+  },
+  "completed_module_screens": {
+    "construction_profile": {
+      "screen_pairs_completed": 3,
+      "material_treatment_wins": 0,
+      "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+      "reason": "Control identified temporal depth, protected negative space, and rejected row-count complexity at equal or better rigor.",
+      "confirmation_phase_started": false,
+      "runtime_disposition": "KEEP_RETIRED"
+    },
+    "complexity_expansion": {
+      "screen_pairs_completed": 3,
+      "material_treatment_wins": 0,
+      "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+      "reason": "Control selected the minimum nonredundant expansion and rejected redundant frontier moves without module assistance.",
+      "confirmation_phase_started": false,
+      "runtime_disposition": "KEEP_RETIRED"
+    },
+    "musk_design_restraint": {
+      "screen_pairs_completed": 3,
+      "material_treatment_wins": 0,
+      "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+      "reason": "Control correctly chose one Habanolide, accepted zero musk, rejected the four-musk count trap, and supplied stronger conditional testing in key cases.",
+      "confirmation_phase_started": false,
+      "runtime_disposition": "KEEP_RETIRED"
+    },
+    "citrus_selection": {
+      "screen_pairs_completed": 3,
+      "material_treatment_wins": 0,
+      "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+      "reason": "Control kept Bergamot primary, Neroli 10% support-only, accepted citrus omission, and rejected the Neroli-primary substitution trap with equal or better experimental discipline.",
+      "confirmation_phase_started": false,
+      "runtime_disposition": "KEEP_NONRUNTIME"
+    },
+    "model_admission": {
+      "screen_pairs_completed": 3,
+      "material_treatment_wins": 0,
+      "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+      "reason": "Control admitted exact design scope, held missing preprocessing identity, and rejected scalar compensation of failed M5 gates without assistance.",
+      "confirmation_phase_started": false,
+      "runtime_disposition": "KEEP_RETIRED"
+    }
+  },
+  "partial_module_screens": {
+    "model_lifecycle": {
+      "completed_responses": 3,
+      "complete_pairs": 1,
+      "unpaired_controls": 1,
+      "completed_cases": [
+        "CM-LIF-01",
+        "CM-LIF-02_CONTROL_ONLY"
+      ],
+      "decision": "INCONCLUSIVE_PARTIAL_SCREEN",
+      "runtime_disposition": "NO_CHANGE"
+    }
+  },
+  "untested_module_screens": [
+    "within_sniff",
+    "temporal_observations",
+    "order_balance",
+    "panel_contract"
+  ],
+  "pending_request_ids": [
+    "cmreq-e592918a9c2ca44058eb",
+    "cmreq-8a81b3b72f0436c3b950",
+    "cmreq-68c514b2e42666404601",
+    "cmreq-8bb6eef9e91d0dc54652",
+    "cmreq-568d2ce695d41f92d3f6",
+    "cmreq-22fe4dbeab7932dc28b5",
+    "cmreq-ac0161d5c32555705791",
+    "cmreq-4472e072e9639053301e",
+    "cmreq-43ad324abbb8f60f3c7b",
+    "cmreq-7485e8d278507dffee11",
+    "cmreq-4112660923abe245f5ea",
+    "cmreq-fbc995cf351600e0fa9e",
+    "cmreq-ddd7f010ecbbe4b36d96",
+    "cmreq-f143ea691b00cd4f524f",
+    "cmreq-69b4e45302988a04c819",
+    "cmreq-85f7cc7bdf0784877336",
+    "cmreq-9bba21e8b68bf6b85aed",
+    "cmreq-1bc3fb85feaa474a1aee",
+    "cmreq-64109513a2871dac99c6",
+    "cmreq-29b43eaa2bd958c62368",
+    "cmreq-4ca7225ec59cba165e29",
+    "cmreq-99496b041889140eea90",
+    "cmreq-b4f46ec2a55d389d4bac",
+    "cmreq-2da406eda7ee47f8b4da",
+    "cmreq-8ab99157111b71fb27f6",
+    "cmreq-7ef2817fed12f4b2d7ef",
+    "cmreq-80b12336c50426274ce3"
+  ],
+  "resume_policy": {
+    "automatic_resume_allowed": false,
+    "user_resume_required": true,
+    "submit_only_pending_request_ids": true,
+    "duplicate_or_ambiguous_retry_allowed": false,
+    "identical_prompt_sha256_required": true,
+    "visible_dom_capture_required": true,
+    "same_model_surface_and_fresh_context_required": true,
+    "source_changes_during_resumed_scoring_allowed": false
+  },
+  "runtime_disposition": {
+    "modules_promoted": [],
+    "runtime_changes_authorized": false,
+    "completed_failed_screens_remain_inactive": true,
+    "partial_and_untested_screens_remain_inconclusive": true
+  },
+  "inventory_state": {
+    "complete_v5_catalog_bound": true,
+    "current_master_records": 280,
+    "august_added_materials": 30,
+    "inventory_defines_target_or_hedonic_value": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "38f5124010eed146ece03c3f5a4b3cea58daa83acd5997aaa0131c63fdd254f4"
+}

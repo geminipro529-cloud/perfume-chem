@@ -1,0 +1,71 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+______ test_exact_authorized_post_archive_path_is_reported_and_accepted _______
+
+    def test_exact_authorized_post_archive_path_is_reported_and_accepted() -> None:
+        result = run_verifier(
+            PREWRITE_ARCHIVE,
+            "C9",
+            "--allow-current-mismatch",
+            f"engine/pipeline/gates.py={GATES_SHA256}",
+        )
+    
+>       assert result.returncode == 0
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe', '-B', 'C:\\Users\\ASUS\\Docu...nt": 0,\n  "unused_allowed_current_mismatch_count": 0,\n  "unused_allowed_current_mismatch_paths": []\n}\n', stderr='').returncode
+
+C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\test_c9_archive_verifier.py:54: AssertionError
+____________ test_wrong_allowlist_path_does_not_hide_current_drift ____________
+
+    def test_wrong_allowlist_path_does_not_hide_current_drift() -> None:
+        result = run_verifier(
+            PREWRITE_ARCHIVE,
+            "C9",
+            "--allow-current-mismatch",
+            f"engine/pipeline/not-gates.py={GATES_SHA256}",
+        )
+    
+        assert result.returncode == 1
+        payload = parse_stdout(result)
+        assert payload["status"] == "FAIL"
+        assert payload["allowed_current_mismatch_count"] == 0
+>       assert payload["unexpected_current_mismatch_count"] == 1
+E       assert 2 == 1
+
+C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\test_c9_archive_verifier.py:75: AssertionError
+____________ test_stale_expected_hash_does_not_hide_current_drift _____________
+
+    def test_stale_expected_hash_does_not_hide_current_drift() -> None:
+        result = run_verifier(
+            PREWRITE_ARCHIVE,
+            "C9",
+            "--allow-current-mismatch",
+            f"engine/pipeline/gates.py={'0' * 64}",
+        )
+    
+        assert result.returncode == 1
+        payload = parse_stdout(result)
+        assert payload["status"] == "FAIL"
+        assert payload["allowed_current_mismatch_count"] == 0
+>       assert payload["unexpected_current_mismatch_count"] == 1
+E       assert 2 == 1
+
+C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\test_c9_archive_verifier.py:93: AssertionError
+__________ test_reconcile_archive_still_requires_zero_current_drift ___________
+
+    def test_reconcile_archive_still_requires_zero_current_drift() -> None:
+        result = run_verifier(RECONCILE_ARCHIVE, "C9-C0RECON")
+    
+>       assert result.returncode == 0
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe', '-B', 'C:\\Users\\ASUS\\Docu...nt": 0,\n  "unused_allowed_current_mismatch_count": 0,\n  "unused_allowed_current_mismatch_paths": []\n}\n', stderr='').returncode
+
+C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\test_c9_archive_verifier.py:102: AssertionError
+=========================== short test summary info ===========================
+FAILED ::test_exact_authorized_post_archive_path_is_reported_and_accepted - assert 1 == 0
+ +  where 1 = CompletedProcess(args=['D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe', '-B', 'C:\\Users\\ASUS\\Docu...nt": 0,\n  "unused_allowed_current_mismatch_count": 0,\n  "unused_allowed_current_mismatch_paths": []\n}\n', stderr='').returncode
+FAILED ::test_wrong_allowlist_path_does_not_hide_current_drift - assert 2 == 1
+FAILED ::test_stale_expected_hash_does_not_hide_current_drift - assert 2 == 1
+FAILED ::test_reconcile_archive_still_requires_zero_current_drift - assert 1 == 0
+ +  where 1 = CompletedProcess(args=['D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe', '-B', 'C:\\Users\\ASUS\\Docu...nt": 0,\n  "unused_allowed_current_mismatch_count": 0,\n  "unused_allowed_current_mismatch_paths": []\n}\n', stderr='').returncode
+4 failed in 9.04s

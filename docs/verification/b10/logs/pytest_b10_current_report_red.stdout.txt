@@ -1,0 +1,22 @@
+.F                                                                       [100%]
+================================== FAILURES ===================================
+_______ test_scientific_data_authority_report_uses_current_b10_evidence _______
+
+    def test_scientific_data_authority_report_uses_current_b10_evidence() -> None:
+        payload, markdown = _load_reports()
+
+>       assert [row["commit_sha"] for row in payload["git_checkpoints"]] == [
+            "59637597706569360220e0354716ceeb4e4837ca",
+            "428684fa987b673856fd533e2dba617cf0705e6e",
+            "a9c5e733c5ae74f78e37788afab82d63fe868416",
+            "d34af7289be2944d9c0a884089359dd62b53da4b",
+        ]
+E       AssertionError: assert ['9a8f11db77b...066c9f6b6b12'] == ['59637597706...9dd62b53da4b']
+E
+E         At index 0 diff: '9a8f11db77b40bb37a1f02bbc4cf440fae93e711' != '59637597706569360220e0354716ceeb4e4837ca'
+E         Use -v to get more diff
+
+tests\test_scientific_data_authority_report.py:161: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_scientific_data_authority_report.py::test_scientific_data_authority_report_uses_current_b10_evidence
+1 failed, 1 passed in 1.88s

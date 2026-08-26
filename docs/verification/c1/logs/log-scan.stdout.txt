@@ -1,0 +1,70 @@
+{
+    "schema":  "c1-log-scan-v1",
+    "files":  [
+                  {
+                      "path":  "docs/verification/c1/logs/basedpyright-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/basedpyright-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/mypy-backend-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/mypy-backend-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/pytest-backend-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/pytest-backend-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/pytest-root-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/pytest-root-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/ruff-backend-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/ruff-backend-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/ruff-root-final.stderr.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  },
+                  {
+                      "path":  "docs/verification/c1/logs/ruff-root-final.stdout.txt",
+                      "ansi_escape_bytes":  0,
+                      "credential_shaped_matches":  0
+                  }
+              ],
+    "totals":  {
+                   "ansi_escape_bytes":  0,
+                   "credential_shaped_matches":  0
+               },
+    "matched_values_recorded":  false
+}

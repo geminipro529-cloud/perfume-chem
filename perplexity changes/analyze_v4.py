@@ -38,12 +38,12 @@ for m in mats:
 # Sub-threshold
 sub = st["oav_computation"]["data"].get("sub_threshold_materials", [])
 if sub:
-    print(f"\n--- SUB-THRESHOLD ---")
+    print("\n--- SUB-THRESHOLD ---")
     for m in sub:
         print(f"  {m['name']:25s} OAV={m['oav']:.2f}  role={m['role']}  active={m['active_ul']:.1f}uL")
 
 # Gate results
-print(f"\n--- GATES ---")
+print("\n--- GATES ---")
 for x in d["stages"]:
     icon = "\u2705" if x["status"] == "PASS" else "\u26a0" if x["status"] == "WARN" else "\u2716"
     print(f"  {icon} {x['name']:30s} {x['status']:5s}  {x['detail'][:120]}")
@@ -52,7 +52,7 @@ for x in d["stages"]:
 ts = st.get("temporal_simulation", {})
 windows = ts.get("data", {}).get("windows", [])
 if windows:
-    print(f"\n--- TEMPORAL ---")
+    print("\n--- TEMPORAL ---")
     for w in windows:
         n = w["note_distribution"]
         dom = w.get("dominant_oav", [])
@@ -60,7 +60,7 @@ if windows:
         print(f"  {w['label']:15s} {w['t_seconds']:>6.0f}s  T/H/B: {n.get('top',0):>4.0f}/{n.get('heart',0):>4.0f}/{n.get('base',0):>4.0f}  {ldrs}")
 
 # Key materials
-print(f"\n--- KEY MATERIALS ---")
+print("\n--- KEY MATERIALS ---")
 for key in ["ambrox super", "vetiver eo", "geraniol", "tobacco", "coumarin", "iso e super"]:
     for m in mats:
         if key in m["name"].lower():
@@ -70,7 +70,7 @@ for key in ["ambrox super", "vetiver eo", "geraniol", "tobacco", "coumarin", "is
 # Family fit detail
 fam = st.get("family_fit", {})
 if fam.get("status") in ("FAIL", "WARN"):
-    print(f"\n--- FAMILY FAILURES ---")
+    print("\n--- FAMILY FAILURES ---")
     for c in fam["data"].get("checks", []):
         if c["status"] != "PASS":
             print(f"  {c['name']:30s} {c['detail']}")
@@ -78,6 +78,6 @@ if fam.get("status") in ("FAIL", "WARN"):
 # IFRA detail
 ifra = st.get("ifra_safety", {})
 if ifra.get("status") in ("FAIL", "WARN"):
-    print(f"\n--- IFRA ---")
+    print("\n--- IFRA ---")
     for v in ifra["data"].get("violation_details", []):
         print(f"  {v['material']:25s} at {v['active_pct_finished']:.3f}% (limit {v['effective_limit']:.3f}%)")

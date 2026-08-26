@@ -1,0 +1,1077 @@
+{
+    "schema":  "build-c9-gate-run-metadata-v1",
+    "generated_at":  "2026-08-03T07:06:29.9967766+07:00",
+    "repository":  "D:\\chatbots\\perfume-chem",
+    "expected_head":  "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+    "non_pty":  true,
+    "ansi_disabled":  true,
+    "stdout_stderr_separate":  true,
+    "nonempty_stderr_is_failure":  true,
+    "sensitive_environment_values_removed_without_logging":  true,
+    "external_pytest_temp_root":  "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700",
+    "jobs":  [
+                 {
+                     "name":  "version-python",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:06.1331825+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:06.3464578+00:00",
+                     "duration_ms":  207,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-python.stdout.txt",
+                                    "bytes":  16,
+                                    "sha256":  "d901007b84bfc7eb172ba21b077c642df7d6285ca37e9634f913f8dfb8f7b898"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-python.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "version-pytest",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "pytest",
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:06.6145934+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:07.6679654+00:00",
+                     "duration_ms":  1053,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-pytest.stdout.txt",
+                                    "bytes":  14,
+                                    "sha256":  "e736fb72d5c1af14c1550d6863d1e7ddae5491537766a381a3258c10cc5db9d5"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-pytest.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "version-ruff",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:07.7127378+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:08.1341295+00:00",
+                     "duration_ms":  420,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-ruff.stdout.txt",
+                                    "bytes":  13,
+                                    "sha256":  "633fc4e8b8179891d1a9edd4e956e51bbcbbc4ab899ee530fb5690387e080dc4"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-ruff.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "version-node",
+                     "executable":  "node.exe",
+                     "arguments":  [
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:08.1868345+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:08.3037754+00:00",
+                     "duration_ms":  116,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-node.stdout.txt",
+                                    "bytes":  9,
+                                    "sha256":  "2c6e919d1934dee14561704b5159bcf51b55cfa5b7a1a7c9e29345c16e22c420"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-node.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "version-basedpyright",
+                     "executable":  "node.exe",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\node_modules\\basedpyright\\index.js",
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:08.3279797+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:08.7956936+00:00",
+                     "duration_ms":  467,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-basedpyright.stdout.txt",
+                                    "bytes":  44,
+                                    "sha256":  "f58c6636ff25060f6eb2bfbd2b459547fb4db16975eb99c581469075012552c6"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-basedpyright.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "version-mypy",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "mypy",
+                                       "--version"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  30,
+                     "started_at_utc":  "2026-08-03T00:03:08.8212790+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:13.5213637+00:00",
+                     "duration_ms":  4699,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/version-mypy.stdout.txt",
+                                    "bytes":  29,
+                                    "sha256":  "343088eeb1381173c91b610830ce750209bb5e5b1b77f8f42c8fcf645b01c91b"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/version-mypy.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "protected-before",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_protected_state_snapshot.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:03:13.5509822+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:13.8581620+00:00",
+                     "duration_ms":  307,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-before.stdout.txt",
+                                    "bytes":  703,
+                                    "sha256":  "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-before.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c9-focused",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c9",
+                                       "tests/test_c9_unsupported_science.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:13.8672143+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:18.9269022+00:00",
+                     "duration_ms":  5059,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c9-focused.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "32bb998a69159d2d3ab7198e42e682cfda816fb912ee4ef1cbe63b9f36f3ebb9"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c9-focused.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-pipeline-chemistry",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\pipeline",
+                                       "tests/test_pipeline_gates.py",
+                                       "-k",
+                                       "chemistry_stability"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:18.9515879+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:25.6171751+00:00",
+                     "duration_ms":  6665,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-pipeline-chemistry.stdout.txt",
+                                    "bytes":  115,
+                                    "sha256":  "01ea24e1f83bfcebc0ef32e96507e4c1b8c208e922a68a590066d431ccfc36f8"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-pipeline-chemistry.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c8-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c8",
+                                       "tests/test_c8_headspace_oav.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:25.6438816+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:28.3958715+00:00",
+                     "duration_ms":  2752,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c8-compat.stdout.txt",
+                                    "bytes":  182,
+                                    "sha256":  "e3f7f012a3a150a37ca5537cf9818b715bf5c6f1f6512a096395350b69672ac7"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c8-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c7-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c7",
+                                       "tests/test_c7_natural_lots.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:28.4267324+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:31.3133625+00:00",
+                     "duration_ms":  2887,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c7-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "97d6f15d5fad7acabcee141d17c67053fc81324fdd852e901b0f5d28650caf98"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c7-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c6-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c6",
+                                       "tests/test_c6_dynamic_release.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:31.3486114+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:36.2742019+00:00",
+                     "duration_ms":  4925,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c6-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "ef588828ee1f1e30c5648435907582018e8fddde167631ddd3628b44fef5690d"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c6-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c5-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c5",
+                                       "tests/test_c5_calibration_program.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:36.2984124+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:38.9844721+00:00",
+                     "duration_ms":  2685,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c5-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "466c36cfd49dd921f8e918bfff036b25004d109aeb9bbfd4453dc14684b312db"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c5-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c4-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c4",
+                                       "tests/test_c4_equilibrium_models.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:39.0147836+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:42.4086331+00:00",
+                     "duration_ms":  3394,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c4-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "e3b2effce36b81bbb564c0a38d67400ee2ab2eb49f6af921f0261d75a341c18b"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c4-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c3-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c3",
+                                       "tests/test_c3_model_interface.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:42.4526514+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:45.1784309+00:00",
+                     "duration_ms":  2725,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c3-compat.stdout.txt",
+                                    "bytes":  183,
+                                    "sha256":  "3c0477947e7f1274ca12062302ea94c4f242a330881a526ea43f685cbf949359"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c3-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c2-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c2",
+                                       "tests/test_c2_matrix_environment.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:45.2288394+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:47.5230239+00:00",
+                     "duration_ms":  2294,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c2-compat.stdout.txt",
+                                    "bytes":  182,
+                                    "sha256":  "83b09f3cc4757d615e07bfa3d965215a3cc2b83deb29e55344627aa8372b322e"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c2-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c1-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c1",
+                                       "tests/test_c1_thermophysical_contracts.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:47.5479922+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:50.0908088+00:00",
+                     "duration_ms":  2542,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c1-compat.stdout.txt",
+                                    "bytes":  182,
+                                    "sha256":  "596281a07b9a463a2b0a276a94decd7d8010ab2fbdc85456316f5b1e8032dc3a"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c1-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c0-compat",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\c0",
+                                       "tests/test_c0_physical_model_inventory.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:03:50.1174130+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:57.2149118+00:00",
+                     "duration_ms":  7096,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c0-compat.stdout.txt",
+                                    "bytes":  101,
+                                    "sha256":  "29621ae89e36c43539ea5a11598b0e042bc609989b2ecc1e745e4a149180cab9"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c0-compat.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "c0-inventory-verifier",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "scripts/verify_c0_physical_model_inventory.py",
+                                       "--inventory",
+                                       "docs/verification/c0/physical_model_inventory.json",
+                                       "--fixtures",
+                                       "tests/fixtures/c0_legacy_physical_model_cases.json",
+                                       "--fixture-sha",
+                                       "tests/fixtures/c0_legacy_physical_model_cases.sha256"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:03:57.2340393+00:00",
+                     "finished_at_utc":  "2026-08-03T00:03:59.1759562+00:00",
+                     "duration_ms":  1942,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/c0-inventory-verifier.stdout.txt",
+                                    "bytes":  343,
+                                    "sha256":  "62961cafc943484b891c7af6fdfcf55cd23e82b53f7c2d9a92a3ec84e17480f0"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/c0-inventory-verifier.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-root-full",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\root",
+                                       "tests"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  900,
+                     "started_at_utc":  "2026-08-03T00:03:59.1945680+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:02.5561938+00:00",
+                     "duration_ms":  123360,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-root-full.stdout.txt",
+                                    "bytes":  1978,
+                                    "sha256":  "70f09e5a1c7a1799c8ffe53f7e91b1b30d32be15d2454d51e731feed65aa1911"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-root-full.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pytest-c9-dependency",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "--basetemp",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\c9-gate-pytest-20260803T070305+0700\\dependency",
+                                       "tests/test_c9_unsupported_science.py::test_c9_authority_module_has_no_legacy_or_runtime_dependencies"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-03T00:06:02.5756858+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:04.2550671+00:00",
+                     "duration_ms":  1679,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c9-dependency.stdout.txt",
+                                    "bytes":  100,
+                                    "sha256":  "779feb861d7f77335d0f1fe9e218c12a3bdc6f7a067807bdace745133df6a194"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pytest-c9-dependency.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "pip-check",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "pip",
+                                       "check"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  120,
+                     "started_at_utc":  "2026-08-03T00:06:04.2751228+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:09.4597349+00:00",
+                     "duration_ms":  5184,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/pip-check.stdout.txt",
+                                    "bytes":  31,
+                                    "sha256":  "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/pip-check.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-c9-check",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "check",
+                                       "--color",
+                                       "never",
+                                       "engine/evidence/unsupported_science.py",
+                                       "engine/evidence/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c9_unsupported_science.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:06:09.4659874+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:09.7707283+00:00",
+                     "duration_ms":  304,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-check.stdout.txt",
+                                    "bytes":  19,
+                                    "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-check.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-c9-gates-check",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "check",
+                                       "--color",
+                                       "never",
+                                       "engine/pipeline/gates.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:06:09.7843945+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:10.1541823+00:00",
+                     "duration_ms":  369,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-gates-check.stdout.txt",
+                                    "bytes":  19,
+                                    "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-gates-check.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "ruff-c9-format",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "ruff",
+                                       "format",
+                                       "--check",
+                                       "engine/evidence/unsupported_science.py",
+                                       "engine/evidence/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c9_unsupported_science.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:06:10.1607034+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:10.4333715+00:00",
+                     "duration_ms":  272,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-format.stdout.txt",
+                                    "bytes":  26,
+                                    "sha256":  "177f260a5645724013185e4b140c7045cc39e56c0c97b120f5cb23599f85f0de"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/ruff-c9-format.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "basedpyright-c9",
+                     "executable":  "node.exe",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\node_modules\\basedpyright\\index.js",
+                                       "engine/evidence/unsupported_science.py",
+                                       "engine/evidence/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c9_unsupported_science.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  240,
+                     "started_at_utc":  "2026-08-03T00:06:10.4479234+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:15.5833284+00:00",
+                     "duration_ms":  5132,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/basedpyright-c9.stdout.txt",
+                                    "bytes":  30,
+                                    "sha256":  "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/basedpyright-c9.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "mypy-c9",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-m",
+                                       "mypy",
+                                       "--explicit-package-bases",
+                                       "--follow-imports=skip",
+                                       "--ignore-missing-imports",
+                                       "engine/evidence/unsupported_science.py",
+                                       "engine/evidence/__init__.py",
+                                       "engine/project_verification.py",
+                                       "tests/test_c9_unsupported_science.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:06:15.5908461+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:17.3917181+00:00",
+                     "duration_ms":  1800,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/mypy-c9.stdout.txt",
+                                    "bytes":  44,
+                                    "sha256":  "d9a5631f7d87a741fbecc3236286d1792d22d349ff13846d71cdc9217307bb76"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/mypy-c9.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "scope-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c9_scope.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:06:17.4114454+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:18.4472260+00:00",
+                     "duration_ms":  1035,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/scope-verification.stdout.txt",
+                                    "bytes":  2355,
+                                    "sha256":  "e75fc56851b49bb80abdd8f1653a40f6672a124e4086fb4b6ada2aa02004fd27"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/scope-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "mutation-evidence-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c9_mutation_evidence.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:06:18.4682743+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:18.6465636+00:00",
+                     "duration_ms":  178,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/mutation-evidence-verification.stdout.txt",
+                                    "bytes":  359,
+                                    "sha256":  "4a1f5c2424a85945577ea7d1fbd80eb97d5dff996c0977565ef7b19986f64f42"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/mutation-evidence-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "c5-empirical-boundary",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_c5_data_absence.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  180,
+                     "started_at_utc":  "2026-08-03T00:06:18.6667647+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:19.2736606+00:00",
+                     "duration_ms":  607,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/c5-empirical-boundary.stdout.txt",
+                                    "bytes":  2367,
+                                    "sha256":  "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/c5-empirical-boundary.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "archive-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_c8_recovery_archive.py",
+                                       "D:\\.backups\\perfume-chem\\build-c9-prewrite-20260803T060804+0700.tar",
+                                       "D:\\chatbots\\perfume-chem",
+                                       "--expected-build",
+                                       "C9"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T00:06:19.2821861+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:26.6456651+00:00",
+                     "duration_ms":  7363,
+                     "timed_out":  false,
+                     "exit_code":  1,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/archive-verification.stdout.txt",
+                                    "bytes":  856,
+                                    "sha256":  "0f26647bd674fcc4681e932ae131224ebec2dfb72a463d8672a770c411326eb9"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/archive-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  false
+                 },
+                 {
+                     "name":  "reconcile-archive-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_c8_recovery_archive.py",
+                                       "D:\\.backups\\perfume-chem\\build-c9-c0recon-prewrite-20260803T064241+0700.tar",
+                                       "D:\\chatbots\\perfume-chem",
+                                       "--expected-build",
+                                       "C9-C0RECON"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  300,
+                     "started_at_utc":  "2026-08-03T00:06:26.6621721+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:29.0264436+00:00",
+                     "duration_ms":  2363,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/reconcile-archive-verification.stdout.txt",
+                                    "bytes":  872,
+                                    "sha256":  "4dfd1be135369817b464ee57cac724f3c30963e4340993c342171ea9e74be982"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/reconcile-archive-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "protected-after",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_protected_state_snapshot.py"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:06:29.0495417+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:29.3164258+00:00",
+                     "duration_ms":  266,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-after.stdout.txt",
+                                    "bytes":  703,
+                                    "sha256":  "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-after.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "protected-state-verification",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\validate_c8_protected_state.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c9\\logs\\final\\protected-before.stdout.txt",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c9\\logs\\final\\protected-after.stdout.txt"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:06:29.3283837+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:29.5205162+00:00",
+                     "duration_ms":  191,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-state-verification.stdout.txt",
+                                    "bytes":  993,
+                                    "sha256":  "b306d993283b76391daf8dd0dda3436b1d96b2936e7529d6f8ef124bbbedf0c1"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/protected-state-verification.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 },
+                 {
+                     "name":  "log-scan",
+                     "executable":  "python.exe",
+                     "arguments":  [
+                                       "-B",
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\scan_c8_logs.py",
+                                       "D:\\chatbots\\perfume-chem\\docs\\verification\\c9\\logs"
+                                   ],
+                     "working_directory":  "D:\\chatbots\\perfume-chem",
+                     "timeout_seconds":  60,
+                     "started_at_utc":  "2026-08-03T00:06:29.5428323+00:00",
+                     "finished_at_utc":  "2026-08-03T00:06:29.9802457+00:00",
+                     "duration_ms":  437,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout":  {
+                                    "path":  "docs/verification/c9/logs/final/log-scan.stdout.txt",
+                                    "bytes":  26252,
+                                    "sha256":  "b370e14b59a8be9beed971fd34f0b765780f5e22a54ba0d89af5b49eeafbc012"
+                                },
+                     "stderr":  {
+                                    "path":  "docs/verification/c9/logs/final/log-scan.stderr.txt",
+                                    "bytes":  0,
+                                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                },
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  false
+}

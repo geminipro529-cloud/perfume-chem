@@ -35,7 +35,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import sys
 import time
 import urllib.error
@@ -396,7 +395,7 @@ if __name__ == "__main__":
         )
         print(f"  Matches: {result['matches']}")
         if result["mismatches"]:
-            print(f"  MISMATCHES:")
+            print("  MISMATCHES:")
             for m in result["mismatches"]:
                 print(
                     f"    {m['field']}: local={m['local']} pubchem={m['pubchem']} "
@@ -405,7 +404,7 @@ if __name__ == "__main__":
 
     elif args.cmd == "stats":
         stats = cache_stats()
-        print(f"\nCache statistics:")
+        print("\nCache statistics:")
         for k, v in stats.items():
             print(f"  {k}: {v}")
 

@@ -1,0 +1,20 @@
+{
+  "name": "b10_disposable_full_kb_reproducibility",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_build_disposable_kb.py",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\kb_candidates_full_20260802T121700"
+  ],
+  "started_at_utc": "2026-08-02T05:15:33.443Z",
+  "finished_at_utc": "2026-08-02T05:16:49.260Z",
+  "duration_seconds": 75.816,
+  "timeout_seconds": 600,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\b10_disposable_full_kb_reproducibility.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\b10_disposable_full_kb_reproducibility.stderr.txt"
+}

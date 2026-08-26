@@ -18,10 +18,8 @@ to convert between formulation intent (ppm/OAV) and physical dosing (µL/grams).
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping, Sequence
 
 from ._shared_types import DosingEntry, SolubilityData, SolubilityRisk
-
 
 # ---------------------------------------------------------------------------
 # Solid material stock preparations

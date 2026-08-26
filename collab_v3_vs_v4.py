@@ -1,10 +1,10 @@
 """OAV comparison: V3 (2% Myristic Acid) vs V4 (15% Myristic Acid) Collab."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import ODT_DATA
-from engine.perception.oav import oav
 
 ODT_OVERRIDE = {
     "Myristic Acid Powder":  {"odt_eth": 1000.0, "odt_air": 5000.0},
@@ -104,14 +104,14 @@ v4_ma = next(x for x in v4_list if x[0] == "Myristic Acid Powder")
 
 print("MYRISTIC ACID — The only material that changes")
 print("-"*60)
-print(f"  V3 (2% stock):")
+print("  V3 (2% stock):")
 print(f"    600 uL × 2% = {v3_ma[3]:.0f} mg active")
 print(f"    Concentrate ppm: {v3_ma[3]/v3_ma[6]*1e6:,.0f}")
 print(f"    EDP ppm:          {v3_ma[3]/v3_ma[6]*1e6*0.294:,.0f}")
 print(f"    OAV:              {v3_ma[5]:.1f}")
 print(f"    Ethanol from stock: {600 - v3_ma[3]:.0f} uL")
 print()
-print(f"  V4 (15% stock):")
+print("  V4 (15% stock):")
 print(f"    600 uL × 15% = {v4_ma[3]:.0f} mg active")
 print(f"    Concentrate ppm: {v4_ma[3]/v4_ma[6]*1e6:,.0f}")
 print(f"    EDP ppm:          {v4_ma[3]/v4_ma[6]*1e6*0.294:,.0f}")
@@ -119,7 +119,7 @@ print(f"    OAV:              {v4_ma[5]:.1f}")
 print(f"    Ethanol from stock: {600 - v4_ma[3]:.0f} uL")
 print()
 print(f"  Myristic:Irone ratio: V3 = {v3_ma[3]/7.5:.1f}:1  |  V4 = {v4_ma[3]/7.5:.1f}:1")
-print(f"  Natural orris butter: ~40:1")
+print("  Natural orris butter: ~40:1")
 print()
 
 # Full OAV comparison

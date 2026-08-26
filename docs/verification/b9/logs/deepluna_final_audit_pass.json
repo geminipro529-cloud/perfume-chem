@@ -1,0 +1,42 @@
+{
+  "schema_version": "perfume-chem-deepluna-audit-v1",
+  "purpose": "Build B9 final adversarial validation",
+  "exact_project": "perfume-chem",
+  "readiness": "READY",
+  "runtime_mode": "CANDIDATE_V2",
+  "server_release": "0.9.9",
+  "active_reads_at_check": 0,
+  "active_writes_at_check": 0,
+  "queued_at_check": 0,
+  "open_reserved_nano_usd_at_check": 0,
+  "unknown_reservations_at_check": 0,
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "service_tier": "priority",
+  "job_id": "DS-44810686be33907accaa5cfa39f91fb5",
+  "status": "PASS",
+  "evidence_verdict": "POSITIVE",
+  "provider_calls": 1,
+  "prompt_tokens": 69119,
+  "completion_tokens": 704,
+  "total_tokens": 69823,
+  "luna_runs": 0,
+  "codex_subagents_used": false,
+  "negative_findings": [],
+  "defects": [],
+  "residual_risks": [],
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": false,
+  "scope_deviation": false,
+  "files_changed": [],
+  "local_pretransmission_contract_corrections": [
+    {
+      "finding": "The first declared mypy result range exceeded the file line count.",
+      "resolution": "Corrected every evidence range to the measured EOF and reran a fresh exact-project readiness check.",
+      "provider_calls": 0
+    }
+  ],
+  "summary": "The bounded Fast-only audit reconciled all twenty report sections, both non-promoting views, the eight visible evidence labels, strict-withheld visibility, source locator and provenance round-trips, explicit field allowlists, deterministic JSON and Markdown, read-only API behavior, focused and A2-B9 compatibility tests, static checks, archive integrity, and protected database state. It returned PASS with no defect or residual risk. Sol independently reproduced and accepted the evidence."
+}

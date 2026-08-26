@@ -1,0 +1,21 @@
+{
+  "actual_lot_data_present": false,
+  "area_percent_cannot_masquerade_as_concentration": true,
+  "c8_open": true,
+  "decision": "PASS",
+  "decision_scope": "C7 software and lot-authority contract only",
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "be8f4509c4c2b37f5176bd2e3a8732bf29266e6e",
+  "exact_commit_replay_pass": true,
+  "exact_commit_replay_receipt": {
+    "path": "docs/verification/c7/postcommit/exact-commit-replay.json",
+    "sha256": "2b17724df225fefb091be461e40e516be2957f5715f28d684bc0e3388e6f9148"
+  },
+  "implementation_head": "ce78c450b6eeebe06180ae7e46030bff6da41747",
+  "lot_aware_or_proxy_labeled": true,
+  "projection_authorities_separate": true,
+  "reason": "The C7 implementation and evidence commit replayed without production-test failures, timeouts, stderr output, ANSI escapes, credential-shaped evidence, or protected-state drift. One earlier replay attempt is preserved and classified as a nonexistent pytest node selector. No actual lot data or empirical promotion exists.",
+  "schema": "build-c7-natural-lots-decision-v1",
+  "unknown_fractions_visible": true
+}

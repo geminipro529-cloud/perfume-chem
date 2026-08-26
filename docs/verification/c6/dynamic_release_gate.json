@@ -1,0 +1,268 @@
+{
+  "schema": "build-c6-dynamic-release-gate-v1",
+  "phase_parent": "59582f7314bfe90bed9096fd534777c9e1a71dce",
+  "verified_implementation_head": "5b51ab31ddc28b48efa78944b314919f226262b2",
+  "evidence_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+  "decision": "PASS",
+  "decision_reason": "The C6 software, physical-simulation, evidence commit, and exact-commit replay are green, so C7 may open. Empirical authority separately remains BLOCKED_PENDING_DATA because no actual instrument data exist.",
+  "contract_surface": {
+    "source_path": "engine/physics/dynamic_release.py",
+    "source_sha256": "d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f",
+    "public_c6_symbol_count": 19,
+    "engine_physics_total_export_count": 130,
+    "production_caller_changed": false,
+    "database_or_migration_changed": false,
+    "legacy_dynamic_path_changed": false
+  },
+  "model_authority": {
+    "parameter_authority": "SIMULATION_ONLY_UNCALIBRATED",
+    "evidence_class": "UNVALIDATED",
+    "empirical_metrics_present": false,
+    "empirical_promotion_allowed": false,
+    "cross_substrate_transfer_allowed": false,
+    "calibration_receipt_allowed": false,
+    "output_labels": [
+      "PREDICTED_HEADSPACE_TRAJECTORY",
+      "PREDICTED_RELEASE_TRAJECTORY",
+      "ESTIMATED_PHYSICAL_PERSISTENCE"
+    ],
+    "prohibited_claims": [
+      "exact longevity",
+      "sillage",
+      "projection",
+      "perceived intensity",
+      "olfactory adaptation",
+      "temporal attribute profile",
+      "measured performance",
+      "empirical calibration"
+    ]
+  },
+  "state_machine": {
+    "compartments": [
+      "condensed",
+      "gas",
+      "sorbed",
+      "explicit_sink"
+    ],
+    "bounded_hazard": "1 - exp(-k * dt)",
+    "finite_film_resistance": "harmonic combination of D / h^2 and k_g / h",
+    "solvent_loss_updates_later_matrix_fraction_and_rates": true,
+    "per_component_per_frame_mass_closure": true,
+    "nonnegative_state_enforced": true,
+    "rate_scenarios": [
+      "LOWER_RATE",
+      "NOMINAL",
+      "UPPER_RATE"
+    ],
+    "uncertainty_interpretation": "DETERMINISTIC_PARAMETER_SENSITIVITY_NOT_STATISTICAL_INTERVAL"
+  },
+  "binding_and_abstention": {
+    "exact_matrix_hash": true,
+    "exact_environment_hash": true,
+    "exact_substrate_kind": true,
+    "exact_substrate_parameter_hash_in_selector": true,
+    "exact_c6_input_reference": true,
+    "component_and_initial_mass_binding": true,
+    "wrong_or_missing_context_abstains_before_compute": true
+  },
+  "actual_data_boundary": {
+    "status": "BLOCKED_PENDING_DATA",
+    "actual_instrument_data_found": false,
+    "empirical_metrics_present": false,
+    "empirical_promotion_allowed": false,
+    "evidence_path": "docs/verification/c6/logs/final/c5-empirical-boundary.stdout.txt",
+    "evidence_sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
+  },
+  "verification": {
+    "matrix_metadata_path": "docs/verification/c6/logs/final/gate-run-metadata.stdout.json",
+    "matrix_metadata_sha256": "453b2d48e59f6c1e7d21acd935818a733a5c6bcc53d3e5993ce89606d343ee70",
+    "matrix_job_count": 29,
+    "matrix_failed_job_count": 0,
+    "matrix_timeout_count": 0,
+    "matrix_stderr_bytes": 0,
+    "tests": {
+      "c6_focused": {
+        "passed": 53,
+        "failed": 0
+      },
+      "c5_compatibility": {
+        "passed": 38,
+        "failed": 0
+      },
+      "c4_compatibility": {
+        "passed": 41,
+        "failed": 0
+      },
+      "c3_compatibility": {
+        "passed": 105,
+        "failed": 0
+      },
+      "c2_compatibility": {
+        "passed": 79,
+        "failed": 0
+      },
+      "c1_compatibility": {
+        "passed": 96,
+        "failed": 0
+      },
+      "c0_compatibility": {
+        "passed": 24,
+        "failed": 0
+      },
+      "complete_root": {
+        "passed": 1534,
+        "failed": 0
+      },
+      "dependency_invariant": {
+        "passed": 1,
+        "failed": 0
+      },
+      "deepluna_sol_reproduction": {
+        "passed": 18,
+        "failed": 0
+      }
+    },
+    "pip_check": "PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS",
+    "basedpyright": "PASS",
+    "mypy": "PASS",
+    "c0_inventory_verifier": {
+      "status": "PASS",
+      "implementation_count": 48,
+      "call_edge_count": 29,
+      "fixture_count": 24,
+      "classifications": [
+        "DISCONNECTED_LEGACY",
+        "EMPIRICALLY_CALIBRATED_MODEL",
+        "EXACT_PHYSICAL_ARITHMETIC",
+        "HEURISTIC",
+        "LITERATURE_DERIVED_MODEL",
+        "MEASURED_LOOKUP",
+        "STUB",
+        "UNSUPPORTED"
+      ]
+    },
+    "scope_verification": "PASS",
+    "mutation_verification": "PASS",
+    "archive_verification": "PASS",
+    "protected_state_verification": "PASS",
+    "log_manifest": {
+      "path": "docs/verification/c6/logs/log-manifest.json",
+      "bytes": 24039,
+      "sha256": "046e353ed5093d9ef82a0ca7a30d72ad5979639c2281719cc68a39211c5b6ed9",
+      "covered_file_count": 90,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    }
+  },
+  "mutation_evidence": {
+    "per_step_closure_bypass_caught": true,
+    "substrate_kind_binding_removal_caught": true,
+    "unbounded_hazard_caught": true,
+    "sensory_label_admission_caught": true,
+    "all_restored_tests_pass": true,
+    "all_mutation_stderr_empty": true,
+    "all_mutations_timed_out": false,
+    "source_sha256_before_and_after": "d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f",
+    "restoration_verified": true
+  },
+  "recovery_archive": {
+    "path": "D:/.backups/perfume-chem/build-c6-prewrite-20260803T015345+0700.tar",
+    "bytes": 118322688,
+    "sha256": "3947df81ab4825c05ff2ccc679f853146a8217b92de75f4268b0cc538a553454",
+    "manifest_file_count": 432,
+    "dirty_or_untracked_count": 429,
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "restorable": true
+  },
+  "protected_state": {
+    "before_after_identical": true,
+    "database_quick_checks_ok": true,
+    "files": {
+      "data/perfumery_kb.db": {
+        "bytes": 2084864,
+        "exists": true,
+        "immutable_quick_check": [
+          "ok"
+        ],
+        "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1"
+      },
+      "data/perfumery_kb.db-shm": {
+        "bytes": 32768,
+        "exists": true,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "data/perfumery_kb.db-wal": {
+        "bytes": 0,
+        "exists": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "perfume_chem.db": {
+        "bytes": 12288,
+        "exists": true,
+        "immutable_quick_check": [
+          "ok"
+        ],
+        "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e"
+      }
+    }
+  },
+  "deepluna": {
+    "final_audit_path": "docs/verification/c6/deepluna-final-audit.json",
+    "final_audit_sha256": "ab16eef081dc4a72e7002ac1806c0fd2315778760c9bc6d332ab754827c0d255",
+    "status": "PASS",
+    "job_id": "DS-377cfe1ca9f9da6474cf225a2048fb27",
+    "provider_calls": 1,
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "negative_finding_count": 0,
+    "locally_reproduced": true,
+    "postflight_open_reserved_nano_usd": 0,
+    "postflight_unknown_reservations": 0,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_workers_used": 0
+  },
+  "postcommit_replay": {
+    "status": "PASS",
+    "exact_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+    "metadata_path": "docs/verification/c6/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "abe3bbe3001f267c2ab70badb375d620a5c5e917ad94e2eec11aab6f70ac58e1",
+    "replay_manifest_path": "docs/verification/c6/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "afc7c522f7b0a69c46684c5611f926ac53a26db888effe50b92d64effbc2e6f0",
+    "replay_receipt_path": "docs/verification/c6/postcommit/exact-commit-replay.json",
+    "replay_receipt_sha256": "77f4e9ea0426d8e1784af028445d5bb26f776327e50ab985bf48cf8de9b7f87f",
+    "decision_receipt_path": "docs/verification/c6/postcommit/dynamic_release_decision.json",
+    "decision_receipt_sha256": "4efda9a1ae5f9d91208a4137ad94ca153fd5fed3c8d3e3d8fa975b7748be8256",
+    "job_count": 23,
+    "failed_job_count": 0,
+    "timeout_count": 0,
+    "stderr_bytes": 0,
+    "focused_test_count": 53,
+    "root_test_count": 1534,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0,
+    "c7_open": true
+  },
+  "exit_gate": {
+    "conservation_nonnegativity_reproducibility": true,
+    "solvent_feedback_and_uncertainty": true,
+    "substrate_separation": true,
+    "physical_simulation_labels_only": true,
+    "exact_c3_routing_and_fail_closed_applicability": true,
+    "no_forbidden_path_change": true,
+    "full_local_and_mutation_gates_pass": true,
+    "final_deepluna_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c7_open": true
+  }
+}

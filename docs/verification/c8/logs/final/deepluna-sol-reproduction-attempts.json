@@ -1,0 +1,24 @@
+{
+  "schema": "build-c8-deepluna-sol-reproduction-attempts-v1",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "CAPTURE_ENCODING_FAILURE",
+      "test_result": "PASS",
+      "failure": "PowerShell redirection emitted UTF-16LE instead of required UTF-8.",
+      "utf8_transcript": "deepluna-sol-reproduction-attempt1.stdout.txt",
+      "stderr": "deepluna-sol-reproduction-attempt1.stderr.txt",
+      "raw_capture_preserved_outside_repository": true
+    },
+    {
+      "attempt": 2,
+      "status": "PASS",
+      "test_result": "PASS",
+      "capture": "direct System.Diagnostics.Process UTF-8",
+      "stdout": "deepluna-sol-reproduction.stdout.txt",
+      "stderr": "deepluna-sol-reproduction.stderr.txt"
+    }
+  ],
+  "passing_attempt": 2,
+  "failed_attempts_preserved": true
+}

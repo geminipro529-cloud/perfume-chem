@@ -1,0 +1,26 @@
+{
+  "target_hash": "5cc1f7e696d17ad805e104310f419644be9ba5dde9e548c7149e1225039e3618",
+  "partition_hash": "af3f47b45585a2e2d23cb375faacba0a36b84e2e84dc9a879d1b36d7932f8c8b",
+  "core_raw_uL": 4150,
+  "socket_raw_uL": 350,
+  "protected_anchor_floors_in_core_uL": {
+    "Methyl Ionone Gamma Coeur": 130,
+    "Isoraldeine 95": 110,
+    "Hydroxycitronellal": 135,
+    "Florol": 105,
+    "Black Pepper Oil": 5,
+    "Geranium Egypt Oil": 20,
+    "Patchouli Heart": 45,
+    "Neroli Oil": 25
+  },
+  "required_module_roles": ["iris_or_violet_continuity", "soap_muguet_interface", "pepper_geranium_patchouli_continuity"],
+  "forbidden_drift": ["dominant_sweet_amber", "dominant_leather", "dominant_aquatic", "iris_removed"],
+  "authority": "from-scratch Tier 1-2 hypothesis from official notes, label evidence, family priors",
+  "brand": "prada_clean_iris",
+  "socket_type": "HEART_THEME_SOCKET",
+  "module_directions": {
+    "leau_style_ginger_neroli": {"description": "Ginger 30, neroli 45, mandarin 25, sandalore 30", "shift": "L'Eau-style fresher citrus-floral daytime flanker"},
+    "green_mate_violet": {"description": "Mate absolute 10% 80uL, violet leaf 10% 25uL", "shift": "Greener, more naturalistic mate-violet flanker"},
+    "soft_amber_tonka": {"description": "Ambroxan, coumarin, vanillin, heliotropin boost", "shift": "Warmer, sweeter, more amber-tonka evening flanker"}
+  }
+}

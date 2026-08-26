@@ -17,9 +17,7 @@ not sold on the open market. This module catalogs:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Sequence
-
+from dataclasses import dataclass
 
 # ---------------------------------------------------------------------------
 # Captive materials by house
