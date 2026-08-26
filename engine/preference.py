@@ -8,7 +8,7 @@ from enum import Enum
 from itertools import combinations
 from math import exp, isfinite
 from random import Random
-from typing import Any, Mapping
+from typing import Any, Mapping, cast
 
 from engine.scientific_contract import EvidenceDescriptor, ScientificClass
 
@@ -155,7 +155,7 @@ class PairwisePreference:
             "partition": self.partition,
         }
         if not self.legacy_outcome_semantics:
-            payload["outcome"] = self.outcome.value
+            payload["outcome"] = cast(PreferenceOutcome, self.outcome).value
         return payload
 
     @classmethod
@@ -361,7 +361,7 @@ def _withheld_result(
             sources=("engine.preference",),
             limitations=failures,
         ),
-        model_family=request.model_family,
+        model_family=cast(PreferenceModelFamily, request.model_family),
         tie_parameter=None,
         converged=False,
         convergence_code="GATED_BEFORE_FIT",
@@ -583,7 +583,7 @@ def fit_preference_model(request: PreferenceFitRequest) -> PreferenceFitResult:
                 "Order, context, and assessor effects are not modeled in this fit.",
             ),
         ),
-        model_family=request.model_family,
+        model_family=cast(PreferenceModelFamily, request.model_family),
         tie_parameter=tie_parameter,
         converged=converged,
         convergence_code=convergence_code,

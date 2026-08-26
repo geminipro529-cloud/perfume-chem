@@ -51,7 +51,7 @@
       "module_id": "hedonic-preference-learner",
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "e55eaa90eedcf5b26ac7d28450446b908c4c9679131db76d9af612005828ba0a",
+      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
@@ -112,7 +112,7 @@
     },
     {
       "path": "engine/preference.py",
-      "sha256": "e55eaa90eedcf5b26ac7d28450446b908c4c9679131db76d9af612005828ba0a"
+      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878"
     },
     {
       "path": "engine/preference_davidson.py",

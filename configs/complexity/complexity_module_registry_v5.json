@@ -2,7 +2,7 @@
   "schema_version": "complexity_module_registry_v5",
   "base_registry": {
     "path": "complexity_module_registry_v4.json",
-    "sha256": "be234a10a12a5be31fc7eec621f223132b5c945fe701a3075a95129eff7107b4"
+    "sha256": "7867ba7f51fc395361e4ff9cd4382545d973d994a979c847ac8559adb16e7231"
   },
   "runtime_bindings": [
     {
@@ -59,7 +59,7 @@
       "module_id": "hedonic-preference-learner",
       "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
       "import_path": null,
-      "sha256": "e55eaa90eedcf5b26ac7d28450446b908c4c9679131db76d9af612005828ba0a",
+      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
