@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from dataclasses import replace
 
 import pytest
@@ -126,6 +127,32 @@ def test_any_validation_or_compilation_blocker_moves_to_held(monkeypatch) -> Non
     assert result.stage is SolForgeStage.HELD
     assert result.blockers == ("BAD",)
     assert result.decision_receipt.decision is DecisionState.HOLD
+
+
+def test_runtime_registry_failure_holds_before_architectural_compilation(
+    monkeypatch,
+) -> None:
+    assert importlib.util.find_spec("engine.solforge.runtime") is not None, (
+        "admitted SolForge runtime wrapper is missing"
+    )
+    runtime = importlib.import_module("engine.solforge.runtime")
+    case = _case()
+    hypotheses = _hypotheses(case)
+
+    def fail_registry(*_args, **_kwargs):
+        raise ValueError("admitted source drift")
+
+    def compile_must_not_run(*_args, **_kwargs):
+        raise AssertionError("architectural compilation ran before the runtime gate")
+
+    monkeypatch.setattr(runtime, "load_current_complexity_registry", fail_registry)
+    monkeypatch.setattr(runtime, "run_solforge_shadow", compile_must_not_run)
+
+    with pytest.raises(
+        runtime.ComplexityRuntimeAdmissionError,
+        match="COMPLEXITY_RUNTIME_GATE_FAILED: admitted source drift",
+    ):
+        runtime.run_admitted_solforge(case, hypotheses)
 
 
 def test_execution_parent_mismatch_is_held(monkeypatch) -> None:

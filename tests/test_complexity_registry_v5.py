@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import shutil
 from pathlib import Path
@@ -94,3 +95,47 @@ def test_v5_parent_evidence_and_authority_tampering_fail_closed(
     path.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(ValueError, match="authority flags"):
         load_complexity_registry(project, path)
+
+
+def test_current_runtime_loader_verifies_the_admitted_source_hash(
+    tmp_path: Path,
+) -> None:
+    registry_module = importlib.import_module("engine.perception.complexity_registry")
+    loader = getattr(registry_module, "load_current_complexity_registry", None)
+    assert callable(loader), "current runtime registry loader is missing"
+
+    live = loader(ROOT)
+    assert [item.module_id for item in live.modules if item.runtime_eligible] == [
+        "architectural-delta-engine"
+    ]
+
+    project, _ = _copy_v5_project(tmp_path / "source-drift")
+    source = project / "engine/perception/architectural_delta.py"
+    source.write_bytes(source.read_bytes() + b"\n# drift\n")
+    with pytest.raises(
+        ValueError,
+        match="source binding hash mismatch|runtime module hash mismatch",
+    ):
+        loader(project)
+
+    payload_path = project / V5.relative_to(ROOT)
+    payload = json.loads(payload_path.read_text(encoding="utf-8"))
+    architectural = next(
+        item
+        for item in payload["module_overrides"]
+        if item["module_id"] == "architectural-delta-engine"
+    )
+    architectural["sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+    v4_path = project / V4.relative_to(ROOT)
+    v4_payload = json.loads(v4_path.read_text(encoding="utf-8"))
+    v4_architectural = next(
+        item
+        for item in v4_payload["source_bindings"]
+        if item["path"] == "engine/perception/architectural_delta.py"
+    )
+    v4_architectural["sha256"] = architectural["sha256"]
+    v4_path.write_text(json.dumps(v4_payload), encoding="utf-8")
+    payload["base_registry"]["sha256"] = hashlib.sha256(v4_path.read_bytes()).hexdigest()
+    payload_path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="architectural runtime binding"):
+        loader(project)

@@ -13,6 +13,7 @@ from engine.solforge.contracts import (
     SolForgeCaseV1,
     SolHypothesisSetV1,
 )
+from engine.solforge.governance import GateFoundationPreflight
 from scripts import intervention_recommend
 
 H = "a" * 64
@@ -20,6 +21,10 @@ H = "a" * 64
 
 @pytest.fixture
 def solforge_inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(
+        "engine.solforge.orchestrator.verify_gate_foundation_receipt",
+        lambda *_: GateFoundationPreflight(True, H, ()),
+    )
     workbook_path = tmp_path / "inventory.xlsx"
     workbook = Workbook(write_only=True)
     sheet = workbook.create_sheet("Current Inventory Master")
@@ -114,6 +119,14 @@ def test_solforge_no_change_writes_atomic_hash_named_records(
     ).read_bytes() == hypotheses.canonical_bytes()
     decision_file = next(output.glob("decision_receipt_v1--*.json"))
     assert json.loads(decision_file.read_text(encoding="utf-8"))["decision"] == "NO_CHANGE"
+    registry_path = (
+        Path(__file__).resolve().parents[1]
+        / "configs/complexity/complexity_module_registry_v5.json"
+    )
+    assert manifest["complexity_runtime_registry_sha256"] == hashlib.sha256(
+        registry_path.read_bytes()
+    ).hexdigest()
+    assert manifest["complexity_runtime_modules"] == ["architectural-delta-engine"]
     assert manifest["publication_authorized"] is False
 
 

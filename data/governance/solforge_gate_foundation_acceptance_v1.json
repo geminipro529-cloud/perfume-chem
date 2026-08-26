@@ -33,13 +33,13 @@
           "-p",
           "no:cacheprovider",
           "--basetemp",
-          "C:\\Users\\ASUS\\.codex\\worktrees\\a7e6\\perfume-chem\\.tmp-solforge-gate-verifier\\pytest-d7en74qa"
+          "C:\\Users\\ASUS\\.codex\\worktrees\\a7e6\\perfume-chem\\.tmp-solforge-gate-verifier\\pytest-60xl96s9"
         ],
         "exit_code": 0,
         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "stderr_tail": "",
-        "stdout_sha256": "34b214cfb3096042290230156f4872edf4b4ac87d470cb3edebe3790c383ddce",
-        "stdout_tail": "........................................................................ [ 45%]\n........................................................................ [ 91%]\n..............                                                           [100%]\n158 passed in 10.01s\n"
+        "stdout_sha256": "a3e8c777ddb046d05b4361bd509db4157ec6cece84d55d51d55f10c9506a46a8",
+        "stdout_tail": "........................................................................ [ 44%]\n........................................................................ [ 88%]\n...................                                                      [100%]\n163 passed in 10.58s\n"
       },
       {
         "command": [
@@ -111,7 +111,7 @@
     "file_sha256": {
       "engine/evidence/unsupported_science.py": "a1b0c3aa5738548a40575090c284a9607e97ae32792b728a901ddff774cfaae1",
       "engine/evidence_contracts.py": "65e164b501a730a22ad2cf8bdee82b3f46c376dcc2764ab9efe99d09c50709c1",
-      "engine/hedonic_evidence.py": "69695d6ca5fc00b95c0274235f454b38f20d06cf68c9fb6e87ed3bf06fea58c8",
+      "engine/hedonic_evidence.py": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c",
       "engine/optimizer/models.py": "6c903f0b3f7421720f8c690e0d395494b32513fece587bb4e8d01a6490ed5585",
       "engine/optimizer/scoring.py": "398694987a9ff6ed30df19a14c8044997afb785582ec1e70de67f0f14bf19d94",
       "engine/pipeline/oav_evidence.py": "224484b521050e7421ee19dd68b4c8a508bc33103f416416d34fb3e3711ce85b",
@@ -123,14 +123,14 @@
       "tests/test_active_scoring_consumers.py": "46c15117107e68ee4569f0b6652d0e080f47e598eab9f263aff41eaadf98ab7e",
       "tests/test_evidence_contracts.py": "4b17d5b0cf426b860389b7e41ea13d8d3b1144353c90785561251a80047c18f3",
       "tests/test_formula_release_evidence_cli.py": "ce24c4a31b43c609886d1d15cfe29a96a75ae033596b5fe0da864763b4e9c0e7",
-      "tests/test_hedonic_evidence_gate_v2.py": "5b4a772e251f1685702adeb8e0bfe8ff16bc4b61d3fdc59fd5201d6e60659595",
+      "tests/test_hedonic_evidence_gate_v2.py": "9f32dee3f3e4e386c288f31ab53901c9fd5026bbbe0850ce4f2cb7be043c5f85",
       "tests/test_legacy_hedonic_runtime_isolation.py": "23d1c51f7804523cd4cbec265db64a57c67f34ef04b0a8cc80bdd2e8b7450979",
       "tests/test_oav_evidence_gate_v2.py": "168aee65f1cc06f2a0ee1b097a8520e89decde830d3fa7c8051a616434fb7e28",
       "tests/test_release_evidence_gate_v2.py": "00c2936563ee79623c182d6e2247275189f8447038bdba8a303ee80eb9111bee",
       "tests/test_solforge_gate_foundation_integration.py": "b9053d01e5dc5cc7c7fb4eb3454ad7ef2c5621e22dceff68ee185ea673757b21",
       "tests/test_solforge_gate_foundation_receipt.py": "091320a536e6e5803e5acc189c2ac70e57efc9291a2996aa9dd5862f87e36a5b"
     },
-    "repository_commit": "1d5cf395226c96632917d77871b63b6605283914",
+    "repository_commit": "3c91adbdf5ffc144028d693eaf71d6db1d1d259e",
     "schema_version": "solforge_gate_foundation_acceptance_v1",
     "source_census": {
       "authorized_legacy_replay_only": true,
@@ -138,6 +138,6 @@
       "status": "PASS"
     }
   },
-  "acceptance_sha256": "b7aa985b4146c2775071934d6d3c0fe796dfeb2fb83951a073a62ed1e91008a6",
-  "generated_at_utc": "2026-08-25T18:05:04.777811+00:00"
+  "acceptance_sha256": "c1bbde8cba7ae6ed4ee85c3695cf56da56189594e607af135c10a32954dbad0d",
+  "generated_at_utc": "2026-08-26T07:51:40.099858+00:00"
 }

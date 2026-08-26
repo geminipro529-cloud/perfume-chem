@@ -66,7 +66,7 @@ from engine.solforge.contracts import (
     SolForgeCaseV1,
     SolHypothesisSetV1,
 )
-from engine.solforge.orchestrator import run_solforge_shadow
+from engine.solforge.runtime import run_admitted_solforge
 
 MODES = ("pre_mix", "post_mix", "between_mix")
 DEFAULT_BATCH_ML = 30.0
@@ -1378,7 +1378,8 @@ def _run_solforge_cli(
         execution = ExecutionReceiptV1.from_dict(execution_payload)
         input_hashes[str(execution_path)] = hashlib.sha256(execution_bytes).hexdigest()
 
-    state = run_solforge_shadow(case, hypotheses, execution=execution)
+    admitted_run = run_admitted_solforge(case, hypotheses, execution=execution)
+    state = admitted_run.state
     records = [case, hypotheses]
     for record in (
         state.compiled_experiment,
@@ -1430,6 +1431,8 @@ def _run_solforge_cli(
             "input_file_sha256": input_hashes,
             "records": record_files,
             "blockers": list(state.blockers),
+            "complexity_runtime_registry_sha256": admitted_run.registry_sha256,
+            "complexity_runtime_modules": list(admitted_run.admitted_module_ids),
             "publication_authorized": False,
             "database_write_authorized": False,
             "physical_execution_authorized": False,

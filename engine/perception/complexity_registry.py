@@ -22,6 +22,12 @@ _RUNTIME_STATES = frozenset(
 )
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
+CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
+    "configs/complexity/complexity_module_registry_v5.json"
+)
+_V5_ARCHITECTURAL_DELTA_SHA256 = (
+    "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+)
 
 
 class ModuleState(str, Enum):
@@ -716,6 +722,7 @@ def _load_registry_v5(
     if (
         architecture.state is not ModuleState.ADMITTED_RUNTIME
         or architecture.import_path != "engine.perception.architectural_delta"
+        or architecture.sha256 != _V5_ARCHITECTURAL_DELTA_SHA256
     ):
         raise ValueError("V5 architectural runtime binding is invalid")
     for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
@@ -810,6 +817,28 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
         dismissal_rules=dismissal_rules,
         registry_sha256=hashlib.sha256(raw).hexdigest(),
     )
+
+
+def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
+    """Load the admitted registry and verify every executable module byte-for-byte."""
+
+    project_root = root.resolve()
+    registry = load_complexity_registry(
+        project_root,
+        project_root / CURRENT_COMPLEXITY_REGISTRY_PATH,
+    )
+    if registry.schema_version != "complexity_module_registry_v5":
+        raise ValueError("current complexity runtime must use registry V5")
+    runtime_modules = tuple(item for item in registry.modules if item.runtime_eligible)
+    if tuple(item.module_id for item in runtime_modules) != (
+        "architectural-delta-engine",
+    ):
+        raise ValueError("current complexity runtime admits only architectural delta")
+    for module in runtime_modules:
+        source = _inside_root(project_root, module.path)
+        if hashlib.sha256(source.read_bytes()).hexdigest() != module.sha256:
+            raise ValueError(f"runtime module hash mismatch: {module.module_id}")
+    return registry
 
 
 def _rule_matches(path: str, rule: Mapping[str, Any]) -> bool:
