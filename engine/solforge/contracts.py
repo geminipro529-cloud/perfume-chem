@@ -572,6 +572,92 @@ class CriterionFitPacketV1(_Record):
 
 
 @dataclass(frozen=True, slots=True)
+class CriterionFitPacketV2(_Record):
+    """Versioned proper-scoring preference packet preserving the V1 parent."""
+
+    SCHEMA_VERSION: ClassVar[str] = "criterion_fit_packet_v2"
+    parent_v1: CriterionFitPacketV1
+    preference_fit_evidence_v2_sha256: str | None
+    hedonic_state: str
+    cluster_bootstrap_sha256: str | None
+    heldout_validation_sha256: str | None
+    transitivity_sha256: str | None
+    next_pair_sha256: str | None
+    evidence_delta_receipt: EvidenceDeltaReceiptV1
+    test_only: bool
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent_v1, CriterionFitPacketV1):
+            raise TypeError("parent_v1 must be a CriterionFitPacketV1")
+        for name in (
+            "preference_fit_evidence_v2_sha256",
+            "cluster_bootstrap_sha256",
+            "heldout_validation_sha256",
+            "transitivity_sha256",
+            "next_pair_sha256",
+        ):
+            object.__setattr__(
+                self, name, _sha(getattr(self, name), name, optional=True)
+            )
+        state = str(_text(self.hedonic_state, "hedonic_state")).upper()
+        if state not in {
+            "VALIDATED_EXACT_SCOPE",
+            "DIAGNOSTIC",
+            "WITHHELD",
+            "FAILED_BASELINE",
+            "NOT_TESTED",
+            "INVALID",
+        }:
+            raise ValueError("hedonic_state is invalid")
+        object.__setattr__(self, "hedonic_state", state)
+        if not isinstance(self.evidence_delta_receipt, EvidenceDeltaReceiptV1):
+            raise TypeError(
+                "evidence_delta_receipt must be an EvidenceDeltaReceiptV1"
+            )
+        if not isinstance(self.test_only, bool):
+            raise TypeError("test_only must be boolean")
+
+    def as_dict(self) -> dict[str, object]:
+        return self._envelope(
+            {
+                "parent_v1": self.parent_v1.as_dict(),
+                "preference_fit_evidence_v2_sha256": (
+                    self.preference_fit_evidence_v2_sha256
+                ),
+                "hedonic_state": self.hedonic_state,
+                "cluster_bootstrap_sha256": self.cluster_bootstrap_sha256,
+                "heldout_validation_sha256": self.heldout_validation_sha256,
+                "transitivity_sha256": self.transitivity_sha256,
+                "next_pair_sha256": self.next_pair_sha256,
+                "evidence_delta_receipt": self.evidence_delta_receipt.as_dict(),
+                "test_only": self.test_only,
+            }
+        )
+
+    @classmethod
+    def from_dict(cls, payload: object) -> CriterionFitPacketV2:
+        fields = frozenset(
+            {
+                "parent_v1",
+                "preference_fit_evidence_v2_sha256",
+                "hedonic_state",
+                "cluster_bootstrap_sha256",
+                "heldout_validation_sha256",
+                "transitivity_sha256",
+                "next_pair_sha256",
+                "evidence_delta_receipt",
+                "test_only",
+            }
+        )
+        values = _load(payload, schema_version=cls.SCHEMA_VERSION, fields=fields)
+        values["parent_v1"] = CriterionFitPacketV1.from_dict(values["parent_v1"])
+        values["evidence_delta_receipt"] = EvidenceDeltaReceiptV1.from_dict(
+            values["evidence_delta_receipt"]
+        )
+        return cls(**values)
+
+
+@dataclass(frozen=True, slots=True)
 class DecisionReceiptV1(_Record):
     SCHEMA_VERSION: ClassVar[str] = "decision_receipt_v1"
     case_sha256: str
@@ -656,7 +742,7 @@ class EvidenceDeltaPacketV2(_Record):
 
 __all__ = [
     "AUTHORITY_FLAGS_FALSE", "CompilationState", "CompiledArmV1",
-    "CompiledExperimentV1", "CriterionFitPacketV1", "DecisionReceiptV1",
+    "CompiledExperimentV1", "CriterionFitPacketV1", "CriterionFitPacketV2", "DecisionReceiptV1",
     "DecisionState", "EvidenceDeltaPacketV2", "ExecutionReceiptV1", "SolForgeCaseState", "SolForgeCaseV1",
     "SolHypothesisSetV1", "SolHypothesisV1", "TemporalEvidencePacketV1",
 ]

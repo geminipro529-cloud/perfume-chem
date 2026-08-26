@@ -13,8 +13,37 @@ from engine.preference import (
     PreferenceFitRequest,
     PreferenceFitResult,
     PreferenceFitStatus,
+    PreferenceModelFamily,
     fit_preference_model,
 )
+from engine.preference_davidson import DavidsonFitReceipt
+from engine.preference_validation import (
+    ClusterBootstrapConfig,
+    ClusterBootstrapReceipt,
+    HeldoutValidationConfig,
+    HeldoutValidationReceipt,
+    NextPairConstraints,
+    NextPairReceipt,
+    TransitivityConfig,
+    TransitivityReceipt,
+    assess_transitivity,
+    cluster_bootstrap,
+    select_next_pair,
+    validate_heldout,
+)
+
+_HEDONIC_AUTHORITY_FALSE = {
+    "formula": False,
+    "liking": False,
+    "physical_execution": False,
+    "publication": False,
+    "purchase": False,
+    "release": False,
+    "runtime": False,
+    "safety": False,
+    "scientific_claim": False,
+    "sensory": False,
+}
 
 
 class HedonicScope(str, Enum):
@@ -80,6 +109,7 @@ def _fit_request_payload(request: PreferenceFitRequest) -> dict[str, Any]:
         "bootstrap_replicates": request.bootstrap_replicates,
         "bootstrap_seed": request.bootstrap_seed,
         "require_scoped_validation": request.require_scoped_validation,
+        "model_family": request.model_family.value,
     }
 
 
@@ -104,6 +134,11 @@ def _fit_result_payload(result: PreferenceFitResult) -> dict[str, Any]:
         "bootstrap_replicates": result.bootstrap_replicates,
         "bootstrap_seed": result.bootstrap_seed,
         "bootstrap_method": result.bootstrap_method,
+        "model_family": result.model_family.value,
+        "tie_parameter": result.tie_parameter,
+        "converged": result.converged,
+        "convergence_code": result.convergence_code,
+        "pair_probabilities": result.pair_probabilities,
         "evidence": result.evidence.as_dict(),
     }
 
@@ -292,6 +327,226 @@ def bind_preference_fit_evidence(
 
 
 @dataclass(frozen=True, slots=True)
+class PreferenceFitEvidenceReceiptV2:
+    """Exact-scope V2 liking evidence with proper validation and diagnostics."""
+
+    parent_v1: PreferenceFitEvidenceReceiptV1
+    davidson_fit: DavidsonFitReceipt
+    cluster_bootstrap: ClusterBootstrapReceipt
+    heldout_validation: HeldoutValidationReceipt
+    transitivity: TransitivityReceipt
+    next_pair: NextPairReceipt
+    construct_registry_sha256: str
+    criterion_wording_sha256: str
+    source_transfer_sha256: str
+    source_transfer_state: str
+    metadata_missing_codes: tuple[str, ...] = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent_v1, PreferenceFitEvidenceReceiptV1):
+            raise TypeError("parent_v1 must be a PreferenceFitEvidenceReceiptV1")
+        if not isinstance(self.davidson_fit, DavidsonFitReceipt):
+            raise TypeError("davidson_fit must be a DavidsonFitReceipt")
+        if not isinstance(self.cluster_bootstrap, ClusterBootstrapReceipt):
+            raise TypeError("cluster_bootstrap must be a ClusterBootstrapReceipt")
+        if not isinstance(self.heldout_validation, HeldoutValidationReceipt):
+            raise TypeError("heldout_validation must be a HeldoutValidationReceipt")
+        if not isinstance(self.transitivity, TransitivityReceipt):
+            raise TypeError("transitivity must be a TransitivityReceipt")
+        if not isinstance(self.next_pair, NextPairReceipt):
+            raise TypeError("next_pair must be a NextPairReceipt")
+        for name in (
+            "construct_registry_sha256",
+            "criterion_wording_sha256",
+            "source_transfer_sha256",
+        ):
+            object.__setattr__(self, name, _sha256(getattr(self, name), name))
+        transfer = _required_text(
+            self.source_transfer_state, "source_transfer_state"
+        ).upper()
+        if transfer not in {
+            "DIRECT",
+            "NARROWER_SCOPE",
+            "HYPOTHESIS_ONLY",
+            "FAILED",
+        }:
+            raise ValueError("source_transfer_state is invalid")
+        object.__setattr__(self, "source_transfer_state", transfer)
+        parent_fit = self.parent_v1.fit_result
+        if parent_fit.model_family is not PreferenceModelFamily.DAVIDSON_V1:
+            raise ValueError("V2 evidence requires DAVIDSON_V1")
+        if set(parent_fit.utilities) != set(self.davidson_fit.utilities) or any(
+            abs(parent_fit.utilities[item] - self.davidson_fit.utilities[item]) > 1e-9
+            for item in parent_fit.utilities
+        ):
+            raise ValueError("Davidson receipt does not match the bound fit result")
+        if (
+            parent_fit.tie_parameter is None
+            or abs(parent_fit.tie_parameter - self.davidson_fit.tie_parameter) > 1e-9
+        ):
+            raise ValueError("Davidson tie parameter does not match the bound fit result")
+        if set(self.cluster_bootstrap.utility_intervals) != set(parent_fit.utilities):
+            raise ValueError("cluster intervals do not cover the fitted item set")
+        missing: set[str] = set()
+        comparisons = self.parent_v1.fit_request.training + self.parent_v1.fit_request.heldout
+        required = (
+            "comparison_id",
+            "assessor_id",
+            "protocol_id",
+            "criterion_id",
+            "time_seconds",
+            "first_presented_item",
+            "session_id",
+            "matrix_id",
+            "time_window_id",
+            "position_in_session",
+            "protocol_sha256",
+            "sample_sha256",
+            "partition",
+        )
+        for name in required:
+            if any(getattr(row, name) is None for row in comparisons):
+                missing.add(name.upper())
+        if any(
+            row.protocol_sha256 is not None
+            and row.protocol_sha256 != self.parent_v1.protocol_sha256
+            for row in comparisons
+        ):
+            missing.add("PROTOCOL_SHA256_MISMATCH")
+        if any(
+            row.sample_sha256 is not None
+            and row.sample_sha256 not in self.parent_v1.sample_sha256
+            for row in comparisons
+        ):
+            missing.add("SAMPLE_SHA256_MISMATCH")
+        if any(
+            row.position_in_session is not None
+            and row.position_in_session > 1
+            and row.previous_presented_item is None
+            for row in comparisons
+        ):
+            missing.add("PREVIOUS_PRESENTED_ITEM")
+        object.__setattr__(self, "metadata_missing_codes", tuple(sorted(missing)))
+
+    @property
+    def criterion_id(self) -> str:
+        return self.parent_v1.criterion_id
+
+    @property
+    def scope(self) -> HedonicScope:
+        return self.parent_v1.scope
+
+    @property
+    def formula_build_sha256(self) -> str:
+        return self.parent_v1.formula_build_sha256
+
+    @property
+    def sample_sha256(self) -> tuple[str, ...]:
+        return self.parent_v1.sample_sha256
+
+    @property
+    def protocol_sha256(self) -> str:
+        return self.parent_v1.protocol_sha256
+
+    @property
+    def assessor_ids(self) -> tuple[str, ...]:
+        return self.parent_v1.assessor_ids
+
+    @property
+    def repeat_ids(self) -> tuple[str, ...]:
+        return self.parent_v1.repeat_ids
+
+    @property
+    def time_seconds(self) -> float:
+        return self.parent_v1.time_seconds
+
+    @property
+    def schedule_sha256(self) -> str:
+        return self.parent_v1.schedule_sha256
+
+    @property
+    def fit_request(self) -> PreferenceFitRequest:
+        return self.parent_v1.fit_request
+
+    @property
+    def fit_result(self) -> PreferenceFitResult:
+        return self.parent_v1.fit_result
+
+    @property
+    def authority(self) -> dict[str, bool]:
+        return dict(_HEDONIC_AUTHORITY_FALSE)
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "preference_fit_evidence_v2",
+            "parent_v1_sha256": self.parent_v1.record_sha256,
+            "davidson_fit": self.davidson_fit.as_dict(),
+            "cluster_bootstrap": self.cluster_bootstrap.as_dict(),
+            "heldout_validation": self.heldout_validation.as_dict(),
+            "transitivity": self.transitivity.as_dict(),
+            "next_pair": self.next_pair.as_dict(),
+            "construct_registry_sha256": self.construct_registry_sha256,
+            "criterion_wording_sha256": self.criterion_wording_sha256,
+            "source_transfer_sha256": self.source_transfer_sha256,
+            "source_transfer_state": self.source_transfer_state,
+            "metadata_missing_codes": list(self.metadata_missing_codes),
+            "authority": self.authority,
+        }
+
+
+def bind_preference_fit_evidence_v2(
+    parent_v1: PreferenceFitEvidenceReceiptV1,
+    *,
+    davidson_fit: DavidsonFitReceipt,
+    construct_registry_sha256: str,
+    criterion_wording_sha256: str,
+    source_transfer_sha256: str,
+    source_transfer_state: str,
+    bootstrap_config: ClusterBootstrapConfig,
+    heldout_config: HeldoutValidationConfig,
+    transitivity_config: TransitivityConfig,
+    eligible_next_pairs: tuple[tuple[str, str], ...],
+    next_pair_constraints: NextPairConstraints,
+) -> PreferenceFitEvidenceReceiptV2:
+    """Build all V2 receipts from one frozen V1 parent and Davidson fit."""
+
+    training = parent_v1.fit_request.training
+    heldout = parent_v1.fit_request.heldout
+    bootstrap = cluster_bootstrap(training, config=bootstrap_config)
+    validation = validate_heldout(
+        fitted=davidson_fit,
+        training=training,
+        heldout=heldout,
+        config=heldout_config,
+    )
+    transitivity = assess_transitivity(
+        training + heldout,
+        config=transitivity_config,
+    )
+    next_pair = select_next_pair(
+        fitted=davidson_fit,
+        eligible_pairs=eligible_next_pairs,
+        constraints=next_pair_constraints,
+    )
+    return PreferenceFitEvidenceReceiptV2(
+        parent_v1=parent_v1,
+        davidson_fit=davidson_fit,
+        cluster_bootstrap=bootstrap,
+        heldout_validation=validation,
+        transitivity=transitivity,
+        next_pair=next_pair,
+        construct_registry_sha256=construct_registry_sha256,
+        criterion_wording_sha256=criterion_wording_sha256,
+        source_transfer_sha256=source_transfer_sha256,
+        source_transfer_state=source_transfer_state,
+    )
+
+
+@dataclass(frozen=True, slots=True)
 class HedonicEvidenceRequest:
     """Exact scope against which one liking fit may be evaluated."""
 
@@ -304,7 +559,7 @@ class HedonicEvidenceRequest:
     repeat_ids: tuple[str, ...]
     time_seconds: float
     schedule_sha256: str
-    fit_receipt: PreferenceFitEvidenceReceiptV1 | None = None
+    fit_receipt: PreferenceFitEvidenceReceiptV1 | PreferenceFitEvidenceReceiptV2 | None = None
     safety_event_ids: tuple[str, ...] = ()
     maximum_absolute_order_effect: float = 0.25
 
@@ -448,6 +703,87 @@ def evaluate_hedonic_evidence(
         )
 
     fit = receipt.fit_result
+    if isinstance(receipt, PreferenceFitEvidenceReceiptV2):
+        if receipt.metadata_missing_codes:
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=tuple(
+                    f"METADATA_MISSING:{code}"
+                    for code in receipt.metadata_missing_codes
+                ),
+            )
+        if receipt.source_transfer_state not in {"DIRECT", "NARROWER_SCOPE"}:
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=("SOURCE_TRANSFER_INVALID",),
+            )
+        if (
+            fit.model_family is not PreferenceModelFamily.DAVIDSON_V1
+            or not fit.converged
+            or not receipt.davidson_fit.converged
+        ):
+            return _result(
+                request,
+                HedonicEvidenceState.INSUFFICIENT_EVIDENCE,
+                receipt=receipt,
+                limitations=("DAVIDSON_FIT_REQUIRED",),
+            )
+        if receipt.heldout_validation.leakage_codes:
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=receipt.heldout_validation.leakage_codes,
+            )
+        if not receipt.heldout_validation.passed:
+            return _result(
+                request,
+                HedonicEvidenceState.FAILED_HELDOUT_BASELINE,
+                receipt=receipt,
+                limitations=("PROPER_SCORE_LOWER_BOUND_FAILED",),
+            )
+        if not receipt.cluster_bootstrap.stable:
+            return _result(
+                request,
+                HedonicEvidenceState.INSUFFICIENT_EVIDENCE,
+                receipt=receipt,
+                limitations=("CLUSTERED_UNCERTAINTY_UNSTABLE",),
+            )
+        if receipt.transitivity.global_winner_withheld:
+            return _result(
+                request,
+                HedonicEvidenceState.DIAGNOSTIC,
+                receipt=receipt,
+                limitations=(receipt.transitivity.state,),
+            )
+        valid_v2 = (
+            fit.criterion_id == "LIKING"
+            and fit.connected
+            and receipt.davidson_fit.converged
+            and receipt.heldout_validation.paired_gain_interval[0]
+            > receipt.heldout_validation.practical_margin
+        )
+        if not valid_v2:
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=("V2_VALIDATION_CONTRACT_INCONSISTENT",),
+            )
+        return _result(
+            request,
+            HedonicEvidenceState.VALIDATED_EXACT_SCOPE,
+            receipt=receipt,
+            limitations=(
+                "Validated only for the bound formula, samples, protocol, assessors, "
+                "sessions, repeats, matrix, time window, order, and population scope.",
+            ),
+        )
+
     if fit.status is PreferenceFitStatus.WITHHELD:
         return _result(
             request,
@@ -470,30 +806,11 @@ def evaluate_hedonic_evidence(
             receipt=receipt,
             limitations=fit.validation_notes,
         )
-    valid = (
-        fit.status is PreferenceFitStatus.VALIDATED
-        and fit.validated
-        and fit.connected
-        and fit.criterion_id == "LIKING"
-        and fit.heldout_accuracy is not None
-        and fit.baseline_accuracy is not None
-        and fit.heldout_accuracy > fit.baseline_accuracy
-    )
-    if not valid:
-        return _result(
-            request,
-            HedonicEvidenceState.INVALID_OR_CONFOUNDED,
-            receipt=receipt,
-            blockers=("fit validation contract is internally inconsistent",),
-        )
     return _result(
         request,
-        HedonicEvidenceState.VALIDATED_EXACT_SCOPE,
+        HedonicEvidenceState.FAILED_HELDOUT_BASELINE,
         receipt=receipt,
-        limitations=(
-            "Validated only for the bound formula, samples, protocol, assessors, "
-            "repeats, timepoint, schedule, and population scope.",
-        ),
+        blockers=("PROPER_SCORING_REQUIRED",),
     )
 
 
@@ -501,19 +818,26 @@ def _result(
     request: HedonicEvidenceRequest,
     state: HedonicEvidenceState,
     *,
-    receipt: PreferenceFitEvidenceReceiptV1 | None = None,
+    receipt: PreferenceFitEvidenceReceiptV1 | PreferenceFitEvidenceReceiptV2 | None = None,
     blockers: tuple[str, ...] = (),
     limitations: tuple[str, ...] = (),
     include_fit: bool = True,
 ) -> HedonicEvidenceResult:
     fit = receipt.fit_result if receipt is not None and include_fit else None
+    utility_intervals = (
+        dict(receipt.cluster_bootstrap.utility_intervals)
+        if isinstance(receipt, PreferenceFitEvidenceReceiptV2) and include_fit
+        else dict(fit.utility_intervals)
+        if fit is not None
+        else {}
+    )
     return HedonicEvidenceResult(
         state=state,
         criterion_id=request.criterion_id,
         scope=request.scope,
         formula_build_sha256=request.formula_build_sha256,
         fit_receipt_sha256=receipt.record_sha256 if receipt is not None else None,
-        utility_intervals=dict(fit.utility_intervals) if fit is not None else {},
+        utility_intervals=utility_intervals,
         tie_rate=fit.tie_rate if fit is not None else None,
         directional_comparison_count=fit.comparison_count if fit is not None else 0,
         assessor_heterogeneity=(
@@ -531,6 +855,8 @@ __all__ = [
     "HedonicEvidenceState",
     "HedonicScope",
     "PreferenceFitEvidenceReceiptV1",
+    "PreferenceFitEvidenceReceiptV2",
     "bind_preference_fit_evidence",
+    "bind_preference_fit_evidence_v2",
     "evaluate_hedonic_evidence",
 ]

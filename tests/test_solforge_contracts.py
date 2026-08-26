@@ -12,6 +12,7 @@ from engine.solforge.contracts import (
     CompiledArmV1,
     CompiledExperimentV1,
     CriterionFitPacketV1,
+    CriterionFitPacketV2,
     DecisionReceiptV1,
     DecisionState,
     EvidenceDeltaPacketV2,
@@ -227,3 +228,29 @@ def test_v2_transport_optionally_binds_one_evidence_delta_receipt() -> None:
         evidence_delta_receipt=None,
     )
     assert EvidenceDeltaPacketV2.from_dict(empty.as_dict()) == empty
+
+
+def test_criterion_fit_v2_round_trips_with_proper_validation_hashes() -> None:
+    parent = _records()[7]
+    receipt = no_augmentation_receipt(
+        module_id="hedonic_preference",
+        exact_scope="P1/LIKING/HEART",
+        input_sha256="1" * 64,
+        evidence_sha256="2" * 64,
+        policy_sha256="3" * 64,
+        reasons=("QUESTION_ALREADY_RESOLVED",),
+    )
+    packet = CriterionFitPacketV2(
+        parent_v1=parent,
+        preference_fit_evidence_v2_sha256="4" * 64,
+        hedonic_state="VALIDATED_EXACT_SCOPE",
+        cluster_bootstrap_sha256="5" * 64,
+        heldout_validation_sha256="6" * 64,
+        transitivity_sha256="7" * 64,
+        next_pair_sha256="8" * 64,
+        evidence_delta_receipt=receipt,
+        test_only=True,
+    )
+
+    assert CriterionFitPacketV2.from_dict(packet.as_dict()) == packet
+    assert packet.as_dict()["authority_flags"] == AUTHORITY_FLAGS_FALSE

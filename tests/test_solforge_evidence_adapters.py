@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.sensory.ledger import (
     ObservationCellKey,
     SensorySafetyEvent,
@@ -12,6 +13,7 @@ from engine.solforge.adapters import (
     analyze_execution_receipt,
     audit_execution_receipt_v2,
     build_criterion_fit_packet,
+    build_criterion_fit_packet_v2,
     build_temporal_packet,
 )
 from engine.solforge.contracts import ExecutionReceiptV1
@@ -217,7 +219,7 @@ def test_heldout_baseline_failure_and_liking_gate_remain_scoped() -> None:
     liking = build_criterion_fit_packet(
         liking_execution, liking_temporal, criterion="LIKING"
     )
-    assert liking.validation_state in {"DIAGNOSTIC", "VALIDATED_EXACT_SCOPE"}
+    assert liking.validation_state == "FAILED_BASELINE"
     assert liking.test_only is True
 
 
@@ -246,3 +248,88 @@ def test_v2_execution_adapter_maps_insufficient_and_conflicted_dispositions() ->
     assert conflicted.receipt.next_action == (
         "AUDIT_PROVENANCE:protocol/sample/assessor/repeat/timepoint/endpoint"
     )
+
+
+def test_v2_liking_adapter_binds_proper_validation_and_delta_receipts() -> None:
+    protocol_sha256 = sha256_hex(
+        canonical_json_bytes(
+            _execution().as_dict()["execution_context"]["protocol_scope"]
+        )
+    )
+    comparisons: list[dict] = []
+    outcomes = (
+        ("A1", "TREATMENT", "CONTROL"),
+        ("A1", "TREATMENT", "TREATMENT"),
+        ("A1", None, "CONTROL"),
+        ("A2", "TREATMENT", "TREATMENT"),
+        ("A2", "TREATMENT", "CONTROL"),
+        ("A2", None, "TREATMENT"),
+    )
+    for index, (assessor, preferred, first) in enumerate(outcomes, start=1):
+        comparisons.append(
+            {
+                "left_item": "CONTROL",
+                "right_item": "TREATMENT",
+                "preferred_item": preferred,
+                "comparison_id": f"T{index}",
+                "assessor_id": assessor,
+                "protocol_id": "P1",
+                "criterion_id": "LIKING",
+                "time_seconds": 0,
+                "first_presented_item": first,
+                "repeat_id": "R1",
+                "partition": "training",
+                "session_id": f"{assessor}-S{index}",
+                "matrix_id": "M1",
+                "time_window_id": "OPENING",
+                "position_in_session": 1,
+                "protocol_sha256": protocol_sha256,
+                "sample_sha256": "c" * 64,
+            }
+        )
+    for index in range(1, 4):
+        comparisons.append(
+            {
+                **comparisons[0],
+                "comparison_id": f"H{index}",
+                "assessor_id": "A3",
+                "preferred_item": "TREATMENT",
+                "first_presented_item": "CONTROL" if index % 2 else "TREATMENT",
+                "partition": "heldout",
+                "session_id": f"A3-H{index}",
+            }
+        )
+    config = {
+        "minimum_comparisons": 4,
+        "minimum_heldout_comparisons": 3,
+        "declared_baseline_accuracy": 0.4,
+        "bootstrap_replicates": 8,
+        "bootstrap_seed": 17,
+        "require_scoped_validation": True,
+    }
+    v2_config = {
+        "construct_registry_sha256": "3" * 64,
+        "criterion_wording_sha256": "4" * 64,
+        "source_transfer_sha256": "5" * 64,
+        "source_transfer_state": "NARROWER_SCOPE",
+        "bootstrap_replicates": 20,
+        "bootstrap_seed": 17,
+        "heldout_bootstrap_replicates": 20,
+        "heldout_seed": 17,
+        "practical_margin": 0.0,
+        "split_unit": "ASSESSOR",
+        "decision_resolved": True,
+    }
+    execution = _execution(
+        comparisons=comparisons,
+        preference_fit=config,
+        preference_fit_v2=v2_config,
+    )
+    temporal = build_temporal_packet(execution, analyze_execution_receipt(execution))
+    packet = build_criterion_fit_packet_v2(execution, temporal, criterion="LIKING")
+
+    assert packet.preference_fit_evidence_v2_sha256 is not None
+    assert packet.heldout_validation_sha256 is not None
+    assert packet.cluster_bootstrap_sha256 is not None
+    assert packet.evidence_delta_receipt.state.value == "AUGMENT"
+    assert set(packet.evidence_delta_receipt.authority.values()) == {False}

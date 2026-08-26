@@ -9,6 +9,7 @@ from engine.hedonic_evidence import (
     HedonicEvidenceState,
     HedonicScope,
     bind_preference_fit_evidence,
+    bind_preference_fit_evidence_v2,
     evaluate_hedonic_evidence,
 )
 from engine.preference import (
@@ -16,6 +17,13 @@ from engine.preference import (
     PreferenceFitRequest,
     PreferenceFitStatus,
     fit_preference_model,
+)
+from engine.preference_davidson import DavidsonFitConfig, fit_davidson
+from engine.preference_validation import (
+    ClusterBootstrapConfig,
+    HeldoutValidationConfig,
+    NextPairConstraints,
+    TransitivityConfig,
 )
 
 FORMULA_SHA = "a" * 64
@@ -33,6 +41,7 @@ def _comparison(
     *,
     first: str,
     criterion: str = "LIKING",
+    partition: str = "TRAINING",
 ) -> PairwisePreference:
     return PairwisePreference(
         left,
@@ -44,6 +53,13 @@ def _comparison(
         criterion_id=criterion,
         time_seconds=300,
         first_presented_item=first,
+        session_id=f"session-{assessor_id}",
+        matrix_id="matrix-liking-v2",
+        time_window_id="heart",
+        position_in_session=1,
+        protocol_sha256=PROTOCOL_SHA,
+        sample_sha256=SAMPLE_HASHES[0],
+        partition=partition,
     )
 
 
@@ -62,9 +78,9 @@ def _training() -> tuple[PairwisePreference, ...]:
 def _heldout(*, opposite: bool = False) -> tuple[PairwisePreference, ...]:
     winners = ("B", "C", "C") if opposite else ("A", "A", "B")
     return (
-        _comparison("h1", "p3", "A", "B", winners[0], first="A"),
-        _comparison("h2", "p3", "A", "C", winners[1], first="C"),
-        _comparison("h3", "p3", "B", "C", winners[2], first="B"),
+        _comparison("h1", "p3", "A", "B", winners[0], first="A", partition="HELDOUT"),
+        _comparison("h2", "p3", "A", "C", winners[1], first="C", partition="HELDOUT"),
+        _comparison("h3", "p3", "B", "C", winners[2], first="B", partition="HELDOUT"),
     )
 
 
@@ -136,6 +152,43 @@ def _receipt(
     )
 
 
+def _receipt_v2(request: PreferenceFitRequest | None = None):
+    parent = _receipt(request)
+    fit_request = parent.fit_request
+    items = tuple(
+        sorted(
+            {row.left_item for row in fit_request.training}
+            | {row.right_item for row in fit_request.training}
+        )
+    )
+    davidson = fit_davidson(
+        items=items,
+        comparisons=fit_request.training,
+        config=DavidsonFitConfig(
+            regularization=fit_request.regularization,
+            maximum_iterations=fit_request.maximum_iterations,
+        ),
+    )
+    return bind_preference_fit_evidence_v2(
+        parent,
+        davidson_fit=davidson,
+        construct_registry_sha256="1" * 64,
+        criterion_wording_sha256="2" * 64,
+        source_transfer_sha256="3" * 64,
+        source_transfer_state="NARROWER_SCOPE",
+        bootstrap_config=ClusterBootstrapConfig(replicates=20, seed=17),
+        heldout_config=HeldoutValidationConfig(
+            split_unit="ASSESSOR",
+            practical_margin=0.0,
+            bootstrap_replicates=20,
+            seed=17,
+        ),
+        transitivity_config=TransitivityConfig(),
+        eligible_next_pairs=(("A", "B"), ("A", "C"), ("B", "C")),
+        next_pair_constraints=NextPairConstraints(decision_resolved=True),
+    )
+
+
 def _request(*, fit_receipt=None, **overrides: object) -> HedonicEvidenceRequest:
     payload: dict[str, object] = {
         "criterion_id": "LIKING",
@@ -201,15 +254,58 @@ def test_heldout_baseline_failure_has_a_distinct_state() -> None:
     assert result.state is HedonicEvidenceState.FAILED_HELDOUT_BASELINE
 
 
-def test_validated_liking_fit_is_exact_scope_only() -> None:
+def test_accuracy_only_v1_fit_cannot_validate_liking() -> None:
     receipt = _receipt()
     result = evaluate_hedonic_evidence(_request(fit_receipt=receipt))
+    assert result.state is HedonicEvidenceState.FAILED_HELDOUT_BASELINE
+    assert "PROPER_SCORING_REQUIRED" in result.blockers
+
+
+def test_validated_v2_liking_fit_is_exact_scope_only() -> None:
+    receipt = _receipt_v2()
+    result = evaluate_hedonic_evidence(_request(fit_receipt=receipt))
     assert result.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE
-    assert result.utility_intervals == receipt.fit_result.utility_intervals
+    assert result.utility_intervals == receipt.cluster_bootstrap.utility_intervals
     assert result.tie_rate == 1 / 7
     assert result.scope is HedonicScope.TRAINED_PANEL
     assert result.universal_preference_authority is False
     assert result.release_authority is False
+
+
+def test_v2_failed_lower_bound_and_unstable_bootstrap_do_not_promote() -> None:
+    failed_baseline = _receipt_v2(_fit_request(opposite_heldout=True))
+    baseline_result = evaluate_hedonic_evidence(
+        _request(fit_receipt=failed_baseline)
+    )
+    unstable = replace(
+        _receipt_v2(),
+        cluster_bootstrap=replace(_receipt_v2().cluster_bootstrap, stable=False),
+    )
+    unstable_result = evaluate_hedonic_evidence(_request(fit_receipt=unstable))
+
+    assert baseline_result.state is HedonicEvidenceState.FAILED_HELDOUT_BASELINE
+    assert unstable_result.state is HedonicEvidenceState.INSUFFICIENT_EVIDENCE
+
+
+def test_v2_temporal_crossover_and_failed_source_transfer_do_not_promote() -> None:
+    receipt = _receipt_v2()
+    crossover = replace(
+        receipt,
+        transitivity=replace(
+            receipt.transitivity,
+            state="TEMPORAL_CROSSOVER",
+            temporal_crossovers=(("A", "B"),),
+            global_winner_withheld=True,
+        ),
+    )
+    source_failed = replace(receipt, source_transfer_state="FAILED")
+
+    crossover_result = evaluate_hedonic_evidence(_request(fit_receipt=crossover))
+    source_result = evaluate_hedonic_evidence(_request(fit_receipt=source_failed))
+
+    assert crossover_result.state is HedonicEvidenceState.DIAGNOSTIC
+    assert source_result.state is HedonicEvidenceState.INVALID_OR_CONFOUNDED
+    assert "SOURCE_TRANSFER_INVALID" in source_result.blockers
 
 
 @pytest.mark.parametrize(

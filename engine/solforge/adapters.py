@@ -7,13 +7,20 @@ import itertools
 from pathlib import Path
 from typing import Any
 
-from engine.evidence.augmentation import hold_receipt
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    hold_receipt,
+    no_augmentation_receipt,
+)
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.hedonic_evidence import (
     HedonicEvidenceRequest,
     HedonicEvidenceState,
     HedonicScope,
     bind_preference_fit_evidence,
+    bind_preference_fit_evidence_v2,
     evaluate_hedonic_evidence,
 )
 from engine.perception.architectural_delta import (
@@ -35,6 +42,13 @@ from engine.preference import (
     PreferenceFitStatus,
     fit_preference_model,
 )
+from engine.preference_davidson import DavidsonFitConfig, fit_davidson
+from engine.preference_validation import (
+    ClusterBootstrapConfig,
+    HeldoutValidationConfig,
+    NextPairConstraints,
+    TransitivityConfig,
+)
 from engine.sensory.ledger import (
     SensoryProtocolScope,
     SensorySafetyEvent,
@@ -52,6 +66,7 @@ from engine.solforge.contracts import (
     CompiledArmV1,
     CompiledExperimentV1,
     CriterionFitPacketV1,
+    CriterionFitPacketV2,
     ExecutionReceiptV1,
     SolForgeCaseState,
     SolForgeCaseV1,
@@ -725,6 +740,11 @@ def _fit_result_payload(result: object) -> dict[str, object]:
         "bootstrap_replicates": result.bootstrap_replicates,
         "bootstrap_seed": result.bootstrap_seed,
         "bootstrap_method": result.bootstrap_method,
+        "model_family": result.model_family.value,
+        "tie_parameter": result.tie_parameter,
+        "converged": result.converged,
+        "convergence_code": result.convergence_code,
+        "pair_probabilities": result.pair_probabilities,
         "evidence": result.evidence.as_dict(),
     }
 
@@ -772,6 +792,7 @@ def build_criterion_fit_packet(
         bootstrap_replicates=int(config.get("bootstrap_replicates", 0)),
         bootstrap_seed=int(config.get("bootstrap_seed", 0)),
         require_scoped_validation=bool(config.get("require_scoped_validation", True)),
+        model_family=str(config.get("model_family", "DAVIDSON_V1")),
     )
     fit = fit_preference_model(request)
     validation_state = (
@@ -865,10 +886,352 @@ def build_criterion_fit_packet(
     )
 
 
+_HEDONIC_V2_POLICY_SHA256 = sha256_hex(
+    canonical_json_bytes(
+        {
+            "policy": "HEDONIC_PREFERENCE_EXACT_SCOPE_V2",
+            "model": "DAVIDSON_V1",
+            "uncertainty": "ASSESSOR_CLUSTER",
+            "validation": "GROUPED_MULTINOMIAL_PROPER_SCORING",
+            "selection": "ZERO_OR_ONE_CONSTRAINED_PAIR",
+        }
+    )
+)
+
+
+def _criterion_v2_hold(
+    *,
+    parent: CriterionFitPacketV1,
+    execution: ExecutionReceiptV1,
+    criterion: str,
+    blockers: tuple[str, ...],
+) -> CriterionFitPacketV2:
+    input_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "execution_sha256": execution.record_sha256,
+                "criterion_parent_sha256": parent.record_sha256,
+                "criterion": criterion,
+            }
+        )
+    )
+    receipt = hold_receipt(
+        module_id="hedonic_preference",
+        exact_scope=f"{execution.record_sha256}/{criterion}",
+        input_sha256=input_sha256,
+        evidence_sha256=parent.preference_result_sha256,
+        policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+        reasons=("V2_EVIDENCE_INCOMPLETE",),
+        blockers=blockers,
+        next_action=None,
+    )
+    return CriterionFitPacketV2(
+        parent_v1=parent,
+        preference_fit_evidence_v2_sha256=None,
+        hedonic_state="WITHHELD",
+        cluster_bootstrap_sha256=None,
+        heldout_validation_sha256=None,
+        transitivity_sha256=None,
+        next_pair_sha256=None,
+        evidence_delta_receipt=receipt,
+        test_only=execution.test_only,
+    )
+
+
+def build_criterion_fit_packet_v2(
+    execution: ExecutionReceiptV1,
+    temporal: TemporalEvidencePacketV1,
+    *,
+    criterion: str,
+) -> CriterionFitPacketV2:
+    """Build a V2 proper-scoring liking packet or one fail-closed receipt."""
+
+    parent = build_criterion_fit_packet(execution, temporal, criterion=criterion)
+    criterion = criterion.strip().upper()
+    if criterion != "LIKING":
+        input_sha256 = sha256_hex(
+            canonical_json_bytes(
+                {
+                    "execution_sha256": execution.record_sha256,
+                    "criterion_parent_sha256": parent.record_sha256,
+                    "criterion": criterion,
+                }
+            )
+        )
+        receipt = no_augmentation_receipt(
+            module_id="hedonic_preference",
+            exact_scope=f"{execution.record_sha256}/{criterion}",
+            input_sha256=input_sha256,
+            evidence_sha256=parent.preference_result_sha256,
+            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+            reasons=("NON_HEDONIC_CRITERION",),
+        )
+        return CriterionFitPacketV2(
+            parent_v1=parent,
+            preference_fit_evidence_v2_sha256=None,
+            hedonic_state="NOT_TESTED",
+            cluster_bootstrap_sha256=None,
+            heldout_validation_sha256=None,
+            transitivity_sha256=None,
+            next_pair_sha256=None,
+            evidence_delta_receipt=receipt,
+            test_only=execution.test_only,
+        )
+
+    try:
+        context = _execution_context(execution)
+        comparisons_raw = context.get("comparisons", [])
+        if not isinstance(comparisons_raw, list):
+            raise ValueError("comparisons must be a list")
+        comparisons = tuple(
+            PairwisePreference.from_dict(item) for item in comparisons_raw
+        )
+        training = tuple(
+            row
+            for row in comparisons
+            if (row.partition or "TRAINING").strip().upper() == "TRAINING"
+        )
+        heldout = tuple(
+            row
+            for row in comparisons
+            if (row.partition or "").strip().upper() == "HELDOUT"
+        )
+        config = context.get("preference_fit", {})
+        config_v2 = context.get("preference_fit_v2", {})
+        if not isinstance(config, dict) or not isinstance(config_v2, dict):
+            raise ValueError("preference fit configurations must be objects")
+        request = PreferenceFitRequest(
+            training=training,
+            heldout=heldout,
+            minimum_comparisons=int(config.get("minimum_comparisons", 10)),
+            minimum_heldout_comparisons=int(
+                config.get("minimum_heldout_comparisons", 5)
+            ),
+            declared_baseline_accuracy=config.get("declared_baseline_accuracy"),
+            regularization=float(config.get("regularization", 0.1)),
+            maximum_iterations=int(config.get("maximum_iterations", 2000)),
+            criterion_id=criterion,
+            bootstrap_replicates=int(config.get("bootstrap_replicates", 0)),
+            bootstrap_seed=int(config.get("bootstrap_seed", 0)),
+            require_scoped_validation=bool(
+                config.get("require_scoped_validation", True)
+            ),
+            model_family=str(config.get("model_family", "DAVIDSON_V1")),
+        )
+        fit = fit_preference_model(request)
+        protocol_payload = context.get("protocol_scope", {})
+        protocol_sha256 = sha256_hex(canonical_json_bytes(protocol_payload))
+        assessor_ids = tuple(
+            sorted(
+                {
+                    item.assessor_id
+                    for item in comparisons
+                    if item.assessor_id is not None
+                }
+            )
+        )
+        repeat_map = {
+            str(raw["comparison_id"]): str(raw.get("repeat_id") or "R1")
+            for raw in comparisons_raw
+        }
+        repeat_ids = tuple(sorted(set(repeat_map.values())))
+        timepoints = {item.time_seconds for item in comparisons}
+        if len(timepoints) != 1:
+            raise ValueError("V2 liking comparisons must isolate one timepoint")
+        parent_evidence = bind_preference_fit_evidence(
+            request,
+            fit,
+            scope=HedonicScope(str(context.get("hedonic_scope", "OWNER"))),
+            formula_build_sha256=str(context["formula_build_sha256"]),
+            sample_sha256=tuple(digest for _, digest in execution.sample_sha256),
+            protocol_sha256=protocol_sha256,
+            assessor_ids=assessor_ids,
+            repeat_ids=repeat_ids,
+            comparison_repeat_ids=repeat_map,
+            time_seconds=float(next(iter(timepoints))),
+            schedule_sha256=analyze_execution_receipt(execution).schedule_sha256,
+        )
+        items = tuple(
+            sorted(
+                {row.left_item for row in training}
+                | {row.right_item for row in training}
+            )
+        )
+        davidson = fit_davidson(
+            items=items,
+            comparisons=training,
+            config=DavidsonFitConfig(
+                regularization=request.regularization,
+                maximum_iterations=request.maximum_iterations,
+            ),
+        )
+        evidence_v2 = bind_preference_fit_evidence_v2(
+            parent_evidence,
+            davidson_fit=davidson,
+            construct_registry_sha256=str(config_v2["construct_registry_sha256"]),
+            criterion_wording_sha256=str(config_v2["criterion_wording_sha256"]),
+            source_transfer_sha256=str(config_v2["source_transfer_sha256"]),
+            source_transfer_state=str(config_v2["source_transfer_state"]),
+            bootstrap_config=ClusterBootstrapConfig(
+                replicates=int(config_v2.get("bootstrap_replicates", 200)),
+                seed=int(config_v2.get("bootstrap_seed", 0)),
+                regularization=request.regularization,
+                maximum_iterations=request.maximum_iterations,
+            ),
+            heldout_config=HeldoutValidationConfig(
+                split_unit=str(config_v2.get("split_unit", "ASSESSOR")),
+                practical_margin=float(config_v2.get("practical_margin", 0.0)),
+                bootstrap_replicates=int(
+                    config_v2.get("heldout_bootstrap_replicates", 200)
+                ),
+                seed=int(config_v2.get("heldout_seed", 0)),
+            ),
+            transitivity_config=TransitivityConfig(),
+            eligible_next_pairs=tuple(itertools.combinations(items, 2)),
+            next_pair_constraints=NextPairConstraints(
+                decision_resolved=bool(config_v2.get("decision_resolved", False))
+            ),
+        )
+        safety_events = context.get("safety_events", [])
+        hedonic = evaluate_hedonic_evidence(
+            HedonicEvidenceRequest(
+                criterion_id="LIKING",
+                scope=evidence_v2.scope,
+                formula_build_sha256=evidence_v2.formula_build_sha256,
+                sample_sha256=evidence_v2.sample_sha256,
+                protocol_sha256=evidence_v2.protocol_sha256,
+                assessor_ids=evidence_v2.assessor_ids,
+                repeat_ids=evidence_v2.repeat_ids,
+                time_seconds=evidence_v2.time_seconds,
+                schedule_sha256=evidence_v2.schedule_sha256,
+                fit_receipt=evidence_v2,
+                safety_event_ids=tuple(
+                    str(item.get("event_id")) for item in safety_events
+                ),
+            )
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        return _criterion_v2_hold(
+            parent=parent,
+            execution=execution,
+            criterion=criterion,
+            blockers=(f"V2 preference evidence could not be bound: {exc}",),
+        )
+
+    input_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "execution_sha256": execution.record_sha256,
+                "temporal_sha256": temporal.record_sha256,
+                "criterion": criterion,
+            }
+        )
+    )
+    source_bindings = tuple(
+        sorted(
+            {
+                evidence_v2.record_sha256,
+                evidence_v2.construct_registry_sha256,
+                evidence_v2.source_transfer_sha256,
+            }
+        )
+    )
+    if hedonic.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE:
+        delta = DecisionDeltaV1(
+            delta_id=f"HEDONIC:{execution.record_sha256[:12]}",
+            decision_effect=(
+                "Use the scoped liking utilities and proper held-out validation only "
+                "for the bound protocol population."
+            ),
+            observed_facts=(
+                f"heldout_count={evidence_v2.heldout_validation.heldout_count}",
+                f"tie_rate={fit.tie_rate:.12g}",
+                f"split_unit={evidence_v2.heldout_validation.split_unit}",
+            ),
+            derived_calculations=(
+                "model_family=DAVIDSON_V1",
+                f"log_loss={evidence_v2.heldout_validation.multinomial_log_loss:.12g}",
+                "cluster_method=ASSESSOR_CLUSTER_PERCENTILE",
+            ),
+            hypotheses=(),
+            forbidden_inferences=(
+                "The result is not a universal beauty or formula-composition score.",
+                "The result grants no formula, safety, purchase, release, or runtime authority.",
+            ),
+        )
+        delta_receipt = EvidenceDeltaReceiptV1(
+            module_id="hedonic_preference",
+            exact_scope=f"{execution.record_sha256}/LIKING",
+            state=EvidenceAugmentationState.AUGMENT,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_v2.record_sha256,
+            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reason_codes=("PROPER_SCOPED_LIKING_EVIDENCE",),
+            delta=delta,
+            blockers=(),
+            next_action=(
+                None
+                if evidence_v2.next_pair.selected_pair is None
+                else "COMPARE:" + ":".join(evidence_v2.next_pair.selected_pair)
+            ),
+        )
+    elif (
+        any("order" in value.casefold() for value in hedonic.blockers)
+        and evidence_v2.next_pair.selected_pair is None
+    ):
+        delta_receipt = no_augmentation_receipt(
+            module_id="hedonic_preference",
+            exact_scope=f"{execution.record_sha256}/LIKING",
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_v2.record_sha256,
+            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=("ORDER_CONFOUND_ALREADY_IDENTIFIED",),
+        )
+    else:
+        blockers = hedonic.blockers or hedonic.limitations or (hedonic.state.value,)
+        delta_receipt = hold_receipt(
+            module_id="hedonic_preference",
+            exact_scope=f"{execution.record_sha256}/LIKING",
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_v2.record_sha256,
+            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=(hedonic.state.value,),
+            blockers=tuple(blockers),
+            next_action=(
+                None
+                if evidence_v2.next_pair.selected_pair is None
+                else "COMPARE:" + ":".join(evidence_v2.next_pair.selected_pair)
+            ),
+        )
+    state = {
+        HedonicEvidenceState.VALIDATED_EXACT_SCOPE: "VALIDATED_EXACT_SCOPE",
+        HedonicEvidenceState.FAILED_HELDOUT_BASELINE: "FAILED_BASELINE",
+        HedonicEvidenceState.DIAGNOSTIC: "DIAGNOSTIC",
+        HedonicEvidenceState.INSUFFICIENT_EVIDENCE: "WITHHELD",
+        HedonicEvidenceState.NOT_TESTED: "NOT_TESTED",
+        HedonicEvidenceState.INVALID_OR_CONFOUNDED: "INVALID",
+    }[hedonic.state]
+    return CriterionFitPacketV2(
+        parent_v1=parent,
+        preference_fit_evidence_v2_sha256=evidence_v2.record_sha256,
+        hedonic_state=state,
+        cluster_bootstrap_sha256=evidence_v2.cluster_bootstrap.receipt_sha256,
+        heldout_validation_sha256=evidence_v2.heldout_validation.receipt_sha256,
+        transitivity_sha256=sha256_hex(evidence_v2.transitivity.canonical_bytes()),
+        next_pair_sha256=sha256_hex(evidence_v2.next_pair.canonical_bytes()),
+        evidence_delta_receipt=delta_receipt,
+        test_only=execution.test_only,
+    )
+
+
 __all__ = [
     "analyze_execution_receipt",
     "audit_execution_receipt_v2",
     "build_criterion_fit_packet",
+    "build_criterion_fit_packet_v2",
     "build_temporal_packet",
     "compile_architectural_delta",
     "compile_architectural_delta_v2",
