@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S01",
+  "completed_utc": "2026-08-26T07:32:14.634360+00:00",
+  "dispatch_sha256": "c10f959b93dac2a9756b7f336f0e5f08422d20c774c92513e7eba7f3d388b5a0",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "6ecea74484c9c8f88b75bc15e44f87a2b103c4863dee28180b7a9300b31e4252",
+  "output_text": "{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"The observed median DEPTH rises from 3 at 60 seconds to 5.5 at 1800 seconds, an observed increase of 2.5 units.\",\"controlled_comparison\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"timepoints_seconds\":[60,1800],\"cell_status\":\"All eight required unique, scope-matched cells are present once; order is balanced and the disagreement threshold is not exceeded.\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"COMPLETE_UNIQUE_SCOPE_MATCHED_CELLS\",\"OBSERVED_MEDIAN_INCREASE\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "bf18df8240629af8caa4296643e46b7b79d9a851852e21207e6d137d6d871bf0",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ca59b6cdd67faa0e3bf9",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:31:55.756269+00:00",
+  "stderr_sha256": "e97143a19fa2304b7583b77588f437eb1b95e55c79c52093cf75f2b017f5b417",
+  "stderr_tail": "text_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"COMPLETE\",\"INCOMPLETE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_1800_seconds\":\"compute from the supplied evidence\",\"median_at_60_seconds\":\"compute from the supplied evidence\",\"median_transition\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"The observed median DEPTH rises from 3 at 60 seconds to 5.5 at 1800 seconds, an observed increase of 2.5 units.\",\"controlled_comparison\":{\"endpoint_id\":\"DEPTH\",\"protocol_id\":\"AUG-TEM-S01\",\"schedule_hash\":\"sched-aug-tem-s01\",\"timepoints_seconds\":[60,1800],\"cell_status\":\"All eight required unique, scope-matched cells are present once; order is balanced and the disagreement threshold is not exceeded.\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"COMPLETE_UNIQUE_SCOPE_MATCHED_CELLS\",\"OBSERVED_MEDIAN_INCREASE\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,679\n",
+  "stdout_sha256": "023ef0f6a73df3066b60c2026cff907b104276706b54afaf1f5bf0912a42ea58"
+}

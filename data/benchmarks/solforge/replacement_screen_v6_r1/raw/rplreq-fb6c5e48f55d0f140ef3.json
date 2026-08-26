@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S01",
+  "completed_utc": "2026-08-26T07:33:41.545038+00:00",
+  "dispatch_sha256": "9ab6890bf059d53bd3bc822b92b15d7ba4ecb8bd7b432f7b6459c1a95959adc9",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "fa05f3d18ef5e91bbab972a45de5be83375c83e94e09bdfb7ee09e9d653da4be",
+  "output_text": "{\"decision_state\":\"VALIDATED\",\"target_linked_reasoning\":\"For DEPTH only, A is preferred over B in 4 of 6 directional outcomes versus 2 of 6 for B; 2 of 8 outcomes are ties. The connected, order-balanced design and superior held-out proper score support this scoped inference, but eight outcomes leave substantial uncertainty and do not establish richness, fidelity, liking, or broader sensory superiority.\",\"controlled_comparison\":\"Blinded, order-balanced A-versus-B depth judgments support a directional A-over-B preference while retaining ties and assessor clustering.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"reason_codes\":[\"DEPTH_ONLY\",\"A_OVER_B_DIRECTIONAL_MAJORITY\",\"NONZERO_TIE_RATE\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_ABOVE_BASELINE\",\"LIMITED_OUTCOME_COUNT\",\"B_C_WIDEST_INTERVAL\"],\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"next_actions\":[\"Run the deterministic next blinded, order-balanced B-versus-C depth comparison because that pair has the widest interval.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "f31ef28c0609d5a12c1a4c5f5a1b429d31c193b35a25a950ccf87a9be1e04a23",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-fb6c5e48f55d0f140ef3",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:15.897144+00:00",
+  "stderr_sha256": "f985df31cbcb753050a53f2c154fc6d6d92dbf36ed2c6840638d8a836fcb7f52",
+  "stderr_tail": "lations\":{\"directional_outcome_count\":\"compute from the supplied evidence\",\"tie_rate\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"VALIDATED\",\"target_linked_reasoning\":\"For DEPTH only, A is preferred over B in 4 of 6 directional outcomes versus 2 of 6 for B; 2 of 8 outcomes are ties. The connected, order-balanced design and superior held-out proper score support this scoped inference, but eight outcomes leave substantial uncertainty and do not establish richness, fidelity, liking, or broader sensory superiority.\",\"controlled_comparison\":\"Blinded, order-balanced A-versus-B depth judgments support a directional A-over-B preference while retaining ties and assessor clustering.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"reason_codes\":[\"DEPTH_ONLY\",\"A_OVER_B_DIRECTIONAL_MAJORITY\",\"NONZERO_TIE_RATE\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_ABOVE_BASELINE\",\"LIMITED_OUTCOME_COUNT\",\"B_C_WIDEST_INTERVAL\"],\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"next_actions\":[\"Run the deterministic next blinded, order-balanced B-versus-C depth comparison because that pair has the widest interval.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n5,834\n",
+  "stdout_sha256": "a9949250e823e61012f408d2005f85319be08aee564ffeb99de2f51d352d5375"
+}

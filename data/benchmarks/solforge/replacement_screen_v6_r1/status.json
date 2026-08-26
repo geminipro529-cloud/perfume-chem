@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "completed_requests": 27,
+  "confirmation_authorized_by_gate": false,
+  "manifest_sha256": "bceed994e476e30f7b0e4007718ce7c4682353161d38da0e44159b26cd83acec",
+  "proceed_modules": [],
+  "receipt_sha256": "ca48e1cec1055e632886dcf5f279836a099561d05e1b2acb14e673417da714d3",
+  "runtime_reachable": false,
+  "schema_version": "complexity_replacement_screen_status_v1",
+  "state": "SCREEN_COMPLETE",
+  "stopped_modules": [
+    "architectural_delta",
+    "temporal_sensory_ledger",
+    "hedonic_preference_learner"
+  ]
+}

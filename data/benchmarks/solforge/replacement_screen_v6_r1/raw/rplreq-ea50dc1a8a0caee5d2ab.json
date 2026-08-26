@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:32:54.529126+00:00",
+  "dispatch_sha256": "7e5901a1d94cb5f0aa395bca324c145d50e1af9fe3c10e56a8f544e289ccf58a",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "6769901748f935c3806452cb0c95298741769ef815100cbe4bbda9d71426f2dc",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The proposed arm would elevate Neroli into a dominant identity, inverting a target centered on bitter lemon peel and green tea where orange blossom is explicitly noncentral. No blinded evidence supports that inversion. The inventory reparse affects execution readiness, not this architectural judgment.\",\"controlled_comparison\":{\"design_only\":\"Blindly compare the 100-part baseline against the isolated 100-part arm that removes 2 parts of citrus support and adds 2 parts Neroli 10%; evaluate preservation of lemon-peel/green-tea identity versus emergence of orange-blossom dominance.\",\"candidate_total_parts\":100.0},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[\"Run the stated constant-total blinded comparison only after inventory lineage and Neroli 10% identity are verified.\"],\"reason_codes\":[\"TARGET_IDENTITY_INVERSION\",\"NEROLI_NOT_CENTRAL\",\"BLINDED_SUPPORT_ABSENT\",\"EXECUTION_INVENTORY_UNVERIFIED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "1099e8be843c0ec9a1a89585a9d56f3367839cc04fe3870ded21c5db314b5f38",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ea50dc1a8a0caee5d2ab",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.416645+00:00",
+  "stderr_sha256": "621163c62cdb0cd195ede5af2ff770aa5beea0f1fbefd4a915204afc7da3bbca",
+  "stderr_tail": "tion\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The proposed arm would elevate Neroli into a dominant identity, inverting a target centered on bitter lemon peel and green tea where orange blossom is explicitly noncentral. No blinded evidence supports that inversion. The inventory reparse affects execution readiness, not this architectural judgment.\",\"controlled_comparison\":{\"design_only\":\"Blindly compare the 100-part baseline against the isolated 100-part arm that removes 2 parts of citrus support and adds 2 parts Neroli 10%; evaluate preservation of lemon-peel/green-tea identity versus emergence of orange-blossom dominance.\",\"candidate_total_parts\":100.0},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[\"Run the stated constant-total blinded comparison only after inventory lineage and Neroli 10% identity are verified.\"],\"reason_codes\":[\"TARGET_IDENTITY_INVERSION\",\"NEROLI_NOT_CENTRAL\",\"BLINDED_SUPPORT_ABSENT\",\"EXECUTION_INVENTORY_UNVERIFIED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0}}}\ntokens used\n5,750\n",
+  "stdout_sha256": "5f732570b38b31341221b4d1f9756e6c1e6f4b83ccb8de05d0c821a6a0d2ad80"
+}

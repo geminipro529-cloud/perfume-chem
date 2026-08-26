@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:32:57.294657+00:00",
+  "dispatch_sha256": "da8c8238db612d65d9bebd54afc479388f54573e38d690d7a3009c0ac07889e5",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "e87202f25f5e2cf3951076083cb0f21f043a8a943ec80ed16aed4da72a63d606",
+  "output_text": "{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The five-material addition has no identified omission loss, missing function, or nonredundant target-linked relation; ingredient count and prestige do not establish complexity for this minimal translucent iris. Physical liking remains untested, and inventory authority requires V5 reparse.\",\"controlled_comparison\":{\"control\":\"Current minimal architecture\",\"variant\":\"Proposed five-material addition\",\"constants\":[\"target identity\",\"declared target functions\",\"evaluation criteria\"],\"discriminator\":\"Whether the variant adds target-linked depth or a nonredundant relation without degrading translucency, negative space, or material exactness\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"COUNT_AND_PRESTIGE_INSUFFICIENT\",\"V5_REPARSE_REQUIRED\"],\"calculations\":{\"unmet_target_function_count\":0},\"next_actions\":[\"Design a blinded control-versus-variant comparison using the stated discriminator; retain the control unless the variant demonstrates nonredundant target-linked value.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "f864e2f6b4c2099f2d40bd63f38d83fa5df7f02783c0d6e778cb4f74588590a1",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-d41b0f81ebbd32fc0afc",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.413203+00:00",
+  "stderr_sha256": "a123717165a122bd638806fd09194af4f8cbc4bc462ff318b8aaf151447f52bf",
+  "stderr_tail": "ontaining no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The five-material addition has no identified omission loss, missing function, or nonredundant target-linked relation; ingredient count and prestige do not establish complexity for this minimal translucent iris. Physical liking remains untested, and inventory authority requires V5 reparse.\",\"controlled_comparison\":{\"control\":\"Current minimal architecture\",\"variant\":\"Proposed five-material addition\",\"constants\":[\"target identity\",\"declared target functions\",\"evaluation criteria\"],\"discriminator\":\"Whether the variant adds target-linked depth or a nonredundant relation without degrading translucency, negative space, or material exactness\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"COUNT_AND_PRESTIGE_INSUFFICIENT\",\"V5_REPARSE_REQUIRED\"],\"calculations\":{\"unmet_target_function_count\":0},\"next_actions\":[\"Design a blinded control-versus-variant comparison using the stated discriminator; retain the control unless the variant demonstrates nonredundant target-linked value.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,590\n",
+  "stdout_sha256": "f0e4cd4d836849cac6c959d42d909a617645be9875dd212ff3c3a5affb8e8cb8"
+}
