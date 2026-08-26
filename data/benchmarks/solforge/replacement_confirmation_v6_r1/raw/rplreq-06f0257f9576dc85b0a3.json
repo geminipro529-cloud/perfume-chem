@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C02",
+  "completed_utc": "2026-08-26T07:36:58.154048+00:00",
+  "dispatch_sha256": "84ca6af62a731a5fed7dc877c0d6e45db739fcc60a9fa81fc555eb0ba8a065a9",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "5dfcac8b504a9d3d885c5722be5ed03fc629bd07f802ad72c4c1f700e1e4dc1e",
+  "output_text": "{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"Habanolide already covers the single declared cool, diffusive, mineral musk function, so the evidence shows no unmet target function. Adding Romandolide would increase ingredient count without supplied evidence of distinct target-linked depth, richness, relationship, or nonredundancy.\",\"controlled_comparison\":\"Compare Habanolide alone against a Habanolide–Romandolide stack at matched total musk dose under blinded evaluation; retain the stack only if it demonstrates a distinct, reproducible target-linked contribution.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"DECLARED_FUNCTION_COVERED\",\"SECOND_MUSK_FUNCTION_UNSPECIFIED\",\"NONREDUNDANCY_NOT_ESTABLISHED\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0,\"physical_liking_state\":\"NOT TESTED\"},\"next_actions\":[\"Run the blinded matched-total-dose comparison of Habanolide alone versus the two-musk stack.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "75d677521f3281fb332834c2969ae78e13d034bc7b8b888a1d49e8654d6a69d0",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-06f0257f9576dc85b0a3",
+  "role": "CONTROL",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.276727+00:00",
+  "stderr_sha256": "0b457105d4a765ed784de622186845eb1438151c7967bb0724c8dd533e6639c4",
+  "stderr_tail": "ase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_musk_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"Habanolide already covers the single declared cool, diffusive, mineral musk function, so the evidence shows no unmet target function. Adding Romandolide would increase ingredient count without supplied evidence of distinct target-linked depth, richness, relationship, or nonredundancy.\",\"controlled_comparison\":\"Compare Habanolide alone against a Habanolide–Romandolide stack at matched total musk dose under blinded evaluation; retain the stack only if it demonstrates a distinct, reproducible target-linked contribution.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"DECLARED_FUNCTION_COVERED\",\"SECOND_MUSK_FUNCTION_UNSPECIFIED\",\"NONREDUNDANCY_NOT_ESTABLISHED\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0,\"physical_liking_state\":\"NOT TESTED\"},\"next_actions\":[\"Run the blinded matched-total-dose comparison of Habanolide alone versus the two-musk stack.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,443\n",
+  "stdout_sha256": "f488a946a575ff042b93a4fb1a5a499623cf56d572307399fd8e5c62ce837311"
+}

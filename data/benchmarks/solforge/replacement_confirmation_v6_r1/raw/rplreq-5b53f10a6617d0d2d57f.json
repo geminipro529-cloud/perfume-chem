@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C02",
+  "completed_utc": "2026-08-26T07:36:53.475571+00:00",
+  "dispatch_sha256": "d95a1971b805cc7d60179c167aeb53b2b2628a7dca63c03e0c4c5bf092f96ac2",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "6f7c2ad9e4541ed43da6984220dac5335cdbe00fb518b32476ee7025e5da670b",
+  "output_text": "{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"The target requires one cool diffusive mineral musk function. Habanolide already covers that function, so adding Romandolide would increase ingredient count without supplying a distinct target-linked function or supported nonredundancy.\",\"controlled_comparison\":null,\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"SECOND_MUSK_FUNCTION_UNDECLARED\",\"COUNT_ONLY_EXPANSION\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0},\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "9023775c9d2c03dfec6733374b31c6f882320a206ac52debd4f5fee557c9f950",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-5b53f10a6617d0d2d57f",
+  "role": "CONTROL",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.275264+00:00",
+  "stderr_sha256": "4b3a91f2c6051cdc81ba63d1876112893290a2a0694daf03058ab3e2dd147806",
+  "stderr_tail": "\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_musk_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"The target requires one cool diffusive mineral musk function. Habanolide already covers that function, so adding Romandolide would increase ingredient count without supplying a distinct target-linked function or supported nonredundancy.\",\"controlled_comparison\":null,\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"SECOND_MUSK_FUNCTION_UNDECLARED\",\"COUNT_ONLY_EXPANSION\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0},\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,293\n",
+  "stdout_sha256": "640ade049eca8f8bc6c85ba4c342c3bab04c6156b3274e15e954987b816f4f06"
+}

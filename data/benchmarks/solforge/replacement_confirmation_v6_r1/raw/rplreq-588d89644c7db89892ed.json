@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C03",
+  "completed_utc": "2026-08-26T07:37:19.220452+00:00",
+  "dispatch_sha256": "ac0e1b1c413b90c1a288e1e5a99ff93ef199ae91cfffa937c2ef096528e58b53",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "30149847e05d71ad4e447f092a4aa8dfe1794ad83bf9865c1b4cf1f4664d256c",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The target explicitly requires a dated animalic-powder musk shadow, making Tonalide a justified exception beneath the owned dry-wood modifier, subject to stock verification. Existing pairwise observations cannot establish Tonalide-by-dry-wood synergy because the joint arm is unobserved.\",\"controlled_comparison\":\"At constant total, compare four isolated arms: base; base plus Tonalide only; base plus dry-wood modifier only; and base plus both. Estimate the interaction from the joint response relative to the two single-factor effects.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"required_isolated_arm_count\":4},\"next_actions\":[\"After verifying Tonalide stock, run the constant-total four-arm 2×2 factorial comparison.\"],\"reason_codes\":[\"TARGET_REQUIRES_TONALIDE_EXCEPTION\",\"JOINT_INTERACTION_UNOBSERVED\",\"FULL_FACTORIAL_REQUIRED\",\"TONALIDE_STOCK_UNVERIFIED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "d3b30135d8553ac2837ad128b0449ed42462ac16c1fb2a973c6d8ca3ecad3b30",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-588d89644c7db89892ed",
+  "role": "UNSEEN_VARIANT",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:53.486421+00:00",
+  "stderr_sha256": "925274155f46de44d581fc1e72bcacf91545c4fc1ec3e12ea1beb1d7f2a6b439",
+  "stderr_tail": "hority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The target explicitly requires a dated animalic-powder musk shadow, making Tonalide a justified exception beneath the owned dry-wood modifier, subject to stock verification. Existing pairwise observations cannot establish Tonalide-by-dry-wood synergy because the joint arm is unobserved.\",\"controlled_comparison\":\"At constant total, compare four isolated arms: base; base plus Tonalide only; base plus dry-wood modifier only; and base plus both. Estimate the interaction from the joint response relative to the two single-factor effects.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"required_isolated_arm_count\":4},\"next_actions\":[\"After verifying Tonalide stock, run the constant-total four-arm 2×2 factorial comparison.\"],\"reason_codes\":[\"TARGET_REQUIRES_TONALIDE_EXCEPTION\",\"JOINT_INTERACTION_UNOBSERVED\",\"FULL_FACTORIAL_REQUIRED\",\"TONALIDE_STOCK_UNVERIFIED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n1,621\n",
+  "stdout_sha256": "0931a866214c5084c351c824c291e7ef39996bcc595711606112f588b7d59f77"
+}

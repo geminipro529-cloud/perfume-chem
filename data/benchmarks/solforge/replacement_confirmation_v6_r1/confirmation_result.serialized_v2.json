@@ -1,0 +1,315 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "confirmation_receipt_sha256": "079b15370f2cc26655aaa29689cbcb2a58c0aef5c2115061d3ad4aac8a9f8eb5",
+  "decisions": [
+    {
+      "module_id": "architectural_delta",
+      "placebo": {
+        "median_paired_delta": "20",
+        "module_id": "architectural_delta",
+        "pair_scores": [
+          {
+            "case_id": "AUG-ARC-C01",
+            "control_score": "70",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "30",
+            "module_id": "architectural_delta",
+            "role": "INVENTORY_MISMATCH",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-C02",
+            "control_score": "90",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "10",
+            "module_id": "architectural_delta",
+            "role": "CONTROL",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-C03",
+            "control_score": "0",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "100",
+            "module_id": "architectural_delta",
+            "role": "UNSEEN_VARIANT",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S01",
+            "control_score": "100",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "0",
+            "module_id": "architectural_delta",
+            "role": "POSITIVE",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S02",
+            "control_score": "90",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "10",
+            "module_id": "architectural_delta",
+            "role": "SAFE_COUNTERCASE",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S03",
+            "control_score": "0",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "100",
+            "module_id": "architectural_delta",
+            "role": "CRITICAL_TRAP",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          }
+        ],
+        "placebo_delta": "20",
+        "reasons": [],
+        "state": "REACTIVATE",
+        "treatment_wins": 5
+      },
+      "plain_control": {
+        "median_paired_delta": "20",
+        "module_id": "architectural_delta",
+        "pair_scores": [
+          {
+            "case_id": "AUG-ARC-C01",
+            "control_score": "70",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "30",
+            "module_id": "architectural_delta",
+            "role": "INVENTORY_MISMATCH",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-C02",
+            "control_score": "90",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "10",
+            "module_id": "architectural_delta",
+            "role": "CONTROL",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-C03",
+            "control_score": "0",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "100",
+            "module_id": "architectural_delta",
+            "role": "UNSEEN_VARIANT",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S01",
+            "control_score": "100",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "0",
+            "module_id": "architectural_delta",
+            "role": "POSITIVE",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S02",
+            "control_score": "90",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "10",
+            "module_id": "architectural_delta",
+            "role": "SAFE_COUNTERCASE",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          },
+          {
+            "case_id": "AUG-ARC-S03",
+            "control_score": "0",
+            "critical_regression": false,
+            "critical_trap_pass": true,
+            "delta": "100",
+            "module_id": "architectural_delta",
+            "role": "CRITICAL_TRAP",
+            "safe_countercase_pass": true,
+            "specialist_checks_pass": true,
+            "treatment_score": "100"
+          }
+        ],
+        "placebo_delta": "20",
+        "reasons": [],
+        "state": "REACTIVATE",
+        "treatment_wins": 5
+      },
+      "reasons": [],
+      "state": "ADMITTED"
+    }
+  ],
+  "manifest_sha256": "554bb43a35fd471a15bb5bcc92660f75808d6508dcf0c1360ae72b2f7c38e5a9",
+  "paired_scores": [
+    {
+      "case_id": "AUG-ARC-C01",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "70",
+          "delta": "30",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "70",
+          "delta": "30",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "INVENTORY_MISMATCH",
+      "specialist_checks_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-C02",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "CONTROL",
+      "specialist_checks_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-C03",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "0",
+          "delta": "100",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "0",
+          "delta": "100",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "UNSEEN_VARIANT",
+      "specialist_checks_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-S01",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "100",
+          "delta": "0",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "POSITIVE",
+      "specialist_checks_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-S02",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "90",
+          "delta": "10",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "SAFE_COUNTERCASE",
+      "specialist_checks_pass": true
+    },
+    {
+      "case_id": "AUG-ARC-S03",
+      "comparisons": [
+        {
+          "control_arm": "CONTROL",
+          "control_score": "0",
+          "delta": "100",
+          "treatment_score": "100"
+        },
+        {
+          "control_arm": "PLACEBO",
+          "control_score": "0",
+          "delta": "100",
+          "treatment_score": "100"
+        }
+      ],
+      "critical_regression": false,
+      "module_id": "architectural_delta",
+      "role": "CRITICAL_TRAP",
+      "specialist_checks_pass": true
+    }
+  ],
+  "schema_version": "complexity_replacement_confirmation_result_v1",
+  "screen_receipt_sha256": "e2f86192b7897277378e6b522c45cb3c0ad05b37ae651e08ed80484cea3b6840"
+}
