@@ -121,6 +121,9 @@ def test_persistent_oav_dominance_warns_only() -> None:
     )
     assert result.status == "WARN"
     assert any(x.code == "PERSISTENT_MODELED_OAV_DOMINANCE" for x in result.findings)
+    assert result.temporal_evidence_mode == "LEGACY_MODELED_SCREEN_ONLY"
+    assert result.parent_temporal_oav_sha256 is None
+    assert result.child_temporal_oav_sha256 is None
 
 
 def test_percent_number_instead_of_fraction_is_rejected() -> None:
