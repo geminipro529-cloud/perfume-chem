@@ -15,9 +15,16 @@ from app.api.v1.endpoints import (
     optimizer,
     outcomes,
     reference,
+    solforge_workbench,
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    solforge_workbench.router,
+    prefix="/solforge/workbench",
+    tags=["solforge-workbench"],
+)
 
 api_router.include_router(
     lab_reporting.router,
