@@ -52,6 +52,7 @@ class PairwisePreference:
     position_in_session: int | None = None
     protocol_sha256: str | None = None
     sample_sha256: str | None = None
+    partition: str | None = None
     legacy_outcome_semantics: bool = field(init=False)
 
     def __post_init__(self) -> None:
@@ -97,6 +98,7 @@ class PairwisePreference:
             "matrix_id",
             "time_window_id",
             "previous_presented_item",
+            "partition",
         ):
             value = getattr(self, name)
             normalized = value.strip() if value is not None else None
@@ -150,6 +152,7 @@ class PairwisePreference:
             "position_in_session": self.position_in_session,
             "protocol_sha256": self.protocol_sha256,
             "sample_sha256": self.sample_sha256,
+            "partition": self.partition,
         }
         if not self.legacy_outcome_semantics:
             payload["outcome"] = self.outcome.value
@@ -235,6 +238,11 @@ class PairwisePreference:
                 if value.get("sample_sha256") is not None
                 else None
             ),
+            partition=(
+                str(value["partition"])
+                if value.get("partition") is not None
+                else None
+            ),
         )
 
 
@@ -310,6 +318,10 @@ class PreferenceFitResult:
     converged: bool
     convergence_code: str
     pair_probabilities: dict[str, tuple[float, float, float]]
+    cluster_bootstrap_receipt: object | None
+    heldout_validation_receipt: object | None
+    transitivity_receipt: object | None
+    next_pair_receipt: object | None
 
 
 def _withheld_result(
@@ -354,6 +366,10 @@ def _withheld_result(
         converged=False,
         convergence_code="GATED_BEFORE_FIT",
         pair_probabilities={},
+        cluster_bootstrap_receipt=None,
+        heldout_validation_receipt=None,
+        transitivity_receipt=None,
+        next_pair_receipt=None,
     )
 
 
@@ -572,6 +588,10 @@ def fit_preference_model(request: PreferenceFitRequest) -> PreferenceFitResult:
         converged=converged,
         convergence_code=convergence_code,
         pair_probabilities=pair_probabilities,
+        cluster_bootstrap_receipt=None,
+        heldout_validation_receipt=None,
+        transitivity_receipt=None,
+        next_pair_receipt=None,
     )
 
 
