@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "data/governance/solforge_candidate_status_20260825.json"
 SCREEN_ROOT = ROOT / "data/benchmarks/solforge/replacement_screen_r1"
+JUDGE_ROOT = SCREEN_ROOT / "judge_round1"
 
 EXPECTED_SOURCE_HASHES = {
     "engine/sensory/ledger.py": "f1d9078b7907a75b4aca0242da7228508952fb0b4cae17cd93977961f0b5da3c",
@@ -82,3 +83,47 @@ def test_complete_screen_freezes_all_exact_outputs_pending_score() -> None:
     assert observed_ids == set(status["completed_request_ids"])
     assert observed_ids.isdisjoint(status["missing_request_ids"])
     assert observed_ids | set(status["missing_request_ids"]) == set(request_by_id)
+
+
+def test_blind_judge_manifest_is_hash_bound_and_hides_arm_identity() -> None:
+    manifest = json.loads((JUDGE_ROOT / "manifest.json").read_text(encoding="utf-8"))
+    unhashed = dict(manifest)
+    observed_manifest_hash = unhashed.pop("manifest_sha256")
+    canonical = json.dumps(
+        unhashed,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode()
+
+    assert manifest["state"] == "COMPLETE_PENDING_JUDGE_OUTPUTS"
+    assert manifest["request_count"] == len(manifest["requests"]) == 9
+    assert hashlib.sha256(canonical).hexdigest() == observed_manifest_hash
+    assert all(value is False for value in manifest["authority"].values())
+
+    raw_by_id = {
+        payload["request_id"]: payload
+        for path in (SCREEN_ROOT / "raw").glob("*.json")
+        for payload in [json.loads(path.read_text(encoding="utf-8"))]
+    }
+    observed_cases = set()
+    for request in manifest["requests"]:
+        observed_cases.add(request["case_id"])
+        assert hashlib.sha256(request["dispatch_text"].encode()).hexdigest() == (
+            request["dispatch_sha256"]
+        )
+        assert len(request["candidates"]) == 3
+        assert {row["arm"] for row in request["candidates"]} == {
+            "CONTROL",
+            "TREATMENT",
+            "PLACEBO",
+        }
+        assert '"arm":' not in request["dispatch_text"]
+        for candidate in request["candidates"]:
+            assert candidate["source_request_id"] not in request["dispatch_text"]
+            assert (
+                raw_by_id[candidate["source_request_id"]]["output_sha256"]
+                == candidate["output_sha256"]
+            )
+
+    assert len(observed_cases) == 9
