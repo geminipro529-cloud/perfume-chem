@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from decimal import Decimal
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from engine.perception.complexity_module_retest import (
     ModuleRetestRole,
 )
 from engine.perception.complexity_replacement_benchmark import (
+    EVIDENCE_FOUNDATION_MODULE_IDS,
     REPLACEMENT_MODULE_IDS,
     EvidenceReceiptScore,
     ObjectiveEvidenceExpectation,
@@ -458,6 +460,100 @@ def test_v6_repairs_native_state_precedence_without_changing_answer_keys() -> No
     packet_text = " ".join(no_change.module_packet.operating_contract)
     assert "count- or prestige-only expansion resolves to NO_CHANGE" in packet_text
     assert "specific target-inverting intervention" in packet_text
+
+
+def test_v7_foundation_corpus_is_blinded_receipt_augmented_and_hash_bound() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v7.json"
+    expected_sha256 = corpus_path.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_sha256
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor = FIXTURES / raw["predecessor_corpus"]
+    assert hashlib.sha256(predecessor.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+
+    assert len(cases) == 18
+    assert {case.module_id for case in cases} == set(EVIDENCE_FOUNDATION_MODULE_IDS)
+    assert "architectural_delta" not in {case.module_id for case in cases}
+    for module_id in EVIDENCE_FOUNDATION_MODULE_IDS:
+        selected = tuple(case for case in cases if case.module_id == module_id)
+        assert len(selected) == 6
+        assert [case.phase for case in selected].count("SCREEN") == 3
+        assert [case.phase for case in selected].count("CONFIRM") == 3
+        assert {case.role for case in selected} == set(ModuleRetestRole)
+        assert {
+            case.objective_expectation.expected_state for case in selected
+        } == {"AUGMENT", "NO_AUGMENTATION", "HOLD"}
+
+    case = next(case for case in cases if case.case_id == "EF-OAV-S01")
+    treatment = prepare_replacement_benchmark_request(
+        case,
+        ModuleRetestArm.TREATMENT,
+        run_nonce="evidence-foundation-v7-test",
+    )
+    placebo = prepare_replacement_benchmark_request(
+        case,
+        ModuleRetestArm.PLACEBO,
+        run_nonce="evidence-foundation-v7-test",
+    )
+    control = prepare_replacement_benchmark_request(
+        case,
+        ModuleRetestArm.CONTROL,
+        run_nonce="evidence-foundation-v7-test",
+    )
+
+    assert treatment.common_input_sha256 == placebo.common_input_sha256
+    assert treatment.common_input_sha256 == control.common_input_sha256
+    assert "candidate_receipt" in treatment.prompt_payload["context_packet"]
+    assert "candidate_receipt" not in placebo.prompt_payload["context_packet"]
+    assert "context_packet" not in control.prompt_payload
+    assert treatment.packet_byte_count == placebo.packet_byte_count
+    assert case.candidate_receipt["decision_state"] == "AUGMENT"
+    assert set(case.candidate_receipt["authority"].values()) == {False}
+
+    manifest = build_replacement_benchmark_manifest(
+        cases=cases,
+        corpus_sha256=expected_sha256,
+        rubric_sha256="f" * 64,
+        run_nonce="evidence-foundation-v7-test",
+        phase="SCREEN",
+        model_identity={
+            "provider": "OpenAI",
+            "product": "Codex",
+            "model": "gpt-5.6-sol",
+            "reasoning_effort": "xhigh",
+            "surface": "Codex App",
+            "context": "FRESH_PROJECTLESS_CONVERSATION",
+            "fast_mode": "NOT_EXPOSED",
+            "tools_state": "NO_TOOLS_OR_NETWORK",
+        },
+    )
+    assert manifest["model_identity"]["fast_mode"] == "NOT_EXPOSED"
+    assert manifest["model_identity"]["tools_state"] == "NO_TOOLS_OR_NETWORK"
+    assert {request["module_id"] for request in manifest["requests"]} == set(
+        EVIDENCE_FOUNDATION_MODULE_IDS
+    )
+
+
+def test_v7_candidate_receipt_cannot_disagree_with_the_frozen_answer_key(
+    tmp_path: Path,
+) -> None:
+    source = FIXTURES / "complexity_replacement_benchmark_cases_v7.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    payload["cases"][0]["candidate_receipt"]["decision_state"] = "HOLD"
+    malformed = tmp_path / source.name
+    shutil.copyfile(
+        FIXTURES / payload["predecessor_corpus"],
+        tmp_path / payload["predecessor_corpus"],
+    )
+    malformed.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="candidate receipt state"):
+        load_replacement_benchmark_cases(malformed)
 
 
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:

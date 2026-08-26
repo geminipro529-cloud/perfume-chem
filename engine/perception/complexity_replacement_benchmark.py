@@ -24,6 +24,14 @@ REPLACEMENT_MODULE_IDS = (
     "temporal_sensory_ledger",
     "hedonic_preference_learner",
 )
+EVIDENCE_FOUNDATION_MODULE_IDS = (
+    "temporal_oav_error_sentinel",
+    "temporal_sensory_ledger",
+    "hedonic_preference_learner",
+)
+_ALL_REPLACEMENT_MODULE_IDS = tuple(
+    dict.fromkeys((*REPLACEMENT_MODULE_IDS, *EVIDENCE_FOUNDATION_MODULE_IDS))
+)
 
 _BLINDED_CONTEXT_SCHEMA = "complexity_reasoning_context_v1"
 _BLINDED_PROMPT_SCHEMA = "complexity_replacement_benchmark_prompt_v2_blinded"
@@ -32,6 +40,7 @@ _BLINDED_RECEIPT_SCHEMA = "complexity_replacement_benchmark_receipt_v5_blinded"
 _OBJECTIVE_DECISION_STATES = frozenset({"AUGMENT", "NO_AUGMENTATION", "HOLD"})
 _MODULE_DECISION_STATES = {
     "architectural_delta": ("PROPOSED", "NO_CHANGE", "HOLD"),
+    "temporal_oav_error_sentinel": ("AUGMENT", "NO_AUGMENTATION", "HOLD"),
     "temporal_sensory_ledger": ("COMPLETE", "INCOMPLETE", "HOLD"),
     "hedonic_preference_learner": ("VALIDATED", "WITHHELD", "DIAGNOSTIC"),
 }
@@ -88,7 +97,7 @@ class ReplacementModulePacket:
 
     def __post_init__(self) -> None:
         module_id = _text(self.module_id, "module_id")
-        if module_id not in REPLACEMENT_MODULE_IDS:
+        if module_id not in _ALL_REPLACEMENT_MODULE_IDS:
             raise ValueError(f"unknown replacement module: {module_id}")
         object.__setattr__(self, "module_id", module_id)
         for name in ("operating_contract", "authority_boundary", "evidence_refs"):
@@ -190,6 +199,7 @@ class ReplacementBenchmarkCase:
     module_packet: ReplacementModulePacket
     evidence_payload: Mapping[str, Any] = field(default_factory=dict)
     objective_expectation: ObjectiveEvidenceExpectation | None = None
+    candidate_receipt: Mapping[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         for name in (
@@ -201,7 +211,7 @@ class ReplacementBenchmarkCase:
             "claim_ceiling",
         ):
             object.__setattr__(self, name, _text(getattr(self, name), name))
-        if self.module_id not in REPLACEMENT_MODULE_IDS:
+        if self.module_id not in _ALL_REPLACEMENT_MODULE_IDS:
             raise ValueError(f"unknown replacement module: {self.module_id}")
         if self.phase not in {"SCREEN", "CONFIRM"}:
             raise ValueError("phase must be SCREEN or CONFIRM")
@@ -233,6 +243,13 @@ class ReplacementBenchmarkCase:
             raise TypeError(
                 "objective_expectation must be an ObjectiveEvidenceExpectation"
             )
+        if not isinstance(self.candidate_receipt, Mapping):
+            raise TypeError("candidate_receipt must be a mapping")
+        object.__setattr__(
+            self,
+            "candidate_receipt",
+            MappingProxyType(dict(self.candidate_receipt)),
+        )
 
     def common_payload(self) -> dict[str, Any]:
         payload = {
@@ -275,7 +292,7 @@ class ReplacementScreenDecision:
 
     def __post_init__(self) -> None:
         module_id = _text(self.module_id, "module_id")
-        if module_id not in REPLACEMENT_MODULE_IDS:
+        if module_id not in _ALL_REPLACEMENT_MODULE_IDS:
             raise ValueError(f"unknown replacement module: {module_id}")
         state = _text(self.state, "state").upper()
         if state not in {"PROCEED", "STOP"}:
@@ -649,7 +666,11 @@ def decide_replacement_retention(
     )
 
 
-def _load_module_packets(value: object) -> dict[str, ReplacementModulePacket]:
+def _load_module_packets(
+    value: object,
+    *,
+    expected_module_ids: Sequence[str] = REPLACEMENT_MODULE_IDS,
+) -> dict[str, ReplacementModulePacket]:
     if not isinstance(value, Mapping):
         raise TypeError("module_packets must be an object")
     packets: dict[str, ReplacementModulePacket] = {}
@@ -663,7 +684,7 @@ def _load_module_packets(value: object) -> dict[str, ReplacementModulePacket]:
             evidence_refs=tuple(row.get("evidence_refs", ())),
         )
         packets[packet.module_id] = packet
-    if set(packets) != set(REPLACEMENT_MODULE_IDS):
+    if set(packets) != set(expected_module_ids):
         raise ValueError("corpus must define every replacement module packet")
     return packets
 
@@ -803,6 +824,9 @@ def _load_v3_cases(
 def _load_v4_cases(
     path: Path,
     payload: Mapping[str, Any],
+    *,
+    expected_module_ids: Sequence[str] = REPLACEMENT_MODULE_IDS,
+    require_candidate_receipt: bool = False,
 ) -> tuple[ReplacementBenchmarkCase, ...]:
     expected_top_level = {
         "schema_version",
@@ -851,7 +875,10 @@ def _load_v4_cases(
     ):
         raise ValueError("v4 corpus authority must be exact and all false")
 
-    packets = _load_module_packets(payload.get("module_packets"))
+    packets = _load_module_packets(
+        payload.get("module_packets"),
+        expected_module_ids=expected_module_ids,
+    )
     rows = payload.get("cases")
     if not isinstance(rows, list):
         raise TypeError("cases must be a list")
@@ -869,6 +896,8 @@ def _load_v4_cases(
         "evidence_payload",
         "objective_expectation",
     }
+    if require_candidate_receipt:
+        allowed_case_fields.add("candidate_receipt")
     cases: list[ReplacementBenchmarkCase] = []
     for row in rows:
         if not isinstance(row, Mapping):
@@ -902,23 +931,30 @@ def _load_v4_cases(
             ),
         )
         module_id = _text(row.get("module_id"), "module_id")
-        cases.append(
-            ReplacementBenchmarkCase(
-                case_id=row.get("case_id"),
-                module_id=module_id,
-                phase=row.get("phase"),
-                role=ModuleRetestRole(row.get("role")),
-                target_identity=row.get("target_identity"),
-                facts=tuple(row.get("facts", ())),
-                inventory_state=row.get("inventory_state", {}),
-                expected_decision=row.get("expected_decision"),
-                critical_error=row.get("critical_error"),
-                claim_ceiling=row.get("claim_ceiling"),
-                module_packet=packets[module_id],
-                evidence_payload=row.get("evidence_payload", {}),
-                objective_expectation=expectation,
-            )
+        candidate_receipt = row.get("candidate_receipt", {})
+        case = ReplacementBenchmarkCase(
+            case_id=row.get("case_id"),
+            module_id=module_id,
+            phase=row.get("phase"),
+            role=ModuleRetestRole(row.get("role")),
+            target_identity=row.get("target_identity"),
+            facts=tuple(row.get("facts", ())),
+            inventory_state=row.get("inventory_state", {}),
+            expected_decision=row.get("expected_decision"),
+            critical_error=row.get("critical_error"),
+            claim_ceiling=row.get("claim_ceiling"),
+            module_packet=packets[module_id],
+            evidence_payload=row.get("evidence_payload", {}),
+            objective_expectation=expectation,
+            candidate_receipt=candidate_receipt,
         )
+        if require_candidate_receipt:
+            score = score_evidence_receipt(case, candidate_receipt)
+            if not score.decision_state_match:
+                raise ValueError("v7 candidate receipt state disagrees with answer key")
+            if score.state != "PASS":
+                raise ValueError("v7 candidate receipt does not satisfy its answer key")
+        cases.append(case)
     return tuple(cases)
 
 
@@ -958,7 +994,8 @@ def _load_v5_cases(
         REPLACEMENT_MODULE_IDS
     ):
         raise ValueError("v5 state taxonomy must cover every replacement module")
-    for module_id, states in _MODULE_DECISION_STATES.items():
+    for module_id in REPLACEMENT_MODULE_IDS:
+        states = _MODULE_DECISION_STATES[module_id]
         if tuple(taxonomy.get(module_id, ())) != states:
             raise ValueError(f"v5 state taxonomy mismatch for {module_id}")
 
@@ -1060,15 +1097,29 @@ def load_replacement_benchmark_cases(
         "complexity_replacement_benchmark_cases_v6",
     }:
         cases = list(_load_v5_cases(path, payload))
+        expected_module_ids = REPLACEMENT_MODULE_IDS
+    elif schema_version == "complexity_replacement_benchmark_cases_v7":
+        cases = list(
+            _load_v4_cases(
+                path,
+                payload,
+                expected_module_ids=EVIDENCE_FOUNDATION_MODULE_IDS,
+                require_candidate_receipt=True,
+            )
+        )
+        expected_module_ids = EVIDENCE_FOUNDATION_MODULE_IDS
     elif schema_version == "complexity_replacement_benchmark_cases_v4":
         cases = list(_load_v4_cases(path, payload))
+        expected_module_ids = REPLACEMENT_MODULE_IDS
     elif schema_version == "complexity_replacement_retest_cases_v3":
         cases = list(_load_v3_cases(path, payload))
+        expected_module_ids = REPLACEMENT_MODULE_IDS
     elif schema_version in {
         "complexity_replacement_retest_cases_v1",
         "complexity_replacement_retest_cases_v2",
     }:
         packets = _load_module_packets(payload.get("module_packets"))
+        expected_module_ids = REPLACEMENT_MODULE_IDS
         rows = payload.get("cases")
         if not isinstance(rows, list):
             raise TypeError("cases must be a list")
@@ -1100,7 +1151,7 @@ def load_replacement_benchmark_cases(
     ids = tuple(case.case_id for case in cases)
     if len(ids) != len(set(ids)):
         raise ValueError("replacement benchmark case IDs must be unique")
-    for module_id in REPLACEMENT_MODULE_IDS:
+    for module_id in expected_module_ids:
         selected = tuple(case for case in cases if case.module_id == module_id)
         if len(selected) != 6:
             raise ValueError("each replacement module requires exactly six cases")
@@ -1181,6 +1232,19 @@ def _validated_sha256(value: object, field_name: str) -> str:
     return text_value
 
 
+def _ordered_module_ids(values: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
+    observed = {
+        _text(value.get("module_id"), "module_id")
+        for value in values
+    }
+    ordered = tuple(
+        module_id for module_id in _ALL_REPLACEMENT_MODULE_IDS if module_id in observed
+    )
+    if len(ordered) != 3 or observed != set(ordered):
+        raise ValueError("benchmark evidence must cover exactly three known modules")
+    return ordered
+
+
 def _screen_decisions_from_receipt(
     results: Sequence[Mapping[str, Any]],
 ) -> tuple[ReplacementScreenDecision, ...]:
@@ -1193,7 +1257,7 @@ def _screen_decisions_from_receipt(
 
     decisions: list[ReplacementScreenDecision] = []
     expected_arms = {arm.value for arm in ModuleRetestArm}
-    for module_id in REPLACEMENT_MODULE_IDS:
+    for module_id in _ordered_module_ids(results):
         module_results = [
             result for result in results if result.get("module_id") == module_id
         ]
@@ -1332,11 +1396,12 @@ def _validated_screen_receipt(
         for result in results
     ):
         raise ValueError("screen receipt contains a non-SCREEN result")
+    module_ids = _ordered_module_ids(results)
     module_counts = {
         module_id: sum(result.get("module_id") == module_id for result in results)
-        for module_id in REPLACEMENT_MODULE_IDS
+        for module_id in module_ids
     }
-    if module_counts != {module_id: 9 for module_id in REPLACEMENT_MODULE_IDS}:
+    if module_counts != {module_id: 9 for module_id in module_ids}:
         raise ValueError("screen receipt does not cover every module exactly")
 
     authority = receipt.get("authority")
@@ -1368,6 +1433,13 @@ def _blinded_placebo_context(target_bytes: int) -> dict[str, str]:
     return payload
 
 
+def _treatment_context(case: ReplacementBenchmarkCase) -> dict[str, Any]:
+    packet: dict[str, Any] = dict(case.module_packet.as_blinded_context())
+    if case.candidate_receipt:
+        packet["candidate_receipt"] = dict(case.candidate_receipt)
+    return packet
+
+
 def build_replacement_benchmark_manifest(
     *,
     cases: Sequence[ReplacementBenchmarkCase],
@@ -1381,6 +1453,13 @@ def build_replacement_benchmark_manifest(
 ) -> dict[str, Any]:
     if len(cases) != 18:
         raise ValueError("replacement benchmark manifest requires 18 frozen cases")
+    case_module_ids = tuple(
+        module_id
+        for module_id in _ALL_REPLACEMENT_MODULE_IDS
+        if any(case.module_id == module_id for case in cases)
+    )
+    if len(case_module_ids) != 3:
+        raise ValueError("replacement benchmark manifest requires exactly three modules")
     required_model_fields = (
         "provider",
         "product",
@@ -1395,6 +1474,12 @@ def build_replacement_benchmark_manifest(
         field: _text(model_identity.get(field), f"model_identity {field}")
         for field in required_model_fields
     }
+    for optional_field in ("fast_mode", "tools_state"):
+        if optional_field in model_identity:
+            normalized_model[optional_field] = _text(
+                model_identity.get(optional_field),
+                f"model_identity {optional_field}",
+            )
     normalized_run_nonce = _text(run_nonce, "run_nonce")
     normalized_phase = _text(phase, "phase").upper()
     if normalized_phase not in {"SCREEN", "CONFIRM", "ALL"}:
@@ -1414,10 +1499,10 @@ def build_replacement_benchmark_manifest(
         )
         if any(not isinstance(decision, ReplacementScreenDecision) for decision in decisions):
             raise TypeError("screen decisions must be ReplacementScreenDecision values")
-        if len(decisions) != len(REPLACEMENT_MODULE_IDS):
+        if len(decisions) != len(case_module_ids):
             raise ValueError("confirmation requires one screen decision per module")
         decision_modules = tuple(decision.module_id for decision in decisions)
-        if set(decision_modules) != set(REPLACEMENT_MODULE_IDS) or len(
+        if set(decision_modules) != set(case_module_ids) or len(
             decision_modules
         ) != len(set(decision_modules)):
             raise ValueError("screen decisions must cover every module exactly once")
@@ -1696,12 +1781,12 @@ def prepare_replacement_benchmark_request(
     packet_hash: str | None = None
     packet_bytes = 0
     if arm is ModuleRetestArm.TREATMENT:
-        packet = case.module_packet.as_blinded_context()
+        packet = _treatment_context(case)
         prompt["context_packet"] = packet
         packet_hash = hashlib.sha256(_canonical_bytes(packet)).hexdigest()
         packet_bytes = len(_canonical_bytes(packet))
     elif arm is ModuleRetestArm.PLACEBO:
-        target_bytes = len(_canonical_bytes(case.module_packet.as_blinded_context()))
+        target_bytes = len(_canonical_bytes(_treatment_context(case)))
         packet = _blinded_placebo_context(target_bytes)
         prompt["context_packet"] = packet
         encoded = _canonical_bytes(packet)
@@ -1734,6 +1819,7 @@ def prepare_replacement_benchmark_request(
 
 
 __all__ = [
+    "EVIDENCE_FOUNDATION_MODULE_IDS",
     "REPLACEMENT_MODULE_IDS",
     "EvidenceReceiptScore",
     "ObjectiveEvidenceExpectation",
