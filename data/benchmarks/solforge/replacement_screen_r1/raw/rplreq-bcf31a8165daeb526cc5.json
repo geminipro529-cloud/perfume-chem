@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-bcf31a8165daeb526cc5",
+  "case_id": "RPL-HED-S02",
+  "module_id": "hedonic_preference_learner",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e65e0-747c-83ec-b1f3-43e4dae2b1cb",
+  "dispatch_sha256": "5776a6a4cc7d1dcf990634d4ff8e5c123fb2cb90f98831e31d30c8c31249a943",
+  "output_text": "{\"decision\":\"WITHHOLD_GLOBAL_PREFERENCE_FIT\",\"target_linked_reasoning\":\"The disconnected comparison graph cannot identify preference relationships between the two item components. Genuine ties must be retained as indifference evidence, not discarded or converted into directional outcomes. Any estimate is limited to separately identifiable within-component preferences and cannot establish global ranking, target-linked depth, richness, or cross-component preference. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Run a blinded, order-balanced bridging comparison between representative items from the two disconnected components, using the same scoped criterion, protocol, assessor structure, and timepoint; retain ties and reassess graph connectivity before fitting globally.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\"}",
+  "output_sha256": "e83bef2504b01acbf2b27c9f8fdf6741f431f2e21570c4a1678e5b2e3f633111",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

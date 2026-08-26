@@ -28,9 +28,9 @@
     "schema": "complexity_replacement_benchmark_manifest_v5_blinded",
     "phase": "SCREEN",
     "planned_outputs": 27,
-    "completed_outputs": 8,
+    "completed_outputs": 27,
     "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
-    "status_sha256": "d6c92058edb5097f00e631cbc3feae99f852fdc540057e4f3e9df65086d8216a",
+    "status_sha256": "ead8f30fc9e057313cfc2f0a946372312c89cabb8111bf751fc28d9cb8273671",
     "admission_decision": "WITHHELD",
     "old_frozen_requests_resumed": false
   },

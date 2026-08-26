@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-dd6fde6836f675e9dd0a",
+  "case_id": "RPL-HED-S02",
+  "module_id": "hedonic_preference_learner",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e66d7-f218-83ec-97a6-617d4279bae2",
+  "dispatch_sha256": "d85cc458b66cfc3f81b5c833598b70be8b764862bb120d8861e238de082c5f3d",
+  "output_text": "{\"decision\":\"WITHHOLD_GLOBAL_PREFERENCE_FIT\",\"target_linked_reasoning\":\"The comparison graph is disconnected: two item components lack any bridging comparison, so their preference scales cannot be identified relative to each other. Sparse evidence and many genuine ties further limit directional information. Retain ties as indifference evidence but exclude them from directional fitting. At most, report component-local preference or indifference patterns; do not infer a global ranking or physical liking.\",\"controlled_comparison\":\"Run blinded, criterion-scoped bridge comparisons between items from the two disconnected components, with balanced presentation order and assessor identities retained. Include enough non-tied outcomes to test held-out directional accuracy against a declared baseline; if assessors are identified, use deterministic assessor-cluster bootstrap.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY; physical liking NOT TESTED.\"}",
+  "output_sha256": "9db1341334e57a1bd50ca85290637ed61c9b35d003eb09b545a8fb914ac0b892",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

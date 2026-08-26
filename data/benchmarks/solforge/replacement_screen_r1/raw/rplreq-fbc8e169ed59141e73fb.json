@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-fbc8e169ed59141e73fb",
+  "case_id": "RPL-TEM-S02",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e64eb-336c-83ec-ad16-3429ee35d6de",
+  "dispatch_sha256": "836c0fa20033ae1d257f8ef766230d973f0a6cc89418b0c735df812d7d7b27d2",
+  "output_text": "{\"decision\":\"DIAGNOSTIC: report only recorded observations and mark the temporal panel incomplete.\",\"target_linked_reasoning\":\"One repeat-timepoint cell is absent from the source data. Neighboring timepoints do not authorize interpolation, imputation, or reconstruction, so no value or transition crossing that cell may be asserted. Any temporal summary must identify the missing cell and remain limited to observed measurements. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Repeat the qualified protocol to obtain the missing repeat-timepoint cell, then compare the completed temporal pattern with the current observed-only summary; do not backfill the original record.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "ad1c123b31feb8f8dc175e3b5abdf561ed84459b307976aded90b04e933067ae",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

@@ -35,9 +35,9 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
         "schema": "complexity_replacement_benchmark_manifest_v5_blinded",
         "phase": "SCREEN",
         "planned_outputs": 27,
-        "completed_outputs": 8,
+        "completed_outputs": 27,
         "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
-        "status_sha256": "d6c92058edb5097f00e631cbc3feae99f852fdc540057e4f3e9df65086d8216a",
+        "status_sha256": "ead8f30fc9e057313cfc2f0a946372312c89cabb8111bf751fc28d9cb8273671",
         "admission_decision": "WITHHELD",
         "old_frozen_requests_resumed": False,
     }
@@ -48,17 +48,18 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
         assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == expected
 
 
-def test_partial_screen_freezes_only_exact_completed_outputs() -> None:
+def test_complete_screen_freezes_all_exact_outputs_pending_score() -> None:
     manifest = json.loads((SCREEN_ROOT / "manifest.json").read_text(encoding="utf-8"))
     status = json.loads((SCREEN_ROOT / "status.json").read_text(encoding="utf-8"))
     raw_paths = sorted((SCREEN_ROOT / "raw").glob("*.json"))
 
     assert status["manifest_sha256"] == manifest["manifest_sha256"]
-    assert status["state"] == "INCOMPLETE_NOT_SCORED"
-    assert status["completed_output_count"] == len(raw_paths) == 8
+    assert status["state"] == "COMPLETE_PENDING_SCORE"
+    assert status["completed_output_count"] == len(raw_paths) == 27
     assert status["required_output_count"] == manifest["request_count"] == 27
     assert status["confirmation_authorized"] is False
     assert status["runtime_reachable"] is False
+    assert status["missing_request_ids"] == []
     assert all(value is False for value in status["authority"].values())
 
     request_by_id = {row["request_id"]: row for row in manifest["requests"]}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-78d8657de694cc5e5ff4",
+  "case_id": "RPL-TEM-S03",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e655f-e97c-83ec-a694-4667bdfbe1e6",
+  "dispatch_sha256": "3431f2f489bba43b11a6b07e943e3fe33e3b0461c5b1bcf1b1888f22a2c05378",
+  "output_text": "{\"decision\":\"HOLD_CONFLICTING_DUPLICATE_CELL\",\"target_linked_reasoning\":\"The two rows map to the same canonical cell but contain different values. The qualified protocol does not resolve this contradiction. Preserve both records, flag the cell as conflicted, and exclude it from summaries requiring one value; do not average, select, or infer a value. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Audit the source records against their original entry or instrument trail to identify and correct any transcription or identity error. If neither value can be validated, repeat that exact cell under the same qualified protocol and binding fields before recomputing the panel summary.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "7649ea9ec075b2fe683b6f38e4f888e2c4c28d988ceb4ca01ac90ceb21bd8501",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}
