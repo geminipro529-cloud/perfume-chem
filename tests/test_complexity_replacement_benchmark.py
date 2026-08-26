@@ -363,6 +363,41 @@ def test_v4_prompt_requests_objective_receipt_without_leaking_answer_key() -> No
         assert calculation_name in serialized
 
 
+def test_v5_uses_native_module_states_and_top_level_receipt_fields() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v5.json"
+    expected_sha256 = corpus_path.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_sha256
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor = FIXTURES / raw["predecessor_corpus"]
+    assert hashlib.sha256(predecessor.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+    expected_states = {
+        "architectural_delta": {"PROPOSED", "NO_CHANGE", "HOLD"},
+        "temporal_sensory_ledger": {"COMPLETE", "INCOMPLETE", "HOLD"},
+        "hedonic_preference_learner": {"VALIDATED", "WITHHELD", "DIAGNOSTIC"},
+    }
+    for module_id, states in expected_states.items():
+        selected = [case for case in cases if case.module_id == module_id]
+        assert {case.objective_expectation.expected_state for case in selected} == states
+        assert all(
+            "native-state-procedure-v1" in case.module_packet.evidence_refs[-1]
+            for case in selected
+        )
+
+    case = next(case for case in cases if case.case_id == "AUG-TEM-S01")
+    request = prepare_replacement_benchmark_request(case, ModuleRetestArm.TREATMENT)
+    contract = request.prompt_payload["output_contract"]
+    assert contract["allowed_decision_states"] == ["COMPLETE", "INCOMPLETE", "HOLD"]
+    assert "objective_receipt" not in contract
+    assert "decision_state" in contract["required_fields"]
+    assert case.objective_expectation.expected_state not in json.dumps(case.common_payload())
+
+
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:
     case = _case()
 

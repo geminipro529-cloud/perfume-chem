@@ -30,6 +30,16 @@ _BLINDED_PROMPT_SCHEMA = "complexity_replacement_benchmark_prompt_v2_blinded"
 _BLINDED_MANIFEST_SCHEMA = "complexity_replacement_benchmark_manifest_v5_blinded"
 _BLINDED_RECEIPT_SCHEMA = "complexity_replacement_benchmark_receipt_v5_blinded"
 _OBJECTIVE_DECISION_STATES = frozenset({"AUGMENT", "NO_AUGMENTATION", "HOLD"})
+_MODULE_DECISION_STATES = {
+    "architectural_delta": ("PROPOSED", "NO_CHANGE", "HOLD"),
+    "temporal_sensory_ledger": ("COMPLETE", "INCOMPLETE", "HOLD"),
+    "hedonic_preference_learner": ("VALIDATED", "WITHHELD", "DIAGNOSTIC"),
+}
+_ALL_OBJECTIVE_DECISION_STATES = frozenset(
+    state
+    for states in _MODULE_DECISION_STATES.values()
+    for state in states
+).union(_OBJECTIVE_DECISION_STATES)
 _AUTHORITY_KEYS = (
     "formula",
     "inventory",
@@ -127,7 +137,7 @@ class ObjectiveEvidenceExpectation:
 
     def __post_init__(self) -> None:
         expected_state = _text(self.expected_state, "expected_state").upper()
-        if expected_state not in _OBJECTIVE_DECISION_STATES:
+        if expected_state not in _ALL_OBJECTIVE_DECISION_STATES:
             raise ValueError("unsupported objective decision state")
         object.__setattr__(self, "expected_state", expected_state)
         object.__setattr__(
@@ -897,6 +907,132 @@ def _load_v4_cases(
     return tuple(cases)
 
 
+def _load_v5_cases(
+    path: Path,
+    payload: Mapping[str, Any],
+) -> tuple[ReplacementBenchmarkCase, ...]:
+    expected_top_level = {
+        "schema_version",
+        "predecessor_corpus",
+        "predecessor_corpus_sha256",
+        "state_taxonomy",
+        "module_packet_overrides",
+        "case_overrides",
+        "authority",
+    }
+    if set(payload) != expected_top_level:
+        raise ValueError("v5 corpus top-level schema is not closed")
+    predecessor_name = _text(
+        payload.get("predecessor_corpus"), "predecessor_corpus"
+    )
+    if Path(predecessor_name).name != predecessor_name:
+        raise ValueError("predecessor_corpus must be a sibling filename")
+    predecessor_path = path.parent / predecessor_name
+    expected_predecessor_hash = _validated_sha256(
+        payload.get("predecessor_corpus_sha256"),
+        "predecessor_corpus_sha256",
+    )
+    if hashlib.sha256(predecessor_path.read_bytes()).hexdigest() != (
+        expected_predecessor_hash
+    ):
+        raise ValueError("v5 predecessor corpus hash mismatch")
+    base_cases = load_replacement_benchmark_cases(predecessor_path)
+
+    taxonomy = payload.get("state_taxonomy")
+    if not isinstance(taxonomy, Mapping) or set(taxonomy) != set(
+        REPLACEMENT_MODULE_IDS
+    ):
+        raise ValueError("v5 state taxonomy must cover every replacement module")
+    for module_id, states in _MODULE_DECISION_STATES.items():
+        if tuple(taxonomy.get(module_id, ())) != states:
+            raise ValueError(f"v5 state taxonomy mismatch for {module_id}")
+
+    authority = payload.get("authority")
+    if (
+        not isinstance(authority, Mapping)
+        or set(authority) != set(_AUTHORITY_KEYS)
+        or any(authority[key] is not False for key in _AUTHORITY_KEYS)
+    ):
+        raise ValueError("v5 corpus authority must be exact and all false")
+
+    packets = {
+        module_id: next(
+            case.module_packet for case in base_cases if case.module_id == module_id
+        )
+        for module_id in REPLACEMENT_MODULE_IDS
+    }
+    packet_overrides = payload.get("module_packet_overrides")
+    if not isinstance(packet_overrides, Mapping) or set(packet_overrides) != set(
+        REPLACEMENT_MODULE_IDS
+    ):
+        raise ValueError("v5 packet overrides must cover every replacement module")
+    for module_id, override in packet_overrides.items():
+        if not isinstance(override, Mapping) or set(override) != {
+            "operating_contract_append",
+            "evidence_refs_append",
+        }:
+            raise ValueError("v5 module packet override schema is not closed")
+        packet = packets[module_id]
+        packets[module_id] = ReplacementModulePacket(
+            module_id=module_id,
+            operating_contract=packet.operating_contract
+            + tuple(override.get("operating_contract_append", ())),
+            authority_boundary=packet.authority_boundary,
+            evidence_refs=packet.evidence_refs
+            + tuple(override.get("evidence_refs_append", ())),
+        )
+
+    cases_by_id = {case.case_id: case for case in base_cases}
+    case_overrides = payload.get("case_overrides")
+    if not isinstance(case_overrides, list):
+        raise TypeError("v5 case_overrides must be a list")
+    seen: set[str] = set()
+    for override in case_overrides:
+        if not isinstance(override, Mapping) or set(override).difference(
+            {
+                "case_id",
+                "expected_decision",
+                "objective_expected_state",
+                "facts",
+                "evidence_payload",
+            }
+        ):
+            raise ValueError("v5 case override schema is not closed")
+        case_id = _text(override.get("case_id"), "v5 case_id")
+        if case_id in seen or case_id not in cases_by_id:
+            raise ValueError("v5 case overrides must be unique and known")
+        seen.add(case_id)
+        case = cases_by_id[case_id]
+        expectation = case.objective_expectation
+        if expectation is None:
+            raise ValueError("v5 predecessor case lacks an objective expectation")
+        expected_state = _text(
+            override.get("objective_expected_state"),
+            "objective_expected_state",
+        ).upper()
+        if expected_state not in _MODULE_DECISION_STATES[case.module_id]:
+            raise ValueError("v5 case state does not match its module taxonomy")
+        updated_expectation = replace(expectation, expected_state=expected_state)
+        updates: dict[str, Any] = {
+            "expected_decision": override.get("expected_decision"),
+            "objective_expectation": updated_expectation,
+        }
+        if "facts" in override:
+            updates["facts"] = tuple(override["facts"])
+        if "evidence_payload" in override:
+            updates["evidence_payload"] = override["evidence_payload"]
+        cases_by_id[case_id] = replace(case, **updates)
+    if seen != set(cases_by_id):
+        raise ValueError("v5 must restate every case decision under native states")
+    return tuple(
+        replace(
+            cases_by_id[case.case_id],
+            module_packet=packets[case.module_id],
+        )
+        for case in base_cases
+    )
+
+
 def load_replacement_benchmark_cases(
     path: Path,
 ) -> tuple[ReplacementBenchmarkCase, ...]:
@@ -904,7 +1040,9 @@ def load_replacement_benchmark_cases(
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
     schema_version = payload.get("schema_version")
-    if schema_version == "complexity_replacement_benchmark_cases_v4":
+    if schema_version == "complexity_replacement_benchmark_cases_v5":
+        cases = list(_load_v5_cases(path, payload))
+    elif schema_version == "complexity_replacement_benchmark_cases_v4":
         cases = list(_load_v4_cases(path, payload))
     elif schema_version == "complexity_replacement_retest_cases_v3":
         cases = list(_load_v3_cases(path, payload))
@@ -959,7 +1097,10 @@ def load_replacement_benchmark_cases(
             for case in selected
             if case.objective_expectation is not None
         )
-        if expectations and not any(
+        uses_generic_states = bool(expectations) and all(
+            item.expected_state in _OBJECTIVE_DECISION_STATES for item in expectations
+        )
+        if uses_generic_states and not any(
             item.expected_state == "NO_AUGMENTATION" for item in expectations
         ):
             raise ValueError("each v4 module requires a no-augmentation success case")
@@ -1491,19 +1632,47 @@ def prepare_replacement_benchmark_request(
     }
     if case.objective_expectation is not None:
         common["output_contract"]["format"] = "ONE_JSON_OBJECT"
-        common["output_contract"]["objective_receipt"] = {
-            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
-            "reason_codes": (
-                "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact "
-                "wording is not scored"
-            ),
-            "calculations": {
+        if case.objective_expectation.expected_state in _OBJECTIVE_DECISION_STATES:
+            common["output_contract"]["objective_receipt"] = {
+                "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+                "reason_codes": (
+                    "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact "
+                    "wording is not scored"
+                ),
+                "calculations": {
+                    name: "compute from the supplied evidence"
+                    for name in case.objective_expectation.required_calculations
+                },
+                "next_actions": "array containing zero or one discriminating action",
+                "authority": {key: False for key in _AUTHORITY_KEYS},
+            }
+        else:
+            common["output_contract"]["required_fields"] = [
+                "decision_state",
+                "target_linked_reasoning",
+                "controlled_comparison",
+                "claim_ceiling",
+                "reason_codes",
+                "calculations",
+                "next_actions",
+                "authority",
+            ]
+            common["output_contract"]["allowed_decision_states"] = list(
+                _MODULE_DECISION_STATES[case.module_id]
+            )
+            common["output_contract"]["reason_codes"] = (
+                "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+            )
+            common["output_contract"]["calculations"] = {
                 name: "compute from the supplied evidence"
                 for name in case.objective_expectation.required_calculations
-            },
-            "next_actions": "array containing zero or one discriminating action",
-            "authority": {key: False for key in _AUTHORITY_KEYS},
-        }
+            }
+            common["output_contract"]["next_actions"] = (
+                "array containing no more than one discriminating action"
+            )
+            common["output_contract"]["authority"] = {
+                key: False for key in _AUTHORITY_KEYS
+            }
     common_hash = hashlib.sha256(_canonical_bytes(common)).hexdigest()
     prompt = dict(common)
     packet_hash: str | None = None
