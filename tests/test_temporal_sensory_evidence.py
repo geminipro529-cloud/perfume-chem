@@ -329,9 +329,138 @@ def test_complete_matched_timepoints_are_resolved_without_new_test() -> None:
 
     assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
     assert audit.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert audit.receipt.delta is not None
+    assert "OBSERVED_CROSSOVER" in audit.receipt.delta.decision_effect
     assert audit.receipt.next_action is None
     assert audit.next_discriminator is None
     assert set(audit.receipt.authority.values()) == {False}
+
+
+def test_complete_static_grid_returns_no_useful_augmentation_and_round_trips() -> None:
+    scope, schedule = _scope()
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                _cell("sample-a", 0, 2.0),
+                _cell("sample-a", 300, 2.0),
+                _cell("sample-b", 0, 3.0),
+                _cell("sample-b", 300, 3.0),
+            ),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
+    assert audit.receipt.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert audit.receipt.delta is None
+    assert audit.receipt.next_action is None
+    assert EvidenceDeltaReceiptV1.from_dict(audit.receipt.as_dict()) == audit.receipt
+
+
+def test_equal_transition_tie_uses_declared_sample_order_deterministically() -> None:
+    scope, schedule = _scope()
+    request = TemporalEvidenceRequest(
+        scope=scope,
+        schedule=schedule,
+        cells=(
+            _cell("sample-a", 0, 1.0),
+            _cell("sample-a", 300, 2.0),
+            _cell("sample-b", 0, 3.0),
+            _cell("sample-b", 300, 4.0),
+        ),
+    )
+
+    first = audit_temporal_evidence(request)
+    second = audit_temporal_evidence(request)
+
+    assert first.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert first.receipt.delta is not None
+    assert "OBSERVED_TRANSITION:sample=sample-a" in (
+        first.receipt.delta.decision_effect
+    )
+    assert first.receipt.canonical_bytes() == second.receipt.canonical_bytes()
+
+
+def test_temporal_audit_is_invariant_to_observation_row_order() -> None:
+    scope, schedule = _scope()
+    cells = (
+        _cell("sample-a", 0, 2.0),
+        _cell("sample-a", 300, 4.0),
+        _cell("sample-b", 0, 3.0),
+        _cell("sample-b", 300, 3.5),
+    )
+    first = audit_temporal_evidence(
+        TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=cells)
+    )
+    reordered = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=tuple(reversed(cells)),
+        )
+    )
+
+    assert reordered.summaries == first.summaries
+    assert reordered.transitions == first.transitions
+    assert reordered.receipt.canonical_bytes() == first.receipt.canonical_bytes()
+
+
+def test_temporal_audit_is_semantically_invariant_to_blind_label_renaming() -> None:
+    def run(labels: tuple[str, str]):
+        schedule = generate_williams_schedule(labels)
+        scope = SensoryProtocolScope(
+            protocol_id="protocol-blind-label-v2",
+            sample_ids=labels,
+            assessor_ids=("assessor-1",),
+            repeat_ids=("repeat-1",),
+            timepoints_seconds=(0.0, 300.0),
+            endpoint_ids=("depth",),
+            schedule_sha256=schedule.schedule_sha256,
+        )
+
+        def cell(sample: str, timepoint: float, value: float):
+            return TemporalObservationCell(
+                key=ObservationCellKey(
+                    protocol_id=scope.protocol_id,
+                    sample_id=sample,
+                    assessor_id="assessor-1",
+                    repeat_id="repeat-1",
+                    time_seconds=timepoint,
+                    endpoint_id="depth",
+                ),
+                observation_id=f"obs-{sample}-{timepoint:g}",
+                value=value,
+                presentation_sequence_id="sequence-1",
+                presentation_position=1 if sample == labels[0] else 2,
+            )
+
+        return audit_temporal_evidence(
+            TemporalEvidenceRequest(
+                scope=scope,
+                schedule=schedule,
+                cells=(
+                    cell(labels[0], 0, 2.0),
+                    cell(labels[0], 300, 4.0),
+                    cell(labels[1], 0, 3.0),
+                    cell(labels[1], 300, 3.5),
+                ),
+            )
+        )
+
+    first = run(("XQP", "LMN"))
+    renamed = run(("ABC", "RST"))
+    first_numeric = sorted(
+        (item.time_seconds, item.median) for item in first.summaries
+    )
+    renamed_numeric = sorted(
+        (item.time_seconds, item.median) for item in renamed.summaries
+    )
+
+    assert renamed.disposition is first.disposition
+    assert renamed.receipt.state is first.receipt.state
+    assert renamed.receipt.reason_codes == first.receipt.reason_codes
+    assert renamed_numeric == first_numeric
 
 
 def test_duplicate_cell_audits_provenance_before_remeasurement() -> None:
@@ -377,6 +506,55 @@ def test_v2_missing_grid_selects_exactly_one_cell() -> None:
     assert audit.next_discriminator is not None
     assert audit.next_discriminator.startswith("COLLECT_CELL:")
     assert audit.next_discriminator.count("COLLECT_CELL:") == 1
+
+
+def test_v2_missing_grid_uses_observed_disagreement_to_choose_one_cell() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-discriminator-v2",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1", "assessor-2", "assessor-3"),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+
+    def observed(sample: str, assessor: str, timepoint: float, value: float):
+        return TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id=assessor,
+                repeat_id="repeat-1",
+                time_seconds=timepoint,
+                endpoint_id="depth",
+            ),
+            observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
+            value=value,
+            presentation_sequence_id="sequence-1",
+            presentation_position=1 if sample == "sample-a" else 2,
+        )
+
+    cells = tuple(
+        observed(sample, assessor, 0.0, 2.0 if sample == "sample-a" else 3.0)
+        for sample in scope.sample_ids
+        for assessor in scope.assessor_ids
+    ) + (
+        observed("sample-a", "assessor-1", 300.0, 3.0),
+        observed("sample-a", "assessor-2", 300.0, 3.1),
+        observed("sample-b", "assessor-1", 300.0, 1.0),
+        observed("sample-b", "assessor-2", 300.0, 5.0),
+    )
+
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=cells)
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.INCOMPLETE
+    assert audit.next_discriminator is not None
+    assert '"sample_id":"sample-b"' in audit.next_discriminator
+    assert '"assessor_id":"assessor-3"' in audit.next_discriminator
 
 
 def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:

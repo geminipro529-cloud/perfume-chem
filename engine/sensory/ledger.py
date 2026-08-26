@@ -42,6 +42,7 @@ import string
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from enum import Enum
+from itertools import combinations
 from math import isfinite
 from statistics import median
 from typing import Any, Mapping
@@ -52,6 +53,7 @@ from engine.evidence.augmentation import (
     EvidenceAugmentationState,
     EvidenceDeltaReceiptV1,
     hold_receipt,
+    no_augmentation_receipt,
 )
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.sensory.order_balance import (
@@ -857,8 +859,14 @@ _TEMPORAL_AUDIT_POLICY_SHA256 = sha256_hex(
                 "protocol/sample/assessor/repeat/timepoint/endpoint"
             ),
             "duplicate_policy": "EXCLUDE_ALL_CONFLICTED_ROWS_FROM_SUMMARIES",
-            "missing_policy": "NO_INTERPOLATION_ONE_NEXT_CELL",
+            "missing_policy": (
+                "NO_INTERPOLATION_ONE_UNCERTAINTY_RANKED_NEXT_CELL"
+            ),
             "disagreement_policy": "NO_RETEST_WITHOUT_DECLARED_THRESHOLD",
+            "complete_policy": (
+                "ONE_OBSERVED_CROSSOVER_OR_TRANSITION_ELSE_NO_AUGMENTATION"
+            ),
+            "row_order_policy": "CANONICALIZE_SOURCE_ROWS_BEFORE_HASHING",
         }
     )
 )
@@ -953,6 +961,136 @@ def _within_sniff_v2_blockers(scope: SensoryProtocolScope) -> tuple[str, ...]:
     return tuple(blockers)
 
 
+def _select_missing_cell(
+    scope: SensoryProtocolScope,
+    missing_cells: tuple[ObservationCellKey, ...],
+    summaries: tuple[TemporalEndpointSummary, ...],
+    transitions: tuple[TemporalTransition, ...],
+) -> ObservationCellKey:
+    """Choose one declared missing cell from observed uncertainty only."""
+
+    summary_lookup = {
+        (item.sample_id, item.endpoint_id, item.time_seconds): item
+        for item in summaries
+    }
+    sample_rank = {value: index for index, value in enumerate(scope.sample_ids)}
+    assessor_rank = {
+        value: index for index, value in enumerate(scope.assessor_ids)
+    }
+    repeat_rank = {value: index for index, value in enumerate(scope.repeat_ids)}
+    time_rank = {
+        value: index for index, value in enumerate(scope.timepoints_seconds)
+    }
+    endpoint_rank = {
+        value: index for index, value in enumerate(scope.endpoint_ids)
+    }
+
+    def rank(key: ObservationCellKey) -> tuple[object, ...]:
+        summary = summary_lookup.get(
+            (key.sample_id, key.endpoint_id, key.time_seconds)
+        )
+        disagreement = 0.0 if summary is None else summary.assessor_disagreement
+        transition_magnitude = max(
+            (
+                abs(item.median_delta)
+                for item in transitions
+                if item.sample_id == key.sample_id
+                and item.endpoint_id == key.endpoint_id
+                and key.time_seconds
+                in {item.from_time_seconds, item.to_time_seconds}
+            ),
+            default=0.0,
+        )
+        return (
+            -disagreement,
+            -transition_magnitude,
+            endpoint_rank[key.endpoint_id],
+            time_rank[key.time_seconds],
+            sample_rank[key.sample_id],
+            assessor_rank[key.assessor_id],
+            repeat_rank[key.repeat_id],
+        )
+
+    return min(missing_cells, key=rank)
+
+
+def _select_temporal_finding(
+    scope: SensoryProtocolScope,
+    summaries: tuple[TemporalEndpointSummary, ...],
+    transitions: tuple[TemporalTransition, ...],
+) -> tuple[str, str] | None:
+    """Return at most one observed descriptive finding, never a causal claim."""
+
+    summary_lookup = {
+        (item.sample_id, item.endpoint_id, item.time_seconds): item.median
+        for item in summaries
+    }
+    crossover_candidates: list[tuple[tuple[object, ...], str]] = []
+    for endpoint_index, endpoint_id in enumerate(scope.endpoint_ids):
+        for pair_index, (left, right) in enumerate(combinations(scope.sample_ids, 2)):
+            common_times = tuple(
+                timepoint
+                for timepoint in scope.timepoints_seconds
+                if (left, endpoint_id, timepoint) in summary_lookup
+                and (right, endpoint_id, timepoint) in summary_lookup
+            )
+            for from_time, to_time in zip(common_times, common_times[1:]):
+                from_difference = (
+                    summary_lookup[(left, endpoint_id, from_time)]
+                    - summary_lookup[(right, endpoint_id, from_time)]
+                )
+                to_difference = (
+                    summary_lookup[(left, endpoint_id, to_time)]
+                    - summary_lookup[(right, endpoint_id, to_time)]
+                )
+                if from_difference * to_difference >= 0:
+                    continue
+                magnitude = abs(to_difference - from_difference)
+                finding = (
+                    f"OBSERVED_CROSSOVER:endpoint={endpoint_id};"
+                    f"samples={left}|{right};from={from_time:g};to={to_time:g};"
+                    f"median_difference={from_difference:g}->{to_difference:g}"
+                )
+                crossover_candidates.append(
+                    (
+                        (
+                            -magnitude,
+                            endpoint_index,
+                            from_time,
+                            to_time,
+                            pair_index,
+                        ),
+                        finding,
+                    )
+                )
+    if crossover_candidates:
+        return "OBSERVED_TEMPORAL_CROSSOVER", min(crossover_candidates)[1]
+
+    sample_rank = {value: index for index, value in enumerate(scope.sample_ids)}
+    endpoint_rank = {
+        value: index for index, value in enumerate(scope.endpoint_ids)
+    }
+    changed = tuple(item for item in transitions if item.median_delta != 0)
+    if not changed:
+        return None
+    selected = min(
+        changed,
+        key=lambda item: (
+            -abs(item.median_delta),
+            endpoint_rank[item.endpoint_id],
+            item.from_time_seconds,
+            item.to_time_seconds,
+            sample_rank[item.sample_id],
+        ),
+    )
+    finding = (
+        f"OBSERVED_TRANSITION:sample={selected.sample_id};"
+        f"endpoint={selected.endpoint_id};from={selected.from_time_seconds:g};"
+        f"to={selected.to_time_seconds:g};median_delta={selected.median_delta:g}"
+    )
+    return "OBSERVED_TEMPORAL_TRANSITION", finding
+
+
 def audit_temporal_evidence(
     request: TemporalEvidenceRequest,
 ) -> TemporalEvidenceAuditResultV2:
@@ -994,6 +1132,7 @@ def audit_temporal_evidence(
             "observation cell is outside the declared protocol scope"
         )
 
+    selected_finding: tuple[str, str] | None = None
     if protocol_blockers:
         disposition = TemporalEvidenceDisposition.PROTOCOL_HOLD
         blockers = tuple(dict.fromkeys(protocol_blockers))
@@ -1014,8 +1153,14 @@ def audit_temporal_evidence(
     elif legacy.missing_cells:
         disposition = TemporalEvidenceDisposition.INCOMPLETE
         blockers = ("temporal evidence grid is incomplete",)
+        selected_cell = _select_missing_cell(
+            scope,
+            legacy.missing_cells,
+            safe_summaries,
+            safe_transitions,
+        )
         cell_text = canonical_json_bytes(
-            _cell_key_payload(legacy.missing_cells[0])
+            _cell_key_payload(selected_cell)
         ).decode("utf-8")
         next_discriminator = f"COLLECT_CELL:{cell_text}"
         reason_codes = ("ONE_MISSING_CELL_SELECTED",)
@@ -1023,11 +1168,28 @@ def audit_temporal_evidence(
         disposition = TemporalEvidenceDisposition.RESOLVED
         blockers = ()
         next_discriminator = None
-        reason_codes = ("OBSERVED_TEMPORAL_SUMMARY_RESOLVED",)
+        selected_finding = _select_temporal_finding(
+            scope,
+            safe_summaries,
+            safe_transitions,
+        )
+        reason_codes = (
+            ("NO_OBSERVED_TEMPORAL_CHANGE",)
+            if selected_finding is None
+            else (selected_finding[0],)
+        )
 
+    ordered_cells = sorted(
+        request.cells,
+        key=lambda cell: canonical_json_bytes(cell.as_dict()),
+    )
+    ordered_safety_events = sorted(
+        request.safety_events,
+        key=lambda event: canonical_json_bytes(event.as_dict()),
+    )
     evidence_payload = {
-        "cells": [cell.as_dict() for cell in request.cells],
-        "safety_events": [event.as_dict() for event in request.safety_events],
+        "cells": [cell.as_dict() for cell in ordered_cells],
+        "safety_events": [event.as_dict() for event in ordered_safety_events],
     }
     evidence_sha256 = sha256_hex(canonical_json_bytes(evidence_payload))
     input_sha256 = sha256_hex(
@@ -1041,14 +1203,19 @@ def audit_temporal_evidence(
     )
     source_bindings = tuple(sorted({scope.schedule_sha256, evidence_sha256}))
     exact_scope = f"{scope.protocol_id}/TEMPORAL"
-    if disposition is TemporalEvidenceDisposition.RESOLVED:
+    if (
+        disposition is TemporalEvidenceDisposition.RESOLVED
+        and selected_finding is not None
+    ):
+        finding_text = selected_finding[1]
         delta = DecisionDeltaV1(
             delta_id=f"TEMPORAL:{scope.protocol_id}",
             decision_effect=(
-                "Use the observed temporal summaries and transitions at this exact "
-                "protocol scope; request no additional temporal experiment."
+                "Record one exact-scope descriptive temporal finding: "
+                f"{finding_text}"
             ),
             observed_facts=(
+                f"selected_finding={finding_text}",
                 f"observed_cells={len(counts)}",
                 "missing_cells=0",
                 "duplicate_cells=0",
@@ -1077,6 +1244,16 @@ def audit_temporal_evidence(
             delta=delta,
             blockers=(),
             next_action=None,
+        )
+    elif disposition is TemporalEvidenceDisposition.RESOLVED:
+        receipt = no_augmentation_receipt(
+            module_id="temporal_sensory_ledger",
+            exact_scope=exact_scope,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_sha256,
+            policy_sha256=_TEMPORAL_AUDIT_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=reason_codes,
         )
     else:
         receipt = hold_receipt(
