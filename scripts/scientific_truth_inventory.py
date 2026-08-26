@@ -13,13 +13,103 @@ import ast
 import gzip
 import hashlib
 import json
+import re
+import subprocess
+import sys
 from collections import defaultdict
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
 import yaml
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 SCHEMA_VERSION = "scientific-truth-inventory-v1"
+RECOVERY_BASELINE_SCHEMA_VERSION = "temporal_oav_hedonic_recovery_baseline_v1"
+
+RECOVERY_BASELINE_FILES = (
+    "engine/pipeline/oav_evidence.py",
+    "engine/fuckups/pre_mix_guard.py",
+    "engine/sensory/ledger.py",
+    "engine/preference.py",
+    "engine/hedonic_evidence.py",
+    "engine/hedonic_model.py",
+    "engine/perception/perceptual_topology.py",
+    "engine/perception/wood_depth.py",
+)
+
+RECOVERY_BASELINE_MODULES = (
+    "architectural-delta-engine",
+    "temporal-sensory-ledger",
+    "hedonic-preference-learner",
+    "universal-perceptual-topology-core",
+    "perfumery-art-composition-topology-v1",
+    "wood-depth-model-v2",
+)
+
+RECOVERY_BASELINE_AUTHORITY_FLAGS = {
+    "compounding": False,
+    "formula": False,
+    "hedonic": False,
+    "inventory_mutation": False,
+    "physical_execution": False,
+    "publication": False,
+    "purchase": False,
+    "release": False,
+    "runtime": False,
+    "safety": False,
+    "scientific": False,
+    "sensory": False,
+}
+
+RECOVERY_BASELINE_BOUNDARIES = {
+    "modeled_oav_is_hedonic_evidence": False,
+    "modeled_oav_is_sensory_evidence": False,
+    "retained_downstream_artifacts_runtime_installed": False,
+    "target_ideal_separate_from_current_inventory": True,
+}
+
+RECOVERY_BASELINE_UNTRACKED_PATHS = (
+    ".tmp-publish-complexity-solforge/",
+    ".tmp-publish-registry/",
+    ".tmp-solforge-gate-verifier/",
+    ".tmp-solforge-slice-verifier/",
+)
+
+RECOVERY_SOURCE_CANDIDATE = {
+    "name": "OAV_TIME_DOSE_ERROR_SENTINEL_LITERATURE_BASIS_v1.md",
+    "byte_length": 40307,
+    "sha256": "1094ef77c35b955ca0b6e13bc4d79981e6c78f2fcbaccaf6d34b5a175fa2e7c9",
+}
+
+RECOVERY_DOWNSTREAM_ARTIFACTS = (
+    {
+        "name": "FLORAL_COVERAGE_FOUNDATION_v2.zip",
+        "disposition": "SEMANTIC_REFERENCE_ONLY",
+    },
+    {
+        "name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip",
+        "disposition": "REGRESSION_PROVENANCE_ONLY",
+    },
+    {
+        "name": "Woody_Amber_Musk_Extreme_Research_Bundle_V2.zip",
+        "disposition": "SOURCE_TRIAGE_ONLY_OBSOLETE_INVENTORY_V3",
+    },
+    {
+        "name": "Top_Complexity_Microevent_Bundle_v2.zip",
+        "disposition": "REJECTED_INGREDIENT_COUNT_TRAP",
+    },
+    {
+        "name": "Perfumery_Formula_Control_Ensemble_v2_1.md",
+        "disposition": "PROVENANCE_ONLY_INVENTORY_CONFLICT",
+    },
+)
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_GIT_COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 
 PROPERTY_SPECS: dict[str, dict[str, Any]] = {
     "cas": {
@@ -711,15 +801,354 @@ def write_inventory(report: dict[str, Any], output: Path) -> None:
     output.write_bytes(payload)
 
 
+def _git_output(repo_root: Path, *args: str, text: bool = True) -> str | bytes:
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), *args],
+        check=True,
+        capture_output=True,
+        text=text,
+    )
+    return result.stdout.strip() if text else result.stdout
+
+
+def _repository_identity(
+    repo_root: Path,
+    *,
+    repository_commit: str | None,
+    repository_branch: str | None,
+) -> tuple[str, str]:
+    commit = (
+        str(_git_output(repo_root, "rev-parse", "HEAD"))
+        if repository_commit is None
+        else repository_commit.strip().lower()
+    )
+    branch = (
+        str(_git_output(repo_root, "branch", "--show-current"))
+        if repository_branch is None
+        else " ".join(repository_branch.split())
+    )
+    if not _GIT_COMMIT_RE.fullmatch(commit):
+        raise ValueError("repository_commit must be a 40-character Git commit")
+    if not branch:
+        raise ValueError("repository_branch must be nonblank")
+    _git_output(repo_root, "cat-file", "-e", f"{commit}^{{commit}}")
+    return commit, branch
+
+
+def _git_blob(repo_root: Path, commit: str, relative_path: str) -> bytes:
+    return bytes(
+        _git_output(repo_root, "show", f"{commit}:{relative_path}", text=False)
+    )
+
+
+def _blob_record(repo_root: Path, commit: str, relative_path: str) -> dict[str, Any]:
+    payload = _git_blob(repo_root, commit, relative_path)
+    return {
+        "path": relative_path,
+        "byte_length": len(payload),
+        "sha256": hashlib.sha256(payload).hexdigest(),
+    }
+
+
+def _candidate_expectation(
+    value: Mapping[str, object] | None,
+) -> dict[str, object]:
+    expectation = dict(RECOVERY_SOURCE_CANDIDATE if value is None else value)
+    if set(expectation) != {"name", "byte_length", "sha256"}:
+        raise ValueError("candidate expectation keys are closed")
+    name = expectation["name"]
+    byte_length = expectation["byte_length"]
+    digest = expectation["sha256"]
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("candidate name must be nonblank")
+    if isinstance(byte_length, bool) or not isinstance(byte_length, int):
+        raise TypeError("candidate byte_length must be an integer")
+    if byte_length < 0:
+        raise ValueError("candidate byte_length must be nonnegative")
+    if not isinstance(digest, str) or not _SHA256_RE.fullmatch(digest):
+        raise ValueError("candidate sha256 must be a lowercase SHA-256 digest")
+    return {
+        "name": " ".join(name.split()),
+        "byte_length": byte_length,
+        "sha256": digest,
+    }
+
+
+def _source_candidate_record(
+    candidate_path: Path | None,
+    expectation: Mapping[str, object],
+) -> dict[str, Any]:
+    expected = _candidate_expectation(expectation)
+    observed_length: int | None = None
+    observed_sha256: str | None = None
+    blocker: str | None = "SOURCE_CANDIDATE_EXACT_BYTES_UNAVAILABLE"
+    if candidate_path is not None and candidate_path.is_file():
+        observed_length = candidate_path.stat().st_size
+        observed_sha256 = _sha256(candidate_path)
+        if (
+            candidate_path.name == expected["name"]
+            and observed_length == expected["byte_length"]
+            and observed_sha256 == expected["sha256"]
+        ):
+            blocker = None
+        else:
+            blocker = "SOURCE_CANDIDATE_EXACT_BYTES_MISMATCH"
+    return {
+        "name": expected["name"],
+        "expected_byte_length": expected["byte_length"],
+        "expected_sha256": expected["sha256"],
+        "observed_byte_length": observed_length,
+        "observed_sha256": observed_sha256,
+        "exact_bytes_status": (
+            "VERIFIED" if blocker is None else "EXACT_BYTES_UNAVAILABLE"
+        ),
+        "disposition": "SOURCE_CANDIDATE_ONLY",
+        "blockers": [] if blocker is None else [blocker],
+    }
+
+
+def _recovery_registry_census(repo_root: Path, commit: str) -> dict[str, Any]:
+    from engine.perception.complexity_registry import load_complexity_registry
+
+    relative = "configs/complexity/complexity_module_registry_v5.json"
+    blob = _git_blob(repo_root, commit, relative)
+    registry = load_complexity_registry(repo_root, repo_root / relative)
+    blob_sha256 = hashlib.sha256(blob).hexdigest()
+    if registry.registry_sha256 != blob_sha256:
+        raise ValueError("registry V5 working bytes differ from the baseline commit")
+    selected: dict[str, dict[str, Any]] = {}
+    for module_id in RECOVERY_BASELINE_MODULES:
+        module = registry.module_by_id(module_id)
+        selected[module_id] = {
+            "state": module.state.value,
+            "import_path": module.import_path,
+            "runtime_eligible": module.runtime_eligible,
+        }
+    return {
+        "registry": {
+            "path": relative,
+            "schema_version": registry.schema_version,
+            "sha256": blob_sha256,
+        },
+        "module_dispositions": selected,
+    }
+
+
+def build_recovery_baseline(
+    repo_root: Path,
+    candidate_path: Path | None,
+    *,
+    candidate_expectation: Mapping[str, object] | None = None,
+    repository_commit: str | None = None,
+    repository_branch: str | None = None,
+) -> dict[str, Any]:
+    """Build the frozen Task 1 baseline without granting scientific authority."""
+
+    root = repo_root.resolve()
+    if not (root / "data" / "materials").is_dir():
+        raise ValueError("repository root must contain data/materials")
+    commit, branch = _repository_identity(
+        root,
+        repository_commit=repository_commit,
+        repository_branch=repository_branch,
+    )
+    registry = _recovery_registry_census(root, commit)
+    expectation = _candidate_expectation(candidate_expectation)
+    core = {
+        "repository": {"branch": branch, "commit": commit},
+        "registry": registry["registry"],
+        "module_dispositions": registry["module_dispositions"],
+        "source_files": [
+            _blob_record(root, commit, relative)
+            for relative in RECOVERY_BASELINE_FILES
+        ],
+        "source_candidate": _source_candidate_record(candidate_path, expectation),
+        "downstream_artifacts": [dict(item) for item in RECOVERY_DOWNSTREAM_ARTIFACTS],
+        "boundaries": dict(RECOVERY_BASELINE_BOUNDARIES),
+        "preserved_untracked_paths": list(RECOVERY_BASELINE_UNTRACKED_PATHS),
+        "authority_flags": dict(RECOVERY_BASELINE_AUTHORITY_FLAGS),
+    }
+    return {
+        "schema_version": RECOVERY_BASELINE_SCHEMA_VERSION,
+        "acceptance_core": core,
+        "acceptance_sha256": _canonical_hash(core),
+    }
+
+
+def _candidate_record_issues(candidate: object) -> list[str]:
+    if not isinstance(candidate, Mapping):
+        return ["source candidate record is missing or malformed"]
+    issues: list[str] = []
+    try:
+        expected = _candidate_expectation(
+            {
+                "name": candidate.get("name"),
+                "byte_length": candidate.get("expected_byte_length"),
+                "sha256": candidate.get("expected_sha256"),
+            }
+        )
+    except (TypeError, ValueError):
+        return ["source candidate record is malformed"]
+    if candidate.get("disposition") != "SOURCE_CANDIDATE_ONLY":
+        issues.append("source candidate disposition is not provenance-only")
+    status = candidate.get("exact_bytes_status")
+    if status == "VERIFIED":
+        if (
+            candidate.get("observed_byte_length") != expected["byte_length"]
+            or candidate.get("observed_sha256") != expected["sha256"]
+            or candidate.get("blockers") != []
+        ):
+            issues.append("source candidate VERIFIED claim does not match exact bytes")
+    elif status == "EXACT_BYTES_UNAVAILABLE":
+        blockers = candidate.get("blockers")
+        if blockers not in (
+            ["SOURCE_CANDIDATE_EXACT_BYTES_UNAVAILABLE"],
+            ["SOURCE_CANDIDATE_EXACT_BYTES_MISMATCH"],
+        ):
+            issues.append("source candidate unavailable state lacks an exact blocker")
+    else:
+        issues.append("source candidate exact-bytes state is invalid")
+    return issues
+
+
+def validate_recovery_baseline(
+    repo_root: Path,
+    record: object,
+    *,
+    candidate_path: Path | None = None,
+    candidate_expectation: Mapping[str, object] | None = None,
+) -> tuple[str, ...]:
+    """Validate a frozen Task 1 record against its bound Git snapshot."""
+
+    if not isinstance(record, Mapping):
+        return ("recovery baseline must be a mapping",)
+    issues: list[str] = []
+    if set(record) != {"schema_version", "acceptance_core", "acceptance_sha256"}:
+        issues.append("recovery baseline top-level keys are closed")
+    if record.get("schema_version") != RECOVERY_BASELINE_SCHEMA_VERSION:
+        issues.append("recovery baseline schema version mismatch")
+    core = record.get("acceptance_core")
+    if not isinstance(core, Mapping):
+        return tuple(issues + ["acceptance_core must be a mapping"])
+    core_keys = {
+        "repository",
+        "registry",
+        "module_dispositions",
+        "source_files",
+        "source_candidate",
+        "downstream_artifacts",
+        "boundaries",
+        "preserved_untracked_paths",
+        "authority_flags",
+    }
+    if set(core) != core_keys:
+        issues.append("recovery baseline acceptance_core keys are closed")
+    if record.get("acceptance_sha256") != _canonical_hash(core):
+        issues.append("acceptance SHA-256 mismatch")
+
+    repository = core.get("repository")
+    if not isinstance(repository, Mapping):
+        return tuple(issues + ["repository identity is missing or malformed"])
+    commit = repository.get("commit")
+    branch = repository.get("branch")
+    if not isinstance(commit, str) or not _GIT_COMMIT_RE.fullmatch(commit):
+        return tuple(issues + ["repository commit is invalid"])
+    if not isinstance(branch, str) or not branch.strip():
+        issues.append("repository branch is invalid")
+
+    root = repo_root.resolve()
+    try:
+        expected_source_files = [
+            _blob_record(root, commit, relative)
+            for relative in RECOVERY_BASELINE_FILES
+        ]
+    except (OSError, subprocess.CalledProcessError):
+        expected_source_files = []
+        issues.append("baseline repository snapshot is unavailable")
+    if core.get("source_files") != expected_source_files:
+        issues.append("source file census mismatch")
+
+    try:
+        registry = _recovery_registry_census(root, commit)
+    except (OSError, ValueError, subprocess.CalledProcessError):
+        registry = None
+        issues.append("baseline registry snapshot is unavailable")
+    if registry is not None:
+        if core.get("registry") != registry["registry"]:
+            issues.append("registry census mismatch")
+        if core.get("module_dispositions") != registry["module_dispositions"]:
+            issues.append("module disposition census mismatch")
+
+    if core.get("authority_flags") != RECOVERY_BASELINE_AUTHORITY_FLAGS:
+        issues.append("authority flags are not the required all-false mapping")
+    if core.get("boundaries") != RECOVERY_BASELINE_BOUNDARIES:
+        issues.append("evidence boundaries do not match the frozen policy")
+    if core.get("preserved_untracked_paths") != list(
+        RECOVERY_BASELINE_UNTRACKED_PATHS
+    ):
+        issues.append("preserved untracked path set mismatch")
+    if core.get("downstream_artifacts") != [
+        dict(item) for item in RECOVERY_DOWNSTREAM_ARTIFACTS
+    ]:
+        issues.append("downstream artifact dispositions mismatch")
+
+    issues.extend(_candidate_record_issues(core.get("source_candidate")))
+    if candidate_path is not None:
+        expectation = _candidate_expectation(candidate_expectation)
+        expected_candidate = _source_candidate_record(candidate_path, expectation)
+        if core.get("source_candidate") != expected_candidate:
+            issues.append("source candidate exact-byte census mismatch")
+    return tuple(dict.fromkeys(issues))
+
+
+def write_recovery_baseline(
+    record: Mapping[str, object],
+    output: Path,
+    sha_output: Path,
+) -> None:
+    """Write a deterministic recovery record and exact-file hash sidecar."""
+
+    payload = (
+        json.dumps(record, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    ).encode("utf-8")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    sha_output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(payload)
+    digest = hashlib.sha256(payload).hexdigest()
+    sha_output.write_text(f"{digest}  {output.name}\n", encoding="ascii")
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--recovery-baseline-output", type=Path)
+    parser.add_argument("--recovery-baseline-sha-output", type=Path)
+    parser.add_argument("--downloads-candidate", type=Path)
+    parser.add_argument("--repository-commit")
+    parser.add_argument("--repository-branch")
     return parser.parse_args()
 
 
 def main() -> int:
     args = _parse_args()
+    if args.recovery_baseline_output is not None:
+        if args.recovery_baseline_sha_output is None:
+            raise ValueError("--recovery-baseline-sha-output is required")
+        record = build_recovery_baseline(
+            args.repo_root,
+            args.downloads_candidate,
+            repository_commit=args.repository_commit,
+            repository_branch=args.repository_branch,
+        )
+        write_recovery_baseline(
+            record,
+            args.recovery_baseline_output,
+            args.recovery_baseline_sha_output,
+        )
+        return 0
+    if args.output is None:
+        raise ValueError("--output or --recovery-baseline-output is required")
     report = build_inventory(args.repo_root)
     write_inventory(report, args.output)
     return 0
