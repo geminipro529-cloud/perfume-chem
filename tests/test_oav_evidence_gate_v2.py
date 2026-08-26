@@ -13,7 +13,12 @@ from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.oav_evidence import (
     OAVEvidenceRequest,
     OAVEvidenceState,
+    OAVIntervalEvidence,
     OAVMaterialEvidenceInput,
+    OAVModelTier,
+    OAVTimepointEvidenceInput,
+    OAVTimepointKey,
+    TemporalOAVEvidenceRequest,
     evaluate_oav_evidence,
     oav_evidence_request_from_formula_state,
 )
@@ -321,3 +326,15 @@ def test_request_rejects_invalid_hashes_and_empty_context() -> None:
         OAVEvidenceRequest("bad", DOSE_SHA, "air", (_row(),))
     with pytest.raises(ValueError, match="measurement_context"):
         OAVEvidenceRequest(FORMULA_SHA, DOSE_SHA, "", (_row(),))
+
+
+def test_pipeline_reexports_frozen_temporal_request_types_without_changing_v2() -> None:
+    assert OAVModelTier.T4_MEASURED.value == "T4_MEASURED"
+    assert OAVIntervalEvidence.__module__ == "engine.solforge.evidence_review"
+    assert OAVTimepointKey.__module__ == "engine.solforge.evidence_review"
+    assert OAVTimepointEvidenceInput.__module__ == "engine.solforge.evidence_review"
+    assert TemporalOAVEvidenceRequest.__module__ == "engine.solforge.evidence_review"
+
+    result = evaluate_oav_evidence(_request((_row(),)))
+    assert result.as_dict()["schema_version"] == "oav_evidence_v2"
+    assert set(result.as_dict()["authority"]) == {"sensory", "hedonic", "release"}
