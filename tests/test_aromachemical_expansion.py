@@ -43,7 +43,7 @@ def test_range_extension_excludes_existing_unavailable_stock_by_default(range_re
     assert names.isdisjoint(explicitly_unavailable)
     assert {"Habanolide", "Romandolide"}.issubset(names)
     assert range_report.ranking_authority == "MODELLED_RANGE_GAP_NOT_PURCHASE_ORDER"
-    assert range_report.inventory_size == 210
+    assert range_report.inventory_size == 230
 
 
 def test_replenishment_is_an_explicit_separate_mode():

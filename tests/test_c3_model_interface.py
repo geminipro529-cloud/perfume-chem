@@ -159,6 +159,14 @@ PUBLIC_C3_NAMES = {
     "VersionedModelResult",
     "VersionedModelRouter",
 }
+PUBLIC_MODEL_LIFECYCLE_NAMES = {
+    "ModelDriftAssessment",
+    "ModelDriftObservation",
+    "ModelDriftState",
+    "ModelLifecycleCard",
+    "ModelLifecycleState",
+    "assess_model_drift",
+}
 PUBLIC_C4_NAMES = {
     "C4_INPUT_ROLE",
     "EquilibriumModelContractError",
@@ -1768,6 +1776,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         | PUBLIC_C6_NAMES
         | PUBLIC_C7_NAMES
         | PUBLIC_C8_NAMES
+        | PUBLIC_MODEL_LIFECYCLE_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()

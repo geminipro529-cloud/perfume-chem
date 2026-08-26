@@ -262,5 +262,6 @@ def test_frozen_active_path_audit_is_preserved_but_explicitly_stale() -> None:
     }
     assert drift == {
         "engine/hedonic_evidence.py",
+        "engine/ingredient_intelligence.py",
         "scripts/scientific_truth_inventory.py",
     }

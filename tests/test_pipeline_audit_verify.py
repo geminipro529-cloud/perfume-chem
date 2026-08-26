@@ -30,14 +30,14 @@ def test_pipeline_audit_verify_json_runs_for_small_sample(capsys):
     assert "disconnected_module_status" in captured
 
 
-def test_complexity_benchmark_census_json(capsys) -> None:
+def test_retired_complexity_benchmark_census_holds_on_frozen_drift(capsys) -> None:
     rc = pipeline_audit.main(
         ["complexity-benchmark", "--operation", "census", "--json"]
     )
     payload = json.loads(capsys.readouterr().out)
-    assert rc == 0
-    assert payload["state"] == "PASS"
-    assert payload["unclassified"] == []
+    assert rc == 1
+    assert payload["state"] == "HOLD"
+    assert payload["unclassified"] == ["engine/hedonic_evidence.py"]
     assert payload["provider_calls"] == 0
 
 

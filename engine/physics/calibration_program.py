@@ -20,7 +20,7 @@ from typing import Any
 
 from engine.calibration.hashing import stable_json_hash
 
-C5_INVENTORY_SHA256 = "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8"
+C5_INVENTORY_SHA256 = "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec"
 LEAKAGE_DIMENSIONS = (
     "chemical_identity_group",
     "close_analog_group",
@@ -508,7 +508,7 @@ def build_c5_program() -> CalibrationProgram:
         _material("Eugenol", "PHENOL", 1.0, "neat", "", "LOW_VAPOR_PRESSURE", "HIGH_POLARITY", "H_BOND_DONOR", "H_BOND_ACCEPTOR"),
         _material("Myristic Acid Powder", "ACID", 1.0, "neat", "", "LOW_VAPOR_PRESSURE", "HIGH_POLARITY", "H_BOND_DONOR", "H_BOND_ACCEPTOR", notes=("solid low-volatility feasibility and abstention control",)),
         _material("Galaxolide", "MUSK", 0.5, "unspecified", "dep", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "BULK_STRUCTURAL", notes=("stock fraction basis requires declaration",)),
-        _material("Ambrettolide", "MUSK", 0.1, "unspecified", "dpg", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "H_BOND_ACCEPTOR", notes=("stock fraction basis requires declaration",)),
+        _material("Exaltolide", "MUSK", 0.1, "unspecified", "", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "H_BOND_ACCEPTOR", notes=("stock fraction basis and carrier require declaration",)),
         _material("Iso E Super", "WOODY_AMBER", 1.0, "neat", "", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "BULK_STRUCTURAL"),
         _material("Ambermax", "WOODY_AMBER", 0.5, "unspecified", "", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "TRACE_POTENT", notes=("stock fraction basis and carrier require declaration",)),
         _material("Hedione", "ESTER", 1.0, "neat", "", "LOW_VAPOR_PRESSURE", "LOW_POLARITY", "H_BOND_ACCEPTOR", "BULK_STRUCTURAL"),

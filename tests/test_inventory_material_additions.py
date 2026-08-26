@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from engine.data_spine.loader import load_materials, load_registry
-from engine.ingredient_intelligence import get_profile
+from engine.ingredient_intelligence import get_all_profiles, get_profile
 from engine.inventory_parser import parse_inventory
 from engine.name_utils import names_match, normalize_name
 from engine.odor_thresholds import ODT_DATA, lookup_odt_entry, lookup_odt_raw_name
@@ -132,6 +132,13 @@ def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
 
     assert profile is not None
     assert "Violet Leaf Absolute" not in profile.synergies
+
+
+def test_descriptive_profile_blurbs_are_not_numeric_character_vectors() -> None:
+    profiles = get_all_profiles()
+
+    assert profiles["nerolidol"].character == {}
+    assert all(isinstance(profile.character, dict) for profile in profiles.values())
 
 
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:

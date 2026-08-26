@@ -152,7 +152,7 @@ def _formula(
 
 def _trial_fougere():
     ingredients = {
-        "Cedrat FCF oil Sicilian": 1200.0,
+        "Bergamot FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
@@ -324,7 +324,7 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
 
 | # | Material | Dilution | Amount (uL) | Amount (mL) |
 |---:|---|---:|---:|---:|
-    | 1 | Cedrat FCF oil Sicilian | neat | 1200 | 1.200 |
+    | 1 | Bergamot FCF oil Sicilian | neat | 1200 | 1.200 |
     | 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 0.700 |
     | 3 | Linalyl Acetate | neat | 600 | 0.600 |
     | 4 | Hedione | neat | 900 | 0.900 |

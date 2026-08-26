@@ -6,7 +6,7 @@ from engine.pipeline.robustness import audit_formula_robustness
 
 def _fougere_formula(evernyl_ul=100.0):
     ingredients = {
-        "Cedrat FCF oil Sicilian": 1200.0,
+        "Bergamot FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,

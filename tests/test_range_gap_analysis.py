@@ -13,7 +13,7 @@ def live_report():
 
 
 def test_live_range_report_uses_inventory_and_explicit_formula_evidence(live_report):
-    assert live_report.inventory_available_count == 210
+    assert live_report.inventory_available_count == 230
     by_key = {row.key: row for row in live_report.registered_archetypes}
     prada = by_key["iris_amber_woody.prada_lhomme_reference"]
     assert prada.buildability_status == "BUILDABLE_FROM_AVAILABLE_STOCK_IDENTITIES"

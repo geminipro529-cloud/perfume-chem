@@ -12,16 +12,16 @@
     },
     "data/knowledge_graph/synergy_matrix.json": {
       "records": 53,
-      "sha256": "7b194c2f7ea19efcfbcc1bafef5e4c0dfdcac69739dff5720b1c91fe0b7d7b9d"
+      "sha256": "9b6f96941b2c7ad92467577a08cc44c42f17f23071b5d3a9565507d7b149fda6"
     },
     "data/knowledge_graph/theory_rules.json": {
       "records": 5,
-      "sha256": "4237619f7fdddbfc15b373c42f40e2d30fc587537ac8f782b2111d6f61f53b90"
+      "sha256": "870ec53e470e361dddff334235ff388b776d97b81e5daa14d9a356e4117b0383"
     }
   },
   "identity_resolution_snapshot": {
     "path": "backend/tests/fixtures/b4_identity_resolution_baseline.json",
-    "sha256": "51d4a70ee763a2db3ea97fc86b658599a77d5c8dbe61adfd310d14627b909014",
+    "sha256": "4cdaecdcafdb978eeed7695395941d196b13d1c1c785c124b120d4d3ae895076",
     "labels": 454,
     "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY"
   },

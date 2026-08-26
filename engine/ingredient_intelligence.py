@@ -4498,9 +4498,11 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
         if data is None:
             continue
 
+        raw_character = data.get("character", {})
+        character = raw_character if isinstance(raw_character, dict) else {}
         return MaterialProfile(
             name=key,
-            character=data.get("character", {}),
+            character=character,
             mw=data.get("mw"),
             vp=data.get("vp"),
             clogp=data.get("clogp"),

@@ -1,13 +1,11 @@
 """Tests for the interaction graph query API (:mod:`engine.interaction_graph`).
 
 Verifies query, insert, analysis, and F11 chemical-incompatibility
-functions against an isolated copy of ``data/perfumery_kb.db``.
+functions against an isolated database built from tracked knowledge sources.
 """
 
 from __future__ import annotations
 
-from hashlib import sha256
-from pathlib import Path
 from shutil import copy2
 
 import pytest
@@ -27,23 +25,19 @@ from engine.interaction_graph import (
     get_synergies,
 )
 
-_REPOSITORY_DATABASE = (
-    Path(__file__).resolve().parents[1] / "data" / "perfumery_kb.db"
-)
-
 
 @pytest.fixture(autouse=True)
-def _isolated_interaction_database(tmp_path, monkeypatch):
-    baseline_sha256 = sha256(_REPOSITORY_DATABASE.read_bytes()).hexdigest()
+def _isolated_interaction_database(tmp_path, monkeypatch, generated_knowledge_db):
     isolated_database = tmp_path / "perfumery_kb.db"
-    copy2(_REPOSITORY_DATABASE, isolated_database)
+    copy2(generated_knowledge_db, isolated_database)
     monkeypatch.setattr(interaction_graph, "_DB_PATH", isolated_database)
+    _ensure_f11_seeded()
     yield
-    assert sha256(_REPOSITORY_DATABASE.read_bytes()).hexdigest() == baseline_sha256
 
 
 def test_mutation_tests_do_not_target_repository_database() -> None:
-    assert interaction_graph._DB_PATH.resolve() != _REPOSITORY_DATABASE.resolve()
+    assert interaction_graph._DB_PATH.name == "perfumery_kb.db"
+    assert "data" not in interaction_graph._DB_PATH.parts
 
 
 # ── Query tests ────────────────────────────────────────────────────────

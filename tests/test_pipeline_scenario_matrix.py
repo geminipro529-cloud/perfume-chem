@@ -42,7 +42,6 @@ PRADA_CASES = (
     (
         ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
         {
-            ("Orris Liquid", "stock_fraction_mismatch"),
             ("Bourgeonal", "stock_fraction_mismatch"),
             ("Aldehyde C11", "not_in_inventory"),
             ("Ethylene Brassylate", "not_in_inventory"),
@@ -218,13 +217,19 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Basil EO",
         "Cade Oil Rectified",
         "Champaca Flower EO",
+        "Cabreuva EO",
+        "Cypress EO",
+        "Elemi EO",
         "Grapefruit FCF oil Sicilian",
+        "Hay Absolute",
+        "Helichrysum EO",
         "Himalayan Cedarwood EO",
         "Magnolia EO",
         "Opoponax Resinoid",
         "Peppermint Essential Oil",
         "Peru Balsam Resinoid",
         "Pine EO",
+        "Sandalwood EO",
         "Spike Lavender EO",
         "Tagetes EO",
     }
@@ -232,6 +237,8 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         audit["categories"]["opaque_preblends_without_disclosed_composition"]
     ) == {
         "Leather FO",
+        "Sandalwood Base 3X",
+        "Tuberlia Base",
     }
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert audit["release_authority"] is False

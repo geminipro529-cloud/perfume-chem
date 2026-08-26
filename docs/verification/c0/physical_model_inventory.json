@@ -59,7 +59,7 @@
       "claim_impact": "Current canonical screening path; modified-Raoult arithmetic is bounded by mixed property authority, generic activity coefficients, matrix completeness, and lack of headspace validation.",
       "runtime_status": "CANONICAL_COMPATIBILITY_RUNTIME",
       "disposition": "Keep unchanged through C0; adapt to the versioned equilibrium interface only after C1-C4 gates.",
-      "source_sha256": {"engine/pipeline/formula_state.py": "76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251"}
+      "source_sha256": {"engine/pipeline/formula_state.py": "759a8ea209dbd91a18629324ae2bc598415fb2d760a02794f3398c46089b69ac"}
     },
     {
       "id": "C0-PM-002",
@@ -76,7 +76,7 @@
       "claim_impact": "Propagates the same heuristic equilibrium model through temporal frames; not an independent measured state.",
       "runtime_status": "CANONICAL_COMPATIBILITY_RUNTIME",
       "disposition": "Preserve as a legacy adapter until C6 replaces dynamic evolution.",
-      "source_sha256": {"engine/pipeline/formula_state.py": "76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251"}
+      "source_sha256": {"engine/pipeline/formula_state.py": "759a8ea209dbd91a18629324ae2bc598415fb2d760a02794f3398c46089b69ac"}
     },
     {
       "id": "C0-PM-003",
@@ -93,7 +93,7 @@
       "claim_impact": "Can disagree with FormulaState and must not answer canonical headspace requests.",
       "runtime_status": "MANUAL_SCRIPT_ONLY",
       "disposition": "Freeze representative output; deprecate as non-runtime after migration comparison.",
-      "source_sha256": {"scripts/oav_headspace_analyze.py": "12ceaa1d149f524b3ee7f106822c40c230d4c54bfd54d0dc0f9144d8c0227328"}
+      "source_sha256": {"scripts/oav_headspace_analyze.py": "47d0dd6a29868ce047c1439f5ff43c3c207bd7cf2ab0c4278498d24465a8efc4"}
     },
     {
       "id": "C0-PM-004",
@@ -110,7 +110,7 @@
       "claim_impact": "Defines whether current headspace represents concentrate, proxy, partial matrix, or explicit finished matrix.",
       "runtime_status": "CANONICAL_INPUT_ADAPTER",
       "disposition": "Preserve in C0; C2 replaces generic labels with versioned MatrixComposition.",
-      "source_sha256": {"engine/solvent_matrix.py": "fa58234e1eec18b6c4b0db8a22c5d2311c764b6bcb939fd26273571d98594534"}
+      "source_sha256": {"engine/solvent_matrix.py": "16583d0cdfa62d5e3d4951faa94f328708a8b9534f6274674ad17cca04da6091"}
     },
     {
       "id": "C0-PM-005",
@@ -127,7 +127,7 @@
       "claim_impact": "Current canonical temporal diagnostic; cannot support longevity hours or physical release rate.",
       "runtime_status": "CANONICAL_COMPATIBILITY_RUNTIME",
       "disposition": "Keep unchanged through C0; replace behind the router only after C5-C6 calibration and validation.",
-      "source_sha256": {"engine/pipeline/simulator.py": "5f779145856c3d273bd188761f970f6282aaf74fe1a84b6937b07e0fe17fe8c5"}
+      "source_sha256": {"engine/pipeline/simulator.py": "a234fce4b0ca8865e12ac3191351d50cf6509b2697e9daf463d216c32c647ed5"}
     },
     {
       "id": "C0-PM-006",
@@ -212,7 +212,7 @@
       "claim_impact": "Equation evaluation is exact for valid coefficients; result authority still depends on convention, units, phase, purity, range, and source.",
       "runtime_status": "SHARED_ARITHMETIC_RUNTIME",
       "disposition": "Retain arithmetic; wrap in the condition-aware C1 vapor-pressure contract.",
-      "source_sha256": {"engine/thermo/antoine.py": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29"}
+      "source_sha256": {"engine/thermo/antoine.py": "7de57fb2bdbbb23a5ce71540c5d391b71f40c7047f3ea38d9b1af8600dd88879"}
     },
     {
       "id": "C0-PM-011",
@@ -229,7 +229,7 @@
       "claim_impact": "Equation arithmetic is exact for supplied assumptions; it is not evidence that the inputs or constant-dHvap approximation are valid.",
       "runtime_status": "SHARED_ARITHMETIC_RUNTIME",
       "disposition": "Retain arithmetic behind C1 applicability and range checks.",
-      "source_sha256": {"engine/thermo/antoine.py": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29"}
+      "source_sha256": {"engine/thermo/antoine.py": "7de57fb2bdbbb23a5ce71540c5d391b71f40c7047f3ea38d9b1af8600dd88879"}
     },
     {
       "id": "C0-PM-012",
@@ -246,7 +246,7 @@
       "claim_impact": "Silently ignores temperature dependence and cannot support release-grade extrapolation.",
       "runtime_status": "SHARED_FALLBACK_RUNTIME",
       "disposition": "C1 must return lower authority or WITHHELD outside the reference condition.",
-      "source_sha256": {"engine/thermo/antoine.py": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29"}
+      "source_sha256": {"engine/thermo/antoine.py": "7de57fb2bdbbb23a5ce71540c5d391b71f40c7047f3ea38d9b1af8600dd88879"}
     },
     {
       "id": "C0-PM-013",
@@ -263,7 +263,7 @@
       "claim_impact": "Temperature correction is literature-derived but not material-specific measurement and cannot promote headspace beyond its weakest input/model.",
       "runtime_status": "SHARED_FALLBACK_RUNTIME",
       "disposition": "Represent as an explicit C1 model with source, domain, and uncertainty.",
-      "source_sha256": {"engine/thermo/antoine.py": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29"}
+      "source_sha256": {"engine/thermo/antoine.py": "7de57fb2bdbbb23a5ce71540c5d391b71f40c7047f3ea38d9b1af8600dd88879"}
     },
     {
       "id": "C0-PM-014",
@@ -280,7 +280,7 @@
       "claim_impact": "Names synthetic coefficients as Antoine parameters without a measured multi-temperature fit.",
       "runtime_status": "EXPORTED_LEGACY_HELPER",
       "disposition": "Do not use for release-grade C1 results; preserve only as a versioned legacy adapter if a caller is found.",
-      "source_sha256": {"engine/thermo/antoine.py": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29"}
+      "source_sha256": {"engine/thermo/antoine.py": "7de57fb2bdbbb23a5ce71540c5d391b71f40c7047f3ea38d9b1af8600dd88879"}
     },
     {
       "id": "C0-PM-015",
@@ -297,7 +297,7 @@
       "claim_impact": "May populate approximate properties but is not a measured lookup or release-grade vapor-pressure model.",
       "runtime_status": "DATA_ENRICHMENT_ADVISORY",
       "disposition": "Keep outside canonical model selection unless C1 records its fit/domain/uncertainty explicitly.",
-      "source_sha256": {"engine/property_estimator.py": "41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d"}
+      "source_sha256": {"engine/property_estimator.py": "bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e"}
     },
     {
       "id": "C0-PM-016",
@@ -349,7 +349,7 @@
       "claim_impact": "Dominates non-ideal headspace estimates without perfume-domain calibration.",
       "runtime_status": "CANONICAL_COMPATIBILITY_RUNTIME",
       "disposition": "Keep labeled heuristic; C3-C5 may replace it only through a versioned, applicable, validated model.",
-      "source_sha256": {"engine/thermo/activity.py": "00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc"}
+      "source_sha256": {"engine/thermo/activity.py": "16c2df6e70eddc67277a419f095e13fc970e05095c73f2500117e4178ccba60a"}
     },
     {
       "id": "C0-PM-019",
@@ -366,7 +366,7 @@
       "claim_impact": "A second gamma path can differ from the composition-dependent Hansen heuristic.",
       "runtime_status": "CANONICAL_COMPATIBILITY_FALLBACK",
       "disposition": "Expose as a separately versioned fallback or WITHHELD in C3; never silently mix authorities.",
-      "source_sha256": {"engine/pipeline/formula_state.py": "76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251"}
+      "source_sha256": {"engine/pipeline/formula_state.py": "759a8ea209dbd91a18629324ae2bc598415fb2d760a02794f3398c46089b69ac"}
     },
     {
       "id": "C0-PM-020",
@@ -383,7 +383,7 @@
       "claim_impact": "May seed profile gamma values but is not UNIFAC or empirical formula-domain calibration.",
       "runtime_status": "DATA_ENRICHMENT_ADVISORY",
       "disposition": "Keep non-canonical unless explicitly declared as a low-authority C3 fallback.",
-      "source_sha256": {"engine/property_estimator.py": "41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d"}
+      "source_sha256": {"engine/property_estimator.py": "bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e"}
     },
     {
       "id": "C0-PM-021",
@@ -400,7 +400,7 @@
       "claim_impact": "Competing optimizer gamma can differ from FormulaState unless the optimizer uses the canonical state map.",
       "runtime_status": "OPTIMIZER_LEGACY_RUNTIME",
       "disposition": "Prevent new physical claims; migrate optimizer to router results and retain only as legacy fixture.",
-      "source_sha256": {"engine/optimizer/models.py": "0c5985df1f5f3be7db7826e4951fdc9b128c442c61f2612e2a5f4ce2f867bc79"}
+      "source_sha256": {"engine/optimizer/models.py": "11dae0f2aec2f8a70e46d804f11754dc15376c8dc350f62a7143224796635712"}
     },
     {
       "id": "C0-PM-022",
@@ -417,7 +417,7 @@
       "claim_impact": "Correctly prevents dependency presence from being mislabeled as an active UNIFAC implementation.",
       "runtime_status": "EXPLICIT_INACTIVE_STUB",
       "disposition": "Remain inactive until subgroup assignment, parameters, versioning, domain checks, and validation pass C3-C5.",
-      "source_sha256": {"engine/thermo/activity.py": "00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc"}
+      "source_sha256": {"engine/thermo/activity.py": "16c2df6e70eddc67277a419f095e13fc970e05095c73f2500117e4178ccba60a"}
     },
     {
       "id": "C0-PM-023",
@@ -434,7 +434,7 @@
       "claim_impact": "Table population alone cannot support UNIFAC activity coefficients.",
       "runtime_status": "DATA_ONLY_STUB",
       "disposition": "Keep as non-authoritative reference data until C3 implements and validates a real versioned algorithm.",
-      "source_sha256": {"engine/science_kb.py": "81e1b18a71af231cfb01230f56ea657f4ba34e902829ce8113c131dece6dee7c"}
+      "source_sha256": {"engine/science_kb.py": "93d23dc46f46af0055002628e0135d0ed6ea4627cd1f8dbf57150d75c8429eb4"}
     },
     {
       "id": "C0-PM-024",
@@ -527,7 +527,7 @@
       "category": "dose_response_psychophysics",
       "name": "OAV target bands and cliff rules",
       "classification": "HEURISTIC",
-      "source": [{"path": "engine/pipeline/oav_intelligence.py", "symbol": "analyze_oav_intelligence", "line": 373}],
+      "source": [{"path": "engine/pipeline/oav_intelligence.py", "symbol": "analyze_oav_intelligence", "line": 351}],
       "inputs": ["FormulaState OAV", "family archetype", "target bands"],
       "outputs": ["OAV balance diagnostics", "cliffs", "suggestions"],
       "conditions": ["inherits modeled headspace and threshold authority", "family-rule targets"],
@@ -537,7 +537,7 @@
       "claim_impact": "Transforms heuristic OAV into style guidance; cannot be treated as measured perception.",
       "runtime_status": "CANONICAL_ADVISORY_RUNTIME",
       "disposition": "Keep separate from C4 equilibrium and C8 sensory outputs; preserve explicit authority labels.",
-      "source_sha256": {"engine/pipeline/oav_intelligence.py": "d68b15d0e4700c154ddc825ff0409756f14ab5285b9b3b412d1e9fc3e5cc3ae4"}
+      "source_sha256": {"engine/pipeline/oav_intelligence.py": "4945d604d5ec50980923e631d43223a6211f92f85cada0b5faab3e6b3a4f283a"}
     },
     {
       "id": "C0-PM-030",
@@ -571,7 +571,7 @@
       "claim_impact": "A data shape exists but does not make current headspace lot-specific.",
       "runtime_status": "DISCONNECTED_STUB",
       "disposition": "C7 must integrate canonical lot identity, provenance, uncertainty, and measured composition before use.",
-      "source_sha256": {"engine/reconstruction/natural_lots.py": "8533bb37394706157afb0a852e2db369f6e087720a963702fa57b167317a6336"}
+      "source_sha256": {"engine/reconstruction/natural_lots.py": "786092b396153e4db02f0792cbf335514a7a3db4fd39de48f48811145cf75282"}
     },
     {
       "id": "C0-PM-032",
@@ -680,7 +680,7 @@
       "category": "hedonic_longevity_sillage_diffusion_projection",
       "name": "Fixed-valence hedonic scorer",
       "classification": "HEURISTIC",
-      "source": [{"path": "engine/hedonic_model.py", "symbol": "score_hedonic", "line": 200}],
+      "source": [{"path": "engine/hedonic_model.py", "symbol": "score_hedonic", "line": 206}],
       "inputs": ["formula volumes", "dilutions", "fixed material valence/arousal table"],
       "outputs": ["hedonic score", "positive/negative material diagnostics"],
       "conditions": ["hand-curated constants", "no panel population or context"],
@@ -690,7 +690,7 @@
       "claim_impact": "Cannot support population-specific liking or quality claims.",
       "runtime_status": "OPTIMIZER_ADVISORY_RUNTIME",
       "disposition": "Retain as legacy design heuristic only; C9 requires panel protocol and held-out validation.",
-      "source_sha256": {"engine/hedonic_model.py": "c5a25a93192c4e38231710cb25f00c7e16127780c3417e8fa0606da7e8bd3529"}
+      "source_sha256": {"engine/hedonic_model.py": "6761d10c9efe75db2cfa1830b9791d819ca65b8aca98fe895d34c2fd0b8c059e"}
     },
     {
       "id": "C0-PM-039",
@@ -707,7 +707,7 @@
       "claim_impact": "Produces physical-sounding reach classes and projection without geometry, airflow, dose, or held-out distance measurements.",
       "runtime_status": "OPTIMIZER_ADVISORY_RUNTIME",
       "disposition": "Do not route to canonical sillage; C6/C9 require endpoint-specific dynamic and measurement models.",
-      "source_sha256": {"engine/diffusion_model.py": "6b892dd665cc4b97f0e2bb4cb2e47eb9b55db3a0b5337ea07574ea2ccdb1bdf5"}
+      "source_sha256": {"engine/diffusion_model.py": "4b03950084c4fd8f72fb517529058f4b407075a81e3cbb263f6356b7524f7340"}
     },
     {
       "id": "C0-PM-040",
@@ -782,7 +782,7 @@
       "category": "hedonic_longevity_sillage_diffusion_projection",
       "name": "Canonical workbench longevity/sillage/receptor abstention",
       "classification": "UNSUPPORTED",
-      "source": [{"path": "engine/workbench.py", "symbol": "_evidence_for", "line": 370}],
+      "source": [{"path": "engine/workbench.py", "symbol": "_evidence_for", "line": 391}],
       "inputs": ["canonical workbench analysis"],
       "outputs": ["null unsupported values", "UNKNOWN evidence descriptors"],
       "conditions": ["no held-out endpoint measurements", "no receptor assay transfer"],
@@ -792,7 +792,7 @@
       "claim_impact": "This fail-closed behavior is the current canonical authority for unsupported endpoints.",
       "runtime_status": "CANONICAL_RUNTIME_ABSTENTION",
       "disposition": "Preserve until claim-specific C5/C6/C9 validation gates pass.",
-      "source_sha256": {"engine/workbench.py": "910bebce3afd1d37018196105caf88982976df1611e50b66946fd518a477f75b"}
+      "source_sha256": {"engine/workbench.py": "d01e7b06c05f4636a1ad5ceb164c774bbaa36ba1004e7836cc799985ede05d1d"}
     },
     {
       "id": "C0-PM-045",
@@ -826,7 +826,7 @@
       "claim_impact": "A fitted coefficient alone does not establish generalization or endpoint validity.",
       "runtime_status": "OPTIONAL_LEGACY_CALIBRATION",
       "disposition": "C5 must add protocol, split, baseline, metrics, uncertainty, and domain gates before promotion.",
-      "source_sha256": {"engine/calibration.py": "d581e0e72879ef1678b2873f40b43b4d4ba6803e4fc28ed067266959adb38c26"}
+      "source_sha256": {"engine/calibration.py": "cb5c03247e86e9d24591d2dff8c8570004c899878f6fd05111bbed429b9a3919"}
     },
     {
       "id": "C0-PM-047",
@@ -850,7 +850,7 @@
       "category": "hedonic_longevity_sillage_diffusion_projection",
       "name": "Optimizer composite physical and sensory scoring runtime",
       "classification": "HEURISTIC",
-      "source": [{"path": "engine/optimizer/scoring.py", "symbol": "FormulaScorer", "line": 58}],
+      "source": [{"path": "engine/optimizer/scoring.py", "symbol": "FormulaScorer", "line": 61}],
       "inputs": ["FormulaVector", "target constraints", "canonical FormulaState plus legacy scorers"],
       "outputs": ["longevity", "sillage", "skin", "hedonic", "clarity", "dose", "diffusion and composite objective scores"],
       "conditions": ["mixes canonical thermodynamic state with multiple uncalibrated modules"],
@@ -860,19 +860,19 @@
       "claim_impact": "A major competing call path can influence optimization even when canonical workbench outputs abstain.",
       "runtime_status": "OPTIMIZER_RUNTIME",
       "disposition": "C10 must consume versioned router results and preserve unsupported gates; C0 changes no scoring behavior.",
-      "source_sha256": {"engine/optimizer/scoring.py": "8b22f7a15d913ca6219ef007cec28b031b6ee43563f25ad9898803792e6dc1f8"}
+      "source_sha256": {"engine/optimizer/scoring.py": "f426465b94b29bb75aea65fc8c818015df327806c8baecfd41f2eb832cbf7672"}
     }
   ],
   "call_edges": [
-    {"caller": "engine.workbench.PerfumeWorkbench.analyze", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/workbench.py", "line": 280, "token": "build_formula_state"}},
-    {"caller": "engine.pipeline.gates.run_formula_gates", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 5087, "token": "build_formula_state"}},
-    {"caller": "engine.optimizer.scoring.FormulaScorer._thermodynamic_state", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2679, "token": "build_formula_state"}},
+    {"caller": "engine.workbench.PerfumeWorkbench.analyze", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/workbench.py", "line": 295, "token": "build_formula_state"}},
+    {"caller": "engine.pipeline.gates.run_formula_gates", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 5284, "token": "build_formula_state"}},
+    {"caller": "engine.optimizer.scoring.FormulaScorer._thermodynamic_state", "callee_id": "C0-PM-001", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2678, "token": "build_formula_state"}},
     {"caller": "engine.pipeline.simulator._advance_state", "callee_id": "C0-PM-002", "kind": "direct_call", "evidence": {"path": "engine/pipeline/simulator.py", "line": 136, "token": "FormulaState.from_base"}},
     {"caller": "scripts.oav_headspace_analyze.main", "callee_id": "C0-PM-003", "kind": "same_module_call", "evidence": {"path": "scripts/oav_headspace_analyze.py", "line": 423, "token": "compute"}},
-    {"caller": "engine.workbench.PerfumeWorkbench.analyze", "callee_id": "C0-PM-005", "kind": "direct_call", "evidence": {"path": "engine/workbench.py", "line": 292, "token": "simulate_formula"}},
-    {"caller": "engine.pipeline.gates.run_formula_gates", "callee_id": "C0-PM-005", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 5105, "token": "simulate_formula"}},
+    {"caller": "engine.workbench.PerfumeWorkbench.analyze", "callee_id": "C0-PM-005", "kind": "direct_call", "evidence": {"path": "engine/workbench.py", "line": 307, "token": "simulate_formula"}},
+    {"caller": "engine.pipeline.gates.run_formula_gates", "callee_id": "C0-PM-005", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 5302, "token": "simulate_formula"}},
     {"caller": "engine.thermo.trajectory.evaporate", "callee_id": "C0-PM-009", "kind": "direct_call", "evidence": {"path": "engine/thermo/trajectory.py", "line": 71, "token": "headspace_from_wt_pct"}},
-    {"caller": "engine.formula_analyzer.analyze_formula", "callee_id": "C0-PM-007", "kind": "constructor_call", "evidence": {"path": "engine/formula_analyzer.py", "line": 1155, "token": "TemporalEngine"}},
+    {"caller": "engine.formula_analyzer.analyze_formula", "callee_id": "C0-PM-007", "kind": "constructor_call", "evidence": {"path": "engine/formula_analyzer.py", "line": 1154, "token": "TemporalEngine"}},
     {"caller": "engine.reconstruction_pipeline.ReconstructionPipeline", "callee_id": "C0-PM-008", "kind": "direct_call", "evidence": {"path": "engine/reconstruction_pipeline.py", "line": 638, "token": "analyze_temporal_consistency"}},
     {"caller": "engine.pipeline.formula_state", "callee_id": "C0-PM-010", "kind": "direct_call", "evidence": {"path": "engine/pipeline/formula_state.py", "line": 950, "token": "vp_pa"}},
     {"caller": "engine.pipeline.formula_state", "callee_id": "C0-PM-011", "kind": "direct_call", "evidence": {"path": "engine/pipeline/formula_state.py", "line": 981, "token": "vp_pa"}},
@@ -881,18 +881,18 @@
     {"caller": "engine.pipeline.formula_state", "callee_id": "C0-PM-018", "kind": "direct_call", "evidence": {"path": "engine/pipeline/formula_state.py", "line": 1002, "token": "gamma"}},
     {"caller": "engine.thermo.headspace", "callee_id": "C0-PM-018", "kind": "direct_call", "evidence": {"path": "engine/thermo/headspace.py", "line": 83, "token": "gamma"}},
     {"caller": "engine.science_audit.build_science_audit_contract", "callee_id": "C0-PM-022", "kind": "direct_call", "evidence": {"path": "engine/science_audit.py", "line": 355, "token": "activity_model_capabilities"}},
-    {"caller": "engine.pipeline.gates._gate_phase_compatibility", "callee_id": "C0-PM-024", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 643, "token": "micro_phase_risk"}},
-    {"caller": "engine.optimizer.scoring._run_enhancer_modules", "callee_id": "C0-PM-027", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3039, "token": "score_dose_response"}},
-    {"caller": "engine.optimizer.scoring.score_perceptual_clarity", "callee_id": "C0-PM-028", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2747, "token": "score_psychophysics"}},
+    {"caller": "engine.pipeline.gates._gate_phase_compatibility", "callee_id": "C0-PM-024", "kind": "direct_call", "evidence": {"path": "engine/pipeline/gates.py", "line": 649, "token": "micro_phase_risk"}},
+    {"caller": "engine.optimizer.scoring._run_enhancer_modules", "callee_id": "C0-PM-027", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3046, "token": "score_dose_response"}},
+    {"caller": "engine.optimizer.scoring.score_perceptual_clarity", "callee_id": "C0-PM-028", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2754, "token": "score_psychophysics"}},
     {"caller": "engine.pipeline.formula_state", "callee_id": "C0-PM-030", "kind": "direct_call", "evidence": {"path": "engine/pipeline/formula_state.py", "line": 1013, "token": "_lookup_composite_headspace"}},
     {"caller": "engine.chemistry.maturation.MaturationReactor", "callee_id": "C0-PM-032", "kind": "direct_call", "evidence": {"path": "engine/chemistry/maturation.py", "line": 72, "token": "arrhenius_k"}},
     {"caller": "scripts.verify_c0_physical_model_inventory._capture_maturation", "callee_id": "C0-PM-033", "kind": "legacy_fixture_capture", "evidence": {"path": "scripts/verify_c0_physical_model_inventory.py", "line": 594, "token": "predict_shelf_life_days"}},
-    {"caller": "engine.optimizer.scoring.score_hedonic", "callee_id": "C0-PM-038", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2740, "token": "score_hedonic"}},
-    {"caller": "engine.optimizer.scoring._run_enhancer_modules", "callee_id": "C0-PM-039", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3046, "token": "score_diffusion"}},
-    {"caller": "engine.optimizer.scoring.score_skin_performance", "callee_id": "C0-PM-040", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2733, "token": "score_skin_interaction"}},
+    {"caller": "engine.optimizer.scoring.score_hedonic", "callee_id": "C0-PM-038", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2742, "token": "score_hedonic"}},
+    {"caller": "engine.optimizer.scoring._run_enhancer_modules", "callee_id": "C0-PM-039", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3053, "token": "score_diffusion"}},
+    {"caller": "engine.optimizer.scoring.score_skin_performance", "callee_id": "C0-PM-040", "kind": "direct_call", "evidence": {"path": "engine/optimizer/scoring.py", "line": 2738, "token": "score_skin_interaction"}},
     {"caller": "engine.ifra_safety.assess_safety", "callee_id": "C0-PM-041", "kind": "direct_call", "evidence": {"path": "engine/ifra_safety.py", "line": 626, "token": "skin_partition"}},
-    {"caller": "scripts.formula_release_gate", "callee_id": "C0-PM-045", "kind": "direct_call", "evidence": {"path": "scripts/formula_release_gate.py", "line": 634, "token": "compute_unified_release_scores"}},
-    {"caller": "engine.optimizer.scoring.FormulaScorer.score_formula", "callee_id": "C0-PM-048", "kind": "same_class_dispatch", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3114, "token": "scores"}}
+    {"caller": "scripts.formula_release_gate", "callee_id": "C0-PM-045", "kind": "direct_call", "evidence": {"path": "scripts/formula_release_gate.py", "line": 844, "token": "compute_unified_release_scores"}},
+    {"caller": "engine.optimizer.scoring.FormulaScorer.score_formula", "callee_id": "C0-PM-048", "kind": "same_class_dispatch", "evidence": {"path": "engine/optimizer/scoring.py", "line": 3131, "token": "scores"}}
   ],
   "known_absences": [
     {"capability": "DIPPR-style vapor-pressure equation", "record_id": "C0-PM-017"},

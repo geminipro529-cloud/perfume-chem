@@ -452,10 +452,10 @@ def test_live_d0_gate_binds_quarantined_formula_bytes() -> None:
     formula_bindings = payload["formula_bindings"]
     assert isinstance(formula_bindings, list)
     assert formula_bindings[0]["sha256"] == (
-        "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00"
+        "93a5cb15a59581d8ac9593740016e2cf138568819656ef8abd45bd7f3f8304e7"
     )
     assert formula_bindings[1]["sha256"] == (
-        "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d"
+        "b4b4d19b06614eceee0ff46eb4f08ba4542a3e189e706807fc0b2282ae0743a8"
     )
     assert all(item["status"] == "QUARANTINED" for item in formula_bindings)
     assert payload["blockers"] == [

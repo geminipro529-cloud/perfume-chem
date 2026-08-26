@@ -2,10 +2,10 @@
   "schema": "b4-legacy-identity-resolution-snapshot-v1",
   "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY",
   "source_corpus_sha256": {
-    "data/knowledge_graph/theory_rules.json": "4237619f7fdddbfc15b373c42f40e2d30fc587537ac8f782b2111d6f61f53b90",
+    "data/knowledge_graph/theory_rules.json": "870ec53e470e361dddff334235ff388b776d97b81e5daa14d9a356e4117b0383",
     "data/knowledge_graph/pairing_rules.json": "fc4370b8017334e070b873463bcec1db8cd781b156db214a8b1c0382483cf8d1",
     "data/knowledge_graph/pairing_rules_discovered.json": "2dd23d496cda1b6dbd61ff147f977d4bbb7d919048b591e018785ba0bde9e044",
-    "data/knowledge_graph/synergy_matrix.json": "7b194c2f7ea19efcfbcc1bafef5e4c0dfdcac69739dff5720b1c91fe0b7d7b9d"
+    "data/knowledge_graph/synergy_matrix.json": "9b6f96941b2c7ad92467577a08cc44c42f17f23071b5d3a9565507d7b149fda6"
   },
   "identity_resolution_by_raw_label": {
     "2:1": null,
