@@ -1085,6 +1085,101 @@ def _load_v5_cases(
     )
 
 
+def _validate_pairwise_count_consistency(case: ReplacementBenchmarkCase) -> None:
+    pairwise_counts = case.evidence_payload.get("pairwise_counts")
+    if pairwise_counts is None:
+        return
+    if not isinstance(pairwise_counts, list) or not pairwise_counts:
+        raise TypeError("pairwise_counts must be a nonempty list")
+    directional = 0
+    ties = 0
+    for row in pairwise_counts:
+        if not isinstance(row, Mapping) or set(row) != {
+            "pair",
+            "first_wins",
+            "second_wins",
+            "ties",
+        }:
+            raise ValueError("pairwise count row schema is not closed")
+        _text(row.get("pair"), "pairwise count pair")
+        counts = tuple(row.get(key) for key in ("first_wins", "second_wins", "ties"))
+        if any(isinstance(value, bool) or not isinstance(value, int) or value < 0 for value in counts):
+            raise ValueError("pairwise counts must be nonnegative integers")
+        directional += counts[0] + counts[1]
+        ties += counts[2]
+    if (
+        case.evidence_payload.get("directional_outcomes") != directional
+        or case.evidence_payload.get("ties") != ties
+    ):
+        raise ValueError("pairwise counts disagree with aggregate evidence")
+
+
+def _load_v8_cases(
+    path: Path,
+    payload: Mapping[str, Any],
+) -> tuple[ReplacementBenchmarkCase, ...]:
+    if set(payload) != {
+        "schema_version",
+        "predecessor_corpus",
+        "predecessor_corpus_sha256",
+        "correction_reason",
+        "case_overrides",
+        "authority",
+    }:
+        raise ValueError("v8 corpus top-level schema is not closed")
+    predecessor_name = _text(
+        payload.get("predecessor_corpus"), "predecessor_corpus"
+    )
+    if Path(predecessor_name).name != predecessor_name:
+        raise ValueError("predecessor_corpus must be a sibling filename")
+    predecessor_path = path.parent / predecessor_name
+    predecessor_sha256 = _validated_sha256(
+        payload.get("predecessor_corpus_sha256"),
+        "predecessor_corpus_sha256",
+    )
+    if hashlib.sha256(predecessor_path.read_bytes()).hexdigest() != predecessor_sha256:
+        raise ValueError("predecessor replacement corpus hash mismatch")
+    _text(payload.get("correction_reason"), "correction_reason")
+    authority = payload.get("authority")
+    if (
+        not isinstance(authority, Mapping)
+        or set(authority) != set(_AUTHORITY_KEYS)
+        or any(authority[key] is not False for key in _AUTHORITY_KEYS)
+    ):
+        raise ValueError("v8 corpus authority must be exact and all false")
+
+    base_cases = load_replacement_benchmark_cases(predecessor_path)
+    cases_by_id = {case.case_id: case for case in base_cases}
+    overrides = payload.get("case_overrides")
+    if not isinstance(overrides, list) or not overrides:
+        raise TypeError("case_overrides must be a nonempty list")
+    seen: set[str] = set()
+    for override in overrides:
+        if not isinstance(override, Mapping) or set(override) != {
+            "case_id",
+            "facts",
+            "evidence_payload",
+        }:
+            raise ValueError("v8 case override schema is not closed")
+        case_id = _text(override.get("case_id"), "case override case_id")
+        if case_id in seen:
+            raise ValueError("case override IDs must be unique")
+        if case_id not in cases_by_id:
+            raise ValueError(f"unknown case override: {case_id}")
+        seen.add(case_id)
+        corrected = replace(
+            cases_by_id[case_id],
+            facts=tuple(override.get("facts", ())),
+            evidence_payload=override.get("evidence_payload", {}),
+        )
+        _validate_pairwise_count_consistency(corrected)
+        score = score_evidence_receipt(corrected, corrected.candidate_receipt)
+        if score.state != "PASS":
+            raise ValueError("v8 candidate receipt does not satisfy its answer key")
+        cases_by_id[case_id] = corrected
+    return tuple(cases_by_id[case.case_id] for case in base_cases)
+
+
 def load_replacement_benchmark_cases(
     path: Path,
 ) -> tuple[ReplacementBenchmarkCase, ...]:
@@ -1092,7 +1187,10 @@ def load_replacement_benchmark_cases(
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
     schema_version = payload.get("schema_version")
-    if schema_version in {
+    if schema_version == "complexity_replacement_benchmark_cases_v8":
+        cases = list(_load_v8_cases(path, payload))
+        expected_module_ids = EVIDENCE_FOUNDATION_MODULE_IDS
+    elif schema_version in {
         "complexity_replacement_benchmark_cases_v5",
         "complexity_replacement_benchmark_cases_v6",
     }:

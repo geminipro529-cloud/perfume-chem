@@ -1,0 +1,37 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v8",
+  "predecessor_corpus": "complexity_replacement_benchmark_cases_v7.json",
+  "predecessor_corpus_sha256": "d6587e3f6a96fffbd82abb166eeeacde51415382d7c5a26fccae83bc01fca849",
+  "correction_reason": "EF-HED-S01 in V7 stated 31 directional outcomes and 5 ties while its evidence receipt was bound to 30 directional outcomes and 6 ties. V8 corrects the second pair to 9 versus 1 with 2 ties and adds machine-checkable pair counts; V7 remains immutable provenance and its launched run is not scored.",
+  "case_overrides": [
+    {
+      "case_id": "EF-HED-S01",
+      "facts": [
+        "For A versus B there are 8 A wins, 2 B wins, and 2 ties; for A versus C there are 9 A wins, 1 C win, and 2 ties.",
+        "For B versus C there are 7 B wins, 3 C wins, and 2 ties across identified assessors with balanced order.",
+        "The assessor-cluster bootstrap is stable, held-out gain beats the declared baseline, and no criterion or split leakage exists."
+      ],
+      "evidence_payload": {
+        "criterion": "LIKING",
+        "directional_outcomes": 30,
+        "ties": 6,
+        "eligible_next_pairs": ["A:B", "A:C", "B:C"],
+        "pairwise_counts": [
+          {"pair": "A:B", "first_wins": 8, "second_wins": 2, "ties": 2},
+          {"pair": "A:C", "first_wins": 9, "second_wins": 1, "ties": 2},
+          {"pair": "B:C", "first_wins": 7, "second_wins": 3, "ties": 2}
+        ]
+      }
+    }
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

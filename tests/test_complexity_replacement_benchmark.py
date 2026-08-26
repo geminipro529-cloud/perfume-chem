@@ -556,6 +556,52 @@ def test_v7_candidate_receipt_cannot_disagree_with_the_frozen_answer_key(
         load_replacement_benchmark_cases(malformed)
 
 
+def test_v8_corrects_hedonic_screen_counts_without_mutating_v7() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v8.json"
+    expected_sha256 = corpus_path.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_sha256
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor = FIXTURES / raw["predecessor_corpus"]
+    assert predecessor.name == "complexity_replacement_benchmark_cases_v7.json"
+    assert hashlib.sha256(predecessor.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+    hedonic = next(case for case in cases if case.case_id == "EF-HED-S01")
+    pairwise_counts = hedonic.evidence_payload["pairwise_counts"]
+    assert sum(row["first_wins"] + row["second_wins"] for row in pairwise_counts) == 30
+    assert sum(row["ties"] for row in pairwise_counts) == 6
+    assert hedonic.evidence_payload["directional_outcomes"] == 30
+    assert hedonic.evidence_payload["ties"] == 6
+    assert hedonic.candidate_receipt["calculations"]["tie_rate"] == pytest.approx(
+        1 / 6
+    )
+
+
+def test_v8_rejects_hedonic_pairwise_count_inconsistency(tmp_path: Path) -> None:
+    source = FIXTURES / "complexity_replacement_benchmark_cases_v8.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    payload["case_overrides"][0]["evidence_payload"]["pairwise_counts"][0][
+        "ties"
+    ] = 3
+    malformed = tmp_path / source.name
+    shutil.copyfile(
+        FIXTURES / payload["predecessor_corpus"],
+        tmp_path / payload["predecessor_corpus"],
+    )
+    shutil.copyfile(
+        FIXTURES / "complexity_replacement_benchmark_cases_v6.json",
+        tmp_path / "complexity_replacement_benchmark_cases_v6.json",
+    )
+    malformed.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="pairwise counts disagree"):
+        load_replacement_benchmark_cases(malformed)
+
+
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:
     case = _case()
 
