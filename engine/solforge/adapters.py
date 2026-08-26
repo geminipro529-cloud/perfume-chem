@@ -38,11 +38,13 @@ from engine.preference import (
 from engine.sensory.ledger import (
     SensoryProtocolScope,
     SensorySafetyEvent,
+    TemporalEvidenceAuditResultV2,
     TemporalEvidenceRequest,
     TemporalEvidenceResult,
     TemporalEvidenceState,
     TemporalObservationCell,
     analyze_temporal_evidence,
+    audit_temporal_evidence,
 )
 from engine.sensory.order_balance import PresentationSchedule
 from engine.solforge.contracts import (
@@ -571,14 +573,20 @@ def _scope_from_dict(value: object) -> SensoryProtocolScope:
         maximum_within_assessor_repeat_spread=value.get(
             "maximum_within_assessor_repeat_spread"
         ),
+        within_sniff_apparatus_id=value.get("within_sniff_apparatus_id"),
+        within_sniff_clock_source=value.get("within_sniff_clock_source"),
+        within_sniff_timing_tolerance_ms=value.get(
+            "within_sniff_timing_tolerance_ms"
+        ),
+        within_sniff_qualification_sha256=value.get(
+            "within_sniff_qualification_sha256"
+        ),
     )
 
 
-def analyze_execution_receipt(
+def _temporal_request_from_execution(
     execution: ExecutionReceiptV1,
-) -> TemporalEvidenceResult:
-    """Analyze only observation cells explicitly bound into an execution receipt."""
-
+) -> TemporalEvidenceRequest:
     context = _execution_context(execution)
     scope = _scope_from_dict(context.get("protocol_scope"))
     schedule = _schedule_from_dict(context.get("schedule"))
@@ -588,14 +596,28 @@ def analyze_execution_receipt(
     safety_raw = context.get("safety_events", [])
     if not isinstance(cells_raw, list) or not isinstance(safety_raw, list):
         raise ValueError("observations and safety_events must be lists")
-    return analyze_temporal_evidence(
-        TemporalEvidenceRequest(
-            scope=scope,
-            schedule=schedule,
-            cells=tuple(TemporalObservationCell.from_dict(item) for item in cells_raw),
-            safety_events=tuple(SensorySafetyEvent.from_dict(item) for item in safety_raw),
-        )
+    return TemporalEvidenceRequest(
+        scope=scope,
+        schedule=schedule,
+        cells=tuple(TemporalObservationCell.from_dict(item) for item in cells_raw),
+        safety_events=tuple(SensorySafetyEvent.from_dict(item) for item in safety_raw),
     )
+
+
+def analyze_execution_receipt(
+    execution: ExecutionReceiptV1,
+) -> TemporalEvidenceResult:
+    """Analyze only observation cells explicitly bound into an execution receipt."""
+
+    return analyze_temporal_evidence(_temporal_request_from_execution(execution))
+
+
+def audit_execution_receipt_v2(
+    execution: ExecutionReceiptV1,
+) -> TemporalEvidenceAuditResultV2:
+    """Run the five-state V2 sufficiency audit without changing V1 packets."""
+
+    return audit_temporal_evidence(_temporal_request_from_execution(execution))
 
 
 def _cell_text(key: object) -> str:
@@ -845,6 +867,7 @@ def build_criterion_fit_packet(
 
 __all__ = [
     "analyze_execution_receipt",
+    "audit_execution_receipt_v2",
     "build_criterion_fit_packet",
     "build_temporal_packet",
     "compile_architectural_delta",

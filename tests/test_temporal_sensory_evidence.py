@@ -1,14 +1,20 @@
 from __future__ import annotations
 
+from engine.evidence.augmentation import (
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+)
 from engine.sensory.ledger import (
     AssessorReliabilityState,
     ObservationCellKey,
     SensoryProtocolScope,
     SensorySafetyEvent,
+    TemporalEvidenceDisposition,
     TemporalEvidenceRequest,
     TemporalEvidenceState,
     TemporalObservationCell,
     analyze_temporal_evidence,
+    audit_temporal_evidence,
 )
 from engine.sensory.order_balance import PresentationSchedule, generate_williams_schedule
 
@@ -304,3 +310,255 @@ def test_declared_repeatability_gate_holds_unreliable_assessor_evidence() -> Non
     assert result.assessor_reliability[0].assessor_id == "assessor-1"
     assert result.assessor_reliability[0].maximum_repeat_spread == 2.0
     assert any("repeatability threshold" in blocker for blocker in result.blockers)
+
+
+def test_complete_matched_timepoints_are_resolved_without_new_test() -> None:
+    scope, schedule = _scope()
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                _cell("sample-a", 0, 2.0),
+                _cell("sample-a", 300, 4.0),
+                _cell("sample-b", 0, 3.0),
+                _cell("sample-b", 300, 3.5),
+            ),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
+    assert audit.receipt.state is EvidenceAugmentationState.AUGMENT
+    assert audit.receipt.next_action is None
+    assert audit.next_discriminator is None
+    assert set(audit.receipt.authority.values()) == {False}
+
+
+def test_duplicate_cell_audits_provenance_before_remeasurement() -> None:
+    scope, schedule = _scope()
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                _cell("sample-a", 0, 2.0),
+                _cell("sample-a", 0, 4.5, suffix="-duplicate"),
+                _cell("sample-a", 300, 4.0),
+                _cell("sample-b", 0, 3.0),
+                _cell("sample-b", 300, 3.5),
+            ),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.CONFLICTED
+    assert audit.receipt.state is EvidenceAugmentationState.HOLD
+    assert audit.next_discriminator == (
+        "AUDIT_PROVENANCE:protocol/sample/assessor/repeat/timepoint/endpoint"
+    )
+    assert audit.excluded_duplicate_row_count == 2
+    assert not any(
+        summary.sample_id == "sample-a" and summary.time_seconds == 0
+        for summary in audit.summaries
+    )
+
+
+def test_v2_missing_grid_selects_exactly_one_cell() -> None:
+    scope, schedule = _scope()
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(_cell("sample-a", 0, 2.0),),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.INCOMPLETE
+    assert audit.receipt.state is EvidenceAugmentationState.HOLD
+    assert audit.next_discriminator is not None
+    assert audit.next_discriminator.startswith("COLLECT_CELL:")
+    assert audit.next_discriminator.count("COLLECT_CELL:") == 1
+
+
+def test_v2_disagreement_alone_does_not_force_remeasurement() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-depth-v1",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1", "assessor-2"),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+
+    def observed(sample: str, assessor: str, timepoint: float, value: float):
+        return TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id=assessor,
+                repeat_id="repeat-1",
+                time_seconds=timepoint,
+                endpoint_id="depth",
+            ),
+            observation_id=f"obs-{sample}-{assessor}-{timepoint:g}",
+            value=value,
+            presentation_sequence_id="sequence-1",
+            presentation_position=1 if sample == "sample-a" else 2,
+        )
+
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=schedule,
+            cells=(
+                observed("sample-a", "assessor-1", 0, 1.0),
+                observed("sample-a", "assessor-2", 0, 5.0),
+                observed("sample-a", "assessor-1", 300, 2.0),
+                observed("sample-a", "assessor-2", 300, 5.0),
+                observed("sample-b", "assessor-1", 0, 3.0),
+                observed("sample-b", "assessor-2", 0, 3.5),
+                observed("sample-b", "assessor-1", 300, 3.2),
+                observed("sample-b", "assessor-2", 300, 3.6),
+            ),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.RESOLVED
+    assert audit.next_discriminator is None
+
+
+def test_v2_within_sniff_requires_full_apparatus_binding() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    incomplete_scope = SensoryProtocolScope(
+        protocol_id="protocol-within-sniff-v2",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1",),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 5.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+        within_sniff=True,
+        within_sniff_apparatus_qualified=True,
+        within_sniff_timing_protocol_qualified=True,
+    )
+    complete_scope = SensoryProtocolScope(
+        protocol_id="protocol-within-sniff-v2",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1",),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0, 5.0),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+        within_sniff=True,
+        within_sniff_apparatus_qualified=True,
+        within_sniff_timing_protocol_qualified=True,
+        within_sniff_apparatus_id="olfactometer-1",
+        within_sniff_clock_source="monotonic-hardware-clock",
+        within_sniff_timing_tolerance_ms=20.0,
+        within_sniff_qualification_sha256="a" * 64,
+    )
+
+    held = audit_temporal_evidence(
+        TemporalEvidenceRequest(scope=incomplete_scope, schedule=schedule, cells=())
+    )
+    admitted_protocol = audit_temporal_evidence(
+        TemporalEvidenceRequest(scope=complete_scope, schedule=schedule, cells=())
+    )
+
+    assert held.disposition is TemporalEvidenceDisposition.PROTOCOL_HOLD
+    assert any("apparatus identity" in blocker for blocker in held.receipt.blockers)
+    assert admitted_protocol.disposition is TemporalEvidenceDisposition.INCOMPLETE
+
+
+def test_v2_one_timepoint_is_insufficient_temporal_scope_and_round_trips() -> None:
+    schedule = generate_williams_schedule(("sample-a", "sample-b"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-static-v2",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1",),
+        repeat_ids=("repeat-1",),
+        timepoints_seconds=(0.0,),
+        endpoint_ids=("depth",),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=())
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.INSUFFICIENT_SCOPE
+    assert audit.receipt.state is EvidenceAugmentationState.HOLD
+    assert EvidenceDeltaReceiptV1.from_dict(audit.receipt.as_dict()) == audit.receipt
+
+
+def test_v2_schedule_order_safety_and_repeatability_fail_closed() -> None:
+    unbalanced = PresentationSchedule(
+        labels=("sample-a", "sample-b"),
+        sequences=(("sample-a", "sample-b"), ("sample-a", "sample-b")),
+    )
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-protected-v2",
+        sample_ids=("sample-a", "sample-b"),
+        assessor_ids=("assessor-1",),
+        repeat_ids=("repeat-1", "repeat-2"),
+        timepoints_seconds=(0.0, 300.0),
+        endpoint_ids=("depth",),
+        schedule_sha256="b" * 64,
+        require_repeatability=True,
+        maximum_within_assessor_repeat_spread=0.5,
+    )
+    event = SensorySafetyEvent(
+        event_id="safety-v2",
+        protocol_id=scope.protocol_id,
+        assessor_id="assessor-1",
+        sample_id="sample-a",
+        time_seconds=0,
+        event_code="HEADACHE",
+        note="stop",
+    )
+
+    def repeated_cell(
+        sample: str, repeat: str, timepoint: float, value: float
+    ) -> TemporalObservationCell:
+        return TemporalObservationCell(
+            key=ObservationCellKey(
+                protocol_id=scope.protocol_id,
+                sample_id=sample,
+                assessor_id="assessor-1",
+                repeat_id=repeat,
+                time_seconds=timepoint,
+                endpoint_id="depth",
+            ),
+            observation_id=f"obs-{sample}-{repeat}-{timepoint:g}",
+            value=value,
+            presentation_sequence_id="sequence-1",
+            presentation_position=1 if sample == "sample-a" else 2,
+        )
+
+    cells = tuple(
+        repeated_cell(
+            sample,
+            repeat,
+            timepoint,
+            1.0 if repeat == "repeat-1" else 4.0,
+        )
+        for sample in scope.sample_ids
+        for repeat in scope.repeat_ids
+        for timepoint in scope.timepoints_seconds
+    )
+    audit = audit_temporal_evidence(
+        TemporalEvidenceRequest(
+            scope=scope,
+            schedule=unbalanced,
+            cells=cells,
+            safety_events=(event,),
+        )
+    )
+
+    assert audit.disposition is TemporalEvidenceDisposition.PROTOCOL_HOLD
+    assert audit.receipt.state is EvidenceAugmentationState.HOLD
+    assert audit.next_discriminator == "CORRECT_PROTOCOL"
+    assert any("schedule hash" in blocker for blocker in audit.receipt.blockers)
+    assert any("balanced" in blocker for blocker in audit.receipt.blockers)
+    assert any("repeatability" in blocker for blocker in audit.receipt.blockers)
+    assert any("HEADACHE" in blocker for blocker in audit.receipt.blockers)

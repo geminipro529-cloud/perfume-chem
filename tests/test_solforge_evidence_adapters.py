@@ -10,6 +10,7 @@ from engine.sensory.ledger import (
 from engine.sensory.order_balance import PresentationSchedule, generate_williams_schedule
 from engine.solforge.adapters import (
     analyze_execution_receipt,
+    audit_execution_receipt_v2,
     build_criterion_fit_packet,
     build_temporal_packet,
 )
@@ -226,3 +227,22 @@ def test_temporal_parent_change_changes_descendant_hash() -> None:
     changed = replace(execution, deviations=("one-byte-parent-change",))
     second = build_temporal_packet(changed, analyze_execution_receipt(changed))
     assert first.record_sha256 != second.record_sha256
+
+
+def test_v2_execution_adapter_maps_insufficient_and_conflicted_dispositions() -> None:
+    resolved = audit_execution_receipt_v2(_execution())
+    conflicted_execution = _execution(
+        observations=[
+            _cell("CONTROL", 2.0),
+            _cell("CONTROL", 2.1, observation="O-DUP"),
+            _cell("TREATMENT", 4.0),
+        ]
+    )
+    conflicted = audit_execution_receipt_v2(conflicted_execution)
+
+    assert resolved.disposition.value == "INSUFFICIENT_SCOPE"
+    assert conflicted.disposition.value == "CONFLICTED"
+    assert conflicted.receipt.evidence_sha256 != resolved.receipt.evidence_sha256
+    assert conflicted.receipt.next_action == (
+        "AUDIT_PROVENANCE:protocol/sample/assessor/repeat/timepoint/endpoint"
+    )

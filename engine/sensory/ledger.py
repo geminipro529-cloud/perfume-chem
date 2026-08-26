@@ -47,6 +47,13 @@ from statistics import median
 from typing import Any, Mapping
 
 from engine.domain_errors import LegacyWriteProhibitedError
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    hold_receipt,
+)
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.sensory.order_balance import (
     OrderBalanceState,
     PresentationSchedule,
@@ -266,6 +273,16 @@ class TemporalEvidenceState(str, Enum):
     HOLD = "HOLD"
 
 
+class TemporalEvidenceDisposition(str, Enum):
+    """V2 evidence-sufficiency state without changing historical V1 replay."""
+
+    RESOLVED = "RESOLVED"
+    INCOMPLETE = "INCOMPLETE"
+    CONFLICTED = "CONFLICTED"
+    PROTOCOL_HOLD = "PROTOCOL_HOLD"
+    INSUFFICIENT_SCOPE = "INSUFFICIENT_SCOPE"
+
+
 class AssessorReliabilityState(str, Enum):
     NOT_REQUIRED = "NOT_REQUIRED"
     NOT_EVALUABLE = "NOT_EVALUABLE"
@@ -440,6 +457,10 @@ class SensoryProtocolScope:
     within_sniff_timing_protocol_qualified: bool = False
     require_repeatability: bool = False
     maximum_within_assessor_repeat_spread: float | None = None
+    within_sniff_apparatus_id: str | None = None
+    within_sniff_clock_source: str | None = None
+    within_sniff_timing_tolerance_ms: float | None = None
+    within_sniff_qualification_sha256: str | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -478,6 +499,27 @@ class SensoryProtocolScope:
             raise ValueError(
                 "maximum_within_assessor_repeat_spread must be finite and nonnegative"
             )
+        for name in ("within_sniff_apparatus_id", "within_sniff_clock_source"):
+            value = getattr(self, name)
+            if value is not None:
+                object.__setattr__(self, name, _required_text(value, name))
+        tolerance = self.within_sniff_timing_tolerance_ms
+        if tolerance is not None and (not isfinite(tolerance) or tolerance <= 0):
+            raise ValueError(
+                "within_sniff_timing_tolerance_ms must be finite and positive"
+            )
+        qualification = self.within_sniff_qualification_sha256
+        if qualification is not None:
+            digest = _required_text(
+                qualification, "within_sniff_qualification_sha256"
+            ).lower()
+            if len(digest) != 64 or any(
+                character not in "0123456789abcdef" for character in digest
+            ):
+                raise ValueError(
+                    "within_sniff_qualification_sha256 must be a SHA-256 hex digest"
+                )
+            object.__setattr__(self, "within_sniff_qualification_sha256", digest)
 
 
 @dataclass(frozen=True, slots=True)
@@ -555,6 +597,32 @@ class TemporalEvidenceResult:
     physical_execution_authorized: bool = field(default=False, init=False)
     sensory_authority: bool = field(default=False, init=False)
     release_authority: bool = field(default=False, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEvidenceAuditResultV2:
+    """Observed-only audit that emits zero or one evidence action."""
+
+    disposition: TemporalEvidenceDisposition
+    protocol_id: str
+    summaries: tuple[TemporalEndpointSummary, ...]
+    transitions: tuple[TemporalTransition, ...]
+    missing_cells: tuple[ObservationCellKey, ...]
+    duplicate_cells: tuple[ObservationCellKey, ...]
+    source_cell_count: int
+    excluded_duplicate_row_count: int
+    next_discriminator: str | None
+    receipt: EvidenceDeltaReceiptV1
+    legacy_result: TemporalEvidenceResult
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self, "disposition", TemporalEvidenceDisposition(self.disposition)
+        )
+        if not isinstance(self.receipt, EvidenceDeltaReceiptV1):
+            raise TypeError("receipt must be an EvidenceDeltaReceiptV1")
+        if not isinstance(self.legacy_result, TemporalEvidenceResult):
+            raise TypeError("legacy_result must be a TemporalEvidenceResult")
 
 
 def analyze_temporal_evidence(
@@ -779,6 +847,262 @@ def _temporal_transitions(
                 )
             )
     return tuple(transitions)
+
+
+_TEMPORAL_AUDIT_POLICY_SHA256 = sha256_hex(
+    canonical_json_bytes(
+        {
+            "policy": "TEMPORAL_EVIDENCE_SUFFICIENCY_V2",
+            "canonical_cell": (
+                "protocol/sample/assessor/repeat/timepoint/endpoint"
+            ),
+            "duplicate_policy": "EXCLUDE_ALL_CONFLICTED_ROWS_FROM_SUMMARIES",
+            "missing_policy": "NO_INTERPOLATION_ONE_NEXT_CELL",
+            "disagreement_policy": "NO_RETEST_WITHOUT_DECLARED_THRESHOLD",
+        }
+    )
+)
+
+
+def _cell_key_payload(key: ObservationCellKey) -> dict[str, object]:
+    return {
+        "protocol_id": key.protocol_id,
+        "sample_id": key.sample_id,
+        "assessor_id": key.assessor_id,
+        "repeat_id": key.repeat_id,
+        "time_seconds": key.time_seconds,
+        "endpoint_id": key.endpoint_id,
+    }
+
+
+def _scope_payload(scope: SensoryProtocolScope) -> dict[str, object]:
+    return {
+        "protocol_id": scope.protocol_id,
+        "sample_ids": list(scope.sample_ids),
+        "assessor_ids": list(scope.assessor_ids),
+        "repeat_ids": list(scope.repeat_ids),
+        "timepoints_seconds": list(scope.timepoints_seconds),
+        "endpoint_ids": list(scope.endpoint_ids),
+        "schedule_sha256": scope.schedule_sha256,
+        "within_sniff": scope.within_sniff,
+        "within_sniff_apparatus_qualified": (
+            scope.within_sniff_apparatus_qualified
+        ),
+        "within_sniff_timing_protocol_qualified": (
+            scope.within_sniff_timing_protocol_qualified
+        ),
+        "require_repeatability": scope.require_repeatability,
+        "maximum_within_assessor_repeat_spread": (
+            scope.maximum_within_assessor_repeat_spread
+        ),
+        "within_sniff_apparatus_id": scope.within_sniff_apparatus_id,
+        "within_sniff_clock_source": scope.within_sniff_clock_source,
+        "within_sniff_timing_tolerance_ms": (
+            scope.within_sniff_timing_tolerance_ms
+        ),
+        "within_sniff_qualification_sha256": (
+            scope.within_sniff_qualification_sha256
+        ),
+    }
+
+
+def _safe_observed_summaries(
+    request: TemporalEvidenceRequest,
+    duplicate_keys: tuple[ObservationCellKey, ...],
+) -> tuple[TemporalEndpointSummary, ...]:
+    scope = request.scope
+    expected = {
+        ObservationCellKey(
+            protocol_id=scope.protocol_id,
+            sample_id=sample_id,
+            assessor_id=assessor_id,
+            repeat_id=repeat_id,
+            time_seconds=timepoint,
+            endpoint_id=endpoint_id,
+        )
+        for sample_id in scope.sample_ids
+        for assessor_id in scope.assessor_ids
+        for repeat_id in scope.repeat_ids
+        for timepoint in scope.timepoints_seconds
+        for endpoint_id in scope.endpoint_ids
+    }
+    conflicted = set(duplicate_keys)
+    grouped: dict[tuple[str, str, float], list[float]] = defaultdict(list)
+    for cell in request.cells:
+        if cell.key in expected and cell.key not in conflicted:
+            grouped[
+                (cell.key.sample_id, cell.key.endpoint_id, cell.key.time_seconds)
+            ].append(cell.value)
+    return tuple(
+        _endpoint_summary(key, values) for key, values in sorted(grouped.items())
+    )
+
+
+def _within_sniff_v2_blockers(scope: SensoryProtocolScope) -> tuple[str, ...]:
+    if not scope.within_sniff:
+        return ()
+    blockers: list[str] = []
+    if scope.within_sniff_apparatus_id is None:
+        blockers.append("within-sniff observations require apparatus identity")
+    if scope.within_sniff_clock_source is None:
+        blockers.append("within-sniff observations require a bound clock source")
+    if scope.within_sniff_timing_tolerance_ms is None:
+        blockers.append("within-sniff observations require a timing tolerance")
+    if scope.within_sniff_qualification_sha256 is None:
+        blockers.append("within-sniff observations require qualification evidence")
+    return tuple(blockers)
+
+
+def audit_temporal_evidence(
+    request: TemporalEvidenceRequest,
+) -> TemporalEvidenceAuditResultV2:
+    """Audit evidence sufficiency while preserving every source observation row."""
+
+    if not isinstance(request, TemporalEvidenceRequest):
+        raise TypeError("request must be a TemporalEvidenceRequest")
+    legacy = analyze_temporal_evidence(request)
+    scope = request.scope
+    counts = Counter(cell.key for cell in request.cells)
+    duplicates = tuple(sorted(key for key, count in counts.items() if count > 1))
+    safe_summaries = _safe_observed_summaries(request, duplicates)
+    safe_transitions = _temporal_transitions(safe_summaries)
+    excluded_duplicate_row_count = sum(counts[key] for key in duplicates)
+
+    protocol_blockers = [
+        blocker
+        for blocker in legacy.blockers
+        if blocker != "duplicate canonical observation cells are present"
+    ]
+    protocol_blockers.extend(_within_sniff_v2_blockers(scope))
+    expected = {
+        ObservationCellKey(
+            protocol_id=scope.protocol_id,
+            sample_id=sample_id,
+            assessor_id=assessor_id,
+            repeat_id=repeat_id,
+            time_seconds=timepoint,
+            endpoint_id=endpoint_id,
+        )
+        for sample_id in scope.sample_ids
+        for assessor_id in scope.assessor_ids
+        for repeat_id in scope.repeat_ids
+        for timepoint in scope.timepoints_seconds
+        for endpoint_id in scope.endpoint_ids
+    }
+    if any(cell.key not in expected for cell in request.cells):
+        protocol_blockers.append(
+            "observation cell is outside the declared protocol scope"
+        )
+
+    if protocol_blockers:
+        disposition = TemporalEvidenceDisposition.PROTOCOL_HOLD
+        blockers = tuple(dict.fromkeys(protocol_blockers))
+        next_discriminator = "CORRECT_PROTOCOL"
+        reason_codes = ("PROTOCOL_INVALID",)
+    elif duplicates:
+        disposition = TemporalEvidenceDisposition.CONFLICTED
+        blockers = ("duplicate canonical observation cells require provenance audit",)
+        next_discriminator = (
+            "AUDIT_PROVENANCE:protocol/sample/assessor/repeat/timepoint/endpoint"
+        )
+        reason_codes = ("CANONICAL_CELL_CONFLICT",)
+    elif len(scope.timepoints_seconds) < 2:
+        disposition = TemporalEvidenceDisposition.INSUFFICIENT_SCOPE
+        blockers = ("temporal scope requires at least two declared timepoints",)
+        next_discriminator = "EXPAND_TEMPORAL_SCOPE"
+        reason_codes = ("TEMPORAL_SCOPE_INSUFFICIENT",)
+    elif legacy.missing_cells:
+        disposition = TemporalEvidenceDisposition.INCOMPLETE
+        blockers = ("temporal evidence grid is incomplete",)
+        cell_text = canonical_json_bytes(
+            _cell_key_payload(legacy.missing_cells[0])
+        ).decode("utf-8")
+        next_discriminator = f"COLLECT_CELL:{cell_text}"
+        reason_codes = ("ONE_MISSING_CELL_SELECTED",)
+    else:
+        disposition = TemporalEvidenceDisposition.RESOLVED
+        blockers = ()
+        next_discriminator = None
+        reason_codes = ("OBSERVED_TEMPORAL_SUMMARY_RESOLVED",)
+
+    evidence_payload = {
+        "cells": [cell.as_dict() for cell in request.cells],
+        "safety_events": [event.as_dict() for event in request.safety_events],
+    }
+    evidence_sha256 = sha256_hex(canonical_json_bytes(evidence_payload))
+    input_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "scope": _scope_payload(scope),
+                "schedule": request.schedule.as_dict(),
+                "evidence_sha256": evidence_sha256,
+            }
+        )
+    )
+    source_bindings = tuple(sorted({scope.schedule_sha256, evidence_sha256}))
+    exact_scope = f"{scope.protocol_id}/TEMPORAL"
+    if disposition is TemporalEvidenceDisposition.RESOLVED:
+        delta = DecisionDeltaV1(
+            delta_id=f"TEMPORAL:{scope.protocol_id}",
+            decision_effect=(
+                "Use the observed temporal summaries and transitions at this exact "
+                "protocol scope; request no additional temporal experiment."
+            ),
+            observed_facts=(
+                f"observed_cells={len(counts)}",
+                "missing_cells=0",
+                "duplicate_cells=0",
+                f"order_balance={legacy.order_balance_state.value}",
+            ),
+            derived_calculations=(
+                f"endpoint_summaries={len(safe_summaries)}",
+                f"paired_transitions={len(safe_transitions)}",
+                f"assessor_reliability={legacy.assessor_reliability_state.value}",
+            ),
+            hypotheses=(),
+            forbidden_inferences=(
+                "Observed temporal behavior does not establish composition-derived liking.",
+                "No missing cell was interpolated and no volatility prediction was treated as perception.",
+            ),
+        )
+        receipt = EvidenceDeltaReceiptV1(
+            module_id="temporal_sensory_ledger",
+            exact_scope=exact_scope,
+            state=EvidenceAugmentationState.AUGMENT,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_sha256,
+            policy_sha256=_TEMPORAL_AUDIT_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reason_codes=reason_codes,
+            delta=delta,
+            blockers=(),
+            next_action=None,
+        )
+    else:
+        receipt = hold_receipt(
+            module_id="temporal_sensory_ledger",
+            exact_scope=exact_scope,
+            input_sha256=input_sha256,
+            evidence_sha256=evidence_sha256,
+            policy_sha256=_TEMPORAL_AUDIT_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=reason_codes,
+            blockers=blockers,
+            next_action=next_discriminator,
+        )
+    return TemporalEvidenceAuditResultV2(
+        disposition=disposition,
+        protocol_id=scope.protocol_id,
+        summaries=safe_summaries,
+        transitions=safe_transitions,
+        missing_cells=legacy.missing_cells,
+        duplicate_cells=duplicates,
+        source_cell_count=len(request.cells),
+        excluded_duplicate_row_count=excluded_duplicate_row_count,
+        next_discriminator=next_discriminator,
+        receipt=receipt,
+        legacy_result=legacy,
+    )
 
 
 # ── Code generation ──────────────────────────────────────────────────────────────
@@ -1015,11 +1339,14 @@ __all__ = [
     "SensoryProtocolScope",
     "SensoryTrial",
     "TemporalEndpointSummary",
+    "TemporalEvidenceAuditResultV2",
+    "TemporalEvidenceDisposition",
     "TemporalEvidenceRequest",
     "TemporalEvidenceResult",
     "TemporalEvidenceState",
     "TemporalObservationCell",
     "TemporalTransition",
     "analyze_temporal_evidence",
+    "audit_temporal_evidence",
     "generate_trial_codes",
 ]
