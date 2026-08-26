@@ -8,6 +8,7 @@ from enum import Enum
 from math import isfinite
 from typing import Any, ClassVar, Mapping
 
+from engine.evidence.augmentation import EvidenceDeltaReceiptV1
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -609,9 +610,53 @@ class DecisionReceiptV1(_Record):
         return cls(**_load(payload, schema_version=cls.SCHEMA_VERSION, fields=fields))
 
 
+@dataclass(frozen=True, slots=True)
+class EvidenceDeltaPacketV2(_Record):
+    """Versioned transport that leaves every closed V1 packet unchanged."""
+
+    SCHEMA_VERSION: ClassVar[str] = "evidence_delta_packet_v2"
+    parent_decision: DecisionReceiptV1
+    evidence_delta_receipt: EvidenceDeltaReceiptV1 | None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent_decision, DecisionReceiptV1):
+            raise TypeError("parent_decision must be a DecisionReceiptV1")
+        if self.evidence_delta_receipt is not None and not isinstance(
+            self.evidence_delta_receipt, EvidenceDeltaReceiptV1
+        ):
+            raise TypeError(
+                "evidence_delta_receipt must be an EvidenceDeltaReceiptV1 or None"
+            )
+
+    def as_dict(self) -> dict[str, object]:
+        return self._envelope(
+            {
+                "parent_decision": self.parent_decision.as_dict(),
+                "evidence_delta_receipt": (
+                    None
+                    if self.evidence_delta_receipt is None
+                    else self.evidence_delta_receipt.as_dict()
+                ),
+            }
+        )
+
+    @classmethod
+    def from_dict(cls, payload: object) -> EvidenceDeltaPacketV2:
+        fields = frozenset({"parent_decision", "evidence_delta_receipt"})
+        values = _load(payload, schema_version=cls.SCHEMA_VERSION, fields=fields)
+        values["parent_decision"] = DecisionReceiptV1.from_dict(
+            values["parent_decision"]
+        )
+        if values["evidence_delta_receipt"] is not None:
+            values["evidence_delta_receipt"] = EvidenceDeltaReceiptV1.from_dict(
+                values["evidence_delta_receipt"]
+            )
+        return cls(**values)
+
+
 __all__ = [
     "AUTHORITY_FLAGS_FALSE", "CompilationState", "CompiledArmV1",
     "CompiledExperimentV1", "CriterionFitPacketV1", "DecisionReceiptV1",
-    "DecisionState", "ExecutionReceiptV1", "SolForgeCaseState", "SolForgeCaseV1",
+    "DecisionState", "EvidenceDeltaPacketV2", "ExecutionReceiptV1", "SolForgeCaseState", "SolForgeCaseV1",
     "SolHypothesisSetV1", "SolHypothesisV1", "TemporalEvidencePacketV1",
 ]

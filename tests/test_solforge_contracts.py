@@ -4,6 +4,7 @@ from dataclasses import replace
 
 import pytest
 
+from engine.evidence.augmentation import no_augmentation_receipt
 from engine.evidence_contracts import sha256_hex
 from engine.solforge.contracts import (
     AUTHORITY_FLAGS_FALSE,
@@ -13,6 +14,7 @@ from engine.solforge.contracts import (
     CriterionFitPacketV1,
     DecisionReceiptV1,
     DecisionState,
+    EvidenceDeltaPacketV2,
     ExecutionReceiptV1,
     SolForgeCaseState,
     SolForgeCaseV1,
@@ -192,3 +194,36 @@ def test_closed_enum_and_schema_values_are_enforced() -> None:
     payload["schema_version"] = "future"
     with pytest.raises(ValueError, match="schema_version"):
         SolForgeCaseV1.from_dict(payload)
+
+
+def test_v1_decision_bytes_remain_frozen_when_v2_transport_is_added() -> None:
+    decision = _records()[-1]
+    assert decision.record_sha256 == (
+        "cc9cb0c34ddc872a2664ee2d7e40e65f277019912af6590391ee544bf1d9a00d"
+    )
+    payload = decision.as_dict()
+    payload["evidence_delta_receipt"] = None
+    with pytest.raises(ValueError, match="unknown fields"):
+        DecisionReceiptV1.from_dict(payload)
+
+
+def test_v2_transport_optionally_binds_one_evidence_delta_receipt() -> None:
+    decision = _records()[-1]
+    receipt = no_augmentation_receipt(
+        module_id="temporal_sensory_ledger",
+        exact_scope="P1/BLIND-A/DEPTH/60-1800s",
+        input_sha256="a" * 64,
+        evidence_sha256="b" * 64,
+        policy_sha256="c" * 64,
+        reasons=("QUESTION_ALREADY_RESOLVED",),
+    )
+    packet = EvidenceDeltaPacketV2(
+        parent_decision=decision,
+        evidence_delta_receipt=receipt,
+    )
+    assert EvidenceDeltaPacketV2.from_dict(packet.as_dict()) == packet
+    empty = EvidenceDeltaPacketV2(
+        parent_decision=decision,
+        evidence_delta_receipt=None,
+    )
+    assert EvidenceDeltaPacketV2.from_dict(empty.as_dict()) == empty
