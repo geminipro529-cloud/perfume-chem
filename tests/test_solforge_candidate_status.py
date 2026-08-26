@@ -24,7 +24,9 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
     payload = json.loads(STATUS.read_text(encoding="utf-8"))
 
     assert payload["program_id"] == "SOLFORGE-ABCD-20260825"
-    assert payload["runtime_state"] == "FUTURE_CANDIDATE_NOT_VALIDATED"
+    assert payload["runtime_state"] == (
+        "RETIRED_BENCHMARK_UNDERPERFORMER_REBUILD_REQUIRED"
+    )
     assert payload["runtime_reachable"] is False
     assert payload["prior_run_tombstone"] == {
         "status_path": "data/governance/complexity_replacement_candidate_status_20260824.json",
@@ -39,8 +41,10 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
         "planned_outputs": 27,
         "completed_outputs": 27,
         "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
-        "status_sha256": "ead8f30fc9e057313cfc2f0a946372312c89cabb8111bf751fc28d9cb8273671",
-        "admission_decision": "WITHHELD",
+        "status_sha256": "f21be482071de226bb3f9f279e3c08b4c7cfdc33e5aac8b70bbe9611cce6e50b",
+        "screen_receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+        "screen_result_sha256": "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a",
+        "admission_decision": "ALL_STOP_REBUILD_REQUIRED",
         "old_frozen_requests_resumed": False,
     }
     assert payload["source_hashes"] == EXPECTED_SOURCE_HASHES
@@ -50,15 +54,23 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
         assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == expected
 
 
-def test_complete_screen_freezes_all_exact_outputs_pending_score() -> None:
+def test_complete_screen_freezes_all_exact_outputs_and_all_stop_result() -> None:
     manifest = json.loads((SCREEN_ROOT / "manifest.json").read_text(encoding="utf-8"))
     status = json.loads((SCREEN_ROOT / "status.json").read_text(encoding="utf-8"))
     raw_paths = sorted((SCREEN_ROOT / "raw").glob("*.json"))
 
     assert status["manifest_sha256"] == manifest["manifest_sha256"]
-    assert status["state"] == "COMPLETE_PENDING_SCORE"
+    assert status["state"] == "SCORED_ALL_STOP"
     assert status["completed_output_count"] == len(raw_paths) == 27
     assert status["required_output_count"] == manifest["request_count"] == 27
+    assert status["judge_output_count"] == 9
+    assert status["receipt_sha256"] == (
+        "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17"
+    )
+    assert status["screen_result_sha256"] == (
+        "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a"
+    )
+    assert status["screen_decision"] == "ALL_STOP"
     assert status["confirmation_authorized"] is False
     assert status["runtime_reachable"] is False
     assert status["missing_request_ids"] == []

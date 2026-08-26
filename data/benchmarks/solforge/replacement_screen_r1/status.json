@@ -1,11 +1,17 @@
 {
   "schema_version": "complexity_replacement_screen_status_v1",
   "manifest_sha256": "07261210393c646dba8483381817fc031ff176350b5c8e16ad56be3a2fd1379d",
-  "state": "COMPLETE_PENDING_SCORE",
+  "state": "SCORED_ALL_STOP",
   "model_identity": "GPT-5.6 Sol",
   "reasoning_setting": "xhigh",
   "required_output_count": 27,
   "completed_output_count": 27,
+  "judge_output_count": 9,
+  "receipt_path": "data/benchmarks/solforge/replacement_screen_r1/receipt.json",
+  "receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+  "receipt_file_sha256": "f4db39d1b9655cc4526002142145f78e2ee663acc6e10265a000a92e71f2b7fd",
+  "screen_result_path": "data/benchmarks/solforge/replacement_screen_r1/screen_result.json",
+  "screen_result_sha256": "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a",
   "completed_request_ids": [
     "rplreq-9c7d19e538252b9298d5",
     "rplreq-8a834fb6a86af2985f9c",
@@ -36,8 +42,8 @@
     "rplreq-9aca11eb6606200474d1"
   ],
   "missing_request_ids": [],
-  "blocking_reason": "All 27 exact screen outputs are frozen and hash-verified. Scoring has not started; confirmation remains unauthorized until a per-module screen receipt is frozen.",
-  "screen_decision": "WITHHELD",
+  "blocking_reason": "All 27 outputs and 9 blind judgments are frozen and hash-verified. Every replacement module failed at least one two-of-three control threshold, so confirmation and runtime admission are unauthorized.",
+  "screen_decision": "ALL_STOP",
   "confirmation_authorized": false,
   "runtime_reachable": false,
   "authority": {

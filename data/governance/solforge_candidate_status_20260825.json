@@ -2,7 +2,7 @@
   "schema_version": "solforge_candidate_status_v1",
   "program_id": "SOLFORGE-ABCD-20260825",
   "recorded_at": "2026-08-25T21:05:09.0187965+07:00",
-  "runtime_state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+  "runtime_state": "RETIRED_BENCHMARK_UNDERPERFORMER_REBUILD_REQUIRED",
   "runtime_reachable": false,
   "modules": [
     "architectural-delta-engine",
@@ -32,8 +32,10 @@
     "planned_outputs": 27,
     "completed_outputs": 27,
     "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
-    "status_sha256": "ead8f30fc9e057313cfc2f0a946372312c89cabb8111bf751fc28d9cb8273671",
-    "admission_decision": "WITHHELD",
+    "status_sha256": "f21be482071de226bb3f9f279e3c08b4c7cfdc33e5aac8b70bbe9611cce6e50b",
+    "screen_receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+    "screen_result_sha256": "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a",
+    "admission_decision": "ALL_STOP_REBUILD_REQUIRED",
     "old_frozen_requests_resumed": false
   },
   "source_hashes": {
