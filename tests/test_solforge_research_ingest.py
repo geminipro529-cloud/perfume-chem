@@ -9,15 +9,22 @@ import pytest
 from engine.solforge.research import ResearchEvidenceClass, ResearchEvidenceRecordV1
 from engine.solforge.research_ingest import (
     build_metadata_envelope,
+    freeze_evidence_review_ledger,
     freeze_ledger,
+    load_evidence_review_ledger,
     merge_records,
     normalize_stable_identifier,
+    validate_frozen_evidence_review_ledger,
     validate_frozen_ledger,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "data/research/solforge/research_evidence_records_v1.json"
 LEDGER_HASH = ROOT / "data/research/solforge/research_evidence_records_v1.sha256"
+REVIEW_LEDGER = ROOT / "data/research/solforge/research_evidence_records_v2.json"
+REVIEW_LEDGER_HASH = (
+    ROOT / "data/research/solforge/research_evidence_records_v2.sha256"
+)
 
 
 def _record(summary: str = "Directly supported result.") -> ResearchEvidenceRecordV1:
@@ -125,3 +132,36 @@ def test_initial_ledger_is_complete_valid_and_exactly_frozen(tmp_path: Path) -> 
     assert output.read_text(encoding="utf-8").split()[0] == hashlib.sha256(
         LEDGER.read_bytes()
     ).hexdigest()
+
+
+def test_v2_review_ledger_is_canonical_sorted_and_frozen(tmp_path: Path) -> None:
+    ledger = load_evidence_review_ledger(REVIEW_LEDGER)
+    source_ids = [item.source_id for item in ledger.assessments]
+    assert source_ids == sorted(source_ids)
+    assert len(source_ids) >= 27
+    assert validate_frozen_evidence_review_ledger(
+        REVIEW_LEDGER, REVIEW_LEDGER_HASH
+    ) == ()
+
+    output = tmp_path / "review.sha256"
+    digest = freeze_evidence_review_ledger(REVIEW_LEDGER, output)
+    assert digest == hashlib.sha256(REVIEW_LEDGER.read_bytes()).hexdigest()
+    assert output.read_text(encoding="utf-8") == (
+        f"{digest}  {REVIEW_LEDGER.name}\n"
+    )
+
+
+def test_v2_review_ledger_rejects_conflicting_stable_source_hashes(
+    tmp_path: Path,
+) -> None:
+    payload = json.loads(REVIEW_LEDGER.read_text(encoding="utf-8"))
+    payload["assessments"].append(
+        {
+            **payload["assessments"][0],
+            "source_record_sha256": "f" * 64,
+        }
+    )
+    bad = tmp_path / "duplicate.json"
+    bad.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="duplicate source_id"):
+        load_evidence_review_ledger(bad)

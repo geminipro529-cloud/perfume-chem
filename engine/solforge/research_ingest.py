@@ -11,6 +11,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+from engine.solforge.evidence_review import (
+    EvidenceReviewLedgerV1,
+    validate_evidence_review,
+)
 from engine.solforge.research import (
     ResearchEvidenceRecordV1,
     ResearchLedgerV1,
@@ -166,6 +170,71 @@ def validate_frozen_ledger(input_path: Path, sha_path: Path) -> tuple[str, ...]:
     return tuple(issues)
 
 
+def load_evidence_review_ledger(path: Path) -> EvidenceReviewLedgerV1:
+    """Load a canonical V2 review ledger and validate every cross-reference."""
+
+    input_path = Path(path)
+    payload = json.loads(input_path.read_text(encoding="utf-8"))
+    ledger = EvidenceReviewLedgerV1.from_dict(payload)
+    issues = validate_evidence_review(ledger)
+    if issues:
+        raise ValueError("; ".join(issues))
+    if not ledger.source_records:
+        raise ValueError("V2 evidence review ledger requires source_records")
+    if tuple(item.source_id for item in ledger.source_records) != tuple(
+        sorted(item.source_id for item in ledger.source_records)
+    ):
+        raise ValueError("source_records must be sorted by source_id")
+    if tuple(item.source_id for item in ledger.assessments) != tuple(
+        sorted(item.source_id for item in ledger.assessments)
+    ):
+        raise ValueError("assessments must be sorted by source_id")
+    if tuple(item.requirement_id for item in ledger.operative_bindings) != tuple(
+        sorted(item.requirement_id for item in ledger.operative_bindings)
+    ):
+        raise ValueError("operative_bindings must be sorted by requirement_id")
+    expected = ledger.canonical_bytes() + b"\n"
+    if input_path.read_bytes() != expected:
+        raise ValueError("V2 evidence review ledger is not canonical JSON")
+    return ledger
+
+
+def freeze_evidence_review_ledger(input_path: Path, sha_output: Path) -> str:
+    """Validate and freeze the exact canonical V2 review-ledger bytes."""
+
+    load_evidence_review_ledger(input_path)
+    import hashlib
+
+    digest = hashlib.sha256(Path(input_path).read_bytes()).hexdigest()
+    Path(sha_output).parent.mkdir(parents=True, exist_ok=True)
+    Path(sha_output).write_text(
+        f"{digest}  {Path(input_path).name}\n", encoding="utf-8", newline="\n"
+    )
+    return digest
+
+
+def validate_frozen_evidence_review_ledger(
+    input_path: Path, sha_path: Path
+) -> tuple[str, ...]:
+    """Return exact validation and sidecar failures for a V2 review ledger."""
+
+    issues: list[str] = []
+    try:
+        load_evidence_review_ledger(input_path)
+    except (OSError, UnicodeError, json.JSONDecodeError, TypeError, ValueError) as exc:
+        issues.append(f"evidence review ledger validation failed: {exc}")
+    try:
+        expected = Path(sha_path).read_text(encoding="utf-8").split()[0]
+        import hashlib
+
+        observed = hashlib.sha256(Path(input_path).read_bytes()).hexdigest()
+        if expected != observed:
+            issues.append("evidence review ledger SHA-256 sidecar mismatch")
+    except (OSError, UnicodeError, IndexError):
+        issues.append("evidence review ledger SHA-256 sidecar is unavailable")
+    return tuple(issues)
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="action", required=True)
@@ -181,6 +250,11 @@ def _parse_args() -> argparse.Namespace:
     freeze = subparsers.add_parser("freeze-ledger")
     freeze.add_argument("--input", type=Path, required=True)
     freeze.add_argument("--sha-output", type=Path, required=True)
+    validate_v2 = subparsers.add_parser("validate-v2")
+    validate_v2.add_argument("--input", type=Path, required=True)
+    freeze_v2 = subparsers.add_parser("freeze-v2")
+    freeze_v2.add_argument("--input", type=Path, required=True)
+    freeze_v2.add_argument("--sha-output", type=Path, required=True)
     return parser.parse_args()
 
 
@@ -198,6 +272,12 @@ def main() -> int:
         return 0
     if args.action == "freeze-ledger":
         freeze_ledger(args.input, args.sha_output)
+        return 0
+    if args.action == "validate-v2":
+        load_evidence_review_ledger(args.input)
+        return 0
+    if args.action == "freeze-v2":
+        freeze_evidence_review_ledger(args.input, args.sha_output)
         return 0
     ledger = load_ledger(args.ledger)
     record = ResearchEvidenceRecordV1.from_dict(
@@ -221,9 +301,12 @@ if __name__ == "__main__":
 __all__ = [
     "build_metadata_envelope",
     "fetch_metadata",
+    "freeze_evidence_review_ledger",
     "freeze_ledger",
+    "load_evidence_review_ledger",
     "load_ledger",
     "merge_records",
     "normalize_stable_identifier",
+    "validate_frozen_evidence_review_ledger",
     "validate_frozen_ledger",
 ]
