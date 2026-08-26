@@ -6,15 +6,21 @@ from pathlib import Path
 
 import pytest
 
+from engine.evidence_contracts import canonical_json_bytes
 from engine.solforge.research import ResearchEvidenceClass, ResearchEvidenceRecordV1
 from engine.solforge.research_ingest import (
     build_metadata_envelope,
     freeze_evidence_review_ledger,
+    freeze_evidence_review_ledger_v3,
+    freeze_interface_receipt,
     freeze_ledger,
     load_evidence_review_ledger,
+    load_evidence_review_ledger_v3,
     merge_records,
     normalize_stable_identifier,
     validate_frozen_evidence_review_ledger,
+    validate_frozen_evidence_review_ledger_v3,
+    validate_frozen_interface_receipt,
     validate_frozen_ledger,
 )
 
@@ -25,6 +31,17 @@ REVIEW_LEDGER = ROOT / "data/research/solforge/research_evidence_records_v2.json
 REVIEW_LEDGER_HASH = (
     ROOT / "data/research/solforge/research_evidence_records_v2.sha256"
 )
+REVIEW_LEDGER_V3 = ROOT / "data/research/solforge/research_evidence_records_v3.json"
+REVIEW_LEDGER_V3_HASH = (
+    ROOT / "data/research/solforge/research_evidence_records_v3.sha256"
+)
+INTERFACE_RECEIPT = (
+    ROOT / "data/governance/temporal_oav_hedonic_interface_freeze_v1.json"
+)
+INTERFACE_RECEIPT_HASH = (
+    ROOT / "data/governance/temporal_oav_hedonic_interface_freeze_v1.sha256"
+)
+V2_SOURCE_REGISTRY = ROOT / "configs/solforge/complexity_evidence_sources_v2.json"
 
 
 def _record(summary: str = "Directly supported result.") -> ResearchEvidenceRecordV1:
@@ -165,3 +182,104 @@ def test_v2_review_ledger_rejects_conflicting_stable_source_hashes(
     bad.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(ValueError, match="duplicate source_id"):
         load_evidence_review_ledger(bad)
+
+
+def test_v3_review_ledger_is_hash_bound_and_preserves_v2_bytes(tmp_path: Path) -> None:
+    expected_v2_ledger_sha = (
+        "7328e13f927beaa8db9f7c2b8eb06ed35dc747dc916a18d631d549292b2bef54"
+    )
+    expected_v2_sources_sha = (
+        "42aa71ac05e3ee74b3120897d69a76b01a3af10ce3ce7b0eb7e5a3e85cc02f5b"
+    )
+    assert hashlib.sha256(REVIEW_LEDGER.read_bytes()).hexdigest() == (
+        expected_v2_ledger_sha
+    )
+    assert hashlib.sha256(V2_SOURCE_REGISTRY.read_bytes()).hexdigest() == (
+        expected_v2_sources_sha
+    )
+
+    ledger = load_evidence_review_ledger_v3(REVIEW_LEDGER_V3)
+    assert ledger.predecessor_ledger_sha256 == expected_v2_ledger_sha
+    assert len(ledger.added_assessments) >= 9
+    assert {item.requirement_id for item in ledger.added_operative_bindings} >= {
+        "OAV_HEADSPACE_CALIBRATION",
+        "OAV_THRESHOLD_PROTOCOL",
+        "HEDONIC_SCOPE_HETEROGENEITY",
+    }
+    assert validate_frozen_evidence_review_ledger_v3(
+        REVIEW_LEDGER_V3, REVIEW_LEDGER_V3_HASH
+    ) == ()
+
+    output = tmp_path / "v3.sha256"
+    digest = freeze_evidence_review_ledger_v3(REVIEW_LEDGER_V3, output)
+    assert digest == hashlib.sha256(REVIEW_LEDGER_V3.read_bytes()).hexdigest()
+    assert output.read_text(encoding="utf-8") == f"{digest}  {REVIEW_LEDGER_V3.name}\n"
+
+
+def test_v3_review_ledger_rejects_a_changed_predecessor(tmp_path: Path) -> None:
+    changed = tmp_path / REVIEW_LEDGER.name
+    changed.write_bytes(REVIEW_LEDGER.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="predecessor ledger SHA-256 mismatch"):
+        load_evidence_review_ledger_v3(
+            REVIEW_LEDGER_V3,
+            predecessor_path=changed,
+        )
+
+
+@pytest.mark.parametrize(
+    ("collection", "expected"),
+    [
+        ("added_assessments", "assessment ABRAHAM-2012 source tier mismatch"),
+        ("added_operative_bindings", "binding ASSESSOR_TRAINING_SCOPE source tier mismatch"),
+    ],
+)
+def test_v3_review_ledger_rejects_source_tier_escalation(
+    tmp_path: Path,
+    collection: str,
+    expected: str,
+) -> None:
+    payload = json.loads(REVIEW_LEDGER_V3.read_text(encoding="utf-8"))
+    payload[collection][0][
+        "tier" if collection == "added_assessments" else "source_tier"
+    ] = "HYPOTHESIS_ONLY"
+    bad = tmp_path / f"bad-{collection}.json"
+    bad.write_bytes(canonical_json_bytes(payload) + b"\n")
+    with pytest.raises(ValueError, match=expected):
+        load_evidence_review_ledger_v3(bad)
+
+
+def test_interface_freeze_receipt_validates_every_bound_artifact(
+    tmp_path: Path,
+) -> None:
+    assert validate_frozen_interface_receipt(
+        INTERFACE_RECEIPT,
+        INTERFACE_RECEIPT_HASH,
+        repo_root=ROOT,
+    ) == ()
+    output = tmp_path / "interface.sha256"
+    digest = freeze_interface_receipt(
+        INTERFACE_RECEIPT,
+        output,
+        repo_root=ROOT,
+    )
+    assert output.read_text(encoding="utf-8") == (
+        f"{digest}  {INTERFACE_RECEIPT.name}\n"
+    )
+    payload = json.loads(INTERFACE_RECEIPT.read_text(encoding="utf-8"))
+    artifact_ids = {item["artifact_id"] for item in payload["artifacts"]}
+    assert artifact_ids >= {
+        "evidence_review_source",
+        "evidence_review_tests",
+        "research_ingest_source",
+        "research_ingest_tests",
+    }
+
+    payload["artifacts"][0]["sha256"] = "0" * 64
+    bad = tmp_path / "bad-interface.json"
+    bad.write_bytes(canonical_json_bytes(payload) + b"\n")
+    issues = validate_frozen_interface_receipt(
+        bad,
+        INTERFACE_RECEIPT_HASH,
+        repo_root=ROOT,
+    )
+    assert any("artifact SHA-256 mismatch" in issue for issue in issues)

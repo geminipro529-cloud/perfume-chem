@@ -1,0 +1,86 @@
+{
+  "schema_version": "oav_temporal_policy_v1",
+  "canonical_time": {
+    "unit": "SECOND",
+    "minimum": 0,
+    "integer_required": true,
+    "display_aliases_only": true,
+    "timepoints_declared_by": "PROTOCOL",
+    "universal_timepoints": []
+  },
+  "canonical_cell_key": [
+    "protocol_sha256",
+    "sample_id",
+    "material_id",
+    "time_seconds",
+    "endpoint"
+  ],
+  "interval_quantiles": [
+    "P05",
+    "P50",
+    "P95"
+  ],
+  "interval_requirements": {
+    "order": "P05 <= P50 <= P95",
+    "values": "POSITIVE_FINITE",
+    "units": "EXACT_COMPATIBLE_CONCENTRATION_OR_THRESHOLD_UNITS"
+  },
+  "oav_interval_calculation": {
+    "p05": "headspace_p05 / threshold_p95",
+    "p50": "headspace_p50 / threshold_p50",
+    "p95": "headspace_p95 / threshold_p05"
+  },
+  "threshold_cancellation": {
+    "required_exact_matches": [
+      "material_identity",
+      "threshold_source",
+      "matrix",
+      "method",
+      "temperature",
+      "application",
+      "endpoint",
+      "unit"
+    ],
+    "incompatible_state": "THRESHOLD_CANCELLATION_INCOMPATIBLE"
+  },
+  "model_tiers": [
+    "T0_UNKNOWN",
+    "T1_TRANSFERRED",
+    "T2_MODELED",
+    "T3_CALIBRATED_MODELED",
+    "T4_MEASURED"
+  ],
+  "missing_data": {
+    "missing_stays_missing": true,
+    "interpolation_allowed": false,
+    "predicted_volatility_is_observation": false
+  },
+  "natural_preblend": {
+    "whole_material_screening_allowed": true,
+    "constituent_specific_evidence_required": true,
+    "silent_constituent_sum_allowed": false
+  },
+  "forbidden_inferences": [
+    "LIKING_FROM_OAV",
+    "MIXTURE_RECOGNITION_FROM_OAV",
+    "PERCEIVED_DEPTH_FROM_OAV",
+    "PERCEIVED_RICHNESS_FROM_OAV",
+    "SAFETY_FROM_OAV",
+    "RELEASE_FROM_OAV",
+    "INTERPOLATED_OBSERVATION",
+    "MODEL_TIER_AS_CONFIDENCE_PERCENTAGE"
+  ],
+  "authority_flags": {
+    "formula": false,
+    "inventory_mutation": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}
