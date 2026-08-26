@@ -19,10 +19,17 @@ from engine.perception.complexity_module_retest import (
     load_module_retest_cases,
     prepare_module_retest_request,
 )
+from engine.perception.complexity_replacement_benchmark import (
+    REPLACEMENT_MODULE_IDS,
+    load_replacement_benchmark_cases,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests/fixtures/complexity_module_retest_cases_v1.json"
 FIXTURE_V2 = ROOT / "tests/fixtures/complexity_module_retest_cases_v2.json"
+REPLACEMENT_V4 = (
+    ROOT / "tests/fixtures/complexity_replacement_benchmark_cases_v4.json"
+)
 
 
 def canonical_bytes(value: object) -> bytes:
@@ -60,6 +67,17 @@ def test_corpus_sidecar_locks_exact_bytes() -> None:
     expected = FIXTURE.with_suffix(".sha256").read_text(encoding="ascii").strip()
 
     assert expected == hashlib.sha256(FIXTURE.read_bytes()).hexdigest()
+
+
+def test_v4_replacement_corpus_is_separate_from_retired_module_corpus() -> None:
+    expected = REPLACEMENT_V4.with_suffix(".sha256").read_text(
+        encoding="ascii"
+    ).split()[0]
+    assert expected == hashlib.sha256(REPLACEMENT_V4.read_bytes()).hexdigest()
+
+    cases = load_replacement_benchmark_cases(REPLACEMENT_V4)
+    assert {case.module_id for case in cases} == set(REPLACEMENT_MODULE_IDS)
+    assert not {case.module_id for case in cases}.intersection(EXPECTED_MODULE_IDS)
 
 
 def test_v2_corpus_inherits_complete_matrix_and_binds_new_inventory_materials() -> None:

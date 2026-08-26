@@ -29,6 +29,17 @@ _BLINDED_CONTEXT_SCHEMA = "complexity_reasoning_context_v1"
 _BLINDED_PROMPT_SCHEMA = "complexity_replacement_benchmark_prompt_v2_blinded"
 _BLINDED_MANIFEST_SCHEMA = "complexity_replacement_benchmark_manifest_v5_blinded"
 _BLINDED_RECEIPT_SCHEMA = "complexity_replacement_benchmark_receipt_v5_blinded"
+_OBJECTIVE_DECISION_STATES = frozenset({"AUGMENT", "NO_AUGMENTATION", "HOLD"})
+_AUTHORITY_KEYS = (
+    "formula",
+    "inventory",
+    "physical_execution",
+    "sensory",
+    "safety",
+    "purchase",
+    "publication",
+    "release",
+)
 _DISPATCH_PREAMBLE = (
     "Resolve this blinded benchmark case now using only the JSON payload below. "
     "Return only the requested answer; do not use external sources or add process "
@@ -104,6 +115,57 @@ class ReplacementModulePacket:
 
 
 @dataclass(frozen=True, slots=True)
+class ObjectiveEvidenceExpectation:
+    """Scorer-only answer key for a V4 evidence receipt."""
+
+    expected_state: str
+    required_reason_codes: tuple[str, ...]
+    required_calculations: Mapping[str, Any]
+    maximum_next_actions: int
+    authority_all_false: bool
+    critical_error_codes: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        expected_state = _text(self.expected_state, "expected_state").upper()
+        if expected_state not in _OBJECTIVE_DECISION_STATES:
+            raise ValueError("unsupported objective decision state")
+        object.__setattr__(self, "expected_state", expected_state)
+        object.__setattr__(
+            self,
+            "required_reason_codes",
+            _text_tuple(tuple(self.required_reason_codes), "required_reason_codes"),
+        )
+        if not isinstance(self.required_calculations, Mapping):
+            raise TypeError("required_calculations must be a mapping")
+        calculations: dict[str, Any] = {}
+        for key, value in self.required_calculations.items():
+            normalized_key = _text(key, "required_calculations key")
+            if normalized_key in calculations:
+                raise ValueError("required calculation keys must be unique")
+            if isinstance(value, (Mapping, list, tuple, set)) or value is None:
+                raise TypeError("required calculation values must be JSON scalars")
+            calculations[normalized_key] = value
+        object.__setattr__(
+            self,
+            "required_calculations",
+            MappingProxyType(calculations),
+        )
+        if (
+            isinstance(self.maximum_next_actions, bool)
+            or not isinstance(self.maximum_next_actions, int)
+            or self.maximum_next_actions not in {0, 1}
+        ):
+            raise ValueError("maximum_next_actions must be zero or one")
+        if self.authority_all_false is not True:
+            raise ValueError("authority_all_false must be true")
+        object.__setattr__(
+            self,
+            "critical_error_codes",
+            _text_tuple(tuple(self.critical_error_codes), "critical_error_codes"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class ReplacementBenchmarkCase:
     case_id: str
     module_id: str
@@ -117,6 +179,7 @@ class ReplacementBenchmarkCase:
     claim_ceiling: str
     module_packet: ReplacementModulePacket
     evidence_payload: Mapping[str, Any] = field(default_factory=dict)
+    objective_expectation: ObjectiveEvidenceExpectation | None = None
 
     def __post_init__(self) -> None:
         for name in (
@@ -153,6 +216,13 @@ class ReplacementBenchmarkCase:
             "evidence_payload",
             MappingProxyType(dict(self.evidence_payload)),
         )
+        if self.objective_expectation is not None and not isinstance(
+            self.objective_expectation,
+            ObjectiveEvidenceExpectation,
+        ):
+            raise TypeError(
+                "objective_expectation must be an ObjectiveEvidenceExpectation"
+            )
 
     def common_payload(self) -> dict[str, Any]:
         payload = {
@@ -284,6 +354,164 @@ class ReplacementScoredOutput:
             "critical_trap_pass": self.critical_trap_pass,
             "specialist_checks_pass": self.specialist_checks_pass,
         }
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceReceiptScore:
+    """Deterministic, answer-key-bound score for one V4 evidence receipt."""
+
+    state: str
+    score: Decimal
+    decision_state_match: bool
+    missing_reason_codes: tuple[str, ...]
+    calculation_mismatches: tuple[str, ...]
+    next_action_count_pass: bool
+    authority_pass: bool
+    critical_error_codes: tuple[str, ...]
+    full_credit_no_augmentation: bool
+
+
+def _calculation_matches(expected: object, observed: object) -> bool:
+    if isinstance(expected, bool) or isinstance(observed, bool):
+        return expected is observed
+    if isinstance(expected, (int, float, Decimal)) and isinstance(
+        observed, (int, float, Decimal, str)
+    ):
+        try:
+            expected_decimal = Decimal(str(expected))
+            observed_decimal = Decimal(str(observed))
+        except (InvalidOperation, ValueError):
+            return False
+        return (
+            expected_decimal.is_finite()
+            and observed_decimal.is_finite()
+            and expected_decimal == observed_decimal
+        )
+    return expected == observed
+
+
+def score_evidence_receipt(
+    case: ReplacementBenchmarkCase,
+    receipt_payload: Mapping[str, Any],
+    *,
+    observed_critical_error_codes: Sequence[str] = (),
+) -> EvidenceReceiptScore:
+    """Score objective V4 receipt fields without rewarding unsupported verbosity."""
+
+    if not isinstance(case, ReplacementBenchmarkCase):
+        raise TypeError("case must be a ReplacementBenchmarkCase")
+    expectation = case.objective_expectation
+    if expectation is None:
+        raise ValueError("case has no objective evidence expectation")
+    if not isinstance(receipt_payload, Mapping):
+        raise TypeError("receipt_payload must be a mapping")
+    critical = tuple(
+        _text(code, "observed_critical_error_codes")
+        for code in observed_critical_error_codes
+    )
+    if len(critical) != len(set(critical)):
+        raise ValueError("observed critical error codes must be unique")
+    required_fields = {
+        "decision_state",
+        "reason_codes",
+        "calculations",
+        "next_actions",
+        "authority",
+    }
+    if not required_fields.issubset(receipt_payload):
+        return EvidenceReceiptScore(
+            state="FAIL",
+            score=Decimal("0"),
+            decision_state_match=False,
+            missing_reason_codes=expectation.required_reason_codes,
+            calculation_mismatches=tuple(expectation.required_calculations),
+            next_action_count_pass=False,
+            authority_pass=False,
+            critical_error_codes=tuple(
+                dict.fromkeys((*critical, "OBJECTIVE_RECEIPT_MISSING"))
+            ),
+            full_credit_no_augmentation=False,
+        )
+
+    try:
+        decision_state = _text(
+            receipt_payload.get("decision_state"), "decision_state"
+        ).upper()
+    except ValueError:
+        decision_state = ""
+    decision_match = decision_state == expectation.expected_state
+
+    reason_value = receipt_payload.get("reason_codes")
+    if isinstance(reason_value, (str, bytes)) or not isinstance(
+        reason_value, Sequence
+    ):
+        observed_reasons: tuple[str, ...] = ()
+    else:
+        try:
+            observed_reasons = tuple(
+                _text(value, "reason_codes") for value in reason_value
+            )
+        except ValueError:
+            observed_reasons = ()
+    missing_reasons = tuple(
+        code
+        for code in expectation.required_reason_codes
+        if code not in observed_reasons
+    )
+
+    calculation_value = receipt_payload.get("calculations")
+    calculations = calculation_value if isinstance(calculation_value, Mapping) else {}
+    mismatches = tuple(
+        key
+        for key, expected in expectation.required_calculations.items()
+        if key not in calculations
+        or not _calculation_matches(expected, calculations[key])
+    )
+
+    next_actions = receipt_payload.get("next_actions")
+    next_action_pass = isinstance(next_actions, list) and len(next_actions) <= (
+        expectation.maximum_next_actions
+    )
+
+    authority_value = receipt_payload.get("authority")
+    authority_pass = (
+        isinstance(authority_value, Mapping)
+        and set(authority_value) == set(_AUTHORITY_KEYS)
+        and all(authority_value[key] is False for key in _AUTHORITY_KEYS)
+    )
+    detected_critical = list(critical)
+    if not authority_pass:
+        detected_critical.append("UNSUPPORTED_AUTHORITY")
+    detected_critical = list(dict.fromkeys(detected_critical))
+
+    score = Decimal("0")
+    if decision_match:
+        score += Decimal("30")
+    if not missing_reasons:
+        score += Decimal("25")
+    if not mismatches:
+        score += Decimal("25")
+    if next_action_pass:
+        score += Decimal("10")
+    if authority_pass:
+        score += Decimal("10")
+    if detected_critical:
+        score = Decimal("0")
+    state = "PASS" if score == Decimal("100") else "FAIL" if score == 0 else "PARTIAL"
+    return EvidenceReceiptScore(
+        state=state,
+        score=score,
+        decision_state_match=decision_match,
+        missing_reason_codes=missing_reasons,
+        calculation_mismatches=mismatches,
+        next_action_count_pass=next_action_pass,
+        authority_pass=authority_pass,
+        critical_error_codes=tuple(detected_critical),
+        full_credit_no_augmentation=(
+            score == Decimal("100")
+            and expectation.expected_state == "NO_AUGMENTATION"
+        ),
+    )
 
 
 def _validate_paired_score_sets(
@@ -532,6 +760,128 @@ def _load_v3_cases(
     return cases
 
 
+def _load_v4_cases(
+    path: Path,
+    payload: Mapping[str, Any],
+) -> tuple[ReplacementBenchmarkCase, ...]:
+    expected_top_level = {
+        "schema_version",
+        "predecessor_corpus",
+        "predecessor_corpus_sha256",
+        "reference_manifest_sha256",
+        "objective_scoring_contract",
+        "module_packets",
+        "cases",
+        "authority",
+    }
+    if set(payload) != expected_top_level:
+        raise ValueError("v4 corpus top-level schema is not closed")
+    predecessor_name = _text(
+        payload.get("predecessor_corpus"), "predecessor_corpus"
+    )
+    if Path(predecessor_name).name != predecessor_name:
+        raise ValueError("predecessor_corpus must be a sibling filename")
+    predecessor_path = path.parent / predecessor_name
+    if predecessor_path.resolve() == path.resolve():
+        raise ValueError("predecessor_corpus cannot reference itself")
+    predecessor_sha256 = _validated_sha256(
+        payload.get("predecessor_corpus_sha256"),
+        "predecessor_corpus_sha256",
+    )
+    if hashlib.sha256(predecessor_path.read_bytes()).hexdigest() != predecessor_sha256:
+        raise ValueError("predecessor replacement corpus hash mismatch")
+    _validated_sha256(
+        payload.get("reference_manifest_sha256"),
+        "reference_manifest_sha256",
+    )
+
+    scoring_contract = payload.get("objective_scoring_contract")
+    if not isinstance(scoring_contract, Mapping):
+        raise TypeError("objective_scoring_contract must be an object")
+    if set(scoring_contract.get("decision_states", ())) != _OBJECTIVE_DECISION_STATES:
+        raise ValueError("v4 objective decision states are incomplete")
+    if scoring_contract.get("maximum_next_actions") != 1:
+        raise ValueError("v4 objective scorer must permit at most one next action")
+
+    authority = payload.get("authority")
+    if (
+        not isinstance(authority, Mapping)
+        or set(authority) != set(_AUTHORITY_KEYS)
+        or any(authority[key] is not False for key in _AUTHORITY_KEYS)
+    ):
+        raise ValueError("v4 corpus authority must be exact and all false")
+
+    packets = _load_module_packets(payload.get("module_packets"))
+    rows = payload.get("cases")
+    if not isinstance(rows, list):
+        raise TypeError("cases must be a list")
+    allowed_case_fields = {
+        "case_id",
+        "module_id",
+        "phase",
+        "role",
+        "target_identity",
+        "facts",
+        "inventory_state",
+        "expected_decision",
+        "critical_error",
+        "claim_ceiling",
+        "evidence_payload",
+        "objective_expectation",
+    }
+    cases: list[ReplacementBenchmarkCase] = []
+    for row in rows:
+        if not isinstance(row, Mapping):
+            raise TypeError("each replacement benchmark case must be an object")
+        if set(row) != allowed_case_fields:
+            raise ValueError("v4 case schema is not closed")
+        expectation_value = row.get("objective_expectation")
+        if not isinstance(expectation_value, Mapping):
+            raise TypeError("v4 objective_expectation must be an object")
+        if set(expectation_value) != {
+            "expected_state",
+            "required_reason_codes",
+            "required_calculations",
+            "maximum_next_actions",
+            "authority_all_false",
+            "critical_error_codes",
+        }:
+            raise ValueError("v4 objective expectation schema is not closed")
+        expectation = ObjectiveEvidenceExpectation(
+            expected_state=expectation_value.get("expected_state"),
+            required_reason_codes=tuple(
+                expectation_value.get("required_reason_codes", ())
+            ),
+            required_calculations=expectation_value.get(
+                "required_calculations", {}
+            ),
+            maximum_next_actions=expectation_value.get("maximum_next_actions"),
+            authority_all_false=expectation_value.get("authority_all_false"),
+            critical_error_codes=tuple(
+                expectation_value.get("critical_error_codes", ())
+            ),
+        )
+        module_id = _text(row.get("module_id"), "module_id")
+        cases.append(
+            ReplacementBenchmarkCase(
+                case_id=row.get("case_id"),
+                module_id=module_id,
+                phase=row.get("phase"),
+                role=ModuleRetestRole(row.get("role")),
+                target_identity=row.get("target_identity"),
+                facts=tuple(row.get("facts", ())),
+                inventory_state=row.get("inventory_state", {}),
+                expected_decision=row.get("expected_decision"),
+                critical_error=row.get("critical_error"),
+                claim_ceiling=row.get("claim_ceiling"),
+                module_packet=packets[module_id],
+                evidence_payload=row.get("evidence_payload", {}),
+                objective_expectation=expectation,
+            )
+        )
+    return tuple(cases)
+
+
 def load_replacement_benchmark_cases(
     path: Path,
 ) -> tuple[ReplacementBenchmarkCase, ...]:
@@ -539,7 +889,9 @@ def load_replacement_benchmark_cases(
         raise TypeError("path must be a Path")
     payload = json.loads(path.read_text(encoding="utf-8"))
     schema_version = payload.get("schema_version")
-    if schema_version == "complexity_replacement_retest_cases_v3":
+    if schema_version == "complexity_replacement_benchmark_cases_v4":
+        cases = list(_load_v4_cases(path, payload))
+    elif schema_version == "complexity_replacement_retest_cases_v3":
         cases = list(_load_v3_cases(path, payload))
     elif schema_version in {
         "complexity_replacement_retest_cases_v1",
@@ -587,6 +939,17 @@ def load_replacement_benchmark_cases(
             raise ValueError("each replacement module requires three confirmation cases")
         if {case.role for case in selected} != set(ModuleRetestRole):
             raise ValueError("each replacement module requires every benchmark role")
+        expectations = tuple(
+            case.objective_expectation
+            for case in selected
+            if case.objective_expectation is not None
+        )
+        if expectations and not any(
+            item.expected_state == "NO_AUGMENTATION" for item in expectations
+        ):
+            raise ValueError("each v4 module requires a no-augmentation success case")
+        if expectations and not any(item.required_calculations for item in expectations):
+            raise ValueError("each v4 module requires an objective calculation")
     return tuple(cases)
 
 
@@ -1111,6 +1474,15 @@ def prepare_replacement_benchmark_request(
             "physical_liking_state": "NOT TESTED",
         },
     }
+    if case.objective_expectation is not None:
+        common["output_contract"]["format"] = "ONE_JSON_OBJECT"
+        common["output_contract"]["objective_receipt"] = {
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "reason_codes": "array of concise evidence-bound codes",
+            "calculations": "object of named deterministic calculations",
+            "next_actions": "array containing zero or one discriminating action",
+            "authority": {key: False for key in _AUTHORITY_KEYS},
+        }
     common_hash = hashlib.sha256(_canonical_bytes(common)).hexdigest()
     prompt = dict(common)
     packet_hash: str | None = None
@@ -1155,6 +1527,8 @@ def prepare_replacement_benchmark_request(
 
 __all__ = [
     "REPLACEMENT_MODULE_IDS",
+    "EvidenceReceiptScore",
+    "ObjectiveEvidenceExpectation",
     "ReplacementBenchmarkCase",
     "ReplacementBenchmarkRequest",
     "ReplacementModulePacket",
@@ -1167,4 +1541,5 @@ __all__ = [
     "decide_replacement_screen",
     "load_replacement_benchmark_cases",
     "prepare_replacement_benchmark_request",
+    "score_evidence_receipt",
 ]

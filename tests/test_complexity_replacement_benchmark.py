@@ -14,6 +14,8 @@ from engine.perception.complexity_module_retest import (
 )
 from engine.perception.complexity_replacement_benchmark import (
     REPLACEMENT_MODULE_IDS,
+    EvidenceReceiptScore,
+    ObjectiveEvidenceExpectation,
     ReplacementBenchmarkCase,
     ReplacementModulePacket,
     ReplacementScoredOutput,
@@ -24,6 +26,7 @@ from engine.perception.complexity_replacement_benchmark import (
     decide_replacement_screen,
     load_replacement_benchmark_cases,
     prepare_replacement_benchmark_request,
+    score_evidence_receipt,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -180,6 +183,148 @@ def test_v2_temporal_positive_case_requires_observed_endpoint_cells(
 
     with pytest.raises(ValueError, match="observed endpoint cells"):
         load_replacement_benchmark_cases(malformed_path)
+
+
+def test_v4_corpus_is_new_hash_bound_and_objectively_scoreable() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v4.json"
+    expected_sha256 = corpus_path.with_suffix(".sha256").read_text(
+        encoding="utf-8"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_sha256
+
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor = FIXTURES / raw["predecessor_corpus"]
+    assert hashlib.sha256(predecessor.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+    science_manifest = (
+        Path(__file__).parents[1]
+        / "data"
+        / "benchmarks"
+        / "solforge"
+        / "rebuild_science_v1"
+        / "manifest.json"
+    )
+    assert hashlib.sha256(science_manifest.read_bytes()).hexdigest() == raw[
+        "reference_manifest_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+    assert len(cases) == 18
+    assert all(case.objective_expectation is not None for case in cases)
+    assert all(
+        isinstance(case.objective_expectation, ObjectiveEvidenceExpectation)
+        for case in cases
+    )
+    assert all(
+        "objective_expectation" not in case.common_payload() for case in cases
+    )
+    for module_id in REPLACEMENT_MODULE_IDS:
+        selected = tuple(case for case in cases if case.module_id == module_id)
+        assert [case.phase for case in selected].count("SCREEN") == 3
+        assert [case.phase for case in selected].count("CONFIRM") == 3
+        assert {case.role for case in selected} == set(ModuleRetestRole)
+        assert any(
+            case.objective_expectation.expected_state == "NO_AUGMENTATION"
+            for case in selected
+        )
+        assert any(
+            case.objective_expectation.required_calculations for case in selected
+        )
+
+
+def test_objective_receipt_gives_full_credit_to_correct_abstention() -> None:
+    case = next(
+        case
+        for case in load_replacement_benchmark_cases(
+            FIXTURES / "complexity_replacement_benchmark_cases_v4.json"
+        )
+        if case.case_id == "AUG-ARC-S02"
+    )
+    score = score_evidence_receipt(
+        case,
+        {
+            "decision_state": "NO_AUGMENTATION",
+            "reason_codes": ["COMPLETE_TARGET_ARCHITECTURE", "COUNT_IS_NON_EVIDENCE"],
+            "calculations": {"unmet_target_function_count": 0},
+            "next_actions": [],
+            "authority": {
+                "formula": False,
+                "inventory": False,
+                "physical_execution": False,
+                "sensory": False,
+                "safety": False,
+                "purchase": False,
+                "publication": False,
+                "release": False,
+            },
+        },
+    )
+
+    assert isinstance(score, EvidenceReceiptScore)
+    assert score.score == Decimal("100")
+    assert score.state == "PASS"
+    assert score.full_credit_no_augmentation is True
+    assert score.critical_error_codes == ()
+
+
+def test_objective_receipt_fails_closed_on_missing_receipt_or_authority_claim() -> None:
+    case = next(
+        case
+        for case in load_replacement_benchmark_cases(
+            FIXTURES / "complexity_replacement_benchmark_cases_v4.json"
+        )
+        if case.case_id == "AUG-TEM-S01"
+    )
+
+    missing = score_evidence_receipt(case, {})
+    assert missing.score == Decimal("0")
+    assert "OBJECTIVE_RECEIPT_MISSING" in missing.critical_error_codes
+
+    unsupported = score_evidence_receipt(
+        case,
+        {
+            "decision_state": "NO_AUGMENTATION",
+            "reason_codes": ["OBSERVED_TRANSITION_RESOLVED"],
+            "calculations": {
+                "median_at_60_seconds": 3,
+                "median_at_1800_seconds": 5.5,
+                "median_transition": 2.5,
+            },
+            "next_actions": [],
+            "authority": {
+                "formula": False,
+                "inventory": False,
+                "physical_execution": False,
+                "sensory": True,
+                "safety": False,
+                "purchase": False,
+                "publication": False,
+                "release": False,
+            },
+        },
+    )
+    assert unsupported.score == Decimal("0")
+    assert "UNSUPPORTED_AUTHORITY" in unsupported.critical_error_codes
+
+
+def test_v4_prompt_requests_objective_receipt_without_leaking_answer_key() -> None:
+    case = next(
+        case
+        for case in load_replacement_benchmark_cases(
+            FIXTURES / "complexity_replacement_benchmark_cases_v4.json"
+        )
+        if case.case_id == "AUG-HED-S01"
+    )
+    request = prepare_replacement_benchmark_request(case, ModuleRetestArm.TREATMENT)
+    serialized = request.dispatch_text
+
+    assert "objective_receipt" in request.prompt_payload["output_contract"]
+    assert "decision_state" in serialized
+    assert "expected_state" not in serialized
+    assert case.expected_decision not in serialized
+    for reason_code in case.objective_expectation.required_reason_codes:
+        assert reason_code not in serialized
 
 
 def test_fresh_run_nonce_changes_request_identity_without_changing_prompt() -> None:
