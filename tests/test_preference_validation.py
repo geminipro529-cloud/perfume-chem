@@ -8,9 +8,11 @@ from engine.preference_validation import (
     ClusterBootstrapConfig,
     HeldoutValidationConfig,
     NextPairConstraints,
+    PreferenceDiagnosticsConfig,
     TransitivityConfig,
     assess_transitivity,
     cluster_bootstrap,
+    diagnose_preference_scope,
     select_next_pair,
     validate_heldout,
 )
@@ -27,6 +29,7 @@ def _row(
     window: str = "heart",
     first: str | None = None,
     previous: str | None = None,
+    position: int = 1,
     partition: str = "TRAINING",
 ) -> PairwisePreference:
     return PairwisePreference(
@@ -43,7 +46,7 @@ def _row(
         matrix_id="matrix-1",
         time_window_id=window,
         previous_presented_item=previous,
-        position_in_session=1,
+        position_in_session=position,
         protocol_sha256="a" * 64,
         sample_sha256="b" * 64,
         partition=partition,
@@ -311,3 +314,278 @@ def test_exploration_pair_selection_is_deterministic_and_order_aware() -> None:
     assert first.canonical_bytes() == second.canonical_bytes()
     assert first.selected_pair is not None
     assert first.reason_code == "EXPLORATION_QUOTA"
+
+
+def test_scope_diagnostics_freeze_split_hashes_components_and_counting() -> None:
+    training = _balanced_rows()
+    heldout = tuple(
+        _row(
+            f"h{index}",
+            "p4",
+            left,
+            right,
+            preferred,
+            session="p4-heldout",
+            partition="HELDOUT",
+        )
+        for index, (left, right, preferred) in enumerate(
+            (("A", "B", "A"), ("A", "C", "A"), ("B", "C", "B")),
+            start=1,
+        )
+    )
+    fitted = _fit(training)
+    bootstrap = cluster_bootstrap(
+        training,
+        config=ClusterBootstrapConfig(replicates=20, seed=17),
+    )
+    validation = validate_heldout(
+        fitted=fitted,
+        training=training,
+        heldout=heldout,
+        config=HeldoutValidationConfig(bootstrap_replicates=10, seed=17),
+    )
+    transitivity = assess_transitivity(
+        training + heldout,
+        config=TransitivityConfig(),
+    )
+    config = PreferenceDiagnosticsConfig(
+        cluster_unit="ASSESSOR",
+        counting_resolution_margin=0.95,
+    )
+    first = diagnose_preference_scope(
+        fitted=fitted,
+        training=training,
+        heldout=heldout,
+        cluster_bootstrap_receipt=bootstrap,
+        heldout_validation_receipt=validation,
+        transitivity_receipt=transitivity,
+        config=config,
+    )
+    reordered = diagnose_preference_scope(
+        fitted=fitted,
+        training=tuple(reversed(training)),
+        heldout=tuple(reversed(heldout)),
+        cluster_bootstrap_receipt=bootstrap,
+        heldout_validation_receipt=validation,
+        transitivity_receipt=transitivity,
+        config=config,
+    )
+
+    assert first.canonical_bytes() == reordered.canonical_bytes()
+    assert first.connected_components == (("A", "B", "C"),)
+    assert first.training_sha256 != first.heldout_sha256
+    assert first.split_sha256
+    assert first.configuration_sha256
+    assert first.as_dict()["configuration"]["cluster_unit"] == "ASSESSOR"
+    assert first.as_dict()["configuration"]["counting_resolution_margin"] == 0.95
+    assert first.blocker_codes == ()
+
+
+def test_scope_diagnostics_detect_carryover_and_repeated_exposure_reversal() -> None:
+    rows = (
+        _row("c1", "p1", "A", "B", "A", previous="A", position=1),
+        _row("c2", "p2", "A", "B", "A", previous="A", position=1),
+        _row("c3", "p3", "A", "B", "B", previous="B", position=2),
+        _row("c4", "p4", "A", "B", "B", previous="B", position=2),
+    )
+    fitted = _fit(rows)
+    bootstrap = cluster_bootstrap(
+        rows,
+        config=ClusterBootstrapConfig(replicates=20, seed=5),
+    )
+    heldout = (
+        _row(
+            "h1",
+            "p5",
+            "A",
+            "B",
+            "A",
+            session="p5-heldout",
+            partition="HELDOUT",
+        ),
+    )
+    validation = validate_heldout(
+        fitted=fitted,
+        training=rows,
+        heldout=heldout,
+        config=HeldoutValidationConfig(bootstrap_replicates=5, seed=5),
+    )
+    transitivity = assess_transitivity(rows, config=TransitivityConfig())
+    diagnostics = diagnose_preference_scope(
+        fitted=fitted,
+        training=rows,
+        heldout=heldout,
+        cluster_bootstrap_receipt=bootstrap,
+        heldout_validation_receipt=validation,
+        transitivity_receipt=transitivity,
+        config=PreferenceDiagnosticsConfig(
+            maximum_carryover_effect=0.25,
+            maximum_repeated_exposure_effect=0.25,
+        ),
+    )
+
+    assert diagnostics.carryover_effect == 1.0
+    assert diagnostics.repeated_exposure_effect == 1.0
+    assert "CARRYOVER_CONFOUNDED" in diagnostics.blocker_codes
+    assert "REPEATED_EXPOSURE_CONFOUNDED" in diagnostics.blocker_codes
+
+
+def test_scope_diagnostics_detect_presentation_order_reversal() -> None:
+    rows = (
+        _row("o1", "p1", "A", "B", "A", first="A"),
+        _row("o2", "p2", "A", "B", "A", first="A"),
+        _row("o3", "p3", "A", "B", "B", first="B"),
+        _row("o4", "p4", "A", "B", "B", first="B"),
+    )
+    fitted = _fit(rows)
+    heldout = (
+        _row(
+            "oh1",
+            "p5",
+            "A",
+            "B",
+            "A",
+            session="heldout-order",
+            partition="HELDOUT",
+        ),
+    )
+    diagnostics = diagnose_preference_scope(
+        fitted=fitted,
+        training=rows,
+        heldout=heldout,
+        cluster_bootstrap_receipt=cluster_bootstrap(
+            rows,
+            config=ClusterBootstrapConfig(replicates=20, seed=5),
+        ),
+        heldout_validation_receipt=validate_heldout(
+            fitted=fitted,
+            training=rows,
+            heldout=heldout,
+            config=HeldoutValidationConfig(bootstrap_replicates=5, seed=5),
+        ),
+        transitivity_receipt=assess_transitivity(
+            rows,
+            config=TransitivityConfig(),
+        ),
+        config=PreferenceDiagnosticsConfig(maximum_order_effect=0.25),
+    )
+
+    assert diagnostics.order_effect == 1.0
+    assert "ORDER_CONFOUNDED" in diagnostics.blocker_codes
+
+
+def test_scope_diagnostics_identify_one_assessor_dominance() -> None:
+    rows = tuple(
+        _row(
+            f"dominant-{index}",
+            "dominant",
+            "A",
+            "B",
+            "A",
+            session="dominant-session",
+        )
+        for index in range(10)
+    ) + tuple(
+        _row(
+            f"minority-{assessor}-{index}",
+            assessor,
+            "A",
+            "B",
+            "B",
+            session=f"{assessor}-session",
+        )
+        for assessor in ("minority-1", "minority-2")
+        for index in range(2)
+    )
+    fitted = _fit(rows)
+    heldout = (
+        _row(
+            "dominance-heldout",
+            "heldout",
+            "A",
+            "B",
+            "A",
+            session="heldout-session",
+            partition="HELDOUT",
+        ),
+    )
+    diagnostics = diagnose_preference_scope(
+        fitted=fitted,
+        training=rows,
+        heldout=heldout,
+        cluster_bootstrap_receipt=cluster_bootstrap(
+            rows,
+            config=ClusterBootstrapConfig(replicates=20, seed=7),
+        ),
+        heldout_validation_receipt=validate_heldout(
+            fitted=fitted,
+            training=rows,
+            heldout=heldout,
+            config=HeldoutValidationConfig(bootstrap_replicates=5, seed=7),
+        ),
+        transitivity_receipt=assess_transitivity(
+            rows,
+            config=TransitivityConfig(),
+        ),
+        config=PreferenceDiagnosticsConfig(
+            maximum_leave_one_cluster_shift=0.25
+        ),
+    )
+
+    assert diagnostics.influential_cluster_id == "dominant"
+    assert diagnostics.leave_one_cluster_max_shift is not None
+    assert "INFLUENTIAL_CLUSTER" in diagnostics.blocker_codes
+
+
+def test_heldout_duplicate_comparison_identity_is_leakage() -> None:
+    training = (
+        _row("same", "p1", "A", "B", "A"),
+        _row("training-only", "p2", "B", "A", "A"),
+    )
+    heldout = (
+        _row(
+            "same",
+            "p2",
+            "A",
+            "B",
+            "A",
+            session="heldout-session",
+            partition="HELDOUT",
+        ),
+    )
+    receipt = validate_heldout(
+        fitted=_fit(training),
+        training=training,
+        heldout=heldout,
+        config=HeldoutValidationConfig(bootstrap_replicates=5, seed=1),
+    )
+
+    assert "COMPARISON_ID_SPLIT_LEAKAGE" in receipt.leakage_codes
+    assert receipt.passed is False
+
+
+def test_owner_bootstrap_resamples_sessions_deterministically() -> None:
+    rows = (
+        _row("s1-a", "owner", "A", "B", "A", session="session-1"),
+        _row("s1-b", "owner", "A", "C", "A", session="session-1"),
+        _row("s2-a", "owner", "A", "B", "A", session="session-2"),
+        _row("s2-b", "owner", "B", "C", "B", session="session-2"),
+        _row("s3-a", "owner", "A", "C", "A", session="session-3"),
+        _row("s3-b", "owner", "B", "C", "B", session="session-3"),
+    )
+    config = ClusterBootstrapConfig(
+        replicates=20,
+        seed=23,
+        cluster_unit="SESSION",
+    )
+
+    first = cluster_bootstrap(rows, config=config)
+    second = cluster_bootstrap(tuple(reversed(rows)), config=config)
+
+    assert first.canonical_bytes() == second.canonical_bytes()
+    assert first.interval_method == "SESSION_CLUSTER_PERCENTILE"
+    assert first.effective_unique_assessors == 1
+    assert first.cluster_unit == "SESSION"
+    assert first.effective_unique_clusters == 3
+    assert first.leave_one_cluster_max_shift is not None
+    assert first.completed_replicates > 0

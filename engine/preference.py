@@ -850,6 +850,8 @@ def _order_effect(
         comparison
         for comparison in comparisons
         if comparison.first_presented_item is not None
+        and comparison.outcome
+        in {PreferenceOutcome.LEFT, PreferenceOutcome.RIGHT}
     )
     if not ordered:
         return None

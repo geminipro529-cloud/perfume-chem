@@ -294,7 +294,10 @@ def test_heldout_baseline_failure_and_liking_gate_remain_scoped() -> None:
     assert depth.validation_state == "FAILED_BASELINE"
 
     liking_comparisons = _comparisons(criterion="LIKING")
-    liking_execution = _execution(comparisons=liking_comparisons)
+    liking_execution = _execution(
+        comparisons=liking_comparisons,
+        hedonic_scope="TRAINED_PANEL",
+    )
     liking_temporal = build_temporal_packet(
         liking_execution, analyze_execution_receipt(liking_execution)
     )
@@ -400,12 +403,13 @@ def test_v2_liking_adapter_binds_proper_validation_and_delta_receipts() -> None:
         "heldout_seed": 17,
         "practical_margin": 0.0,
         "split_unit": "ASSESSOR",
-        "decision_resolved": True,
+        "decision_resolved": False,
     }
     execution = _execution(
         comparisons=comparisons,
         preference_fit=config,
         preference_fit_v2=v2_config,
+        hedonic_scope="TRAINED_PANEL",
     )
     temporal = build_temporal_packet(execution, analyze_execution_receipt(execution))
     packet = build_criterion_fit_packet_v2(execution, temporal, criterion="LIKING")

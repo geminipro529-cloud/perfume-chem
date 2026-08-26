@@ -1,9 +1,31 @@
+from dataclasses import fields
+
 from engine.preference import (
     PairwisePreference,
     PreferenceFitRequest,
     PreferenceFitStatus,
     fit_preference_model,
 )
+
+
+def test_directional_fit_contract_excludes_composition_and_marketing_features():
+    field_names = {
+        field.name
+        for contract in (PairwisePreference, PreferenceFitRequest)
+        for field in fields(contract)
+    }
+
+    assert field_names.isdisjoint(
+        {
+            "oav",
+            "formula",
+            "formula_composition",
+            "luxury",
+            "brand",
+            "price",
+            "perfume_identity",
+        }
+    )
 
 
 def _comparison(left: str, right: str, winner: str) -> PairwisePreference:

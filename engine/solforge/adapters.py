@@ -9,9 +9,6 @@ from pathlib import Path
 from typing import Any
 
 from engine.evidence.augmentation import (
-    DecisionDeltaV1,
-    EvidenceAugmentationState,
-    EvidenceDeltaReceiptV1,
     hold_receipt,
     no_augmentation_receipt,
 )
@@ -22,6 +19,7 @@ from engine.hedonic_evidence import (
     HedonicScope,
     bind_preference_fit_evidence,
     bind_preference_fit_evidence_v2,
+    evaluate_hedonic_augmentation,
     evaluate_hedonic_evidence,
 )
 from engine.perception.architectural_delta import (
@@ -49,6 +47,7 @@ from engine.preference_validation import (
     ClusterBootstrapConfig,
     HeldoutValidationConfig,
     NextPairConstraints,
+    PreferenceDiagnosticsConfig,
     TransitivityConfig,
 )
 from engine.sensory.ledger import (
@@ -1121,7 +1120,7 @@ _HEDONIC_V2_POLICY_SHA256 = sha256_hex(
         {
             "policy": "HEDONIC_PREFERENCE_EXACT_SCOPE_V2",
             "model": "DAVIDSON_V1",
-            "uncertainty": "ASSESSOR_CLUSTER",
+            "uncertainty": "DECLARED_ASSESSOR_OR_SESSION_CLUSTER",
             "validation": "GROUPED_MULTINOMIAL_PROPER_SCORING",
             "selection": "ZERO_OR_ONE_CONSTRAINED_PAIR",
         }
@@ -1268,10 +1267,11 @@ def build_criterion_fit_packet_v2(
         timepoints = {item.time_seconds for item in comparisons}
         if len(timepoints) != 1:
             raise ValueError("V2 liking comparisons must isolate one timepoint")
+        scope = HedonicScope(str(context.get("hedonic_scope", "OWNER")))
         parent_evidence = bind_preference_fit_evidence(
             request,
             fit,
-            scope=HedonicScope(str(context.get("hedonic_scope", "OWNER"))),
+            scope=scope,
             formula_build_sha256=str(context["formula_build_sha256"]),
             sample_sha256=tuple(digest for _, digest in execution.sample_sha256),
             protocol_sha256=protocol_sha256,
@@ -1295,6 +1295,35 @@ def build_criterion_fit_packet_v2(
                 maximum_iterations=request.maximum_iterations,
             ),
         )
+        default_cluster_unit = (
+            "SESSION" if scope is HedonicScope.OWNER else "ASSESSOR"
+        )
+        cluster_unit = str(
+            config_v2.get("cluster_unit", default_cluster_unit)
+        )
+        connected_components = tuple(
+            tuple(str(item) for item in component)
+            for component in config_v2.get("connected_components", ())
+        )
+        exposure_counts = tuple(
+            (str(item), int(count))
+            for item, count in config_v2.get("exposure_counts", ())
+        )
+        forbidden_carryover_pairs = tuple(
+            (str(left), str(right))
+            for left, right in config_v2.get("forbidden_carryover_pairs", ())
+        )
+        first_position_counts = tuple(
+            (str(item), int(count))
+            for item, count in config_v2.get("first_position_counts", ())
+        )
+        pair_observation_counts = tuple(
+            (str(left), str(right), int(count))
+            for left, right, count in config_v2.get(
+                "pair_observation_counts", ()
+            )
+        )
+        maximum_exposure_raw = config_v2.get("maximum_exposure")
         evidence_v2 = bind_preference_fit_evidence_v2(
             parent_evidence,
             davidson_fit=davidson,
@@ -1307,9 +1336,10 @@ def build_criterion_fit_packet_v2(
                 seed=int(config_v2.get("bootstrap_seed", 0)),
                 regularization=request.regularization,
                 maximum_iterations=request.maximum_iterations,
+                cluster_unit=cluster_unit,
             ),
             heldout_config=HeldoutValidationConfig(
-                split_unit=str(config_v2.get("split_unit", "ASSESSOR")),
+                split_unit=str(config_v2.get("split_unit", cluster_unit)),
                 practical_margin=float(config_v2.get("practical_margin", 0.0)),
                 bootstrap_replicates=int(
                     config_v2.get("heldout_bootstrap_replicates", 200)
@@ -1319,27 +1349,59 @@ def build_criterion_fit_packet_v2(
             transitivity_config=TransitivityConfig(),
             eligible_next_pairs=tuple(itertools.combinations(items, 2)),
             next_pair_constraints=NextPairConstraints(
-                decision_resolved=bool(config_v2.get("decision_resolved", False))
+                decision_resolved=bool(config_v2.get("decision_resolved", False)),
+                connected_components=connected_components,
+                exposure_counts=exposure_counts,
+                maximum_exposure=(
+                    None
+                    if maximum_exposure_raw is None
+                    else int(maximum_exposure_raw)
+                ),
+                forbidden_carryover_pairs=forbidden_carryover_pairs,
+                first_position_counts=first_position_counts,
+                pair_observation_counts=pair_observation_counts,
+                exploration_quota_remaining=int(
+                    config_v2.get("exploration_quota_remaining", 0)
+                ),
+            ),
+            diagnostics_config=PreferenceDiagnosticsConfig(
+                cluster_unit=cluster_unit,
+                maximum_order_effect=float(
+                    config_v2.get("maximum_order_effect", 0.25)
+                ),
+                maximum_carryover_effect=float(
+                    config_v2.get("maximum_carryover_effect", 0.25)
+                ),
+                maximum_repeated_exposure_effect=float(
+                    config_v2.get("maximum_repeated_exposure_effect", 0.25)
+                ),
+                maximum_leave_one_cluster_shift=float(
+                    config_v2.get("maximum_leave_one_cluster_shift", 1.0)
+                ),
+                counting_resolution_margin=float(
+                    config_v2.get("counting_resolution_margin", 0.95)
+                ),
+                regularization=request.regularization,
+                maximum_iterations=request.maximum_iterations,
             ),
         )
         safety_events = context.get("safety_events", [])
-        hedonic = evaluate_hedonic_evidence(
-            HedonicEvidenceRequest(
-                criterion_id="LIKING",
-                scope=evidence_v2.scope,
-                formula_build_sha256=evidence_v2.formula_build_sha256,
-                sample_sha256=evidence_v2.sample_sha256,
-                protocol_sha256=evidence_v2.protocol_sha256,
-                assessor_ids=evidence_v2.assessor_ids,
-                repeat_ids=evidence_v2.repeat_ids,
-                time_seconds=evidence_v2.time_seconds,
-                schedule_sha256=evidence_v2.schedule_sha256,
-                fit_receipt=evidence_v2,
-                safety_event_ids=tuple(
-                    str(item.get("event_id")) for item in safety_events
-                ),
-            )
+        hedonic_request = HedonicEvidenceRequest(
+            criterion_id="LIKING",
+            scope=evidence_v2.scope,
+            formula_build_sha256=evidence_v2.formula_build_sha256,
+            sample_sha256=evidence_v2.sample_sha256,
+            protocol_sha256=evidence_v2.protocol_sha256,
+            assessor_ids=evidence_v2.assessor_ids,
+            repeat_ids=evidence_v2.repeat_ids,
+            time_seconds=evidence_v2.time_seconds,
+            schedule_sha256=evidence_v2.schedule_sha256,
+            fit_receipt=evidence_v2,
+            safety_event_ids=tuple(
+                str(item.get("event_id")) for item in safety_events
+            ),
         )
+        hedonic = evaluate_hedonic_evidence(hedonic_request)
     except (KeyError, TypeError, ValueError) as exc:
         return _criterion_v2_hold(
             parent=parent,
@@ -1366,76 +1428,14 @@ def build_criterion_fit_packet_v2(
             }
         )
     )
-    if hedonic.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE:
-        delta = DecisionDeltaV1(
-            delta_id=f"HEDONIC:{execution.record_sha256[:12]}",
-            decision_effect=(
-                "Use the scoped liking utilities and proper held-out validation only "
-                "for the bound protocol population."
-            ),
-            observed_facts=(
-                f"heldout_count={evidence_v2.heldout_validation.heldout_count}",
-                f"tie_rate={fit.tie_rate:.12g}",
-                f"split_unit={evidence_v2.heldout_validation.split_unit}",
-            ),
-            derived_calculations=(
-                "model_family=DAVIDSON_V1",
-                f"log_loss={evidence_v2.heldout_validation.multinomial_log_loss:.12g}",
-                "cluster_method=ASSESSOR_CLUSTER_PERCENTILE",
-            ),
-            hypotheses=(),
-            forbidden_inferences=(
-                "The result is not a universal beauty or formula-composition score.",
-                "The result grants no formula, safety, purchase, release, or runtime authority.",
-            ),
-        )
-        delta_receipt = EvidenceDeltaReceiptV1(
-            module_id="hedonic_preference",
-            exact_scope=f"{execution.record_sha256}/LIKING",
-            state=EvidenceAugmentationState.AUGMENT,
-            input_sha256=input_sha256,
-            evidence_sha256=evidence_v2.record_sha256,
-            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
-            source_binding_sha256=source_bindings,
-            reason_codes=("PROPER_SCOPED_LIKING_EVIDENCE",),
-            delta=delta,
-            blockers=(),
-            next_action=(
-                None
-                if evidence_v2.next_pair.selected_pair is None
-                else "COMPARE:" + ":".join(evidence_v2.next_pair.selected_pair)
-            ),
-        )
-    elif (
-        any("order" in value.casefold() for value in hedonic.blockers)
-        and evidence_v2.next_pair.selected_pair is None
-    ):
-        delta_receipt = no_augmentation_receipt(
-            module_id="hedonic_preference",
-            exact_scope=f"{execution.record_sha256}/LIKING",
-            input_sha256=input_sha256,
-            evidence_sha256=evidence_v2.record_sha256,
-            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
-            source_binding_sha256=source_bindings,
-            reasons=("ORDER_CONFOUND_ALREADY_IDENTIFIED",),
-        )
-    else:
-        blockers = hedonic.blockers or hedonic.limitations or (hedonic.state.value,)
-        delta_receipt = hold_receipt(
-            module_id="hedonic_preference",
-            exact_scope=f"{execution.record_sha256}/LIKING",
-            input_sha256=input_sha256,
-            evidence_sha256=evidence_v2.record_sha256,
-            policy_sha256=_HEDONIC_V2_POLICY_SHA256,
-            source_binding_sha256=source_bindings,
-            reasons=(hedonic.state.value,),
-            blockers=tuple(blockers),
-            next_action=(
-                None
-                if evidence_v2.next_pair.selected_pair is None
-                else "COMPARE:" + ":".join(evidence_v2.next_pair.selected_pair)
-            ),
-        )
+    delta_receipt = evaluate_hedonic_augmentation(
+        request=hedonic_request,
+        result=hedonic,
+        input_sha256=input_sha256,
+        policy_sha256=_HEDONIC_V2_POLICY_SHA256,
+        exact_scope=f"{execution.record_sha256}/LIKING",
+        source_binding_sha256=source_bindings,
+    )
     state = {
         HedonicEvidenceState.VALIDATED_EXACT_SCOPE: "VALIDATED_EXACT_SCOPE",
         HedonicEvidenceState.FAILED_HELDOUT_BASELINE: "FAILED_BASELINE",

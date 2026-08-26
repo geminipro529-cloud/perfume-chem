@@ -7,6 +7,13 @@ from enum import Enum
 from math import isfinite
 from typing import Any, Mapping
 
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    hold_receipt,
+    no_augmentation_receipt,
+)
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.preference import (
     PairwisePreference,
@@ -24,10 +31,13 @@ from engine.preference_validation import (
     HeldoutValidationReceipt,
     NextPairConstraints,
     NextPairReceipt,
+    PreferenceDiagnosticsConfig,
+    PreferenceScopeDiagnosticsV2,
     TransitivityConfig,
     TransitivityReceipt,
     assess_transitivity,
     cluster_bootstrap,
+    diagnose_preference_scope,
     select_next_pair,
     validate_heldout,
 )
@@ -340,6 +350,7 @@ class PreferenceFitEvidenceReceiptV2:
     criterion_wording_sha256: str
     source_transfer_sha256: str
     source_transfer_state: str
+    diagnostics: PreferenceScopeDiagnosticsV2 | None = None
     metadata_missing_codes: tuple[str, ...] = field(init=False)
 
     def __post_init__(self) -> None:
@@ -355,6 +366,12 @@ class PreferenceFitEvidenceReceiptV2:
             raise TypeError("transitivity must be a TransitivityReceipt")
         if not isinstance(self.next_pair, NextPairReceipt):
             raise TypeError("next_pair must be a NextPairReceipt")
+        if self.diagnostics is not None and not isinstance(
+            self.diagnostics, PreferenceScopeDiagnosticsV2
+        ):
+            raise TypeError(
+                "diagnostics must be a PreferenceScopeDiagnosticsV2 or None"
+            )
         for name in (
             "construct_registry_sha256",
             "criterion_wording_sha256",
@@ -481,7 +498,7 @@ class PreferenceFitEvidenceReceiptV2:
         return sha256_hex(canonical_json_bytes(self.as_dict()))
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        payload: dict[str, Any] = {
             "schema_version": "preference_fit_evidence_v2",
             "parent_v1_sha256": self.parent_v1.record_sha256,
             "davidson_fit": self.davidson_fit.as_dict(),
@@ -496,6 +513,9 @@ class PreferenceFitEvidenceReceiptV2:
             "metadata_missing_codes": list(self.metadata_missing_codes),
             "authority": self.authority,
         }
+        if self.diagnostics is not None:
+            payload["diagnostics"] = self.diagnostics.as_dict()
+        return payload
 
 
 def bind_preference_fit_evidence_v2(
@@ -511,6 +531,7 @@ def bind_preference_fit_evidence_v2(
     transitivity_config: TransitivityConfig,
     eligible_next_pairs: tuple[tuple[str, str], ...],
     next_pair_constraints: NextPairConstraints,
+    diagnostics_config: PreferenceDiagnosticsConfig | None = None,
 ) -> PreferenceFitEvidenceReceiptV2:
     """Build all V2 receipts from one frozen V1 parent and Davidson fit."""
 
@@ -532,6 +553,19 @@ def bind_preference_fit_evidence_v2(
         eligible_pairs=eligible_next_pairs,
         constraints=next_pair_constraints,
     )
+    diagnostics = (
+        None
+        if diagnostics_config is None
+        else diagnose_preference_scope(
+            fitted=davidson_fit,
+            training=training,
+            heldout=heldout,
+            cluster_bootstrap_receipt=bootstrap,
+            heldout_validation_receipt=validation,
+            transitivity_receipt=transitivity,
+            config=diagnostics_config,
+        )
+    )
     return PreferenceFitEvidenceReceiptV2(
         parent_v1=parent_v1,
         davidson_fit=davidson_fit,
@@ -543,6 +577,7 @@ def bind_preference_fit_evidence_v2(
         criterion_wording_sha256=criterion_wording_sha256,
         source_transfer_sha256=source_transfer_sha256,
         source_transfer_state=source_transfer_state,
+        diagnostics=diagnostics,
     )
 
 
@@ -686,6 +721,14 @@ def evaluate_hedonic_evidence(
             blockers.append(f"{field_name} does not match the fit receipt")
     if request.safety_event_ids:
         blockers.append("unresolved sensory safety event is present")
+    if request.scope is HedonicScope.OWNER and len(request.assessor_ids) != 1:
+        blockers.append("OWNER_SCOPE_REQUIRES_ONE_ASSESSOR")
+    if (
+        request.scope
+        in {HedonicScope.TRAINED_PANEL, HedonicScope.CONSUMER_POPULATION}
+        and len(request.assessor_ids) < 2
+    ):
+        blockers.append("PANEL_OR_POPULATION_SCOPE_REQUIRES_MULTIPLE_ASSESSORS")
     if not receipt.fit_request.require_scoped_validation:
         blockers.append("fit request did not require scoped validation")
     if (
@@ -704,6 +747,13 @@ def evaluate_hedonic_evidence(
 
     fit = receipt.fit_result
     if isinstance(receipt, PreferenceFitEvidenceReceiptV2):
+        if receipt.diagnostics is None:
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=("PREFERENCE_DIAGNOSTICS_REQUIRED",),
+            )
         if receipt.metadata_missing_codes:
             return _result(
                 request,
@@ -720,6 +770,32 @@ def evaluate_hedonic_evidence(
                 HedonicEvidenceState.INVALID_OR_CONFOUNDED,
                 receipt=receipt,
                 blockers=("SOURCE_TRANSFER_INVALID",),
+            )
+        if receipt.diagnostics.blocker_codes:
+            diagnostic_codes = set(receipt.diagnostics.blocker_codes)
+            if diagnostic_codes.intersection(
+                {"TEMPORAL_CROSSOVER", "NONTRANSITIVE_OR_MISSPECIFIED"}
+            ):
+                return _result(
+                    request,
+                    HedonicEvidenceState.DIAGNOSTIC,
+                    receipt=receipt,
+                    limitations=receipt.diagnostics.blocker_codes,
+                )
+            if diagnostic_codes.intersection(
+                {"DISCONNECTED_GRAPH", "CLUSTER_BOOTSTRAP_UNSTABLE"}
+            ):
+                return _result(
+                    request,
+                    HedonicEvidenceState.INSUFFICIENT_EVIDENCE,
+                    receipt=receipt,
+                    limitations=receipt.diagnostics.blocker_codes,
+                )
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=receipt.diagnostics.blocker_codes,
             )
         if (
             fit.model_family is not PreferenceModelFamily.DAVIDSON_V1
@@ -814,6 +890,140 @@ def evaluate_hedonic_evidence(
     )
 
 
+def _interval_separated_winner(
+    intervals: Mapping[str, tuple[float, float]],
+) -> str | None:
+    winners = tuple(
+        candidate
+        for candidate, candidate_interval in sorted(intervals.items())
+        if all(
+            candidate == other or candidate_interval[0] > other_interval[1]
+            for other, other_interval in intervals.items()
+        )
+    )
+    return winners[0] if len(winners) == 1 else None
+
+
+def evaluate_hedonic_augmentation(
+    *,
+    request: HedonicEvidenceRequest,
+    result: HedonicEvidenceResult,
+    input_sha256: str,
+    policy_sha256: str,
+    exact_scope: str,
+    source_binding_sha256: tuple[str, ...],
+) -> EvidenceDeltaReceiptV1:
+    """Emit only a validated decision delta that simpler evidence cannot supply."""
+
+    receipt = request.fit_receipt
+    evidence_sha256 = (
+        receipt.record_sha256 if receipt is not None else sha256_hex(b"NO_EVIDENCE")
+    )
+    common = {
+        "module_id": "hedonic_preference",
+        "exact_scope": exact_scope,
+        "input_sha256": input_sha256,
+        "evidence_sha256": evidence_sha256,
+        "policy_sha256": policy_sha256,
+        "source_binding_sha256": source_binding_sha256,
+    }
+    result_scope_matches = (
+        result.criterion_id == request.criterion_id
+        and result.scope is request.scope
+        and result.formula_build_sha256 == request.formula_build_sha256
+        and result.fit_receipt_sha256
+        == (receipt.record_sha256 if receipt is not None else None)
+    )
+    if not result_scope_matches:
+        return hold_receipt(
+            **common,
+            reasons=("RESULT_SCOPE_MISMATCH",),
+            blockers=(
+                "Hedonic result does not match the bound augmentation request.",
+            ),
+            next_action=None,
+        )
+    if (
+        result.state is not HedonicEvidenceState.VALIDATED_EXACT_SCOPE
+        or not isinstance(receipt, PreferenceFitEvidenceReceiptV2)
+        or receipt.diagnostics is None
+    ):
+        blockers = result.blockers or result.limitations or (result.state.value,)
+        return hold_receipt(
+            **common,
+            reasons=(result.state.value,),
+            blockers=tuple(blockers),
+            next_action=(
+                None
+                if not isinstance(receipt, PreferenceFitEvidenceReceiptV2)
+                or receipt.next_pair.selected_pair is None
+                else "COMPARE:" + ":".join(receipt.next_pair.selected_pair)
+            ),
+        )
+    if receipt.diagnostics.counting_winner is not None:
+        return no_augmentation_receipt(
+            **common,
+            reasons=("PLAIN_COUNTING_RESOLVED",),
+        )
+    if receipt.next_pair.reason_code == "DECISION_RESOLVED":
+        return no_augmentation_receipt(
+            **common,
+            reasons=("DECLARED_DECISION_ALREADY_RESOLVED",),
+        )
+    if receipt.next_pair.reason_code == "NO_ELIGIBLE_PAIR":
+        return no_augmentation_receipt(
+            **common,
+            reasons=("NO_ADMISSIBLE_NEXT_PAIR",),
+        )
+
+    next_pair = receipt.next_pair.selected_pair
+    winner = _interval_separated_winner(receipt.cluster_bootstrap.utility_intervals)
+    if next_pair is None and winner is None:
+        return no_augmentation_receipt(
+            **common,
+            reasons=("NO_VALIDATED_DECISION_DELTA",),
+        )
+
+    next_action = None if next_pair is None else "COMPARE:" + ":".join(next_pair)
+    decision_effect = (
+        f"Run the one bound comparison {next_pair[0]} versus {next_pair[1]}."
+        if next_pair is not None
+        else f"Retain {winner} as the interval-separated exact-scope liking result."
+    )
+    reason = (
+        "MODEL_SELECTED_DISCRIMINATING_PAIR"
+        if next_pair is not None
+        else "INTERVAL_SEPARATED_EXACT_SCOPE_WINNER"
+    )
+    delta = DecisionDeltaV1(
+        delta_id=f"HEDONIC:{receipt.record_sha256[:12]}",
+        decision_effect=decision_effect,
+        observed_facts=(
+            f"heldout_count={receipt.heldout_validation.heldout_count}",
+            f"tie_rate={result.tie_rate:.12g}",
+            f"split_unit={receipt.heldout_validation.split_unit}",
+        ),
+        derived_calculations=(
+            "model_family=DAVIDSON_V1",
+            f"log_loss={receipt.heldout_validation.multinomial_log_loss:.12g}",
+            f"cluster_method={receipt.cluster_bootstrap.interval_method}",
+        ),
+        hypotheses=(),
+        forbidden_inferences=(
+            "The result is not a universal beauty or formula-composition score.",
+            "The result grants no formula, safety, purchase, release, or runtime authority.",
+        ),
+    )
+    return EvidenceDeltaReceiptV1(
+        **common,
+        state=EvidenceAugmentationState.AUGMENT,
+        reason_codes=(reason,),
+        delta=delta,
+        blockers=(),
+        next_action=next_action,
+    )
+
+
 def _result(
     request: HedonicEvidenceRequest,
     state: HedonicEvidenceState,
@@ -858,5 +1068,6 @@ __all__ = [
     "PreferenceFitEvidenceReceiptV2",
     "bind_preference_fit_evidence",
     "bind_preference_fit_evidence_v2",
+    "evaluate_hedonic_augmentation",
     "evaluate_hedonic_evidence",
 ]

@@ -4,12 +4,14 @@ from dataclasses import replace
 
 import pytest
 
+from engine.evidence.augmentation import EvidenceAugmentationState
 from engine.hedonic_evidence import (
     HedonicEvidenceRequest,
     HedonicEvidenceState,
     HedonicScope,
     bind_preference_fit_evidence,
     bind_preference_fit_evidence_v2,
+    evaluate_hedonic_augmentation,
     evaluate_hedonic_evidence,
 )
 from engine.preference import (
@@ -23,6 +25,7 @@ from engine.preference_validation import (
     ClusterBootstrapConfig,
     HeldoutValidationConfig,
     NextPairConstraints,
+    PreferenceDiagnosticsConfig,
     TransitivityConfig,
 )
 
@@ -152,7 +155,13 @@ def _receipt(
     )
 
 
-def _receipt_v2(request: PreferenceFitRequest | None = None):
+def _receipt_v2(
+    request: PreferenceFitRequest | None = None,
+    *,
+    diagnostics: bool = True,
+    diagnostics_config: PreferenceDiagnosticsConfig | None = None,
+    next_pair_constraints: NextPairConstraints | None = None,
+):
     parent = _receipt(request)
     fit_request = parent.fit_request
     items = tuple(
@@ -185,7 +194,16 @@ def _receipt_v2(request: PreferenceFitRequest | None = None):
         ),
         transitivity_config=TransitivityConfig(),
         eligible_next_pairs=(("A", "B"), ("A", "C"), ("B", "C")),
-        next_pair_constraints=NextPairConstraints(decision_resolved=True),
+        next_pair_constraints=(
+            next_pair_constraints
+            if next_pair_constraints is not None
+            else NextPairConstraints(decision_resolved=True)
+        ),
+        diagnostics_config=(
+            diagnostics_config or PreferenceDiagnosticsConfig()
+            if diagnostics
+            else None
+        ),
     )
 
 
@@ -272,8 +290,146 @@ def test_validated_v2_liking_fit_is_exact_scope_only() -> None:
     assert result.release_authority is False
 
 
+def test_v2_diagnostics_are_required_for_validation() -> None:
+    receipt = _receipt_v2(diagnostics=False)
+    result = evaluate_hedonic_evidence(_request(fit_receipt=receipt))
+
+    assert result.state is HedonicEvidenceState.INVALID_OR_CONFOUNDED
+    assert "PREFERENCE_DIAGNOSTICS_REQUIRED" in result.blockers
+
+
+def test_owner_scope_cannot_claim_a_multi_assessor_population() -> None:
+    receipt = _receipt_v2()
+    owner_receipt = replace(
+        receipt,
+        parent_v1=replace(receipt.parent_v1, scope=HedonicScope.OWNER),
+    )
+    result = evaluate_hedonic_evidence(
+        _request(
+            fit_receipt=owner_receipt,
+            scope=HedonicScope.OWNER,
+        )
+    )
+
+    assert result.state is HedonicEvidenceState.INVALID_OR_CONFOUNDED
+    assert "OWNER_SCOPE_REQUIRES_ONE_ASSESSOR" in result.blockers
+
+
+def _augmentation(receipt):
+    request = _request(fit_receipt=receipt)
+    result = evaluate_hedonic_evidence(request)
+    return evaluate_hedonic_augmentation(
+        request=request,
+        result=result,
+        input_sha256="7" * 64,
+        policy_sha256="8" * 64,
+        exact_scope="formula/LIKING",
+        source_binding_sha256=(receipt.record_sha256,),
+    )
+
+
+def test_plain_counting_resolution_has_no_model_augmentation_value() -> None:
+    receipt = _receipt_v2(
+        diagnostics_config=PreferenceDiagnosticsConfig(
+            counting_resolution_margin=0.5
+        )
+    )
+    assert receipt.diagnostics is not None
+    assert receipt.diagnostics.counting_winner == "A"
+
+    augmentation = _augmentation(receipt)
+
+    assert augmentation.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert augmentation.reason_codes == ("PLAIN_COUNTING_RESOLVED",)
+
+
+def test_declared_resolved_decision_has_no_model_augmentation_value() -> None:
+    augmentation = _augmentation(_receipt_v2())
+
+    assert augmentation.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert augmentation.reason_codes == ("DECLARED_DECISION_ALREADY_RESOLVED",)
+
+
+def test_validated_model_can_select_one_next_comparison() -> None:
+    receipt = _receipt_v2(
+        next_pair_constraints=NextPairConstraints(decision_resolved=False)
+    )
+    assert receipt.next_pair.selected_pair is not None
+
+    augmentation = _augmentation(receipt)
+
+    assert augmentation.state is EvidenceAugmentationState.AUGMENT
+    assert augmentation.next_action == "COMPARE:" + ":".join(
+        receipt.next_pair.selected_pair
+    )
+
+
+def test_no_admissible_pair_and_no_interval_winner_has_no_augmentation() -> None:
+    receipt = _receipt_v2(
+        next_pair_constraints=NextPairConstraints(
+            maximum_exposure=1,
+            exposure_counts=(("A", 1), ("B", 1), ("C", 1)),
+        )
+    )
+    overlapping = replace(
+        receipt,
+        cluster_bootstrap=replace(
+            receipt.cluster_bootstrap,
+            utility_intervals={item: (-1.0, 1.0) for item in ("A", "B", "C")},
+        ),
+    )
+
+    augmentation = _augmentation(overlapping)
+
+    assert overlapping.next_pair.reason_code == "NO_ELIGIBLE_PAIR"
+    assert augmentation.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert augmentation.reason_codes == ("NO_ADMISSIBLE_NEXT_PAIR",)
+
+
+def test_baseline_failure_holds_augmentation() -> None:
+    augmentation = _augmentation(
+        _receipt_v2(
+            _fit_request(opposite_heldout=True),
+            diagnostics_config=PreferenceDiagnosticsConfig(
+                maximum_order_effect=1.0
+            ),
+        )
+    )
+
+    assert augmentation.state is EvidenceAugmentationState.HOLD
+    assert "FAILED_HELDOUT_BASELINE" in augmentation.reason_codes
+
+
+def test_augmentation_rejects_a_result_from_another_scope() -> None:
+    receipt = _receipt_v2(
+        next_pair_constraints=NextPairConstraints(decision_resolved=False)
+    )
+    request = _request(fit_receipt=receipt)
+    result = replace(
+        evaluate_hedonic_evidence(request),
+        formula_build_sha256="9" * 64,
+    )
+
+    augmentation = evaluate_hedonic_augmentation(
+        request=request,
+        result=result,
+        input_sha256="7" * 64,
+        policy_sha256="8" * 64,
+        exact_scope="formula/LIKING",
+        source_binding_sha256=(receipt.record_sha256,),
+    )
+
+    assert augmentation.state is EvidenceAugmentationState.HOLD
+    assert augmentation.reason_codes == ("RESULT_SCOPE_MISMATCH",)
+
+
 def test_v2_failed_lower_bound_and_unstable_bootstrap_do_not_promote() -> None:
-    failed_baseline = _receipt_v2(_fit_request(opposite_heldout=True))
+    failed_baseline = _receipt_v2(
+        _fit_request(opposite_heldout=True),
+        diagnostics_config=PreferenceDiagnosticsConfig(
+            maximum_order_effect=1.0
+        ),
+    )
     baseline_result = evaluate_hedonic_evidence(
         _request(fit_receipt=failed_baseline)
     )

@@ -6,6 +6,7 @@ from engine.preference import (
     PreferenceFitStatus,
     PreferenceModelFamily,
     PreferenceOutcome,
+    _order_effect,
     fit_preference_model,
 )
 
@@ -219,6 +220,16 @@ def test_davidson_result_retains_ties_but_excludes_discrimination_only_rows() ->
         abs(sum(probabilities) - 1.0) < 1e-12
         for probabilities in result.pair_probabilities.values()
     )
+
+
+def test_ties_are_excluded_from_directional_order_effect() -> None:
+    rows = (
+        _scoped("o1", "p1", "A", "B", "A", first="A"),
+        _scoped("o2", "p2", "A", "B", "B", first="B"),
+        _scoped("tie", "p3", "A", "B", None, first="A"),
+    )
+
+    assert _order_effect(rows) == 0.5
 
 
 def test_scoped_validation_rejects_legacy_bradley_terry_family() -> None:
