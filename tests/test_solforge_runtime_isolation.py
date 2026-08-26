@@ -7,6 +7,7 @@ from engine.perception.complexity_registry import ModuleState, load_complexity_r
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_V3 = ROOT / "configs/complexity/complexity_module_registry_v3.json"
+REGISTRY_V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
 
 
 def test_registry_v3_exposes_no_solforge_or_replacement_runtime_imports() -> None:
@@ -20,6 +21,14 @@ def test_registry_v3_exposes_no_solforge_or_replacement_runtime_imports() -> Non
     assert states["architectural-delta-engine"] is ModuleState.EXPERIMENT_COMPILER
     assert states["temporal-sensory-ledger"] is ModuleState.DIAGNOSTIC_ONLY
     assert states["hedonic-preference-learner"] is ModuleState.DIAGNOSTIC_ONLY
+
+
+def test_registry_v4_exposes_no_rebuild_runtime_imports() -> None:
+    registry = load_complexity_registry(ROOT, REGISTRY_V4)
+    assert not any(module.runtime_eligible for module in registry.modules)
+    for module in registry.modules:
+        if module.state is not ModuleState.ADMITTED_RUNTIME:
+            assert module.import_path is None
 
 
 def test_retired_complexity_cards_are_provenance_tombstones() -> None:

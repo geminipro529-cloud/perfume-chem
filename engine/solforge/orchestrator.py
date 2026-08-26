@@ -7,6 +7,11 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+)
 from engine.solforge.adapters import (
     analyze_execution_receipt,
     build_criterion_fit_packet,
@@ -56,6 +61,39 @@ class SolForgeRunState:
     criterion_fit: CriterionFitPacketV1 | None
     decision_receipt: DecisionReceiptV1
     blockers: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class SolFacingEvidenceRoute:
+    """Minimal structured route for one immutable augmentation receipt."""
+
+    receipt_sha256: str
+    state: EvidenceAugmentationState
+    decision_delta: DecisionDeltaV1 | None
+    advisory_text: tuple[str, ...]
+    blockers: tuple[str, ...]
+    forbidden_inference_codes: tuple[str, ...]
+
+
+def route_evidence_delta(receipt: EvidenceDeltaReceiptV1) -> SolFacingEvidenceRoute:
+    """Preserve every receipt while forwarding only an AUGMENT decision delta."""
+
+    if not isinstance(receipt, EvidenceDeltaReceiptV1):
+        raise TypeError("receipt must be an EvidenceDeltaReceiptV1")
+    is_augment = receipt.state is EvidenceAugmentationState.AUGMENT
+    is_hold = receipt.state is EvidenceAugmentationState.HOLD
+    return SolFacingEvidenceRoute(
+        receipt_sha256=receipt.receipt_sha256,
+        state=receipt.state,
+        decision_delta=receipt.delta if is_augment else None,
+        advisory_text=(),
+        blockers=receipt.blockers if is_hold else (),
+        forbidden_inference_codes=(
+            tuple(code for code in receipt.reason_codes if code.startswith("FORBID_"))
+            if is_hold
+            else ()
+        ),
+    )
 
 
 def _decision(
@@ -288,4 +326,10 @@ def run_solforge_shadow(
     )
 
 
-__all__ = ["SolForgeRunState", "SolForgeStage", "run_solforge_shadow"]
+__all__ = [
+    "SolFacingEvidenceRoute",
+    "SolForgeRunState",
+    "SolForgeStage",
+    "route_evidence_delta",
+    "run_solforge_shadow",
+]

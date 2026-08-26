@@ -15,6 +15,7 @@ V2 = ROOT / "configs/complexity/complexity_module_registry_v2.json"
 V3 = ROOT / "configs/complexity/complexity_module_registry_v3.json"
 V1_SHA256 = "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
 V2_SHA256 = "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500"
+V3_SHA256 = "3a52da4de578642f4fd44dd534a6afdf7955cf8edf3f83c8aff6ec8884d43b69"
 
 
 def _copy_registry_project(tmp_path: Path) -> tuple[Path, Path]:
@@ -41,6 +42,7 @@ def _copy_registry_project(tmp_path: Path) -> tuple[Path, Path]:
 def test_v1_and_accepted_v2_bytes_are_frozen() -> None:
     assert hashlib.sha256(V1.read_bytes()).hexdigest() == V1_SHA256
     assert hashlib.sha256(V2.read_bytes()).hexdigest() == V2_SHA256
+    assert hashlib.sha256(V3.read_bytes()).hexdigest() == V3_SHA256
 
 
 def test_v3_loads_as_nonruntime_overlay_with_exact_predecessor_chain() -> None:

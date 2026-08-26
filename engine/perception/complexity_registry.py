@@ -442,6 +442,123 @@ def _load_registry_v3(
     )
 
 
+def _load_registry_v4(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    required = {
+        "schema_version",
+        "base_registry_chain",
+        "module_overrides",
+        "module_additions",
+        "source_bindings",
+        "authority_flags",
+    }
+    if set(payload) != required:
+        raise ValueError("complexity registry v4 top-level keys are closed")
+    chain = payload.get("base_registry_chain")
+    expected_names = [
+        "complexity_module_registry_v1.json",
+        "complexity_module_registry_v2.json",
+        "complexity_module_registry_v3.json",
+    ]
+    if not isinstance(chain, list) or len(chain) != len(expected_names):
+        raise ValueError("base_registry_chain must contain exact V1/V2/V3 parents")
+    chain_paths: list[Path] = []
+    for item in chain:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("base registry chain entries are closed")
+        name = _nonblank(item.get("path"), "base registry path")
+        if Path(name).name != name:
+            raise ValueError("base registry path must be a sibling filename")
+        digest = _nonblank(item.get("sha256"), "base registry sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("base registry sha256 must be lower-case SHA-256")
+        path = registry_path.parent / name
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"base registry hash mismatch: {name}")
+        chain_paths.append(path)
+    if [path.name for path in chain_paths] != expected_names:
+        raise ValueError("base registry chain must be exact V1 then V2 then V3")
+    base = load_complexity_registry(project_root, chain_paths[-1])
+
+    if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
+        raise ValueError("V4 authority flags must be the exact all-false mapping")
+    source_bindings = payload.get("source_bindings")
+    if not isinstance(source_bindings, list) or not source_bindings:
+        raise ValueError("source_bindings must be a nonempty list")
+    bound_paths: set[str] = set()
+    for item in source_bindings:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("source binding entries are closed")
+        relative = _relative_path(item.get("path"), "source binding path")
+        if relative.casefold() in bound_paths:
+            raise ValueError("source binding paths must be unique")
+        bound_paths.add(relative.casefold())
+        digest = _nonblank(item.get("sha256"), "source binding sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("source binding sha256 must be lower-case SHA-256")
+        path = _inside_root(project_root, relative)
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"source binding hash mismatch: {relative}")
+
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    overrides = payload.get("module_overrides")
+    if not isinstance(overrides, list):
+        raise ValueError("module_overrides must be a list")
+    seen: set[str] = set()
+    allowed_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    for override in overrides:
+        if not isinstance(override, dict) or not set(override).issubset(
+            allowed_override_fields
+        ):
+            raise ValueError("module override contains unknown fields")
+        module_id = _nonblank(override.get("module_id"), "module override module_id")
+        if module_id in seen:
+            raise ValueError("module override IDs must be unique")
+        seen.add(module_id)
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown module override: {module_id}")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root, row
+        )
+    additions = payload.get("module_additions")
+    if not isinstance(additions, list):
+        raise ValueError("module_additions must be a list")
+    modules.extend(_module_descriptor_from_row(project_root, row) for row in additions)
+    ids = tuple(item.module_id for item in modules)
+    paths = tuple(item.path.casefold() for item in modules)
+    if len(ids) != len(set(ids)) or len(paths) != len(set(paths)):
+        raise ValueError("module IDs and paths must be unique")
+    if any(
+        module.import_path is not None
+        and module.state is not ModuleState.ADMITTED_RUNTIME
+        for module in modules
+    ):
+        raise ValueError("only ADMITTED_RUNTIME may have a V4 import_path")
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v4",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -449,6 +566,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v4":
+        return _load_registry_v4(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v3":
         return _load_registry_v3(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v2":

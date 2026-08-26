@@ -4,6 +4,13 @@ from dataclasses import replace
 
 import pytest
 
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    hold_receipt,
+    no_augmentation_receipt,
+)
 from engine.solforge.contracts import (
     CompilationState,
     CompiledArmV1,
@@ -17,7 +24,11 @@ from engine.solforge.contracts import (
     TemporalEvidencePacketV1,
 )
 from engine.solforge.governance import GateFoundationPreflight
-from engine.solforge.orchestrator import SolForgeStage, run_solforge_shadow
+from engine.solforge.orchestrator import (
+    SolForgeStage,
+    route_evidence_delta,
+    run_solforge_shadow,
+)
 
 H = "a" * 64
 
@@ -164,3 +175,67 @@ def test_full_path_is_deterministic_and_hash_binds_descendants(monkeypatch) -> N
     monkeypatch.setattr("engine.solforge.orchestrator.build_criterion_fit_packet", lambda *_args, **_kwargs: changed_fit)
     changed = run_solforge_shadow(case, hypotheses, execution=execution)
     assert changed.decision_receipt.record_sha256 != first.decision_receipt.record_sha256
+
+
+def test_no_augmentation_routes_no_prose_but_preserves_receipt_hash() -> None:
+    receipt = no_augmentation_receipt(
+        module_id="architectural_delta",
+        exact_scope="case/target",
+        input_sha256=H,
+        evidence_sha256="b" * 64,
+        policy_sha256="c" * 64,
+        reasons=("QUESTION_ALREADY_RESOLVED",),
+    )
+    route = route_evidence_delta(receipt)
+    assert route.receipt_sha256 == receipt.receipt_sha256
+    assert route.state is EvidenceAugmentationState.NO_AUGMENTATION
+    assert route.decision_delta is None
+    assert route.advisory_text == ()
+    assert route.blockers == ()
+
+
+def test_only_augment_forwards_the_structured_decision_delta() -> None:
+    delta = DecisionDeltaV1(
+        delta_id="D1",
+        decision_effect="Run one isolated constant-total comparison.",
+        observed_facts=("target gap is documented",),
+        derived_calculations=(),
+        hypotheses=("candidate may close the gap",),
+        forbidden_inferences=("No sensory success is established.",),
+    )
+    receipt = EvidenceDeltaReceiptV1(
+        module_id="architectural_delta",
+        exact_scope="case/target",
+        state=EvidenceAugmentationState.AUGMENT,
+        input_sha256=H,
+        evidence_sha256="b" * 64,
+        policy_sha256="c" * 64,
+        source_binding_sha256=("d" * 64,),
+        reason_codes=("NONREDUNDANT_EXPERIMENT",),
+        delta=delta,
+        blockers=(),
+        next_action="COMPARE:CONTROL:TREATMENT",
+    )
+    route = route_evidence_delta(receipt)
+    assert route.decision_delta is delta
+    assert route.advisory_text == ()
+    assert route.blockers == ()
+    assert route.forbidden_inference_codes == ()
+
+
+def test_hold_forwards_only_blockers_and_stable_inference_codes() -> None:
+    receipt = hold_receipt(
+        module_id="temporal_ledger",
+        exact_scope="protocol/sample",
+        input_sha256=H,
+        evidence_sha256="b" * 64,
+        policy_sha256="c" * 64,
+        reasons=("FORBID_INTERPOLATION", "MISSING_CELL"),
+        blockers=("one canonical observation cell is missing",),
+        next_action="OBSERVE:MISSING_CELL",
+    )
+    route = route_evidence_delta(receipt)
+    assert route.decision_delta is None
+    assert route.advisory_text == ()
+    assert route.blockers == receipt.blockers
+    assert route.forbidden_inference_codes == ("FORBID_INTERPOLATION",)
