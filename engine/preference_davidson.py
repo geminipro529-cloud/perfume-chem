@@ -96,7 +96,12 @@ _LIKELIHOOD_OUTCOMES = {
 def _eligible(
     comparisons: tuple[PairwisePreference, ...],
 ) -> tuple[PairwisePreference, ...]:
-    return tuple(row for row in comparisons if row.outcome in _LIKELIHOOD_OUTCOMES)
+    return tuple(
+        sorted(
+            (row for row in comparisons if row.outcome in _LIKELIHOOD_OUTCOMES),
+            key=lambda row: canonical_json_bytes(row.as_dict()),
+        )
+    )
 
 
 def _connected(items: tuple[str, ...], rows: tuple[PairwisePreference, ...]) -> bool:
