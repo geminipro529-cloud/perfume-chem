@@ -37,6 +37,7 @@ VERTICAL_SLICE_AUTHORITY_FLAGS = {
 _V1 = "configs/complexity/complexity_module_registry_v1.json"
 _V2 = "configs/complexity/complexity_module_registry_v2.json"
 _V3 = "configs/complexity/complexity_module_registry_v3.json"
+_GATE_RECEIPT = "data/governance/solforge_gate_foundation_acceptance_v2.json"
 _FIXTURE = "tests/fixtures/solforge/vertical_slice_cases_v1.json"
 _FIXTURE_HASH = "tests/fixtures/solforge/vertical_slice_cases_v1.sha256"
 
@@ -70,13 +71,15 @@ _DEPENDENCY_TESTS = (
 )
 
 VERTICAL_SLICE_FILES = (
+    "backend/poetry.lock",
+    "backend/pyproject.toml",
     "backend/app/schemas/lab.py",
     "backend/app/schemas/solforge.py",
     "backend/tests/test_solforge_schemas.py",
     _V1,
     _V2,
     _V3,
-    "data/governance/solforge_gate_foundation_acceptance_v1.json",
+    _GATE_RECEIPT,
     "engine/evidence_contracts.py",
     "engine/hedonic_evidence.py",
     "engine/perception/architectural_delta.py",
@@ -294,10 +297,12 @@ def _run_checks(project_root: Path) -> tuple[dict[str, object], ...]:
             str(root_temp),
         ],
         [
-            sys.executable,
-            "-m",
+            "poetry",
+            "-C",
+            "backend",
+            "run",
             "pytest",
-            "backend/tests/test_solforge_schemas.py",
+            "tests/test_solforge_schemas.py",
             "-q",
             "-p",
             "no:cacheprovider",

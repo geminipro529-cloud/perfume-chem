@@ -8,10 +8,13 @@ import pytest
 
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.solforge.gate_foundation import GATE_FOUNDATION_FILES
-from engine.solforge.governance import verify_gate_foundation_receipt
+from engine.solforge.governance import (
+    GATE_FOUNDATION_RECEIPT_PATH,
+    verify_gate_foundation_receipt,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
-RECEIPT = Path("data/governance/solforge_gate_foundation_acceptance_v1.json")
+RECEIPT = GATE_FOUNDATION_RECEIPT_PATH
 
 
 def _copy_gate_fixture(tmp_path: Path) -> Path:
@@ -38,7 +41,7 @@ def test_current_gate_foundation_receipt_is_ready() -> None:
     result = verify_gate_foundation_receipt(ROOT)
     assert result.ready is True
     assert result.blockers == ()
-    assert result.acceptance_sha256 == "c1bbde8cba7ae6ed4ee85c3695cf56da56189594e607af135c10a32954dbad0d"
+    assert result.acceptance_sha256 == "c04fb89998105df56a03f4d01f8523ae210a560e0992b7273fef4012dafe2341"
 
 
 def test_solforge_refuses_missing_receipt(tmp_path: Path) -> None:

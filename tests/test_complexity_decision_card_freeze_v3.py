@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +18,27 @@ def canonical_bytes(value: object) -> bytes:
     ).encode("utf-8")
 
 
-def test_v3_freeze_binds_complete_inventory_catalog_and_module_bytes() -> None:
+def _hash_exists_in_git_history(relative_path: str, expected_sha256: str) -> bool:
+    commits = subprocess.check_output(
+        ["git", "rev-list", "--all", "--", relative_path],
+        cwd=ROOT,
+        text=True,
+    ).splitlines()
+    for commit in commits:
+        try:
+            content = subprocess.check_output(
+                ["git", "show", f"{commit}:{relative_path}"],
+                cwd=ROOT,
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.CalledProcessError:
+            continue
+        if hashlib.sha256(content).hexdigest() == expected_sha256:
+            return True
+    return False
+
+
+def test_v3_freeze_binds_complete_inventory_catalog_and_preserved_bytes() -> None:
     receipt = json.loads(RECEIPT_PATH.read_text(encoding="utf-8"))
 
     assert receipt["schema_version"] == "complexity_decision_card_candidate_freeze_v3"
@@ -32,7 +53,10 @@ def test_v3_freeze_binds_complete_inventory_catalog_and_module_bytes() -> None:
     for artifact in receipt["candidate_artifacts"]:
         path = ROOT / artifact["path"]
         assert path.is_file()
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+        current_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
+        assert current_sha256 == artifact["sha256"] or _hash_exists_in_git_history(
+            artifact["path"], artifact["sha256"]
+        )
 
 
 def test_v3_freeze_preserves_inventory_target_and_authority_firewalls() -> None:

@@ -7,7 +7,7 @@
   "runtime_bindings": [
     {
       "path": "engine/perception/complexity_registry.py",
-      "sha256": "e394dca7ac8a6a23db74c06b11b5b6f7b1d514e3781e04af1a5c1c8b6d4e3d22"
+      "sha256": "b074dcc82e67e906c062bdb0e46859402e43daf2ec6b1fc16fadcf09c11de7b0"
     },
     {
       "path": "engine/solforge/runtime.py",
@@ -15,7 +15,7 @@
     },
     {
       "path": "scripts/intervention_recommend.py",
-      "sha256": "f69139eeaf919bc0ee386c29b1b7bcc362a099bb196e178cfec72f710889c51b"
+      "sha256": "abcf6f2f21ea965aedde8f0de531db08058005bcef2b4b57ed1872fb9b59c727"
     }
   ],
   "module_overrides": [
@@ -71,6 +71,17 @@
       "notes": [
         "Stopped after screening because it tied plain Sol 5.6 xhigh on two cases and won only the order-confound trap.",
         "Davidson, clustered validation, and evidence-gate utilities remain provenance and compatibility code; no complexity runtime import is exposed."
+      ]
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "cc0c789b6930aee2f1043c0c9e8e4a7e5ee319bbea71e419aa377f9c0d623b89",
+      "evidence_refs": [],
+      "notes": [
+        "Exact current source bytes are rebound only in this additive overlay; every frozen predecessor remains unchanged.",
+        "This future evidence module remains nonruntime and grants no musk-selection, formula, sensory, hedonic, safety, or release authority."
       ]
     }
   ],

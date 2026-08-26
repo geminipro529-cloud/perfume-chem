@@ -1,21 +1,39 @@
 # C0 fixture bytes are a canonical SHA-locked regression artifact.
+/.gitattributes text eol=lf
 /tests/fixtures/c0_legacy_physical_model_cases.json text eol=lf
 /tests/fixtures/c0_legacy_physical_model_cases.sha256 text eol=lf
 
 # Complexity governance receipts bind exact bytes and must not drift by host OS.
 /configs/complexity/*.json text eol=lf
 /configs/complexity/*.sha256 text eol=lf
+/configs/solforge/** text eol=lf
+/data/benchmarks/solforge/** text eol=lf
 /data/governance/complexity*.json text eol=lf
+/data/governance/solforge*.json text eol=lf
+/data/research/solforge/** text eol=lf
 /docs/superpowers/plans/*complexity*.md text eol=lf
 /docs/superpowers/specs/*complexity*.md text eol=lf
 /engine/perception/*.py text eol=lf
+/engine/evidence/augmentation.py text eol=lf
+/engine/evidence/*.py text eol=lf
+/engine/evidence_contracts.py text eol=lf
+/engine/hedonic_evidence.py text eol=lf
+/engine/optimizer/*.py text eol=lf
+/engine/pipeline/*.py text eol=lf
 /engine/physics/model_lifecycle.py text eol=lf
 /engine/preference.py text eol=lf
+/engine/preference_davidson.py text eol=lf
+/engine/preference_validation.py text eol=lf
 /engine/scientific_validation/complexity*.py text eol=lf
 /engine/sensory/*.py text eol=lf
+/engine/solforge/*.py text eol=lf
 /future_modules/*.py text eol=lf
 /incoming_review/*Complexity*.md text eol=lf
 /tests/fixtures/complexity*.json text eol=lf
 /tests/fixtures/complexity*.sha256 text eol=lf
+/scripts/intervention_recommend.py text eol=lf
+/scripts/*.py text eol=lf
+/tests/fixtures/solforge/** text eol=lf
+/tests/*.py text eol=lf
 /tests/test_complexity*.py text eol=lf
 /tests/test_perceptual_topology.py text eol=lf

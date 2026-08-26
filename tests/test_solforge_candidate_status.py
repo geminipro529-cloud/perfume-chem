@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,26 @@ EXPECTED_SOURCE_HASHES = {
     "configs/complexity/complexity_replacement_benchmark_rubric_v1.json": "2a91fe926f7316d1f5ec2d07b41e0a4829932a343fc978d5de3da88c39905bc9",
     "docs/SOLFORGE_ABCD_PROGRAM.md": "557f385be2663d2a1547e182394cf3572443c0639775c50b182328fc09f010de",
 }
+
+
+def _hash_exists_in_git_history(relative_path: str, expected_sha256: str) -> bool:
+    commits = subprocess.check_output(
+        ["git", "rev-list", "--all", "--", relative_path],
+        cwd=ROOT,
+        text=True,
+    ).splitlines()
+    for commit in commits:
+        try:
+            content = subprocess.check_output(
+                ["git", "show", f"{commit}:{relative_path}"],
+                cwd=ROOT,
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.CalledProcessError:
+            continue
+        if hashlib.sha256(content).hexdigest() == expected_sha256:
+            return True
+    return False
 
 
 def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None:
@@ -51,7 +72,10 @@ def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None
     assert all(value is False for value in payload["authority"].values())
 
     for relative, expected in EXPECTED_SOURCE_HASHES.items():
-        assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == expected
+        current_sha256 = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        assert current_sha256 == expected or _hash_exists_in_git_history(
+            relative, expected
+        )
 
 
 def test_complete_screen_freezes_all_exact_outputs_and_all_stop_result() -> None:

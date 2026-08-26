@@ -1,14 +1,29 @@
 """Tests for the knowledge-base query APIs.
 
 Covers both ``engine.knowledge_base`` (material queries) and
-``engine.kb_rules_api`` (rules queries) against the live SQLite
-database at ``data/perfumery_kb.db``.
+``engine.kb_rules_api`` (rules queries) against a disposable SQLite
+database rebuilt from the tracked knowledge sources.
 """
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import pytest
+
 from engine import kb_rules_api as rules
 from engine import knowledge_base as kb
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _use_generated_knowledge_db(generated_knowledge_db: Path):
+    """Point read-only query APIs at the deterministic verification database."""
+
+    patch = pytest.MonkeyPatch()
+    patch.setattr(kb, "_DB_PATH", generated_knowledge_db)
+    patch.setattr(rules, "_DB_PATH", generated_knowledge_db)
+    yield
+    patch.undo()
 
 
 def test_query_connections_are_explicitly_read_only() -> None:
@@ -30,7 +45,7 @@ class TestGetMaterial:
         mat = kb.get_material("Hedione")
         assert mat is not None
         assert mat["canonical_name"] == "Hedione"
-        assert mat["vp_25c_pa"] == 0.21
+        assert mat["vp_25c_pa"] == 0.09466
 
     def test_get_material_none(self) -> None:
         """Unknown material returns None."""
@@ -76,9 +91,9 @@ class TestGetMaterialVp:
     """Tests for ``knowledge_base.get_material_vp``."""
 
     def test_hedione_vp(self) -> None:
-        """Hedione VP must be 0.21."""
+        """Hedione VP must match the tracked EP 3141239 B1 value."""
         vp = kb.get_material_vp("Hedione")
-        assert vp == 0.21
+        assert vp == 0.09466
 
     def test_unknown_returns_none(self) -> None:
         """Unknown material returns None."""

@@ -142,12 +142,19 @@ def test_replacement_modules_remain_unreachable_until_new_xhigh_admission() -> N
     assert runtime_ids == {"complexity-experimental-design"}
 
 
-def test_repository_census_has_exactly_one_classification_per_finding() -> None:
+def test_frozen_v2_census_records_superseded_source_drift() -> None:
     registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
     result = census_complexity_artifacts(PROJECT_ROOT, registry)
     assert result.multiply_classified == ()
+    assert result.state == "HOLD"
+    assert {
+        "engine/hedonic_evidence.py",
+        "engine/perception/architectural_delta.py",
+        "engine/preference.py",
+        "engine/sensory/ledger.py",
+        "future_modules/advanced_musk_intelligence.py",
+    }.issubset(set(result.hash_drift))
     assert result.unclassified == ()
-    assert result.state == "PASS"
 
 
 def test_registry_rejects_paths_outside_the_project(tmp_path: Path) -> None:

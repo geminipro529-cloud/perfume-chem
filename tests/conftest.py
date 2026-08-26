@@ -3,8 +3,10 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pytest
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-PYTEST_TEMP_ROOT = PROJECT_ROOT / "output" / "pytest-temp"
+PYTEST_TEMP_ROOT = Path(tempfile.gettempdir()) / f"perfume-chem-pytest-{os.getpid()}"
 PYTEST_TEMP_ROOT.mkdir(parents=True, exist_ok=True)
 os.environ["TEMP"] = str(PYTEST_TEMP_ROOT)
 os.environ["TMP"] = str(PYTEST_TEMP_ROOT)
@@ -16,3 +18,19 @@ os.environ.setdefault(
     "PERFUME_PIPELINE_AUDIT_PATH",
     str(Path(tempfile.gettempdir()) / "perfume_chem_pytest_pipeline_audit.jsonl"),
 )
+
+
+@pytest.fixture(scope="session")
+def generated_knowledge_db(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Build a disposable KB from tracked sources for query validation only."""
+
+    from engine.kb_migrate import migrate
+
+    database = tmp_path_factory.mktemp("generated-kb") / "perfumery_kb.db"
+    previous_directory = Path.cwd()
+    try:
+        os.chdir(PROJECT_ROOT)
+        migrate(str(database))
+    finally:
+        os.chdir(previous_directory)
+    return database

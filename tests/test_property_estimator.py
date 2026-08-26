@@ -34,6 +34,16 @@ from engine.property_estimator import (  # noqa: E402
     validate_vp_estimates,
 )
 
+
+@pytest.fixture(scope="module", autouse=True)
+def _use_generated_knowledge_db(generated_knowledge_db: Path):
+    """Use tracked-source test data without copying the authority database."""
+
+    patch = pytest.MonkeyPatch()
+    patch.setattr(property_estimator, "_KB_PATH", generated_knowledge_db)
+    yield
+    patch.undo()
+
 # ===================================================================
 # 1.  VP estimation — basic smoke tests
 # ===================================================================

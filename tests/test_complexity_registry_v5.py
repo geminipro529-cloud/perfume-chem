@@ -8,7 +8,11 @@ from pathlib import Path
 
 import pytest
 
-from engine.perception.complexity_registry import ModuleState, load_complexity_registry
+from engine.perception.complexity_registry import (
+    ModuleState,
+    census_complexity_artifacts,
+    load_complexity_registry,
+)
 from tests.test_complexity_registry_v4 import _copy_registry_project
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,6 +74,16 @@ def test_v5_binds_every_public_runtime_wiring_file() -> None:
         assert hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest() == item[
             "sha256"
         ]
+
+
+def test_v5_current_repository_census_is_complete() -> None:
+    registry = load_complexity_registry(ROOT, V5)
+    result = census_complexity_artifacts(ROOT, registry)
+    assert result.state == "PASS"
+    assert result.hash_drift == ()
+    assert result.missing == ()
+    assert result.unclassified == ()
+    assert result.multiply_classified == ()
 
 
 def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:

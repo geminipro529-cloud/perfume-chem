@@ -714,6 +714,7 @@ def _load_registry_v5(
     index_by_id = {item.module_id: index for index, item in enumerate(modules)}
     overrides = payload.get("module_overrides")
     expected_override_ids = {
+        "advanced-musk-intelligence",
         "architectural-delta-engine",
         "temporal-sensory-ledger",
         "hedonic-preference-learner",
@@ -721,7 +722,10 @@ def _load_registry_v5(
     if not isinstance(overrides, list) or {
         item.get("module_id") for item in overrides if isinstance(item, dict)
     } != expected_override_ids:
-        raise ValueError("V5 module overrides must cover the three replacements exactly")
+        raise ValueError(
+            "V5 module overrides must cover the three replacements and the "
+            "nonruntime musk provenance rebind exactly"
+        )
     allowed_override_fields = {
         "module_id",
         "state",
@@ -759,6 +763,13 @@ def _load_registry_v5(
             or module.import_path is not None
         ):
             raise ValueError("V5 underperformers must remain runtime-unreachable")
+    advanced_musk = modules[index_by_id["advanced-musk-intelligence"]]
+    if (
+        advanced_musk.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+        or advanced_musk.import_path is not None
+        or advanced_musk.runtime_eligible
+    ):
+        raise ValueError("V5 musk provenance rebind must remain runtime-unreachable")
     return ComplexityRegistry(
         schema_version="complexity_module_registry_v5",
         discovery=base.discovery,
