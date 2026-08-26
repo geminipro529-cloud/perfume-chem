@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from pathlib import Path
+
+import pytest
 
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.sensory.ledger import (
@@ -15,8 +18,18 @@ from engine.solforge.adapters import (
     build_criterion_fit_packet,
     build_criterion_fit_packet_v2,
     build_temporal_packet,
+    preference_request_from_protocol_v2,
+    temporal_request_from_protocol_v2,
 )
 from engine.solforge.contracts import ExecutionReceiptV1
+from engine.solforge.protocols import (
+    PreregisteredProtocolV2,
+    build_protocol_v2,
+    load_protocol_templates_v2,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+TEMPLATES_V2 = ROOT / "data/research/solforge/protocol_templates_v2.json"
 
 H = "a" * 64
 
@@ -89,6 +102,75 @@ def _execution(**context_changes) -> ExecutionReceiptV1:
         execution_context=context,
         sample_sha256=(("CONTROL", "c" * 64), ("TREATMENT", "d" * 64)),
         deviations=(), test_only=True,
+    )
+
+
+def _protocol_v2(template_id: str) -> PreregisteredProtocolV2:
+    template = next(
+        item
+        for item in load_protocol_templates_v2(TEMPLATES_V2)
+        if item.template_id == template_id
+    )
+    return build_protocol_v2(
+        template,
+        {
+            "program_sha256": "a" * 64,
+            "formula_build_sha256": "f" * 64,
+            "dose_receipt_sha256": "b" * 64,
+            "inventory_sha256": "c" * 64,
+            "execution_plan_sha256": H,
+            "deviation_policy_sha256": "9" * 64,
+            "sample_sha256": {"CONTROL": "c" * 64, "TREATMENT": "d" * 64},
+            "participant_scope": "OWNER",
+            "assessor_ids": ["A1"],
+            "repeat_ids": ["R1", "R2"],
+            "session_ids": ["S1", "S2"],
+            "timepoints_seconds": [0.0, 3600.0],
+            "apparatus_id": "QUALIFIED-BLOTTER-RACK",
+            "apparatus_qualification_sha256": "8" * 64,
+            "within_sniff": False,
+        },
+    )
+
+
+def _execution_v2(
+    protocol: PreregisteredProtocolV2,
+    **context_changes,
+) -> ExecutionReceiptV1:
+    context = {
+        "protocol_v2_sha256": protocol.record_sha256,
+        "formula_build_sha256": protocol.formula_build_sha256,
+        "schedule_sha256": protocol.schedule_sha256,
+        "participant_scope": protocol.participant_scope.value,
+        "assessor_ids": list(protocol.assessor_ids),
+        "repeat_ids": list(protocol.repeat_ids),
+        "session_ids": list(protocol.session_ids),
+        "session_sequence_ids": [list(item) for item in protocol.session_sequence_ids],
+        "timepoints_seconds": list(protocol.timepoints_seconds),
+        "endpoint_ids": [
+            protocol.primary_endpoint.value,
+            *(item.value for item in protocol.secondary_endpoints),
+        ],
+        "deviation_policy_sha256": protocol.deviation_policy_sha256,
+        "washout_seconds": protocol.washout_seconds,
+        "maximum_exposures_per_session": protocol.maximum_exposures_per_session,
+        "apparatus_id": protocol.apparatus_id,
+        "apparatus_qualification_sha256": protocol.apparatus_qualification_sha256,
+        "timing_protocol_sha256": protocol.timing_protocol_sha256,
+        "stopping_rule": protocol.stopping_rule,
+        "safety_stop": protocol.safety_stop,
+        "observations": [],
+        "safety_events": [],
+        "comparisons": [],
+    }
+    context.update(context_changes)
+    return ExecutionReceiptV1(
+        compiled_experiment_sha256=protocol.execution_plan_sha256,
+        executor="SYNTHETIC_FIXTURE",
+        execution_context=context,
+        sample_sha256=protocol.sample_sha256,
+        deviations=(),
+        test_only=True,
     )
 
 
@@ -333,3 +415,127 @@ def test_v2_liking_adapter_binds_proper_validation_and_delta_receipts() -> None:
     assert packet.cluster_bootstrap_sha256 is not None
     assert packet.evidence_delta_receipt.state.value == "AUGMENT"
     assert set(packet.evidence_delta_receipt.authority.values()) == {False}
+
+
+def test_protocol_v2_temporal_adapter_never_invents_observations() -> None:
+    protocol = _protocol_v2("TEMPORAL-EVIDENCE-V2")
+    execution = _execution_v2(protocol)
+    request = temporal_request_from_protocol_v2(
+        protocol,
+        execution,
+        allow_test_only=True,
+    )
+
+    assert request.cells == ()
+    assert request.safety_events == ()
+    assert request.scope.protocol_id == protocol.protocol_id
+    assert request.scope.sample_ids == ("CONTROL", "TREATMENT")
+    assert request.scope.assessor_ids == ("A1",)
+    assert request.scope.repeat_ids == ("R1", "R2")
+    assert request.scope.timepoints_seconds == (0.0, 3600.0)
+    assert request.schedule.schedule_sha256 == protocol.schedule_sha256
+
+
+def test_protocol_v2_preference_adapter_never_invents_comparisons() -> None:
+    protocol = _protocol_v2("PAIRWISE-LIKING-V2")
+    execution = _execution_v2(protocol)
+    request = preference_request_from_protocol_v2(
+        protocol,
+        execution,
+        criterion="LIKING",
+        allow_test_only=True,
+    )
+
+    assert request.training == ()
+    assert request.heldout == ()
+    assert request.criterion_id == "LIKING"
+    assert request.require_scoped_validation is True
+    assert request.declared_baseline_accuracy == protocol.declared_baseline_accuracy
+    assert request.bootstrap_seed == protocol.bootstrap_seed
+
+
+def test_protocol_v2_adapter_rejects_scope_drift_deviation_and_synthetic_promotion() -> None:
+    protocol = _protocol_v2("TEMPORAL-EVIDENCE-V2")
+    execution = _execution_v2(protocol)
+    with pytest.raises(ValueError, match="test-only"):
+        temporal_request_from_protocol_v2(protocol, execution)
+
+    drifted = _execution_v2(protocol, participant_scope="TRAINED_PANEL")
+    with pytest.raises(ValueError, match="participant_scope"):
+        temporal_request_from_protocol_v2(
+            protocol,
+            drifted,
+            allow_test_only=True,
+        )
+
+    washout_drift = _execution_v2(protocol, washout_seconds=0.0)
+    with pytest.raises(ValueError, match="washout_seconds"):
+        temporal_request_from_protocol_v2(
+            protocol,
+            washout_drift,
+            allow_test_only=True,
+        )
+
+    deviated = replace(execution, deviations=("UNDECLARED_TIMING_CHANGE",))
+    with pytest.raises(ValueError, match="deviation"):
+        temporal_request_from_protocol_v2(
+            protocol,
+            deviated,
+            allow_test_only=True,
+        )
+
+
+def test_protocol_v2_preference_adapter_rejects_criterion_mixing() -> None:
+    protocol = _protocol_v2("PAIRWISE-LIKING-V2")
+    comparison = {
+        "left_item": "CONTROL",
+        "right_item": "TREATMENT",
+        "preferred_item": "TREATMENT",
+        "comparison_id": "C1",
+        "assessor_id": "A1",
+        "protocol_id": protocol.protocol_id,
+        "criterion_id": "DEPTH",
+        "time_seconds": 0.0,
+        "first_presented_item": "CONTROL",
+        "session_id": "S1",
+        "partition": "training",
+    }
+    execution = _execution_v2(protocol, comparisons=[comparison])
+
+    with pytest.raises(ValueError, match="criterion"):
+        preference_request_from_protocol_v2(
+            protocol,
+            execution,
+            criterion="LIKING",
+            allow_test_only=True,
+        )
+
+
+def test_protocol_v2_preference_adapter_rejects_heldout_unit_leakage() -> None:
+    protocol = _protocol_v2("PAIRWISE-LIKING-V2")
+    base = {
+        "left_item": "CONTROL",
+        "right_item": "TREATMENT",
+        "preferred_item": "TREATMENT",
+        "assessor_id": "A1",
+        "protocol_id": protocol.protocol_id,
+        "criterion_id": "LIKING",
+        "time_seconds": 0.0,
+        "first_presented_item": "CONTROL",
+        "session_id": "S1",
+    }
+    execution = _execution_v2(
+        protocol,
+        comparisons=[
+            {**base, "comparison_id": "C1", "partition": "training"},
+            {**base, "comparison_id": "C2", "partition": "heldout"},
+        ],
+    )
+
+    with pytest.raises(ValueError, match="heldout split leaks"):
+        preference_request_from_protocol_v2(
+            protocol,
+            execution,
+            criterion="LIKING",
+            allow_test_only=True,
+        )

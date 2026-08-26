@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from dataclasses import replace
 from pathlib import Path
 
@@ -8,16 +9,28 @@ import pytest
 
 from engine.solforge.protocols import (
     PROTOCOL_AUTHORITY_FLAGS,
+    ParticipantScopeV2,
     PhysicalEvidenceIntakeError,
+    PreregisteredProtocolV1,
+    PreregisteredProtocolV2,
+    ProtocolAnalysisUnitV2,
     ProtocolDesignClass,
+    ProtocolEndpointV2,
     build_protocol,
+    build_protocol_v2,
     ingest_physical_results,
     load_protocol_templates,
+    load_protocol_templates_v2,
     validate_protocol,
+    validate_protocol_v2,
+)
+from engine.solforge.protocols import (
+    main as protocol_main,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES = ROOT / "data/research/solforge/protocol_templates_v1.json"
+TEMPLATES_V2 = ROOT / "data/research/solforge/protocol_templates_v2.json"
 
 
 def _bindings() -> dict[str, object]:
@@ -32,6 +45,37 @@ def _bindings() -> dict[str, object]:
             "B": "3" * 64,
             "A_X_B": "4" * 64,
         },
+    }
+
+
+def _bindings_v2(
+    *,
+    participant_scope: str = "OWNER",
+    assessor_ids: list[str] | None = None,
+    within_sniff: bool = False,
+) -> dict[str, object]:
+    assessors = assessor_ids or (["OWNER-1"] if participant_scope == "OWNER" else ["A1", "A2"])
+    return {
+        "program_sha256": "a" * 64,
+        "formula_build_sha256": "b" * 64,
+        "dose_receipt_sha256": "c" * 64,
+        "inventory_sha256": "d" * 64,
+        "execution_plan_sha256": "e" * 64,
+        "deviation_policy_sha256": "f" * 64,
+        "sample_sha256": {"CONTROL": "1" * 64, "TREATMENT": "2" * 64},
+        "participant_scope": participant_scope,
+        "assessor_ids": assessors,
+        "repeat_ids": ["R1", "R2"],
+        "session_ids": ["S1", "S2"],
+        "timepoints_seconds": [0.0, 3600.0],
+        "apparatus_id": "QUALIFIED-BLOTTER-RACK",
+        "apparatus_qualification_sha256": "3" * 64,
+        "within_sniff": within_sniff,
+        "within_sniff_apparatus_qualified": within_sniff,
+        "within_sniff_timing_protocol_qualified": within_sniff,
+        "timing_protocol_sha256": "4" * 64 if within_sniff else None,
+        "timing_clock_source": "MONOTONIC-LAB-CLOCK" if within_sniff else None,
+        "timing_tolerance_ms": 50.0 if within_sniff else None,
     }
 
 
@@ -129,3 +173,149 @@ def test_missing_observations_remain_missing_in_physical_intake() -> None:
 def test_template_file_has_closed_nonauthority() -> None:
     payload = json.loads(TEMPLATES.read_text(encoding="utf-8"))
     assert payload["authority_flags"] == PROTOCOL_AUTHORITY_FLAGS
+
+
+def test_v2_templates_cover_each_separate_endpoint_and_no_authority() -> None:
+    templates = load_protocol_templates_v2(TEMPLATES_V2)
+    endpoints = {
+        endpoint
+        for template in templates
+        for endpoint in (template.primary_endpoint, *template.secondary_endpoints)
+    }
+
+    assert endpoints == set(ProtocolEndpointV2)
+    assert json.loads(TEMPLATES_V2.read_text(encoding="utf-8"))["authority_flags"] == (
+        PROTOCOL_AUTHORITY_FLAGS
+    )
+
+
+def test_v2_build_is_deterministic_closed_and_round_trips() -> None:
+    template = load_protocol_templates_v2(TEMPLATES_V2)[0]
+    first = build_protocol_v2(template, _bindings_v2())
+    second = build_protocol_v2(template, _bindings_v2())
+    payload = first.as_dict()
+
+    assert first.canonical_bytes() == second.canonical_bytes()
+    assert PreregisteredProtocolV2.from_dict(payload) == first
+    assert validate_protocol_v2(first) == ()
+    assert payload["authority_flags"] == PROTOCOL_AUTHORITY_FLAGS
+    assert first.participant_scope is ParticipantScopeV2.OWNER
+    assert first.assessor_ids == ("OWNER-1",)
+    assert first.repeat_ids == ("R1", "R2")
+    assert first.session_ids == ("S1", "S2")
+    assert first.session_sequence_ids == (
+        ("S1", "SEQUENCE-1"),
+        ("S2", "SEQUENCE-2"),
+    )
+    assert first.timepoints_seconds == (0.0, 3600.0)
+    assert first.schedule_sequences
+    assert first.apparatus_id == "QUALIFIED-BLOTTER-RACK"
+    assert first.deviation_policy_sha256 == "f" * 64
+
+
+def test_v2_scope_leakage_and_criterion_collapse_fail_closed() -> None:
+    template = load_protocol_templates_v2(TEMPLATES_V2)[0]
+    with pytest.raises(ValueError, match="OWNER scope requires exactly one assessor"):
+        build_protocol_v2(
+            template,
+            _bindings_v2(assessor_ids=["OWNER-1", "OWNER-2"]),
+        )
+    with pytest.raises(ValueError, match="panel and consumer scopes require"):
+        build_protocol_v2(
+            template,
+            _bindings_v2(participant_scope="TRAINED_PANEL", assessor_ids=["A1"]),
+        )
+
+    protocol = build_protocol_v2(template, _bindings_v2())
+    collapsed = replace(
+        protocol,
+        secondary_endpoints=(protocol.primary_endpoint,),
+    )
+    assert any("primary and secondary endpoints" in issue for issue in validate_protocol_v2(collapsed))
+
+
+def test_v2_counterbalance_repeats_heldout_and_exposure_fail_closed() -> None:
+    protocol = build_protocol_v2(
+        load_protocol_templates_v2(TEMPLATES_V2)[0],
+        _bindings_v2(),
+    )
+    bad_schedule = replace(protocol, schedule_sha256="0" * 64)
+    missing_schedule = replace(protocol, schedule_sequences=())
+    one_repeat = replace(protocol, repeat_ids=("R1",), repeat_count=1)
+    bad_heldout = replace(protocol, heldout_unit=ProtocolAnalysisUnitV2.ASSESSOR)
+    unsafe = replace(protocol, maximum_exposures_per_session=0)
+
+    assert any("Williams" in issue for issue in validate_protocol_v2(bad_schedule))
+    assert any("Williams" in issue for issue in validate_protocol_v2(missing_schedule))
+    assert any("at least two repeats" in issue for issue in validate_protocol_v2(one_repeat))
+    assert any("OWNER heldout unit" in issue for issue in validate_protocol_v2(bad_heldout))
+    assert any("exposure" in issue for issue in validate_protocol_v2(unsafe))
+
+
+def test_v2_within_sniff_requires_qualified_apparatus_and_timing() -> None:
+    template = load_protocol_templates_v2(TEMPLATES_V2)[0]
+    bad = _bindings_v2(within_sniff=True)
+    bad["within_sniff_timing_protocol_qualified"] = False
+    with pytest.raises(ValueError, match="within-sniff"):
+        build_protocol_v2(template, bad)
+
+    qualified = build_protocol_v2(template, _bindings_v2(within_sniff=True))
+    assert qualified.within_sniff is True
+    assert qualified.timing_protocol_sha256 == "4" * 64
+    assert qualified.timing_tolerance_ms == 50.0
+
+
+def test_v2_rejects_post_outcome_status_edit_and_preserves_v1_bytes() -> None:
+    v1 = build_protocol(load_protocol_templates(TEMPLATES)[0], _bindings())
+    frozen_v1 = v1.canonical_bytes()
+    v1_round_trip = PreregisteredProtocolV1.from_dict(v1.as_dict())
+    v2 = build_protocol_v2(
+        load_protocol_templates_v2(TEMPLATES_V2)[0],
+        _bindings_v2(),
+    )
+    payload = v2.as_dict()
+    payload["status"] = "OBSERVED"
+
+    with pytest.raises(ValueError, match="PREREGISTERED_NOT_EXECUTED"):
+        PreregisteredProtocolV2.from_dict(payload)
+    assert v1_round_trip.canonical_bytes() == frozen_v1
+
+
+def test_v2_cli_builds_and_validates_through_existing_module(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    bindings_path = tmp_path / "bindings.json"
+    protocol_path = tmp_path / "protocol-v2.json"
+    bindings_path.write_text(
+        json.dumps(_bindings_v2(), sort_keys=True),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "protocols",
+            "build-v2",
+            "--templates",
+            str(TEMPLATES_V2),
+            "--template-id",
+            "TEMPORAL-EVIDENCE-V2",
+            "--bindings",
+            str(bindings_path),
+            "--output",
+            str(protocol_path),
+        ],
+    )
+    assert protocol_main() == 0
+    built = PreregisteredProtocolV2.from_dict(
+        json.loads(protocol_path.read_text(encoding="utf-8"))
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["protocols", "validate-v2", "--protocol", str(protocol_path)],
+    )
+    assert protocol_main() == 0
+    assert validate_protocol_v2(built) == ()

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import itertools
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -40,6 +41,7 @@ from engine.preference import (
     PairwisePreference,
     PreferenceFitRequest,
     PreferenceFitStatus,
+    PreferenceModelFamily,
     fit_preference_model,
 )
 from engine.preference_davidson import DavidsonFitConfig, fit_davidson
@@ -75,6 +77,12 @@ from engine.solforge.contracts import (
     TemporalEvidencePacketV1,
 )
 from engine.solforge.hypotheses import validate_hypothesis_set
+from engine.solforge.protocols import (
+    PreregisteredProtocolV2,
+    ProtocolAnalysisUnitV2,
+    ProtocolEndpointV2,
+    bind_protocol_execution_v2,
+)
 
 _EXCEPTION_MUSKS = ("tonalide", "macrolide", "musk ketone")
 _MUSK_MARKERS = (
@@ -554,6 +562,228 @@ def _execution_context(execution: ExecutionReceiptV1) -> dict[str, Any]:
     if not isinstance(context, dict):
         raise ValueError("execution_context must be a JSON object")
     return context
+
+
+def _bound_v2_context(
+    protocol: PreregisteredProtocolV2,
+    execution: ExecutionReceiptV1,
+    *,
+    allow_test_only: bool,
+) -> dict[str, Any]:
+    binding = bind_protocol_execution_v2(
+        protocol,
+        execution,
+        allow_test_only=allow_test_only,
+    )
+    if binding.state != "BOUND_NO_AUTHORITY":
+        raise ValueError("execution deviation prevents V2 evidence adaptation")
+    return _execution_context(execution)
+
+
+def _v2_sequence_map(
+    protocol: PreregisteredProtocolV2,
+) -> dict[str, tuple[str, ...]]:
+    return {
+        f"SEQUENCE-{index + 1}": sequence
+        for index, sequence in enumerate(protocol.schedule_sequences)
+    }
+
+
+def temporal_request_from_protocol_v2(
+    protocol: PreregisteredProtocolV2,
+    execution: ExecutionReceiptV1,
+    *,
+    allow_test_only: bool = False,
+) -> TemporalEvidenceRequest:
+    """Adapt exact V2 observations without creating or interpolating a cell."""
+
+    context = _bound_v2_context(
+        protocol,
+        execution,
+        allow_test_only=allow_test_only,
+    )
+    cells_raw = context.get("observations", [])
+    safety_raw = context.get("safety_events", [])
+    if not isinstance(cells_raw, list) or not isinstance(safety_raw, list):
+        raise ValueError("observations and safety_events must be lists")
+    cells = tuple(TemporalObservationCell.from_dict(item) for item in cells_raw)
+    safety_events = tuple(
+        SensorySafetyEvent.from_dict(item) for item in safety_raw
+    )
+    arm_ids = tuple(arm.arm_id for arm in protocol.arms)
+    endpoints = (
+        protocol.primary_endpoint.value,
+        *(item.value for item in protocol.secondary_endpoints),
+    )
+    expected_keys = {
+        (
+            protocol.protocol_id,
+            sample_id,
+            assessor_id,
+            repeat_id,
+            timepoint,
+            endpoint,
+        )
+        for sample_id in arm_ids
+        for assessor_id in protocol.assessor_ids
+        for repeat_id in protocol.repeat_ids
+        for timepoint in protocol.timepoints_seconds
+        for endpoint in endpoints
+    }
+    sequence_map = _v2_sequence_map(protocol)
+    for cell in cells:
+        key = cell.key
+        canonical_key = (
+            key.protocol_id,
+            key.sample_id,
+            key.assessor_id,
+            key.repeat_id,
+            key.time_seconds,
+            key.endpoint_id,
+        )
+        if canonical_key not in expected_keys:
+            raise ValueError("observation cell does not match exact V2 protocol scope")
+        sequence = sequence_map.get(cell.presentation_sequence_id)
+        if sequence is None:
+            raise ValueError("observation cell names an undeclared sequence")
+        if cell.presentation_position > len(sequence):
+            raise ValueError("observation position is outside declared sequence")
+        if sequence[cell.presentation_position - 1] != key.sample_id:
+            raise ValueError("observation position does not match declared sequence")
+    qualification_sha256 = sha256_hex(
+        canonical_json_bytes(
+            {
+                "apparatus_id": protocol.apparatus_id,
+                "apparatus_qualification_sha256": (
+                    protocol.apparatus_qualification_sha256
+                ),
+                "timing_protocol_sha256": protocol.timing_protocol_sha256,
+                "timing_clock_source": protocol.timing_clock_source,
+                "timing_tolerance_ms": protocol.timing_tolerance_ms,
+            }
+        )
+    )
+    schedule = PresentationSchedule(
+        labels=arm_ids,
+        sequences=protocol.schedule_sequences,
+        method=protocol.counterbalancing_method,
+    )
+    return TemporalEvidenceRequest(
+        scope=SensoryProtocolScope(
+            protocol_id=protocol.protocol_id,
+            sample_ids=arm_ids,
+            assessor_ids=protocol.assessor_ids,
+            repeat_ids=protocol.repeat_ids,
+            timepoints_seconds=protocol.timepoints_seconds,
+            endpoint_ids=endpoints,
+            schedule_sha256=protocol.schedule_sha256,
+            within_sniff=protocol.within_sniff,
+            within_sniff_apparatus_qualified=(
+                protocol.within_sniff_apparatus_qualified
+            ),
+            within_sniff_timing_protocol_qualified=(
+                protocol.within_sniff_timing_protocol_qualified
+            ),
+            require_repeatability=False,
+            within_sniff_apparatus_id=protocol.apparatus_id,
+            within_sniff_clock_source=protocol.timing_clock_source,
+            within_sniff_timing_tolerance_ms=protocol.timing_tolerance_ms,
+            within_sniff_qualification_sha256=qualification_sha256,
+        ),
+        schedule=schedule,
+        cells=cells,
+        safety_events=safety_events,
+    )
+
+
+def preference_request_from_protocol_v2(
+    protocol: PreregisteredProtocolV2,
+    execution: ExecutionReceiptV1,
+    *,
+    criterion: str,
+    allow_test_only: bool = False,
+) -> PreferenceFitRequest:
+    """Adapt one preregistered criterion without manufacturing comparisons."""
+
+    context = _bound_v2_context(
+        protocol,
+        execution,
+        allow_test_only=allow_test_only,
+    )
+    criterion_id = ProtocolEndpointV2(str(criterion).strip().upper()).value
+    endpoints = {
+        protocol.primary_endpoint.value,
+        *(item.value for item in protocol.secondary_endpoints),
+    }
+    if criterion_id not in endpoints:
+        raise ValueError("criterion is not preregistered in the V2 protocol")
+    comparisons_raw = context.get("comparisons", [])
+    if not isinstance(comparisons_raw, list):
+        raise ValueError("comparisons must be a list")
+    if any(not isinstance(item, Mapping) for item in comparisons_raw):
+        raise ValueError("every comparison must be an object")
+    records = tuple(
+        PairwisePreference.from_dict(item) for item in comparisons_raw
+    )
+    arm_ids = {arm.arm_id for arm in protocol.arms}
+    session_sequences = dict(protocol.session_sequence_ids)
+    sequence_map = _v2_sequence_map(protocol)
+    training: list[PairwisePreference] = []
+    heldout: list[PairwisePreference] = []
+    for comparison in records:
+        if comparison.criterion_id != criterion_id:
+            raise ValueError("comparison criterion does not match requested criterion")
+        if comparison.protocol_id != protocol.protocol_id:
+            raise ValueError("comparison protocol does not match V2 protocol")
+        if comparison.assessor_id not in protocol.assessor_ids:
+            raise ValueError("comparison assessor does not match V2 protocol")
+        if comparison.session_id not in protocol.session_ids:
+            raise ValueError("comparison session does not match V2 protocol")
+        if comparison.time_seconds not in protocol.timepoints_seconds:
+            raise ValueError("comparison timepoint does not match V2 protocol")
+        if {comparison.left_item, comparison.right_item} != arm_ids:
+            raise ValueError("comparison items do not match V2 protocol samples")
+        sequence_id = session_sequences[comparison.session_id]
+        if comparison.first_presented_item != sequence_map[sequence_id][0]:
+            raise ValueError("comparison order does not match the session sequence")
+        if (
+            comparison.protocol_sha256 is not None
+            and comparison.protocol_sha256 != protocol.record_sha256
+        ):
+            raise ValueError("comparison protocol SHA-256 does not match V2 protocol")
+        if (
+            comparison.sample_sha256 is not None
+            and comparison.sample_sha256
+            not in {digest for _, digest in protocol.sample_sha256}
+        ):
+            raise ValueError("comparison sample SHA-256 is outside V2 protocol")
+        partition = (comparison.partition or "").casefold()
+        if partition == "training":
+            training.append(comparison)
+        elif partition == "heldout":
+            heldout.append(comparison)
+        else:
+            raise ValueError("comparison partition must be training or heldout")
+    if protocol.heldout_unit is ProtocolAnalysisUnitV2.SESSION:
+        training_units = {item.session_id for item in training}
+        heldout_units = {item.session_id for item in heldout}
+    else:
+        training_units = {item.assessor_id for item in training}
+        heldout_units = {item.assessor_id for item in heldout}
+    if training_units.intersection(heldout_units):
+        raise ValueError("heldout split leaks the preregistered analysis unit")
+    return PreferenceFitRequest(
+        training=tuple(training),
+        heldout=tuple(heldout),
+        minimum_comparisons=protocol.minimum_comparisons,
+        minimum_heldout_comparisons=protocol.minimum_heldout_comparisons,
+        declared_baseline_accuracy=protocol.declared_baseline_accuracy,
+        criterion_id=criterion_id,
+        bootstrap_replicates=protocol.bootstrap_replicates,
+        bootstrap_seed=protocol.bootstrap_seed,
+        require_scoped_validation=True,
+        model_family=PreferenceModelFamily.DAVIDSON_V1,
+    )
 
 
 def _schedule_from_dict(value: object) -> PresentationSchedule:
@@ -1236,4 +1466,6 @@ __all__ = [
     "compile_architectural_delta",
     "compile_architectural_delta_v2",
     "export_backend_lab_payloads",
+    "preference_request_from_protocol_v2",
+    "temporal_request_from_protocol_v2",
 ]

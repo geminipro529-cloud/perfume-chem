@@ -562,3 +562,26 @@ def test_v2_schedule_order_safety_and_repeatability_fail_closed() -> None:
     assert any("balanced" in blocker for blocker in audit.receipt.blockers)
     assert any("repeatability" in blocker for blocker in audit.receipt.blockers)
     assert any("HEADACHE" in blocker for blocker in audit.receipt.blockers)
+
+
+def test_preregistered_repeat_cells_remain_missing_without_interpolation() -> None:
+    schedule = generate_williams_schedule(("CONTROL", "TREATMENT"))
+    scope = SensoryProtocolScope(
+        protocol_id="protocol-preregistered-v2",
+        sample_ids=("CONTROL", "TREATMENT"),
+        assessor_ids=("OWNER-1",),
+        repeat_ids=("R1", "R2"),
+        timepoints_seconds=(0.0, 3600.0),
+        endpoint_ids=("DEPTH", "RICHNESS"),
+        schedule_sha256=schedule.schedule_sha256,
+    )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=())
+    )
+
+    assert result.state is TemporalEvidenceState.INCOMPLETE
+    assert result.expected_cell_count == 16
+    assert result.observed_cell_count == 0
+    assert len(result.missing_cells) == 16
+    assert result.interpolated_cell_count == 0
