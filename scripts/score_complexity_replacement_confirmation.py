@@ -6,7 +6,6 @@ import argparse
 import hashlib
 import json
 import sys
-from dataclasses import asdict
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -55,8 +54,19 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--screen-receipt", type=Path, default=DEFAULT_SCREEN_RECEIPT)
+    parser.add_argument("--output-tag", default="")
     args = parser.parse_args()
+    if args.output_tag and not all(
+        character.isalnum() or character in {"-", "_"}
+        for character in args.output_tag
+    ):
+        raise ValueError("output-tag may contain only letters, digits, hyphens, and underscores")
     benchmark_root = args.root.resolve()
+    artifact_suffix = f".{args.output_tag}" if args.output_tag else ""
+
+    def artifact_path(stem: str) -> Path:
+        return benchmark_root / f"{stem}{artifact_suffix}.json"
+
     manifest = _read_object(benchmark_root / "manifest.json")
     if manifest.get("phase") != "CONFIRM":
         raise ValueError("confirmation scorer requires a CONFIRM manifest")
@@ -142,13 +152,13 @@ def main() -> int:
         "results": objective_results,
         "authority": dict(manifest["authority"]),
     }
-    _write_frozen(benchmark_root / "objective_scores.json", objective_payload)
+    _write_frozen(artifact_path("objective_scores"), objective_payload)
     confirmation_receipt = build_replacement_benchmark_receipt(
         run_id=manifest["run_nonce"],
         manifest=manifest,
         scored_outputs=tuple(scored_outputs),
     )
-    _write_frozen(benchmark_root / "receipt.json", confirmation_receipt)
+    _write_frozen(artifact_path("receipt"), confirmation_receipt)
 
     screen_receipt = _read_object(args.screen_receipt.resolve())
     if screen_receipt.get("receipt_sha256") != manifest.get("screen_receipt_sha256"):
@@ -220,8 +230,8 @@ def main() -> int:
             {
                 "module_id": decision.module_id,
                 "state": decision.state,
-                "plain_control": asdict(decision.plain_control_decision),
-                "placebo": asdict(decision.placebo_decision),
+                "plain_control": decision.plain_control_decision.as_dict(),
+                "placebo": decision.placebo_decision.as_dict(),
                 "reasons": list(decision.reasons),
             }
             for decision in decisions
@@ -229,12 +239,7 @@ def main() -> int:
         "paired_scores": paired_scores,
         "authority": dict(manifest["authority"]),
     }
-    for decision in result_payload["decisions"]:
-        for control_name in ("plain_control", "placebo"):
-            control = decision[control_name]
-            control["median_paired_delta"] = str(control["median_paired_delta"])
-            control["reasons"] = list(control["reasons"])
-    _write_frozen(benchmark_root / "confirmation_result.json", result_payload)
+    _write_frozen(artifact_path("confirmation_result"), result_payload)
     admitted = [
         decision.module_id for decision in decisions if decision.state == "ADMITTED"
     ]
@@ -251,7 +256,7 @@ def main() -> int:
         "runtime_reachable": False,
         "authority": dict(manifest["authority"]),
     }
-    _write_frozen(benchmark_root / "status.json", status)
+    _write_frozen(artifact_path("status"), status)
     print(json.dumps(status, sort_keys=True))
     return 0
 
