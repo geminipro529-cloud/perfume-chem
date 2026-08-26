@@ -1,0 +1,96 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import shutil
+from pathlib import Path
+
+import pytest
+
+from engine.perception.complexity_registry import ModuleState, load_complexity_registry
+from tests.test_complexity_registry_v4 import _copy_registry_project
+
+ROOT = Path(__file__).resolve().parents[1]
+V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
+V5 = ROOT / "configs/complexity/complexity_module_registry_v5.json"
+
+
+def test_v5_admits_only_architectural_delta_after_exact_benchmark_gate() -> None:
+    registry = load_complexity_registry(ROOT, V5)
+    assert registry.schema_version == "complexity_module_registry_v5"
+
+    architectural = registry.module_by_id("architectural-delta-engine")
+    assert architectural.state is ModuleState.ADMITTED_RUNTIME
+    assert architectural.import_path == "engine.perception.architectural_delta"
+    assert architectural.runtime_eligible is True
+    assert hashlib.sha256((ROOT / architectural.path).read_bytes()).hexdigest() == (
+        architectural.sha256
+    )
+
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        module = registry.module_by_id(module_id)
+        assert module.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        assert module.import_path is None
+        assert module.runtime_eligible is False
+    assert {module.module_id for module in registry.modules if module.runtime_eligible} == {
+        "architectural-delta-engine"
+    }
+
+
+def test_v5_binds_exact_screen_and_confirmation_evidence() -> None:
+    payload = json.loads(V5.read_text(encoding="utf-8"))
+    assert hashlib.sha256(V4.read_bytes()).hexdigest() == payload["base_registry"][
+        "sha256"
+    ]
+    assert payload["authority_flags"] == {
+        "compounding": False,
+        "formula": False,
+        "hedonic": False,
+        "purchase": False,
+        "release": False,
+        "safety": False,
+        "scientific": False,
+        "sensory": False,
+    }
+    for item in payload["admission_evidence"]:
+        path = ROOT / item["path"]
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
+
+
+def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
+    project, _ = _copy_registry_project(tmp_path)
+    target_v5 = project / V5.relative_to(ROOT)
+    target_v5.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(V5, target_v5)
+    payload = json.loads(V5.read_text(encoding="utf-8"))
+    for item in payload["admission_evidence"]:
+        source = ROOT / item["path"]
+        target = project / item["path"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+    return project, target_v5
+
+
+def test_v5_parent_evidence_and_authority_tampering_fail_closed(
+    tmp_path: Path,
+) -> None:
+    project, path = _copy_v5_project(tmp_path / "parent")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["base_registry"]["sha256"] = "0" * 64
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="base registry hash mismatch"):
+        load_complexity_registry(project, path)
+
+    project, path = _copy_v5_project(tmp_path / "evidence")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["admission_evidence"][0]["sha256"] = "0" * 64
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="admission evidence hash mismatch"):
+        load_complexity_registry(project, path)
+
+    project, path = _copy_v5_project(tmp_path / "authority")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["authority_flags"]["hedonic"] = True
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="authority flags"):
+        load_complexity_registry(project, path)

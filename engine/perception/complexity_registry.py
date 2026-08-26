@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass
+from decimal import Decimal, InvalidOperation
 from enum import Enum
 from fnmatch import fnmatchcase
 from pathlib import Path, PurePosixPath
@@ -559,6 +560,181 @@ def _load_registry_v4(
     )
 
 
+def _load_registry_v5(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    required = {
+        "schema_version",
+        "base_registry",
+        "module_overrides",
+        "admission_evidence",
+        "authority_flags",
+    }
+    if set(payload) != required:
+        raise ValueError("complexity registry v5 top-level keys are closed")
+    base_record = payload.get("base_registry")
+    if not isinstance(base_record, dict) or set(base_record) != {"path", "sha256"}:
+        raise ValueError("base_registry must be one closed path/hash record")
+    base_name = _nonblank(base_record.get("path"), "base registry path")
+    if base_name != "complexity_module_registry_v4.json":
+        raise ValueError("V5 base registry must be the exact V4 sibling")
+    base_sha256 = _nonblank(base_record.get("sha256"), "base registry sha256")
+    if not _SHA256.fullmatch(base_sha256):
+        raise ValueError("base registry sha256 must be lower-case SHA-256")
+    base_path = registry_path.parent / base_name
+    if not base_path.is_file() or hashlib.sha256(base_path.read_bytes()).hexdigest() != (
+        base_sha256
+    ):
+        raise ValueError("base registry hash mismatch: complexity_module_registry_v4.json")
+    base = load_complexity_registry(project_root, base_path)
+
+    if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
+        raise ValueError("V5 authority flags must be the exact all-false mapping")
+    evidence_rows = payload.get("admission_evidence")
+    if not isinstance(evidence_rows, list) or len(evidence_rows) != 3:
+        raise ValueError("V5 admission_evidence must contain three exact records")
+    evidence_payloads: dict[str, Mapping[str, Any]] = {}
+    for item in evidence_rows:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("admission evidence entries are closed")
+        relative = _relative_path(item.get("path"), "admission evidence path")
+        if relative in evidence_payloads:
+            raise ValueError("admission evidence paths must be unique")
+        digest = _nonblank(item.get("sha256"), "admission evidence sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("admission evidence sha256 must be lower-case SHA-256")
+        path = _inside_root(project_root, relative)
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"admission evidence hash mismatch: {relative}")
+        evidence = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(evidence, Mapping):
+            raise ValueError("admission evidence must contain one JSON object")
+        evidence_payloads[relative] = evidence
+
+    screen_path = (
+        "data/benchmarks/solforge/replacement_screen_v6_r1/"
+        "status.normalized_v2.json"
+    )
+    confirmation_result_path = (
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/"
+        "confirmation_result.serialized_v2.json"
+    )
+    confirmation_status_path = (
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/"
+        "status.serialized_v2.json"
+    )
+    if set(evidence_payloads) != {
+        screen_path,
+        confirmation_result_path,
+        confirmation_status_path,
+    }:
+        raise ValueError("V5 admission evidence paths must be exact")
+    screen = evidence_payloads[screen_path]
+    if (
+        screen.get("state") != "SCREEN_COMPLETE"
+        or screen.get("proceed_modules") != ["architectural_delta"]
+        or set(screen.get("stopped_modules", ()))
+        != {"temporal_sensory_ledger", "hedonic_preference_learner"}
+        or screen.get("runtime_reachable") is not False
+    ):
+        raise ValueError("V5 screen evidence does not admit only architectural delta")
+    confirmation_status = evidence_payloads[confirmation_status_path]
+    if (
+        confirmation_status.get("state") != "CONFIRMATION_COMPLETE"
+        or confirmation_status.get("admitted_modules") != ["architectural_delta"]
+        or confirmation_status.get("runtime_integration_authorized_by_gate") is not True
+        or confirmation_status.get("runtime_reachable") is not False
+    ):
+        raise ValueError("V5 confirmation status is not admission-complete")
+    confirmation = evidence_payloads[confirmation_result_path]
+    decisions = confirmation.get("decisions")
+    if not isinstance(decisions, list) or len(decisions) != 1:
+        raise ValueError("V5 confirmation must contain one module decision")
+    decision = decisions[0]
+    if (
+        not isinstance(decision, Mapping)
+        or decision.get("module_id") != "architectural_delta"
+        or decision.get("state") != "ADMITTED"
+        or decision.get("reasons") != []
+    ):
+        raise ValueError("V5 architectural decision is not admitted")
+    for control_name in ("plain_control", "placebo"):
+        control = decision.get(control_name)
+        if not isinstance(control, Mapping):
+            raise ValueError("V5 confirmation control summary is missing")
+        try:
+            median_gain = Decimal(str(control.get("median_paired_delta")))
+        except (InvalidOperation, ValueError) as exc:
+            raise ValueError("V5 confirmation median gain is invalid") from exc
+        if (
+            control.get("state") != "REACTIVATE"
+            or control.get("treatment_wins", 0) < 4
+            or median_gain < Decimal("5")
+            or control.get("reasons") != []
+        ):
+            raise ValueError("V5 confirmation control gate did not pass")
+
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    overrides = payload.get("module_overrides")
+    expected_override_ids = {
+        "architectural-delta-engine",
+        "temporal-sensory-ledger",
+        "hedonic-preference-learner",
+    }
+    if not isinstance(overrides, list) or {
+        item.get("module_id") for item in overrides if isinstance(item, dict)
+    } != expected_override_ids:
+        raise ValueError("V5 module overrides must cover the three replacements exactly")
+    allowed_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    for override in overrides:
+        if not isinstance(override, dict) or set(override) != allowed_override_fields:
+            raise ValueError("V5 module override schema is closed")
+        module_id = _nonblank(override.get("module_id"), "module override module_id")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root, row
+        )
+    runtime_modules = tuple(module for module in modules if module.runtime_eligible)
+    if len(runtime_modules) != 1 or runtime_modules[0].module_id != (
+        "architectural-delta-engine"
+    ):
+        raise ValueError("V5 may admit only architectural-delta-engine")
+    architecture = runtime_modules[0]
+    if (
+        architecture.state is not ModuleState.ADMITTED_RUNTIME
+        or architecture.import_path != "engine.perception.architectural_delta"
+    ):
+        raise ValueError("V5 architectural runtime binding is invalid")
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        module = modules[index_by_id[module_id]]
+        if (
+            module.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+            or module.import_path is not None
+        ):
+            raise ValueError("V5 underperformers must remain runtime-unreachable")
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v5",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -566,6 +742,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v5":
+        return _load_registry_v5(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v4":
         return _load_registry_v4(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v3":
