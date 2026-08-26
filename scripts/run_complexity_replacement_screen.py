@@ -70,7 +70,13 @@ def _execute_one(
     output_path = output_root / f"{request_id}.json"
     existing = _existing_result(output_path, request["dispatch_sha256"])
     if existing is not None:
-        return {"request_id": request_id, "state": "REUSED_EXACT_RESULT"}
+        if existing.get("exit_code") == 0 and existing.get("output_text"):
+            return {"request_id": request_id, "state": "REUSED_EXACT_RESULT"}
+        return {
+            "request_id": request_id,
+            "state": "FAILED_EXISTING_RESULT",
+            "exit_code": existing.get("exit_code"),
+        }
 
     started = datetime.now(UTC).isoformat()
     with tempfile.TemporaryDirectory(prefix=f"{request_id}-") as workdir_name:
@@ -87,8 +93,6 @@ def _execute_one(
             "never",
             "--sandbox",
             "read-only",
-            "--ask-for-approval",
-            "never",
             "-m",
             model,
             "-c",
@@ -199,7 +203,7 @@ def main() -> int:
             result = future.result()
             results.append(result)
             print(json.dumps(result, sort_keys=True), flush=True)
-    failures = [row for row in results if row["state"] == "FAILED"]
+    failures = [row for row in results if row["state"].startswith("FAILED")]
     return 1 if failures else 0
 
 
