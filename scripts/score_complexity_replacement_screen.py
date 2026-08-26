@@ -129,7 +129,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument("--output-tag", default="")
     args = parser.parse_args()
+    if args.output_tag and not all(
+        character.isalnum() or character in {"-", "_"}
+        for character in args.output_tag
+    ):
+        raise ValueError("output-tag may contain only letters, digits, hyphens, and underscores")
+    artifact_suffix = f".{args.output_tag}" if args.output_tag else ""
+
+    def artifact_path(stem: str) -> Path:
+        return benchmark_root / f"{stem}{artifact_suffix}.json"
+
     benchmark_root = args.root.resolve()
     manifest_path = benchmark_root / "manifest.json"
     raw_root = benchmark_root / "raw"
@@ -232,14 +243,14 @@ def main() -> int:
         "results": objective_results,
         "authority": dict(manifest["authority"]),
     }
-    _write_frozen(benchmark_root / "objective_scores.json", objective_payload)
+    _write_frozen(artifact_path("objective_scores"), objective_payload)
 
     receipt = build_replacement_benchmark_receipt(
         run_id=manifest["run_nonce"],
         manifest=manifest,
         scored_outputs=tuple(scored_outputs),
     )
-    _write_frozen(benchmark_root / "receipt.json", receipt)
+    _write_frozen(artifact_path("receipt"), receipt)
 
     requests_by_case: dict[str, dict[str, Mapping[str, Any]]] = {}
     for request in manifest["requests"]:
@@ -325,7 +336,7 @@ def main() -> int:
         "paired_scores": paired_scores,
         "authority": dict(manifest["authority"]),
     }
-    _write_frozen(benchmark_root / "screen_result.json", screen_result)
+    _write_frozen(artifact_path("screen_result"), screen_result)
     passed = [decision.module_id for decision in decisions if decision.state == "PROCEED"]
     status = {
         "schema_version": "complexity_replacement_screen_status_v1",
@@ -341,7 +352,7 @@ def main() -> int:
         "runtime_reachable": False,
         "authority": dict(manifest["authority"]),
     }
-    _write_frozen(benchmark_root / "status.json", status)
+    _write_frozen(artifact_path("status"), status)
     print(json.dumps(status, sort_keys=True))
     return 0
 

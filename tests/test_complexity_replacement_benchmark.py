@@ -342,6 +342,46 @@ def test_objective_receipt_accepts_equivalent_split_json_layout() -> None:
     assert score.score == Decimal("100")
 
 
+def test_objective_receipt_normalizes_decision_alias_and_explained_rate() -> None:
+    case = next(
+        case
+        for case in load_replacement_benchmark_cases(
+            FIXTURES / "complexity_replacement_benchmark_cases_v6.json"
+        )
+        if case.case_id == "AUG-HED-S03"
+    )
+    score = score_evidence_receipt(
+        case,
+        {
+            "decision": {
+                "decision_state": "DIAGNOSTIC",
+                "reason_codes": ["POSITION_CONFOUNDED", "UTILITY_NOT_IDENTIFIABLE"],
+                "next_actions": ["Run reverse-order comparisons."],
+            },
+            "calculations": {
+                "first_position_win_rate": {
+                    "wins": 8,
+                    "comparisons": 8,
+                    "rate": 1.0,
+                }
+            },
+            "authority": {
+                "formula": False,
+                "inventory": False,
+                "physical_execution": False,
+                "sensory": False,
+                "safety": False,
+                "purchase": False,
+                "publication": False,
+                "release": False,
+            },
+        },
+    )
+
+    assert score.state == "PASS"
+    assert score.score == Decimal("100")
+
+
 def test_v4_prompt_requests_objective_receipt_without_leaking_answer_key() -> None:
     case = next(
         case

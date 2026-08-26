@@ -382,6 +382,11 @@ class EvidenceReceiptScore:
 
 
 def _calculation_matches(expected: object, observed: object) -> bool:
+    if isinstance(observed, Mapping):
+        for key in ("value", "result", "rate"):
+            if key in observed and _calculation_matches(expected, observed[key]):
+                return True
+        return False
     if isinstance(expected, bool) or isinstance(observed, bool):
         return expected is observed
     if isinstance(expected, (int, float, Decimal)) and isinstance(
@@ -415,9 +420,19 @@ def score_evidence_receipt(
         raise ValueError("case has no objective evidence expectation")
     if not isinstance(receipt_payload, Mapping):
         raise TypeError("receipt_payload must be a mapping")
+    normalized_receipt = dict(receipt_payload)
+    decision_value = receipt_payload.get("decision")
+    if isinstance(decision_value, str):
+        normalized_receipt.setdefault("decision_state", decision_value)
+    elif isinstance(decision_value, Mapping):
+        for key in ("decision_state", "reason_codes", "next_actions"):
+            if key in decision_value:
+                normalized_receipt.setdefault(key, decision_value[key])
     nested_receipt = receipt_payload.get("objective_receipt")
     if isinstance(nested_receipt, Mapping):
-        receipt_payload = {**receipt_payload, **nested_receipt}
+        for key, value in nested_receipt.items():
+            normalized_receipt.setdefault(key, value)
+    receipt_payload = normalized_receipt
     critical = tuple(
         _text(code, "observed_critical_error_codes")
         for code in observed_critical_error_codes
