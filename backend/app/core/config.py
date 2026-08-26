@@ -1,5 +1,6 @@
 """Application configuration using Pydantic Settings"""
 
+import sys
 from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional
@@ -95,6 +96,22 @@ class Settings(BaseSettings):
     DEFAULT_DROP_SIZE_ML: float = 0.05
     IFRA_COMPLIANCE_CHECK: bool = True
     ENABLE_AI_SUGGESTIONS: bool = True
+
+    # SolForge Workbench (fixed local process boundary)
+    SOLFORGE_ENGINE_PYTHON: str = sys.executable
+    SOLFORGE_PROJECT_ROOT: str = str(PROJECT_ROOT)
+    SOLFORGE_INVENTORY_PATH: str = str(
+        PROJECT_ROOT / "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx"
+    )
+    SOLFORGE_ARTIFACT_ROOT: str = str(
+        PROJECT_ROOT / "output" / "solforge-workbench"
+    )
+    SOLFORGE_TIMEOUT_SECONDS: int = 90
+    SOLFORGE_MAX_BODY_BYTES: int = 524_288
+    SOLFORGE_MAX_RUNS: int = 50
+    SOLFORGE_MAX_ARTIFACT_BYTES: int = 104_857_600
+    SOLFORGE_MAX_RECORD_BYTES: int = 4_194_304
+    SOLFORGE_MAX_CONCURRENT_RUNS: int = 1
 
     # OpenTelemetry Tracing
     # Exporting is an operational opt-in.  The API remains fully functional
