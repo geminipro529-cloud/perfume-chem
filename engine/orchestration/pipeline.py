@@ -195,7 +195,7 @@ def stage1_brief(cfg: AtelierConfig) -> dict:
 
 
 def stage2_methodology(cfg: AtelierConfig, brief: dict) -> dict:
-    """Stage 2: Select a construction methodology from the 10 options.
+    """Stage 2: Select an evidence-compatible construction methodology.
 
     Pure data — no model call. Returns the methodology dict.
     """
@@ -207,9 +207,6 @@ def stage2_methodology(cfg: AtelierConfig, brief: dict) -> dict:
         s = 0.0
         if any(kw in elements_text for kw in ("minimalist", "transparent", "ellena")):
             if "Texture-First" in spec.name or "Minimum-Material" in spec.name or "Single-Material" in spec.name:
-                s += 0.4
-        if any(kw in elements_text for kw in ("hedonic", "computational")):
-            if "Hedonic" in spec.name:
                 s += 0.4
         if any(kw in elements_text for kw in ("cost", "commercial", "mass")):
             if "Cost-Optimized" in spec.name or "Constraint-Based" in spec.name:

@@ -7,9 +7,8 @@ when the field is more authoritative):
 2. ``engine/odor_thresholds.py::ODT_DATA``            — ODT, Stevens-n
 3. ``engine/skin_interaction.py::SKIN_PHYSCHEM``      — logP, MW
 4. ``engine/trigeminal.py::TRIGEMINAL_PROFILES``      — TRP targets
-5. ``engine/hedonic_model.py::HEDONIC_VALENCE``       — hedonic
-6. ``inventory.txt``                                   — stock dilution
-7. ``knowledge/perfumersworld_stock.md``               — supplier SKU/price
+5. ``inventory.txt``                                   — stock dilution
+6. ``knowledge/perfumersworld_stock.md``               — supplier SKU/price
 
 Per-field provenance is tracked so audits and external-AI feedback can
 target exactly the gaps that need new data.
@@ -255,23 +254,6 @@ def _ingest_trigeminal(reg: dict[str, Material]) -> None:
                 m.provenance[f"trp.{dst}"] = "engine.trigeminal"
 
 
-def _ingest_hedonic(reg: dict[str, Material]) -> None:
-    try:
-        from engine.hedonic_model import HEDONIC_VALENCE
-    except Exception:  # noqa: BLE001
-        return
-    for name, val in HEDONIC_VALENCE.items():
-        m = _get_or_create(reg, name)
-        if m is None:
-            continue
-        if isinstance(val, dict):
-            v = val.get("valence") or val.get("hedonic")
-        else:
-            v = val
-        if isinstance(v, (int, float)):
-            _set(m, "hedonic_valence", float(v), "engine.hedonic_model")
-
-
 _INV_SECTION_RE = re.compile(r"^---\s*([A-Z /]+?)\s*---\s*$")
 _INV_LINE_RE = re.compile(
     r"^-\s*(?P<name>[^()#]+?)(?:\s*\((?P<dil>[^)]+)\))?\s*(?:#.*)?$"
@@ -370,7 +352,6 @@ def build_registry() -> dict[str, Material]:
     _ingest_odt(reg)
     _ingest_skin(reg)
     _ingest_trigeminal(reg)
-    _ingest_hedonic(reg)
     _ingest_inventory(reg, REPO / "inventory.txt")
     _ingest_perfumersworld(reg, REPO / "knowledge" / "perfumersworld_stock.md")
     return reg

@@ -2,10 +2,13 @@
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
 
-Selects one of 10 construction methodologies for a perfume:
+Selects an evidence-compatible construction methodology for a perfume.
+Legacy composition-derived hedonic methods remain in ``future_modules`` only.
+
+Source methodologies:
   A. Pyramid Construction (Carles / Roudnitska)        — default
   B. Accord-Based Construction (Carles / Jellinek)
-  C. Hedonic Optimization (Computational)
+  C. Hedonic Optimization (Computational; excluded from active API)
   D. Single-Material Expansion (Roudnitska "One Truth")
   E. Constraint-Based Construction (Regulatory / Cost / Safety)
   F. OAV-Targeted Construction
@@ -27,6 +30,8 @@ so the pipeline can import from the canonical `engine.orchestration` namespace.
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 from future_modules import _shared_types
 from future_modules import construction_methodology as _construction_methodology
 
@@ -45,10 +50,17 @@ def _export(name: str, fallback_name: str | None = None):
 ANCHOR_MATERIALS = _export("ANCHOR_MATERIALS")
 COST_EFFICIENCY = _export("COST_EFFICIENCY")
 FIXATIVE_LOADING = _export("FIXATIVE_LOADING")
-HEDONIC_TARGETS = _export("HEDONIC_TARGETS", "HEDONIC_TARGETS")
-HEDONIC_WEIGHTS = _export("HEDONIC_WEIGHTS", "HEDONIC_WEIGHTS")
 IFRA_CAT4_LIMITS = _export("IFRA_CAT4_LIMITS")
-METHODOLOGY_SPECS = _export("METHODOLOGY_SPECS")
+METHODOLOGY_SPECS = tuple(
+    replace(
+        spec,
+        philosophy="Optimize cost while preserving the declared target and constraints.",
+    )
+    if spec.name == "Cost-Optimized Construction"
+    else spec
+    for spec in _export("METHODOLOGY_SPECS")
+    if spec.name != "Hedonic Optimization"
+)
 MINIMUM_VIABLE_FORMULAS = _export("MINIMUM_VIABLE_FORMULAS")
 MULTIFUNCTIONAL_MATERIALS = _export("MULTIFUNCTIONAL_MATERIALS")
 NATURAL_EXTENSIONS = _export("NATURAL_EXTENSIONS")
@@ -63,10 +75,7 @@ ConcentrationBracket = _export("ConcentrationBracket")
 CostEfficiencyData = _export("CostEfficiencyData")
 FixativeStrategy = _export("FixativeStrategy")
 FragranceFamily = _export("FragranceFamily")
-HedonicCategory = _export("HedonicCategory")
-HedonicMaterialTarget = _export("HedonicMaterialTarget")
 IFRAConstraint = _export("IFRAConstraint")
-MarketSegment = _export("MarketSegment")
 MethodologySpec = _export("MethodologySpec")
 MethodologyType = _export("MethodologyType")
 MinimumViableFormula = _export("MinimumViableFormula")
@@ -87,9 +96,7 @@ materialize_accord_spec = _export("materialize_accord_spec")
 recommend_accord_count = _export("recommend_accord_count")
 select_anchor = _export("select_anchor")
 apply_mixture_suppression = _export("apply_mixture_suppression")
-check_hedonic_distribution = _export("check_hedonic_distribution")
 check_ifra_compliance = _export("check_ifra_compliance")
-compute_hedonic_objective = _export("compute_hedonic_objective")
 evaluate_pyramid_balance = _export("evaluate_pyramid_balance")
 evaporative_half_life_estimator = _export("evaporative_half_life_estimator")
 estimate_mixture_suppression = _export("estimate_mixture_suppression")
@@ -108,8 +115,6 @@ __all__ = [
     "BANGKOK_VP_RATIO",
     "COST_EFFICIENCY",
     "FIXATIVE_LOADING",
-    "HEDONIC_TARGETS",
-    "HEDONIC_WEIGHTS",
     "IFRA_CAT4_LIMITS",
     "METHODOLOGY_SPECS",
     "MINIMUM_VIABLE_FORMULAS",
@@ -130,10 +135,7 @@ __all__ = [
     "CostEfficiencyData",
     "FixativeStrategy",
     "FragranceFamily",
-    "HedonicCategory",
-    "HedonicMaterialTarget",
     "IFRAConstraint",
-    "MarketSegment",
     "MethodologySpec",
     "MethodologyType",
     "MinimumViableFormula",
@@ -144,10 +146,8 @@ __all__ = [
     "TextureMaterial",
     "apply_mixture_suppression",
     "bangkok_temperature_adjustment",
-    "check_hedonic_distribution",
     "check_ifra_compliance",
     "clausius_clapeyron_vp_ratio",
-    "compute_hedonic_objective",
     "estimate_mixture_suppression",
     "evaluate_pyramid_balance",
     "evaporative_half_life_estimator",

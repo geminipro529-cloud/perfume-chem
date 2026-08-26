@@ -2148,12 +2148,10 @@ def _gate_captive_availability(state: FormulaState, config: ReleaseGateConfig) -
 def _gate_construction_compliance(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Construction methodology: validates formula against quantified construction rules.
 
-    Uses future_modules.construction_methodology to check pyramid balance,
-    hedonic distribution, IFRA compliance, and fixative strategy.
+    Uses future_modules.construction_methodology for nonhedonic construction checks.
     """
     try:
         from future_modules.construction_methodology import (
-            check_hedonic_distribution,  # noqa: F401  # feature detection
             evaluate_pyramid_balance,  # noqa: F401  # feature detection
             get_fixative_strategy,
             recommend_accord_count,
@@ -2439,15 +2437,26 @@ def _gate_dosing_tables(state: FormulaState, config: ReleaseGateConfig) -> GateR
 
 
 def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """8-axis balance: volatility, hedonic, OAV contrast, transparency, diffusion, material class, cross-family, maceration."""
+    """Evaluate seven nonhedonic balance axes and withhold liking claims."""
     try:
-        from future_modules.balance_axes import evaluate_all_balances
+        from future_modules.balance_axes import (
+            ConcentrationBracket,
+            evaluate_cross_family_compatibility,
+            evaluate_diffusion_layers,
+            evaluate_maceration_risks,
+            evaluate_material_class_distribution,
+            evaluate_oav_contrast,
+            evaluate_transparency_opacity,
+            evaluate_volatility_balance,
+        )
+        from future_modules.balance_axes import (
+            FragranceFamily as BAFragranceFamily,
+        )
     except ImportError:
         return _result("balance_axes", "WARN", "Balance axes not available")
 
     try:
         from engine.name_utils import normalize_name
-        from future_modules.balance_axes import ConcentrationBracket, MarketSegment
 
         # Compute OAV totals per note tier
         top_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "top")
@@ -2463,24 +2472,17 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
         }
         bracket = bracket_map.get(config.concentration_bracket, ConcentrationBracket.EDP)
 
-        # Hedonic data: {name: (hedonic_score, oav)}
-        hedonic_data = {}
-        for m in state.materials:
-            name = normalize_name(m.canonical_name or m.name)
-            hedonic_data[name] = (m.oav or 0.0, 0.0)  # hedonic score default 0
-
-        # Segment
-        segment = MarketSegment.MAINSTREAM
-
         # OAV values and material masses
         oav_values = [m.oav for m in state.materials if m.oav is not None]
         material_masses = {
             normalize_name(m.canonical_name or m.name): m.active_g for m in state.materials
         }
+        oav_by_material = {
+            normalize_name(m.canonical_name or m.name): float(m.oav or 0.0)
+            for m in state.materials
+        }
 
         # Family
-        from future_modules.balance_axes import FragranceFamily as BAFragranceFamily
-
         family_map = {
             "aromatic_fougere": BAFragranceFamily.AROMATIC_FOUGERE,
             "vetiver_woody": BAFragranceFamily.WOODY_AMBER,
@@ -2497,18 +2499,20 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
             for n in names_lower
         )
 
-        results = evaluate_all_balances(
-            top_oav,
-            heart_oav,
-            base_oav,
-            bracket,
-            hedonic_data,
-            segment,
-            oav_values,
-            material_masses,
-            family,
-            contains_aldehydes=contains_aldehydes,
-            contains_citrus=contains_citrus,
+        results = (
+            evaluate_volatility_balance(top_oav, heart_oav, base_oav, bracket),
+            evaluate_oav_contrast(oav_values),
+            evaluate_transparency_opacity(material_masses, bracket),
+            evaluate_diffusion_layers(oav_by_material),
+            evaluate_material_class_distribution(material_masses, family),
+            evaluate_cross_family_compatibility(family, family),
+            evaluate_maceration_risks(
+                contains_aldehydes,
+                False,
+                contains_citrus,
+                True,
+                False,
+            ),
         )
         axes_data = {
             r.axis_name: {"score": r.score, "status": r.status, "details": r.details}
@@ -2517,10 +2521,14 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
         return _result(
             "balance_axes",
             "PASS",
-            f"{len(results)} axes evaluated",
+            f"{len(results)} nonhedonic axes evaluated",
             data={
                 "axes": axes_data,
                 "unknown_oav_materials": [m.name for m in state.materials if m.oav is None],
+                "hedonic_evidence": {
+                    "state": "NOT_TESTED",
+                    "reason": "No exact-scope blinded LIKING evidence entered this gate.",
+                },
             },
         )
     except Exception as e:

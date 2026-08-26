@@ -16,7 +16,7 @@ material doses and selection using sequential Differential Evolution (Fukumoto
   - Population: 8 candidates
   - Generations: 10 (cap)
   - Operator: DE/rand/1/bin
-  - Fitness: 0.6 * hedonic + 0.2 * oav_pyramid_match + 0.1 * novelty + 0.1 * ifra_clean
+  - Fitness: caller-supplied objective with no composition-derived liking term
   - CMA-ES fallback: switch if no improvement in 3 generations
   - Roudnitska stop: when no improvement > 0.5% in 3 generations, or max gens reached
 
@@ -71,7 +71,6 @@ class IECHyperparameters:
     roudnitska_min_improvement: float = 0.005
     novelty_weight: float = 0.10
     pyramid_weight: float = 0.20
-    hedonic_weight: float = 0.60
     ifra_weight: float = 0.10
     seed: int = 0
 

@@ -1,4 +1,8 @@
-"""Hedonic valence modelling — intrinsic pleasantness prediction.
+"""Legacy hedonic-valence heuristic retained for frozen replay only.
+
+``LEGACY_REPLAY_ONLY``: this module cannot establish finished-mixture liking,
+beauty, preference, or release authority. Active decisions require exact-scope
+blinded comparison evidence through ``engine.hedonic_evidence``.
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
 - Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
@@ -30,6 +34,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+
+LEGACY_REPLAY_CLASSIFICATION = "LEGACY_REPLAY_ONLY"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Hedonic Valence Data

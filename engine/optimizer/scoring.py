@@ -61,6 +61,8 @@ if TYPE_CHECKING:
 class FormulaScorer:
     """Score a formula across multiple objectives."""
 
+    LEGACY_REPLAY_CLASSIFICATION = "LEGACY_REPLAY_ONLY"
+
     # Style-aware balance targets (Carles pyramid variants)
     BALANCE_TARGETS = {
         "classical": (20, 40, 40),
@@ -2134,9 +2136,10 @@ class FormulaScorer:
                 if prof.or_family:
                     or_family_counts[prof.or_family] = or_family_counts.get(prof.or_family, 0) + 1
 
-                hed = getattr(prof, "hedonic", 0.0) or 0.0
-                hedonic_weighted += hed * pct
-                hedonic_mass += pct
+                if getattr(self, "_legacy_replay_mode", False):
+                    hed = getattr(prof, "hedonic", 0.0) or 0.0
+                    hedonic_weighted += hed * pct
+                    hedonic_mass += pct
 
                 if prof.role:
                     roles_used.add(prof.role)
@@ -2183,10 +2186,9 @@ class FormulaScorer:
         effect_score = min(epn / 5.0 * 15.0, 15.0)
         filler_penalty = min(filler_mass / 5.0 * 2.0, 10.0)
         effect_score = max(0.0, effect_score - filler_penalty)
-        # Hedonic nudge: mass-weighted mean pleasantness scales the
-        # effect band by up to ±15%. Keeps EPN dominant but rewards
-        # compositions whose materials are individually pleasant.
-        if hedonic_mass > 0:
+        # Frozen V1 replay only: the historical payload used a mass-weighted
+        # pleasantness nudge. Active scoring must not read or use this signal.
+        if getattr(self, "_legacy_replay_mode", False) and hedonic_mass > 0:
             mean_hed = hedonic_weighted / hedonic_mass
             effect_score *= max(0.85, min(1.15, 1.0 + mean_hed * 0.03))
             effect_score = min(effect_score, 15.0)
@@ -2738,7 +2740,9 @@ class FormulaScorer:
         return report.score
 
     def score_hedonic(self, fv: FormulaVector) -> float:
-        """Intrinsic pleasantness / hedonic valence (0-100)."""
+        """LEGACY_REPLAY_ONLY intrinsic pleasantness heuristic."""
+        if not getattr(self, "_legacy_replay_mode", False):
+            raise ValueError("score_hedonic is LEGACY_REPLAY_ONLY")
         ingredients, dilutions = self._science_ingredients(fv)
         report = score_hedonic(ingredients, dilutions)
         self._last_hedonic_report = report
@@ -3106,12 +3110,15 @@ class FormulaScorer:
         """Reproduce the frozen V1 heuristic payload for historical replay."""
 
         legacy_weights = weights or LegacyObjectiveWeightsV1()
-        return self._score_impl(
-            fv,
-            formula_state=formula_state,
-            objective_weights=legacy_weights.as_dict(),
-            include_legacy_hedonic=True,
-        )
+        try:
+            return self._score_impl(
+                fv,
+                formula_state=formula_state,
+                objective_weights=legacy_weights.as_dict(),
+                include_legacy_hedonic=True,
+            )
+        finally:
+            self._legacy_replay_mode = False
 
     def _score_impl(
         self,
@@ -3144,6 +3151,7 @@ class FormulaScorer:
             if formula_state is not None
             else None
         )
+        self._legacy_replay_mode = include_legacy_hedonic
 
         # Clear per-FV caches for fresh scoring
         self._sfc_cache = {}

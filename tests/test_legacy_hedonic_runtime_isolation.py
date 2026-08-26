@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import copy
+
 import pytest
 
+from engine import hedonic_model
 from engine.hedonic_model import score_hedonic
 from engine.optimizer.models import (
     FormulaVector,
@@ -31,6 +34,7 @@ def _formula() -> FormulaVector:
 def test_direct_legacy_hedonic_model_remains_importable() -> None:
     report = score_hedonic(_formula().ingredients, _formula().dilutions)
     assert report.pleasantness_class == "pleasant"
+    assert hedonic_model.LEGACY_REPLAY_CLASSIFICATION == "LEGACY_REPLAY_ONLY"
 
 
 def test_legacy_replay_preserves_frozen_v1_payload() -> None:
@@ -47,6 +51,7 @@ def test_legacy_replay_preserves_frozen_v1_payload() -> None:
             "✓ >80% of formula mass is hedonically pleasant",
         ],
     }
+    assert FormulaScorer.LEGACY_REPLAY_CLASSIFICATION == "LEGACY_REPLAY_ONLY"
 
 
 def test_active_score_has_no_composition_derived_hedonic_value() -> None:
@@ -70,6 +75,11 @@ def test_hedonic_single_axis_is_evidence_gated() -> None:
         FormulaScorer().score_axis(_formula(), "hedonic")
 
 
+def test_direct_scorer_hedonic_method_is_replay_gated() -> None:
+    with pytest.raises(ValueError, match="LEGACY_REPLAY_ONLY"):
+        FormulaScorer().score_hedonic(_formula())
+
+
 def test_nonzero_active_hedonic_weight_is_rejected() -> None:
     with pytest.raises(ValueError, match="hedonic is evidence-gated"):
         FormulaScorer(ObjectiveWeights(hedonic=0.1)).score(_formula())
@@ -78,3 +88,53 @@ def test_nonzero_active_hedonic_weight_is_rejected() -> None:
 def test_active_and_legacy_weight_defaults_are_separate() -> None:
     assert ObjectiveWeights().hedonic == 0.0
     assert LegacyObjectiveWeightsV1().hedonic == 0.5
+
+
+def test_active_luxury_axis_is_invariant_to_profile_pleasantness(monkeypatch) -> None:
+    from engine.optimizer import scoring as scoring_module
+
+    original = scoring_module.get_profile
+
+    def with_hedonic(value: float):
+        def lookup(name: str):
+            profile = original(name)
+            if profile is None:
+                return None
+            cloned = copy.deepcopy(profile)
+            cloned.hedonic = value
+            return cloned
+
+        return lookup
+
+    monkeypatch.setattr(scoring_module, "get_profile", with_hedonic(-5.0))
+    low = FormulaScorer().score_luxury(_formula())
+    monkeypatch.setattr(scoring_module, "get_profile", with_hedonic(5.0))
+    high = FormulaScorer().score_luxury(_formula())
+
+    assert low == high
+
+
+def test_legacy_replay_does_not_leave_pleasantness_enabled(monkeypatch) -> None:
+    from engine.optimizer import scoring as scoring_module
+
+    scorer = FormulaScorer()
+    scorer.score_legacy_replay(_formula())
+    original = scoring_module.get_profile
+
+    def with_hedonic(value: float):
+        def lookup(name: str):
+            profile = original(name)
+            if profile is None:
+                return None
+            cloned = copy.deepcopy(profile)
+            cloned.hedonic = value
+            return cloned
+
+        return lookup
+
+    monkeypatch.setattr(scoring_module, "get_profile", with_hedonic(-5.0))
+    low = scorer.score_luxury(_formula())
+    monkeypatch.setattr(scoring_module, "get_profile", with_hedonic(5.0))
+    high = scorer.score_luxury(_formula())
+
+    assert low == high

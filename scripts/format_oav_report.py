@@ -21,11 +21,12 @@ scores = f.get("scores", {})
 if scores:
     print(f"\n{BOLD}{'HEURISTIC DIAGNOSTIC INDICES':─^50}{RESET}")
     print(
-        f"  Total: {scores.get('total', '?'):.1f}  |  Hedonic: {scores.get('hedonic', '?'):.1f}  |  Luxury: {scores.get('luxury', '?'):.1f}"
+        f"  Total: {scores.get('total', '?'):.1f}  |  Luxury: {scores.get('luxury', '?'):.1f}"
     )
     print(
         f"  Sillage index: {scores.get('sillage', '?'):.1f}  |  Longevity index: {scores.get('longevity', '?'):.1f}"
     )
+    print("  Liking evidence: NOT_TESTED")
     print("  Authority: uncalibrated; not measured sillage or skin life")
     print()
 

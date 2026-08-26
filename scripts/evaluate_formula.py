@@ -51,7 +51,8 @@ class FormulaEval:
     materials: list[FormulaMaterial] = field(default_factory=list)
     concentrate_ul: float = 0
     checks: list[CheckResult] = field(default_factory=list)
-    hedonic_score: float = 0
+    hedonic_score: float | None = None
+    hedonic_state: str = "NOT_TESTED"
     perceptible_ratio: float = 0
     overall_score: int = 0
     grade: str = "?"
@@ -139,6 +140,8 @@ HEDONIC_MAP = {
     "Ambermax": 0.4,
     "Amber Core": 0.3,
 }
+
+LEGACY_HEDONIC_CLASSIFICATION = "LEGACY_REPLAY_ONLY"
 
 # ── Parsing ──
 
@@ -483,7 +486,7 @@ def check_pyramid(eval: FormulaEval) -> list[CheckResult]:
 
 
 def compute_hedonic(eval: FormulaEval) -> float:
-    """Compute weighted hedonic score from material hedonic valences."""
+    """LEGACY_REPLAY_ONLY: reproduce the historical material-valence score."""
     total = 0
     for mat in eval.materials:
         hed = HEDONIC_MAP.get(mat.name, 0)
@@ -543,7 +546,6 @@ def evaluate_formula(filepath: str, oav_data: Optional[dict] = None) -> FormulaE
         percept = sum(1 for v in oav_data.values() if v >= 1)
         eval.perceptible_ratio = percept / len(oav_data) * 100 if oav_data else 0
 
-    eval.hedonic_score = compute_hedonic(eval)
     eval.overall_score, eval.grade = compute_overall(eval)
 
     return eval
@@ -569,7 +571,7 @@ def print_report(eval: FormulaEval):
             print(f"         FIX: {check.recommendation}")
         print()
 
-    print(f"  HEDONIC SCORE: {eval.hedonic_score:+.1f}")
+    print(f"  LIKING EVIDENCE: {eval.hedonic_state}")
     if eval.perceptible_ratio > 0:
         print(f"  PERCEPTIBLE: {eval.perceptible_ratio:.0f}%")
 
@@ -596,7 +598,7 @@ def evaluate_batch(formula_dir: str, output_jsonl: str, gate_batch: bool = False
                 "name": eval.name,
                 "materials_count": len(eval.materials),
                 "concentrate_ul": eval.concentrate_ul,
-                "hedonic_score": eval.hedonic_score,
+                "hedonic_evidence": {"state": eval.hedonic_state},
                 "perceptible_ratio": eval.perceptible_ratio,
                 "overall_score": eval.overall_score,
                 "grade": eval.grade,

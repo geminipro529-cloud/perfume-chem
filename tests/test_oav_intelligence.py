@@ -49,7 +49,16 @@ def test_oav_intelligence_contract_and_family_mapping():
         "intelligence_warning_reasons",
         "unmapped_materials",
     }
-    assert payload["family_target_alignment"]["materials"]
+    assert payload["family_target_alignment"] == {
+        "family": "aromatic_fougere",
+        "state": "WITHHELD_LEGACY_HEDONIC_HEURISTIC",
+        "materials": [],
+        "reason": (
+            "Family OAV targets, cliffs, pitfalls, and performance tips came from "
+            "an unvalidated hedonic heuristic library."
+        ),
+    }
+    assert payload["material_cliff_findings"] == []
     hedione = next(
         row
         for row in payload["performance_projection"]["materials"]
