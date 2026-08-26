@@ -37,7 +37,7 @@ VERTICAL_SLICE_AUTHORITY_FLAGS = {
 _V1 = "configs/complexity/complexity_module_registry_v1.json"
 _V2 = "configs/complexity/complexity_module_registry_v2.json"
 _V3 = "configs/complexity/complexity_module_registry_v3.json"
-_GATE_RECEIPT = "data/governance/solforge_gate_foundation_acceptance_v2.json"
+_GATE_RECEIPT = "data/governance/solforge_gate_foundation_acceptance_v3.json"
 _FIXTURE = "tests/fixtures/solforge/vertical_slice_cases_v1.json"
 _FIXTURE_HASH = "tests/fixtures/solforge/vertical_slice_cases_v1.sha256"
 
