@@ -249,6 +249,59 @@ def test_screen_requires_two_of_three_wins_against_each_control() -> None:
     assert "CRITICAL_REGRESSION" in failed.reasons
 
 
+def test_screen_differences_under_one_point_are_ties() -> None:
+    roles = (
+        ModuleRetestRole.POSITIVE,
+        ModuleRetestRole.SAFE_COUNTERCASE,
+        ModuleRetestRole.CRITICAL_TRAP,
+    )
+    submargin_controls = _scores(
+        roles=roles,
+        control_scores=("89.5", "89.5", "89.5"),
+    )
+
+    decision = decide_replacement_screen(submargin_controls, submargin_controls)
+
+    assert decision.state == "STOP"
+    assert decision.plain_control_wins == 0
+    assert decision.placebo_wins == 0
+    assert "PLAIN_CONTROL_TWO_WINS_REQUIRED" in decision.reasons
+    assert "PLACEBO_TWO_WINS_REQUIRED" in decision.reasons
+
+
+def test_scored_output_rejects_nonzero_score_with_critical_error() -> None:
+    with pytest.raises(
+        ValueError,
+        match="critical errors require a zero rubric score",
+    ):
+        ReplacementScoredOutput(
+            request_id="rplreq-critical",
+            output_text="Unsafe unsupported authority claim.",
+            rubric_score=Decimal("75"),
+            evaluator_id="replacement-blind-rubric-v1",
+            critical_error_codes=("UNSUPPORTED_AUTHORITY",),
+            safe_countercase_pass=False,
+            critical_trap_pass=False,
+            specialist_checks_pass=False,
+        )
+
+
+def test_final_differences_under_one_point_are_ties() -> None:
+    roles = tuple(ModuleRetestRole)
+    submargin_controls = _scores(
+        roles=roles,
+        control_scores=tuple("89.5" for _ in roles),
+    )
+
+    decision = decide_replacement_retention(
+        submargin_controls,
+        submargin_controls,
+    )
+
+    assert decision.plain_control_decision.treatment_wins == 0
+    assert decision.placebo_decision.treatment_wins == 0
+
+
 def test_final_admission_requires_four_wins_and_five_points_against_both() -> None:
     roles = tuple(ModuleRetestRole)
     plain = _scores(roles=roles, control_scores=("80", "82", "84", "80", "85", "83"))
@@ -394,7 +447,10 @@ def test_live_manifest_is_screen_first_and_confirmation_is_receipt_gated() -> No
             request_id=request["request_id"],
             output_text=f"Frozen screen response for {request['request_id']}",
             rubric_score=(
-                Decimal("90")
+                Decimal("0")
+                if request["arm"] == "TREATMENT"
+                and request["module_id"] != "temporal_sensory_ledger"
+                else Decimal("90")
                 if request["arm"] == "TREATMENT"
                 else Decimal("80")
                 if request["module_id"] == "temporal_sensory_ledger"

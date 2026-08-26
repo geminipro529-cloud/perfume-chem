@@ -498,7 +498,7 @@ def decide_module_retention(
         raise ValueError("pair score case IDs must be unique")
     placebo = _decimal(placebo_delta, "placebo_delta")
     deltas = tuple(item.delta for item in pair_scores)
-    wins = sum(delta > 0 for delta in deltas)
+    wins = sum(delta >= Decimal("1") for delta in deltas)
     median_delta = Decimal(median(deltas))
     reasons: list[str] = []
     if wins < 4:

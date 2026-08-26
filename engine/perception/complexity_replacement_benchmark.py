@@ -257,6 +257,8 @@ class ReplacementScoredOutput:
         )
         if len(errors) != len(set(errors)):
             raise ValueError("critical_error_codes must be unique")
+        if errors and score != Decimal("0"):
+            raise ValueError("critical errors require a zero rubric score")
         object.__setattr__(self, "critical_error_codes", errors)
         for name in (
             "safe_countercase_pass",
@@ -321,8 +323,8 @@ def decide_replacement_screen(
     }
     if {item.role for item in plain_control_scores} != required_roles:
         raise ValueError("screening requires positive, safe-countercase, and trap cases")
-    plain_wins = sum(item.delta > 0 for item in plain_control_scores)
-    placebo_wins = sum(item.delta > 0 for item in placebo_scores)
+    plain_wins = sum(item.delta >= Decimal("1") for item in plain_control_scores)
+    placebo_wins = sum(item.delta >= Decimal("1") for item in placebo_scores)
     reasons: list[str] = []
     if plain_wins < 2:
         reasons.append("PLAIN_CONTROL_TWO_WINS_REQUIRED")
