@@ -58,13 +58,27 @@ def test_v5_binds_exact_screen_and_confirmation_evidence() -> None:
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
 
 
+def test_v5_binds_every_public_runtime_wiring_file() -> None:
+    payload = json.loads(V5.read_text(encoding="utf-8"))
+    bindings = payload["runtime_bindings"]
+    assert {item["path"] for item in bindings} == {
+        "engine/perception/complexity_registry.py",
+        "engine/solforge/runtime.py",
+        "scripts/intervention_recommend.py",
+    }
+    for item in bindings:
+        assert hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest() == item[
+            "sha256"
+        ]
+
+
 def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
     project, _ = _copy_registry_project(tmp_path)
     target_v5 = project / V5.relative_to(ROOT)
     target_v5.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(V5, target_v5)
     payload = json.loads(V5.read_text(encoding="utf-8"))
-    for item in payload["admission_evidence"]:
+    for item in (*payload["admission_evidence"], *payload["runtime_bindings"]):
         source = ROOT / item["path"]
         target = project / item["path"]
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -94,6 +108,14 @@ def test_v5_parent_evidence_and_authority_tampering_fail_closed(
     payload["authority_flags"]["hedonic"] = True
     path.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(ValueError, match="authority flags"):
+        load_complexity_registry(project, path)
+
+
+def test_v5_runtime_wiring_tampering_fails_closed(tmp_path: Path) -> None:
+    project, path = _copy_v5_project(tmp_path)
+    runtime = project / "engine/solforge/runtime.py"
+    runtime.write_bytes(runtime.read_bytes() + b"\n# drift\n")
+    with pytest.raises(ValueError, match="runtime binding hash mismatch"):
         load_complexity_registry(project, path)
 
 

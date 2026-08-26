@@ -577,6 +577,7 @@ def _load_registry_v5(
         "base_registry",
         "module_overrides",
         "admission_evidence",
+        "runtime_bindings",
         "authority_flags",
     }
     if set(payload) != required:
@@ -599,6 +600,32 @@ def _load_registry_v5(
 
     if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
         raise ValueError("V5 authority flags must be the exact all-false mapping")
+    runtime_bindings = payload.get("runtime_bindings")
+    expected_runtime_paths = {
+        "engine/perception/complexity_registry.py",
+        "engine/solforge/runtime.py",
+        "scripts/intervention_recommend.py",
+    }
+    if not isinstance(runtime_bindings, list) or len(runtime_bindings) != len(
+        expected_runtime_paths
+    ):
+        raise ValueError("V5 runtime_bindings must contain three exact records")
+    observed_runtime_paths: set[str] = set()
+    for item in runtime_bindings:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("runtime binding entries are closed")
+        relative = _relative_path(item.get("path"), "runtime binding path")
+        if relative in observed_runtime_paths:
+            raise ValueError("runtime binding paths must be unique")
+        observed_runtime_paths.add(relative)
+        digest = _nonblank(item.get("sha256"), "runtime binding sha256")
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("runtime binding sha256 must be lower-case SHA-256")
+        path = _inside_root(project_root, relative)
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"runtime binding hash mismatch: {relative}")
+    if observed_runtime_paths != expected_runtime_paths:
+        raise ValueError("V5 runtime binding paths must be exact")
     evidence_rows = payload.get("admission_evidence")
     if not isinstance(evidence_rows, list) or len(evidence_rows) != 3:
         raise ValueError("V5 admission_evidence must contain three exact records")

@@ -4,6 +4,20 @@
     "path": "complexity_module_registry_v4.json",
     "sha256": "be234a10a12a5be31fc7eec621f223132b5c945fe701a3075a95129eff7107b4"
   },
+  "runtime_bindings": [
+    {
+      "path": "engine/perception/complexity_registry.py",
+      "sha256": "e394dca7ac8a6a23db74c06b11b5b6f7b1d514e3781e04af1a5c1c8b6d4e3d22"
+    },
+    {
+      "path": "engine/solforge/runtime.py",
+      "sha256": "99dfaed04dbce8950986c01b714727c134342bdace07035707e2550680b37189"
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "f69139eeaf919bc0ee386c29b1b7bcc362a099bb196e178cfec72f710889c51b"
+    }
+  ],
   "module_overrides": [
     {
       "module_id": "architectural-delta-engine",
