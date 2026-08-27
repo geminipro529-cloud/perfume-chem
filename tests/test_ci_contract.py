@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import tomllib
 from pathlib import Path
 
@@ -20,8 +21,28 @@ def _local_hooks() -> dict[str, dict]:
     return {hook["id"]: hook for hook in local_repository["hooks"]}
 
 
-def test_hosted_github_actions_workflow_is_removed():
-    assert not WORKFLOW_PATH.exists()
+def test_hosted_github_actions_workflow_is_pinned_and_fail_closed():
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    workflow = yaml.safe_load(workflow_text)
+    triggers = workflow.get("on", workflow.get(True))
+
+    assert triggers["pull_request"]["branches"] == ["master"]
+    assert triggers["push"]["branches"] == ["master"]
+    assert "workflow_dispatch" in triggers
+    assert workflow["permissions"] == {"contents": "read"}
+    assert workflow["concurrency"]["cancel-in-progress"] is True
+
+    action_revisions = re.findall(r"uses:\s+[^@\s]+@([0-9a-f]{40})", workflow_text)
+    assert len(action_revisions) == 3
+
+    verify_steps = workflow["jobs"]["verify"]["steps"]
+    verify_commands = "\n".join(
+        str(step.get("run", "")) for step in verify_steps
+    )
+    assert "poetry run pytest --cov=app" in verify_commands
+    assert "poetry run pip-audit --local --skip-editable" in verify_commands
+    assert "project-verify --json" in verify_commands
+    assert workflow["jobs"]["container-build"]["needs"] == "verify"
 
 
 def test_quick_project_verification_runs_before_push():

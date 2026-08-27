@@ -1,8 +1,9 @@
-"""Security utilities for authentication and authorization"""
+"""Security utilities for authentication and authorization."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
-from jose import JWTError, jwt
+import jwt
+from jwt import InvalidTokenError
 from passlib.context import CryptContext
 
 from app.core.config import get_settings
@@ -37,9 +38,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     to_encode = data.copy()
 
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(
+        expire = datetime.now(timezone.utc) + timedelta(
             minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
 
@@ -65,5 +66,5 @@ def decode_access_token(token: str) -> dict | None:
         if not isinstance(payload, dict):
             return None
         return payload
-    except JWTError:
+    except InvalidTokenError:
         return None

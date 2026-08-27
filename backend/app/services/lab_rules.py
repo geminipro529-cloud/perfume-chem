@@ -24,6 +24,8 @@ from app.models.lab_rules import (
 )
 
 if TYPE_CHECKING:
+    from contextlib import AbstractAsyncContextManager
+
     from app.repositories.lab import LabRepository
 
 RULE_DIAGNOSTIC_CODES = (
@@ -831,7 +833,7 @@ class LabRuleServiceMixin:
     if TYPE_CHECKING:
         repository: LabRepository
 
-        async def _transaction(self): ...
+        def _transaction(self) -> AbstractAsyncContextManager[None]: ...
 
     async def _validate_source_lineage(
         self,

@@ -204,14 +204,25 @@ From a shared environment that already contains backend dependencies, the root
 launcher is also available:
 
 ```powershell
+$env:PERFUME_CHEM_V5_INVENTORY = 'C:\path\to\Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx'
 .venv\Scripts\python.exe run_api_server.py
 ```
+
+The launcher maps that single external-authority variable to both the backend
+workbench and Architectural Delta. Each execution still verifies the workbook
+hash before reparsing all current records.
 
 The laboratory interface is served at `http://localhost:8000/app`; API
 documentation is served at `http://localhost:8000/docs`. The bootstrap command
 uses the mandatory backup-before-migration path for file-backed SQLite
 databases. Do not replace it with a direct `alembic upgrade` in operating
 procedures.
+
+Both supported launch paths are local-only by default. The root launcher binds
+to `127.0.0.1`, and Compose publishes API, Redis, and tracing ports on
+`127.0.0.1` only. Do not expose these unauthenticated laboratory routes to a
+network or public tunnel. Any remote deployment requires a separately reviewed
+TLS and authentication boundary.
 
 ## Laboratory Workflow
 
@@ -240,8 +251,16 @@ The Compose build context is the repository root so the backend can install the
 engine path dependency and carry `data/materials` at runtime:
 
 ```powershell
+$env:PERFUME_CHEM_V5_INVENTORY = 'C:\path\to\Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx'
+$env:SECRET_KEY = '<generate-a-strong-local-secret>'
 docker compose up --build
 ```
+
+Compose fails closed when `SECRET_KEY` is absent; it does not supply a default
+credential. It also requires the exact external V5 workbook and mounts it
+read-only; the workbook is an authority input and is intentionally not copied
+into Git or the container image. The runtime verifies the workbook against the
+catalog SHA-256 before Architectural Delta can use it.
 
 The engine wheel also includes `data/materials`; packaging tests build and
 install a non-editable wheel in isolation to prevent editable-checkout false

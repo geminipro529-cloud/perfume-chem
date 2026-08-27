@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional
 
-from pydantic import field_validator
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -100,8 +100,14 @@ class Settings(BaseSettings):
     # SolForge Workbench (fixed local process boundary)
     SOLFORGE_ENGINE_PYTHON: str = sys.executable
     SOLFORGE_PROJECT_ROOT: str = str(PROJECT_ROOT)
-    SOLFORGE_INVENTORY_PATH: str = str(
-        PROJECT_ROOT / "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx"
+    SOLFORGE_INVENTORY_PATH: str = Field(
+        default=str(
+            PROJECT_ROOT / "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx"
+        ),
+        validation_alias=AliasChoices(
+            "SOLFORGE_INVENTORY_PATH",
+            "PERFUME_CHEM_V5_INVENTORY",
+        ),
     )
     SOLFORGE_ARTIFACT_ROOT: str = str(
         PROJECT_ROOT / "output" / "solforge-workbench"

@@ -17,6 +17,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 
 const WORKSPACE = path.resolve(process.env.APP_SERVER_ROOT ?? process.cwd());
+const WORKSPACE_REAL = fs.realpathSync.native(WORKSPACE);
 const PORT = Number(process.env.APP_SERVER_PORT ?? 4519);
 const TOKEN = process.env.APP_SERVER_TOKEN ?? "";
 const READONLY = process.env.APP_SERVER_READONLY === "1";
@@ -77,6 +78,21 @@ function workspaceRelative(rel) {
   return { rel: norm, full };
 }
 
+function comparisonPath(value) {
+  const resolved = path.resolve(value);
+  return process.platform === "win32" ? resolved.toLowerCase() : resolved;
+}
+
+function assertRealPathInsideWorkspace(full) {
+  const real = fs.realpathSync.native(full);
+  const rootKey = comparisonPath(WORKSPACE_REAL);
+  const realKey = comparisonPath(real);
+  if (realKey !== rootKey && !realKey.startsWith(rootKey + path.sep)) {
+    throw new Error("real path escapes workspace");
+  }
+  return real;
+}
+
 function lstatNoFollow(full) {
   try { return fs.lstatSync(full); } catch { return null; }
 }
@@ -86,7 +102,8 @@ function readFileSafe(full) {
   if (!st) throw new Error("file does not exist");
   if (st.isSymbolicLink()) throw new Error("symbolic links not allowed");
   if (!st.isFile()) throw new Error("not a regular file");
-  const bytes = fs.readFileSync(full);
+  const real = assertRealPathInsideWorkspace(full);
+  const bytes = fs.readFileSync(real);
   return { bytes, sha256: crypto.createHash("sha256").update(bytes).digest("hex") };
 }
 
@@ -185,7 +202,8 @@ function authorize(req, res) {
   return true;
 }
 
-const server = http.createServer(async (req, res) => {  const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
   const method = req.method;
 
   if (method === "OPTIONS") {
@@ -195,12 +213,9 @@ const server = http.createServer(async (req, res) => {  const url = new URL(req.
 
   // Health: no auth (probe only)
   if (method === "GET" && url.pathname === "/api/health") {
-    const gitHead = await git(["rev-parse", "HEAD"]);
     send(res, 200, {
       ok: true,
-      workspace: WORKSPACE,
       readonly: READONLY,
-      head: gitHead.ok ? gitHead.out : "unknown",
       time: new Date().toISOString(),
     });
     return;

@@ -5,6 +5,7 @@ from pathlib import Path
 from zipfile import ZipFile
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+V5_WORKBOOK_NAME = "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx"
 
 
 def test_backend_imports_installed_canonical_engine_with_runtime_data():
@@ -68,3 +69,14 @@ def test_built_wheel_installs_runtime_material_data_without_source_tree(tmp_path
         capture_output=True,
         text=True,
     )
+
+
+def test_compose_requires_the_external_v5_authority_as_a_read_only_mount():
+    compose = (REPO_ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    container_path = f"/app/{V5_WORKBOOK_NAME}"
+
+    assert "${PERFUME_CHEM_V5_INVENTORY:?" in compose
+    assert f"target: {container_path}" in compose
+    assert "read_only: true" in compose
+    assert f"SOLFORGE_INVENTORY_PATH={container_path}" in compose
+    assert f"PERFUME_COMPLEXITY_INVENTORY_WORKBOOK={container_path}" in compose

@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import asyncio
+import threading
+import weakref
 from collections.abc import Sequence
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -108,7 +110,23 @@ class ConcurrentWriteError(LabTransactionError):
     """Raised when a write loses a database-level optimistic race."""
 
 
-_LAB_WRITE_LOCK = asyncio.Lock()
+_LAB_WRITE_LOCKS: weakref.WeakKeyDictionary[
+    asyncio.AbstractEventLoop,
+    asyncio.Lock,
+] = weakref.WeakKeyDictionary()
+_LAB_WRITE_LOCKS_GUARD = threading.Lock()
+
+
+def _lab_write_lock() -> asyncio.Lock:
+    """Return the write lock owned by the current event loop."""
+
+    loop = asyncio.get_running_loop()
+    with _LAB_WRITE_LOCKS_GUARD:
+        lock = _LAB_WRITE_LOCKS.get(loop)
+        if lock is None:
+            lock = asyncio.Lock()
+            _LAB_WRITE_LOCKS[loop] = lock
+        return lock
 
 
 class LabService(
@@ -134,7 +152,8 @@ class LabService(
     async def _transaction(self):
         """Join caller transactions; otherwise own one serialized write unit."""
 
-        await _LAB_WRITE_LOCK.acquire()
+        write_lock = _lab_write_lock()
+        await write_lock.acquire()
         owns_transaction = not self.session.in_transaction()
         try:
             if owns_transaction:
@@ -153,7 +172,7 @@ class LabService(
                 if owns_transaction:
                     await self.session.commit()
         finally:
-            _LAB_WRITE_LOCK.release()
+            write_lock.release()
 
     async def create_material(self, canonical_name: str) -> LabMaterial:
         name = canonical_name.strip()

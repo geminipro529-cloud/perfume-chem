@@ -1,13 +1,16 @@
 # SolForge A-B-C-D Perfumery Program
 
-**Status:** nonruntime candidate program. Formula, inventory, compounding,
-sensory, safety, purchase, publication, and release authority remain false.
+**Status:** V7 architectural-only runtime. Architectural Delta is admitted at
+its prior exact scope. Temporal Sensory Ledger and Hedonic Preference Learner
+failed their declared blinded gates and are runtime-unreachable provenance and
+compatibility code. Formula, inventory, compounding, sensory, hedonic, safety,
+purchase, publication, scientific, and release authority remain false.
 
-SolForge is the control plane around Perfume-Chem's evidence-producing modules.
-It does not replace the perfumer with a scalar score. It turns a target into the
-smallest useful experiment, records what was actually observed, learns only
-within a declared comparison scope, and admits software only after a blinded
-benchmark.
+SolForge is the control plane around Perfume-Chem's admitted experiment-design
+path. It does not replace the perfumer with a scalar score. The current runtime
+turns a target into the smallest useful controlled experiment. Real observations
+and scoped preferences remain external evidence until a future replacement
+module independently passes fresh blinded admission.
 
 Complexity means target-linked perceptual depth, coherent richness,
 relationships, transitions, texture, restraint, and testable hedonic
@@ -39,34 +42,35 @@ promotion, generic musk layering, and unisolated n-ary synergy return `HOLD`.
 The output is a controlled comparison packet, never permission to mutate or
 compound a formula.
 
-## C — Compare and Learn
+## C — Compare and Learn Outside Runtime
 
-`engine/sensory/ledger.py` binds every observation to protocol, sample,
-assessor, repeat, timepoint, endpoint, presentation sequence, and schedule
-hash. Missing cells remain missing; duplicate cells, order confounding,
-unqualified within-sniff timing, or an assessor safety incident return `HOLD`.
+`engine/sensory/ledger.py` remains compatibility and provenance code. It is not
+an admitted complexity capability. Its repaired candidate tied plain Sol xhigh
+in all three screen cases, producing zero strict wins, so the V7 registry exposes
+no temporal-ledger import.
 
-When repeatability is required, the protocol must declare a maximum
-within-assessor repeat spread. Every assessor is audited against that threshold.
-An adverse event stops evidentiary promotion even when the remaining grid is
-otherwise complete.
+Physical observations must still bind protocol, sample, assessor, repeat,
+timepoint, endpoint, presentation sequence, and schedule hash. Missing cells
+remain missing. Duplicate cells, order confounding, unqualified within-sniff
+timing, or an assessor safety incident stop promotion. These are evidence-intake
+requirements, not proof that the retired implementation performs better than
+the control model.
 
-`engine/preference.py` fits target fidelity, depth, richness, and liking as
-separate criteria. Ties remain indifference evidence, assessor-cluster
-bootstrap is deterministic, and sparse, disconnected, unscoped,
-order-confounded, or baseline-failing results remain `WITHHELD` or
-`DIAGNOSTIC`.
+`engine/preference.py` also remains compatibility and provenance code. The
+candidate passed its three-case screen but achieved only 3/6 confirmation wins
+and median paired gain `+1` against both controls. It therefore failed the 4/6
+and `+5` admission thresholds and has no V7 runtime import. Target fidelity,
+depth, richness, and liking must remain separate criteria in any future rebuild.
 
 ## D — Decide and Deploy
 
-`engine/perception/complexity_replacement_benchmark.py` uses three blinded
-arms per case:
+The historical replacement benchmark used three blinded arms per case:
 
 1. plain Sol xhigh;
 2. the same model with the candidate module packet; and
 3. a byte-length-matched inert packet.
 
-Live execution is phase gated:
+Execution was phase gated:
 
 - screen first: 3 cases per module, 27 outputs maximum;
 - each request freezes the exact natural-language dispatch envelope and its
@@ -79,14 +83,21 @@ Live execution is phase gated:
   not exactly match those frozen scores and critical checks is rejected.
 
 Final admission requires at least 4/6 wins, median paired gain of at least five
-points against both controls, and zero critical errors. Registry hash drift,
-reproducibility failure, a critical regression, or an authority-boundary
-violation triggers rollback to runtime-unreachable state. Rollback never
-authorizes source or evidence deletion. Runtime remains unreachable after a
-rollback until the last validated registry hash, false authority flags,
-unreachable candidate imports, and focused freeze/ensemble tests are verified;
-failed verification remains `HOLD_RUNTIME_UNREACHABLE` and requires fresh
-admission.
+points against both controls, and zero critical errors. The V7 decision is
+`ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED`: Architectural Delta retains
+its prior exact-scope admission; Temporal Sensory Ledger failed screening; and
+Hedonic Preference Learner failed confirmation. Failed modules remain
+runtime-unreachable while their frozen sources, tests, hashes, and negative
+results remain provenance tombstones.
+
+The operational path is therefore:
+
+1. define the target and forbidden drift;
+2. use Architectural Delta to select zero or one nonredundant controlled change;
+3. obtain explicit human approval before any physical microtrial;
+4. collect blinded raw observations under a frozen protocol;
+5. make only a scoped evidence decision from complete observed cells; and
+6. select the next discriminating experiment without inferring beauty or release.
 
 ## Evidence basis
 
@@ -110,11 +121,10 @@ that any formula is beautiful, safe for release, stable, similar, or liked.
 
 ## Current transition
 
-The partially observed v2 external run remains an unscored provenance
-tombstone. The refreshed v3 corpus adds explicit sensory-stop and assessor
-repeatability cases without changing v2 bytes. Three infrastructure attempts
-were rejected without scoring: inherited project instructions contaminated a
-local run, an oversized cloud dispatch exceeded capacity, and raw JSON did not
-start a cloud response. The next external operation is a new v5 `SCREEN`
-manifest with hash-bound dispatch text after exact model identity and fresh
-projectless conversation capture can be proven.
+The authoritative runtime registry is
+`configs/complexity/complexity_module_registry_v7.json`; the admission receipt is
+`data/governance/protected_evidence_retest_admission_v1.json`. All authority
+flags remain false. The next meaningful step is a human-run, blinded physical
+microtrial generated by Architectural Delta. A fresh Sol xhigh benchmark is
+required only for a genuinely rebuilt temporal or hedonic candidate, never to
+re-admit the frozen failed implementations by assertion.
