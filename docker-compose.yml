@@ -1,22 +1,30 @@
-version: '3.8'
-
 services:
   api:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
       - DATABASE_URL=sqlite+aiosqlite:///./perfume_chem.db
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - SECRET_KEY=${SECRET_KEY:-change-this-secret-key}
-      - DEBUG=True
+      - SECRET_KEY=${SECRET_KEY:?Set SECRET_KEY before starting Perfume-Chem}
+      - DEBUG=False
+      - SOLFORGE_INVENTORY_PATH=/app/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx
+      - PERFUME_COMPLEXITY_INVENTORY_WORKBOOK=/app/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx
+      - PERFUME_CHEM_V5_INVENTORY=/app/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx
       - REDIS_URL=redis://redis:6379/0
       - OTEL_OTLP_ENDPOINT=http://jaeger:4318
     volumes:
-      - ./backend/data:/app/data
-      - ./backend/app:/app/app
+      - ./backend/data:/app/backend/data
+      - ./backend/app:/app/backend/app
+      - ./backend/config:/app/backend/config:ro
+      - ./engine:/app/engine
+      - ./data:/app/data:ro
+      - type: bind
+        source: ${PERFUME_CHEM_V5_INVENTORY:?Set PERFUME_CHEM_V5_INVENTORY to the exact V5 workbook}
+        target: /app/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx
+        read_only: true
     depends_on:
       - redis
       - jaeger
@@ -24,16 +32,16 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - redis_data:/data
 
   jaeger:
     image: jaegertracing/all-in-one:1.52
     ports:
-      - "16686:16686"   # Jaeger UI
-      - "4317:4317"     # OTLP gRPC
-      - "4318:4318"     # OTLP HTTP
+      - "127.0.0.1:16686:16686"   # Jaeger UI
+      - "127.0.0.1:4317:4317"     # OTLP gRPC
+      - "127.0.0.1:4318:4318"     # OTLP HTTP
     environment:
       - COLLECTOR_OTLP_ENABLED=true
 

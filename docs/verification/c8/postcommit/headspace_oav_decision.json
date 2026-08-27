@@ -1,0 +1,22 @@
+{
+  "actual_instrument_data_present": false,
+  "c9_open": true,
+  "decision": "PASS",
+  "decision_scope": "C8 headspace OAV, interaction, and sensomics software contracts only",
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "b0e5ed3b0c69d2c23c9cb1ae4f6c6bada1e6e0db",
+  "exact_commit_replay_pass": true,
+  "exact_commit_replay_receipt": {
+    "path": "docs/verification/c8/postcommit/exact-commit-replay.json",
+    "sha256": "b1234f3b9bfcdcb1dca59fcd2d7d9afe9732c2cf6d34c41a658e97a378215218"
+  },
+  "generic_numeric_interaction_adjustments_withheld": true,
+  "implementation_head": "511504f1fd3e1c195a909dbab31836398d608dd5",
+  "oav_abstentions_answerless": true,
+  "oav_preconditions_fail_closed": true,
+  "reason": "The C8 implementation and evidence commit replayed without test failures, timeouts, stderr output, ANSI escapes, credential-shaped evidence, scope widening, or protected-state drift. OAV remains bounded screening, generic numeric interaction adjustments remain forbidden, and empirical promotion remains blocked pending governed instrument data.",
+  "schema": "build-c8-headspace-oav-decision-v1",
+  "sensomics_order_enforced": true,
+  "unsupported_claims_withheld": true
+}

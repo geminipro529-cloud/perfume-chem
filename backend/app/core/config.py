@@ -1,10 +1,15 @@
 """Application configuration using Pydantic Settings"""
 
+import sys
 from functools import lru_cache
+from pathlib import Path
 from typing import List, Optional
 
-from pydantic import field_validator
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_DATABASE_PATH = (PROJECT_ROOT / "perfume_chem.db").resolve()
 
 
 class Settings(BaseSettings):
@@ -20,7 +25,7 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
 
     # Database
-    DATABASE_URL: str = "sqlite+aiosqlite:///./perfume_chem.db"
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{DEFAULT_DATABASE_PATH.as_posix()}"
     DB_POOL_SIZE: int = 5
     DB_MAX_OVERFLOW: int = 10
     DB_ECHO: bool = False
@@ -92,8 +97,33 @@ class Settings(BaseSettings):
     IFRA_COMPLIANCE_CHECK: bool = True
     ENABLE_AI_SUGGESTIONS: bool = True
 
+    # SolForge Workbench (fixed local process boundary)
+    SOLFORGE_ENGINE_PYTHON: str = sys.executable
+    SOLFORGE_PROJECT_ROOT: str = str(PROJECT_ROOT)
+    SOLFORGE_INVENTORY_PATH: str = Field(
+        default=str(
+            PROJECT_ROOT / "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx"
+        ),
+        validation_alias=AliasChoices(
+            "SOLFORGE_INVENTORY_PATH",
+            "PERFUME_CHEM_V5_INVENTORY",
+        ),
+    )
+    SOLFORGE_ARTIFACT_ROOT: str = str(
+        PROJECT_ROOT / "output" / "solforge-workbench"
+    )
+    SOLFORGE_TIMEOUT_SECONDS: int = 90
+    SOLFORGE_MAX_BODY_BYTES: int = 524_288
+    SOLFORGE_MAX_RUNS: int = 50
+    SOLFORGE_MAX_ARTIFACT_BYTES: int = 104_857_600
+    SOLFORGE_MAX_RECORD_BYTES: int = 4_194_304
+    SOLFORGE_MAX_CONCURRENT_RUNS: int = 1
+
     # OpenTelemetry Tracing
-    OTEL_ENABLED: bool = True
+    # Exporting is an operational opt-in.  The API remains fully functional
+    # with the OpenTelemetry API's no-op provider when no collector is
+    # configured.
+    OTEL_ENABLED: bool = False
     OTEL_SERVICE_NAME: str = "perfume-chem-api"
     OTEL_OTLP_ENDPOINT: str = "http://localhost:4318"  # HTTP OTLP endpoint
     OTEL_TRACES_SAMPLER: str = "parentbased_traceidratio"
@@ -114,6 +144,24 @@ class Settings(BaseSettings):
             if normalized in {"dev", "development", "debug", "true", "1", "yes", "on"}:
                 return True
         return value
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def resolve_sqlite_database_url(cls, value):
+        text = str(value)
+        prefixes = ("sqlite+aiosqlite:///", "sqlite:///")
+        for prefix in prefixes:
+            if text.startswith(prefix):
+                raw_path = text.removeprefix(prefix)
+                path_text, separator, query = raw_path.partition("?")
+                if path_text == ":memory:" or path_text.startswith("file:"):
+                    return text
+                path = Path(path_text)
+                if not path.is_absolute():
+                    path = PROJECT_ROOT / path
+                resolved = prefix + path.resolve().as_posix()
+                return resolved + (separator + query if separator else "")
+        return text
 
     class Config:
         env_file = ".env"

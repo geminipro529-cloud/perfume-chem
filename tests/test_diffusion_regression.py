@@ -5,16 +5,14 @@ applies correctly, gamma_map parameter integrates, and score_diffusion returns
 sane ranges.
 """
 
+import math
+
 from engine.diffusion_model import (
     DIFFUSION_DATA,
     _estimate_kaw_eff,
     score_diffusion,
-    _T_SKIN,
-    _classify_reach,
 )
 from engine.skin_interaction import _hansen_substantivity
-import math
-
 
 # ── VP_25 values are in Pa (not mmHg) ──
 
@@ -83,7 +81,6 @@ def test_score_diffusion_accepts_gamma_map():
 
 def test_gamma_map_changes_classification():
     """High gamma should push materials toward far-field classification."""
-    empty = {}
     ingredients = {"Iso E Super": 100.0}
     # Same material with different gamma values
     r_low = score_diffusion(ingredients, gamma_map={"Iso E Super": 0.1})

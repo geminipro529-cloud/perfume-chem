@@ -1,11 +1,13 @@
 """Bleu Carbon — 15-operation formula: OAV + hedonic + longevity literature validation."""
-import sys, math
+import math
+import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 if sys.platform == "win32": sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from engine.pipeline.formula_state import build_formula_state
 from engine.hedonic_model import HEDONIC_VALENCE, score_hedonic
+from engine.pipeline.formula_state import build_formula_state
 
 # ═══════════════════════════════════════════════════════════════
 # Final formula: v1 base + 8 cuts + 7 additions
@@ -146,7 +148,7 @@ for nm, val, act, oav, ho in hedonic_oav_ranked[:15]:
     print(f"  {nm:<28} {val:>+8.2f} {act:>8.1f} {oav:>10.1f} {ho:>14.1f}")
 
 # Low-valence drag audit
-print(f"\n  Low-valence materials (drag on mean):")
+print("\n  Low-valence materials (drag on mean):")
 for nm, oav, vap, odt, act, vp, gam, note in ranked:
     val = HEDONIC_VALENCE.get(nm)
     if val is not None and val < 0.40 and oav > 0.5:
@@ -166,7 +168,7 @@ for nm, oav, vap, odt, act, vp, gam, note in ranked:
     else: base_act += act
 
 total_act = top_act + heart_act + base_act
-print(f"\n  Evaporation profile (by VP tier):")
+print("\n  Evaporation profile (by VP tier):")
 print(f"  Top   (VP>50 Pa):    {top_act:>8.0f} uL active ({top_act/total_act*100:>5.1f}%)")
 print(f"  Heart (VP 0.5-50):   {heart_act:>8.0f} uL active ({heart_act/total_act*100:>5.1f}%)")
 print(f"  Base  (VP<0.5 Pa):   {base_act:>8.0f} uL active ({base_act/total_act*100:>5.1f}%)")

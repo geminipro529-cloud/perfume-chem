@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S01",
+  "completed_utc": "2026-08-26T07:33:07.878652+00:00",
+  "dispatch_sha256": "6a6921216ff31fd58d5b080d8aa8b9d04e15dafba536dee3db4b0ee07239967c",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "098a3a355b1153767031fd89bed9e3b36436c6c9e6cee215451cecf29696da27",
+  "output_text": "{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"Observed median dry-wood depth rises from 3 at 60 seconds to 5.5 at 1800 seconds, an increase of 2.5 units.\",\"controlled_comparison\":\"Four unique assessor cells were compared at each timepoint under protocol AUG-TEM-S01 and schedule sched-aug-tem-s01. All canonical cells were present once, scopes matched, presentation order was balanced, and disagreement remained within threshold.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"COMPLETE_CANONICAL_CELLS\",\"MATCHED_PROTOCOL_AND_SCHEDULE\",\"MEDIAN_DEPTH_INCREASED\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "7a40c2689eb5015b2a1ccf927f9ed99a5ad8b74386cbca8711c41cd20c7f6949",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-9c7ca8fcedf3f9d94e24",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:54.506041+00:00",
+  "stderr_sha256": "df7634cf8e4f99efeaeaf6d9143142cf4cb780f695f97d848a7078517c035b7a",
+  "stderr_tail": "nutes.\"},\"output_contract\":{\"allowed_decision_states\":[\"COMPLETE\",\"INCOMPLETE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_1800_seconds\":\"compute from the supplied evidence\",\"median_at_60_seconds\":\"compute from the supplied evidence\",\"median_transition\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"Observed median dry-wood depth rises from 3 at 60 seconds to 5.5 at 1800 seconds, an increase of 2.5 units.\",\"controlled_comparison\":\"Four unique assessor cells were compared at each timepoint under protocol AUG-TEM-S01 and schedule sched-aug-tem-s01. All canonical cells were present once, scopes matched, presentation order was balanced, and disagreement remained within threshold.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"COMPLETE_CANONICAL_CELLS\",\"MATCHED_PROTOCOL_AND_SCHEDULE\",\"MEDIAN_DEPTH_INCREASED\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5},\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,228\n",
+  "stdout_sha256": "7bba36949ca278ebca336ea17f11cd3981543eb52506507f19f8a545fe5b0418"
+}

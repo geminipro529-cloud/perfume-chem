@@ -1,0 +1,53 @@
+{
+  "schema_version": "solforge_screen_manifest_v1",
+  "phase": "SCREEN",
+  "created_on": "2026-08-26",
+  "corpus_path": "tests/fixtures/solforge/benchmark_screen_v1.json",
+  "corpus_sha256": "fb5d38be58f4916239890c4ede93d3b97aa2b6979201ebb19ca2d135a1eaa6bb",
+  "requested_model_id": "gpt-5.6-sol",
+  "recorded_model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_scope": "FRESH_PROJECTLESS_NO_NETWORK_NO_TOOLS",
+  "case_count": 12,
+  "canonical_task_ids": [
+    "01a03a4d-63b4-7e31-b460-1f6a52493172",
+    "01a03a4d-6c2f-7300-b524-0eb6ead8fd0b",
+    "01a03a4d-74df-7822-85ba-4afa25683018",
+    "01a03a4d-7d37-73b1-bfe6-e91cd0f6aa46",
+    "01a03a4d-84ce-7771-83d6-03b06a427deb",
+    "01a03a4d-8fb6-79f1-a181-b6cfee169230",
+    "01a03a4d-98b0-7752-a39c-2b2c4591f43b",
+    "01a03a4d-a053-7c00-b20b-3e5302c07f28",
+    "01a03a4d-a894-7e80-b750-bcff74f16340",
+    "01a03a4d-b098-72f1-8bbd-11ec5753f172",
+    "01a03a4d-ba71-71d1-a5a8-6dcff19492e6",
+    "01a03a4d-c4b1-7391-96d0-148a1e4984c5"
+  ],
+  "invalidated_task_ids": [
+    "01a03a49-bcaf-7783-8181-0ed1f40d53a0",
+    "01a03a49-c428-7b61-b440-d394dfd5c0b5",
+    "01a03a49-cc32-73c2-8625-75f618c677a5",
+    "01a03a49-d3bf-7192-b98d-33534eeb7275",
+    "01a03a49-db3b-7f83-99b2-dee091955c2e",
+    "01a03a49-e494-70e2-a72a-f8435ed5ebb3",
+    "01a03a49-ee4a-77d2-96d9-e56033d26ec4",
+    "01a03a49-f67f-7052-b27a-3021d1e85aa3",
+    "01a03a4a-03b2-7bf0-bd37-7896304c58ac",
+    "01a03a4a-134c-74c0-bd94-b8e03f7edd8b",
+    "01a03a4a-1afc-7542-9ec3-70857724c3b1",
+    "01a03a4a-2c44-7f82-9030-c0f1641e4146",
+    "01a03a4b-b8a2-7653-bd8c-1bf93553f9d6",
+    "01a03a4b-d156-7923-b615-7bafdba8a912"
+  ],
+  "invalidation_reason": "NONCANONICAL_DISPATCH_HASH_OR_TOOL_CONTAMINATION; OUTPUTS_NOT_SCORED",
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

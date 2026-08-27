@@ -1,11 +1,12 @@
 """Score Mr. Sandman YSL — 10-axis + brand perspectives."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
+from engine.hedonic_model import HEDONIC_VALENCE
+from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import ODT_DATA
-from engine.ifra_safety import IFRA_CAT4_LIMITS
-from engine.hedonic_model import HEDONIC_VALENCE
 from engine.skin_interaction import SKIN_PHYSCHEM
 
 ODT_OVERRIDE = {

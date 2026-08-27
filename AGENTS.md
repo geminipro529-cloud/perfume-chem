@@ -13,6 +13,9 @@
 > **⚠️ RULE 4: Every natural mixture uses composite OAV, not monomolecular.**  
 > All EOs, absolutes, resinoids, and natural mixtures (35+ entries) are decomposed into published GC-O constituents in `engine/pipeline/natural_absolute_decomposition.py`. The pipeline auto-applies composite OAV via `formula_state.py` at lines 219 and 567. Never use the old monomolecular OAV for naturals. This increases OAV accuracy by 100-500,000× for absolutes.
 
+> **⚠️ RULE 5: Every revised compounding formula must pass the pre-mix active-dose + OAV-per-time guard.**  
+> Supply the immediate parent formula to the release gate. A stock-strength change must preserve active dose unless an explicit dose change is intended. `STOCK_REBASE_ACTIVE_EQUIVALENCE` is a hard arithmetic failure. OAV-per-time is a screening alarm only, never percent perceived contribution or a final aesthetic/similarity gate. Regression cases include the Prada L'Homme citronellol and Lemonile 10%-to-neat patterns. See `docs/PRE_MIX_OAV_GUARD.md`.
+
 ## Repo architecture
 
 Two separate Python environments — they don't share a package manager:
@@ -56,9 +59,13 @@ cd backend && poetry run pytest tests/unit/test_xxx.py -k test_name
 pytest tests/test_pipeline_gates.py -k test_gate_blocks
 ```
 
-## CI order (important)
+## Verification order (important)
 
-From `.github/workflows/ci.yml`: `ruff check app` → `mypy app --ignore-missing-imports` → `pytest --cov=app`. Same order applies locally.
+The local pre-push gate runs
+`scripts/pipeline_audit.py project-verify --quick --json`; run the full command
+without `--quick` before merging or publishing a release.
+For backend checks, preserve this order: `ruff check app` ->
+`mypy app --ignore-missing-imports` -> `pytest --cov=app`.
 
 ## Running Formulas Through the Pipeline
 
@@ -183,7 +190,7 @@ python scripts/format_pipeline_analysis.py --input output.json
 
 ## When formulating perfumes
 
-The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, build 2–3 material musk chords across depth/projection/character-echo axes, and always read `inventory.txt` first. Agents generating formulas should treat that file as a required reference.
+The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
 
 > **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
 > Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
@@ -524,6 +531,118 @@ Every new material must exist in 4 locations:
 - Petitgrain EO Paraguay IS in inventory at line 41
 
 ---
+
+## Reconstruction Pipeline
+
+> **New: `scripts/reconstruct.py`** — Evidence-driven formula reconstruction CLI.
+> **New: `engine/reconstruction/`** — Purpose-built reconstruction engine (10 modules).
+> **New: `engine/identity/`, `engine/units/`, `engine/versioning/`, `engine/inventory/`, `engine/evidence/`, `engine/target/`, `engine/bottle/`** — Foundation service modules.
+> **New: `engine/graphs/`, `engine/reports/`** — Accord graph and report generation.
+
+### Architecture
+
+The reconstruction system uses a **layered ledger architecture** — nothing jumps across layers:
+
+```
+Evidence → Target hypothesis → Accepted target → Accord/DNA graph →
+Chassis derivation → Inventory mapping → Build formula →
+Bottle events → Analytical/sensory results → Updated target
+```
+
+- **Evidence ledger**: What sources claim (notes, labels, GC-MS, rosters)
+- **Target ledger**: Best current hypothesis, independent of inventory
+- **Inventory ledger**: What is physically available (stock, lot, concentration)
+- **Build ledger**: Inventory-mapped formula with explicit substitutions
+- **Bottle ledger**: Event-sourced physical bottle state (immutable events)
+- **Analysis ledger**: Model runs and analytical instrument outputs
+- **Sensory ledger**: Coded sample evaluations with time-resolved ratings
+
+**Critical rule**: Missed inventory must NEVER alter the target. Substitutions are in the build layer only.
+
+### Operating Modes
+
+All engine operations require an explicit mode:
+
+| Mode | Purpose |
+|------|---------|
+| `RECONSTRUCTION` | Evidence gathering, identity inference, dose distributions |
+| `CREATIVE_FORMULATION` | New materials, hedonic optimization, cost constraints |
+| `STRUCTURAL_CHASSIS` | Partition target into core + module, derive flankers |
+| `FLANKER_MODULE` | Design alternative socket modules |
+| `INVENTORY_MAPPING` | Map target to available stock with substitution reports |
+| `LIVE_BATCH` | Propose/confirm/commit physical bottle additions |
+| `BATCH_RESCUE` | Corrective additions to already-mixed bottles |
+| `SENSORY_EXPERIMENT` | Design/evaluate coded blind trials |
+| `ANALYTICAL_INTERPRETATION` | Import instrument data (GC-MS, HS-SPME, GC-O) |
+| `COMPLIANCE_BUILD` | Generate jurisdiction-specific compliant formulas |
+| `RELEASE_REVIEW` | Full gate evaluation for release |
+
+### CLI Usage
+
+```bash
+# Reconstruct from evidence
+python scripts/reconstruct.py --mode RECONSTRUCTION build \
+    --evidence evidence.json --brief prada_clean_iris \
+    --output target.json
+
+# Derive chassis partition
+python scripts/reconstruct.py --mode STRUCTURAL_CHASSIS chassis \
+    --target target.json \
+    --envelope configs/reconstruction/prada_lhomme_envelope.json \
+    --output chassis.md
+
+# Generate alternative module
+python scripts/reconstruct.py --mode FLANKER_MODULE module \
+    --chassis chassis.json --direction "soft_amber_tonka" \
+    --output module.json
+
+# Validate chassis integrity
+python scripts/reconstruct.py validate --chassis chassis.json
+```
+
+### New Pipeline Gates
+
+Three new gates added to `engine/pipeline/gates.py`:
+- **`mode_protection`**: Blocks actions inappropriate for current operating mode
+- **`chassis_integrity`**: Validates core+module=target row-by-row arithmetic (SKIP if no chassis)
+- **`authority_vector`**: Reports per-dimension authority (identity, quantity, grade, sensory, safety, etc.) — NEVER averaged into one score
+
+### Material Identity Model
+
+Materials are tracked through an identity chain, NOT silently collapsed:
+
+- **Synthetic**: `chemical_entity → stereoisomer → trade_grade → supplier_product → supplier_lot → stock_solution`
+- **Natural**: `botanical_species → plant_part → chemotype → origin → extraction_method → supplier_lot → analytical_composition → stock_solution`
+
+Non-equivalent materials that must NOT be collapsed: Habanolide↔Galaxolide, Muscenone Delta↔Exaltolide, Alpha Isomethyl Ionone↔Methyl Ionone Gamma Coeur, Bacdanol↔Sandalore, Haitian↔Indian vetiver, Lavender↔Lavandin.
+
+### Concentration Basis Enforcement
+
+All concentrations must declare basis: `10% w/w`, `50% in DPG`, `30% v/v`. Naked `10%` fails validation. Use `engine/units/concentration.parse_concentration()`.
+
+### Active Accounting Fix
+
+DPG and carriers are NOT odorant-active. `engine/units/concentration.compute_active_accounting()` separates `odorant_active_ul`, `technical_active_ul`, `carrier_ul`, `solvent_ul`. The formula L'Homme chassis previously reported 3,692 µL active — the corrected odorant-active is 3,592 µL.
+
+### Module Envelopes
+
+Config files in `configs/reconstruction/` define chassis partition constraints:
+- `protected_anchor_floors_in_core_uL`: Minimum core retention per recognizer
+- `required_module_roles`: Functional roles the module MUST cover
+- `forbidden_drift`: Character directions the module MUST NOT take
+- Module volume alone is insufficient — envelopes track active mass, carrier mass, volatility centroid, T/H/B distribution, odor-family vector, polarity, and color risk.
+
+### Event-Sourced Bottles
+
+Bottle state is reconstructed from immutable events. Never delete — CORRECT_ENTRY for fixes. AI can only PROPOSE; user CONFIRMS → MEASURES → COMMITS. One irreversible action at a time.
+
+### Known Limitations
+
+- OAV from the pipeline is heuristic, matrix-omitted, and not a sensory-equivalence claim
+- Naturals need lot-specific composition profiles for accurate modeling
+- Unknown/captive materials remain as UNKNOWN_* nodes; do not force into catalog names
+- Markdown formula files are GENERATED VIEWS; structured JSON is canonical source of truth
+- A hash verifies content — it does not store or reconstruct content
 
 ## Tools & Token Optimization
 

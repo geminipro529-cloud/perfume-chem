@@ -1,0 +1,420 @@
+FFFFFFFF                                                                 [100%]
+================================== FAILURES ===================================
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[EXACT_PERCEIVED_INTENSITY] _
+
+claim = <C8Claim.EXACT_PERCEIVED_INTENSITY: 'EXACT_PERCEIVED_INTENSITY'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238cded6b10>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[PERCENT_MIXTURE_CONTRIBUTION] _
+
+claim = <C8Claim.PERCENT_MIXTURE_CONTRIBUTION: 'PERCENT_MIXTURE_CONTRIBUTION'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238cdf7d4e0>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[PLEASANTNESS] _
+
+claim = <C8Claim.PLEASANTNESS: 'PLEASANTNESS'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238cdf7d760>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[TARGET_SIMILARITY] _
+
+claim = <C8Claim.TARGET_SIMILARITY: 'TARGET_SIMILARITY'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238cdf20a40>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[FAMILY_IDENTITY] _
+
+claim = <C8Claim.FAMILY_IDENTITY: 'FAMILY_IDENTITY'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238cdf22b10>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[LONGEVITY] _
+
+claim = <C8Claim.LONGEVITY: 'LONGEVITY'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238ce0ea610>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[SILLAGE] _
+
+claim = <C8Claim.SILLAGE: 'SILLAGE'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238ce0eaf70>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+_ test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[CONSUMER_PREFERENCE] _
+
+claim = <C8Claim.CONSUMER_PREFERENCE: 'CONSUMER_PREFERENCE'>
+
+    @pytest.mark.parametrize("claim", WITHHELD_C8_CLAIMS)
+    def test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied(
+        claim: C8Claim,
+    ) -> None:
+>       decision = evaluate_c8_claim(claim, evidence=(source(),))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_c8_headspace_oav.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+engine\physics\headspace_oav.py:2098: in evaluate_c8_claim
+    return C8ClaimDecision(
+<string>:8: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[AttributeError("'C8ClaimDecision' object has no attribute 'content_sha256'") raised in repr()] C8ClaimDecision object at 0x238ce0e8220>
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "claim", _direct_enum(C8Claim, self.claim, "claim"))
+        object.__setattr__(
+            self,
+            "status",
+            _direct_enum(C8ClaimStatus, self.status, "status"),
+        )
+        evidence_sha256 = tuple(
+            sorted(
+                (
+                    _sha256(item, "evidence_sha256")
+                    for item in _sequence(self.evidence_sha256, "evidence_sha256")
+                )
+            )
+        )
+        if len(evidence_sha256) != len(set(evidence_sha256)):
+            raise HeadspaceOAVContractError("evidence_sha256 contains duplicate values")
+        reasons = _canonical_strings(self.reasons, "reasons")
+        limitations = _strings(self.limitations, "limitations", allow_empty=False)
+        if self.status is C8ClaimStatus.WITHHELD:
+            if evidence_sha256:
+                raise HeadspaceOAVContractError("withheld C8 claim decision must be answerless")
+            if not reasons:
+                raise HeadspaceOAVContractError("withheld C8 claim decision requires reasons")
+        else:
+            if self.claim not in PERMITTED_C8_CLAIMS:
+>               raise HeadspaceOAVContractError("unsupported C8 claim cannot be permitted")
+E               engine.physics.headspace_oav.HeadspaceOAVContractError: unsupported C8 claim cannot be permitted
+
+engine\physics\headspace_oav.py:2011: HeadspaceOAVContractError
+=========================== short test summary info ===========================
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[EXACT_PERCEIVED_INTENSITY]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[PERCENT_MIXTURE_CONTRIBUTION]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[PLEASANTNESS]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[TARGET_SIMILARITY]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[FAMILY_IDENTITY]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[LONGEVITY]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[SILLAGE]
+FAILED tests/test_c8_headspace_oav.py::test_unsupported_c8_claims_are_withheld_even_when_evidence_is_supplied[CONSUMER_PREFERENCE]
+8 failed in 0.94s

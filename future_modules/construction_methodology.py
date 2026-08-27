@@ -21,35 +21,25 @@ Methodologies (from Formulation Intelligence Database, Part II):
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
-from typing import Callable, Mapping, Sequence
+from typing import Mapping, Sequence
 
 from ._shared_types import (
+    bangkok_vp_ratio_default,
+    FIXATIVE_LOADING,
+    HEDONIC_TARGETS,
+    HEDONIC_WEIGHTS,
+    PYRAMID_OAV_RATIOS,
+    TEXTURE_RATIOS,
     ConcentrationBracket,
     FragranceFamily,
     HedonicCategory,
-    HEDONIC_TARGETS,
-    HEDONIC_WEIGHTS,
     MarketSegment,
-    MethodologyType,
-    MIXTURE_SUPPRESSION_FACTOR,
     MethodologySpec,
-    NoteTier,
-    OAV_PERCEPTUAL_STATUS,
-    OPTIMAL_LOG_OAV_SD,
-    PYRAMID_OAV_RATIOS,
-    TEXTURE_RATIOS,
+    MethodologyType,
     TextureLayer,
-    VP_NOTE_TIERS,
-    FIXATIVE_LOADING,
-    BANGKOK_VP_RATIO,
-    T_BANGKOK,
-    T_SKIN,
     estimate_mixture_suppression,
-    clausius_clapeyron_vp_ratio,
 )
-
 
 # ---------------------------------------------------------------------------
 # Methodology A: Pyramid Construction
@@ -497,11 +487,11 @@ def evaporative_half_life_estimator(vp_pa: float, logp: float | None = None) -> 
 
 
 def bangkok_temperature_adjustment(vp_pa: float) -> float:
-    """Adjust VP from 22°C to Bangkok 35°C using Clausius-Clapeyron.
+    """Adjust VP from 22°C to Bangkok-like 35°C using a default Clausius-Clapeyron estimate.
 
     Returns VP at 35°C.
     """
-    return vp_pa * BANGKOK_VP_RATIO
+    return vp_pa * bangkok_vp_ratio_default()
 
 
 # ---------------------------------------------------------------------------

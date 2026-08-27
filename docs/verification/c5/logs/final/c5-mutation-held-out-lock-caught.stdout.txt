@@ -1,0 +1,17 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_held_out_release_requires_matching_pre_release_model_lock ________
+
+    def test_held_out_release_requires_matching_pre_release_model_lock() -> None:
+        observations = tuple(_observation(index) for index in range(6))
+        split = _split()
+        plan = _plan()
+        model_lock = _model_lock(observations, split=split, plan=plan)
+        held_out = observations[4:]
+>       with pytest.raises(CalibrationProgramContractError, match="after model lock"):
+E       Failed: DID NOT RAISE CalibrationProgramContractError
+
+tests\test_c5_calibration_program.py:637: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c5_calibration_program.py::test_held_out_release_requires_matching_pre_release_model_lock - Failed: DID NOT RAISE CalibrationProgramContractError
+1 failed in 0.57s

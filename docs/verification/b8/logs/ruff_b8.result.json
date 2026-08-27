@@ -1,0 +1,42 @@
+{
+  "schema_version": "perfume-chem-command-evidence-v2",
+  "name": "ruff_b8",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": ".",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "scope": [
+    "backend/app/models/lab.py",
+    "backend/app/models/lab_backfill.py",
+    "backend/app/repositories/lab.py",
+    "backend/app/repositories/lab_backfill.py",
+    "backend/app/services/lab_service.py",
+    "backend/app/services/lab_backfill.py",
+    "backend/alembic/versions/20260731_0012_b8_prioritized_backfill.py",
+    "backend/tests/unit/test_b8_backfill_schema.py",
+    "backend/tests/unit/test_b8_backfill_service.py",
+    "backend/tests/integration/test_b8_backfill_migration.py",
+    "backend/tests/integration/test_b8_backfill_e2e.py",
+    "scripts/b8_backfill_dashboard.py",
+    "tests/test_b8_backfill_dashboard.py"
+  ],
+  "command_suffix": ["--no-cache", "--no-fix", "--output-format", "concise", "--color", "never"],
+  "non_pty": true,
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "exit_code": 0,
+  "duration_seconds": 0.70,
+  "result_text": "All checks passed!",
+  "ansi_detected": false,
+  "stdout": {
+    "path": "logs/ruff_b8.stdout.txt",
+    "bytes": 20,
+    "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+  },
+  "stderr": {
+    "path": "logs/ruff_b8.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
+}

@@ -1,3 +1,10 @@
+import pytest
+
+import engine.pipeline.gates as gates_module
+from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
+from engine.name_utils import normalize_name
+from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
+from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import (
     ReleaseGateConfig,
     _apply_guideline_policy,
@@ -5,8 +12,6 @@ from engine.pipeline.gates import (
     _status_from_gates,
     gate_formula,
 )
-from engine.knowledge.perfume_knowledge import evaluate_pyramid_balance
-from engine.name_utils import normalize_name
 
 
 def _formula(ingredients, dilutions=None, name="Test Formula"):
@@ -28,6 +33,27 @@ def test_guideline_policy_demotes_advisory_failures_to_warnings():
     assert normalized.status == "WARN"
     assert normalized.data["original_status"] == "FAIL"
     assert _status_from_gates([normalized]) == "WARN"
+
+
+def test_perfumer_logic_routes_registered_nonlegacy_brief_to_its_archetype():
+    formula = _formula(
+        {
+            "Iso E Super": 1800.0,
+            "Hedione": 900.0,
+            "Ethylene Brassylate": 600.0,
+            "Dihydro Beta Ionone": 300.0,
+        },
+        name="Woody Floral Musk",
+    )
+
+    report = evaluate_perfumer_logic(formula, brief="woody_floral_musk")
+
+    assert report.brief == "woody_floral_musk.classic"
+    assert all(check.name != "perfumer_logic_brief" for check in report.checks)
+
+
+def test_jellinek_classification_spells_ambrettolide_correctly():
+    assert gates_module._JELLINEK_CLASSES["ambrettolide"] == "erogenic"
 
 
 def test_guideline_policy_keeps_hard_blockers_failing():
@@ -103,6 +129,92 @@ def test_gate_warns_when_top_carrier_relies_on_low_authority_odt():
         row["material"] == "Bergamot"
         for row in gates["odt_coverage"].data["low_authority_materials"]
     )
+
+
+def test_gamma_gate_reports_source_authority_and_ideal_scenario_leverage():
+    state = build_formula_state(
+        {"Iso E Super": 200.0, "Hedione": 100.0},
+        {"Iso E Super": 1.0, "Hedione": 1.0},
+        matrix_moles={"Ethanol": 0.4},
+        matrix_mass_g=18.4,
+        matrix_source="explicit",
+    )
+
+    gate = gates_module._gate_oav_physics_gamma(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert gate.status == "WARN"
+    assert gate.data["release_authority"] is False
+    assert gate.data["comparison_scenario"]["authority"] == (
+        "COMPARISON_SCENARIO_ONLY"
+    )
+    iso_e = next(
+        row for row in gate.data["materials"]
+        if row["material"] == "Iso E Super"
+    )
+    modeled = next(
+        material for material in state.materials
+        if material.name == "Iso E Super"
+    )
+    assert iso_e["authority"] in {
+        "HEURISTIC_HANSEN_DISTANCE",
+        "HEURISTIC_PROFILE_CONSTANT",
+    }
+    assert iso_e["ideal_gamma_scenario_oav"] == pytest.approx(
+        modeled.oav / modeled.gamma,
+        rel=1e-5,
+    )
+    assert iso_e["modeled_to_ideal_oav_ratio"] == pytest.approx(
+        modeled.gamma,
+        rel=1e-5,
+    )
+    assert "non-unity" not in gate.detail
+
+
+def test_solvent_matrix_gate_uses_stock_carrier_evidence_without_inventing_matrix():
+    state = build_formula_state(
+        {"Neroli EO": 300.0, "Ambrofix": 250.0},
+        {"Neroli EO": 0.1, "Ambrofix": 0.3},
+        stock_specs={
+            "Neroli EO": {
+                "fraction_basis": "unspecified",
+                "carrier": "DPG",
+                "declared": True,
+            },
+            "Ambrofix": {
+                "fraction_basis": "mass_per_volume",
+                "carrier": "",
+                "declared": True,
+            },
+        },
+        matrix_moles={"Ethanol": 0.4, "Water": 0.05},
+        matrix_mass_g=19.3,
+        matrix_source="incomplete_stock_carrier",
+    )
+
+    gate = gates_module._gate_solvent_matrix(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert gate.status == "WARN"
+    assert gate.data["authority"] == "PARTIAL_UNRESOLVED"
+    assert gate.data["known_stock_carriers_ul"]["DPG"] == pytest.approx(270.0)
+    assert gate.data["unresolved_carrier_proxy_ul"] == pytest.approx(175.0)
+    assert gate.data["bulk_matrix_components_ul"]["ETHANOL"] == pytest.approx(
+        0.4 * 46.0684 / 0.785 * 1000.0,
+        rel=1e-6,
+    )
+    assert gate.data["bulk_matrix_components_ul"]["WATER"] == pytest.approx(
+        0.05 * 18.01528 / 0.997 * 1000.0,
+        rel=1e-6,
+    )
+    assert gate.data["headspace_stock_carrier_inclusion"] == (
+        "NOT_INCLUDED_PENDING_RECONCILIATION"
+    )
+    assert "30 mL" not in gate.detail
 
 
 def test_chemistry_stability_fails_aldehyde_amine_contact():
@@ -217,3 +329,32 @@ def test_pyramid_balance_uses_normalized_note_map_keys():
     assert result.actual_top == 100.0
     assert result.actual_heart == 0.0
     assert result.actual_base == 0.0
+
+
+def test_mode_gate_blocks_physical_commit_during_reconstruction():
+    result = gates_module._gate_mode_protection(
+        None,
+        ReleaseGateConfig(
+            mode="RECONSTRUCTION",
+            action="ATOMIC_COMMIT",
+            audit_enabled=False,
+        ),
+    )
+
+    assert result.status == "FAIL"
+    assert result.data["reasons"] == ["ACTION_NOT_ALLOWED_IN_MODE"]
+
+
+def test_mode_gate_allows_atomic_commit_only_in_live_batch():
+    result = gates_module._gate_mode_protection(
+        None,
+        ReleaseGateConfig(
+            mode="LIVE_BATCH",
+            action="ATOMIC_COMMIT",
+            audit_enabled=False,
+        ),
+    )
+
+    assert result.status == "PASS"
+    assert result.data["mode"] == "LIVE_BATCH"
+    assert result.data["action"] == "ATOMIC_COMMIT"

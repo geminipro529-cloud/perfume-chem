@@ -1,0 +1,22 @@
+{
+  "schema": "build-c9-deepluna-worker-result-v1",
+  "job_id": "DS-303409a64898b0bfb2398a35d6ebbc42",
+  "status": "PASS",
+  "execution_status": "ACCEPTED",
+  "evidence_verdict": "POSITIVE",
+  "cache_hit": false,
+  "result_protocol": 3,
+  "negative_findings": [],
+  "positive_findings_as_returned": [
+    "Public contract export count (33) matches the __all__ tuple in unsupported_science.py and the test that asserts exact equality.",
+    "Five aging processes (CHEMICAL_TRANSFORMATION, DISSOLUTION_PHYSICAL_EQUILIBRATION, PRECIPITATION_PHASE_BEHAVIOR, OXIDATION, SENSORY_MATURATION) are defined as a tuple in source and",
+    "Five unsupported outcomes (LONGEVITY, SILLAGE, PROJECTION, EMOTION, HEDONIC) are defined as a tuple in source and confirmed by test."
+  ],
+  "summary": "Build C9 unsupported-science quarantine audit: all packet counts, vocabularies, and authority boundaries are mechanically consistent with the cited source and tests. Every authority boundary has an executable fail-closed guard. The matrix, mutation, archive, and inherited-baseline statements are internally consistent. The clean-commit baseline limitation is truthfully disclosed and preserved as a residual risk. No contradictions or missing mechanical guards were found.",
+  "residual_risks_as_returned": [
+    "Clean-commit baseline limitation: 17 assigned tests cannot be replayed without the verified preserved authoritative overlay. This is truthfully disclosed in the audit packet and is",
+    "Empirical boundary: actual instrument data was not found, so empirical promotion is blocked pending data. This is correctly recorded in the audit packet."
+  ],
+  "recommended_next_action": "Sol should review the residual risks and decide whether to accept the clean-commit baseline limitation for the phase exit.",
+  "normalized_packet_limit": "The normalized result exposed no line citations and visibly truncated some list entries. No retry was made because the one-call Fast contract was exhausted; Sol reproduction is mandatory."
+}

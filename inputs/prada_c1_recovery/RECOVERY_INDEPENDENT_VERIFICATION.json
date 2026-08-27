@@ -1,0 +1,68 @@
+{
+ "recovery_verified_at": "2026-08-06T10:49:11.119356+00:00",
+ "pack_sha256": "0cbaea6e964261fa2356e8dfcc053426e8d7d95f6997116bdffeef00f42ed330",
+ "extracted_to": "D:\\chatbots\\perfume-chem\\inputs\\prada_c1_recovery",
+ "files": {
+  "CrossBrand_120_Master_Audit_GPT56_Pro_PR_E01_C1_SYNCED.xlsx": {
+   "sha256": "cb0f38ddf642e670e5ec93d842ef4c6666e28f9773cfc3097825b2d2d5c962ac",
+   "bytes": 286088
+  },
+  "CrossBrand_120_Testable_Formula_Book_GPT56_Pro_PR_E01_C1_SYNCED.xlsx": {
+   "sha256": "3f87abb836567e4c4e5d4770d15d77e2539097700a5cba9e02f58db303c08b32",
+   "bytes": 1428316
+  },
+  "OPENCODE_RECOVERY_INSTRUCTION.md": {
+   "sha256": "03ebbf6720f4ca7566e28c3bea0a23ddef22a88966bf3eed22c47a61f9b3c4d6",
+   "bytes": 1525
+  },
+  "Prada_LHomme_C1_Conflict_Matrix.xlsx": {
+   "sha256": "a5cd30572159d8cdb2d727d12338a0f82e15f4148bd0e633f95ecc69bc98e8ce",
+   "bytes": 18289
+  },
+  "Prada_LHomme_C1_Final_Desk_Verdict.json": {
+   "sha256": "9f02ea64e5a50dcfde52d8b1389acee7d1d4b310b1f497fa35ddc7b4dd6488e5",
+   "bytes": 4183
+  },
+  "Prada_LHomme_C1_Governing_Audit_Bundle.zip": {
+   "sha256": "6aa641d00b6204a44724c377048c314cc66a76076e7ff0ba72a6274b2b4dbf2c",
+   "bytes": 2012018
+  },
+  "Prada_LHomme_C1_Sol_Pro_Adjudication.md": {
+   "sha256": "0c1a018a79825cb867c16fbc194f70898ad596868ec592ae587df771b7dbc8e7",
+   "bytes": 3420
+  },
+  "Prada_LHomme_C1_Source_Matrix.xlsx": {
+   "sha256": "6e23643f65e9b1d8d0342aae5757628a263e9336396ca12df03b37a13145b006",
+   "bytes": 20208
+  },
+  "Prada_LHomme_C1_Time_Resolved_Target_Dossier.xlsx": {
+   "sha256": "99e8b75e84f4bedfcd2f6f1476538347ac934302ba5005666568a8c3cce99d88",
+   "bytes": 27187
+  },
+  "Prada_LHomme_C1_Worker_1_Report.md": {
+   "sha256": "b8205fd43e5dbe9551f284e0326723b24af2ff246c91b008688077d7cf23d7f9",
+   "bytes": 3341
+  },
+  "Prada_LHomme_C1_Worker_2_Report.md": {
+   "sha256": "aa8fd25151743934c741729d3a8dd9ef5edd0779ec0ce1ac7f9a619078c6d792",
+   "bytes": 3552
+  },
+  "Prada_LHomme_C1_Worker_3_Report.md": {
+   "sha256": "ff56c259d6cb7a69c63b3b60f92e22d2d0c9f151e4955b6e0328769066445b5d",
+   "bytes": 2898
+  },
+  "Prada_LHomme_C1_Worker_4_Report.md": {
+   "sha256": "9ed7125fb0560820c232fb71df7c9824830aae3c1fc05889060d4a420720a1ef",
+   "bytes": 4064
+  },
+  "Prada_LHomme_Current_EDT_Pilot_C1_CORRECTED.xlsx": {
+   "sha256": "0413510c50071be97d13aeb24d9649c609f7d36598211689d43c0a496b19b3c0",
+   "bytes": 209612
+  },
+  "RECOVERY_MANIFEST.json": {
+   "sha256": "d7f7d4ac3b367f379a1edd6b064ffdce297557ba29a4c8ddc5c3681afab03422",
+   "bytes": 6637
+  }
+ },
+ "manifest_mismatches": []
+}

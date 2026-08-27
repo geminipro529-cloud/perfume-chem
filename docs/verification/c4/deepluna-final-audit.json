@@ -1,0 +1,78 @@
+{
+  "schema": "build-c4-deepluna-final-audit-v1",
+  "recorded_at_utc": "2026-08-02T17:29:07.523Z",
+  "project_id": "perfume-chem",
+  "preflight": {
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "provider_calls_enabled": true,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0
+  },
+  "job": {
+    "job_id": "DS-89475e07f64befc649255f0709c993c9",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "cache_hit": false,
+    "tier": "FLASH",
+    "provider": "deepinfra",
+    "route": "deepinfra-priority",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "fallback_policy": "NO_LUNA",
+    "provider_calls": 1,
+    "cost_nano_usd": 9438120,
+    "prompt_tokens": 68220,
+    "completion_tokens": 846,
+    "total_tokens": 69066
+  },
+  "postflight": {
+    "readiness": "READY",
+    "spent_nano_usd": 462277773,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false,
+    "fallback_used": false
+  },
+  "provider_findings": {
+    "six_required_boundary_verdicts": "PASS",
+    "c0_withheld_declaration_reconciliation": "PASS",
+    "preliminary_gate_and_evidence_consistency": "PASS",
+    "negative_finding_count": 0,
+    "scope_deviation": false,
+    "compact_packet_truncated_some_positive_finding_text": true
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "provider_claims_are_authoritative": false,
+    "required_reads_rechecked_locally": true,
+    "ideal_arithmetic_reproduced": true,
+    "exact_input_binding_reproduced": true,
+    "fail_closed_applicability_reproduced": true,
+    "advanced_model_withholding_reproduced": true,
+    "uncertainty_and_oav_labels_reproduced": true,
+    "focused_and_full_tests_reproduced": true,
+    "static_checks_reproduced": true,
+    "mutation_catches_reproduced": true,
+    "c0_verifier_reproduced": true,
+    "archive_and_preserved_work_reproduced": true,
+    "protected_state_reproduced": true,
+    "scope_reproduced": true,
+    "report_consistency_reproduced": true,
+    "concrete_contradiction_count": 0,
+    "unsupported_claim_count": 0
+  },
+  "limitations": [
+    "This receipt contains only a sanitized summary, not provider prompts, hidden reasoning, raw provider text, database content, environment values, or credentials.",
+    "DeepLuna is supplemental; canonical repository state and local executable evidence remain authoritative.",
+    "The evidence commit and exact-commit replay are still pending, so C5 remains closed."
+  ],
+  "status": "PASS"
+}

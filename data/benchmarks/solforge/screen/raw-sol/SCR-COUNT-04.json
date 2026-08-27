@@ -1,0 +1,8 @@
+{
+  "case_id": "SCR-COUNT-04",
+  "phase": "SCREEN",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03a4d-7d37-73b1-bfe6-e91cd0f6aa46",
+  "output_text": "{\"decision\":\"HOLD\",\"interventions\":[{\"type\":\"CONSTANT_TOTAL_NARY_RATIO_SCREEN\",\"criterion\":\"DEPTH\",\"purpose\":\"Test whether the root-to-petal transition depends on the relationship between the two permitted materials rather than ingredient count.\",\"materials\":[\"Iralia\",\"Orris Givco\"]}],\"materials\":[\"Iralia\",\"Orris Givco\"],\"blockers\":[\"INGREDIENT_COUNT_RATIONALE\"],\"inventory_statuses\":{\"Iralia\":\"CURRENT_INVENTORY_AND_PERMITTED\",\"Orris Givco\":\"CURRENT_INVENTORY_AND_PERMITTED\",\"nine_unrelated_materials\":\"WITHHELD_NOT_PERMITTED\"},\"arms\":[{\"arm\":\"A\",\"Iralia_fraction\":1.0,\"Orris_Givco_fraction\":0.0,\"constant_total\":1.0},{\"arm\":\"B\",\"Iralia_fraction\":0.5,\"Orris_Givco_fraction\":0.5,\"constant_total\":1.0},{\"arm\":\"C\",\"Iralia_fraction\":0.0,\"Orris_Givco_fraction\":1.0,\"constant_total\":1.0}],\"nary_factors\":[{\"factor\":\"Iralia_fraction\",\"levels\":[1.0,0.5,0.0]},{\"factor\":\"Orris_Givco_fraction\",\"constraint\":\"1-Iralia_fraction\"}],\"next_comparison\":\"Compare arms A, B, and C under the DEPTH criterion for evidence of a relational root-to-petal transition; make no sensory, hedonic, safety, stability, similarity, or release claim without observations and authority.\",\"authority_flags\":{\"compounding\":false,\"formula\":false,\"hedonic\":false,\"physical\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}"
+}

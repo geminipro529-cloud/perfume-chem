@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-9489aa69e1c5d3efc5ee",
+  "case_id": "RPL-HED-S01",
+  "module_id": "hedonic_preference_learner",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e659b-7054-83ec-84dd-243a968e6d94",
+  "dispatch_sha256": "a5ccd81caf6156aad2b5989167e5631a1ba9f0c12c208ea2300bed22bb007100",
+  "output_text": "{\"decision\":\"ACCEPT_SCOPED_DEPTH_PREFERENCE_EVIDENCE\",\"target_linked_reasoning\":\"The blinded comparison records are complete, the comparison graph is connected, and first-presentation order is balanced. Held-out directional accuracy exceeding the declared baseline supports learned preference direction for the specified DEPTH criterion within this assessor, protocol, and timepoint scope. It does not establish general preference, physical liking, causal ingredient effects, or physical spatial depth. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Prospectively test the learned DEPTH preference on new blinded, order-balanced comparisons under the same protocol, criterion, assessor scope, and timepoint; evaluate directional accuracy against the predeclared baseline without retraining on the held-out set.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\"}",
+  "output_sha256": "97e55c86b614f5043c68bedbce5b4baf5d95881e8f01ff5a2b35283038ca3358",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

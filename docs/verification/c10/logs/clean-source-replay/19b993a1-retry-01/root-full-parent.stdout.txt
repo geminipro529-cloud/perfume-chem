@@ -1,0 +1,120 @@
+
+=================================== ERRORS ====================================
+_______________ ERROR collecting tests/test_artifact_rebind.py ________________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_artifact_rebind.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_artifact_rebind.py:1: in <module>
+    from scripts.rebind_formula_artifact import semantic_manifest_diff
+scripts\rebind_formula_artifact.py:22: in <module>
+    from scripts.formula_release_gate import _append_pipeline_analysis
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+_____________ ERROR collecting tests/test_authority_derivation.py _____________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_authority_derivation.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_authority_derivation.py:13: in <module>
+    from engine.reconstruction.authority import (
+E   ModuleNotFoundError: No module named 'engine.reconstruction.authority'
+________________ ERROR collecting tests/test_bottle_console.py ________________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_bottle_console.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_bottle_console.py:14: in <module>
+    from engine.bottle.console import (
+E   ModuleNotFoundError: No module named 'engine.bottle.console'
+____________ ERROR collecting tests/test_pipeline_audit_verify.py _____________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_pipeline_audit_verify.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pipeline_audit_verify.py:1: in <module>
+    from scripts import pipeline_audit
+scripts\pipeline_audit.py:34: in <module>
+    from scripts.formula_release_gate import (
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+________________ ERROR collecting tests/test_pipeline_part4.py ________________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_pipeline_part4.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pipeline_part4.py:5: in <module>
+    from scripts.formula_release_gate import main as release_gate_main
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+________________ ERROR collecting tests/test_pipeline_part5.py ________________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_pipeline_part5.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pipeline_part5.py:10: in <module>
+    from scripts.formula_release_gate import main as release_gate_main
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+___________ ERROR collecting tests/test_pipeline_scenario_matrix.py ___________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_pipeline_scenario_matrix.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pipeline_scenario_matrix.py:30: in <module>
+    from scripts.formula_release_gate import parse_formula_markdown
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+____________ ERROR collecting tests/test_run_evidence_contract.py _____________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_run_evidence_contract.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_run_evidence_contract.py:38: in <module>
+    from scripts.formula_release_gate import (
+scripts\formula_release_gate.py:55: in <module>
+    from scripts.format_pipeline_analysis import cli_transport_text
+E   ImportError: cannot import name 'cli_transport_text' from 'scripts.format_pipeline_analysis' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\scripts\format_pipeline_analysis.py)
+______________ ERROR collecting tests/test_safety_regulatory.py _______________
+ImportError while importing test module 'D:\.worktrees\perfume-chem\c10-replay-19b993a1\tests\test_safety_regulatory.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_safety_regulatory.py:6: in <module>
+    from engine.ifra_safety import get_ifra_limit
+E   ImportError: cannot import name 'get_ifra_limit' from 'engine.ifra_safety' (D:\.worktrees\perfume-chem\c10-replay-19b993a1\engine\ifra_safety.py)
+=========================== short test summary info ===========================
+ERROR tests/test_artifact_rebind.py
+ERROR tests/test_authority_derivation.py
+ERROR tests/test_bottle_console.py
+ERROR tests/test_pipeline_audit_verify.py
+ERROR tests/test_pipeline_part4.py
+ERROR tests/test_pipeline_part5.py
+ERROR tests/test_pipeline_scenario_matrix.py
+ERROR tests/test_run_evidence_contract.py
+ERROR tests/test_safety_regulatory.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 9 errors during collection !!!!!!!!!!!!!!!!!!!
+9 errors in 13.58s

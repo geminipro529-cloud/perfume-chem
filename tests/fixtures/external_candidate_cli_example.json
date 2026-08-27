@@ -1,0 +1,34 @@
+{
+  "candidate_id": "EXT-CLI-001",
+  "target_id": "TGT-CLI-001",
+  "target_name": "CLI Test Candidate",
+  "target_version": "v1",
+  "concentration": "20% w/w",
+  "region_or_jurisdiction": "EU",
+  "formula_uid": "F-CLI-1",
+  "parent_formula_uid": null,
+  "formula_state": "COMPUTATIONAL_RECONSTRUCTION_CANDIDATE",
+  "empirical_state": "NOT_EMPIRICALLY_VERIFIED",
+  "source_artifact_paths": ["examples/cli_candidate.json"],
+  "source_artifact_hashes": ["0123456789abcdef"],
+  "inventory_snapshot_id": "SNAP-CLI-1",
+  "inventory_snapshot_hash": "fedcba9876543210",
+  "evidence_refs": ["SRC-CLI-1"],
+  "provenance": {"producer": "clarity-fixture", "method": "manual"},
+  "formula_rows": [
+    {
+      "row_number": 1, "raw_material_name": "Bergamot FCF", "canonical_material_name": "bergamot fcf",
+      "exact_supplied_stock": "bergamot fcf", "parts": 400.0, "active_fraction_or_PRODUCT_BASIS": 1.0,
+      "declared_carrier": null, "perceptual_function": "top", "structural_function": "radiance",
+      "phase_roles": ["top"], "evidence_class": "structural", "evidence_refs": [], "dose_rationale": "fixture",
+      "plausible_alternatives": [], "inventory_status": "in_stock", "confidence": 0.7, "uncertainty": 0.2
+    },
+    {
+      "row_number": 2, "raw_material_name": "Hedione", "canonical_material_name": "hedione",
+      "exact_supplied_stock": "hedione", "parts": 600.0, "active_fraction_or_PRODUCT_BASIS": 1.0,
+      "declared_carrier": null, "perceptual_function": "heart", "structural_function": "radiance",
+      "phase_roles": ["heart"], "evidence_class": "structural", "evidence_refs": [], "dose_rationale": "fixture",
+      "plausible_alternatives": [], "inventory_status": "in_stock", "confidence": 0.7, "uncertainty": 0.2
+    }
+  ]
+}

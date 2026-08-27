@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:20:34.866673+00:00",
+  "dispatch_sha256": "0828960178549e65a3e1cd6d256dc0a43b565faeb7ded09d5b8dd03c69a81436",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "e47521ea10299020e6025244b3df26bb94f77c1f73776867924135f6c63b68d5",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The current build already covers iris recognition, root texture, dry wood body, and mineral residue, but lacks the target-defining continuous root-to-wood transition. Of three candidates, two are redundant sweet-amber residue contributors; the sole nonredundant candidate supplies the missing dry bridge without adding sweetness.\",\"controlled_comparison\":{\"design\":\"Compare the current build against one isolated arm containing only the distinct dry root-to-wood bridge intervention.\",\"constant_total\":true,\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"interpretation_limit\":\"Attribute any observed transition improvement only to the isolated bridge arm; ingredient count is not evidence.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[\"After the required V5 inventory reparse, define a constant-total isolated bridge arm against the unchanged current-build control.\"],\"reason_codes\":[\"TARGET_CONTINUITY_GAP\",\"DISTINCT_BRIDGE_TARGET_FAITHFUL\",\"REDUNDANT_SWEET_AMBER_FILTERED\",\"CONSTANT_TOTAL_REQUIRED\",\"INVENTORY_REPARSE_REQUIRED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\"}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "706d204c21ca92a20713847645549cf3df68a4d78810e102199833daecc85bb9",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-6d83a5c4712170b0c250",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:20:17.675133+00:00",
+  "stderr_sha256": "7d78b3561f7dd0cf4b73b2c52cfbae55599d7df0f551d4ee3ece0f3edcf98a14",
+  "stderr_tail": "NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The current build already covers iris recognition, root texture, dry wood body, and mineral residue, but lacks the target-defining continuous root-to-wood transition. Of three candidates, two are redundant sweet-amber residue contributors; the sole nonredundant candidate supplies the missing dry bridge without adding sweetness.\",\"controlled_comparison\":{\"design\":\"Compare the current build against one isolated arm containing only the distinct dry root-to-wood bridge intervention.\",\"constant_total\":true,\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"interpretation_limit\":\"Attribute any observed transition improvement only to the isolated bridge arm; ingredient count is not evidence.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[\"After the required V5 inventory reparse, define a constant-total isolated bridge arm against the unchanged current-build control.\"],\"reason_codes\":[\"TARGET_CONTINUITY_GAP\",\"DISTINCT_BRIDGE_TARGET_FAITHFUL\",\"REDUNDANT_SWEET_AMBER_FILTERED\",\"CONSTANT_TOTAL_REQUIRED\",\"INVENTORY_REPARSE_REQUIRED\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\"}}\ntokens used\n15,570\n",
+  "stdout_sha256": "8f5a08db5b8fbded539a3634147c343b901f277bd9e01a2711b727453ed52c9b"
+}

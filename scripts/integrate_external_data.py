@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import json
 import sys
-import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,7 +36,6 @@ def integrate_pyrfume() -> dict:
     results = {"source": "pyrfume", "datasets": {}}
     try:
         import pyrfume
-        from pyrfume.odorants import from_cids, get_cid
 
         # List available archives
         archives = pyrfume.list_archives()
@@ -141,10 +139,12 @@ def integrate_huggingface_odor() -> dict:
     results = {"source": "huggingface_odor", "datasets": {}}
 
     try:
-        import requests
         import pandas as pd
+        import requests
 
-        base_url = "https://huggingface.co/datasets/Hari5115/molecular-odor-dataset/resolve/main/data"
+        base_url = (
+            "https://huggingface.co/datasets/Hari5115/molecular-odor-dataset/resolve/main/data"
+        )
 
         for split in ["train.csv", "val.csv", "test.csv", "labels.csv"]:
             url = f"{base_url}/{split}"
@@ -177,9 +177,7 @@ def integrate_huggingface_odor() -> dict:
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Integrate external perfume data sources"
-    )
+    parser = argparse.ArgumentParser(description="Integrate external perfume data sources")
     parser.add_argument(
         "--source",
         "-s",

@@ -1,4 +1,8 @@
-"""Hedonic valence modelling — intrinsic pleasantness prediction.
+"""Legacy hedonic-valence heuristic retained for frozen replay only.
+
+``LEGACY_REPLAY_ONLY``: this module cannot establish finished-mixture liking,
+beauty, preference, or release authority. Active decisions require exact-scope
+blinded comparison evidence through ``engine.hedonic_evidence``.
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
 - Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
@@ -28,9 +32,10 @@ Sources:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
 
+LEGACY_REPLAY_CLASSIFICATION = "LEGACY_REPLAY_ONLY"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Hedonic Valence Data
@@ -101,8 +106,6 @@ HEDONIC_VALENCE: dict[str, float] = {
     "Methyl Pamplemousse":    0.68,
     "Neroli EO":              0.80,
     "Petitgrain EO":          0.72,
-    # ── Neutral / context-dependent ──
-    "Iso E Super":            0.55,
     "Aldehyde C10":           0.40,  # pleasant in context, raw = waxy
     "Aldehyde C11":           0.38,
     "Aldehyde C11 Undecylenic": 0.35,

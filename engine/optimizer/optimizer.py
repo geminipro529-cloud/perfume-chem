@@ -2,16 +2,22 @@
 
 import re
 
+from ..chemical_data_validator import is_blocked_chemical
+from ..inventory_parser import inventory_names
 from .models import (
-    FormulaVector, ObjectiveWeights, OptimizationConstraints, OptimizationResult,
+    FormulaVector,
+    ObjectiveWeights,
+    OptimizationConstraints,
+    OptimizationResult,
+    _lookup_material,
+    classify_note,
+    find_missing_rule_partners,
+    get_accord_library,
     get_theory_rules,
-    get_accord_library, _lookup_material, classify_note,
-    material_identity_key, materials_match, find_missing_rule_partners,
+    material_identity_key,
+    materials_match,
 )
 from .scoring import FormulaScorer
-from ..inventory_parser import inventory_names
-from ..chemical_data_validator import is_blocked_chemical
-
 
 _SPECIFICITY_BONUS_TOKENS = (
     "absolute", "base", "fcf", "ftec", "oil", "resinoid", "super",

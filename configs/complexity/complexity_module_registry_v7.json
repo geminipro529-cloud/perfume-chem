@@ -1,0 +1,220 @@
+{
+  "schema_version": "complexity_module_registry_v7",
+  "change_class": "BENCHMARK_RETEST_TOMBSTONES_NO_NEW_ADMISSION",
+  "predecessor_registry_chain": [
+    {
+      "path": "complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    },
+    {
+      "path": "complexity_module_registry_v2.json",
+      "sha256": "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500"
+    },
+    {
+      "path": "complexity_module_registry_v3.json",
+      "sha256": "44ecf5268e494121d132dcf99586e099cc4b8819b2367ce08ef7da9c1af37476"
+    },
+    {
+      "path": "complexity_module_registry_v4.json",
+      "sha256": "7867ba7f51fc395361e4ff9cd4382545d973d994a979c847ac8559adb16e7231"
+    },
+    {
+      "path": "complexity_module_registry_v5.json",
+      "sha256": "905fd3e67697e1bac7b2ffd8dc53a14b558fc9bd0595103ea29fba49af8ce2b0"
+    },
+    {
+      "path": "complexity_module_registry_v6.json",
+      "sha256": "a8ec07599cecb16c821d46a88b2c5c38b99e0cacf42ec4e762091ee0238a1c6f"
+    }
+  ],
+  "base_registry": {
+    "path": "complexity_module_registry_v3.json",
+    "sha256": "44ecf5268e494121d132dcf99586e099cc4b8819b2367ce08ef7da9c1af37476"
+  },
+  "module_overrides": [
+    {
+      "module_id": "architectural-delta-engine",
+      "state": "ADMITTED_RUNTIME",
+      "import_path": "engine.perception.architectural_delta",
+      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60",
+      "evidence_refs": [
+        "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json",
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/confirmation_result.serialized_v2.json",
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/status.serialized_v2.json",
+        "data/governance/protected_evidence_retest_admission_v1.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_solforge_architectural_adapter.py"
+      ],
+      "notes": [
+        "Prior exact-scope admission is retained without scope expansion.",
+        "The public runtime exposes only deterministic computational experiment design."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "import_path": null,
+      "sha256": "2c29e53dbdb04435e4a94d88a15684e7549fdd8dbcfcc4c70d5ef219b8dc03c4",
+      "evidence_refs": [
+        "data/governance/protected_evidence_retest_admission_v1.json",
+        "tests/test_temporal_sensory_evidence.py"
+      ],
+      "notes": [
+        "The repaired module tied plain Sol xhigh in all three blind screen cases and achieved zero strict wins.",
+        "Source and tests remain compatibility and provenance code; the complexity runtime exposes no import."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "import_path": null,
+      "sha256": "367dec7de3038f7b930499973db4c2c3a70c0d2f5de53555ffa7a10791fefa01",
+      "evidence_refs": [
+        "data/governance/protected_evidence_retest_admission_v1.json",
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_preference_validation.py"
+      ],
+      "notes": [
+        "The module passed screening but failed the combined six-case confirmation gate with three wins and median gain one against both controls.",
+        "Preference utilities remain compatibility and provenance code; the complexity runtime exposes no import."
+      ]
+    },
+    {
+      "module_id": "hedonic-evidence-gate-v2",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "import_path": null,
+      "sha256": "7399761dd5d75ef1914fdedded1da0debc9f4a26a6cd20b101c5ee8078e184f6",
+      "evidence_refs": [
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "data/governance/protected_evidence_retest_admission_v1.json"
+      ],
+      "notes": [
+        "Exact-scope evidence utility only; it is not an admitted complexity runtime module."
+      ]
+    },
+    {
+      "module_id": "hedonic-model-future",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "6761d10c9efe75db2cfa1830b9791d819ca65b8aca98fe895d34c2fd0b8c059e",
+      "evidence_refs": [
+        "data/governance/hedonic_active_path_audit_v1.json"
+      ],
+      "notes": [
+        "Composition cannot establish liking; the source remains nonruntime provenance and compatibility code."
+      ]
+    },
+    {
+      "module_id": "solforge-shadow-orchestrator",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "sha256": "f10e465d4221e280fc543ea0bbaed8899a6eac36a34b829c891f6f594ee31088",
+      "evidence_refs": [
+        "tests/test_solforge_runtime_isolation.py",
+        "data/governance/protected_evidence_retest_admission_v1.json"
+      ],
+      "notes": [
+        "The full shadow loop imports failed temporal and preference paths and is unreachable from the public runtime.",
+        "Source remains a provenance tombstone for historical shadow-only tests."
+      ]
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "cc0c789b6930aee2f1043c0c9e8e4a7e5ee319bbea71e419aa377f9c0d623b89",
+      "evidence_refs": [],
+      "notes": [
+        "Future evidence only; no musk-selection, formula, sensory, hedonic, safety, or release authority."
+      ]
+    }
+  ],
+  "benchmark_evidence": [
+    {
+      "path": "data/governance/protected_evidence_retest_admission_v1.json",
+      "sha256": "71e1f57b16847bd647fb6196f25622c2a236d005e01e48765ca0bccb72900de7"
+    },
+    {
+      "path": "data/governance/protected_evidence_retest_admission_v1.sha256",
+      "sha256": "c945daf1205f32f0127697615da17d66b068cdf5400a00974ce7f8a88d268ad5"
+    }
+  ],
+  "runtime_bindings": [
+    {
+      "path": "engine/perception/complexity_registry.py",
+      "sha256": "bf3a0a22a848309b43f28f841fd6ad7510027e83dd90f61eb42b0f436a07738b"
+    },
+    {
+      "path": "engine/perception/architectural_delta.py",
+      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+    },
+    {
+      "path": "engine/solforge/architectural_adapter.py",
+      "sha256": "d359e62d9a070ee75b34eae10416f4e7c5172061d9382098c03b3d242bf3558b"
+    },
+    {
+      "path": "engine/solforge/runtime.py",
+      "sha256": "8cce63b86456bf402330d04bdfa060236a7a3e0666570a4c862b7ec641b245fc"
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "abcf6f2f21ea965aedde8f0de531db08058005bcef2b4b57ed1872fb9b59c727"
+    }
+  ],
+  "provenance_bindings": [
+    {
+      "path": "engine/hedonic_evidence.py",
+      "sha256": "7399761dd5d75ef1914fdedded1da0debc9f4a26a6cd20b101c5ee8078e184f6"
+    },
+    {
+      "path": "engine/hedonic_model.py",
+      "sha256": "6761d10c9efe75db2cfa1830b9791d819ca65b8aca98fe895d34c2fd0b8c059e"
+    },
+    {
+      "path": "engine/pipeline/oav_evidence.py",
+      "sha256": "73d4c4a5a1f3d1010d4bb1849833484e483fe4c6f593a03f9c8f5bc141f2eb7b"
+    },
+    {
+      "path": "engine/preference.py",
+      "sha256": "367dec7de3038f7b930499973db4c2c3a70c0d2f5de53555ffa7a10791fefa01"
+    },
+    {
+      "path": "engine/preference_davidson.py",
+      "sha256": "0575a2b8e1ea8a0fe9265f5be65241afa6e471d137ea58fd06be7d4ea5eaea9a"
+    },
+    {
+      "path": "engine/preference_validation.py",
+      "sha256": "25cf0667fb764fe124a99b812ece5232fda07c5b7fba9f0630d1ad154686ed9c"
+    },
+    {
+      "path": "engine/sensory/ledger.py",
+      "sha256": "2c29e53dbdb04435e4a94d88a15684e7549fdd8dbcfcc4c70d5ef219b8dc03c4"
+    },
+    {
+      "path": "engine/solforge/adapters.py",
+      "sha256": "dac2d10d4c96d2290deb12e5eda822329bf0891492297acbedcfa00009531b15"
+    },
+    {
+      "path": "engine/solforge/orchestrator.py",
+      "sha256": "f10e465d4221e280fc543ea0bbaed8899a6eac36a34b829c891f6f594ee31088"
+    },
+    {
+      "path": "engine/solforge/protected_evidence.py",
+      "sha256": "bebfb4e1564ad8b712bb185e04a020596e7862a7f1095dbcd947de4f5bbebdbe"
+    },
+    {
+      "path": "engine/solforge/protected_evidence_corpus.py",
+      "sha256": "3f264e2d2496338011bc561de95772e306ef476b0517849ee68133b9177fda9d"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

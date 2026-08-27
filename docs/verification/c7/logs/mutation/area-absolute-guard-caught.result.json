@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c7-mutation-result-v1",
+    "name":  "area-absolute-guard-caught",
+    "target":  "tests/test_c7_natural_lots.py::test_normalized_area_percent_cannot_masquerade_as_concentration",
+    "expected_exit_code":  1,
+    "exit_code":  1,
+    "timed_out":  false,
+    "duration_ms":  1427,
+    "started_at_utc":  "2026-08-02T20:52:02.8837198+00:00",
+    "stdout_sha256":  "65e444cbb33f785c3fa83011e254b90a792986125afcd4ce20305c7fbbcf9f7d",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

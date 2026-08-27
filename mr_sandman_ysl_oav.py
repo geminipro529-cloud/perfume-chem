@@ -1,10 +1,11 @@
 """OAV analysis for Mr. Sandman — YSL Edition."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
+from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import ODT_DATA
-from engine.ifra_safety import IFRA_CAT4_LIMITS
 
 ODT_OVERRIDE = {
     "Olibanum Resinoid 10%": {"odt_eth": 0.2},
@@ -26,23 +27,23 @@ ODT_OVERRIDE = {
 def get_odt(name):
     """Get ODT — ODT_DATA first (authoritative), profile as fallback."""
     odt_eth = None
-    
+
     # Check ODT_DATA first
     key = name.lower().replace(" ", "")
     for k, v in ODT_DATA.items():
         if k.replace(" ", "") == key:
             odt_eth = v.get("odt_eth")
             break
-    
+
     # Fallback to profile
     if not odt_eth:
         p = get_profile(name)
         if p and p.odt_ppm: odt_eth = p.odt_ppm
-    
+
     # Check overrides
     if name in ODT_OVERRIDE and not odt_eth:
         odt_eth = ODT_OVERRIDE[name].get("odt_eth")
-    
+
     return odt_eth
 
 # YSL Formula: (name, mass_frac_pct, dilution_pct, note)
@@ -103,18 +104,18 @@ for name, mass_frac, dilution, note in FORMULA:
     active_pct = mass_frac * (dilution / 100.0)
     conc_ppm = active_pct * 10000  # % to ppm in concentrate
     edp_ppm = conc_ppm * EDP_CONC
-    
+
     odt_eth = get_odt(name)
-    
+
     if odt_eth and odt_eth > 0:
         oav_val = edp_ppm / odt_eth
     else:
         oav_val = 0
-    
+
     total_oav += oav_val
     section_totals[note] += oav_val
     section_counts[note] += 1
-    
+
     if oav_val == 0:
         percept = "NO ODT"
     elif oav_val < 1:
@@ -129,11 +130,11 @@ for name, mass_frac, dilution, note in FORMULA:
         percept = "EXTREME"
     else:
         percept = "MEGA"
-    
+
     results.append((name, note, mass_frac, active_pct, conc_ppm, edp_ppm, odt_eth, oav_val, percept))
 
 # Print by section
-for section_name, section_label in [("top", "TOP — YSL Aldehydic Opening"), 
+for section_name, section_label in [("top", "TOP — YSL Aldehydic Opening"),
                                        ("heart", "HEART — Aldehydes First, Jingle Second"),
                                        ("base", "BASE — Clean White Musk")]:
     print(f"\n{'—'*60}")
@@ -141,7 +142,7 @@ for section_name, section_label in [("top", "TOP — YSL Aldehydic Opening"),
     print("-" * 120)
     print(f"  {'Material':<28} {'MFr%':>7} {'Act%':>7} {'C_ppm':>9} {'EDP_ppm':>9} {'ODT_eth':>9} {'OAV':>10} {'Percept':>12}")
     print("-" * 120)
-    
+
     for r in results:
         if r[1] == section_name:
             name, note, mfr, act_pct, conc_ppm, edp_ppm, odt_eth, oav_val, percept = r

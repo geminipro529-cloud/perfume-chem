@@ -18,11 +18,17 @@ Prioritizes gaps by impact: "If we knew X, it would unlock Y% more formulas."
 import re
 from collections import Counter
 from dataclasses import dataclass, field
+
+from engine.ingredient_intelligence import get_all_profiles
 from engine.optimizer.models import (
-    get_materials_db, get_pairing_rules, get_synergy_rules, get_theory_rules,
-    _lookup_material, material_roudnitska_roles, material_jellinek_quadrant_key,
+    _lookup_material,
+    get_materials_db,
+    get_pairing_rules,
+    get_synergy_rules,
+    get_theory_rules,
+    material_jellinek_quadrant_key,
+    material_roudnitska_roles,
 )
-from engine.ingredient_intelligence import get_profile, get_all_profiles
 
 
 @dataclass

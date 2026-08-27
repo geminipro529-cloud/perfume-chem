@@ -74,11 +74,11 @@ def check_formula_ifra(
     # 20% concentration means 20% concentrate, 80% ethanol
     concentrate_pct = concentration_pct / 100.0
 
-    for name, raw_uL, dilution in materials:
-        active_uL = raw_uL * dilution
+    for name, raw_ul, dilution in materials:
+        active_ul = raw_ul * dilution
         # In finished product: active_uL / total_formula_volume × concentration_pct
         # For a 30mL EdP at 20%: concentrate = 6mL, ethanol = 24mL
-        pct_in_finished = (active_uL / total_volume_ul) * concentrate_pct * 100
+        pct_in_finished = (active_ul / total_volume_ul) * concentrate_pct * 100
 
         # Look up limit
         limit = IFRA_CAT4_LIMITS.get(name)
@@ -181,8 +181,8 @@ if __name__ == "__main__":
     if args.formula:
         # Auto-parse the formula markdown
         import re
-        from pathlib import Path
         import sys
+        from pathlib import Path
 
         sys.stdout.reconfigure(encoding="utf-8")
         content = Path(args.formula).read_text(encoding="utf-8")
@@ -213,12 +213,9 @@ if __name__ == "__main__":
                         amount = int(amt_match.group(1))
                 elif p.isdigit() and amount is None and dil is not None:
                     amount = int(p)
-                elif (
-                    name is None and not p.isdigit() and dil is None and amount is None
-                ):
+                elif name is None and not p.isdigit() and dil is None and amount is None:
                     if not any(
-                        kw in p.lower()
-                        for kw in ["role", "chemical", "amount", "ingredient"]
+                        kw in p.lower() for kw in ["role", "chemical", "amount", "ingredient"]
                     ):
                         name = p
             if name and dil is not None and amount is not None:

@@ -1,0 +1,20 @@
+{
+  "schema_version": "perfume-chem-recovery-archive-check-v2",
+  "recorded_local_date": "2026-08-02",
+  "timezone": "Asia/Bangkok",
+  "archive_path": "outputs/b9-authoritative-recovery/20260802T102000/b9-evidence-before-refresh.zip",
+  "archive_bytes": 20094,
+  "archive_sha256": "cb0bccbd23c5fd0757450dd1b1fb108714588b331ac62752d90b6de03942146e",
+  "archived_scope": "docs/verification/b9",
+  "source_file_count": 33,
+  "zip_file_entries": 33,
+  "unsafe_entries": 0,
+  "restore_hashes_matched": 33,
+  "missing_restored_files": 0,
+  "hash_mismatches": 0,
+  "branch": "codex/add-inventory-materials",
+  "head_at_capture": "cf85718d0db50506044fae58011033c2e240d0a9",
+  "extraction_verified": true,
+  "restorable_path_preserving": true,
+  "archive_remains_untracked": true
+}

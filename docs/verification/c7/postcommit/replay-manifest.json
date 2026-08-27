@@ -1,0 +1,365 @@
+{
+  "exact_commit": "be8f4509c4c2b37f5176bd2e3a8732bf29266e6e",
+  "files": [
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/archive-verification.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 856,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/archive-verification.stdout.txt",
+      "sha256": "6c58b0e1abeeda3697d84ecbcf9d645b9e2af1c1b6b6e85d05bfe8a72b54514f"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/basedpyright-c7.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 30,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/basedpyright-c7.stdout.txt",
+      "sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/c0-inventory-verifier.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 343,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/c0-inventory-verifier.stdout.txt",
+      "sha256": "62961cafc943484b891c7af6fdfcf55cd23e82b53f7c2d9a92a3ec84e17480f0"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/c5-empirical-boundary.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 2367,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/c5-empirical-boundary.stdout.txt",
+      "sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/evidence-validation.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 449,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/evidence-validation.stdout.txt",
+      "sha256": "60700855d3995632e8b63c98cbf39393f143cb82f7a1a22f292c2b7f465f6206"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/log-scan.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 12285,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/log-scan.stdout.txt",
+      "sha256": "5ef02a7b954d1b696656729b7241be75325240b58c3037e706a05a5497227807"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/mypy-c7.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 44,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/mypy-c7.stdout.txt",
+      "sha256": "718df785efbbd4b57e63b5f64aff2c5b5592e433447681f759b307f97a3ec96a"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pip-check.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 31,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pip-check.stdout.txt",
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-after.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 703,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-after.stdout.txt",
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-before.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 703,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-before.stdout.txt",
+      "sha256": "eced2823cab6a6cbb19b2684a371c9c81ce796a6b7f77dba2adcd78cd94e916e"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-state-verification.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 1037,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/protected-state-verification.stdout.txt",
+      "sha256": "986db5ed3a0f1e19ad9b597484479788f4ac46e1c47644c4964fa8e15d1c9f23"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c0-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 101,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c0-compat.stdout.txt",
+      "sha256": "a7657896a8a16c20ccad6478689fe468cdba76a568453777c3836122256904b7"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c1-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 182,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c1-compat.stdout.txt",
+      "sha256": "032fe8c3bff301e1062cd676a998193767e7db512d57760a4a2d00190797ff11"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c2-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 182,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c2-compat.stdout.txt",
+      "sha256": "d8ce7ba6270313cf108b9ed2abc36bfda7bf21e8b42350ba0cafcbb9c2a24d95"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c3-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 183,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c3-compat.stdout.txt",
+      "sha256": "9bdbb5faf11ae59b4877c8d9f89c18084bc17211b9b766783ab0c8ef06949dd9"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c4-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 101,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c4-compat.stdout.txt",
+      "sha256": "5f1329ab07b5f2cdcb5474ca4878136fec0352fac3237f90d31cfbd79c2be2ea"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c5-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 101,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c5-compat.stdout.txt",
+      "sha256": "2b20d6044fa36146ef7d50c01e1e46a1205f1d5b21c2f0d66ee5f6609a462079"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c6-compat.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 101,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c6-compat.stdout.txt",
+      "sha256": "955354235632a51b9468dad1b9652e5b76e931ee97d7db240fd1d3db7fb808b4"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c7-dependency.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 100,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c7-dependency.stdout.txt",
+      "sha256": "b345c50c01d15e63dac12ced9fb763212de20bb7f3a7c2632440e8b43e834a39"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c7-focused.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 101,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-c7-focused.stdout.txt",
+      "sha256": "15a6732c5295ecf70b9665170711e4f45b1078e095b960f6bb7a12ddb1091520"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-root-full.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 1815,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/pytest-root-full.stdout.txt",
+      "sha256": "47b29553511cd39bada22a758f1a5f814d2ee9ae4f9b2583597296f27f6c69e7"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/replay-metadata.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 46042,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/replay-metadata.stdout.json",
+      "sha256": "ab243ae5a44b6c049d8350847ea10672090d7367f708a6fbd723348a8b83f964"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/ruff-c7-check.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 19,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/ruff-c7-check.stdout.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/ruff-c7-format.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 26,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/ruff-c7-format.stdout.txt",
+      "sha256": "f114d83b30c5c657ee43a847a45bafccaea255d82673feb87c26d252c61e29c1"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 0,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/scope-verification.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ansi_escape_bytes": 0,
+      "bytes": 7504,
+      "credential_shaped_matches": 0,
+      "path": "docs/verification/c7/postcommit/replay-attempt-2-pass/scope-verification.stdout.txt",
+      "sha256": "ceb7af864eb518190dbfc7d013996bc2f52bc9f3aa24962dce8003cd54efd592"
+    }
+  ],
+  "matched_values_recorded": false,
+  "passed": true,
+  "schema": "build-c7-postcommit-replay-manifest-v1",
+  "scope": "all files under docs/verification/c7/postcommit/replay-attempt-2-pass",
+  "totals": {
+    "ansi_escape_bytes": 0,
+    "bytes": 75406,
+    "credential_shaped_matches": 0,
+    "file_count": 50
+  }
+}

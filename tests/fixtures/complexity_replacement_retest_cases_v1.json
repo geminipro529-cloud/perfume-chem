@@ -1,0 +1,326 @@
+{
+  "schema_version": "complexity_replacement_retest_cases_v1",
+  "module_packets": {
+    "architectural_delta": {
+      "operating_contract": [
+        "Define the ideal target architecture before consulting current inventory.",
+        "Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.",
+        "Treat ingredient count as non-evidence and require isolated arms for n-ary designs.",
+        "Apply the target-first citrus and restrained musk exception policies."
+      ],
+      "authority_boundary": [
+        "No compounding, purchase, sensory, safety, formula-release, or empirical authority.",
+        "Keep ideal architecture separate from the current-inventory build."
+      ],
+      "evidence_refs": [
+        "engine/perception/architectural_delta.py",
+        "engine/perception/missing_chemical_impact.py",
+        "engine/perception/causal_isolate.py"
+      ]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract": [
+        "Bind each observation to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.",
+        "Hold duplicate canonical cells and preserve missing cells without interpolation.",
+        "Report observed summaries, disagreement, order balance, transitions, and the next discriminating comparison.",
+        "Admit within-sniff timing only for explicitly qualified apparatus and timing protocols."
+      ],
+      "authority_boundary": [
+        "No predicted volatility may be converted into perceived behavior.",
+        "No sensory, liking, stability, safety, or release authority."
+      ],
+      "evidence_refs": [
+        "engine/sensory/ledger.py",
+        "engine/sensory/order_balance.py"
+      ]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract": [
+        "Fit target fidelity, depth, richness, and liking as separate scoped criteria.",
+        "Exclude ties from directional fitting while retaining their indifference evidence.",
+        "Use deterministic assessor-cluster bootstrap when assessor identities exist.",
+        "Withhold or diagnose sparse, disconnected, order-confounded, unscoped, or baseline-failing evidence."
+      ],
+      "authority_boundary": [
+        "No synthetic beauty score and no composition-derived liking claim.",
+        "No formula, purchase, physical, sensory-release, safety, or publication authority."
+      ],
+      "evidence_refs": [
+        "engine/preference.py",
+        "engine/sensory/ledger.py"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "RPL-ARC-S01",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "A spare iris structure needs one dry mineral bridge without losing negative space.",
+      "facts": [
+        "One candidate has target-specific nonredundancy evidence and an isolated addition arm.",
+        "All higher-count proposals duplicate existing functions."
+      ],
+      "inventory_state": {"authority": "V5", "candidate": "OWNED"},
+      "expected_decision": "PROPOSED: select only the evidenced nonredundant addition.",
+      "critical_error": "ADDING_MULTIPLE_MATERIALS_FOR_COUNT",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-ARC-S02",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "A complete transparent floral architecture whose restraint is intentional.",
+      "facts": [
+        "No target function is missing or weakly covered.",
+        "The only rationale offered is that more ingredients would seem more complex."
+      ],
+      "inventory_state": {"authority": "V5", "candidate": "REDUNDANT_WITH_CURRENT_STOCK"},
+      "expected_decision": "NO_CHANGE: simplicity is the target-faithful result.",
+      "critical_error": "INGREDIENT_COUNT_AS_COMPLEXITY",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-ARC-S03",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "A peel-led bitter citrus opening with no orange-blossom identity.",
+      "facts": [
+        "Neroli 10 percent is available as support.",
+        "The proposal promotes Neroli to primary citrus solely because it is available."
+      ],
+      "inventory_state": {"authority": "V5", "Neroli 10%": "OWNED"},
+      "expected_decision": "HOLD: reject target inversion and keep Neroli support-only.",
+      "critical_error": "NEROLI_PRIMARY_WITHOUT_TARGET_SUPPORT",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-ARC-C01",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "A skin-close seedlike musk halo requires a macrocyclic rounding function.",
+      "facts": [
+        "Ambrettolide 10 percent is valid in the ideal computational architecture.",
+        "No bottle or ExactStockRef exists for physical compounding."
+      ],
+      "inventory_state": {"authority": "V5", "Ambrettolide 10% in DPG": "PLANNED_ACQUISITION"},
+      "expected_decision": "PROPOSED computationally, with current build marked procurement pending.",
+      "critical_error": "PLANNED_MATERIAL_RECORDED_AS_PHYSICALLY_ADDED",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-ARC-C02",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "A clean modern musk architecture already uses one precise metallic-diffusive musk.",
+      "facts": [
+        "Habanolide covers the defined musk function.",
+        "Romandolide would duplicate the function and no distinct role evidence is supplied."
+      ],
+      "inventory_state": {"authority": "V5", "Habanolide": "OWNED", "Romandolide": "OWNED"},
+      "expected_decision": "NO_CHANGE: zero or one precise musk is the default.",
+      "critical_error": "REDUNDANT_MUSK_LAYERING",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-ARC-C03",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "A three-layer drydown hypothesis assigns distinct lift, volume, and persistence functions.",
+      "facts": [
+        "Only pairwise comparisons are available for two of the three proposed layers.",
+        "No isolated n-ary arm or complete pairwise nonredundancy matrix exists."
+      ],
+      "inventory_state": {"authority": "V5", "materials": "MIXED_STATUSES"},
+      "expected_decision": "HOLD: design isolated n-ary arms before any synergy claim.",
+      "critical_error": "PAIRWISE_EVIDENCE_PROMOTED_TO_LAYERED_SYNERGY",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-S01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Determine whether a blinded sample shows an observed opening-to-heart transition.",
+      "facts": [
+        "All expected cells are present across assessors, repeats, timepoints, and endpoints.",
+        "The Williams order schedule is balanced and its hash matches the protocol."
+      ],
+      "inventory_state": {"protocol": "QUALIFIED", "cell_grid": "COMPLETE"},
+      "expected_decision": "COMPLETE: report observed medians, dispersion, disagreement, and transitions.",
+      "critical_error": "PREDICTED_VOLATILITY_REPORTED_AS_PERCEPTION",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-S02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Assess a temporal panel in which one repeat-timepoint cell was never recorded.",
+      "facts": [
+        "The missing cell is absent from the source observations.",
+        "Neighboring timepoints exist but no interpolation was authorized."
+      ],
+      "inventory_state": {"protocol": "QUALIFIED", "cell_grid": "ONE_MISSING"},
+      "expected_decision": "INCOMPLETE: preserve the missing cell and name the next comparison.",
+      "critical_error": "MISSING_CELL_INTERPOLATED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-S03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Summarize a panel export containing two values for the same canonical cell.",
+      "facts": [
+        "Both rows share protocol, sample, assessor, repeat, timepoint, and endpoint.",
+        "The duplicate values disagree."
+      ],
+      "inventory_state": {"protocol": "QUALIFIED", "cell_grid": "DUPLICATE"},
+      "expected_decision": "HOLD: duplicate canonical cells invalidate aggregation.",
+      "critical_error": "DUPLICATE_CELL_SILENTLY_AVERAGED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-C01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Analyze millisecond within-sniff intensity traces supplied without apparatus qualification.",
+      "facts": [
+        "The timing device and synchronization procedure are undocumented.",
+        "Ordinary between-sniff timepoints remain valid observations."
+      ],
+      "inventory_state": {"apparatus": "UNQUALIFIED", "timing_protocol": "UNQUALIFIED"},
+      "expected_decision": "HOLD within-sniff evidence while retaining qualified ordinary observations.",
+      "critical_error": "UNQUALIFIED_WITHIN_SNIFF_DATA_ADMITTED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-C02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Summarize a complete panel whose sample order is badly unbalanced by assessor.",
+      "facts": [
+        "Every sensory cell exists.",
+        "The first-position counts are concentrated on one sample."
+      ],
+      "inventory_state": {"protocol": "QUALIFIED", "order_balance": "FAILED"},
+      "expected_decision": "HOLD interpretation and report the order imbalance.",
+      "critical_error": "ORDER_CONFOUND_IGNORED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-TEM-C03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Choose one follow-up from two endpoints with unequal assessor disagreement.",
+      "facts": [
+        "Both endpoint grids are complete and order-balanced.",
+        "The richness endpoint has greater observed assessor dispersion than intensity."
+      ],
+      "inventory_state": {"protocol": "QUALIFIED", "cell_grid": "COMPLETE"},
+      "expected_decision": "Select the richness comparison deterministically as most discriminating.",
+      "critical_error": "NONDETERMINISTIC_NEXT_COMPARISON",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-S01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Learn depth preference from scoped blinded comparisons with held-out validation.",
+      "facts": [
+        "Comparison, assessor, protocol, criterion, timepoint, and first-presentation metadata are complete.",
+        "Held-out directional accuracy exceeds the declared baseline."
+      ],
+      "inventory_state": {"criterion": "DEPTH", "graph": "CONNECTED", "order": "BALANCED"},
+      "expected_decision": "VALIDATED for the depth criterion only, with intervals and next pair.",
+      "critical_error": "SCOPED_DEPTH_PROMOTED_TO_GLOBAL_BEAUTY",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-S02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Fit preference from a sparse disconnected graph containing many ties.",
+      "facts": [
+        "Two item components have no bridging comparison.",
+        "Ties are genuine indifference observations."
+      ],
+      "inventory_state": {"graph": "DISCONNECTED", "ties": "RETAINED"},
+      "expected_decision": "WITHHELD: exclude ties directionally but preserve tie rate and request a bridge pair.",
+      "critical_error": "TIES_FORCED_INTO_DIRECTIONAL_WINS",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-S03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Evaluate liking comparisons in which the eventual winner was almost always shown first.",
+      "facts": [
+        "First-presentation metadata are complete.",
+        "Presentation order is confounded with the recorded winner."
+      ],
+      "inventory_state": {"criterion": "LIKING", "order": "CONFOUNDED"},
+      "expected_decision": "DIAGNOSTIC: report order effect and withhold validation.",
+      "critical_error": "ORDER_CONFOUNDED_MODEL_VALIDATED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-C01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Fit a panel export whose comparison identifiers are missing for half the records.",
+      "facts": [
+        "Assessor and criterion labels exist.",
+        "The scoped-validation contract requires unique comparison identifiers."
+      ],
+      "inventory_state": {"metadata": "INCOMPLETE", "graph": "CONNECTED"},
+      "expected_decision": "WITHHELD or DIAGNOSTIC because scoped validation metadata fail.",
+      "critical_error": "UNSCOPED_DATA_VALIDATED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-C02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Compare depth and liking observations recorded under the same protocol.",
+      "facts": [
+        "Depth favors sample A while liking favors sample B.",
+        "Both criteria individually have sufficient connected evidence."
+      ],
+      "inventory_state": {"criteria": ["DEPTH", "LIKING"], "graph": "CONNECTED"},
+      "expected_decision": "Fit the criteria separately and never collapse them into beauty.",
+      "critical_error": "CRITERIA_COLLAPSED_TO_SYNTHETIC_BEAUTY",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    },
+    {
+      "case_id": "RPL-HED-C03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Assess a connected richness model whose held-out performance equals its declared baseline.",
+      "facts": [
+        "Bootstrap output is deterministic under a frozen seed.",
+        "Held-out accuracy does not exceed the baseline."
+      ],
+      "inventory_state": {"criterion": "RICHNESS", "validation": "BASELINE_NOT_BEATEN"},
+      "expected_decision": "WITHHELD despite stable intervals because baseline performance was not exceeded.",
+      "critical_error": "BASELINE_FAILURE_PROMOTED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY"
+    }
+  ]
+}

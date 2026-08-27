@@ -1,0 +1,38 @@
+{
+  "actual_lot_data_present": false,
+  "empirical_metrics_present": false,
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "be8f4509c4c2b37f5176bd2e3a8732bf29266e6e",
+  "failed_attempt": {
+    "classification": "PYTEST_NODE_SELECTOR_ERROR",
+    "preserved": true,
+    "receipt_path": "docs/verification/c7/postcommit/replay-attempt-1-failure.json",
+    "receipt_sha256": "db0cec653cbead572d89c311049cfa04c3e6e419070fd3c054dd3512f89660f7"
+  },
+  "implementation_head": "ce78c450b6eeebe06180ae7e46030bff6da41747",
+  "replay": {
+    "ansi_disabled": true,
+    "attempt": 2,
+    "c7_focused_passed": 49,
+    "complete_root_passed": 1583,
+    "failed_job_count": 0,
+    "job_count": 24,
+    "metadata_path": "docs/verification/c7/postcommit/replay-attempt-2-pass/replay-metadata.stdout.json",
+    "metadata_sha256": "ab243ae5a44b6c049d8350847ea10672090d7367f708a6fbd723348a8b83f964",
+    "non_pty": true,
+    "sensitive_environment_values_removed_without_logging": true,
+    "stderr_bytes": 0,
+    "timeout_count": 0
+  },
+  "replay_manifest": {
+    "ansi_escape_bytes": 0,
+    "bytes": 14510,
+    "covered_file_count": 50,
+    "credential_shaped_matches": 0,
+    "path": "docs/verification/c7/postcommit/replay-manifest.json",
+    "sha256": "c7c33c4dfa07d69cdbd3397507b7b28c5931926592a459e381c86dbd2a645b50"
+  },
+  "schema": "build-c7-exact-commit-replay-v1",
+  "status": "PASS"
+}

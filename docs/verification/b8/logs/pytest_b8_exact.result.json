@@ -1,0 +1,42 @@
+{
+  "schema_version": "perfume-chem-command-evidence-v2",
+  "name": "pytest_b8_exact",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": "backend",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "command": [
+    "-B",
+    "-m",
+    "pytest",
+    "tests/unit/test_b8_backfill_schema.py",
+    "tests/unit/test_b8_backfill_service.py",
+    "tests/integration/test_b8_backfill_migration.py",
+    "tests/integration/test_b8_backfill_e2e.py",
+    "--color=no",
+    "-q",
+    "--basetemp=<external>/pytest-b8-temp"
+  ],
+  "environment": {
+    "non_pty": true,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
+  },
+  "timeout_seconds": 900,
+  "timed_out": false,
+  "exit_code": 0,
+  "tests_passed": 30,
+  "pytest_duration_seconds": 30.05,
+  "wrapper_duration_seconds": 38.69,
+  "stdout": {
+    "path": "logs/pytest_b8_exact.stdout.txt",
+    "bytes": 102,
+    "sha256": "c166a7b37c6f1545d245acaf1b4f5c0428b893e12a7d9b13b0c57e6bf794918e"
+  },
+  "stderr": {
+    "path": "logs/pytest_b8_exact.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
+}

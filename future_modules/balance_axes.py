@@ -20,25 +20,22 @@ Axes:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from ._shared_types import (
-    BalanceReport,
-    ConcentrationBracket,
     CROSS_FAMILY_COMPATIBILITY,
-    DiffusionLayer,
-    FragranceFamily,
-    HedonicCategory,
     HEDONIC_TARGETS,
-    MarketSegment,
-    NoteTier,
     MATERIAL_CLASS_DISTRIBUTION,
     OPTIMAL_LOG_OAV_SD,
     PYRAMID_OAV_RATIOS,
-    TextureLayer,
+    BalanceReport,
+    ConcentrationBracket,
+    DiffusionLayer,
+    FragranceFamily,
+    HedonicCategory,
+    MarketSegment,
 )
-
 
 # ---------------------------------------------------------------------------
 # Axis 1: Volatility Balance (Evaporation Schedule)
@@ -204,7 +201,7 @@ def evaluate_transparency_opacity(
     """
     transparent_mass = 0.0
     opaque_mass = 0.0
-    total_mass = sum(materials.values())
+    sum(materials.values())
 
     for name, mass in materials.items():
         key = name.lower()
@@ -287,7 +284,7 @@ def evaluate_diffusion_layers(
     }
 
     n_ok = sum(1 for ok, _ in checks.values() if ok)
-    n_critical = sum(1 for ok, msg in checks.values() if not ok)
+    sum(1 for ok, msg in checks.values() if not ok)
 
     score = n_ok / len(checks)
 
@@ -415,7 +412,6 @@ def evaluate_cross_family_compatibility(
     family_b: FragranceFamily,
 ) -> BalanceReport:
     """Evaluate compatibility between two fragrance families."""
-    from ._shared_types import CROSS_FAMILY_COMPATIBILITY
 
     # Normalize key lookup (either direction)
     key = (family_a, family_b)

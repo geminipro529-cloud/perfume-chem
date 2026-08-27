@@ -26,12 +26,10 @@ Sources:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import math
-from typing import Any
+from dataclasses import dataclass
 
 from engine.name_utils import normalize_name
-
 
 # Hansen solubility parameters for skin (stratum corneum lipids).
 # δd=17, δp=8, δh=8 (MJ/m³)^½ — approximates human sebum/lipid bilayer.
@@ -199,7 +197,7 @@ SKIN_PHYSCHEM: dict[str, dict[str, float]] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def _reservoir_class(logP: float) -> str:
+def _reservoir_class(logP: float) -> str:  # noqa: N803
     """Classify skin absorption behaviour by LogP.
 
     LogP 1–2:   Hydrophilic — washes off easily, poor skin retention
@@ -221,7 +219,7 @@ def _reservoir_class(logP: float) -> str:
         return "lipid_trapped"
 
 
-def _potts_guy_kp(logP: float, MW: float) -> float:
+def _potts_guy_kp(logP: float, MW: float) -> float:  # noqa: N803
     """Potts-Guy permeability coefficient (cm/h).
 
     log Kp = −2.72 + 0.71·logP − 0.0061·MW
@@ -280,9 +278,7 @@ def _hansen_substantivity(name: str) -> float | None:
     if hsp is None:
         return None
     δd, δp, δh = hsp
-    Ra = math.sqrt(
-        (δd - _SKIN_HSP[0]) ** 2 + (δp - _SKIN_HSP[1]) ** 2 + (δh - _SKIN_HSP[2]) ** 2
-    )
+    Ra = math.sqrt((δd - _SKIN_HSP[0]) ** 2 + (δp - _SKIN_HSP[1]) ** 2 + (δh - _SKIN_HSP[2]) ** 2)  # noqa: N806
     return math.exp(-Ra / _HANSEN_SUBST_SCALE)
 
 
@@ -330,7 +326,7 @@ def score_skin_interaction(
     fabric_anchors: list[dict] = []
     kp_values: list[float] = []
     weighted_subst = 0.0
-    weighted_logP = 0.0
+    weighted_logP = 0.0  # noqa: N806
     reservoir_mass = 0.0
     deep_mass = 0.0
     surface_mass = 0.0
@@ -359,13 +355,13 @@ def score_skin_interaction(
                     }
                 )
         else:
-            logP = data["logP"]
-            MW = data["MW"]
+            logP = data["logP"]  # noqa: N806
+            MW = data["MW"]  # noqa: N806
             subst_used = data["substantivity"]
             kp = _potts_guy_kp(logP, MW)
             reservoir = _reservoir_class(logP)
             kp_values.append(kp)
-            weighted_logP += logP * active
+            weighted_logP += logP * active  # noqa: N806
             weighted_subst += subst_used * active
 
             info = {
@@ -446,9 +442,7 @@ def score_skin_interaction(
     else:
         spread_score = 50
 
-    composite = (
-        reservoir_score * 0.40 + substantivity_score * 0.35 + spread_score * 0.25
-    )
+    composite = reservoir_score * 0.40 + substantivity_score * 0.35 + spread_score * 0.25
 
     # Permeability stats
     perm_stats = {}
@@ -463,17 +457,11 @@ def score_skin_interaction(
 
     # Diagnostics
     if res_pct < 0.20:
-        diagnostics.append(
-            "⚠ Low reservoir fraction — formula may lack skin-scent intimacy"
-        )
+        diagnostics.append("⚠ Low reservoir fraction — formula may lack skin-scent intimacy")
     elif res_pct > 0.60:
-        diagnostics.append(
-            "ℹ Very high reservoir fraction — excellent blooming potential"
-        )
+        diagnostics.append("ℹ Very high reservoir fraction — excellent blooming potential")
     if deep_pct > 0.35:
-        diagnostics.append(
-            "ℹ Dense lipophilic base — deep skin absorption, slow evolution"
-        )
+        diagnostics.append("ℹ Dense lipophilic base — deep skin absorption, slow evolution")
     if avg_subst > 0.65:
         diagnostics.append("✓ Strong fabric substantivity — will last well on clothing")
     elif avg_subst < 0.30:
@@ -486,14 +474,10 @@ def score_skin_interaction(
         score=round(composite, 1),
         reservoir_score=round(reservoir_score, 1),
         substantivity_score=round(substantivity_score, 1),
-        reservoir_materials=sorted(
-            reservoir_mats, key=lambda x: x["logP"], reverse=True
-        ),
+        reservoir_materials=sorted(reservoir_mats, key=lambda x: x["logP"], reverse=True),
         blooming_materials=sorted(blooming_mats, key=lambda x: x["logP"], reverse=True),
         surface_materials=surface_mats,
-        fabric_anchors=sorted(
-            fabric_anchors, key=lambda x: x["substantivity"], reverse=True
-        ),
+        fabric_anchors=sorted(fabric_anchors, key=lambda x: x["substantivity"], reverse=True),
         permeability_profile=perm_stats,
         diagnostics=diagnostics,
     )

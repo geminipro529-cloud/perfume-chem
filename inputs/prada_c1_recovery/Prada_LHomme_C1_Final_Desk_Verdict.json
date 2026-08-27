@@ -1,0 +1,85 @@
+{
+  "audit_uid": "PLH-CURRENT-EDT-C1-ADJ-20260806-29F21B1AF48C",
+  "target": "Current L’Oréal-era L’Homme Prada Eau de Toilette",
+  "exact_desk_verdict": "PILOT AUTHORIZED",
+  "target_dossier_locked": true,
+  "formula_authorized": true,
+  "pilot_authorized": true,
+  "formula_execution_condition": "Complete C1 Dilution Log for Carrot Seed EO 10%, Citral 10% and Methyl Anthranilate 10%.",
+  "empirical_similarity_pass": false,
+  "authenticated_reference_present": false,
+  "version_scope": {
+    "included": "Current Prada Beauty / L’Oréal-era retail EDT",
+    "excluded": "Pre-2021 Puig-era liquid except corroboration",
+    "historical_equivalence_claim": false
+  },
+  "worker_execution_mode": "4 sequential GPT-5.6 Pro procedural reviewer lanes; no DeepLuna, no true parallel workers, no runtime isolation",
+  "actual_worker_count": 4,
+  "actual_adjudicator_identity": "GPT-5.6 Pro",
+  "adjudicator_runtime_isolated": false,
+  "formula": {
+    "uid": "PLH-CURRENT-EDT-INV-C1-20260806-BA4366B26231",
+    "canonical_row_sha256": "ba4366b2623130478b56b34d97087611ada095787a17a285aeae44f1b31f3c3f",
+    "raw_parts": 1000.0,
+    "named_material_or_product_equivalent_parts": 864.195,
+    "status_labels": [
+      "COMPUTATIONAL RECONSTRUCTION CANDIDATE",
+      "PENDING PHYSICAL SMELL TEST",
+      "NOT EMPIRICALLY VERIFIED",
+      "NOT RELEASED"
+    ]
+  },
+  "old_formula_disposition": "SUPERSEDED / DO NOT MIX / DO NOT REPAIR",
+  "mandatory_variants": [
+    "MU-C1",
+    "MU-C2",
+    "IR-C1",
+    "SC-C1",
+    "TR-C1",
+    "ML-C1",
+    "NE-C1",
+    "GE-C1"
+  ],
+  "baseline_exclusions": [
+    "Galaxolide",
+    "Aldehyde C12 MNA",
+    "Helional",
+    "Floralozone"
+  ],
+  "physical_test_status": {
+    "authenticated_reference": "NOT PRESENT",
+    "gc_ms": "NOT RUN",
+    "gc_fid": "NOT RUN",
+    "temporal_hs_spme": "NOT RUN",
+    "gc_o": "NOT RUN",
+    "aeda": "NOT RUN",
+    "recombination": "NOT RUN",
+    "omission_tests": "NOT RUN",
+    "coded_reference_comparison": "NOT RUN",
+    "strict_oav": "NOT CALCULABLE",
+    "stability": "NOT RUN",
+    "safety_assessment": "NOT COMPLETE"
+  },
+  "authorized_use": "BLOTTER-ONLY DEVELOPMENTAL PILOT AFTER DILUTION RELEASE",
+  "skin_use_authorized": false,
+  "sale_or_release_authorized": false,
+  "required_next_gate": "Complete three dilution records, mix exact C1, mature, then coded current-reference comparison and mandatory variants.",
+  "final_olfactory_authority": "Kenny after coded physical comparison against an authenticated current retail bottle",
+  "core_artifact_hashes": {
+    "Prada_LHomme_Current_EDT_Pilot_C1_CORRECTED.xlsx": "0413510c50071be97d13aeb24d9649c609f7d36598211689d43c0a496b19b3c0",
+    "Prada_LHomme_C1_Source_Matrix.xlsx": "6e23643f65e9b1d8d0342aae5757628a263e9336396ca12df03b37a13145b006",
+    "Prada_LHomme_C1_Time_Resolved_Target_Dossier.xlsx": "99e8b75e84f4bedfcd2f6f1476538347ac934302ba5005666568a8c3cce99d88",
+    "Prada_LHomme_C1_Worker_1_Report.md": "b8205fd43e5dbe9551f284e0326723b24af2ff246c91b008688077d7cf23d7f9",
+    "Prada_LHomme_C1_Worker_2_Report.md": "aa8fd25151743934c741729d3a8dd9ef5edd0779ec0ce1ac7f9a619078c6d792",
+    "Prada_LHomme_C1_Worker_3_Report.md": "ff56c259d6cb7a69c63b3b60f92e22d2d0c9f151e4955b6e0328769066445b5d",
+    "Prada_LHomme_C1_Worker_4_Report.md": "9ed7125fb0560820c232fb71df7c9824830aae3c1fc05889060d4a420720a1ef",
+    "Prada_LHomme_C1_Conflict_Matrix.xlsx": "a5cd30572159d8cdb2d727d12338a0f82e15f4148bd0e633f95ecc69bc98e8ce",
+    "Prada_LHomme_C1_Reviewer_Manifest.json": "f431372400e76bbc8be1b8297daa2423ac644271bbe3ed50bb95e07358dbfb59",
+    "CrossBrand_120_Master_Audit_GPT56_Pro_PR_E01_C1_SYNCED.xlsx": "cb0f38ddf642e670e5ec93d842ef4c6666e28f9773cfc3097825b2d2d5c962ac",
+    "CrossBrand_120_Testable_Formula_Book_GPT56_Pro_PR_E01_C1_SYNCED.xlsx": "3f87abb836567e4c4e5d4770d15d77e2539097700a5cba9e02f58db303c08b32",
+    "Prada_LHomme_Physical_Verification_Plan_C1.xlsx": "6c5900146b93e77f72522678a8a04cc3b44e8cffef2181780899a7115a3176b6",
+    "Prada_LHomme_Gate1-3_Execution_Packet_C1.xlsx": "7c00beb54d2ca549ac30afbf61549c888ac1cf0285c49917b81ffd64ba080926"
+  },
+  "validation_status": "PASS",
+  "timestamp_utc": "2026-08-05T22:50:54.032646+00:00"
+}

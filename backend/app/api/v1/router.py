@@ -7,13 +7,48 @@ from app.api.v1.endpoints import (
     enhancements,
     formulas,
     knowledge,
+    lab,
+    lab_lifecycle,
+    lab_planning,
+    lab_reporting,
     mixer,
     optimizer,
     outcomes,
     reference,
+    solforge_workbench,
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    solforge_workbench.router,
+    prefix="/solforge/workbench",
+    tags=["solforge-workbench"],
+)
+
+api_router.include_router(
+    lab_reporting.router,
+    prefix="/lab/science",
+    tags=["laboratory-science"],
+)
+
+api_router.include_router(
+    lab_planning.router,
+    prefix="/lab/v2",
+    tags=["laboratory-planning"],
+)
+
+api_router.include_router(
+    lab_lifecycle.router,
+    prefix="/lab/v2",
+    tags=["laboratory-lifecycle"],
+)
+
+api_router.include_router(
+    lab.router,
+    prefix="/lab",
+    tags=["laboratory"],
+)
 
 api_router.include_router(
     formulas.router,

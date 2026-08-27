@@ -1,7 +1,7 @@
 """OpenAI service implementation with chemistry validation"""
 
 import json
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, List, Optional, cast
 
 from openai import AsyncOpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -52,7 +52,7 @@ class OpenAIService(BaseAIService):
                 cached = await self.cache.get(prompt)
                 if cached:
                     logger.info("Cache hit for AI completion")
-                    return cached
+                    return cast(str, cached)
 
             # Call OpenAI API
             response = await self.client.chat.completions.create(
@@ -141,7 +141,7 @@ class OpenAIService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
 
             # POST-VALIDATION: Check AI output for any suggested formulas
             result = self._post_validate_response(result, ingredients)
@@ -242,7 +242,7 @@ class OpenAIService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
 
             # Post-validate any suggested modifications
             result = self._post_validate_response(result, ingredients)
@@ -289,7 +289,7 @@ class OpenAIService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
 
             # Add dosage info to result if available
             if dosage_info:

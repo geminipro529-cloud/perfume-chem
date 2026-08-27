@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C01",
+  "completed_utc": "2026-08-26T07:36:56.717521+00:00",
+  "dispatch_sha256": "9a6dd26b7f55036d2b19ed10a6ec6e43fd57f7006954d9ace89a24de7f070429",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "04e48c229701a83313242ce810edad54aebf13486fc8136ba60b0c655a46a6b0",
+  "output_text": "{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"Retain Ambrettolide 10% as the sole ideal candidate for soft skin extension of the iris heart without detergent brightness or powder bulk. Procurement is pending, so no candidate is currently compoundable; owned Habanolide and Romandolide are not evidence-supported automatic replacements.\",\"controlled_comparison\":\"Once materials are physically available and execution is separately authorized, compare the Ambrettolide 10% design against otherwise identical Habanolide and Romandolide variants, varying only the musk function and assessing skin softness, iris extension, detergent brightness, and powder bulk. Physical liking remains NOT TESTED.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"TARGET_FUNCTION_PRESERVED\",\"IDEAL_MATERIAL_PROCUREMENT_PENDING\",\"NO_COMPOUNDABLE_CANDIDATE\",\"OWNED_MUSKS_NOT_FUNCTIONALLY_EQUIVALENT\",\"ETHYLENE_BRASSYLATE_STATUS_UNCERTAIN\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"calculations\":{\"physical_addition_authorized_count\":0},\"next_actions\":[\"Run the execution-time V5 inventory reparse to discriminate whether Ethylene Brassylate remains missing; do not treat the result as authorization to substitute or compound.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "69c0c64f2dde4b0aa281b0fd7fd52be007391becd2beaba43948cd5984ff11b2",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-b869d7883389c41ec033",
+  "role": "INVENTORY_MISMATCH",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.269651+00:00",
+  "stderr_sha256": "efddd4cce7938f0fa1bb4b311ff347cbd08e05c7aba461e38791326e1e15cfe4",
+  "stderr_tail": "s\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"Retain Ambrettolide 10% as the sole ideal candidate for soft skin extension of the iris heart without detergent brightness or powder bulk. Procurement is pending, so no candidate is currently compoundable; owned Habanolide and Romandolide are not evidence-supported automatic replacements.\",\"controlled_comparison\":\"Once materials are physically available and execution is separately authorized, compare the Ambrettolide 10% design against otherwise identical Habanolide and Romandolide variants, varying only the musk function and assessing skin softness, iris extension, detergent brightness, and powder bulk. Physical liking remains NOT TESTED.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"TARGET_FUNCTION_PRESERVED\",\"IDEAL_MATERIAL_PROCUREMENT_PENDING\",\"NO_COMPOUNDABLE_CANDIDATE\",\"OWNED_MUSKS_NOT_FUNCTIONALLY_EQUIVALENT\",\"ETHYLENE_BRASSYLATE_STATUS_UNCERTAIN\",\"PHYSICAL_LIKING_NOT_TESTED\"],\"calculations\":{\"physical_addition_authorized_count\":0},\"next_actions\":[\"Run the execution-time V5 inventory reparse to discriminate whether Ethylene Brassylate remains missing; do not treat the result as authorization to substitute or compound.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,385\n",
+  "stdout_sha256": "b0732a36a34ae270a608270ad269dcb71a57c0df1ea609b8956384998ce92c31"
+}

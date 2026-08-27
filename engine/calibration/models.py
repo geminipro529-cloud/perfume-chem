@@ -6,7 +6,6 @@ from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
-
 THAI_CLIMATE_CONTEXT = {
     "name": "thai_hot_humid",
     "temperature_K": 305.0,

@@ -1,0 +1,996 @@
+Perfume-Chem Completion Roadmap
+Branch-specific plan for Sol 5.6 Extra High
+1. Final product vision
+Perfume-Chem should become:
+
+A local-first perfumery operating system that knows what materials are owned, what is physically inside every bottle, what evidence supports each scientific claim, what interventions are possible, how the perfume changes over time, and how the user’s nose responds through repeated experiments.
+
+The final system should combine six capabilities:
+
+Laboratory ledger
+Exact formulas, stocks, bottles, measurements, additions, removals, transfers, and maturation history.
+Scientific calculation core
+Deterministic mass balance, concentration, physical mixture state, OAV screening, safety checks, and uncertainty.
+Evidence system
+Every property and recommendation linked to its source, authority, scope, and uncertainty.
+Intervention engine
+Diagnose problems, simulate repairs, compare candidates, and preserve the perfume’s intended identity.
+Personal experimental model
+Learn from actual bottles, wear tests, preferences, and prediction errors.
+Conversational interface
+Translate natural language into deterministic operations and explain the results without inventing chemistry.
+The language model should be the interpreter and narrator. The workbench should remain the scientific authority.
+
+2. Current branch baseline
+The branch has already completed several important foundations:
+
+the engine is packaged as perfume-chem-engine,
+the backend depends on that package,
+the canonical formula endpoint uses PerfumeWorkbench,
+the workbench produces evidence-labeled formula analysis,
+exact one-stock bottle addition arithmetic exists,
+pipette rounding, staging, and uncertainty are implemented,
+unsupported longevity, sillage, and receptor outputs are withheld,
+speculative receptor scoring is removed from production simulation.
+However, PerfumeWorkbench currently exposes only:
+
+analyze(...)
+calculate_addition(...)
+Diagnosis, intervention simulation, candidate generation, persistent observations, and comparison workflows remain absent.
+
+The backend also still exposes independent AI, optimizer, mixer, knowledge, feedback, and enhancement routers, so the application has not fully converged on one authority.
+
+The current CI workflow tests only the backend and targets main and develop, while the repository and active PR use master. Root engine tests, data audits, scientific checks, and formula regression fixtures are not enforced by that workflow.
+
+The roadmap must therefore finish the migration around the new truth core.
+
+3. How Sol 5.6 Extra High should operate
+Do not give Sol one giant instruction to complete the repository. Each phase should become a sequence of narrow, reviewable pull requests.
+
+For every substantial change, run Sol in four separate passes.
+
+Pass A: Architect
+Sol reads the current code, maps call sites, defines the contract, identifies risks, and writes acceptance tests. It does not implement the feature yet.
+
+Pass B: Builder
+A fresh Sol session implements only the accepted specification. It must avoid unrelated cleanup.
+
+Pass C: Adversarial reviewer
+Another fresh session attempts to disprove the implementation by looking for:
+
+unit confusion,
+broken mass conservation,
+hidden defaults,
+duplicate calculation paths,
+invalid migrations,
+unsupported scientific claims,
+incorrect uncertainty propagation,
+security problems,
+missing edge cases,
+silent changes to old behavior.
+Pass D: Repair and verification
+A final session fixes confirmed defects and produces the verification report.
+
+Every Sol task must state:
+
+Problem
+Current behavior
+Target behavior
+Inputs and units
+Outputs and units
+Scientific classification
+Assumptions
+Failure behavior
+Allowed files
+Forbidden files
+Tests required
+Migration requirements
+Rollback procedure
+Definition of done
+4. Phase 0: Stabilize the current truth-core branch
+Goal
+Make the current branch safe to merge and establish a trustworthy baseline for all later work.
+
+Required work
+Repair CI
+Change CI to run against the repository’s actual protected branch and all pull requests.
+
+Add separate jobs for:
+
+backend-lint
+backend-typecheck
+backend-tests
+engine-lint
+engine-typecheck
+engine-tests
+scientific-audit
+material-data-validation
+knowledge-rule-validation
+golden-formula-regression
+package-build
+docker-build
+docker-smoke-test
+Resolve the existing failing tests
+The PR reports that the full engine suite has 310 passing and 14 failing tests. Those failures may be pre-existing, but they cannot remain indefinite background noise. Each must be:
+
+fixed,
+updated to match an intentional new contract,
+or removed with evidence that the test protects obsolete behavior.
+Create golden fixtures
+Select representative formulas covering:
+
+simple aromachemical formula,
+natural-heavy formula,
+iris formula,
+leather formula,
+fresh citrus formula,
+formula with diluted stocks,
+formula with missing physical data,
+formula with explicit solvents,
+formula near an IFRA limit.
+Save canonical outputs and classify each field as exact, literature-derived, heuristic, or intentionally unavailable.
+
+Add one verification command
+A fresh checkout should support one command such as:
+
+python scripts/verify_project.py
+The output should report:
+
+Passed
+Failed
+Skipped
+Known legacy limitations
+Scientific-data coverage
+Golden-output changes
+Docker status
+Completion gate
+No later architectural phase begins until the full verification command passes or every exception is explicitly documented and approved.
+
+5. Phase 1: Establish canonical domain models
+Goal
+Replace loosely connected JSON records and formula files with a coherent laboratory domain.
+
+The existing database model stores formula ingredients as JSON and includes fields for longevity and sillage that the canonical engine now correctly refuses to predict.
+
+The database should be redesigned around immutable versions and real laboratory objects.
+
+Required entities
+Material
+Represents a canonical chemical, natural mixture, solvent, accord base, or commercial material.
+
+Material
+MaterialAlias
+MaterialProperty
+MaterialRestriction
+MaterialConstituent
+MaterialEvidence
+Supplier stock
+Represents the physical product actually owned.
+
+StockSolution
+Supplier
+Product name
+Lot number
+Material identity
+Active fraction
+Solvent composition
+Density
+Remaining quantity
+Purchase date
+Expiry
+Evidence
+Uncertainty
+“Alpha Irone” and “Alpha Irone 30% in IPM from supplier X” must not be treated as identical objects.
+
+Formula
+Represents an intended design.
+
+Formula
+FormulaVersion
+FormulaComponent
+PerfumeBrief
+FormulaConstraint
+Formula versions must be immutable. Editing a formula creates a new version.
+
+Batch and bottle
+Represents what was actually mixed.
+
+Batch
+Bottle
+BottleEvent
+BottleMeasurement
+BottleObservation
+Experiment
+Represents a controlled sensory test.
+
+Experiment
+Sample
+Application
+Observation
+PairwiseComparison
+Prediction
+PredictionOutcome
+Evidence record
+Represents one claim, not an entire material profile.
+
+EvidenceRecord
+Subject
+Predicate
+Value
+Unit
+Matrix
+Temperature
+Method
+Evidence class
+Source
+Uncertainty
+Applicability
+Conflict status
+Migration requirement
+Existing Markdown formulas, inventory records, database formulas, and outcome records must be importable without discarding their original representation.
+
+Completion gate
+The system can create, version, export, and re-import a formula without losing stock identity, dilution, units, evidence, or historical context.
+
+6. Phase 2: Introduce strict physical quantities
+Goal
+Make incompatible units difficult or impossible to combine.
+
+The current branch uses clear names such as total_mass_g, density_g_ml, and temperature_K, but the underlying values are still ordinary floats.
+
+Required quantity types
+Volume
+Mass
+Density
+Temperature
+Time
+MolarMass
+MassFraction
+VolumeFraction
+MoleFraction
+StockFraction
+LiquidPPM
+GasPPM
+AirPPB
+MicromolarConcentration
+VaporPressure
+OdorThreshold
+OdorActivityValue
+StandardUncertainty
+The implementation may use a units package internally, but the public domain types should use perfumery language.
+
+Required invariants
+fractions remain between zero and one,
+percentages cannot silently enter fraction fields,
+Celsius cannot enter Kelvin fields,
+liquid ppm cannot enter air ppm fields,
+active material cannot exceed total mass,
+volume conversion requires density,
+density conversion exposes uncertainty,
+neat and diluted representations produce equivalent active mass,
+serialization preserves unit meaning.
+Completion gate
+A receptor function expecting micromolar concentration rejects vapor ppm at runtime and during static analysis.
+
+7. Phase 3: Build the persistent bottle ledger
+Goal
+Turn exact addition arithmetic into a real laboratory history.
+
+The present solver can answer how much stock reaches a target mass fraction. It cannot yet remember the bottle’s event history.
+
+Bottle events
+BOTTLE_CREATED
+MATERIAL_ADDED
+SOLVENT_ADDED
+SAMPLE_REMOVED
+TRANSFERRED_OUT
+TRANSFERRED_IN
+BOTTLE_SPLIT
+BOTTLES_COMBINED
+MASS_MEASURED
+VOLUME_MEASURED
+EVAPORATION_ESTIMATED
+OBSERVATION_RECORDED
+BOTTLE_DISCARDED
+Events should be immutable. Corrections should be represented as compensating events rather than silent database edits.
+
+State reconstruction
+The current bottle state must be derived from:
+
+Starting batch
++ additions
++ transfers in
+- removals
+- transfers out
+- declared losses
+The reconstruction must provide:
+
+current total mass,
+current estimated volume,
+every active material mass,
+each solvent mass,
+current stock-derived uncertainty,
+concentration,
+formula ancestry,
+full event history.
+Inventory integration
+Recording an addition should decrease the relevant stock quantity. Transfers and bottle creation should produce auditable inventory movements.
+
+Completion gate
+The application can reconstruct a bottle after dozens of additions and removals, prove mass balance, and show exactly how each current component entered the bottle.
+
+8. Phase 4: Complete the
+PerfumeWorkbench
+Goal
+Make PerfumeWorkbench the sole application-facing authority.
+
+Expand it into:
+
+class PerfumeWorkbench:
+    def analyze_formula(...)
+    def analyze_bottle(...)
+    def calculate_addition(...)
+    def reconstruct_bottle(...)
+    def diagnose(...)
+    def simulate_intervention(...)
+    def generate_candidates(...)
+    def compare_candidates(...)
+    def check_safety(...)
+    def record_observation(...)
+    def compare_experiments(...)
+    def build_evidence_packet(...)
+Migration order
+Move existing systems into the workbench one workflow at a time:
+
+formula analysis,
+bottle analysis,
+mixer calculations,
+enhancements,
+optimizer,
+safety and release gates,
+knowledge retrieval,
+outcomes and calibration,
+AI tools.
+Each old endpoint should first become a thin compatibility adapter. It should be removed only after all callers migrate.
+
+Rule
+No API endpoint, script, optimizer, UI component, or language-model service may independently calculate a scientific quantity already owned by the workbench.
+
+Completion gate
+The API, command line, tests, UI, and assistant return identical scientific results for identical inputs.
+
+9. Phase 5: Build the evidence and material-truth system
+Goal
+Move provenance from scattered Python strings, YAML fields, and Markdown notes into a queryable evidence database.
+
+The current evidence labels are valuable, but they are assembled inside code and do not yet provide a full claim-management system.
+
+Evidence classes
+MEASURED_PRIMARY
+PEER_REVIEWED
+REGULATORY
+SUPPLIER_TECHNICAL
+REFERENCE_TEXT
+PERFUMER_PRACTICE
+USER_OBSERVATION
+MODEL_INFERENCE
+ANALOG_ESTIMATE
+HEURISTIC
+UNKNOWN
+Operating modes
+Strict scientific mode
+Missing authoritative data prevents the calculation.
+
+Practical perfumer mode
+Estimates are permitted, but the source, uncertainty, and sensitivity remain visible.
+
+Exploratory mode
+Speculative models may be displayed but cannot affect safety, compliance, release status, or authoritative scoring.
+
+Material data program
+Prioritize materials in this order:
+
+materials currently owned,
+solvents and diluents,
+materials used in active bottles,
+common formula materials,
+supplier bases and naturals,
+historical or future materials.
+For each material, collect:
+
+Canonical identity
+CAS where applicable
+Molecular weight
+Density
+Vapor pressure
+logP
+Odor threshold
+IFRA restrictions
+Allergen constituents
+Natural composition range
+Source and method
+Uncertainty
+Valid context
+Completion gate
+Clicking any scientific number in the UI reveals where it came from, what it means, and why it may be wrong.
+
+10. Phase 6: Build a solvent-inclusive
+MixtureState
+Goal
+Repair the largest remaining physical-model limitation.
+
+The current canonical model explicitly omits the finished ethanol-water-solvent matrix from liquid-phase mole fractions. It also retains density and molecular-weight fallbacks.
+
+New state
+MixtureState(
+    aromatic_components=...,
+    solvent_components=...,
+    total_mass=...,
+    total_volume=...,
+    finished_concentration=...,
+    temperature=...,
+    humidity=...,
+    substrate=...,
+    application_mass=...,
+    surface_area=...,
+    elapsed_time=...,
+)
+Model tiers
+Tier 0: exact bookkeeping
+Mass, volume, stock fraction, active material, and composition.
+
+Tier 1: ideal-mixture estimate
+Solvent-inclusive composition and measured vapor pressures.
+
+Tier 2: evidence-supported non-ideality
+Activity coefficients only when the necessary interaction data exists.
+
+Tier 3: empirically calibrated prediction
+Adjustment based on measured headspace, blotter, skin, or user-observation datasets.
+
+Rules
+no silent molecular-weight default,
+no silent density default,
+no activity coefficient without evidence classification,
+no universal skin absorption constant,
+no false precision,
+changing concentration must alter the physical prediction,
+changing ethanol, water, DPG, TEC, or IPM must alter the state.
+Completion gate
+The same concentrate at 10%, 20%, and 30% finished concentration produces meaningfully different and scientifically explainable predictions.
+
+11. Phase 7: Rebuild temporal performance honestly
+Goal
+Turn the current diagnostic decay frames into a calibrated performance model.
+
+The current temporal frames are explicitly heuristic and lack solvent, skin, blotter, and diffusion calibration.
+
+Required contexts
+Bottle
+Blotter
+Skin
+Fabric
+Open vessel
+Ambient air
+Each context requires distinct assumptions.
+
+Experimental protocol
+Collect measurements or controlled observations at defined intervals:
+
+0 min
+5 min
+15 min
+30 min
+1 h
+2 h
+4 h
+8 h
+12 h
+24 h where meaningful
+Store application amount, temperature, humidity, substrate, wearer, bottle age, and material lots.
+
+Longevity and sillage
+Do not restore these fields until protocols are defined.
+
+Longevity requires:
+
+an endpoint definition,
+application dose,
+substrate,
+observation method,
+held-out validation.
+Sillage requires:
+
+distance,
+time,
+airflow,
+room dimensions,
+application amount,
+observer or sensor protocol.
+Completion gate
+Every performance output includes a prediction interval, validation domain, held-out error, and comparison with a simple baseline.
+
+12. Phase 8: Build the brief-driven intervention engine
+Goal
+Make the system capable of repairing or evolving a perfume without changing its identity.
+
+Perfume brief
+Each formula should have a structured brief:
+
+Identity
+Family
+Narrative
+Must preserve
+Must increase
+Must decrease
+Forbidden outcomes
+Reference direction
+Desired opening
+Desired heart
+Desired drydown
+Performance requirements
+Maximum intervention
+Risk tolerance
+Diagnosis
+A bottle observation such as:
+
+“The birch tar became leather, but the iris and sweetness are missing.”
+
+should become structured findings:
+
+Observed dominance
+Missing character
+Likely masking
+Relevant bottle events
+Uncertain causes
+Conflicting evidence
+Candidate generation
+Generate conservative, interpretable interventions:
+
+Material
+Stock
+Dose
+Pipette plan
+Expected changes
+Mechanism
+Evidence
+Tradeoffs
+Safety status
+Uncertainty
+Reversibility
+Evaluation schedule
+Ranking
+Use Pareto ranking instead of one magical total score.
+
+Candidate dimensions should include:
+
+brief fidelity,
+expected sensory effect,
+evidence strength,
+dose size,
+safety margin,
+inventory availability,
+pipette feasibility,
+reversibility,
+uncertainty,
+family drift.
+Completion gate
+The system explains why one intervention ranks above another and what is sacrificed by choosing it.
+
+13. Phase 9: Normalize safety and regulatory screening
+Goal
+Provide useful safety screening without presenting it as a legal certificate.
+
+Required model
+Regulation version
+Product category
+Finished concentration
+Material restriction
+Constituent restriction
+Natural decomposition
+Exposure route
+Jurisdiction
+Source date
+Rules
+regulations must be versioned,
+formulas must store the version used for screening,
+natural constituent uncertainty must remain visible,
+supplier bases require composition evidence or conservative treatment,
+legal certification must never be implied,
+old formula compliance must be reproducible against its original rules.
+Completion gate
+The same formula can be screened against two regulatory versions and the difference is fully explainable.
+
+14. Phase 10: Build the experiment and learning system
+Goal
+Turn every physical bottle into training data while preserving experimental rigor.
+
+Experiment record
+Bottle state hash
+Formula version
+Material lots
+Maturation age
+Application amount
+Skin, blotter, or fabric
+Environment
+Observation times
+Descriptors
+Intensity
+Similarity to brief
+Pleasantness
+Preference
+Confidence
+Free notes
+Prediction record
+Before the experiment, save:
+
+Predicted effect
+Evidence available
+Model version
+Confidence
+Assumptions
+Expected tradeoffs
+Afterward, save:
+
+Observed result
+Prediction error
+Unexpected effect
+Decision
+Next experiment
+Personal preference model
+Start with interpretable pairwise preference learning such as Bradley-Terry or regularized logistic ranking.
+
+Do not begin with a large neural network.
+
+The model must distinguish:
+
+universal property evidence,
+general perfumery practice,
+the user’s personal preference,
+one-off context effects.
+Completion gate
+The personal model beats simple baselines on held-out pairwise comparisons and reports when it lacks enough data.
+
+15. Phase 11: Rebuild hedonic analysis
+Goal
+Replace universal pleasantness scoring with a transparent multi-part model.
+
+The current fixed valence model remains heuristic and advisory.
+
+Replace a single pleasantness score with:
+
+Dose-zone suitability
+Brief compatibility
+Accord coherence
+Contrast and texture
+Personal preference probability
+Familiarity
+Context suitability
+Evidence strength
+Prediction confidence
+A dark leather perfume should not be automatically pushed toward sweet floral softness simply because generic pleasantness constants favor it.
+
+Completion gate
+Optimization cannot override the perfume brief merely by increasing a hedonic number.
+
+16. Phase 12: Build the deterministic assistant
+Goal
+Make natural-language interaction a controlled interface to the workbench.
+
+Workflow
+User message
+→ intent classification
+→ entity extraction
+→ bottle or formula resolution
+→ missing-data check
+→ deterministic tool plan
+→ workbench execution
+→ evidence packet
+→ natural-language explanation
+Tool plan
+ToolPlan(
+    intent=...,
+    target_objects=...,
+    operations=...,
+    required_inputs=...,
+    assumptions=...,
+    risk_level=...,
+)
+Evidence packet
+EvidencePacket(
+    bottle_state=...,
+    calculations=...,
+    evidence_records=...,
+    diagnosis=...,
+    candidates=...,
+    safety=...,
+    tradeoffs=...,
+    uncertainty=...,
+)
+Rules
+The language model may:
+
+interpret sensory language,
+resolve likely references,
+choose approved tools,
+explain calculations,
+summarize tradeoffs.
+It may not:
+
+calculate a dose in free text,
+invent density or concentration,
+ignore bottle history,
+bypass inventory,
+create safety conclusions,
+fabricate receptor or mood mechanisms.
+Local-first operation
+The core application must work without a paid model. Templates and deterministic renderers should cover basic use. A local or external language model should improve conversation, not determine correctness.
+
+Completion gate
+Every number in an assistant response is traceable to a workbench operation or evidence record.
+
+17. Phase 13: Build the laboratory interface
+Goal
+Expose the system as a usable product rather than a collection of endpoints.
+
+Main screens
+Dashboard
+active bottles,
+pending evaluations,
+recent additions,
+inventory warnings,
+experiment schedule,
+data-quality alerts.
+Bottle workspace
+current reconstructed composition,
+complete event timeline,
+active concentration,
+solvent matrix,
+uncertainty,
+observations,
+candidate interventions,
+before-and-after simulations.
+Formula workspace
+immutable versions,
+brief,
+components,
+safety screening,
+physical analysis,
+bottle batches,
+comparison tools.
+Material workspace
+canonical identity,
+owned stocks,
+lots,
+evidence,
+physical properties,
+restrictions,
+personal observations,
+previous usage.
+Experiment workspace
+blinded comparisons,
+application protocol,
+observation timeline,
+prediction versus outcome,
+pairwise preference.
+Assistant panel
+Chat should operate on the currently selected bottle, formula, material, or experiment.
+
+Completion gate
+A user can perform the entire primary workflow without the command line:
+
+Create formula
+→ create bottle
+→ record addition
+→ observe problem
+→ generate interventions
+→ choose staged dose
+→ record experiment
+→ compare prediction with outcome
+18. Phase 14: Deployment, privacy, and reliability
+Goal
+Make installation, upgrading, backup, and recovery safe.
+
+Deployment profiles
+Minimal local mode
+Application
+SQLite
+No Redis
+No external model
+No telemetry
+Enhanced local mode
+Application
+PostgreSQL or SQLite
+Local language model
+Optional retrieval index
+Optional tracing
+Shared laboratory mode
+Web client
+API
+PostgreSQL
+Authentication
+Role permissions
+Backups
+Audit log
+Required features
+database migrations,
+automatic pre-upgrade backup,
+restore testing,
+JSON and CSV export,
+portable project archive,
+secrets management,
+restrictive CORS defaults,
+single-user mode without unnecessary authentication,
+opt-in telemetry,
+structured logs,
+error recovery,
+reproducible container builds,
+dependency scanning,
+signed release artifacts.
+Completion gate
+A failed upgrade can be rolled back without losing formulas, bottles, events, experiments, inventory, or evidence.
+
+19. Phase 15: Scientific validation and release
+Goal
+Demonstrate what the system does well and clearly bound what it cannot establish.
+
+Validation suites
+Arithmetic validation
+mass conservation,
+dilution equivalence,
+rounding,
+transfers,
+splits,
+repeated additions,
+uncertainty propagation.
+Data validation
+unique material identities,
+alias resolution,
+property-unit consistency,
+evidence completeness,
+regulation versioning,
+no duplicate authority keys.
+Model validation
+solvent concentration response,
+temperature response,
+temporal curves,
+intervention ranking,
+held-out personalization,
+longevity protocol,
+sillage protocol.
+Product validation
+fresh installation,
+backup and restore,
+complete bottle workflow,
+offline operation,
+migration from existing formulas,
+recovery from malformed data.
+Release classes
+Research preview
+Exact bottle arithmetic and evidence-labeled analysis, with heuristic models clearly marked.
+
+Laboratory beta
+Persistent bottles, interventions, experiments, and user interface.
+
+Production release
+Stable migrations, backup and restore, unified workbench, complete primary workflow, and validated personal learning.
+
+Scientific release
+Published datasets, protocols, benchmarks, uncertainty, and reproducible validation reports.
+
+20. Recommended pull-request sequence
+PR group
+
+Outcome
+
+001–003
+
+CI correction, full verification, failing-test resolution
+
+004–006
+
+Canonical database entities and migrations
+
+007–009
+
+Strict units and quantity contracts
+
+010–013
+
+Persistent bottle ledger and inventory movements
+
+014–018
+
+Complete PerfumeWorkbench migration
+
+019–022
+
+Evidence records and material-data normalization
+
+023–027
+
+Solvent-inclusive MixtureState
+
+028–031
+
+Temporal context and calibration infrastructure
+
+032–036
+
+Brief, diagnosis, intervention generation, Pareto ranking
+
+037–039
+
+Versioned safety screening
+
+040–044
+
+Experiment protocol and prediction tracking
+
+045–048
+
+Personal preference and hedonic redesign
+
+049–052
+
+Deterministic assistant and tool planner
+
+053–058
+
+Bottle-centered laboratory interface
+
+059–062
+
+Deployment, backup, privacy, and security
+
+063–066
+
+Full validation and release candidate
+
+These numbers are organizational labels, not a requirement to create exactly 66 pull requests. Each PR should remain narrow enough to review thoroughly.
+
+21. Features to avoid until evidence exists
+Do not spend major effort on:
+
+universal mood prediction,
+universal attractiveness scores,
+receptor visualizations based on odor families,
+biochemical claims from perfume composition,
+unvalidated luxury scores,
+enormous embedding infrastructure,
+autonomous formula generation without briefs and constraints,
+black-box optimization that cannot explain tradeoffs.
+These features create impressive screens while weakening scientific credibility.
+
+22. Final definition of completion
+Perfume-Chem is complete when:
+
+The complete test and audit suite runs in CI on the real default branch.
+There are no unexplained failing tests.
+Every interface uses PerfumeWorkbench.
+Units are explicit and dimensionally enforced.
+Formula versions are immutable.
+Stocks represent actual supplier products and dilutions.
+Bottles have persistent, auditable event histories.
+Every intervention proves mass balance.
+Inventory changes follow physical bottle operations.
+Scientific values expose provenance and uncertainty.
+Strict mode refuses unsupported inputs.
+Finished solvent composition affects physical predictions.
+Temporal outputs state their validated context.
+Receptor hypotheses cannot affect production scoring.
+Safety checks are versioned and reproducible.
+Intervention candidates preserve the perfume brief.
+Recommendations are inventory-aware and pipette-feasible.
+Every prediction is stored before the corresponding experiment.
+Personalization is evaluated on held-out data.
+Chat only invokes and explains deterministic tools.
+Every assistant number is traceable.
+The complete bottle workflow works through the interface.
+The application operates locally without a paid AI provider.
+Data can be backed up, restored, migrated, and exported.
+A failed upgrade cannot destroy laboratory history.
+Unsupported claims are displayed as unknown rather than guessed.
+The system can explain both its answer and its limitations.
+The product demonstrably improves its predictions through real experiments.
+At that point, Perfume-Chem will no longer be a collection of advanced perfume-analysis modules. It will be a coherent scientific instrument: part formulation system, part laboratory notebook, part bottle ledger, part evidence engine, part experimental platform, and part personalized perfumer.

@@ -1,0 +1,324 @@
+{
+  "schema": "build-b4-knowledge-rule-compiler-gate-v2",
+  "generated_at_utc": "2026-08-02T00:39:25.3162092Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B4",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    "edab5112d69ca34fc96e2af15e7e5ee30f7e34e4",
+    "0b274a4b5ef8648c795e37ebdab1baabc8192b81"
+  ],
+  "implementation_head": "0b274a4b5ef8648c795e37ebdab1baabc8192b81",
+  "verification_head_before_report": "bc93ebafd105378c06470b2210dedec23d667b93",
+  "phase_revision": "20260731_0008",
+  "repository_alembic_head": "20260731_0012",
+  "environment": {
+    "python": "3.11.15",
+    "pty": false,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b4_tables": 6,
+    "append_only_sqlite_triggers_installed": true,
+    "explicit_endpoint_kinds": [
+      "EXACT_IDENTITY",
+      "GROUP",
+      "GENERIC_PROSE",
+      "UNRESOLVED"
+    ],
+    "legacy_source_records": 3381,
+    "legacy_invalid_exact_count": 137,
+    "legacy_duplicate_count": 68,
+    "legacy_cycle_count": 1,
+    "legacy_blocking_count": 0,
+    "legacy_numerical_model_count": 0,
+    "frozen_identity_resolution_labels": 454,
+    "legacy_rows_promoted_by_migration": 0,
+    "production_api_ui_or_optimizer_consumers_connected": 0,
+    "b5_analytical_authority_implemented": false
+  },
+  "commands": [
+    {
+      "name": "pytest_b1_b2_b3_b4_and_compatibility",
+      "command": "python -B -m pytest -p no:cacheprovider --color=no --basetemp=<external-writable-temp>/pytest-temp backend/tests/unit/test_b1_source_schema.py backend/tests/unit/test_b1_source_service.py backend/tests/integration/test_b1_source_migration.py backend/tests/unit/test_b2_property_schema.py backend/tests/unit/test_b2_property_service.py backend/tests/integration/test_b2_property_migration.py backend/tests/unit/test_b3_threshold_schema.py backend/tests/unit/test_b3_threshold_service.py backend/tests/integration/test_b3_threshold_migration.py backend/tests/unit/test_b4_rule_schema.py backend/tests/unit/test_b4_rule_service.py backend/tests/unit/test_b4_legacy_rule_adapter.py backend/tests/integration/test_b4_rule_migration.py backend/tests/integration/test_lab_migration.py backend/tests/integration/test_backup_restore.py -q",
+      "timeout_seconds": 300,
+      "exit_code": 0,
+      "result": "129 passed in 175.10s (0:02:55)",
+      "stdout_path": "docs/verification/b4/logs/pytest.stdout.txt",
+      "stdout_bytes": 195,
+      "stdout_sha256": "924DE992D3FDC151171F8354A862CC29FCD118E7A5BD5B6B0D32788E31D1BBC6",
+      "stderr_path": "docs/verification/b4/logs/pytest.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "ruff_b4_exact_paths",
+      "command": "ruff check --no-cache --output-format concise backend/app/models/lab_rules.py backend/app/repositories/lab_rules.py backend/app/services/lab_rules.py backend/app/adapters/legacy_rules.py backend/alembic/versions/20260731_0008_b4_knowledge_rules.py backend/tests/unit/test_b4_rule_schema.py backend/tests/unit/test_b4_rule_service.py backend/tests/unit/test_b4_legacy_rule_adapter.py backend/tests/integration/test_b4_rule_migration.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b4/logs/ruff.stdout.txt",
+      "stdout_bytes": 19,
+      "stdout_sha256": "82B3E6A6C090A57601D22943BD23FCA9218D1031DBE5A7B754092F9A156B4F18",
+      "stderr_path": "docs/verification/b4/logs/ruff.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "mypy_b4_modules",
+      "command": "python -B -m mypy --no-color-output --no-pretty --follow-imports=skip --cache-dir=<external-writable-cache> backend/app/models/lab_rules.py backend/app/repositories/lab_rules.py backend/app/services/lab_rules.py backend/app/adapters/legacy_rules.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "Success: no issues found in 4 source files",
+      "stdout_path": "docs/verification/b4/logs/mypy.stdout.txt",
+      "stdout_bytes": 44,
+      "stdout_sha256": "D9A5631F7D87A741FBECC3236286D1792D22D349FF13846D71CDC9217307BB76",
+      "stderr_path": "docs/verification/b4/logs/mypy.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    }
+  ],
+  "migration_verification": {
+    "phase_revision": "20260731_0008",
+    "current_linear_head": "20260731_0012",
+    "head_count": 1,
+    "alembic_heads_output": "20260731_0012 (head)",
+    "phase_migration_test_in_cumulative_gate": true,
+    "downgrade_reupgrade_test_in_cumulative_gate": true,
+    "backup_restore_test_in_cumulative_gate": true,
+    "backup_restore_tracks_current_linear_head": true,
+    "migration_imports_zero_legacy_rows": true
+  },
+  "corpus_regression": {
+    "rule_corpus_fixture_sha256": "6249FC3E6DE3EB50AE753064E741FF68257FFE5A4E446758D479253F805DA6C5",
+    "identity_resolution_snapshot_sha256": "51D4A70EE763A2DB3EA97FC86B658599A77D5C8DBE61ADFD310D14627B909014",
+    "identity_resolution_snapshot_authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY",
+    "identity_resolution_snapshot_labels": 454,
+    "total_records": 3381,
+    "invalid_exact_count_ceiling": 137,
+    "blocking_count": 0,
+    "numerical_model_count": 0,
+    "duplicate_count": 68,
+    "cycle_count": 1,
+    "report_sha256": "C49A49DD2BAC5FB0B819E2162FBB60E851A098925F7680EA7C920650B7E75FB7",
+    "compiled_twice_with_equal_report": true,
+    "invalid_exact_nonincrease": true,
+    "case_sensitive_json_parser_used_for_label_count": true,
+    "powershell_case_insensitive_parser_result_rejected": true
+  },
+  "deepluna": {
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_pre_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "current_gap_audit": {
+      "job_id": "DS-16dbed00c38fe1ce3ca29a2998dbaf99",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 2359260,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "accepted_as_supplemental_evidence": true,
+      "sol_local_reproduction_complete": true
+    },
+    "current_fixture_audit": {
+      "initial_local_admission": {
+        "job_id": "DS-fed688874ac61f04738fed165cad56ba",
+        "status": "FAIL",
+        "evidence_verdict": "UNRESOLVED",
+        "execution_status": "INCOMPLETE",
+        "provider_calls": 0,
+        "spent_delta_nano_usd": 0,
+        "accepted_as_gate_evidence": false,
+        "reason": "Local packed-input estimate 26023 exceeded the bounded 18000-token contract; no provider evaluation occurred."
+      },
+      "corrected_bounded_audit": {
+        "job_id": "DS-b24c046e14cf4ba43d64b5eb4be310c2",
+        "status": "PASS",
+        "evidence_verdict": "POSITIVE",
+        "execution_status": "ACCEPTED",
+        "provider_calls": 1,
+        "spent_delta_nano_usd": 980775,
+        "negative_findings": 0,
+        "scope_deviation": false,
+        "accepted_as_supplemental_evidence": true,
+        "sol_local_reproduction_complete": true
+      }
+    },
+    "final_report_audit": {
+      "job_id": "DS-9de010f25661d420054ba2b48ff25344",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 2017170,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "report_corrections_required": 0,
+      "receipt_path": "docs/verification/b4/logs/deepluna-final-audit.json",
+      "receipt_bytes": 1388,
+      "receipt_sha256": "BCEED79BB07CD34DD967D3F52A9867FCD9A9470255AC43B8A94988EDBD956FED",
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0,
+      "accepted_as_supplemental_evidence": true
+    },
+    "fresh_post_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "historical_audits": [
+      {
+        "job_id": "DS-29a34bf13ae71b1a7222cb6cadb9cbbf",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "reason": "Historical packet contradicted itself after an incomplete migration read."
+      },
+      {
+        "job_id": "DS-5c335f5f0b80291a1ee1890a4391fe56",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "sol_found_defects_after_pass": 3
+      }
+    ],
+    "final_authority": "canonical repository state and locally reproduced executable evidence"
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256_before_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "sha256_after_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "mutated_by_b4_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256_before_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "sha256_after_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "connection_mode": "read-only immutable",
+      "mutated_by_b4_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/alembic/versions/20260731_0008_b4_knowledge_rules.py": "7E4D4CCF56813A9406087BB8DDEAF472C15F17A4EFD30CB350D2B3A6330D7126",
+    "backend/app/adapters/legacy_rules.py": "3FD4C4053859FF373A415B349515A8FD2112A6B91EE8A0E639AB6810BA3DC734",
+    "backend/app/models/lab.py": "C9260A03E4BDA2D7814A94C3F49170674F53E9FEE597AA882268D29C9E224925",
+    "backend/app/models/lab_rules.py": "5D1EC03D18AA1334E159F05386A1A1948934F5079642C40F71C26CC0A0A827D2",
+    "backend/app/repositories/lab.py": "4A45DF4F47FA1A87082C23DBF4FE43F8B15CA4CC8F10B032FDAFB9F0E5E16280",
+    "backend/app/repositories/lab_rules.py": "AF3509D72590F6566B25B1999E33366F2227DF2B096E8D33073372B7F7E129E0",
+    "backend/app/services/lab_service.py": "646CAB2CFCB2A83DCE2577175ED23A4F7409E21D0FB826D8ABAA586D156D096F",
+    "backend/app/services/lab_rules.py": "7BD4E6840A4620181FFE26A91E1E1A830E0EACC50F8964482DEBE68B901D785C",
+    "backend/tests/fixtures/b4_identity_resolution_baseline.json": "51D4A70EE763A2DB3EA97FC86B658599A77D5C8DBE61ADFD310D14627B909014",
+    "backend/tests/fixtures/b4_rule_corpus_baseline.json": "6249FC3E6DE3EB50AE753064E741FF68257FFE5A4E446758D479253F805DA6C5",
+    "backend/tests/integration/test_b4_rule_migration.py": "334661FFB5DD155CBB12156DB5D8CD7849F7547A7FB080B98BCA86BA72DF09DE",
+    "backend/tests/integration/test_backup_restore.py": "721DC49A3491CCB74C4E987AD4EF476D81E252AC680A7F851B6046B0E404A003",
+    "backend/tests/integration/test_lab_migration.py": "441A62F5E2D109D9304D180488F305D0FCCB7D97D8D32FBDF8DF9DEAB2B33C7B",
+    "backend/tests/unit/test_b4_legacy_rule_adapter.py": "FB348374752CB6B93E9FA075EE7F01AA67A0F6FE4CD032C97719A7754B5F2BB5",
+    "backend/tests/unit/test_b4_rule_schema.py": "290C3589457265EB5897BECDF2077FE1B5A1038494A6814AA76FD8E9BB3CCD85",
+    "backend/tests/unit/test_b4_rule_service.py": "2CA3E94EA3CE9AF5B61251E4B4888548CB11528974BB37FE06E73052ACF2E96B",
+    "docs/superpowers/plans/2026-07-31-build-b4-knowledge-rule-compiler.md": "F1715B69499068D917AE477EBA375412955EB63BD3C45CFB3C7ED705F06CBE2F",
+    "docs/superpowers/specs/2026-07-31-build-b4-knowledge-rule-compiler-design.md": "EAA78A1818FE4C66F88ED284A28575A23B9722ACF0F30FFB80F5F55821BFCCAF"
+  },
+  "recovery_archive": {
+    "purpose": "complete B4 report and log tree before current refresh",
+    "path": "outputs/b4-authoritative-recovery/20260802T071809/b4-evidence-before-refresh.zip",
+    "bytes": 10391,
+    "sha256": "A146B04D5DA1FF6C31EE4FEEB0E720FD4FBADE7EAE2BDA917CCEFF36E58F56D8",
+    "path_preserving": true,
+    "file_count": 8,
+    "restore_verification": "all 8 extracted files matched source SHA-256"
+  },
+  "exit_gate": {
+    "exact_rules_require_canonical_identity_or_explicit_group": true,
+    "group_membership_is_versioned_and_cycle_checked": true,
+    "generic_and_unresolved_endpoints_cannot_be_authoritative_blocking_or_numerical": true,
+    "only_authoritative_rules_can_block": true,
+    "authoritative_rules_and_groups_require_approved_exact_provenance_at_database_level": true,
+    "numerical_models_require_controlled_matching_support": true,
+    "duplicates_are_retained_but_not_silently_promoted": true,
+    "directed_cycle_diagnostics_apply_only_to_edges_in_cyclic_strongly_connected_components": true,
+    "required_digests_reject_null": true,
+    "runtime_projection_exposes_status_source_scope_uncertainty_contradictions_and_role": true,
+    "legacy_hard_and_numerical_claims_are_not_promoted": true,
+    "full_corpus_inputs_and_identity_resolution_outcomes_are_frozen": true,
+    "invalid_exact_count_does_not_increase": true,
+    "migration_imports_zero_legacy_rules": true,
+    "model_migration_constraint_index_trigger_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "production_consumers_deferred_to_b9": true,
+    "local_gate_passed": true,
+    "final_audit_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "legacy_rule_authority": "QUARANTINED_NON_AUTHORITATIVE",
+    "generic_prose_formula_mutation": "PROHIBITED",
+    "numerical_interaction_promotion_without_controlled_evidence": "PROHIBITED",
+    "production_rule_consumption": "DEFERRED_TO_B9"
+  },
+  "known_limitations": [
+    "The 454-label identity-resolution snapshot is regression evidence only, not canonical identity authority or a runtime registry.",
+    "The full legacy inventory still contains 137 invalid exact records, 68 duplicates, and one directed-cycle diagnostic; none is blocking.",
+    "No real legacy rule, contradiction, support record, or compilation run is inserted by the migration.",
+    "No production API, UI, optimizer, or recommendation consumer is connected until B9.",
+    "Historical DeepLuna PASS packets remain supplemental because one missed defects later reproduced by Sol.",
+    "Scientific release remains blocked."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_before_report_edit": 105,
+    "untracked_files_before_report_edit": 1229,
+    "staged_entries_before_report_edit": 0,
+    "tracked_dirty_paths_before_report_commit": 107,
+    "untracked_files_before_report_commit": 1240,
+    "staged_entries_before_report_commit": 0,
+    "worktree_cleaned_or_reset": false,
+    "a0_recovery_archive": "preserved",
+    "b4_restore_verification": "all archived path hashes matched after extraction",
+    "historical_b4_archives_preserved": true
+  },
+  "historical_notes": {
+    "prior_report_generated_at_utc": "2026-07-30T19:50:44.7333707Z",
+    "prior_report_implementation_head": "0b274a4b5ef8648c795e37ebdab1baabc8192b81",
+    "prior_report_alembic_head": "20260731_0008",
+    "prior_report_pytest_result": "129 passed in 139.16s",
+    "prior_report_canonical_database_bytes": 0,
+    "authority": "historical notes only; replaced by current executable and protected-state evidence"
+  }
+}

@@ -4,17 +4,17 @@ from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.pipeline.robustness import audit_formula_robustness
 
 
-def _fougere_formula(evernyl_ul=20.0):
+def _fougere_formula(evernyl_ul=100.0):
     ingredients = {
-        "Bergamot FCF": 1200.0,
-        "Lavender EO": 700.0,
+        "Bergamot FCF oil Sicilian": 1200.0,
+        "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
         "Coumarin": 300.0,
         "Evernyl": evernyl_ul,
         "Iso E Super": 1500.0,
-        "Vetiver EO": 300.0,
-        "Habanolide": 500.0 - evernyl_ul,
+        "Cedarwood oil Virginia": 300.0,
+        "Zenolide": 500.0 - evernyl_ul,
     }
     total = sum(ingredients.values())
     return {
@@ -22,13 +22,22 @@ def _fougere_formula(evernyl_ul=20.0):
         "name": "Robust Fougere",
         "body": "aromatic fougere",
         "ingredients_ul": ingredients,
-        "dilutions": {},
+        "dilutions": {
+            name: (
+                0.3
+                if name == "Coumarin"
+                else 0.2
+                if name == "Evernyl"
+                else 1.0
+            )
+            for name in ingredients
+        },
         "ingredients_pct": {name: amount / total * 100 for name, amount in ingredients.items()},
     }
 
 
 def test_robustness_warns_when_evernyl_plus_perturbation_breaks_ifra():
-    formula = _fougere_formula(evernyl_ul=30.0)
+    formula = _fougere_formula(evernyl_ul=150.0)
     report = audit_formula_robustness(
         formula,
         ReleaseGateConfig(brief="aromatic_fougere"),
@@ -44,7 +53,7 @@ def test_robustness_warns_when_evernyl_plus_perturbation_breaks_ifra():
 
 
 def test_robustness_audit_preserves_original_formula_and_gate_is_nonblocking():
-    formula = _fougere_formula(evernyl_ul=20.0)
+    formula = _fougere_formula(evernyl_ul=100.0)
     before = deepcopy(formula)
     gate_report = gate_formula(
         formula,

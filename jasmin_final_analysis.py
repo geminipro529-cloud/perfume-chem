@@ -1,13 +1,13 @@
 """OAV + Score + Collaboration View for Jasmin d'Orris."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
+from engine.hedonic_model import HEDONIC_VALENCE
+from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import ODT_DATA
-from engine.ifra_safety import IFRA_CAT4_LIMITS
-from engine.hedonic_model import HEDONIC_VALENCE
 from engine.skin_interaction import SKIN_PHYSCHEM
-from engine.perception.oav import oav
 
 ODT_OVERRIDE = {
     "Myristic Acid Powder":  {"odt_eth": 1000.0, "odt_air": 5000.0},
@@ -109,12 +109,12 @@ def make_v4():
 def analyze(version, label):
     TOTAL_UL = sum(ul for _, ul, _ in version)
     active = sum(ul * dil / 100 for _, ul, dil in version)
-    
+
     print(f"\n{'='*120}")
     print(f"  {label}")
     print(f"  Materials: {len(version)}  |  Concentrate: {TOTAL_UL} uL  |  Active: {active:.1f} uL ({active/TOTAL_UL*100:.1f}%)")
     print(f"{'='*120}")
-    
+
     # Sections
     base_list = []; heart_list = []; top_list = []; struct_list = []
     for name, ul, dil in version:
@@ -126,17 +126,17 @@ def analyze(version, label):
             heart_list.append((name, ul, dil))
         else:
             base_list.append((name, ul, dil))
-    
+
     for sec_name, items in [("TOP", top_list), ("HEART", heart_list), ("STRUCTURE", struct_list), ("BASE", base_list)]:
         sul = sum(ul for _, ul, _ in items)
         sact = sum(ul*dil/100 for _, ul, dil in items)
         print(f"  {sec_name:>12}: {sul:>5} uL  active={sact:>6.1f} uL")
-    
+
     # OAV
     print(f"\n  {'OAV LEADERBOARD':^60}")
     print(f"  {'Material':<28} {'uL':>5} {'Dil%':>5} {'ODT_eth':>8} {'OAV':>10}")
     print(f"  {'-'*58}")
-    
+
     oav_list = []
     for name, ul, dil in version:
         act = ul * dil / 100
@@ -147,23 +147,23 @@ def analyze(version, label):
         else:
             oav_val = 0
         oav_list.append((name, ul, dil, act, odt_eth, oav_val))
-    
+
     oav_list.sort(key=lambda x: -x[5])
     for name, ul, dil, act, odt, oav_val in oav_list:
         odt_s = f"{odt:.3f}" if odt else "N/A"
         print(f"  {name:<28} {ul:>5} {dil:>5}% {odt_s:>8} {oav_val:>10.0f}")
-    
+
     # Metrics
     base_act = sum(ul*dil/100 for _, ul, dil in base_list)
     base_pct = base_act/active*100 if active else 0
-    
+
     mw_vals = []
     for name, ul, dil in version:
         p = get_profile(name)
         act = ul*dil/100
         if p and p.mw: mw_vals.append((p.mw, act))
     w_mw = sum(m*a for m,a in mw_vals)/sum(a for _,a in mw_vals) if mw_vals else 0
-    
+
     names_set = set(name for name,_,_ in version)
     pairs = set()
     for name in names_set:
@@ -172,21 +172,21 @@ def analyze(version, label):
             for syn in p.synergies:
                 if syn in names_set:
                     pairs.add(tuple(sorted([name, syn])))
-    
+
     hed_vals = []
     for name, ul, dil in version:
         h = HEDONIC_VALENCE.get(name, 0)
         if h != 0:
             hed_vals.append((h, ul*dil/100))
     w_hed = sum(h*a for h,a in hed_vals)/sum(a for _,a in hed_vals) if hed_vals else 0
-    
+
     subst_vals = []
     for name, ul, dil in version:
         sd = SKIN_PHYSCHEM.get(name, {})
         if sd:
             subst_vals.append((sd.get("substantivity", 0.5), ul*dil/100))
     w_subst = sum(s*a for s,a in subst_vals)/sum(a for _,a in subst_vals) if subst_vals else 0.5
-    
+
     ifra_issues = 0
     for name, ul, dil in version:
         limit = IFRA_CAT4_LIMITS.get(name)
@@ -194,7 +194,7 @@ def analyze(version, label):
             edp_pct = (ul*dil/100)/TOTAL_UL*29.4
             if edp_pct > limit:
                 ifra_issues += 1
-    
+
     textures = set()
     roles = set()
     for name in names_set:
@@ -202,17 +202,17 @@ def analyze(version, label):
         if p:
             if p.texture: textures.add(p.texture)
             if p.role: roles.add(p.role)
-    
+
     dims = {}
     for name in names_set:
         p = get_profile(name)
         if p:
             for d, s in p.character.items():
                 if s >= 3: dims[d] = dims.get(d,0) + 1
-    
+
     oav_vals = [x[5] for x in oav_list if x[5] > 0]
     oav_range = max(oav_vals)/min(oav_vals) if oav_vals else 0
-    
+
     scores = {
         "longevity": min(9.5, 5 + base_pct/8),
         "sillage": min(9.5, 5 + base_pct/45*3),
@@ -229,15 +229,15 @@ def analyze(version, label):
     total_w = sum(weights.values())
     comp = 1.0
     for a,s in scores.items(): comp *= s**(weights[a]/total_w)
-    
+
     print(f"\n  {'SCORE':^58}")
     for a,s in scores.items():
         print(f"  {a:>12}: {s:.2f}  (x{weights[a]:.1f})")
     print(f"  {'COMPOSITE':>12}: {comp:.2f}/10")
-    
+
     print(f"\n  Base: {base_pct:.0f}% | MW: {w_mw:.0f} | LogP: - | Pairs: {len(pairs)} | IFRA: {ifra_issues} issues")
     print(f"  Textures: {len(textures)} | Roles: {len(roles)} | Hedonic: {w_hed:+.2f} | Subs: {w_subst:.2f} | OAV range: {oav_range:,.0f}x")
-    
+
     return comp, oav_list
 
 # ── RUN ──

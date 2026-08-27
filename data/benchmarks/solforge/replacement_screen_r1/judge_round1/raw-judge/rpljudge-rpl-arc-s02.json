@@ -1,0 +1,25 @@
+{
+  "schema_version": "complexity_replacement_blind_judge_raw_v1",
+  "judge_request_id": "rpljudge-rpl-arc-s02",
+  "case_id": "RPL-ARC-S02",
+  "module_id": "architectural_delta",
+  "role": "SAFE_COUNTERCASE",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "surface": "ChatGPT Work",
+  "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+  "conversation_id": "6a8e6eb7-ff98-83ec-8945-227a0f435dcf",
+  "dispatch_sha256": "ac51895c9771bb682d8b55d70f092bb87867ce5ece0009a74ef198516f655a9d",
+  "output_text": "{\"results\":[{\"candidate_id\":\"CANDIDATE-01-365e8ce9\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":100,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Matches the expected no-change disposition, rejects ingredient count as complexity, preserves the complete restrained architecture, and conditionally specifies a single isolated baseline-versus-addition comparison without claiming physical liking.\"},{\"candidate_id\":\"CANDIDATE-02-57a2d733\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":100,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Correctly rejects the redundant addition, ties complexity to target-linked perceptual functions rather than ingredient count, and avoids a redundant experimental arm unless a specific deficiency and one-variable hypothesis arise.\"},{\"candidate_id\":\"CANDIDATE-03-636f2ed2\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":19,\"depth_richness_reasoning\":15,\"next_discriminating_test\":14,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":98,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Reaches the correct disposition and proposes a blinded, concentration-matched conditional comparison using target-linked criteria. Minor deductions apply because the asserted obscuring risk is not supplied evidence and replacing a nearest equivalent tests substitution rather than the rejected addition directly.\"}]}",
+  "output_sha256": "fe8847c54a751c698dc8f0dd9d89dfbba0c46e8cb4b204920526cfb741f388e4",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

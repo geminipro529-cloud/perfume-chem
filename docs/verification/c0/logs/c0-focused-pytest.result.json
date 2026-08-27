@@ -1,0 +1,21 @@
+{
+  "name": "c0-focused-pytest",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_c0_physical_model_inventory.py"
+  ],
+  "started_at_utc": "2026-08-02T09:26:32.061Z",
+  "finished_at_utc": "2026-08-02T09:26:39.812Z",
+  "duration_seconds": 7.75,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c0\\logs\\c0-focused-pytest.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\c0\\logs\\c0-focused-pytest.stderr.txt"
+}

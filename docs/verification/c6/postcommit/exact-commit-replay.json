@@ -1,0 +1,28 @@
+{
+  "empirical_metrics_present": false,
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+  "implementation_head": "5b51ab31ddc28b48efa78944b314919f226262b2",
+  "replay": {
+    "ansi_disabled": true,
+    "failed_job_count": 0,
+    "job_count": 23,
+    "metadata_path": "docs/verification/c6/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "abe3bbe3001f267c2ab70badb375d620a5c5e917ad94e2eec11aab6f70ac58e1",
+    "non_pty": true,
+    "sensitive_environment_values_removed_without_logging": true,
+    "stderr_bytes": 0,
+    "timeout_count": 0
+  },
+  "replay_manifest": {
+    "ansi_escape_bytes": 0,
+    "bytes": 13211,
+    "covered_file_count": 48,
+    "credential_shaped_matches": 0,
+    "path": "docs/verification/c6/postcommit/replay-manifest.json",
+    "sha256": "afc7c522f7b0a69c46684c5611f926ac53a26db888effe50b92d64effbc2e6f0"
+  },
+  "schema": "build-c6-exact-commit-replay-v1",
+  "status": "PASS"
+}

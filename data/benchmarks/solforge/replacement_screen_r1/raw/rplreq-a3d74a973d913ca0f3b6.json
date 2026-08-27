@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-a3d74a973d913ca0f3b6",
+  "case_id": "RPL-TEM-S01",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6484-7a8c-83ec-bdf0-b752cd5bf216",
+  "dispatch_sha256": "01583493292d7b960dd87c5bd0d807ad196feac7f0f7a91fd8b9460592282e90",
+  "output_text": "{\"decision\":\"OBSERVED_OPENING_TO_HEART_TRANSITION\",\"target_linked_reasoning\":\"Across all assessors and repeats, DEPTH_INTENSITY decreases by 3 scale points from 60 seconds to 1800 seconds. The median falls from 7.5 to 4.5. All expected cells are present, the presentation schedule is verified as balanced, and every within-assessor repeat spread is 1.0, meeting the protocol threshold. This supports an observed temporal decline in depth intensity, without establishing cause, broader complexity, or liking. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Compare each assessor’s matched repeated DEPTH_INTENSITY ratings at 60 versus 1800 seconds under TEMP-RPL-S01; retain the balanced schedule and repeatability threshold. The observed result is a consistent 3-point decrease at the later timepoint.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "22c842940f3b76e7accbc61c94353fef94bc18af7f88221014d42e50d2038476",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

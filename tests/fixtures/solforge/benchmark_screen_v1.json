@@ -1,0 +1,302 @@
+{
+  "schema_version": "solforge_benchmark_corpus_v1",
+  "corpus_id": "SOLFORGE-SCREEN-V1",
+  "inventory_authority": {
+    "artifact": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "cases": [
+    {
+      "case_id": "SCR-CITRUS-01",
+      "phase": "SCREEN",
+      "category": "citrus-free target/no-change",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A citrus-free sweet orris target is already represented by the current build. Decide whether any citrus should be added as the first experiment.",
+      "input_payload": {
+        "target_identity": "citrus-free sweet orris",
+        "ideal_architecture": {"citrus": "absent", "orris": "central", "sweetness": "root-integrated"},
+        "current_inventory_build": {"materials": ["Orris Givco", "Iralia", "Vanillin"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Orris Givco", "Iralia", "Vanillin"]
+      },
+      "public_invariants": ["correct_no_change", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["NO_CHANGE"], "max_interventions": 0,
+        "required_blockers": [], "forbidden_materials": ["Neroli", "Bergamot"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Zero citrus is target-faithful; ingredient addition is not complexity."
+      }
+    },
+    {
+      "case_id": "SCR-CITRUS-02",
+      "phase": "SCREEN",
+      "category": "primary bergamot with Neroli support",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target is bergamot-led tea citrus. Neroli 10% is available only as support. Select the smallest controlled first experiment.",
+      "input_payload": {
+        "target_identity": "bergamot-led tea citrus with restrained floral continuity",
+        "ideal_architecture": {"bergamot": "primary", "neroli": "support-only"},
+        "current_inventory_build": {"materials": ["Bergamot FCF", "Linalyl Acetate"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Bergamot FCF", "Linalyl Acetate", "Neroli 10%"]
+      },
+      "public_invariants": ["zero_one_intervention", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Sweet Orange", "Lemon Oil"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Neroli may bridge the heart but cannot replace primary bergamot identity."
+      }
+    },
+    {
+      "case_id": "SCR-CITRUS-03",
+      "phase": "SCREEN",
+      "category": "orange-blossom target with central Neroli",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The declared target is an orange-blossom soliflore. Decide whether Neroli 10% may be a central target material in the first isolated comparison.",
+      "input_payload": {
+        "target_identity": "orange-blossom and neroli soliflore",
+        "ideal_architecture": {"neroli": "central", "petal": "central", "citrus_peel": "support"},
+        "current_inventory_build": {"materials": ["Orange Flower Ether", "Linalool"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "permitted_materials": ["Orange Flower Ether", "Linalool", "Neroli 10%"]
+      },
+      "public_invariants": ["zero_one_intervention", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Grapefruit Oil"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "The target explicitly makes neroli central, so the support-only default does not apply."
+      }
+    },
+    {
+      "case_id": "SCR-COUNT-04",
+      "phase": "SCREEN",
+      "category": "ingredient-count complexity trap",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A proposal adds nine unrelated materials solely because more ingredients are said to create richer complexity. Decide the first experiment.",
+      "input_payload": {
+        "target_identity": "minimal iris with deep root-to-petal transition",
+        "ideal_architecture": {"depth": "relational transition", "ingredient_count": "irrelevant"},
+        "current_inventory_build": {"materials": ["Iralia", "Orris Givco"]},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["INGREDIENT_COUNT_RATIONALE"],
+        "permitted_materials": ["Iralia", "Orris Givco"]
+      },
+      "public_invariants": ["required_hold", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["INGREDIENT_COUNT_RATIONALE"], "forbidden_materials": ["unrelated material"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Complexity is perceptual depth and relation, not material count."
+      }
+    },
+    {
+      "case_id": "SCR-MUSK-05",
+      "phase": "SCREEN",
+      "category": "Ambrettolide design/procurement mismatch",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Ambrettolide 10% in DPG is computationally design-available but procurement pending. Propose one architecture experiment without claiming it can be compounded.",
+      "input_payload": {
+        "target_identity": "warm skin musk with restrained diffusion",
+        "ideal_architecture": {"musk": "single warm skin function"},
+        "current_inventory_build": {"materials": ["Habanolide"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Ambrettolide 10% in DPG": "PROCUREMENT_PENDING"},
+        "permitted_materials": ["Habanolide", "Ambrettolide 10% in DPG"]
+      },
+      "public_invariants": ["zero_one_intervention", "exact_inventory_lineage", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [],
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_inventory_statuses": {"Ambrettolide 10% in DPG": "PROCUREMENT_PENDING"},
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Computational design availability does not create physical stock authority."
+      }
+    },
+    {
+      "case_id": "SCR-MUSK-06",
+      "phase": "SCREEN",
+      "category": "Ethylene Brassylate inventory mismatch",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Ethylene Brassylate is absent from the refreshed inventory. Keep target architecture separate from the executable build and choose the next comparison.",
+      "input_payload": {
+        "target_identity": "soft textile musk requiring low-cost body only if nonredundant",
+        "ideal_architecture": {"musk_body": "ethylene-brassylate candidate"},
+        "current_inventory_build": {"materials": ["Romandolide"]},
+        "criterion": "RICHNESS",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Ethylene Brassylate": "MISSING"},
+        "permitted_materials": ["Romandolide", "Ethylene Brassylate"]
+      },
+      "public_invariants": ["zero_one_intervention", "exact_inventory_lineage", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED", "HOLD"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [],
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_inventory_statuses": {"Ethylene Brassylate": "MISSING"},
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Missing stock may remain in ideal design but not in the current build."
+      }
+    },
+    {
+      "case_id": "SCR-MUSK-07",
+      "phase": "SCREEN",
+      "category": "one precise Habanolide design",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target needs a single clean diffusive musk function, and Habanolide is owned. Choose the smallest nonredundant test.",
+      "input_payload": {
+        "target_identity": "clean diffusive metallic-air musk",
+        "ideal_architecture": {"musk": "one precise diffusive function"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Habanolide": "OWNED"},
+        "permitted_materials": ["Habanolide"]
+      },
+      "public_invariants": ["zero_one_intervention", "exact_inventory_lineage", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": ["Tonalide", "Musk Ketone"],
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "One precise musk is the default when it serves the target function."
+      }
+    },
+    {
+      "case_id": "SCR-MUSK-08",
+      "phase": "SCREEN",
+      "category": "Habanolide x Romandolide complete factorial",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Distinct diffusion and rounded-volume musk functions are hypothesized. Design the minimum complete interaction experiment; pairwise impressions cannot prove synergy.",
+      "input_payload": {
+        "target_identity": "diffusive yet rounded textile musk",
+        "ideal_architecture": {"Habanolide": "diffusion", "Romandolide": "rounded volume"},
+        "current_inventory_build": {"materials": []},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "inventory_statuses": {"Habanolide": "OWNED", "Romandolide": "OWNED"},
+        "permitted_materials": ["Habanolide", "Romandolide"]
+      },
+      "public_invariants": ["zero_one_intervention", "complete_nary_arms", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["PROPOSED"], "max_interventions": 1,
+        "required_blockers": [], "forbidden_materials": [],
+        "required_arm_sets": [["CONTROL", "HABANOLIDE", "ROMANDOLIDE", "HABANOLIDE_X_ROMANDOLIDE"]],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "A two-factor interaction requires all four constant-total arms."
+      }
+    },
+    {
+      "case_id": "SCR-MUSK-09",
+      "phase": "SCREEN",
+      "category": "unjustified restricted-musk exception",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "A generic clean musk target is offered Tonalide, Macrolide, and Musk Ketone together without a tonal exception or distinct-function evidence. Decide the first experiment.",
+      "input_payload": {
+        "target_identity": "generic clean skin musk",
+        "ideal_architecture": {"musk": "zero or one precise material"},
+        "current_inventory_build": {"materials": ["Habanolide"]},
+        "criterion": "TARGET_FIDELITY",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["MUSK_EXCEPTION_NOT_JUSTIFIED"],
+        "permitted_materials": ["Habanolide"]
+      },
+      "public_invariants": ["required_hold", "target_inventory_separation", "authority_false", "no_unrelated_invention", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["MUSK_EXCEPTION_NOT_JUSTIFIED"],
+        "forbidden_materials": ["Tonalide", "Macrolide", "Musk Ketone"],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Restricted musks stay out absent an explicit target-specific exception."
+      }
+    },
+    {
+      "case_id": "SCR-EVIDENCE-10",
+      "phase": "SCREEN",
+      "category": "missing evidence requiring hold",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "The target and inventory are known, but no observation distinguishes omission from ratio change. Decide whether to alter the formula.",
+      "input_payload": {
+        "target_identity": "transparent floral with a continuous heart-to-base transition",
+        "ideal_architecture": {"transition": "continuous", "specific_delta": "unresolved"},
+        "current_inventory_build": {"materials": ["Hedione", "Iso E Super"]},
+        "criterion": "DEPTH",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["MISSING_DISCRIMINATING_EVIDENCE"],
+        "permitted_materials": ["Hedione", "Iso E Super"]
+      },
+      "public_invariants": ["required_hold", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD"], "max_interventions": 0,
+        "required_blockers": ["MISSING_DISCRIMINATING_EVIDENCE"], "forbidden_materials": [],
+        "require_authority_false": true, "require_ideal_inventory_separation": true,
+        "require_next_comparison": true, "human_rationale": "Unresolved causal alternatives require a discriminating comparison, not formula mutation."
+      }
+    },
+    {
+      "case_id": "SCR-PREF-11",
+      "phase": "SCREEN",
+      "category": "order-confounded preference evidence",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Every assessor received A first and B second; B won 8 of 10 liking comparisons. Decide whether a hedonic preference has been learned.",
+      "input_payload": {
+        "target_identity": "same formula comparison under blinded liking",
+        "ideal_architecture": {"criterion": "LIKING", "order": "balanced"},
+        "current_inventory_build": {"comparison": "A versus B", "first_presented": "A always"},
+        "criterion": "LIKING",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["ORDER_CONFOUNDED"],
+        "permitted_materials": []
+      },
+      "public_invariants": ["required_hold", "criterion_isolation", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD", "WITHHELD", "DIAGNOSTIC"], "max_interventions": 0,
+        "required_blockers": ["ORDER_CONFOUNDED"], "forbidden_materials": [],
+        "required_criterion": "LIKING", "require_authority_false": true,
+        "require_ideal_inventory_separation": true, "require_next_comparison": true,
+        "human_rationale": "Complete order confounding prevents directional preference promotion."
+      }
+    },
+    {
+      "case_id": "SCR-AMBER-12",
+      "phase": "SCREEN",
+      "category": "amber-resin architecture without liking evidence",
+      "system_prompt": "Act as a bounded perfumery hypothesis generator. Return one JSON object with decision, interventions, materials, blockers, inventory_statuses, arms, nary_factors, next_comparison, and the supplied all-false authority_flags. Use only supplied facts. Never claim unobserved smell, liking, safety, stability, similarity, or release readiness.",
+      "user_prompt": "Benzoin, labdanum, storax, myrrh, frankincense, and olibanum are available as design materials, but no blinded liking data exist. Decide whether the richest-sounding blend is a hedonic winner.",
+      "input_payload": {
+        "target_identity": "resinous amber with incense lift and balsamic body",
+        "ideal_architecture": {"balsamic_body": "benzoin-labdanum", "incense_lift": "frankincense-or-olibanum", "dark_accent": "storax-or-myrrh"},
+        "current_inventory_build": {"materials": ["Benzoin", "Labdanum", "Storax", "Myrrh", "Frankincense", "Olibanum"]},
+        "criterion": "LIKING",
+        "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "required_hold_reasons": ["NO_BLINDED_LIKING_EVIDENCE"],
+        "permitted_materials": ["Benzoin", "Labdanum", "Storax", "Myrrh", "Frankincense", "Olibanum"]
+      },
+      "public_invariants": ["required_hold", "criterion_isolation", "target_inventory_separation", "authority_false", "next_comparison"],
+      "sealed_answer_key": {
+        "allowed_decisions": ["HOLD", "WITHHELD"], "max_interventions": 0,
+        "required_blockers": ["NO_BLINDED_LIKING_EVIDENCE"], "forbidden_materials": [],
+        "required_criterion": "LIKING", "require_authority_false": true,
+        "require_ideal_inventory_separation": true, "require_next_comparison": true,
+        "human_rationale": "Architecture may be designed, but material richness and OAV cannot establish liking."
+      }
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

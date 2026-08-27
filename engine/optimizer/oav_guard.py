@@ -43,7 +43,6 @@ from typing import Iterable
 
 from engine.odor_thresholds import MIXTURE_SUPPRESSION_FACTOR, lookup_odt_entry
 
-
 # Smallest dose a hobbyist can reliably pipette (1 µL glass syringe floor).
 MIN_PIPETTE_UL = 1.0
 

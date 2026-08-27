@@ -1,0 +1,37 @@
+{
+  "schema_version": "perfume-chem-command-evidence-v2",
+  "name": "mypy_b8",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "cwd": "backend",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "command": [
+    "-B",
+    "-m",
+    "mypy",
+    "app/models/lab_backfill.py",
+    "app/repositories/lab_backfill.py",
+    "app/services/lab_backfill.py",
+    "--ignore-missing-imports",
+    "--no-color-output",
+    "--no-pretty",
+    "--cache-dir=<external>/mypy-cache"
+  ],
+  "non_pty": true,
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "exit_code": 0,
+  "duration_seconds": 35.79,
+  "result_text": "Success: no issues found in 3 source files",
+  "stdout": {
+    "path": "logs/mypy_b8.stdout.txt",
+    "bytes": 44,
+    "sha256": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24"
+  },
+  "stderr": {
+    "path": "logs/mypy_b8.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "PASS"
+}

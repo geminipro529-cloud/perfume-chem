@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "formula_cases": [
+    {
+      "id": "simple_aromachemical",
+      "formula_name": "Golden Simple Aromachemical",
+      "ingredients_ul": {"Hedione": 100.0, "Iso E Super": 100.0},
+      "dilutions": {"Hedione": 1.0, "Iso E Super": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_material_outputs": {
+        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
+        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
+      }
+    },
+    {
+      "id": "natural_heavy",
+      "formula_name": "Golden Natural Composite",
+      "ingredients_ul": {"Olibanum Resinoid (viscous, 3 g)": 60.0, "Bergamot FCF": 40.0},
+      "dilutions": {"Olibanum Resinoid (viscous, 3 g)": 1.0, "Bergamot FCF": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
+      "expected_material_outputs": {
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1655661476274, "oav": 17996.13852957649},
+        "Bergamot FCF": {"vapor_ppm": 2518.0545957760432, "oav": 164825.20764246685}
+      }
+    },
+    {
+      "id": "iris",
+      "formula_name": "Golden Iris",
+      "ingredients_ul": {"Alpha Irone": 100.0, "Orris Liquid": 100.0},
+      "dilutions": {"Alpha Irone": 0.3, "Orris Liquid": 0.3},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "exact",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_active_concentrate_ppm_w_w": {
+        "Alpha Irone": 500537.0569280343,
+        "Orris Liquid": 499462.94307196565
+      },
+      "expected_material_outputs": {
+        "Alpha Irone": {"vapor_ppm": 5.3124962578201655, "oav": 5902.773619800184},
+        "Orris Liquid": {"vapor_ppm": 5.685425514974546, "oav": 6317.139461082829}
+      }
+    },
+    {
+      "id": "leather",
+      "formula_name": "Golden Leather Boundary",
+      "ingredients_ul": {"Leather FO": 20.0, "Iso E Super": 180.0},
+      "dilutions": {"Leather FO": 1.0, "Iso E Super": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_material_outputs": {
+        "Leather FO": {"vapor_ppm": 0.01931643575331118, "oav": null},
+        "Iso E Super": {"vapor_ppm": 4.010755087198542, "oav": 80215.10174397084}
+      }
+    },
+    {
+      "id": "citrus",
+      "formula_name": "Golden Citrus",
+      "ingredients_ul": {"Bergamot FCF": 80.0, "Hedione": 120.0},
+      "dilutions": {"Bergamot FCF": 1.0, "Hedione": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_composite_materials": ["Bergamot FCF"],
+      "expected_material_outputs": {
+        "Bergamot FCF": {"vapor_ppm": 2662.1128498760095, "oav": 174254.88072599284},
+        "Hedione": {"vapor_ppm": 1.0138896646506623, "oav": 20277.793293013245}
+      }
+    },
+    {
+      "id": "diluted_stock",
+      "formula_name": "Golden Diluted Stock",
+      "ingredients_ul": {"Hedione": 1000.0, "Iso E Super": 100.0},
+      "dilutions": {"Hedione": 0.1, "Iso E Super": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "equivalent_active_case": "simple_aromachemical",
+      "expected_material_outputs": {
+        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
+        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
+      }
+    },
+    {
+      "id": "missing_physical_data",
+      "formula_name": "Golden Missing Physical Data",
+      "ingredients_ul": {"Phase Zero Unknown Material": 100.0},
+      "dilutions": {"Phase Zero Unknown Material": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_material_outputs": {
+        "Phase Zero Unknown Material": {"vapor_ppm": 0.0, "oav": null}
+      }
+    },
+    {
+      "id": "near_ifra_boundary",
+      "formula_name": "Golden Regulatory Boundary",
+      "ingredients_ul": {"Evernyl": 10.0, "Hedione": 1990.0},
+      "dilutions": {"Evernyl": 1.0, "Hedione": 1.0},
+      "batch_volume_ml": 10.0,
+      "expected_ppm_status": "unavailable",
+      "modeled_output_relative_tolerance": 1e-8,
+      "expected_regulatory_status": "unverified",
+      "ifra_material": "Evernyl",
+      "ifra_limit_pct": 0.1,
+      "expected_material_outputs": {
+        "Evernyl": {"vapor_ppm": 0.01393546054637425, "oav": 46.45153515458084},
+        "Hedione": {"vapor_ppm": 1.9001987824851505, "oav": 38003.97564970301}
+      }
+    }
+  ],
+  "api_cases": [
+    {
+      "id": "explicit_solvent",
+      "request": {
+        "name": "Golden Explicit Solvent API",
+        "version": "1.0",
+        "concentration_percent": 15.0,
+        "total_volume_ml": 100.0,
+        "ingredients": [
+          {"name": "Hedione", "percentage": 10.0, "role": "heart"},
+          {"name": "Iso E Super", "percentage": 8.0, "role": "base"},
+          {"name": "Ethanol", "percentage": 80.0, "role": "solvent"},
+          {"name": "Water", "percentage": 2.0, "role": "solvent"}
+        ]
+      },
+      "expected_total_raw_ul": 18000.0,
+      "expected_aromatic_materials": ["Hedione", "Iso E Super"]
+    }
+  ],
+  "addition_cases": [
+    {
+      "id": "missing_density_refusal",
+      "bottle": {"total_mass_g": 10.0, "active_material_mass_g": 0.0},
+      "stock": {"active_mass_fraction": 0.2},
+      "target_active_mass_fraction": 0.01,
+      "expected_stock_mass_g": 0.5263157894736842
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STATUS = ROOT / "data/governance/solforge_candidate_status_20260825.json"
+SCREEN_ROOT = ROOT / "data/benchmarks/solforge/replacement_screen_r1"
+JUDGE_ROOT = SCREEN_ROOT / "judge_round1"
+
+EXPECTED_SOURCE_HASHES = {
+    "engine/sensory/ledger.py": "f1d9078b7907a75b4aca0242da7228508952fb0b4cae17cd93977961f0b5da3c",
+    "engine/perception/complexity_replacement_benchmark.py": "0723489dcfdd1edb33683e875b87477072c2f169b278d8ddd858102fcb9d88e5",
+    "engine/perception/complexity_module_retest.py": "a0a300bd81797f0c77db12f91735ad4a7dbf5e032505fa0b9d210203ecab6cb5",
+    "configs/complexity/complexity_module_registry_v2.json": "d17a3747432f7a002cb6b42aa25cb67b8b215cfe7f2b9a3adf92498c87504500",
+    "tests/fixtures/complexity_replacement_retest_cases_v3.json": "16fb9fa5694ea545b36fff0460631becc4e6bef4b2e5f3bd8b1f8dd9babdaed3",
+    "configs/complexity/complexity_replacement_benchmark_rubric_v1.json": "2a91fe926f7316d1f5ec2d07b41e0a4829932a343fc978d5de3da88c39905bc9",
+    "docs/SOLFORGE_ABCD_PROGRAM.md": "557f385be2663d2a1547e182394cf3572443c0639775c50b182328fc09f010de",
+}
+
+
+def _hash_exists_in_git_history(relative_path: str, expected_sha256: str) -> bool:
+    commits = subprocess.check_output(
+        ["git", "rev-list", "--all", "--", relative_path],
+        cwd=ROOT,
+        text=True,
+    ).splitlines()
+    for commit in commits:
+        try:
+            content = subprocess.check_output(
+                ["git", "show", f"{commit}:{relative_path}"],
+                cwd=ROOT,
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.CalledProcessError:
+            continue
+        if hashlib.sha256(content).hexdigest() == expected_sha256:
+            return True
+    return False
+
+
+def test_solforge_status_preserves_old_run_and_withholds_new_admission() -> None:
+    payload = json.loads(STATUS.read_text(encoding="utf-8"))
+
+    assert payload["program_id"] == "SOLFORGE-ABCD-20260825"
+    assert payload["runtime_state"] == (
+        "RETIRED_BENCHMARK_UNDERPERFORMER_REBUILD_REQUIRED"
+    )
+    assert payload["runtime_reachable"] is False
+    assert payload["prior_run_tombstone"] == {
+        "status_path": "data/governance/complexity_replacement_candidate_status_20260824.json",
+        "status_sha256": "66ac0c4dd83485de2e00a06fe508f6f53f43ab8e8ee5e062e5668ca879d51aee",
+        "run_id": "RPL-XHIGH-20260824-v3-formal-01",
+        "completed_outputs": 3,
+        "state": "SUPERSEDED_PARTIAL_UNSCORED",
+    }
+    assert payload["next_benchmark"] == {
+        "schema": "complexity_replacement_benchmark_manifest_v5_blinded",
+        "phase": "SCREEN",
+        "planned_outputs": 27,
+        "completed_outputs": 27,
+        "status_path": "data/benchmarks/solforge/replacement_screen_r1/status.json",
+        "status_sha256": "f21be482071de226bb3f9f279e3c08b4c7cfdc33e5aac8b70bbe9611cce6e50b",
+        "screen_receipt_sha256": "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17",
+        "screen_result_sha256": "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a",
+        "admission_decision": "ALL_STOP_REBUILD_REQUIRED",
+        "old_frozen_requests_resumed": False,
+    }
+    assert payload["source_hashes"] == EXPECTED_SOURCE_HASHES
+    assert all(value is False for value in payload["authority"].values())
+
+    for relative, expected in EXPECTED_SOURCE_HASHES.items():
+        current_sha256 = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        assert current_sha256 == expected or _hash_exists_in_git_history(
+            relative, expected
+        )
+
+
+def test_complete_screen_freezes_all_exact_outputs_and_all_stop_result() -> None:
+    manifest = json.loads((SCREEN_ROOT / "manifest.json").read_text(encoding="utf-8"))
+    status = json.loads((SCREEN_ROOT / "status.json").read_text(encoding="utf-8"))
+    raw_paths = sorted((SCREEN_ROOT / "raw").glob("*.json"))
+
+    assert status["manifest_sha256"] == manifest["manifest_sha256"]
+    assert status["state"] == "SCORED_ALL_STOP"
+    assert status["completed_output_count"] == len(raw_paths) == 27
+    assert status["required_output_count"] == manifest["request_count"] == 27
+    assert status["judge_output_count"] == 9
+    assert status["receipt_sha256"] == (
+        "cb0b5e3fcc83c46dc672a9cb23cf9bf7f0c0a5df420ceef15d24be6a679cef17"
+    )
+    assert status["screen_result_sha256"] == (
+        "ec5825bcce1ae49774b2ff20623f1df0aff1af8ea8cf136178d5bef893b93c3a"
+    )
+    assert status["screen_decision"] == "ALL_STOP"
+    assert status["confirmation_authorized"] is False
+    assert status["runtime_reachable"] is False
+    assert status["missing_request_ids"] == []
+    assert all(value is False for value in status["authority"].values())
+
+    request_by_id = {row["request_id"]: row for row in manifest["requests"]}
+    observed_ids = set()
+    for path in raw_paths:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        request = request_by_id[payload["request_id"]]
+        observed_ids.add(payload["request_id"])
+        assert payload["dispatch_sha256"] == request["dispatch_sha256"]
+        assert payload["case_id"] == request["case_id"]
+        assert payload["module_id"] == request["module_id"]
+        assert payload["arm"] == request["arm"]
+        assert payload["model_identity"] == "GPT-5.6 Sol"
+        assert payload["reasoning_setting"] == "xhigh"
+        assert hashlib.sha256(payload["output_text"].encode()).hexdigest() == (
+            payload["output_sha256"]
+        )
+        assert all(value is False for value in payload["authority"].values())
+
+    assert observed_ids == set(status["completed_request_ids"])
+    assert observed_ids.isdisjoint(status["missing_request_ids"])
+    assert observed_ids | set(status["missing_request_ids"]) == set(request_by_id)
+
+
+def test_blind_judge_manifest_is_hash_bound_and_hides_arm_identity() -> None:
+    manifest = json.loads((JUDGE_ROOT / "manifest.json").read_text(encoding="utf-8"))
+    unhashed = dict(manifest)
+    observed_manifest_hash = unhashed.pop("manifest_sha256")
+    canonical = json.dumps(
+        unhashed,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode()
+
+    assert manifest["state"] == "COMPLETE_PENDING_JUDGE_OUTPUTS"
+    assert manifest["request_count"] == len(manifest["requests"]) == 9
+    assert hashlib.sha256(canonical).hexdigest() == observed_manifest_hash
+    assert all(value is False for value in manifest["authority"].values())
+
+    raw_by_id = {
+        payload["request_id"]: payload
+        for path in (SCREEN_ROOT / "raw").glob("*.json")
+        for payload in [json.loads(path.read_text(encoding="utf-8"))]
+    }
+    observed_cases = set()
+    for request in manifest["requests"]:
+        observed_cases.add(request["case_id"])
+        assert hashlib.sha256(request["dispatch_text"].encode()).hexdigest() == (
+            request["dispatch_sha256"]
+        )
+        assert len(request["candidates"]) == 3
+        assert {row["arm"] for row in request["candidates"]} == {
+            "CONTROL",
+            "TREATMENT",
+            "PLACEBO",
+        }
+        assert '"arm":' not in request["dispatch_text"]
+        for candidate in request["candidates"]:
+            assert candidate["source_request_id"] not in request["dispatch_text"]
+            assert (
+                raw_by_id[candidate["source_request_id"]]["output_sha256"]
+                == candidate["output_sha256"]
+            )
+
+    assert len(observed_cases) == 9

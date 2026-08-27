@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:33:12.278806+00:00",
+  "dispatch_sha256": "ea4e227c4c4a86c23a50aeb9f40a50bde741c98b2de9078c1b2025bba82f0384",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "1caaa308bd5a215301c89a4e8f447f95add513e2a2283580ca26107ed63e3bbb",
+  "output_text": "{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Root-to-wood linkage is the only required function below the missing-function threshold (1<2). Candidate A directly supplies that function with low redundancy overlap (0.1). Candidates B and C are redundant above the 0.75 rejection threshold and add sweet amber residue, contrary to the no-added-sweetness target. Inventory reparse affects execution, not the ideal computational comparison.\",\"controlled_comparison\":{\"control\":\"Current architecture\",\"intervention\":\"One isolated Candidate A delta with an equal-quantity offset elsewhere\",\"constants\":[\"Total quantity\",\"All other variables\"],\"excluded\":[\"Candidate B\",\"Candidate C\"],\"physical_liking_state\":\"NOT TESTED\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"TARGET_FAITHFUL_NONREDUNDANT_DELTA\",\"REDUNDANCY_THRESHOLD_REJECTION\",\"ADDED_SWEETNESS_TARGET_INVERSION\",\"INVENTORY_REPARSE_REQUIRED_FOR_EXECUTION\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"rejected_for_redundancy\":2,\"eligible_candidate\":\"A\"},\"next_actions\":[\"Design one constant-total baseline-versus-Candidate-A comparison after the required inventory reparse; do not physically execute it under this authority.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "eea3762512799a4ab2fe927b276302abad69aaf92b47085d3ea4fd40ed24f434",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-cc8e17d53d73acd1d1c0",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.411337+00:00",
+  "stderr_sha256": "062b2123ee8b72c5e7475e23a44eb9f921c06b9b2b11a625e9f0f5312f252cd7",
+  "stderr_tail": "\\\\\"` rejected: blocked by policy\\\")\" }\n2026-08-26T07:32:51.542938Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Users\\\\ASUS\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'rg --files'`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command 'rg --files'` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Root-to-wood linkage is the only required function below the missing-function threshold (1<2). Candidate A directly supplies that function with low redundancy overlap (0.1). Candidates B and C are redundant above the 0.75 rejection threshold and add sweet amber residue, contrary to the no-added-sweetness target. Inventory reparse affects execution, not the ideal computational comparison.\",\"controlled_comparison\":{\"control\":\"Current architecture\",\"intervention\":\"One isolated Candidate A delta with an equal-quantity offset elsewhere\",\"constants\":[\"Total quantity\",\"All other variables\"],\"excluded\":[\"Candidate B\",\"Candidate C\"],\"physical_liking_state\":\"NOT TESTED\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"TARGET_FAITHFUL_NONREDUNDANT_DELTA\",\"REDUNDANCY_THRESHOLD_REJECTION\",\"ADDED_SWEETNESS_TARGET_INVERSION\",\"INVENTORY_REPARSE_REQUIRED_FOR_EXECUTION\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"rejected_for_redundancy\":2,\"eligible_candidate\":\"A\"},\"next_actions\":[\"Design one constant-total baseline-versus-Candidate-A comparison after the required inventory reparse; do not physically execute it under this authority.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n20,179\n",
+  "stdout_sha256": "d7a8589a85a2e6d39555d413f7f3007473a88e67f0575ecbe71a44b39a314e32"
+}

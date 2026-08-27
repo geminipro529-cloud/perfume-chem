@@ -1,0 +1,41 @@
+{
+  "schema": "deepluna-fast-b3-final-audit-v1",
+  "recorded_at_utc": "2026-08-02T00:13:32.193Z",
+  "project_id": "perfume-chem",
+  "preflight": {
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "provider_calls_enabled": true,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0
+  },
+  "job_id": "DS-41cc36cf491df51c4172fc56212dd5dc",
+  "terminal_state": "PASS",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "cache_hit": false,
+  "provider_calls": 1,
+  "spent_delta_nano_usd": 2589300,
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "negative_findings": [],
+  "scope_deviation": false,
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": false,
+  "sol_reconciliation": {
+    "required_reads_receipted": true,
+    "current_logs_match_report": true,
+    "ten_mismatch_withholding_paths_reproduced": true,
+    "assertion_context_and_missing_assertion_paths_reproduced": true,
+    "strict_science_no_fallback_reproduced": true,
+    "screening_only_claim_boundary_reproduced": true,
+    "legacy_quarantine_reproduced": true,
+    "unsupported_findings_accepted": 0,
+    "accepted_as_supplemental_evidence": true,
+    "final_authority": "canonical repository state and locally reproduced executable evidence"
+  }
+}

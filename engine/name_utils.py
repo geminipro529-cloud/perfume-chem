@@ -59,6 +59,8 @@ _ALIASES: dict[str, str] = {
     "alpha isomethyl ionone (methyl ionone pure)": "alpha-isomethyl ionone",
     "aimi": "alpha-isomethyl ionone",
     "alpha irone (30% in dep)": "alpha irone",
+    "alpha irone (30% w/w in ipm)": "alpha irone",
+    "orris liquid (30%)": "orris liquid",
     # IBQ and FTEC variants
     "ibq": "isobutyl quinoline",
     "isobutyl quinoline (10%)": "isobutyl quinoline",
@@ -86,6 +88,9 @@ _ALIASES: dict[str, str] = {
     "myristic acid": "myristic acid powder",
     "galaxolide (50% in dep)": "galaxolide",
     "heliotropal (piperonal)": "heliotropal",
+    "heliotropin": "heliotropal",
+    "piperonal": "heliotropal",
+    "cedamber": "cedramber",
     "vanillin (10%)": "vanillin",
     "ethyl vanillin (10%)": "ethyl vanillin",
     "ethyl vanillin (10% in dpg)": "ethyl vanillin",
@@ -95,6 +100,8 @@ _ALIASES: dict[str, str] = {
     "olibanum resinoid absolute": "olibanum resinoid",
     "olibanum resinoid absolute (10%)": "olibanum resinoid",
     "olibanum resinoid absolute - solid": "olibanum resinoid",
+    "olibanum resinoid (viscous)": "olibanum resinoid",
+    "olibanum resinoid (viscous, 3 g)": "olibanum resinoid",
     "dimethyl benzyl carbinyl acetate (dbca)": "dimethyl benzyl carbinyl acetate",
     # ── Inventory aliases 2026-05-23 ──
     "nerolia bromelia": "nerolin bromelia",
@@ -104,6 +111,7 @@ _ALIASES: dict[str, str] = {
     "rose absolute (r. damascena)": "rose absolute",
     # ── Geranium ──
     "geranium flower eo": "geranium eo",
+    "geranium eo (pelargonium graveolens flower oil)": "geranium eo",
     "geranium eo": "geranium eo",
     # ── Jasmine ──
     "jasmine sambac": "jasmine sambac absolute",
@@ -120,10 +128,26 @@ _ALIASES: dict[str, str] = {
     "tuberose absolute (india)": "tuberose absolute (india)",
     "tuberose eo": "tuberose absolute (india)",
     "cocoa absolute (10% in tec)": "cocoa absolute",
+    # Cocoa Absolute and Cocoa CO2 Extract are distinct natural mixtures.
+    # Preserve the old inaccurate label only as an alias for the CO2 extract.
+    "cocoa co2 absolute": "cocoa co2 extract",
+    "cocoa co2 abs": "cocoa co2 extract",
+    "adoxal 10% in dpg": "adoxal",
+    "champignol 10% in dpg": "champignol",
+    "coriander eo": "coriander essential oil",
+    "coriander seed oil": "coriander essential oil",
+    "2-acetyl pyrazine 1% in dpg": "2-acetyl pyrazine",
+    "safraleine neat": "safraleine",
+    "blackcurrent absolute": "blackcurrant absolute",
+    "blackcurrant absolute 10% in dpg": "blackcurrant absolute",
+    "violet leaf absolute 10% in dpg": "violet leaf absolute",
+    "jasmine absolute 10% in dpg": "jasmine absolute",
+    "coffee absolute grasse 10% in dpg": "coffee absolute grasse",
     "oakmoss absolute (10% in dpg)": "oakmoss absolute",
     "evernyl (50% in dpg)": "evernyl",
     # ── EO Aliases ──
     "lavender ha": "lavender eo high altitude",
+    "lavender eo ha": "lavender eo high altitude",
     "nagar motha oil": "nagarmortha oil",
     "immortelle absolute (10% in dpg)": "immortelle absolute",
     "rose essential oil (rosa damascena, india)": "rose essential oil",
@@ -150,6 +174,14 @@ _ALIASES: dict[str, str] = {
     "basil eo (india, ocimum basilicum)": "basil eo",
     "basil eo (india)": "basil eo",
     "sweet basil eo": "basil eo",
+
+    # intake batch aliases 2026-08-07 (inventory names -> canonical ODT/profile keys)
+    "phenyl ethyl alcohol": "phenethyl alcohol",
+    "sandalwood base 3x": "sandalwood base x3",
+    "padma (phenylacetaldehyde dimethyl acetal)": "padma",
+    "turkish storax liquidambar orientalis resin ethanol tincture": "turkish storax",
+    "vietnamese benzoin styrax tonkinensis resin ethanol tincture": "benzoin styrax tonkinensis tincture",
+    "caraway seed oil": "caraway seed eo",
 }
 
 

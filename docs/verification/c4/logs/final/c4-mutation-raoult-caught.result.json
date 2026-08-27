@@ -1,0 +1,7 @@
+{
+  "exit_code": 1,
+  "expected_failure": true,
+  "mutation": "partial_pressure_equals_pure_vapor_pressure",
+  "result": "1 failed, 1 passed, 39 deselected",
+  "timed_out": false
+}

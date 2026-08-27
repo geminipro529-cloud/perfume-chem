@@ -9,7 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.pipeline.gates import gate_formula, ReleaseGateConfig
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 
 INGREDIENTS_UL: dict[str, float] = {
     "Iso E Super": 850,
@@ -102,7 +102,7 @@ def main() -> None:
             pass_count += 1
 
     print(f"\n--- Summary: {pass_count} PASS, {warn_count} WARN, {fail_count} FAIL ---")
-    print(f"\n--- Confidence ---")
+    print("\n--- Confidence ---")
     print(json.dumps(report.confidence, indent=2))
 
     for gate in report.gates:

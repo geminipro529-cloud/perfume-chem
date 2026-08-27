@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c5-mutation-result-v1",
+    "name":  "c5-mutation-simulation-origin-caught",
+    "target":  "tests/test_c5_calibration_program.py::test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch",
+    "expected_exit_code":  1,
+    "exit_code":  1,
+    "timed_out":  false,
+    "duration_ms":  1470,
+    "started_at_utc":  "2026-08-02T18:17:19.2859624+00:00",
+    "stdout_sha256":  "13e46b8b540550dfef9478bad0163c443597dbb1be4a7c70af0202ac53779336",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

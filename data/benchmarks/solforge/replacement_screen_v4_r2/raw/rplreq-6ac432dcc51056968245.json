@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S02",
+  "completed_utc": "2026-08-26T07:22:25.860516+00:00",
+  "dispatch_sha256": "e27eb5d97ad9f279104bdf0d277589dc5e1daeb152d59dee9e51721c0af3d292",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "a59b3003ac502c327ac727926f91f4fb24cb318e4557cbe48e96282dd3779085",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}. Therefore, the evidence cannot support a global utility ranking across A through D. One bridge comparison is required to form a single connected component before fitting the target depth preference graph.\",\"controlled_comparison\":\"Run one controlled bridge comparison between any candidate in {A,B} and any candidate in {C,D}, retaining a tie as indifference evidence.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"bridge_comparison_count_required\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Conduct one bridge comparison connecting {A,B} with {C,D}.\"],\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNSUPPORTED\",\"BRIDGE_COMPARISON_REQUIRED\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "49afcc5b554ae4d1857dce1ddf97fc220a4dc619bac3a9dfd8204000a2c8714e",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-6ac432dcc51056968245",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:13.739778+00:00",
+  "stderr_sha256": "6c8d7100ca81341db83ac1022c187df67ccdbe4a283266dca19acd6e02df3b51",
+  "stderr_tail": "plexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"bridge_comparison_count_required\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}. Therefore, the evidence cannot support a global utility ranking across A through D. One bridge comparison is required to form a single connected component before fitting the target depth preference graph.\",\"controlled_comparison\":\"Run one controlled bridge comparison between any candidate in {A,B} and any candidate in {C,D}, retaining a tie as indifference evidence.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"bridge_comparison_count_required\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Conduct one bridge comparison connecting {A,B} with {C,D}.\"],\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNSUPPORTED\",\"BRIDGE_COMPARISON_REQUIRED\"]}}\ntokens used\n15,239\n",
+  "stdout_sha256": "99169c52af9d6b253db7f9bb35149230a3f5a5b4e7e05ed0f44b5ad6cdd8d3ad"
+}

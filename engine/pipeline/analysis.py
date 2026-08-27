@@ -8,14 +8,15 @@ from typing import Any
 def render_pipeline_analysis(payload: dict[str, Any]) -> str:
     """Return the full human-readable pipeline analysis text."""
     from scripts.format_pipeline_analysis import (
-        build_gate_summary,
-        build_oav_headspace_table,
-        build_note_distribution,
-        build_subthreshold,
+        build_authority_dimensions,
         build_class_distribution,
-        build_temporal,
-        build_perfumer,
+        build_gate_summary,
+        build_note_distribution,
+        build_oav_headspace_table,
         build_oav_structural,
+        build_perfumer,
+        build_subthreshold,
+        build_temporal,
     )
 
     formulas = payload.get("formulas", []) or []
@@ -30,6 +31,9 @@ def render_pipeline_analysis(payload: dict[str, Any]) -> str:
         materials = formula.get("formula_state", {}).get("materials", [])
         builders = [
             lambda: build_gate_summary(formula),
+            lambda: build_authority_dimensions(
+                formula, payload.get("run_evidence_contract")
+            ),
             lambda: build_oav_headspace_table(materials),
             lambda: build_note_distribution(materials),
             lambda: build_subthreshold(materials),

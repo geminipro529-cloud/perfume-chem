@@ -1,0 +1,26 @@
+{
+  "schema": "c1-postcommit-protected-state-and-scope-v1",
+  "generated_at": "2026-08-02T18:49:49.5587580+07:00",
+  "verified_commit": "49349802de6960940e368fe7d23bab37ffe92bc9",
+  "verified_parent": "8c29acd6aaed4a1324ee925b743ce131f9875d15",
+  "branch": "codex/add-inventory-materials",
+  "evidence_commit_path_count": 42,
+  "all_evidence_commit_paths_under_docs_verification_c1": true,
+  "index_staged_path_count": 0,
+  "databases": [
+    {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+      "quick_check": "ok"
+    },
+    {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+      "quick_check": "ok"
+    }
+  ],
+  "protected_state_matches_prewrite": true,
+  "passed": true
+}

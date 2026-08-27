@@ -1,0 +1,128 @@
+{
+  "schema_version": "protected_evidence_retest_admission_v1",
+  "program_id": "SOLFORGE-PROTECTED-EVIDENCE-20260827",
+  "recorded_at": "2026-08-27",
+  "decision": "ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED",
+  "git_checkpoint": "f503bc9",
+  "model_identity": {
+    "context": "FRESH_PROJECTLESS_CONVERSATION_PER_CASE",
+    "fast_mode": "NOT_EXPOSED",
+    "model": "gpt-5.6-sol",
+    "provider": "OpenAI",
+    "reasoning_effort": "xhigh",
+    "tools_state": "NO_TOOLS_OR_NETWORK"
+  },
+  "benchmark_evidence": [
+    {
+      "stage": "SCREEN_PRE_REPAIR",
+      "artifact_sha256": "94543d1212810d3b861a7951a3a593798be9ab5c787f8992f5d3b928cd518e3e",
+      "used_for_admission": false,
+      "disposition": "PROVENANCE_TOMBSTONE",
+      "module_results": {
+        "HEDONIC_PREFERENCE_LEARNER": {
+          "wins_vs_plain": 3,
+          "wins_vs_noop": 3,
+          "total_cases": 3,
+          "median_gain_vs_plain": 3.0,
+          "median_gain_vs_noop": 3.0,
+          "critical_errors": []
+        },
+        "TEMPORAL_SENSORY_LEDGER": {
+          "wins_vs_plain": 1,
+          "wins_vs_noop": 1,
+          "total_cases": 3,
+          "median_gain_vs_plain": -2.0,
+          "median_gain_vs_noop": -2.0,
+          "critical_errors": []
+        }
+      }
+    },
+    {
+      "stage": "SCREEN_RETEST_AFTER_TEMPORAL_REPAIR",
+      "objective_artifact_sha256": "4b93e70609640fa93f8e3247299358866c04c272eb77bd4f83fc6b9d65b428e8",
+      "blind_judge_artifact_sha256": "386e0a51e4c783f733c7413caed3beffdb02cad7e5e3dd946bee378bf07318a5",
+      "judge_sessions": {
+        "HEDONIC_PREFERENCE_LEARNER": "01a03f7c-1dbe-72d3-a9a3-75f039fb17fe",
+        "TEMPORAL_SENSORY_LEDGER": "01a03f7c-1d3e-7000-9e22-7fc81bef14c2"
+      },
+      "module_results": {
+        "HEDONIC_PREFERENCE_LEARNER": {
+          "wins_vs_plain": 3,
+          "wins_vs_noop": 3,
+          "total_cases": 3,
+          "median_gain_vs_plain": 7.0,
+          "median_gain_vs_noop": 7.0,
+          "critical_errors": [],
+          "screen_passed": true
+        },
+        "TEMPORAL_SENSORY_LEDGER": {
+          "wins_vs_plain": 0,
+          "wins_vs_noop": 0,
+          "total_cases": 3,
+          "median_gain_vs_plain": 0.0,
+          "median_gain_vs_noop": 0.0,
+          "critical_errors": [],
+          "screen_passed": false
+        }
+      }
+    },
+    {
+      "stage": "HEDONIC_CONFIRMATION",
+      "objective_artifact_sha256": "805f9aef22e0416a446aad2d3264e3e63f8e04e784368320ce728a524c3b95a2",
+      "blind_judge_artifact_sha256": "5b2e515976c7888beb91efb7fea8a771e4e05d5277e4ceeebf0fd79484532b1f",
+      "judge_session": "01a03f82-e0ba-7141-b645-6584d7f512f3",
+      "combined_six_case_result": {
+        "wins_vs_plain": 3,
+        "wins_vs_noop": 3,
+        "total_cases": 6,
+        "median_gain_vs_plain": 1.0,
+        "median_gain_vs_noop": 1.0,
+        "critical_errors": [],
+        "admitted": false,
+        "reasons": [
+          "INSUFFICIENT_WINS_VS_PLAIN",
+          "INSUFFICIENT_WINS_VS_NOOP",
+          "MEDIAN_GAIN_VS_PLAIN_BELOW_FIVE",
+          "MEDIAN_GAIN_VS_NOOP_BELOW_FIVE"
+        ]
+      }
+    }
+  ],
+  "module_dispositions": {
+    "architectural-delta-engine": {
+      "state": "ADMITTED_RUNTIME",
+      "runtime_reachable": true,
+      "basis": "PRIOR_EXACT_SCOPE_ADMISSION_RETAINED_NO_SCOPE_EXPANSION"
+    },
+    "temporal-sensory-ledger": {
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "runtime_reachable": false,
+      "basis": "FAILED_REPAIRED_SCREEN_STRICT_WIN_THRESHOLD"
+    },
+    "hedonic-preference-learner": {
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "runtime_reachable": false,
+      "basis": "FAILED_COMBINED_CONFIRMATION_WIN_AND_MEDIAN_GAIN_THRESHOLDS"
+    }
+  },
+  "claim_limits": [
+    "Architectural Delta retains only deterministic computational experiment-design authority from its prior exact-scope admission.",
+    "Temporal and hedonic source remain compatibility and provenance code and are unreachable from the complexity runtime.",
+    "No benchmark establishes physical liking, sensory performance, safety, stability, purchase, publication, formula, compounding, or release authority.",
+    "Fast service tier was not exposed by the execution surface and is not claimed."
+  ],
+  "authority": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime_admission": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

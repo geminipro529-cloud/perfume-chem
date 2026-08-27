@@ -1,0 +1,138 @@
+{
+  "schema": "build-b1-source-provenance-gate-v2",
+  "generated_at_utc": "2026-08-01T23:16:36.2836070Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B1",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commit": "448f69cb9cf23e9e59f7960e77b378ae8e09725a",
+  "verification_head_before_report": "59637597706569360220e0354716ceeb4e4837ca",
+  "phase_revision": "20260730_0005",
+  "alembic_head": "20260731_0012",
+  "environment": {
+    "python": "3.11.15",
+    "poetry": "2.4.1",
+    "pty": false,
+    "ansi_disabled": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "source_types": 18,
+    "workflow_states": 10,
+    "canonical_tables": 4,
+    "migrated_high_impact_values": 0,
+    "production_scientific_consumers_connected": 0,
+    "engine_paths_changed_since_b0": 0
+  },
+  "commands": [
+    {
+      "name": "pytest_b1_and_compatibility",
+      "timeout_seconds": 300,
+      "exit_code": 0,
+      "result": "45 passed in 48.85s",
+      "stdout_path": "docs/verification/b1/logs/pytest.stdout.txt",
+      "stdout_sha256": "277B5CE9635A8DB7A436D14F1436301616EB6FAD68CDC1C8A11E14D31DED0AB7",
+      "stderr_path": "docs/verification/b1/logs/pytest.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "ruff_b1_and_revision_compatibility",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b1/logs/ruff.stdout.txt",
+      "stdout_sha256": "AF352A86840AD0AF3D37EA0D9197F868363A6DAC6B1C2EF5D2722F6B41D2D9AF",
+      "stderr_path": "docs/verification/b1/logs/ruff.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "mypy_b1_modules",
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "result": "Success: no issues found in 3 source files",
+      "configuration": "--follow-imports=skip with writable cache",
+      "stdout_path": "docs/verification/b1/logs/mypy.stdout.txt",
+      "stdout_sha256": "F6AF9A428EF63A271AA2234DE6CE89A03776A74B2B986ECE71BAE5015648259C",
+      "stderr_path": "docs/verification/b1/logs/mypy.stderr.txt",
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "integrity_check": "ok",
+      "alembic_versions": [],
+      "mutated_by_b1_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "integrity_check": "ok",
+      "integrity_method": "read-only immutable connection",
+      "mutated_by_b1_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/app/models/lab_sources.py": "029A401B7CA047C61595F4D8A45641D4544DC84DB6F92604999F9035E7CEE51B",
+    "backend/app/repositories/lab_sources.py": "B7BC4124C46F05D00F765A1ED8A1A98724E8D91D3D39FDFCACE070B9B0E3CB67",
+    "backend/app/services/lab_sources.py": "0F857A822107AF106F326FE8846FBD25DEE8CC31B76CE3EEB43D1BB2436D5C03",
+    "backend/alembic/versions/20260730_0005_b1_source_provenance.py": "81548136138D89FDD3C2DE0040BCB14B5C73319ED79AEAF48789D436003D52B0",
+    "backend/tests/unit/test_b1_source_schema.py": "46E7FFA91D36CB3E9FA3AEA14FE2B9E79C2E9A833E32EB96F2E74CF6701031ED",
+    "backend/tests/unit/test_b1_source_service.py": "A2C986CFC5D6526BEA3989534DF172B9F85934C496D6CB7AB4DAD820C66931C5",
+    "backend/tests/integration/test_b1_source_migration.py": "96857B57F98B24C3712098FF161B242D2EAC7A013384C6213C7A7ED133FD77FE",
+    "backend/tests/integration/test_backup_restore.py": "721DC49A3491CCB74C4E987AD4EF476D81E252AC680A7F851B6046B0E404A003",
+    "backend/tests/integration/test_lab_migration.py": "441A62F5E2D109D9304D180488F305D0FCCB7D97D8D32FBDF8DF9DEAB2B33C7B"
+  },
+  "exit_gate": {
+    "canonical_source_document_versions_complete": true,
+    "explicit_append_only_workflow_complete": true,
+    "extraction_context_and_hashes_preserved": true,
+    "source_independence_and_derivation_links_complete": true,
+    "staged_parsed_and_ai_values_non_authoritative": true,
+    "synthetic_accepted_derivations_reconstruct_completely": true,
+    "every_migrated_high_impact_value_reconstructs_completely": true,
+    "migration_has_no_backfill": true,
+    "legacy_runtime_consumers_unchanged": true,
+    "backup_restore_tracks_current_linear_head": true,
+    "canonical_database_state_preserved": true,
+    "staged_paths_outside_b1_report_commit": 0,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "claim_specific_authority": "DEFERRED_TO_B7",
+    "note": "Passing B1 proves provenance mechanics, not scientific truth or release authority."
+  },
+  "known_limitations": [
+    "B1 migrates zero high-impact values; the universal migrated-value gate passes with an empty migrated set while synthetic accepted records prove the reconstruction contract.",
+    "output_observation_id is an immutable reserved identifier until B2 creates the canonical observation model; B1 does not create a placeholder observation table.",
+    "No production scientific consumer uses B1 acceptance yet.",
+    "Mypy used follow-imports=skip because unrelated pre-existing engine/calibration/store.py typing errors are outside B1.",
+    "No new literature assertion was ingested or promoted in B1."
+  ],
+  "independent_review": {
+    "job_id": "DS-1e8e104e048d82ab80098c5b5ec7d403",
+    "status": "PASS",
+    "evidence_verdict": "POSITIVE",
+    "execution_status": "ACCEPTED",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "negative_findings": [],
+    "scope_deviation": false,
+    "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION"
+  },
+  "worktree_preservation": {
+    "tracked_dirty_paths": 105,
+    "untracked_files": 1122,
+    "staged_entries": 0,
+    "recovery_archive": "outputs/b1-authoritative-recovery/20260802T061536/b1-reports-before-refresh.zip",
+    "recovery_archive_sha256": "0ADB139923BB9459295AC57F78A9915E54FBDD52EAEDCCBFBA5CE2126B6F24EB",
+    "log_recovery_archive": "outputs/b1-log-recovery/20260802T061609/b1-logs-before-refresh.zip",
+    "log_recovery_archive_sha256": "B4F618D53FB1DB28D4D7EE7DA845724956FB471863B7A7F66FD65659F19D3B96",
+    "path_preserving_restore_verified": true
+  }
+}

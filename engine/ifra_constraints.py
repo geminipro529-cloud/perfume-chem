@@ -1,29 +1,31 @@
-"""IFRA Concentration Window Analysis — Legal bounds for allergen-declared materials.
+"""Diagnostic windows for threshold-declared fragrance allergens.
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
 - Concentrations in ppm, ODT in ppm/ppb, OAV = C/ODT (dimensionless).
 - Every perceptibility claim must be backed by OAV.
 
 EU Regulation 1223/2009 requires allergen declaration above 10 ppm (0.001%)
-in leave-on products. IFRA 51st Amendment sets maximum use levels per category.
+in leave-on products. A declaration establishes constituent presence above the
+applicable threshold; it does not identify the source material or reveal the
+constituent's formula concentration.
 
 For each declared allergen, this creates a concentration window:
     [notification_threshold, IFRA_ceiling]
 
-For each ABSENT allergen, this creates an upper bound:
+For each ABSENT allergen in an explicitly verified complete label regime, this
+creates an upper bound:
     [0, notification_threshold)
 
 Category 4 = Fine Fragrance (EDP/EDT), which is the relevant category.
 
-The window constrains the Bayesian posterior by providing hard bounds on
-concentration estimates that override softer evidence.
+These windows are diagnostic regulatory evidence only. They must not create
+standalone raw-material hypotheses or back-calculate natural-material doses.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Optional
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # EU Allergen Notification Thresholds & Regulatory Windows
@@ -159,6 +161,8 @@ class IFRAAnalysisResult:
     restricted_materials: list[str]   # Materials with IFRA ceilings that matter
     total_constrained: int
     score: float                      # 0-100: how much IFRA evidence constrains the formula
+    absence_authority: bool
+    limitations: tuple[str, ...]
 
 
 def compute_ifra_windows(
@@ -166,20 +170,51 @@ def compute_ifra_windows(
     all_26_allergens: Optional[list[str]] = None,
     concentration_pct: float = 25.0,
     target_name: str = "",
+    label_regime_complete: bool = False,
 ) -> IFRAAnalysisResult:
     """Compute concentration windows for all declared and absent allergens.
 
     Args:
-        declared_allergens: Allergens listed on the box (in order of concentration).
-        all_26_allergens: Full list of EU 26 allergens for absence analysis.
+        declared_allergens: Allergens listed on the package. Their order is not
+            treated as quantitative evidence.
+        all_26_allergens: Applicable complete allergen universe for the verified
+            market/date label regime. The historical parameter name is retained
+            for API compatibility.
         concentration_pct: Product concentration (25% for EDP).
         target_name: Name of the fragrance.
+        label_regime_complete: True only when the applicable market/date label
+            regime and complete required-allergen universe have been verified.
 
     Returns:
         IFRAAnalysisResult with per-material concentration windows and a score.
     """
-    if all_26_allergens is None:
-        all_26_allergens = list(IFRA_CAT4_LIMITS.keys())
+    if concentration_pct <= 0.0:
+        raise ValueError("concentration_pct must be greater than zero")
+
+    declared_ordered = tuple(
+        dict.fromkeys(
+            name
+            for allergen in declared_allergens
+            if (name := allergen.lower().strip())
+        )
+    )
+    universe_source = (
+        list(IFRA_CAT4_LIMITS.keys())
+        if all_26_allergens is None
+        else all_26_allergens
+    )
+    allergen_universe = list(
+        dict.fromkeys(
+            name
+            for allergen in universe_source
+            if (name := allergen.lower().strip())
+        )
+    )
+    # Retain declared evidence even if a caller supplied an incomplete universe.
+    # Only universe members can become absence findings.
+    analysis_allergens = allergen_universe + [
+        allergen for allergen in declared_ordered if allergen not in allergen_universe
+    ]
 
     multiplier = 100.0 / concentration_pct  # Convert product% → concentrate%
     notif_conc = NOTIFICATION_THRESHOLD_LEAVE_ON * multiplier
@@ -188,33 +223,43 @@ def compute_ifra_windows(
     absent: list[str] = []
     restricted: list[str] = []
 
-    declared_lower = {a.lower().strip() for a in declared_allergens}
+    declared_lower = set(declared_ordered)
 
-    for allergen, (max_prod, _) in IFRA_CAT4_LIMITS.items():
-        max_conc = max_prod * multiplier
+    for allergen in analysis_allergens:
+        limit_record = IFRA_CAT4_LIMITS.get(allergen)
+        max_conc = (
+            min(limit_record[0] * multiplier, 100.0)
+            if limit_record is not None
+            else 100.0
+        )
         is_declared = allergen in declared_lower
 
         if is_declared:
-            # Declared → must be above notification, below IFRA ceiling
-            ifra_restricted = max_conc < 50.0  # Meaningful restriction
+            # Declared constituent: threshold lower bound only. A quantitative
+            # ceiling is diagnostic here only when this legacy table records one.
+            ifra_restricted = limit_record is not None and max_conc < 100.0
             window = ConcentrationWindow(
                 material=allergen,
                 allergen_name=allergen,
                 declared_on_box=True,
                 min_pct=notif_conc,
-                max_pct=min(max_conc, 100.0),
+                max_pct=max_conc,
                 ifra_restricted=ifra_restricted,
-                window_width=min(max_conc, 100.0) - notif_conc,
+                window_width=max(0.0, max_conc - notif_conc),
                 confidence=0.0,  # Set below
             )
             # Narrow windows are more constraining
             if ifra_restricted:
                 window.confidence = max(0.3, 1.0 - (window.window_width / 20.0))
                 restricted.append(allergen)
-            else:
+            elif limit_record is not None:
                 window.confidence = 0.15  # Wide window = low constraint
+            else:
+                # No quantitative limit authority exists in this diagnostic
+                # table for this explicitly requested allergen.
+                window.confidence = 0.0
             windows.append(window)
-        else:
+        elif label_regime_complete and allergen in allergen_universe:
             # NOT declared → must be below notification threshold
             absent.append(allergen)
 
@@ -224,8 +269,9 @@ def compute_ifra_windows(
     else:
         constrained_count = len([w for w in windows if w.ifra_restricted])
         avg_confidence = sum(w.confidence for w in windows) / len(windows)
-        # Bonus for absent allergens (they eliminate materials)
-        absence_bonus = min(20.0, len(absent) * 2.0)
+        # Absence narrows constituent presence only; it never identifies or
+        # eliminates a source material by itself.
+        absence_bonus = min(20.0, len(absent) * 2.0) if label_regime_complete else 0.0
         score = min(100.0, (avg_confidence * 60.0) + absence_bonus + (constrained_count * 5.0))
 
     return IFRAAnalysisResult(
@@ -236,6 +282,13 @@ def compute_ifra_windows(
         restricted_materials=restricted,
         total_constrained=len(windows),
         score=score,
+        absence_authority=label_regime_complete,
+        limitations=(
+            "Declared allergens support thresholded constituent presence, not "
+            "standalone raw-material identity.",
+            "Absent-label upper bounds are withheld unless the applicable label "
+            "regime and complete allergen universe are explicitly verified.",
+        ),
     )
 
 
@@ -245,7 +298,8 @@ def format_ifra_report(result: IFRAAnalysisResult) -> str:
         f"═══ IFRA CONSTRAINT ANALYSIS: {result.target_name} ═══",
         f"Product concentration: {result.concentration_pct}% (Category 4 — Fine Fragrance)",
         f"Declared allergens: {result.total_constrained}",
-        f"Absent allergens (eliminated): {len(result.absent_allergens)}",
+        f"Absent-allergen authority: {'VERIFIED' if result.absence_authority else 'WITHHELD'}",
+        f"Absent allergens below threshold: {len(result.absent_allergens)}",
         f"IFRA-restricted materials: {len(result.restricted_materials)}",
         f"Constraint Score: {result.score:.1f}/100",
         "",
@@ -263,9 +317,9 @@ def format_ifra_report(result: IFRAAnalysisResult) -> str:
     if result.absent_allergens:
         lines.extend([
             "",
-            "── Absent Allergens (below 10 ppm → material eliminated or trace) ──",
+            "── Absent Allergens (constituent below threshold; source not identified) ──",
         ])
         for a in sorted(result.absent_allergens):
-            lines.append(f"  ✗ {a} — NOT in formula above 10 ppm")
+            lines.append(f"  ✗ {a} — constituent not declared above the applicable threshold")
 
     return "\n".join(lines)

@@ -1,0 +1,38 @@
+{
+  "schema_version": "perfume-chem-b10-deepluna-final-audit-v1",
+  "recorded_at_utc": "2026-08-02T07:02:00.638Z",
+  "project_id": "perfume-chem",
+  "readiness": "READY",
+  "runtime_mode": "CANDIDATE_V2",
+  "server_release": "0.9.9",
+  "job": {
+    "job_id": "DS-204c549decc18c3c19787a9bc69b4592",
+    "status": "PASS",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "cache_hit": false,
+    "scope_deviation": false
+  },
+  "provider_usage_delta": {
+    "api_calls": 1,
+    "prompt_tokens": 87754,
+    "completion_tokens": 923,
+    "total_tokens": 88677,
+    "luna_runs": 0,
+    "codex_orchestration_enabled": false,
+    "spent_nano_usd": 12096000,
+    "open_reserved_nano_usd_after": 0,
+    "unknown_reservations_after": 0
+  },
+  "negative_findings": [],
+  "unresolved_material_findings": 0,
+  "verified_findings": [
+    "Current B0 counts and digests agree across the report, baseline, and inventory receipt.",
+    "The 274-test required matrix and the final 19-check PASS_WITH_SKIPS verifier receipt agree with the report.",
+    "Protected database and sidecar hashes are identical before and after the final full verifier.",
+    "Magnolia EO remains identity-unknown, quarantined, and absent from the protected canonical KB.",
+    "The disposable KB is reproducible, while its broad unrelated logical drift supports withholding canonical replacement."
+  ],
+  "authority_boundary": "SUPPLEMENTAL_READ_ONLY_NO_FINAL_AUTHORITY",
+  "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION"
+}

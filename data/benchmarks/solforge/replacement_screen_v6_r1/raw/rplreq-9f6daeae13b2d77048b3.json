@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:32:57.492828+00:00",
+  "dispatch_sha256": "7abdb3737b7b5157b699f27d8a366013f8467f1b9df0bad0051c7a61f2f0408c",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "e5ac7dd202c6653bf8628c0c526261f9431f9946e9cacaf3b3c2f9a55c5d2c68",
+  "output_text": "{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Select candidate A because root-to-wood linkage is the only required function below the missing-function threshold (1<2). A directly supplies that linkage with low redundancy overlap (0.1), strengthening the continuous root-to-wood relationship without adding sweetness. B and C target sweet amber residue, which conflicts with the target identity, and exceed the redundancy rejection threshold.\",\"controlled_comparison\":{\"control\":\"Current composition at constant total quantity\",\"variant\":\"Replace an equal quantity of the current composition with candidate A; keep every other variable unchanged\",\"discriminator\":\"Improved continuous root-to-wood transition with iris, root texture, dry wood body, and mineral residue preserved and no added sweetness\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"DIRECT_FUNCTIONAL_BRIDGE\",\"LOW_REDUNDANCY_OVERLAP\",\"SWEETNESS_CONFLICT_REJECTED\",\"CONSTANT_TOTAL_REQUIRED\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"retained_candidates\":[\"A\"],\"rejected_candidates\":[\"B\",\"C\"]},\"next_actions\":[\"Run the defined constant-total controlled comparison of candidate A against the unchanged control.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4e9433f6d47c0281d7d43cdca3e579b9cb92a7f5785983e4e7562805bf6f08ac",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-9f6daeae13b2d77048b3",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.410580+00:00",
+  "stderr_sha256": "9742cfee571126a7717d3e5f53b22aa1c389985ed3fba4a686e6510d10c6ecdf",
+  "stderr_tail": "state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Select candidate A because root-to-wood linkage is the only required function below the missing-function threshold (1<2). A directly supplies that linkage with low redundancy overlap (0.1), strengthening the continuous root-to-wood relationship without adding sweetness. B and C target sweet amber residue, which conflicts with the target identity, and exceed the redundancy rejection threshold.\",\"controlled_comparison\":{\"control\":\"Current composition at constant total quantity\",\"variant\":\"Replace an equal quantity of the current composition with candidate A; keep every other variable unchanged\",\"discriminator\":\"Improved continuous root-to-wood transition with iris, root texture, dry wood body, and mineral residue preserved and no added sweetness\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"DIRECT_FUNCTIONAL_BRIDGE\",\"LOW_REDUNDANCY_OVERLAP\",\"SWEETNESS_CONFLICT_REJECTED\",\"CONSTANT_TOTAL_REQUIRED\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1,\"retained_candidates\":[\"A\"],\"rejected_candidates\":[\"B\",\"C\"]},\"next_actions\":[\"Run the defined constant-total controlled comparison of candidate A against the unchanged control.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,413\n",
+  "stdout_sha256": "b8a9b43c39cee6096dd86ced242d04fef370693af56d3043f864e924016da2e8"
+}

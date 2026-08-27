@@ -139,8 +139,8 @@ The inventory has **9 distinct citrus materials**. Each creates a different olfa
 
 **Rule:** If a formula uses Bergamot FCF, justify WHY bergamot specifically and not one of the 8 alternatives. Never use 3+ citrus materials in one formula unless the concept is explicitly a citrus soliflore/hesperidic composition.
 
-### 10. Musk Differentiation — Do NOT Default to Habanolide in Every Formula
-The inventory has **11 distinct musk materials**. Each creates a different olfactive effect. Select musks based on the accord's character, NOT by reflex. Build 2–3 material musk chords where each musk covers a different axis (depth, projection, character-echo).
+### 10. Musk Differentiation — Do NOT Default to Habanolide or a Musk Chord
+Select musks from the current inventory authority based on the target, not by reflex or count. One precisely chosen musk is valid and may be better than a chord. Multiple musks require distinct target-linked depth, projection, texture, temporal-bridge, fixation, or character-echo roles plus complete pairwise nonredundancy and controlled omission/alternative comparisons.
 
 | Material | Dilution | Character | Best For | Avoid When |
 |----------|----------|-----------|----------|------------|
@@ -148,19 +148,18 @@ The inventory has **11 distinct musk materials**. Each creates a different olfac
 | Romandolide | neat | Diffusive, clean, slightly woody-musk, projects outward | Woody, modern, transparent, skin-scent — the best projection musk. Extends sillage architecture outward rather than sitting on skin. | Heavy orientals where you want intimacy over projection |
 | Habanolide | neat | Warm, skin-like, macrocyclic, intimate trail | When you specifically need warm-skin intimacy and the accord has no other warmth source. | Do NOT use as automatic default — evaluate EB, Romandolide, and Exaltolide first |
 | Exaltolide | 10% | Lactonic, skin-fatty, intimate, slightly animalic | Skin-scent accords, iris-powder, creamy compositions — adds a natural skin-oil quality. Pairs with EB for a full lactonic chord. | Clean-bright, citrus-forward — the fatty quality clashes |
-| Musk Ketone | pure powder | Powdery-sweet, talcum, nitro musk | Iris, violet, powdery compositions — the ONLY musk that directly reinforces powder registers. Use as a character-echo musk alongside a structural musk. Crystalline solid — weigh or pre-dilute to 10% in DPG before use. | Compositions with no powder axis — it adds one |
+| Musk Ketone | pure powder | Powdery-sweet, talcum, nitro musk | **EXCEPTION ONLY / CURRENTLY DEPLETED.** May enter an ideal design only when its exact period-powder function, failed alternatives, omission loss, failure mode, and omission/alternative controls are explicit. | Omit by default; never infer physical stock or automatically pair it with a structural musk. |
 | Galaxolide | 80% | Fruity-floral, synthetic-clean, strong, persistent | Laundry-effect accords, clean-floral, fresh-muguet — when you want synthetic cleanliness. | Warm, natural, luxury, niche — pulls toward "detergent" |
-| Tonalide | 10% | Floral-musk, synthetic, moderate | Light floral, clean compositions — subtler than Galaxolide but same polycyclic family. | Same as Galaxolide — avoid in warm/natural/luxury contexts |
+| Tonalide | 10% | Floral-musk, synthetic, moderate | **EXCEPTION ONLY / CURRENTLY DEPLETED.** Ideal-design use requires a target-specific tonal call and the complete exception comparison. | Omit by default; avoid generic clean, floral, laundry, or musk-support use. |
 | Zenolide | neat | Clean, slightly citrusy-fresh musk | Citrus, aquatic, fresh-green, transparent accords — the coldest musk in the set. | Warm, powdery, oriental — works against buttery/creamy registers |
-| Macrolide | 10% | Soft, gentle, barely-there, clean | Sheer skin-scents, minimalist compositions where musk should whisper. | Any composition that needs musk muscle or projection |
+| Macrolide | 10% | Soft, gentle, barely-there, clean | **EXCEPTION ONLY / CURRENTLY DEPLETED.** Ideal-design use requires a target-specific tonal call and the complete exception comparison. | Omit by default; never use it merely because a minimalist design “needs a musk.” |
 | Ambrettolide | 10% in DPG | Fruity-musky, wine-like, natural animal warmth, extreme tenacity — the most naturalistic macrocyclic | Natural-leaning, sophisticated floral, oriental, skin-scent — warmer and more complex than Habanolide. "Quiet skin warmth" with a slightly fruity-wine character. Pairs with EB for natural-skin depth chord. | Clean-fresh, citrus, modern-laundry — too naturalistic and musky-heavy; also avoid in very synthetic/clean contexts |
 
-**2–3 Material Musk Chord Rule:** Build musk layers across different axes:
-- **Depth axis** — what sits on skin (EB, Exaltolide, Habanolide, Ambrettolide)
-- **Projection axis** — what extends outward (Romandolide, Galaxolide, Zenolide)
-- **Character-echo axis** — what reinforces the accord's identity (Musk Ketone for powder, Zenolide for fresh, EB for creamy)
+**Sparse-or-layered musk rule:** Never force a two- or three-material chord. Use one exact musk when it supplies the required image with less blur. For multiple musks, state each material's distinct target-linked role, material-specific fingerprint, loss on omission, collision risk, and pairwise controlled comparison. If the evidence cannot distinguish the candidates, report `EVIDENCE GAP, NOT MUSK GAP — PHYSICAL COMPARISON REQUIRED` and abstain from padding.
 
-**Rule:** If a formula uses Habanolide, justify WHY Habanolide specifically and not Ethylene Brassylate or Romandolide. Never select a musk without stating which axis it serves (depth, projection, or character-echo).
+**Exception rule:** Tonalide, Macrolide, and Musk Ketone are omitted by default. An ideal-design exception requires the exact target tonal role, why admitted alternatives fail, what is lost if omitted, likely failure/overdose mode, carrier-matched omission control, and strongest role-matched alternative control. Because current inventory marks them depleted, any accepted exception remains `HOLD_PROCUREMENT_REQUIRED` for the current-inventory build until live stock identity, strength, basis, carrier, and `ExactStockRef` exist.
+
+**Rule:** If a formula uses Habanolide, justify WHY Habanolide specifically and not Ethylene Brassylate or Romandolide. Never select a musk without stating its target-linked function and nonredundancy.
 
 ### 11. Sandalwood Differentiation — Do NOT Default to Javanol in Every Formula
 The inventory has **5 sandalwood-axis materials**. Each occupies a different textural register.

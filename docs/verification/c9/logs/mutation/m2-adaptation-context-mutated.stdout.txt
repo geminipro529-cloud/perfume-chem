@@ -1,0 +1,30 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_adaptation_requires_exact_context_match _________________
+
+    def test_adaptation_requires_exact_context_match() -> None:
+        evidence = _adaptation_evidence()
+        exact = assess_adaptation_claim(
+            AdaptationClaim.RECORDED_CONTEXT_RESPONSE,
+            evidence,
+            requested_context=evidence.context,
+        )
+        mismatch = assess_adaptation_claim(
+            AdaptationClaim.RECORDED_CONTEXT_RESPONSE,
+            evidence,
+            requested_context=_adaptation_context(
+                stimulus_protocol="continuous 90-second exposure",
+            ),
+        )
+    
+        assert exact.status is C9AssessmentStatus.SUPPORTED_NARROW_SCOPE
+        assert exact.claim_authorized is True
+>       assert mismatch.status is C9AssessmentStatus.WITHHELD
+E       AssertionError: assert <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> is <C9AssessmentStatus.WITHHELD: 'WITHHELD'>
+E        +  where <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> = C9ClaimDecision(status=<C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'>, claim='RECORDED_CONTEXT_...63b4b25e8ba50b6d77d69b2d99d29d64fe42496c',), reasons=('adaptation evidence matches every requested C9 context field',)).status
+E        +  and   <C9AssessmentStatus.WITHHELD: 'WITHHELD'> = C9AssessmentStatus.WITHHELD
+
+tests\test_c9_unsupported_science.py:351: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c9_unsupported_science.py::test_adaptation_requires_exact_context_match
+1 failed in 3.09s

@@ -1,0 +1,20 @@
+{
+    "schema":  "c1-recovery-archive-check-v1",
+    "path":  "D:\\.backups\\perfume-chem\\build-c1-prewrite-20260802T163623+0700.tar",
+    "bytes":  118418432,
+    "sha256":  "ee3f9963fbb2f3937642c3ebd60ecac37bfed6fe6e2e1fe722af7288db305237",
+    "expected_sha256":  "ee3f9963fbb2f3937642c3ebd60ecac37bfed6fe6e2e1fe722af7288db305237",
+    "sha256_matches":  true,
+    "archive_member_count":  446,
+    "creation_source_file_count":  444,
+    "archive_control_member_count":  2,
+    "member_names_sha256":  "3c2043b31cbb033aaf7aed90b95ef8afd36e0dab3d024094d1e82ab063a0b759",
+    "unsafe_member_count":  0,
+    "creation_extraction_verified":  true,
+    "creation_file_hashes_verified":  true,
+    "archived_dirty_or_untracked_count":  429,
+    "excluded_runtime_path_count":  1163,
+    "absent_planned_path_count":  8,
+    "member_names_recorded":  false,
+    "initial_check_correction":  "The first check compared total tar members with creation source-file count; corrected by recording both categories."
+}

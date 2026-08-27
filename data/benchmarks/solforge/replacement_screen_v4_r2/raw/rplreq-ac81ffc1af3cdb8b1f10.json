@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:21:48.494958+00:00",
+  "dispatch_sha256": "f2c69448d64e374c4841139d0fc4e57b789370fa066715122d50ee939ac68600",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "f039557f8aeffd8e80cfa6e13bf92e135b4ee2d57fa800633611ca930d966a5e",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Making Neroli dominant would invert the specified identity by centering orange blossom, while the target instead prioritizes bitter lemon peel and green tea. Replacing ingredients does not establish target-linked complexity, and no evidence supports this inversion.\",\"controlled_comparison\":\"No blinded comparison has tested the proposed arm against the 100-part baseline.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0}},\"next_actions\":[\"Run a blinded, equal-total comparison of the baseline and proposed arm, scoring fidelity to the bitter-lemon-peel/green-tea target and whether orange blossom becomes central.\"],\"reason_codes\":[\"TARGET_IDENTITY_CONFLICT\",\"UNSUPPORTED_IDENTITY_INVERSION\",\"NO_BLINDED_COMPARISON\",\"PARTS_TOTAL_PRESERVED\",\"INVENTORY_REQUIRES_VERIFICATION\"]}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4e3eb768408fba3241b8028a8e811dff89e1174fcc1c90e5e9d18b99b8d35a1f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ac81ffc1af3cdb8b1f10",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.838764+00:00",
+  "stderr_sha256": "d057a3c530140486acebe6833516a9b01592943c998d7e4874cfae6d6ec4c456",
+  "stderr_tail": "_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Making Neroli dominant would invert the specified identity by centering orange blossom, while the target instead prioritizes bitter lemon peel and green tea. Replacing ingredients does not establish target-linked complexity, and no evidence supports this inversion.\",\"controlled_comparison\":\"No blinded comparison has tested the proposed arm against the 100-part baseline.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0}},\"next_actions\":[\"Run a blinded, equal-total comparison of the baseline and proposed arm, scoring fidelity to the bitter-lemon-peel/green-tea target and whether orange blossom becomes central.\"],\"reason_codes\":[\"TARGET_IDENTITY_CONFLICT\",\"UNSUPPORTED_IDENTITY_INVERSION\",\"NO_BLINDED_COMPARISON\",\"PARTS_TOTAL_PRESERVED\",\"INVENTORY_REQUIRES_VERIFICATION\"]}\ntokens used\n5,130\n",
+  "stdout_sha256": "36c05a5737e4fe21d8beac8e5681229b049ba9de5a083e732f780d2fb67d1c03"
+}

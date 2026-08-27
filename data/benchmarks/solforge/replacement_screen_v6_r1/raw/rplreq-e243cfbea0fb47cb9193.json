@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:33:39.437433+00:00",
+  "dispatch_sha256": "4796c04d5d010ca3b35ccb68ddb2bc81a59917eacbcf083b4a8c13a14b981a8e",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "4792f92bfe842b7e377a2ee8a0a47bec6afc9304dd6407a46df892392940b435",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has two conflicting source-distinct observations (3 and 7) and no provenance rule identifying a superseding record. Although their arithmetic mean is 5, averaging would conceal an unresolved ledger conflict and is not evidence-supported adjudication.\",\"controlled_comparison\":{\"matched_dimensions\":[\"protocol P1\",\"sample X\",\"assessor A2\",\"repeat 1\",\"timepoint 60\",\"endpoint RICHNESS\"],\"differing_values\":[3,7],\"source_hashes\":\"DISTINCT\",\"proposed_mean\":5,\"interpretation\":\"Conflict, not valid replication pooling\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Obtain a source-authoritative provenance or correction rule that determines whether either record supersedes the other.\"],\"reason_codes\":[\"CANONICAL_CELL_CONFLICT\",\"DISTINCT_SOURCE_HASHES\",\"NO_SUPERSESSION_RULE\",\"UNSUPPORTED_AVERAGING\"],\"physical_liking_state\":\"NOT TESTED\"}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4b8b9e8c975c50513091263cf6733b4bb0b69272f5f3583cbe940117e9c556bc",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-e243cfbea0fb47cb9193",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:03.800637+00:00",
+  "stderr_sha256": "a44c93a5230342ed4d16079ee523b0a52856d61aa9d8e7fa966cf8e5af0c45ad",
+  "stderr_tail": "\\\\\\\\pwsh.exe\\\\\\\" -Command 'rg --files -g \\\\\\\"SKILL.md\\\\\\\" -g \\\\\\\"AGENTS.md\\\\\\\"'` rejected: blocked by policy\\\")\" }\n2026-08-26T07:33:19.706569Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Users\\\\ASUS\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw -LiteralPath 'C:\\\\Users\\\\ASUS\\\\.codex\\\\skills\\\\deepluna-chat\\\\SKILL.md'\"`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command \\\\\\\"Get-Content -Raw -LiteralPath 'C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\\deepluna-chat\\\\\\\\\\\\\\\\SKILL.md'\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has two conflicting source-distinct observations (3 and 7) and no provenance rule identifying a superseding record. Although their arithmetic mean is 5, averaging would conceal an unresolved ledger conflict and is not evidence-supported adjudication.\",\"controlled_comparison\":{\"matched_dimensions\":[\"protocol P1\",\"sample X\",\"assessor A2\",\"repeat 1\",\"timepoint 60\",\"endpoint RICHNESS\"],\"differing_values\":[3,7],\"source_hashes\":\"DISTINCT\",\"proposed_mean\":5,\"interpretation\":\"Conflict, not valid replication pooling\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1},\"decision_state\":\"HOLD\",\"next_actions\":[\"Obtain a source-authoritative provenance or correction rule that determines whether either record supersedes the other.\"],\"reason_codes\":[\"CANONICAL_CELL_CONFLICT\",\"DISTINCT_SOURCE_HASHES\",\"NO_SUPERSESSION_RULE\",\"UNSUPPORTED_AVERAGING\"],\"physical_liking_state\":\"NOT TESTED\"}}\ntokens used\n16,319\n",
+  "stdout_sha256": "1e6d6bb4518cf5511e246877f15edb63a96de520daa8d1dbaa6c983b3a54fbc7"
+}

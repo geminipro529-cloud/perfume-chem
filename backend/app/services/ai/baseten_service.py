@@ -7,7 +7,7 @@ OpenAI-compatible interface.
 
 import json
 import re
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, List, Optional, cast
 
 from openai import AsyncOpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -163,7 +163,7 @@ class BasetenService(BaseAIService):
                 if cached:
                     if self.verbose:
                         logger.info("Cache hit for Baseten completion")
-                    return cached
+                    return cast(str, cached)
 
             # Acquire rate limit
             estimated_tokens = self._estimate_tokens(prompt, max_tokens)
@@ -288,7 +288,7 @@ class BasetenService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -389,7 +389,7 @@ class BasetenService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -436,7 +436,7 @@ class BasetenService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             if dosage_info:
                 result["validated_dosage"] = dosage_info
             return result
@@ -447,4 +447,4 @@ class BasetenService(BaseAIService):
         """Get rate limit usage statistics"""
         # Determine which provider to get stats for
         provider = self._get_provider_for_model(self.model)
-        return self.rate_limiter.get_usage(provider)
+        return cast(Dict[str, Any], self.rate_limiter.get_usage(provider))

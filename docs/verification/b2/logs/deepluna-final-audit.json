@@ -1,0 +1,40 @@
+{
+  "schema": "deepluna-fast-b2-final-audit-v1",
+  "recorded_at_utc": "2026-08-01T23:46:59.835Z",
+  "project_id": "perfume-chem",
+  "preflight": {
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "provider_calls_enabled": true,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0
+  },
+  "job_id": "DS-3bb4335da7dd30e98231776f20ee0b59",
+  "terminal_state": "PASS",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "cache_hit": false,
+  "provider_calls": 1,
+  "spent_delta_nano_usd": 2035800,
+  "evidence_verdict": "POSITIVE",
+  "execution_status": "ACCEPTED",
+  "negative_findings": [],
+  "scope_deviation": false,
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": false,
+  "recommended_next_action": "Sol independently verifies the findings, changes B2 to PASS, and commits only exact B2 evidence paths.",
+  "sol_reconciliation": {
+    "required_reads_receipted": true,
+    "current_logs_match_report": true,
+    "legacy_quarantine_claim_reproduced": true,
+    "visible_conflict_claim_reproduced": true,
+    "blocking_conflict_withholding_claim_reproduced": true,
+    "unsupported_findings_accepted": 0,
+    "accepted_as_supplemental_evidence": true,
+    "final_authority": "canonical repository state and locally reproduced executable evidence"
+  }
+}

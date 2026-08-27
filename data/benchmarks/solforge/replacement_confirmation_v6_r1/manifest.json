@@ -1,0 +1,760 @@
+{
+  "admission_policy": {
+    "final": "at least 4/6 wins and median paired gain >= 5 against each control, zero critical errors",
+    "screen": "at least 2/3 wins against each control and zero critical regressions"
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "corpus_sha256": "75dbeada938e3ba403c96c0f0245ea8392dddf67447ee2bf0c9efe78b6c43580",
+  "execution_gate": {
+    "confirmation_requires_screen_receipt": true,
+    "confirmation_requires_screen_state": "PROCEED",
+    "screen_first": true
+  },
+  "manifest_sha256": "554bb43a35fd471a15bb5bcc92660f75808d6508dcf0c1360ae72b2f7c38e5a9",
+  "model_identity": {
+    "context": "FRESH_PROJECTLESS_CONVERSATION",
+    "model": "gpt-5.6-sol",
+    "product": "Codex",
+    "provider": "OpenAI",
+    "reasoning_effort": "xhigh",
+    "surface": "Codex projectless task"
+  },
+  "old_frozen_requests_resumed": false,
+  "phase": "CONFIRM",
+  "request_count": 9,
+  "requests": [
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C01",
+      "common_input_sha256": "fcdf16a32177866e30219b81b7dfd290a9c749c078b83350b79571d6bf6356f5",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "1d3c9aa7c78cc957627c6dc1ac0b96877c1c1f330381a164c501b5ec2e5f1170",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0},\"facts\":[\"The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.\",\"The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.\",\"Habanolide and Romandolide are owned but do not automatically replace the target function.\",\"Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise.\"],\"inventory_state\":{\"ambrettolide_10_percent\":\"PROCUREMENT_PENDING\",\"ethylene_brassylate\":\"MISSING_UNLESS_REFRESHED\",\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A soft skin musk that extends an iris heart without detergent brightness or powder bulk.\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"physical_addition_authorized_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C01-control-e7ec9e7856a9171c",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "ideal_candidate_count": 1,
+            "physically_compoundable_candidate_count": 0
+          },
+          "facts": [
+            "The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.",
+            "The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.",
+            "Habanolide and Romandolide are owned but do not automatically replace the target function.",
+            "Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise."
+          ],
+          "inventory_state": {
+            "ambrettolide_10_percent": "PROCUREMENT_PENDING",
+            "ethylene_brassylate": "MISSING_UNLESS_REFRESHED",
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A soft skin musk that extends an iris heart without detergent brightness or powder bulk."
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "physical_addition_authorized_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "fcdf16a32177866e30219b81b7dfd290a9c749c078b83350b79571d6bf6356f5",
+      "request_id": "rplreq-e319c671733fe3952348",
+      "role": "INVENTORY_MISMATCH"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C01",
+      "common_input_sha256": "fcdf16a32177866e30219b81b7dfd290a9c749c078b83350b79571d6bf6356f5",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "947042343d1afa0ecb07a1a2bcb37c5d270a22ded57cac1d740a364d92344d7d",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0},\"facts\":[\"The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.\",\"The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.\",\"Habanolide and Romandolide are owned but do not automatically replace the target function.\",\"Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise.\"],\"inventory_state\":{\"ambrettolide_10_percent\":\"PROCUREMENT_PENDING\",\"ethylene_brassylate\":\"MISSING_UNLESS_REFRESHED\",\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A soft skin musk that extends an iris heart without detergent brightness or powder bulk.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"physical_addition_authorized_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C01-treatment-5b76468b1e31f804",
+      "packet_byte_count": 1457,
+      "packet_sha256": "0ce09fa50bb3d79dba419fa79aeeb992877c9a24040d26c9994c6a76a51233fa",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "ideal_candidate_count": 1,
+            "physically_compoundable_candidate_count": 0
+          },
+          "facts": [
+            "The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.",
+            "The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.",
+            "Habanolide and Romandolide are owned but do not automatically replace the target function.",
+            "Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise."
+          ],
+          "inventory_state": {
+            "ambrettolide_10_percent": "PROCUREMENT_PENDING",
+            "ethylene_brassylate": "MISSING_UNLESS_REFRESHED",
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A soft skin musk that extends an iris heart without detergent brightness or powder bulk."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "physical_addition_authorized_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "95ba99f61f34018ac1e2e9ff10e79a01ddba5cea214071c6a4ab45e65e484342",
+      "request_id": "rplreq-ed2016a8482074cad5cf",
+      "role": "INVENTORY_MISMATCH"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C01",
+      "common_input_sha256": "fcdf16a32177866e30219b81b7dfd290a9c749c078b83350b79571d6bf6356f5",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "9a6dd26b7f55036d2b19ed10a6ec6e43fd57f7006954d9ace89a24de7f070429",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"ideal_candidate_count\":1,\"physically_compoundable_candidate_count\":0},\"facts\":[\"The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.\",\"The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.\",\"Habanolide and Romandolide are owned but do not automatically replace the target function.\",\"Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise.\"],\"inventory_state\":{\"ambrettolide_10_percent\":\"PROCUREMENT_PENDING\",\"ethylene_brassylate\":\"MISSING_UNLESS_REFRESHED\",\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A soft skin musk that extends an iris heart without detergent brightness or powder bulk.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"physical_addition_authorized_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C01-placebo-afc91d5ce9dfcb06",
+      "packet_byte_count": 1457,
+      "packet_sha256": "4dd4f53cdad106342336bc78810e217f263d128f1e26b63294fc54d86672d063",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "ideal_candidate_count": 1,
+            "physically_compoundable_candidate_count": 0
+          },
+          "facts": [
+            "The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.",
+            "The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.",
+            "Habanolide and Romandolide are owned but do not automatically replace the target function.",
+            "Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise."
+          ],
+          "inventory_state": {
+            "ambrettolide_10_percent": "PROCUREMENT_PENDING",
+            "ethylene_brassylate": "MISSING_UNLESS_REFRESHED",
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A soft skin musk that extends an iris heart without detergent brightness or powder bulk."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "physical_addition_authorized_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "69c0c64f2dde4b0aa281b0fd7fd52be007391becd2beaba43948cd5984ff11b2",
+      "request_id": "rplreq-b869d7883389c41ec033",
+      "role": "INVENTORY_MISMATCH"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C02",
+      "common_input_sha256": "f6b325efbbd0066a7b32eab62da983a1620a2d009e252c2081980f65c4aa24a8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "995d87a3585aa9ed582c9075523968c288967925c394cff712946204c401ed52",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_musk_function_count\":1,\"declared_musk_function_count\":1},\"facts\":[\"Habanolide already supplies the declared cool diffusive mineral function.\",\"Adding Romandolide is proposed only to create a two-musk stack.\",\"No distinct target function or nonredundancy evidence is supplied for the second musk.\"],\"inventory_state\":{\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A cool diffusive mineral musk tail with one clearly assigned function.\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_musk_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C02-control-938b88284363c36d",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_musk_function_count": 1,
+            "declared_musk_function_count": 1
+          },
+          "facts": [
+            "Habanolide already supplies the declared cool diffusive mineral function.",
+            "Adding Romandolide is proposed only to create a two-musk stack.",
+            "No distinct target function or nonredundancy evidence is supplied for the second musk."
+          ],
+          "inventory_state": {
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A cool diffusive mineral musk tail with one clearly assigned function."
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "unmet_musk_function_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "f6b325efbbd0066a7b32eab62da983a1620a2d009e252c2081980f65c4aa24a8",
+      "request_id": "rplreq-be3050e8cfc748bba37b",
+      "role": "CONTROL"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C02",
+      "common_input_sha256": "f6b325efbbd0066a7b32eab62da983a1620a2d009e252c2081980f65c4aa24a8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "d95a1971b805cc7d60179c167aeb53b2b2628a7dca63c03e0c4c5bf092f96ac2",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_musk_function_count\":1,\"declared_musk_function_count\":1},\"facts\":[\"Habanolide already supplies the declared cool diffusive mineral function.\",\"Adding Romandolide is proposed only to create a two-musk stack.\",\"No distinct target function or nonredundancy evidence is supplied for the second musk.\"],\"inventory_state\":{\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A cool diffusive mineral musk tail with one clearly assigned function.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_musk_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C02-treatment-dcdab1b44411a72d",
+      "packet_byte_count": 1457,
+      "packet_sha256": "0ce09fa50bb3d79dba419fa79aeeb992877c9a24040d26c9994c6a76a51233fa",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_musk_function_count": 1,
+            "declared_musk_function_count": 1
+          },
+          "facts": [
+            "Habanolide already supplies the declared cool diffusive mineral function.",
+            "Adding Romandolide is proposed only to create a two-musk stack.",
+            "No distinct target function or nonredundancy evidence is supplied for the second musk."
+          ],
+          "inventory_state": {
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A cool diffusive mineral musk tail with one clearly assigned function."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "unmet_musk_function_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "9023775c9d2c03dfec6733374b31c6f882320a206ac52debd4f5fee557c9f950",
+      "request_id": "rplreq-5b53f10a6617d0d2d57f",
+      "role": "CONTROL"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C02",
+      "common_input_sha256": "f6b325efbbd0066a7b32eab62da983a1620a2d009e252c2081980f65c4aa24a8",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "84ca6af62a731a5fed7dc877c0d6e45db739fcc60a9fa81fc555eb0ba8a065a9",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"covered_musk_function_count\":1,\"declared_musk_function_count\":1},\"facts\":[\"Habanolide already supplies the declared cool diffusive mineral function.\",\"Adding Romandolide is proposed only to create a two-musk stack.\",\"No distinct target function or nonredundancy evidence is supplied for the second musk.\"],\"inventory_state\":{\"habanolide\":\"OWNED\",\"romandolide\":\"OWNED\"},\"target_identity\":\"A cool diffusive mineral musk tail with one clearly assigned function.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"PROPOSED\",\"NO_CHANGE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_musk_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C02-placebo-72780feddffc5fdc",
+      "packet_byte_count": 1457,
+      "packet_sha256": "4dd4f53cdad106342336bc78810e217f263d128f1e26b63294fc54d86672d063",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "covered_musk_function_count": 1,
+            "declared_musk_function_count": 1
+          },
+          "facts": [
+            "Habanolide already supplies the declared cool diffusive mineral function.",
+            "Adding Romandolide is proposed only to create a two-musk stack.",
+            "No distinct target function or nonredundancy evidence is supplied for the second musk."
+          ],
+          "inventory_state": {
+            "habanolide": "OWNED",
+            "romandolide": "OWNED"
+          },
+          "target_identity": "A cool diffusive mineral musk tail with one clearly assigned function."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "allowed_decision_states": [
+            "PROPOSED",
+            "NO_CHANGE",
+            "HOLD"
+          ],
+          "authority": {
+            "formula": false,
+            "inventory": false,
+            "physical_execution": false,
+            "publication": false,
+            "purchase": false,
+            "release": false,
+            "safety": false,
+            "sensory": false
+          },
+          "calculations": {
+            "unmet_musk_function_count": "compute from the supplied evidence"
+          },
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "next_actions": "array containing no more than one discriminating action",
+          "physical_liking_state": "NOT TESTED",
+          "reason_codes": "unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored",
+          "required_fields": [
+            "decision_state",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling",
+            "reason_codes",
+            "calculations",
+            "next_actions",
+            "authority"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "75d677521f3281fb332834c2969ae78e13d034bc7b8b888a1d49e8654d6a69d0",
+      "request_id": "rplreq-06f0257f9576dc85b0a3",
+      "role": "CONTROL"
+    },
+    {
+      "arm": "CONTROL",
+      "case_id": "AUG-ARC-C03",
+      "common_input_sha256": "f5b243e3b3cd86d059cd76f79cf8941f54cc5008c94e61b189242b1ac4a9cee4",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "cbfa9dc4adc84e03b84cbc30b304b14a17e6de3b4e792b7d21de726d5aa69fa7",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"factors\":2,\"observed_joint_arms\":0,\"required_full_factorial_arms\":4},\"facts\":[\"The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.\",\"Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.\",\"No observation tests the joint Tonalide-by-dry-wood interaction.\",\"A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total.\"],\"inventory_state\":{\"dry_wood_modifier\":\"OWNED\",\"tonalide\":\"EXCEPTION_ONLY_VERIFY_STOCK\"},\"target_identity\":\"A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods.\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C03-control-d2ca0385e46785c0",
+      "packet_byte_count": 0,
+      "packet_sha256": null,
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "factors": 2,
+            "observed_joint_arms": 0,
+            "required_full_factorial_arms": 4
+          },
+          "facts": [
+            "The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.",
+            "Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.",
+            "No observation tests the joint Tonalide-by-dry-wood interaction.",
+            "A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total."
+          ],
+          "inventory_state": {
+            "dry_wood_modifier": "OWNED",
+            "tonalide": "EXCEPTION_ONLY_VERIFY_STOCK"
+          },
+          "target_identity": "A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods."
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "required_isolated_arm_count": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "f5b243e3b3cd86d059cd76f79cf8941f54cc5008c94e61b189242b1ac4a9cee4",
+      "request_id": "rplreq-b4d80044160dc726f806",
+      "role": "UNSEEN_VARIANT"
+    },
+    {
+      "arm": "TREATMENT",
+      "case_id": "AUG-ARC-C03",
+      "common_input_sha256": "f5b243e3b3cd86d059cd76f79cf8941f54cc5008c94e61b189242b1ac4a9cee4",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "bbc7af5a54287258479a00241a68b0cf106dead820ed966b3a0ff9939cbd6d8c",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"factors\":2,\"observed_joint_arms\":0,\"required_full_factorial_arms\":4},\"facts\":[\"The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.\",\"Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.\",\"No observation tests the joint Tonalide-by-dry-wood interaction.\",\"A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total.\"],\"inventory_state\":{\"dry_wood_modifier\":\"OWNED\",\"tonalide\":\"EXCEPTION_ONLY_VERIFY_STOCK\"},\"target_identity\":\"A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods.\"},\"context_packet\":{\"context\":\"Operating guidance:\\n- Define the ideal target architecture before consulting current inventory.\\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\\n- Default to zero or one precise musk; allow an exception only for a declared target function.\\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\\nAuthority limits:\\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\\n- Keep ideal architecture separate from the current-inventory build.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C03-treatment-3a17f4264a3f75e6",
+      "packet_byte_count": 1457,
+      "packet_sha256": "0ce09fa50bb3d79dba419fa79aeeb992877c9a24040d26c9994c6a76a51233fa",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "factors": 2,
+            "observed_joint_arms": 0,
+            "required_full_factorial_arms": 4
+          },
+          "facts": [
+            "The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.",
+            "Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.",
+            "No observation tests the joint Tonalide-by-dry-wood interaction.",
+            "A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total."
+          ],
+          "inventory_state": {
+            "dry_wood_modifier": "OWNED",
+            "tonalide": "EXCEPTION_ONLY_VERIFY_STOCK"
+          },
+          "target_identity": "A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods."
+        },
+        "context_packet": {
+          "context": "Operating guidance:\n- Define the ideal target architecture before consulting current inventory.\n- Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.\n- Treat ingredient count as non-evidence and require isolated arms for n-ary claims.\n- Keep Neroli support-only unless orange blossom or Neroli is explicitly central.\n- Default to zero or one precise musk; allow an exception only for a declared target function.\n- Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.\n- Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most.\n- Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.\n- Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE.\nAuthority limits:\n- No formula mutation, compounding, purchase, sensory, safety, or release authority.\n- Keep ideal architecture separate from the current-inventory build.",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "required_isolated_arm_count": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "f3d24784716c71fd2e58f5c3ceba42a5424fb82a48d82ee8c70cd4a6e6e740b7",
+      "request_id": "rplreq-0e38677fa8f5201a2134",
+      "role": "UNSEEN_VARIANT"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "AUG-ARC-C03",
+      "common_input_sha256": "f5b243e3b3cd86d059cd76f79cf8941f54cc5008c94e61b189242b1ac4a9cee4",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "ac0e1b1c413b90c1a288e1e5a99ff93ef199ae91cfffa937c2ef096528e58b53",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"evidence_payload\":{\"factors\":2,\"observed_joint_arms\":0,\"required_full_factorial_arms\":4},\"facts\":[\"The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.\",\"Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.\",\"No observation tests the joint Tonalide-by-dry-wood interaction.\",\"A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total.\"],\"inventory_state\":{\"dry_wood_modifier\":\"OWNED\",\"tonalide\":\"EXCEPTION_ONLY_VERIFY_STOCK\"},\"target_identity\":\"A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "architectural_delta",
+      "nonce": "AUG-ARC-C03-placebo-83bdc6a795c9ac1f",
+      "packet_byte_count": 1457,
+      "packet_sha256": "4dd4f53cdad106342336bc78810e217f263d128f1e26b63294fc54d86672d063",
+      "phase": "CONFIRM",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+          "evidence_payload": {
+            "factors": 2,
+            "observed_joint_arms": 0,
+            "required_full_factorial_arms": 4
+          },
+          "facts": [
+            "The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.",
+            "Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.",
+            "No observation tests the joint Tonalide-by-dry-wood interaction.",
+            "A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total."
+          ],
+          "inventory_state": {
+            "dry_wood_modifier": "OWNED",
+            "tonalide": "EXCEPTION_ONLY_VERIFY_STOCK"
+          },
+          "target_identity": "A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "required_isolated_arm_count": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "d3b30135d8553ac2837ad128b0449ed42462ac16c1fb2a973c6d8ca3ecad3b30",
+      "request_id": "rplreq-588d89644c7db89892ed",
+      "role": "UNSEEN_VARIANT"
+    }
+  ],
+  "rollback_policy": {
+    "action": "Make the candidate runtime-unreachable and restore the last validated registry state while preserving source and evidence bytes.",
+    "formula_mutation_authorized": false,
+    "post_admission_triggers": [
+      "critical regression",
+      "registry hash drift",
+      "reproducibility failure",
+      "authority-boundary violation"
+    ],
+    "post_restore_verification": [
+      "registry hash equals the last validated registry hash",
+      "candidate import paths remain runtime-unreachable",
+      "authority flags remain false",
+      "focused freeze and ensemble tests pass"
+    ],
+    "post_restore_verification_required": true,
+    "release_authority": false,
+    "rollback_failure_state": "HOLD_RUNTIME_UNREACHABLE",
+    "runtime_reachable_during_benchmark": false,
+    "runtime_reenable_requires_fresh_admission": true,
+    "source_deletion_authorized": false
+  },
+  "rubric_sha256": "2a91fe926f7316d1f5ec2d07b41e0a4829932a343fc978d5de3da88c39905bc9",
+  "run_nonce": "solforge-native-evidence-modules-v6-confirm-r1-20260826",
+  "schema_version": "complexity_replacement_benchmark_manifest_v5_blinded",
+  "screen_decisions": [
+    {
+      "module_id": "architectural_delta",
+      "placebo_wins": 2,
+      "plain_control_wins": 2,
+      "reasons": [],
+      "state": "PROCEED"
+    },
+    {
+      "module_id": "temporal_sensory_ledger",
+      "placebo_wins": 1,
+      "plain_control_wins": 0,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "state": "STOP"
+    },
+    {
+      "module_id": "hedonic_preference_learner",
+      "placebo_wins": 1,
+      "plain_control_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "state": "STOP"
+    }
+  ],
+  "screen_receipt_sha256": "e2f86192b7897277378e6b522c45cb3c0ad05b37ae651e08ed80484cea3b6840"
+}

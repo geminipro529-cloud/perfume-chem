@@ -1,0 +1,555 @@
+
+=================================== ERRORS ====================================
+_ ERROR collecting archive/cli-utf8-transport-20260727/test_verify_formula_workflow_parser.py _
+import file mismatch:
+imported module 'test_verify_formula_workflow_parser' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\chemical-life-truth-20260727\test_verify_formula_workflow_parser.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\cli-utf8-transport-20260727\test_verify_formula_workflow_parser.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-override-contract.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_optimizer_thermodynamic_unification.before-override-contract.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'test_optimizer_thermodynamic_unification.before-override-contract'; 'test_optimizer_thermodynamic_unification' is not a package
+_ ERROR collecting archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-shared-natural-mole-pool.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_optimizer_thermodynamic_unification.before-shared-natural-mole-pool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'test_optimizer_thermodynamic_unification.before-shared-natural-mole-pool'; 'test_optimizer_thermodynamic_unification' is not a package
+_ ERROR collecting archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-temporal-gamma.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_optimizer_thermodynamic_unification.before-temporal-gamma.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'test_optimizer_thermodynamic_unification.before-temporal-gamma'; 'test_optimizer_thermodynamic_unification' is not a package
+_ ERROR collecting archive/osmanthus-dark-crystal-pipeline-fix-20260717-235644/tests/test_pipeline_part5.py _
+import file mismatch:
+imported module 'test_pipeline_part5' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_pipeline_part5.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_pipeline_part5.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/osmanthus-volume-grade-rebalance-20260718-025500/test_inventory_material_additions.py _
+import file mismatch:
+imported module 'test_inventory_material_additions' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_inventory_material_additions.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\osmanthus-volume-grade-rebalance-20260718-025500\test_inventory_material_additions.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/osmanthus-volume-grade-rebalance-20260718-025500/test_pipeline_part5.py _
+import file mismatch:
+imported module 'test_pipeline_part5' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_pipeline_part5.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\osmanthus-volume-grade-rebalance-20260718-025500\test_pipeline_part5.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/pipeline-module-repair-20260718-013154/tests/test_inventory_material_additions.py _
+import file mismatch:
+imported module 'test_inventory_material_additions' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_inventory_material_additions.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_inventory_material_additions.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/pipeline-module-repair-20260718-013154/tests/test_oav_authority.py _
+import file mismatch:
+imported module 'test_oav_authority' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_oav_authority.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_oav_authority.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/pipeline-module-repair-20260718-013154/tests/test_pipeline_gates.py _
+import file mismatch:
+imported module 'test_pipeline_gates' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\activity-authority-20260727\tests\test_pipeline_gates.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_pipeline_gates.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/pipeline-module-repair-20260718-013154/tests/test_pipeline_part5.py _
+import file mismatch:
+imported module 'test_pipeline_part5' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_pipeline_part5.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_pipeline_part5.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+__ ERROR collecting archive/pytest-temp-backend-acl-20260727/pytest-of-ASUS ___
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:406: in collect
+    return list(collector.collect())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\main.py:569: in collect
+    for direntry in scandir(self.path):
+                    ^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\pathlib.py:954: in scandir
+    scandir_iter = os.scandir(path)
+                   ^^^^^^^^^^^^^^^^
+E   PermissionError: [WinError 5] Access is denied: 'D:\\chatbots\\perfume-chem\\archive\\pytest-temp-backend-acl-20260727\\pytest-of-ASUS'
+_ ERROR collecting archive/score-authority-20260727/tests/test_release_scoring_contract.py _
+import file mismatch:
+imported module 'test_release_scoring_contract' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\formula-science-scope-20260727\tests\test_release_scoring_contract.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\score-authority-20260727\tests\test_release_scoring_contract.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/stock-carrier-reconciliation-20260727/tests/test_pipeline_gates.py _
+import file mismatch:
+imported module 'test_pipeline_gates' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\activity-authority-20260727\tests\test_pipeline_gates.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\stock-carrier-reconciliation-20260727\tests\test_pipeline_gates.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/temperature-factor-messaging-20260727/test_oav_intelligence.py _
+import file mismatch:
+imported module 'test_oav_intelligence' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_oav_intelligence.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\temperature-factor-messaging-20260727\test_oav_intelligence.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/temperature-factor-messaging-20260727/test_pipeline_part5.py _
+import file mismatch:
+imported module 'test_pipeline_part5' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_pipeline_part5.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\temperature-factor-messaging-20260727\test_pipeline_part5.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/temporal-authority-20260727/tests/test_oav_authority.py _
+import file mismatch:
+imported module 'test_oav_authority' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_oav_authority.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\temporal-authority-20260727\tests\test_oav_authority.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/temporal-authority-20260727/tests/test_oav_intelligence.py _
+import file mismatch:
+imported module 'test_oav_intelligence' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_oav_intelligence.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\temporal-authority-20260727\tests\test_oav_intelligence.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/vp-temperature-authority-20260727/tests/test_oav_authority.py _
+import file mismatch:
+imported module 'test_oav_authority' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_oav_authority.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\vp-temperature-authority-20260727\tests\test_oav_authority.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting archive/vp-temperature-authority-20260727/tests/test_optimizer_thermodynamic_unification.py _
+import file mismatch:
+imported module 'test_optimizer_thermodynamic_unification' has this __file__ attribute:
+  D:\chatbots\perfume-chem\tests\test_optimizer_thermodynamic_unification.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\archive\vp-temperature-authority-20260727\tests\test_optimizer_thermodynamic_unification.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_______________________ ERROR collecting backend/tests ________________________
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+.venv_py311_a0\Lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+backend\tests\conftest.py:10: in <module>
+    import pytest_asyncio
+E   ModuleNotFoundError: No module named 'pytest_asyncio'
+________ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-286 ________
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:406: in collect
+    return list(collector.collect())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\main.py:569: in collect
+    for direntry in scandir(self.path):
+                    ^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\pathlib.py:954: in scandir
+    scandir_iter = os.scandir(path)
+                   ^^^^^^^^^^^^^^^^
+E   PermissionError: [WinError 5] Access is denied: 'D:\\chatbots\\perfume-chem\\output\\pytest-temp\\pytest-of-ASUS\\pytest-286'
+________ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-287 ________
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:406: in collect
+    return list(collector.collect())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\main.py:569: in collect
+    for direntry in scandir(self.path):
+                    ^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\pathlib.py:954: in scandir
+    scandir_iter = os.scandir(path)
+                   ^^^^^^^^^^^^^^^^
+E   PermissionError: [WinError 5] Access is denied: 'D:\\chatbots\\perfume-chem\\output\\pytest-temp\\pytest-of-ASUS\\pytest-287'
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-543/test_write_inventory_round_tri0/tests/test_scientific_assumption.py _
+import file mismatch:
+imported module 'test_scientific_assumption' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_assumption.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_write_inventory_round_tri0\tests\test_scientific_assumption.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-543/test_write_inventory_round_tri0/tests/test_scientific_truth_inventory.py _
+import file mismatch:
+imported module 'test_scientific_truth_inventory' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_write_inventory_round_tri0\tests\test_scientific_truth_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-545/test_inventory_is_deterministi0/tests/test_scientific_assumption.py _
+import file mismatch:
+imported module 'test_scientific_assumption' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_assumption.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-545\test_inventory_is_deterministi0\tests\test_scientific_assumption.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-545/test_inventory_is_deterministi0/tests/test_scientific_truth_inventory.py _
+import file mismatch:
+imported module 'test_scientific_truth_inventory' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-545\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-545/test_write_inventory_round_tri0/tests/test_scientific_assumption.py _
+import file mismatch:
+imported module 'test_scientific_assumption' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_assumption.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-545\test_write_inventory_round_tri0\tests\test_scientific_assumption.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting output/pytest-temp/pytest-of-ASUS/pytest-545/test_write_inventory_round_tri0/tests/test_scientific_truth_inventory.py _
+import file mismatch:
+imported module 'test_scientific_truth_inventory' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-545\test_write_inventory_round_tri0\tests\test_scientific_truth_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+______ ERROR collecting output/verification-temp/pytest-of-ASUS/pytest-2 ______
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\runner.py:406: in collect
+    return list(collector.collect())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\main.py:569: in collect
+    for direntry in scandir(self.path):
+                    ^^^^^^^^^^^^^^^^^^
+.venv_py311_a0\Lib\site-packages\_pytest\pathlib.py:954: in scandir
+    scandir_iter = os.scandir(path)
+                   ^^^^^^^^^^^^^^^^
+E   PermissionError: [WinError 5] Access is denied: 'D:\\chatbots\\perfume-chem\\output\\verification-temp\\pytest-of-ASUS\\pytest-2'
+_ ERROR collecting outputs/b0-debug-recovery/20260802T055309/verified-restore/tests/test_scientific_truth_inventory.py _
+import file mismatch:
+imported module 'test_scientific_truth_inventory' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\outputs\b0-debug-recovery\20260802T055309\verified-restore\tests\test_scientific_truth_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_ ERROR collecting outputs/b5-canonical-prepromotion-recovery/20260731_045000/verified-restore/backend/tests/integration/test_backup_restore.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\outputs\b5-canonical-prepromotion-recovery\20260731_045000\verified-restore\backend\tests\integration\test_backup_restore.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+outputs\b5-canonical-prepromotion-recovery\20260731_045000\verified-restore\backend\tests\integration\test_backup_restore.py:6: in <module>
+    from alembic.script import ScriptDirectory
+E   ModuleNotFoundError: No module named 'alembic.script'
+_ ERROR collecting outputs/b5-canonical-prepromotion-recovery/20260731_045000/verified-restore/backend/tests/integration/test_lab_migration.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\outputs\b5-canonical-prepromotion-recovery\20260731_045000\verified-restore\backend\tests\integration\test_lab_migration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+outputs\b5-canonical-prepromotion-recovery\20260731_045000\verified-restore\backend\tests\integration\test_lab_migration.py:5: in <module>
+    from alembic.config import Config
+E   ModuleNotFoundError: No module named 'alembic.config'
+_ ERROR collecting outputs/b5-postaudit-prefix-recovery/20260731_044705/verified-restore/backend/tests/integration/test_b5_analytical_migration.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\integration\test_b5_analytical_migration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\integration\test_b5_analytical_migration.py:7: in <module>
+    from alembic.config import Config
+E   ModuleNotFoundError: No module named 'alembic.config'
+_ ERROR collecting outputs/b5-preimplementation-recovery/20260731_031302/verified-restore/backend/tests/integration/test_backup_restore.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\outputs\b5-preimplementation-recovery\20260731_031302\verified-restore\backend\tests\integration\test_backup_restore.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+outputs\b5-preimplementation-recovery\20260731_031302\verified-restore\backend\tests\integration\test_backup_restore.py:6: in <module>
+    from alembic.script import ScriptDirectory
+E   ModuleNotFoundError: No module named 'alembic.script'
+_ ERROR collecting outputs/b5-preimplementation-recovery/20260731_031302/verified-restore/backend/tests/integration/test_lab_migration.py _
+ImportError while importing test module 'D:\chatbots\perfume-chem\outputs\b5-preimplementation-recovery\20260731_031302\verified-restore\backend\tests\integration\test_lab_migration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\ASUS\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+outputs\b5-preimplementation-recovery\20260731_031302\verified-restore\backend\tests\integration\test_lab_migration.py:5: in <module>
+    from alembic.config import Config
+E   ModuleNotFoundError: No module named 'alembic.config'
+______________ ERROR collecting tests/test_family_archetypes.py _______________
+import file mismatch:
+imported module 'test_family_archetypes' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_family_archetypes.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_family_archetypes.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________________ ERROR collecting tests/test_interventions.py _________________
+import file mismatch:
+imported module 'test_interventions' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\intervention-safety-authority-20260727\tests\test_interventions.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_interventions.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_________ ERROR collecting tests/test_inventory_material_additions.py _________
+import file mismatch:
+imported module 'test_inventory_material_additions' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_inventory_material_additions.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_inventory_material_additions.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________________ ERROR collecting tests/test_oav_authority.py _________________
+import file mismatch:
+imported module 'test_oav_authority' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\osmanthus-dark-crystal-pipeline-fix-20260717-235644\tests\test_oav_authority.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_oav_authority.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_______________ ERROR collecting tests/test_oav_intelligence.py _______________
+import file mismatch:
+imported module 'test_oav_intelligence' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\pipeline-module-repair-20260718-013154\tests\test_oav_intelligence.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_oav_intelligence.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+____________ ERROR collecting tests/test_pipeline_audit_verify.py _____________
+import file mismatch:
+imported module 'test_pipeline_audit_verify' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\quarantine-artifact-policy-20260727\tests\test_pipeline_audit_verify.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_pipeline_audit_verify.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+____________ ERROR collecting tests/test_pipeline_formula_state.py ____________
+import file mismatch:
+imported module 'test_pipeline_formula_state' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\stock-carrier-reconciliation-20260727\tests\test_pipeline_formula_state.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_pipeline_formula_state.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________________ ERROR collecting tests/test_pipeline_gates.py ________________
+import file mismatch:
+imported module 'test_pipeline_gates' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\activity-authority-20260727\tests\test_pipeline_gates.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_pipeline_gates.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________________ ERROR collecting tests/test_pipeline_part5.py ________________
+import file mismatch:
+imported module 'test_pipeline_part5' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\optimizer-thermo-unification-20260727\test_pipeline_part5.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_pipeline_part5.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+______________ ERROR collecting tests/test_pipeline_preflight.py ______________
+import file mismatch:
+imported module 'test_pipeline_preflight' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\formula-science-scope-20260727\tests\test_pipeline_preflight.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_pipeline_preflight.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+_________ ERROR collecting tests/test_receptor_evidence_quarantine.py _________
+import file mismatch:
+imported module 'test_receptor_evidence_quarantine' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\temporal-authority-20260727\tests\test_receptor_evidence_quarantine.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_receptor_evidence_quarantine.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+___________ ERROR collecting tests/test_release_scoring_contract.py ___________
+import file mismatch:
+imported module 'test_release_scoring_contract' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\formula-science-scope-20260727\tests\test_release_scoring_contract.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_release_scoring_contract.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+____________ ERROR collecting tests/test_run_evidence_contract.py _____________
+import file mismatch:
+imported module 'test_run_evidence_contract' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\quarantine-artifact-policy-20260727\tests\test_run_evidence_contract.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_run_evidence_contract.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________________ ERROR collecting tests/test_science_audit.py _________________
+import file mismatch:
+imported module 'test_science_audit' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\activity-authority-20260727\tests\test_science_audit.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_science_audit.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+__________ ERROR collecting tests/test_scientific_truth_inventory.py __________
+import file mismatch:
+imported module 'test_scientific_truth_inventory' has this __file__ attribute:
+  D:\chatbots\perfume-chem\output\pytest-temp\pytest-of-ASUS\pytest-543\test_inventory_is_deterministi0\tests\test_scientific_truth_inventory.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_scientific_truth_inventory.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+________ ERROR collecting tests/test_verify_formula_workflow_parser.py ________
+import file mismatch:
+imported module 'test_verify_formula_workflow_parser' has this __file__ attribute:
+  D:\chatbots\perfume-chem\archive\chemical-life-truth-20260727\test_verify_formula_workflow_parser.py
+which is not the same as the test file we want to collect:
+  D:\chatbots\perfume-chem\tests\test_verify_formula_workflow_parser.py
+HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+============================== warnings summary ===============================
+archive\intervention-safety-authority-20260727\backend\tests\integration\test_lab_api.py:4
+  D:\chatbots\perfume-chem\archive\intervention-safety-authority-20260727\backend\tests\integration\test_lab_api.py:4: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+archive\intervention-safety-authority-20260727\backend\tests\integration\test_lab_api.py:141
+  D:\chatbots\perfume-chem\archive\intervention-safety-authority-20260727\backend\tests\integration\test_lab_api.py:141: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:368
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:368: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:399
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:399: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:413
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:413: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:532
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:532: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:689
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:689: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:784
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:784: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:826
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:826: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1145
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1145: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1170
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1170: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1200
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1200: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1266
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1266: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1402
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1402: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1444
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1444: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1538
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1538: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1558
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1558: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1577
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1577: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1650
+  D:\chatbots\perfume-chem\outputs\b5-postaudit-prefix-recovery\20260731_044705\verified-restore\backend\tests\unit\test_b5_analytical_service.py:1650: PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR archive/cli-utf8-transport-20260727/test_verify_formula_workflow_parser.py
+ERROR archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-override-contract.py
+ERROR archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-shared-natural-mole-pool.py
+ERROR archive/optimizer-thermo-unification-20260727/test_optimizer_thermodynamic_unification.before-temporal-gamma.py
+ERROR archive/osmanthus-dark-crystal-pipeline-fix-20260717-235644/tests/test_pipeline_part5.py
+ERROR archive/osmanthus-volume-grade-rebalance-20260718-025500/test_inventory_material_additions.py
+ERROR archive/osmanthus-volume-grade-rebalance-20260718-025500/test_pipeline_part5.py
+ERROR archive/pipeline-module-repair-20260718-013154/tests/test_inventory_material_additions.py
+ERROR archive/pipeline-module-repair-20260718-013154/tests/test_oav_authority.py
+ERROR archive/pipeline-module-repair-20260718-013154/tests/test_pipeline_gates.py
+ERROR archive/pipeline-module-repair-20260718-013154/tests/test_pipeline_part5.py
+ERROR archive/pytest-temp-backend-acl-20260727/pytest-of-ASUS - PermissionErr...
+ERROR archive/score-authority-20260727/tests/test_release_scoring_contract.py
+ERROR archive/stock-carrier-reconciliation-20260727/tests/test_pipeline_gates.py
+ERROR archive/temperature-factor-messaging-20260727/test_oav_intelligence.py
+ERROR archive/temperature-factor-messaging-20260727/test_pipeline_part5.py
+ERROR archive/temporal-authority-20260727/tests/test_oav_authority.py
+ERROR archive/temporal-authority-20260727/tests/test_oav_intelligence.py
+ERROR archive/vp-temperature-authority-20260727/tests/test_oav_authority.py
+ERROR archive/vp-temperature-authority-20260727/tests/test_optimizer_thermodynamic_unification.py
+ERROR backend/tests - ModuleNotFoundError: No module named 'pytest_asyncio'
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-286 - PermissionError: [WinErr...
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-287 - PermissionError: [WinErr...
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-543/test_write_inventory_round_tri0/tests/test_scientific_assumption.py
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-543/test_write_inventory_round_tri0/tests/test_scientific_truth_inventory.py
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-545/test_inventory_is_deterministi0/tests/test_scientific_assumption.py
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-545/test_inventory_is_deterministi0/tests/test_scientific_truth_inventory.py
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-545/test_write_inventory_round_tri0/tests/test_scientific_assumption.py
+ERROR output/pytest-temp/pytest-of-ASUS/pytest-545/test_write_inventory_round_tri0/tests/test_scientific_truth_inventory.py
+ERROR output/verification-temp/pytest-of-ASUS/pytest-2 - PermissionError: [Wi...
+ERROR outputs/b0-debug-recovery/20260802T055309/verified-restore/tests/test_scientific_truth_inventory.py
+ERROR outputs/b5-canonical-prepromotion-recovery/20260731_045000/verified-restore/backend/tests/integration/test_backup_restore.py
+ERROR outputs/b5-canonical-prepromotion-recovery/20260731_045000/verified-restore/backend/tests/integration/test_lab_migration.py
+ERROR outputs/b5-postaudit-prefix-recovery/20260731_044705/verified-restore/backend/tests/integration/test_b5_analytical_migration.py
+ERROR outputs/b5-preimplementation-recovery/20260731_031302/verified-restore/backend/tests/integration/test_backup_restore.py
+ERROR outputs/b5-preimplementation-recovery/20260731_031302/verified-restore/backend/tests/integration/test_lab_migration.py
+ERROR tests/test_family_archetypes.py
+ERROR tests/test_interventions.py
+ERROR tests/test_inventory_material_additions.py
+ERROR tests/test_oav_authority.py
+ERROR tests/test_oav_intelligence.py
+ERROR tests/test_pipeline_audit_verify.py
+ERROR tests/test_pipeline_formula_state.py
+ERROR tests/test_pipeline_gates.py
+ERROR tests/test_pipeline_part5.py
+ERROR tests/test_pipeline_preflight.py
+ERROR tests/test_receptor_evidence_quarantine.py
+ERROR tests/test_release_scoring_contract.py
+ERROR tests/test_run_evidence_contract.py
+ERROR tests/test_science_audit.py
+ERROR tests/test_scientific_truth_inventory.py
+ERROR tests/test_verify_formula_workflow_parser.py
+!!!!!!!!!!!!!!!!!! Interrupted: 52 errors during collection !!!!!!!!!!!!!!!!!!!
+19 warnings, 52 errors in 40.49s

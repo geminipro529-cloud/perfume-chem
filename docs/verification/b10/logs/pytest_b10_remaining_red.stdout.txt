@@ -1,0 +1,42 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_______________ test_backend_suite_timeout_has_full_run_margin ________________
+
+    def test_backend_suite_timeout_has_full_run_margin():
+        specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+
+>       assert specs["backend-tests"].timeout_seconds == 1200
+E       AssertionError: assert 900 == 1200
+E        +  where 900 = CheckSpec(name='backend-tests', command=('D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\poetry.exe', 'run', 'py...', '--junitxml=../verification_runs/backend.xml'), cwd='backend', required=True, environment=None, timeout_seconds=900).timeout_seconds
+
+tests\test_project_verification.py:277: AssertionError
+__ test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate __
+
+    def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() -> None:
+        audit = build_inventory_oav_coverage_audit()
+
+>       assert set(audit["categories"]["naturals_missing_composite_evidence"]) == {
+            "Anise EO",
+            "Basil EO",
+            "Cade Oil Rectified",
+            "Champaca Flower EO",
+            "Grapefruit FCF oil Sicilian",
+            "Himalayan Cedarwood EO",
+            "Opoponax Resinoid",
+            "Peppermint Essential Oil",
+            "Peru Balsam Resinoid",
+            "Pine EO",
+            "Spike Lavender EO",
+            "Tagetes EO",
+        }
+E       AssertionError: assert {'Anise EO', ...wood EO', ...} == {'Anise EO', ...wood EO', ...}
+E
+E         Extra items in the left set:
+E         'Magnolia EO'
+E         Use -v to get more diff
+
+tests\test_pipeline_scenario_matrix.py:216: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_verification.py::test_backend_suite_timeout_has_full_run_margin
+FAILED tests/test_pipeline_scenario_matrix.py::test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate
+2 failed in 3.12s

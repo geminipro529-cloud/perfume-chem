@@ -20,10 +20,6 @@ formula feel expensive without being identifiable as distinct notes.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Sequence
-
-from ._shared_types import NoteTier, FragranceFamily
-
 
 # ---------------------------------------------------------------------------
 # Six-class musk taxonomy

@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:33:34.760459+00:00",
+  "dispatch_sha256": "a76bbf98ae5a8d7482e8ccaa097b0458c30a558027a4717f37c664284417f10a",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "ae3f97326ac2e2173a60f18272f0f88006cac7e5f950d327ee102cea1d011996",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has two distinct source-backed values, 3 and 7, with no provenance rule identifying a superseding record. Averaging to 5 would conceal the unresolved ledger conflict and cannot establish a canonical observation.\",\"controlled_comparison\":\"Preserve 3 and 7 as separate unresolved alternatives and compare downstream results under each value; the proposed mean of 5 may be reported only as a labeled sensitivity scenario, not as adjudication.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"decision_state\":\"HOLD\",\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_DOES_NOT_RESOLVE_PROVENANCE\"],\"calculations\":{\"duplicate_excess_record_count\":1},\"next_actions\":[\"Apply an established provenance rule or obtain source-level adjudication to determine whether either record supersedes the other.\"],\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "13df103e310807e4e69581b19673d951079b7f42753338da3ffa2e40c88dacdc",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-cdc3df7bbc176b8d0fc9",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:11.782966+00:00",
+  "stderr_sha256": "8eaefd8dfefcb1eb1d9fc77009593b17a610a441db4c5c589236d13432bf0de9",
+  "stderr_tail": "ive_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell has two distinct source-backed values, 3 and 7, with no provenance rule identifying a superseding record. Averaging to 5 would conceal the unresolved ledger conflict and cannot establish a canonical observation.\",\"controlled_comparison\":\"Preserve 3 and 7 as separate unresolved alternatives and compare downstream results under each value; the proposed mean of 5 may be reported only as a labeled sensitivity scenario, not as adjudication.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"decision_state\":\"HOLD\",\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"AVERAGING_DOES_NOT_RESOLVE_PROVENANCE\"],\"calculations\":{\"duplicate_excess_record_count\":1},\"next_actions\":[\"Apply an established provenance rule or obtain source-level adjudication to determine whether either record supersedes the other.\"],\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n5,420\n",
+  "stdout_sha256": "30fbe73de4cdaedf062581f1d11eded000b67714deed59866190d12a788ec501"
+}

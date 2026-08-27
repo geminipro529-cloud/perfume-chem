@@ -1,14 +1,19 @@
 """Tests for the interaction graph query API (:mod:`engine.interaction_graph`).
 
 Verifies query, insert, analysis, and F11 chemical-incompatibility
-functions against the live SQLite database at ``data/perfumery_kb.db``.
+functions against an isolated database built from tracked knowledge sources.
 """
 
 from __future__ import annotations
 
+from shutil import copy2
+
 import pytest
+
+import engine.interaction_graph as interaction_graph
 from engine.interaction_graph import (
     F11_INCOMPATIBILITIES,
+    _ensure_f11_seeded,
     add_interaction,
     check_chemical_compatibility,
     get_all_interactions,
@@ -18,8 +23,21 @@ from engine.interaction_graph import (
     get_interaction,
     get_replacements,
     get_synergies,
-    _ensure_f11_seeded,
 )
+
+
+@pytest.fixture(autouse=True)
+def _isolated_interaction_database(tmp_path, monkeypatch, generated_knowledge_db):
+    isolated_database = tmp_path / "perfumery_kb.db"
+    copy2(generated_knowledge_db, isolated_database)
+    monkeypatch.setattr(interaction_graph, "_DB_PATH", isolated_database)
+    _ensure_f11_seeded()
+    yield
+
+
+def test_mutation_tests_do_not_target_repository_database() -> None:
+    assert interaction_graph._DB_PATH.name == "perfumery_kb.db"
+    assert "data" not in interaction_graph._DB_PATH.parts
 
 
 # ── Query tests ────────────────────────────────────────────────────────

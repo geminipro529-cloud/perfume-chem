@@ -13,8 +13,8 @@ at t = 0, 15min, 1hr, 4hr, 8hr, 24hr — showing top→heart→base evolution.
 
 import math
 from dataclasses import dataclass, field
-from engine.optimizer.models import _lookup_material, classify_note
 
+from engine.optimizer.models import _lookup_material, classify_note
 
 # Standard time points (hours)
 TIME_POINTS = [0, 0.25, 1, 4, 8, 24]
@@ -35,6 +35,7 @@ REF_TEMP_K = 298.15
 @dataclass
 class VolatilityProfile:
     """Time-series volatility data for a formula."""
+
     time_points: list[float] = field(default_factory=lambda: list(TIME_POINTS))
     time_labels: list[str] = field(default_factory=lambda: list(TIME_LABELS))
     # ingredient_name → [concentration at each time point]
@@ -120,10 +121,7 @@ class VolatilityCurveSimulator:
 
             # Note balance at this time point
             total_notes = sum(note_totals.values()) or 1.0
-            note_pct = {
-                k: round(v / total_notes * 100, 1)
-                for k, v in note_totals.items()
-            }
+            note_pct = {k: round(v / total_notes * 100, 1) for k, v in note_totals.items()}
             profile.note_evolution.append(note_pct)
 
             # Dominant note
@@ -137,7 +135,7 @@ class VolatilityCurveSimulator:
         Assumes ΔH_vap ≈ 87 * Tb (Trouton's rule in J/mol)."""
         bp_k = bp_c + 273.15
         delta_h = 87 * bp_k  # J/mol (Trouton's rule)
-        R = 8.314
+        R = 8.314  # noqa: N806
         # VP at 25°C relative to BP (where VP ≈ 101325 Pa)
         ln_ratio = (delta_h / R) * (1 / bp_k - 1 / REF_TEMP_K)
         return 101325 * math.exp(ln_ratio)
@@ -148,7 +146,7 @@ class VolatilityCurveSimulator:
             mw = 200
         # Estimate ΔH_vap from MW (rough: heavier = higher ΔH)
         delta_h = 40000 + mw * 100  # J/mol, very approximate
-        R = 8.314
+        R = 8.314  # noqa: N806
         ln_ratio = (delta_h / R) * (1 / REF_TEMP_K - 1 / SKIN_TEMP_K)
         return vp_25c * math.exp(ln_ratio)
 
@@ -157,11 +155,13 @@ class VolatilityCurveSimulator:
         transitions = []
         for i in range(1, len(profile.dominant_notes)):
             if profile.dominant_notes[i] != profile.dominant_notes[i - 1]:
-                transitions.append({
-                    "from": profile.dominant_notes[i - 1],
-                    "to": profile.dominant_notes[i],
-                    "at": profile.time_labels[i],
-                })
+                transitions.append(
+                    {
+                        "from": profile.dominant_notes[i - 1],
+                        "to": profile.dominant_notes[i],
+                        "at": profile.time_labels[i],
+                    }
+                )
 
         # Find when each ingredient drops below 5% headspace
         fadeout = {}
@@ -180,7 +180,6 @@ class VolatilityCurveSimulator:
             "opening_note": profile.dominant_notes[0],
             "drydown_note": profile.dominant_notes[-1],
             "note_evolution": {
-                label: profile.note_evolution[i]
-                for i, label in enumerate(profile.time_labels)
+                label: profile.note_evolution[i] for i, label in enumerate(profile.time_labels)
             },
         }

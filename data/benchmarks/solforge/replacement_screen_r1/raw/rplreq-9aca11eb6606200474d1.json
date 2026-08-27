@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-9aca11eb6606200474d1",
+  "case_id": "RPL-HED-S03",
+  "module_id": "hedonic_preference_learner",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e69f0-4fd8-83ec-9b0d-029ec6531321",
+  "dispatch_sha256": "93b8851cc93821cb70a896cb1b6428b03c2433971b191aaa941491c468edef85",
+  "output_text": "{\"decision\":\"WITHHOLD_LIKING_CONCLUSION\",\"target_linked_reasoning\":\"The recorded winner was almost always presented first, so liking is confounded with presentation order. Complete first-presentation metadata reveal the bias but cannot separate a true preference signal from a first-position effect. Physical liking remains NOT TESTED.\",\"controlled_comparison\":\"Repeat blinded comparisons of the same items with presentation order randomized and balanced across assessors and repeats, then estimate liking separately from order effects.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\"}",
+  "output_sha256": "92509e0ab951ec1e883876a52bdc476ab14d88da3e9d1cac175b8985dd43d397",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

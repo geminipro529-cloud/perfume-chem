@@ -11,10 +11,8 @@ All values are derived from the Formulation Intelligence Database (May 2026).
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from enum import Enum, StrEnum
-from typing import Mapping
-
+from dataclasses import dataclass
+from enum import StrEnum
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -170,7 +168,21 @@ R_GAS: float = 8.314  # J/(mol·K)
 T_BANGKOK: float = 308.15   # 35°C
 T_PARIS: float = 295.15     # 22°C
 T_SKIN: float = 305.15      # 32°C skin temperature
-BANGKOK_VP_RATIO: float = 2.8  # VP_35C / VP_22C for typical dHvap
+BANGKOK_VP_RATIO: float = 2.8  # legacy fallback for VP_35C / VP_22C; use bangkok_vp_ratio_default() for explicit context
+
+
+def bangkok_vp_ratio_default(
+    delta_h_vap: float = DELTA_H_VAP_DEFAULT,
+) -> float:
+    """Return a default Clausius-Clapeyron VP ratio for 22°C → 35°C.
+
+    This is an approximate material-independent fallback used for guidance modules
+    when material-level enthalpy estimates are unavailable.
+    """
+    return clausius_clapeyron_vp_ratio(
+        (T_PARIS - 273.15, T_BANGKOK - 273.15),
+        delta_h_vap,
+    )
 
 # Maceration milestones (days)
 MACERATION_STAGES: dict[str, int] = {

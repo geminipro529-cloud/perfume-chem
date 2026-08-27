@@ -1,0 +1,13 @@
+{
+    "schema":  "build-c6-mutation-result-v1",
+    "name":  "substrate-kind-binding-restored",
+    "target":  "tests/test_c6_dynamic_release.py::test_cross_substrate_request_abstains_before_compute",
+    "expected_exit_code":  0,
+    "exit_code":  0,
+    "timed_out":  false,
+    "duration_ms":  1656,
+    "started_at_utc":  "2026-08-02T19:31:04.1951221+00:00",
+    "stdout_sha256":  "e232b009c8b279a968fb83127164a50cacb1547adcab91b45906a159e7a7ff1f",
+    "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectation_met":  true
+}

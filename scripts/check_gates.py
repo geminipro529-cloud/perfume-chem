@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Check gate status from a pipeline JSON output."""
-import json, sys
+import json
+import sys
+
 if len(sys.argv) < 2:
     print("Usage: python scripts/check_gates.py <pipeline.json> [--details]")
     sys.exit(1)

@@ -1,0 +1,251 @@
+{
+  "schema": "build-b3-contextual-threshold-oav-gate-v2",
+  "generated_at_utc": "2026-08-02T00:14:10.5054739Z",
+  "decision": "PASS",
+  "build": "B",
+  "phase": "B3",
+  "branch": "codex/add-inventory-materials",
+  "implementation_commits": [
+    "3a61de2acd9a658ebba4600c29ffe22cff02b7cc"
+  ],
+  "implementation_head": "3a61de2acd9a658ebba4600c29ffe22cff02b7cc",
+  "verification_head_before_report": "1688a132758814d9e0e5f37ae5ccc123c3d59767",
+  "phase_revision": "20260730_0007",
+  "repository_alembic_head": "20260731_0012",
+  "environment": {
+    "python": "3.11.15",
+    "poetry": "2.4.1",
+    "pty": false,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "sensitive_environment_values": "REDACTED_NOT_COLLECTED"
+  },
+  "scope": {
+    "canonical_b3_tables": 3,
+    "stable_mismatch_codes": 10,
+    "legacy_values_promoted_by_migration": 0,
+    "real_threshold_observations_promoted": 0,
+    "screening_only_oav_authority": true,
+    "production_api_consumers_connected": 0,
+    "b4_rule_compilation_implemented": false
+  },
+  "commands": [
+    {
+      "name": "pytest_b1_b2_b3_and_compatibility",
+      "command": "python -B -m pytest -p no:cacheprovider --color=no --basetemp=<external-writable-temp>/pytest-temp backend/tests/unit/test_b1_source_schema.py backend/tests/unit/test_b1_source_service.py backend/tests/unit/test_b2_property_schema.py backend/tests/unit/test_b2_property_service.py backend/tests/unit/test_b3_threshold_schema.py backend/tests/unit/test_b3_threshold_service.py backend/tests/unit/test_b3_legacy_threshold_adapter.py backend/tests/integration/test_b1_source_migration.py backend/tests/integration/test_b2_property_migration.py backend/tests/integration/test_b3_threshold_migration.py backend/tests/integration/test_lab_migration.py backend/tests/integration/test_backup_restore.py -q",
+      "timeout_seconds": 300,
+      "exit_code": 0,
+      "result": "100 passed in 211.26s (0:03:31)",
+      "stdout_path": "docs/verification/b3/logs/pytest.stdout.txt",
+      "stdout_bytes": 195,
+      "stdout_sha256": "7E1AFD7AE01C44C0F8CCC1A4D6B09C128C931E2859199726ABA1580767324E14",
+      "stderr_path": "docs/verification/b3/logs/pytest.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "ruff_b3_exact_paths",
+      "command": "ruff check --no-cache --output-format concise backend/app/models/lab.py backend/app/models/lab_thresholds.py backend/app/repositories/lab.py backend/app/repositories/lab_thresholds.py backend/app/services/lab_service.py backend/app/services/lab_thresholds.py backend/app/adapters/legacy_thresholds.py backend/alembic/versions/20260730_0007_b3_contextual_thresholds.py backend/tests/unit/test_b3_threshold_schema.py backend/tests/unit/test_b3_threshold_service.py backend/tests/unit/test_b3_legacy_threshold_adapter.py backend/tests/integration/test_b3_threshold_migration.py backend/tests/integration/test_lab_migration.py backend/tests/integration/test_backup_restore.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "All checks passed!",
+      "stdout_path": "docs/verification/b3/logs/ruff.stdout.txt",
+      "stdout_bytes": 19,
+      "stdout_sha256": "82B3E6A6C090A57601D22943BD23FCA9218D1031DBE5A7B754092F9A156B4F18",
+      "stderr_path": "docs/verification/b3/logs/ruff.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    },
+    {
+      "name": "mypy_b3_modules",
+      "command": "python -B -m mypy --no-color-output --no-pretty --follow-imports=skip --cache-dir=<external-writable-cache> backend/app/models/lab_thresholds.py backend/app/repositories/lab_thresholds.py backend/app/services/lab_thresholds.py backend/app/adapters/legacy_thresholds.py",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "result": "Success: no issues found in 4 source files",
+      "stdout_path": "docs/verification/b3/logs/mypy.stdout.txt",
+      "stdout_bytes": 44,
+      "stdout_sha256": "D9A5631F7D87A741FBECC3236286D1792D22D349FF13846D71CDC9217307BB76",
+      "stderr_path": "docs/verification/b3/logs/mypy.stderr.txt",
+      "stderr_bytes": 0,
+      "stderr_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ansi_sequences_present": false
+    }
+  ],
+  "migration_verification": {
+    "phase_revision": "20260730_0007",
+    "current_linear_head": "20260731_0012",
+    "head_count": 1,
+    "alembic_heads_output": "20260731_0012 (head)",
+    "phase_migration_test_in_cumulative_gate": true,
+    "downgrade_reupgrade_test_in_cumulative_gate": true,
+    "backup_restore_test_in_cumulative_gate": true,
+    "backup_restore_tracks_current_linear_head": true
+  },
+  "deepluna": {
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "codex_subagents_used": 0,
+    "fresh_pre_provider_health": {
+      "project_id": "perfume-chem",
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "provider_calls_enabled": true,
+      "active_reads": 0,
+      "active_writes": 0,
+      "queued": 0,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0
+    },
+    "current_gap_audit": {
+      "job_id": "DS-e69a5d0b601e4298bd76d19cb3fde602",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 2636955,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "accepted_as_supplemental_evidence": true,
+      "sol_local_reproduction_required": true,
+      "sol_local_reproduction_complete": true
+    },
+    "final_report_audit": {
+      "job_id": "DS-41cc36cf491df51c4172fc56212dd5dc",
+      "status": "PASS",
+      "evidence_verdict": "POSITIVE",
+      "execution_status": "ACCEPTED",
+      "route": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "spent_delta_nano_usd": 2589300,
+      "negative_findings": 0,
+      "scope_deviation": false,
+      "report_corrections_required": 0,
+      "receipt_path": "docs/verification/b3/logs/deepluna-final-audit.json",
+      "receipt_bytes": 1377,
+      "receipt_sha256": "821C3C22CEBD5DD58EC9897233A482C8DA92FAEB006E5D277EA3731A73FA956B",
+      "sol_local_reproduction_complete": true,
+      "unsupported_findings_accepted": 0,
+      "accepted_as_supplemental_evidence": true,
+      "final_authority": "canonical repository state and locally reproduced executable evidence"
+    },
+    "historical_audits": [
+      {
+        "job_id": "DS-46ee2ccab1c3fbd3829728c78360841f",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "sol_found_defects_after_pass": 3
+      },
+      {
+        "job_id": "DS-d21fe93a9d16d6b9fc523043cfac45c9",
+        "status": "PASS",
+        "accepted_as_final_authority": false,
+        "scope": "historical assertion-context delta only"
+      }
+    ]
+  },
+  "database_state": {
+    "canonical_database": {
+      "path": "perfume_chem.db",
+      "bytes": 12288,
+      "sha256_before_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "sha256_after_gate": "02B64BE88E4A8881C968EC9EF7F0185ED7B1BCEDC6ED33885F07D7DE70A0DA5E",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "mutated_by_b3_verification": false
+    },
+    "knowledge_base": {
+      "path": "data/perfumery_kb.db",
+      "bytes": 2084864,
+      "sha256_before_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "sha256_after_gate": "5A779F9D6850345D72DE3C8265D4330C50DAC529968B38BC9B08720B5DA63FE1",
+      "quick_check": "ok",
+      "alembic_version_rows": [],
+      "connection_mode": "read-only immutable",
+      "mutated_by_b3_verification": false
+    }
+  },
+  "file_hashes": {
+    "backend/alembic/versions/20260730_0007_b3_contextual_thresholds.py": "5192AC2224196EFDBB998FD7115AF59FCEE590440E4E6B2B8B678459984DDA1C",
+    "backend/app/adapters/legacy_thresholds.py": "BC0858B8DA8660767CD7E2FF2D3164C474833069AE42825399E1ED2131742BEA",
+    "backend/app/models/lab.py": "C9260A03E4BDA2D7814A94C3F49170674F53E9FEE597AA882268D29C9E224925",
+    "backend/app/models/lab_thresholds.py": "7230626A66EFA644DEA6BF1AF3114471B3B349BDC9ECB31E2C70D6D4BC510A93",
+    "backend/app/repositories/lab.py": "4A45DF4F47FA1A87082C23DBF4FE43F8B15CA4CC8F10B032FDAFB9F0E5E16280",
+    "backend/app/repositories/lab_thresholds.py": "489C73BA0BFDBDFBC51E51CF4EA533191F8E83A195D274A73BD2DAA7E525CC3A",
+    "backend/app/services/lab_service.py": "646CAB2CFCB2A83DCE2577175ED23A4F7409E21D0FB826D8ABAA586D156D096F",
+    "backend/app/services/lab_thresholds.py": "EB539BC6E5AB9EA5BABA74B17CECFD36873552A9CC58BFE109D3C5A0DAC3A68E",
+    "backend/tests/integration/test_b3_threshold_migration.py": "325555704D3773C1F2C011E9E4B49B4658E1B5D470C3DE48D90DBA2E1900E403",
+    "backend/tests/integration/test_backup_restore.py": "721DC49A3491CCB74C4E987AD4EF476D81E252AC680A7F851B6046B0E404A003",
+    "backend/tests/integration/test_lab_migration.py": "441A62F5E2D109D9304D180488F305D0FCCB7D97D8D32FBDF8DF9DEAB2B33C7B",
+    "backend/tests/unit/test_b3_legacy_threshold_adapter.py": "5F04A83BD1D932A80CEC0F1442B93ADC6AB31C5CD64D6B4166EA8D6B29CB603C",
+    "backend/tests/unit/test_b3_threshold_schema.py": "1FAEDD82B68BA43F08B01FBE6FDA3DB0E0208652928146BFC06FAA05EB0E9781",
+    "backend/tests/unit/test_b3_threshold_service.py": "85C3BD4E6680E090033DC102C0BF2D634BB1412F9EE240BA4A7AC4887A17C512",
+    "docs/superpowers/plans/2026-07-30-build-b3-contextual-threshold-oav.md": "FAF8BEF142344496B6904EE7B9D1C738D980A32CA1193EA72D2060609C962D9A",
+    "docs/superpowers/specs/2026-07-30-build-b3-contextual-threshold-oav-design.md": "D94A975FE50004FE717FFD2DACD92690CB8CB95D4E264B8FAE24BED7FF6D999F"
+  },
+  "recovery_archive": {
+    "purpose": "complete B3 report and log tree before current refresh",
+    "path": "outputs/b3-authoritative-recovery/20260802T065815/b3-evidence-before-refresh.zip",
+    "bytes": 14185,
+    "sha256": "E6AF3364A48C72941F116A0C354329DF67D3CD365CCE6D1B715446C8F6675F18",
+    "path_preserving": true,
+    "file_count": 14,
+    "restore_verification": "all 14 extracted files matched source SHA-256"
+  },
+  "exit_gate": {
+    "threshold_context_complete": true,
+    "identity_grade_purity_stereochemistry_preserved": true,
+    "endpoint_route_medium_matrix_basis_conditions_preserved": true,
+    "typed_value_unit_uncertainty_source_locator_preserved": true,
+    "solution_threshold_never_converted_to_air_alone": true,
+    "all_ten_mismatch_codes_withhold_oav": true,
+    "assertion_and_observation_contexts_must_match": true,
+    "missing_explicit_assertion_rejected": true,
+    "strict_science_has_no_heuristic_fallback": true,
+    "legacy_status_preserved_without_promotion": true,
+    "screening_oav_cannot_unlock_stronger_claims": true,
+    "model_migration_index_parity": true,
+    "migration_downgrade_reupgrade_complete": true,
+    "canonical_database_state_preserved": true,
+    "local_gate_passed": true,
+    "final_audit_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "laboratory_beta_readiness": "UNCHANGED",
+    "scientific_release": "BLOCKED",
+    "oav_authority": "SCREENING_ONLY_WHEN_FULLY_COMPATIBLE",
+    "exact_intensity_or_percentage_contribution": "PROHIBITED",
+    "pleasantness_similarity_family_longevity_sillage_skin_performance": "PROHIBITED",
+    "release_or_deletion_below_oav_one": "PROHIBITED",
+    "rule_compilation": "DEFERRED_TO_B4"
+  },
+  "known_limitations": [
+    "The B3 migration imports zero legacy values; the deterministic adapter creates quarantine commands only when explicitly invoked.",
+    "No real literature threshold observation is promoted in B3.",
+    "No production API, UI, or legacy engine consumer is connected until B9.",
+    "Dirty legacy engine ODT and OAV paths remain non-authoritative and were not modified.",
+    "Historical DeepLuna PASS packets remain supplemental because one missed defects later reproduced by Sol.",
+    "Scientific release remains blocked."
+  ],
+  "worktree_preservation": {
+    "tracked_dirty_paths_before_report_edit": 107,
+    "tracked_dirty_paths_before_report_commit": 109,
+    "untracked_files_before_report_commit": 1199,
+    "staged_entries_before_report_commit": 0,
+    "worktree_cleaned_or_reset": false,
+    "a0_recovery_archive": "preserved",
+    "b3_restore_verification": "all archived path hashes matched after extraction"
+  },
+  "historical_notes": {
+    "prior_report_generated_at_utc": "2026-07-30T17:14:52.9663290Z",
+    "prior_report_alembic_head": "20260730_0007",
+    "prior_report_pytest_result": "100 passed in 92.39s",
+    "prior_report_canonical_database_bytes": 0,
+    "authority": "historical notes only; replaced by current executable and protected-state evidence"
+  }
+}

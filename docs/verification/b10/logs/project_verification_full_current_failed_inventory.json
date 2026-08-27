@@ -1,0 +1,651 @@
+{
+  "passed": [
+    "engine-compile",
+    "engine-lint",
+    "engine-typecheck",
+    "formula-artifact-validation",
+    "engine-tests-truth-core",
+    "engine-tests-gates-families",
+    "engine-tests-legacy",
+    "backend-lint",
+    "backend-typecheck",
+    "backend-tests",
+    "scientific-audit",
+    "material-data-validation",
+    "golden-formula-regression",
+    "golden-api-regression",
+    "package-build",
+    "package-wheel-smoke",
+    "golden-fixture-lock"
+  ],
+  "failed": [
+    "engine-tests-data-knowledge",
+    "knowledge-rule-validation"
+  ],
+  "skipped": [
+    "docker-build",
+    "docker-smoke-test"
+  ],
+  "known_legacy_limitations": [
+    "Full-engine Ruff cleanup remains legacy debt; the canonical truth-core slice is blocking.",
+    "Compatibility requests may omit the finished solvent matrix; strict mode requires it, and headspace remains modeled rather than measured.",
+    "Temporal evolution is heuristic and is not calibrated to skin or blotter measurements.",
+    "Longevity, sillage, receptor activation, and emotion outputs remain unsupported; preference fits remain UNKNOWN until held-out validation passes.",
+    "Composite natural OAV is olfactory headspace evidence, not regulatory constituent composition."
+  ],
+  "scientific_data_coverage": {
+    "odt_verification_counts": {
+      "PEER_CROSS": 1,
+      "PEER_SINGLE": 72,
+      "DERIVED": 90,
+      "PEER_EST": 14,
+      "UNVERIFIED": 108,
+      "UNKNOWN": 1
+    },
+    "science_coverage_pct": {
+      "mw": 22.900158478605388,
+      "logp": 16.71949286846276,
+      "vp_25c": 22.66244057052298,
+      "antoine": 0.0,
+      "dhvap": 0.15847860538827258,
+      "hsp": 0.0,
+      "odt_air": 7.290015847860539,
+      "or_targets": 0.0,
+      "ifra": 1.1885895404120443,
+      "hedonic": 10.855784469096672,
+      "trp": 3.9619651347068148,
+      "smiles": 1.1885895404120443,
+      "cas": 4.833597464342314
+    }
+  },
+  "golden_output_changes": {
+    "status": "unchanged",
+    "changed": false,
+    "expected_sha256": "0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec",
+    "actual_sha256": "0067d16228bb18636518236795b00a368c02e7a3195ea5ce184f50b95bbd6aec"
+  },
+  "docker_status": "SKIPPED",
+  "verification_scope": "full",
+  "selected_checks": [
+    "engine-compile",
+    "engine-lint",
+    "engine-typecheck",
+    "formula-artifact-validation",
+    "engine-tests-truth-core",
+    "engine-tests-data-knowledge",
+    "engine-tests-gates-families",
+    "engine-tests-legacy",
+    "backend-lint",
+    "backend-typecheck",
+    "backend-tests",
+    "scientific-audit",
+    "material-data-validation",
+    "knowledge-rule-validation",
+    "golden-formula-regression",
+    "golden-api-regression",
+    "package-build",
+    "package-wheel-smoke",
+    "docker-build",
+    "docker-smoke-test"
+  ],
+  "omitted_checks": [],
+  "completion_gate": "FAIL",
+  "release_readiness": {
+    "laboratory_beta_status": "blocked",
+    "scientific_release_status": "blocked",
+    "axes": {
+      "code": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Required code checks have failures or were not fully evaluated."
+        ]
+      },
+      "data": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Required data contracts are incomplete or failing."
+        ]
+      },
+      "validation": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Local validation has failures or was not fully evaluated.",
+          "Held-out sensory validation has not passed."
+        ]
+      },
+      "infrastructure": {
+        "status": "blocked",
+        "evidence": [],
+        "blockers": [
+          "Migration verification has not passed.",
+          "Backup and restore verification has not passed."
+        ]
+      }
+    },
+    "external_blockers": [
+      "held-out sensory validation is still required"
+    ],
+    "evidence": {
+      "classification": "EXACT",
+      "basis": "Boolean release gates reported independently by axis without score blending.",
+      "sources": [
+        "engine.release_readiness"
+      ],
+      "assumptions": [],
+      "limitations": [
+        "A ready gate means its declared checks passed; it does not expand their scientific scope."
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "engine-compile",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "engine"
+      ],
+      "duration_seconds": 6.11,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-lint",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\ruff.exe",
+        "check",
+        "--color",
+        "never",
+        "engine/workbench.py",
+        "engine/authority_gates.py",
+        "engine/bottle_addition.py",
+        "engine/calibration/hashing.py",
+        "engine/canonical_serialization.py",
+        "engine/intervention_hypotheses.py",
+        "engine/intervention_profiles.py",
+        "engine/intervention_trial.py",
+        "engine/interventions.py",
+        "engine/mixture.py",
+        "engine/preference.py",
+        "engine/provenance.py",
+        "engine/quantities.py",
+        "engine/release_readiness.py",
+        "engine/safety_assessment.py",
+        "engine/scientific_contract.py",
+        "engine/project_verification.py",
+        "engine/pipeline/formula_state.py",
+        "engine/pipeline/simulator.py",
+        "engine/domain_errors.py",
+        "engine/units/concentration.py",
+        "engine/target/formula.py",
+        "engine/reconstruction/anti_compression.py",
+        "engine/bottle/events.py",
+        "engine/inventory/operations.py",
+        "engine/analytical/ledger.py",
+        "engine/evidence/ledger.py",
+        "engine/safety/regulatory.py",
+        "engine/sensory/ledger.py",
+        "engine/versioning/formula_version.py",
+        "engine/reconstruction/rank_prior.py",
+        "engine/reconstruction/ensembles.py",
+        "engine/reconstruction/chassis.py",
+        "engine/reconstruction/recognizer.py",
+        "engine/inventory/stock_model.py",
+        "engine/identity/resolver.py",
+        "scripts/pipeline_audit.py",
+        "scripts/formula_release_gate.py",
+        "scripts/rebind_formula_artifact.py"
+      ],
+      "duration_seconds": 0.344,
+      "stdout_tail": "All checks passed!",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-typecheck",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\mypy.exe",
+        "--explicit-package-bases",
+        "--follow-imports=skip",
+        "--ignore-missing-imports",
+        "engine/workbench.py",
+        "engine/authority_gates.py",
+        "engine/bottle_addition.py",
+        "engine/calibration/hashing.py",
+        "engine/canonical_serialization.py",
+        "engine/intervention_hypotheses.py",
+        "engine/intervention_trial.py",
+        "engine/interventions.py",
+        "engine/mixture.py",
+        "engine/preference.py",
+        "engine/provenance.py",
+        "engine/quantities.py",
+        "engine/release_readiness.py",
+        "engine/safety_assessment.py",
+        "engine/scientific_contract.py",
+        "engine/project_verification.py",
+        "engine/domain_errors.py",
+        "engine/units/concentration.py",
+        "engine/target/formula.py",
+        "engine/reconstruction/anti_compression.py",
+        "engine/bottle/events.py",
+        "engine/inventory/operations.py",
+        "engine/analytical/ledger.py",
+        "engine/evidence/ledger.py",
+        "engine/safety/regulatory.py",
+        "engine/sensory/ledger.py",
+        "engine/versioning/formula_version.py",
+        "engine/reconstruction/rank_prior.py",
+        "engine/reconstruction/ensembles.py",
+        "engine/reconstruction/chassis.py",
+        "engine/reconstruction/recognizer.py",
+        "engine/inventory/stock_model.py",
+        "engine/identity/resolver.py"
+      ],
+      "duration_seconds": 14.515,
+      "stdout_tail": "Success: no issues found in 33 source files",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "formula-artifact-validation",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "scripts/pipeline_audit.py",
+        "artifact-verify",
+        "--json"
+      ],
+      "duration_seconds": 15.235,
+      "stdout_tail": "      \"file\": \"formulas\\\\WM_Optimized_30mL_EDP.md\",\n      \"status\": \"NONE\",\n      \"issues\": []\n    },\n    {\n      \"file\": \"formulas\\\\WM_Optimized_50mL_EDP.md\",\n      \"status\": \"NONE\",\n      \"issues\": []\n    },\n    {\n      \"file\": \"formulas\\\\Y_LHomme_Luxe_30mL_EDT.md\",\n      \"status\": \"QUARANTINED\",\n      \"artifact_binding_status\": \"STALE\",\n      \"issues\": [\n        \"inventory\",\n        \"scientific_inputs\",\n        \"pipeline_source\"\n      ],\n      \"integrity_issues\": [],\n      \"stale_issues\": [\n        \"inventory\",\n        \"scientific_inputs\",\n        \"pipeline_source\"\n      ],\n      \"artifact_sha256\": \"d75e25e0f81305062db3b56813a63e2220b380ed0762e91c65278678c33d0ac4\",\n      \"release_authority\": false,\n      \"quarantine_explicit\": true\n    }\n  ]\n}",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-tests-truth-core",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_artifact_rebind.py",
+        "tests/test_authority_gates.py",
+        "tests/test_bottle_addition.py",
+        "tests/test_canonical_hashing.py",
+        "tests/test_canonical_quantities.py",
+        "tests/test_canonical_serialization.py",
+        "tests/test_ci_contract.py",
+        "tests/test_engine_compilation.py",
+        "tests/test_llm_cache.py",
+        "tests/test_golden_formula_regression.py",
+        "tests/test_intervention_trial.py",
+        "tests/test_interventions.py",
+        "tests/test_mixture.py",
+        "tests/test_oav_authority.py",
+        "tests/test_project_verification.py",
+        "tests/test_preference.py",
+        "tests/test_provenance_model.py",
+        "tests/test_quantities.py",
+        "tests/test_reconstruction_allergen_authority.py",
+        "tests/test_receptor_evidence_quarantine.py",
+        "tests/test_release_scoring_contract.py",
+        "tests/test_release_readiness.py",
+        "tests/test_safety_assessment.py",
+        "tests/test_scientific_contract.py",
+        "tests/test_tracing.py",
+        "tests/test_workbench.py",
+        "-q",
+        "--junitxml=verification_runs/engine-truth-core.xml"
+      ],
+      "duration_seconds": 46.25,
+      "stdout_tail": "........................................................................ [ 37%]\n........................................................................ [ 75%]\n..............................................                           [100%]\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\engine-truth-core.xml -\n190 passed in 39.05s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-tests-data-knowledge",
+      "status": "FAIL",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_aromachemical_expansion.py",
+        "tests/test_b8_backfill_dashboard.py",
+        "tests/test_data_spine_loader.py",
+        "tests/test_ifra_safety.py",
+        "tests/test_inventory_material_additions.py",
+        "tests/test_kb_migration.py",
+        "tests/test_kb_query.py",
+        "tests/test_literature_rules_contract.py",
+        "tests/test_optimizer_determinism.py",
+        "tests/test_property_estimator.py",
+        "tests/test_range_gap_analysis.py",
+        "tests/test_science_audit.py",
+        "tests/test_science_kb.py",
+        "tests/test_scientific_data_authority_report.py",
+        "tests/test_scientific_truth_inventory.py",
+        "-q",
+        "--junitxml=verification_runs/engine-data-knowledge.xml"
+      ],
+      "duration_seconds": 47.296,
+      "stdout_tail": "                ).fetchall()\n                if rows:\n                    continue\n    \n            missing.append(name)\n    \n>       assert not missing, f\"Materials from inventory not found in DB ({len(missing)}):\\n\" + \"\\n\".join(\n            f\"  '{n}' (norm='{normalize_name(n)}')\" for n in missing\n        )\nE       AssertionError: Materials from inventory not found in DB (1):\nE           'Magnolia EO' (norm='magnolia eo')\nE       assert not ['Magnolia EO']\n\ntests\\test_kb_migration.py:371: AssertionError\n_____ test_live_range_report_uses_inventory_and_explicit_formula_evidence _____\n\nlive_report = RangeCoverageReport(inventory_available_count=210, formula_files_scanned=520, explicit_declaration_count=46, registere...NKNOWN, not unbuildable.', 'Reference examples in taxonomy prose are descriptive and are not formula-ratio evidence.'))\n\n    def test_live_range_report_uses_inventory_and_explicit_formula_evidence(live_report):\n>       assert live_report.inventory_available_count == 208\nE       AssertionError: assert 210 == 208\nE        +  where 210 = RangeCoverageReport(inventory_available_count=210, formula_files_scanned=520, explicit_declaration_count=46, registere...NKNOWN, not unbuildable.', 'Reference examples in taxonomy prose are descriptive and are not formula-ratio evidence.')).inventory_available_count\n\ntests\\test_range_gap_analysis.py:16: AssertionError\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\engine-data-knowledge.xml -\n=========================== short test summary info ===========================\nFAILED tests/test_aromachemical_expansion.py::test_range_extension_excludes_existing_unavailable_stock_by_default\nFAILED tests/test_kb_migration.py::test_every_inventory_material_exists - Ass...\nFAILED tests/test_range_gap_analysis.py::test_live_range_report_uses_inventory_and_explicit_formula_evidence\n3 failed, 232 passed in 44.26s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-tests-gates-families",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_a1_authoritative_contracts.py",
+        "tests/test_a1_audit_contract_gaps.py",
+        "tests/test_classical_family_resolution.py",
+        "tests/test_family_archetypes.py",
+        "tests/test_family_gate_applicability.py",
+        "tests/test_gate_aware_optimizer.py",
+        "tests/test_oav_intelligence.py",
+        "tests/test_optimizer_thermodynamic_unification.py",
+        "tests/test_pipeline_formula_state.py",
+        "tests/test_pipeline_gates.py",
+        "tests/test_pipeline_interventions.py",
+        "tests/test_pipeline_part4.py",
+        "tests/test_pipeline_part5.py",
+        "tests/test_pipeline_preflight.py",
+        "tests/test_pipeline_robustness.py",
+        "tests/test_pipeline_scenario_matrix.py",
+        "tests/test_run_evidence_contract.py",
+        "tests/test_accord_graph.py",
+        "tests/test_bottle_events.py",
+        "tests/test_inventory_operations.py",
+        "tests/test_evidence_ledger.py",
+        "tests/test_inventory_stock_model.py",
+        "tests/test_reconstruction_anti_compression.py",
+        "tests/test_reconstruction_bridge.py",
+        "tests/test_reconstruction_chassis.py",
+        "tests/test_reconstruction_ensembles.py",
+        "tests/test_reconstruction_identity.py",
+        "tests/test_reconstruction_quantity.py",
+        "tests/test_reconstruction_rank_prior.py",
+        "tests/test_reconstruction_unknowns.py",
+        "tests/test_target_formula.py",
+        "tests/test_units_concentration.py",
+        "tests/test_sensory_ledger.py",
+        "tests/test_analytical_ledger.py",
+        "tests/test_safety_regulatory.py",
+        "tests/test_reports_generator.py",
+        "tests/test_experiments_planner.py",
+        "tests/test_versioning_formula.py",
+        "tests/test_brand_profiles.py",
+        "tests/test_bottle_console.py",
+        "tests/test_authority_derivation.py",
+        "-q",
+        "--junitxml=verification_runs/engine-gates-families.xml"
+      ],
+      "duration_seconds": 73.016,
+      "stdout_tail": "........................................................................ [ 11%]\n........................................................................ [ 23%]\n........................................................................ [ 35%]\n........................................................................ [ 47%]\n........................................................................ [ 59%]\n........................................................................ [ 71%]\n........................................................................ [ 83%]\n........................................................................ [ 95%]\n..........................                                               [100%]\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\engine-gates-families.xml -\n602 passed in 70.62s (0:01:10)",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "engine-tests-legacy",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_calibration_feedback.py",
+        "tests/test_diffusion_regression.py",
+        "tests/test_formula_memory.py",
+        "tests/test_interaction_graph.py",
+        "tests/test_pipeline_audit_verify.py",
+        "tests/test_verify_formula_workflow_parser.py",
+        "-q",
+        "--junitxml=verification_runs/engine-legacy.xml"
+      ],
+      "duration_seconds": 9.813,
+      "stdout_tail": ".....................................................................    [100%]\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\engine-legacy.xml -\n69 passed in 8.15s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "backend-lint",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+        "run",
+        "ruff",
+        "check",
+        "--color",
+        "never",
+        "app"
+      ],
+      "duration_seconds": 25.171,
+      "stdout_tail": "All checks passed!",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "backend-typecheck",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+        "run",
+        "mypy",
+        "app",
+        "--ignore-missing-imports"
+      ],
+      "duration_seconds": 126.469,
+      "stdout_tail": "Success: no issues found in 116 source files",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "backend-tests",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+        "run",
+        "pytest",
+        "-q",
+        "--basetemp=../output/verification-temp/backend-pytest",
+        "--junitxml=../verification_runs/backend.xml"
+      ],
+      "duration_seconds": 795.485,
+      "stdout_tail": "........................................................................ [ 11%]\n........................................................................ [ 22%]\n........................................................................ [ 34%]\n........................................................................ [ 45%]\n........................................................................ [ 57%]\n........................................................................ [ 68%]\n........................................................................ [ 80%]\n........................................................................ [ 91%]\n......................................................                   [100%]\n- generated xml file: D:\\chatbots\\perfume-chem\\verification_runs\\backend.xml --\n630 passed in 774.34s (0:12:54)",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "scientific-audit",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_scientific_contract.py",
+        "tests/test_science_audit.py",
+        "tests/test_oav_authority.py",
+        "tests/test_receptor_evidence_quarantine.py",
+        "-q"
+      ],
+      "duration_seconds": 7.156,
+      "stdout_tail": "......................                                                   [100%]\n22 passed in 5.04s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "material-data-validation",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_data_spine_loader.py",
+        "tests/test_inventory_material_additions.py",
+        "tests/test_property_estimator.py",
+        "-q"
+      ],
+      "duration_seconds": 5.703,
+      "stdout_tail": "........................................................................ [ 90%]\n........                                                                 [100%]\n80 passed in 4.02s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "knowledge-rule-validation",
+      "status": "FAIL",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_literature_rules_contract.py",
+        "tests/test_kb_migration.py",
+        "tests/test_kb_query.py",
+        "-q"
+      ],
+      "duration_seconds": 30.406,
+      "stdout_tail": "                    found_broad = True\n                    break\n    \n            if found_broad:\n                continue\n    \n            # Another broad search: try stripping parenthetical content\n            stripped = re.sub(r\"\\s*\\([^)]*\\)\\s*\", \" \", norm_name).strip()\n            stripped = re.sub(r\"\\s+\", \" \", stripped)\n            if stripped and stripped != norm_name:\n                rows = conn.execute(\n                    \"SELECT canonical_name FROM materials WHERE LOWER(canonical_name) LIKE ? LIMIT 1\",\n                    (f\"%{stripped}%\",),\n                ).fetchall()\n                if rows:\n                    continue\n    \n            missing.append(name)\n    \n>       assert not missing, f\"Materials from inventory not found in DB ({len(missing)}):\\n\" + \"\\n\".join(\n            f\"  '{n}' (norm='{normalize_name(n)}')\" for n in missing\n        )\nE       AssertionError: Materials from inventory not found in DB (1):\nE           'Magnolia EO' (norm='magnolia eo')\nE       assert not ['Magnolia EO']\n\ntests\\test_kb_migration.py:371: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_kb_migration.py::test_every_inventory_material_exists - Ass...\n1 failed, 76 passed in 28.69s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "golden-formula-regression",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_golden_formula_regression.py",
+        "-q"
+      ],
+      "duration_seconds": 2.953,
+      "stdout_tail": ".............                                                            [100%]\n13 passed in 1.97s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "golden-api-regression",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+        "run",
+        "pytest",
+        "tests/integration/test_api_endpoints.py",
+        "-k",
+        "golden_explicit_solvent",
+        "-q"
+      ],
+      "duration_seconds": 21.813,
+      "stdout_tail": ".                                                                        [100%]\n1 passed, 8 deselected in 4.50s",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "package-build",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "wheel",
+        ".",
+        "-w",
+        "dist",
+        "--no-build-isolation"
+      ],
+      "duration_seconds": 43.953,
+      "stdout_tail": "Processing d:\\chatbots\\perfume-chem\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting PyYAML>=6.0 (from perfume-chem-engine==0.1.0)\n  File was already downloaded d:\\chatbots\\perfume-chem\\dist\\pyyaml-6.0.3-cp311-cp311-win_amd64.whl\nBuilding wheels for collected packages: perfume-chem-engine\n  Building wheel for perfume-chem-engine (pyproject.toml): started\n  Building wheel for perfume-chem-engine (pyproject.toml): finished with status 'done'\n  Created wheel for perfume-chem-engine: filename=perfume_chem_engine-0.1.0-py3-none-any.whl size=1044183 sha256=4e46069999272e1474327c59adee321775592f17ddd1e65f27e513cd405eb635\n  Stored in directory: d:\\chatbots\\perfume-chem\\output\\verification-pip-cache\\wheels\\bf\\c4\\84\\bb0d2c18e10c18149b2cd64b17c7159c2320b1536043d0ce10\nSuccessfully built perfume-chem-engine",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "package-wheel-smoke",
+      "status": "PASS",
+      "required": true,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "engine.project_verification",
+        "wheel-smoke",
+        "--dist-dir",
+        "dist"
+      ],
+      "duration_seconds": 71.328,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "reason": null
+    },
+    {
+      "name": "docker-build",
+      "status": "SKIPPED",
+      "required": false,
+      "command": [
+        "docker",
+        "build",
+        "--tag",
+        "perfume-chem-phase0",
+        "--file",
+        "backend/Dockerfile",
+        "."
+      ],
+      "duration_seconds": 0.0,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "reason": "Docker checks require --include-docker."
+    },
+    {
+      "name": "docker-smoke-test",
+      "status": "SKIPPED",
+      "required": false,
+      "command": [
+        "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+        "-m",
+        "engine.project_verification",
+        "docker-smoke",
+        "--image",
+        "perfume-chem-phase0"
+      ],
+      "duration_seconds": 0.0,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "reason": "Docker checks require --include-docker."
+    },
+    {
+      "name": "golden-fixture-lock",
+      "status": "PASS",
+      "required": true,
+      "command": [],
+      "duration_seconds": 0.0,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "reason": "Golden fixture SHA-256 matches its reviewed lock."
+    }
+  ]
+}

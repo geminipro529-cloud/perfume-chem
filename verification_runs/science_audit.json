@@ -1,20 +1,1813 @@
 {
   "data_coverage_pct": {
-    "mw": 11.624072547403133,
-    "logp": 9.810387469084914,
-    "vp_25c": 9.64550700741962,
+    "mw": 22.107765451664026,
+    "logp": 15.927099841521395,
+    "vp_25c": 21.870047543581617,
     "antoine": 0.0,
-    "dhvap": 0.0,
+    "dhvap": 0.15847860538827258,
     "hsp": 0.0,
-    "odt_air": 1.0717230008244023,
+    "odt_air": 6.418383518225039,
     "or_targets": 0.0,
-    "ifra": 0.08244023083264633,
-    "hedonic": 10.1401483924155,
-    "trp": 3.957131079967024,
-    "smiles": 0.08244023083264633,
-    "cas": 0.41220115416323166
+    "ifra": 1.1885895404120443,
+    "hedonic": 10.855784469096672,
+    "trp": 3.9619651347068148,
+    "smiles": 1.1885895404120443,
+    "cas": 4.358161648177496
+  },
+  "material_consistency": {
+    "scope": "live_inventory",
+    "material_count": 221,
+    "conflict_count": 125,
+    "material_conflict_count": 61,
+    "thresholds": {
+      "physical_ratio": 1.5,
+      "mw_ratio": 1.02
+    },
+    "conflicts": [
+      {
+        "material": "Rosemary EO",
+        "canonical_name": "rosemary eo (french rosmarinus officinalis leaf oil)",
+        "field": "odt_eth_ppm",
+        "ratio": 33.333333,
+        "values": {
+          "data_spine": 0.15,
+          "odt_data": 5.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Nagarmortha Oil",
+        "canonical_name": "cypriol eo",
+        "field": "vp_25c_pa",
+        "ratio": 13.0,
+        "values": {
+          "profile": 0.13,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rosemary EO",
+        "canonical_name": "rosemary eo (french rosmarinus officinalis leaf oil)",
+        "field": "odt_air_ppb",
+        "ratio": 2.857143,
+        "values": {
+          "data_spine": 20.0,
+          "odt_data": 7.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Nagarmortha Oil",
+        "canonical_name": "cypriol eo",
+        "field": "odt_air_ppb",
+        "ratio": 1.6,
+        "values": {
+          "profile": 5.0,
+          "data_spine": 5.0,
+          "odt_data": 8.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Nagarmortha Oil",
+        "canonical_name": "cypriol eo",
+        "field": "mw_g_mol",
+        "ratio": 1.078431,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 204.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedrat FCF oil Sicilian",
+        "canonical_name": "cedrat fcf sicilian",
+        "field": "mw_g_mol",
+        "ratio": 1.001513,
+        "values": {
+          "profile": 152.23,
+          "data_spine": 152.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Blood Orange oil Sicilian",
+        "canonical_name": "blood orange sicilian",
+        "field": "mw_g_mol",
+        "ratio": 1.00022,
+        "values": {
+          "profile": 136.23,
+          "data_spine": 136.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Red Mandarin EO",
+        "canonical_name": "red mandarin eo",
+        "field": "mw_g_mol",
+        "ratio": 1.00022,
+        "values": {
+          "profile": 136.23,
+          "data_spine": 136.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Patchouli EO",
+        "canonical_name": "patchouli eo",
+        "field": "mw_g_mol",
+        "ratio": 1.000135,
+        "values": {
+          "profile": 222.37,
+          "data_spine": 222.4
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Vetiver EO",
+        "canonical_name": "vetiver eo",
+        "field": "mw_g_mol",
+        "ratio": 1.000135,
+        "values": {
+          "profile": 222.37,
+          "data_spine": 222.4
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Clary Sage EO",
+        "canonical_name": "clary sage eo",
+        "field": "mw_g_mol",
+        "ratio": 1.000051,
+        "values": {
+          "profile": 196.29,
+          "data_spine": 196.3
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Anise EO",
+        "canonical_name": "anise eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 148.2
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Anise EO",
+        "canonical_name": "anise eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 5.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Basil EO",
+        "canonical_name": "basil eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 152.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Basil EO",
+        "canonical_name": "basil eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 8.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Benzoin Sumatra Resinoid",
+        "canonical_name": "benzoin sumatra resinoid",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 212.24,
+          "data_spine": 212.24
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Benzoin Sumatra Resinoid",
+        "canonical_name": "benzoin sumatra resinoid",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.0001,
+          "data_spine": 0.0001
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Bergamot EO",
+        "canonical_name": "bergamot eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 170.0,
+          "data_spine": 170.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Bergamot EO",
+        "canonical_name": "bergamot eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1.5,
+          "data_spine": 1.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Bergamot FCF oil Sicilian",
+        "canonical_name": "bergamot fcf sicilian",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 170.0,
+          "data_spine": 170.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Bergamot FCF oil Sicilian",
+        "canonical_name": "bergamot fcf sicilian",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 2.5,
+          "data_spine": 2.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Black Pepper EO",
+        "canonical_name": "black pepper eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 204.35
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Black Pepper EO",
+        "canonical_name": "black pepper eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 0.3
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Blood Orange oil Sicilian",
+        "canonical_name": "blood orange sicilian",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 3.0,
+          "data_spine": 3.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Blue Chamomile EO",
+        "canonical_name": "blue chamomile eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Blue Chamomile EO",
+        "canonical_name": "blue chamomile eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1.0,
+          "data_spine": 1.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cade Oil Rectified",
+        "canonical_name": "cade oil rectified",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cade Oil Rectified",
+        "canonical_name": "cade oil rectified",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.01,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cardamom EO",
+        "canonical_name": "cardamom eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 170.25,
+          "data_spine": 170.25
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cardamom EO",
+        "canonical_name": "cardamom eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 15.0,
+          "data_spine": 15.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Carrot Seed EO",
+        "canonical_name": "carrot seed eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 220.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Carrot Seed EO",
+        "canonical_name": "carrot seed eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.01,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cassia Essential Oil",
+        "canonical_name": "cassia essential oil",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 135.0,
+          "data_spine": 135.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cassia Essential Oil",
+        "canonical_name": "cassia essential oil",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 2.5,
+          "data_spine": 2.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedarwood EO",
+        "canonical_name": "cedarwood eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 204.4,
+          "data_spine": 204.4
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedarwood EO",
+        "canonical_name": "cedarwood eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.25,
+          "data_spine": 0.25
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedarwood oil Virginia",
+        "canonical_name": "cedarwood virginia",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 222.37,
+          "data_spine": 222.37
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedarwood oil Virginia",
+        "canonical_name": "cedarwood virginia",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.005,
+          "data_spine": 0.005
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cedrat FCF oil Sicilian",
+        "canonical_name": "cedrat fcf sicilian",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 2.0,
+          "data_spine": 2.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Champaca Flower EO",
+        "canonical_name": "champaca flower eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Champaca Flower EO",
+        "canonical_name": "champaca flower eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.03,
+          "data_spine": 0.03
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Clary Sage EO",
+        "canonical_name": "clary sage eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 5.0,
+          "data_spine": 5.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Clove EO",
+        "canonical_name": "clove eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 164.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Clove EO",
+        "canonical_name": "clove eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 2.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cocoa Absolute",
+        "canonical_name": "cocoa absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 250.0,
+          "data_spine": 250.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cocoa Absolute",
+        "canonical_name": "cocoa absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.01,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cocoa CO2 Extract",
+        "canonical_name": "cocoa co2 extract",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 260.0,
+          "data_spine": 260.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Cocoa CO2 Extract",
+        "canonical_name": "cocoa co2 extract",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.01,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Eucalyptus Essential Oil",
+        "canonical_name": "eucalyptus essential oil",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 155.0,
+          "data_spine": 155.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Eucalyptus Essential Oil",
+        "canonical_name": "eucalyptus essential oil",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 210.0,
+          "data_spine": 210.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Frankincense EO",
+        "canonical_name": "frankincense eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 210.0,
+          "data_spine": 210.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Frankincense EO",
+        "canonical_name": "frankincense eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.5,
+          "data_spine": 0.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Galbanum EO",
+        "canonical_name": "galbanum eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 136.0,
+          "data_spine": 136.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Galbanum EO",
+        "canonical_name": "galbanum eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 15.0,
+          "data_spine": 15.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Galbanum Resinoid",
+        "canonical_name": "galbanum resinoid",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Galbanum Resinoid",
+        "canonical_name": "galbanum resinoid",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.1,
+          "data_spine": 0.1
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Geranium EO",
+        "canonical_name": "geranium eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 157.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Geranium EO",
+        "canonical_name": "geranium eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 1.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Geranium Flower EO",
+        "canonical_name": "geranium eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 157.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Geranium Flower EO",
+        "canonical_name": "geranium eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 1.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ginger EO",
+        "canonical_name": "ginger eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 136.0,
+          "data_spine": 136.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ginger EO",
+        "canonical_name": "ginger eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 10.0,
+          "data_spine": 10.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Himalayan Cedarwood EO",
+        "canonical_name": "himalayan cedarwood eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 204.4,
+          "data_spine": 204.4
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Himalayan Cedarwood EO",
+        "canonical_name": "himalayan cedarwood eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.02,
+          "data_spine": 0.02
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Immortelle Absolute",
+        "canonical_name": "immortelle absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Immortelle Absolute",
+        "canonical_name": "immortelle absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.02,
+          "data_spine": 0.02
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Juniper Berry EO",
+        "canonical_name": "juniper berry eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 136.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Juniper Berry EO",
+        "canonical_name": "juniper berry eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 65.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Labdanum Resinoid",
+        "canonical_name": "labdanum",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 300.0,
+          "data_spine": 300.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Labdanum Resinoid",
+        "canonical_name": "labdanum",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1e-05,
+          "data_spine": 1e-05
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lavender EO",
+        "canonical_name": "lavender eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 170.0,
+          "data_spine": 170.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lavender EO",
+        "canonical_name": "lavender eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 3.5,
+          "data_spine": 3.5
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lavender EO High Altitude",
+        "canonical_name": "lavender eo high altitude",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 154.3
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lavender EO High Altitude",
+        "canonical_name": "lavender eo high altitude",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 22.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lemon FCF oil Sicilian",
+        "canonical_name": "lemon fcf oil sicilian",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 136.7
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lemon FCF oil Sicilian",
+        "canonical_name": "lemon fcf oil sicilian",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 210.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lime Distilled EO",
+        "canonical_name": "lime distilled eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 136.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Lime Distilled EO",
+        "canonical_name": "lime distilled eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Mimosa Absolute",
+        "canonical_name": "mimosa absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 240.0,
+          "data_spine": 240.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Mimosa Absolute",
+        "canonical_name": "mimosa absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.05,
+          "data_spine": 0.05
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Neroli EO",
+        "canonical_name": "neroli eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 170.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Neroli EO",
+        "canonical_name": "neroli eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 1.2
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Oakmoss Absolute",
+        "canonical_name": "oakmoss absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 400.0,
+          "data_spine": 400.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Oakmoss Absolute",
+        "canonical_name": "oakmoss absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.001,
+          "data_spine": 0.001
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Olibanum Resinoid",
+        "canonical_name": "olibanum resinoid",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 220.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Olibanum Resinoid",
+        "canonical_name": "olibanum resinoid",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.08,
+          "data_spine": 0.08
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Opoponax Resinoid",
+        "canonical_name": "opoponax resinoid",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 220.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Opoponax Resinoid",
+        "canonical_name": "opoponax resinoid",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.02,
+          "data_spine": 0.02
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Orange Peel EO",
+        "canonical_name": "orange peel eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 136.23,
+          "data_spine": 136.23
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Orange Peel EO",
+        "canonical_name": "orange peel eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1.9,
+          "data_spine": 1.9
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "canonical_name": "osmanthus absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "canonical_name": "osmanthus absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.01,
+          "data_spine": 0.01
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Patchouli EO",
+        "canonical_name": "patchouli eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.001,
+          "data_spine": 0.001
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Peppermint Essential Oil",
+        "canonical_name": "peppermint essential oil",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 159.0,
+          "data_spine": 159.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Peppermint Essential Oil",
+        "canonical_name": "peppermint essential oil",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 12.0,
+          "data_spine": 12.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Peru Balsam Resinoid",
+        "canonical_name": "peru balsam resinoid",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 275.0,
+          "data_spine": 275.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Peru Balsam Resinoid",
+        "canonical_name": "peru balsam resinoid",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.03,
+          "data_spine": 0.03
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Petitgrain EO Paraguay",
+        "canonical_name": "petitgrain eo paraguay",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 136.0,
+          "data_spine": 136.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Petitgrain EO Paraguay",
+        "canonical_name": "petitgrain eo paraguay",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 6.0,
+          "data_spine": 6.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Pine EO",
+        "canonical_name": "pine eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 136.2
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Pine EO",
+        "canonical_name": "pine eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 250.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Red Mandarin EO",
+        "canonical_name": "red mandarin eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1.8,
+          "data_spine": 1.8
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rose Essential Oil",
+        "canonical_name": "rose essential oil",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 175.0,
+          "data_spine": 175.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rose Essential Oil",
+        "canonical_name": "rose essential oil",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 1.0,
+          "data_spine": 1.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rose de Mai Absolute",
+        "canonical_name": "rose de mai absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 220.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rose de Mai Absolute",
+        "canonical_name": "rose de mai absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.001,
+          "data_spine": 0.001
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rosemary EO",
+        "canonical_name": "rosemary eo (french rosmarinus officinalis leaf oil)",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 170.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Rosemary EO",
+        "canonical_name": "rosemary eo (french rosmarinus officinalis leaf oil)",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 0.3
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Spike Lavender EO",
+        "canonical_name": "spike lavender eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 154.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Spike Lavender EO",
+        "canonical_name": "spike lavender eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "data_spine": 70.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tagetes EO",
+        "canonical_name": "tagetes eo",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 155.0,
+          "data_spine": 155.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tagetes EO",
+        "canonical_name": "tagetes eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 3.0,
+          "data_spine": 3.0
+        },
+        "runtime_precedence": "data_spine",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": false,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tobacco Absolute",
+        "canonical_name": "tobacco absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 195.0,
+          "data_spine": 195.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tobacco Absolute",
+        "canonical_name": "tobacco absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.03,
+          "data_spine": 0.03
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tonka Bean Absolute",
+        "canonical_name": "tonka bean absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 195.0,
+          "data_spine": 195.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tonka Bean Absolute",
+        "canonical_name": "tonka bean absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.02,
+          "data_spine": 0.02
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tuberose Absolute",
+        "canonical_name": "tuberose absolute",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 220.0,
+          "data_spine": 220.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Tuberose Absolute",
+        "canonical_name": "tuberose absolute",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.005,
+          "data_spine": 0.005
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Vetiver EO",
+        "canonical_name": "vetiver eo",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.003,
+          "data_spine": 0.003
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Comoros Complete EO F3255",
+        "canonical_name": "ylang comoros complete eo f3255",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Comoros Complete EO F3255",
+        "canonical_name": "ylang comoros complete eo f3255",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.05,
+          "data_spine": 0.05
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Comoros III EO F3295",
+        "canonical_name": "ylang comoros iii eo f3295",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Comoros III EO F3295",
+        "canonical_name": "ylang comoros iii eo f3295",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.03,
+          "data_spine": 0.03
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Ylang EO",
+        "canonical_name": "ylang",
+        "field": "mw_g_mol",
+        "ratio": 1.0,
+        "values": {
+          "profile": 200.0,
+          "data_spine": 200.0
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      },
+      {
+        "material": "Ylang Ylang EO",
+        "canonical_name": "ylang",
+        "field": "vp_25c_pa",
+        "ratio": 1.0,
+        "values": {
+          "profile": 0.05,
+          "data_spine": 0.05
+        },
+        "runtime_precedence": "natural_composite_constituents",
+        "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+        "composite_oav_coverage": true,
+        "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+      }
+    ],
+    "release_authority": false
+  },
+  "inventory_oav_coverage": {
+    "scope": "live_owned_non_solvent_inventory",
+    "status": "FAIL_CLOSED_GAPS",
+    "material_count": 215,
+    "oav_available_count": 198,
+    "oav_unknown_count": 17,
+    "oav_coverage_pct": 92.093,
+    "categories": {
+      "opaque_preblends_without_disclosed_composition": [
+        "Amber Core",
+        "Jasmine FO",
+        "Leather FO",
+        "Sandalwood FO",
+        "Tonka Bean FO",
+        "Tuberalia base"
+      ],
+      "naturals_missing_composite_evidence": [
+        "Anise EO",
+        "Basil EO",
+        "Cade Oil Rectified",
+        "Champaca Flower EO",
+        "Himalayan Cedarwood EO",
+        "Opoponax Resinoid",
+        "Peppermint Essential Oil",
+        "Peru Balsam Resinoid",
+        "Pine EO",
+        "Spike Lavender EO",
+        "Tagetes EO"
+      ],
+      "unknown_material_identities": [],
+      "other_oav_unknowns": []
+    },
+    "natural_composite_profile_count": 55,
+    "natural_literature_proxy_count": 10,
+    "natural_literature_proxies": [
+      "Benzoin Sumatra Resinoid",
+      "Bergamot EO",
+      "Bergamot FCF oil Sicilian",
+      "Blood Orange oil Sicilian",
+      "Cedarwood oil Virginia",
+      "Galbanum Resinoid",
+      "Jasmine Sambac",
+      "Lavender EO High Altitude",
+      "Tonka Bean Absolute",
+      "Ylang Ylang EO"
+    ],
+    "limitations": [
+      "Available means a modeled OAV exists; it is not measured headspace.",
+      "Opaque fragrance oils remain unknown until supplier composition is disclosed.",
+      "Natural profiles are literature fingerprints, not supplier-batch GC-MS/GC-O certificates."
+    ],
+    "release_authority": false
   },
   "weaknesses": [
+    {
+      "title": "Cross-source material truth",
+      "body": "Profile, data-spine, and ODT records can disagree. Runtime precedence is explicit, but every unresolved ratio conflict remains advisory and blocks exact scientific claims."
+    },
     {
       "title": "Antoine constants",
       "body": "0% of materials have Antoine A/B/C. Phase 1 falls back to single-point VP_25 \u2192 VP(T) extrapolation is wrong above 40 \u00b0C and at the cold-tail."

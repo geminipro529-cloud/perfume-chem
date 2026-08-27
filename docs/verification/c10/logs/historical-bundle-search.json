@@ -1,0 +1,424 @@
+{
+  "claim_reference_count": 21,
+  "claim_references": [
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count",
+        "winner_score"
+      ],
+      "path": "repository:docs/superpowers/specs/2026-08-03-build-c10-experiment-selection-design.md",
+      "sha256": "097db2e88807c2515ec0cf8a5eae311a2cd51ba3706925fb70c3824243c90509"
+    },
+    {
+      "claim_fields_found": [
+        "dna_threshold",
+        "family",
+        "guardrail_count",
+        "winner_score"
+      ],
+      "path": "repository:engine/optimization/historical.py",
+      "sha256": "60f564553cce989befe788d7c62409f930a37a47188c659a83b5058cbff28205"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count"
+      ],
+      "path": "repository:engine/pipeline/gates.py",
+      "sha256": "df6d24d62d99638450e2588bd5668f7df3da30f0fac2a80c3397fd53327b637f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count"
+      ],
+      "path": "repository:formulas/L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44aba8b5153d26a8afa5cd07b20974eaaf66a5d659feecc13d59eef6f917e0fd"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count"
+      ],
+      "path": "repository:formulas/La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254a73b6b45420cf89034fc5c2caabcaace9a197be315c31e9958e4a5cfdaebb"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count"
+      ],
+      "path": "repository:formulas/Y_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "58eb4e1d6a0156bbed75fabb70b74c88bd8d0eb40e87b076a6ab4ef2d959220f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "family",
+        "guardrail_count"
+      ],
+      "path": "repository:formulas/collections/Perfume_Wheel_Full_22x3_Thai_Mass_Pleasing_2026-05-02.md",
+      "sha256": "c20d4bf28315b1189ba24644533ced170d6d178b9d3aeb22d5717eeb6b1f4c35"
+    },
+    {
+      "claim_fields_found": [
+        "dna_threshold",
+        "family",
+        "guardrail_count",
+        "winner_score"
+      ],
+      "path": "repository:tests/test_c10_historical.py",
+      "sha256": "b0d4e622a33f10782977bca23ea075238855844f4cbbf562e9aa75b04a478ea1"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-004847-aperture-iris/verification_summary.json",
+      "sha256": "5b63de202d0006c4edd81757c8c74eccd8b22006a1e4e3b7d63d3d8e7ed3ea3f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-020608-aperture-iris/verification_summary.json",
+      "sha256": "2044f25ebcf7c40e7924f02912d16f67bdbfc2d0375ac3d03e959b5bfaa8d465"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021215-aperture-iris/verification_summary.json",
+      "sha256": "9cfe37f2a5e4cd2c1731ce45611d9f33c0250465f58c80f95d0e46b75c7afa06"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021908-aperture-iris/verification_summary.json",
+      "sha256": "e095a0b6a9f61be53e57024e410809f43f06b80a0bcd757a9963ad68fb4efa3b"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021920-aperture-iris/verification_summary.json",
+      "sha256": "f53d43879d03f575e1696f5a4f957048da4bc7215d0a08a1931540c4e344a429"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022717-aperture-iris/verification_summary.json",
+      "sha256": "a043c283feb7863907ca006300d11ffaa6f1e0388a1bc3999f69617fa4729bce"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022802-aperture-iris/verification_summary.json",
+      "sha256": "aec6391858d88ffe954adb7bdbd2d4835c8d01c7d190e130590b0b28d68c4562"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-030302-aperture-iris/verification_summary.json",
+      "sha256": "4d714594254428e233597e90fe4b22daf93cc182c3a9a09d4cf02cb9b483057f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-061714-andaman-mineral-fougere/verification_summary.json",
+      "sha256": "ff9615b11ed7dcd1fd2d867008f0c56be1432e2b2e4ba94288963193a03e99e6"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-064948-tropical-night-layton-intense/verification_summary.json",
+      "sha256": "b66e816fb4916171f2123a31e21e12d8d4315459e85d7efb57d51f68f6016c62"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-070223-bangkok-tonka-fougere/verification_summary.json",
+      "sha256": "ee9083ef344b5b488a6f2a6540150a443bc7aeba680e8b3237de1a47a86c9bda"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "family",
+        "guardrail_count",
+        "winner_score"
+      ],
+      "path": "handoff:SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.md",
+      "sha256": "7050f2e77160e9039241e8925f844beb3d32374ad075742fe958518ac0eca349"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "family",
+        "guardrail_count",
+        "winner_score"
+      ],
+      "path": "handoff:SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.txt",
+      "sha256": "7050f2e77160e9039241e8925f844beb3d32374ad075742fe958518ac0eca349"
+    }
+  ],
+  "complete_reproducible_bundle_found": false,
+  "historical_claim_canonical": false,
+  "historical_status": "BLOCKED_MISSING_REPRODUCIBLE_ARTIFACT_BUNDLE",
+  "input_artifact_candidates": [
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-004847-aperture-iris/verification_summary.json",
+      "sha256": "5b63de202d0006c4edd81757c8c74eccd8b22006a1e4e3b7d63d3d8e7ed3ea3f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-020608-aperture-iris/verification_summary.json",
+      "sha256": "2044f25ebcf7c40e7924f02912d16f67bdbfc2d0375ac3d03e959b5bfaa8d465"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021215-aperture-iris/verification_summary.json",
+      "sha256": "9cfe37f2a5e4cd2c1731ce45611d9f33c0250465f58c80f95d0e46b75c7afa06"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021908-aperture-iris/verification_summary.json",
+      "sha256": "e095a0b6a9f61be53e57024e410809f43f06b80a0bcd757a9963ad68fb4efa3b"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021920-aperture-iris/verification_summary.json",
+      "sha256": "f53d43879d03f575e1696f5a4f957048da4bc7215d0a08a1931540c4e344a429"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022717-aperture-iris/verification_summary.json",
+      "sha256": "a043c283feb7863907ca006300d11ffaa6f1e0388a1bc3999f69617fa4729bce"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022802-aperture-iris/verification_summary.json",
+      "sha256": "aec6391858d88ffe954adb7bdbd2d4835c8d01c7d190e130590b0b28d68c4562"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-030302-aperture-iris/verification_summary.json",
+      "sha256": "4d714594254428e233597e90fe4b22daf93cc182c3a9a09d4cf02cb9b483057f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-061714-andaman-mineral-fougere/verification_summary.json",
+      "sha256": "ff9615b11ed7dcd1fd2d867008f0c56be1432e2b2e4ba94288963193a03e99e6"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-064948-tropical-night-layton-intense/verification_summary.json",
+      "sha256": "b66e816fb4916171f2123a31e21e12d8d4315459e85d7efb57d51f68f6016c62"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-070223-bangkok-tonka-fougere/verification_summary.json",
+      "sha256": "ee9083ef344b5b488a6f2a6540150a443bc7aeba680e8b3237de1a47a86c9bda"
+    }
+  ],
+  "passed_fail_closed_gate": true,
+  "replay_implementation_candidates": [],
+  "result_artifact_candidates": [
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-004847-aperture-iris/verification_summary.json",
+      "sha256": "5b63de202d0006c4edd81757c8c74eccd8b22006a1e4e3b7d63d3d8e7ed3ea3f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-020608-aperture-iris/verification_summary.json",
+      "sha256": "2044f25ebcf7c40e7924f02912d16f67bdbfc2d0375ac3d03e959b5bfaa8d465"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021215-aperture-iris/verification_summary.json",
+      "sha256": "9cfe37f2a5e4cd2c1731ce45611d9f33c0250465f58c80f95d0e46b75c7afa06"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021908-aperture-iris/verification_summary.json",
+      "sha256": "e095a0b6a9f61be53e57024e410809f43f06b80a0bcd757a9963ad68fb4efa3b"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-021920-aperture-iris/verification_summary.json",
+      "sha256": "f53d43879d03f575e1696f5a4f957048da4bc7215d0a08a1931540c4e344a429"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022717-aperture-iris/verification_summary.json",
+      "sha256": "a043c283feb7863907ca006300d11ffaa6f1e0388a1bc3999f69617fa4729bce"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-022802-aperture-iris/verification_summary.json",
+      "sha256": "aec6391858d88ffe954adb7bdbd2d4835c8d01c7d190e130590b0b28d68c4562"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260405-030302-aperture-iris/verification_summary.json",
+      "sha256": "4d714594254428e233597e90fe4b22daf93cc182c3a9a09d4cf02cb9b483057f"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-061714-andaman-mineral-fougere/verification_summary.json",
+      "sha256": "ff9615b11ed7dcd1fd2d867008f0c56be1432e2b2e4ba94288963193a03e99e6"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-064948-tropical-night-layton-intense/verification_summary.json",
+      "sha256": "b66e816fb4916171f2123a31e21e12d8d4315459e85d7efb57d51f68f6016c62"
+    },
+    {
+      "claim_fields_found": [
+        "candidate_count",
+        "dna_threshold",
+        "guardrail_count"
+      ],
+      "path": "repository:verification_runs/20260428-070223-bangkok-tonka-fougere/verification_summary.json",
+      "sha256": "ee9083ef344b5b488a6f2a6540150a443bc7aeba680e8b3237de1a47a86c9bda"
+    }
+  ],
+  "schema": "build-c10-historical-bundle-search-v1",
+  "search_scope": {
+    "contents_emitted": false,
+    "handoff": [
+      "EVIDENCE_GATED_PERFUME_FORMULATION_METHOD.md",
+      "PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "SOL_5_6_DELIVERABLES_INDEX.md",
+      "SOL_5_6_DELIVERABLES_MANIFEST.json",
+      "SOL_5_6_MASTER_ABCD_IMPLEMENTATION_PROMPT.md",
+      "SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.md",
+      "SOL_5_6_PERFUME_CHEM_MASTER_A_D_PROMPT.txt"
+    ],
+    "repository": "tracked and nonignored untracked text/code files up to 5 MiB",
+    "secret_shaped_paths_excluded": true
+  },
+  "searched_file_count": 6430
+}

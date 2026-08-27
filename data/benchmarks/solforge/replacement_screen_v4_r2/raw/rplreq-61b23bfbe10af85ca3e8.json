@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:21:53.498013+00:00",
+  "dispatch_sha256": "40e633705c868ef58cb03abdd9317ff3171d93fb3a25003786873e1a33aa3777",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "68b8320ef20baf1154bdad13e9b5deacdbefd060afb17665d5da22bedd2a35fa",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 parts of citrus support with 2.0 parts Neroli 10% would promote an orange-blossom identity that conflicts with the bitter lemon-peel and green-tea target. Ingredient count adds no evidence, and no blinded result supports this inversion.\",\"controlled_comparison\":\"The proposed Neroli arm is unsupported versus the unchanged baseline; physical liking is NOT TESTED.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"candidate_total_parts\":100.0,\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_IDENTITY_MISMATCH\",\"NEROLI_SUPPORT_ONLY\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_UNCHANGED\",\"INVENTORY_VERIFICATION_PENDING\"],\"next_actions\":[\"If the Neroli hypothesis is retained, conduct one blinded isolated A/B comparison against the unchanged baseline, scoring bitter lemon-peel/green-tea fidelity and orange-blossom dominance.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4f6b8c44d917b1582c68e64c2d15944ff1ec110a43e253dd3dda28761db533d0",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-61b23bfbe10af85ca3e8",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.839230+00:00",
+  "stderr_sha256": "5bfb2300a8eb1655d239724949bb331763756b32afac102475baab2052f0507f",
+  "stderr_tail": "tput_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 parts of citrus support with 2.0 parts Neroli 10% would promote an orange-blossom identity that conflicts with the bitter lemon-peel and green-tea target. Ingredient count adds no evidence, and no blinded result supports this inversion.\",\"controlled_comparison\":\"The proposed Neroli arm is unsupported versus the unchanged baseline; physical liking is NOT TESTED.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"candidate_total_parts\":100.0,\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_IDENTITY_MISMATCH\",\"NEROLI_SUPPORT_ONLY\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_UNCHANGED\",\"INVENTORY_VERIFICATION_PENDING\"],\"next_actions\":[\"If the Neroli hypothesis is retained, conduct one blinded isolated A/B comparison against the unchanged baseline, scoring bitter lemon-peel/green-tea fidelity and orange-blossom dominance.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n15,430\n",
+  "stdout_sha256": "10289941cfadaf1fba084e64aff67305603543cc998b196606ee8e9956fddc08"
+}

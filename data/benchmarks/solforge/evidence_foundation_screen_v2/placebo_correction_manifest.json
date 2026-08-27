@@ -1,0 +1,255 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "correction_sha256": "daed24cda5bcb48f136d4e85f8280b078ef8f8a8a2c50471161e9833906ebdfb",
+  "model_identity": {
+    "context": "FRESH_PROJECTLESS_CONVERSATION",
+    "fast_mode": "NOT_EXPOSED",
+    "model": "gpt-5.6-sol",
+    "product": "Codex",
+    "provider": "OpenAI",
+    "reasoning_effort": "xhigh",
+    "surface": "Codex App",
+    "tools_state": "NO_TOOLS_OR_NETWORK"
+  },
+  "predecessor_manifest_file_sha256": "43c0046d07abd2106bc91b5cdd17a20f0abbb31fc47152a32479e148b06a03e3",
+  "predecessor_manifest_sha256": "1e0483e137d5fb874b25dcf5a3d8fc362a4cd42bee5535b92ab7e122b252cd6c",
+  "reason_code": "REPEATED_PADDING_DISPATCH_MISMATCH",
+  "request_count": 3,
+  "requests": [
+    {
+      "arm": "PLACEBO",
+      "case_id": "EF-OAV-S01",
+      "common_input_sha256": "17bb069e673397c33027f81a0cc484febf55f5b1d2c33bdec95e83ab1e20eb92",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "6eae00bb80191897442a5b8677f4ca9cd52b16f3719e517222a2760fd751be84",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY\",\"evidence_payload\":{\"basis\":\"MEASURED\",\"matrix\":\"ethanol-air|25C|spray|odor\",\"timepoints_seconds\":[0,300]},\"facts\":[\"At 0 seconds the measured headspace interval is 8, 10, 12 ug/m3 and the threshold interval is 2, 4, 8 ug/m3.\",\"At 300 seconds the measured headspace interval is 2, 3, 4 ug/m3 and the same threshold interval and method apply.\",\"Formula, active-dose, stock, protocol, matrix, unit, method, and context hashes match.\"],\"inventory_state\":{\"state\":\"EXACT_STOCK_BOUND\",\"stock_fraction\":1.0},\"target_identity\":\"Determine whether compatible measured OAV evidence contains a decision-relevant temporal decrease.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"p50_fold_change\":\"compute from the supplied evidence\",\"t0_oav_p50\":\"compute from the supplied evidence\",\"t300_oav_p50\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_oav_error_sentinel",
+      "nonce": "EF-OAV-S01-placebo-1b2836e16c9fdc9e",
+      "packet_byte_count": 1427,
+      "packet_sha256": "5632eae562562d789855c9a8eb80f542360826f3f9fdfca6a8ce5057968060f6",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY",
+          "evidence_payload": {
+            "basis": "MEASURED",
+            "matrix": "ethanol-air|25C|spray|odor",
+            "timepoints_seconds": [
+              0,
+              300
+            ]
+          },
+          "facts": [
+            "At 0 seconds the measured headspace interval is 8, 10, 12 ug/m3 and the threshold interval is 2, 4, 8 ug/m3.",
+            "At 300 seconds the measured headspace interval is 2, 3, 4 ug/m3 and the same threshold interval and method apply.",
+            "Formula, active-dose, stock, protocol, matrix, unit, method, and context hashes match."
+          ],
+          "inventory_state": {
+            "state": "EXACT_STOCK_BOUND",
+            "stock_fraction": 1.0
+          },
+          "target_identity": "Determine whether compatible measured OAV evidence contains a decision-relevant temporal decrease."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "p50_fold_change": "compute from the supplied evidence",
+              "t0_oav_p50": "compute from the supplied evidence",
+              "t300_oav_p50": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "5caf6cd3d6d762b119d1a0e820b82726425026f6c8f45c0dab8411833978e56c",
+      "request_id": "rplreq-2176ef1ce38f89dc4bf2",
+      "role": "POSITIVE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "EF-OAV-S02",
+      "common_input_sha256": "a09e64afa6fc10c0dd4b6794dc8cfa5760cbeda2c05b339b18cee7c72543a142",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "1f2fe745eb9435e77c5bb236917c23e9748a0234d8140857c3e4f7b62b739a7b",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY\",\"evidence_payload\":{\"basis\":\"MEASURED\",\"matrix\":\"ethanol-air|25C|spray|odor\",\"timepoints_seconds\":[0,300]},\"facts\":[\"At both 0 and 300 seconds the measured headspace interval is 8, 10, 12 ug/m3.\",\"At both timepoints the compatible measured threshold interval is 2, 4, 8 ug/m3.\",\"All formula, dose, stock, protocol, matrix, unit, method, and context bindings match.\"],\"inventory_state\":{\"state\":\"EXACT_STOCK_BOUND\",\"stock_fraction\":1.0},\"target_identity\":\"Decide whether an unchanged compatible measured OAV series adds any useful decision information.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"p50_fold_change\":\"compute from the supplied evidence\",\"t0_oav_p50\":\"compute from the supplied evidence\",\"t300_oav_p50\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_oav_error_sentinel",
+      "nonce": "EF-OAV-S02-placebo-5dce2f0391099432",
+      "packet_byte_count": 1428,
+      "packet_sha256": "b534b78ecc1e13c70fe9e37d99b9da0a903b34b4df880d7669833f40f22f11db",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY",
+          "evidence_payload": {
+            "basis": "MEASURED",
+            "matrix": "ethanol-air|25C|spray|odor",
+            "timepoints_seconds": [
+              0,
+              300
+            ]
+          },
+          "facts": [
+            "At both 0 and 300 seconds the measured headspace interval is 8, 10, 12 ug/m3.",
+            "At both timepoints the compatible measured threshold interval is 2, 4, 8 ug/m3.",
+            "All formula, dose, stock, protocol, matrix, unit, method, and context bindings match."
+          ],
+          "inventory_state": {
+            "state": "EXACT_STOCK_BOUND",
+            "stock_fraction": 1.0
+          },
+          "target_identity": "Decide whether an unchanged compatible measured OAV series adds any useful decision information."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "p50_fold_change": "compute from the supplied evidence",
+              "t0_oav_p50": "compute from the supplied evidence",
+              "t300_oav_p50": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "bbc152ff83846751d6eb89ac95adb9a7c474dc4491af19033d61357e6ababcc4",
+      "request_id": "rplreq-dd7500a87afaba10ed33",
+      "role": "SAFE_COUNTERCASE"
+    },
+    {
+      "arm": "PLACEBO",
+      "case_id": "EF-OAV-S03",
+      "common_input_sha256": "c10afb711f4f03be482a128a3b821696357a6834aa86fdec6d6d4b5cc5539674",
+      "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+      "dispatch_sha256": "7c23238559ebb61bdd31f3b60fb898f40def75ad93250fa10a628bd38166d824",
+      "dispatch_text": "Resolve this blinded benchmark case now using only the JSON payload below. Return only the requested answer; do not use external sources or add process commentary.\n\n{\"case\":{\"claim_ceiling\":\"INVALID_EVIDENCE_HOLD\",\"evidence_payload\":{\"headspace_p50\":10.0,\"threshold_p50\":2.0,\"unit\":\"ppm\"},\"facts\":[\"The active-dose receipt binds stock:HEDIONE:lot-1 at supplied strength fraction 1.0.\",\"The OAV row silently records the same stock reference at supplied strength fraction 0.1.\",\"The measured concentration and threshold are otherwise unit- and matrix-compatible.\"],\"inventory_state\":{\"dose_receipt_fraction\":1.0,\"oav_row_fraction\":0.1,\"state\":\"STOCK_STRENGTH_CONFLICT\"},\"target_identity\":\"Audit an apparent high OAV after a supplied-stock strength substitution.\"},\"context_packet\":{\"context\":\"Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklm\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"stock_strength_match\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}",
+      "module_id": "temporal_oav_error_sentinel",
+      "nonce": "EF-OAV-S03-placebo-c952343bf4c87288",
+      "packet_byte_count": 1450,
+      "packet_sha256": "d43d2c10962c81dd8fa3640f00898aed445f36c46f409d008585220160f84dfd",
+      "phase": "SCREEN",
+      "prompt_payload": {
+        "case": {
+          "claim_ceiling": "INVALID_EVIDENCE_HOLD",
+          "evidence_payload": {
+            "headspace_p50": 10.0,
+            "threshold_p50": 2.0,
+            "unit": "ppm"
+          },
+          "facts": [
+            "The active-dose receipt binds stock:HEDIONE:lot-1 at supplied strength fraction 1.0.",
+            "The OAV row silently records the same stock reference at supplied strength fraction 0.1.",
+            "The measured concentration and threshold are otherwise unit- and matrix-compatible."
+          ],
+          "inventory_state": {
+            "dose_receipt_fraction": 1.0,
+            "oav_row_fraction": 0.1,
+            "state": "STOCK_STRENGTH_CONFLICT"
+          },
+          "target_identity": "Audit an apparent high OAV after a supplied-stock strength substitution."
+        },
+        "context_packet": {
+          "context": "Review the supplied evidence carefully, keep the answer concise, preserve uncertainty, and state a controlled comparison. 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklm",
+          "schema_version": "complexity_reasoning_context_v1"
+        },
+        "output_contract": {
+          "format": "ONE_JSON_OBJECT",
+          "maximum_characters": 1800,
+          "objective_receipt": {
+            "authority": {
+              "formula": false,
+              "inventory": false,
+              "physical_execution": false,
+              "publication": false,
+              "purchase": false,
+              "release": false,
+              "safety": false,
+              "sensory": false
+            },
+            "calculations": {
+              "stock_strength_match": "compute from the supplied evidence"
+            },
+            "decision_state": "AUGMENT | NO_AUGMENTATION | HOLD",
+            "next_actions": "array containing zero or one discriminating action",
+            "reason_codes": "array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored"
+          },
+          "physical_liking_state": "NOT TESTED",
+          "required_fields": [
+            "decision",
+            "target_linked_reasoning",
+            "controlled_comparison",
+            "claim_ceiling"
+          ]
+        },
+        "schema_version": "complexity_replacement_benchmark_prompt_v2_blinded",
+        "task": "Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count."
+      },
+      "prompt_sha256": "4e999abd7d01f8f510efe8ebf3cdbbd267805dca2b3b3c79b415f20d72928bed",
+      "request_id": "rplreq-89ab5f984c1e705456f7",
+      "role": "CRITICAL_TRAP"
+    }
+  ],
+  "run_nonce": "evidence-foundation-screen-20260826-xhigh-v2-placebo-c1",
+  "schema_version": "evidence_foundation_execution_correction_v1"
+}

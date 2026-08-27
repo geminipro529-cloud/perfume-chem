@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:32:54.500387+00:00",
+  "dispatch_sha256": "846f8595d8adcea4742473394ac6a4eec33e4ed7ccffd3a62bab3990fb23cdfa",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "c5d4e60c24f2512547255f8f12a40635247aaea3c9eeffb11444ba7b5e8ebdff",
+  "output_text": "{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The proposed five-material addition has no identified omission loss, missing function, or nonredundant relation, and ingredient count or prestige does not establish target-linked complexity. For a minimal translucent iris, added materials may undermine the intended richness of negative space and exact material choice.\",\"controlled_comparison\":{\"baseline\":\"Current minimal architecture\",\"variant\":\"Proposed architecture with five added materials\",\"discriminating_question\":\"Does the variant add a target-linked function or nonredundant relationship without weakening translucency, negative space, or material exactness?\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\",\"PRESTIGE_NOT_TARGET_LINKED\"],\"calculations\":{\"declared_target_function_count\":4,\"covered_target_function_count\":4,\"unmet_target_function_count\":0},\"next_actions\":[\"Specify one testable target-linked function or nonredundant relationship uniquely supplied by the five-material variant; otherwise retain the baseline.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "fec0589c55efdf39ae1aeb4ac745ebc6f654091611a0aa51f1877ef29305ceac",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-63e441c6188713f2502c",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.412237+00:00",
+  "stderr_sha256": "04602ec517b0889a0b34bc999e616dcc353f4a19dc0fe3744913ecf63c74dd4b",
+  "stderr_tail": "ng action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The proposed five-material addition has no identified omission loss, missing function, or nonredundant relation, and ingredient count or prestige does not establish target-linked complexity. For a minimal translucent iris, added materials may undermine the intended richness of negative space and exact material choice.\",\"controlled_comparison\":{\"baseline\":\"Current minimal architecture\",\"variant\":\"Proposed architecture with five added materials\",\"discriminating_question\":\"Does the variant add a target-linked function or nonredundant relationship without weakening translucency, negative space, or material exactness?\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\",\"PRESTIGE_NOT_TARGET_LINKED\"],\"calculations\":{\"declared_target_function_count\":4,\"covered_target_function_count\":4,\"unmet_target_function_count\":0},\"next_actions\":[\"Specify one testable target-linked function or nonredundant relationship uniquely supplied by the five-material variant; otherwise retain the baseline.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,112\n",
+  "stdout_sha256": "c980c09fc87643b0d0ef7676ad1e73dd66b95809f9fc29933b1bf9743ad5bb5c"
+}

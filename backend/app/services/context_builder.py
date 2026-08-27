@@ -4,7 +4,7 @@ import logging
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional, cast
 
 from app.services.chemistry_validator import ChemistryValidator
 from app.services.data_loader import DataLoader
@@ -21,20 +21,22 @@ logger = logging.getLogger(__name__)
 # Formulations directory
 FORMULATIONS_DIR = Path(__file__).parent.parent.parent.parent / "formulations"
 
+JsonObject = dict[str, Any]
+
 
 class ContextBuilder:
     """Builds context for AI prompts from knowledge base"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.data_loader = DataLoader
         self.validator = ChemistryValidator()
 
     def build_context(
         self,
         query: str,
-        ingredients: Optional[List[Dict]] = None,
+        ingredients: Optional[list[JsonObject]] = None,
         include_validation: bool = True
-    ) -> Dict[str, Any]:
+    ) -> JsonObject:
         """
         Build full context for AI prompt.
 
@@ -46,7 +48,7 @@ class ContextBuilder:
         Returns:
             Dict with context strings for prompt injection
         """
-        context = {
+        context: JsonObject = {
             "inventory": self._get_inventory_context(),
             "dosage_guidelines": self._get_dosage_guidelines(),
             "relevant_knowledge": self._search_relevant_knowledge(query),
@@ -63,7 +65,9 @@ class ContextBuilder:
         """Format available chemicals as context string"""
         try:
             compounds = self.data_loader.load_compounds()
-            compound_list = compounds.get("compounds", [])
+            compound_list = cast(
+                list[JsonObject], compounds.get("compounds", [])
+            )
 
             if not compound_list:
                 return "No compounds database available."
@@ -71,11 +75,16 @@ class ContextBuilder:
             lines = ["## AVAILABLE CHEMICALS IN INVENTORY\n"]
 
             # Group by note type
-            by_note = {"top": [], "heart": [], "base": [], "other": []}
+            by_note: dict[str, list[str]] = {
+                "top": [],
+                "heart": [],
+                "base": [],
+                "other": [],
+            }
 
             for compound in compound_list:
                 name = compound.get("name", "Unknown")
-                note = compound.get("note", "other")
+                note = cast(str, compound.get("note", "other"))
                 scent = ", ".join(compound.get("scent", []))
                 ifra = compound.get("ifra_limit")
 
@@ -91,9 +100,12 @@ class ContextBuilder:
                     by_note["other"].append(entry)
 
             # Also add from potency database
-            potency_chemicals = self.validator.potency_data.get("chemicals", {})
+            potency_chemicals = cast(
+                dict[str, JsonObject],
+                self.validator.potency_data.get("chemicals", {}),
+            )
             for name, data in potency_chemicals.items():
-                note = data.get("note", "other")
+                note = cast(str, data.get("note", "other"))
                 if note not in by_note:
                     note = "other"
 
@@ -115,7 +127,7 @@ class ContextBuilder:
     def _get_dosage_guidelines(self) -> str:
         """Format dosage rules as context string"""
         try:
-            return self.validator.format_dosage_for_prompt()
+            return cast(str, self.validator.format_dosage_for_prompt())
         except Exception as e:
             logger.error(f"Failed to build dosage guidelines: {e}")
             return "Dosage guidelines unavailable."
@@ -127,12 +139,12 @@ class ContextBuilder:
             from engine.knowledge import KnowledgeIndex
             idx = KnowledgeIndex()
             idx.build()  # loads existing index
-            results = idx.search(query, k=5)
-            if results:
+            semantic_results = cast(list[JsonObject], idx.search(query, k=5))
+            if semantic_results:
                 lines = ["## RELEVANT KNOWLEDGE (semantic search)\n"]
-                for r in results:
+                for r in semantic_results:
                     lines.append(f"### From {r['source']} (relevance: {r['score']:.2f})")
-                    lines.append(r["text"][:3000])
+                    lines.append(cast(str, r["text"])[:3000])
                     lines.append("")
                 return "\n".join(lines)
         except Exception as e:
@@ -143,12 +155,12 @@ class ContextBuilder:
             # Extract key terms from query
             terms = self._extract_search_terms(query)
 
-            all_matches = []
+            all_matches: list[dict[str, str]] = []
 
             for term in terms:
-                results = self.data_loader.search_knowledge(term)
+                knowledge_results = self.data_loader.search_knowledge(term)
 
-                for file in results.get("files", []):
+                for file in knowledge_results.get("files", []):
                     if file not in [m.get("file") for m in all_matches]:
                         content = self.data_loader.load_knowledge_file(file)
                         if content:
@@ -177,7 +189,7 @@ class ContextBuilder:
             logger.error(f"Failed to search knowledge: {e}")
             return "Knowledge search unavailable."
 
-    def _extract_search_terms(self, query: str) -> List[str]:
+    def _extract_search_terms(self, query: str) -> list[str]:
         """Extract meaningful search terms from query"""
         # Common perfume-related terms to look for
         perfume_keywords = [
@@ -237,7 +249,7 @@ class ContextBuilder:
             # Get search terms
             terms = self._extract_search_terms(query)
 
-            matching_formulations = []
+            matching_formulations: list[dict[str, str]] = []
 
             for md_file in FORMULATIONS_DIR.glob("*.md"):
                 filename = md_file.stem.lower()
@@ -294,7 +306,7 @@ class ContextBuilder:
         # Return first 500 chars if no pattern matched
         return content[:500] if len(content) > 500 else content
 
-    def _get_validation_context(self, ingredients: List[Dict]) -> str:
+    def _get_validation_context(self, ingredients: list[JsonObject]) -> str:
         """Pre-validate and include any warnings"""
         try:
             issues = self.validator.validate_formula(ingredients)

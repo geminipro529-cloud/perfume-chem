@@ -11,40 +11,48 @@ Usage:
 """
 
 from __future__ import annotations
+
 import re
-import math
 import sys
-from pathlib import Path
 from dataclasses import dataclass, field
+from pathlib import Path
 
 # Resolve project root so engine imports work
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.optimizer.models import FormulaVector, ObjectiveWeights
-from engine.optimizer.scoring import FormulaScorer
-from engine.chemical_life_graph import build_chemical_life_graph
-from engine.ingredient_intelligence import (
-    get_profile, get_all_profiles, DIMENSIONS, MaterialProfile,
-    find_similar, character_distance,
+from engine.chemical_data_validator import is_blocked_chemical  # noqa: E402  # sys.path
+from engine.chemical_life_graph import build_chemical_life_graph  # noqa: E402  # sys.path
+from engine.confidence import ConfidenceScorer  # noqa: E402  # sys.path
+from engine.formula_rating import (  # noqa: E402  # sys.path
+    StarRatings,
+    compute_star_ratings,
+    format_star_rating,
 )
-from engine.chemical_data_validator import is_blocked_chemical
-from engine.synergy_graph import SynergyGraph
-from engine.temporal_graph import TemporalEngine
-from engine.perspectives import evaluate_all_perspectives, MultiPerspectiveReport
-from engine.science_data import stability_warnings
-from engine.confidence import ConfidenceScorer
-from engine.formula_rating import compute_star_ratings, StarRatings, format_star_rating
-from engine.odor_thresholds import ODT_DATA, MIXTURE_SUPPRESSION_FACTOR
-from engine.name_utils import normalize_name
-from engine.gap_detector import GapDetector
-from engine.reverse_engineer import (
-    EvidencePool, EvidenceItem, reverse_engineer, format_reconstruction_report,
-    parse_allergen_list, parse_note_pyramid, parse_review_consensus,
-    parse_patent_formula, reconstruction_to_formula_vector,
+from engine.gap_detector import GapDetector  # noqa: E402  # sys.path
+from engine.ingredient_intelligence import (  # noqa: E402  # sys.path
+    DIMENSIONS,
+    find_similar,
+    get_profile,
 )
-
+from engine.odor_thresholds import MIXTURE_SUPPRESSION_FACTOR, ODT_DATA  # noqa: E402  # sys.path
+from engine.optimizer.models import FormulaVector  # noqa: E402  # sys.path
+from engine.optimizer.scoring import FormulaScorer  # noqa: E402  # sys.path
+from engine.perspectives import evaluate_all_perspectives  # noqa: E402  # sys.path
+from engine.reverse_engineer import (  # noqa: E402  # sys.path
+    EvidenceItem,
+    EvidencePool,
+    format_reconstruction_report,
+    parse_allergen_list,
+    parse_note_pyramid,
+    parse_review_consensus,
+    reconstruction_to_formula_vector,
+    reverse_engineer,
+)
+from engine.science_data import stability_warnings  # noqa: E402  # sys.path
+from engine.synergy_graph import SynergyGraph  # noqa: E402  # sys.path
+from engine.temporal_graph import TemporalEngine  # noqa: E402  # sys.path
 
 FORMULA_FILE = PROJECT_ROOT / "luxury_formulas_2026-03-26.md"
 
@@ -52,15 +60,17 @@ FORMULA_FILE = PROJECT_ROOT / "luxury_formulas_2026-03-26.md"
 @dataclass
 class FormulaInfo:
     """Parsed formula with metadata."""
+
     number: int
     name: str
-    ingredients: dict[str, float]   # name → µL amount
+    ingredients: dict[str, float]  # name → µL amount
     dilutions: dict[str, float] = field(default_factory=dict)
     concentrate_ml: float = 0.0
     description: str = ""
 
 
 # ── Formula Parser ──
+
 
 def _parse_dilution(raw: str) -> float:
     """Convert dilution text to factor: '10%' -> 0.1, 'neat' -> 1.0."""
@@ -81,7 +91,7 @@ def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
 
     formulas = []
     # Split by formula headers: ## N. Name
-    sections = re.split(r'^## (\d+)\.\s+(.+?)$', text, flags=re.MULTILINE)
+    sections = re.split(r"^## (\d+)\.\s+(.+?)$", text, flags=re.MULTILINE)
     # sections[0] is preamble, then groups of 3: (number, name, body)
     for i in range(1, len(sections) - 2, 3):
         num = int(sections[i])
@@ -89,47 +99,48 @@ def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
         body = sections[i + 2]
 
         # Extract concentrate total
-        conc_match = re.search(r'Concentrate total:\*\*\s*([\d.]+)\s*mL', body)
+        conc_match = re.search(r"Concentrate total:\*\*\s*([\d.]+)\s*mL", body)
         concentrate_ml = float(conc_match.group(1)) if conc_match else 0.0
 
         # Parse ingredient table rows
         # Format: | N | Ingredient | Dilution | Amount (µL) | Amount (mL) |
         ingredients: dict[str, float] = {}
         dilutions: dict[str, float] = {}
-        for line in body.split('\n'):
+        for line in body.split("\n"):
             # Skip section-header rows like | **— MINERAL CITRUS TOP —** |
-            if '**—' in line or '---' in line:
+            if "**—" in line or "---" in line:
                 continue
             # Match ingredient rows
             m = re.match(
-                r'\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|',
-                line
+                r"\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|", line
             )
             if m:
                 ing_name = m.group(2).strip()
                 dilution_raw = m.group(3).strip()
                 amount_ul = float(m.group(4))
                 # Skip ethanol and total rows
-                if 'ethanol' in ing_name.lower() or 'total' in ing_name.lower():
+                if "ethanol" in ing_name.lower() or "total" in ing_name.lower():
                     continue
                 # Clean up name (remove bold markers)
-                ing_name = ing_name.replace('**', '').strip()
+                ing_name = ing_name.replace("**", "").strip()
                 ingredients[ing_name] = amount_ul
                 dilutions[ing_name] = _parse_dilution(dilution_raw)
 
         if ingredients:
             # Extract a short description
-            desc_match = re.search(r'\*\*Wearing Impression:\*\*\s*(.+?)(?:\n|$)', body)
+            desc_match = re.search(r"\*\*Wearing Impression:\*\*\s*(.+?)(?:\n|$)", body)
             desc = desc_match.group(1).strip() if desc_match else ""
 
-            formulas.append(FormulaInfo(
-                number=num,
-                name=name,
-                ingredients=ingredients,
-                dilutions=dilutions,
-                concentrate_ml=concentrate_ml,
-                description=desc[:200] if desc else "",
-            ))
+            formulas.append(
+                FormulaInfo(
+                    number=num,
+                    name=name,
+                    ingredients=ingredients,
+                    dilutions=dilutions,
+                    concentrate_ml=concentrate_ml,
+                    description=desc[:200] if desc else "",
+                )
+            )
 
     return formulas
 
@@ -152,104 +163,214 @@ _CHANGE_TARGETS = {
         "dimensions": ["radiance", "freshness"],
         "roles": ["radiance"],
         "textures": ["halo", "lift"],
-        "boosters": ["Hedione", "Iso E Super", "Bergamot FCF oil Sicilian",
-                      "Aldehyde C12 MNA", "Aldehyde C11", "Linalool",
-                      "Neroli EO", "Cedrat FCF oil Sicilian", "Florol", "Nympheal", "Helional",
-                      "Allyl Amyl Glycolate", "Scentenal"],
+        "boosters": [
+            "Hedione",
+            "Iso E Super",
+            "Bergamot FCF oil Sicilian",
+            "Aldehyde C12 MNA",
+            "Aldehyde C11",
+            "Linalool",
+            "Neroli EO",
+            "Cedrat FCF oil Sicilian",
+            "Florol",
+            "Nympheal",
+            "Helional",
+            "Allyl Amyl Glycolate",
+            "Scentenal",
+        ],
         "description": "Increase luminosity halo and transparent projection",
     },
     "warmth": {
         "dimensions": ["warmth", "sweetness"],
         "roles": ["volume", "character"],
         "textures": ["cushion", "cocoon"],
-        "boosters": ["Labdanum Absolute", "Benzoin Sumatra Resinoid", "Benzoin Resinoid",
-                      "Coumarin", "Cashmeran", "Ambermax", "Amberwood F",
-                      "Tonalide", "Ambrox Super", "Vanillin", "Ethyl Vanillin",
-                      "Eugenol", "Isoeugenol", "Cinnamaldehyde"],
+        "boosters": [
+            "Labdanum Absolute",
+            "Benzoin Sumatra Resinoid",
+            "Benzoin Resinoid",
+            "Coumarin",
+            "Cashmeran",
+            "Ambermax",
+            "Amberwood F",
+            "Tonalide",
+            "Ambrox Super",
+            "Vanillin",
+            "Ethyl Vanillin",
+            "Eugenol",
+            "Isoeugenol",
+            "Cinnamaldehyde",
+        ],
         "description": "Add warm amber/balsamic depth",
     },
     "freshness": {
         "dimensions": ["freshness", "green"],
         "roles": ["character", "modifier"],
         "textures": ["lift", "veil"],
-        "boosters": ["Bergamot FCF", "Grapefruit FCF",
-                      "Allyl Amyl Glycolate", "Floralozone", "Calone",
-                      "Cedrat FCF oil Sicilian", "Linalool", "Helional",
-                      "cis-3-Hexenol", "Scentenal", "Undecavertol",
-                      "Methyl Pamplemousse", "Neroli EO"],
+        "boosters": [
+            "Bergamot FCF",
+            "Grapefruit FCF",
+            "Allyl Amyl Glycolate",
+            "Floralozone",
+            "Calone",
+            "Cedrat FCF oil Sicilian",
+            "Linalool",
+            "Helional",
+            "cis-3-Hexenol",
+            "Scentenal",
+            "Undecavertol",
+            "Methyl Pamplemousse",
+            "Neroli EO",
+        ],
         "description": "Increase clean/citrus/aquatic lift",
     },
     "texture": {
         "dimensions": ["creamy", "powdery"],
         "roles": ["fixative", "volume"],
         "textures": ["skin-effect", "cushion"],
-        "boosters": ["Benzyl Salicylate", "Hexyl Salicylate", "Javanol",
-                      "Cashmeran", "Galaxolide", "Ebanol", "Bacdanol",
-                      "Sandalore", "Macrolide", "Tonalide", "Ethylene Brassylate",
-                      "Clearwood", "Suederal", "Vetival", "Iso E Super"],
+        "boosters": [
+            "Benzyl Salicylate",
+            "Hexyl Salicylate",
+            "Javanol",
+            "Cashmeran",
+            "Galaxolide",
+            "Ebanol",
+            "Bacdanol",
+            "Sandalore",
+            "Macrolide",
+            "Tonalide",
+            "Ethylene Brassylate",
+            "Clearwood",
+            "Suederal",
+            "Vetival",
+            "Iso E Super",
+        ],
         "description": "Improve tactile skin-feel quality",
     },
     "complexity": {
         "dimensions": ["animalic", "smoky", "spicy"],
         "roles": ["trace", "character"],
         "textures": ["skin-effect"],
-        "boosters": ["Isobutyl Quinoline", "Styrax FTEC", "Evernyl",
-                      "Patchouli EO", "Ethyl Safranate", "Cyclamen Aldehyde",
-                      "Cardamom EO", "Black Pepper EO", "Rose Oxide",
-                      "Olibanum Resinoid", "Clary Sage EO", "Indole",
-                      "Birch Tar Rectified", "Alpha Irone", "DBCA",
-                      "Paradisamide"],
+        "boosters": [
+            "Isobutyl Quinoline",
+            "Styrax FTEC",
+            "Evernyl",
+            "Patchouli EO",
+            "Ethyl Safranate",
+            "Cyclamen Aldehyde",
+            "Cardamom EO",
+            "Black Pepper EO",
+            "Rose Oxide",
+            "Olibanum Resinoid",
+            "Clary Sage EO",
+            "Indole",
+            "Birch Tar Rectified",
+            "Alpha Irone",
+            "DBCA",
+            "Paradisamide",
+        ],
         "description": "Add structural diversity and depth layers",
     },
     "longevity": {
         "dimensions": ["warmth", "woody", "animalic"],
         "roles": ["fixative", "volume"],
         "textures": ["cocoon", "skin-effect"],
-        "boosters": ["Iso E Super", "Vertofix Coeur", "Benzyl Salicylate",
-                      "Galaxolide", "Ambrettolide", "Habanolide", "Tonalide",
-                      "Macrolide", "Javanol", "Ebanol", "Timberol",
-                      "Clearwood", "Benzoin Resinoid", "Labdanum Absolute",
-                      "Patchouli EO", "Coumarin", "Benzyl Benzoate",
-                      "Amberwood F"],
+        "boosters": [
+            "Iso E Super",
+            "Vertofix Coeur",
+            "Benzyl Salicylate",
+            "Galaxolide",
+            "Ambrettolide",
+            "Habanolide",
+            "Tonalide",
+            "Macrolide",
+            "Javanol",
+            "Ebanol",
+            "Timberol",
+            "Clearwood",
+            "Benzoin Resinoid",
+            "Labdanum Absolute",
+            "Patchouli EO",
+            "Coumarin",
+            "Benzyl Benzoate",
+            "Amberwood F",
+        ],
         "description": "Extend wear time through fixatives and base weight",
     },
     "sillage": {
         "dimensions": ["radiance", "freshness"],
         "roles": ["radiance", "volume"],
         "textures": ["halo", "diffusion"],
-        "boosters": ["Hedione", "Iso E Super", "Bergamot FCF oil Sicilian",
-                      "Benzyl Salicylate", "Galaxolide", "Habanolide",
-                      "Tonalide", "Hexyl Salicylate", "Cashmeran",
-                      "DBCA", "Clearwood", "Ambrettolide", "Exaltolide"],
+        "boosters": [
+            "Hedione",
+            "Iso E Super",
+            "Bergamot FCF oil Sicilian",
+            "Benzyl Salicylate",
+            "Galaxolide",
+            "Habanolide",
+            "Tonalide",
+            "Hexyl Salicylate",
+            "Cashmeran",
+            "DBCA",
+            "Clearwood",
+            "Ambrettolide",
+            "Exaltolide",
+        ],
         "description": "Increase projection radius and diffusive bloom",
     },
     "powdery": {
         "dimensions": ["powdery", "creamy"],
         "roles": ["character", "modifier"],
         "textures": ["halo", "cushion"],
-        "boosters": ["Alpha Irone", "Methyl Ionone Pure", "Cashmeran", "Coumarin",
-                      "Ultralia", "Ethylene Brassylate", "Macrolide",
-                      "Heliotropal", "Tonalide", "I-IRIS F-TEC",
-                      "Orris F-TEC", "Violet Fleuressence", "Beta Ionone",
-                      "Irotyl"],
+        "boosters": [
+            "Alpha Irone",
+            "Methyl Ionone Pure",
+            "Cashmeran",
+            "Coumarin",
+            "Ultralia",
+            "Ethylene Brassylate",
+            "Macrolide",
+            "Heliotropal",
+            "Tonalide",
+            "I-IRIS F-TEC",
+            "Orris F-TEC",
+            "Violet Fleuressence",
+            "Beta Ionone",
+            "Irotyl",
+        ],
         "description": "Add iris/musk/coumarin powder character",
     },
     "green": {
         "dimensions": ["green", "freshness"],
         "roles": ["character", "modifier"],
         "textures": ["lift"],
-        "boosters": ["cis-3-Hexenol", "Galbanum Resinoid", "Parmavert",
-                      "Dynascone", "Cyclamen Aldehyde", "Leafovert",
-                      "Verdox", "Undecavertol", "Allyl Amyl Glycolate"],
+        "boosters": [
+            "cis-3-Hexenol",
+            "Galbanum Resinoid",
+            "Parmavert",
+            "Dynascone",
+            "Cyclamen Aldehyde",
+            "Leafovert",
+            "Verdox",
+            "Undecavertol",
+            "Allyl Amyl Glycolate",
+        ],
         "description": "Add leafy/herbaceous/galbanum cut-grass character",
     },
     "smoky": {
         "dimensions": ["smoky", "animalic", "warmth"],
         "roles": ["trace", "character"],
         "textures": ["skin-effect"],
-        "boosters": ["Birch Tar Rectified", "Guaiacol", "Styrax FTEC",
-                      "Isobutyl Quinoline", "Olibanum Resinoid", "Evernyl",
-                      "Labdanum Absolute", "Myrrh EO", "Suederal"],
+        "boosters": [
+            "Birch Tar Rectified",
+            "Guaiacol",
+            "Styrax FTEC",
+            "Isobutyl Quinoline",
+            "Olibanum Resinoid",
+            "Evernyl",
+            "Labdanum Absolute",
+            "Myrrh EO",
+            "Suederal",
+        ],
         "description": "Add leather/smoke/incense depth",
     },
     # ── NEW TARGETS — previously missing aromachemical families ──
@@ -257,94 +378,182 @@ _CHANGE_TARGETS = {
         "dimensions": ["freshness", "sweetness"],
         "roles": ["character", "modifier"],
         "textures": ["lift", "veil"],
-        "boosters": ["Paradisamide", "Gamma Decalactone", "Gamma Undecalactone",
-                      "Delta Decalactone", "Blackcurrant FTEC", "Dewberry FTEC",
-                      "Blood Orange oil Sicilian", "Red Mandarin EO",
-                      "Raspberry Ketone", "Methyl Pamplemousse",
-                      "Ethyl 2-Methylbutyrate", "Apritone"],
+        "boosters": [
+            "Paradisamide",
+            "Gamma Decalactone",
+            "Gamma Undecalactone",
+            "Delta Decalactone",
+            "Blackcurrant FTEC",
+            "Dewberry FTEC",
+            "Blood Orange oil Sicilian",
+            "Red Mandarin EO",
+            "Raspberry Ketone",
+            "Methyl Pamplemousse",
+            "Ethyl 2-Methylbutyrate",
+            "Apritone",
+        ],
         "description": "Add tropical/fruity/berry character",
     },
     "woody": {
         "dimensions": ["woody", "warmth"],
         "roles": ["volume", "fixative"],
         "textures": ["cocoon", "skin-effect"],
-        "boosters": ["Iso E Super", "Cedarwood EO", "Cedramber", "Timberol",
-                      "Koavone", "Ebanol", "Javanol", "Bacdanol", "Sandalore",
-                      "Clearwood", "Vetiver EO", "Vetival", "Vertofix Coeur",
-                      "Amberwood F", "Cashmeran"],
+        "boosters": [
+            "Iso E Super",
+            "Cedarwood EO",
+            "Cedramber",
+            "Timberol",
+            "Koavone",
+            "Ebanol",
+            "Javanol",
+            "Bacdanol",
+            "Sandalore",
+            "Clearwood",
+            "Vetiver EO",
+            "Vetival",
+            "Vertofix Coeur",
+            "Amberwood F",
+            "Cashmeran",
+        ],
         "description": "Add woody/cedarwood/sandalwood structural depth",
     },
     "leather": {
         "dimensions": ["animalic", "smoky"],
         "roles": ["character", "trace"],
         "textures": ["skin-effect"],
-        "boosters": ["Suederal", "Birch Tar Rectified", "Isobutyl Quinoline",
-                      "Styrax FTEC", "Guaiacol", "Evernyl",
-                      "Labdanum Absolute", "Benzoin Sumatra Resinoid"],
+        "boosters": [
+            "Suederal",
+            "Birch Tar Rectified",
+            "Isobutyl Quinoline",
+            "Styrax FTEC",
+            "Guaiacol",
+            "Evernyl",
+            "Labdanum Absolute",
+            "Benzoin Sumatra Resinoid",
+        ],
         "description": "Add leather/suede character from clean to dirty",
     },
     "iris": {
         "dimensions": ["powdery", "creamy"],
         "roles": ["character", "modifier"],
         "textures": ["halo", "cushion"],
-        "boosters": ["Alpha Irone", "Methyl Ionone Pure", "Ultralia", "I-IRIS F-TEC",
-                      "Orris F-TEC", "Irotyl", "Alpha Ionone", "Beta Ionone",
-                      "Allyl Ionone", "Violet Fleuressence", "Carrot Seed EO"],
+        "boosters": [
+            "Alpha Irone",
+            "Methyl Ionone Pure",
+            "Ultralia",
+            "I-IRIS F-TEC",
+            "Orris F-TEC",
+            "Irotyl",
+            "Alpha Ionone",
+            "Beta Ionone",
+            "Allyl Ionone",
+            "Violet Fleuressence",
+            "Carrot Seed EO",
+        ],
         "description": "Add iris/orris/violet powdery character",
     },
     "oriental": {
         "dimensions": ["warmth", "sweetness"],
         "roles": ["volume", "character"],
         "textures": ["cocoon", "cushion"],
-        "boosters": ["Benzoin Sumatra Resinoid", "Labdanum Absolute", "Benzoin Resinoid",
-                      "Coumarin", "Vanillin", "Cinnamaldehyde",
-                      "Olibanum Resinoid", "Myrrh EO", "Heliotropal",
-                      "Ambermax", "Amberwood F"],
+        "boosters": [
+            "Benzoin Sumatra Resinoid",
+            "Labdanum Absolute",
+            "Benzoin Resinoid",
+            "Coumarin",
+            "Vanillin",
+            "Cinnamaldehyde",
+            "Olibanum Resinoid",
+            "Myrrh EO",
+            "Heliotropal",
+            "Ambermax",
+            "Amberwood F",
+        ],
         "description": "Add oriental amber/balsamic/incense depth",
     },
     "gourmand": {
         "dimensions": ["sweetness", "creamy"],
         "roles": ["character", "modifier"],
         "textures": ["cushion", "cocoon"],
-        "boosters": ["Ethyl Maltol", "Vanillin", "Ethyl Vanillin",
-                      "Maple Lactone", "Gamma Decalactone", "Delta Decalactone",
-                      "Benzoin Resinoid", "Coumarin", "Raspberry Ketone",
-                      "Heliotropal", "Anisaldehyde"],
+        "boosters": [
+            "Ethyl Maltol",
+            "Vanillin",
+            "Ethyl Vanillin",
+            "Maple Lactone",
+            "Gamma Decalactone",
+            "Delta Decalactone",
+            "Benzoin Resinoid",
+            "Coumarin",
+            "Raspberry Ketone",
+            "Heliotropal",
+            "Anisaldehyde",
+        ],
         "description": "Add sweet/edible/gourmand character",
     },
     "aquatic": {
         "dimensions": ["freshness", "green"],
         "roles": ["character", "modifier"],
         "textures": ["halo", "veil"],
-        "boosters": ["Calone", "Floralozone", "Scentenal", "Helional",
-                      "Nympheal", "Melonal", "Florol"],
+        "boosters": [
+            "Calone",
+            "Floralozone",
+            "Scentenal",
+            "Helional",
+            "Nympheal",
+            "Melonal",
+            "Florol",
+        ],
         "description": "Add marine/watery/ozonic character",
     },
     "muguet": {
         "dimensions": ["freshness", "creamy"],
         "roles": ["character", "radiance"],
         "textures": ["lift", "halo"],
-        "boosters": ["Lilyreal ND", "Bourgeonal", "Hydroxycitronellal",
-                      "Nympheal", "Florol", "Freesia HDI", "Hedione"],
+        "boosters": [
+            "Lilyreal ND",
+            "Bourgeonal",
+            "Hydroxycitronellal",
+            "Nympheal",
+            "Florol",
+            "Freesia HDI",
+            "Hedione",
+        ],
         "description": "Add clean muguet/lily-of-the-valley character",
     },
     "spicy": {
         "dimensions": ["spicy", "warmth"],
         "roles": ["character", "trace"],
         "textures": ["lift", "skin-effect"],
-        "boosters": ["Cardamom EO", "Black Pepper EO", "Clary Sage EO",
-                      "Ethyl Safranate", "Eugenol", "Isoeugenol",
-                      "Cinnamaldehyde", "Lavender EO"],
+        "boosters": [
+            "Cardamom EO",
+            "Black Pepper EO",
+            "Clary Sage EO",
+            "Ethyl Safranate",
+            "Eugenol",
+            "Isoeugenol",
+            "Cinnamaldehyde",
+            "Lavender EO",
+        ],
         "description": "Add spice/aromatic character",
     },
     "floral": {
         "dimensions": ["radiance", "freshness"],
         "roles": ["character", "radiance"],
         "textures": ["halo", "lift"],
-        "boosters": ["Hedione", "DBCA", "Lilyreal ND", "Freesia HDI",
-                      "Bourgeonal", "Hydroxycitronellal", "Phenethyl Alcohol",
-                      "Rose Oxide", "Neroli EO", "Geraniol", "Citronellol",
-                      "Jasmine FO"],
+        "boosters": [
+            "Hedione",
+            "DBCA",
+            "Lilyreal ND",
+            "Freesia HDI",
+            "Bourgeonal",
+            "Hydroxycitronellal",
+            "Phenethyl Alcohol",
+            "Rose Oxide",
+            "Neroli EO",
+            "Geraniol",
+            "Citronellol",
+            "Jasmine FO",
+        ],
         "description": "Add floral character from transparent to rich",
     },
 }
@@ -353,11 +562,12 @@ _CHANGE_TARGETS = {
 @dataclass
 class Suggestion:
     """One actionable suggestion for formula modification."""
-    action: str          # "add", "increase", "decrease", "swap"
+
+    action: str  # "add", "increase", "decrease", "swap"
     material: str
-    amount_ul: float     # suggested µL change
-    reason: str          # chemical effect explanation
-    impact: str          # which characteristic this affects
+    amount_ul: float  # suggested µL change
+    reason: str  # chemical effect explanation
+    impact: str  # which characteristic this affects
 
 
 def suggest_changes(
@@ -383,8 +593,15 @@ def suggest_changes(
     """
     target_config = _CHANGE_TARGETS.get(target.lower())
     if not target_config:
-        return [Suggestion("error", "", 0, f"Unknown target '{target}'. "
-                f"Available: {', '.join(_CHANGE_TARGETS.keys())}", "")]
+        return [
+            Suggestion(
+                "error",
+                "",
+                0,
+                f"Unknown target '{target}'. Available: {', '.join(_CHANGE_TARGETS.keys())}",
+                "",
+            )
+        ]
 
     suggestions = []
     existing = {name.lower().strip() for name in info.ingredients}
@@ -422,31 +639,38 @@ def suggest_changes(
                 active_dose = dose
                 dose = int(dose / bp.dilution)
                 dose = min(dose, 500)  # Cap diluted materials at 500µL
-                dilution_note = f" ({active_dose}µL active at {bp.dilution*100:.0f}%)"
-            dim_str = ", ".join(f"{d}={bp.character.get(d, 0)}" for d in target_config["dimensions"]
-                               if bp.character.get(d, 0) > 2)
-            suggestions.append(Suggestion(
-                action="add",
-                material=booster,
-                amount_ul=dose,
-                reason=f"{bp.role} material ({dim_str}). "
-                       f"Texture: {bp.texture}{dilution_note}. {target_config['description']}.",
-                impact=target,
-            ))
+                dilution_note = f" ({active_dose}µL active at {bp.dilution * 100:.0f}%)"
+            dim_str = ", ".join(
+                f"{d}={bp.character.get(d, 0)}"
+                for d in target_config["dimensions"]
+                if bp.character.get(d, 0) > 2
+            )
+            suggestions.append(
+                Suggestion(
+                    action="add",
+                    material=booster,
+                    amount_ul=dose,
+                    reason=f"{bp.role} material ({dim_str}). "
+                    f"Texture: {bp.texture}{dilution_note}. {target_config['description']}.",
+                    impact=target,
+                )
+            )
         else:
             # Already present — check if dose could be increased
             for orig_name, orig_ul in info.ingredients.items():
                 if booster_lower in orig_name.lower().strip():
                     if orig_ul < 200 and bp.role in ("radiance", "volume"):
                         increase = min(100, max(50, 200 - orig_ul))
-                        suggestions.append(Suggestion(
-                            action="increase",
-                            material=orig_name,
-                            amount_ul=increase,
-                            reason=f"Currently at {orig_ul}µL — increase for stronger "
-                                   f"{target} effect. {bp.texture} texture.",
-                            impact=target,
-                        ))
+                        suggestions.append(
+                            Suggestion(
+                                action="increase",
+                                material=orig_name,
+                                amount_ul=increase,
+                                reason=f"Currently at {orig_ul}µL — increase for stronger "
+                                f"{target} effect. {bp.texture} texture.",
+                                impact=target,
+                            )
+                        )
                     break
 
     # 2. Check for materials that could be swapped for better target alignment
@@ -467,14 +691,16 @@ def suggest_changes(
                     continue
                 sim_target = sum(sim_prof.character.get(d, 0) for d in target_config["dimensions"])
                 if sim_target > target_score + 3:
-                    suggestions.append(Suggestion(
-                        action="swap",
-                        material=f"{name} → {sim_name}",
-                        amount_ul=ul,
-                        reason=f"Swap improves {target} score from {target_score} to {sim_target}. "
-                               f"{sim_prof.dominant_character()} character.",
-                        impact=target,
-                    ))
+                    suggestions.append(
+                        Suggestion(
+                            action="swap",
+                            material=f"{name} → {sim_name}",
+                            amount_ul=ul,
+                            reason=f"Swap improves {target} score from {target_score} to {sim_target}. "
+                            f"{sim_prof.dominant_character()} character.",
+                            impact=target,
+                        )
+                    )
                     break
 
     # Sort by likely impact (boosters first, then increases, then swaps)
@@ -497,13 +723,15 @@ def suggest_changes(
                     syn_count += 1
             s._synergy_fit = syn_total / syn_count if syn_count > 0 else 0.0
         # Stable sort: within same action tier, prefer higher synergy fit
-        suggestions.sort(key=lambda s: (
-            action_order.get(s.action, 9),
-            -getattr(s, '_synergy_fit', 0.0),
-        ))
+        suggestions.sort(
+            key=lambda s: (
+                action_order.get(s.action, 9),
+                -getattr(s, "_synergy_fit", 0.0),
+            )
+        )
         # Annotate top synergy candidates
         for s in suggestions:
-            syn_fit = getattr(s, '_synergy_fit', 0.0)
+            syn_fit = getattr(s, "_synergy_fit", 0.0)
             if syn_fit > 0.1:
                 s.reason += f" [SynergyGraph: +{syn_fit:.2f} avg fit with formula]"
             elif syn_fit < -0.1:
@@ -515,7 +743,7 @@ def suggest_changes(
         tp = temporal_profile
         # 1. Subliminal materials — suggest dose increase
         for name, mt in tp.materials.items():
-            peak_oav = float(mt.oav.max()) if hasattr(mt.oav, 'max') else 0
+            peak_oav = float(mt.oav.max()) if hasattr(mt.oav, "max") else 0
             if peak_oav < 1.0 and name in info.ingredients:
                 current_ul = info.ingredients[name]
                 # Estimate needed boost: need OAV ≥ 1, currently at peak_oav
@@ -525,69 +753,85 @@ def suggest_changes(
                     boost_ul = max(10, min(boost_ul, 200))
                 else:
                     boost_ul = current_ul  # double it
-                suggestions.append(Suggestion(
-                    action="increase",
-                    material=name,
-                    amount_ul=round(boost_ul),
-                    reason=f"SUBLIMINAL: peak OAV {peak_oav:.2f} (<1.0) — invisible at current dose. "
-                           f"Boost to cross perception threshold.",
-                    impact="temporal_perception",
-                ))
+                suggestions.append(
+                    Suggestion(
+                        action="increase",
+                        material=name,
+                        amount_ul=round(boost_ul),
+                        reason=f"SUBLIMINAL: peak OAV {peak_oav:.2f} (<1.0) — invisible at current dose. "
+                        f"Boost to cross perception threshold.",
+                        impact="temporal_perception",
+                    )
+                )
 
         # 2. Heart dropout — if heart note % drops below 20% between 1-4hr
         import numpy as np
+
         t = tp.time_hours
         heart_evo = tp.note_evolution.get("heart", np.zeros_like(t))
         mask_heart_window = (t >= 1.0) & (t <= 4.0)
         if np.any(mask_heart_window):
             min_heart = float(np.min(heart_evo[mask_heart_window]))
             if min_heart < 20.0:
-                suggestions.append(Suggestion(
-                    action="add",
-                    material="[HEART GAP]",
-                    amount_ul=0,
-                    reason=f"TEMPORAL GAP: Heart drops to {min_heart:.0f}% between 1-4hr. "
-                           f"Add a medium-tenacity heart material (MW 200-260) to bridge "
-                           f"the top→base transition.",
-                    impact="temporal_balance",
-                ))
+                suggestions.append(
+                    Suggestion(
+                        action="add",
+                        material="[HEART GAP]",
+                        amount_ul=0,
+                        reason=f"TEMPORAL GAP: Heart drops to {min_heart:.0f}% between 1-4hr. "
+                        f"Add a medium-tenacity heart material (MW 200-260) to bridge "
+                        f"the top→base transition.",
+                        impact="temporal_balance",
+                    )
+                )
 
         # 3. Drydown collapse — if character diversity drops sharply after 6hr
         char_evo = tp.character_evolution
         if char_evo:
             mask_dry = t >= 6.0
             if np.any(mask_dry):
-                active_at_open = sum(1 for d in DIMENSIONS
-                                     if tp.opening_character.get(d, 0) > 5)
-                active_at_dry = sum(1 for d in DIMENSIONS
-                                    if tp.drydown_character.get(d, 0) > 5)
+                active_at_open = sum(1 for d in DIMENSIONS if tp.opening_character.get(d, 0) > 5)
+                active_at_dry = sum(1 for d in DIMENSIONS if tp.drydown_character.get(d, 0) > 5)
                 if active_at_dry < active_at_open * 0.5 and active_at_open >= 3:
-                    suggestions.append(Suggestion(
-                        action="add",
-                        material="[DRYDOWN DIVERSITY]",
-                        amount_ul=0,
-                        reason=f"TEMPORAL GAP: Character collapses from {active_at_open} "
-                               f"active dimensions at opening to {active_at_dry} in drydown. "
-                               f"Add a low-VP character material to maintain richness.",
-                        impact="temporal_complexity",
-                    ))
+                    suggestions.append(
+                        Suggestion(
+                            action="add",
+                            material="[DRYDOWN DIVERSITY]",
+                            amount_ul=0,
+                            reason=f"TEMPORAL GAP: Character collapses from {active_at_open} "
+                            f"active dimensions at opening to {active_at_dry} in drydown. "
+                            f"Add a low-VP character material to maintain richness.",
+                            impact="temporal_complexity",
+                        )
+                    )
 
     return suggestions[:n_suggestions]
 
 
 # ── Reporting ──
 
+
 def format_scores(scores: dict, formula_name: str = "") -> str:
     """Format multi-axis scores as readable text with radar data."""
     lines = []
     if formula_name:
-        lines.append(f"\n{'='*60}")
+        lines.append(f"\n{'=' * 60}")
         lines.append(f"  {formula_name}")
-        lines.append(f"{'='*60}")
+        lines.append(f"{'=' * 60}")
 
     # Main scores (original 10 axes)
-    axes = ["longevity", "sillage", "balance", "theory", "radiance",
-            "texture", "complexity", "character_balance", "synergy", "cost"]
+    axes = [
+        "longevity",
+        "sillage",
+        "balance",
+        "theory",
+        "radiance",
+        "texture",
+        "complexity",
+        "character_balance",
+        "synergy",
+        "cost",
+    ]
     lines.append("")
     lines.append("  MULTI-AXIS SCORES (0-100)")
     lines.append("  " + "-" * 40)
@@ -596,9 +840,13 @@ def format_scores(scores: dict, formula_name: str = "") -> str:
             bar = "█" * int(scores[axis] / 5) + "░" * (20 - int(scores[axis] / 5))
             lines.append(f"  {axis:>17s}  {bar} {scores[axis]:5.1f}")
 
-    # Science axes (5 new)
-    science_axes = ["safety", "skin_performance", "hedonic",
-                    "perceptual_clarity", "emotional_coherence"]
+    # Science diagnostics with composition-derived liking excluded.
+    science_axes = [
+        "safety",
+        "skin_performance",
+        "perceptual_clarity",
+        "emotional_coherence",
+    ]
     has_science = any(a in scores for a in science_axes)
     if has_science:
         lines.append("")
@@ -608,6 +856,15 @@ def format_scores(scores: dict, formula_name: str = "") -> str:
             if axis in scores:
                 bar = "█" * int(scores[axis] / 5) + "░" * (20 - int(scores[axis] / 5))
                 lines.append(f"  {axis:>17s}  {bar} {scores[axis]:5.1f}")
+
+    hedonic_evidence = scores.get("_hedonic_evidence", {})
+    if hedonic_evidence:
+        lines.append("")
+        lines.append("  LIKING EVIDENCE")
+        lines.append("  " + "-" * 40)
+        lines.append(
+            f"  {'State':>17s}  {hedonic_evidence.get('state', 'NOT_TESTED')}"
+        )
 
     lines.append("")
     lines.append(f"  {'Arithmetic Total':>17s}  {scores.get('arithmetic_total', 0):5.1f}")
@@ -646,9 +903,7 @@ def format_life_graph_summary(life_graph) -> str:
     lines.append("  CHEMICAL LIFE GRAPH")
     lines.append("  " + "-" * 40)
     lines.append(f"  {'Health Score':>17s}  {life_graph.health_score:5.1f}")
-    lines.append(
-        f"  {'Overall Synergy':>17s}  {life_graph.synergy_report.overall_synergy:+5.3f}"
-    )
+    lines.append(f"  {'Overall Synergy':>17s}  {life_graph.synergy_report.overall_synergy:+5.3f}")
 
     if life_graph.weight_diagnosis.overweight:
         dim, excess = life_graph.weight_diagnosis.overweight[0]
@@ -683,7 +938,9 @@ def format_temporal_summary(scores: dict) -> str:
         if temporal["transitions"]:
             trans = temporal["transitions"]
             for tr in trans[:3]:
-                lines.append(f"  {'Transition':>17s}  {tr['from']}→{tr['to']} at {tr.get('at_label', '')}")
+                lines.append(
+                    f"  {'Transition':>17s}  {tr['from']}→{tr['to']} at {tr.get('at_label', '')}"
+                )
 
     synergy_detail = scores.get("_synergy_detail")
     if synergy_detail:
@@ -760,15 +1017,19 @@ def format_science_summary(scores: dict) -> str:
         if violations:
             lines.append(f"  {'!! VIOLATIONS':>17s}  {len(violations)}")
             for v in violations[:5]:
-                sev = v.get('severity', '')
-                lines.append(f"  {'':>17s}  {v['material']}: "
-                             f"{v['actual_pct']:.1f}% vs {v['limit_pct']:.1f}% limit "
-                             f"({sev})")
+                sev = v.get("severity", "")
+                lines.append(
+                    f"  {'':>17s}  {v['material']}: "
+                    f"{v['actual_pct']:.1f}% vs {v['limit_pct']:.1f}% limit "
+                    f"({sev})"
+                )
         warnings = safety.get("warnings") or []
         if warnings:
             for w in warnings[:3]:
-                lines.append(f"  {'Warning':>17s}  {w['material']}: "
-                             f"{w['actual_pct']:.1f}% ({w['usage_pct']:.0f}% of limit)")
+                lines.append(
+                    f"  {'Warning':>17s}  {w['material']}: "
+                    f"{w['actual_pct']:.1f}% ({w['usage_pct']:.0f}% of limit)"
+                )
 
     # ── Skin Interaction ──
     skin = sci.get("skin", {})
@@ -781,15 +1042,6 @@ def format_science_summary(scores: dict) -> str:
         for d in (skin.get("diagnostics") or [])[:3]:
             lines.append(f"  {'':>17s}  {d}")
 
-    # ── Hedonic Valence ──
-    hedonic = sci.get("hedonic", {})
-    if hedonic.get("valence") is not None:
-        lines.append("")
-        lines.append("  HEDONIC VALENCE")
-        lines.append("  " + "-" * 40)
-        lines.append(f"  {'Valence':>17s}  {hedonic['valence']:+.3f}")
-        lines.append(f"  {'Class':>17s}  {hedonic.get('pleasantness', '?')}")
-
     # ── Psychophysics ──
     psych = sci.get("psychophysics", {})
     if psych.get("perceptible") is not None:
@@ -801,8 +1053,10 @@ def format_science_summary(scores: dict) -> str:
         anosmia = psych.get("anosmia_risk") or []
         if anosmia:
             for am in anosmia[:3]:
-                lines.append(f"  {'Anosmia Risk':>17s}  {am['material']} "
-                             f"({am['receptor']}, {am['prevalence']:.0%})")
+                lines.append(
+                    f"  {'Anosmia Risk':>17s}  {am['material']} "
+                    f"({am['receptor']}, {am['prevalence']:.0%})"
+                )
 
     # ── Emotional Mapping ──
     emo = sci.get("emotional", {})
@@ -858,6 +1112,7 @@ def format_science_summary(scores: dict) -> str:
 
 
 # ── Main Entry Point ──
+
 
 def run_analysis(
     formula_num: int | None = None,
@@ -997,9 +1252,7 @@ def run_analysis(
                 print(f"    {w}")
 
         # ── Gap Detection Analysis ──
-        gap_report = GapDetector().analyze(
-            formula_materials=list(info.ingredients.keys())
-        )
+        gap_report = GapDetector().analyze(formula_materials=list(info.ingredients.keys()))
         formula_gaps = _formula_specific_gaps(info, gap_report)
         if formula_gaps:
             print("\n  STRUCTURAL GAP ANALYSIS:")
@@ -1021,7 +1274,8 @@ def run_analysis(
             print(f"\n  SUGGESTIONS for → {suggest_target.upper()}")
             print("  " + "-" * 40)
             suggestions = suggest_changes(
-                info, suggest_target,
+                info,
+                suggest_target,
                 synergy_graph=synergy_graph,
                 temporal_profile=temporal_profile,
             )
@@ -1034,28 +1288,32 @@ def run_analysis(
         print("\n" + "=" * 80)
         print("  COMPARATIVE SUMMARY (Temporal + Synergy + Science)")
         print("=" * 80)
-        print(f"  {'Formula':<30s} {'Geom':>6s} {'Arith':>6s} {'Health':>6s} {'Long':>5s} "
-              f"{'Sill':>5s} {'Safe':>5s} {'Hed':>5s} {'Emo':>5s} {'★Avg':>5s} {'Conf':>5s}")
+        print(
+            f"  {'Formula':<30s} {'Geom':>6s} {'Arith':>6s} {'Health':>6s} {'Long':>5s} "
+            f"{'Sill':>5s} {'Safe':>5s} {'Emo':>5s} {'★Avg':>5s} {'Conf':>5s}"
+        )
         print("  " + "-" * 88)
         for info in formulas:
             s = all_scores[info.number]
             life_graph = all_life_graphs[info.number]
             conf_data = s.get("_confidence", {})
-            print(f"  F{info.number}. {info.name:<26s} "
-                  f"{s.get('geometric_total', 0):6.1f} "
-                  f"{s.get('arithmetic_total', 0):6.1f} "
-                  f"{life_graph.health_score:6.1f} "
-                  f"{s.get('longevity', 0):5.1f} "
-                  f"{s.get('sillage', 0):5.1f} "
-                  f"{s.get('safety', 0):5.1f} "
-                  f"{s.get('hedonic', 0):5.1f} "
-                  f"{s.get('emotional_coherence', 0):5.1f} "
-                  f"{s.get('_star_avg', 0):5.1f} "
-                  f"{conf_data.get('overall_confidence', 0):5.1f}")
+            print(
+                f"  F{info.number}. {info.name:<26s} "
+                f"{s.get('geometric_total', 0):6.1f} "
+                f"{s.get('arithmetic_total', 0):6.1f} "
+                f"{life_graph.health_score:6.1f} "
+                f"{s.get('longevity', 0):5.1f} "
+                f"{s.get('sillage', 0):5.1f} "
+                f"{s.get('safety', 0):5.1f} "
+                f"{s.get('emotional_coherence', 0):5.1f} "
+                f"{s.get('_star_avg', 0):5.1f} "
+                f"{conf_data.get('overall_confidence', 0):5.1f}"
+            )
         print()
 
 
 # ── Reverse Engineering Integration ──────────────────────────────────
+
 
 def run_reverse_engineering(pool: EvidencePool) -> None:
     """Run reverse engineering on an evidence pool, then optionally score the result."""
@@ -1072,58 +1330,99 @@ def run_reverse_engineering(pool: EvidencePool) -> None:
             )
             scorer = FormulaScorer()
             scores = scorer.score(fv)
-            print(f"\n{'─'*60}")
-            print(f"  RECONSTRUCTED FORMULA — PIPELINE SCORING")
-            print(f"{'─'*60}")
+            print(f"\n{'─' * 60}")
+            print("  RECONSTRUCTED FORMULA — PIPELINE SCORING")
+            print(f"{'─' * 60}")
             print(f"  Geometric total: {scores.get('geometric_total', 0):.1f}")
             print(f"  Longevity:       {scores.get('longevity', 0):.1f}")
             print(f"  Sillage:         {scores.get('sillage', 0):.1f}")
             print(f"  Balance:         {scores.get('balance', 0):.1f}")
-            print(f"  Hedonic:         {scores.get('hedonic', 0):.1f}")
+            print("  Liking evidence: NOT_TESTED")
 
 
 def run_reverse_engineering_demo():
     """Demo: reconstruct DHI from mixed evidence and score it."""
     pool = EvidencePool("Dior Homme Intense")
 
-    pool.add(EvidenceItem("gcms", "Alpha-Isomethyl Ionone", 0.95,
-                          concentration_pct=17.8,
-                          raw_text="Strong AIMI peak, RT 28.3 min, NIST match 94%"))
-    pool.add(EvidenceItem("gcms", "Iso E Super", 0.92,
-                          concentration_pct=8.0,
-                          raw_text="IES peak cluster, RT 32.1 min"))
-    pool.add(EvidenceItem("gcms", "Hedione", 0.88,
-                          concentration_pct=15.0,
-                          raw_text="Methyl dihydrojasmonate, RT 25.7 min"))
-    pool.add(EvidenceItem("gcms", "Coumarin", 0.90,
-                          concentration_pct=6.3,
-                          raw_text="Coumarin peak, RT 22.4 min"))
+    pool.add(
+        EvidenceItem(
+            "gcms",
+            "Alpha-Isomethyl Ionone",
+            0.95,
+            concentration_pct=17.8,
+            raw_text="Strong AIMI peak, RT 28.3 min, NIST match 94%",
+        )
+    )
+    pool.add(
+        EvidenceItem(
+            "gcms",
+            "Iso E Super",
+            0.92,
+            concentration_pct=8.0,
+            raw_text="IES peak cluster, RT 32.1 min",
+        )
+    )
+    pool.add(
+        EvidenceItem(
+            "gcms",
+            "Hedione",
+            0.88,
+            concentration_pct=15.0,
+            raw_text="Methyl dihydrojasmonate, RT 25.7 min",
+        )
+    )
+    pool.add(
+        EvidenceItem(
+            "gcms", "Coumarin", 0.90, concentration_pct=6.3, raw_text="Coumarin peak, RT 22.4 min"
+        )
+    )
 
-    pool.add_many(parse_allergen_list(
-        "Alpha-Isomethyl Ionone, Linalool, Coumarin, "
-        "Limonene, Citronellol, Geraniol, Hydroxycitronellal"
-    ))
+    pool.add_many(
+        parse_allergen_list(
+            "Alpha-Isomethyl Ionone, Linalool, Coumarin, "
+            "Limonene, Citronellol, Geraniol, Hydroxycitronellal"
+        )
+    )
 
-    pool.add_many(parse_note_pyramid(
-        top=["lavender", "iris", "bergamot"],
-        heart=["iris", "cedar", "amber"],
-        base=["leather", "vanilla", "vetiver"],
-    ))
+    pool.add_many(
+        parse_note_pyramid(
+            top=["lavender", "iris", "bergamot"],
+            heart=["iris", "cedar", "amber"],
+            base=["leather", "vanilla", "vetiver"],
+        )
+    )
 
-    pool.add_many(parse_review_consensus({
-        "iris": 0.82, "powder": 0.71, "wood": 0.65,
-        "amber": 0.58, "leather": 0.42, "cocoa": 0.38,
-    }, total_reviewers=2500))
+    pool.add_many(
+        parse_review_consensus(
+            {
+                "iris": 0.82,
+                "powder": 0.71,
+                "wood": 0.65,
+                "amber": 0.58,
+                "leather": 0.42,
+                "cocoa": 0.38,
+            },
+            total_reviewers=2500,
+        )
+    )
 
-    pool.add(EvidenceItem("perfumer", "Alpha-Isomethyl Ionone", 0.85,
-                          raw_text="François Demachy: 'a massive iris accord'"))
-    pool.add(EvidenceItem("perfumer", "Iso E Super", 0.70,
-                          raw_text="Interview: 'woody molecular depth'"))
+    pool.add(
+        EvidenceItem(
+            "perfumer",
+            "Alpha-Isomethyl Ionone",
+            0.85,
+            raw_text="François Demachy: 'a massive iris accord'",
+        )
+    )
+    pool.add(
+        EvidenceItem("perfumer", "Iso E Super", 0.70, raw_text="Interview: 'woody molecular depth'")
+    )
 
     run_reverse_engineering(pool)
 
 
 # ── OAV + Gap helpers ────────────────────────────────────────────────
+
 
 def _validate_oav_perception(info: FormulaInfo, total_ul: float) -> list[str]:
     """Check if materials are above/below their odor activity threshold.
@@ -1184,12 +1483,21 @@ def _formula_specific_gaps(info: FormulaInfo, gap_report) -> list[str]:
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="Multi-axis formula analyzer")
     parser.add_argument("--formula", "-f", type=int, help="Formula number (1-9)")
-    parser.add_argument("--suggest", "-s", type=str, help="Suggest changes for target: "
-                        + ", ".join(_CHANGE_TARGETS.keys()))
-    parser.add_argument("--reverse", "-r", action="store_true",
-                        help="Run reverse engineering demo (Dior Homme Intense)")
+    parser.add_argument(
+        "--suggest",
+        "-s",
+        type=str,
+        help="Suggest changes for target: " + ", ".join(_CHANGE_TARGETS.keys()),
+    )
+    parser.add_argument(
+        "--reverse",
+        "-r",
+        action="store_true",
+        help="Run reverse engineering demo (Dior Homme Intense)",
+    )
     args = parser.parse_args()
     if args.reverse:
         run_reverse_engineering_demo()

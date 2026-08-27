@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S01",
+  "completed_utc": "2026-08-26T07:22:04.094982+00:00",
+  "dispatch_sha256": "9e4e320d6c7fdf26b31e897de84172a7ddece0896fef6d8acc778f05bdc226c5",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "19079fc3c9d1daa7dced36ab53205b2d338c24c5909ac40c9a0ff302df949ede",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Observed dry-wood depth rises between 60 and 1800 seconds: the median increases from 3 to 5.5, an observed transition of +2.5.\",\"controlled_comparison\":{\"protocol_id\":\"AUG-TEM-S01\",\"endpoint_id\":\"DEPTH\",\"schedule_hash\":\"sched-aug-tem-s01\",\"at_60_seconds\":{\"values\":[2,3,3,4],\"median\":3},\"at_1800_seconds\":{\"values\":[5,5,6,6],\"median\":5.5},\"median_transition\":2.5,\"direction\":\"RISE\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"decision_state\":\"AUGMENT\",\"reason_codes\":[\"OBSERVED_DEPTH_RISE\",\"COMPLETE_UNIQUE_CELLS\",\"NO_TRIGGERED_DATA_QUALITY_HOLD\"],\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "cd539f9b836995111c2ec1fd72b31e84c7bd3aaed134c50fd28c0327e8692087",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-2ac947c8df12875569ad",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:49.436818+00:00",
+  "stderr_sha256": "cefc97d965b2db343d60e0e1ae2081573b2e7a022f34730082e6c7429758b066",
+  "stderr_tail": "ning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_1800_seconds\":\"compute from the supplied evidence\",\"median_at_60_seconds\":\"compute from the supplied evidence\",\"median_transition\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Observed dry-wood depth rises between 60 and 1800 seconds: the median increases from 3 to 5.5, an observed transition of +2.5.\",\"controlled_comparison\":{\"protocol_id\":\"AUG-TEM-S01\",\"endpoint_id\":\"DEPTH\",\"schedule_hash\":\"sched-aug-tem-s01\",\"at_60_seconds\":{\"values\":[2,3,3,4],\"median\":3},\"at_1800_seconds\":{\"values\":[5,5,6,6],\"median\":5.5},\"median_transition\":2.5,\"direction\":\"RISE\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"decision_state\":\"AUGMENT\",\"reason_codes\":[\"OBSERVED_DEPTH_RISE\",\"COMPLETE_UNIQUE_CELLS\",\"NO_TRIGGERED_DATA_QUALITY_HOLD\"],\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":2.5}}}\ntokens used\n5,359\n",
+  "stdout_sha256": "7f24329cc922105515de2055501158e1e01409b3f4bd8ba741032001a80fb69e"
+}

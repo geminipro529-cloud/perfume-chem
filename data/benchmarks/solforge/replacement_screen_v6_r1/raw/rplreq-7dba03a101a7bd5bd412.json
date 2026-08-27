@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:33:41.661332+00:00",
+  "dispatch_sha256": "a49efcfedbaaa48d052ee4f4e29fed784652b28af142fa5dcef72e8e61b1ea54",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "64432fde7a11495e508554cfc05a0b3e3309b3eb8550f0ddec6928f23c2beda8",
+  "output_text": "{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"All 8 observed winners were first-presented. Because product identity and presentation position were perfectly confounded and no reverse-order replicates exist, the evidence cannot identify whether the apparent liking difference reflects product preference or a first-position effect. Directional product utilities are therefore not identifiable from these comparisons.\",\"controlled_comparison\":\"INADEQUATE_FOR_PRODUCT_PREFERENCE_INFERENCE\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"reason_codes\":[\"PERFECT_POSITION_PRODUCT_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":{\"wins\":8,\"comparisons\":8,\"rate\":1.0,\"percent\":100}},\"next_actions\":[\"Repeat the blinded comparisons with randomized, counterbalanced presentation order so each product appears equally often in each position.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "2d4218aa2d97380038c923c663573b568ee6edd03e9fb08c33e9084fcd650315",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-7dba03a101a7bd5bd412",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:27.555726+00:00",
+  "stderr_sha256": "03ecd235a281a93a57bd8a753e885659779e971ffb4462f4336f1917987b298b",
+  "stderr_tail": "\",\"DIAGNOSTIC\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"first_position_win_rate\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"All 8 observed winners were first-presented. Because product identity and presentation position were perfectly confounded and no reverse-order replicates exist, the evidence cannot identify whether the apparent liking difference reflects product preference or a first-position effect. Directional product utilities are therefore not identifiable from these comparisons.\",\"controlled_comparison\":\"INADEQUATE_FOR_PRODUCT_PREFERENCE_INFERENCE\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"reason_codes\":[\"PERFECT_POSITION_PRODUCT_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":{\"wins\":8,\"comparisons\":8,\"rate\":1.0,\"percent\":100}},\"next_actions\":[\"Repeat the blinded comparisons with randomized, counterbalanced presentation order so each product appears equally often in each position.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,104\n",
+  "stdout_sha256": "66a588d5fc476c3cff5083b1f54e7106555ec7ff2bd31bc7f4f172f935bd2fd2"
+}

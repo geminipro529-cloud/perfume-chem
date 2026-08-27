@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:22:11.773876+00:00",
+  "dispatch_sha256": "4796c04d5d010ca3b35ccb68ddb2bc81a59917eacbcf083b4a8c13a14b981a8e",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "7d5595c68c75fa30d8bbf2b706e7d5a6ca99b66a85641f2ac97d86d184782fa0",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell contains two conflicting observations (3 and 7) with distinct source hashes. Because no provenance rule identifies a superseding record, neither value can be preferred and averaging them to 5 would create a derived value that conceals the unresolved ledger conflict.\",\"controlled_comparison\":{\"canonical_cell_record_count\":2,\"observed_values\":[3,7],\"proposed_mean\":5,\"duplicate_excess_record_count\":1,\"interpretation\":\"The mean is not an observed canonical-cell value and does not resolve provenance.\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"UNJUSTIFIED_DUPLICATE_AVERAGING\"],\"next_actions\":[\"Establish and apply a provenance-based adjudication rule that identifies whether either source record supersedes the other.\"],\"physical_liking_state\":\"NOT TESTED\",\"inventory_state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4b8b9e8c975c50513091263cf6733b4bb0b69272f5f3583cbe940117e9c556bc",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-f84725cd6df95e0c76a1",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:53.709555+00:00",
+  "stderr_sha256": "da0f3803bcd0949e714e4dae2786a1f932dfd67a9bfc3b2a6dea2d5f726366a6",
+  "stderr_tail": "ublication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"The canonical cell contains two conflicting observations (3 and 7) with distinct source hashes. Because no provenance rule identifies a superseding record, neither value can be preferred and averaging them to 5 would create a derived value that conceals the unresolved ledger conflict.\",\"controlled_comparison\":{\"canonical_cell_record_count\":2,\"observed_values\":[3,7],\"proposed_mean\":5,\"duplicate_excess_record_count\":1,\"interpretation\":\"The mean is not an observed canonical-cell value and does not resolve provenance.\"},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"CONFLICTING_CANONICAL_CELL_VALUES\",\"DISTINCT_SOURCE_PROVENANCE\",\"NO_SUPERSESSION_RULE\",\"UNJUSTIFIED_DUPLICATE_AVERAGING\"],\"next_actions\":[\"Establish and apply a provenance-based adjudication rule that identifies whether either source record supersedes the other.\"],\"physical_liking_state\":\"NOT TESTED\",\"inventory_state\":\"NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}}}\ntokens used\n5,290\n",
+  "stdout_sha256": "5b6a70dffaa11fa75135a5c9c43849d653b5c361a5d85391f4c9a8e614c8cd70"
+}

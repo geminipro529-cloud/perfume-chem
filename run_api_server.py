@@ -1,40 +1,32 @@
 #!/usr/bin/env python3
-"""
-Run the API server with correct Python path setup.
-This fixes the "ModuleNotFoundError: No module named 'app'" issue.
-"""
+"""Run the backend API from the repository root."""
 
-import sys
+from __future__ import annotations
+
 import os
+from pathlib import Path
+
 import uvicorn
 
-# Add the backend directory to Python path
-backend_dir = os.path.join(os.path.dirname(__file__), "backend")
-if backend_dir not in sys.path:
-    sys.path.insert(0, backend_dir)
 
-# Add the current directory to Python path
-current_dir = os.path.dirname(__file__)
-if current_dir not in sys.path:
-    sys.path.insert(0, current_dir)
-
-print("Starting API Server with Python path fix")
-print("=" * 60)
-print("Python path includes:")
-for path in sys.path[:5]:  # Show first 5 paths
-    print(f"  - {path}")
-if len(sys.path) > 5:
-    print(f"  - ... and {len(sys.path) - 5} more")
-
-print("\n" + "=" * 60)
-print("Starting uvicorn server...")
-print("=" * 60)
-
-if __name__ == "__main__":
+def main() -> None:
+    inventory_authority = os.environ.get("PERFUME_CHEM_V5_INVENTORY")
+    if inventory_authority:
+        os.environ.setdefault("SOLFORGE_INVENTORY_PATH", inventory_authority)
+        os.environ.setdefault(
+            "PERFUME_COMPLEXITY_INVENTORY_WORKBOOK",
+            inventory_authority,
+        )
+    backend_dir = Path(__file__).resolve().parent / "backend"
     uvicorn.run(
         "app.main:app",
-        host="0.0.0.0",
+        host="127.0.0.1",
         port=8000,
-        reload=True,
-        log_level="info"
+        reload=False,
+        log_level="info",
+        app_dir=str(backend_dir),
     )
+
+
+if __name__ == "__main__":
+    main()

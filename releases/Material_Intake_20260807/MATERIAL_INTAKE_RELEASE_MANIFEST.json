@@ -1,0 +1,160 @@
+{
+ "artifact": "MATERIAL_INTAKE_RELEASE_MANIFEST",
+ "release": "Material_Intake_20260807",
+ "bundle": "MATERIAL_INTAKE_RELEASE_BUNDLE.zip",
+ "manifest_self_hash_included": false,
+ "generated_utc": "2026-08-06T21:08:12.009902+00:00",
+ "member_count": 30,
+ "members": [
+  {
+   "path": "artifacts/MATERIAL_CONSISTENCY_RESULTS.json",
+   "size": 4406,
+   "sha256": "902c5c0363575b5107c5b2729d4a962ffa15ed62b8a2c96788cef5cdbc8bdfa0"
+  },
+  {
+   "path": "artifacts/MATERIAL_CONSISTENCY_RESULTS.md",
+   "size": 5291,
+   "sha256": "92167d56cc9365838cd868bb1b99163386b61f5b42a8195b096cd17a3ff16710"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_AUDIT_FINDINGS.md",
+   "size": 2234,
+   "sha256": "b19f04287a80cba60843b2ec94bfa07d21af3c260e92e7b350127b635b2b20bd"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_FIX_20260807.json",
+   "size": 3579,
+   "sha256": "62c7e32fd5b3d572e99ebb1bca482229470aa36412e717d89f14c11768fb8ac4"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_FIX_20260807.md",
+   "size": 3615,
+   "sha256": "c5162ed72ca5ae0f697d98c1b68fcdc2deece5634dd9ca99b35ef0a3b8886a5e"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_PARSE_REPORT.json",
+   "size": 15533,
+   "sha256": "025d6c291fa8bce810a79f3fa5ca93d204d3f4dc773b69e40e4966be95bebff9"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_REAUDIT_FINDINGS.md",
+   "size": 827,
+   "sha256": "81479d317865f25868a272aacb6c84f6686cba31c3ebc446c90f9912527042b4"
+  },
+  {
+   "path": "artifacts/MATERIAL_INTAKE_REMEDIATION.json",
+   "size": 1152,
+   "sha256": "350ac92cb1b4289f358013cbdb4e1c48bb7b7a801aa0e777d5613cfe03c31c9e"
+  },
+  {
+   "path": "artifacts/MATERIAL_SMOKE_TEST_RESULTS.json",
+   "size": 7488,
+   "sha256": "51be1f2080fc9ec33960c47843c92f51a13ee032cb9562207f48b44e0ba4b44a"
+  },
+  {
+   "path": "artifacts/MATERIAL_SMOKE_TEST_RESULTS.md",
+   "size": 3581,
+   "sha256": "f8bd50ea627871e8fed98a2a6c24f9191e7b1710d94e9da5e97a1d963ec68f2b"
+  },
+  {
+   "path": "artifacts/MATERIAL_YAML_REAUDIT_RESULTS.json",
+   "size": 8452,
+   "sha256": "b030389c377e4da97303293ad63fc50190c9da0134602c6147233582032fbeb1"
+  },
+  {
+   "path": "artifacts/MATERIAL_YAML_REAUDIT_RESULTS.md",
+   "size": 7307,
+   "sha256": "9a442d3812b2be943570515d64e87493a317f4e13432dec75b3320b23cf2a2ba"
+  },
+  {
+   "path": "artifacts/PROPERTY_SOURCE_REGISTER.json",
+   "size": 46886,
+   "sha256": "991750a5d3600a08468e786780b33d085fb3b4ac51b0fbbde6b564ca4fb433de"
+  },
+  {
+   "path": "artifacts/PROPERTY_SOURCE_REGISTER.md",
+   "size": 44880,
+   "sha256": "7591d6756c955d723af52410810164e5c448d2da2b65775399ee38458490110c"
+  },
+  {
+   "path": "source_snapshots/_generate_material_properties.py",
+   "size": 39366,
+   "sha256": "9934167a7ed69205d3e1c02588591fb3b209885402dee000d37fa884f6c8683b"
+  },
+  {
+   "path": "source_snapshots/data/knowledge_graph/audit_flags.json",
+   "size": 10408,
+   "sha256": "ebfa14c1b375497e59b4702d7b2a7050d3d0e7e7829c5c122a416b76e50a920b"
+  },
+  {
+   "path": "source_snapshots/data/knowledge_graph/material_properties.json",
+   "size": 610655,
+   "sha256": "4855d16bff2f9ad08643724be053d164382a4b058125d29c342b7bafbfb8e66f"
+  },
+  {
+   "path": "source_snapshots/data/materials/B.yaml",
+   "size": 75494,
+   "sha256": "033bf196e12ec311cde29aa0072e60fa7cdc52bdd8a7c9cc357e8bd442f140e0"
+  },
+  {
+   "path": "source_snapshots/data/materials/C.yaml",
+   "size": 159624,
+   "sha256": "f8bac9ded1c4209fccb8dd9689db78012e8b180704bbcc22e257e4567084808c"
+  },
+  {
+   "path": "source_snapshots/data/materials/E.yaml",
+   "size": 37172,
+   "sha256": "809e4142dab9c6568a806bb622c971e65db16573fecd540976a0f40bbb9cb139"
+  },
+  {
+   "path": "source_snapshots/data/materials/H.yaml",
+   "size": 38827,
+   "sha256": "f78d2e4e068975330ea50e9275ed6750bee9b29a3bdecd9ed7d53d95e3c67399"
+  },
+  {
+   "path": "source_snapshots/data/materials/N.yaml",
+   "size": 38939,
+   "sha256": "282765edee3158c453ee913abf781644471a1ecfc2a2691b9b9446f76faa4990"
+  },
+  {
+   "path": "source_snapshots/data/materials/P.yaml",
+   "size": 88945,
+   "sha256": "69f7334d3e30b73d22ec8ae96d3d5313af63c43dc56b4a3a276a1ac481d81f60"
+  },
+  {
+   "path": "source_snapshots/data/materials/S.yaml",
+   "size": 85332,
+   "sha256": "be022163d308d94cfc1dd2e01b61919d978747b09a019d917df8e9a1712e2411"
+  },
+  {
+   "path": "source_snapshots/data/materials/T.yaml",
+   "size": 97830,
+   "sha256": "ae56d1a9602f70de259d5a65b991e61398bfe8ce62f6652ce43dd0fcebe665dc"
+  },
+  {
+   "path": "source_snapshots/data/materials/V.yaml",
+   "size": 27501,
+   "sha256": "664f7aa8ab2ed965fd9055df9964fc938726883ea2f36dfb19fde5bf6c37f279"
+  },
+  {
+   "path": "source_snapshots/engine/ingredient_intelligence.py",
+   "size": 166964,
+   "sha256": "5edf03e8c6fc2896199b4017378591e18a327f827eb7721ebb5cf4393c2668c2"
+  },
+  {
+   "path": "source_snapshots/engine/name_utils.py",
+   "size": 9345,
+   "sha256": "ddb1af62386e1f29d8d48d588bab28b8380c64f4807397b11857e07305e97522"
+  },
+  {
+   "path": "source_snapshots/engine/odor_thresholds.py",
+   "size": 143953,
+   "sha256": "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+  },
+  {
+   "path": "source_snapshots/inventory.txt",
+   "size": 16966,
+   "sha256": "b9ac71fff6f6d47f9e253db1d18d41739dbb598ec4a00b5543084747f3f96500"
+  }
+ ]
+}

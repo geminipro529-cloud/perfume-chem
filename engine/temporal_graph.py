@@ -19,14 +19,16 @@ Output: 4-panel matplotlib figure per formula showing:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
 from engine.ingredient_intelligence import (
-    get_profile, DIMENSIONS, MaterialProfile,
+    DIMENSIONS,
+    MaterialProfile,
+    get_profile,
 )
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -264,7 +266,6 @@ _ODT_LITERATURE: dict[str, float] = {
     # ──────────────────────────────────────────────────────────────
     "Black Pepper FTEC": 3.0,
     "Black Pepper materials": 3.0,
-    "Cardamom EO": 4.0,
     "Cardamom EO": 4.0,
     "Pink Pepper Base": 5.0,
     "Ethyl Safranate": 0.5,
@@ -505,7 +506,7 @@ class TemporalEngine:
         # Typical total headspace for a fresh perfume: ~1000-10000 ppb
 
         # Initial total partial pressure sum (Pa)
-        initial_total_pa = sum(
+        sum(
             d["pct"] * d["vp_skin"]
             for d in mat_data.values()
         )
@@ -783,8 +784,8 @@ class TemporalVisualizer:
         import matplotlib
         if not show:
             matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
         import matplotlib.gridspec as gridspec
+        import matplotlib.pyplot as plt
 
         fig = plt.figure(figsize=(26, 24))
         fig.patch.set_facecolor(self.BG_COLOR)

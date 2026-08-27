@@ -44,9 +44,12 @@ external scientific reviewer / AI assistant. It states **what we model**,
 See `python -m engine.science_audit` for the live machine-readable
 report. Highlights:
 
-- **Antoine A/B/C**: 0% coverage in the current data spine. VP(T) above 40 °C
-  is extrapolated from VP_25 + ΔHvap (Clausius–Clapeyron), which under-
-  estimates volatility for branched/macrocyclic structures.
+- **Antoine A/B/C**: 0% coverage in the current data spine. VP(T) uses measured
+  ΔHvap where available and otherwise the published ambient-temperature
+  Goss-Schwarzenbach correlation from VP_25 before Clausius-Clapeyron
+  correction. The inferred ΔHvap is exposed per material and remains
+  heuristic; solids, subcooled-liquid conventions, and values outside the
+  source domain still require measured data.
 - **UNIFAC**: thermo's UNIFAC needs SMARTS group decomposition per material;
   presently stubbed. Hansen-distance heuristic is calibrated to limonene-in-
   EtOH only.

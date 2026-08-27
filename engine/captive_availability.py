@@ -11,7 +11,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-
 # ── Captive material registry ──────────────────────────────────────────────────
 CAPTIVE_MATERIALS: dict[str, dict] = {
     # material_name_lower → {house, launch_year, status, notes}
@@ -246,7 +245,7 @@ def analyze_captive_availability(
             # Licensed / patent-expired — any house may use it
             is_available = True
             penalty = 0.0
-            note = f"Licensed/patent-expired; available to all houses."
+            note = "Licensed/patent-expired; available to all houses."
         elif employer in _OPEN_EMPLOYERS or employer == "unknown":
             # Independent / brand in-house perfumer — conservative: treat captive access
             # as unlikely but not impossible (penalty 0.5).

@@ -1,0 +1,19 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch ____
+
+    def test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch() -> None:
+        program = _program()
+        protocol = _protocol(program)
+        simulation = _observation(
+            0,
+            protocol=protocol,
+            origin=EvidenceOrigin.SIMULATED_SMOKE,
+        )
+>       with pytest.raises(CalibrationProgramContractError, match="REAL_INSTRUMENT"):
+E       Failed: DID NOT RAISE CalibrationProgramContractError
+
+tests\test_c5_calibration_program.py:498: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c5_calibration_program.py::test_real_import_rejects_simulation_unknown_fields_and_scope_mismatch - Failed: DID NOT RAISE CalibrationProgramContractError
+1 failed in 0.60s

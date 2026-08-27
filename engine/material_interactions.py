@@ -25,7 +25,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-
 # ── Co-occurrence rules ────────────────────────────────────────────
 # (material_a, material_b) → conditional probability modifier
 # If A is CONFIRMED, multiply B's posterior by this factor

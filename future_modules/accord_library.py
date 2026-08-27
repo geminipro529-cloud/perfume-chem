@@ -24,11 +24,9 @@ Key accords:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Sequence
 
 from ._shared_types import AccordRecipe, FragranceFamily
-
 
 # ---------------------------------------------------------------------------
 # Accord definitions

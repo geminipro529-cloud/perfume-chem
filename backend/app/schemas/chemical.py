@@ -85,6 +85,49 @@ class FormulaIngredient(BaseModel):
     ifra_restricted: bool = False
     ifra_max_level: Optional[float] = None
     volatility: Optional[str] = None
+    stock_active_fraction: float = Field(1.0, gt=0, le=1)
+    stock_fraction_basis: Optional[str] = Field(
+        None, pattern="^(mass_fraction|volume_fraction|amount_fraction)$"
+    )
+    stock_density_g_ml: Optional[float] = Field(None, gt=0)
+    molar_mass_g_mol: Optional[float] = Field(None, gt=0)
+
+
+class BottleSnapshotInput(BaseModel):
+    """Measured bottle state before an additive correction."""
+
+    total_mass_g: float = Field(..., gt=0)
+    active_material_mass_g: float = Field(..., ge=0)
+    total_mass_standard_uncertainty_g: float = Field(0.0, ge=0)
+    active_mass_standard_uncertainty_g: float = Field(0.0, ge=0)
+
+
+class StockSolutionInput(BaseModel):
+    """Stock composition and optional measured density."""
+
+    active_mass_fraction: float = Field(..., gt=0, le=1)
+    density_g_ml: Optional[float] = Field(None, gt=0)
+    active_fraction_standard_uncertainty: float = Field(0.0, ge=0)
+    density_standard_uncertainty_g_ml: float = Field(0.0, ge=0)
+
+
+class PipetteProfileInput(BaseModel):
+    """Declared pipette range, resolution, and random/systematic uncertainty."""
+
+    minimum_ul: float = Field(..., gt=0)
+    increment_ul: float = Field(..., gt=0)
+    maximum_single_step_ul: Optional[float] = Field(None, gt=0)
+    standard_uncertainty_ul: float = Field(0.0, ge=0)
+    systematic_standard_uncertainty_ul: float = Field(0.0, ge=0)
+
+
+class BottleAdditionCalculation(BaseModel):
+    """Exact active-material target for a one-stock bottle addition."""
+
+    bottle: BottleSnapshotInput
+    stock: StockSolutionInput
+    target_active_mass_fraction: float = Field(..., ge=0, le=1)
+    pipette: Optional[PipetteProfileInput] = None
 
 
 class DilutionCalculation(BaseModel):

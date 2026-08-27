@@ -1,0 +1,60 @@
+{
+    "schema":  "build-c6-supplemental-run-metadata-v1",
+    "generated_at":  "2026-08-03T02:45:22.8015141+07:00",
+    "non_pty":  true,
+    "stdout_stderr_separate":  true,
+    "nonempty_stderr_is_failure":  true,
+    "jobs":  [
+                 {
+                     "name":  "deepluna-sol-reproduction",
+                     "arguments":  [
+                                       "-B",
+                                       "-m",
+                                       "pytest",
+                                       "-q",
+                                       "-p",
+                                       "no:cacheprovider",
+                                       "--color=no",
+                                       "tests/test_c6_dynamic_release.py::test_process_layers_and_output_labels_are_closed_and_separate",
+                                       "tests/test_c6_dynamic_release.py::test_substrate_model_cannot_claim_calibration_or_cross_transfer",
+                                       "tests/test_c6_dynamic_release.py::test_every_frame_is_nonnegative_and_mass_conservative",
+                                       "tests/test_c6_dynamic_release.py::test_per_step_closure_guard_rejects_sub_output_tolerance_leak",
+                                       "tests/test_c6_dynamic_release.py::test_bounded_hazard_prevents_negative_mass_under_extreme_rates",
+                                       "tests/test_c6_dynamic_release.py::test_explicit_sink_and_substrate_compartments_are_accounted",
+                                       "tests/test_c6_dynamic_release.py::test_solvent_loss_changes_film_matrix_and_later_release_rate",
+                                       "tests/test_c6_dynamic_release.py::test_uncertainty_propagates_as_nonstatistical_sensitivity_envelope",
+                                       "tests/test_c6_dynamic_release.py::test_cross_substrate_request_abstains_before_compute",
+                                       "tests/test_c6_dynamic_release.py::test_incompatible_context_abstains_fail_closed",
+                                       "tests/test_c6_dynamic_release.py::test_output_uses_only_physical_labels_and_excludes_sensory_layers",
+                                       "tests/test_c6_dynamic_release.py::test_c6_module_has_no_legacy_runtime_database_or_production_dependency"
+                                   ],
+                     "started_at_utc":  "2026-08-02T19:45:19.1390966+00:00",
+                     "duration_ms":  2020,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout_path":  "docs/verification/c6/logs/final/deepluna-sol-reproduction.stdout.txt",
+                     "stdout_sha256":  "7825dd8711d6996b2c47d19d8a58d61fc9082428fdf27e4545e4e0ed0e718a73",
+                     "stderr_path":  "docs/verification/c6/logs/final/deepluna-sol-reproduction.stderr.txt",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 },
+                 {
+                     "name":  "deepluna-postflight",
+                     "arguments":  [
+                                       "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\run_deepluna_exact_health.mjs"
+                                   ],
+                     "started_at_utc":  "2026-08-02T19:45:21.2865008+00:00",
+                     "duration_ms":  1495,
+                     "timed_out":  false,
+                     "exit_code":  0,
+                     "stdout_path":  "docs/verification/c6/logs/final/deepluna-postflight.stdout.txt",
+                     "stdout_sha256":  "15b240728a9c8f9afa34854b2e0328e015b6bb9dc283b84ebc110fb5b26b24fe",
+                     "stderr_path":  "docs/verification/c6/logs/final/deepluna-postflight.stderr.txt",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "passed":  true
+                 }
+             ],
+    "all_pass":  true
+}

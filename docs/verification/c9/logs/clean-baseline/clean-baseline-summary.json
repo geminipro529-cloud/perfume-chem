@@ -1,0 +1,50 @@
+{
+  "schema": "build-c9-clean-baseline-comparison-v1",
+  "status": "INHERITED_BASELINE_LIMITATION",
+  "worktree": "D:\\.worktrees\\perfume-chem\\c9-replay-a989abb",
+  "worktree_clean_before_and_after": true,
+  "tests": [
+    "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once",
+    "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains",
+    "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+    "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay"
+  ],
+  "implementation": {
+    "commit": "88b741e42d09296a9b2cd754a25ce66dbde0f499",
+    "exit_code": 1,
+    "timed_out": false,
+    "duration_ms": 3703,
+    "failed_count": 4,
+    "failure_ids": [
+      "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+      "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay",
+      "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains",
+      "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once"
+    ],
+    "stdout_path": "docs/verification/c9/logs/clean-baseline/implementation-head.stdout.txt",
+    "stderr_path": "docs/verification/c9/logs/clean-baseline/implementation-head.stderr.txt",
+    "stdout_bytes": 3724,
+    "stderr_bytes": 0
+  },
+  "parent": {
+    "commit": "e252621483bc115604fa7ccd5193aa8a18c302d8",
+    "exit_code": 1,
+    "timed_out": false,
+    "duration_ms": 4687,
+    "failed_count": 4,
+    "failure_ids": [
+      "tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes",
+      "tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay",
+      "tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains",
+      "tests/test_project_verification.py::test_engine_shards_cover_every_test_file_once"
+    ],
+    "stdout_path": "docs/verification/c9/logs/clean-baseline/parent-c8.stdout.txt",
+    "stderr_path": "docs/verification/c9/logs/clean-baseline/parent-c8.stderr.txt",
+    "stdout_bytes": 3724,
+    "stderr_bytes": 0
+  },
+  "same_failure_ids": true,
+  "predates_c9": true,
+  "standalone_clean_tree_claimed": false,
+  "authoritative_overlay_required": true
+}

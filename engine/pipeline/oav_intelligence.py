@@ -7,8 +7,8 @@ without replacing the engine's physical/OAV computation path.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Mapping, Sequence
+from dataclasses import dataclass
+from typing import Any, Sequence
 
 from engine.pipeline.formula_state import FormulaState, MaterialState
 from engine.pipeline.simulator import SimulationFrame
@@ -26,17 +26,7 @@ try:
         check_zone_boundaries,
         get_zone_by_oav,
     )
-    from future_modules.family_hedonic_optimizer import (
-        check_family_cliffs,
-        get_cliff_oav,
-        get_oav_targets,
-        list_family_performance_tips,
-        list_family_pitfalls,
-    )
-    from future_modules.performance_profiles import (
-        estimate_tropical_performance_shift,
-        get_performance,
-    )
+    from future_modules.performance_profiles import get_performance
     from future_modules.synergy_matrix import (
         get_all_antagonist_pairs,
         get_all_synergy_pairs,
@@ -80,24 +70,6 @@ except ImportError:
         return True, "engine heuristic fallback active"
 
     def get_zone_by_oav(*args, **kwargs):
-        return None
-
-    def check_family_cliffs(*args, **kwargs):
-        return {}
-
-    def get_cliff_oav(*args, **kwargs):
-        return None
-
-    def get_oav_targets(*args, **kwargs):
-        return None
-
-    def list_family_performance_tips(*args, **kwargs):
-        return ()
-
-    def list_family_pitfalls(*args, **kwargs):
-        return ()
-
-    def estimate_tropical_performance_shift(*args, **kwargs):
         return None
 
     def get_performance(*args, **kwargs):
@@ -175,6 +147,8 @@ _FAMILY_ALIASES: dict[str, FragranceFamily] = {
     "oriental_floral": FragranceFamily.AMBER_ORIENTAL,
     "floral amber": FragranceFamily.AMBER_ORIENTAL,
     "woody_amber": FragranceFamily.WOODY_AMBER,
+    "woody amber": FragranceFamily.WOODY_AMBER,
+    "woody floral musk": FragranceFamily.WOODY_AMBER,
     "woody": FragranceFamily.WOODY_AMBER,
     "gourmand": FragranceFamily.GOURMAND,
     "marine_aquatic": FragranceFamily.MARINE_AQUATIC,
@@ -213,7 +187,12 @@ _BALANCE_NAME_ALIASES: dict[str, str] = {
 
 def _normalize_token(value: str) -> str:
     return " ".join(
-        value.lower().replace("-", " ").replace("_", " ").replace("/", " ").split()
+        value.lower()
+        .replace("-", " ")
+        .replace("_", " ")
+        .replace("/", " ")
+        .replace(".", " ")
+        .split()
     )
 
 
@@ -221,6 +200,10 @@ def _map_family(archetype: str) -> FragranceFamily | None:
     token = _normalize_token(archetype)
     if token in _FAMILY_ALIASES:
         return _FAMILY_ALIASES[token]
+    if "woody" in token and any(
+        qualifier in token for qualifier in ("amber", "floral", "musk")
+    ):
+        return FragranceFamily.WOODY_AMBER
     if "oriental" in token or token.endswith("amber"):
         return FragranceFamily.AMBER_ORIENTAL
     if "fougere" in token:
@@ -380,21 +363,13 @@ def analyze_oav_intelligence(
     blocking_reasons: list[str] = []
     warning_reasons: list[str] = []
 
-    family_materials: list[dict[str, Any]] = []
-    cliff_findings: list[dict[str, Any]] = []
     shift_findings: list[dict[str, Any]] = []
     performance_materials: list[dict[str, Any]] = []
     performance_warnings: list[str] = []
-    unmapped_materials: list[str] = []
-
     mapped_presence: dict[str, MaterialState] = {}
     for material in state.materials:
         for candidate in _material_candidates(material):
             mapped_presence.setdefault(candidate.lower(), material)
-
-    family_cliff_hits = (
-        check_family_cliffs(family, material_oavs) if family is not None else {}
-    )
 
     if family is None and family_archetype.strip():
         warning_reasons.append(
@@ -406,47 +381,6 @@ def analyze_oav_intelligence(
         if oav <= 0.0:
             continue
         candidates = _material_candidates(material)
-
-        mapped_target_name: str | None = None
-        target_range: tuple[float, float] | None = None
-        if family is not None:
-            for candidate in candidates:
-                target_range = get_oav_targets(family, candidate)
-                if target_range is not None:
-                    mapped_target_name = candidate
-                    break
-
-        if family is not None and target_range is None and oav >= 1.0:
-            unmapped_materials.append(material.canonical_name)
-
-        if target_range is not None:
-            target_min, target_max = target_range
-            if target_min <= oav <= target_max:
-                target_status = "within_target"
-                severity = "info"
-            elif oav < target_min:
-                target_status = "below_target"
-                severity = "warn"
-                warning_reasons.append(
-                    f"{material.canonical_name} OAV {oav:.1f} is below {family.value} target {target_min:.1f}-{target_max:.1f}"
-                )
-            else:
-                target_status = "above_target"
-                severity = "warn"
-                warning_reasons.append(
-                    f"{material.canonical_name} OAV {oav:.1f} is above {family.value} target {target_min:.1f}-{target_max:.1f}"
-                )
-            family_materials.append(
-                {
-                    "material": material.canonical_name,
-                    "mapped_material": mapped_target_name,
-                    "oav": round(oav, 6),
-                    "target_min": round(target_min, 6),
-                    "target_max": round(target_max, 6),
-                    "status": target_status,
-                    "severity": severity,
-                }
-            )
 
         mapped_shift_name: str | None = None
         zone = None
@@ -461,7 +395,7 @@ def analyze_oav_intelligence(
                 mapped_shift_name,
                 concentration_pct,
             )
-            if zone.label in {"overdose", "danger"} or zone.hedonic <= -2.0:
+            if zone.label in {"overdose", "danger"}:
                 severity = "error"
                 blocking_reasons.append(
                     f"{material.canonical_name} is in {zone.label} shift zone: {zone.character}"
@@ -481,39 +415,11 @@ def analyze_oav_intelligence(
                     "concentration_pct": round(concentration_pct, 6),
                     "zone_label": zone.label,
                     "zone_character": zone.character,
-                    "zone_hedonic": round(float(zone.hedonic), 6),
                     "boundary_safe": boundary_safe,
                     "boundary_detail": boundary_detail,
                     "severity": severity,
                 }
             )
-
-        if family is not None:
-            mapped_cliff_name: str | None = None
-            cliff_data: tuple[float, str] | None = None
-            for candidate in candidates:
-                cliff_data = get_cliff_oav(family, candidate)
-                if cliff_data is not None:
-                    mapped_cliff_name = candidate
-                    break
-            if mapped_cliff_name is not None and cliff_data is not None:
-                cliff_oav, cliff_detail = cliff_data
-                if oav > cliff_oav:
-                    detail = family_cliff_hits.get(
-                        mapped_cliff_name,
-                        f"OAV {oav:.1f} exceeds cliff {cliff_oav:.1f}",
-                    )
-                    blocking_reasons.append(detail)
-                    cliff_findings.append(
-                        {
-                            "material": material.canonical_name,
-                            "mapped_material": mapped_cliff_name,
-                            "oav": round(oav, 6),
-                            "cliff_oav": round(float(cliff_oav), 6),
-                            "detail": cliff_detail,
-                            "severity": "error",
-                        }
-                    )
 
         perf = None
         mapped_perf_name: str | None = None
@@ -523,8 +429,31 @@ def analyze_oav_intelligence(
                 mapped_perf_name = candidate
                 break
         if perf is not None and mapped_perf_name is not None:
-            shift = estimate_tropical_performance_shift(mapped_perf_name)
             note_mismatch = material.note != perf.note_tier.value
+            temperature_factor = material.vp_temperature_factor
+            temperature_shift = {
+                "reference_temperature_K": 298.15,
+                "formula_temperature_K": state.temperature_K,
+                "vp_ratio": (
+                    round(float(temperature_factor), 6)
+                    if temperature_factor is not None
+                    else None
+                ),
+                "formula_vp_pa": (
+                    round(float(material.vp_pure_pa), 6)
+                    if material.vp_pure_pa is not None
+                    else None
+                ),
+                "temperature_model": material.sources.get(
+                    "vp_temperature",
+                    "missing",
+                ),
+                "half_life_projection": None,
+                "limitation": (
+                    "Profile half-life is an independent 32 C skin estimate; "
+                    "it is not rescaled from vapor pressure."
+                ),
+            }
             performance_materials.append(
                 {
                     "material": material.canonical_name,
@@ -533,19 +462,14 @@ def analyze_oav_intelligence(
                     "engine_note": material.note,
                     "future_note_tier": perf.note_tier.value,
                     "note_tier_mismatch": note_mismatch,
-                    "paris_half_life_min": round(float(perf.half_life_min), 6),
-                    "paris_vp_pa": round(float(perf.vp_pa), 6),
-                    "bangkok_shift": {
-                        key: round(float(value), 6) for key, value in (shift or {}).items()
-                    },
+                    "profile_half_life_min_at_32c": round(
+                        float(perf.half_life_min),
+                        6,
+                    ),
+                    "profile_vp_25c_pa": round(float(perf.vp_pa), 6),
+                    "formula_temperature_shift": temperature_shift,
                 }
             )
-            if shift is not None:
-                bangkok_hl = float(shift["bangkok_half_life_min_est"])
-                if oav >= 5.0 and bangkok_hl < 20.0 and material.note in {"top", "heart"}:
-                    performance_warnings.append(
-                        f"{material.canonical_name} may collapse quickly in Bangkok heat (~{bangkok_hl:.1f} min half-life)"
-                    )
             if note_mismatch and oav >= 10.0:
                 performance_warnings.append(
                     f"{material.canonical_name} note-tier mismatch: engine={material.note}, future={perf.note_tier.value}"
@@ -705,19 +629,13 @@ def analyze_oav_intelligence(
 
     family_target_alignment = {
         "family": family.value if family is not None else None,
-        "pitfalls": list_family_pitfalls(family) if family is not None else (),
-        "performance_tips": list_family_performance_tips(family) if family is not None else (),
-        "materials": sorted(
-            family_materials,
-            key=lambda row: (_severity_rank(row["severity"]), row["status"] != "within_target", row["material"]),
-            reverse=True,
+        "state": "WITHHELD_LEGACY_HEDONIC_HEURISTIC",
+        "materials": [],
+        "reason": (
+            "Family OAV targets, cliffs, pitfalls, and performance tips came from "
+            "an unvalidated hedonic heuristic library."
         ),
     }
-
-    cliff_findings = sorted(
-        cliff_findings,
-        key=lambda row: (-row["oav"], row["material"]),
-    )
     shift_findings = sorted(
         shift_findings,
         key=lambda row: (_severity_rank(row["severity"]), row["zone_label"], row["material"]),
@@ -740,7 +658,7 @@ def analyze_oav_intelligence(
         family_archetype=family_archetype,
         mapped_family=family.value if family is not None else None,
         family_target_alignment=family_target_alignment,
-        material_cliff_findings=tuple(cliff_findings),
+        material_cliff_findings=(),
         shift_zone_findings=tuple(shift_findings),
         balance_reports=serialized_balances,
         performance_projection=performance_projection,
@@ -748,5 +666,5 @@ def analyze_oav_intelligence(
         intelligence_status=status,
         intelligence_blocking_reasons=deduped_blockers,
         intelligence_warning_reasons=deduped_warnings,
-        unmapped_materials=tuple(sorted(dict.fromkeys(unmapped_materials))),
+        unmapped_materials=(),
     )

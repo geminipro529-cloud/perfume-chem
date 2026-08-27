@@ -1,0 +1,80 @@
+{
+  "schema": "build-c7-deepluna-final-audit-v1",
+  "status": "PASS",
+  "implementation_head": "ce78c450b6eeebe06180ae7e46030bff6da41747",
+  "audit_record": {
+    "scratch_path": "C:/Users/ASUS/Documents/Codex/2026-07-29/the-perfume-chem-folder-is-the/work/c7_final_audit_result_20260803.json",
+    "bytes": 11780,
+    "sha256": "998eaf7485ce6819bd55be4fd2f96c7c86e8be3d65c6c58c7027560063b4f557"
+  },
+  "durable_record": {
+    "path": "D:/chatbots/perfume-chem/.deepluna-home/projects/perfume-chem/jobs/DJ-cdc93510-68b4-4e9b-848f-ec1626cbc59f/result.json",
+    "bytes": 40536,
+    "sha256": "b3c5bc2d5452dc89e103277146587b0fc32a4de482158c063952680d69a8ab54"
+  },
+  "preflight": {
+    "project_id": "perfume-chem",
+    "readiness": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_sha256": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "spent_nano_usd": 498797973
+  },
+  "job": {
+    "job_id": "DS-396c637bd50078cadd3e2d1c8ed61cde",
+    "durable_job_id": "DJ-cdc93510-68b4-4e9b-848f-ec1626cbc59f",
+    "status": "PASS",
+    "execution_status": "ACCEPTED",
+    "evidence_verdict": "POSITIVE",
+    "coverage_status": "COMPLETE",
+    "cache_hit": false,
+    "route": "FLASH",
+    "provider": "deepinfra",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "service_tier": "priority",
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "provider_calls": 1,
+    "prompt_tokens": 96589,
+    "completion_tokens": 749,
+    "total_tokens": 97338,
+    "cost_nano_usd": 13186449
+  },
+  "provider_findings": {
+    "positive_finding_count": 3,
+    "negative_finding_count": 0,
+    "residual_risk_count": 0,
+    "scope_deviation": false
+  },
+  "sol_reconciliation": {
+    "status": "PASS",
+    "provider_findings_advisory_only": true,
+    "negative_findings_reproduced": 0,
+    "gate_bearing_findings_reproduced": true,
+    "targeted_reproduction_test_count": 34,
+    "targeted_reproduction_log": "docs/verification/c7/logs/final/deepluna-sol-reproduction.stdout.txt",
+    "empirical_status": "BLOCKED_PENDING_DATA",
+    "actual_lot_data_present": false,
+    "empirical_promotion_allowed": false
+  },
+  "postflight": {
+    "readiness": "READY",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "spent_nano_usd": 511984422,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "primary_provider_runs": 96,
+    "primary_provider_calls": 96,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_orchestration_enabled": false
+  },
+  "passed": true
+}

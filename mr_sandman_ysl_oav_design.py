@@ -1,5 +1,6 @@
 """OAV-first YSL rebuild — back-calculate doses from target OAVs."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
 from engine.ingredient_intelligence import get_profile
@@ -76,7 +77,7 @@ prev_note = ""
 total_mass = 0
 section_mass = {"top": 0, "heart": 0, "base": 0}
 
-for section_name, section_label in [("top", "TOP — Aldehydic Signature"), 
+for section_name, section_label in [("top", "TOP — Aldehydic Signature"),
                                        ("heart", "HEART — Aldehydes First, Jingle Second"),
                                        ("base", "BASE — Clean White Musk")]:
     print(f"\n{'-'*60}")
@@ -84,36 +85,36 @@ for section_name, section_label in [("top", "TOP — Aldehydic Signature"),
     print(f"{'-'*60}")
     print(f"  {'Material':<28} {'Dil%':>5} {'ODT_eth':>9} {'Tgt OAV':>10} {'Calc_ppm':>10} {'Act%':>7} {'MFr%':>7} {'Notes'}")
     print(f"  {'-'*56}")
-    
+
     for name, dilution, note, oav_min, oav_max, ysl_note in DESIGN:
         if note != section_name:
             continue
-        
+
         odt = get_odt(name)
         if odt is None or odt <= 0:
             print(f"  {name:<26} {'NO ODT':>20}")
             continue
-        
+
         # Target OAV = midpoint
         target_oav = (oav_min + oav_max) / 2
-        
+
         # Back-calculate
         # OAV = C_edp / ODT_eth
         # C_edp = C_conc * EDP_CONC
         # C_conc = active_frac% * 10000  (ppm w/w in concentrate)
         # So: target_oav = (active_frac% * 10000 * EDP_CONC) / ODT_eth
         # active_frac% = target_oav * ODT_eth / (10000 * EDP_CONC)
-        
+
         active_pct = target_oav * odt / (10000 * EDP_CONC)
         mass_frac = active_pct / (dilution / 100.0)
-        
+
         conc_ppm = active_pct * 10000
         edp_ppm = conc_ppm * EDP_CONC
         actual_oav = edp_ppm / odt
-        
+
         total_mass += mass_frac
         section_mass[note] += mass_frac
-        
+
         print(f"  {name:<26} {dilution:>5}% {odt:>9.3f} {target_oav:>10.0f} {edp_ppm:>10.0f} {active_pct:>7.3f} {mass_frac:>7.2f} {ysl_note[:50]}")
 
 print(f"\n{'-'*60}")
@@ -133,7 +134,7 @@ weigh_rows = []
 for section_name, section_label in [("top","TOP"), ("heart","HEART"), ("base","BASE")]:
     print(f"\n{section_label}:")
     print(f"  {'#':>3} {'Material':<28} {'MFr%':>7} {'Dil%':>5} {'Weigh(g)':>9}")
-    
+
     idx = 0
     for name, dilution, note, oav_min, oav_max, ysl_note in DESIGN:
         if note != section_name:
@@ -144,12 +145,12 @@ for section_name, section_label in [("top","TOP"), ("heart","HEART"), ("base","B
         active_pct = target_oav * odt / (10000 * EDP_CONC)
         mass_frac = active_pct / (dilution / 100.0)
         weigh = mass_frac * scale
-        
+
         if weigh < 0.01:
             w_str = f"{weigh*1000:.0f} mg"
         else:
             w_str = f"{weigh:.3f}"
-        
+
         weigh_rows.append((idx, name, mass_frac, weigh, section_name))
         print(f"  {idx:3d} {name:<26} {mass_frac:>7.2f} {dilution:>5}% {w_str:>9}")
 

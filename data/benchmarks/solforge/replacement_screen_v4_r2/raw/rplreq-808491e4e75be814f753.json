@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:21:53.619560+00:00",
+  "dispatch_sha256": "1c811348f3a8cfd99b8f5348902e755d325a424c7e303b6098c37ac7209662fd",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "0c466f2cdb462d9313aaa96b2968c3aaa204b272c526d9b3ad61ba8be6c38da2",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered, so the unmet target-function count is 0. The five-material proposal is supported only by count and prestige, with no identified omission loss, missing function, or nonredundant relation. Because the target's intended richness comes from negative space and exact material choice, added materials are not presently justified. Physical liking remains untested, and the inventory requires V5 reparse.\",\"controlled_comparison\":\"Compare the current minimal iris against an otherwise identical five-material variant, holding geometry and presentation constant; augment only if the variant demonstrates a nonredundant target-linked relationship without degrading translucency, negative space, or material exactness.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"Run the controlled comparison after V5 reparse.\"],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS\",\"NO_NONREDUNDANT_RELATION\",\"COUNT_PRESTIGE_ONLY\"],\"physical_liking_state\":\"NOT TESTED\"}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "01a7b64d9f62f4d4925830201a53988a9bf817b2cfcbaae42dde3c72a0a2dbef",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-808491e4e75be814f753",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.836794+00:00",
+  "stderr_sha256": "7aae6eba1bb512416ccf8852204b5cfc184a4228b319b61255f351c40ffc9e96",
+  "stderr_tail": "compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered, so the unmet target-function count is 0. The five-material proposal is supported only by count and prestige, with no identified omission loss, missing function, or nonredundant relation. Because the target's intended richness comes from negative space and exact material choice, added materials are not presently justified. Physical liking remains untested, and the inventory requires V5 reparse.\",\"controlled_comparison\":\"Compare the current minimal iris against an otherwise identical five-material variant, holding geometry and presentation constant; augment only if the variant demonstrates a nonredundant target-linked relationship without degrading translucency, negative space, or material exactness.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"Run the controlled comparison after V5 reparse.\"],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS\",\"NO_NONREDUNDANT_RELATION\",\"COUNT_PRESTIGE_ONLY\"],\"physical_liking_state\":\"NOT TESTED\"}}\ntokens used\n5,481\n",
+  "stdout_sha256": "ae656b0e4530f1250d7947ac4e4adc9c43baf67fd28f839cd7a7ff3dca46abf4"
+}

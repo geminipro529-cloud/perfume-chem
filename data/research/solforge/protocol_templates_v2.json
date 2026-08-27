@@ -1,0 +1,70 @@
+{
+  "schema_version": "solforge_protocol_templates_v2",
+  "templates": [
+    {
+      "template_id": "TEMPORAL-EVIDENCE-V2",
+      "design_class": "TEMPORAL_REPEATED_MEASURES",
+      "arm_ids": ["CONTROL", "TREATMENT"],
+      "primary_endpoint": "DEPTH",
+      "secondary_endpoints": ["RICHNESS", "INTENSITY", "DETECTABILITY"],
+      "washout_seconds": 120,
+      "repeat_count": 2,
+      "maximum_exposures_per_session": 4,
+      "minimum_comparisons": 4,
+      "minimum_heldout_comparisons": 2,
+      "declared_baseline_accuracy": 0.5,
+      "bootstrap_replicates": 200,
+      "bootstrap_seed": 17,
+      "counterbalancing_method": "WILLIAMS_FIRST_ORDER_BALANCED",
+      "tie_semantics": "ALLOW_INDIFFERENCE_EXCLUDE_FROM_DIRECTIONAL_FIT_RETAIN_AS_EVIDENCE",
+      "stopping_rule": "Stop before analysis on a safety event, missing repeat, order or carryover failure, apparatus failure, unplanned deviation, or scope drift",
+      "safety_stop": "Any assessor adverse event stops exposure and withholds evidentiary promotion"
+    },
+    {
+      "template_id": "PAIRWISE-LIKING-V2",
+      "design_class": "CRITERION_PAIRWISE_LIKING",
+      "arm_ids": ["CONTROL", "TREATMENT"],
+      "primary_endpoint": "LIKING",
+      "secondary_endpoints": ["FAMILIARITY", "INTENSITY", "DETECTABILITY"],
+      "washout_seconds": 90,
+      "repeat_count": 2,
+      "maximum_exposures_per_session": 4,
+      "minimum_comparisons": 4,
+      "minimum_heldout_comparisons": 2,
+      "declared_baseline_accuracy": 0.5,
+      "bootstrap_replicates": 200,
+      "bootstrap_seed": 17,
+      "counterbalancing_method": "WILLIAMS_FIRST_ORDER_BALANCED",
+      "tie_semantics": "ALLOW_INDIFFERENCE_EXCLUDE_FROM_DIRECTIONAL_FIT_RETAIN_AS_EVIDENCE",
+      "stopping_rule": "Stop before fitting on a safety event, order or carryover failure, missing repeat, heldout leakage, unplanned deviation, or scope drift",
+      "safety_stop": "Any assessor adverse event stops exposure and withholds preference fitting"
+    },
+    {
+      "template_id": "PAIRWISE-TARGET-FIDELITY-V2",
+      "design_class": "OMISSION_ALTERNATIVE",
+      "arm_ids": ["CONTROL", "TREATMENT"],
+      "primary_endpoint": "TARGET_FIDELITY",
+      "secondary_endpoints": ["DEPTH", "RICHNESS", "LIKING"],
+      "washout_seconds": 90,
+      "repeat_count": 2,
+      "maximum_exposures_per_session": 4,
+      "minimum_comparisons": 4,
+      "minimum_heldout_comparisons": 2,
+      "declared_baseline_accuracy": 0.5,
+      "bootstrap_replicates": 200,
+      "bootstrap_seed": 17,
+      "counterbalancing_method": "WILLIAMS_FIRST_ORDER_BALANCED",
+      "tie_semantics": "ALLOW_INDIFFERENCE_EXCLUDE_FROM_DIRECTIONAL_FIT_RETAIN_AS_EVIDENCE",
+      "stopping_rule": "Stop before analysis on a safety event, target change, missing repeat, order failure, unplanned deviation, or scope drift",
+      "safety_stop": "Any assessor adverse event stops exposure and withholds evidentiary promotion"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

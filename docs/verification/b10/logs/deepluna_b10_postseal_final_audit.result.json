@@ -1,0 +1,37 @@
+{
+  "schema_version": "perfume-chem-b10-deepluna-postseal-audit-v1",
+  "recorded_at_utc": "2026-08-02T07:43:25Z",
+  "project_id": "perfume-chem",
+  "readiness": "READY",
+  "runtime_mode": "CANDIDATE_V2",
+  "server_release": "0.9.9",
+  "job": {
+    "job_id": "DS-b5b28b7a2921c6132dda946a78a84f1d",
+    "status": "PASS",
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "scope_deviation": false
+  },
+  "provider_usage_delta": {
+    "api_calls": 1,
+    "prompt_tokens": 48080,
+    "completion_tokens": 885,
+    "total_tokens": 48965,
+    "luna_runs": 0,
+    "codex_orchestration_enabled": false,
+    "spent_nano_usd": 6729750,
+    "open_reserved_nano_usd_after": 0,
+    "unknown_reservations_after": 0
+  },
+  "negative_findings": [],
+  "unresolved_material_findings": 0,
+  "verified_findings": [
+    "The stable final-source verifier is PASS_WITH_SKIPS with 19 mandatory checks, zero failures, engine counts 191/236/602/69, and 630 backend tests.",
+    "The final-source verifier wrapper duration and report digest match the authority report.",
+    "Protected pre/post database and sidecar hashes are identical.",
+    "The post-full package receipt passes 22 checks with zero parse, ANSI, or sensitive-value-shape findings.",
+    "Magnolia EO remains identity-unknown and unpromoted; broad disposable-KB drift still blocks canonical replacement."
+  ],
+  "authority_boundary": "SUPPLEMENTAL_READ_ONLY_NO_FINAL_AUTHORITY",
+  "sol_reconciliation": "ACCEPTED_AFTER_LOCAL_EVIDENCE_REPRODUCTION"
+}

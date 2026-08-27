@@ -1,0 +1,20 @@
+{
+  "name": "alembic_heads_b10",
+  "cwd": "D:\\chatbots\\perfume-chem\\backend",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-m",
+    "alembic",
+    "heads"
+  ],
+  "started_at_utc": "2026-07-31T16:41:57.015Z",
+  "finished_at_utc": "2026-07-31T16:41:58.076Z",
+  "duration_seconds": 1.061,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\alembic_heads_b10.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\alembic_heads_b10.stderr.txt"
+}

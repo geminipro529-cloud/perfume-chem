@@ -6,7 +6,10 @@
 **Family archetype:** `aromatic_fougere.modern_mineral`  
 **Target**: YSL Y Eau de Toilette direction, tuned toward fresh mineral woods, ginger, lavender, clary sage, geranium, violet leaf, ambergris, incense, cedar, and clean musk.  
 **Constraint**: No Alpha Irone. Violet/soft cosmetic lift is built with Alpha Isomethyl Ionone and Parmavert instead.  
-**Status**: Formula written. Pipeline analysis appended below after verification.
+**Status**: QUARANTINED — do not mix or release. The live stock contract fails
+for eight declared materials, including depleted Habanolide and Romandolide
+and dilution mismatches for the aldehydes, Calone, Methyl Pamplemousse, and
+Ambrofix.
 
 ---
 
@@ -131,226 +134,286 @@ All 28 materials are present in `inventory.txt` as of 2026-07-09. No depleted ma
 
 ---
 
+<!-- PIPELINE_ANALYSIS_START -->
 ## Pipeline Analysis
+
+<!-- pipeline-analysis-manifest: {"analysis_sha256":"c11b3dcd158b8f3b422bef81f798a6e06c15021ab9fd75f9eaa7e56a30c75337","artifact_sha256":"d75e25e0f81305062db3b56813a63e2220b380ed0762e91c65278678c33d0ac4","authorities":{"claim":["FAIL"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["FAIL"]},"config_sha256":"a5c24715f820c802ec15dad25f5227311b61bc88ec85abee81170575624fee2a","formula_definitions":[{"name":"Y L'Homme Luxe - 30mL EDT 15%","number":1,"sha256":"cd21fd6545183e857a238a692fb95cce2337245e9459f97c565198f489d77551"}],"generated_at_utc":"2026-07-27T03:50:21.671871+00:00","inventory_sha256":"9d38c6b69bff8bdbf6ae261d098ab19f7f87d70b9ca80f042a809eba2166e4aa","legacy_formula_hashes_v1":[{"name":"Y L'Homme Luxe - 30mL EDT 15%","number":1,"sha256":"971fc37a2cb00b513f559e22f30f48b607a5ec59f0d609bdb5cfb4407379d776"}],"overall":"FAIL","pipeline_source_sha256":"8e5a3983339a55fb49da466bae0a137d14538f73e96a218023e9b1e67f3f9abc","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"b0d5833be932b56cc1b80e4db51ada92fa402504d43e7dd3a317f1a7503ae6b2","semantic_config":{"formula_family_archetypes":["aromatic_fougere.modern_mineral"],"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"auto","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":6000,"expected_retail_price_thb":1500,"family_archetype":"","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
+
+```text
+# Run Evidence Contract
+
+Formula definition SHA-256: #1 cd21fd6545183e857a238a692fb95cce2337245e9459f97c565198f489d77551
+Config SHA-256: a5c24715f820c802ec15dad25f5227311b61bc88ec85abee81170575624fee2a
+Inventory SHA-256: 9d38c6b69bff8bdbf6ae261d098ab19f7f87d70b9ca80f042a809eba2166e4aa
+Scientific inputs SHA-256: b0d5833be932b56cc1b80e4db51ada92fa402504d43e7dd3a317f1a7503ae6b2
+Pipeline source SHA-256: 8e5a3983339a55fb49da466bae0a137d14538f73e96a218023e9b1e67f3f9abc
+Exact concentrate ppm w/w: UNAVAILABLE
+Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
+Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
+Inventory stock authority: FAIL
+Quantitative gate authority: WARN
+Named-reference authority: FAIL
+Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
+# Y L'Homme Luxe - 30mL EDT 15%
 
 ## Gate Summary
 
-**108 PASS** / **19 WARN** / **2 FAIL**
+**108 PASS** / **30 WARN** / **5 FAIL**
 
-  FAIL perfume_knowledge: heart OAV off-target for family aromatic_fougere
-  FAIL literature_compliance: Literature compliance: 2/5 principles passed (40%)
-  WARN pipeline_preflight: 9 checks; 4 warnings
-  WARN odt_coverage: 16 material(s) rely on derived/unverified ODTs (40% OAV share)
+  FAIL pipeline_preflight: 12 checks; 9 warnings
+  FAIL inventory_stock_contract: 8 material stock contract failure(s): Aldehyde C10, Aldehyde C11, Aldehyde C12 MNA, Ambrofix, Calone, Habanolide, Methyl Pamplemousse, Romandolide
+  FAIL reference_claim_contract: Named-reference language was detected without explicit Claim mode, Reference contract, and Reference scope metadata. | Deviations: YSL La Nuit de L'Homme architecture missing: cardamom; Prada L'Homme architecture missing: neroli, black_pepper, patchouli
+  FAIL exact_subtotal: 4500.0 uL parsed; expected 6000.0 uL
+  FAIL confidence_minimum: combined confidence 8.2 below 25.0 after preflight evidence penalty 19.0
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN odt_coverage: 16 material(s) rely on derived/unverified ODTs (62% OAV share)
   WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
-  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 33.4% active mass across 5 materials
-  WARN small_diluted_traces: Evernyl=5.0uL at 50.0%
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 36.0% active mass across 5 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Bergamot FCF oil Sicilian=30978, Dihydromyrcenol=14326, Iso E Super=13483; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 1 materials with VP=None or 0: Geranium EO (Pelargonium graveolens flower oil); 28 materials use inferred enthalpy for VP at 305.00 K; 7 unresolved cross-source VP conflicts
   WARN safety_ifra_allergen: 9 materials lack explicit IFRA Cat4 limits; 4 EU allergen declarations
-  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, coumarin
-  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): bergamot fcf sicilian:dihydromyrcenol = 8:1; bergamot fcf sicilian:aldehyde c10 = 34:1; bergamot fcf si
-  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, coumarin, linalyl acetate
+  WARN safety_phototoxic: Bergamot FCF oil Sicilian: 6.67% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Polycyclic musks 5.6% > 5% cap (OR5A2); Cedarwood Virginia 9.6% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 28/28 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Coumarin=1.6x
+  WARN perfumer_logic: aromatic_fougere.modern_mineral; rerun optimizer: fruit_not_candy_axis: 1.111% active above 0.800 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: aromatic_fougere.modern_mineral; fruit_not_candy_axis: 1.111% active above 0.800 [advisory guideline; not release-blocking]
+  WARN perfume_knowledge: top OAV off-target for family aromatic_fougere; heart OAV off-target for family aromatic_fougere [advisory guideline; not release-blocking]
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
   WARN dosing_tables: Potent: 1, solids: 1, viscous: 5 defined
-  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
-  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
-  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN family_hedonic: Family 'aromatic_fougere.modern_mineral' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 1 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: hedione vs hedione in floral (OAV 4218/4218); frankincense eo vs lavender eo high altitude in unknown (OAV 5882/5307); dihydromyrcenol vs iso e super in woody (OAV 14327/13484)
   WARN jellinek_psychology: Jellinek categories weak: erogenic
-  WARN adaptation_timing: fast tier < 5% (no immediate impact)
-  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 82%) — collapse risk
-  WARN oav_intelligence: iso e super OAV 4895.7 is above aromatic_fougere target 30.0-80.0; geranium eo OAV 1355.7 is above aromatic_fougere target 30.0-60.0; clary 
-  WARN olfactory_fatigue: Olfactory fatigue risk: dihydromyrcenol=9350 (limit 3000)
-  WARN confidence_minimum: combined confidence 27.5; preflight science penalty 28.9
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN oav_intelligence: calone is in danger shift zone: Synthetic chemical off-note; coumarin is in overdose shift zone: Bitter-almond aggressive, metallic; OAV 262.8 exceeds cliff 60.0 [advisory guideline; not release-blocking]
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: aldehyde c10=5164 (high model signal); aldehyde c11=9961 (high model signal); calone=527 (high model signal); dihydromyrcenol=14327 (high model signal); iso e super=13484 (high model signal)
+  WARN tenacity_projection: VP<0.01Pa = 6% (<10%, weak longevity)
+  WARN robustness_perturbation: 56 fragile perturbation(s) across 56 checks; Bergamot FCF oil Sicilian up: brief grammar failure under perturbation; Bergamot FCF oil Sicilian down: brief grammar failure under perturbation; Ginger EO up: brief grammar failure under perturbation
+
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 8 material stock contract failure(s): Aldehyde C10, Aldehyde C11, Aldehyde C12 MNA, Ambrofix, Calone, Habanolide, Methyl Pamplemousse, Romandolide |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | FAIL (architecture) | Named-reference language was detected without explicit Claim mode, Reference contract, and Reference scope metadata. | Deviations: YSL La Nuit de L'Homme architecture missing: cardamom; Prada L'Homme architecture missing: neroli, black_pepper, patchouli |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 8.2/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
 
 ## Headspace OAV — Opening (0s)
 
-| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
-|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
-|   1 | Dihydromyrcenol              |     9350.4 | top   |  very strong |  17.000 |    9.3504 |  0.001000 |  0.1700 |  5.57 | Dihydromyrcenol               
-|   2 | Lavender EO High Altitude    |     6345.0 | top   |  very strong |  22.000 |   12.6900 |  0.002000 |  0.0880 |  2.92 | Lavender EO High Altitude     
-|   3 | Hedione                      |     5098.3 | heart |  very strong |   0.210 |    0.2549 |  0.000050 |  0.1800 | 12.23 | Hedione                       
-|   4 | Iso E Super                  |     4895.7 | heart |  very strong |   0.150 |    0.2448 |  0.000050 |  0.7100 | 15.52 | Iso E Super                   
-|   5 | Hedione HC                   |     2160.7 | heart |  very strong |   0.089 |    0.1080 |  0.000050 |  0.3600 | 12.23 | Hedione                       
-|   6 | Ginger EO                    |     2045.1 | top   |  very strong |  10.000 |   10.2255 |  0.005000 |  0.1100 |  4.14 | Ginger EO                     
-|   7 | Linalyl Acetate              |     1502.8 | top   |  very strong |  17.500 |    4.0574 |  0.002700 |  0.0900 |  2.35 | Linalyl Acetate               
-|   8 | Geranium EO (Pelargonium graveolens flower oil) |     1355.7 | heart |  very strong |   2.500 |    1.6669 |  0.000300 |  0.1150 |  3.75 | Geranium EO                   
-|   9 | Bergamot FCF oil Sicilian    |     1115.5 | heart |  very strong |   2.500 |    6.6931 |  0.006000 |  0.3000 |  9.04 | Bergamot FCF oil Sicilian     
-|  10 | Clary Sage EO                |     1030.5 | top   |  very strong |   5.000 |    2.0609 |  0.002000 |  0.0800 |  2.09 | Clary Sage EO                 
-|  11 | Alpha Isomethyl Ionone       |      254.9 | heart |       strong |   0.400 |    0.2039 |  0.000800 |  0.1600 |  3.97 | Alpha-Isomethyl Ionone        
-|  12 | Cashmeran                    |      176.5 | base  |       strong |   1.200 |    0.3530 |  0.002000 |  0.1200 |  2.98 | Cashmeran                     
-|  13 | Aldehyde C11                 |       67.5 | top   | moderate-strong |  50.000 |    0.0520 |  0.000770 |  0.0003 |  0.01 | Aldehyde C11                  
-|  14 | Ambrofix                     |       37.4 | base  |     moderate |   0.066 |    0.0112 |  0.000300 |  0.0780 |  1.69 | Ambrox Super                  
-|  15 | Aldehyde C10                 |       33.1 | top   |     moderate |  10.000 |    0.0146 |  0.000440 |  0.0004 |  0.01 | Aldehyde C10                  
-|  16 | Vetiver EO (India)           |       31.7 | base  |     moderate |   0.040 |    0.0234 |  0.005000 |  0.1287 |  2.97 | Vetiver EO                    
-|  17 | Coumarin                     |       30.0 | base  |     moderate |   0.190 |    0.0210 |  0.000700 |  0.0200 |  0.70 | Coumarin                      
-|  18 | Helional                     |       22.1 | heart |     moderate |   0.010 |    0.0022 |  0.000100 |  0.0700 |  1.87 | Helional                      
-|  19 | Frankincense EO              |       16.9 | heart |     moderate |   0.500 |    0.1355 |  0.008000 |  0.0450 |  1.10 | Frankincense EO               
-|  20 | Romandolide                  |       12.0 | base  |     moderate |   0.100 |    0.0589 |  0.004900 |  0.2100 |  3.98 | Romandolide                   
-|  21 | Calone                       |        8.7 | heart |  perceptible |   0.293 |    0.0004 |  0.000050 |  0.0003 |  0.01 | Calone                        
-|  22 | Methyl Pamplemousse          |        3.8 | top   | at threshold |   0.500 |    0.0113 |  0.003000 |  0.0050 |  0.15 | Methyl Pamplemousse           
-|  23 | Evernyl                      |        2.6 | base  | at threshold |   0.100 |    0.0008 |  0.000300 |  0.0025 |  0.07 | Evernyl                       
-|  24 | Parmavert                    |        1.2 | top   | at threshold |   0.100 |    0.0184 |  0.015000 |  0.0700 |  1.87 | Parmavert                     
-|  25 | Cedarwood oil Virginia       |        0.8 | base  | sub-threshold |   0.005 |    0.0120 |  0.015000 |  0.4214 |  9.71 | Cedarwood oil Virginia        
-|  26 | Habanolide                   |        0.0 | base  | sub-threshold |   0.000 |    0.0001 |  0.002800 |  0.2500 |  5.37 | Habanolide                    
-|  27 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0008 |  0.810000 |  0.2450 |  5.92 | Benzyl Benzoate               
-|  28 | Aldehyde C12 MNA             |        0.0 | top   | sub-threshold |   0.010 |    0.0000 |  0.011000 |  0.0003 |  0.01 | Aldehyde C12 MNA              
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Bergamot FCF oil Sicilian | 100.0% | 300.00 | 300.00 | 170.000 | 8.105 | 4.566603 | 3.000 | 473.261204 | 0.006000000 | 30978.4 | heart |
+| Dihydromyrcenol | 100.0% | 170.00 | 170.00 | 156.300 | 4.995 | 29.059636 | 1.000 | 14.326538 | 0.001000000 | 14326.5 | top |
+| Iso E Super | 100.0% | 710.00 | 710.00 | 234.400 | 13.912 | 0.458763 | 1.070 | 0.674187 | 0.000050000 | 13483.7 | heart |
+| Aldehyde C11 | 100.0% | 35.00 | 35.00 | 170.300 | 0.944 | 82.337248 | 1.000 | 7.670274 | 0.000770000 | 9961.4 | top |
+| Frankincense EO | 100.0% | 45.00 | 45.00 | 210.000 | 0.984 | 0.965637 | 2.500 | 114.027168 | 0.008000000 | 5882.0 | heart |
+| Lavender EO High Altitude | 100.0% | 100.00 | 100.00 | 154.300 | 2.619 | 37.272512 | 1.002 | 10.083634 | 0.002000000 | 5307.5 | heart |
+| Aldehyde C10 | 100.0% | 45.00 | 45.00 | 156.300 | 1.322 | 17.410722 | 1.000 | 2.272121 | 0.000440000 | 5163.9 | top |
+| Clary Sage EO | 100.0% | 80.00 | 80.00 | 196.300 | 1.872 | 8.916718 | 2.000 | 25.736393 | 0.002000000 | 5106.4 | top |
+| Hedione | 100.0% | 180.00 | 180.00 | 226.300 | 10.959 | 0.193654 | 1.007 | 0.210915 | 0.000050000 | 4218.3 | heart |
+| Hedione HC | 100.0% | 360.00 | 360.00 | 226.300 | 10.959 | 0.193654 | 1.007 | 0.210915 | 0.000050000 | 4218.3 | heart |
+| Ginger EO | 100.0% | 110.00 | 110.00 | 136.000 | 3.715 | 17.410722 | 2.500 | 24.018448 | 0.005000000 | 2365.0 | top |
+| Linalyl Acetate | 100.0% | 90.00 | 90.00 | 196.300 | 2.106 | 29.884335 | 1.000 | 6.210506 | 0.002700000 | 2300.2 | top |
+| Geranium EO (Pelargonium graveolens flower oil) | 100.0% | 115.00 | 115.00 | UNKNOWN | 2.641 | UNKNOWN | 1.002 | 3.756339 | 0.000300000 | 1539.6 | heart |
+| Calone | 100.0% | 35.00 | 35.00 | 178.180 | 0.902 | 0.197286 | 1.500 | 0.026349 | 0.000050000 | 527.0 | heart |
+| Alpha Isomethyl Ionone | 100.0% | 160.00 | 160.00 | 206.320 | 3.562 | 0.778498 | 1.300 | 0.355747 | 0.000800000 | 444.7 | heart |
+| Cedarwood oil Virginia | 100.0% | 430.00 | 430.00 | 222.370 | 8.704 | 0.011325 | 2.500 | 2.933474 | 0.015000000 | 374.9 | base |
+| Cashmeran | 100.0% | 120.00 | 120.00 | 206.300 | 2.672 | 2.324286 | 1.000 | 0.612820 | 0.002000000 | 306.4 | base |
+| Coumarin | 100.0% | 100.00 | 100.00 | 146.200 | 3.141 | 0.379438 | 1.564 | 0.183986 | 0.000700000 | 262.8 | base |
+| Ambrofix | 100.0% | 260.00 | 260.00 | 236.400 | 5.051 | 0.136717 | 1.022 | 0.069634 | 0.000300000 | 232.1 | base |
+| Vetiver EO (India) | 100.0% | 130.00 | 130.00 | 222.400 | 2.658 | 0.084308 | 2.000 | 0.147390 | 0.005000000 | 66.2 | base |
+| Methyl Pamplemousse | 100.0% | 50.00 | 50.00 | 168.200 | 1.365 | 0.965637 | 1.500 | 0.195169 | 0.003000000 | 65.1 | top |
+| Helional | 100.0% | 70.00 | 70.00 | 192.200 | 1.673 | 0.022113 | 1.200 | 0.004381 | 0.000100000 | 43.8 | heart |
+| Romandolide | 100.0% | 210.00 | 210.00 | 270.360 | 3.567 | 0.204190 | 1.500 | 0.107836 | 0.004900000 | 22.0 | base |
+| Evernyl | 100.0% | 5.00 | 5.00 | 196.200 | 0.117 | 0.204190 | 1.200 | 0.002830 | 0.000300000 | 9.4 | base |
+| Parmavert | 100.0% | 70.00 | 70.00 | 192.300 | 1.672 | 0.204190 | 1.000 | 0.033691 | 0.015000000 | 2.2 | top |
+| Aldehyde C12 MNA | 100.0% | 25.00 | 25.00 | 184.300 | 0.623 | 0.022113 | 1.000 | 0.001360 | 0.011000000 | 0.1 | top |
+| Benzyl Benzoate | 100.0% | 245.00 | 245.00 | 212.200 | 5.303 | 0.063576 | 1.002 | 0.033328 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 250.00 | 250.00 | 238.400 | 4.816 | 0.000141 | 0.850 | 0.000057 | 0.002800000 | 0.0 | base |
 
-**Materials:** 28 total (10 top, 9 heart, 9 base)
-**Total vapor:** 48.27 ppm
+**Materials:** 28 total (9 top, 11 heart, 8 base)
+**Total vapor:** 687.17 ppm
+
 ### Note Distribution
 
-**TOP:** 10 mats, 15.5% active, 57.2% OAV
-  - Dihydromyrcenol              OAV=  9350.4 (very strong) VP=17.000Pa
-  - Lavender EO High Altitude    OAV=  6345.0 (very strong) VP=22.000Pa
-  - Ginger EO                    OAV=  2045.1 (very strong) VP=10.000Pa
-  - Linalyl Acetate              OAV=  1502.8 (very strong) VP=17.500Pa
-  - Clary Sage EO                OAV=  1030.5 (very strong) VP=5.000Pa
-  - Aldehyde C11                 OAV=    67.5 (moderate-strong) VP=50.000Pa
-  ... and 4 more
-**HEART:** 9 mats, 47.9% active, 41.9% OAV
-  - Hedione                      OAV=  5098.3 (very strong) VP=0.210Pa
-  - Iso E Super                  OAV=  4895.7 (very strong) VP=0.150Pa
-  - Hedione HC                   OAV=  2160.7 (very strong) VP=0.089Pa
-  - Geranium EO (Pelargonium graveolens flower oil) OAV=  1355.7 (very strong) VP=2.500Pa
-  - Bergamot FCF oil Sicilian    OAV=  1115.5 (very strong) VP=2.500Pa
-  - Alpha Isomethyl Ionone       OAV=   254.9 (strong) VP=0.400Pa
+**TOP:** 9 mats, 15.0% active, 36.6% OAV
+  - Dihydromyrcenol              OAV= 14326.5 (massive) VP=29.060Pa
+  - Aldehyde C11                 OAV=  9961.4 (very strong) VP=82.337Pa
+  - Aldehyde C10                 OAV=  5163.9 (very strong) VP=17.411Pa
+  - Clary Sage EO                OAV=  5106.4 (very strong) VP=8.917Pa
+  - Ginger EO                    OAV=  2365.0 (very strong) VP=17.411Pa
+  - Linalyl Acetate              OAV=  2300.2 (very strong) VP=29.884Pa
   ... and 3 more
-**BASE:** 9 mats, 36.7% active, 0.8% OAV
-  - Cashmeran                    OAV=   176.5 (strong) VP=1.200Pa
-  - Ambrofix                     OAV=    37.4 (moderate) VP=0.066Pa
-  - Vetiver EO (India)           OAV=    31.7 (moderate) VP=0.040Pa
-  - Coumarin                     OAV=    30.0 (moderate) VP=0.190Pa
-  - Romandolide                  OAV=    12.0 (moderate) VP=0.100Pa
-  - Evernyl                      OAV=     2.6 (at threshold) VP=0.100Pa
-  ... and 3 more
+**HEART:** 11 mats, 51.6% active, 62.2% OAV
+  - Bergamot FCF oil Sicilian    OAV= 30978.4 (massive) VP=4.567Pa
+  - Iso E Super                  OAV= 13483.7 (massive) VP=0.459Pa
+  - Frankincense EO              OAV=  5882.0 (very strong) VP=0.966Pa
+  - Lavender EO High Altitude    OAV=  5307.5 (very strong) VP=37.273Pa
+  - Hedione                      OAV=  4218.3 (very strong) VP=0.194Pa
+  - Hedione HC                   OAV=  4218.3 (very strong) VP=0.194Pa
+  ... and 5 more
+**BASE:** 8 mats, 33.4% active, 1.2% OAV
+  - Cedarwood oil Virginia       OAV=   374.9 (strong) VP=0.011Pa
+  - Cashmeran                    OAV=   306.4 (strong) VP=2.324Pa
+  - Coumarin                     OAV=   262.8 (strong) VP=0.379Pa
+  - Ambrofix                     OAV=   232.1 (strong) VP=0.137Pa
+  - Vetiver EO (India)           OAV=    66.2 (moderate-strong) VP=0.084Pa
+  - Romandolide                  OAV=    22.0 (moderate) VP=0.204Pa
+  ... and 2 more
+
+### Sub-threshold Materials (OAV < 1)
+3/28 materials below perceptible threshold
+  - Aldehyde C12 MNA: OAV=0.12 VP=0.022Pa act=25uL role=trace [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+  - Benzyl Benzoate: OAV=0.04 VP=0.064Pa act=245uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.02 VP=0.000Pa act=250uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Aldehyde C10 OAV=5164 dominates headspace — may mask subtler notes
+  - Aldehyde C11 OAV=9961 dominates headspace — may mask subtler notes
+  - Bergamot FCF oil Sicilian OAV=30978 dominates headspace — may mask subtler notes
+  - Clary Sage EO OAV=5106 dominates headspace — may mask subtler notes
+  - Dihydromyrcenol OAV=14327 dominates headspace — may mask subtler notes
+  - Frankincense EO OAV=5882 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=13484 dominates headspace — may mask subtler notes
+  - Lavender EO High Altitude OAV=5307 dominates headspace — may mask subtler notes
+
 ### OAV by Odor Family
 
-            woody  40.6% ====================  (5 mats)
-         aromatic  24.9% ============  (3 mats)
-           floral  24.9% ============  (4 mats)
-            spice   5.7% ==  (1 mats)
-           citrus   3.1% =  (2 mats)
-        aldehydic   0.3% =  (3 mats)
-            amber   0.1% =  (1 mats)
-          aquatic   0.1% =  (2 mats)
-         gourmand   0.1% =  (1 mats)
-                ?   0.0% =  (1 mats)
+           citrus  29.0% ==============  (2 mats)
+            woody  26.6% =============  (5 mats)
+        aldehydic  14.1% =======  (3 mats)
+                ?  11.9% =====  (4 mats)
+           floral   8.3% ====  (3 mats)
+         aromatic   6.9% ===  (2 mats)
+            spice   2.2% =  (1 mats)
+          aquatic   0.5% =  (2 mats)
+         gourmand   0.2% =  (1 mats)
+            amber   0.2% =  (1 mats)
              musk   0.0% =  (2 mats)
              moss   0.0% =  (1 mats)
             green   0.0% =  (1 mats)
-         fixative   0.0% =  (1 mats)
-### Sub-threshold Materials (OAV < 1)
-4/28 materials below perceptible threshold
-  - Aldehyde C12 MNA: OAV=0.00 VP=0.010Pa act=0uL role=Aldehyde C12 MNA [Structural (acceptable)]
-  - Cedarwood oil Virginia: OAV=0.80 VP=0.005Pa act=430uL role=Cedarwood oil Virgin [Structural (acceptable)]
-  - Habanolide: OAV=0.03 VP=0.000Pa act=250uL role=Habanolide [Structural (acceptable)]
-  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=245uL role=Benzyl Benzoate [Structural (acceptable)]
-### High-OAV Flags (>5000)
-  - Dihydromyrcenol OAV=9350 dominates headspace — may mask subtler notes
-  - Lavender EO High Altitude OAV=6345 dominates headspace — may mask subtler notes
-  - Hedione OAV=5098 dominates headspace — may mask subtler notes
+
 ## Temporal Evolution (5 Windows)
 
-| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
 |------------|------------|------------|------------|------------|------------|
-| opening      |      0s | 15.5/47.9/36.7 |  48.27ppm |   4500 | Dihydromyrce(9350), Lavender EO (6345), Hedione(5098)
-| top          |    300s | 15.3/47.9/36.7 |  47.84ppm |   4492 | Dihydromyrce(9296), Lavender EO (6226), Hedione(5110)
-| heart        |   1800s | 14.8/48.2/37.0 |  45.76ppm |   4451 | Dihydromyrce(9025), Lavender EO (5662), Hedione(5166)
-| late_heart   |   7200s | 12.9/49.0/38.1 |  39.22ppm |   4322 | Dihydromyrce(8083), Hedione(5354), Iso E Super(5140)
-| drydown      |  14400s | 11.0/49.8/39.3 |  32.38ppm |   4186 | Dihydromyrce(6922), Hedione(5570), Iso E Super(5346)
+| opening      |      0s | 15.0/51.6/33.4 | 687.17ppm |  100.0% | Bergamot FCF(30978), Dihydromyrce(14327), Iso E Super(13484)
+| top          |    300s | 15.1/50.7/34.2 | 544.26ppm |   97.6% | Bergamot FCF(24355), Dihydromyrce(14531), Iso E Super(13858)
+| heart        |   1800s | 14.6/49.0/36.4 | 202.66ppm |   91.6% | Iso E Super(14940), Dihydromyrce(14649), Aldehyde C11(8824)
+| late_heart   |   7200s | 11.7/49.7/38.6 |  63.70ppm |   85.6% | Iso E Super(16152), Dihydromyrce(12387), Aldehyde C10(5106)
+| drydown      |  14400s |  9.3/50.9/39.9 |  41.09ppm |   81.8% | Iso E Super(16997), Dihydromyrce(9382), Hedione(5380)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
 
 ### Per-Window Detail
 
-**OPENING** (0.0s) — Evap:0%
-  T:15.5% H:47.9% B:36.7%  Vapor:48.27ppm
-  Leaders: Dihydromyrcenol OAV 9350 | Lavender EO High Altitude OAV 6345 | Hedione OAV 5098 | Iso E Super OAV 4896 | Hedione HC OAV 2161
+**OPENING** (0.0s) — Uncalibrated loss index:0%
+  T:15.0% H:51.6% B:33.4%  Vapor:687.17ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 30978 | Dihydromyrcenol OAV 14327 | Iso E Super OAV 13484 | Aldehyde C11 OAV 9961 | Frankincense EO OAV 5882
 
-**TOP** (300.0s) — Evap:0%
-  T:15.3% H:47.9% B:36.7%  Vapor:47.84ppm
-  Leaders: Dihydromyrcenol OAV 9296 | Lavender EO High Altitude OAV 6226 | Hedione OAV 5110 | Iso E Super OAV 4907 | Hedione HC OAV 2166
+**TOP** (300.0s) — Uncalibrated loss index:2%
+  T:15.1% H:50.7% B:34.2%  Vapor:544.26ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 24355 | Dihydromyrcenol OAV 14531 | Iso E Super OAV 13858 | Aldehyde C11 OAV 9865 | Lavender EO High Altitude OAV 5376
 
-**HEART** (1800.0s) — Evap:1%
-  T:14.8% H:48.2% B:37.0%  Vapor:45.76ppm
-  Leaders: Dihydromyrcenol OAV 9025 | Lavender EO High Altitude OAV 5662 | Hedione OAV 5166 | Iso E Super OAV 4961 | Hedione HC OAV 2190
+**HEART** (1800.0s) — Uncalibrated loss index:8%
+  T:14.6% H:49.0% B:36.4%  Vapor:202.66ppm
+  Leaders: Iso E Super OAV 14940 | Dihydromyrcenol OAV 14649 | Aldehyde C11 OAV 8824 | Bergamot FCF oil Sicilian OAV 6728 | Aldehyde C10 OAV 5460
 
-**LATE_HEART** (7200.0s) — Evap:4%
-  T:12.9% H:49.0% B:38.1%  Vapor:39.22ppm
-  Leaders: Dihydromyrcenol OAV 8083 | Hedione OAV 5354 | Iso E Super OAV 5140 | Lavender EO High Altitude OAV 4006 | Hedione HC OAV 2269
+**LATE_HEART** (7200.0s) — Uncalibrated loss index:14%
+  T:11.7% H:49.7% B:38.6%  Vapor:63.70ppm
+  Leaders: Iso E Super OAV 16152 | Dihydromyrcenol OAV 12387 | Aldehyde C10 OAV 5106 | Hedione OAV 5091 | Hedione HC OAV 5091
 
-**DRYDOWN** (14400.0s) — Evap:7%
-  T:11.0% H:49.8% B:39.3%  Vapor:32.38ppm
-  Leaders: Dihydromyrcenol OAV 6922 | Hedione OAV 5570 | Iso E Super OAV 5346 | Lavender EO High Altitude OAV 2505 | Hedione HC OAV 2360
-## Structural OAV Analysis
-
-**Vapor:** 48 ppm  |  **Active:** 13.5%  |  **Perceptible:** 24/28
-
-### OAV Tiers
-  **massive** (10): Bergamot FCF oil Sicilian(1116), Ginger EO(2045), Dihydromyrcenol(9350), Linalyl Acetate(1503), Lavender EO High Altitude(6345), Clary Sage EO(1030), Geranium EO (Pelargonium graveolens flower oil)(1356), Hedione HC(2161), Hedione(5098), Iso E Super(4896)  ! overload risk
-  **v.strong** (2): Alpha Isomethyl Ionone(255), Cashmeran(176)
-  **strong** (1): Aldehyde C11(67)
-  **moderate** (7): Aldehyde C10(33), Helional(22), Vetiver EO (India)(32), Ambrofix(37), Frankincense EO(17), Coumarin(30), Romandolide(12)
-  **perceptible** (1): Calone(9)
-  **threshold** (3): Methyl Pamplemousse(4), Parmavert(1), Evernyl(3)
-  **sub** (4): Aldehyde C12 MNA(0), Cedarwood oil Virginia(1), Habanolide(0), Benzyl Benzoate(0)
-
-### Block Balance
-  **Citrus**        4 (0%)
-  **Floral**    14929 (98%)
-  **Base**        291 (2%)
-  **Ratio:** 3972:1 between strongest/weakest block
-
-### Issues
-  ! 4 sub-threshold material(s): Aldehyde C12 MNA, Cedarwood oil Virginia, Habanolide, Benzyl Benzoate
-  ! 10 massive-OAV materials — sensory overload likely
+**DRYDOWN** (14400.0s) — Uncalibrated loss index:18%
+  T:9.3% H:50.9% B:39.9%  Vapor:41.09ppm
+  Leaders: Iso E Super OAV 16997 | Dihydromyrcenol OAV 9382 | Hedione OAV 5380 | Hedione HC OAV 5380 | Aldehyde C10 OAV 4423
 
 ## Perfumer's Assessment
 
 ### 1. Character
-  Top: Dihydromyrcenol(very strong) + Lavender EO High Altitude(very strong) + Ginger EO(very strong)
-  Heart: Hedione(very strong) + Iso E Super(very strong)
-  Base: Cashmeran(strong) + Ambrofix(moderate) + Vetiver EO (India)(moderate) + Coumarin(moderate) + Romandolide(moderate)
+  Top: Dihydromyrcenol(massive) + Aldehyde C11(very strong) + Aldehyde C10(very strong)
+  Heart: Bergamot FCF oil Sicilian(massive) + Iso E Super(massive)
+  Base: Cedarwood oil Virginia(strong) + Cashmeran(strong) + Coumarin(strong) + Ambrofix(strong) + Vetiver EO (India)(moderate-strong)
 
 ### 2. Opening (0-5min)
-  Dihydromyrcenol dominates at OAV 9350 (very strong).
-  - Dihydromyrcenol OAV=9350 VP=17.0Pa (woody)
-  - Lavender EO High Altitude OAV=6345 VP=22.0Pa (aromatic)
-  - Ginger EO OAV=2045 VP=10.0Pa (spice)
-  - Linalyl Acetate OAV=1503 VP=17.5Pa (aromatic)
-  Total vapor: 48.3 ppm
+  Dihydromyrcenol leads the reported top at OAV 14327 (massive).
+  - Dihydromyrcenol OAV=14327 VP=29.1Pa (woody)
+  - Aldehyde C11 OAV=9961 VP=82.3Pa (aldehydic)
+  - Aldehyde C10 OAV=5164 VP=17.4Pa (aldehydic)
+  - Clary Sage EO OAV=5106 VP=8.9Pa (aromatic)
+  Total vapor: 687.2 ppm
 
 ### 3. Heart (30min-2hr)
-  Dihydromyrcenol OAV=9025 (very strong)
-  Lavender EO High Altitude OAV=5662 (very strong)
-  Hedione OAV=5166 (very strong)
-  Iso E Super OAV=4961 (very strong)
-  T:14.8% H:48.2% B:37.0%
-  Vapor: 45.8 ppm
+  Iso E Super OAV=14940 (massive)
+  Dihydromyrcenol OAV=14649 (massive)
+  Aldehyde C11 OAV=8824 (very strong)
+  Bergamot FCF oil Sicilian OAV=6728 (very strong)
+  T:14.6% H:49.0% B:36.4%
+  Vapor: 202.7 ppm
 
 ### 4. Drydown (2hr-4hr+)
-  Base dominates at 39% of headspace
-  - Dihydromyrcenol OAV=6922
-  - Hedione OAV=5570
-  - Iso E Super OAV=5346
-  - Lavender EO High Altitude OAV=2505
-  - Hedione HC OAV=2360
-  - Geranium EO (Pelargonium graveolens flower oil) OAV=1339
-  Vapor: 32.4 ppm
+  Base share of active note distribution: 40%
+  - Iso E Super OAV=16997
+  - Dihydromyrcenol OAV=9382
+  - Hedione OAV=5380
+  - Hedione HC OAV=5380
+  - Aldehyde C10 OAV=4423
+  - Lavender EO High Altitude OAV=2749
+  Vapor: 41.1 ppm
 
 ### 5. Sillage & Diffusion
-  Primary carriers: Dihydromyrcenol(9350) + Lavender EO High Altitude(6345) + Hedione(5098) + Iso E Super(4896)
-  OAV by family: woody41% aromatic25% floral25% spice6%
+  Primary carriers: Bergamot FCF oil Sicilian(30978) + Dihydromyrcenol(14327) + Iso E Super(13484) + Aldehyde C11(9961)
+  OAV by family: citrus29% woody27% aldehydic14% None12%
 
 ### 6. Longevity
-  Evaporation: 7% over 4h
-  Vapor: 48.3 > 32.4 ppm
-  Base @ drydown: 39%
-  Est. skin life: 9h moderate + 4h skin scent
+  Uncalibrated loss index: 18% over modeled window
+  Vapor: 687.2 > 41.1 ppm
+  Base @ drydown: 40%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
 
 ### 7. Balance
-  Pyramid: T:15.5% H:47.9% B:36.7%
-  OAV range: 0.00 to 9350 (sigma-log=1.90)
-  Wide contrast: citrus (OAV 9350) dominates opening before burning off to reveal base.
-    sub-threshold: 4
+  Pyramid: T:15.0% H:51.6% B:33.4%
+  OAV range: 0.02 to 30978 (sigma-log=1.68)
+  Wide OAV contrast: Bergamot FCF oil Sicilian leads at OAV 30978; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
 
 ### 8. Flags
-  SUB: Cedarwood oil Virginia OAV=0.80 role=Cedarwood oil Virginia
-  SUB: Habanolide OAV=0.03 role=Habanolide
-  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
-  SUB: Aldehyde C12 MNA OAV=0.00 role=Aldehyde C12 MNA
+  SUB: Aldehyde C12 MNA OAV=0.12 role=trace class=FUNCTIONAL_UNDERPERFORMANCE
+  SUB: Benzyl Benzoate OAV=0.04 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.02 role=fixative class=STRUCTURAL_OR_FIXATIVE
+
+
+## Structural OAV Analysis
+
+**Vapor:** 687 ppm  |  **Active:** 15.0%  |  **Perceptible:** 25/28  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (13): Aldehyde C10(5164), Aldehyde C11(9961), Bergamot FCF oil Sicilian(30978), Clary Sage EO(5106), Dihydromyrcenol(14327), Frankincense EO(5882), Geranium EO (Pelargonium graveolens flower oil)(1540), Ginger EO(2365), Hedione(4218), Hedione HC(4218), Iso E Super(13484), Lavender EO High Altitude(5307), Linalyl Acetate(2300)  ! fatigue risk, overload risk
+  **v.strong** (6): Alpha Isomethyl Ionone(445), Ambrofix(232), Calone(527), Cashmeran(306), Cedarwood oil Virginia(375), Coumarin(263)
+  **strong** (2): Methyl Pamplemousse(65), Vetiver EO (India)(66)
+  **moderate** (2): Helional(44), Romandolide(22)
+  **perceptible** (1): Evernyl(9)
+  **threshold** (1): Parmavert(2)
+  **sub** (3): Aldehyde C12 MNA(0), Benzyl Benzoate(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**       65 (0%)
+  **Floral**    66643 (98%)
+  **Base**       1274 (2%)
+  **Ratio:** 1024:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Aldehyde C12 MNA, Benzyl Benzoate, Habanolide
+  ! 13 massive-OAV materials — sensory overload likely
+```
+<!-- PIPELINE_ANALYSIS_END -->

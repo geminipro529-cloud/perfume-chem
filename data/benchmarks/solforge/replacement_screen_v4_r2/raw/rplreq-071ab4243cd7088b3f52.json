@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S01",
+  "completed_utc": "2026-08-26T07:22:26.515113+00:00",
+  "dispatch_sha256": "8200caa73d96d669a5b493f6e0db48960cf2043f7a82b585b010c385ed3a94f1",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "3a551e2c3a801e4deeac3d0bba9a33cf6663c83859c999bb7cbed3b72f932d5f",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Depth-only evidence weakly favors A over B: 4 wins versus 2 losses, with 2 ties. The 6 directional outcomes and 25% tie rate indicate a scoped preference signal, but not enough certainty for a broader augmentation claim. Richness, fidelity, physical liking, and inventory effects remain untested or out of scope.\",\"controlled_comparison\":\"Run the predetermined blinded, order-balanced B-versus-C depth comparison because that pair has the widest interval; retain assessor-clustered analysis.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"decision_state\":\"HOLD\",\"next_actions\":[\"Collect the next blinded B-versus-C depth comparison.\"],\"reason_codes\":[\"DEPTH_ONLY\",\"A_OVER_B_DIRECTIONAL_SIGNAL\",\"UNCERTAINTY_REMAINS\",\"B_C_WIDEST_INTERVAL\",\"VALIDATED_CONNECTED_DESIGN\"]},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "a0a9b6ea41ff395dcb46f85c7df3bca553361c148a9605e63f7a222770793290",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-071ab4243cd7088b3f52",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:05.813858+00:00",
+  "stderr_sha256": "9b5688df4b605824c5dc7a59ff3ca1753a5e536e1c6f51c80632c8f59d2565d4",
+  "stderr_tail": "ceipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":\"compute from the supplied evidence\",\"tie_rate\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Depth-only evidence weakly favors A over B: 4 wins versus 2 losses, with 2 ties. The 6 directional outcomes and 25% tie rate indicate a scoped preference signal, but not enough certainty for a broader augmentation claim. Richness, fidelity, physical liking, and inventory effects remain untested or out of scope.\",\"controlled_comparison\":\"Run the predetermined blinded, order-balanced B-versus-C depth comparison because that pair has the widest interval; retain assessor-clustered analysis.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"decision_state\":\"HOLD\",\"next_actions\":[\"Collect the next blinded B-versus-C depth comparison.\"],\"reason_codes\":[\"DEPTH_ONLY\",\"A_OVER_B_DIRECTIONAL_SIGNAL\",\"UNCERTAINTY_REMAINS\",\"B_C_WIDEST_INTERVAL\",\"VALIDATED_CONNECTED_DESIGN\"]},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n5,463\n",
+  "stdout_sha256": "dd2c465437fd9a8c56779182f8c68af8399e3b5c3972e3a8d6f19c7ee5913519"
+}

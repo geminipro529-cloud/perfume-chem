@@ -1,0 +1,31 @@
+{
+  "attempt": 1,
+  "attempt_preserved": true,
+  "classification": "PYTEST_NODE_SELECTOR_ERROR",
+  "evidence_commit": "be8f4509c4c2b37f5176bd2e3a8732bf29266e6e",
+  "failed_job": {
+    "exit_code": 4,
+    "name": "pytest-c7-dependency",
+    "requested_selector": "tests/test_c7_natural_lots.py::test_c7_module_has_no_legacy_runtime_database_or_production_dependency",
+    "stderr_path": "docs/verification/c7/postcommit/replay/pytest-c7-dependency.stderr.txt",
+    "stderr_sha256": "e38b23fd1b0d2c24946f5d306c902593d48759c349d43c53af19af062ac0f682",
+    "timed_out": false
+  },
+  "full_root_suite_in_same_attempt": {
+    "exit_code": 0,
+    "passed_test_count": 1583,
+    "stderr_bytes": 0
+  },
+  "metadata_path": "docs/verification/c7/postcommit/replay/replay-metadata.stdout.json",
+  "metadata_sha256": "ce06f54dde45dcf19b53de888c0a3ea673ae8626dad08fea15cc03b5e72f3c5d",
+  "minimal_reproduction": {
+    "correct_selector": "tests/test_c7_natural_lots.py::test_c7_module_has_no_legacy_backend_database_oav_or_sensory_dependency",
+    "passed": true,
+    "passed_test_count": 1,
+    "stderr_bytes": 0
+  },
+  "production_failure_inferred": false,
+  "root_cause": "The replay harness requested a nonexistent dependency-test node. Pytest exited 4 before executing a test; this was not a production-test failure.",
+  "schema": "build-c7-replay-attempt-failure-v1",
+  "status": "FAILED_HARNESS_ATTEMPT_PRESERVED"
+}

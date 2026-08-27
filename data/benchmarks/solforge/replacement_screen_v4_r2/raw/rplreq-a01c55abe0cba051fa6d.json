@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:21:50.380223+00:00",
+  "dispatch_sha256": "1a9c0f75b2ab4cca3bd8f06e71238e5369d39c9526c9965c53ea6ed250189423",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "4a9ce1382e191917e790d9f560c0df1d7e736c6d1cfceba247b034a1f47198de",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"The ideal architecture is a minimal translucent iris whose richness comes from negative space and exact material choice. All 4 declared target functions are strongly covered, so the unmet target function count is 0. Adding five materials has no target-linked justification because ingredient count and prestige are non-evidence, and no omission loss, missing function, or nonredundant relation is identified. The ideal architecture remains distinct from any current-inventory build.\",\"controlled_comparison\":{\"required\":false,\"design\":null,\"rationale\":\"No evidence-bound omission, addition, or ratio intervention exists to discriminate.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"ZERO_UNMET_TARGET_FUNCTIONS\",\"INGREDIENT_COUNT_NON_EVIDENCE\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"MINIMAL_ARCHITECTURE_TARGET_FAITHFUL\"],\"objective_receipt\":{\"calculations\":{\"unmet_target_function_count\":0},\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "028a7d9c4746972ba26120d5e2340328971da12ad71227b66ac1a28476d4fc0a",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-a01c55abe0cba051fa6d",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.835802+00:00",
+  "stderr_sha256": "b3c7edfe8ad8b61b39adbbe87ac9b24386e2ea2217832681d7362761f2b9cf2b",
+  "stderr_tail": "alse,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"The ideal architecture is a minimal translucent iris whose richness comes from negative space and exact material choice. All 4 declared target functions are strongly covered, so the unmet target function count is 0. Adding five materials has no target-linked justification because ingredient count and prestige are non-evidence, and no omission loss, missing function, or nonredundant relation is identified. The ideal architecture remains distinct from any current-inventory build.\",\"controlled_comparison\":{\"required\":false,\"design\":null,\"rationale\":\"No evidence-bound omission, addition, or ratio intervention exists to discriminate.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"next_actions\":[],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"ZERO_UNMET_TARGET_FUNCTIONS\",\"INGREDIENT_COUNT_NON_EVIDENCE\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"MINIMAL_ARCHITECTURE_TARGET_FAITHFUL\"],\"objective_receipt\":{\"calculations\":{\"unmet_target_function_count\":0},\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n5,360\n",
+  "stdout_sha256": "bedba5c5533a3f58c08caebc98bc17edf302200b22246130ca27cb2532bd5d4a"
+}

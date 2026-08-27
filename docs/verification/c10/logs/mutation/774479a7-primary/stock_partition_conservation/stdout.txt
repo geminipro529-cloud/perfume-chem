@@ -1,0 +1,26 @@
+F...                                                                     [100%]
+================================== FAILURES ===================================
+_ test_stock_requires_complete_unique_active_and_carrier_partition[0.5-carriers0] _
+
+active = 0.5, carriers = (('ethanol', 0.4),)
+
+    @pytest.mark.parametrize(
+        ("active", "carriers"),
+        [
+            (0.5, (("ethanol", 0.4),)),
+            (0.5, (("ethanol", 0.5), ("ethanol", 0.0))),
+            (1.1, ()),
+            (0.0, (("ethanol", 1.0),)),
+        ],
+    )
+    def test_stock_requires_complete_unique_active_and_carrier_partition(
+        active: float,
+        carriers: tuple[tuple[str, float], ...],
+    ) -> None:
+>       with pytest.raises(C10ContractError):
+E       Failed: DID NOT RAISE C10ContractError
+
+tests\test_c10_mixture_design.py:211: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c10_mixture_design.py::test_stock_requires_complete_unique_active_and_carrier_partition[0.5-carriers0]
+1 failed, 3 passed in 0.55s

@@ -1,0 +1,26 @@
+{
+  "schema": "c2-distinguishability-receipt-v1",
+  "recorded_at": "2026-08-02T19:49:57.2757734+07:00",
+  "synthetic_contract_fixture": true,
+  "not_a_measurement_or_prediction": true,
+  "formula_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "baseline": {
+    "matrix_sha256": "1869fc14983e407012965a7326415458859470d334236b21351843311936b7ce",
+    "environment_sha256": "2e0758c8e42789d9e9449a6d5e4ed32fcc8fea959d7a07cad2705ce81920faf5",
+    "request_sha256": "1896223a579eee5668737f590aa3afff767584db2c474fca9d3a821e956a7896"
+  },
+  "matrix_variant": {
+    "matrix_sha256": "507532a5ef89cae348391a33fd8cbf7801070d98d1c8f98af1345fb485c6a6d8",
+    "environment_sha256": "2e0758c8e42789d9e9449a6d5e4ed32fcc8fea959d7a07cad2705ce81920faf5",
+    "request_sha256": "e22c6925264d084a3c5951c1f1ea3e9e0cc3070cd208c5748bc7db18cdb55970"
+  },
+  "environment_variant": {
+    "matrix_sha256": "1869fc14983e407012965a7326415458859470d334236b21351843311936b7ce",
+    "environment_sha256": "1284ca969c769037fc69750dba6715eca9542f22f58eb8ba3ab4bbea4ecf772e",
+    "request_sha256": "dcf7dcf6cdb9b3717afad2e884aaed9d0af4808eb786f19fb9800aaf4520c45e"
+  },
+  "same_formula": true,
+  "matrix_change_distinguishable": true,
+  "environment_change_distinguishable": true,
+  "all_request_hashes_distinct": true
+}

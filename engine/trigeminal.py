@@ -30,9 +30,6 @@ Sources:
 from __future__ import annotations
 
 from dataclasses import dataclass
-import math
-from typing import Any
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRP Channel Activation Profiles
@@ -43,112 +40,256 @@ from typing import Any
 
 TRIGEMINAL_PROFILES: dict[str, dict[str, float]] = {
     # ── Cooling (TRPM8 activation) ──
-    "Linalool":             {"TRPM8": 0.25, "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Linalyl Acetate":      {"TRPM8": 0.15, "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Dihydromyrcenol":      {"TRPM8": 0.40, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Terpinyl Acetate":     {"TRPM8": 0.20, "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Hedione":              {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.10},
+    "Linalool": {"TRPM8": 0.25, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Linalyl Acetate": {
+        "TRPM8": 0.15,
+        "TRPV1": 0.0,
+        "TRPA1": 0.0,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Dihydromyrcenol": {
+        "TRPM8": 0.40,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Terpinyl Acetate": {
+        "TRPM8": 0.20,
+        "TRPV1": 0.0,
+        "TRPA1": 0.0,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Hedione": {"TRPM8": 0.10, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.10},
     # ── Warming (TRPV1 activation) ──
-    "Eugenol":              {"TRPM8": 0.0,  "TRPV1": 0.50, "TRPA1": 0.20,
-                             "numbing": 0.45, "effervescence": 0.0},
-    "Guaiacol":             {"TRPM8": 0.0,  "TRPV1": 0.35, "TRPA1": 0.15,
-                             "numbing": 0.10, "effervescence": 0.0},
-    "Cinnamaldehyde":       {"TRPM8": 0.0,  "TRPV1": 0.30, "TRPA1": 0.65,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Birch Tar Rectified":  {"TRPM8": 0.0,  "TRPV1": 0.20, "TRPA1": 0.10,
-                             "numbing": 0.05, "effervescence": 0.0},
-    "Ethyl Safranate":      {"TRPM8": 0.0,  "TRPV1": 0.15, "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Eugenol": {"TRPM8": 0.0, "TRPV1": 0.50, "TRPA1": 0.20, "numbing": 0.45, "effervescence": 0.0},
+    "Guaiacol": {"TRPM8": 0.0, "TRPV1": 0.35, "TRPA1": 0.15, "numbing": 0.10, "effervescence": 0.0},
+    "Cinnamaldehyde": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.30,
+        "TRPA1": 0.65,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Birch Tar Rectified": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.20,
+        "TRPA1": 0.10,
+        "numbing": 0.05,
+        "effervescence": 0.0,
+    },
+    "Ethyl Safranate": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.15,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
     # ── Aldehydic effervescence / tingling ──
-    "Aldehyde C10":         {"TRPM8": 0.05, "TRPV1": 0.05, "TRPA1": 0.15,
-                             "numbing": 0.0,  "effervescence": 0.60},
-    "Aldehyde C11":         {"TRPM8": 0.05, "TRPV1": 0.05, "TRPA1": 0.15,
-                             "numbing": 0.0,  "effervescence": 0.55},
-    "Aldehyde C11 Undecylenic": {"TRPM8": 0.05, "TRPV1": 0.05, "TRPA1": 0.12,
-                             "numbing": 0.0,  "effervescence": 0.50},
-    "Aldehyde C12 MNA":     {"TRPM8": 0.05, "TRPV1": 0.03, "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.45},
+    "Aldehyde C10": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.05,
+        "TRPA1": 0.15,
+        "numbing": 0.0,
+        "effervescence": 0.60,
+    },
+    "Aldehyde C11": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.05,
+        "TRPA1": 0.15,
+        "numbing": 0.0,
+        "effervescence": 0.55,
+    },
+    "Aldehyde C11 Undecylenic": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.05,
+        "TRPA1": 0.12,
+        "numbing": 0.0,
+        "effervescence": 0.50,
+    },
+    "Aldehyde C12 MNA": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.03,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.45,
+    },
     # ── Metallic / mineral ──
-    "Cyclamen Aldehyde":    {"TRPM8": 0.10, "TRPV1": 0.05, "TRPA1": 0.20,
-                             "numbing": 0.0,  "effervescence": 0.35},
-    "Scentenal":            {"TRPM8": 0.15, "TRPV1": 0.0,  "TRPA1": 0.15,
-                             "numbing": 0.0,  "effervescence": 0.25},
+    "Cyclamen Aldehyde": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.05,
+        "TRPA1": 0.20,
+        "numbing": 0.0,
+        "effervescence": 0.35,
+    },
+    "Scentenal": {
+        "TRPM8": 0.15,
+        "TRPV1": 0.0,
+        "TRPA1": 0.15,
+        "numbing": 0.0,
+        "effervescence": 0.25,
+    },
     # ── Green bite ──
-    "cis-3-Hexenol":        {"TRPM8": 0.05, "TRPV1": 0.10, "TRPA1": 0.30,
-                             "numbing": 0.0,  "effervescence": 0.05},
-    "Dynascone":            {"TRPM8": 0.0,  "TRPV1": 0.10, "TRPA1": 0.25,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Allyl Amyl Glycolate": {"TRPM8": 0.15, "TRPV1": 0.0,  "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.05},
-    "Leafovert":            {"TRPM8": 0.05, "TRPV1": 0.05, "TRPA1": 0.15,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Parmavert":            {"TRPM8": 0.05, "TRPV1": 0.05, "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "cis-3-Hexenol": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.10,
+        "TRPA1": 0.30,
+        "numbing": 0.0,
+        "effervescence": 0.05,
+    },
+    "Dynascone": {"TRPM8": 0.0, "TRPV1": 0.10, "TRPA1": 0.25, "numbing": 0.0, "effervescence": 0.0},
+    "Allyl Amyl Glycolate": {
+        "TRPM8": 0.15,
+        "TRPV1": 0.0,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.05,
+    },
+    "Leafovert": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.05,
+        "TRPA1": 0.15,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Parmavert": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.05,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
     # ── Ozonic / aquatic ──
-    "Calone":               {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.15},
-    "Floralozone":          {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
+    "Calone": {"TRPM8": 0.10, "TRPV1": 0.0, "TRPA1": 0.05, "numbing": 0.0, "effervescence": 0.15},
+    "Floralozone": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
     # ── Citrus terpenes ──
-    "D-Limonene":           {"TRPM8": 0.10, "TRPV1": 0.05, "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.15},
-    "Cedrat FCF Sicilian":  {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.10,
-                             "numbing": 0.0,  "effervescence": 0.10},
-    "Grapefruit FCF":       {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
-    "Blood Orange Sicilian":{"TRPM8": 0.05, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
-    "Bergamot FCF":         {"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
-    "Bergamot FCF Sicilian":{"TRPM8": 0.10, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
-    "Red Mandarin EO":      {"TRPM8": 0.05, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.08},
-    "Methyl Pamplemousse":  {"TRPM8": 0.08, "TRPV1": 0.0,  "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.10},
+    "D-Limonene": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.05,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.15,
+    },
+    "Cedrat FCF Sicilian": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.0,
+        "TRPA1": 0.10,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
+    "Grapefruit FCF": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
+    "Blood Orange Sicilian": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
+    "Bergamot FCF": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
+    "Bergamot FCF Sicilian": {
+        "TRPM8": 0.10,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
+    "Red Mandarin EO": {
+        "TRPM8": 0.05,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.08,
+    },
+    "Methyl Pamplemousse": {
+        "TRPM8": 0.08,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.10,
+    },
     # ── Spice ──
-    "Cardamom EO":        {"TRPM8": 0.15, "TRPV1": 0.15, "TRPA1": 0.10,
-                              "numbing": 0.0,  "effervescence": 0.0},
-    "Cardamom EO":          {"TRPM8": 0.20, "TRPV1": 0.05, "TRPA1": 0.08,
-                              "numbing": 0.0,  "effervescence": 0.0},
+    "Cardamom EO": {
+        "TRPM8": 0.20,
+        "TRPV1": 0.05,
+        "TRPA1": 0.08,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
     # ── Ambrox / mineral ──
-    "Ambrox Super":         {"TRPM8": 0.0,  "TRPV1": 0.05, "TRPA1": 0.05,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Ambrox Super": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.05,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
     # ── Indole ──
-    "Indole":               {"TRPM8": 0.0,  "TRPV1": 0.10, "TRPA1": 0.15,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Indole": {"TRPM8": 0.0, "TRPV1": 0.10, "TRPA1": 0.15, "numbing": 0.0, "effervescence": 0.0},
     # ── Lavender ──
-    "Lavender EO":          {"TRPM8": 0.20, "TRPV1": 0.0,  "TRPA1": 0.05,
-                              "numbing": 0.0,  "effervescence": 0.0},
-    "Lavender EO (BONTAUX SAS)": {"TRPM8": 0.15, "TRPV1": 0.0, "TRPA1": 0.03,
-                              "numbing": 0.0,  "effervescence": 0.0},
-    "Clary Sage EO":        {"TRPM8": 0.15, "TRPV1": 0.0,  "TRPA1": 0.05,
-                              "numbing": 0.0,  "effervescence": 0.0},
+    "Lavender EO": {
+        "TRPM8": 0.20,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Lavender EO (BONTAUX SAS)": {
+        "TRPM8": 0.15,
+        "TRPV1": 0.0,
+        "TRPA1": 0.03,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Clary Sage EO": {
+        "TRPM8": 0.15,
+        "TRPV1": 0.0,
+        "TRPA1": 0.05,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
     # ── Heliotropin / vanillic ──
-    "Heliotropal": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Vanillin":             {"TRPM8": 0.0,  "TRPV1": 0.05, "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Heliotropal": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Vanillin": {"TRPM8": 0.0, "TRPV1": 0.05, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
     # ── Neutral (no trigeminal activity) ──
-    "Iso E Super":          {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Cashmeran":            {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Galaxolide":           {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Benzyl Salicylate":    {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Coumarin":             {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "Ethylene Brassylate":  {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
-    "DBCA":                 {"TRPM8": 0.0,  "TRPV1": 0.0,  "TRPA1": 0.0,
-                             "numbing": 0.0,  "effervescence": 0.0},
+    "Iso E Super": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Cashmeran": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Galaxolide": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Benzyl Salicylate": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.0,
+        "TRPA1": 0.0,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "Coumarin": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
+    "Ethylene Brassylate": {
+        "TRPM8": 0.0,
+        "TRPV1": 0.0,
+        "TRPA1": 0.0,
+        "numbing": 0.0,
+        "effervescence": 0.0,
+    },
+    "DBCA": {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0},
 }
 
 
@@ -156,18 +297,20 @@ TRIGEMINAL_PROFILES: dict[str, dict[str, float]] = {
 # Scoring
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 @dataclass
 class TrigeminalReport:
     """Chemesthetic profile and coherence analysis."""
-    score: float                        # 0-100 composite
-    cooling_intensity: float            # 0-1 weighted TRPM8
-    warming_intensity: float            # 0-1 weighted TRPV1+TRPA1 warming subset
-    tingling_intensity: float           # 0-1 TRPA1 pungency
-    effervescence_intensity: float      # 0-1 aldehydic sparkle
-    numbing_intensity: float            # 0-1 anaesthetic effect
-    dominant_effect: str                # "cooling", "warming", "tingling", etc.
-    coherence: float                    # 0-1 how unified the chemesthetic profile is
-    active_materials: list[dict]        # materials contributing trigeminal effects
+
+    score: float  # 0-100 composite
+    cooling_intensity: float  # 0-1 weighted TRPM8
+    warming_intensity: float  # 0-1 weighted TRPV1+TRPA1 warming subset
+    tingling_intensity: float  # 0-1 TRPA1 pungency
+    effervescence_intensity: float  # 0-1 aldehydic sparkle
+    numbing_intensity: float  # 0-1 anaesthetic effect
+    dominant_effect: str  # "cooling", "warming", "tingling", etc.
+    coherence: float  # 0-1 how unified the chemesthetic profile is
+    active_materials: list[dict]  # materials contributing trigeminal effects
     diagnostics: list[str]
 
 
@@ -188,8 +331,7 @@ def score_trigeminal(
     """
     dilutions = dilutions or {}
     total_active = 0.0
-    channels = {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0,
-                "numbing": 0.0, "effervescence": 0.0}
+    channels = {"TRPM8": 0.0, "TRPV1": 0.0, "TRPA1": 0.0, "numbing": 0.0, "effervescence": 0.0}
     active_mats: list[dict] = []
     diagnostics: list[str] = []
 
@@ -210,19 +352,27 @@ def score_trigeminal(
             channels[ch] += val * active
 
         dominant = max(profile, key=profile.get)
-        active_mats.append({
-            "material": name,
-            "dominant_channel": dominant,
-            "intensity": round(profile[dominant], 2),
-            "amount_uL": round(active, 1),
-        })
+        active_mats.append(
+            {
+                "material": name,
+                "dominant_channel": dominant,
+                "intensity": round(profile[dominant], 2),
+                "amount_uL": round(active, 1),
+            }
+        )
 
     if total_active == 0:
         return TrigeminalReport(
-            score=50, cooling_intensity=0, warming_intensity=0,
-            tingling_intensity=0, effervescence_intensity=0,
-            numbing_intensity=0, dominant_effect="none", coherence=0,
-            active_materials=[], diagnostics=["No trigeminal data"],
+            score=50,
+            cooling_intensity=0,
+            warming_intensity=0,
+            tingling_intensity=0,
+            effervescence_intensity=0,
+            numbing_intensity=0,
+            dominant_effect="none",
+            coherence=0,
+            active_materials=[],
+            diagnostics=["No trigeminal data"],
         )
 
     # Normalize channel outputs

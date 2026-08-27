@@ -1,12 +1,11 @@
 """Data models for the formula optimizer."""
 
-from dataclasses import dataclass, field
-from functools import lru_cache
 import json
 import re
 import unicodedata
+from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
-
 
 KG_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "knowledge_graph"
 DB_PATH = Path(__file__).resolve().parent.parent.parent / "perfume_chem.db"
@@ -49,8 +48,8 @@ def _is_generic_label(name: str) -> bool:
     return _core_material_phrase(name) in _GENERIC_LABELS
 
 
-def _material_alias_keys(name: str) -> set[str]:
-    """Generate conservative alias keys for material name normalization."""
+def _material_alias_keys(name: str) -> tuple[str, ...]:
+    """Generate conservative alias keys in explicit resolution priority order."""
     greek_map = str.maketrans({
         "α": "a",
         "β": "b",
@@ -61,35 +60,43 @@ def _material_alias_keys(name: str) -> set[str]:
     low = name.lower().translate(greek_map)
     low = low.replace("**", "")
     low = re.sub(r"\s+", " ", low.strip())
-    variants = {low}
+    variants: list[str] = []
+    seen: set[str] = set()
 
+    def add_variant(value: str) -> None:
+        normalized = value.strip()
+        if not normalized or normalized in seen:
+            return
+        if len(normalized) < 3 and normalized not in _LOOKUP_ALIASES:
+            return
+        seen.add(normalized)
+        variants.append(normalized)
+
+    # Exact normalized spelling is authoritative. Progressively broader aliases
+    # follow in deterministic order; none may outrank the exact key.
+    add_variant(low)
     stripped_parens = re.sub(r"\s*\([^)]*\)\s*$", "", low).strip()
-    if stripped_parens:
-        variants.add(stripped_parens)
+    add_variant(stripped_parens)
 
     if "(" in low and ")" not in low:
-        variants.add(low.split("(", 1)[0].strip())
+        add_variant(low.split("(", 1)[0])
     if "=" in low:
-        variants.add(low.split("=", 1)[0].strip())
+        add_variant(low.split("=", 1)[0])
 
     no_codes = re.sub(r"\bf\d{4}\b", "", low).strip()
-    variants.add(no_codes)
-    variants.add(no_codes.replace(" f-tec", " ftec"))
-    variants.add(no_codes.replace(" ftec", " f-tec"))
-    variants.add(no_codes.replace(" eo", ""))
-    variants.add(no_codes.replace(" essential oil", ""))
-    variants.add(no_codes.replace(" oil ", " "))
-    variants.add(no_codes.replace(" oil", ""))
-    variants.add(no_codes.replace("  ", " ").strip())
+    add_variant(no_codes)
+    add_variant(no_codes.replace(" f-tec", " ftec"))
+    add_variant(no_codes.replace(" ftec", " f-tec"))
+    add_variant(no_codes.replace(" eo", ""))
+    add_variant(no_codes.replace(" essential oil", ""))
+    add_variant(no_codes.replace(" oil ", " "))
+    add_variant(no_codes.replace(" oil", ""))
+    add_variant(no_codes.replace("  ", " "))
     core_phrase = _core_material_phrase(no_codes)
     if core_phrase:
-        variants.add(core_phrase)
+        add_variant(core_phrase)
 
-    return {
-        v.strip()
-        for v in variants
-        if v and (len(v.strip()) >= 3 or v.strip() in _LOOKUP_ALIASES)
-    }
+    return tuple(variants)
 
 
 def _profile_material_dict(profile) -> dict:
@@ -112,7 +119,8 @@ def _profile_material_dict(profile) -> dict:
 
 def _supplement_material_index(db: dict) -> dict:
     """Add alias keys and profile-backed fallback records to the material index."""
-    from ..ingredient_intelligence import get_all_profiles, _ALIASES as PROFILE_ALIASES
+    from ..ingredient_intelligence import _ALIASES as PROFILE_ALIASES
+    from ..ingredient_intelligence import get_all_profiles
     from ..material_identity import resolve_material_identity
     try:
         from ..ingredient_catalog import load_ingredient_catalog_index
@@ -594,6 +602,7 @@ def invalidate_caches():
     _PAIRING_INDEX = None
     _SYNERGY_INDEX = None
     for fn_name in (
+        "_lookup_material",
         "resolve_material_name",
         "classify_roudnitska_roles",
         "material_roudnitska_roles",
@@ -805,6 +814,7 @@ def _get_logp(name: str, mat: dict | None = None) -> float | None:
     return None
 
 
+@lru_cache(maxsize=4096)
 def _lookup_material(name: str) -> dict | None:
     """Find a material in the knowledge graph by name match."""
     from ..material_identity import resolve_material_identity
@@ -1087,7 +1097,7 @@ def _matching_rules_for_material(name: str, index: dict[str, list[dict]]) -> lis
 
 def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, object]:
     """Canonical rule-match analysis for a formula's ingredient set.
-    
+
     Now includes per-axis magnitude-weighted scoring.
     Every rule has 'axis' and 'magnitude' fields."""
     unique_names = [name for name in dict.fromkeys(ingredient_names) if name]
@@ -1368,11 +1378,10 @@ class FormulaVector:
 
 @dataclass
 class ObjectiveWeights:
-    """Weights for multi-objective scoring — 10 axes.
+    """Weights for active multi-objective diagnostics.
 
-    7 kept axes: physics-grounded or peer-reviewed experimental data.
-    3 rewritten axes: luxury (ingredient quality), texture (haptic/sensory),
-    stacking_depth (intentional structural layering = craftsmanship).
+    ``hedonic`` remains constructor-compatible but active scoring accepts only
+    zero. Observed liking is evaluated by :mod:`engine.hedonic_evidence`.
     """
     longevity: float = 0.8
     sillage: float = 0.8
@@ -1382,9 +1391,39 @@ class ObjectiveWeights:
     stacking_depth: float = 0.8  # Intentional structural layering (craftsmanship)
     # ── Science axes ──
     skin_performance: float = 0.7   # Reservoir kinetics + fabric substantivity
-    hedonic: float = 0.5      # Intrinsic pleasantness (Khan 2007)
+    hedonic: float = 0.0      # Compatibility field; active use is prohibited.
     perceptual_clarity: float = 0.6  # Mixture suppression + cross-adaptation
     photorealism: float = 0.7  # Photorealistic transparency (glass-like definition)
+
+    def as_dict(self) -> dict[str, float]:
+        return {
+            "longevity": self.longevity,
+            "sillage": self.sillage,
+            "synergy": self.synergy,
+            "luxury": self.luxury,
+            "texture": self.texture,
+            "stacking_depth": self.stacking_depth,
+            "skin_performance": self.skin_performance,
+            "hedonic": self.hedonic,
+            "perceptual_clarity": self.perceptual_clarity,
+            "photorealism": self.photorealism,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class LegacyObjectiveWeightsV1:
+    """Frozen former defaults used only by explicit historical replay."""
+
+    longevity: float = 0.8
+    sillage: float = 0.8
+    synergy: float = 0.5
+    luxury: float = 0.8
+    texture: float = 0.8
+    stacking_depth: float = 0.8
+    skin_performance: float = 0.7
+    hedonic: float = 0.5
+    perceptual_clarity: float = 0.6
+    photorealism: float = 0.7
 
     def as_dict(self) -> dict[str, float]:
         return {

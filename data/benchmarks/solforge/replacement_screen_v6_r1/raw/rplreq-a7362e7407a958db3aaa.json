@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S01",
+  "completed_utc": "2026-08-26T07:33:11.778937+00:00",
+  "dispatch_sha256": "a8d0f98c84b234ef14b993f6bfe0b143624beb7b1bff3561bec5fa9b71ce9f20",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "f4c97bf5a8a511338b7270a0e2568883acc26157cc68f69905aee374bd0697ec",
+  "output_text": "{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"Observed median dry-wood depth rises from one minute to thirty minutes. This is an observational summary only and does not establish causality, physical performance, or liking.\",\"controlled_comparison\":\"Under protocol AUG-TEM-S01 and schedule sched-aug-tem-s01, four unique assessor cells per timepoint were compared: 60 seconds [2,3,3,4] versus 1800 seconds [5,5,6,6]. All canonical cells were present once, scopes matched, presentation was balanced, and disagreement remained within threshold.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"OBSERVED_MEDIAN_INCREASE\",\"COMPLETE_BALANCED_CELLS\",\"MATCHED_PROTOCOL_AND_SCHEDULE\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":{\"direction\":\"RISE\",\"absolute_change\":2.5}},\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "d91407fbd2697e3f02d5540ab8cabea764986e4af015e77720d87a667fd778e5",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-a7362e7407a958db3aaa",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:54.536627+00:00",
+  "stderr_sha256": "e17b7825af61c6ebbc0e557787bedb79c97f864b1742b2e3d7125b9ddf8619d8",
+  "stderr_tail": "n\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"median_at_1800_seconds\":\"compute from the supplied evidence\",\"median_at_60_seconds\":\"compute from the supplied evidence\",\"median_transition\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"COMPLETE\",\"target_linked_reasoning\":\"Observed median dry-wood depth rises from one minute to thirty minutes. This is an observational summary only and does not establish causality, physical performance, or liking.\",\"controlled_comparison\":\"Under protocol AUG-TEM-S01 and schedule sched-aug-tem-s01, four unique assessor cells per timepoint were compared: 60 seconds [2,3,3,4] versus 1800 seconds [5,5,6,6]. All canonical cells were present once, scopes matched, presentation was balanced, and disagreement remained within threshold.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"reason_codes\":[\"OBSERVED_MEDIAN_INCREASE\",\"COMPLETE_BALANCED_CELLS\",\"MATCHED_PROTOCOL_AND_SCHEDULE\"],\"calculations\":{\"median_at_60_seconds\":3,\"median_at_1800_seconds\":5.5,\"median_transition\":{\"direction\":\"RISE\",\"absolute_change\":2.5}},\"next_actions\":[],\"physical_liking_state\":\"NOT TESTED\",\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n8,634\n",
+  "stdout_sha256": "abca97fb9296c7a938427d7d611d2236b0fb3e9c35782c8982e626ba74490d33"
+}

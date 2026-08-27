@@ -1,0 +1,340 @@
+{
+  "schema_version": "perfume_chem_complexity_xhigh_governance_receipt_v2",
+  "receipt_id": "complexity-xhigh-CXB-20260822T144500Z-v2-7f31c0a2",
+  "run_id": "CXB-20260822T144500Z-v2-7f31c0a2",
+  "terminal_state": "PARTIAL_RECOVERABLE_RETIREMENT_COMPLETED",
+  "decision_summary": "The combined complexity treatment did not outperform normal ChatGPT xhigh. One bounded MISSING_DISCRIMINATOR repair corrected the response contract and projection logic but did not produce a positive median or enough paired wins on frozen cases or unseen holdouts. Five failing families were removed from runtime eligibility without deleting their source. The experimental-design module remains active because it was associated with the two decisive main-run gains and was not in the failed repair set.",
+  "design_definition": {
+    "complexity": "identity-linked perceptual depth that defines richness and hedonic potential; it may arise from exact simplicity, deep layering, coherent temporal unfolding, restraint, or negative space",
+    "not_proxies": [
+      "ingredient count",
+      "module count",
+      "interaction count",
+      "descriptor count",
+      "novelty",
+      "response length",
+      "jargon",
+      "technical density"
+    ],
+    "physical_liking_state": "NOT_TESTED",
+    "hedonic_superiority_state": "NOT_TESTED"
+  },
+  "benchmark": {
+    "evaluated_registry_sha256": "edcdd24d3690fd2288145934fadc7fe8b1e10504882623dcf1f5994f069245ac",
+    "disposition_registry_sha256": "156c0cbdc127e6f338f5a4c284f1f4ea67f9bc1127619ab2b459977124beee49",
+    "corpus_sha256": "62be54dc1580815bff2ed66c191c5df95b3997433ea98173cc85230a319472ec",
+    "rubric_sha256": "e37dfe36580c933de5283ef15d9cc4039f2731897c83aeffdf1153e189a5d57a",
+    "model_identity_observed": "5.6 Sol Extra High",
+    "reasoning_effort_observed": "Extra High",
+    "context_requirement": "one fresh projectless ChatGPT conversation per request",
+    "control": "normal ChatGPT xhigh with the common case packet",
+    "treatment": "the same ChatGPT xhigh with the combined eligible complexity-module packet",
+    "validation_state": "PASS",
+    "valid_request_count": 32,
+    "valid_pair_count": 16,
+    "treatment_wins": 3,
+    "treatment_losses": 2,
+    "ties": 11,
+    "median_paired_delta": "0.0",
+    "new_treatment_critical_failures": 0,
+    "category_median_deltas": {
+      "TARGET_ARCHITECTURE": "0.0",
+      "RECONSTRUCTION_REVISION": "0.0",
+      "MISSING_CHEMICAL_IMPACT": "47.5",
+      "EXPERIMENTAL_EVIDENCE_DESIGN": "0.0"
+    },
+    "decision": "NO_DEMONSTRATED_OUTPERFORMANCE",
+    "telemetry_state": "NOT_EXPOSED"
+  },
+  "contract_corrections": {
+    "invalidated_predecessor_run": {
+      "path": "output/complexity_xhigh_benchmark/current/benchmark_invalidation.json",
+      "sha256": "aac141c0d18167d7033dc203200139e66b7516759eddfaa180f7fb1000a130fc",
+      "excluded_execution_count": 32,
+      "reason": "INVALID_HIDDEN_RESPONSE_CONTRACT"
+    },
+    "c02_limitation": {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/contract_limitation.json",
+      "sha256": "ea0d5e0b24210e4e1c6f329e2641736f3069d692b7c14742f29a4258076992ef",
+      "original_decision_authority": false,
+      "reason": "the original contract did not disclose that exception_calls must be an object keyed by exact material name"
+    },
+    "v3_resolution": "The exact material-keyed exception-call object and all six required fields were disclosed. CX-C02 was rerun and both arms scored 100, so the malformed original pair supplied no retirement signal."
+  },
+  "repair_cycle": {
+    "count": 1,
+    "classification": "MISSING_DISCRIMINATOR",
+    "changed_path": "engine/perception/complexity_adapters.py",
+    "changed_path_sha256": "d1126968359d475aec8bfd2c253e97db92a70073ba498cd625fd316b2d45482f",
+    "repair_decision_path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair_decision.json",
+    "repair_decision_sha256": "7e05f77bee06cd743065a9c2afc92a835ba955991561a7dbffde083a2afcee2c",
+    "frozen_cases": {
+      "validation_state": "PASS",
+      "pair_count": 4,
+      "treatment_wins": 0,
+      "treatment_losses": 1,
+      "ties": 3,
+      "median_paired_delta": "0.0",
+      "new_treatment_critical_failures": 0
+    },
+    "holdouts": {
+      "validation_state": "PASS",
+      "case_ids": [
+        "CX-A91",
+        "CX-B91",
+        "CX-C91",
+        "CX-D91"
+      ],
+      "pair_count": 4,
+      "treatment_wins": 1,
+      "treatment_losses": 1,
+      "ties": 2,
+      "median_paired_delta": "0.0",
+      "new_treatment_critical_failures": 0
+    },
+    "decision": "REPAIR_DID_NOT_CLEAR_FROZEN_OR_HOLDOUT_THRESHOLDS"
+  },
+  "family_decisions": [
+    {
+      "family_id": "construction_profile",
+      "state": "RETIRE",
+      "holdout_median_delta": "0",
+      "holdout_win_rate": "0.5",
+      "reason": "capability missed the frozen and holdout median-gain and paired-win thresholds"
+    },
+    {
+      "family_id": "complexity_expansion",
+      "state": "RETIRE",
+      "holdout_median_delta": "0",
+      "holdout_win_rate": "0",
+      "reason": "capability missed the frozen and holdout median-gain and paired-win thresholds"
+    },
+    {
+      "family_id": "musk_design_restraint",
+      "state": "RETIRE",
+      "holdout_median_delta": "-2.5",
+      "holdout_win_rate": "0",
+      "reason": "capability missed the frozen and holdout median-gain and paired-win thresholds"
+    },
+    {
+      "family_id": "admission_lifecycle",
+      "state": "RETIRE",
+      "holdout_median_delta": "0",
+      "holdout_win_rate": "0",
+      "reason": "guardrail did not prevent a critical failure after the bounded repair"
+    },
+    {
+      "family_id": "temporal_sensory_integrity",
+      "state": "RETIRE",
+      "holdout_median_delta": "5",
+      "holdout_win_rate": "1",
+      "reason": "guardrail did not prevent a critical failure after the bounded repair"
+    },
+    {
+      "family_id": "experimental_design",
+      "state": "RETAIN",
+      "reason": "associated with the two decisive main-run gains and not in the failed repair set"
+    }
+  ],
+  "registry_transitions": [
+    {
+      "module_id": "construction-profile",
+      "prior_state": "ACTIVE_CANDIDATE",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/construction_complexity.py",
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "complexity-expansion-frontier",
+      "prior_state": "ACTIVE_CANDIDATE",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/complexity_expansion.py",
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "musk-design-restraint",
+      "prior_state": "ACTIVE_CANDIDATE",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/musk_design.py",
+      "sha256": "1215b9ea69f0bff68c0fbfd69652cf5df7a413a8fed9e2a3edf585021563abcb",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "complexity-model-admission",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "complexity-model-lifecycle",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/physics/model_lifecycle.py",
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "within-sniff-observation-contract",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/within_sniff.py",
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "temporal-observation-contract",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/temporal_observations.py",
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "order-balance-contract",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/order_balance.py",
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c",
+      "runtime_eligible": false,
+      "deleted": false
+    },
+    {
+      "module_id": "sensory-panel-contract",
+      "prior_state": "MANDATORY_GUARDRAIL",
+      "new_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/panel_contract.py",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc",
+      "runtime_eligible": false,
+      "deleted": false
+    }
+  ],
+  "retained_modules": [
+    {
+      "module_id": "complexity-experimental-design",
+      "state": "ACTIVE_CANDIDATE",
+      "reason": "associated with the two decisive main-run gains and not in the failed repair set"
+    }
+  ],
+  "execution_accounting": {
+    "accepted_main_evaluations": 32,
+    "accepted_repair_frozen_evaluations": 8,
+    "accepted_holdout_evaluations": 8,
+    "accepted_holdout_generators": 4,
+    "accepted_chat_count": 52,
+    "invalidated_predecessor_chat_count": 32,
+    "deep_luna_provider_transmissions": 0,
+    "price_telemetry_state": "NOT_EXPOSED"
+  },
+  "evidence_artifacts": [
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/manifest.json",
+      "sha256": "0058ced91fc09cd6edaef566ef12ba0757e4d5e1de6729f79130f07f5a643920"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/validation.json",
+      "sha256": "06db75731186a821652fc2420c21062be6635465ab7bd59d234ff8de054be68d"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/scores.json",
+      "sha256": "5ad34b5c1dd073c9a6c66051d708ed5375f47b752c4e381520f66216f4eaad88"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/frozen_cases_v3/manifest.json",
+      "sha256": "c51b15870c410e506af0e9400c1a7a2449007faad6ba50a4dc7d2bddebca2e64"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/frozen_cases_v3/validation.json",
+      "sha256": "f33630db2fe4c2b92caef622aee87a0ccebf39508f04f81762ff23df397ceae7"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/frozen_cases_v3/scores.json",
+      "sha256": "875c379f58b72aa99db53e1c33d7e8f02d015962fca52c79cb8d5b44c915c5d9"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/holdouts_v3/manifest.json",
+      "sha256": "7c463936d1e714e70fa850cef76b8380830e0b7573b7a14e709ec3e723732062"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/holdouts_v3/validation.json",
+      "sha256": "f094dfa366e4eb0715f77b846c1c7b32598309b7b5415392ef53ca7d8cdbcf25"
+    },
+    {
+      "path": "output/complexity_xhigh_benchmark/CXB-20260822T144500Z-v2-7f31c0a2/repair-cycle-1/holdouts_v3/holdout_scores.json",
+      "sha256": "9f2926225cdae08c6d1474e0247865bf100be6a195476d88afef964508159949"
+    }
+  ],
+  "module_decision": "PARTIAL_RECOVERABLE_RETIREMENT",
+  "preserved_paths": [
+    "engine/perception/construction_complexity.py",
+    "engine/perception/complexity_expansion.py",
+    "engine/perception/musk_design.py",
+    "engine/scientific_validation/complexity_model_admission.py",
+    "engine/physics/model_lifecycle.py",
+    "engine/sensory/within_sniff.py",
+    "engine/sensory/temporal_observations.py",
+    "engine/sensory/order_balance.py",
+    "engine/sensory/panel_contract.py"
+  ],
+  "deleted_paths": [],
+  "musk_policy": {
+    "active_module_state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+    "default": "zero or one exact musk remains a valid design principle",
+    "exception_only_materials": [
+      "Tonalide",
+      "Macrolide",
+      "Musk Ketone"
+    ],
+    "exception_contract_state": "CORRECTED_AND_TESTED",
+    "physical_stock_authority": false
+  },
+  "verification": {
+    "complexity_focused": {
+      "state": "PASS",
+      "tests": "66 passed",
+      "ruff": "PASS",
+      "compileall": "PASS",
+      "registry_census": "PASS"
+    },
+    "project_quick": {
+      "completion_gate": "FAIL",
+      "passed_checks": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "golden-fixture-lock"
+      ],
+      "failed_checks": [
+        "formula-artifact-validation"
+      ],
+      "failure_relation": "PRE_EXISTING_UNRELATED_FORMULA_ARTIFACT_STALENESS; NO COMPLEXITY TASK FORMULA PATH WAS MODIFIED",
+      "release_readiness": "BLOCKED"
+    }
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "83cff0e7b15a44d22dca7ff6e3e1197f1f4244ab7c38855b225aea498dc1673f"
+}

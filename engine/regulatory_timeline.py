@@ -10,7 +10,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-
 IFRA_AMENDMENTS: dict[str, dict] = {
     "amendment_46": {
         "effective_year": 2011,
@@ -261,7 +260,6 @@ def analyze_regulatory_timeline(
             )
 
             if action_at_launch == "prohibited":
-                status = "prohibited"
                 note = (
                     f"{material} was prohibited at launch ({fragrance_year}) under "
                     f"{launch_restriction['amendment']} (effective {launch_restriction['year']}). "
@@ -269,7 +267,6 @@ def analyze_regulatory_timeline(
                 )
                 prohibited_at_launch.append(material)
             else:
-                status = "restricted"
                 note = (
                     f"{material} was restricted to {max_at_launch}% (cat4) at launch "
                     f"under {launch_restriction['amendment']} (effective {launch_restriction['year']})."
@@ -357,7 +354,7 @@ def analyze_regulatory_timeline(
             speculative_prohibited.append(mat)
 
     # Bonus: all confirmed-tier materials are compliant at launch
-    confirmed_materials = [
+    [
         mat for mat, p in material_posteriors.items()
         if p >= _CONFIRMED_THRESHOLD and mat in always_compliant
     ]

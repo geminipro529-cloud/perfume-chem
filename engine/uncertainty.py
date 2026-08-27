@@ -12,7 +12,6 @@ from dataclasses import dataclass
 from math import sqrt
 from typing import Iterable
 
-
 SOURCE_UNCERTAINTY = {
     "measured": 0.05,
     "literature": 0.10,

@@ -1,22 +1,21 @@
-from pathlib import Path
 
 from engine.optimizer.gate_aware import max_raw_ul_for_ifra, optimize_until_release_ready
-from engine.pipeline.audit_log import append_event, load_events, summarize_events, suggest_repairs
+from engine.pipeline.audit_log import append_event, load_events, suggest_repairs, summarize_events
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from scripts.formula_release_gate import main as release_gate_main
 
 
-def _fougere_formula(evernyl_ul=30.0):
+def _fougere_formula(evernyl_ul=150.0):
     ingredients = {
-        "Bergamot FCF": 1200.0,
-        "Lavender EO": 700.0,
+        "Cedrat FCF oil Sicilian": 1200.0,
+        "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
         "Coumarin": 300.0,
         "Evernyl": evernyl_ul,
         "Iso E Super": 1500.0,
-        "Vetiver EO": 300.0,
-        "Habanolide": 500.0 - evernyl_ul,
+        "Cedarwood oil Virginia": 300.0,
+        "Zenolide": 500.0 - evernyl_ul,
     }
     total = sum(ingredients.values())
     return {
@@ -24,7 +23,16 @@ def _fougere_formula(evernyl_ul=30.0):
         "name": "Commercial Fougere Edge",
         "body": "aromatic fougere",
         "ingredients_ul": ingredients,
-        "dilutions": {},
+        "dilutions": {
+            name: (
+                0.3
+                if name == "Coumarin"
+                else 0.2
+                if name == "Evernyl"
+                else 1.0
+            )
+            for name in ingredients
+        },
         "ingredients_pct": {name: amount / total * 100 for name, amount in ingredients.items()},
     }
 
@@ -39,7 +47,7 @@ def test_ifra_headroom_math_for_evernyl():
 
 
 def test_commercial_mode_blocks_technical_edge_evernyl():
-    formula = _fougere_formula(evernyl_ul=30.0)
+    formula = _fougere_formula(evernyl_ul=150.0)
 
     technical = gate_formula(
         formula,
@@ -69,19 +77,19 @@ def test_commercial_mode_blocks_technical_edge_evernyl():
 def test_commercial_optimizer_repairs_evernyl_robustness_margin():
     result = optimize_until_release_ready(
         "Commercial Fougere Repair",
-        _raw_pct_from_formula(_fougere_formula(evernyl_ul=30.0)),
+        _raw_pct_from_formula(_fougere_formula(evernyl_ul=150.0)),
         config=ReleaseGateConfig(
             brief="aromatic_fougere",
             commercial_mode=True,
             min_confidence_score=0.0,
             audit_enabled=False,
         ),
-        repair_pool={"Iso E Super": 2.0, "Vetiver EO": 1.0, "Patchouli EO": 1.0},
+        repair_pool={"Iso E Super": 2.0, "Cedarwood oil Virginia": 1.0},
         max_passes=4,
     )
 
     evernyl_ul = result.raw_concentrate_pct["Evernyl"] / 100.0 * 6000.0
-    assert evernyl_ul < 25.0
+    assert evernyl_ul * 0.2 < 25.0
     assert any(
         action.gate == "robustness_perturbation"
         and action.action == "cap_robustness_safety_margin"
@@ -167,15 +175,15 @@ def test_formula_release_gate_cli_commercial_mode(tmp_path, monkeypatch, capsys)
 
 | # | Ingredient | Dilution | uL | % |
 |---|---|---:|---:|---:|
-| 1 | Bergamot FCF | neat | 1200 | 20 |
-| 2 | Lavender EO | neat | 700 | 11.67 |
+| 1 | Cedrat FCF oil Sicilian | neat | 1200 | 20 |
+| 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 11.67 |
 | 3 | Linalyl Acetate | neat | 600 | 10 |
 | 4 | Hedione | neat | 900 | 15 |
-| 5 | Coumarin | neat | 300 | 5 |
-| 6 | Evernyl | neat | 30 | 0.5 |
+| 5 | Coumarin | 30% | 300 | 5 |
+| 6 | Evernyl | 20% | 150 | 2.5 |
 | 7 | Iso E Super | neat | 1500 | 25 |
-| 8 | Vetiver EO | neat | 300 | 5 |
-| 9 | Habanolide | neat | 470 | 7.83 |
+| 8 | Cedarwood oil Virginia | neat | 300 | 5 |
+| 9 | Zenolide | neat | 350 | 5.83 |
 """,
         encoding="utf-8",
     )

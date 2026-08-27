@@ -1,6 +1,7 @@
 """Clean OAV report from any pipeline output."""
 
-import json, sys, os
+import json
+import sys
 
 if len(sys.argv) > 1:
     path = sys.argv[1]
@@ -15,24 +16,24 @@ ts = f["time_series"]
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
-# ── Scores ──
+# ── Diagnostic indices ──
 scores = f.get("scores", {})
 if scores:
-    print(f"\n{BOLD}{'SCORES':─^50}{RESET}")
+    print(f"\n{BOLD}{'HEURISTIC DIAGNOSTIC INDICES':─^50}{RESET}")
     print(
-        f"  Total: {scores.get('total', '?'):.1f}  |  Hedonic: {scores.get('hedonic', '?'):.1f}  |  Luxury: {scores.get('luxury', '?'):.1f}"
+        f"  Total: {scores.get('total', '?'):.1f}  |  Luxury: {scores.get('luxury', '?'):.1f}"
     )
     print(
-        f"  Sillage: {scores.get('sillage', '?'):.1f}  |  Longevity: {scores.get('longevity', '?'):.1f}"
+        f"  Sillage index: {scores.get('sillage', '?'):.1f}  |  Longevity index: {scores.get('longevity', '?'):.1f}"
     )
+    print("  Liking evidence: NOT_TESTED")
+    print("  Authority: uncalibrated; not measured sillage or skin life")
     print()
 
 # ── Pyramid ──
 nd = f["formula_state"]["note_distribution"]
 print(f"{BOLD}{'PYRAMID':─^50}{RESET}")
-print(
-    f"  TOP ▄▄ {nd['top']:.0f}%    HEART ▄▄ {nd['heart']:.0f}%    BASE ▄▄ {nd['base']:.0f}%"
-)
+print(f"  TOP ▄▄ {nd['top']:.0f}%    HEART ▄▄ {nd['heart']:.0f}%    BASE ▄▄ {nd['base']:.0f}%")
 print(f"  Materials: {len(ms)} total")
 print()
 
@@ -75,7 +76,7 @@ for w in ts:
         mins = f"{secs // 60}min"
     else:
         mins = f"{secs}s"
-    names = " > ".join(f"{l['name'][:16]}" for l in leaders)
+    names = " > ".join(f"{leader['name'][:16]}" for leader in leaders)
     print(f"  {label:12s} ({mins:>4s})  {names}")
 
 # ── Sub-threshold ──
@@ -84,11 +85,7 @@ if sub:
     print(f"\n{BOLD}{'SUB-THRESHOLD':─^50}{RESET}")
     for m in sub:
         role = m.get("role", "")
-        status = (
-            "(structural — OK)"
-            if role in ("fixative", "modifier")
-            else "(check dosing)"
-        )
+        status = "(structural — OK)" if role in ("fixative", "modifier") else "(check dosing)"
         print(f"  {m['name'][:30]:30s} OAV={m['oav']:.1f}  {status}")
 
 # ── Gates FAIL/WARN ──

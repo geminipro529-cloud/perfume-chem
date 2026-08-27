@@ -1,0 +1,450 @@
+{
+  "schema": "build-c4-equilibrium-model-gate-v1",
+  "generated_at": "2026-08-03T00:38:30.6002850+07:00",
+  "phase": "Build C, Phase C4",
+  "decision": "PASS",
+  "decision_reason": "All local, mutation, C0, archive, protected-state, scope, DeepLuna, evidence-commit, and exact-commit replay gates are green; Sol accepts C4 and opens C5.",
+  "phase_parent": "2fef4916ed3259f839599e8c9aeedf00261e5350",
+  "verified_implementation_head": "bd31ee586c4ded92e571ecf6bb8379e6013b790c",
+  "branch": "codex/add-inventory-materials",
+  "evidence_commit": "30a03dfd0c61f23cfa3bfc71d42038f5ae903ebe",
+  "implementation_commits": [
+    {
+      "commit": "2acf82acce0b1624b5615ade2b7c1b52db354bd0",
+      "purpose": "accepted C4 design"
+    },
+    {
+      "commit": "355fce633671c2282c6a326ae58adf1ebdabe92f",
+      "purpose": "C4 implementation plan"
+    },
+    {
+      "commit": "a2d9df620361f39704b268bcf4629983d86aed83",
+      "purpose": "red equilibrium-model contract tests"
+    },
+    {
+      "commit": "620f9f940d7c7cad36eb9f8c2db893de2af475ab",
+      "purpose": "ideal Raoult baseline and unavailable adapters"
+    },
+    {
+      "commit": "c44aef1f9759a35418dd729c54ffaeb38d1b4a8e",
+      "purpose": "package export and project-verifier integration"
+    },
+    {
+      "commit": "f016ebd84633fb3ef6f4a66c469048ab0faba3c9",
+      "purpose": "C0 COSMO-RS withholding reconciliation"
+    },
+    {
+      "commit": "bd31ee586c4ded92e571ecf6bb8379e6013b790c",
+      "purpose": "gate-breaking Markdown whitespace repair"
+    }
+  ],
+  "contract_surface": {
+    "public_c4_symbol_count": 8,
+    "public_c4_symbols": [
+      "C4_INPUT_ROLE",
+      "EquilibriumModelContractError",
+      "IDEAL_RAOULT_MODEL_VERSION",
+      "IdealRaoultAdapter",
+      "IdealRaoultInputSet",
+      "SelectedNumericPropertyInput",
+      "UnavailableEquilibriumAdapter",
+      "withheld_equilibrium_adapters"
+    ],
+    "engine_physics_total_export_count": 69,
+    "source_path": "engine/physics/equilibrium.py",
+    "source_sha256": "c2b92a6ba72fc1e64253d155b65bec3e031015eb8150709b45b4ef975bbd7e16"
+  },
+  "executable_model": {
+    "family": "IDEAL_RAOULT_BASELINE",
+    "model_version": "c4-ideal-raoult-v1",
+    "availability": "AVAILABLE",
+    "evidence_class": "THEORETICAL_BASELINE",
+    "operation": "predict_equilibrium_headspace",
+    "equation": "p_i = x_i * p_i_star",
+    "activity_coefficient": 1.0,
+    "gas_phase_renormalization": false,
+    "required_selected_inputs": [
+      "vapor pressure in Pa at the exact matrix temperature",
+      "molecular weight in g/mol"
+    ],
+    "supported_matrix_bases": [
+      "MOLE_FRACTION",
+      "MASS_FRACTION",
+      "MASS",
+      "AMOUNT"
+    ],
+    "supported_matrix_stages": [
+      "STOCK_SOLUTION",
+      "CONCENTRATE",
+      "FINISHED_PERFUME"
+    ],
+    "supported_environment_kinds": [
+      "SEALED_EQUILIBRIUM_VIAL",
+      "OPEN_LIQUID_SURFACE"
+    ],
+    "supported_phase_behavior": "single_liquid_phase",
+    "may_feed_oav_screening": false,
+    "uncertainty_status": "UNKNOWN",
+    "required_warning": "C5_UNCERTAINTY_PROPAGATION_REQUIRED"
+  },
+  "withheld_models": [
+    {
+      "family": "HENRY_LAW_DILUTE_BASELINE",
+      "model_version": "c4-henry-withheld-v1",
+      "availability": "UNAVAILABLE",
+      "evidence_class": "UNVALIDATED",
+      "may_feed_oav_screening": false
+    },
+    {
+      "family": "EMPIRICAL_MATRIX_CORRECTION",
+      "model_version": "c4-empirical-matrix-withheld-v1",
+      "availability": "UNAVAILABLE",
+      "evidence_class": "UNVALIDATED",
+      "may_feed_oav_screening": false
+    },
+    {
+      "family": "UNIFAC_OR_MODIFIED_UNIFAC",
+      "model_version": "c4-unifac-withheld-v1",
+      "availability": "UNAVAILABLE",
+      "evidence_class": "UNVALIDATED",
+      "may_feed_oav_screening": false
+    },
+    {
+      "family": "IMPORTED_COSMO_RS",
+      "model_version": "c4-cosmo-rs-withheld-v1",
+      "availability": "UNAVAILABLE",
+      "evidence_class": "UNVALIDATED",
+      "may_feed_oav_screening": false
+    }
+  ],
+  "c0_reconciliation": {
+    "status": "PASS",
+    "inventory_runtime_status": "WITHHELD_DECLARATION",
+    "executable_cosmo_rs_present": false,
+    "implementation_count": 48,
+    "call_edge_count": 29,
+    "fixture_count": 24,
+    "note": "The C0 inventory excludes only the explicit C4 unavailable-release declaration from its executable-absence query. No COSMO-RS import or calculation was activated."
+  },
+  "runtime_versions": {
+    "python": "3.11.15",
+    "pytest": "9.1.1",
+    "ruff": "0.15.15",
+    "node": "26.3.0",
+    "basedpyright": "1.39.8",
+    "mypy": "1.19.1"
+  },
+  "verification": {
+    "capture_schema": "build-c4-gate-run-metadata-v1",
+    "metadata_path": "docs/verification/c4/logs/final/gate-run-metadata.stdout.json",
+    "metadata_sha256": "3fc2d2f433e8da89cf3b7db95ae926818ac8d8180a1b16227a2ddf914266a725",
+    "non_pty": true,
+    "ansi_disabled": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "sensitive_environment_values_removed_without_logging": true,
+    "matrix_job_count": 24,
+    "matrix_failed_job_count": 0,
+    "matrix_timed_out_job_count": 0,
+    "matrix_nonempty_stderr_count": 0,
+    "tests": {
+      "c4_focused": {
+        "passed": 41,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c4-focused.stdout.txt"
+      },
+      "c3_compatibility": {
+        "passed": 105,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c3-compat.stdout.txt"
+      },
+      "c2_compatibility": {
+        "passed": 79,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c2-compat.stdout.txt"
+      },
+      "c1_compatibility": {
+        "passed": 96,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c1-compat.stdout.txt"
+      },
+      "c0_compatibility": {
+        "passed": 24,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c0-compat.stdout.txt"
+      },
+      "complete_root": {
+        "passed": 1443,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-root-full.stdout.txt"
+      },
+      "dependency_invariant": {
+        "passed": 1,
+        "failed": 0,
+        "log": "docs/verification/c4/logs/final/pytest-c4-dependency.stdout.txt"
+      }
+    },
+    "c0_standalone_verifier": {
+      "status": "PASS",
+      "implementation_count": 48,
+      "call_edge_count": 29,
+      "fixture_count": 24,
+      "log": "docs/verification/c4/logs/final/c0-inventory-verifier.stdout.txt"
+    },
+    "static": {
+      "ruff_check": "PASS",
+      "ruff_format": "PASS",
+      "basedpyright": {
+        "status": "PASS",
+        "errors": 0,
+        "warnings": 0,
+        "notes": 0
+      },
+      "mypy": {
+        "status": "PASS",
+        "issues": 0
+      }
+    },
+    "log_manifest": {
+      "path": "docs/verification/c4/logs/log-manifest.json",
+      "bytes": 19036,
+      "sha256": "ec8aaef719fe391b0f263c5b93308cae37e728dd86d67330e7a8786383eb34e3",
+      "covered_file_count": 71,
+      "invalid_utf8_files": 0,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0,
+      "matched_values_recorded": false
+    }
+  },
+  "mutation_evidence": {
+    "source_sha256_before_and_after": "c2b92a6ba72fc1e64253d155b65bec3e031015eb8150709b45b4ef975bbd7e16",
+    "raoult_multiplication": {
+      "mutated_result": "EXPECTED_FAILURE",
+      "mutated_exit_code": 1,
+      "mutated_test_result": "1 failed, 1 passed, 39 deselected",
+      "restored_exit_code": 0,
+      "restored_test_result": "2 passed"
+    },
+    "bubble_pressure_applicability_guard": {
+      "mutated_result": "EXPECTED_FAILURE",
+      "mutated_exit_code": 1,
+      "mutated_test_result": "1 failed",
+      "restored_exit_code": 0,
+      "restored_test_result": "1 passed"
+    },
+    "exact_input_reference_hash": {
+      "mutated_result": "EXPECTED_FAILURE",
+      "mutated_exit_code": 1,
+      "mutated_test_result": "1 failed",
+      "restored_exit_code": 0,
+      "restored_test_result": "1 passed"
+    },
+    "restoration_verified": true
+  },
+  "authoritative_exit_behaviors": {
+    "transparent_ideal_calculation": {
+      "status": "PASS",
+      "evidence": "Pure and binary analytic benchmarks enforce p_i = x_i p_i* with gamma=1 and no gas-phase renormalization."
+    },
+    "exact_cross_phase_binding": {
+      "status": "PASS",
+      "evidence": "C1 selected-property assertion hashes, C2 matrix/environment hashes, and the exact C3 input-reference hash are required."
+    },
+    "fail_closed_applicability": {
+      "status": "PASS",
+      "evidence": "Unsupported basis, unit, stage, environment, phase, incomplete composition, temperature mismatch, missing property, identity mismatch, and bubble pressure above system pressure abstain before computation."
+    },
+    "advanced_models_withheld": {
+      "status": "PASS",
+      "evidence": "Henry, empirical matrix correction, UNIFAC, and COSMO-RS are explicit unavailable releases and cannot compute."
+    },
+    "no_oav_or_accuracy_promotion": {
+      "status": "PASS",
+      "evidence": "The result is a theoretical comparison baseline, may_feed_oav_screening is false, uncertainty is UNKNOWN, and C5 is required."
+    },
+    "no_production_or_persistence_change": {
+      "status": "PASS",
+      "evidence": "No production caller, migration, database, scientific data artifact, or legacy thermo implementation changed."
+    }
+  },
+  "recovery_archive": {
+    "status": "PASS",
+    "path": "D:\\.backups\\perfume-chem\\build-c4-prewrite-20260802T234123+0700.tar",
+    "bytes": 118433280,
+    "sha256": "0008fc9784ded2567ae3ba5cfd7f3123e2db4c88349e83c80fea5a9b3e353424",
+    "manifest_file_count": 435,
+    "dirty_or_untracked_count": 429,
+    "existing_dirty_or_untracked_count": 429,
+    "deleted_dirty_or_untracked_count": 0,
+    "absent_planned_path_count": 6,
+    "excluded_runtime_path_count": 1263,
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "restorable": true
+  },
+  "protected_state": {
+    "status": "PASS",
+    "before_after_identical": true,
+    "matches_c2_baseline": true,
+    "database_quick_checks_ok": true,
+    "files": {
+      "perfume_chem.db": {
+        "bytes": 12288,
+        "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e",
+        "quick_check": "ok"
+      },
+      "data/perfumery_kb.db": {
+        "bytes": 2084864,
+        "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1",
+        "quick_check": "ok"
+      },
+      "data/perfumery_kb.db-wal": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "data/perfumery_kb.db-shm": {
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    }
+  },
+  "scope": {
+    "status": "PASS",
+    "changed_path_count": 9,
+    "expected_path_count": 9,
+    "index_empty_at_capture": true,
+    "diff_check_clean": true,
+    "truth_core_c4_entry_count": 1,
+    "migration_path_count": 0,
+    "database_path_count": 0,
+    "scientific_artifact_path_count": 0,
+    "production_caller_path_count": 0,
+    "compatibility_or_legacy_path_count": 0
+  },
+  "terminology_sources": [
+    {
+      "authority": "IUPAC Gold Book",
+      "term": "amount fraction",
+      "url": "https://goldbook.iupac.org/terms/view/A00296/plain",
+      "doi": "10.1351/goldbook.A00296"
+    },
+    {
+      "authority": "IUPAC Gold Book",
+      "term": "Raoult's law",
+      "url": "https://goldbook.iupac.org/terms/view/15349/plain",
+      "doi": "10.1351/goldbook.15349"
+    },
+    {
+      "authority": "IUPAC Gold Book",
+      "term": "partial pressure",
+      "url": "https://goldbook.iupac.org/terms/view/P04819",
+      "doi": "10.1351/goldbook.P04819"
+    }
+  ],
+  "operator_reconciliation": {
+    "initial_c0_verifier_cli_error": "A preliminary standalone attempt used unsupported --fixture-sha256 and failed before verification. The supported --fixture-sha command was rerun and passed; the authoritative matrix uses only the supported command.",
+    "deepluna_inventory_packet": "The initial C4 DeepLuna compact packet did not retain the requested citation structure. Sol independently reproduced every fact used from local source and did not retry or promote uncited provider text."
+  },
+  "deepluna": {
+    "project_id": "perfume-chem",
+    "runtime": {
+      "readiness": "READY",
+      "runtime_mode": "CANDIDATE_V2",
+      "server_release": "0.9.9",
+      "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+      "provider": "deepinfra",
+      "route": "deepinfra-priority",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "spent_nano_usd": 462277773,
+      "open_reserved_nano_usd": 0,
+      "unknown_reservations": 0,
+      "luna_runs": 0,
+      "glm_runs": 0,
+      "codex_orchestration_enabled": false
+    },
+    "contract_inventory": {
+      "status": "PASS",
+      "job_id": "DS-3fca087be3a10dc3d4b446b99f4a9c30",
+      "execution_status": "ACCEPTED",
+      "evidence_verdict": "POSITIVE",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "cost_nano_usd": 7874685,
+      "prompt_tokens": 56319,
+      "completion_tokens": 1006,
+      "total_tokens": 57325,
+      "tier": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "fallback_used": false,
+      "citations_retained_in_compact_packet": false,
+      "locally_reproduced": true
+    },
+    "final_audit": {
+      "status": "PASS",
+      "job_id": "DS-89475e07f64befc649255f0709c993c9",
+      "execution_status": "ACCEPTED",
+      "evidence_verdict": "POSITIVE",
+      "cache_hit": false,
+      "provider_calls": 1,
+      "cost_nano_usd": 9438120,
+      "prompt_tokens": 68220,
+      "completion_tokens": 846,
+      "total_tokens": 69066,
+      "tier": "FLASH",
+      "fallback_policy": "NO_LUNA",
+      "fallback_used": false,
+      "negative_finding_count": 0,
+      "scope_deviation": false,
+      "compact_packet_truncated_some_positive_finding_text": true,
+      "locally_reproduced": true,
+      "receipt": "docs/verification/c4/deepluna-final-audit.json"
+    },
+    "provider_claims_are_authoritative": false
+  },
+  "limitations": [
+    "C4 implements only a transparent ideal-solution Raoult comparison baseline.",
+    "C4 does not implement Henry, empirical matrix correction, UNIFAC, modified UNIFAC, or COSMO-RS computation.",
+    "C4 does not evaluate C1 vapor-pressure equations; it consumes only exact authorized numeric selections.",
+    "C4 does not propagate uncertainty; outputs are UNKNOWN and carry the C5 warning.",
+    "C4 does not validate prediction accuracy, feed OAV screening, or promote a production headspace result.",
+    "C4 changes no production caller, persistence layer, migration, protected database, or legacy thermo code.",
+    "C4 is not Build C completion and does not authorize scientific release."
+  ],
+  "postcommit": {
+    "status": "PASS",
+    "exact_commit": "30a03dfd0c61f23cfa3bfc71d42038f5ae903ebe",
+    "replay_metadata": "docs/verification/c4/postcommit/replay-final/replay-metadata.stdout.json",
+    "replay_metadata_sha256": "4d0f9b87b769216195ff2048e030c8b74fa34645b05fddac3c0f60b488c7ca7f",
+    "replay_manifest": "docs/verification/c4/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "1f72512dd67673ef805842945cebed238caa86dd7683965dafb3a0142d3bf1d2",
+    "replay_job_count": 19,
+    "replay_failed_job_count": 0,
+    "replay_timed_out_job_count": 0,
+    "replay_nonempty_stderr_count": 0,
+    "receipt": "docs/verification/c4/postcommit/exact-commit-replay.json",
+    "decision_record": "docs/verification/c4/postcommit/equilibrium_model_decision.json"
+  },
+  "exit_gate": {
+    "local_matrix_pass": true,
+    "focused_and_compatibility_tests_pass": true,
+    "complete_root_suite_pass": true,
+    "c0_standalone_verifier_pass": true,
+    "static_checks_pass": true,
+    "mutation_checks_pass": true,
+    "authoritative_behaviors_proven": true,
+    "archive_pass": true,
+    "protected_state_pass": true,
+    "scope_pass": true,
+    "log_hygiene_pass": true,
+    "final_deepluna_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c5_open": true
+  }
+}

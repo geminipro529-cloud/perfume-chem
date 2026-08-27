@@ -1,0 +1,514 @@
+F......F................................................................ [ 10%]
+........................................................................ [ 21%]
+........................................................................ [ 32%]
+........................................................................ [ 43%]
+.........................................................F.............. [ 54%]
+........................................................................ [ 65%]
+........................................................................ [ 76%]
+........................................................................ [ 87%]
+........................................................................ [ 98%]
+.......                                                                  [100%]
+================================== FAILURES ===================================
+______ test_inventory_covers_every_c0_category_and_only_allowed_classes _______
+
+    def test_inventory_covers_every_c0_category_and_only_allowed_classes() -> None:
+        inventory = load_inventory(INVENTORY_PATH)
+        errors = validate_inventory(inventory, root=ROOT, adr_path=ADR_PATH)
+>       assert errors == []
+E       assert ['C0-PM-001: ...tion.py', ...] == []
+E         
+E         Left contains 82 more items, first extra item: 'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: expected 76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual 36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb'
+E         
+E         Full diff:
+E         - []
+E         + [
+E         +     'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: '
+E         +     'expected '
+E         +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+E         +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+E         +     'C0-PM-001: engine/pipeline/formula_state.py:build_formula_state line is '
+E         +     '1015, inventory declares 1184',
+E         +     'C0-PM-001: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-002: stale source hash for engine/pipeline/formula_state.py: '
+E         +     'expected '
+E         +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+E         +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+E         +     'C0-PM-002: engine/pipeline/formula_state.py:FormulaState.from_base line '
+E         +     'is 307, inventory declares 318',
+E         +     'C0-PM-002: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-003: stale source hash for scripts/oav_headspace_analyze.py: '
+E         +     'expected '
+E         +     '12ceaa1d149f524b3ee7f106822c40c230d4c54bfd54d0dc0f9144d8c0227328, actual '
+E         +     '8b4edfdea12e66ced404c7eeff2ae7c677243c4d746d7314167409ce1713e071',
+E         +     'C0-PM-004: stale source hash for engine/solvent_matrix.py: expected '
+E         +     'fa58234e1eec18b6c4b0db8a22c5d2311c764b6bcb939fd26273571d98594534, actual '
+E         +     '2287af30604a624302c85e125cb5dca3c3b21e16e16d39a5009a2532d3f5c3e0',
+E         +     'C0-PM-004: engine/solvent_matrix.py:SolventLedger line is 96, inventory '
+E         +     'declares 123',
+E         +     'C0-PM-005: stale source hash for engine/pipeline/simulator.py: expected '
+E         +     '5f779145856c3d273bd188761f970f6282aaf74fe1a84b6937b07e0fe17fe8c5, actual '
+E         +     '466c86f805f33b550b9135ee84890b5020168c868242ba758dda0cbbc4c180f7',
+E         +     'C0-PM-005: engine/pipeline/simulator.py:simulate_formula line is 88, '
+E         +     'inventory declares 141',
+E         +     'C0-PM-005: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-010: stale source hash for engine/thermo/antoine.py: expected '
+E         +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+E         +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+E         +     'C0-PM-010: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+E         +     '40',
+E         +     'C0-PM-010: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-011: stale source hash for engine/thermo/antoine.py: expected '
+E         +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+E         +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+E         +     'C0-PM-011: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+E         +     '40',
+E         +     'C0-PM-011: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-012: stale source hash for engine/thermo/antoine.py: expected '
+E         +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+E         +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+E         +     'C0-PM-012: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+E         +     '40',
+E         +     'C0-PM-012: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-013: stale source hash for engine/thermo/antoine.py: expected '
+E         +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+E         +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+E         +     "C0-PM-013: symbol 'estimate_dhvap_from_vp_25c' missing from "
+E         +     'engine/thermo/antoine.py',
+E         +     'C0-PM-013: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-014: stale source hash for engine/thermo/antoine.py: expected '
+E         +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+E         +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+E         +     'C0-PM-014: engine/thermo/antoine.py:antoine_from_dhvap line is 47, '
+E         +     'inventory declares 70',
+E         +     'C0-PM-015: stale source hash for engine/property_estimator.py: expected '
+E         +     '41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d, actual '
+E         +     'bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e',
+E         +     'C0-PM-018: stale source hash for engine/thermo/activity.py: expected '
+E         +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+E         +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+E         +     'C0-PM-018: engine/thermo/activity.py:gamma line is 51, inventory declares '
+E         +     '75',
+E         +     'C0-PM-018: stale source hash for engine/thermo/activity.py: expected '
+E         +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+E         +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+E         +     'C0-PM-018: engine/thermo/activity.py:_gamma_heuristic line is 34, '
+E         +     'inventory declares 58',
+E         +     'C0-PM-018: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-019: stale source hash for engine/pipeline/formula_state.py: '
+E         +     'expected '
+E         +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+E         +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+E         +     'C0-PM-019: engine/pipeline/formula_state.py:_build_formula_state_cached '
+E         +     'line is 681, inventory declares 762',
+E         +     'C0-PM-020: stale source hash for engine/property_estimator.py: expected '
+E         +     '41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d, actual '
+E         +     'bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e',
+E         +     'C0-PM-021: stale source hash for engine/optimizer/models.py: expected '
+E         +     '0c5985df1f5f3be7db7826e4951fdc9b128c442c61f2612e2a5f4ce2f867bc79, actual '
+E         +     '95a270df227c97c1911461aa5fc282ba3accb293661c2400febd5d995c9e2aff',
+E         +     'C0-PM-021: engine/optimizer/models.py:_gamma_from_logp line is 769, '
+E         +     'inventory declares 777',
+E         +     'C0-PM-021: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-022: stale source hash for engine/thermo/activity.py: expected '
+E         +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+E         +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+E         +     "C0-PM-022: symbol 'activity_model_capabilities' missing from "
+E         +     'engine/thermo/activity.py',
+E         +     'C0-PM-023: stale source hash for engine/science_kb.py: expected '
+E         +     '81e1b18a71af231cfb01230f56ea657f4ba34e902829ce8113c131dece6dee7c, actual '
+E         +     '93d23dc46f46af0055002628e0135d0ed6ea4627cd1f8dbf57150d75c8429eb4',
+E         +     'C0-PM-029: stale source hash for engine/pipeline/oav_intelligence.py: '
+E         +     'expected '
+E         +     'd68b15d0e4700c154ddc825ff0409756f14ab5285b9b3b412d1e9fc3e5cc3ae4, actual '
+E         +     'a5565e61ae870eb2e4be4107ab11d9a97382baaca5f6a28d6ae25a21927061f7',
+E         +     'C0-PM-029: engine/pipeline/oav_intelligence.py:analyze_oav_intelligence '
+E         +     'line is 379, inventory declares 373',
+E         +     'C0-PM-030: stale source hash for '
+E         +     'engine/pipeline/natural_absolute_decomposition.py: expected '
+E         +     '6698477afdf4572c5a5b9a6c24ae5114c2d4ab392d9272a384ce75d5abb66b85, actual '
+E         +     'a3a509fc6516d54752feeec7a43b534f370165a9f8f3da224c2d549074298f7d',
+E         +     "C0-PM-030: symbol 'composite_headspace' missing from "
+E         +     'engine/pipeline/natural_absolute_decomposition.py',
+E         +     'C0-PM-030: stale source hash for '
+E         +     'engine/pipeline/natural_absolute_decomposition.py: expected '
+E         +     '6698477afdf4572c5a5b9a6c24ae5114c2d4ab392d9272a384ce75d5abb66b85, actual '
+E         +     'a3a509fc6516d54752feeec7a43b534f370165a9f8f3da224c2d549074298f7d',
+E         +     'C0-PM-030: '
+E         +     'engine/pipeline/natural_absolute_decomposition.py:composite_oav line is '
+E         +     '995, inventory declares 1231',
+E         +     'C0-PM-030: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-031: missing source file engine/reconstruction/natural_lots.py',
+E         +     'C0-PM-031: missing source file engine/reconstruction/natural_lots.py',
+E         +     'C0-PM-039: stale source hash for engine/diffusion_model.py: expected '
+E         +     '6b892dd665cc4b97f0e2bb4cb2e47eb9b55db3a0b5337ea07574ea2ccdb1bdf5, actual '
+E         +     'af16e53c0ca4602b8f41103424beb675d2c4da623baaff99bbb18a8086a068cd',
+E         +     'C0-PM-039: engine/diffusion_model.py:score_diffusion line is 312, '
+E         +     'inventory declares 315',
+E         +     'C0-PM-039: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     'C0-PM-044: stale source hash for engine/workbench.py: expected '
+E         +     '910bebce3afd1d37018196105caf88982976df1611e50b66946fd518a477f75b, actual '
+E         +     '74603013feaa63b12e31804d5dc4831dd5d2da4bbc5bd623861d4aa2926eff19',
+E         +     'C0-PM-045: stale source hash for engine/pipeline/release_scoring.py: '
+E         +     'expected '
+E         +     '46ff4a3410a4367937f1c0207398c7591ab46a768defc20de153123b12a98e4e, actual '
+E         +     '1aa2fe0e9b98daa6df66f353df5f67c94e7eabc45302e21f0fe79fca5939858a',
+E         +     'C0-PM-045: '
+E         +     'engine/pipeline/release_scoring.py:compute_unified_release_scores line is '
+E         +     '71, inventory declares 100',
+E         +     'C0-PM-046: stale source hash for engine/calibration.py: expected '
+E         +     'd581e0e72879ef1678b2873f40b43b4d4ba6803e4fc28ed067266959adb38c26, actual '
+E         +     'cb5c03247e86e9d24591d2dff8c8570004c899878f6fd05111bbed429b9a3919',
+E         +     'C0-PM-047: stale source hash for scripts/formula_simulator.py: expected '
+E         +     '7170bed1398846ab650274cc9eda354b1213be53d0db76c420478145bb68accf, actual '
+E         +     '26320b4977f54bfcc3d011ff2562c2bf3e014b125cbfe2dc34ebaae0ddb78588',
+E         +     'C0-PM-048: stale source hash for engine/optimizer/scoring.py: expected '
+E         +     '8b22f7a15d913ca6219ef007cec28b031b6ee43563f25ad9898803792e6dc1f8, actual '
+E         +     '2922897556563caa6d1aafb9a1a0f4270048cca2fde853beafde09497b85dcc1',
+E         +     'C0-PM-048: engine/optimizer/scoring.py:FormulaScorer line is 59, '
+E         +     'inventory declares 58',
+E         +     'C0-PM-048: missing recorded test tests/test_optimizer_determinism.py',
+E         +     'C0-PM-048: missing recorded test '
+E         +     'tests/test_optimizer_thermodynamic_unification.py',
+E         +     "call_edges[1]: token 'build_formula_state' absent at "
+E         +     'engine/pipeline/gates.py:5087',
+E         +     "call_edges[2]: token 'build_formula_state' absent at "
+E         +     'engine/optimizer/scoring.py:2679',
+E         +     'call_edges[3]: invalid evidence line engine/pipeline/simulator.py:136',
+E         +     "call_edges[6]: token 'simulate_formula' absent at "
+E         +     'engine/pipeline/gates.py:5105',
+E         +     "call_edges[9]: token 'analyze_temporal_consistency' absent at "
+E         +     'engine/reconstruction_pipeline.py:638',
+E         +     "call_edges[10]: token 'vp_pa' absent at "
+E         +     'engine/pipeline/formula_state.py:950',
+E         +     "call_edges[11]: token 'vp_pa' absent at "
+E         +     'engine/pipeline/formula_state.py:981',
+E         +     "call_edges[12]: token 'estimate_dhvap_from_vp_25c' absent at "
+E         +     'engine/pipeline/formula_state.py:972',
+E         +     "call_edges[13]: token 'analyze_vapor_pressure' absent at "
+E         +     'engine/reconstruction_pipeline.py:607',
+E         +     "call_edges[14]: token 'gamma' absent at "
+E         +     'engine/pipeline/formula_state.py:1002',
+E         +     "call_edges[16]: token 'activity_model_capabilities' absent at "
+E         +     'engine/science_audit.py:355',
+E         +     "call_edges[17]: token 'micro_phase_risk' absent at "
+E         +     'engine/pipeline/gates.py:643',
+E         +     "call_edges[18]: token 'score_dose_response' absent at "
+E         +     'engine/optimizer/scoring.py:3039',
+E         +     "call_edges[19]: token 'score_psychophysics' absent at "
+E         +     'engine/optimizer/scoring.py:2747',
+E         +     "call_edges[20]: token '_lookup_composite_headspace' absent at "
+E         +     'engine/pipeline/formula_state.py:1013',
+E         +     "call_edges[23]: token 'score_hedonic' absent at "
+E         +     'engine/optimizer/scoring.py:2740',
+E         +     "call_edges[24]: token 'score_diffusion' absent at "
+E         +     'engine/optimizer/scoring.py:3046',
+E         +     "call_edges[25]: token 'score_skin_interaction' absent at "
+E         +     'engine/optimizer/scoring.py:2733',
+E         +     'call_edges[26]: invalid evidence line engine/ifra_safety.py:626',
+E         +     "call_edges[28]: token 'scores' absent at engine/optimizer/scoring.py:3114",
+E         + ]
+
+tests\test_c0_physical_model_inventory.py:44: AssertionError
+_____________________ test_legacy_fixture_lock_and_replay _____________________
+
+    def test_legacy_fixture_lock_and_replay() -> None:
+        inventory = load_inventory(INVENTORY_PATH)
+        fixtures = load_legacy_fixtures(FIXTURE_PATH)
+        errors = validate_legacy_fixtures(
+            fixtures,
+            inventory,
+            root=ROOT,
+            fixture_path=FIXTURE_PATH,
+            fixture_sha_path=FIXTURE_SHA_PATH,
+        )
+>       assert errors == []
+E       AssertionError: assert ['C0-LH-001: ...vity.py', ...] == []
+E         
+E         Left contains 19 more items, first extra item: 'C0-LH-001: stale source hash for engine/pipeline/formula_state.py'
+E         
+E         Full diff:
+E         - []
+E         + [
+E         +     'C0-LH-001: stale source hash for engine/pipeline/formula_state.py',
+E         +     'C0-LH-002: stale source hash for engine/pipeline/formula_state.py',
+E         +     'C0-LH-002: stale source hash for engine/pipeline/simulator.py',
+E         +     'C0-LH-003: stale source hash for engine/thermo/activity.py',
+E         +     'C0-LH-003: stale source hash for engine/thermo/antoine.py',
+E         +     'C0-LH-004: stale source hash for engine/thermo/activity.py',
+E         +     'C0-LH-004: stale source hash for engine/thermo/antoine.py',
+E         +     'C0-LH-005: stale source hash for '
+E         +     'engine/pipeline/natural_absolute_decomposition.py',
+E         +     'C0-LH-005: stale source hash for engine/thermo/antoine.py',
+E         +     'C0-LH-007: stale source hash for engine/diffusion_model.py',
+E         +     'C0-LH-007: stale source hash for engine/thermo/antoine.py',
+E         +     'C0-LH-020: stale source hash for scripts/oav_headspace_analyze.py',
+E         +     'C0-LH-021: stale source hash for engine/optimizer/scoring.py',
+E         +     'C0-LH-021: stale source hash for scripts/formula_simulator.py',
+E         +     'C0-LH-022: stale source hash for engine/optimizer/models.py',
+E         +     'C0-LH-022: stale source hash for engine/optimizer/scoring.py',
+E         +     'C0-LH-023: stale source hash for engine/optimizer/scoring.py',
+E         +     'C0-LH-023: stale source hash for engine/pipeline/release_scoring.py',
+E         +     'C0-LH-024: stale source hash for engine/calibration.py',
+E         + ]
+
+tests\test_c0_physical_model_inventory.py:196: AssertionError
+_____ test_material_panel_matches_inventory_snapshot_and_required_domains _____
+
+    def test_material_panel_matches_inventory_snapshot_and_required_domains() -> None:
+        program = _program()
+        inventory_path = ROOT / "inventory.txt"
+>       assert hashlib.sha256(inventory_path.read_bytes()).hexdigest() == C5_INVENTORY_SHA256
+E       AssertionError: assert '44b5df5eb41d...5b6274ff1bcf3' == '9d778721db1f...501be70fe0eb8'
+E         
+E         - 9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8
+E         + 44b5df5eb41d1aa5c3a05da2d47653bc3983097a28dfbd3b38c5b6274ff1bcf3
+
+tests\test_c5_calibration_program.py:362: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c0_physical_model_inventory.py::test_inventory_covers_every_c0_category_and_only_allowed_classes - assert ['C0-PM-001: ...tion.py', ...] == []
+  
+  Left contains 82 more items, first extra item: 'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: expected 76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual 36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb'
+  
+  Full diff:
+  - []
+  + [
+  +     'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: '
+  +     'expected '
+  +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+  +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+  +     'C0-PM-001: engine/pipeline/formula_state.py:build_formula_state line is '
+  +     '1015, inventory declares 1184',
+  +     'C0-PM-001: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-002: stale source hash for engine/pipeline/formula_state.py: '
+  +     'expected '
+  +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+  +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+  +     'C0-PM-002: engine/pipeline/formula_state.py:FormulaState.from_base line '
+  +     'is 307, inventory declares 318',
+  +     'C0-PM-002: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-003: stale source hash for scripts/oav_headspace_analyze.py: '
+  +     'expected '
+  +     '12ceaa1d149f524b3ee7f106822c40c230d4c54bfd54d0dc0f9144d8c0227328, actual '
+  +     '8b4edfdea12e66ced404c7eeff2ae7c677243c4d746d7314167409ce1713e071',
+  +     'C0-PM-004: stale source hash for engine/solvent_matrix.py: expected '
+  +     'fa58234e1eec18b6c4b0db8a22c5d2311c764b6bcb939fd26273571d98594534, actual '
+  +     '2287af30604a624302c85e125cb5dca3c3b21e16e16d39a5009a2532d3f5c3e0',
+  +     'C0-PM-004: engine/solvent_matrix.py:SolventLedger line is 96, inventory '
+  +     'declares 123',
+  +     'C0-PM-005: stale source hash for engine/pipeline/simulator.py: expected '
+  +     '5f779145856c3d273bd188761f970f6282aaf74fe1a84b6937b07e0fe17fe8c5, actual '
+  +     '466c86f805f33b550b9135ee84890b5020168c868242ba758dda0cbbc4c180f7',
+  +     'C0-PM-005: engine/pipeline/simulator.py:simulate_formula line is 88, '
+  +     'inventory declares 141',
+  +     'C0-PM-005: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-010: stale source hash for engine/thermo/antoine.py: expected '
+  +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+  +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+  +     'C0-PM-010: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+  +     '40',
+  +     'C0-PM-010: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-011: stale source hash for engine/thermo/antoine.py: expected '
+  +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+  +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+  +     'C0-PM-011: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+  +     '40',
+  +     'C0-PM-011: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-012: stale source hash for engine/thermo/antoine.py: expected '
+  +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+  +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+  +     'C0-PM-012: engine/thermo/antoine.py:vp_pa line is 17, inventory declares '
+  +     '40',
+  +     'C0-PM-012: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-013: stale source hash for engine/thermo/antoine.py: expected '
+  +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+  +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+  +     "C0-PM-013: symbol 'estimate_dhvap_from_vp_25c' missing from "
+  +     'engine/thermo/antoine.py',
+  +     'C0-PM-013: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-014: stale source hash for engine/thermo/antoine.py: expected '
+  +     'b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29, actual '
+  +     'cd97252ea2d7e3dd9cbc7aefabc3d42cf1719bc99376f3c723b694e8b59bf867',
+  +     'C0-PM-014: engine/thermo/antoine.py:antoine_from_dhvap line is 47, '
+  +     'inventory declares 70',
+  +     'C0-PM-015: stale source hash for engine/property_estimator.py: expected '
+  +     '41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d, actual '
+  +     'bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e',
+  +     'C0-PM-018: stale source hash for engine/thermo/activity.py: expected '
+  +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+  +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+  +     'C0-PM-018: engine/thermo/activity.py:gamma line is 51, inventory declares '
+  +     '75',
+  +     'C0-PM-018: stale source hash for engine/thermo/activity.py: expected '
+  +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+  +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+  +     'C0-PM-018: engine/thermo/activity.py:_gamma_heuristic line is 34, '
+  +     'inventory declares 58',
+  +     'C0-PM-018: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-019: stale source hash for engine/pipeline/formula_state.py: '
+  +     'expected '
+  +     '76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual '
+  +     '36784845507cca5e7112c79db553f31aed20672cdc1b9c864a4159253cb7cfbb',
+  +     'C0-PM-019: engine/pipeline/formula_state.py:_build_formula_state_cached '
+  +     'line is 681, inventory declares 762',
+  +     'C0-PM-020: stale source hash for engine/property_estimator.py: expected '
+  +     '41e62233473c87a17be55feb8d42f783e29931db525b80af29ae5d633fbf446d, actual '
+  +     'bd7daaf5c8fbdc964f35223c34e1a0c5c171f91a200d1e12664d137214c1b66e',
+  +     'C0-PM-021: stale source hash for engine/optimizer/models.py: expected '
+  +     '0c5985df1f5f3be7db7826e4951fdc9b128c442c61f2612e2a5f4ce2f867bc79, actual '
+  +     '95a270df227c97c1911461aa5fc282ba3accb293661c2400febd5d995c9e2aff',
+  +     'C0-PM-021: engine/optimizer/models.py:_gamma_from_logp line is 769, '
+  +     'inventory declares 777',
+  +     'C0-PM-021: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-022: stale source hash for engine/thermo/activity.py: expected '
+  +     '00c564a6eb9012b8c363bbd7af4fffb1999b2b23d36696b46cb0934cfdd9c1cc, actual '
+  +     '3ed92b1f565012b5df6ae4c196033d845e73bf5446380caf47cd44838ecc45fa',
+  +     "C0-PM-022: symbol 'activity_model_capabilities' missing from "
+  +     'engine/thermo/activity.py',
+  +     'C0-PM-023: stale source hash for engine/science_kb.py: expected '
+  +     '81e1b18a71af231cfb01230f56ea657f4ba34e902829ce8113c131dece6dee7c, actual '
+  +     '93d23dc46f46af0055002628e0135d0ed6ea4627cd1f8dbf57150d75c8429eb4',
+  +     'C0-PM-029: stale source hash for engine/pipeline/oav_intelligence.py: '
+  +     'expected '
+  +     'd68b15d0e4700c154ddc825ff0409756f14ab5285b9b3b412d1e9fc3e5cc3ae4, actual '
+  +     'a5565e61ae870eb2e4be4107ab11d9a97382baaca5f6a28d6ae25a21927061f7',
+  +     'C0-PM-029: engine/pipeline/oav_intelligence.py:analyze_oav_intelligence '
+  +     'line is 379, inventory declares 373',
+  +     'C0-PM-030: stale source hash for '
+  +     'engine/pipeline/natural_absolute_decomposition.py: expected '
+  +     '6698477afdf4572c5a5b9a6c24ae5114c2d4ab392d9272a384ce75d5abb66b85, actual '
+  +     'a3a509fc6516d54752feeec7a43b534f370165a9f8f3da224c2d549074298f7d',
+  +     "C0-PM-030: symbol 'composite_headspace' missing from "
+  +     'engine/pipeline/natural_absolute_decomposition.py',
+  +     'C0-PM-030: stale source hash for '
+  +     'engine/pipeline/natural_absolute_decomposition.py: expected '
+  +     '6698477afdf4572c5a5b9a6c24ae5114c2d4ab392d9272a384ce75d5abb66b85, actual '
+  +     'a3a509fc6516d54752feeec7a43b534f370165a9f8f3da224c2d549074298f7d',
+  +     'C0-PM-030: '
+  +     'engine/pipeline/natural_absolute_decomposition.py:composite_oav line is '
+  +     '995, inventory declares 1231',
+  +     'C0-PM-030: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-031: missing source file engine/reconstruction/natural_lots.py',
+  +     'C0-PM-031: missing source file engine/reconstruction/natural_lots.py',
+  +     'C0-PM-039: stale source hash for engine/diffusion_model.py: expected '
+  +     '6b892dd665cc4b97f0e2bb4cb2e47eb9b55db3a0b5337ea07574ea2ccdb1bdf5, actual '
+  +     'af16e53c0ca4602b8f41103424beb675d2c4da623baaff99bbb18a8086a068cd',
+  +     'C0-PM-039: engine/diffusion_model.py:score_diffusion line is 312, '
+  +     'inventory declares 315',
+  +     'C0-PM-039: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     'C0-PM-044: stale source hash for engine/workbench.py: expected '
+  +     '910bebce3afd1d37018196105caf88982976df1611e50b66946fd518a477f75b, actual '
+  +     '74603013feaa63b12e31804d5dc4831dd5d2da4bbc5bd623861d4aa2926eff19',
+  +     'C0-PM-045: stale source hash for engine/pipeline/release_scoring.py: '
+  +     'expected '
+  +     '46ff4a3410a4367937f1c0207398c7591ab46a768defc20de153123b12a98e4e, actual '
+  +     '1aa2fe0e9b98daa6df66f353df5f67c94e7eabc45302e21f0fe79fca5939858a',
+  +     'C0-PM-045: '
+  +     'engine/pipeline/release_scoring.py:compute_unified_release_scores line is '
+  +     '71, inventory declares 100',
+  +     'C0-PM-046: stale source hash for engine/calibration.py: expected '
+  +     'd581e0e72879ef1678b2873f40b43b4d4ba6803e4fc28ed067266959adb38c26, actual '
+  +     'cb5c03247e86e9d24591d2dff8c8570004c899878f6fd05111bbed429b9a3919',
+  +     'C0-PM-047: stale source hash for scripts/formula_simulator.py: expected '
+  +     '7170bed1398846ab650274cc9eda354b1213be53d0db76c420478145bb68accf, actual '
+  +     '26320b4977f54bfcc3d011ff2562c2bf3e014b125cbfe2dc34ebaae0ddb78588',
+  +     'C0-PM-048: stale source hash for engine/optimizer/scoring.py: expected '
+  +     '8b22f7a15d913ca6219ef007cec28b031b6ee43563f25ad9898803792e6dc1f8, actual '
+  +     '2922897556563caa6d1aafb9a1a0f4270048cca2fde853beafde09497b85dcc1',
+  +     'C0-PM-048: engine/optimizer/scoring.py:FormulaScorer line is 59, '
+  +     'inventory declares 58',
+  +     'C0-PM-048: missing recorded test tests/test_optimizer_determinism.py',
+  +     'C0-PM-048: missing recorded test '
+  +     'tests/test_optimizer_thermodynamic_unification.py',
+  +     "call_edges[1]: token 'build_formula_state' absent at "
+  +     'engine/pipeline/gates.py:5087',
+  +     "call_edges[2]: token 'build_formula_state' absent at "
+  +     'engine/optimizer/scoring.py:2679',
+  +     'call_edges[3]: invalid evidence line engine/pipeline/simulator.py:136',
+  +     "call_edges[6]: token 'simulate_formula' absent at "
+  +     'engine/pipeline/gates.py:5105',
+  +     "call_edges[9]: token 'analyze_temporal_consistency' absent at "
+  +     'engine/reconstruction_pipeline.py:638',
+  +     "call_edges[10]: token 'vp_pa' absent at "
+  +     'engine/pipeline/formula_state.py:950',
+  +     "call_edges[11]: token 'vp_pa' absent at "
+  +     'engine/pipeline/formula_state.py:981',
+  +     "call_edges[12]: token 'estimate_dhvap_from_vp_25c' absent at "
+  +     'engine/pipeline/formula_state.py:972',
+  +     "call_edges[13]: token 'analyze_vapor_pressure' absent at "
+  +     'engine/reconstruction_pipeline.py:607',
+  +     "call_edges[14]: token 'gamma' absent at "
+  +     'engine/pipeline/formula_state.py:1002',
+  +     "call_edges[16]: token 'activity_model_capabilities' absent at "
+  +     'engine/science_audit.py:355',
+  +     "call_edges[17]: token 'micro_phase_risk' absent at "
+  +     'engine/pipeline/gates.py:643',
+  +     "call_edges[18]: token 'score_dose_response' absent at "
+  +     'engine/optimizer/scoring.py:3039',
+  +     "call_edges[19]: token 'score_psychophysics' absent at "
+  +     'engine/optimizer/scoring.py:2747',
+  +     "call_edges[20]: token '_lookup_composite_headspace' absent at "
+  +     'engine/pipeline/formula_state.py:1013',
+  +     "call_edges[23]: token 'score_hedonic' absent at "
+  +     'engine/optimizer/scoring.py:2740',
+  +     "call_edges[24]: token 'score_diffusion' absent at "
+  +     'engine/optimizer/scoring.py:3046',
+  +     "call_edges[25]: token 'score_skin_interaction' absent at "
+  +     'engine/optimizer/scoring.py:2733',
+  +     'call_edges[26]: invalid evidence line engine/ifra_safety.py:626',
+  +     "call_edges[28]: token 'scores' absent at engine/optimizer/scoring.py:3114",
+  + ]
+FAILED tests/test_c0_physical_model_inventory.py::test_legacy_fixture_lock_and_replay - AssertionError: assert ['C0-LH-001: ...vity.py', ...] == []
+  
+  Left contains 19 more items, first extra item: 'C0-LH-001: stale source hash for engine/pipeline/formula_state.py'
+  
+  Full diff:
+  - []
+  + [
+  +     'C0-LH-001: stale source hash for engine/pipeline/formula_state.py',
+  +     'C0-LH-002: stale source hash for engine/pipeline/formula_state.py',
+  +     'C0-LH-002: stale source hash for engine/pipeline/simulator.py',
+  +     'C0-LH-003: stale source hash for engine/thermo/activity.py',
+  +     'C0-LH-003: stale source hash for engine/thermo/antoine.py',
+  +     'C0-LH-004: stale source hash for engine/thermo/activity.py',
+  +     'C0-LH-004: stale source hash for engine/thermo/antoine.py',
+  +     'C0-LH-005: stale source hash for '
+  +     'engine/pipeline/natural_absolute_decomposition.py',
+  +     'C0-LH-005: stale source hash for engine/thermo/antoine.py',
+  +     'C0-LH-007: stale source hash for engine/diffusion_model.py',
+  +     'C0-LH-007: stale source hash for engine/thermo/antoine.py',
+  +     'C0-LH-020: stale source hash for scripts/oav_headspace_analyze.py',
+  +     'C0-LH-021: stale source hash for engine/optimizer/scoring.py',
+  +     'C0-LH-021: stale source hash for scripts/formula_simulator.py',
+  +     'C0-LH-022: stale source hash for engine/optimizer/models.py',
+  +     'C0-LH-022: stale source hash for engine/optimizer/scoring.py',
+  +     'C0-LH-023: stale source hash for engine/optimizer/scoring.py',
+  +     'C0-LH-023: stale source hash for engine/pipeline/release_scoring.py',
+  +     'C0-LH-024: stale source hash for engine/calibration.py',
+  + ]
+FAILED tests/test_c5_calibration_program.py::test_material_panel_matches_inventory_snapshot_and_required_domains - AssertionError: assert '44b5df5eb41d...5b6274ff1bcf3' == '9d778721db1f...501be70fe0eb8'
+  
+  - 9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8
+  + 44b5df5eb41d1aa5c3a05da2d47653bc3983097a28dfbd3b38c5b6274ff1bcf3
+3 failed, 652 passed in 15.80s

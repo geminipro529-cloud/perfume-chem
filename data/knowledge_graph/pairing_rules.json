@@ -21415,5 +21415,185 @@
     "effect": "Polysantol floral-creamy sandalwood + Ambermax intense amber warmth = indulgent woody-amber. Sandalwood softens Ambermax sharp radiant edge.",
     "source": "agent-woody-base_2026-05-21",
     "axis": "texture"
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Tobacco Absolute",
+    "effect": "Blue Chamomile EO and Tobacco Absolute share sesquiterpenoid chemistry; tobacco sweetness amplifies chamomile's tobacco facet",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 4.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Patchouli EO",
+    "effect": "Blue Chamomile EO and Patchouli EO share sesquiterpenoid chemistry; earthy-herbal complement",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "texture",
+    "magnitude": 4.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Vetiver EO",
+    "effect": "Blue Chamomile EO and Vetiver EO share sesquiterpenoid chemistry; dark rooty complements sweet-herbal",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "tenacity",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Cedarwood EO",
+    "effect": "Blue Chamomile EO and Cedarwood EO share sesquiterpenoid chemistry; dry woody complements herbal sweetness",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "texture",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Nagarmortha Oil",
+    "effect": "Blue Chamomile EO and Nagarmortha Oil share sesquiterpenoid chemistry; earthy-smoky anchors chamomile's sweetness",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "tenacity",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Sandalwood EO",
+    "effect": "Blue Chamomile EO and Sandalwood EO share sesquiterpenoid chemistry; creamy wood softens herbal edge",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "texture",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Labdanum Absolute",
+    "effect": "Blue Chamomile EO and Labdanum share sesquiterpenoid chemistry; amber warmth complements sweet-herbal",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Frankincense EO",
+    "effect": "Blue Chamomile EO and Frankincense EO share sesquiterpenoid chemistry; spiritual-clean lift over herbal base",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "complexity",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Opoponax Resinoid",
+    "effect": "Blue Chamomile EO and Opoponax share sesquiterpenoid chemistry; warm-spice complements sweet herbaceous",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Kephalis",
+    "effect": "Blue Chamomile EO and Kephalis share tobacco-woody overlap; Kephalis's ionone-iris undertone complements chamomile's sweetness",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Coumarin",
+    "effect": "Blue Chamomile EO pairs well with Coumarin — sweet-herbaceous bridge from documented profile",
+    "source": "ingredient_intelligence_profiles",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 4.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Lavender EO",
+    "effect": "Blue Chamomile EO pairs well with Lavender EO — herbaceous affinity from documented profile",
+    "source": "ingredient_intelligence_profiles",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 4.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Evernyl",
+    "effect": "Blue Chamomile EO pairs well with Evernyl — mossy-herbal complement from documented profile",
+    "source": "ingredient_intelligence_profiles",
+    "type": "synergy",
+    "axis": "tenacity",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Cardamom EO",
+    "effect": "Blue Chamomile EO and Cardamom EO — spicy-cineolic complements sweet-herbal; classic La Nuit accord with a twist",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "complexity",
+    "magnitude": 4.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Bergamot FCF",
+    "effect": "Blue Chamomile EO and Bergamot FCF — citrus lift opens the herbal-chamomile heart",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "sillage",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Hedione",
+    "effect": "Blue Chamomile EO and Hedione — radiance amplifier pushes chamomile's sweet-herbal character outward",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "sillage",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Tonkarome",
+    "effect": "Blue Chamomile EO and Tonkarome — coumarinic-tonka almond sweetness bridges to chamomile's apple-tobacco facet",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "character",
+    "magnitude": 3.5
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Ethylene Brassylate",
+    "effect": "Blue Chamomile EO and Ethylene Brassylate — creamy-lactonic musk wraps the herbal character in skin warmth",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "texture",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Iso E Super",
+    "effect": "Blue Chamomile EO and Iso E Super — abstract cedar molecular cocoon extends chamomile's skin presence",
+    "source": "chemical_compatibility/azulene_sesquiterpenoid",
+    "type": "synergy",
+    "axis": "tenacity",
+    "magnitude": 3.0
+  },
+  {
+    "material_a": "Blue Chamomile EO",
+    "material_b": "Rose EO",
+    "effect": "Chemically incompatible: azulene/matricine (Blue Chamomile) vs citronellol/geraniol (Rose) — chemically unrelated families clash",
+    "source": "AGENTS.md F11",
+    "type": "conflict",
+    "axis": "character",
+    "magnitude": 0.0
   }
 ]

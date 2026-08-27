@@ -1,0 +1,25 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_three_projection_families_are_separate_and_basis_preserving _______
+
+    def test_three_projection_families_are_separate_and_basis_preserving() -> None:
+        relative = relative_profile()
+        olfactory = build_natural_projection(relative, ProjectionFamily.OLFACTORY_HEADSPACE)
+        identity = build_natural_projection(relative, ProjectionFamily.IDENTITY_AUTHENTICITY)
+        regulatory = build_natural_projection(relative, ProjectionFamily.REGULATORY_ALLERGEN)
+    
+        assert isinstance(olfactory, NaturalProjection)
+        assert isinstance(olfactory.entries[0], ProjectionEntry)
+        assert olfactory.status is ProjectionStatus.AVAILABLE
+        assert identity.status is ProjectionStatus.AVAILABLE
+>       assert regulatory.status is ProjectionStatus.WITHHELD
+E       AssertionError: assert <ProjectionStatus.AVAILABLE: 'AVAILABLE'> is <ProjectionStatus.WITHHELD: 'WITHHELD'>
+E        +  where <ProjectionStatus.AVAILABLE: 'AVAILABLE'> = NaturalProjection(projection_version='c7-natural-projection-v1', family=<ProjectionFamily.REGULATORY_ALLERGEN: 'REGULA...o basis conversion is authorized',), content_sha256='3d678d3a3c06c13c4230a759778144266cbfc33f5c6897d58613538ddce8f4f4').status
+E        +  and   <ProjectionStatus.WITHHELD: 'WITHHELD'> = ProjectionStatus.WITHHELD
+
+tests\test_c7_natural_lots.py:993: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c7_natural_lots.py::test_three_projection_families_are_separate_and_basis_preserving - AssertionError: assert <ProjectionStatus.AVAILABLE: 'AVAILABLE'> is <ProjectionStatus.WITHHELD: 'WITHHELD'>
+ +  where <ProjectionStatus.AVAILABLE: 'AVAILABLE'> = NaturalProjection(projection_version='c7-natural-projection-v1', family=<ProjectionFamily.REGULATORY_ALLERGEN: 'REGULA...o basis conversion is authorized',), content_sha256='3d678d3a3c06c13c4230a759778144266cbfc33f5c6897d58613538ddce8f4f4').status
+ +  and   <ProjectionStatus.WITHHELD: 'WITHHELD'> = ProjectionStatus.WITHHELD
+1 failed in 0.59s

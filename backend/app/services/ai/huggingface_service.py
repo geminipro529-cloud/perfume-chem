@@ -15,10 +15,11 @@ Note: For local inference, install extras: `poetry install --extras "huggingface
 """
 
 import json
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, Iterable, List, Optional, cast
 
 import httpx
 from openai import AsyncOpenAI
+from openai.types.chat import ChatCompletionToolParam
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from app.core.config import get_settings
@@ -98,6 +99,7 @@ class HuggingFaceService(BaseAIService):
         self.cache = cache
         self.settings = settings
         self.verbose = verbose
+        self.client: Optional[AsyncOpenAI]
 
         # Check if using local model
         self.use_local = bool(settings.HF_LOCAL_MODEL_PATH)
@@ -262,7 +264,7 @@ class HuggingFaceService(BaseAIService):
                 if cached:
                     if self.verbose:
                         logger.info("Cache hit for Hugging Face completion")
-                    return cached
+                    return cast(str, cached)
 
             # Acquire rate limit
             estimated_tokens = self._estimate_tokens(prompt, max_tokens)
@@ -280,12 +282,13 @@ class HuggingFaceService(BaseAIService):
                 if self.verbose:
                     logger.info(f"Calling Hugging Face Inference API: {self.model}, max_tokens={max_tokens}")
 
-                response = await self.client.chat.completions.create(
+                client = cast(AsyncOpenAI, self.client)
+                response = await client.chat.completions.create(
                     model=self.model,
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=max_tokens,
                     temperature=temperature,
-                    tools=normalized_tools,
+                    tools=cast(Iterable[ChatCompletionToolParam], normalized_tools),
                     **kwargs
                 )
 
@@ -342,7 +345,7 @@ class HuggingFaceService(BaseAIService):
                 **generation_config
             )
 
-            result = outputs[0]['generated_text']
+            result = cast(str, outputs[0]['generated_text'])
 
             # Remove prompt from result
             if result.startswith(prompt):
@@ -392,13 +395,14 @@ class HuggingFaceService(BaseAIService):
             if self.verbose:
                 logger.info(f"Streaming from Hugging Face Inference API: {self.model}")
 
-            stream = await self.client.chat.completions.create(
+            client = cast(AsyncOpenAI, self.client)
+            stream = await client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens,
                 temperature=temperature,
                 stream=True,
-                tools=normalized_tools,
+                tools=cast(Iterable[ChatCompletionToolParam], normalized_tools),
                 **kwargs
             )
 
@@ -450,7 +454,7 @@ class HuggingFaceService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -540,7 +544,7 @@ class HuggingFaceService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             result = self._post_validate_response(result, ingredients)
             return result
         except json.JSONDecodeError:
@@ -582,7 +586,7 @@ class HuggingFaceService(BaseAIService):
         )
 
         try:
-            result = json.loads(response)
+            result = cast(Dict[str, Any], json.loads(response))
             if dosage_info:
                 result["validated_dosage"] = dosage_info
             return result
@@ -591,4 +595,4 @@ class HuggingFaceService(BaseAIService):
 
     def get_usage_stats(self) -> Dict:
         """Get rate limit usage statistics"""
-        return self.rate_limiter.get_usage("huggingface")
+        return cast(Dict[str, Any], self.rate_limiter.get_usage("huggingface"))

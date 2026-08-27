@@ -19,9 +19,16 @@ Usage:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Mapping
+from typing import Any
 
-from engine.name_utils import normalize_name
+from engine.knowledge.accord_library import (
+    AccordMaterial,
+    AccordRecipe,
+    accords_by_family,
+    accords_by_type,
+    all_accords,
+    get_accord,
+)
 from engine.knowledge.perfume_taxonomy import (
     AccordType,
     ConcentrationBracket,
@@ -36,16 +43,19 @@ from engine.knowledge.perfume_taxonomy import (
     get_subfamily_description,
     taxonomy_tree,
 )
-
-from engine.knowledge.accord_library import (
-    AccordMaterial,
-    AccordRecipe,
-    all_accords,
-    accords_by_family,
-    accords_by_type,
-    get_accord,
+from engine.knowledge.pyramid_targets import (
+    CROSS_FAMILY_COMPATIBILITY,
+    DEFAULT_PYRAMID,
+    MATERIAL_ROLE_RATIOS,
+    OAV_TARGETS_BY_FAMILY,
+    PYRAMID_RATIOS,
+    PyramidRatio,
+    get_compatibility,
+    get_material_role_range,
+    get_oav_target,
+    get_oav_targets,
+    get_pyramid,
 )
-
 from engine.knowledge.soliflore_structures import (
     SolifloreComponent,
     SolifloreStructure,
@@ -53,23 +63,7 @@ from engine.knowledge.soliflore_structures import (
     get_soliflore,
     soliflore_material_list,
 )
-
-from engine.knowledge.pyramid_targets import (
-    PyramidRatio,
-    DEFAULT_PYRAMID,
-    PYRAMID_RATIOS,
-    OAV_TARGETS_BY_FAMILY,
-    CROSS_FAMILY_COMPATIBILITY,
-    MATERIAL_ROLE_RATIOS,
-    get_pyramid,
-    get_oav_targets,
-    get_oav_target,
-    get_compatibility,
-    get_material_role_range,
-    all_pyramid_keys,
-    all_oav_target_keys,
-)
-
+from engine.name_utils import normalize_name
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIFIED KNOWLEDGE ENGINE

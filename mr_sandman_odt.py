@@ -1,5 +1,6 @@
 """ODT analysis for all Mr. Sandman materials."""
 import sys
+
 sys.path.insert(0, r'D:\chatbots\perfume-chem')
 
 from engine.ingredient_intelligence import get_profile
@@ -8,7 +9,7 @@ from engine.odor_thresholds import ODT_DATA
 # All materials across all three versions
 MATERIALS = [
     "Bergamot FCF",
-    "Red Mandarin EO", 
+    "Red Mandarin EO",
     "Aldehyde C11 undecylenic",
     "Aldehyde C12 MNA",
     "Hedione",
@@ -60,7 +61,7 @@ def get_odt_info(name):
     odt_eth = None
     char = ""
     source = ""
-    
+
     # Try profile
     if p:
         if p.odt:
@@ -69,7 +70,7 @@ def get_odt_info(name):
         if p.odt_ppm:
             odt_eth = p.odt_ppm
             source += "profile_eth "
-    
+
     # Try ODT_DATA
     key = name.lower()
     if key in ODT_DATA:
@@ -82,7 +83,7 @@ def get_odt_info(name):
             source += "ODT_DATA "
         if not char:
             char = d.get("char", "")
-    
+
     # Try override
     if name in ODT_OVERRIDE:
         d = ODT_OVERRIDE[name]
@@ -94,7 +95,7 @@ def get_odt_info(name):
             source += "override "
         if not char:
             char = d.get("char", "")
-    
+
     return odt_air, odt_eth, char.strip(), source.strip()
 
 # Collect data
@@ -116,7 +117,7 @@ print("-" * 120)
 for name, odt_air, odt_eth, char, source in rows:
     air_str = f"{odt_air:.3f}" if odt_air else "N/A"
     eth_str = f"{odt_eth:.3f}" if odt_eth else "N/A"
-    
+
     if odt_air and odt_air < 0.01:
         potency = "ULTRA-LOW"
     elif odt_air and odt_air < 0.1:
@@ -133,7 +134,7 @@ for name, odt_air, odt_eth, char, source in rows:
         potency = "very high"
     else:
         potency = "unknown"
-    
+
     print(f"  {name:<26} {air_str:>10} {eth_str:>10} {potency:>12} {char:<40} {source}")
 
 print()
@@ -162,7 +163,7 @@ for name, odt_air, odt_eth, char, source in rows:
         tier = "high (ODT 50-200 ppb) — requires heavy dose"
     else:
         tier = "very high (ODT > 200 ppb) — nearly imperceptible unless overdosed"
-    
+
     if tier not in tiers:
         tiers[tier] = []
     tiers[tier].append(name)
@@ -190,21 +191,21 @@ print("=" * 120)
 print("KEY INSIGHT")
 print("=" * 120)
 print("""
-  The two ULTRA-LOW ODT materials (Alpha Irone 0.002 ppb, Damascol 0.005 ppb) 
-  will dominate the perception at ANY functional dose — even at trace levels 
+  The two ULTRA-LOW ODT materials (Alpha Irone 0.002 ppb, Damascol 0.005 ppb)
+  will dominate the perception at ANY functional dose — even at trace levels
   (0.15% and 0.01% active respectively), their OAV is 150K and 20K.
-  
-  The EXTREME-tier materials (Heliotropal 0.5, Anisaldehyde 0.3, Cashmeran 0.2, 
-  Azarbre 0.2) are potent but controllable — they need 5-10x the dose of Irone 
+
+  The EXTREME-tier materials (Heliotropal 0.5, Anisaldehyde 0.3, Cashmeran 0.2,
+  Azarbre 0.2) are potent but controllable — they need 5-10x the dose of Irone
   to match OAV.
-  
-  The moderate-to-high ODT materials (Hexyl Salicylate 30, Vanillin 10, 
+
+  The moderate-to-high ODT materials (Hexyl Salicylate 30, Vanillin 10,
   Benzoin 20, Farnesol 10) are the "safe" volume builders — you can dose them
-  at 8-15% active without overwhelming anything. They provide the structural 
+  at 8-15% active without overwhelming anything. They provide the structural
   cushion and fixation without adding character competition.
-  
-  C11 undecylenic (ODT 0.4 ppb) sits in the "very low" tier — louder than 
-  Bergamot (1.5 ppb) but not irone-category. At 3% active it reaches OAV 75K, 
-  making it THE star of the opening — audible above Bergamot (OAV 6.7K at 1%) 
+
+  C11 undecylenic (ODT 0.4 ppb) sits in the "very low" tier — louder than
+  Bergamot (1.5 ppb) but not irone-category. At 3% active it reaches OAV 75K,
+  making it THE star of the opening — audible above Bergamot (OAV 6.7K at 1%)
   and competitive with Heliotropal (OAV 60K at 6%).
 """)

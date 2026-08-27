@@ -1,0 +1,22 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_one_aging_process_never_promotes_universal_shelf_life __________
+
+    def test_one_aging_process_never_promotes_universal_shelf_life() -> None:
+        evidence = _aging_evidence(AgingProcess.CHEMICAL_TRANSFORMATION)
+    
+        for claim in (
+            AgingClaim.UNIVERSAL_AGING,
+            AgingClaim.SHELF_LIFE,
+            AgingClaim.GENERIC_SENSORY_MATURATION,
+        ):
+            decision = assess_aging_claim(claim, (evidence,))
+>           assert decision.status is C9AssessmentStatus.WITHHELD
+E           AssertionError: assert <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> is <C9AssessmentStatus.WITHHELD: 'WITHHELD'>
+E            +  where <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> = C9ClaimDecision(status=<C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'>, claim='UNIVERSAL_AGING',...=('6dd1979d2dc3ef5a4c87fd7d3eac34a3549aeb1ab84dd81201c53fd3de3a11c3',), reasons=('mutation removed broad aging gate',)).status
+E            +  and   <C9AssessmentStatus.WITHHELD: 'WITHHELD'> = C9AssessmentStatus.WITHHELD
+
+tests\test_c9_unsupported_science.py:419: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c9_unsupported_science.py::test_one_aging_process_never_promotes_universal_shelf_life
+1 failed in 1.10s

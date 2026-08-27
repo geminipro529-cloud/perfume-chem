@@ -11,10 +11,19 @@ Last updated: 2026-01-12
 
 import os
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from importlib import import_module
+from typing import Any, Dict, List, Optional, Protocol, cast
 
-import yaml
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
+
+
+class _YamlModule(Protocol):
+    """Typed surface used from the dynamically loaded PyYAML module."""
+
+    def safe_load(self, stream: object) -> Any: ...
+
+
+yaml = cast(_YamlModule, import_module("yaml"))
 
 
 class ModelPurpose(str, Enum):
@@ -143,8 +152,9 @@ class ModelConfig(BaseModel):
     class Config:
         use_enum_values = True
 
-    @validator('last_validated')
-    def validate_date_format(self, v):
+    @field_validator("last_validated")
+    @classmethod
+    def validate_date_format(cls, v):
         """Validate date format is YYYY-MM-DD."""
         from datetime import datetime
         try:

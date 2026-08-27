@@ -1,0 +1,147 @@
+{
+  "acceptance_core": {
+    "authority_flags": {
+      "compounding": false,
+      "formula": false,
+      "hedonic": false,
+      "inventory_mutation": false,
+      "physical_execution": false,
+      "publication": false,
+      "purchase": false,
+      "release": false,
+      "runtime": false,
+      "safety": false,
+      "scientific": false,
+      "sensory": false
+    },
+    "boundaries": {
+      "modeled_oav_is_hedonic_evidence": false,
+      "modeled_oav_is_sensory_evidence": false,
+      "retained_downstream_artifacts_runtime_installed": false,
+      "target_ideal_separate_from_current_inventory": true
+    },
+    "downstream_artifacts": [
+      {
+        "disposition": "SEMANTIC_REFERENCE_ONLY",
+        "name": "FLORAL_COVERAGE_FOUNDATION_v2.zip"
+      },
+      {
+        "disposition": "REGRESSION_PROVENANCE_ONLY",
+        "name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip"
+      },
+      {
+        "disposition": "SOURCE_TRIAGE_ONLY_OBSOLETE_INVENTORY_V3",
+        "name": "Woody_Amber_Musk_Extreme_Research_Bundle_V2.zip"
+      },
+      {
+        "disposition": "REJECTED_INGREDIENT_COUNT_TRAP",
+        "name": "Top_Complexity_Microevent_Bundle_v2.zip"
+      },
+      {
+        "disposition": "PROVENANCE_ONLY_INVENTORY_CONFLICT",
+        "name": "Perfumery_Formula_Control_Ensemble_v2_1.md"
+      }
+    ],
+    "module_dispositions": {
+      "architectural-delta-engine": {
+        "import_path": "engine.perception.architectural_delta",
+        "runtime_eligible": true,
+        "state": "ADMITTED_RUNTIME"
+      },
+      "hedonic-preference-learner": {
+        "import_path": null,
+        "runtime_eligible": false,
+        "state": "RETIRED_BENCHMARK_UNDERPERFORMER"
+      },
+      "perfumery-art-composition-topology-v1": {
+        "import_path": null,
+        "runtime_eligible": false,
+        "state": "RESEARCH_ONLY"
+      },
+      "temporal-sensory-ledger": {
+        "import_path": null,
+        "runtime_eligible": false,
+        "state": "RETIRED_BENCHMARK_UNDERPERFORMER"
+      },
+      "universal-perceptual-topology-core": {
+        "import_path": null,
+        "runtime_eligible": false,
+        "state": "RESEARCH_ONLY"
+      },
+      "wood-depth-model-v2": {
+        "import_path": null,
+        "runtime_eligible": false,
+        "state": "RESEARCH_ONLY"
+      }
+    },
+    "preserved_untracked_paths": [
+      ".tmp-publish-complexity-solforge/",
+      ".tmp-publish-registry/",
+      ".tmp-solforge-gate-verifier/",
+      ".tmp-solforge-slice-verifier/"
+    ],
+    "registry": {
+      "path": "configs/complexity/complexity_module_registry_v5.json",
+      "schema_version": "complexity_module_registry_v5",
+      "sha256": "905fd3e67697e1bac7b2ffd8dc53a14b558fc9bd0595103ea29fba49af8ce2b0"
+    },
+    "repository": {
+      "branch": "codex/complex-perfumery-publish",
+      "commit": "e3101a3c44b32b5993255c47dffd5a0baa5252b7"
+    },
+    "source_candidate": {
+      "blockers": [],
+      "disposition": "SOURCE_CANDIDATE_ONLY",
+      "exact_bytes_status": "VERIFIED",
+      "expected_byte_length": 40307,
+      "expected_sha256": "1094ef77c35b955ca0b6e13bc4d79981e6c78f2fcbaccaf6d34b5a175fa2e7c9",
+      "name": "OAV_TIME_DOSE_ERROR_SENTINEL_LITERATURE_BASIS_v1.md",
+      "observed_byte_length": 40307,
+      "observed_sha256": "1094ef77c35b955ca0b6e13bc4d79981e6c78f2fcbaccaf6d34b5a175fa2e7c9"
+    },
+    "source_files": [
+      {
+        "byte_length": 19437,
+        "path": "engine/pipeline/oav_evidence.py",
+        "sha256": "224484b521050e7421ee19dd68b4c8a508bc33103f416416d34fb3e3711ce85b"
+      },
+      {
+        "byte_length": 17403,
+        "path": "engine/fuckups/pre_mix_guard.py",
+        "sha256": "1bac79aa357d7733e8e7b036c3cd981a548ba0f7a79713415804e0b32369cb51"
+      },
+      {
+        "byte_length": 50462,
+        "path": "engine/sensory/ledger.py",
+        "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71"
+      },
+      {
+        "byte_length": 32810,
+        "path": "engine/preference.py",
+        "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878"
+      },
+      {
+        "byte_length": 33090,
+        "path": "engine/hedonic_evidence.py",
+        "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c"
+      },
+      {
+        "byte_length": 13652,
+        "path": "engine/hedonic_model.py",
+        "sha256": "7d5c8d6b665859c218911f1b05cd9d44f58337ad31d79404afc2387d158663f9"
+      },
+      {
+        "byte_length": 37631,
+        "path": "engine/perception/perceptual_topology.py",
+        "sha256": "968d57d5fe9fe00ad3e830f24cc204bc4523c10067342d239dc27ef88d07e0b1"
+      },
+      {
+        "byte_length": 16096,
+        "path": "engine/perception/wood_depth.py",
+        "sha256": "d8c1efb393ecb1d455f242e4408cd53fb44ab05f8be23d7eaedbe499d6377e06"
+      }
+    ]
+  },
+  "acceptance_sha256": "26701442a6613d00cef3594209f80634a64e128a9edc648ad5a6ea96d25b9656",
+  "schema_version": "temporal_oav_hedonic_recovery_baseline_v1"
+}

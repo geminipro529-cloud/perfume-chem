@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\validate_c9_evidence.py", line 73, in <module>
+    assert git("rev-parse", "HEAD") == arguments.expected_head
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

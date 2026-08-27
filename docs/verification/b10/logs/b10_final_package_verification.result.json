@@ -1,0 +1,20 @@
+{
+  "name": "b10_final_package_verification",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\verify_b10_final_package.py",
+    "D:\\chatbots\\perfume-chem"
+  ],
+  "started_at_utc": "2026-07-31T16:55:55.028Z",
+  "finished_at_utc": "2026-07-31T16:55:55.206Z",
+  "duration_seconds": 0.177,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\b10_final_package_verification.stdout.txt",
+  "stderr_path": "D:\\chatbots\\perfume-chem\\docs\\verification\\b10\\logs\\b10_final_package_verification.stderr.txt"
+}

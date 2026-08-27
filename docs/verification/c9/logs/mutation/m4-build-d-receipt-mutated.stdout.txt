@@ -1,0 +1,38 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt ____
+
+    def test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt() -> None:
+        scope = "20% EdP on paper blotter at 25 C and 50% RH for 8 hours"
+        receipt = _passing_receipt(scope=scope)
+    
+        missing = assess_unsupported_outcome(
+            UnsupportedOutcome.LONGEVITY,
+            receipt=None,
+            requested_scope=scope,
+        )
+        mismatch_outcome = assess_unsupported_outcome(
+            UnsupportedOutcome.SILLAGE,
+            receipt=receipt,
+            requested_scope=scope,
+        )
+        mismatch_scope = assess_unsupported_outcome(
+            UnsupportedOutcome.LONGEVITY,
+            receipt=receipt,
+            requested_scope="skin at 32 C",
+        )
+        exact = assess_unsupported_outcome(
+            UnsupportedOutcome.LONGEVITY,
+            receipt=receipt,
+            requested_scope=scope,
+        )
+    
+>       assert missing.status is C9AssessmentStatus.WITHHELD
+E       AssertionError: assert <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> is <C9AssessmentStatus.WITHHELD: 'WITHHELD'>
+E        +  where <C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'> = C9ClaimDecision(status=<C9AssessmentStatus.SUPPORTED_NARROW_SCOPE: 'SUPPORTED_NARROW_SCOPE'>, claim='LONGEVITY', claim... paper blotter at 25 C and 50% RH for 8 hours', evidence_sha256=(), reasons=('mutation removed Build D receipt gate',)).status
+E        +  and   <C9AssessmentStatus.WITHHELD: 'WITHHELD'> = C9AssessmentStatus.WITHHELD
+
+tests\test_c9_unsupported_science.py:550: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_c9_unsupported_science.py::test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt
+1 failed in 1.56s

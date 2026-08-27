@@ -1,0 +1,670 @@
+## Verdict
+
+The strongest version of this project is **not an AI perfume chatbot with chemistry attached**.
+
+It should become a **local-first perfumery operating system**:
+
+> **Deterministic engines calculate.  
+> Curated evidence justifies.  
+> User experiments calibrate.  
+> Chat translates intent into operations.  
+> An LLM, when present, only helps express the answer.**
+
+That direction can genuinely outperform a general external AI for the user’s own inventory, bottles, preferences, previous experiments, dosing equipment, and formulation history.
+
+I inspected the current `master` snapshot and its engine, API, knowledge graph, recommendation, outcome, hedonic, receptor, and physical-state modules. 
+
+---
+
+# What is already strong
+
+This repository contains far more useful local intelligence than the README’s “AI-powered” framing suggests:
+
+- A canonical formula-state pipeline that preserves raw dose, stock dilution, active material, mass, moles, mole fraction, estimated headspace, ODT, OAV, and uncertainty. 
+- Inventory-aware deterministic recommendations with separate pre-mix, between-mix, and post-mix modes. 
+- A substantial local knowledge graph, theory rules, pairing rules, material properties, audit trail, release gates, and temporal simulation. 
+- A real feedback-store concept where predictions, actual wear results, and pairwise preferences can be recorded. 
+- An excellent product principle already hiding in the README: **optimize toward the perfume’s name and concept, not merely higher numerical scores.** 
+
+Those are the bones of an expert system. The app currently dresses those bones in an AI costume that is actually weaker than the machinery underneath.
+
+---
+
+# The main problems I found
+
+## 1. The repository has two different brains
+
+The advanced engine performs physical-state construction, uncertainty analysis, OAV simulation, scoring, optimization, and release gating.
+
+But the normal `/analyze-formula` API still calculates note percentages, estimates longevity from fixed top-heart-base hour values, and estimates sillage using a basic heuristic.  
+
+Meanwhile, the `/ai` routes send analysis, modification, and pairing requests directly into an AI provider after only basic validation.  
+
+So a user can receive radically different “truth” depending on which endpoint the frontend happens to call.
+
+### Fix
+
+There should be one application service:
+
+```text
+User request
+    ↓
+Intent and formula parser
+    ↓
+Canonical Formula/Bottle State
+    ↓
+Deterministic calculation and retrieval tools
+    ↓
+Candidate interventions and simulations
+    ↓
+Evidence-backed explanation renderer
+```
+
+Every surface, including chat, analysis, optimizer, calculator, and bottle repair, should call this same service.
+
+The AI provider should never own `analyze_perfume()` or `suggest_modifications()`. It may receive an already-computed evidence packet and turn it into readable prose.
+
+---
+
+## 2. The headspace model currently ignores the finished perfume solvent
+
+The physical chain looks sophisticated, but the mole fractions are calculated among the aromatic materials alone. The final bottle’s ethanol, water, DPG, IPM, TEC, or other carrier is not included in the liquid-phase mole fraction.  
+
+`batch_volume_ml` and `context` are passed through and stored, but they do not influence the partial-pressure calculation. 
+
+As written, a formula at 10% finished concentration and the same formula at 30% finished concentration can produce essentially the same calculated aromatic mole fractions and OAVs. That is a critical physical-model error.
+
+### Fix: create a real `MixtureState`
+
+The canonical state should explicitly contain:
+
+```python
+MixtureState(
+    aromatic_materials=...,
+    solvents={
+        "ethanol": ...,
+        "water": ...,
+        "dpg": ...,
+        "ipm": ...,
+    },
+    finished_concentration_w_w=...,
+    application_mass_mg=...,
+    substrate="skin",
+    temperature_c=...,
+    relative_humidity=...,
+    elapsed_time_s=...,
+)
+```
+
+Use calculation tiers rather than pretending every formula has equal scientific certainty:
+
+1. **Tier 0: exact bottle arithmetic**  
+   Active mass, stock dilution, density, final concentration, added volume.
+
+2. **Tier 1: ideal-mixture estimate**  
+   Solvent included, measured vapor pressures, Raoult-style estimate.
+
+3. **Tier 2: non-ideal estimate**  
+   UNIFAC/NRTL or validated activity coefficients, only when required group parameters exist.
+
+4. **Tier 3: empirically calibrated prediction**  
+   Adjustment from actual blotter, skin, and headspace measurements.
+
+If the data only supports Tier 0 or Tier 1, say so. A humble estimate with a visible uncertainty interval is much more valuable than a six-decimal hallucination.
+
+---
+
+## 3. OAV is being treated as an all-purpose law
+
+The repository repeatedly declares that every perceptibility claim must use OAV “with no exceptions.” 
+
+OAV is useful, but it is fundamentally a concentration-to-threshold ratio. It does not by itself determine:
+
+- perceived intensity above threshold,
+- odor character,
+- mixture suppression,
+- pleasantness,
+- texture,
+- temporal evolution,
+- synergy,
+- recognition,
+- or aesthetic quality.
+
+Olfactory receptor responses to mixtures are nonlinear, with competition, suppression, inhibition, and synergy. A competitive-binding model can predict some of these nonlinear responses, but only when it is supplied with appropriate single-odorant response data. 
+
+### Fix
+
+Replace the current rule with:
+
+> Use OAV for threshold-relative perceptibility when the threshold, phase, concentration unit, and matrix are appropriate. Never use OAV alone as proof of intensity, quality, synergy, or pleasantness.
+
+Each output should label what it actually means:
+
+```text
+Estimated threshold visibility: high
+Estimated intensity: uncertain
+Mixture interaction: unknown
+Character contribution: supported by descriptive evidence
+Pleasantness: user-dependent
+```
+
+OAV should be one instrument in the orchestra, not the conductor wearing ten hats.
+
+---
+
+## 4. The receptor module looks more biochemical than it really is
+
+The module openly acknowledges that it lacks material-specific EC50 data, then substitutes odor-family profiles across eight representative receptors.  
+
+There is also a direct unit mismatch:
+
+- `or_occupancy()` documents its input as ligand concentration in **µM**. 
+- The simulator supplies `vapor_ppm` directly as that concentration. 
+
+Even converting gas-phase ppm into molar concentration would not make it equivalent to receptor-assay µM because nasal mucus partitioning, delivery, metabolism, binding proteins, and assay conditions intervene.
+
+### Fix: split receptor data into two completely different products
+
+#### A. Measured receptor evidence
+
+Only show receptor claims when the database contains:
+
+```text
+odorant
+species
+receptor
+assay system
+agonist / partial agonist / antagonist
+EC50
+Emax
+concentration unit
+source publication
+replication status
+```
+
+No complete row means no numerical receptor prediction.
+
+#### B. Exploratory olfactory-family hypothesis
+
+Family-based receptor priors can remain as an educational visualization, but label them:
+
+```text
+Mode: speculative family prior
+Not measured receptor activation
+Not used in formula scoring
+```
+
+Do not let speculative receptor diagrams affect hedonic, mood, or formula-quality scores.
+
+---
+
+## 5. Hedonic prediction is currently a handcrafted ingredient popularity table
+
+The hedonic module assigns each material a fixed pleasantness value, such as Vanillin `0.90`, Habanolide `0.72`, Guaiacol `0.15`, and Indole `-0.20`.  
+
+It then computes a mass-weighted mean and penalizes variation among those values.  
+
+That will naturally reward formulas containing lots of materials the table calls pleasant. It cannot properly model:
+
+- indole being attractive at trace and difficult at overdose,
+- an aldehyde becoming waxy or aggressive with concentration,
+- the same formula being loved by one user and disliked by another,
+- learned associations,
+- context,
+- adaptation,
+- the relationship between contrast and artistic interest.
+
+### Fix: model five separate things
+
+```text
+1. Molecular prior
+2. Dose-dependent character
+3. Mixture-context effect
+4. User preference
+5. Intended aesthetic
+```
+
+A better structure:
+
+```python
+predicted_liking =
+    molecular_prior
+    + dose_response
+    + mixture_interactions
+    + user_preference_model
+    + context_adjustment
+```
+
+Each component should have its own uncertainty.
+
+The current fixed valence table may survive as a weak prior, but it should contribute very little once the user has supplied actual preferences.
+
+---
+
+# Make hedonic prediction personal, not universal
+
+The outcome system is one of the most valuable parts of the repository, but it is not yet being used as the heart of the model.
+
+Currently, actual ratings use a 1-to-10 scale, while predicted values may be on a 0-to-100 scale. The accuracy function compares them directly without normalizing the scales.  
+
+That MAE is not meaningful.
+
+## The improved learning loop
+
+After each trial, collect structured observations at standard stages:
+
+```text
+Fresh blotter: 30 seconds
+Opening: 5 minutes
+Heart: 30 minutes
+Late heart: 2 hours
+Drydown: 6 or 8 hours
+Next day on fabric
+```
+
+At each stage record:
+
+- intensity,
+- liking,
+- clarity,
+- roughness,
+- sweetness,
+- powderiness,
+- diffusion,
+- recognizable facets,
+- specific defects,
+- what the user wants preserved.
+
+Prefer pairwise questions over absolute ratings:
+
+```text
+Which do you prefer, Version 3A or Version 3B?
+Which is closer to “crystalline spicy lavender”?
+Which has the better drydown?
+```
+
+Fit a local Bradley-Terry or Thurstone preference model. It can learn that this user:
+
+- likes alpha irone but dislikes benzoate-heavy floralcy,
+- tolerates high woody-amber intensity,
+- wants lavender spice preserved,
+- repeatedly dislikes opoponax’s flattening effect.
+
+That local model will beat a generic AI because it knows the nose at the other end of the bottle.
+
+---
+
+# Mood and pleasure need a truth firewall
+
+I would not create a module that declares:
+
+```text
+Material X increases happiness by 18%
+Lavender causes relaxation
+Citrus improves motivation
+```
+
+That would turn uncertain, context-sensitive associations into fake biochemistry.
+
+Instead, build an **Affective Association Module** with three evidence levels:
+
+```text
+Level A: this user repeatedly reported this association
+Level B: controlled human evidence exists for a related odor stimulus
+Level C: traditional, marketing, or anecdotal association only
+```
+
+The user-facing result should sound like:
+
+> “You have previously rated this lavender-cardamom direction as calming and focused. The app predicts a similar personal association, but not a universal physiological effect.”
+
+Track optional before-and-after self-reports:
+
+- valence,
+- arousal,
+- calmness,
+- focus,
+- familiarity,
+- memory association.
+
+Do not treat these as medical outcomes. Treat them as personal sensory metadata.
+
+---
+
+# Real-world addition calculations should become a flagship feature
+
+The existing code can turn a proposed percentage into an approximate microliter addition based on total bottle volume. 
+
+But exact post-mix correction needs to account for:
+
+- current bottle volume or mass,
+- current amount already present,
+- stock dilution,
+- stock density,
+- target concentration,
+- increased final bottle volume,
+- pipette resolution,
+- minimum reliable dispense,
+- whether the addition is reversible,
+- accumulated previous additions.
+
+For mass fraction, the exact stock mass required is:
+
+\[
+x = \frac{tM-m_A}{s-t}
+\]
+
+Where:
+
+- \(M\) is current total bottle mass,
+- \(m_A\) is current active mass of the target material,
+- \(s\) is the material fraction in the stock solution,
+- \(t\) is the desired final fraction,
+- \(x\) is the mass of stock to add.
+
+Then convert stock mass to volume using its measured density.
+
+The app should return something like:
+
+```text
+Calculated addition: 23.7 µL
+Pipette-feasible addition: 24 µL
+Expected final bottle volume: 30.024 mL
+New active material level: 0.0799%
+Calculation uncertainty: ±3.1%
+Suggested operation: 12 µL, mix, evaluate, then remaining 12 µL
+Reversibility: low
+```
+
+This is where the app can feel almost magical while remaining honest.
+
+---
+
+# The local knowledge system should replace AI answering
+
+You already have local materials, theory, pairing rules, formula documents, and a SQLite migration with provenance fields.  
+
+But loading every imported rule as blanket `MEDIUM` confidence is not sufficient. 
+
+## Use an evidence-record schema
+
+Every knowledge claim should be an individual object:
+
+```python
+EvidenceRecord(
+    subject="Hedione",
+    predicate="typical_use_range",
+    value={"min": 2.0, "max": 25.0, "unit": "% concentrate"},
+    scope={"application": "fine fragrance"},
+    evidence_type="supplier_technical",
+    source_id="...",
+    source_excerpt="...",
+    confidence="medium",
+    verified_by=None,
+    conflicts_with=[...],
+    last_reviewed="...",
+)
+```
+
+Important distinctions:
+
+- measured property,
+- supplier statement,
+- published experiment,
+- classical perfumery teaching,
+- experienced-perfumer observation,
+- user observation,
+- model inference,
+- unsupported heuristic.
+
+The chat answer should cite the local evidence records that produced it.
+
+## Retrieval does not require an LLM
+
+Start with:
+
+- SQLite FTS5 for text retrieval,
+- normalized material aliases,
+- structured filters,
+- graph traversal for pairings and incompatibilities,
+- formula similarity search,
+- rule matching,
+- deterministic ranking.
+
+Vector embeddings can be optional. The core retrieval problem here is highly structured and often better solved with exact fields than semantic soup.
+
+---
+
+# A better chat architecture
+
+The chat should behave like a tool-using perfumer rather than a talking encyclopedia.
+
+## Request routing
+
+```text
+“What will 30 µL opoponax do?”
+    → bottle intervention simulator
+
+“Build a spicy lavender using my inventory”
+    → brief parser
+    → inventory filter
+    → accord grammar
+    → candidate generator
+    → physics and dose checks
+    → Pareto ranking
+
+“Why did the spices disappear?”
+    → observation diagnosis
+    → formula history lookup
+    → likely suppressor/overlap analysis
+    → reversal-safe experiment plan
+
+“How much alpha irone is actually in this?”
+    → exact stock and active-material calculator
+
+“What pairs with cardamom?”
+    → evidence graph
+    → formula-context filter
+    → user preference filter
+```
+
+## The response renderer
+
+The renderer receives structured facts:
+
+```json
+{
+  "diagnosis": [],
+  "calculations": {},
+  "candidate_changes": [],
+  "predicted_tradeoffs": [],
+  "evidence": [],
+  "uncertainty": {},
+  "missing_information": []
+}
+```
+
+A local LLM can phrase this naturally. A template engine can also do it. The factual content remains identical either way.
+
+A recent olfactory benchmark found that language models performed better when given compound names than molecular structures, suggesting that much of their apparent odor knowledge comes from lexical association rather than true structural olfactory reasoning. Even the strongest tested model retained substantial gaps. 
+
+That is exactly why the local engine should calculate and retrieve first.
+
+---
+
+# Perfumery theory should become lenses, not commandments
+
+The project’s encoding of Carles, Roudnitska, Jellinek, and accord structures is genuinely distinctive. But these frameworks should not be mashed into one “truth score.”
+
+Create separate lenses:
+
+```text
+Carles lens: structural proportions and contrast
+Roudnitska lens: form, clarity, necessity, radiance
+Jellinek lens: psychological and odor-character organization
+Material lens: physical and sensory behavior
+Commercial lens: wearability, cost, compliance
+User lens: personal liking and prior outcomes
+Brief lens: does it express the intended idea?
+```
+
+Then explain disagreements:
+
+> “The formula is unconventional under a classical pyramid lens but strongly matches the requested linear mineral-iris brief.”
+
+That is far more intelligent than lowering its score because it disobeyed an archetype it never intended to follow.
+
+---
+
+# Proposed internal architecture
+
+```text
+perfume_chem/
+├── domain/
+│   ├── units.py
+│   ├── material.py
+│   ├── stock_solution.py
+│   ├── formula.py
+│   ├── bottle.py
+│   └── experiment.py
+├── evidence/
+│   ├── store.py
+│   ├── retrieval.py
+│   ├── provenance.py
+│   └── conflicts.py
+├── calculators/
+│   ├── dilution.py
+│   ├── addition.py
+│   ├── scaling.py
+│   ├── cost.py
+│   └── uncertainty.py
+├── physical/
+│   ├── liquid_phase.py
+│   ├── headspace.py
+│   ├── evaporation.py
+│   └── substrate.py
+├── perception/
+│   ├── threshold.py
+│   ├── intensity.py
+│   ├── mixture.py
+│   ├── adaptation.py
+│   └── receptor_evidence.py
+├── creative/
+│   ├── accord_grammar.py
+│   ├── theory_lenses.py
+│   ├── brief_model.py
+│   └── candidate_generator.py
+├── personalization/
+│   ├── preferences.py
+│   ├── pairwise_model.py
+│   ├── affective_associations.py
+│   └── calibration.py
+├── planning/
+│   ├── diagnosis.py
+│   ├── interventions.py
+│   ├── what_if.py
+│   └── pareto_ranker.py
+└── assistant/
+    ├── intent.py
+    ├── orchestrator.py
+    ├── evidence_packet.py
+    └── renderer.py
+```
+
+---
+
+# Implementation order
+
+## Phase 1: truth reset
+
+1. Make the canonical engine the sole backend analysis path.
+2. Replace direct AI endpoints with a local workbench orchestrator.
+3. Include solvents and finished concentration in physical calculations.
+4. Remove receptor-family proxies from production scoring.
+5. Rename unvalidated scores as heuristics.
+6. Replace “OAV authority” language with “OAV analysis.”
+7. Add dimensional-analysis tests for every calculation.
+
+## Phase 2: practical perfumer tools
+
+1. Exact bottle-addition solver.
+2. Stock dilution and purity tracking.
+3. Density-aware mass and volume conversion.
+4. Pipette and dropper precision profiles.
+5. Persistent bottle history.
+6. What-if comparison with reversible micro-addition plans.
+
+## Phase 3: local expert system
+
+1. Evidence-record database.
+2. FTS5 and graph retrieval.
+3. Theory lenses.
+4. Inventory-constrained accord generator.
+5. Deterministic chat tool routing.
+6. Claim-level citations and confidence.
+
+## Phase 4: personalization
+
+1. Standardized wear-test observations.
+2. Pairwise formula comparison.
+3. User-specific descriptor and liking model.
+4. Stage-specific preference learning.
+5. Calibrated predictions with confidence intervals.
+
+## Phase 5: empirical validation
+
+Create a permanent benchmark suite:
+
+- known dilution calculations,
+- known post-mix additions,
+- replicated formulas at different concentrations,
+- material omission tests,
+- blinded A/B variants,
+- temporal wear observations,
+- prediction versus actual error,
+- calibration curves,
+- deliberately adversarial formulas.
+
+No score should be called predictive until it beats a simple baseline on held-out experiments.
+
+---
+
+# The most important repository changes
+
+I would prioritize these exact changes:
+
+1. **`backend/app/api/v1/endpoints/formulas.py`**  
+   Remove the simple longevity/sillage pathway and call the canonical engine.
+
+2. **`backend/app/api/v1/endpoints/ai.py`**  
+   Replace provider-owned analysis with local intent routing and evidence-packet rendering.
+
+3. **`engine/pipeline/formula_state.py`**  
+   Include the finished solvent matrix, concentration, application quantity, and substrate in the physical state.
+
+4. **`engine/receptor/binding.py`**  
+   Keep only evidence-backed ligand-receptor relationships in production outputs.
+
+5. **`engine/hedonic_model.py`**  
+   Demote fixed valence numbers to priors and add concentration-, context-, and user-dependent models.
+
+6. **`engine/intervention_context.py`**  
+   Replace approximate percentage-to-µL conversion with exact current-state bottle arithmetic.
+
+7. **`backend/app/services/outcome_store.py`**  
+   Normalize rating scales, store test conditions, and fit actual calibration models.
+
+8. **`scripts/init_db.py`**  
+   Import claim-level provenance and preserve uncertainty instead of assigning blanket confidence.
+
+---
+
+## The finished product’s identity
+
+I would describe it this way:
+
+> **A local-first perfumery workbench that combines exact bottle arithmetic, inventory-aware formulation, evidence-backed material knowledge, physical and perceptual estimation, classical perfumery theory, and personal sensory learning. AI is optional and never the source of chemical truth.**
+
+That is a much sharper product than “ChatGPT for perfume.”
+
+It becomes a laboratory notebook, calculator, tutor, formula architect, bottle-repair console, evidence library, and personalized nose-model in one glassy little machine. 🧪🌫️

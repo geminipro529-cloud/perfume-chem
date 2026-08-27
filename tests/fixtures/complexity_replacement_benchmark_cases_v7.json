@@ -1,0 +1,656 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v7",
+  "predecessor_corpus": "complexity_replacement_benchmark_cases_v6.json",
+  "predecessor_corpus_sha256": "75dbeada938e3ba403c96c0f0245ea8392dddf67447ee2bf0c9efe78b6c43580",
+  "reference_manifest_sha256": "fea3e77c3bf43c7db743f5b0f9b3dca772922e4690fbcadcd0aec1f6024cb455",
+  "objective_scoring_contract": {
+    "decision_states": ["AUGMENT", "NO_AUGMENTATION", "HOLD"],
+    "maximum_next_actions": 1,
+    "correct_abstention_full_credit": true
+  },
+  "module_packets": {
+    "temporal_oav_error_sentinel": {
+      "operating_contract": [
+        "Calculate OAV intervals only from compatible concentration and threshold evidence; p05 is concentration p05 divided by threshold p95, p50 by p50, and p95 by p05.",
+        "Bind formula, active-dose receipt, stock identity and strength, protocol, matrix, units, method, timepoint, and evidence basis before comparing cells.",
+        "Return AUGMENT only for a deterministic integrity or temporal finding that changes the evidence decision, NO_AUGMENTATION for a valid null finding, and HOLD for incompatible, missing, duplicated, or substituted evidence.",
+        "Never convert OAV into percent contribution, perceived salience, depth, richness, liking, beauty, safety, stability, or release authority."
+      ],
+      "authority_boundary": [
+        "The receipt is an evidence and integrity sentinel, not a perfumer or optimizer.",
+        "Measured and modeled cells remain separate; missing cells remain missing.",
+        "All formula, inventory, physical execution, sensory, safety, purchase, publication, and release authority remains false."
+      ],
+      "evidence_refs": [
+        "engine/pipeline/oav_evidence.py",
+        "engine/fuckups/pre_mix_guard.py",
+        "evidence_foundation_recovery_v1"
+      ]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract": [
+        "Use only observed protocol-bound cells identified by protocol, sample, assessor, repeat, timepoint, and endpoint.",
+        "Return AUGMENT for one observed transition, crossover, or discriminating repeat; NO_AUGMENTATION for a complete static result; HOLD for duplicates, unsafe exposure, order or carryover confounding, or unqualified within-sniff timing.",
+        "Never interpolate missing observations or convert volatility predictions into perceived temporal behavior.",
+        "Select at most one deterministic next comparison."
+      ],
+      "authority_boundary": [
+        "The ledger summarizes observations and protocol defects only.",
+        "It does not establish liking, formula success, safety, stability, or release.",
+        "All formula, inventory, physical execution, sensory, safety, purchase, publication, and release authority remains false."
+      ],
+      "evidence_refs": [
+        "engine/sensory/ledger.py",
+        "tests/test_temporal_sensory_evidence.py",
+        "evidence_foundation_recovery_v1"
+      ]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract": [
+        "Fit each declared criterion separately from blinded pairwise observations; ties are retained as indifference evidence but excluded from directional counts.",
+        "Use assessor-cluster uncertainty when assessor identities exist and withhold disconnected, sparse, leaked, order-confounded, carryover-confounded, or baseline-failing results.",
+        "Return AUGMENT only for one validated model-derived decision or next pair, NO_AUGMENTATION when plain counting or a declared resolved decision already answers the question, and HOLD otherwise.",
+        "Never collapse target fidelity, depth, richness, and liking into a synthetic beauty score."
+      ],
+      "authority_boundary": [
+        "Preference evidence is exact-scope and population-specific.",
+        "Composition alone cannot establish liking or beauty.",
+        "All formula, inventory, physical execution, sensory, safety, purchase, publication, and release authority remains false."
+      ],
+      "evidence_refs": [
+        "engine/preference_davidson.py",
+        "engine/preference_validation.py",
+        "engine/hedonic_evidence.py",
+        "evidence_foundation_recovery_v1"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "EF-OAV-S01",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Determine whether compatible measured OAV evidence contains a decision-relevant temporal decrease.",
+      "facts": [
+        "At 0 seconds the measured headspace interval is 8, 10, 12 ug/m3 and the threshold interval is 2, 4, 8 ug/m3.",
+        "At 300 seconds the measured headspace interval is 2, 3, 4 ug/m3 and the same threshold interval and method apply.",
+        "Formula, active-dose, stock, protocol, matrix, unit, method, and context hashes match."
+      ],
+      "inventory_state": {"state": "EXACT_STOCK_BOUND", "stock_fraction": 1.0},
+      "expected_decision": "AUGMENT with the measured p50 temporal decrease; make no sensory claim.",
+      "critical_error": "OAV_AS_PERCEIVED_SALIENCE",
+      "claim_ceiling": "COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY",
+      "evidence_payload": {"basis": "MEASURED", "timepoints_seconds": [0, 300], "matrix": "ethanol-air|25C|spray|odor"},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["STRICT_MEASURED_TEMPORAL_DECREASE"],
+        "required_calculations": {"t0_oav_p50": 2.5, "t300_oav_p50": 0.75, "p50_fold_change": 0.3},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["OAV_AS_PERCEIVED_SALIENCE"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["STRICT_MEASURED_TEMPORAL_DECREASE"],
+        "calculations": {"t0_oav_p50": 2.5, "t300_oav_p50": 0.75, "p50_fold_change": 0.3},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-OAV-S02",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Decide whether an unchanged compatible measured OAV series adds any useful decision information.",
+      "facts": [
+        "At both 0 and 300 seconds the measured headspace interval is 8, 10, 12 ug/m3.",
+        "At both timepoints the compatible measured threshold interval is 2, 4, 8 ug/m3.",
+        "All formula, dose, stock, protocol, matrix, unit, method, and context bindings match."
+      ],
+      "inventory_state": {"state": "EXACT_STOCK_BOUND", "stock_fraction": 1.0},
+      "expected_decision": "NO_AUGMENTATION because the valid observed series is unchanged.",
+      "critical_error": "NULL_CHANGE_INFLATED",
+      "claim_ceiling": "COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY",
+      "evidence_payload": {"basis": "MEASURED", "timepoints_seconds": [0, 300], "matrix": "ethanol-air|25C|spray|odor"},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["STRICT_MEASURED_NULL_CHANGE"],
+        "required_calculations": {"t0_oav_p50": 2.5, "t300_oav_p50": 2.5, "p50_fold_change": 1.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["NULL_CHANGE_INFLATED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["STRICT_MEASURED_NULL_CHANGE"],
+        "calculations": {"t0_oav_p50": 2.5, "t300_oav_p50": 2.5, "p50_fold_change": 1.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-OAV-S03",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Audit an apparent high OAV after a supplied-stock strength substitution.",
+      "facts": [
+        "The active-dose receipt binds stock:HEDIONE:lot-1 at supplied strength fraction 1.0.",
+        "The OAV row silently records the same stock reference at supplied strength fraction 0.1.",
+        "The measured concentration and threshold are otherwise unit- and matrix-compatible."
+      ],
+      "inventory_state": {"state": "STOCK_STRENGTH_CONFLICT", "dose_receipt_fraction": 1.0, "oav_row_fraction": 0.1},
+      "expected_decision": "HOLD because the stock-strength substitution invalidates the dose binding.",
+      "critical_error": "STOCK_STRENGTH_SUBSTITUTION_ACCEPTED",
+      "claim_ceiling": "INVALID_EVIDENCE_HOLD",
+      "evidence_payload": {"headspace_p50": 10.0, "threshold_p50": 2.0, "unit": "ppm"},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["STOCK_STRENGTH_MISMATCH"],
+        "required_calculations": {"stock_strength_match": false},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["STOCK_STRENGTH_SUBSTITUTION_ACCEPTED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["STOCK_STRENGTH_MISMATCH"],
+        "calculations": {"stock_strength_match": false},
+        "next_actions": ["Recompute from the exact active-dose receipt and stock strength."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-OAV-C01",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Evaluate an unseen compatible-unit measured time series without converting it into a sensory claim.",
+      "facts": [
+        "At 0 seconds measured headspace p50 is 18 ng/L and measured threshold p50 is 6 ng/L.",
+        "At 600 seconds measured headspace p50 is 6 ng/L and the same measured threshold p50 is 6 ng/L.",
+        "Exact stock, active dose, protocol, matrix, unit, method, and context remain bound."
+      ],
+      "inventory_state": {"state": "EXACT_STOCK_BOUND", "stock_fraction": 0.1},
+      "expected_decision": "AUGMENT with the measured p50 decrease from 3 to 1.",
+      "critical_error": "UNSEEN_UNIT_RATIO_MISCOMPUTED",
+      "claim_ceiling": "COMPUTATIONAL_EVIDENCE_DIAGNOSTIC_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "basis": "MEASURED", "unit": "ng/L", "timepoints_seconds": [0, 600]},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["STRICT_MEASURED_TEMPORAL_DECREASE"],
+        "required_calculations": {"t0_oav_p50": 3.0, "t600_oav_p50": 1.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["UNSEEN_UNIT_RATIO_MISCOMPUTED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["STRICT_MEASURED_TEMPORAL_DECREASE"],
+        "calculations": {"t0_oav_p50": 3.0, "t600_oav_p50": 1.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-OAV-C02",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Decide whether a stable modeled-only OAV screen warrants another model-derived conclusion.",
+      "facts": [
+        "Two declared timepoints contain compatible modeled concentration and modeled threshold cells.",
+        "No measured headspace cell exists and both modeled p50 ratios are unchanged.",
+        "The question asks only whether the modeled screen adds a new decision."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "NO_AUGMENTATION; retain the modeled screen without promoting it or adding a test.",
+      "critical_error": "MODELED_AS_MEASURED",
+      "claim_ceiling": "MODELED_SCREENING_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "measured_cell_count": 0, "modeled_cell_count": 2, "modeled_p50_ratios": [1.2, 1.2]},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["MODELED_NULL_SCREEN"],
+        "required_calculations": {"measured_cell_count": 0, "modeled_cell_count": 2},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["MODELED_AS_MEASURED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["MODELED_NULL_SCREEN"],
+        "calculations": {"measured_cell_count": 0, "modeled_cell_count": 2},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-OAV-C03",
+      "module_id": "temporal_oav_error_sentinel",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Audit an unseen series with a missing timepoint and an incompatible threshold matrix and method.",
+      "facts": [
+        "The protocol declares 0 and 600 seconds, but only the 0-second concentration cell is present.",
+        "The concentration is measured in ethanol-air at 25 C by dynamic headspace.",
+        "The threshold is from water-air at 20 C by a different endpoint method."
+      ],
+      "inventory_state": {"state": "EXACT_STOCK_BOUND"},
+      "expected_decision": "HOLD; do not divide incompatible evidence or interpolate the missing timepoint.",
+      "critical_error": "INCOMPATIBLE_THRESHOLD_OR_MISSINGNESS_IGNORED",
+      "claim_ceiling": "INVALID_EVIDENCE_HOLD",
+      "evidence_payload": {"variant": "UNSEEN", "declared_timepoints": [0, 600], "observed_timepoints": [0]},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["THRESHOLD_CONTEXT_INCOMPATIBLE", "MISSING_DECLARED_TIMEPOINT"],
+        "required_calculations": {"compatible_cell_count": 0, "missing_cell_count": 1},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["INCOMPATIBLE_THRESHOLD_OR_MISSINGNESS_IGNORED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["THRESHOLD_CONTEXT_INCOMPATIBLE", "MISSING_DECLARED_TIMEPOINT"],
+        "calculations": {"compatible_cell_count": 0, "missing_cell_count": 1},
+        "next_actions": ["Collect the missing cell under one compatible matrix and threshold method."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-S01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Identify one observed temporal contrast from a complete balanced depth ledger.",
+      "facts": [
+        "CONTROL depth is 2 at 0 seconds and 4 at 300 seconds.",
+        "CANDIDATE depth is 3 at 0 seconds and 2 at 300 seconds.",
+        "Every protocol-bound cell is present once and presentation order is balanced."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "AUGMENT with the observed opposing transitions and no new test.",
+      "critical_error": "PREDICTED_AS_OBSERVED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"endpoint": "DEPTH", "timepoints_seconds": [0, 300], "observed_cell_count": 4, "expected_cell_count": 4},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["OBSERVED_TEMPORAL_CROSSOVER"],
+        "required_calculations": {"control_median_delta": 2.0, "candidate_median_delta": -1.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["PREDICTED_AS_OBSERVED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["OBSERVED_TEMPORAL_CROSSOVER"],
+        "calculations": {"control_median_delta": 2.0, "candidate_median_delta": -1.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-S02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Decide whether a complete static observed ledger needs another comparison.",
+      "facts": [
+        "CONTROL depth is 2 at both 0 and 300 seconds.",
+        "CANDIDATE depth is 3 at both 0 and 300 seconds.",
+        "All canonical cells are unique, complete, safe, and order-balanced."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "NO_AUGMENTATION because no observed temporal transition exists.",
+      "critical_error": "STATIC_LEDGER_INFLATED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"endpoint": "DEPTH", "timepoints_seconds": [0, 300], "observed_cell_count": 4, "expected_cell_count": 4},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["COMPLETE_STATIC_LEDGER"],
+        "required_calculations": {"control_median_delta": 0.0, "candidate_median_delta": 0.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["STATIC_LEDGER_INFLATED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["COMPLETE_STATIC_LEDGER"],
+        "calculations": {"control_median_delta": 0.0, "candidate_median_delta": 0.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-S03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Audit a ledger containing discordant duplicate canonical cells.",
+      "facts": [
+        "The same protocol, sample, assessor, repeat, 300-second timepoint, and DEPTH endpoint appears twice.",
+        "The duplicate values are 2 and 5 and have different observation IDs.",
+        "All other expected cells are present."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "HOLD and exclude both discordant duplicate rows; do not average them.",
+      "critical_error": "DUPLICATES_AVERAGED",
+      "claim_ceiling": "OBSERVATIONAL_HOLD",
+      "evidence_payload": {"endpoint": "DEPTH", "duplicate_canonical_cell_count": 1, "duplicate_row_count": 2},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["DISCORDANT_DUPLICATE_CELL"],
+        "required_calculations": {"duplicate_canonical_cell_count": 1, "excluded_duplicate_row_count": 2},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["DUPLICATES_AVERAGED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["DISCORDANT_DUPLICATE_CELL"],
+        "calculations": {"duplicate_canonical_cell_count": 1, "excluded_duplicate_row_count": 2},
+        "next_actions": ["Resolve provenance and recollect the duplicated canonical cell."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-C01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Select one discriminating repeat from an unseen assessor-disagreement pattern.",
+      "facts": [
+        "For sample A at 0 seconds, assessor values are 1 and 5.",
+        "For sample B at 0 seconds, assessor values are 3 and 3.5.",
+        "All expected cells are unique, safe, and order-balanced."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "AUGMENT by selecting one repeat of sample A, the cell with greatest disagreement.",
+      "critical_error": "DISAGREEMENT_HIDDEN",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "endpoint": "DEPTH", "assessor_count": 2},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["MAXIMUM_ASSESSOR_DISAGREEMENT"],
+        "required_calculations": {"sample_a_disagreement": 4.0, "sample_b_disagreement": 0.5},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["DISAGREEMENT_HIDDEN"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["MAXIMUM_ASSESSOR_DISAGREEMENT"],
+        "calculations": {"sample_a_disagreement": 4.0, "sample_b_disagreement": 0.5},
+        "next_actions": ["Repeat sample A DEPTH at 0 seconds."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-C02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Evaluate an unseen complete static richness ledger with no unresolved protocol defect.",
+      "facts": [
+        "Both samples have identical within-sample medians at 60 and 900 seconds.",
+        "All assessor repeats meet the declared repeatability threshold.",
+        "The Williams presentation schedule is balanced and no safety event occurred."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "NO_AUGMENTATION and no next test.",
+      "critical_error": "COUNT_OR_LENGTH_AS_TRANSITION",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "endpoint": "RICHNESS", "maximum_absolute_median_delta": 0.0},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["COMPLETE_STATIC_LEDGER"],
+        "required_calculations": {"maximum_absolute_median_delta": 0.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["COUNT_OR_LENGTH_AS_TRANSITION"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["COMPLETE_STATIC_LEDGER"],
+        "calculations": {"maximum_absolute_median_delta": 0.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-TEM-C03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Audit an unseen presentation schedule with first-position and directed carryover imbalance.",
+      "facts": [
+        "The four sequences are A-B, A-B, A-B, and B-A.",
+        "A appears first three times and B appears first once.",
+        "A-to-B occurs three times while B-to-A occurs once."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "HOLD because order and first-order carryover remain confounded.",
+      "critical_error": "ORDER_CARRYOVER_IGNORED",
+      "claim_ceiling": "OBSERVATIONAL_HOLD",
+      "evidence_payload": {"variant": "UNSEEN", "sequence_count": 4, "schedule": ["A-B", "A-B", "A-B", "B-A"]},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["FIRST_POSITION_IMBALANCE", "DIRECTED_CARRYOVER_IMBALANCE"],
+        "required_calculations": {"first_position_imbalance": 2, "directed_carryover_imbalance": 2},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["ORDER_CARRYOVER_IGNORED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["FIRST_POSITION_IMBALANCE", "DIRECTED_CARRYOVER_IMBALANCE"],
+        "calculations": {"first_position_imbalance": 2, "directed_carryover_imbalance": 2},
+        "next_actions": ["Run a balanced Williams schedule before directional interpretation."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-S01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Use a scoped blinded liking fit to select one unresolved comparison after held-out validation.",
+      "facts": [
+        "For A versus B there are 8 A wins, 2 B wins, and 2 ties; for A versus C there are 10 A wins, 1 C win, and 1 tie.",
+        "For B versus C there are 7 B wins, 3 C wins, and 2 ties across identified assessors with balanced order.",
+        "The assessor-cluster bootstrap is stable, held-out gain beats the declared baseline, and no criterion or split leakage exists."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "AUGMENT with one deterministic unresolved pair, not a global beauty claim.",
+      "critical_error": "UNSCOPED_BEAUTY_SCORE",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"criterion": "LIKING", "directional_outcomes": 30, "ties": 6, "eligible_next_pairs": ["A:B", "A:C", "B:C"]},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["VALIDATED_MODEL_DERIVED_NEXT_PAIR"],
+        "required_calculations": {"directional_outcomes": 30, "tie_rate": 0.16666666666666666, "recommended_pair": "B:C"},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["UNSCOPED_BEAUTY_SCORE"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["VALIDATED_MODEL_DERIVED_NEXT_PAIR"],
+        "calculations": {"directional_outcomes": 30, "tie_rate": 0.16666666666666666, "recommended_pair": "B:C"},
+        "next_actions": ["Compare B versus C under the bound LIKING protocol."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-S02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Decide whether an all-tie scoped comparison supports directional preference learning.",
+      "facts": [
+        "Twelve blinded A-versus-B outcomes are all NO_PREFERENCE ties.",
+        "No directional outcome exists and the decision is already resolved as indifference at this scope.",
+        "No composition-derived or cross-criterion score is permitted."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "NO_AUGMENTATION; retain ties as indifference evidence without directional fitting.",
+      "critical_error": "TIES_AS_DIRECTIONAL_WINS",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"criterion": "LIKING", "total_outcomes": 12, "ties": 12},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["INDIFFERENCE_RESOLVED_NO_DIRECTIONAL_FIT"],
+        "required_calculations": {"directional_outcomes": 0, "tie_rate": 1.0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["TIES_AS_DIRECTIONAL_WINS"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["INDIFFERENCE_RESOLVED_NO_DIRECTIONAL_FIT"],
+        "calculations": {"directional_outcomes": 0, "tie_rate": 1.0},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-S03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Audit an apparent preference that exactly follows first presentation position.",
+      "facts": [
+        "Across eight directional A-versus-B outcomes, the first-presented item wins all eight.",
+        "A is first four times and B is first four times, so marginal first-position counts are balanced.",
+        "The outcome remains perfectly determined by first position."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "HOLD because position effect is perfect despite balanced marginal counts.",
+      "critical_error": "POSITION_CONFOUNDING_IGNORED",
+      "claim_ceiling": "SCOPED_PREFERENCE_HOLD",
+      "evidence_payload": {"criterion": "LIKING", "directional_outcomes": 8, "first_presented_wins": 8},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["POSITION_CONFOUNDED"],
+        "required_calculations": {"first_position_win_rate": 1.0},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["POSITION_CONFOUNDING_IGNORED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["POSITION_CONFOUNDED"],
+        "calculations": {"first_position_win_rate": 1.0},
+        "next_actions": ["Repeat A versus B with independently randomized order blocks."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-C01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Use an unseen assessor-cluster fit with mild heterogeneity but no subgroup reversal to choose one pair.",
+      "facts": [
+        "Six identified assessors provide balanced-order DEPTH comparisons among A, B, and C.",
+        "Assessor-cluster intervals overlap most strongly for A versus B, while every assessor subgroup ranks C below both.",
+        "Held-out assessor gain exceeds baseline and no split, criterion, carryover, or repeated-exposure blocker exists."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "AUGMENT with A versus B as the one most discriminating comparison.",
+      "critical_error": "ASSESSOR_HETEROGENEITY_DISCARDED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "criterion": "DEPTH", "assessor_count": 6, "eligible_next_pairs": ["A:B", "A:C", "B:C"]},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["VALIDATED_MAXIMUM_UNCERTAINTY_PAIR"],
+        "required_calculations": {"effective_unique_assessors": 6, "recommended_pair": "A:B"},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["ASSESSOR_HETEROGENEITY_DISCARDED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "AUGMENT",
+        "reason_codes": ["VALIDATED_MAXIMUM_UNCERTAINTY_PAIR"],
+        "calculations": {"effective_unique_assessors": 6, "recommended_pair": "A:B"},
+        "next_actions": ["Compare A versus B under the bound DEPTH protocol."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-C02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Decide whether a declared resolved richness comparison needs model augmentation.",
+      "facts": [
+        "The blinded RICHNESS protocol declares the A-versus-B decision resolved before model fitting.",
+        "Plain directional counts are A 14, B 4, with 2 ties and no protocol blocker.",
+        "The model is not allowed to create work after the declared decision is resolved."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "NO_AUGMENTATION because plain counting and the declared decision already resolve the scope.",
+      "critical_error": "MODEL_WORK_WITHOUT_INCREMENTAL_VALUE",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"variant": "UNSEEN", "criterion": "RICHNESS", "decision_resolved": true, "a_wins": 14, "b_wins": 4, "ties": 2},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["PLAIN_COUNTING_RESOLVED"],
+        "required_calculations": {"directional_outcomes": 18, "tie_rate": 0.1},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["MODEL_WORK_WITHOUT_INCREMENTAL_VALUE"]
+      },
+      "candidate_receipt": {
+        "decision_state": "NO_AUGMENTATION",
+        "reason_codes": ["PLAIN_COUNTING_RESOLVED"],
+        "calculations": {"directional_outcomes": 18, "tie_rate": 0.1},
+        "next_actions": [],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    },
+    {
+      "case_id": "EF-HED-C03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Audit an unseen result with criterion leakage, assessor split leakage, and subgroup reversal.",
+      "facts": [
+        "Two RICHNESS rows are mixed into a LIKING fit.",
+        "The same two assessor IDs occur in both training and held-out partitions.",
+        "One assessor subgroup prefers A over B while the other equally sized subgroup prefers B over A."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE"},
+      "expected_decision": "HOLD; withhold utility and winner claims until criterion and split leakage are removed and heterogeneity is resolved.",
+      "critical_error": "LEAKED_OR_POOLED_PREFERENCE_PROMOTED",
+      "claim_ceiling": "SCOPED_PREFERENCE_HOLD",
+      "evidence_payload": {"variant": "UNSEEN", "declared_criterion": "LIKING", "leaked_criterion_rows": 2, "overlapping_assessor_ids": 2, "subgroup_reversal": true},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["CRITERION_LEAKAGE", "GROUP_SPLIT_LEAKAGE", "SUBGROUP_REVERSAL"],
+        "required_calculations": {"leaked_criterion_rows": 2, "overlapping_assessor_ids": 2, "subgroup_reversal": true},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["LEAKED_OR_POOLED_PREFERENCE_PROMOTED"]
+      },
+      "candidate_receipt": {
+        "decision_state": "HOLD",
+        "reason_codes": ["CRITERION_LEAKAGE", "GROUP_SPLIT_LEAKAGE", "SUBGROUP_REVERSAL"],
+        "calculations": {"leaked_criterion_rows": 2, "overlapping_assessor_ids": 2, "subgroup_reversal": true},
+        "next_actions": ["Create criterion-pure assessor-disjoint partitions before refitting."],
+        "authority": {"formula": false, "inventory": false, "physical_execution": false, "sensory": false, "safety": false, "purchase": false, "publication": false, "release": false}
+      }
+    }
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

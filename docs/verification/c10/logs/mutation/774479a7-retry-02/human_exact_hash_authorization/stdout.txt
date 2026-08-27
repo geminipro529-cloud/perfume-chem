@@ -1,0 +1,29 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_proposal_requires_exact_hash_pass_human_review_before_execution _____
+
+    def test_proposal_requires_exact_hash_pass_human_review_before_execution() -> None:
+        domain, candidates, evaluations = _selection_fixture()
+        proposal = select_experiments(
+            domain=domain,
+            candidates=candidates,
+            evaluations=evaluations,
+            acquisition_policy=_policy(),
+            stop_policy=_stop_policy(),
+            campaign_state=_campaign(),
+        )
+        wrong = HumanReviewReceipt(
+            status=GateStatus.PASS,
+            subject_sha256=HASH_A,
+            evidence_sha256=HASH_B,
+            reviewer_role="qualified human perfumer",
+        )
+        correct = replace(wrong, subject_sha256=proposal.content_sha256)
+    
+>       with pytest.raises(C10ContractError):
+E       Failed: DID NOT RAISE C10ContractError
+
+tests\test_c10_selection.py:539: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_c10_selection.py::test_proposal_requires_exact_hash_pass_human_review_before_execution
+1 failed in 0.50s

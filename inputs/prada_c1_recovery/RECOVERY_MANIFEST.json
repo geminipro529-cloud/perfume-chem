@@ -1,0 +1,157 @@
+{
+  "pack_id": "PRADA-C1-OPENCODE-INPUT-RECOVERY-20260806",
+  "purpose": "Supply exact authoritative inputs that OpenCode reported missing by filename so the formula-integrity and merge lanes can proceed without silent substitution.",
+  "governing_formula_uid": "PLH-CURRENT-EDT-INV-C1-20260806-BA4366B26231",
+  "governing_formula_row_sha256": "ba4366b2623130478b56b34d97087611ada095787a17a285aeae44f1b31f3c3f",
+  "desk_verdict": "PILOT AUTHORIZED",
+  "files": [
+    {
+      "filename": "CrossBrand_120_Master_Audit_GPT56_Pro_PR_E01_C1_SYNCED.xlsx",
+      "size_bytes": 286088,
+      "sha256": "cb0f38ddf642e670e5ec93d842ef4c6666e28f9773cfc3097825b2d2d5c962ac",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "CrossBrand_120_Testable_Formula_Book_GPT56_Pro_PR_E01_C1_SYNCED.xlsx",
+      "size_bytes": 1428316,
+      "sha256": "3f87abb836567e4c4e5d4770d15d77e2539097700a5cba9e02f58db303c08b32",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Conflict_Matrix.xlsx",
+      "size_bytes": 18289,
+      "sha256": "a5cd30572159d8cdb2d727d12338a0f82e15f4148bd0e633f95ecc69bc98e8ce",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Final_Desk_Verdict.json",
+      "size_bytes": 4183,
+      "sha256": "9f02ea64e5a50dcfde52d8b1389acee7d1d4b310b1f497fa35ddc7b4dd6488e5",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Governing_Audit_Bundle.zip",
+      "size_bytes": 2012018,
+      "sha256": "6aa641d00b6204a44724c377048c314cc66a76076e7ff0ba72a6274b2b4dbf2c",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Sol_Pro_Adjudication.md",
+      "size_bytes": 3420,
+      "sha256": "0c1a018a79825cb867c16fbc194f70898ad596868ec592ae587df771b7dbc8e7",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Source_Matrix.xlsx",
+      "size_bytes": 20208,
+      "sha256": "6e23643f65e9b1d8d0342aae5757628a263e9336396ca12df03b37a13145b006",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Time_Resolved_Target_Dossier.xlsx",
+      "size_bytes": 27187,
+      "sha256": "99e8b75e84f4bedfcd2f6f1476538347ac934302ba5005666568a8c3cce99d88",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_1_Report.md",
+      "size_bytes": 3341,
+      "sha256": "b8205fd43e5dbe9551f284e0326723b24af2ff246c91b008688077d7cf23d7f9",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_2_Report.md",
+      "size_bytes": 3552,
+      "sha256": "aa8fd25151743934c741729d3a8dd9ef5edd0779ec0ce1ac7f9a619078c6d792",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_3_Report.md",
+      "size_bytes": 2898,
+      "sha256": "ff56c259d6cb7a69c63b3b60f92e22d2d0c9f151e4955b6e0328769066445b5d",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_4_Report.md",
+      "size_bytes": 4064,
+      "sha256": "9ed7125fb0560820c232fb71df7c9824830aae3c1fc05889060d4a420720a1ef",
+      "role": "authoritative_input"
+    },
+    {
+      "filename": "Prada_LHomme_Current_EDT_Pilot_C1_CORRECTED.xlsx",
+      "size_bytes": 209612,
+      "sha256": "0413510c50071be97d13aeb24d9649c609f7d36598211689d43c0a496b19b3c0",
+      "role": "authoritative_input"
+    }
+  ],
+  "verdict_hash_crosschecks": [
+    {
+      "filename": "CrossBrand_120_Master_Audit_GPT56_Pro_PR_E01_C1_SYNCED.xlsx",
+      "expected_sha256": "cb0f38ddf642e670e5ec93d842ef4c6666e28f9773cfc3097825b2d2d5c962ac",
+      "actual_sha256": "cb0f38ddf642e670e5ec93d842ef4c6666e28f9773cfc3097825b2d2d5c962ac",
+      "match": true
+    },
+    {
+      "filename": "CrossBrand_120_Testable_Formula_Book_GPT56_Pro_PR_E01_C1_SYNCED.xlsx",
+      "expected_sha256": "3f87abb836567e4c4e5d4770d15d77e2539097700a5cba9e02f58db303c08b32",
+      "actual_sha256": "3f87abb836567e4c4e5d4770d15d77e2539097700a5cba9e02f58db303c08b32",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Conflict_Matrix.xlsx",
+      "expected_sha256": "a5cd30572159d8cdb2d727d12338a0f82e15f4148bd0e633f95ecc69bc98e8ce",
+      "actual_sha256": "a5cd30572159d8cdb2d727d12338a0f82e15f4148bd0e633f95ecc69bc98e8ce",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Source_Matrix.xlsx",
+      "expected_sha256": "6e23643f65e9b1d8d0342aae5757628a263e9336396ca12df03b37a13145b006",
+      "actual_sha256": "6e23643f65e9b1d8d0342aae5757628a263e9336396ca12df03b37a13145b006",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Time_Resolved_Target_Dossier.xlsx",
+      "expected_sha256": "99e8b75e84f4bedfcd2f6f1476538347ac934302ba5005666568a8c3cce99d88",
+      "actual_sha256": "99e8b75e84f4bedfcd2f6f1476538347ac934302ba5005666568a8c3cce99d88",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_1_Report.md",
+      "expected_sha256": "b8205fd43e5dbe9551f284e0326723b24af2ff246c91b008688077d7cf23d7f9",
+      "actual_sha256": "b8205fd43e5dbe9551f284e0326723b24af2ff246c91b008688077d7cf23d7f9",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_2_Report.md",
+      "expected_sha256": "aa8fd25151743934c741729d3a8dd9ef5edd0779ec0ce1ac7f9a619078c6d792",
+      "actual_sha256": "aa8fd25151743934c741729d3a8dd9ef5edd0779ec0ce1ac7f9a619078c6d792",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_3_Report.md",
+      "expected_sha256": "ff56c259d6cb7a69c63b3b60f92e22d2d0c9f151e4955b6e0328769066445b5d",
+      "actual_sha256": "ff56c259d6cb7a69c63b3b60f92e22d2d0c9f151e4955b6e0328769066445b5d",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_C1_Worker_4_Report.md",
+      "expected_sha256": "9ed7125fb0560820c232fb71df7c9824830aae3c1fc05889060d4a420720a1ef",
+      "actual_sha256": "9ed7125fb0560820c232fb71df7c9824830aae3c1fc05889060d4a420720a1ef",
+      "match": true
+    },
+    {
+      "filename": "Prada_LHomme_Current_EDT_Pilot_C1_CORRECTED.xlsx",
+      "expected_sha256": "0413510c50071be97d13aeb24d9649c609f7d36598211689d43c0a496b19b3c0",
+      "actual_sha256": "0413510c50071be97d13aeb24d9649c609f7d36598211689d43c0a496b19b3c0",
+      "match": true
+    }
+  ],
+  "all_available_crosschecks_pass": true,
+  "boundaries": [
+    "Do not overwrite originals.",
+    "Verify all file hashes independently after copying into OpenCode inputs.",
+    "Treat exact recovered files as authoritative only after UID/hash/content checks.",
+    "No formula revision is authorized by this recovery pack.",
+    "Physical results remain zero; Phase G remains unauthorized."
+  ]
+}

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\verify_b10_authority_inventory.py", line 221, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\verify_b10_authority_inventory.py", line 157, in main
+    "migration_head": migration_head(phase, gate),
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Documents\Codex\2026-07-29\the-perfume-chem-folder-is-the\work\verify_b10_authority_inventory.py", line 55, in migration_head
+    return str(payload["alembic_head"])
+               ~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'alembic_head'

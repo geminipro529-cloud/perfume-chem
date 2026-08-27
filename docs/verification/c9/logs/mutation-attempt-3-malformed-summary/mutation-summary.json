@@ -1,0 +1,155 @@
+{
+    "schema":  "c9-mutation-summary-v1",
+    "source_path":  "engine/evidence/unsupported_science.py",
+    "source_sha256_before":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+    "source_sha256_after":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+    "mutation_count":  4,
+    "mutations_killed":  4,
+    "restoration_checks_passed":  4,
+    "byte_exact_restoration":  true,
+    "nonempty_stderr_count":  0,
+    "timeout_count":  0,
+    "passed":  true,
+    "results":  [
+                    {
+                        "id":  "M1",
+                        "slug":  "human-receptor-species",
+                        "source_sha256_before":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "source_sha256_mutated":  "a22052142a936ec28c9f01a23ddefed1e4f686027da1d1c208517cd5cd8045a8",
+                        "source_sha256_restored":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "mutation_killed":  true,
+                        "byte_exact_restoration":  true,
+                        "mutated_run":  [
+                                            false,
+                                            {
+                                                "test":  "tests/test_c9_unsupported_science.py::test_receptor_requires_human_species_for_narrow_support",
+                                                "exit_code":  1,
+                                                "timed_out":  false,
+                                                "duration_seconds":  9.281,
+                                                "stdout_path":  "docs/verification/c9/logs/mutation/m1-human-receptor-species-mutated.stdout.txt",
+                                                "stderr_path":  "docs/verification/c9/logs/mutation/m1-human-receptor-species-mutated.stderr.txt",
+                                                "stdout_bytes":  1391,
+                                                "stderr_bytes":  0
+                                            }
+                                        ],
+                        "restored_run":  [
+                                             false,
+                                             {
+                                                 "test":  "tests/test_c9_unsupported_science.py::test_receptor_requires_human_species_for_narrow_support",
+                                                 "exit_code":  0,
+                                                 "timed_out":  false,
+                                                 "duration_seconds":  4.982,
+                                                 "stdout_path":  "docs/verification/c9/logs/mutation/m1-human-receptor-species-restored.stdout.txt",
+                                                 "stderr_path":  "docs/verification/c9/logs/mutation/m1-human-receptor-species-restored.stderr.txt",
+                                                 "stdout_bytes":  100,
+                                                 "stderr_bytes":  0
+                                             }
+                                         ]
+                    },
+                    {
+                        "id":  "M2",
+                        "slug":  "adaptation-context",
+                        "source_sha256_before":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "source_sha256_mutated":  "3fb6a8af097fbed7c88bf32639fdabfabaf3280d1e52ae74e9a3c6a2401fa5ce",
+                        "source_sha256_restored":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "mutation_killed":  true,
+                        "byte_exact_restoration":  true,
+                        "mutated_run":  [
+                                            false,
+                                            {
+                                                "test":  "tests/test_c9_unsupported_science.py::test_adaptation_requires_exact_context_match",
+                                                "exit_code":  1,
+                                                "timed_out":  false,
+                                                "duration_seconds":  6.003,
+                                                "stdout_path":  "docs/verification/c9/logs/mutation/m2-adaptation-context-mutated.stdout.txt",
+                                                "stderr_path":  "docs/verification/c9/logs/mutation/m2-adaptation-context-mutated.stderr.txt",
+                                                "stdout_bytes":  1823,
+                                                "stderr_bytes":  0
+                                            }
+                                        ],
+                        "restored_run":  [
+                                             false,
+                                             {
+                                                 "test":  "tests/test_c9_unsupported_science.py::test_adaptation_requires_exact_context_match",
+                                                 "exit_code":  0,
+                                                 "timed_out":  false,
+                                                 "duration_seconds":  3.658,
+                                                 "stdout_path":  "docs/verification/c9/logs/mutation/m2-adaptation-context-restored.stdout.txt",
+                                                 "stderr_path":  "docs/verification/c9/logs/mutation/m2-adaptation-context-restored.stderr.txt",
+                                                 "stdout_bytes":  100,
+                                                 "stderr_bytes":  0
+                                             }
+                                         ]
+                    },
+                    {
+                        "id":  "M3",
+                        "slug":  "broad-aging",
+                        "source_sha256_before":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "source_sha256_mutated":  "840676dc76f5e5fa8e9816dc6adddf86b3ea917523a68443e4a9304209456460",
+                        "source_sha256_restored":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "mutation_killed":  true,
+                        "byte_exact_restoration":  true,
+                        "mutated_run":  [
+                                            false,
+                                            {
+                                                "test":  "tests/test_c9_unsupported_science.py::test_one_aging_process_never_promotes_universal_shelf_life",
+                                                "exit_code":  1,
+                                                "timed_out":  false,
+                                                "duration_seconds":  2.907,
+                                                "stdout_path":  "docs/verification/c9/logs/mutation/m3-broad-aging-mutated.stdout.txt",
+                                                "stderr_path":  "docs/verification/c9/logs/mutation/m3-broad-aging-mutated.stderr.txt",
+                                                "stdout_bytes":  1553,
+                                                "stderr_bytes":  0
+                                            }
+                                        ],
+                        "restored_run":  [
+                                             false,
+                                             {
+                                                 "test":  "tests/test_c9_unsupported_science.py::test_one_aging_process_never_promotes_universal_shelf_life",
+                                                 "exit_code":  0,
+                                                 "timed_out":  false,
+                                                 "duration_seconds":  2.451,
+                                                 "stdout_path":  "docs/verification/c9/logs/mutation/m3-broad-aging-restored.stdout.txt",
+                                                 "stderr_path":  "docs/verification/c9/logs/mutation/m3-broad-aging-restored.stderr.txt",
+                                                 "stdout_bytes":  100,
+                                                 "stderr_bytes":  0
+                                             }
+                                         ]
+                    },
+                    {
+                        "id":  "M4",
+                        "slug":  "build-d-receipt",
+                        "source_sha256_before":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "source_sha256_mutated":  "c5802fb0e18888793875ca4f86ed593a0402e80e6b5121fe717da9d000e3d02b",
+                        "source_sha256_restored":  "a7c4740198be7e0be9421fd6a6c8874be2d684452fd1133ea55b26a88fee4356",
+                        "mutation_killed":  true,
+                        "byte_exact_restoration":  true,
+                        "mutated_run":  [
+                                            false,
+                                            {
+                                                "test":  "tests/test_c9_unsupported_science.py::test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt",
+                                                "exit_code":  1,
+                                                "timed_out":  false,
+                                                "duration_seconds":  3.992,
+                                                "stdout_path":  "docs/verification/c9/logs/mutation/m4-build-d-receipt-mutated.stdout.txt",
+                                                "stderr_path":  "docs/verification/c9/logs/mutation/m4-build-d-receipt-mutated.stderr.txt",
+                                                "stdout_bytes":  2072,
+                                                "stderr_bytes":  0
+                                            }
+                                        ],
+                        "restored_run":  [
+                                             false,
+                                             {
+                                                 "test":  "tests/test_c9_unsupported_science.py::test_unsupported_outcome_requires_passing_exact_scope_build_d_receipt",
+                                                 "exit_code":  0,
+                                                 "timed_out":  false,
+                                                 "duration_seconds":  3.624,
+                                                 "stdout_path":  "docs/verification/c9/logs/mutation/m4-build-d-receipt-restored.stdout.txt",
+                                                 "stderr_path":  "docs/verification/c9/logs/mutation/m4-build-d-receipt-restored.stderr.txt",
+                                                 "stdout_bytes":  100,
+                                                 "stderr_bytes":  0
+                                             }
+                                         ]
+                    }
+                ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "hedonic_protocol_policy_v1",
+  "criteria": [
+    "TARGET_FIDELITY",
+    "DEPTH",
+    "RICHNESS",
+    "LIKING"
+  ],
+  "protocol_scopes": [
+    "OWNER",
+    "TRAINED_PANEL",
+    "CONSUMER_POPULATION"
+  ],
+  "outcomes": [
+    "LEFT",
+    "RIGHT",
+    "TIE"
+  ],
+  "required_preobservation_fields": [
+    "protocol_sha256",
+    "comparison_id",
+    "assessor_id",
+    "sample_codes",
+    "criterion",
+    "time_seconds",
+    "first_presented_item",
+    "predecessor_item",
+    "repeat_id",
+    "session_id",
+    "schedule_sha256",
+    "washout_seconds",
+    "cluster_unit",
+    "heldout_unit",
+    "baseline",
+    "seed",
+    "stopping_rule",
+    "safety_stop"
+  ],
+  "criterion_policy": {
+    "fit_separately": true,
+    "cross_criterion_substitution": false,
+    "synthetic_beauty_score": false
+  },
+  "scope_policy": {
+    "exact_scope_only": true,
+    "owner_implies_panel": false,
+    "panel_implies_consumer": false
+  },
+  "tie_policy": {
+    "directional_fit": "EXCLUDE",
+    "indifference_evidence": "RETAIN"
+  },
+  "validation_policy": {
+    "heldout_required": true,
+    "declared_baseline_required": true,
+    "baseline_gain_required": true,
+    "assessor_cluster_bootstrap_when_identified": true,
+    "deterministic_seed_required": true
+  },
+  "forbidden_directional_features": [
+    "OAV",
+    "FORMULA_COMPOSITION",
+    "INGREDIENT_COUNT",
+    "BRAND",
+    "PRICE",
+    "PRESTIGE",
+    "LUXURY_LANGUAGE",
+    "PERFUME_IDENTITY"
+  ],
+  "authority_flags": {
+    "formula": false,
+    "inventory_mutation": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}

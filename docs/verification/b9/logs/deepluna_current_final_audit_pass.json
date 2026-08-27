@@ -1,0 +1,31 @@
+{
+  "schema_version": "perfume-chem-deepluna-audit-reconciliation-v1",
+  "recorded_at_utc": "2026-08-02T03:59:18.000Z",
+  "project_id": "perfume-chem",
+  "job_id": "DS-7c595bfbde9754997a8e126505ef03d6",
+  "worker_status": "PASS",
+  "sol_disposition": "ACCEPTED_AS_BOUNDED_CORROBORATION",
+  "route": "FLASH",
+  "fallback_policy": "NO_LUNA",
+  "provider": "deepinfra",
+  "model": "deepseek-ai/DeepSeek-V4-Flash",
+  "provider_calls": 1,
+  "prompt_tokens": 52318,
+  "completion_tokens": 719,
+  "total_tokens": 53037,
+  "spent_nano_usd": 7257060,
+  "open_reserved_nano_usd_after": 0,
+  "unknown_reservations_after": 0,
+  "evidence_verdict": "POSITIVE",
+  "negative_findings": [],
+  "scope_deviation": false,
+  "architecture_uncertainty": false,
+  "scientific_uncertainty": false,
+  "positive_findings": [
+    "B9 exact tests pass: 9 passed in 10.78s, exit code 0, no timeout.",
+    "A2-through-B9 compatibility tests pass: 463 passed in 639.47s, exit code 0, no timeout.",
+    "Ruff linting passes: All checks passed, exit code 0."
+  ],
+  "worker_output_limit": "The normalized result packet did not include the requested full textual citation matrix. Sol therefore used the receipt only as bounded corroboration and independently verified the complete contract, evidence digests, databases, archive, and fail-closed state locally.",
+  "authority_boundary": "The worker did not authorize B9 or B10. Sol retained final gate authority."
+}

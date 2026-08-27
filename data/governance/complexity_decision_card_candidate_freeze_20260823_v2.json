@@ -1,0 +1,151 @@
+{
+  "schema_version": "complexity_decision_card_candidate_freeze_v2",
+  "receipt_id": "complexity-decision-card-candidate-freeze-20260823-v2",
+  "design_state": "USER_APPROVED_AND_LOCALLY_IMPLEMENTED",
+  "online_benchmark_state": "NOT_STARTED",
+  "scope_amendment": "Add exact Neroli and musk inventory-state semantics before any xhigh request is submitted.",
+  "predecessor_candidate_freeze": {
+    "path": "data/governance/complexity_decision_card_candidate_freeze_20260822.json",
+    "sha256": "05a8d00c348c5c1309aa6f33cae1ab5f565b4d5a074485f972dfb6b34c84c5ab",
+    "benchmark_requests_submitted": 0,
+    "disposition": "HISTORICAL_PRE_AMENDMENT_FREEZE"
+  },
+  "predecessor_benchmark": {
+    "path": "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json",
+    "sha256": "d894c520cdee591f56b3cb81f308599a3b02ee5315229feb9a2d7b95477d6b2f",
+    "decision": "NO_DEMONSTRATED_OUTPERFORMANCE"
+  },
+  "inventory_authority": {
+    "workbook_source": "Complex Perfumery project sources/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "repository_snapshot_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+    "repository_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "authority_rule": "V5 workbook governs current planning; historical inventory.txt comments do not override it.",
+    "source_conflict_hold": "inventory.txt contains an older Ethylene Brassylate ownership comment, while V5 says NOT IN V5 CURRENT INVENTORY; V5 governs and physical use remains blocked."
+  },
+  "candidate_artifacts": [
+    {
+      "path": "engine/perception/complexity_decision_cards.py",
+      "sha256": "3eb56d50877db7a2ca295a3a3be462175a509d38ee6ac56131420e79624b1a7d"
+    },
+    {
+      "path": "engine/perception/citrus_selection.py",
+      "sha256": "bc48b3bcbcfbc5e5f3a9b84878f8b4bf740e6ed7005eec8b94a9721912f1236a"
+    },
+    {
+      "path": "engine/perception/musk_design.py",
+      "sha256": "9090554b46c4fecbc21ac9e6ba8ec12dc2a94563ae5f97764e9a5533d5e3bf8c"
+    },
+    {
+      "path": "engine/perception/complexity_module_retest.py",
+      "sha256": "0604971cdf86c4ec41540d57efb220b1191abeaedd684444477a980f876e2d9d"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.json",
+      "sha256": "f33fe7f78fdc604087c9ef2f421e0d336c8c57ce0cc84a8128dcea879dab7b42"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.sha256",
+      "sha256": "d08ecd4dc81fc0e7be07d664bd7755a1bc48de0a1ae82a24db0344e0e1e38580"
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v1.json",
+      "sha256": "89cd70bac8cdc84c2adaa12d709cf9fae71de3b24aa61698826f1dcb6b423d95"
+    }
+  ],
+  "material_bindings": {
+    "Neroli EO 10% in DPG": {
+      "state": "OWNED_10_PERCENT_DPG_ONLY",
+      "module_use": "SUPPORT_ONLY_FLORAL_TRANSITION_BRIDGE"
+    },
+    "Ambrettolide 10% in DPG": {
+      "state": "PLANNED_ACQUISITION_DESIGN_AVAILABLE",
+      "physical_state": "PROCUREMENT_PENDING"
+    },
+    "Romandolide": {
+      "state": "OWNED_NEAT_AS_SUPPLIED",
+      "physical_state": "EXACT_LABEL_STOCK_REQUIRED"
+    },
+    "Habanolide": {
+      "state": "OWNED_NEAT_AS_SUPPLIED",
+      "physical_state": "EXACT_LABEL_STOCK_REQUIRED"
+    },
+    "Ethylene Brassylate": {
+      "state": "NOT_IN_V5_CURRENT_INVENTORY",
+      "module_use": "MISSING_HIGH_VALUE_ARCHITECTURAL_EXPANSION_HYPOTHESIS"
+    }
+  },
+  "repaired_module_ids": [
+    "construction-profile",
+    "complexity-expansion-frontier",
+    "musk-design-restraint",
+    "complexity-model-admission",
+    "complexity-model-lifecycle",
+    "within-sniff-observation-contract",
+    "temporal-observation-contract",
+    "order-balance-contract",
+    "sensory-panel-contract"
+  ],
+  "candidate_module_ids": [
+    "citrus-architecture-selector"
+  ],
+  "retained_support_module_ids": [
+    "complexity-experimental-design"
+  ],
+  "candidate_contract": {
+    "module_count": 10,
+    "cases_per_module": 6,
+    "total_case_count": 60,
+    "screening_pairs_per_module": 3,
+    "confirmation_pairs_per_credible_screen": 3,
+    "retention_wins_required": 4,
+    "minimum_median_paired_gain": "5",
+    "new_critical_regressions_allowed": 0,
+    "safe_countercase_required": true,
+    "critical_trap_prevention_required": true,
+    "length_matched_placebo_must_be_beaten": true,
+    "maximum_card_utf8_bytes": 1600
+  },
+  "citrus_contract": {
+    "target_first": true,
+    "strongest_single_primary": true,
+    "maximum_distinct_supports": 1,
+    "none_is_valid": true,
+    "target_build_separation": true,
+    "neroli_10_percent_is_support_only": true,
+    "neroli_exact_stock_ref_required_for_current_build": true,
+    "red_mandarin_and_cedrat_no_silent_substitution": true,
+    "legacy_dhc_citrus_scoring_runtime_authority": false
+  },
+  "musk_contract": {
+    "zero_or_one_exact_musk_is_valid": true,
+    "strongest_single_baseline_required": true,
+    "inventory_states_remain_distinct": true,
+    "planned_or_missing_exact_physical_stock_ref_allowed": false,
+    "exception_only_materials": [
+      "Tonalide",
+      "Macrolide",
+      "Musk Ketone"
+    ],
+    "routine_exception_use_allowed": false,
+    "musk_count_is_complexity_evidence": false
+  },
+  "execution_policy": {
+    "control": "normal projectless ChatGPT 5.6 Sol Extra High",
+    "reasoning_effort": "Extra High",
+    "fresh_conversation_per_request": true,
+    "deep_luna_fast_transmissions": 0,
+    "source_changes_during_scored_execution_allowed": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "5665fbace4045b6ebd58c87c1eaf82bee9123bdadd278c00fc1241fb1fef6bf1"
+}

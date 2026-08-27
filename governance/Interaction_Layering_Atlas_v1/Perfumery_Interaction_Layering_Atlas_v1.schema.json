@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Perfumery Interaction and Layering Atlas v1",
+  "type": "object",
+  "required": [
+    "version",
+    "groups",
+    "interactions",
+    "sources",
+    "worker_packets"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "inventory_source": {
+      "type": "object"
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "phase",
+          "role",
+          "risks"
+        ]
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "pair_id",
+          "group_a_id",
+          "group_b_id",
+          "primary_interaction",
+          "a_effect_on_b",
+          "b_effect_on_a",
+          "confidence",
+          "evidence_class",
+          "failure_mode",
+          "physical_test"
+        ],
+        "properties": {
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "object"
+    },
+    "worker_packets": {
+      "type": "array"
+    }
+  }
+}

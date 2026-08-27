@@ -1,0 +1,13 @@
+{
+  "c7_open": true,
+  "decision": "PASS",
+  "decision_scope": "C6 software, physical-simulation, and evidence gate only",
+  "empirical_metrics_present": false,
+  "empirical_promotion_allowed": false,
+  "empirical_status": "BLOCKED_PENDING_DATA",
+  "evidence_commit": "f45239862276b077833a18b5a8e81d5b76021037",
+  "exact_commit_replay_pass": true,
+  "implementation_head": "5b51ab31ddc28b48efa78944b314919f226262b2",
+  "reason": "The C6 implementation and evidence commit replayed without failures, timeouts, stderr output, ANSI escapes, credential-shaped evidence, or protected-state drift. The model remains simulation-only and uncalibrated; no actual instrument data or empirical promotion exists.",
+  "schema": "build-c6-dynamic-release-decision-v1"
+}

@@ -1,7 +1,5 @@
 """Analyze vetiver full pipeline results and print formatted analysis."""
 import json
-import math
-import statistics
 from pathlib import Path
 
 data = json.loads(Path("perplexity changes/vetiver_full_pipeline.json").read_text("utf-8"))

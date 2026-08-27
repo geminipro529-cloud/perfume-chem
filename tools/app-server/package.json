@@ -1,0 +1,11 @@
+{
+  "name": "perfume-chem-app-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Authed HTTP backend for browser-ChatGPT writes to D:\\chatbots\\perfume-chem. Serves Option A (local apply inbox) and Option D2 (Apps SDK UI connectDomains target).",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}

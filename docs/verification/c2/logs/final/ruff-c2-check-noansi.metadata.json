@@ -1,0 +1,23 @@
+{
+    "schema":  "c2-ruff-noansi-rerun-v1",
+    "started_at_utc":  "2026-08-02T12:47:02.7666609+00:00",
+    "duration_ms":  135,
+    "timeout_seconds":  120,
+    "timed_out":  false,
+    "exit_code":  0,
+    "no_color":  true,
+    "force_color_removed":  true,
+    "stdout":  {
+                   "path":  "docs/verification/c2/logs/final/ruff-c2-check-noansi.stdout.txt",
+                   "bytes":  19,
+                   "sha256":  "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+                   "ansi_escape_bytes":  0
+               },
+    "stderr":  {
+                   "path":  "docs/verification/c2/logs/final/ruff-c2-check-noansi.stderr.txt",
+                   "bytes":  0,
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                   "ansi_escape_bytes":  0
+               },
+    "passed":  true
+}

@@ -1,0 +1,14 @@
+{
+  "name": "perfume-chem-fs-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scoped filesystem MCP server for D:\\chatbots\\perfume-chem — lets browser ChatGPT Pro / Codex read and write repo files through the Secure MCP Tunnel without GitHub.",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

@@ -1,0 +1,300 @@
+{
+  "schema": "build-c2-matrix-environment-gate-v1",
+  "recorded_at": "2026-08-02T19:49:57.2757734+07:00",
+  "phase": "C2",
+  "decision": "PASS",
+  "decided_at": "2026-08-02T20:13:24.9223908+07:00",
+  "decision_reason": "The C2 matrix and application-environment contract is committed, independently audited, locally reconciled, and green under focused, compatibility, full-root, static, recovery, protected-state, scope, and postcommit verification.",
+  "branch": "codex/add-inventory-materials",
+  "phase_parent": "e6c6d5bed3a41362e21bf07752a98fd952781a59",
+  "accepted_design": "1fe41a47c5f9907a2a059d63802fe71189c7fd1b",
+  "accepted_plan": "68b9f000bfb308a6d945ffb1e10b22786fcda91e",
+  "verification_head": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+  "implementation_commits": [
+    {
+      "sha": "5aa4f3cf745fa6b3ef4570220faeb025fba89e93",
+      "subject": "feat(c2): add versioned matrix contracts"
+    },
+    {
+      "sha": "2efe0e4f204a73457b750aee7d4ae4d963b2619e",
+      "subject": "feat(c2): add application environment contracts"
+    },
+    {
+      "sha": "1d82a217731ac805ff256cd7f4fcc31c1b1fdbc4",
+      "subject": "feat(c2): require matrix context in model requests"
+    },
+    {
+      "sha": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+      "subject": "test(c2): register contract tests in verifier"
+    }
+  ],
+  "contract_counts": {
+    "matrix_stage_count": 5,
+    "matrix_component_role_count": 10,
+    "matrix_quantity_basis_count": 6,
+    "composition_completeness_state_count": 3,
+    "matrix_missing_field_count": 6,
+    "application_environment_kind_count": 9,
+    "application_environment_field_count": 13
+  },
+  "implemented_contract": {
+    "versioned_matrix_composition": true,
+    "separate_matrix_stages": true,
+    "typed_component_identity_role_basis_quantity_source_uncertainty": true,
+    "temperature_pressure_totals_humidity_and_phase_assumptions": true,
+    "explicit_exact_partial_unresolved_completeness": true,
+    "nine_closed_application_environment_kinds": true,
+    "dose_geometry_substrate_conditions_airflow_time_sampling_and_vessel_fields": true,
+    "explicit_missing_vs_not_applicable_environment_fields": true,
+    "sealed_vial_apparatus_requirements": true,
+    "canonical_matrix_and_environment_hashes": true,
+    "full_matrix_and_environment_snapshots_embedded_in_request": true,
+    "repeated_context_hashes_verified_on_parse": true,
+    "nested_tamper_detection": true,
+    "no_equation_evaluation": true,
+    "no_automatic_legacy_adapter": true,
+    "no_production_caller_migration": true
+  },
+  "distinguishability": {
+    "receipt": "docs/verification/c2/distinguishability.json",
+    "synthetic_contract_fixture": true,
+    "not_a_measurement_or_prediction": true,
+    "same_formula": true,
+    "matrix_change_distinguishable": true,
+    "environment_change_distinguishable": true,
+    "all_request_hashes_distinct": true,
+    "baseline_request_sha256": "1896223a579eee5668737f590aa3afff767584db2c474fca9d3a821e956a7896",
+    "matrix_variant_request_sha256": "e22c6925264d084a3c5951c1f1ea3e9e0cc3070cd208c5748bc7db18cdb55970",
+    "environment_variant_request_sha256": "dcf7dcf6cdb9b3717afad2e884aaed9d0af4808eb786f19fb9800aaf4520c45e"
+  },
+  "verification_environment": {
+    "python": "Python 3.11.15",
+    "pytest": "pytest 9.1.1",
+    "ruff": "ruff 0.15.15",
+    "node": "v26.3.0",
+    "basedpyright": "basedpyright 1.39.8; pyright 1.39.8",
+    "mypy": "mypy 1.19.1 (compiled: yes)",
+    "non_pty": true,
+    "stdout_stderr_separate": true,
+    "explicit_timeouts": true,
+    "external_pytest_temp": true
+  },
+  "initial_gate_run": {
+    "metadata": "docs/verification/c2/logs/gate-run-metadata.stdout.json",
+    "metadata_sha256": "470cefe727a1e7007c9a8a862eed0cc525a9972211aeeb5443e985e64ba04f24",
+    "all_pass": false,
+    "focused_c2": "79 passed",
+    "focused_c1": "96 passed",
+    "focused_c0": "24 passed",
+    "full_root": "1 failed, 1296 passed",
+    "failure": "The explicit engine truth-core shard omitted the C0, C1, and C2 test files.",
+    "resolution_commit": "193d5546fa1bebbfd16c152f4f2fc80dec053987"
+  },
+  "final_gate_run": {
+    "metadata": "docs/verification/c2/logs/final/gate-run-metadata.stdout.json",
+    "metadata_sha256": "eb4540a8e5cb3ee262e2b21f8c0354961c4ab89bde5ce60270516008969ddd69",
+    "all_pass": true,
+    "commands": [
+      {
+        "name": "pytest-c2-focused",
+        "result": "79 passed in 0.97s",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "ca2673c8c815806c4adb30fc9634971524ec0fa13b80f00c86a81df08b8feded",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "pytest-c1-compat",
+        "result": "96 passed in 0.91s",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "232183698fd20e9eb11eb791fe8fdc54a4bf8193a2736248ba5674edd4fc7603",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "pytest-c0-compat",
+        "result": "24 passed in 2.69s",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "403678517d4d1e2b0ea0e3642832e4289e6fb2fb47bcaeb45524b26512be9c54",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "pytest-root-full",
+        "result": "1297 passed in 57.10s",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "f4a466cb1f024a54f3b630c05d19e3aabb76c23cf9b26380fc41c421a4de000e",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "ruff-c2-format",
+        "result": "3 files already formatted",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "ruff-c2-check-noansi",
+        "result": "All checks passed",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "stderr_bytes": 0,
+        "ansi_escape_bytes": 0
+      },
+      {
+        "name": "basedpyright-c2",
+        "result": "0 errors, 0 warnings, 0 notes",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "56882e01cb80173ef053c4096e4ee43e3123a15f5c0a06715f96988d48fbd91c",
+        "stderr_bytes": 0
+      },
+      {
+        "name": "mypy-c2",
+        "result": "Success: no issues found in 1 source file",
+        "exit_code": 0,
+        "timed_out": false,
+        "stdout_sha256": "8e63ae22e8213e327a5e9cbd584067681681bd8ef7f25c869877887ccdcfc4ff",
+        "stderr_bytes": 0
+      }
+    ]
+  },
+  "log_integrity": {
+    "receipt": "docs/verification/c2/log-scan.json",
+    "authoritative_final_file_count": 32,
+    "authoritative_final_ansi_escape_bytes": 0,
+    "authoritative_final_invalid_utf8_file_count": 0,
+    "authoritative_final_credential_pattern_match_count": 0,
+    "historical_ansi_logs_retained_and_superseded": true
+  },
+  "recovery_and_protected_state": {
+    "archive_receipt": "docs/verification/c2/archive-verification.json",
+    "protected_state_receipt": "docs/verification/c2/protected-state-and-scope.json",
+    "archive_sha256": "35325c26d526619623ce1c2f05c72484ad8377ed534f488b4191a2e7e649d023",
+    "archive_content_mismatch_count": 0,
+    "preserved_work_mismatch_count": 0,
+    "protected_database_mismatch_count": 0,
+    "sqlite_quick_checks": "ok"
+  },
+  "scope": {
+    "committed_phase_path_count": 7,
+    "forbidden_committed_path_count": 0,
+    "migration_path_count": 0,
+    "database_path_count": 0,
+    "production_physical_caller_path_count": 0,
+    "legacy_matrix_or_ledger_path_count": 0,
+    "verifier_manifest_fix_isolated": true
+  },
+  "gate_evidence_commit": {
+    "commit": "dba6f856d099d5abd6250b9feb5df75cf20bde36",
+    "parent": "193d5546fa1bebbfd16c152f4f2fc80dec053987",
+    "subject": "test(c2): seal matrix environment gate",
+    "path_count": 71,
+    "all_paths_under_docs_verification_c2": true,
+    "out_of_scope_path_count": 0,
+    "evidence_only": true
+  },
+  "post_commit_verification": {
+    "verified_commit": "dba6f856d099d5abd6250b9feb5df75cf20bde36",
+    "summary_path": "docs/verification/c2/postcommit/summary.json",
+    "summary_schema": "c2-postcommit-summary-v1",
+    "summary_bytes": 1938,
+    "summary_sha256": "2806daeee95f17abb4c5172a850f05e471e0fdfe45550acf3db6dccee73e59ea",
+    "metadata_path": "docs/verification/c2/postcommit/gate-run-metadata.stdout.json",
+    "metadata_bytes": 24693,
+    "metadata_sha256": "03254c6859a308d313733d94cd0066c30f20bbb6da95516c9726df9cbdea1a29",
+    "protected_state_and_scope_path": "docs/verification/c2/postcommit/protected-state-and-scope.json",
+    "protected_state_and_scope_bytes": 1470,
+    "protected_state_and_scope_sha256": "40b88ef6cd90e3c507c1278639f75234d4b8c7739c5f2ddf127e01b4225d18e8",
+    "command_count": 14,
+    "c2_focused": "79 passed in 0.43s",
+    "c1_compatibility": "96 passed in 0.42s",
+    "c0_compatibility": "24 passed in 2.58s",
+    "root_full": "1297 passed in 50.46s",
+    "ruff_check": "All checks passed",
+    "ruff_format": "3 files already formatted",
+    "basedpyright": "0 errors, 0 warnings, 0 notes",
+    "mypy": "Success: no issues found in 1 source file",
+    "all_stderr_empty": true,
+    "timeout_count": 0,
+    "ansi_escape_bytes": 0,
+    "invalid_utf8_file_count": 0,
+    "credential_pattern_match_count": 0,
+    "archive_hash_verified": true,
+    "preserved_dirty_or_untracked_mismatch_count": 0,
+    "protected_database_mismatch_count": 0,
+    "commit_scope_evidence_only": true,
+    "passed": true
+  },
+  "deepluna": {
+    "project_id": "perfume-chem",
+    "exact_project_preflight": "READY",
+    "runtime_mode": "CANDIDATE_V2",
+    "server_release": "0.9.9",
+    "runtime_build_hash": "32973174a8440053d723dc660e1ed4c7c38544c6b1014649a8f3d2e176bc4f11",
+    "windows_acl": "PROVEN",
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "spent_nano_usd_before_final_audit": 418526973,
+    "inventory_job_id": "DS-63764ed4c2065fe47300595218a67b82",
+    "inventory_route": "FLASH",
+    "inventory_fallback": "NO_LUNA",
+    "final_audit_receipt": "docs/verification/c2/deepluna-final-audit.json",
+    "final_audit_status": "PASS",
+    "final_audit_job_id": "DS-bb8a02b0461b50d363bda5755b983ae3",
+    "final_audit_route": "FLASH",
+    "final_audit_fallback": "NO_LUNA",
+    "final_audit_provider": "deepinfra",
+    "final_audit_model": "deepseek-ai/DeepSeek-V4-Flash",
+    "final_audit_service_tier": "priority",
+    "final_audit_cache_hit": false,
+    "final_audit_provider_calls": 1,
+    "final_audit_input_tokens": 52018,
+    "final_audit_cached_input_tokens": 0,
+    "final_audit_output_tokens": 721,
+    "final_audit_total_tokens": 52739,
+    "final_audit_spent_delta_nano_usd": 7217100,
+    "postflight_spent_nano_usd": 425744073,
+    "postflight_open_reserved_nano_usd": 0,
+    "postflight_unknown_reservations": 0,
+    "postflight_all_jobs_terminal": true,
+    "negative_finding_count": 0,
+    "scope_deviation": false,
+    "architecture_uncertainty": false,
+    "scientific_uncertainty": false,
+    "terminal_packet_positive_finding_truncation_not_relied_upon": true
+  },
+  "known_limitations": [
+    "C2 represents declared matrix and environment context; it does not evaluate an activity, evaporation, diffusion, mass-transfer, or headspace equation.",
+    "C2 produces no physical prediction or measurement and promotes no scientific datum.",
+    "C2 performs no automatic adaptation from MixtureState or SolventLedger and changes no current production caller.",
+    "An EXACT completeness declaration remains a validated contract assertion; scientific provenance and model applicability remain separate gates.",
+    "Build C and scientific release remain incomplete."
+  ],
+  "exit_gate": {
+    "design_and_plan_committed": true,
+    "test_driven_implementation_committed": true,
+    "matrix_and_environment_contracts_complete": true,
+    "same_formula_matrix_change_distinguishable": true,
+    "same_formula_environment_change_distinguishable": true,
+    "focused_tests_pass": true,
+    "full_root_suite_pass": true,
+    "static_checks_pass": true,
+    "logs_clean_and_reproducible": true,
+    "archive_verified": true,
+    "protected_state_unchanged": true,
+    "scope_closed": true,
+    "deep_luna_final_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": true,
+    "postcommit_verification_pass": true,
+    "c2_pass": true,
+    "c3_open": true
+  }
+}

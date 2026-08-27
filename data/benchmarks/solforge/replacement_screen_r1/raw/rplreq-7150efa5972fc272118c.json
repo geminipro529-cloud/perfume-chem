@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-7150efa5972fc272118c",
+  "case_id": "RPL-HED-S02",
+  "module_id": "hedonic_preference_learner",
+  "arm": "PLACEBO",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e6797-c8b8-83ec-96f8-c2748e33705a",
+  "dispatch_sha256": "f956d155dc7c15df6fb94535d0359df4709f3ef86dca9370f30e2f6be8a64553",
+  "output_text": "{\"decision\":\"WITHHOLD_GLOBAL_PREFERENCE_FIT\",\"target_linked_reasoning\":\"The comparison graph is disconnected, so preference can be estimated only within each connected component; no evidence supports their relative ordering. Genuine ties must remain indifference evidence and must not be converted into directional wins. Sparse, tie-heavy evidence further limits certainty. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Collect blinded, criterion-scoped bridge comparisons between representative items from the two components, retaining ties as ties; then reassess graph connectivity and held-out directional performance before fitting a global preference order.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\"}",
+  "output_sha256": "fe0a55f575cc2687fb8d89ef0cfbeb0b2789bbccbaff354a222593ad308d01bf",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

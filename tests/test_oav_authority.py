@@ -1,8 +1,11 @@
 import json
 import re
+import subprocess
+import sys
 from collections import Counter
 from pathlib import Path
 
+from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 
 
@@ -85,9 +88,11 @@ def test_oav_authority_family_envelopes_and_time_windows():
     assert all(window.family_envelope for window in result.time_windows)
     assert all(isinstance(window.dominant_oav, list) for window in result.time_windows)
     assert result.top_family_drift >= 0.0
-    # Beragamot ODT corrected from 15 -> 6 ppb (verified against 3+ sources 2026-05-19).
-    # Bergamot now dominates all time windows so leaders do not change.
-    assert result.dominant_leaders_changed is False
+    # Bergamot opens as the leader, then the bounded-step temporal screen lets
+    # Iso E Super overtake it as the volatile citrus pool declines.
+    assert result.dominant_leaders_changed is True
+    assert result.time_windows[0].dominant_oav[0]["material"] == "Bergamot FCF"
+    assert result.time_windows[-1].dominant_oav[0]["material"] == "Iso E Super"
 
 
 def test_oav_authority_missing_odt_blocks():
@@ -131,8 +136,7 @@ def test_oav_authority_high_subliminal_mass_warns():
                 "Hedione": 1000.0,
                 "Iso E Super": 1000.0,
                 "Linalyl Acetate": 1000.0,
-                "Benzyl Benzoate": 2500.0,
-                "Dipropylene Glycol": 500.0,
+                "Dipropylene Glycol": 3000.0,
             }
         )
     )
@@ -210,3 +214,234 @@ def test_odt_source_sections_have_no_duplicate_textual_keys():
 
     assert duplicate_keys(odt_data_block) == {}
     assert duplicate_keys(odt_verification_block) == {}
+
+
+def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():
+    state = build_formula_state(
+        {
+            "Spike Lavender EO": 100.0,
+            "Jasmine FO": 100.0,
+            "Lavender EO": 100.0,
+        },
+        batch_volume_ml=10.0,
+    )
+    rows = {row.name: row for row in state.materials}
+
+    for name in ("Spike Lavender EO", "Jasmine FO"):
+        assert rows[name].oav is None
+        assert rows[name].intensity is None
+        assert rows[name].sources["oav_model"] == (
+            "unknown:composite_decomposition_missing"
+        )
+
+    assert rows["Lavender EO"].oav is not None
+    assert rows["Lavender EO"].sources["oav_model"] == (
+        "literature:natural_composite_gc_o"
+    )
+
+
+def test_natural_oav_models_keep_absolute_and_co2_extract_distinct_and_resolved():
+    state = build_formula_state(
+        {
+            "Lime Distilled EO": 140.0,
+            "Cocoa Absolute": 100.0,
+            "Cocoa CO2 Extract": 250.0,
+        },
+        {"Cocoa CO2 Extract": 0.077},
+        batch_volume_ml=30.0,
+    )
+    rows = {row.name: row for row in state.materials}
+
+    assert rows["Lime Distilled EO"].oav is not None
+    assert rows["Lime Distilled EO"].oav > 0
+    assert rows["Lime Distilled EO"].sources["oav_model"] == (
+        "literature:natural_composite_gc_o"
+    )
+    for name in ("Cocoa Absolute", "Cocoa CO2 Extract"):
+        assert rows[name].oav is not None
+        assert rows[name].oav > 0
+        assert rows[name].sources["oav_model"] == (
+            "literature:natural_composite_gc_o"
+        )
+    assert rows["Cocoa Absolute"].oav > rows["Cocoa CO2 Extract"].oav
+    assert rows["Cocoa Absolute"].canonical_name == "cocoa absolute"
+    assert rows["Cocoa Absolute"].dilution == 1.0
+    assert rows["Cocoa Absolute"].active_ul == 100.0
+    assert rows["Cocoa CO2 Extract"].canonical_name == "cocoa co2 extract"
+    assert rows["Cocoa CO2 Extract"].dilution == 0.077
+    assert rows["Cocoa CO2 Extract"].active_ul == 19.25
+
+
+def test_pipeline_analysis_prints_unknown_oav_without_calling_it_subthreshold(
+    tmp_path: Path,
+):
+    diagnostic_sentinel = "END-OF-DIAGNOSTIC-DETAIL"
+    payload = {
+        "formulas": [
+            {
+                "gates": [
+                    {
+                        "gate": "diagnostic",
+                        "status": "WARN",
+                        "detail": "x" * 180 + diagnostic_sentinel,
+                    }
+                ],
+                "time_series": [],
+                "formula_state": {
+                    "batch_volume_ml": 30.0,
+                    "total_active_ul": 119.25,
+                    "note_distribution": {"top": 83.9, "heart": 0.0, "base": 16.1},
+                    "materials": [
+                        {
+                            "name": "Linalool",
+                            "oav": 12.0,
+                            "note": "top",
+                            "family": "citrus",
+                            "vp_pure_pa": 21.3,
+                            "vapor_ppm": 0.018,
+                            "odt_air_ppm": 0.0015,
+                            "active_g": 0.1,
+                            "active_ul": 100.0,
+                            "mole_fraction": 0.01,
+                            "profile_name": "Linalool",
+                            "ifra_limit_pct": 10.0,
+                        },
+                        {
+                            "name": "Cocoa CO2 Extract",
+                            "oav": None,
+                            "note": "base",
+                            "family": "gourmand",
+                            "vp_pure_pa": 0.01,
+                            "vapor_ppm": 0.0003,
+                            "odt_air_ppm": 0.003,
+                            "active_g": 0.01925,
+                            "active_ul": 19.25,
+                            "mole_fraction": 0.001,
+                            "profile_name": "Cocoa CO2 Extract",
+                        },
+                    ],
+                },
+            }
+        ]
+    }
+    input_path = tmp_path / "pipeline.json"
+    input_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/format_pipeline_analysis.py",
+            "--input",
+            str(input_path),
+        ],
+        cwd=Path(__file__).resolve().parents[1],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert "Cocoa CO2 Extract" in result.stdout
+    assert "UNKNOWN" in result.stdout
+    assert "SUB: Cocoa CO2 Extract" not in result.stdout
+    assert "IFRA: Linalool" not in result.stdout
+    assert diagnostic_sentinel in result.stdout
+
+
+def test_pipeline_analysis_labels_distribution_and_longevity_as_proxies(
+    tmp_path: Path,
+):
+    materials = [
+        {
+            "name": "Aromatic Leader",
+            "oav": 1000.0,
+            "note": "top",
+            "family": "aromatic",
+            "vp_pure_pa": 10.0,
+            "vapor_ppm": 8.0,
+            "odt_air_ppm": 0.008,
+            "active_g": 0.5,
+            "active_ul": 500.0,
+            "mole_fraction": 0.05,
+            "profile_name": "Aromatic Leader",
+        },
+        {
+            "name": "Base Wood",
+            "oav": 10.0,
+            "note": "base",
+            "family": "woody",
+            "vp_pure_pa": 0.01,
+            "vapor_ppm": 0.01,
+            "odt_air_ppm": 0.001,
+            "active_g": 0.5,
+            "active_ul": 500.0,
+            "mole_fraction": 0.05,
+            "profile_name": "Base Wood",
+        },
+    ]
+    labels = ("opening", "top", "heart", "late_heart", "drydown")
+    seconds = (0.0, 300.0, 1800.0, 7200.0, 14400.0)
+    time_series = []
+    for index, (label, t_seconds) in enumerate(zip(labels, seconds)):
+        state_materials = [dict(material) for material in materials]
+        state_materials[0]["oav"] = 1000.0 - index * 100.0
+        state_materials[1]["oav"] = 10.0
+        time_series.append(
+            {
+                "label": label,
+                "t_seconds": t_seconds,
+                "dominant_oav": [
+                    {
+                        "material": state_materials[0]["name"],
+                        "oav": state_materials[0]["oav"],
+                    }
+                ],
+                "state": {
+                    "materials": state_materials,
+                    "note_distribution": {"top": 50.0, "heart": 0.0, "base": 50.0},
+                    "total_raw_ul": 1000.0 - index * 25.0,
+                    "total_vapor_ppm": 10.0 - index,
+                },
+            }
+        )
+
+    payload = {
+        "formulas": [
+            {
+                "gates": [],
+                "time_series": time_series,
+                "formula_state": {
+                    "batch_volume_ml": 30.0,
+                    "total_active_ul": 1000.0,
+                    "note_distribution": {"top": 50.0, "heart": 0.0, "base": 50.0},
+                    "materials": materials,
+                },
+            }
+        ]
+    }
+    input_path = tmp_path / "pipeline.json"
+    input_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/format_pipeline_analysis.py",
+            "--input",
+            str(input_path),
+        ],
+        cwd=Path(__file__).resolve().parents[1],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert "active note distribution" in result.stdout
+    assert "of headspace" not in result.stdout
+    assert "Heuristic, unvalidated skin-life proxy" not in result.stdout
+    assert "Uncalibrated loss index" in result.stdout
+    assert "Absolute skin life: unavailable" in result.stdout
+    assert "remaining index is not measured evaporation" in result.stdout
+    assert "citrus (OAV" not in result.stdout
+    assert "Aromatic Leader leads at OAV" in result.stdout
+    assert "authentic for vetiver" not in result.stdout

@@ -1,0 +1,65 @@
+{
+  "schema_version": "complexity_replacement_retest_cases_v3",
+  "base_corpus": "complexity_replacement_retest_cases_v2.json",
+  "base_corpus_sha256": "3c6804f992ef62257f1c5c3aad7eaf06c4bdd560f4681cea4fcec8c037479d04",
+  "module_packet_overrides": {
+    "temporal_sensory_ledger": {
+      "operating_contract_append": [
+        "Stop and HOLD the protocol when an assessor safety incident or adverse sensory event is recorded.",
+        "When repeatability is required, require a declared maximum within-assessor repeat spread and audit every assessor against it."
+      ],
+      "evidence_refs_append": [
+        "ISO 8586:2023 assessor selection and training scope"
+      ]
+    }
+  },
+  "case_overrides": [
+    {
+      "case_id": "RPL-TEM-S01",
+      "facts_append": [
+        "The protocol requires repeatability and declares a maximum within-assessor repeat spread of 1.0 scale point."
+      ],
+      "evidence_payload_patch": {
+        "repeatability": {
+          "required": true,
+          "maximum_within_assessor_repeat_spread": 1.0
+        }
+      }
+    },
+    {
+      "case_id": "RPL-TEM-C03",
+      "target_identity": "Respond to a blinded temporal evaluation after an assessor reports an immediate adverse sensory event.",
+      "facts": [
+        "One assessor reported an immediate headache while evaluating sample BLIND-B.",
+        "The incident was recorded before the remaining endpoint comparisons were completed.",
+        "No continuation or interpretation after the incident was authorized."
+      ],
+      "expected_decision": "HOLD: stop the sensory protocol, preserve the incident, and do not promote the incomplete evidence.",
+      "critical_error": "ADVERSE_SENSORY_EVENT_IGNORED",
+      "evidence_payload": {
+        "protocol_id": "TEMP-RPL-C03",
+        "safety_events": [
+          {
+            "event_id": "SAFE-RPL-C03-01",
+            "protocol_id": "TEMP-RPL-C03",
+            "assessor_id": "A2",
+            "sample_id": "BLIND-B",
+            "timepoint_seconds": 45,
+            "event_code": "HEADACHE",
+            "note": "Assessor reported an immediate headache."
+          }
+        ]
+      }
+    }
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

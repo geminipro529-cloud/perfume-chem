@@ -1,0 +1,251 @@
+{
+  "schema": "build-c5-calibration-program-gate-v1",
+  "phase_parent": "085512ec620fd5a8f192fc6298a6fa1acce2d7b0",
+  "verified_implementation_head": "052bbdffcba0d7dc163fd6ef625bef1717cf32eb",
+  "evidence_commit": "4a0700fb8d250d416141e2cc2ce46d287e5eecf9",
+  "decision": "PASS",
+  "decision_reason": "The C5 software, protocol, evidence commit, and exact-commit replay are green, so C6 may open. Empirical calibration separately remains BLOCKED_PENDING_DATA because no actual instrument data exist.",
+  "contract_surface": {
+    "source_path": "engine/physics/calibration_program.py",
+    "source_sha256": "1b772b755426f82544f834797778df2704b03c1b5e3d17b91e1037dcad001501",
+    "public_c5_symbol_count": 42,
+    "engine_physics_total_export_count": 111,
+    "production_caller_changed": false,
+    "database_or_migration_changed": false,
+    "legacy_calibration_or_analytical_ledger_changed": false
+  },
+  "program": {
+    "program_id": "c5-calibration-program-inventory-20260803-v1",
+    "content_sha256": "0b45099e41e661739128f8d5f397a9c98ea01e1c6eba905bd62c562c8fff2f60",
+    "inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
+    "representative_material_count": 19,
+    "matrix_template_count": 8,
+    "selection_basis": "domain coverage and decision value, not arbitrary count",
+    "stock_basis_or_source_holds_preserved": true,
+    "dep_heavy_status": "REQUIRES_DECLARED_SOURCE",
+    "finished_water_status": "REQUIRES_DECLARED_SOURCE"
+  },
+  "actual_data_boundary": {
+    "status": "BLOCKED_PENDING_DATA",
+    "actual_instrument_data_found": false,
+    "actual_instrument_record_count": 0,
+    "empirical_metrics_present": false,
+    "empirical_promotion_allowed": false,
+    "measured_domains_complete": false,
+    "data_calibration_directory_exists": false,
+    "wear_tests_exists": false,
+    "raw_analytical_file_candidate_count": 0,
+    "named_analytical_dataset_candidate_count": 0,
+    "database_count_checked": 5,
+    "analytical_or_calibration_table_count": 0,
+    "gcms_named_output_classification": "formula release-gate output, not instrument measurement",
+    "gcms_named_output_sha256": "f24e965fe5039ad8b8445382857e7e34a5619ab17691c37829e8f140676cd170",
+    "evidence_path": "docs/verification/c5/logs/final/actual-data-absence.stdout.txt",
+    "evidence_sha256": "d3b3252fbcaae1bd91cdf191e8e22ffa3578b00f9ba6961d8dba4e5692a1b453"
+  },
+  "authority_boundary": {
+    "canonical_analytical_authority": "Build B5",
+    "real_import_requires_supported_b5_claim": true,
+    "real_import_requires_method_validation_run_peak_claim_chain": true,
+    "real_import_requires_matching_matrix_analyte_method_calibration": true,
+    "real_import_requires_vendor_raw_and_open_export_digests": true,
+    "real_import_requires_blocking_qc_clear": true,
+    "real_import_requires_measurement_uncertainty": true,
+    "simulated_smoke_is_empirical": false,
+    "legacy_calibration_promoted": false,
+    "legacy_analytical_ledger_promoted": false
+  },
+  "leakage_and_locking": {
+    "required_partitions": [
+      "CALIBRATION",
+      "VALIDATION",
+      "HELD_OUT_TEST"
+    ],
+    "leakage_dimensions": [
+      "chemical_identity_group",
+      "close_analog_group",
+      "formula_id",
+      "supplier_lot",
+      "matrix_batch_id",
+      "measurement_session_id"
+    ],
+    "split_manifest_hash_bound": true,
+    "evaluation_plan_locked_before_model_selection": true,
+    "model_lock_binds_validation_dataset": true,
+    "held_out_release_after_matching_model_lock": true
+  },
+  "metrics": {
+    "scale_options": [
+      "LINEAR",
+      "LOG10"
+    ],
+    "required": [
+      "bias",
+      "mae",
+      "rmse",
+      "median_absolute_fold_error",
+      "rank_agreement",
+      "calibration_slope",
+      "calibration_intercept",
+      "prediction_interval_coverage",
+      "catastrophic_outlier_rate",
+      "missing_domain_rate",
+      "abstention_rate",
+      "rmse_improvement_vs_baseline"
+    ],
+    "required_group_dimensions": [
+      "material_class",
+      "matrix",
+      "condition"
+    ],
+    "r_squared_is_acceptance_metric": false,
+    "undefined_metric_fails_closed": true,
+    "acceptance_criteria_prespecified_and_hash_bound": true,
+    "simulation_report_authority": "SIMULATION_ONLY",
+    "simulation_promotion_allowed": false
+  },
+  "verification": {
+    "matrix_metadata_path": "docs/verification/c5/logs/final/gate-run-metadata.stdout.json",
+    "matrix_metadata_sha256": "530d5e6f1755e8f26aa6ac4a4cdbf8be972f50a55856dada1150ea0de14ee8fe",
+    "matrix_job_count": 25,
+    "matrix_failed_job_count": 0,
+    "matrix_timeout_count": 0,
+    "matrix_stderr_bytes": 0,
+    "tests": {
+      "c5_focused": {"passed": 38, "failed": 0},
+      "c4_compatibility": {"passed": 41, "failed": 0},
+      "c3_compatibility": {"passed": 105, "failed": 0},
+      "c2_compatibility": {"passed": 79, "failed": 0},
+      "c1_compatibility": {"passed": 96, "failed": 0},
+      "c0_compatibility": {"passed": 24, "failed": 0},
+      "complete_root": {"passed": 1481, "failed": 0},
+      "dependency_invariant": {"passed": 1, "failed": 0},
+      "deepluna_sol_reproduction": {"passed": 11, "failed": 0}
+    },
+    "pip_check": "PASS",
+    "ruff": "PASS",
+    "basedpyright": "PASS",
+    "mypy": "PASS",
+    "c0_inventory_verifier": {
+      "status": "PASS",
+      "implementation_count": 48,
+      "call_edge_count": 29,
+      "fixture_count": 24
+    },
+    "scope_verification": "PASS",
+    "archive_verification": "PASS",
+    "protected_state_verification": "PASS",
+    "log_scan": "PASS",
+    "log_manifest": {
+      "path": "docs/verification/c5/logs/log-manifest.json",
+      "bytes": 20460,
+      "sha256": "3237900542944f6c015b0ed1a889594fbe1de4e3510319c6a5740ed040b076e6",
+      "covered_file_count": 76,
+      "ansi_escape_bytes": 0,
+      "credential_shaped_matches": 0
+    },
+    "supplemental_metadata": {
+      "path": "docs/verification/c5/logs/final/supplemental-run-metadata.stdout.json",
+      "bytes": 3038,
+      "sha256": "36aef0ddb930e9cfaf16d17124c9b887f18dccadcf29ff7d84cdd1829c34c1c6"
+    }
+  },
+  "mutation_evidence": {
+    "simulation_origin_bypass_caught": true,
+    "leakage_dimension_omission_caught": true,
+    "pre_held_out_lock_bypass_caught": true,
+    "all_restored_tests_pass": true,
+    "all_mutation_stderr_empty": true,
+    "all_mutations_timed_out": false,
+    "source_sha256_before_and_after": "1b772b755426f82544f834797778df2704b03c1b5e3d17b91e1037dcad001501",
+    "restoration_verified": true
+  },
+  "recovery_archive": {
+    "path": "D:/.backups/perfume-chem/build-c5-prewrite-20260803T005146+0700.tar",
+    "bytes": 118255616,
+    "sha256": "baf09fe70d8b8e7691ea966b0b8c4c7e39d31965006f212151c062b4ffda9e72",
+    "manifest_file_count": 431,
+    "dirty_or_untracked_count": 429,
+    "unsafe_member_count": 0,
+    "duplicate_member_count": 0,
+    "archive_content_mismatch_count": 0,
+    "current_preserved_work_mismatch_count": 0,
+    "path_preserving": true,
+    "restorable": true
+  },
+  "protected_state": {
+    "before_after_identical": true,
+    "database_quick_checks_ok": true,
+    "files": {
+      "perfume_chem.db": {"bytes": 12288, "sha256": "02b64be88e4a8881c968ec9ef7f0185ed7b1bcedc6ed33885f07d7de70a0da5e"},
+      "data/perfumery_kb.db": {"bytes": 2084864, "sha256": "5a779f9d6850345d72de3c8265d4330c50dac529968b38bc9b08720b5da63fe1"},
+      "data/perfumery_kb.db-wal": {"bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+      "data/perfumery_kb.db-shm": {"bytes": 32768, "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"}
+    }
+  },
+  "deepluna": {
+    "final_audit_path": "docs/verification/c5/deepluna-final-audit.json",
+    "final_audit_sha256": "18b0a843ca8202eb1545af49e620659167210736cb38efdc68802b96cf10f1c7",
+    "status": "PASS",
+    "job_id": "DS-851f9e989084233e4e4e3363208056f8",
+    "provider_calls": 1,
+    "route": "FLASH",
+    "fallback_policy": "NO_LUNA",
+    "negative_finding_count": 0,
+    "locally_reproduced": true,
+    "postflight_open_reserved_nano_usd": 0,
+    "postflight_unknown_reservations": 0,
+    "luna_runs": 0,
+    "glm_runs": 0,
+    "codex_workers_used": 0
+  },
+  "postcommit_replay": {
+    "status": "PASS",
+    "exact_commit": "4a0700fb8d250d416141e2cc2ce46d287e5eecf9",
+    "metadata_path": "docs/verification/c5/postcommit/replay/replay-metadata.stdout.json",
+    "metadata_sha256": "d57d1460f273416f0f11a5b2576779ac65c97b8698124717901edac81bd96142",
+    "replay_manifest_path": "docs/verification/c5/postcommit/replay-manifest.json",
+    "replay_manifest_sha256": "b215bd7fbd043a485e9a08e3e4c5dd08d98167fd4721d712c163ab9a98f867cb",
+    "job_count": 21,
+    "failed_job_count": 0,
+    "timeout_count": 0,
+    "stderr_bytes": 0,
+    "focused_test_count": 38,
+    "root_test_count": 1481,
+    "ansi_escape_bytes": 0,
+    "credential_shaped_matches": 0
+  },
+  "authoritative_exit_behaviors": {
+    "representative_material_domain_coverage": "PASS",
+    "matrix_panel_with_explicit_source_holds": "PASS",
+    "complete_protocol_and_b5_binding_schema": "PASS",
+    "strict_real_data_import_and_simulation_separation": "PASS",
+    "leak_resistant_three_way_split": "PASS",
+    "pre_held_out_model_lock": "PASS",
+    "prespecified_overall_and_grouped_metrics": "PASS",
+    "acceptance_failure_cannot_promote": "PASS",
+    "empirical_authority_without_real_data": "BLOCKED_PENDING_DATA"
+  },
+  "limitations": [
+    "No actual instrument data were found; empirical metrics and promotion are absent.",
+    "No physical sample, validated B5 method row, or held-out dataset is created by this software gate.",
+    "DEP-heavy preparation requires a declared standalone DEP source.",
+    "Finished ethanol-water templates require a declared water lot/source.",
+    "Several owned diluted materials have undeclared fraction basis or carrier and remain preparation holds.",
+    "The simulation smoke harness validates code paths only and has SIMULATION_ONLY authority.",
+    "C4 property uncertainty is not converted into measured empirical uncertainty without real B5-bound data."
+  ],
+  "exit_gate": {
+    "reproducible_harness": true,
+    "leak_resistant_splits": true,
+    "prespecified_metrics": true,
+    "no_empirical_authority_without_real_data": true,
+    "final_deepluna_audit_pass": true,
+    "sol_reconciliation_pass": true,
+    "evidence_committed": true,
+    "exact_commit_replay_pass": true,
+    "postcommit_decision_recorded": true,
+    "all_required_green": true,
+    "c6_open": true
+  }
+}

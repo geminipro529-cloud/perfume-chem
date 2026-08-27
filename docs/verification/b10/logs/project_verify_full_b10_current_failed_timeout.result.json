@@ -1,0 +1,23 @@
+{
+  "name": "project_verify_full_b10_current_rerun",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "command": [
+    "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "-B",
+    "scripts\\pipeline_audit.py",
+    "project-verify",
+    "--output",
+    "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\project_verification_full_current_rerun.json",
+    "--json"
+  ],
+  "started_at_utc": "2026-08-02T05:20:52.467Z",
+  "finished_at_utc": "2026-08-02T05:47:45.913Z",
+  "duration_seconds": 1613.445,
+  "timeout_seconds": 1800,
+  "timed_out": false,
+  "exit_code": 1,
+  "signal": null,
+  "spawn_error": null,
+  "stdout_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\project_verify_full_b10_current_rerun.stdout.txt",
+  "stderr_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-07-29\\the-perfume-chem-folder-is-the\\work\\b10_final_gate_20260802T111500\\project_verify_full_b10_current_rerun.stderr.txt"
+}

@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S01",
+  "completed_utc": "2026-08-26T07:22:30.554843+00:00",
+  "dispatch_sha256": "bb00936555eb82fb2194e6f9b66be03fd72764e0153c6de9c14cbf7a4da875fd",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "ef03e40ca0e58089295d5b80f55ca4686db932665ba36f813543faf8ca15e8c4",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Depth-only evidence favors A over B while retaining ties as indifference evidence. The connected, order-balanced assessor comparisons and baseline-beating held-out proper score support only a scoped depth-preference claim; target fidelity, richness, and liking remain separate and unfit here.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"A_over_B\":4,\"B_over_A\":2,\"ties\":2,\"total_outcomes\":8,\"directional_outcome_count\":6,\"tie_rate\":0.25},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"decision_state\":\"AUGMENT\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"reason_codes\":[\"DEPTH_ONLY_SCOPE\",\"CONNECTED_BALANCED_COMPARISONS\",\"TIES_RETAINED_AS_INDIFFERENCE\",\"BASELINE_BEATEN\",\"BC_WIDEST_INTERVAL\"],\"next_actions\":[\"Collect the deterministic next blinded, order-balanced DEPTH comparison for B versus C using identified assessors.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "54ed0b9ee1c6fa361d39a0158a5191063ea6e27170a91831d158a3b4d396e642",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ee3437edcdaa95911819",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:22:04.248357+00:00",
+  "stderr_sha256": "50af606993416b75a908a7a8a57f08c6b61c526e16f4bcfecba52acea883be50",
+  "stderr_tail": "\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"directional_outcome_count\":\"compute from the supplied evidence\",\"tie_rate\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Depth-only evidence favors A over B while retaining ties as indifference evidence. The connected, order-balanced assessor comparisons and baseline-beating held-out proper score support only a scoped depth-preference claim; target fidelity, richness, and liking remain separate and unfit here.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"A_over_B\":4,\"B_over_A\":2,\"ties\":2,\"total_outcomes\":8,\"directional_outcome_count\":6,\"tie_rate\":0.25},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"objective_receipt\":{\"decision_state\":\"AUGMENT\",\"physical_liking_state\":\"NOT TESTED\",\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"reason_codes\":[\"DEPTH_ONLY_SCOPE\",\"CONNECTED_BALANCED_COMPARISONS\",\"TIES_RETAINED_AS_INDIFFERENCE\",\"BASELINE_BEATEN\",\"BC_WIDEST_INTERVAL\"],\"next_actions\":[\"Collect the deterministic next blinded, order-balanced DEPTH comparison for B versus C using identified assessors.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}}\ntokens used\n1,739\n",
+  "stdout_sha256": "4b88383908b505140001bc9398a0ee260011069bb084cd77af7872a68e6d4e03"
+}

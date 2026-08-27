@@ -1,0 +1,43 @@
+{
+  "schema_version": "perfume-chem-deterministic-artifact-evidence-v1",
+  "name": "b8_projection_regeneration",
+  "recorded_at_utc": "2026-08-02T02:55:41Z",
+  "execution_capture_id": "b8_final_gate_20260802T092228",
+  "runtime": "output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+  "command_template": "python -B scripts/b8_backfill_dashboard.py --inventory inventory.txt --scientific-inventory docs/verification/b0/scientific_truth_inventory.json.gz --output <external-output>",
+  "input_hashes": {
+    "inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
+    "scientific_inventory_sha256": "3f287b86c29e645d879e3b2af59ddcf53d059c11509ecf85576a7c126f9daebc"
+  },
+  "processes": [
+    {
+      "name": "projection-a",
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "artifact_bytes": 39695,
+      "artifact_sha256": "8c62d33452e894fc9e869f9c1a4f6b52e7f9db60326e2e8c059a0cb31ed45a7d"
+    },
+    {
+      "name": "projection-b",
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "artifact_bytes": 39695,
+      "artifact_sha256": "8c62d33452e894fc9e869f9c1a4f6b52e7f9db60326e2e8c059a0cb31ed45a7d"
+    }
+  ],
+  "byte_identical": true,
+  "accepted_artifact": {
+    "path": "docs/verification/b8/current_inventory_gap_projection.json",
+    "bytes": 39695,
+    "sha256": "8c62d33452e894fc9e869f9c1a4f6b52e7f9db60326e2e8c059a0cb31ed45a7d"
+  },
+  "validation": {
+    "json_valid": true,
+    "secret_like_match_count": 0,
+    "banned_aggregate_key_count": 0,
+    "absolute_windows_path_count": 0
+  },
+  "status": "PASS"
+}

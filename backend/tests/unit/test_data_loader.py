@@ -1,6 +1,5 @@
 """Tests for data loader"""
 
-import pytest
 from app.services.data_loader import DataLoader
 
 

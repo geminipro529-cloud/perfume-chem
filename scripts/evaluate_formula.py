@@ -7,22 +7,21 @@ Usage:
     python scripts/evaluate_formula.py --batch --output training_data.jsonl
 """
 
+import argparse
+import json
 import re
 import sys
-import json
-import argparse
-from pathlib import Path
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
 # ── Add repo root to path ──
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from engine.inventory_parser import parse_inventory
-from engine.odor_thresholds import ODT_DATA
-from engine.ingredient_intelligence import _PROFILES as PROFILES
 from engine.ifra_safety import IFRA_CAT4_LIMITS
+from engine.ingredient_intelligence import _PROFILES as PROFILES
+from engine.inventory_parser import parse_inventory
 
 # ── Data structures ──
 
@@ -52,7 +51,8 @@ class FormulaEval:
     materials: list[FormulaMaterial] = field(default_factory=list)
     concentrate_ul: float = 0
     checks: list[CheckResult] = field(default_factory=list)
-    hedonic_score: float = 0
+    hedonic_score: float | None = None
+    hedonic_state: str = "NOT_TESTED"
     perceptible_ratio: float = 0
     overall_score: int = 0
     grade: str = "?"
@@ -141,6 +141,8 @@ HEDONIC_MAP = {
     "Amber Core": 0.3,
 }
 
+LEGACY_HEDONIC_CLASSIFICATION = "LEGACY_REPLAY_ONLY"
+
 # ── Parsing ──
 
 
@@ -183,9 +185,7 @@ def parse_formula_file(filepath: str) -> FormulaEval:
             dilution = 0.2
         elif "10%" in dil_str_lower or "0.1" in dil_str_lower:
             dilution = 0.1
-        elif (
-            "1% in" in dil_str_lower or dil_str_lower == "1%" or "0.01" in dil_str_lower
-        ):
+        elif "1% in" in dil_str_lower or dil_str_lower == "1%" or "0.01" in dil_str_lower:
             dilution = 0.01
         elif "0.1%" in dil_str_lower or "0.001" in dil_str_lower:
             dilution = 0.001
@@ -270,22 +270,13 @@ def check_vp_wall(eval: FormulaEval, inventory: dict) -> list[CheckResult]:
         )
         profile = PROFILES.get(mat.name, {}) or PROFILES.get(key, {})
         if profile:
-            vp = (
-                profile.get("vp")
-                if isinstance(profile, dict)
-                else getattr(profile, "vp", None)
-            )
+            vp = profile.get("vp") if isinstance(profile, dict) else getattr(profile, "vp", None)
             role = (
                 profile.get("role", "")
                 if isinstance(profile, dict)
                 else getattr(profile, "role", "")
             )
-            if (
-                vp is not None
-                and vp < VP_WALL
-                and role
-                and role.lower() in CHARACTER_ROLES
-            ):
+            if vp is not None and vp < VP_WALL and role and role.lower() in CHARACTER_ROLES:
                 wall_mats.append(
                     f"{mat.name} (VP={vp:.3f} Pa, role={role}) — skin-only, won't project"
                 )
@@ -320,9 +311,7 @@ def check_hedione(eval: FormulaEval) -> list[CheckResult]:
 
     for mat in eval.materials:
         if "hedione" in mat.name.lower() and mat.dilution >= 0.99:
-            pct = (
-                mat.raw_ul / eval.concentrate_ul * 100 if eval.concentrate_ul > 0 else 0
-            )
+            pct = mat.raw_ul / eval.concentrate_ul * 100 if eval.concentrate_ul > 0 else 0
             if pct > 15:
                 results.append(
                     CheckResult(
@@ -340,7 +329,7 @@ def check_hedione(eval: FormulaEval) -> list[CheckResult]:
                         False,
                         "WARN",
                         f"Hedione at {pct:.1f}% — strong presence, consider reduction",
-                        f"Reduce to 9-10% for better balance",
+                        "Reduce to 9-10% for better balance",
                     )
                 )
             else:
@@ -354,9 +343,7 @@ def check_hedione(eval: FormulaEval) -> list[CheckResult]:
                 )
             break
     else:
-        results.append(
-            CheckResult("Hedione Crowding", True, "PASS", "No Hedione detected")
-        )
+        results.append(CheckResult("Hedione Crowding", True, "PASS", "No Hedione detected"))
 
     return results
 
@@ -378,11 +365,7 @@ def check_ifra(eval: FormulaEval) -> list[CheckResult]:
                     break
 
         if limit is not None and limit > 0:
-            pct_active = (
-                mat.active_ul / eval.concentrate_ul * 100
-                if eval.concentrate_ul > 0
-                else 0
-            )
+            pct_active = mat.active_ul / eval.concentrate_ul * 100 if eval.concentrate_ul > 0 else 0
             if pct_active > limit:
                 violations.append(
                     f"{name}: {pct_active:.3f}% active exceeds IFRA Cat4 limit of {limit}%"
@@ -394,8 +377,7 @@ def check_ifra(eval: FormulaEval) -> list[CheckResult]:
                 "IFRA Check",
                 False,
                 "FAIL",
-                f"{len(violations)} IFRA violation(s):\n    "
-                + "\n    ".join(violations[:6]),
+                f"{len(violations)} IFRA violation(s):\n    " + "\n    ".join(violations[:6]),
                 "Reduce doses to comply with IFRA Cat 4 limits",
             )
         )
@@ -412,9 +394,7 @@ def check_ifra(eval: FormulaEval) -> list[CheckResult]:
     return results
 
 
-def check_dead_materials(
-    eval: FormulaEval, oav_data: Optional[dict] = None
-) -> list[CheckResult]:
+def check_dead_materials(eval: FormulaEval, oav_data: Optional[dict] = None) -> list[CheckResult]:
     """Flag materials below OAV 1 that have character roles."""
     results = []
 
@@ -434,16 +414,13 @@ def check_dead_materials(
                     "Dead Materials",
                     False,
                     "FAIL",
-                    f"{len(dead)} character materials below OAV 1:\n    "
-                    + "\n    ".join(dead[:8]),
+                    f"{len(dead)} character materials below OAV 1:\n    " + "\n    ".join(dead[:8]),
                     "Boost dose, replace with higher-VP analog, or reassign as structural",
                 )
             )
         else:
             results.append(
-                CheckResult(
-                    "Dead Materials", True, "PASS", "No character materials below OAV 1"
-                )
+                CheckResult("Dead Materials", True, "PASS", "No character materials below OAV 1")
             )
 
     return results
@@ -509,7 +486,7 @@ def check_pyramid(eval: FormulaEval) -> list[CheckResult]:
 
 
 def compute_hedonic(eval: FormulaEval) -> float:
-    """Compute weighted hedonic score from material hedonic valences."""
+    """LEGACY_REPLAY_ONLY: reproduce the historical material-valence score."""
     total = 0
     for mat in eval.materials:
         hed = HEDONIC_MAP.get(mat.name, 0)
@@ -549,16 +526,12 @@ def compute_overall(eval: FormulaEval) -> tuple[int, str]:
 
 def evaluate_formula(filepath: str, oav_data: Optional[dict] = None) -> FormulaEval:
     """Run all checks on a formula file."""
-    inventory = {
-        m.name.lower(): m for m in parse_inventory(REPO_ROOT / "inventory.txt")
-    }
+    inventory = {m.name.lower(): m for m in parse_inventory(REPO_ROOT / "inventory.txt")}
 
     eval = parse_formula_file(filepath)
 
     if not eval.materials:
-        eval.checks.append(
-            CheckResult("Parse", False, "FAIL", "No materials parsed from file")
-        )
+        eval.checks.append(CheckResult("Parse", False, "FAIL", "No materials parsed from file"))
         return eval
 
     # Run all checks
@@ -573,7 +546,6 @@ def evaluate_formula(filepath: str, oav_data: Optional[dict] = None) -> FormulaE
         percept = sum(1 for v in oav_data.values() if v >= 1)
         eval.perceptible_ratio = percept / len(oav_data) * 100 if oav_data else 0
 
-    eval.hedonic_score = compute_hedonic(eval)
     eval.overall_score, eval.grade = compute_overall(eval)
 
     return eval
@@ -590,9 +562,7 @@ def print_report(eval: FormulaEval):
     print()
 
     for check in eval.checks:
-        icon = {"PASS": "PASS", "WARN": "WARN", "FAIL": "FAIL"}.get(
-            check.severity, "????"
-        )
+        icon = {"PASS": "PASS", "WARN": "WARN", "FAIL": "FAIL"}.get(check.severity, "????")
         print(f"  [{icon:4}] {check.label}")
         if check.detail:
             for line in check.detail.split("\n"):
@@ -601,7 +571,7 @@ def print_report(eval: FormulaEval):
             print(f"         FIX: {check.recommendation}")
         print()
 
-    print(f"  HEDONIC SCORE: {eval.hedonic_score:+.1f}")
+    print(f"  LIKING EVIDENCE: {eval.hedonic_state}")
     if eval.perceptible_ratio > 0:
         print(f"  PERCEPTIBLE: {eval.perceptible_ratio:.0f}%")
 
@@ -616,11 +586,7 @@ def evaluate_batch(formula_dir: str, output_jsonl: str, gate_batch: bool = False
 
     files = list(dir_path.glob("*.md"))
     # Skip temp/reference files
-    files = [
-        f
-        for f in files
-        if not f.name.startswith("_") and not f.name.startswith("prep_")
-    ]
+    files = [f for f in files if not f.name.startswith("_") and not f.name.startswith("prep_")]
 
     print(f"Evaluating {len(files)} formulas...")
 
@@ -632,16 +598,12 @@ def evaluate_batch(formula_dir: str, output_jsonl: str, gate_batch: bool = False
                 "name": eval.name,
                 "materials_count": len(eval.materials),
                 "concentrate_ul": eval.concentrate_ul,
-                "hedonic_score": eval.hedonic_score,
+                "hedonic_evidence": {"state": eval.hedonic_state},
                 "perceptible_ratio": eval.perceptible_ratio,
                 "overall_score": eval.overall_score,
                 "grade": eval.grade,
-                "checks": [
-                    {"label": c.label, "severity": c.severity} for c in eval.checks
-                ],
-                "materials": [
-                    {"name": m.name, "active_ul": m.active_ul} for m in eval.materials
-                ],
+                "checks": [{"label": c.label, "severity": c.severity} for c in eval.checks],
+                "materials": [{"name": m.name, "active_ul": m.active_ul} for m in eval.materials],
             }
             results.append(record)
             print(f"  {eval.grade} {eval.overall_score:3d} — {eval.name}")
@@ -662,9 +624,7 @@ def evaluate_batch(formula_dir: str, output_jsonl: str, gate_batch: bool = False
         if count:
             print(f"  Grade {g}: {count} ({count / len(grades) * 100:.0f}%)")
 
-    avg_score = (
-        sum(r["overall_score"] for r in results) / len(results) if results else 0
-    )
+    avg_score = sum(r["overall_score"] for r in results) / len(results) if results else 0
     print(f"  Average score: {avg_score:.0f}/100")
 
 
@@ -674,9 +634,7 @@ def evaluate_batch(formula_dir: str, output_jsonl: str, gate_batch: bool = False
 def main():
     parser = argparse.ArgumentParser(description="Formula Preflight Evaluator")
     parser.add_argument("--formula-file", help="Single formula file to evaluate")
-    parser.add_argument(
-        "--batch", action="store_true", help="Evaluate all formulas in formulas/"
-    )
+    parser.add_argument("--batch", action="store_true", help="Evaluate all formulas in formulas/")
     parser.add_argument(
         "--output",
         default="output/training_data.jsonl",
@@ -688,6 +646,16 @@ def main():
     if args.batch:
         evaluate_batch("formulas", args.output)
     elif args.formula_file:
+        from engine.formula_metadata import parse_formula_metadata
+
+        meta = parse_formula_metadata(args.formula_file)
+        if not meta.has_metadata() and not meta.is_unclaimed():
+            print(
+                "ERROR: Formula missing metadata block. Add metadata or set `**Reference claim:** none`.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
         oav = None
         if args.oav:
             try:

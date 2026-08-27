@@ -19,7 +19,6 @@ import glob
 import json
 import os
 import sqlite3
-from pathlib import Path
 
 import yaml
 
@@ -144,9 +143,7 @@ def _merge_material(
     row["logp"] = yaml_e.get("logp")
     row["vp_25c_pa"] = yaml_e.get("vp_25c_pa")
     row["user_stock_dilution"] = (
-        str(yaml_e.get("user_stock_dilution") or "")
-        if yaml_e.get("user_stock_dilution")
-        else None
+        str(yaml_e.get("user_stock_dilution") or "") if yaml_e.get("user_stock_dilution") else None
     )
     row["user_in_inventory"] = 1 if yaml_e.get("user_in_inventory") else 0
 
@@ -283,14 +280,13 @@ def _populate_materials(conn: sqlite3.Connection) -> dict[str, int]:
     """
     yaml_entries = _load_yaml_entries()
     profiles: dict = {}
-    odt_data: dict = {}
     ifra_limits: dict = {}
     props = _load_material_properties()
 
     # Import engine modules (lazy, inside function)
+    from engine.ifra_safety import IFRA_CAT4_LIMITS  # noqa: PLC0415
     from engine.ingredient_intelligence import _PROFILES  # noqa: PLC0415
     from engine.odor_thresholds import ODT_DATA  # noqa: PLC0415
-    from engine.ifra_safety import IFRA_CAT4_LIMITS  # noqa: PLC0415
 
     profiles = _PROFILES
     odt_norm = _build_odt_lookup(ODT_DATA)
@@ -298,7 +294,7 @@ def _populate_materials(conn: sqlite3.Connection) -> dict[str, int]:
     if isinstance(IFRA_CAT4_LIMITS, dict):
         ifra_limits = IFRA_CAT4_LIMITS
     elif hasattr(IFRA_CAT4_LIMITS, "__iter__"):
-        for item in IFRA_CAT4_LIMITS:
+        for item in IFRA_CAT4_LIMITS:  # type: ignore[reportGeneralTypeIssues]
             if isinstance(item, dict) and "name" in item and "limit" in item:
                 ifra_limits[item["name"]] = item["limit"]
 
@@ -488,9 +484,7 @@ def _populate_aliases(conn: sqlite3.Connection, name_to_id: dict[str, int]) -> N
                 break
             # One contains the other
             if cname_norm in inv_norm or inv_norm in cname_norm:
-                score = max(len(cname_norm), len(inv_norm)) / min(
-                    len(cname_norm), len(inv_norm)
-                )
+                score = max(len(cname_norm), len(inv_norm)) / min(len(cname_norm), len(inv_norm))
                 if score > best_score:
                     best_score = score
                     best_mid = mid
@@ -503,9 +497,7 @@ def _populate_aliases(conn: sqlite3.Connection, name_to_id: dict[str, int]) -> N
     conn.commit()
 
 
-def _populate_natural_decomposition(
-    conn: sqlite3.Connection, name_to_id: dict[str, int]
-) -> None:
+def _populate_natural_decomposition(conn: sqlite3.Connection, name_to_id: dict[str, int]) -> None:
     """Insert material_natural_decomposition from _ABSOLUTE_CONSTITUENTS."""
     from engine.pipeline.natural_absolute_decomposition import (  # noqa: PLC0415
         _ABSOLUTE_CONSTITUENTS,
@@ -656,9 +648,7 @@ def _populate_archetypes(conn: sqlite3.Connection) -> dict[str, int]:
                 novelty_message,
             ),
         )
-        aid = conn.execute(
-            "SELECT id FROM family_archetypes WHERE key = ?", (key,)
-        ).fetchone()[0]
+        aid = conn.execute("SELECT id FROM family_archetypes WHERE key = ?", (key,)).fetchone()[0]
         key_to_id[key] = aid
 
         # Anchors
@@ -720,10 +710,10 @@ def _populate_archetypes(conn: sqlite3.Connection) -> dict[str, int]:
 def _populate_pyramid(conn: sqlite3.Connection) -> None:
     """Insert pyramid_ratios, oav_targets, material_role_ratios, cross_family_compatibility."""
     from engine.knowledge.pyramid_targets import (  # noqa: PLC0415
-        PYRAMID_RATIOS,
-        OAV_TARGETS_BY_FAMILY,
-        MATERIAL_ROLE_RATIOS,
         CROSS_FAMILY_COMPATIBILITY,
+        MATERIAL_ROLE_RATIOS,
+        OAV_TARGETS_BY_FAMILY,
+        PYRAMID_RATIOS,
     )
 
     pyr_sql = """
@@ -830,21 +820,19 @@ def _populate_tokens(conn: sqlite3.Connection) -> None:
 def _populate_safety(conn: sqlite3.Connection) -> None:
     """Insert ifra_limits, eu_allergens, sensitization, banned_materials."""
     from engine.ifra_safety import (  # noqa: PLC0415
-        IFRA_CAT4_LIMITS,
-        EU_FRAGRANCE_ALLERGENS,
-        SENSITIZATION_DATA,
         BANNED_MATERIALS,
+        EU_FRAGRANCE_ALLERGENS,
+        IFRA_CAT4_LIMITS,
+        SENSITIZATION_DATA,
     )
 
     # IFRA limits
-    ifra_sql = (
-        "INSERT OR IGNORE INTO ifra_limits (material_name, cat4_limit_pct) VALUES (?,?)"
-    )
+    ifra_sql = "INSERT OR IGNORE INTO ifra_limits (material_name, cat4_limit_pct) VALUES (?,?)"
     if isinstance(IFRA_CAT4_LIMITS, dict):
         for name, limit in IFRA_CAT4_LIMITS.items():
             conn.execute(ifra_sql, (name, float(limit)))
     elif hasattr(IFRA_CAT4_LIMITS, "__iter__"):
-        for item in IFRA_CAT4_LIMITS:
+        for item in IFRA_CAT4_LIMITS:  # type: ignore[reportGeneralTypeIssues]
             if isinstance(item, dict) and "name" in item:
                 conn.execute(
                     ifra_sql,
@@ -888,9 +876,7 @@ def _populate_safety(conn: sqlite3.Connection) -> None:
             )
 
     # Banned materials
-    ban_sql = (
-        "INSERT OR IGNORE INTO banned_materials (material_name, reason) VALUES (?,?)"
-    )
+    ban_sql = "INSERT OR IGNORE INTO banned_materials (material_name, reason) VALUES (?,?)"
     if isinstance(BANNED_MATERIALS, dict):
         for name, reason in BANNED_MATERIALS.items():
             conn.execute(ban_sql, (name, str(reason)))
@@ -967,9 +953,9 @@ def _populate_dose_response(conn: sqlite3.Connection) -> None:
 def _populate_gate_data(conn: sqlite3.Connection) -> None:
     """Insert olfactory_fatigue, jellinek_classes, adaptation_tiers, iconic_skeletons."""
     from engine.pipeline.gates import (  # noqa: PLC0415
-        _OLFACTORY_FATIGUE_THRESHOLDS,
-        _JELLINEK_CLASSES,
         _ADAPTATION_TIERS,
+        _JELLINEK_CLASSES,
+        _OLFACTORY_FATIGUE_THRESHOLDS,
         _SKELETONS,
     )
 
@@ -996,9 +982,7 @@ def _populate_gate_data(conn: sqlite3.Connection) -> None:
     # Adaptation tiers
     at_sql = "INSERT INTO adaptation_tiers (tier, materials_json) VALUES (?,?)"
     for tier_name, materials_set in _ADAPTATION_TIERS.items():
-        materials_list = (
-            list(materials_set) if hasattr(materials_set, "__iter__") else []
-        )
+        materials_list = list(materials_set) if hasattr(materials_set, "__iter__") else []
         conn.execute(at_sql, (tier_name, json.dumps(materials_list)))
 
     # Iconic skeletons
@@ -1078,9 +1062,7 @@ def _populate_knowledge_graph(conn: sqlite3.Connection) -> None:
         INSERT INTO ingredient_catalog (name, identity_key, category, status, owned, notes_json)
         VALUES (?,?,?,?,?,?)
     """
-    ingredients = (
-        catalog.get("ingredients", []) if isinstance(catalog, dict) else catalog
-    )
+    ingredients = catalog.get("ingredients", []) if isinstance(catalog, dict) else catalog
     if isinstance(ingredients, list):
         for entry in ingredients:
             if isinstance(entry, dict):

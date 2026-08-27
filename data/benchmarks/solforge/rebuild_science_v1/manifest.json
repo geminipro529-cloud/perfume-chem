@@ -1,0 +1,171 @@
+{
+  "schema_version": "solforge_rebuild_science_manifest_v1",
+  "created_utc": "2026-08-26T00:00:00Z",
+  "purpose": "Provider-free recovery and falsification gates for conditional complexity evidence augmentation.",
+  "complexity_definition": "Target-linked perceptual depth, richness, configurational relations, hierarchy, temporal differentiation, and scoped hedonism; never ingredient count, darkness, dose, prestige, price, molecular complexity, or product prose.",
+  "component_bindings": [
+    {"path": "configs/complexity/complexity_module_registry_v4.json", "sha256": "4f48e9cefb262eaa59cbb740618267f1626ecd366d40403a7d55289facec1769"},
+    {"path": "engine/evidence/augmentation.py", "sha256": "2dcae6869aa7aaf8de669f32959982fdd589455d229548773183204cd69bbfda"},
+    {"path": "engine/hedonic_evidence.py", "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c"},
+    {"path": "engine/perception/architectural_delta.py", "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"},
+    {"path": "engine/preference.py", "sha256": "e55eaa90eedcf5b26ac7d28450446b908c4c9679131db76d9af612005828ba0a"},
+    {"path": "engine/preference_davidson.py", "sha256": "ad008d052d1de4ae62109f3abefa41ea7bb1533dcad2c76b33dd6f3a3cd4b1cd"},
+    {"path": "engine/preference_validation.py", "sha256": "a5aa2beaf7ab59030b058bd98629ba11280206767359c142159a8f997ba7dd69"},
+    {"path": "engine/sensory/ledger.py", "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71"}
+  ],
+  "external_source_artifacts": [
+    {
+      "name": "FLORAL_COVERAGE_FOUNDATION_v2.xlsx",
+      "sha256": "5d04a47a5663a79e334eb96c44c3515cdc6cfee0d78761de76e9bef9f5e5ee6d",
+      "prior_state": "EXTERNAL_FOUNDATION_CANONICAL_INTEGRATION_BLOCKED",
+      "transfer_state": "STRUCTURAL_HYPOTHESES_ONLY"
+    },
+    {
+      "name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "prior_state": "CURRENT_INVENTORY_AUTHORITY",
+      "transfer_state": "REPARSE_AT_EXECUTION"
+    },
+    {
+      "name": "Perfumery_Interaction_Layering_Atlas_v1.json",
+      "sha256": "321766b1892d6e684474aece142991d588a8719d0d7f5626e4cbf3254a3a5e90",
+      "prior_state": "V3_INVENTORY_HISTORICAL",
+      "transfer_state": "SYSTEM_TAXONOMY_AND_HYPOTHESES_ONLY"
+    }
+  ],
+  "fixed_seeds": {
+    "davidson_recovery": 2026082601,
+    "assessor_cluster": 2026082602,
+    "null_preference": 2026082603,
+    "heldout_validation": 2026082604
+  },
+  "noncompensatory_gates": {
+    "deterministic_bytes": true,
+    "maximum_false_winner_rate": 0.05,
+    "minimum_interval_coverage": 0.85,
+    "maximum_interval_coverage": 1.0,
+    "missed_critical_holds": 0,
+    "maximum_next_actions": 1,
+    "authority_flags_must_all_be_false": true
+  },
+  "model_class_boundaries": [
+    {"class": "MOLECULAR_3D_QSPR", "may_support": "molecular descriptors and bounded odorant-level associations", "cannot_support": "perfume depth, richness, target fidelity, or liking"},
+    {"class": "RECEPTOR_CHEMICAL_EMBEDDING", "may_support": "bounded ligand or receptor hypotheses", "cannot_support": "experienced perfume architecture or beauty"},
+    {"class": "PERCEPTUAL_SEMANTIC_SPACE", "may_support": "observed descriptor or similarity geometry", "cannot_support": "a universal low-dimensional beauty axis"},
+    {"class": "MIXTURE_CONFIGURAL_MODEL", "may_support": "elemental versus configural mixture hypotheses", "cannot_support": "synergy without isolated interaction arms"},
+    {"class": "TEMPORAL_SENSORY_TRAJECTORY", "may_support": "observed time-bound transitions", "cannot_support": "interpolated or volatility-predicted perception"},
+    {"class": "PLUME_HEADSPACE_SPATIAL_MODEL", "may_support": "release and transport hypotheses", "cannot_support": "perceived depth, projection, or liking without a qualified human protocol"},
+    {"class": "ARCHITECTURE_TOPOLOGY_GRAPH", "may_support": "target-linked functions, hierarchy, contrast, and controlled ablations", "cannot_support": "sensory success without observations"},
+    {"class": "HEDONIC_PREFERENCE_MODEL", "may_support": "scoped criterion-specific utilities from blinded comparisons", "cannot_support": "universal beauty, composition-derived liking, or cross-scope preference"}
+  ],
+  "system_families": [
+    {"id": "G01", "name": "Citrus terpenic", "primary_endpoints": ["target citrus identity", "peel-to-heart facet continuity", "cleaner drift"], "critical_failure": "ingredient availability selects the target"},
+    {"id": "G02", "name": "Aldehydic", "primary_endpoints": ["shimmer", "abstraction", "waxy harshness"], "critical_failure": "intensity is called richness"},
+    {"id": "G03", "name": "Aromatic herbs and lavender", "primary_endpoints": ["aromatic identity", "top-heart continuity", "medicinal drift"], "critical_failure": "generic fougere replaces the target"},
+    {"id": "G04", "name": "Spices", "primary_endpoints": ["temperature contrast", "kinetic bridge", "culinary literalness"], "critical_failure": "spice count is called complexity"},
+    {"id": "G05", "name": "Violet ionones", "primary_endpoints": ["violet recognizer", "powder-wood mobility", "candy drift"], "critical_failure": "ionone identity is inferred from a note label"},
+    {"id": "G06", "name": "Orris irones and rhizome", "primary_endpoints": ["root-flower separation", "wax and rhizome texture", "late violet-root identity"], "critical_failure": "iris flower and orris root are collapsed"},
+    {"id": "G07", "name": "Rose floral", "primary_endpoints": ["living petal", "stem-spice coloration", "jam or soap drift"], "critical_failure": "rose materials are treated as interchangeable"},
+    {"id": "G08", "name": "Jasmine and white floral", "primary_endpoints": ["jasmine recognizer", "living indolic depth", "generic floral cloud"], "critical_failure": "diffusion alone is called jasmine identity"},
+    {"id": "G09", "name": "Muguet, magnolia, and floral air", "primary_endpoints": ["subject recognizer", "negative space", "detergent drift"], "critical_failure": "distinct flower subjects are collapsed into floral air"},
+    {"id": "G10", "name": "Green leaf and stem", "primary_endpoints": ["botanical support", "wet stem contrast", "cucumber or lawn drift"], "critical_failure": "green intensity is called naturalism"},
+    {"id": "G11", "name": "Marine, ozonic, and mineral", "primary_endpoints": ["air and mineral space", "cool diffusion", "aquatic detergent drift"], "critical_failure": "computed volatility is called perceived air"},
+    {"id": "G12", "name": "Fruit esters, apple, and pear", "primary_endpoints": ["fruit identity", "peel and juice contrast", "shampoo or candy drift"], "critical_failure": "one ester is treated as a complete fruit accord"},
+    {"id": "G13", "name": "Lactones, stone fruit, and osmanthus", "primary_endpoints": ["flesh versus peel", "tea-suede bridge", "coconut or jam drift"], "critical_failure": "lactonic dose is called richness"},
+    {"id": "G14", "name": "Honey, tobacco, cocoa, coffee, and nuts", "primary_endpoints": ["roasted texture", "bitter-sweet contrast", "syrup or burnt drift"], "critical_failure": "edible density is called hedonism"},
+    {"id": "G15", "name": "Vanilla, tonka, heliotrope, and powder", "primary_endpoints": ["powder texture", "warmth and rounding", "frosting or candle drift"], "critical_failure": "sweetness is substituted for liking"},
+    {"id": "G16", "name": "Cedar, vetiver, patchouli, and root woods", "primary_endpoints": ["grain integrity", "root-earth differentiation", "pencil or mud drift"], "critical_failure": "wood count or dose is called depth"},
+    {"id": "G17", "name": "Sandalwood and creamy woods", "primary_endpoints": ["creamy-dark texture contrast", "fiber continuity", "buttery monolith"], "critical_failure": "one powerful sandalwood material dominates without target evidence"},
+    {"id": "G18", "name": "Transparent woods", "primary_endpoints": ["spatial relief", "transparent grain", "wood-cloud collapse"], "critical_failure": "diffusion is called three-dimensional depth"},
+    {"id": "G19", "name": "Ambergris and amberwoods", "primary_endpoints": ["mineral late skeleton", "dry pressure", "scratch or amber wall"], "critical_failure": "persistence is called richness"},
+    {"id": "G20", "name": "Macrocyclic and clean musks", "primary_endpoints": ["precise skin or textile function", "detail preservation", "laundry blur"], "critical_failure": "musk layering without distinct nonredundant roles"},
+    {"id": "G21", "name": "Polycyclic, nitro, and powdery musks", "primary_endpoints": ["exception-specific powder or warmth", "detail preservation", "laundry fog"], "critical_failure": "Tonalide, Macrolide, or Musk Ketone enters without an explicit exception"},
+    {"id": "G22", "name": "Resins, incense, benzoin, and moss", "primary_endpoints": ["resin identity", "smoke-balsam evolution", "sticky candle or medicinal drift"], "critical_failure": "storax, myrrh, benzoin, frankincense, and olibanum are treated as aliases"},
+    {"id": "G23", "name": "Suede, leather, smoke, and animalic", "primary_endpoints": ["tactile shadow", "animalic contrast", "burnt rubber or barnyard drift"], "critical_failure": "shock value is called depth"}
+  ],
+  "floral_restoration": {
+    "prior_canonical_state": "BLOCKED_EXTERNAL_FOUNDATION",
+    "current_rebuild_state": "NONRUNTIME_RESTORATION_CORPUS_READY",
+    "common_spine_slots": 12,
+    "prior_subject_families": ["immortelle", "iris_flower", "jasmine", "lavender", "muguet", "orris_root", "osmanthus", "rose", "tuberose"],
+    "required_subject_expansions": ["magnolia", "mimosa", "ylang_ylang", "orange_blossom_neroli", "violet_flower", "violet_leaf_primary", "peony_evidence_contingent", "narcissus_evidence_contingent"],
+    "combination_orders_represented": [1, 2, 3, 4],
+    "automatic_formula_generation": false,
+    "required_endpoints": ["subject recognizer", "living petal mechanism", "volume without identity erasure", "leaf stem calyx", "environmental membrane", "family-specific texture", "subordinate coloration", "dark or root depth", "floral-to-base bridge", "musk detail preservation", "temporal handoff", "late subject-specific residue"],
+    "claim_ceiling": "STRUCTURAL_HYPOTHESIS_AND_EXPERIMENT_DESIGN_ONLY"
+  },
+  "reference_architectures": [
+    {
+      "id": "DHP_2025_WOOD_IRIS",
+      "name": "Dior Homme Parfum 2025",
+      "source_type": "OFFICIAL_PRODUCT_DESCRIPTION",
+      "source_url": "https://www.dior.com/en_ca/beauty/products/dior-homme-parfum-C099700665.html",
+      "evidence_class": "HYPOTHESIS_ONLY",
+      "hypothesis_axes": ["iris root versus flower", "airy versus intense", "powder softness versus amber-wood pressure", "patchouli-vetiver-coumarin-hay continuity"],
+      "required_observations": ["root-flower separation", "foreground-background hierarchy", "wood grain integrity", "late iris identity", "target fidelity", "liking as a separate criterion"]
+    },
+    {
+      "id": "AMOUAGE_OPUS_V",
+      "name": "Amouage Opus V Woods Symphony",
+      "source_type": "OFFICIAL_PRODUCT_DESCRIPTION",
+      "source_url": "https://amouage.com/en-uk/products/opus-v-woods-symphony",
+      "evidence_class": "HYPOTHESIS_ONLY",
+      "hypothesis_axes": ["orris absolute and concrete", "rum opening", "dry woods versus waxy floral body", "oud-civet animalic counterpoint", "dry-mineral versus carnal-soothing tension"],
+      "required_observations": ["orris texture differentiation", "rum-to-heart transition", "floral-wood continuity", "animalic support versus takeover", "late identity", "liking as a separate criterion"]
+    },
+    {
+      "id": "AMOUAGE_REFLECTION_MAN",
+      "name": "Amouage Reflection Man",
+      "source_type": "OFFICIAL_PRODUCT_DESCRIPTION",
+      "source_url": "https://amouage.com/en-uk/products/reflection-man-100ml",
+      "evidence_class": "HYPOTHESIS_ONLY",
+      "hypothesis_axes": ["aromatic bitter-orange-leaf opening", "neroli-orris-jasmine-ylang floral heart", "transparent floral-to-vetiver-patchouli-sandalwood-cedar handoff"],
+      "required_observations": ["heart subject legibility", "neroli role", "negative space", "floral-to-wood bridge", "late detail preservation"]
+    },
+    {
+      "id": "AMOUAGE_INTERLUDE_MAN",
+      "name": "Amouage Interlude Man",
+      "source_type": "OFFICIAL_PRODUCT_DESCRIPTION",
+      "source_url": "https://amouage.com/en-ca/products/interlude-man-100ml",
+      "evidence_class": "HYPOTHESIS_ONLY",
+      "hypothesis_axes": ["spice and aromatic disruption", "amber-frankincense-cistus-opoponax resin heart", "leather-agarwood-smoke-patchouli-sandalwood base", "chaos-to-harmony transition"],
+      "required_observations": ["resin identities", "smoke layering", "dense but differentiated hierarchy", "muddiness", "late harmony", "liking as a separate criterion"]
+    },
+    {
+      "id": "AMOUAGE_PURPOSE",
+      "name": "Amouage Purpose",
+      "source_type": "OFFICIAL_PRODUCT_DESCRIPTION",
+      "source_url": "https://amouage.com/products/100ml-purpose",
+      "evidence_class": "HYPOTHESIS_ONLY",
+      "hypothesis_axes": ["frankincense and spice sparks", "rose-sand-vetiver-sandalwood-papyrus vertical wood", "saffron-suede-akigalawood mineral base"],
+      "required_observations": ["vertical hierarchy", "mineral wood identity", "incense-to-root handoff", "dry-creamy contrast", "suede support versus takeover"]
+    }
+  ],
+  "scientific_sources": [
+    {"id": "DAVIDSON_1970", "url": "https://doi.org/10.1080/01621459.1970.10481082", "operative_use": "tie-aware paired comparison"},
+    {"id": "LAPID_2008", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2533422/", "operative_use": "mixture pleasantness requires psychophysical component and intensity evidence"},
+    {"id": "KERMEN_2011", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3244502/", "operative_use": "bounded monomolecular association; explicitly not perfume depth or liking authority"},
+    {"id": "SNITZ_2013", "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003184", "operative_use": "mixture perceptual geometry without universal beauty inference"},
+    {"id": "THOMAS_DANGUIN_2014", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4040494/", "operative_use": "mixture suppression, masking, and configural processing boundary"},
+    {"id": "WEISS_2012", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3523876/", "operative_use": "many-component convergence and count trap"}
+  ],
+  "required_falsifications": {
+    "architectural": ["count inflation", "redundant addition", "target inventory inversion", "unsupported uniqueness", "incomplete n-ary arms", "Neroli primary misuse", "musk exception without design call"],
+    "temporal": ["resolved no-next-test", "one exact missing cell", "conflicted duplicate", "order imbalance", "unqualified within-sniff", "temporal scope mismatch"],
+    "preference": ["label permutation", "tie injection", "row versus assessor-cluster reversal", "one-assessor influence", "temporal aggregate reversal", "carryover constraint", "group leakage", "poor held-out calibration", "active policy burden", "OAV and product-narrative ablation"]
+  },
+  "authority": {
+    "compounding": false,
+    "formula": false,
+    "inventory_mutation": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}
