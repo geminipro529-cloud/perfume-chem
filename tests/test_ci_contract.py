@@ -33,7 +33,7 @@ def test_hosted_github_actions_workflow_is_pinned_and_fail_closed():
     assert workflow["concurrency"]["cancel-in-progress"] is True
 
     action_revisions = re.findall(r"uses:\s+[^@\s]+@([0-9a-f]{40})", workflow_text)
-    assert len(action_revisions) == 3
+    assert len(action_revisions) == 4
 
     verify_steps = workflow["jobs"]["verify"]["steps"]
     verify_commands = "\n".join(
@@ -42,7 +42,14 @@ def test_hosted_github_actions_workflow_is_pinned_and_fail_closed():
     assert "poetry run pytest --cov=app" in verify_commands
     assert "poetry run pip-audit --local --skip-editable" in verify_commands
     assert "project-verify --json" in verify_commands
-    assert workflow["jobs"]["container-build"]["needs"] == "verify"
+    container_job = workflow["jobs"]["container-build"]
+    container_commands = "\n".join(
+        str(step.get("run", "")) for step in container_job["steps"]
+    )
+    assert container_job["needs"] == "verify"
+    assert "docker build --file backend/Dockerfile" in container_commands
+    assert "engine.project_verification docker-smoke" in container_commands
+    assert "--timeout-seconds 90" in container_commands
 
 
 def test_quick_project_verification_runs_before_push():

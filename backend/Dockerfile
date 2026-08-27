@@ -30,6 +30,8 @@ COPY --from=builder /app/backend/.venv /app/backend/.venv
 COPY engine /app/engine
 COPY data /app/data
 COPY backend/app /app/backend/app
+COPY backend/alembic /app/backend/alembic
+COPY backend/alembic.ini /app/backend/alembic.ini
 COPY backend/config /app/backend/config
 COPY backend/data /app/backend/data
 
