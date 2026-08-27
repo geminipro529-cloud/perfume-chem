@@ -23,13 +23,14 @@ _RUNTIME_STATES = frozenset(
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
 CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
-    "configs/complexity/complexity_module_registry_v7.json"
+    "configs/complexity/complexity_module_registry_v8.json"
 )
 _V5_ARCHITECTURAL_DELTA_SHA256 = (
     "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
 )
 _V6_ARCHITECTURAL_DELTA_SHA256 = _V5_ARCHITECTURAL_DELTA_SHA256
 _V7_ARCHITECTURAL_DELTA_SHA256 = _V6_ARCHITECTURAL_DELTA_SHA256
+_V8_ARCHITECTURAL_DELTA_SHA256 = _V7_ARCHITECTURAL_DELTA_SHA256
 
 
 class ModuleState(str, Enum):
@@ -1234,6 +1235,361 @@ def _load_registry_v7(
     )
 
 
+def _load_registry_v8(
+    project_root: Path,
+    registry_path: Path,
+    raw: bytes,
+    payload: Mapping[str, Any],
+) -> ComplexityRegistry:
+    expected_fields = {
+        "schema_version",
+        "change_class",
+        "base_registry",
+        "benchmark_evidence",
+        "runtime_bindings",
+        "provenance_bindings",
+        "provenance_rebindings",
+        "module_overrides",
+        "authority_flags",
+    }
+    if set(payload) != expected_fields:
+        raise ValueError("V8 registry schema is closed")
+    if payload.get("change_class") != "TOPOLOGY_SCREEN_TOMBSTONES_NO_NEW_ADMISSION":
+        raise ValueError("V8 change class is invalid")
+
+    base_record = payload.get("base_registry")
+    if not isinstance(base_record, dict) or set(base_record) != {"path", "sha256"}:
+        raise ValueError("V8 base registry must be one closed record")
+    if base_record.get("path") != "complexity_module_registry_v7.json":
+        raise ValueError("V8 must overlay the frozen V7 registry")
+    base_path = registry_path.parent / "complexity_module_registry_v7.json"
+    base_digest = _nonblank(base_record.get("sha256"), "V8 base registry sha256")
+    if (
+        not _SHA256.fullmatch(base_digest)
+        or not base_path.is_file()
+        or hashlib.sha256(base_path.read_bytes()).hexdigest() != base_digest
+    ):
+        raise ValueError("V8 base registry hash mismatch")
+    frozen_v7 = json.loads(base_path.read_text(encoding="utf-8"))
+    if (
+        not isinstance(frozen_v7, Mapping)
+        or frozen_v7.get("schema_version") != "complexity_module_registry_v7"
+    ):
+        raise ValueError("V8 base registry must be the frozen V7 overlay")
+    v7_base_record = frozen_v7.get("base_registry")
+    if (
+        not isinstance(v7_base_record, Mapping)
+        or v7_base_record.get("path") != "complexity_module_registry_v3.json"
+    ):
+        raise ValueError("V8 frozen V7 overlay must reconstruct from V3")
+    v3_path = registry_path.parent / "complexity_module_registry_v3.json"
+    v3_digest = _nonblank(v7_base_record.get("sha256"), "V8 V3 base sha256")
+    if (
+        not _SHA256.fullmatch(v3_digest)
+        or not v3_path.is_file()
+        or hashlib.sha256(v3_path.read_bytes()).hexdigest() != v3_digest
+    ):
+        raise ValueError("V8 frozen V3 base hash mismatch")
+    base = load_complexity_registry(project_root, v3_path)
+    if base.schema_version != "complexity_module_registry_v3":
+        raise ValueError("V8 frozen base must resolve to V3")
+
+    modules = list(base.modules)
+    index_by_id = {item.module_id: index for index, item in enumerate(modules)}
+    v7_overrides = frozen_v7.get("module_overrides")
+    v7_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    if not isinstance(v7_overrides, list):
+        raise ValueError("V8 frozen V7 overrides are missing")
+    for override in v7_overrides:
+        if not isinstance(override, dict) or set(override) != v7_override_fields:
+            raise ValueError("V8 frozen V7 override schema is invalid")
+        module_id = _nonblank(override.get("module_id"), "V8 frozen V7 module_id")
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown frozen V7 module override: {module_id}")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root,
+            row,
+        )
+    if payload.get("authority_flags") != _V3_AUTHORITY_FLAGS:
+        raise ValueError("V8 authority flags must be the exact all-false mapping")
+
+    expected_evidence_paths = {
+        "data/governance/protected_evidence_retest_admission_v1.json",
+        "data/governance/protected_evidence_retest_admission_v1.sha256",
+        "data/governance/topology_xhigh_screen_20260827_v1.json",
+        "data/governance/topology_xhigh_screen_20260827_v1.sha256",
+    }
+    evidence = payload.get("benchmark_evidence")
+    if not isinstance(evidence, list) or len(evidence) != len(expected_evidence_paths):
+        raise ValueError("V8 benchmark evidence must contain exact records")
+    evidence_paths: dict[str, Path] = {}
+    for item in evidence:
+        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+            raise ValueError("V8 benchmark evidence entries are closed")
+        relative = _relative_path(item.get("path"), "V8 benchmark evidence path")
+        digest = _nonblank(item.get("sha256"), "V8 benchmark evidence sha256")
+        path = _inside_root(project_root, relative)
+        if (
+            relative not in expected_evidence_paths
+            or not _SHA256.fullmatch(digest)
+            or not path.is_file()
+            or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+        ):
+            raise ValueError(f"V8 benchmark evidence hash mismatch: {relative}")
+        evidence_paths[relative] = path
+    if set(evidence_paths) != expected_evidence_paths:
+        raise ValueError("V8 benchmark evidence paths must be exact")
+
+    prior_status_path = evidence_paths[
+        "data/governance/protected_evidence_retest_admission_v1.json"
+    ]
+    prior_status = json.loads(prior_status_path.read_text(encoding="utf-8"))
+    if (
+        not isinstance(prior_status, Mapping)
+        or prior_status.get("decision")
+        != "ARCHITECTURAL_ONLY_TEMPORAL_AND_HEDONIC_RETIRED"
+    ):
+        raise ValueError("V8 must preserve the V7 architectural-only decision")
+    prior_dispositions = prior_status.get("module_dispositions")
+    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
+        disposition = (
+            prior_dispositions.get(module_id)
+            if isinstance(prior_dispositions, Mapping)
+            else None
+        )
+        if (
+            not isinstance(disposition, Mapping)
+            or disposition.get("state") != "RETIRED_BENCHMARK_UNDERPERFORMER"
+            or disposition.get("runtime_reachable") is not False
+        ):
+            raise ValueError("V8 must preserve V7 evidence-module retirement")
+
+    receipt_path = evidence_paths[
+        "data/governance/topology_xhigh_screen_20260827_v1.json"
+    ]
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    if (
+        not isinstance(receipt, Mapping)
+        or receipt.get("decision")
+        != "TOPOLOGY_CANDIDATES_RETAINED_AS_PROVENANCE_TOMBSTONES"
+        or receipt.get("confirmation", {}).get("state")
+        != "NOT_RUN_SCREEN_GATE_FAILED"
+        or receipt.get("raw_conversations_committed") is not False
+    ):
+        raise ValueError("V8 receipt must record corrected non-admission")
+    receipt_authority = receipt.get("authority")
+    if not isinstance(receipt_authority, Mapping) or not receipt_authority or any(
+        value is not False for value in receipt_authority.values()
+    ):
+        raise ValueError("V8 receipt authority must remain all false")
+    dispositions = receipt.get("module_dispositions")
+    topology_ids = {
+        "universal-perceptual-topology-core",
+        "perfumery-art-composition-topology-v1",
+        "wood-depth-model-v2",
+    }
+    if not isinstance(dispositions, Mapping) or set(dispositions) != topology_ids:
+        raise ValueError("V8 receipt must cover the exact topology candidates")
+    for disposition in dispositions.values():
+        if (
+            not isinstance(disposition, Mapping)
+            or disposition.get("screen_state") != "FAILED"
+            or disposition.get("runtime_state") != "PROVENANCE_TOMBSTONE"
+            or disposition.get("runtime_reachable") is not False
+        ):
+            raise ValueError("V8 topology candidates must remain tombstoned")
+
+    sidecar_path = evidence_paths[
+        "data/governance/topology_xhigh_screen_20260827_v1.sha256"
+    ]
+    expected_sidecar = (
+        f"{hashlib.sha256(receipt_path.read_bytes()).hexdigest()}  "
+        f"{receipt_path.name}\n"
+    )
+    if sidecar_path.read_text(encoding="utf-8") != expected_sidecar:
+        raise ValueError("V8 receipt sidecar does not bind the receipt")
+
+    def validate_bindings(
+        field_name: str,
+        expected_paths: set[str],
+    ) -> dict[str, Path]:
+        rows = payload.get(field_name)
+        if not isinstance(rows, list) or len(rows) != len(expected_paths):
+            raise ValueError(f"V8 {field_name} must contain exact records")
+        observed: dict[str, Path] = {}
+        for item in rows:
+            if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+                raise ValueError(f"V8 {field_name} entries are closed")
+            relative = _relative_path(item.get("path"), f"V8 {field_name} path")
+            digest = _nonblank(item.get("sha256"), f"V8 {field_name} sha256")
+            path = _inside_root(project_root, relative)
+            if (
+                relative not in expected_paths
+                or not _SHA256.fullmatch(digest)
+                or not path.is_file()
+                or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+            ):
+                raise ValueError(f"V8 {field_name} hash mismatch: {relative}")
+            observed[relative] = path
+        if set(observed) != expected_paths:
+            raise ValueError(f"V8 {field_name} paths must be exact")
+        return observed
+
+    runtime_paths = {
+        "engine/perception/complexity_registry.py",
+        "engine/perception/architectural_delta.py",
+        "engine/solforge/architectural_adapter.py",
+        "engine/solforge/runtime.py",
+        "scripts/intervention_recommend.py",
+    }
+    provenance_paths = {
+        ".gitattributes",
+        "engine/hedonic_evidence.py",
+        "engine/hedonic_model.py",
+        "engine/pipeline/oav_evidence.py",
+        "engine/preference.py",
+        "engine/preference_davidson.py",
+        "engine/preference_validation.py",
+        "engine/sensory/ledger.py",
+        "engine/solforge/adapters.py",
+        "engine/solforge/orchestrator.py",
+        "engine/solforge/protected_evidence.py",
+        "engine/solforge/protected_evidence_corpus.py",
+    }
+    runtime = validate_bindings("runtime_bindings", runtime_paths)
+    provenance = validate_bindings("provenance_bindings", provenance_paths)
+    if set(runtime).intersection(provenance):
+        raise ValueError("V8 runtime and provenance bindings must be disjoint")
+
+    rebindings = payload.get("provenance_rebindings")
+    rebind_fields = {
+        "module_id",
+        "path",
+        "old_sha256",
+        "sha256",
+        "reason",
+    }
+    if not isinstance(rebindings, list) or len(rebindings) != 1:
+        raise ValueError("V8 must declare one provenance line-ending rebinding")
+    rebinding = rebindings[0]
+    if not isinstance(rebinding, dict) or set(rebinding) != rebind_fields:
+        raise ValueError("V8 provenance rebinding schema is closed")
+    module_id = _nonblank(rebinding.get("module_id"), "V8 rebound module_id")
+    relative = _relative_path(rebinding.get("path"), "V8 rebound path")
+    old_digest = _nonblank(rebinding.get("old_sha256"), "V8 rebound old sha256")
+    digest = _nonblank(rebinding.get("sha256"), "V8 rebound sha256")
+    if (
+        module_id != "hedonic-model-future"
+        or relative != "engine/hedonic_model.py"
+        or rebinding.get("reason") != "GIT_CANONICAL_LF_REBIND"
+        or not _SHA256.fullmatch(old_digest)
+        or not _SHA256.fullmatch(digest)
+    ):
+        raise ValueError("V8 provenance rebinding is invalid")
+    module = modules[index_by_id[module_id]]
+    canonical_bytes = provenance[relative].read_bytes()
+    attributes = set(
+        provenance[".gitattributes"].read_text(encoding="utf-8").splitlines()
+    )
+    required_lf_rules = {
+        "/engine/hedonic_model.py text eol=lf",
+        "/data/governance/topology_xhigh_screen*.json text eol=lf",
+        "/data/governance/topology_xhigh_screen*.sha256 text eol=lf",
+    }
+    if (
+        module.path != relative
+        or module.sha256 != old_digest
+        or hashlib.sha256(canonical_bytes).hexdigest() != digest
+        or b"\r\n" in canonical_bytes
+        or not required_lf_rules.issubset(attributes)
+    ):
+        raise ValueError("V8 provenance rebinding must use Git-canonical LF bytes")
+    row = module.as_dict()
+    row.pop("runtime_eligible")
+    row["sha256"] = digest
+    modules[index_by_id[module_id]] = _module_descriptor_from_row(
+        project_root,
+        row,
+    )
+
+    overrides = payload.get("module_overrides")
+    allowed_override_fields = {
+        "module_id",
+        "state",
+        "import_path",
+        "path",
+        "sha256",
+        "evidence_refs",
+        "notes",
+    }
+    if not isinstance(overrides, list) or {
+        item.get("module_id") for item in overrides if isinstance(item, dict)
+    } != topology_ids:
+        raise ValueError("V8 module overrides must cover the exact topology set")
+
+    for override in overrides:
+        if not isinstance(override, dict) or set(override) != allowed_override_fields:
+            raise ValueError("V8 module override schema is closed")
+        module_id = _nonblank(override.get("module_id"), "V8 module_id")
+        if module_id not in index_by_id:
+            raise ValueError(f"unknown V8 module override: {module_id}")
+        if (
+            override.get("state") != "PROVENANCE_TOMBSTONE"
+            or override.get("import_path") is not None
+            or override.get("evidence_refs")
+            != ["data/governance/topology_xhigh_screen_20260827_v1.json"]
+        ):
+            raise ValueError("V8 topology override must be a receipt-bound tombstone")
+        row = modules[index_by_id[module_id]].as_dict()
+        row.pop("runtime_eligible")
+        if override.get("path") != row["path"]:
+            raise ValueError("V8 topology override may not change source path")
+        row.update(override)
+        modules[index_by_id[module_id]] = _module_descriptor_from_row(
+            project_root,
+            row,
+        )
+
+    runtime_modules = tuple(module for module in modules if module.runtime_eligible)
+    if tuple(module.module_id for module in runtime_modules) != (
+        "architectural-delta-engine",
+    ):
+        raise ValueError("V8 may retain only architectural-delta-engine at runtime")
+    architecture = runtime_modules[0]
+    if (
+        architecture.state is not ModuleState.ADMITTED_RUNTIME
+        or architecture.import_path != "engine.perception.architectural_delta"
+        or architecture.sha256 != _V8_ARCHITECTURAL_DELTA_SHA256
+    ):
+        raise ValueError("V8 architectural runtime binding is invalid")
+    for module_id in topology_ids:
+        module = modules[index_by_id[module_id]]
+        if (
+            module.state is not ModuleState.PROVENANCE_TOMBSTONE
+            or module.import_path is not None
+        ):
+            raise ValueError("V8 topology underperformers must remain tombstones")
+
+    return ComplexityRegistry(
+        schema_version="complexity_module_registry_v8",
+        discovery=base.discovery,
+        modules=tuple(modules),
+        artifact_rules=base.artifact_rules,
+        dismissal_rules=base.dismissal_rules,
+        registry_sha256=hashlib.sha256(raw).hexdigest(),
+    )
+
+
 def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     project_root = root.resolve()
     registry_path = path if path.is_absolute() else project_root / path
@@ -1241,6 +1597,8 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    if payload.get("schema_version") == "complexity_module_registry_v8":
+        return _load_registry_v8(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v7":
         return _load_registry_v7(project_root, registry_path, raw, payload)
     if payload.get("schema_version") == "complexity_module_registry_v6":
@@ -1323,8 +1681,8 @@ def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
         project_root,
         project_root / CURRENT_COMPLEXITY_REGISTRY_PATH,
     )
-    if registry.schema_version != "complexity_module_registry_v7":
-        raise ValueError("current complexity runtime must use registry V7")
+    if registry.schema_version != "complexity_module_registry_v8":
+        raise ValueError("current complexity runtime must use registry V8")
     runtime_modules = tuple(item for item in registry.modules if item.runtime_eligible)
     if tuple(item.module_id for item in runtime_modules) != (
         "architectural-delta-engine",

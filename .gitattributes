@@ -9,6 +9,8 @@
 /configs/solforge/** text eol=lf
 /data/benchmarks/solforge/** text eol=lf
 /data/governance/complexity*.json text eol=lf
+/data/governance/topology_xhigh_screen*.json text eol=lf
+/data/governance/topology_xhigh_screen*.sha256 text eol=lf
 /data/governance/solforge*.json text eol=lf
 /data/governance/hedonic_active_path_audit_v1.json text eol=lf
 /data/governance/hedonic_active_path_audit_v1.sha256 text eol=lf
@@ -22,6 +24,7 @@
 /engine/evidence/*.py text eol=lf
 /engine/evidence_contracts.py text eol=lf
 /engine/hedonic_evidence.py text eol=lf
+/engine/hedonic_model.py text eol=lf
 /engine/optimizer/*.py text eol=lf
 /engine/pipeline/*.py text eol=lf
 /engine/physics/model_lifecycle.py text eol=lf

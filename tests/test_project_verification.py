@@ -295,6 +295,12 @@ def test_cross_layer_authority_report_runs_in_backend_dependency_environment():
     )
 
 
+def test_current_complexity_registry_gate_is_in_canonical_verification() -> None:
+    shards = engine_test_shards(PROJECT_ROOT)
+
+    assert "tests/test_complexity_registry_v8.py" in shards["complexity-solforge"]
+
+
 def test_ruff_checks_explicitly_disable_ansi_color():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 

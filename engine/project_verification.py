@@ -165,6 +165,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_complexity_registry_v4.py",
         "tests/test_complexity_registry_v5.py",
         "tests/test_complexity_registry_v6.py",
+        "tests/test_complexity_registry_v8.py",
         "tests/test_complexity_replacement_benchmark.py",
         "tests/test_complexity_xhigh_blocked_freeze_v1.py",
         "tests/test_complexity_xhigh_contract.py",

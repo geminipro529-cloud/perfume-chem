@@ -13,18 +13,19 @@ from engine.perception.complexity_registry import (
 ROOT = Path(__file__).resolve().parents[1]
 V6 = ROOT / "configs/complexity/complexity_module_registry_v6.json"
 V7 = ROOT / "configs/complexity/complexity_module_registry_v7.json"
+V8 = ROOT / "configs/complexity/complexity_module_registry_v8.json"
 
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def test_v7_freezes_retest_failures_with_no_new_admission() -> None:
+def test_current_registry_retains_v7_retest_failures_with_no_new_admission() -> None:
     payload = json.loads(V7.read_text(encoding="utf-8"))
     registry = load_current_complexity_registry(ROOT)
 
     assert payload["change_class"] == "BENCHMARK_RETEST_TOMBSTONES_NO_NEW_ADMISSION"
-    assert registry.schema_version == "complexity_module_registry_v7"
+    assert registry.schema_version == "complexity_module_registry_v8"
     assert {module.module_id for module in registry.modules if module.runtime_eligible} == {
         "architectural-delta-engine"
     }
@@ -45,16 +46,18 @@ def test_v7_freezes_retest_failures_with_no_new_admission() -> None:
     assert census.hash_drift == ()
 
 
-def test_v7_preserves_every_predecessor_and_binds_current_bytes() -> None:
+def test_v8_preserves_the_frozen_v7_predecessor_and_binds_current_bytes() -> None:
     payload = json.loads(V7.read_text(encoding="utf-8"))
+    current = json.loads(V8.read_text(encoding="utf-8"))
     for item in payload["predecessor_registry_chain"]:
         assert _sha256(V7.parent / item["path"]) == item["sha256"]
 
-    runtime_paths = {item["path"] for item in payload["runtime_bindings"]}
-    provenance_paths = {item["path"] for item in payload["provenance_bindings"]}
+    assert _sha256(V7) == current["base_registry"]["sha256"]
+    runtime_paths = {item["path"] for item in current["runtime_bindings"]}
+    provenance_paths = {item["path"] for item in current["provenance_bindings"]}
     assert runtime_paths.isdisjoint(provenance_paths)
     for group in ("runtime_bindings", "provenance_bindings", "benchmark_evidence"):
-        for item in payload[group]:
+        for item in current[group]:
             assert _sha256(ROOT / item["path"]) == item["sha256"]
 
 

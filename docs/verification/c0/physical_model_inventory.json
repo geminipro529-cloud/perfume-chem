@@ -690,7 +690,7 @@
       "claim_impact": "Cannot support population-specific liking or quality claims.",
       "runtime_status": "OPTIMIZER_ADVISORY_RUNTIME",
       "disposition": "Retain as legacy design heuristic only; C9 requires panel protocol and held-out validation.",
-      "source_sha256": {"engine/hedonic_model.py": "6761d10c9efe75db2cfa1830b9791d819ca65b8aca98fe895d34c2fd0b8c059e"}
+      "source_sha256": {"engine/hedonic_model.py": "008fc90507c488a886770dadb68e249c8dbc588853a5390fd7ae84003fbfe429"}
     },
     {
       "id": "C0-PM-039",

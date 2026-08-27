@@ -1,0 +1,161 @@
+{
+  "schema_version": "complexity_module_registry_v8",
+  "change_class": "TOPOLOGY_SCREEN_TOMBSTONES_NO_NEW_ADMISSION",
+  "base_registry": {
+    "path": "complexity_module_registry_v7.json",
+    "sha256": "d4a5978e52a8f6eb295c7dc43289c75936c4e7623a395587bd6afe0e77dc3cd4"
+  },
+  "benchmark_evidence": [
+    {
+      "path": "data/governance/protected_evidence_retest_admission_v1.json",
+      "sha256": "71e1f57b16847bd647fb6196f25622c2a236d005e01e48765ca0bccb72900de7"
+    },
+    {
+      "path": "data/governance/protected_evidence_retest_admission_v1.sha256",
+      "sha256": "c945daf1205f32f0127697615da17d66b068cdf5400a00974ce7f8a88d268ad5"
+    },
+    {
+      "path": "data/governance/topology_xhigh_screen_20260827_v1.json",
+      "sha256": "07c192c3288bbc0f15948366dd36a76fc7e9ee302f459145c454c03adba3da0e"
+    },
+    {
+      "path": "data/governance/topology_xhigh_screen_20260827_v1.sha256",
+      "sha256": "14c0ed5e0b6320b9e20c9014763ded84e087c12a2e5c6d29b6a39d2d68a1b351"
+    }
+  ],
+  "runtime_bindings": [
+    {
+      "path": "engine/perception/complexity_registry.py",
+      "sha256": "3db2f34170bd1f822d377784a893e98cdcbaa7b3422d1fd892c4bc65e270e088"
+    },
+    {
+      "path": "engine/perception/architectural_delta.py",
+      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+    },
+    {
+      "path": "engine/solforge/architectural_adapter.py",
+      "sha256": "d359e62d9a070ee75b34eae10416f4e7c5172061d9382098c03b3d242bf3558b"
+    },
+    {
+      "path": "engine/solforge/runtime.py",
+      "sha256": "8cce63b86456bf402330d04bdfa060236a7a3e0666570a4c862b7ec641b245fc"
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "abcf6f2f21ea965aedde8f0de531db08058005bcef2b4b57ed1872fb9b59c727"
+    }
+  ],
+  "provenance_bindings": [
+    {
+      "path": ".gitattributes",
+      "sha256": "32404ed010fcdedc9c58de240a7daa0ca6bd9a6878cc63d5800c2142529ee6e0"
+    },
+    {
+      "path": "engine/hedonic_evidence.py",
+      "sha256": "7399761dd5d75ef1914fdedded1da0debc9f4a26a6cd20b101c5ee8078e184f6"
+    },
+    {
+      "path": "engine/hedonic_model.py",
+      "sha256": "008fc90507c488a886770dadb68e249c8dbc588853a5390fd7ae84003fbfe429"
+    },
+    {
+      "path": "engine/pipeline/oav_evidence.py",
+      "sha256": "73d4c4a5a1f3d1010d4bb1849833484e483fe4c6f593a03f9c8f5bc141f2eb7b"
+    },
+    {
+      "path": "engine/preference.py",
+      "sha256": "367dec7de3038f7b930499973db4c2c3a70c0d2f5de53555ffa7a10791fefa01"
+    },
+    {
+      "path": "engine/preference_davidson.py",
+      "sha256": "0575a2b8e1ea8a0fe9265f5be65241afa6e471d137ea58fd06be7d4ea5eaea9a"
+    },
+    {
+      "path": "engine/preference_validation.py",
+      "sha256": "25cf0667fb764fe124a99b812ece5232fda07c5b7fba9f0630d1ad154686ed9c"
+    },
+    {
+      "path": "engine/sensory/ledger.py",
+      "sha256": "2c29e53dbdb04435e4a94d88a15684e7549fdd8dbcfcc4c70d5ef219b8dc03c4"
+    },
+    {
+      "path": "engine/solforge/adapters.py",
+      "sha256": "dac2d10d4c96d2290deb12e5eda822329bf0891492297acbedcfa00009531b15"
+    },
+    {
+      "path": "engine/solforge/orchestrator.py",
+      "sha256": "f10e465d4221e280fc543ea0bbaed8899a6eac36a34b829c891f6f594ee31088"
+    },
+    {
+      "path": "engine/solforge/protected_evidence.py",
+      "sha256": "bebfb4e1564ad8b712bb185e04a020596e7862a7f1095dbcd947de4f5bbebdbe"
+    },
+    {
+      "path": "engine/solforge/protected_evidence_corpus.py",
+      "sha256": "3f264e2d2496338011bc561de95772e306ef476b0517849ee68133b9177fda9d"
+    }
+  ],
+  "provenance_rebindings": [
+    {
+      "module_id": "hedonic-model-future",
+      "path": "engine/hedonic_model.py",
+      "old_sha256": "6761d10c9efe75db2cfa1830b9791d819ca65b8aca98fe895d34c2fd0b8c059e",
+      "sha256": "008fc90507c488a886770dadb68e249c8dbc588853a5390fd7ae84003fbfe429",
+      "reason": "GIT_CANONICAL_LF_REBIND"
+    }
+  ],
+  "module_overrides": [
+    {
+      "module_id": "universal-perceptual-topology-core",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "path": "engine/perception/perceptual_topology.py",
+      "sha256": "968d57d5fe9fe00ad3e830f24cc204bc4523c10067342d239dc27ef88d07e0b1",
+      "evidence_refs": [
+        "data/governance/topology_xhigh_screen_20260827_v1.json"
+      ],
+      "notes": [
+        "Fresh GPT-5.6 Sol Extra High Fast screening produced one of three strict wins against both controls.",
+        "Source remains compatibility and provenance code; no complexity runtime import is exposed."
+      ]
+    },
+    {
+      "module_id": "perfumery-art-composition-topology-v1",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "path": "engine/perception/perfumery_art_topology.py",
+      "sha256": "cb88d4204edb583d687aebe55cda5f0aa0531d85c6d0b005f523dc017da80772",
+      "evidence_refs": [
+        "data/governance/topology_xhigh_screen_20260827_v1.json"
+      ],
+      "notes": [
+        "Fresh GPT-5.6 Sol Extra High Fast screening produced zero of three strict wins against both controls.",
+        "Source remains compatibility and provenance code; no complexity runtime import is exposed."
+      ]
+    },
+    {
+      "module_id": "wood-depth-model-v2",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "path": "engine/perception/wood_depth.py",
+      "sha256": "d8c1efb393ecb1d455f242e4408cd53fb44ab05f8be23d7eaedbe499d6377e06",
+      "evidence_refs": [
+        "data/governance/topology_xhigh_screen_20260827_v1.json"
+      ],
+      "notes": [
+        "Fresh GPT-5.6 Sol Extra High Fast screening produced zero of three strict wins and three treatment critical errors.",
+        "Source remains compatibility and provenance code; no complexity runtime import is exposed."
+      ]
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

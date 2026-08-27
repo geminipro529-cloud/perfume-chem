@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 from openpyxl import Workbook
 
+from engine.perception.complexity_registry import CURRENT_COMPLEXITY_REGISTRY_PATH
 from engine.solforge.contracts import (
     SolForgeCaseState,
     SolForgeCaseV1,
@@ -114,10 +115,7 @@ def test_solforge_no_change_writes_atomic_hash_named_records(
     ).read_bytes() == hypotheses.canonical_bytes()
     decision_file = next(output.glob("decision_receipt_v1--*.json"))
     assert json.loads(decision_file.read_text(encoding="utf-8"))["decision"] == "NO_CHANGE"
-    registry_path = (
-        Path(__file__).resolve().parents[1]
-        / "configs/complexity/complexity_module_registry_v7.json"
-    )
+    registry_path = Path(__file__).resolve().parents[1] / CURRENT_COMPLEXITY_REGISTRY_PATH
     assert manifest["complexity_runtime_registry_sha256"] == hashlib.sha256(
         registry_path.read_bytes()
     ).hexdigest()
