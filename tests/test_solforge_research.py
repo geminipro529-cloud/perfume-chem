@@ -137,7 +137,7 @@ def test_ledger_rejects_duplicate_sources_and_true_authority() -> None:
 def test_seed_manifest_has_all_method_seeds_and_no_claim_authority() -> None:
     payload = json.loads(SEEDS.read_text(encoding="utf-8"))
     assert payload["schema_version"] == "solforge_research_source_seeds_v1"
-    assert len(payload["seeds"]) == 10
+    assert len(payload["seeds"]) == 13
     assert {seed["seed_id"] for seed in payload["seeds"]} == {
         "FRANK-2017",
         "MCCLINTOCK-2020",
@@ -149,6 +149,9 @@ def test_seed_manifest_has_all_method_seeds_and_no_claim_authority() -> None:
         "ISO-8586-2023",
         "ISO-13299-2016",
         "ISO-11136-2014",
+        "LINDLEY-1956",
+        "CHALONER-VERDINELLI-1995",
+        "ATKINSON-FEDOROV-1975",
     }
     assert all(
         seed["authority"] == "METHOD_OR_HYPOTHESIS_ONLY"

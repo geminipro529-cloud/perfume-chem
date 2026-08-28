@@ -81,6 +81,30 @@
       "title": "Sensory analysis — Methodology — General guidance for conducting hedonic tests with consumers in a controlled area",
       "intended_methodological_use": "Public metadata only: keep controlled consumer liking separate from trained-panel description.",
       "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LINDLEY-1956",
+      "stable_identifier": "doi:10.1214/aoms/1177728069",
+      "uri": "https://doi.org/10.1214/aoms/1177728069",
+      "title": "On a Measure of the Information Provided by an Experiment",
+      "intended_methodological_use": "Constrain claims of expected information: Bayesian information gain requires a prior distribution and a predictive experiment model; when those are absent, do not invent outcome probabilities.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "CHALONER-VERDINELLI-1995",
+      "stable_identifier": "doi:10.1214/ss/1177009939",
+      "uri": "https://doi.org/10.1214/ss/1177009939",
+      "title": "Bayesian Experimental Design: A Review",
+      "intended_methodological_use": "Constrain experimental utility to a declared decision problem, prior, likelihood, and utility; prevent an unsupported composite hedonic utility from being smuggled into experiment ranking.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ATKINSON-FEDOROV-1975",
+      "stable_identifier": "doi:10.1093/biomet/62.1.57",
+      "uri": "https://doi.org/10.1093/biomet/62.1.57",
+      "title": "The Design of Experiments for Discriminating Between Two Rival Models",
+      "intended_methodological_use": "Support explicit model-discrimination experiments while preserving the transfer limit from regression-model design to finite predeclared perfume hypotheses.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
     }
   ],
   "authority_flags": {
