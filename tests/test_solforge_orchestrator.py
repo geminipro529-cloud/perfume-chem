@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 from dataclasses import replace
+from types import SimpleNamespace
 
 import pytest
 
@@ -151,6 +152,27 @@ def test_runtime_registry_failure_holds_before_architectural_compilation(
     with pytest.raises(
         runtime.ComplexityRuntimeAdmissionError,
         match="COMPLEXITY_RUNTIME_GATE_FAILED: admitted source drift",
+    ):
+        runtime.run_admitted_solforge(case, hypotheses)
+
+
+def test_runtime_refuses_a_valid_registry_with_no_admitted_replacement(
+    monkeypatch,
+) -> None:
+    runtime = importlib.import_module("engine.solforge.runtime")
+    case = _case()
+    hypotheses = _hypotheses(case)
+    registry = SimpleNamespace(registry_sha256=H, modules=())
+
+    def compile_must_not_run(*_args, **_kwargs):
+        raise AssertionError("architectural compilation ran without admission")
+
+    monkeypatch.setattr(runtime, "load_current_complexity_registry", lambda *_: registry)
+    monkeypatch.setattr(runtime, "run_solforge_shadow", compile_must_not_run)
+
+    with pytest.raises(
+        runtime.ComplexityRuntimeAdmissionError,
+        match="no exact-byte replacement module is currently admitted",
     ):
         runtime.run_admitted_solforge(case, hypotheses)
 

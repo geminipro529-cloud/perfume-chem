@@ -330,6 +330,11 @@ class HeldoutValidationReceipt:
     practical_margin: float
     passed: bool
     leakage_codes: tuple[str, ...]
+    training_group_count: int
+    heldout_group_count: int
+    bootstrap_replicates: int
+    bootstrap_seed: int
+    baseline_probabilities: tuple[float, float, float]
 
     @property
     def authority(self) -> dict[str, bool]:
@@ -349,6 +354,11 @@ class HeldoutValidationReceipt:
             "practical_margin": self.practical_margin,
             "passed": self.passed,
             "leakage_codes": list(self.leakage_codes),
+            "training_group_count": self.training_group_count,
+            "heldout_group_count": self.heldout_group_count,
+            "bootstrap_replicates": self.bootstrap_replicates,
+            "bootstrap_seed": self.bootstrap_seed,
+            "baseline_probabilities": list(self.baseline_probabilities),
             "authority": self.authority,
         }
 
@@ -479,6 +489,212 @@ def validate_heldout(
         practical_margin=config.practical_margin,
         passed=(not leakage_codes and paired_interval[0] > config.practical_margin),
         leakage_codes=leakage_codes,
+        training_group_count=len(training_groups.difference({None})),
+        heldout_group_count=len(heldout_groups.difference({None})),
+        bootstrap_replicates=config.bootstrap_replicates,
+        bootstrap_seed=config.seed,
+        baseline_probabilities=config.baseline_probabilities,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class OrderCarryoverConfig:
+    """Hard design limits for realized order and sequential carryover."""
+
+    maximum_pair_order_count_difference: int = 1
+    maximum_absolute_first_position_effect: float = 0.25
+    require_qualified_carryover: bool = True
+
+    def __post_init__(self) -> None:
+        if (
+            isinstance(self.maximum_pair_order_count_difference, bool)
+            or not isinstance(self.maximum_pair_order_count_difference, int)
+            or self.maximum_pair_order_count_difference < 0
+        ):
+            raise ValueError(
+                "maximum_pair_order_count_difference must be a nonnegative integer"
+            )
+        effect = self.maximum_absolute_first_position_effect
+        if isinstance(effect, bool) or not isinstance(effect, (int, float)):
+            raise TypeError(
+                "maximum_absolute_first_position_effect must be a real number"
+            )
+        effect = float(effect)
+        if not isfinite(effect) or not 0 <= effect <= 1:
+            raise ValueError(
+                "maximum_absolute_first_position_effect must be from zero to one"
+            )
+        object.__setattr__(self, "maximum_absolute_first_position_effect", effect)
+        if not isinstance(self.require_qualified_carryover, bool):
+            raise TypeError("require_qualified_carryover must be boolean")
+
+
+@dataclass(frozen=True, slots=True)
+class OrderCarryoverReceipt:
+    """Observed, not merely planned, order and sequence diagnostics."""
+
+    SCHEMA_VERSION: ClassVar[str] = "order_carryover_receipt_v1"
+    pair_order_counts: tuple[tuple[str, str, int, int], ...]
+    directional_comparison_count: int
+    tie_count: int
+    stratified_first_position_effect: float | None
+    order_imbalanced_pairs: tuple[tuple[str, str], ...]
+    order_confounding_pairs: tuple[tuple[str, str], ...]
+    sequence_failure_codes: tuple[str, ...]
+    carryover_qualified: bool
+    passed: bool
+
+    @property
+    def authority(self) -> dict[str, bool]:
+        return dict(_FALSE_AUTHORITY)
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "pair_order_counts": [list(value) for value in self.pair_order_counts],
+            "directional_comparison_count": self.directional_comparison_count,
+            "tie_count": self.tie_count,
+            "stratified_first_position_effect": self.stratified_first_position_effect,
+            "order_imbalanced_pairs": [list(value) for value in self.order_imbalanced_pairs],
+            "order_confounding_pairs": [
+                list(value) for value in self.order_confounding_pairs
+            ],
+            "sequence_failure_codes": list(self.sequence_failure_codes),
+            "carryover_qualified": self.carryover_qualified,
+            "passed": self.passed,
+            "authority": self.authority,
+        }
+
+    def canonical_bytes(self) -> bytes:
+        return canonical_json_bytes(self.as_dict())
+
+    @property
+    def receipt_sha256(self) -> str:
+        return sha256_hex(self.canonical_bytes())
+
+
+def assess_order_and_carryover(
+    rows: tuple[PairwisePreference, ...],
+    *,
+    config: OrderCarryoverConfig,
+    carryover_qualified: bool,
+) -> OrderCarryoverReceipt:
+    """Audit realized pair orders and the integrity of within-session sequences."""
+
+    if not isinstance(carryover_qualified, bool):
+        raise TypeError("carryover_qualified must be boolean")
+    pair_orders: dict[tuple[str, str], dict[str, int]] = defaultdict(
+        lambda: defaultdict(int)
+    )
+    pair_partition_orders: dict[
+        tuple[tuple[str, str], str], dict[str, int]
+    ] = defaultdict(lambda: defaultdict(int))
+    pair_first_outcomes: dict[tuple[str, str], list[int]] = defaultdict(list)
+    sequence_failures: set[str] = set()
+    directional_count = 0
+    tie_count = 0
+    for row in rows:
+        if row.outcome not in _LIKELIHOOD_OUTCOMES:
+            continue
+        pair = tuple(sorted((row.left_item, row.right_item)))
+        if row.first_presented_item is None:
+            sequence_failures.add("FIRST_PRESENTED_ITEM_MISSING")
+        else:
+            pair_orders[pair][row.first_presented_item] += 1
+            pair_partition_orders[(pair, row.partition or "UNSCOPED")][
+                row.first_presented_item
+            ] += 1
+        if row.outcome is PreferenceOutcome.NO_PREFERENCE:
+            tie_count += 1
+            continue
+        directional_count += 1
+        if row.first_presented_item is not None:
+            pair_first_outcomes[pair].append(
+                1 if row.preferred_item == row.first_presented_item else -1
+            )
+
+    pair_order_counts: list[tuple[str, str, int, int]] = []
+    imbalanced: list[tuple[str, str]] = []
+    confounded: list[tuple[str, str]] = []
+    pair_first_effects: list[float] = []
+    for pair in sorted(pair_orders):
+        first_count = pair_orders[pair].get(pair[0], 0)
+        second_count = pair_orders[pair].get(pair[1], 0)
+        pair_order_counts.append((pair[0], pair[1], first_count, second_count))
+        if (
+            first_count == 0
+            or second_count == 0
+            or abs(first_count - second_count)
+            > config.maximum_pair_order_count_difference
+        ):
+            imbalanced.append(pair)
+        outcomes = pair_first_outcomes.get(pair, [])
+        if outcomes and abs(sum(outcomes) / len(outcomes)) == 1.0:
+            confounded.append(pair)
+        if outcomes:
+            pair_first_effects.append(sum(outcomes) / len(outcomes))
+
+    for (pair, _partition), counts in sorted(pair_partition_orders.items()):
+        if counts.get(pair[0], 0) == 0 or counts.get(pair[1], 0) == 0:
+            confounded.append(pair)
+    confounded = sorted(set(confounded))
+
+    first_effect = (
+        round(sum(pair_first_effects) / len(pair_first_effects), 12)
+        if pair_first_effects
+        else None
+    )
+    by_session: dict[tuple[str, str], list[PairwisePreference]] = defaultdict(list)
+    for row in rows:
+        if row.assessor_id is None or row.session_id is None:
+            sequence_failures.add("SESSION_IDENTITY_MISSING")
+            continue
+        by_session[(row.assessor_id, row.session_id)].append(row)
+    has_sequential_exposure = False
+    for session_rows in by_session.values():
+        positions = [row.position_in_session for row in session_rows]
+        if any(position is None for position in positions):
+            sequence_failures.add("SESSION_POSITION_MISSING")
+            continue
+        integer_positions = [int(position) for position in positions if position is not None]
+        if len(integer_positions) != len(set(integer_positions)):
+            sequence_failures.add("DUPLICATE_SESSION_POSITION")
+        if sorted(integer_positions) != list(range(1, len(integer_positions) + 1)):
+            sequence_failures.add("NONCONTIGUOUS_SESSION_SEQUENCE")
+        for row in session_rows:
+            if row.position_in_session == 1:
+                if (
+                    row.previous_presented_item is not None
+                    or row.previous_presented_sample_sha256 is not None
+                ):
+                    sequence_failures.add("UNEXPECTED_PREVIOUS_PRESENTATION")
+                continue
+            has_sequential_exposure = True
+            if row.previous_presented_item is None:
+                sequence_failures.add("PREVIOUS_PRESENTED_ITEM_MISSING")
+            if row.previous_presented_sample_sha256 is None:
+                sequence_failures.add("PREVIOUS_PRESENTED_SAMPLE_MISSING")
+    if (
+        config.require_qualified_carryover
+        and has_sequential_exposure
+        and not carryover_qualified
+    ):
+        sequence_failures.add("CARRYOVER_CONTROL_NOT_QUALIFIED")
+    if first_effect is not None and (
+        abs(first_effect) > config.maximum_absolute_first_position_effect
+    ):
+        sequence_failures.add("FIRST_POSITION_EFFECT_EXCEEDS_LIMIT")
+    passed = not (imbalanced or confounded or sequence_failures)
+    return OrderCarryoverReceipt(
+        pair_order_counts=tuple(pair_order_counts),
+        directional_comparison_count=directional_count,
+        tie_count=tie_count,
+        stratified_first_position_effect=first_effect,
+        order_imbalanced_pairs=tuple(imbalanced),
+        order_confounding_pairs=tuple(confounded),
+        sequence_failure_codes=tuple(sorted(sequence_failures)),
+        carryover_qualified=carryover_qualified,
+        passed=passed,
     )
 
 
@@ -748,8 +964,11 @@ __all__ = [
     "HeldoutValidationReceipt",
     "NextPairConstraints",
     "NextPairReceipt",
+    "OrderCarryoverConfig",
+    "OrderCarryoverReceipt",
     "TransitivityConfig",
     "TransitivityReceipt",
+    "assess_order_and_carryover",
     "assess_transitivity",
     "cluster_bootstrap",
     "select_next_pair",

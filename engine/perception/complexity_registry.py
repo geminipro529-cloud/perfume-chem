@@ -25,8 +25,8 @@ _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
 CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
     "configs/complexity/complexity_module_registry_v5.json"
 )
-_V5_ARCHITECTURAL_DELTA_SHA256 = (
-    "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+_V5_CURRENT_ARCHITECTURAL_DELTA_SHA256 = (
+    "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
 )
 
 
@@ -745,24 +745,30 @@ def _load_registry_v5(
             project_root, row
         )
     runtime_modules = tuple(module for module in modules if module.runtime_eligible)
-    if len(runtime_modules) != 1 or runtime_modules[0].module_id != (
-        "architectural-delta-engine"
-    ):
-        raise ValueError("V5 may admit only architectural-delta-engine")
-    architecture = runtime_modules[0]
+    if runtime_modules:
+        raise ValueError(
+            "V5 current rebuilt candidates must remain runtime-unreachable "
+            "until fresh exact-byte admission"
+        )
+    architecture = modules[index_by_id["architectural-delta-engine"]]
     if (
-        architecture.state is not ModuleState.ADMITTED_RUNTIME
-        or architecture.import_path != "engine.perception.architectural_delta"
-        or architecture.sha256 != _V5_ARCHITECTURAL_DELTA_SHA256
+        architecture.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+        or architecture.import_path is not None
+        or architecture.sha256 != _V5_CURRENT_ARCHITECTURAL_DELTA_SHA256
     ):
-        raise ValueError("V5 architectural runtime binding is invalid")
-    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
-        module = modules[index_by_id[module_id]]
-        if (
-            module.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
-            or module.import_path is not None
-        ):
-            raise ValueError("V5 underperformers must remain runtime-unreachable")
+        raise ValueError("V5 rebuilt architectural candidate binding is invalid")
+    temporal = modules[index_by_id["temporal-sensory-ledger"]]
+    if (
+        temporal.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        or temporal.import_path is not None
+    ):
+        raise ValueError("V5 temporal underperformer must remain runtime-unreachable")
+    hedonic = modules[index_by_id["hedonic-preference-learner"]]
+    if (
+        hedonic.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+        or hedonic.import_path is not None
+    ):
+        raise ValueError("V5 rebuilt hedonic candidate must remain runtime-unreachable")
     advanced_musk = modules[index_by_id["advanced-musk-intelligence"]]
     if (
         advanced_musk.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
@@ -858,7 +864,12 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
 
 
 def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
-    """Load the admitted registry and verify every executable module byte-for-byte."""
+    """Load the current registry and verify every executable module byte-for-byte.
+
+    A development or post-rebuild registry may deliberately contain no executable
+    modules.  Public runtime entry points must still refuse execution until a
+    subsequent exact-byte admission overlay makes the expected module reachable.
+    """
 
     project_root = root.resolve()
     registry = load_complexity_registry(
@@ -868,10 +879,11 @@ def load_current_complexity_registry(root: Path) -> ComplexityRegistry:
     if registry.schema_version != "complexity_module_registry_v5":
         raise ValueError("current complexity runtime must use registry V5")
     runtime_modules = tuple(item for item in registry.modules if item.runtime_eligible)
-    if tuple(item.module_id for item in runtime_modules) != (
-        "architectural-delta-engine",
-    ):
-        raise ValueError("current complexity runtime admits only architectural delta")
+    if runtime_modules:
+        raise ValueError(
+            "current rebuilt complexity candidates are awaiting fresh exact-byte "
+            "admission"
+        )
     for module in runtime_modules:
         source = _inside_root(project_root, module.path)
         if hashlib.sha256(source.read_bytes()).hexdigest() != module.sha256:

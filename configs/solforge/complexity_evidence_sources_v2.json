@@ -771,6 +771,50 @@
     },
     {
       "schema_version": "evidence_source_record_v2",
+      "source_id": "LANCASTER-QUADE-1983",
+      "stable_identifier": "pmid:6871353",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/6871353/",
+      "title": "Random Effects in Paired-Comparison Experiments Using the Bradley-Terry Model",
+      "publication_year": 1983,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "paired-comparison random-effects model for sampled judges",
+      "population": "a sampled population of judges in repeated paired comparisons",
+      "matrix": "abstract paired-comparison treatments",
+      "exposure": "multiple judgments may be supplied by the same judge",
+      "endpoints": [
+        "judge-specific preference variation",
+        "within-judge outcome dependence"
+      ],
+      "result_used": "Repeated judgments from one assessor are correlated and assessor-specific preference variation must not be treated as independent treatment evidence.",
+      "limitations": [
+        "The paper is a statistical method, not a finished-perfume trial.",
+        "It does not establish a universal assessor-count threshold or any formula liking claim."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "cluster uncertainty by assessor and preserve assessor heterogeneity",
+        "do not count repeated judgments as independent population evidence"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
       "source_id": "LAPID-2008",
       "stable_identifier": "doi:10.1093/chemse/bjn026",
       "uri": "https://doi.org/10.1093/chemse/bjn026",
@@ -795,6 +839,52 @@
       "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
       "code_requirements": [
         "withhold formula liking without exact-scope blinded comparisons"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LENOCHOVA-2012",
+      "stable_identifier": "doi:10.1371/journal.pone.0033810",
+      "uri": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033810",
+      "title": "Psychology of Fragrance Use: Perception of Individual Odor and Perfume Blends Reveals a Mechanism for Idiosyncratic Effects on Fragrance Choice",
+      "publication_year": 2012,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "three human experiments comparing body odor, perfume, and perfume-body-odor blends",
+      "population": "odor donors and independent raters in the reported studies",
+      "matrix": "pure perfume, axillary body odor, and donor-specific perfume-body-odor blends",
+      "exposure": "controlled ratings of coded odor samples from declared donors and perfume assignments",
+      "endpoints": [
+        "pleasantness",
+        "attractiveness",
+        "intensity",
+        "donor-by-perfume interaction"
+      ],
+      "result_used": "Perfume pleasantness on its own did not determine the pleasantness of its wearer-specific body-odor blend; skin or wear evidence must bind the wearer and body-odor context.",
+      "limitations": [
+        "The experiments do not validate a general model of perfume beauty.",
+        "The reported body-odor collection protocol does not transfer automatically to ordinary live-skin wear testing."
+      ],
+      "source_tier": "DIRECT_FINE_FRAGRANCE",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind wearer and body-odor context for skin or wear evidence",
+        "prohibit silent transfer from blotter liking to wear acceptance"
       ],
       "primary_source_ids": [],
       "authority_flags": {
@@ -1094,6 +1184,51 @@
       "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
       "code_requirements": [
         "cluster uncertainty by assessor and audit heterogeneity"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "TRISCOLI-2014",
+      "stable_identifier": "doi:10.3389/fpsyg.2014.00526",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/24910630/",
+      "title": "Liking and Wanting Pleasant Odors: Different Effects of Repetitive Exposure in Men and Women",
+      "publication_year": 2014,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "repeated controlled odor-exposure experiment with separate liking and wanting ratings",
+      "population": "18 participants in the reported experiment",
+      "matrix": "three pleasant odors",
+      "exposure": "40 presentations per odor in randomized order with a reported inter-stimulus interval",
+      "endpoints": [
+        "liking",
+        "wanting another exposure",
+        "change across repetitions"
+      ],
+      "result_used": "Liking and wanting-to-resmell are separable responses and may change differently across repeated exposure.",
+      "limitations": [
+        "The sample is small and does not establish universal sex effects.",
+        "The tested odors and repeated laboratory schedule are not a fine-fragrance wear trial."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "keep liking and wanting-to-resmell as separate criteria",
+        "bind exposure count and schedule for repetition-sensitive endpoints"
       ],
       "primary_source_ids": [],
       "authority_flags": {

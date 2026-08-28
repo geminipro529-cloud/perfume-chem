@@ -41,7 +41,7 @@ def test_current_gate_foundation_receipt_is_ready() -> None:
     result = verify_gate_foundation_receipt(ROOT)
     assert result.ready is True
     assert result.blockers == ()
-    assert result.acceptance_sha256 == "c04fb89998105df56a03f4d01f8523ae210a560e0992b7273fef4012dafe2341"
+    assert result.acceptance_sha256 == "e5bdaf4335864e3bebb6694db8039034d12239271c42b221b4bc4244ae78d66d"
 
 
 def test_solforge_refuses_missing_receipt(tmp_path: Path) -> None:

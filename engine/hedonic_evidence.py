@@ -24,8 +24,11 @@ from engine.preference_validation import (
     HeldoutValidationReceipt,
     NextPairConstraints,
     NextPairReceipt,
+    OrderCarryoverConfig,
+    OrderCarryoverReceipt,
     TransitivityConfig,
     TransitivityReceipt,
+    assess_order_and_carryover,
     assess_transitivity,
     cluster_bootstrap,
     select_next_pair,
@@ -65,6 +68,15 @@ class HedonicEvidenceState(str, Enum):
     INVALID_OR_CONFOUNDED = "INVALID_OR_CONFOUNDED"
 
 
+class EvaluationSubstrate(str, Enum):
+    """Physical presentation domain; results never transfer across domains silently."""
+
+    BLOTTER = "BLOTTER"
+    SKIN = "SKIN"
+    AIR = "AIR"
+    APPARATUS = "APPARATUS"
+
+
 def _required_text(value: object, field_name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field_name} must be nonblank text")
@@ -93,6 +105,164 @@ def _unique_text_tuple(values: object, field_name: str) -> tuple[str, ...]:
 
 def _comparison_payload(comparison: PairwisePreference) -> dict[str, Any]:
     return comparison.as_dict()
+
+
+@dataclass(frozen=True, slots=True)
+class PreferenceItemEvidenceBinding:
+    """One immutable item-label to build, sample, and preparation lineage map."""
+
+    item_id: str
+    build_sha256: str
+    sample_sha256: str
+    provenance_manifest_sha256: str
+    sampling_or_dose_receipt_sha256: str
+    batch_id: str
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "item_id", _required_text(self.item_id, "item_id"))
+        object.__setattr__(self, "batch_id", _required_text(self.batch_id, "batch_id"))
+        for name in (
+            "build_sha256",
+            "sample_sha256",
+            "provenance_manifest_sha256",
+            "sampling_or_dose_receipt_sha256",
+        ):
+            object.__setattr__(self, name, _sha256(getattr(self, name), name))
+
+    def as_dict(self) -> dict[str, str]:
+        return {
+            "item_id": self.item_id,
+            "build_sha256": self.build_sha256,
+            "sample_sha256": self.sample_sha256,
+            "provenance_manifest_sha256": self.provenance_manifest_sha256,
+            "sampling_or_dose_receipt_sha256": self.sampling_or_dose_receipt_sha256,
+            "batch_id": self.batch_id,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class SensoryEvaluationContext:
+    """Hash-bound apparatus, application, environment, wear, and carryover scope."""
+
+    context_id: str
+    substrate: EvaluationSubstrate
+    application_protocol_sha256: str
+    environment_sha256: str
+    maturation_state_sha256: str
+    carryover_control_sha256: str
+    carryover_qualified: bool
+    apparatus_sha256: str | None = None
+    wearer_id: str | None = None
+    body_odor_context_sha256: str | None = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self, "context_id", _required_text(self.context_id, "context_id")
+        )
+        object.__setattr__(self, "substrate", EvaluationSubstrate(self.substrate))
+        for name in (
+            "application_protocol_sha256",
+            "environment_sha256",
+            "maturation_state_sha256",
+            "carryover_control_sha256",
+        ):
+            object.__setattr__(self, name, _sha256(getattr(self, name), name))
+        for name in ("apparatus_sha256", "body_odor_context_sha256"):
+            value = getattr(self, name)
+            if value is not None:
+                object.__setattr__(self, name, _sha256(value, name))
+        wearer = (
+            _required_text(self.wearer_id, "wearer_id")
+            if self.wearer_id is not None
+            else None
+        )
+        object.__setattr__(self, "wearer_id", wearer)
+        if not isinstance(self.carryover_qualified, bool):
+            raise TypeError("carryover_qualified must be boolean")
+        if self.substrate is EvaluationSubstrate.SKIN:
+            if wearer is None:
+                raise ValueError("wearer_id is required for SKIN evaluation")
+            if self.body_odor_context_sha256 is None:
+                raise ValueError(
+                    "body_odor_context_sha256 is required for SKIN evaluation"
+                )
+        elif wearer is not None or self.body_odor_context_sha256 is not None:
+            raise ValueError(
+                "wearer and body-odor bindings are valid only for SKIN evaluation"
+            )
+        if (
+            self.substrate is EvaluationSubstrate.APPARATUS
+            and self.apparatus_sha256 is None
+        ):
+            raise ValueError("apparatus_sha256 is required for APPARATUS evaluation")
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "sensory_evaluation_context_v1",
+            "context_id": self.context_id,
+            "substrate": self.substrate.value,
+            "application_protocol_sha256": self.application_protocol_sha256,
+            "environment_sha256": self.environment_sha256,
+            "maturation_state_sha256": self.maturation_state_sha256,
+            "carryover_control_sha256": self.carryover_control_sha256,
+            "carryover_qualified": self.carryover_qualified,
+            "apparatus_sha256": self.apparatus_sha256,
+            "wearer_id": self.wearer_id,
+            "body_odor_context_sha256": self.body_odor_context_sha256,
+            "authority": dict(_HEDONIC_AUTHORITY_FALSE),
+        }
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+@dataclass(frozen=True, slots=True)
+class PreferenceEvidenceAdequacyContract:
+    """Predeclared minimum evidence; passing it is necessary, never sufficient."""
+
+    analysis_plan_sha256: str
+    sampling_frame_sha256: str
+    minimum_assessors: int
+    minimum_directional_training_comparisons: int
+    minimum_heldout_groups: int
+    minimum_heldout_comparisons: int
+    minimum_cluster_bootstrap_replicates: int
+    minimum_heldout_bootstrap_replicates: int
+
+    def __post_init__(self) -> None:
+        for name in ("analysis_plan_sha256", "sampling_frame_sha256"):
+            object.__setattr__(self, name, _sha256(getattr(self, name), name))
+        for name in (
+            "minimum_assessors",
+            "minimum_directional_training_comparisons",
+            "minimum_heldout_groups",
+            "minimum_heldout_comparisons",
+            "minimum_cluster_bootstrap_replicates",
+            "minimum_heldout_bootstrap_replicates",
+        ):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+                raise ValueError(f"{name} must be a positive integer")
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "preference_evidence_adequacy_v1",
+            "analysis_plan_sha256": self.analysis_plan_sha256,
+            "sampling_frame_sha256": self.sampling_frame_sha256,
+            "minimum_assessors": self.minimum_assessors,
+            "minimum_directional_training_comparisons": (
+                self.minimum_directional_training_comparisons
+            ),
+            "minimum_heldout_groups": self.minimum_heldout_groups,
+            "minimum_heldout_comparisons": self.minimum_heldout_comparisons,
+            "minimum_cluster_bootstrap_replicates": (
+                self.minimum_cluster_bootstrap_replicates
+            ),
+            "minimum_heldout_bootstrap_replicates": (
+                self.minimum_heldout_bootstrap_replicates
+            ),
+        }
 
 
 def _fit_request_payload(request: PreferenceFitRequest) -> dict[str, Any]:
@@ -547,6 +717,233 @@ def bind_preference_fit_evidence_v2(
 
 
 @dataclass(frozen=True, slots=True)
+class PreferenceFitEvidenceReceiptV3:
+    """Promotion-capable evidence with exact item, sample, and context lineage."""
+
+    parent_v2: PreferenceFitEvidenceReceiptV2
+    focal_item_id: str
+    item_bindings: tuple[PreferenceItemEvidenceBinding, ...]
+    evaluation_context: SensoryEvaluationContext
+    adequacy_contract: PreferenceEvidenceAdequacyContract
+    order_carryover: OrderCarryoverReceipt
+    item_bindings_sha256: str = field(init=False)
+    adequacy_failure_codes: tuple[str, ...] = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent_v2, PreferenceFitEvidenceReceiptV2):
+            raise TypeError("parent_v2 must be a PreferenceFitEvidenceReceiptV2")
+        if not isinstance(self.evaluation_context, SensoryEvaluationContext):
+            raise TypeError(
+                "evaluation_context must be a SensoryEvaluationContext"
+            )
+        if not isinstance(
+            self.adequacy_contract, PreferenceEvidenceAdequacyContract
+        ):
+            raise TypeError(
+                "adequacy_contract must be a PreferenceEvidenceAdequacyContract"
+            )
+        if not isinstance(self.order_carryover, OrderCarryoverReceipt):
+            raise TypeError("order_carryover must be an OrderCarryoverReceipt")
+        focal = _required_text(self.focal_item_id, "focal_item_id")
+        object.__setattr__(self, "focal_item_id", focal)
+        bindings = tuple(sorted(self.item_bindings, key=lambda value: value.item_id))
+        if not bindings or any(
+            not isinstance(value, PreferenceItemEvidenceBinding) for value in bindings
+        ):
+            raise TypeError(
+                "item_bindings must contain PreferenceItemEvidenceBinding values"
+            )
+        ids = tuple(value.item_id for value in bindings)
+        if len(ids) != len(set(ids)):
+            raise ValueError("item_bindings must contain unique item IDs")
+        rows = self.fit_request.training + self.fit_request.heldout
+        compared_items = {
+            item for row in rows for item in (row.left_item, row.right_item)
+        }
+        if set(ids) != compared_items:
+            raise ValueError("item_bindings must exactly cover compared items")
+        if focal not in compared_items:
+            raise ValueError("focal_item_id must be one of the compared items")
+        binding_samples = tuple(value.sample_sha256 for value in bindings)
+        if len(binding_samples) != len(set(binding_samples)):
+            raise ValueError(
+                "item_bindings must map each compared item to a distinct sample"
+            )
+        if set(binding_samples) != set(self.parent_v2.sample_sha256):
+            raise ValueError(
+                "item binding samples must exactly match the parent sample set"
+            )
+        by_item = {value.item_id: value for value in bindings}
+        if by_item[focal].build_sha256 != self.parent_v2.formula_build_sha256:
+            raise ValueError(
+                "focal item build hash must match the parent formula build hash"
+            )
+        context_sha256 = self.evaluation_context.record_sha256
+        for row in rows:
+            if row.left_sample_sha256 != by_item[row.left_item].sample_sha256:
+                raise ValueError(
+                    f"left sample hash does not match item binding: {row.comparison_id}"
+                )
+            if row.right_sample_sha256 != by_item[row.right_item].sample_sha256:
+                raise ValueError(
+                    f"right sample hash does not match item binding: {row.comparison_id}"
+                )
+            if row.sample_sha256 not in {
+                row.left_sample_sha256,
+                row.right_sample_sha256,
+            }:
+                raise ValueError(
+                    "legacy sample hash must identify the left or right sample: "
+                    f"{row.comparison_id}"
+                )
+            if row.evaluation_context_sha256 != context_sha256:
+                raise ValueError(
+                    "evaluation context hash does not match every comparison"
+                )
+            if row.previous_presented_item is not None:
+                previous = by_item.get(row.previous_presented_item)
+                if previous is None:
+                    raise ValueError(
+                        "previous presented item is absent from item bindings"
+                    )
+                if (
+                    row.previous_presented_sample_sha256
+                    != previous.sample_sha256
+                ):
+                    raise ValueError(
+                        "previous presented sample hash does not match item binding"
+                    )
+        object.__setattr__(self, "item_bindings", bindings)
+        object.__setattr__(
+            self,
+            "item_bindings_sha256",
+            sha256_hex(
+                canonical_json_bytes([value.as_dict() for value in bindings])
+            ),
+        )
+        contract = self.adequacy_contract
+        validation = self.parent_v2.heldout_validation
+        failures: list[str] = []
+        if len(self.assessor_ids) < contract.minimum_assessors:
+            failures.append("ASSESSOR_COUNT_INSUFFICIENT")
+        if (
+            self.fit_result.comparison_count
+            < contract.minimum_directional_training_comparisons
+        ):
+            failures.append("DIRECTIONAL_TRAINING_COMPARISONS_INSUFFICIENT")
+        if validation.heldout_group_count < contract.minimum_heldout_groups:
+            failures.append("HELDOUT_GROUP_COUNT_INSUFFICIENT")
+        if validation.heldout_count < contract.minimum_heldout_comparisons:
+            failures.append("HELDOUT_COMPARISONS_INSUFFICIENT")
+        if (
+            self.parent_v2.cluster_bootstrap.completed_replicates
+            < contract.minimum_cluster_bootstrap_replicates
+        ):
+            failures.append("CLUSTER_BOOTSTRAP_REPLICATES_INSUFFICIENT")
+        if (
+            validation.bootstrap_replicates
+            < contract.minimum_heldout_bootstrap_replicates
+        ):
+            failures.append("HELDOUT_BOOTSTRAP_REPLICATES_INSUFFICIENT")
+        object.__setattr__(
+            self, "adequacy_failure_codes", tuple(sorted(failures))
+        )
+
+    @property
+    def criterion_id(self) -> str:
+        return self.parent_v2.criterion_id
+
+    @property
+    def scope(self) -> HedonicScope:
+        return self.parent_v2.scope
+
+    @property
+    def formula_build_sha256(self) -> str:
+        return self.parent_v2.formula_build_sha256
+
+    @property
+    def sample_sha256(self) -> tuple[str, ...]:
+        return self.parent_v2.sample_sha256
+
+    @property
+    def protocol_sha256(self) -> str:
+        return self.parent_v2.protocol_sha256
+
+    @property
+    def assessor_ids(self) -> tuple[str, ...]:
+        return self.parent_v2.assessor_ids
+
+    @property
+    def repeat_ids(self) -> tuple[str, ...]:
+        return self.parent_v2.repeat_ids
+
+    @property
+    def time_seconds(self) -> float:
+        return self.parent_v2.time_seconds
+
+    @property
+    def schedule_sha256(self) -> str:
+        return self.parent_v2.schedule_sha256
+
+    @property
+    def fit_request(self) -> PreferenceFitRequest:
+        return self.parent_v2.fit_request
+
+    @property
+    def fit_result(self) -> PreferenceFitResult:
+        return self.parent_v2.fit_result
+
+    @property
+    def authority(self) -> dict[str, bool]:
+        return dict(_HEDONIC_AUTHORITY_FALSE)
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "preference_fit_evidence_v3",
+            "parent_v2_sha256": self.parent_v2.record_sha256,
+            "focal_item_id": self.focal_item_id,
+            "item_bindings": [value.as_dict() for value in self.item_bindings],
+            "item_bindings_sha256": self.item_bindings_sha256,
+            "evaluation_context": self.evaluation_context.as_dict(),
+            "evaluation_context_sha256": self.evaluation_context.record_sha256,
+            "adequacy_contract": self.adequacy_contract.as_dict(),
+            "adequacy_failure_codes": list(self.adequacy_failure_codes),
+            "order_carryover": self.order_carryover.as_dict(),
+            "authority": self.authority,
+        }
+
+
+def bind_preference_fit_evidence_v3(
+    parent_v2: PreferenceFitEvidenceReceiptV2,
+    *,
+    focal_item_id: str,
+    item_bindings: tuple[PreferenceItemEvidenceBinding, ...],
+    evaluation_context: SensoryEvaluationContext,
+    adequacy_contract: PreferenceEvidenceAdequacyContract,
+    order_carryover_config: OrderCarryoverConfig,
+) -> PreferenceFitEvidenceReceiptV3:
+    """Bind promotion evidence without inferring liking from formulation features."""
+
+    order_carryover = assess_order_and_carryover(
+        parent_v2.fit_request.training + parent_v2.fit_request.heldout,
+        config=order_carryover_config,
+        carryover_qualified=evaluation_context.carryover_qualified,
+    )
+    return PreferenceFitEvidenceReceiptV3(
+        parent_v2=parent_v2,
+        focal_item_id=focal_item_id,
+        item_bindings=item_bindings,
+        evaluation_context=evaluation_context,
+        adequacy_contract=adequacy_contract,
+        order_carryover=order_carryover,
+    )
+
+
+@dataclass(frozen=True, slots=True)
 class HedonicEvidenceRequest:
     """Exact scope against which one liking fit may be evaluated."""
 
@@ -559,9 +956,16 @@ class HedonicEvidenceRequest:
     repeat_ids: tuple[str, ...]
     time_seconds: float
     schedule_sha256: str
-    fit_receipt: PreferenceFitEvidenceReceiptV1 | PreferenceFitEvidenceReceiptV2 | None = None
+    fit_receipt: (
+        PreferenceFitEvidenceReceiptV1
+        | PreferenceFitEvidenceReceiptV2
+        | PreferenceFitEvidenceReceiptV3
+        | None
+    ) = None
     safety_event_ids: tuple[str, ...] = ()
     maximum_absolute_order_effect: float = 0.25
+    focal_item_id: str | None = None
+    evaluation_context_sha256: str | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -594,6 +998,21 @@ class HedonicEvidenceRequest:
                 for value in self.safety_event_ids
             ),
         )
+        if self.focal_item_id is not None:
+            object.__setattr__(
+                self,
+                "focal_item_id",
+                _required_text(self.focal_item_id, "focal_item_id"),
+            )
+        if self.evaluation_context_sha256 is not None:
+            object.__setattr__(
+                self,
+                "evaluation_context_sha256",
+                _sha256(
+                    self.evaluation_context_sha256,
+                    "evaluation_context_sha256",
+                ),
+            )
         if isinstance(self.time_seconds, bool) or not isinstance(
             self.time_seconds, (int, float)
         ):
@@ -627,12 +1046,17 @@ class HedonicEvidenceResult:
     order_effect: float | None
     blockers: tuple[str, ...]
     limitations: tuple[str, ...]
+    evidence_schema_version: str | None = None
+    focal_item_id: str | None = None
+    evaluation_context_sha256: str | None = None
+    item_bindings_sha256: str | None = None
+    order_carryover_sha256: str | None = None
     universal_preference_authority: bool = field(default=False, init=False)
     release_authority: bool = field(default=False, init=False)
 
     def as_dict(self) -> dict[str, Any]:
         return {
-            "schema_version": "hedonic_evidence_v2",
+            "schema_version": "hedonic_evidence_v3",
             "state": self.state.value,
             "criterion_id": self.criterion_id,
             "scope": self.scope.value,
@@ -645,6 +1069,11 @@ class HedonicEvidenceResult:
             "order_effect": self.order_effect,
             "blockers": self.blockers,
             "limitations": self.limitations,
+            "evidence_schema_version": self.evidence_schema_version,
+            "focal_item_id": self.focal_item_id,
+            "evaluation_context_sha256": self.evaluation_context_sha256,
+            "item_bindings_sha256": self.item_bindings_sha256,
+            "order_carryover_sha256": self.order_carryover_sha256,
             "universal_preference_authority": self.universal_preference_authority,
             "release_authority": self.release_authority,
         }
@@ -684,6 +1113,16 @@ def evaluate_hedonic_evidence(
     for field_name in exact_fields:
         if getattr(request, field_name) != getattr(receipt, field_name):
             blockers.append(f"{field_name} does not match the fit receipt")
+    if isinstance(receipt, PreferenceFitEvidenceReceiptV3):
+        if request.focal_item_id != receipt.focal_item_id:
+            blockers.append("focal_item_id does not match the V3 fit receipt")
+        if (
+            request.evaluation_context_sha256
+            != receipt.evaluation_context.record_sha256
+        ):
+            blockers.append(
+                "evaluation_context_sha256 does not match the V3 fit receipt"
+            )
     if request.safety_event_ids:
         blockers.append("unresolved sensory safety event is present")
     if not receipt.fit_request.require_scoped_validation:
@@ -693,7 +1132,9 @@ def evaluate_hedonic_evidence(
         and abs(receipt.fit_result.order_effect)
         > request.maximum_absolute_order_effect
     ):
-        blockers.append("observed order effect exceeds the declared limit")
+        blockers.append(
+            "ORDER_EFFECT_EXCEEDS_LIMIT: observed order effect exceeds the declared limit"
+        )
     if blockers:
         return _result(
             request,
@@ -703,18 +1144,26 @@ def evaluate_hedonic_evidence(
         )
 
     fit = receipt.fit_result
-    if isinstance(receipt, PreferenceFitEvidenceReceiptV2):
-        if receipt.metadata_missing_codes:
+    v3 = receipt if isinstance(receipt, PreferenceFitEvidenceReceiptV3) else None
+    v2 = (
+        receipt
+        if isinstance(receipt, PreferenceFitEvidenceReceiptV2)
+        else v3.parent_v2
+        if v3 is not None
+        else None
+    )
+    if v2 is not None:
+        if v2.metadata_missing_codes:
             return _result(
                 request,
                 HedonicEvidenceState.INVALID_OR_CONFOUNDED,
                 receipt=receipt,
                 blockers=tuple(
                     f"METADATA_MISSING:{code}"
-                    for code in receipt.metadata_missing_codes
+                    for code in v2.metadata_missing_codes
                 ),
             )
-        if receipt.source_transfer_state not in {"DIRECT", "NARROWER_SCOPE"}:
+        if v2.source_transfer_state not in {"DIRECT", "NARROWER_SCOPE"}:
             return _result(
                 request,
                 HedonicEvidenceState.INVALID_OR_CONFOUNDED,
@@ -724,7 +1173,7 @@ def evaluate_hedonic_evidence(
         if (
             fit.model_family is not PreferenceModelFamily.DAVIDSON_V1
             or not fit.converged
-            or not receipt.davidson_fit.converged
+            or not v2.davidson_fit.converged
         ):
             return _result(
                 request,
@@ -732,47 +1181,85 @@ def evaluate_hedonic_evidence(
                 receipt=receipt,
                 limitations=("DAVIDSON_FIT_REQUIRED",),
             )
-        if receipt.heldout_validation.leakage_codes:
+        if v2.heldout_validation.leakage_codes:
             return _result(
                 request,
                 HedonicEvidenceState.INVALID_OR_CONFOUNDED,
                 receipt=receipt,
-                blockers=receipt.heldout_validation.leakage_codes,
+                blockers=v2.heldout_validation.leakage_codes,
             )
-        if not receipt.heldout_validation.passed:
+        if not v2.heldout_validation.passed:
             return _result(
                 request,
                 HedonicEvidenceState.FAILED_HELDOUT_BASELINE,
                 receipt=receipt,
                 limitations=("PROPER_SCORE_LOWER_BOUND_FAILED",),
             )
-        if not receipt.cluster_bootstrap.stable:
+        if not v2.cluster_bootstrap.stable:
             return _result(
                 request,
                 HedonicEvidenceState.INSUFFICIENT_EVIDENCE,
                 receipt=receipt,
                 limitations=("CLUSTERED_UNCERTAINTY_UNSTABLE",),
             )
-        if receipt.transitivity.global_winner_withheld:
+        if v2.transitivity.global_winner_withheld:
             return _result(
                 request,
                 HedonicEvidenceState.DIAGNOSTIC,
                 receipt=receipt,
-                limitations=(receipt.transitivity.state,),
+                limitations=(v2.transitivity.state,),
             )
-        valid_v2 = (
+        valid_common = (
             fit.criterion_id == "LIKING"
             and fit.connected
-            and receipt.davidson_fit.converged
-            and receipt.heldout_validation.paired_gain_interval[0]
-            > receipt.heldout_validation.practical_margin
+            and v2.davidson_fit.converged
+            and v2.heldout_validation.paired_gain_interval[0]
+            > v2.heldout_validation.practical_margin
         )
-        if not valid_v2:
+        if not valid_common:
             return _result(
                 request,
                 HedonicEvidenceState.INVALID_OR_CONFOUNDED,
                 receipt=receipt,
-                blockers=("V2_VALIDATION_CONTRACT_INCONSISTENT",),
+                blockers=("PROPER_VALIDATION_CONTRACT_INCONSISTENT",),
+            )
+        if v3 is None:
+            return _result(
+                request,
+                HedonicEvidenceState.DIAGNOSTIC,
+                receipt=receipt,
+                limitations=("V3_ITEM_CONTEXT_BINDING_REQUIRED",),
+            )
+        if v3.adequacy_failure_codes:
+            return _result(
+                request,
+                HedonicEvidenceState.INSUFFICIENT_EVIDENCE,
+                receipt=receipt,
+                limitations=v3.adequacy_failure_codes,
+            )
+        if not v3.order_carryover.passed:
+            order_blockers = tuple(
+                sorted(
+                    {
+                        *v3.order_carryover.sequence_failure_codes,
+                        *(
+                            "ORDER_IMBALANCED:"
+                            + "|".join(pair)
+                            for pair in v3.order_carryover.order_imbalanced_pairs
+                        ),
+                        *(
+                            "ORDER_CONFOUNDED:"
+                            + "|".join(pair)
+                            for pair in v3.order_carryover.order_confounding_pairs
+                        ),
+                    }
+                )
+            )
+            return _result(
+                request,
+                HedonicEvidenceState.INVALID_OR_CONFOUNDED,
+                receipt=receipt,
+                blockers=order_blockers or ("ORDER_CARRYOVER_CONTRACT_FAILED",),
             )
         return _result(
             request,
@@ -780,7 +1267,8 @@ def evaluate_hedonic_evidence(
             receipt=receipt,
             limitations=(
                 "Validated only for the bound formula, samples, protocol, assessors, "
-                "sessions, repeats, matrix, time window, order, and population scope.",
+                "sessions, repeats, matrix, time window, substrate, wearer, order, "
+                "carryover controls, and population scope.",
             ),
         )
 
@@ -818,7 +1306,12 @@ def _result(
     request: HedonicEvidenceRequest,
     state: HedonicEvidenceState,
     *,
-    receipt: PreferenceFitEvidenceReceiptV1 | PreferenceFitEvidenceReceiptV2 | None = None,
+    receipt: (
+        PreferenceFitEvidenceReceiptV1
+        | PreferenceFitEvidenceReceiptV2
+        | PreferenceFitEvidenceReceiptV3
+        | None
+    ) = None,
     blockers: tuple[str, ...] = (),
     limitations: tuple[str, ...] = (),
     include_fit: bool = True,
@@ -827,6 +1320,8 @@ def _result(
     utility_intervals = (
         dict(receipt.cluster_bootstrap.utility_intervals)
         if isinstance(receipt, PreferenceFitEvidenceReceiptV2) and include_fit
+        else dict(receipt.parent_v2.cluster_bootstrap.utility_intervals)
+        if isinstance(receipt, PreferenceFitEvidenceReceiptV3) and include_fit
         else dict(fit.utility_intervals)
         if fit is not None
         else {}
@@ -846,17 +1341,52 @@ def _result(
         order_effect=fit.order_effect if fit is not None else None,
         blockers=blockers,
         limitations=limitations,
+        evidence_schema_version=(
+            "preference_fit_evidence_v3"
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV3)
+            else "preference_fit_evidence_v2"
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV2)
+            else "preference_fit_evidence_v1"
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV1)
+            else None
+        ),
+        focal_item_id=(
+            receipt.focal_item_id
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV3)
+            else None
+        ),
+        evaluation_context_sha256=(
+            receipt.evaluation_context.record_sha256
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV3)
+            else None
+        ),
+        item_bindings_sha256=(
+            receipt.item_bindings_sha256
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV3)
+            else None
+        ),
+        order_carryover_sha256=(
+            receipt.order_carryover.receipt_sha256
+            if isinstance(receipt, PreferenceFitEvidenceReceiptV3)
+            else None
+        ),
     )
 
 
 __all__ = [
+    "EvaluationSubstrate",
     "HedonicEvidenceRequest",
     "HedonicEvidenceResult",
     "HedonicEvidenceState",
     "HedonicScope",
+    "PreferenceEvidenceAdequacyContract",
     "PreferenceFitEvidenceReceiptV1",
     "PreferenceFitEvidenceReceiptV2",
+    "PreferenceFitEvidenceReceiptV3",
+    "PreferenceItemEvidenceBinding",
+    "SensoryEvaluationContext",
     "bind_preference_fit_evidence",
     "bind_preference_fit_evidence_v2",
+    "bind_preference_fit_evidence_v3",
     "evaluate_hedonic_evidence",
 ]

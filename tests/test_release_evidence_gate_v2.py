@@ -187,7 +187,8 @@ def test_oav_adapter_preserves_evidence_posture(oav_state, axis_state) -> None:
 @pytest.mark.parametrize(
     ("hedonic_state", "axis_state"),
     [
-        (HedonicEvidenceState.VALIDATED_EXACT_SCOPE, EvidenceAxisState.PASS),
+        # A bare state flag is not proof; only a fully bound V3 result may pass.
+        (HedonicEvidenceState.VALIDATED_EXACT_SCOPE, EvidenceAxisState.INVALID),
         (HedonicEvidenceState.NOT_TESTED, EvidenceAxisState.NOT_TESTED),
         (HedonicEvidenceState.INSUFFICIENT_EVIDENCE, EvidenceAxisState.HOLD),
         (HedonicEvidenceState.DIAGNOSTIC, EvidenceAxisState.HOLD),

@@ -34,7 +34,7 @@ def run_admitted_solforge(
     execution: ExecutionReceiptV1 | None = None,
     project_root: Path | None = None,
 ) -> AdmittedSolForgeRun:
-    """Run SolForge only after exact V5 admission and source-hash verification."""
+    """Run SolForge only after exact current admission and source-hash verification."""
 
     root = (project_root or _PROJECT_ROOT).resolve()
     try:
@@ -46,6 +46,11 @@ def run_admitted_solforge(
     admitted = tuple(
         item.module_id for item in registry.modules if item.runtime_eligible
     )
+    if admitted != ("architectural-delta-engine",):
+        raise ComplexityRuntimeAdmissionError(
+            "COMPLEXITY_RUNTIME_GATE_FAILED: no exact-byte replacement module "
+            "is currently admitted"
+        )
     state = run_solforge_shadow(case, hypotheses, execution=execution)
     return AdmittedSolForgeRun(
         registry_sha256=registry.registry_sha256,

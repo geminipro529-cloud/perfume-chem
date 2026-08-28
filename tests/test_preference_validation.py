@@ -8,7 +8,9 @@ from engine.preference_validation import (
     ClusterBootstrapConfig,
     HeldoutValidationConfig,
     NextPairConstraints,
+    OrderCarryoverConfig,
     TransitivityConfig,
+    assess_order_and_carryover,
     assess_transitivity,
     cluster_bootstrap,
     select_next_pair,
@@ -311,3 +313,126 @@ def test_exploration_pair_selection_is_deterministic_and_order_aware() -> None:
     assert first.canonical_bytes() == second.canonical_bytes()
     assert first.selected_pair is not None
     assert first.reason_code == "EXPLORATION_QUOTA"
+
+
+def test_realized_sequence_requires_previous_item_sample_and_qualified_control() -> None:
+    first = PairwisePreference(
+        "A",
+        "B",
+        "A",
+        comparison_id="s1",
+        assessor_id="p1",
+        session_id="session-sequence",
+        criterion_id="LIKING",
+        first_presented_item="A",
+        position_in_session=1,
+    )
+    second = PairwisePreference(
+        "A",
+        "B",
+        "A",
+        comparison_id="s2",
+        assessor_id="p1",
+        session_id="session-sequence",
+        criterion_id="LIKING",
+        first_presented_item="B",
+        previous_presented_item="B",
+        position_in_session=2,
+    )
+    receipt = assess_order_and_carryover(
+        (first, second),
+        config=OrderCarryoverConfig(require_qualified_carryover=True),
+        carryover_qualified=False,
+    )
+
+    assert receipt.passed is False
+    assert set(receipt.sequence_failure_codes) >= {
+        "PREVIOUS_PRESENTED_SAMPLE_MISSING",
+        "CARRYOVER_CONTROL_NOT_QUALIFIED",
+    }
+
+
+def test_tie_is_indifference_evidence_not_a_directional_order_win() -> None:
+    rows = (
+        PairwisePreference(
+            "A",
+            "B",
+            "A",
+            comparison_id="d1",
+            assessor_id="p1",
+            session_id="session-d1",
+            criterion_id="LIKING",
+            first_presented_item="A",
+            position_in_session=1,
+        ),
+        PairwisePreference(
+            "A",
+            "B",
+            None,
+            comparison_id="t1",
+            assessor_id="p2",
+            session_id="session-t1",
+            criterion_id="LIKING",
+            first_presented_item="B",
+            position_in_session=1,
+        ),
+    )
+    receipt = assess_order_and_carryover(
+        rows,
+        config=OrderCarryoverConfig(),
+        carryover_qualified=True,
+    )
+
+    assert receipt.directional_comparison_count == 1
+    assert receipt.tie_count == 1
+    assert receipt.stratified_first_position_effect == 1.0
+
+
+def test_aggregate_balance_cannot_hide_partition_order_confounding() -> None:
+    rows = tuple(
+        PairwisePreference(
+            "A",
+            "B",
+            "A",
+            comparison_id=f"{partition}-{index}",
+            assessor_id=f"p-{partition}-{index}",
+            session_id=f"s-{partition}-{index}",
+            criterion_id="LIKING",
+            first_presented_item=first,
+            position_in_session=1,
+            partition=partition,
+        )
+        for partition, first in (("TRAINING", "A"), ("HELDOUT", "B"))
+        for index in range(2)
+    )
+    receipt = assess_order_and_carryover(
+        rows,
+        config=OrderCarryoverConfig(maximum_pair_order_count_difference=0),
+        carryover_qualified=True,
+    )
+
+    assert receipt.pair_order_counts == (("A", "B", 2, 2),)
+    assert receipt.order_imbalanced_pairs == ()
+    assert receipt.order_confounding_pairs == (("A", "B"),)
+    assert receipt.passed is False
+
+
+def test_missing_first_presentation_is_an_explicit_order_failure() -> None:
+    row = PairwisePreference(
+        "A",
+        "B",
+        "A",
+        comparison_id="missing-first",
+        assessor_id="p1",
+        session_id="s1",
+        criterion_id="LIKING",
+        position_in_session=1,
+    )
+    receipt = assess_order_and_carryover(
+        (row,),
+        config=OrderCarryoverConfig(),
+        carryover_qualified=True,
+    )
+
+    assert "FIRST_PRESENTED_ITEM_MISSING" in receipt.sequence_failure_codes
+    assert receipt.passed is False

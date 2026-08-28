@@ -51,3 +51,16 @@ def test_family_and_somatosensory_libraries_cannot_authorize_release():
     assert somatic.status == "WARN"
     assert somatic.data["release_authority"] is False
     assert somatic.data["formula_effects"] is None
+
+
+def test_neuroscience_hedonic_gate_is_a_nonruntime_tombstone():
+    state = build_formula_state({"Hedione": 900.0, "Iso E Super": 600.0})
+    result = gates_module._gate_hedonic_neuroscience(
+        state,
+        ReleaseGateConfig(audit_enabled=False),
+    )
+
+    assert result.status == "WARN"
+    assert result.data["runtime_reachable"] is False
+    assert result.data["findings"] is None
+    assert result.data["release_authority"] is False

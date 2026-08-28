@@ -253,6 +253,22 @@ def release_axis_from_hedonic(
     ):
         state = EvidenceAxisState.INVALID
         blockers = (*blockers, "validated liking is missing its fit receipt hash")
+    v3_bindings = (
+        result.evidence_schema_version == "preference_fit_evidence_v3"
+        and result.focal_item_id is not None
+        and result.evaluation_context_sha256 is not None
+        and result.item_bindings_sha256 is not None
+        and result.order_carryover_sha256 is not None
+    )
+    if (
+        result.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE
+        and not v3_bindings
+    ):
+        state = EvidenceAxisState.INVALID
+        blockers = (
+            *blockers,
+            "validated liking is missing V3 item, sample, context, or order binding",
+        )
     payload = result.as_dict()
     scope: dict[str, object] = {
         "formula_sha256": result.formula_build_sha256,
@@ -261,6 +277,14 @@ def release_axis_from_hedonic(
     }
     if result.fit_receipt_sha256 is not None:
         scope["fit_receipt_sha256"] = result.fit_receipt_sha256
+    if result.focal_item_id is not None:
+        scope["focal_item_id"] = result.focal_item_id
+    if result.evaluation_context_sha256 is not None:
+        scope["evaluation_context_sha256"] = result.evaluation_context_sha256
+    if result.item_bindings_sha256 is not None:
+        scope["item_bindings_sha256"] = result.item_bindings_sha256
+    if result.order_carryover_sha256 is not None:
+        scope["order_carryover_sha256"] = result.order_carryover_sha256
     return ReleaseEvidenceAxis(
         axis_id="hedonic_evidence",
         state=state,

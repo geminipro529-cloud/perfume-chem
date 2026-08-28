@@ -45,12 +45,25 @@ def test_future_module_gates_accept_unknown_oav_and_current_api_contracts():
     character = gates_module._gate_character_shifts(state, config)
     musk = gates_module._gate_musk_intelligence(state, config)
 
-    assert balance.status == "PASS"
-    assert "skipped" not in balance.detail.lower()
+    assert balance.status == "WARN"
+    assert balance.data["runtime_reachable"] is False
+    assert balance.data["release_authority"] is False
     assert character.status in {"PASS", "WARN"}
     assert "api mismatch" not in character.detail.lower()
     assert musk.status == "PASS"
     assert "api mismatch" not in musk.detail.lower()
+
+
+def test_retired_hedonic_cards_are_unreachable_from_pipeline_runtime() -> None:
+    report = gate_formula(
+        _trial_fougere(),
+        ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False),
+    )
+    gate_ids = {gate.gate for gate in report.gates}
+
+    assert gate_ids.isdisjoint(
+        {"balance_axes", "family_hedonic", "hedonic_neuroscience"}
+    )
 
 
 def test_edge_case_gate_uses_formula_specific_temperature_factors():
@@ -152,7 +165,7 @@ def _formula(
 
 def _trial_fougere():
     ingredients = {
-        "Cedrat FCF oil Sicilian": 1200.0,
+        "Bergamot FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
@@ -324,7 +337,7 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
 
 | # | Material | Dilution | Amount (uL) | Amount (mL) |
 |---:|---|---:|---:|---:|
-    | 1 | Cedrat FCF oil Sicilian | neat | 1200 | 1.200 |
+    | 1 | Bergamot FCF oil Sicilian | neat | 1200 | 1.200 |
     | 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 0.700 |
     | 3 | Linalyl Acetate | neat | 600 | 0.600 |
     | 4 | Hedione | neat | 900 | 0.900 |

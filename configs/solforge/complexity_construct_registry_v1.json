@@ -80,6 +80,78 @@
       "outcome_vocabulary": ["CORRECT", "INCORRECT", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
       "required_scope_fields": ["contrast_sha256", "chance_baseline", "matrix", "exposure", "protocol_sha256"],
       "forbidden_inferences": ["liking", "no preference", "richness", "depth", "safety", "release"]
+    },
+    {
+      "construct_id": "WANTING_TO_RESMELL",
+      "definition": "Criterion-specific desire for another exposure to the same coded odor after the declared number, spacing, and duration of prior exposures; it is motivational and is not the same response as current liking.",
+      "anchors": ["do not want another exposure", "indifferent about another exposure", "strongly want another exposure"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "exposure_schedule_sha256", "exposure_count", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["liking", "wear acceptance", "fascination", "purchase intent", "beauty", "release"]
+    },
+    {
+      "construct_id": "WEAR_ACCEPTANCE",
+      "definition": "Willingness to wear the exact coded sample under a declared body site, dose, duration, social setting, climate, and wearer/body-odor context after an actual qualified wear exposure.",
+      "anchors": ["would not wear in the declared context", "uncertain or context-dependent", "would willingly wear in the declared context"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "wearer_id", "sample_sha256", "body_odor_context_sha256", "application_protocol_sha256", "wear_context_sha256", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["immediate strip liking", "universal wearability", "purchase intent", "safety", "stability", "release"]
+    },
+    {
+      "construct_id": "COMFORT",
+      "definition": "Reported affective and perceptual ease during a declared exposure, including softness or non-taxing character, measured independently from liking, familiarity, and physical safety.",
+      "anchors": ["uncomfortable or taxing", "neutral", "deeply comfortable"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "exposure_schedule_sha256", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["liking", "familiarity", "safety", "non-irritancy", "therapeutic effect", "release"]
+    },
+    {
+      "construct_id": "FASCINATION",
+      "definition": "Sustained attentional pull, curiosity, or desire to inspect changing facets under a declared observation interval; fascination may coexist with tension or lower comfort and is not liking by another name.",
+      "anchors": ["no attentional pull", "some curiosity", "sustained compelling attention"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "observation_interval_sha256", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["liking", "wanting-to-resmell", "complexity", "quality", "purchase intent", "release"]
+    },
+    {
+      "construct_id": "TENSION",
+      "definition": "Experienced unresolved contrast, pressure, instability, or expectancy within a declared temporal segment; it can be intentional, compelling, neutral, or aversive and therefore carries no fixed hedonic sign.",
+      "anchors": ["no experienced tension", "moderate unresolved tension", "strong unresolved tension"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "endpoint", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["liking", "aversion", "failure", "fascination", "formula mechanism", "release"]
+    },
+    {
+      "construct_id": "RELIEF",
+      "definition": "Experienced release or resolution following a prespecified earlier tension observation in the same qualified temporal sequence; a static low-tension rating is not relief.",
+      "anchors": ["no experienced resolution", "partial release", "strong experienced release"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "antecedent_tension_cell_sha256", "transition_window_sha256", "protocol_sha256"],
+      "forbidden_inferences": ["liking", "comfort", "low intensity", "formula mechanism", "therapeutic effect", "release"]
+    },
+    {
+      "construct_id": "FATIGUE",
+      "definition": "Reported perceptual or evaluative weariness after a declared cumulative exposure schedule; it must be distinguished from adaptation, loss of detectability, boredom, irritation, and declining wanting.",
+      "anchors": ["no fatigue", "moderate fatigue", "severe fatigue"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "exposure_schedule_sha256", "cumulative_exposure", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["adaptation", "detectability", "liking", "wanting-to-resmell", "irritation", "safety", "release"]
+    },
+    {
+      "construct_id": "AVERSION",
+      "definition": "Criterion-specific negative evaluation or avoidance response to the coded sample under the declared context; it is retained explicitly instead of being inferred from a low liking utility.",
+      "anchors": ["no aversion", "moderate avoidance", "strong aversion"],
+      "outcome_vocabulary": ["LOWER", "TIE", "HIGHER", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["criterion_wording_sha256", "assessor_id", "sample_sha256", "exposure_context_sha256", "time_window", "protocol_sha256"],
+      "forbidden_inferences": ["one minus liking", "irritation", "toxicity", "safety", "universal rejection", "release"]
+    },
+    {
+      "construct_id": "PERSISTENCE",
+      "definition": "Continued observed perception of one prespecified sensory endpoint across qualified, matched timepoints for the exact sample and application context.",
+      "anchors": ["endpoint absent", "endpoint intermittently or weakly present", "endpoint clearly present"],
+      "outcome_vocabulary": ["OBSERVED", "MISSING", "CONFLICTED", "CANNOT_JUDGE", "PROTOCOL_ABORT"],
+      "required_scope_fields": ["endpoint", "sample_sha256", "application_protocol_sha256", "assessor_id", "repeat_id", "timepoint", "protocol_sha256"],
+      "forbidden_inferences": ["modeled volatility", "boiling point", "vapor pressure", "OAV trajectory", "longevity claim", "liking", "release"]
     }
   ],
   "authority_flags": {

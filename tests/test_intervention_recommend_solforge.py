@@ -4,6 +4,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from openpyxl import Workbook
@@ -14,6 +15,8 @@ from engine.solforge.contracts import (
     SolHypothesisSetV1,
 )
 from engine.solforge.governance import GateFoundationPreflight
+from engine.solforge.orchestrator import run_solforge_shadow
+from engine.solforge.runtime import ComplexityRuntimeAdmissionError
 from scripts import intervention_recommend
 
 H = "a" * 64
@@ -97,6 +100,17 @@ def test_solforge_no_change_writes_atomic_hash_named_records(
 ) -> None:
     case_path, hypotheses_path, case, hypotheses = solforge_inputs
     output = tmp_path / "published"
+    registry_sha256 = "d" * 64
+    state = run_solforge_shadow(case, hypotheses)
+    monkeypatch.setattr(
+        intervention_recommend,
+        "run_admitted_solforge",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            registry_sha256=registry_sha256,
+            admitted_module_ids=("architectural-delta-engine",),
+            state=state,
+        ),
+    )
     monkeypatch.setattr(
         sys,
         "argv",
@@ -119,15 +133,30 @@ def test_solforge_no_change_writes_atomic_hash_named_records(
     ).read_bytes() == hypotheses.canonical_bytes()
     decision_file = next(output.glob("decision_receipt_v1--*.json"))
     assert json.loads(decision_file.read_text(encoding="utf-8"))["decision"] == "NO_CHANGE"
-    registry_path = (
-        Path(__file__).resolve().parents[1]
-        / "configs/complexity/complexity_module_registry_v5.json"
-    )
-    assert manifest["complexity_runtime_registry_sha256"] == hashlib.sha256(
-        registry_path.read_bytes()
-    ).hexdigest()
+    assert manifest["complexity_runtime_registry_sha256"] == registry_sha256
     assert manifest["complexity_runtime_modules"] == ["architectural-delta-engine"]
     assert manifest["publication_authorized"] is False
+
+
+def test_solforge_current_rebuild_refuses_runtime_before_fresh_admission(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, solforge_inputs
+) -> None:
+    case_path, hypotheses_path, _, _ = solforge_inputs
+    output = tmp_path / "not-published"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "intervention_recommend.py", "--solforge-case", str(case_path),
+            "--solforge-hypotheses", str(hypotheses_path), "--output-dir", str(output),
+        ],
+    )
+    with pytest.raises(
+        ComplexityRuntimeAdmissionError,
+        match="no exact-byte replacement module is currently admitted",
+    ):
+        intervention_recommend.main()
+    assert not output.exists()
 
 
 def test_solforge_refuses_existing_nonempty_output(

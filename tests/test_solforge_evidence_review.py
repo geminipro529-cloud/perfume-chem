@@ -137,6 +137,24 @@ def test_construct_registry_is_closed_and_separates_all_criteria(tmp_path: Path)
         "INTENSITY",
         "FAMILIARITY",
         "DETECTABILITY",
+        "WANTING_TO_RESMELL",
+        "WEAR_ACCEPTANCE",
+        "COMFORT",
+        "FASCINATION",
+        "TENSION",
+        "RELIEF",
+        "FATIGUE",
+        "AVERSION",
+        "PERSISTENCE",
+    )
+    constructs = {item["construct_id"]: item for item in registry["constructs"]}
+    assert "liking" in constructs["WANTING_TO_RESMELL"]["forbidden_inferences"]
+    assert "immediate strip liking" in constructs["WEAR_ACCEPTANCE"][
+        "forbidden_inferences"
+    ]
+    assert any(
+        "ingredient" in value
+        for value in constructs["PERCEIVED_RICHNESS"]["forbidden_inferences"]
     )
     assert registry["authority_flags"] == EVIDENCE_REVIEW_AUTHORITY_FLAGS
 
@@ -158,6 +176,9 @@ def test_source_registry_has_hashable_primary_and_authoritative_records() -> Non
     assert {item.stable_identifier for item in records} >= {
         "doi:10.1080/01621459.1970.10481082",
         "doi:10.1111/j.1745-459x.1989.tb00463.x",
+        "doi:10.1371/journal.pone.0033810",
+        "doi:10.3389/fpsyg.2014.00526",
+        "pmid:6871353",
         "iso:11136:2014",
         "astm:e2263-25",
     }

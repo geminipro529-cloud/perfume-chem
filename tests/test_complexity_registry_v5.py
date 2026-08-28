@@ -20,26 +20,26 @@ V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
 V5 = ROOT / "configs/complexity/complexity_module_registry_v5.json"
 
 
-def test_v5_admits_only_architectural_delta_after_exact_benchmark_gate() -> None:
+def test_v5_withdraws_stale_admission_after_exact_source_rebuild() -> None:
     registry = load_complexity_registry(ROOT, V5)
     assert registry.schema_version == "complexity_module_registry_v5"
 
     architectural = registry.module_by_id("architectural-delta-engine")
-    assert architectural.state is ModuleState.ADMITTED_RUNTIME
-    assert architectural.import_path == "engine.perception.architectural_delta"
-    assert architectural.runtime_eligible is True
+    assert architectural.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+    assert architectural.import_path is None
+    assert architectural.runtime_eligible is False
     assert hashlib.sha256((ROOT / architectural.path).read_bytes()).hexdigest() == (
         architectural.sha256
     )
 
-    for module_id in ("temporal-sensory-ledger", "hedonic-preference-learner"):
-        module = registry.module_by_id(module_id)
-        assert module.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+    temporal = registry.module_by_id("temporal-sensory-ledger")
+    assert temporal.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+    hedonic = registry.module_by_id("hedonic-preference-learner")
+    assert hedonic.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+    for module in (temporal, hedonic):
         assert module.import_path is None
         assert module.runtime_eligible is False
-    assert {module.module_id for module in registry.modules if module.runtime_eligible} == {
-        "architectural-delta-engine"
-    }
+    assert not any(module.runtime_eligible for module in registry.modules)
 
 
 def test_v5_binds_exact_screen_and_confirmation_evidence() -> None:
@@ -141,9 +141,7 @@ def test_current_runtime_loader_verifies_the_admitted_source_hash(
     assert callable(loader), "current runtime registry loader is missing"
 
     live = loader(ROOT)
-    assert [item.module_id for item in live.modules if item.runtime_eligible] == [
-        "architectural-delta-engine"
-    ]
+    assert not [item for item in live.modules if item.runtime_eligible]
 
     project, _ = _copy_v5_project(tmp_path / "source-drift")
     source = project / "engine/perception/architectural_delta.py"
@@ -173,5 +171,5 @@ def test_current_runtime_loader_verifies_the_admitted_source_hash(
     v4_path.write_text(json.dumps(v4_payload), encoding="utf-8")
     payload["base_registry"]["sha256"] = hashlib.sha256(v4_path.read_bytes()).hexdigest()
     payload_path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="architectural runtime binding"):
+    with pytest.raises(ValueError, match="rebuilt architectural candidate binding"):
         loader(project)

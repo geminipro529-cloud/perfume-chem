@@ -8,7 +8,10 @@ from enum import Enum
 from math import isfinite
 from typing import Any, ClassVar, Mapping
 
-from engine.evidence.augmentation import EvidenceDeltaReceiptV1
+from engine.evidence.augmentation import (
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+)
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -658,6 +661,152 @@ class CriterionFitPacketV2(_Record):
 
 
 @dataclass(frozen=True, slots=True)
+class CriterionFitPacketV3(_Record):
+    """Item-, sample-, context-, order-, and adequacy-bound liking packet."""
+
+    SCHEMA_VERSION: ClassVar[str] = "criterion_fit_packet_v3"
+    parent_v2: CriterionFitPacketV2
+    preference_fit_evidence_v3_sha256: str | None
+    evaluation_context_sha256: str | None
+    item_bindings_sha256: str | None
+    order_carryover_sha256: str | None
+    adequacy_contract_sha256: str | None
+    hedonic_state: str
+    evidence_delta_receipt: EvidenceDeltaReceiptV1
+    test_only: bool
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent_v2, CriterionFitPacketV2):
+            raise TypeError("parent_v2 must be a CriterionFitPacketV2")
+        for name in (
+            "preference_fit_evidence_v3_sha256",
+            "evaluation_context_sha256",
+            "item_bindings_sha256",
+            "order_carryover_sha256",
+            "adequacy_contract_sha256",
+        ):
+            object.__setattr__(
+                self, name, _sha(getattr(self, name), name, optional=True)
+            )
+        state = str(_text(self.hedonic_state, "hedonic_state")).upper()
+        if state not in {
+            "VALIDATED_EXACT_SCOPE",
+            "DIAGNOSTIC",
+            "WITHHELD",
+            "FAILED_BASELINE",
+            "NOT_TESTED",
+            "INVALID",
+        }:
+            raise ValueError("hedonic_state is invalid")
+        object.__setattr__(self, "hedonic_state", state)
+        if not isinstance(self.evidence_delta_receipt, EvidenceDeltaReceiptV1):
+            raise TypeError(
+                "evidence_delta_receipt must be an EvidenceDeltaReceiptV1"
+            )
+        if not isinstance(self.test_only, bool):
+            raise TypeError("test_only must be boolean")
+        if self.test_only != self.parent_v2.test_only:
+            raise ValueError("test_only must match parent_v2")
+
+        receipt = self.evidence_delta_receipt
+        if receipt.module_id != "hedonic_preference_v3":
+            raise ValueError(
+                "V3 evidence_delta_receipt module_id must be hedonic_preference_v3"
+            )
+        criterion = self.parent_v2.parent_v1.criterion
+        if receipt.exact_scope.rsplit("/", 1)[-1] != criterion:
+            raise ValueError(
+                "V3 evidence_delta_receipt scope must end with the parent criterion"
+            )
+
+        binding_hashes = (
+            self.preference_fit_evidence_v3_sha256,
+            self.evaluation_context_sha256,
+            self.item_bindings_sha256,
+            self.order_carryover_sha256,
+            self.adequacy_contract_sha256,
+        )
+        present = tuple(value is not None for value in binding_hashes)
+        if any(present) and not all(present):
+            raise ValueError("V3 binding hashes must be all present or all absent")
+        fully_bound = all(present)
+
+        if fully_bound:
+            if receipt.evidence_sha256 != self.preference_fit_evidence_v3_sha256:
+                raise ValueError(
+                    "V3 evidence receipt must bind the V3 preference evidence hash"
+                )
+        else:
+            valid_parent_evidence = {
+                self.parent_v2.parent_v1.preference_result_sha256,
+            }
+            if self.parent_v2.preference_fit_evidence_v2_sha256 is not None:
+                valid_parent_evidence.add(
+                    self.parent_v2.preference_fit_evidence_v2_sha256
+                )
+            if receipt.evidence_sha256 not in valid_parent_evidence:
+                raise ValueError(
+                    "unbound V3 receipt must bind a declared parent evidence hash"
+                )
+
+        if state == "VALIDATED_EXACT_SCOPE":
+            if not fully_bound:
+                raise ValueError(
+                    "VALIDATED_EXACT_SCOPE requires every V3 binding hash"
+                )
+            if receipt.state is not EvidenceAugmentationState.AUGMENT:
+                raise ValueError(
+                    "VALIDATED_EXACT_SCOPE requires an AUGMENT evidence receipt"
+                )
+            required_sources = {value for value in binding_hashes if value is not None}
+            if not required_sources.issubset(receipt.source_binding_sha256):
+                raise ValueError(
+                    "validated V3 receipt must source-bind every V3 evidence hash"
+                )
+        elif receipt.state is EvidenceAugmentationState.AUGMENT:
+            raise ValueError("only VALIDATED_EXACT_SCOPE may AUGMENT")
+
+    def as_dict(self) -> dict[str, object]:
+        return self._envelope(
+            {
+                "parent_v2": self.parent_v2.as_dict(),
+                "preference_fit_evidence_v3_sha256": (
+                    self.preference_fit_evidence_v3_sha256
+                ),
+                "evaluation_context_sha256": self.evaluation_context_sha256,
+                "item_bindings_sha256": self.item_bindings_sha256,
+                "order_carryover_sha256": self.order_carryover_sha256,
+                "adequacy_contract_sha256": self.adequacy_contract_sha256,
+                "hedonic_state": self.hedonic_state,
+                "evidence_delta_receipt": self.evidence_delta_receipt.as_dict(),
+                "test_only": self.test_only,
+            }
+        )
+
+    @classmethod
+    def from_dict(cls, payload: object) -> CriterionFitPacketV3:
+        fields = frozenset(
+            {
+                "parent_v2",
+                "preference_fit_evidence_v3_sha256",
+                "evaluation_context_sha256",
+                "item_bindings_sha256",
+                "order_carryover_sha256",
+                "adequacy_contract_sha256",
+                "hedonic_state",
+                "evidence_delta_receipt",
+                "test_only",
+            }
+        )
+        values = _load(payload, schema_version=cls.SCHEMA_VERSION, fields=fields)
+        values["parent_v2"] = CriterionFitPacketV2.from_dict(values["parent_v2"])
+        values["evidence_delta_receipt"] = EvidenceDeltaReceiptV1.from_dict(
+            values["evidence_delta_receipt"]
+        )
+        return cls(**values)
+
+
+@dataclass(frozen=True, slots=True)
 class DecisionReceiptV1(_Record):
     SCHEMA_VERSION: ClassVar[str] = "decision_receipt_v1"
     case_sha256: str
@@ -742,7 +891,7 @@ class EvidenceDeltaPacketV2(_Record):
 
 __all__ = [
     "AUTHORITY_FLAGS_FALSE", "CompilationState", "CompiledArmV1",
-    "CompiledExperimentV1", "CriterionFitPacketV1", "CriterionFitPacketV2", "DecisionReceiptV1",
+    "CompiledExperimentV1", "CriterionFitPacketV1", "CriterionFitPacketV2", "CriterionFitPacketV3", "DecisionReceiptV1",
     "DecisionState", "EvidenceDeltaPacketV2", "ExecutionReceiptV1", "SolForgeCaseState", "SolForgeCaseV1",
     "SolHypothesisSetV1", "SolHypothesisV1", "TemporalEvidencePacketV1",
 ]

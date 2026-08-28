@@ -2,16 +2,16 @@
   "schema_version": "complexity_module_registry_v5",
   "base_registry": {
     "path": "complexity_module_registry_v4.json",
-    "sha256": "7867ba7f51fc395361e4ff9cd4382545d973d994a979c847ac8559adb16e7231"
+    "sha256": "61766cca1bd8bb2f5074c6ab73661f9ef6310d5014a3e12d61a68e06a7530583"
   },
   "runtime_bindings": [
     {
       "path": "engine/perception/complexity_registry.py",
-      "sha256": "b074dcc82e67e906c062bdb0e46859402e43daf2ec6b1fc16fadcf09c11de7b0"
+      "sha256": "eaade4648d17303faec36207879b7965a716471dd1aefd4088ca3cc11d9405fc"
     },
     {
       "path": "engine/solforge/runtime.py",
-      "sha256": "99dfaed04dbce8950986c01b714727c134342bdace07035707e2550680b37189"
+      "sha256": "ce74bef4cf766f739df9717d972942ad1435acb503469915f0f233d5ec820105"
     },
     {
       "path": "scripts/intervention_recommend.py",
@@ -21,21 +21,24 @@
   "module_overrides": [
     {
       "module_id": "architectural-delta-engine",
-      "state": "ADMITTED_RUNTIME",
-      "import_path": "engine.perception.architectural_delta",
-      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_architectural_delta.py",
+        "tests/test_architecture_strategy_compiler.py",
         "tests/test_solforge_architectural_adapter.py",
+        "docs/depth_architecture/16_strategy_compiler_and_rule_routing.md",
         "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json",
         "data/benchmarks/solforge/replacement_confirmation_v6_r1/confirmation_result.serialized_v2.json",
         "data/benchmarks/solforge/replacement_confirmation_v6_r1/status.serialized_v2.json"
       ],
       "notes": [
-        "Admitted after 5/6 wins against both plain Sol 5.6 xhigh and a length-matched placebo, median paired gain 20 against each, and zero critical errors.",
-        "Admission grants deterministic computational experiment-design routing only; all formula, inventory, physical, sensory, hedonic, safety, purchase, scientific, and release authority remains false."
+        "The predecessor at SHA-256 5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60 earned 5/6 wins against both controls with median paired gain 20 and zero critical errors; that exact historical admission remains provenance only.",
+        "The current joined-inventory and strategy-compiler bytes differ materially, so runtime admission is withdrawn until a completely fresh blinded screen and confirmation pass at the current exact hash.",
+        "All formula, inventory, physical, sensory, hedonic, safety, purchase, scientific, and release authority remains false."
       ]
     },
     {
@@ -57,20 +60,23 @@
     },
     {
       "module_id": "hedonic-preference-learner",
-      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878",
+      "sha256": "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_preference_davidson.py",
         "tests/test_preference_validation.py",
         "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_hedonic_evidence_gate_v3.py",
+        "docs/depth_architecture/17_hedonic_evidence_and_release_rebuild.md",
         "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json"
       ],
       "notes": [
-        "Stopped after screening because it tied plain Sol 5.6 xhigh on two cases and won only the order-confound trap.",
-        "Davidson, clustered validation, and evidence-gate utilities remain provenance and compatibility code; no complexity runtime import is exposed."
+        "The predecessor at SHA-256 55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878 stopped after screening because it tied plain Sol 5.6 xhigh on two cases and won only the order-confound trap; that failure remains a provenance tombstone.",
+        "The V3 rebuild adds exact item/build/sample/context bindings, adequacy thresholds, and realized order/carryover diagnostics, but it is a fresh unvalidated candidate rather than a retroactive repair of the failed benchmark.",
+        "No complexity runtime import or formula, sensory, hedonic, safety, purchase, compounding, scientific, or release authority is exposed."
       ]
     },
     {
@@ -80,7 +86,7 @@
       "sha256": "cc0c789b6930aee2f1043c0c9e8e4a7e5ee319bbea71e419aa377f9c0d623b89",
       "evidence_refs": [],
       "notes": [
-        "Exact current source bytes are rebound only in this additive overlay; every frozen predecessor remains unchanged.",
+        "Exact current source bytes are rebound only in this additive overlay; the frozen V1-V3 registry predecessors remain unchanged.",
         "This future evidence module remains nonruntime and grants no musk-selection, formula, sensory, hedonic, safety, or release authority."
       ]
     }

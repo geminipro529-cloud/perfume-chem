@@ -105,6 +105,8 @@ def test_required_hash_set_covers_gate_foundation_source_and_tests() -> None:
     assert "engine/pipeline/oav_evidence.py" in GATE_FOUNDATION_FILES
     assert "engine/hedonic_evidence.py" in GATE_FOUNDATION_FILES
     assert "engine/pipeline/release_evidence.py" in GATE_FOUNDATION_FILES
+    assert "engine/preference_validation.py" in GATE_FOUNDATION_FILES
+    assert "tests/test_hedonic_evidence_gate_v3.py" in GATE_FOUNDATION_FILES
     assert "tests/test_solforge_gate_foundation_integration.py" in (
         GATE_FOUNDATION_FILES
     )

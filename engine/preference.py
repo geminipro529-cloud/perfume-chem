@@ -33,6 +33,45 @@ class PreferenceModelFamily(str, Enum):
     BRADLEY_TERRY_LEGACY = "BRADLEY_TERRY_LEGACY"
 
 
+def _mapping_text(
+    value: object,
+    field_name: str,
+    *,
+    optional: bool = False,
+) -> str | None:
+    if value is None and optional:
+        return None
+    if not isinstance(value, str):
+        raise TypeError(f"{field_name} must be text")
+    return value
+
+
+def _mapping_real(
+    value: object,
+    field_name: str,
+    *,
+    optional: bool = False,
+) -> float | None:
+    if value is None and optional:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise TypeError(f"{field_name} must be a real number")
+    return float(value)
+
+
+def _mapping_int(
+    value: object,
+    field_name: str,
+    *,
+    optional: bool = False,
+) -> int | None:
+    if value is None and optional:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise TypeError(f"{field_name} must be an integer")
+    return value
+
+
 @dataclass(frozen=True, slots=True)
 class PairwisePreference:
     left_item: str
@@ -52,6 +91,10 @@ class PairwisePreference:
     position_in_session: int | None = None
     protocol_sha256: str | None = None
     sample_sha256: str | None = None
+    left_sample_sha256: str | None = None
+    right_sample_sha256: str | None = None
+    previous_presented_sample_sha256: str | None = None
+    evaluation_context_sha256: str | None = None
     partition: str | None = None
     legacy_outcome_semantics: bool = field(init=False)
 
@@ -123,7 +166,14 @@ class PairwisePreference:
             or self.position_in_session < 1
         ):
             raise ValueError("position_in_session must be a positive integer")
-        for name in ("protocol_sha256", "sample_sha256"):
+        for name in (
+            "protocol_sha256",
+            "sample_sha256",
+            "left_sample_sha256",
+            "right_sample_sha256",
+            "previous_presented_sample_sha256",
+            "evaluation_context_sha256",
+        ):
             value = getattr(self, name)
             if value is None:
                 continue
@@ -152,6 +202,10 @@ class PairwisePreference:
             "position_in_session": self.position_in_session,
             "protocol_sha256": self.protocol_sha256,
             "sample_sha256": self.sample_sha256,
+            "left_sample_sha256": self.left_sample_sha256,
+            "right_sample_sha256": self.right_sample_sha256,
+            "previous_presented_sample_sha256": self.previous_presented_sample_sha256,
+            "evaluation_context_sha256": self.evaluation_context_sha256,
             "partition": self.partition,
         }
         if not self.legacy_outcome_semantics:
@@ -163,85 +217,110 @@ class PairwisePreference:
         if not isinstance(value, Mapping):
             raise TypeError("pairwise preference context must be a mapping")
         return cls(
-            left_item=str(value["left_item"]),
-            right_item=str(value["right_item"]),
-            preferred_item=(
-                str(value["preferred_item"])
-                if value.get("preferred_item") is not None
-                else None
+            left_item=cast(str, _mapping_text(value["left_item"], "left_item")),
+            right_item=cast(
+                str,
+                _mapping_text(value["right_item"], "right_item"),
             ),
-            comparison_id=(
-                str(value["comparison_id"])
-                if value.get("comparison_id") is not None
-                else None
+            preferred_item=_mapping_text(
+                value.get("preferred_item"),
+                "preferred_item",
+                optional=True,
             ),
-            assessor_id=(
-                str(value["assessor_id"])
-                if value.get("assessor_id") is not None
-                else None
+            comparison_id=_mapping_text(
+                value.get("comparison_id"),
+                "comparison_id",
+                optional=True,
             ),
-            protocol_id=(
-                str(value["protocol_id"])
-                if value.get("protocol_id") is not None
-                else None
+            assessor_id=_mapping_text(
+                value.get("assessor_id"),
+                "assessor_id",
+                optional=True,
             ),
-            criterion_id=(
-                str(value["criterion_id"])
-                if value.get("criterion_id") is not None
-                else None
+            protocol_id=_mapping_text(
+                value.get("protocol_id"),
+                "protocol_id",
+                optional=True,
             ),
-            time_seconds=(
-                float(value["time_seconds"])
-                if value.get("time_seconds") is not None
-                else None
+            criterion_id=_mapping_text(
+                value.get("criterion_id"),
+                "criterion_id",
+                optional=True,
             ),
-            first_presented_item=(
-                str(value["first_presented_item"])
-                if value.get("first_presented_item") is not None
-                else None
+            time_seconds=_mapping_real(
+                value.get("time_seconds"),
+                "time_seconds",
+                optional=True,
             ),
-            outcome=(
-                str(value["outcome"]) if value.get("outcome") is not None else None
+            first_presented_item=_mapping_text(
+                value.get("first_presented_item"),
+                "first_presented_item",
+                optional=True,
             ),
-            session_id=(
-                str(value["session_id"])
-                if value.get("session_id") is not None
-                else None
+            outcome=_mapping_text(
+                value.get("outcome"),
+                "outcome",
+                optional=True,
             ),
-            matrix_id=(
-                str(value["matrix_id"])
-                if value.get("matrix_id") is not None
-                else None
+            session_id=_mapping_text(
+                value.get("session_id"),
+                "session_id",
+                optional=True,
             ),
-            time_window_id=(
-                str(value["time_window_id"])
-                if value.get("time_window_id") is not None
-                else None
+            matrix_id=_mapping_text(
+                value.get("matrix_id"),
+                "matrix_id",
+                optional=True,
             ),
-            previous_presented_item=(
-                str(value["previous_presented_item"])
-                if value.get("previous_presented_item") is not None
-                else None
+            time_window_id=_mapping_text(
+                value.get("time_window_id"),
+                "time_window_id",
+                optional=True,
             ),
-            position_in_session=(
-                int(value["position_in_session"])
-                if value.get("position_in_session") is not None
-                else None
+            previous_presented_item=_mapping_text(
+                value.get("previous_presented_item"),
+                "previous_presented_item",
+                optional=True,
             ),
-            protocol_sha256=(
-                str(value["protocol_sha256"])
-                if value.get("protocol_sha256") is not None
-                else None
+            position_in_session=_mapping_int(
+                value.get("position_in_session"),
+                "position_in_session",
+                optional=True,
             ),
-            sample_sha256=(
-                str(value["sample_sha256"])
-                if value.get("sample_sha256") is not None
-                else None
+            protocol_sha256=_mapping_text(
+                value.get("protocol_sha256"),
+                "protocol_sha256",
+                optional=True,
             ),
-            partition=(
-                str(value["partition"])
-                if value.get("partition") is not None
-                else None
+            sample_sha256=_mapping_text(
+                value.get("sample_sha256"),
+                "sample_sha256",
+                optional=True,
+            ),
+            left_sample_sha256=_mapping_text(
+                value.get("left_sample_sha256"),
+                "left_sample_sha256",
+                optional=True,
+            ),
+            right_sample_sha256=_mapping_text(
+                value.get("right_sample_sha256"),
+                "right_sample_sha256",
+                optional=True,
+            ),
+            previous_presented_sample_sha256=_mapping_text(
+                value.get("previous_presented_sample_sha256"),
+                "previous_presented_sample_sha256",
+                optional=True,
+            ),
+            evaluation_context_sha256=_mapping_text(
+                value.get("evaluation_context_sha256"),
+                "evaluation_context_sha256",
+                optional=True,
+            ),
+            partition=_mapping_text(
+                value.get("partition"),
+                "partition",
+                optional=True,
             ),
         )
 

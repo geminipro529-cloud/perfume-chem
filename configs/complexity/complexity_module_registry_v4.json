@@ -19,15 +19,18 @@
       "module_id": "architectural-delta-engine",
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60",
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_architectural_delta.py",
-        "tests/test_solforge_architectural_adapter.py"
+        "tests/test_architecture_strategy_compiler.py",
+        "tests/test_solforge_architectural_adapter.py",
+        "docs/depth_architecture/16_strategy_compiler_and_rule_routing.md"
       ],
       "notes": [
-        "V2 conditional evidence compiler; screening and runtime admission remain pending.",
+        "Rebuilt target-first compiler joined to the exact V5/user-overlay/exact-stock inventory authority; fresh screening and runtime admission remain pending for these exact bytes.",
+        "The previously benchmarked source SHA-256 was 5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60; that historical result cannot admit the current source bytes.",
         "Ingredient count, inventory availability, and product prose grant no target-fit or sensory authority."
       ]
     },
@@ -51,16 +54,19 @@
       "module_id": "hedonic-preference-learner",
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878",
+      "sha256": "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_preference_davidson.py",
         "tests/test_preference_validation.py",
-        "tests/test_hedonic_evidence_gate_v2.py"
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_hedonic_evidence_gate_v3.py",
+        "docs/depth_architecture/17_hedonic_evidence_and_release_rebuild.md"
       ],
       "notes": [
-        "V2 Davidson and assessor-cluster evidence learner; screening and runtime admission remain pending.",
+        "V3 exact-item, exact-build, exact-sample, evaluation-context, order/carryover, and adequacy-bound Davidson learner; fresh screening and runtime admission remain pending for these exact bytes.",
+        "The previously screened V2 source SHA-256 was 55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878; its underperformance remains a provenance tombstone and cannot be erased by the rebuild.",
         "Liking, depth, richness, integration, and target fidelity remain separate exact-scope criteria."
       ]
     },
@@ -68,15 +74,17 @@
       "module_id": "hedonic-evidence-gate-v2",
       "state": "EVIDENCE_ONLY_NOT_ADMITTED",
       "import_path": null,
-      "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c",
+      "sha256": "1a1d148abb2f0a7ca33a6771727b106f42b12ccfc69c0aefbbfe4185f474933f",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_hedonic_evidence_gate_v3.py",
         "tests/test_solforge_evidence_adapters.py"
       ],
       "notes": [
-        "Exact-scope V2 liking gate with deterministic clustered and proper-scoring receipts.",
+        "Compatibility module ID retained while the current source implements the fail-closed V3 exact-sample and evaluation-context evidence chain; V1/V2 receipts remain readable but cannot promote.",
+        "The previous V2 evidence source SHA-256 was 3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c and remains historical provenance.",
         "No composition-derived beauty score or formula, sensory, safety, release, or runtime authority."
       ]
     },
@@ -104,15 +112,15 @@
     },
     {
       "path": "engine/hedonic_evidence.py",
-      "sha256": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c"
+      "sha256": "1a1d148abb2f0a7ca33a6771727b106f42b12ccfc69c0aefbbfe4185f474933f"
     },
     {
       "path": "engine/perception/architectural_delta.py",
-      "sha256": "5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60"
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
     },
     {
       "path": "engine/preference.py",
-      "sha256": "55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878"
+      "sha256": "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60"
     },
     {
       "path": "engine/preference_davidson.py",
@@ -120,7 +128,7 @@
     },
     {
       "path": "engine/preference_validation.py",
-      "sha256": "a5aa2beaf7ab59030b058bd98629ba11280206767359c142159a8f997ba7dd69"
+      "sha256": "992bf59e6f2f79c8201c32d035319b45b62be663e29bafde24035134f3be0fa4"
     },
     {
       "path": "engine/sensory/ledger.py",

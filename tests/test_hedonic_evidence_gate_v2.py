@@ -261,10 +261,11 @@ def test_accuracy_only_v1_fit_cannot_validate_liking() -> None:
     assert "PROPER_SCORING_REQUIRED" in result.blockers
 
 
-def test_validated_v2_liking_fit_is_exact_scope_only() -> None:
+def test_v2_liking_fit_is_diagnostic_until_item_context_binding_exists() -> None:
     receipt = _receipt_v2()
     result = evaluate_hedonic_evidence(_request(fit_receipt=receipt))
-    assert result.state is HedonicEvidenceState.VALIDATED_EXACT_SCOPE
+    assert result.state is HedonicEvidenceState.DIAGNOSTIC
+    assert "V3_ITEM_CONTEXT_BINDING_REQUIRED" in result.limitations
     assert result.utility_intervals == receipt.cluster_bootstrap.utility_intervals
     assert result.tie_rate == 1 / 7
     assert result.scope is HedonicScope.TRAINED_PANEL

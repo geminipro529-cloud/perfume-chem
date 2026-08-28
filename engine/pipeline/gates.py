@@ -2439,92 +2439,23 @@ def _gate_dosing_tables(state: FormulaState, config: ReleaseGateConfig) -> GateR
 
 
 def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """8-axis balance: volatility, hedonic, OAV contrast, transparency, diffusion, material class, cross-family, maceration."""
-    try:
-        from future_modules.balance_axes import evaluate_all_balances
-    except ImportError:
-        return _result("balance_axes", "WARN", "Balance axes not available")
+    """Compatibility tombstone for a retired compensatory score card."""
 
-    try:
-        from engine.name_utils import normalize_name
-        from future_modules.balance_axes import ConcentrationBracket, MarketSegment
-
-        # Compute OAV totals per note tier
-        top_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "top")
-        heart_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "heart")
-        base_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "base")
-
-        # Bracket from config
-        bracket_map = {
-            "EdC": ConcentrationBracket.EDC,
-            "EdT": ConcentrationBracket.EDT,
-            "EdP": ConcentrationBracket.EDP,
-            "Extrait": ConcentrationBracket.EXTRAIT,
-        }
-        bracket = bracket_map.get(config.concentration_bracket, ConcentrationBracket.EDP)
-
-        # Hedonic data: {name: (hedonic_score, oav)}
-        hedonic_data = {}
-        for m in state.materials:
-            name = normalize_name(m.canonical_name or m.name)
-            hedonic_data[name] = (m.oav or 0.0, 0.0)  # hedonic score default 0
-
-        # Segment
-        segment = MarketSegment.MAINSTREAM
-
-        # OAV values and material masses
-        oav_values = [m.oav for m in state.materials if m.oav is not None]
-        material_masses = {
-            normalize_name(m.canonical_name or m.name): m.active_g for m in state.materials
-        }
-
-        # Family
-        from future_modules.balance_axes import FragranceFamily as BAFragranceFamily
-
-        family_map = {
-            "aromatic_fougere": BAFragranceFamily.AROMATIC_FOUGERE,
-            "vetiver_woody": BAFragranceFamily.WOODY_AMBER,
-            "woody_floral_musk": BAFragranceFamily.WOODY_AMBER,
-            "gourmand_floral": BAFragranceFamily.GOURMAND,
-        }
-        family = family_map.get(config.brief, BAFragranceFamily.FLORAL_JASMINE)
-
-        # Material type flags
-        names_lower = {(m.canonical_name or m.name).lower() for m in state.materials}
-        contains_aldehydes = any("aldehyde" in n for n in names_lower)
-        contains_citrus = any(
-            any(token in n for token in ("bergamot", "lemon", "orange", "grapefruit", "lime"))
-            for n in names_lower
-        )
-
-        results = evaluate_all_balances(
-            top_oav,
-            heart_oav,
-            base_oav,
-            bracket,
-            hedonic_data,
-            segment,
-            oav_values,
-            material_masses,
-            family,
-            contains_aldehydes=contains_aldehydes,
-            contains_citrus=contains_citrus,
-        )
-        axes_data = {
-            r.axis_name: {"score": r.score, "status": r.status, "details": r.details}
-            for r in results
-        }
-        return _result(
-            "balance_axes",
-            "PASS",
-            f"{len(results)} axes evaluated",
-            data={
-                "axes": axes_data,
-                "unknown_oav_materials": [m.name for m in state.materials if m.oav is None],
-            },
-        )
-    except Exception as e:
-        return _result("balance_axes", "WARN", f"Balance axes evaluation skipped: {e}")
+    return _result(
+        "balance_axes",
+        "WARN",
+        "Retired: compensatory balance scores cannot establish perfume quality or liking",
+        data={
+            "runtime_reachable": False,
+            "evidence_class": "RETIRED_HEURISTIC_PROVENANCE",
+            "replacement": (
+                "architecture compiler + temporal sensory ledger + V3 criterion-specific "
+                "preference evidence"
+            ),
+            "withheld_fields": ["axes", "scores", "hedonic_balance"],
+            "release_authority": False,
+        },
+    )
 
 
 def _gate_character_shifts(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4535,42 +4466,19 @@ def _gate_verify_protocol_aggregate(state: FormulaState, config: ReleaseGateConf
 
 
 def _gate_hedonic_neuroscience(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """Neuroscience advisory: receptor genetics, psychoactive compounds, hedonic findings."""
-    findings: list[str] = []
-    try:
-        from engine.name_utils import normalize_name as _nn
-        from engine.pipeline.neuroscience import (
-            _HEDONIC_FINDINGS,  # noqa: F401  # feature detection
-            _OR_GENETICS,  # noqa: F401  # feature detection
-            _PSYCHOACTIVE_EFFECTS,
-        )
+    """Compatibility tombstone for unsupported receptor-to-hedonic inference."""
 
-        # Check psychoactive compound thresholds
-        total_active_ul = state.total_active_ul or 1.0
-        for m in state.materials:
-            n = _nn(m.name)
-            active_pct = (m.active_ul / total_active_ul) * 100.0
-            for compound, effects in _PSYCHOACTIVE_EFFECTS.items():
-                if compound in n:
-                    for eff in effects:
-                        thresh = eff.get("threshold_active_pct", 100)
-                        if active_pct > thresh:
-                            findings.append(
-                                f"{m.name} {active_pct:.1f}% > {thresh}%: {eff['effect']} ({eff['consumer_impact'][:60]}...)"
-                            )
-
-        # Channel count vs vmPFC integration limit
-        perceptible = [m for m in state.materials if (m.oav or 0) >= 10]
-        if len(perceptible) > 5:
-            findings.append(
-                f"{len(perceptible)} materials with OAV >10 — may exceed vmPFC integration capacity (Nature Comms 2026)"
-            )
-    except ImportError:
-        pass
-
-    if findings:
-        return _result("hedonic_neuroscience", "PASS", "INFO: " + "; ".join(findings[:5]))
-    return _result("hedonic_neuroscience", "PASS", "No neuroscience flags raised")
+    return _result(
+        "hedonic_neuroscience",
+        "WARN",
+        "Retired: formula composition cannot establish neural integration or liking",
+        data={
+            "runtime_reachable": False,
+            "evidence_class": "RETIRED_UNSUPPORTED_SCIENCE",
+            "findings": None,
+            "release_authority": False,
+        },
+    )
 
 
 def _legacy_gate_solvent_matrix(
@@ -5550,10 +5458,6 @@ def gate_formula(
             "verify_protocol_aggregate",
         ),
         _safe_gate(
-            lambda: _gate_hedonic_neuroscience(state, config),
-            "hedonic_neuroscience",
-        ),
-        _safe_gate(
             lambda: _gate_solvent_matrix(state, config),
             "solvent_matrix",
         ),
@@ -5593,10 +5497,8 @@ def gate_formula(
             _safe_gate(lambda: _gate_edge_cases(state, config), "edge_cases"),
             _safe_gate(lambda: _gate_skin_chemistry(state, config), "skin_chemistry"),
             _safe_gate(lambda: _gate_dosing_tables(state, config), "dosing_tables"),
-            _safe_gate(lambda: _gate_balance_axes(state, config), "balance_axes"),
             _safe_gate(lambda: _gate_character_shifts(state, config), "character_shifts"),
             _safe_gate(lambda: _gate_evaluation_protocol(state, config), "evaluation_protocol"),
-            _safe_gate(lambda: _gate_family_hedonic(state, config), "family_hedonic"),
             _safe_gate(lambda: _gate_iconic_formulas(state, config), "iconic_formulas"),
             _safe_gate(lambda: _gate_iteration_protocol(state, config), "iteration_protocol"),
             _safe_gate(lambda: _gate_niche_construction(state, config), "niche_construction"),

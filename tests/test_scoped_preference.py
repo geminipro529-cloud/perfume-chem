@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from engine.preference import (
     PairwisePreference,
     PreferenceFitRequest,
@@ -28,6 +30,27 @@ def test_pairwise_preference_preserves_legacy_constructor_and_round_trips_scope(
     assert legacy.comparison_id is None
     assert PairwisePreference.from_dict(scoped.as_dict()) == scoped
     assert legacy.outcome is PreferenceOutcome.LEFT
+
+
+def test_pairwise_json_ingestion_rejects_type_coercion() -> None:
+    with pytest.raises(TypeError, match="position_in_session must be an integer"):
+        PairwisePreference.from_dict(
+            {
+                "left_item": "A",
+                "right_item": "B",
+                "preferred_item": "A",
+                "position_in_session": True,
+            }
+        )
+    with pytest.raises(TypeError, match="sample_sha256 must be text"):
+        PairwisePreference.from_dict(
+            {
+                "left_item": "A",
+                "right_item": "B",
+                "preferred_item": "A",
+                "sample_sha256": int("1" * 64),
+            }
+        )
 
 
 def _scoped(

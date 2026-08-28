@@ -4,7 +4,12 @@ from dataclasses import replace
 
 import pytest
 
-from engine.evidence.augmentation import no_augmentation_receipt
+from engine.evidence.augmentation import (
+    DecisionDeltaV1,
+    EvidenceAugmentationState,
+    EvidenceDeltaReceiptV1,
+    no_augmentation_receipt,
+)
 from engine.evidence_contracts import sha256_hex
 from engine.solforge.contracts import (
     AUTHORITY_FLAGS_FALSE,
@@ -13,6 +18,7 @@ from engine.solforge.contracts import (
     CompiledExperimentV1,
     CriterionFitPacketV1,
     CriterionFitPacketV2,
+    CriterionFitPacketV3,
     DecisionReceiptV1,
     DecisionState,
     EvidenceDeltaPacketV2,
@@ -254,3 +260,126 @@ def test_criterion_fit_v2_round_trips_with_proper_validation_hashes() -> None:
 
     assert CriterionFitPacketV2.from_dict(packet.as_dict()) == packet
     assert packet.as_dict()["authority_flags"] == AUTHORITY_FLAGS_FALSE
+
+
+def _criterion_fit_v2_parent_for_v3() -> CriterionFitPacketV2:
+    parent_v1 = replace(
+        _records()[7],
+        criterion="LIKING",
+        validation_state="DIAGNOSTIC",
+    )
+    receipt = no_augmentation_receipt(
+        module_id="hedonic_preference",
+        exact_scope="P1/LIKING",
+        input_sha256="1" * 64,
+        evidence_sha256="2" * 64,
+        policy_sha256="3" * 64,
+        reasons=("V3_BINDING_REQUIRED",),
+    )
+    return CriterionFitPacketV2(
+        parent_v1=parent_v1,
+        preference_fit_evidence_v2_sha256="4" * 64,
+        hedonic_state="DIAGNOSTIC",
+        cluster_bootstrap_sha256="5" * 64,
+        heldout_validation_sha256="6" * 64,
+        transitivity_sha256="7" * 64,
+        next_pair_sha256="8" * 64,
+        evidence_delta_receipt=receipt,
+        test_only=True,
+    )
+
+
+def test_criterion_fit_v3_rejects_validated_state_without_bound_evidence() -> None:
+    receipt = no_augmentation_receipt(
+        module_id="hedonic_preference_v3",
+        exact_scope="P1/LIKING",
+        input_sha256="9" * 64,
+        evidence_sha256="4" * 64,
+        policy_sha256="a" * 64,
+        reasons=("MISSING_BINDINGS",),
+    )
+    with pytest.raises(ValueError, match="VALIDATED_EXACT_SCOPE requires"):
+        CriterionFitPacketV3(
+            parent_v2=_criterion_fit_v2_parent_for_v3(),
+            preference_fit_evidence_v3_sha256=None,
+            evaluation_context_sha256=None,
+            item_bindings_sha256=None,
+            order_carryover_sha256=None,
+            adequacy_contract_sha256=None,
+            hedonic_state="VALIDATED_EXACT_SCOPE",
+            evidence_delta_receipt=receipt,
+            test_only=True,
+        )
+
+
+def test_criterion_fit_v3_rejects_augmentation_for_nonvalidated_state() -> None:
+    v3_sha = "9" * 64
+    binding_hashes = ("a" * 64, "b" * 64, "c" * 64, "d" * 64)
+    delta = DecisionDeltaV1(
+        delta_id="HEDONIC-V3-TEST",
+        decision_effect="Use exact-scope liking evidence only.",
+        observed_facts=("one exact-scope result",),
+        derived_calculations=(),
+        hypotheses=(),
+        forbidden_inferences=("No universal liking authority.",),
+    )
+    receipt = EvidenceDeltaReceiptV1(
+        module_id="hedonic_preference_v3",
+        exact_scope="P1/LIKING",
+        state=EvidenceAugmentationState.AUGMENT,
+        input_sha256="e" * 64,
+        evidence_sha256=v3_sha,
+        policy_sha256="f" * 64,
+        source_binding_sha256=(v3_sha, *binding_hashes),
+        reason_codes=("FULLY_BOUND",),
+        delta=delta,
+        blockers=(),
+        next_action=None,
+    )
+    with pytest.raises(ValueError, match="only VALIDATED_EXACT_SCOPE may AUGMENT"):
+        CriterionFitPacketV3(
+            parent_v2=_criterion_fit_v2_parent_for_v3(),
+            preference_fit_evidence_v3_sha256=v3_sha,
+            evaluation_context_sha256=binding_hashes[0],
+            item_bindings_sha256=binding_hashes[1],
+            order_carryover_sha256=binding_hashes[2],
+            adequacy_contract_sha256=binding_hashes[3],
+            hedonic_state="WITHHELD",
+            evidence_delta_receipt=receipt,
+            test_only=True,
+        )
+
+
+def test_criterion_fit_v3_rejects_partial_bindings_and_parent_mode_mismatch() -> None:
+    receipt = no_augmentation_receipt(
+        module_id="hedonic_preference_v3",
+        exact_scope="P1/LIKING",
+        input_sha256="9" * 64,
+        evidence_sha256="4" * 64,
+        policy_sha256="a" * 64,
+        reasons=("WITHHELD",),
+    )
+    with pytest.raises(ValueError, match="all present or all absent"):
+        CriterionFitPacketV3(
+            parent_v2=_criterion_fit_v2_parent_for_v3(),
+            preference_fit_evidence_v3_sha256="b" * 64,
+            evaluation_context_sha256=None,
+            item_bindings_sha256=None,
+            order_carryover_sha256=None,
+            adequacy_contract_sha256=None,
+            hedonic_state="WITHHELD",
+            evidence_delta_receipt=receipt,
+            test_only=True,
+        )
+    with pytest.raises(ValueError, match="test_only must match parent_v2"):
+        CriterionFitPacketV3(
+            parent_v2=_criterion_fit_v2_parent_for_v3(),
+            preference_fit_evidence_v3_sha256=None,
+            evaluation_context_sha256=None,
+            item_bindings_sha256=None,
+            order_carryover_sha256=None,
+            adequacy_contract_sha256=None,
+            hedonic_state="WITHHELD",
+            evidence_delta_receipt=receipt,
+            test_only=False,
+        )

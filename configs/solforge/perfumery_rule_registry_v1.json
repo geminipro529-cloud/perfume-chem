@@ -92,11 +92,17 @@
       "Inventory projection grants no purchase, formula-rebase, general-substitution, sensory, safety, stability, compounding, or release authority."
     ],
     "hedonic_evidence": [
-      "Fit target fidelity, depth, richness, liking, wear acceptance, comfort, fascination, and wanting-to-resmell as separate criteria.",
-      "Use real blinded comparisons; exclude ties from directional fitting while retaining them as indifference evidence.",
-      "Require scoped comparison, assessor, protocol, criterion, timepoint, and presentation metadata.",
-      "Diagnose disconnected graphs, sparse evidence, assessor heterogeneity, order effects, and criterion leakage.",
-      "Use deterministic grouped held-out validation against a declared baseline before model promotion.",
+      "Fit target fidelity, depth, richness, configurational integration, liking, wanting-to-resmell, wear acceptance, comfort, fascination, tension, relief, fatigue, aversion, and persistence as separate criteria.",
+      "Use real blinded comparisons; exclude ties from directional counts and fake wins while retaining NO_PREFERENCE in the Davidson indifference likelihood.",
+      "Bind every item label exactly once to its build, physical sample, provenance manifest, sampling or dose receipt, and batch; reject missing, extra, or swapped item/sample bindings.",
+      "Bind substrate, application, environment, maturation, apparatus, carryover controls, and—on skin—wearer and body-odor context.",
+      "Require scoped comparison, assessor, protocol, criterion, timepoint, session, matrix, partition, realized presentation order, and sequence metadata.",
+      "Diagnose disconnected graphs, sparse evidence, assessor heterogeneity, realized pair-order imbalance, first-position effects, sequence defects, carryover, temporal crossover, and criterion leakage.",
+      "Use deterministic group-isolated held-out validation against a declared probabilistic baseline and require a positive grouped-bootstrap lower bound above the practical margin.",
+      "Zero held-out bootstrap replicates, one unordered set of sample hashes, and accuracy-only validation cannot promote liking.",
+      "V1 and V2 receipts remain readable provenance but require complete V3 item and context binding before exact-scope promotion.",
+      "Blotter liking cannot establish skin wear acceptance, and another wearer or body-odor context cannot establish the owner's result.",
+      "Composition, molecular descriptors, predicted OAV, supplier descriptions, price, rarity, naturalness, and prestige cannot enter a liking fit or hedonic release axis.",
       "A hedonic model may prioritize the next blinded comparison but cannot approve formula mutation, purchase, compounding, safety, stability, or release.",
       "Any result that is unscoped, order-confounded, disconnected, sparse, baseline-failing, or missing required cells remains WITHHELD or DIAGNOSTIC."
     ]

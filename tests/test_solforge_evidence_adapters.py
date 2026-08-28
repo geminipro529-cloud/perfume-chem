@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+import pytest
+
 from engine.evidence_contracts import canonical_json_bytes, sha256_hex
+from engine.hedonic_evidence import EvaluationSubstrate, SensoryEvaluationContext
 from engine.sensory.ledger import (
     ObservationCellKey,
     SensorySafetyEvent,
@@ -14,9 +17,10 @@ from engine.solforge.adapters import (
     audit_execution_receipt_v2,
     build_criterion_fit_packet,
     build_criterion_fit_packet_v2,
+    build_criterion_fit_packet_v3,
     build_temporal_packet,
 )
-from engine.solforge.contracts import ExecutionReceiptV1
+from engine.solforge.contracts import CriterionFitPacketV3, ExecutionReceiptV1
 
 H = "a" * 64
 
@@ -331,5 +335,223 @@ def test_v2_liking_adapter_binds_proper_validation_and_delta_receipts() -> None:
     assert packet.preference_fit_evidence_v2_sha256 is not None
     assert packet.heldout_validation_sha256 is not None
     assert packet.cluster_bootstrap_sha256 is not None
-    assert packet.evidence_delta_receipt.state.value == "AUGMENT"
+    assert packet.hedonic_state == "DIAGNOSTIC"
+    assert packet.evidence_delta_receipt.state.value == "HOLD"
+    assert "V3_ITEM_CONTEXT_BINDING_REQUIRED" in packet.evidence_delta_receipt.blockers
     assert set(packet.evidence_delta_receipt.authority.values()) == {False}
+
+    malformed_config = {
+        **config,
+        "require_scoped_validation": "false",
+    }
+    malformed_execution = _execution(
+        comparisons=comparisons,
+        preference_fit=malformed_config,
+        preference_fit_v2=v2_config,
+    )
+    malformed_temporal = build_temporal_packet(
+        malformed_execution,
+        analyze_execution_receipt(malformed_execution),
+    )
+    with pytest.raises(
+        TypeError,
+        match="require_scoped_validation must be boolean",
+    ):
+        build_criterion_fit_packet_v2(
+            malformed_execution,
+            malformed_temporal,
+            criterion="LIKING",
+        )
+
+
+def test_v3_liking_adapter_binds_item_sample_context_order_and_adequacy(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    base_execution = _execution()
+    protocol_sha256 = sha256_hex(
+        canonical_json_bytes(
+            base_execution.as_dict()["execution_context"]["protocol_scope"]
+        )
+    )
+    evaluation_context = SensoryEvaluationContext(
+        context_id="blotter-v3",
+        substrate=EvaluationSubstrate.BLOTTER,
+        application_protocol_sha256="6" * 64,
+        environment_sha256="7" * 64,
+        maturation_state_sha256="8" * 64,
+        carryover_control_sha256="9" * 64,
+        carryover_qualified=True,
+        apparatus_sha256="a" * 64,
+    )
+    comparisons: list[dict] = []
+    outcomes = (
+        ("A1", "TREATMENT", "CONTROL"),
+        ("A1", "TREATMENT", "TREATMENT"),
+        ("A1", None, "CONTROL"),
+        ("A2", "TREATMENT", "TREATMENT"),
+        ("A2", "TREATMENT", "CONTROL"),
+        ("A2", None, "TREATMENT"),
+    )
+    for index, (assessor, preferred, first) in enumerate(outcomes, start=1):
+        comparisons.append(
+            {
+                "left_item": "CONTROL",
+                "right_item": "TREATMENT",
+                "preferred_item": preferred,
+                "comparison_id": f"T{index}",
+                "assessor_id": assessor,
+                "protocol_id": "P1",
+                "criterion_id": "LIKING",
+                "time_seconds": 0,
+                "first_presented_item": first,
+                "repeat_id": "R1",
+                "partition": "training",
+                "session_id": f"{assessor}-S{index}",
+                "matrix_id": "M1",
+                "time_window_id": "OPENING",
+                "position_in_session": 1,
+                "protocol_sha256": protocol_sha256,
+                "sample_sha256": "c" * 64,
+                "left_sample_sha256": "c" * 64,
+                "right_sample_sha256": "d" * 64,
+                "evaluation_context_sha256": evaluation_context.record_sha256,
+            }
+        )
+    for index in range(1, 4):
+        comparisons.append(
+            {
+                **comparisons[0],
+                "comparison_id": f"H{index}",
+                "assessor_id": "A3",
+                "preferred_item": "TREATMENT",
+                "first_presented_item": (
+                    "CONTROL" if index % 2 else "TREATMENT"
+                ),
+                "partition": "heldout",
+                "session_id": f"A3-H{index}",
+            }
+        )
+    preference_fit = {
+        "minimum_comparisons": 4,
+        "minimum_heldout_comparisons": 3,
+        "declared_baseline_accuracy": 0.4,
+        "bootstrap_replicates": 8,
+        "bootstrap_seed": 17,
+        "require_scoped_validation": True,
+    }
+    preference_fit_v2 = {
+        "construct_registry_sha256": "3" * 64,
+        "criterion_wording_sha256": "4" * 64,
+        "source_transfer_sha256": "5" * 64,
+        "source_transfer_state": "NARROWER_SCOPE",
+        "bootstrap_replicates": 20,
+        "bootstrap_seed": 17,
+        "heldout_bootstrap_replicates": 20,
+        "heldout_seed": 17,
+        "practical_margin": 0.0,
+        "split_unit": "ASSESSOR",
+        "decision_resolved": True,
+    }
+    preference_fit_v3 = {
+        "focal_item_id": "TREATMENT",
+        "item_bindings": [
+            {
+                "item_id": "CONTROL",
+                "build_sha256": "0" * 64,
+                "sample_sha256": "c" * 64,
+                "provenance_manifest_sha256": "1" * 64,
+                "sampling_or_dose_receipt_sha256": "2" * 64,
+                "batch_id": "control-batch",
+            },
+            {
+                "item_id": "TREATMENT",
+                "build_sha256": "f" * 64,
+                "sample_sha256": "d" * 64,
+                "provenance_manifest_sha256": "3" * 64,
+                "sampling_or_dose_receipt_sha256": "4" * 64,
+                "batch_id": "treatment-batch",
+            },
+        ],
+        "evaluation_context": {
+            key: value
+            for key, value in evaluation_context.as_dict().items()
+            if key not in {"schema_version", "authority"}
+        },
+        "adequacy_contract": {
+            "analysis_plan_sha256": "a" * 64,
+            "sampling_frame_sha256": "b" * 64,
+            "minimum_assessors": 3,
+            "minimum_directional_training_comparisons": 4,
+            "minimum_heldout_groups": 1,
+            "minimum_heldout_comparisons": 3,
+            "minimum_cluster_bootstrap_replicates": 20,
+            "minimum_heldout_bootstrap_replicates": 20,
+        },
+        "order_carryover": {
+            "maximum_pair_order_count_difference": 1,
+            "maximum_absolute_first_position_effect": 0.25,
+            "require_qualified_carryover": True,
+        },
+    }
+    execution = _execution(
+        comparisons=comparisons,
+        preference_fit=preference_fit,
+        preference_fit_v2=preference_fit_v2,
+        preference_fit_v3=preference_fit_v3,
+    )
+    temporal = build_temporal_packet(execution, analyze_execution_receipt(execution))
+    packet = build_criterion_fit_packet_v3(
+        execution,
+        temporal,
+        criterion="LIKING",
+    )
+
+    assert packet.hedonic_state == "VALIDATED_EXACT_SCOPE"
+    assert packet.preference_fit_evidence_v3_sha256 is not None
+    assert packet.evaluation_context_sha256 == evaluation_context.record_sha256
+    assert packet.item_bindings_sha256 is not None
+    assert packet.order_carryover_sha256 is not None
+    assert packet.adequacy_contract_sha256 is not None
+    assert packet.evidence_delta_receipt.state.value == "AUGMENT"
+    assert CriterionFitPacketV3.from_dict(packet.as_dict()) == packet
+
+    malformed_context = execution.as_dict()["execution_context"]
+    malformed_context["preference_fit_v3"]["evaluation_context"][
+        "carryover_qualified"
+    ] = "false"
+    malformed_execution = replace(
+        execution,
+        execution_context=malformed_context,
+    )
+    malformed_temporal = build_temporal_packet(
+        malformed_execution,
+        analyze_execution_receipt(malformed_execution),
+    )
+    malformed = build_criterion_fit_packet_v3(
+        malformed_execution,
+        malformed_temporal,
+        criterion="LIKING",
+    )
+    assert malformed.hedonic_state == "WITHHELD"
+    assert malformed.evidence_delta_receipt.state.value == "HOLD"
+    assert "carryover_qualified must be boolean" in " ".join(
+        malformed.evidence_delta_receipt.blockers
+    )
+
+    mismatched_parent = replace(
+        packet.parent_v2,
+        preference_fit_evidence_v2_sha256="e" * 64,
+    )
+    monkeypatch.setattr(
+        "engine.solforge.adapters.build_criterion_fit_packet_v2",
+        lambda *_args, **_kwargs: mismatched_parent,
+    )
+    mismatched = build_criterion_fit_packet_v3(
+        execution,
+        temporal,
+        criterion="LIKING",
+    )
+    assert mismatched.hedonic_state == "WITHHELD"
+    assert "does not match reconstructed V2 evidence" in " ".join(
+        mismatched.evidence_delta_receipt.blockers
+    )
