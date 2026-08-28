@@ -1,0 +1,353 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from decimal import Decimal
+from pathlib import Path
+
+import pytest
+from openpyxl import Workbook
+
+from engine.inventory.authority import (
+    InventoryAuthorityError,
+    InventoryAvailabilityState,
+    StockFractionBasis,
+    load_inventory_authority_snapshot,
+    load_user_inventory_overlay,
+)
+
+
+ROOT = Path(__file__).parents[1]
+USER_OVERLAY = (
+    ROOT / "data" / "governance" / "inventory_user_authority_overlay_20260828.json"
+)
+
+
+def _write_workbook(path: Path) -> str:
+    workbook = Workbook()
+    current = workbook.active
+    current.title = "Current Inventory Master"
+    current.append(["title"])
+    current.append(["authority note"])
+    current.append([])
+    current.append([])
+    current.append(
+        [
+            "Baseline #",
+            "Canonical material",
+            "Status",
+            "Actual stock(s)",
+            "Can prepare",
+            "Family",
+            "Prior listed stock",
+            "Prior active fraction",
+            "Formula count",
+            "Row uses",
+            "Affected target IDs",
+            "Alias / non-equivalent",
+            "Formula-use policy",
+            "User note",
+        ]
+    )
+    current.append(
+        [
+            1,
+            "Amber Xtreme 0.1%",
+            "CONSTRUCTIBLE FROM NEAT GAP",
+            None,
+            "Acquire parent first.",
+            "amber wood",
+            None,
+            None,
+            0,
+            0,
+            None,
+            None,
+            "Do not infer ownership.",
+            "V5 parent row.",
+        ]
+    )
+    current.append(
+        [
+            2,
+            "Cedarwood oil Virginia",
+            "HAVE — NEAT",
+            "Cedarwood oil Virginia neat/as supplied",
+            None,
+            "wood",
+            None,
+            None,
+            0,
+            0,
+            None,
+            None,
+            "Use exact identity.",
+            None,
+        ]
+    )
+    current.append(
+        [
+            3,
+            "Turkish Storax Tincture",
+            "HAVE — 20% W/W ETHANOL TINCTURE",
+            "Turkish Storax Tincture 20% w/w in ethanol",
+            None,
+            "resin",
+            None,
+            None,
+            0,
+            0,
+            None,
+            None,
+            "Use exact product.",
+            None,
+        ]
+    )
+
+    aliases = workbook.create_sheet("Aliases and Non-Equivalents")
+    aliases.append(["title"])
+    aliases.append([])
+    aliases.append([])
+    aliases.append([])
+    aliases.append(
+        [
+            "Material / name",
+            "Compared with",
+            "Relationship",
+            "Required handling",
+            "Reason",
+            "Formula consequence",
+        ]
+    )
+    aliases.append(
+        [
+            "Cedarwood Virginia",
+            "Cedarwood oil Virginia",
+            "CANONICAL IDENTITY",
+            "Canonicalize.",
+            "Same identity.",
+            "No duplicate.",
+        ]
+    )
+    aliases.append(
+        [
+            "Cedarwood Himalayan",
+            "Cedarwood oil Virginia",
+            "NOT EQUIVALENT",
+            "Do not merge.",
+            "Different species.",
+            "Hold substitution.",
+        ]
+    )
+    workbook.save(path)
+    workbook.close()
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _write_overlay(path: Path, workbook_sha256: str) -> None:
+    payload = {
+        "schema_version": "perfume_chem_user_inventory_authority_overlay_v1",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-08-28",
+        "parent": {
+            "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+            "workbook_sha256": workbook_sha256,
+        },
+        "policy": {
+            "formula_rebase_authorized": False,
+            "general_substitution_authorized": False,
+            "unknown_fraction_fails_closed": True,
+            "unlisted_tinctures_available": False,
+        },
+        "sensory_substitutions": [],
+        "records": [
+            {
+                "record_id": "TEST-OVERLAY-001",
+                "canonical_name": "Amber Xtreme",
+                "aliases": [],
+                "state": "OWNED",
+                "category": "woods / amber",
+                "stock": {
+                    "fraction": 0.1,
+                    "fraction_basis": "mass_fraction",
+                    "carrier": "dep",
+                    "fraction_authority": "EXPLICIT_USER_ASSERTION",
+                    "execution_ready": True,
+                },
+                "supersedes_parent_stocks": [],
+                "requirement_overrides": [
+                    {
+                        "source_row": 6,
+                        "disposition": "PREPARATION_REQUIRED",
+                        "status": "HAVE DIFFERENT STOCK - 10% W/W IN DEP",
+                        "actual_stock_text": "Amber Xtreme 10% w/w in DEP",
+                        "can_prepare": "No silent rebase.",
+                    }
+                ],
+                "note": "Owned stock differs from the V5 requirement.",
+            },
+            {
+                "record_id": "TEST-OVERLAY-002",
+                "canonical_name": "Cedarwood oil Virginia",
+                "aliases": ["Virginian cedarwood"],
+                "state": "IDENTITY_ALIAS",
+                "category": "wood",
+                "stock": None,
+                "supersedes_parent_stocks": [],
+                "requirement_overrides": [],
+                "note": "Do not create a duplicate identity.",
+            },
+        ],
+    }
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+
+def test_join_reparses_every_workbook_and_alias_row_and_hash_binds_sources(
+    tmp_path: Path,
+) -> None:
+    workbook_path = tmp_path / "inventory-v5.xlsx"
+    workbook_sha256 = _write_workbook(workbook_path)
+    overlay_path = tmp_path / "overlay.json"
+    _write_overlay(overlay_path, workbook_sha256)
+
+    snapshot = load_inventory_authority_snapshot(workbook_path, overlay_path)
+
+    assert snapshot.workbook_record_count == 3
+    assert snapshot.alias_record_count == 2
+    assert snapshot.workbook_sha256 == workbook_sha256
+    assert snapshot.overlay_sha256 == hashlib.sha256(overlay_path.read_bytes()).hexdigest()
+    assert snapshot.formula_rebase_authorized is False
+    assert snapshot.general_substitution_authorized is False
+
+
+def test_user_overlay_updates_stock_without_inventing_exact_stock_or_rebasing(
+    tmp_path: Path,
+) -> None:
+    workbook_path = tmp_path / "inventory-v5.xlsx"
+    workbook_sha256 = _write_workbook(workbook_path)
+    overlay_path = tmp_path / "overlay.json"
+    _write_overlay(overlay_path, workbook_sha256)
+
+    snapshot = load_inventory_authority_snapshot(workbook_path, overlay_path)
+    amber = snapshot.project("Amber Xtreme")
+
+    assert amber.state is InventoryAvailabilityState.OWNED
+    assert amber.stock is not None
+    assert amber.stock.fraction == Decimal("0.1")
+    assert amber.stock.fraction_basis is StockFractionBasis.MASS_FRACTION
+    assert amber.stock.carrier == "dep"
+    assert amber.exact_stock_ref is None
+    assert amber.physical_execution_ready is False
+    assert amber.active_equivalence_ready is False
+    assert amber.formula_rebase_authorized is False
+
+
+def test_exact_stock_ref_must_match_identity_fraction_basis_and_carrier(
+    tmp_path: Path,
+) -> None:
+    workbook_path = tmp_path / "inventory-v5.xlsx"
+    workbook_sha256 = _write_workbook(workbook_path)
+    overlay_path = tmp_path / "overlay.json"
+    _write_overlay(overlay_path, workbook_sha256)
+
+    with pytest.raises(InventoryAuthorityError, match="exact stock.*fraction"):
+        load_inventory_authority_snapshot(
+            workbook_path,
+            overlay_path,
+            exact_stock_refs={
+                "Amber Xtreme": {
+                    "stock_ref": "stock:amber-xtreme:lot-1",
+                    "fraction": "0.01",
+                    "fraction_basis": "mass_fraction",
+                    "carrier": "dep",
+                }
+            },
+        )
+
+    snapshot = load_inventory_authority_snapshot(
+        workbook_path,
+        overlay_path,
+        exact_stock_refs={
+            "Amber Xtreme": {
+                "stock_ref": "stock:amber-xtreme:lot-1",
+                "fraction": "0.1",
+                "fraction_basis": "mass_fraction",
+                "carrier": "dep",
+            }
+        },
+    )
+    amber = snapshot.project("Amber Xtreme")
+    assert amber.exact_stock_ref == "stock:amber-xtreme:lot-1"
+    assert amber.physical_execution_ready is True
+    assert amber.active_equivalence_ready is True
+
+
+def test_aliases_merge_only_proven_identity_and_all_tinctures_fail_closed(
+    tmp_path: Path,
+) -> None:
+    workbook_path = tmp_path / "inventory-v5.xlsx"
+    workbook_sha256 = _write_workbook(workbook_path)
+    overlay_path = tmp_path / "overlay.json"
+    _write_overlay(overlay_path, workbook_sha256)
+
+    snapshot = load_inventory_authority_snapshot(workbook_path, overlay_path)
+
+    virginia = snapshot.project("Virginian cedarwood")
+    assert virginia.canonical_name == "Cedarwood oil Virginia"
+    assert snapshot.project("Cedarwood Virginia").canonical_name == virginia.canonical_name
+    himalayan = snapshot.project("Cedarwood Himalayan")
+    assert himalayan.canonical_name == "Cedarwood Himalayan"
+    assert himalayan.state is InventoryAvailabilityState.UNLISTED
+    assert snapshot.project("Turkish Storax Tincture").state is (
+        InventoryAvailabilityState.UNAVAILABLE
+    )
+
+
+def test_current_user_overlay_preserves_all_reconfirmed_inventory_facts() -> None:
+    overlay = load_user_inventory_overlay(USER_OVERLAY)
+
+    assert overlay.identity_for("Virginian cedarwood") == "Cedarwood oil Virginia"
+    assert overlay.identity_for("Red Mandarin Oil") == "Red Mandarin EO"
+    assert overlay.identity_for("Rose Otto Oil") == (
+        "Rose Essential Oil (Rosa Damascena, India)"
+    )
+    assert overlay.identity_for("Alpha-Isomethyl Ionone") == "Givaudan AIMI"
+    assert overlay.record("Ethylene Brassylate").stock.fraction == Decimal("1.0")
+    assert overlay.record("Clearwood").stock.fraction == Decimal("1.0")
+    assert overlay.record("Virginian cedarwood").stock.fraction == Decimal("1.0")
+    assert overlay.record("Volume-grade Osmanthus").stock.fraction == Decimal("1.0")
+    assert overlay.record("Premium Osmanthus Absolute").stock.fraction == Decimal("0.1")
+    assert overlay.record("Amber Xtreme").stock.fraction_basis is (
+        StockFractionBasis.MASS_FRACTION
+    )
+    assert overlay.record("Opoponax Resinoid 50%").stock.fraction_basis is (
+        StockFractionBasis.UNSPECIFIED
+    )
+    assert overlay.record("Myrrh EO").stock.fraction_basis is (
+        StockFractionBasis.UNSPECIFIED
+    )
+    vietnamese = overlay.record("Vietnamese Benzoin Tincture")
+    assert 222 not in vietnamese.supersedes_parent_rows
+    assert any(
+        item["source_row"] == 222 and item["disposition"] == "OWNED"
+        for item in vietnamese.requirement_overrides
+    )
+
+
+def test_ap_t1_substitution_remains_exact_scope_sensory_only() -> None:
+    overlay = load_user_inventory_overlay(USER_OVERLAY)
+    authority = overlay.sensory_substitution("AP-T1-CINNAMON-BARK-EO")
+
+    assert authority.protocol_id == "AP-T1"
+    assert authority.source_material == "Cinnamaldehyde 1%"
+    assert authority.source_dose_ul == Decimal("10")
+    assert authority.replacement_material == "NYSUPPLY Cinnamon Bark EO 10%"
+    assert authority.replacement_dose_ul == Decimal("3")
+    assert authority.working_stock_fraction == Decimal("0.03")
+    assert authority.working_stock_dose_ul == Decimal("10")
+    assert authority.sensory_substitution_authority is True
+    assert authority.chemical_equivalence_authority is False
+    assert authority.oav_equivalence_authority is False
+    assert authority.safety_authority is False
+    assert authority.stability_authority is False
+    assert authority.general_formula_authority is False

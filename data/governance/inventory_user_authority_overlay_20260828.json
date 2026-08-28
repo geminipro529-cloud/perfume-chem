@@ -1,0 +1,431 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_overlay_v1",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-08-28",
+  "parent": {
+    "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "source": {
+    "kind": "USER_AUTHORITATIVE_CROSS_TASK_HANDOFF",
+    "source_thread_id": "01a03ee5-7db4-7083-a396-fb1207225757"
+  },
+  "policy": {
+    "parent_snapshot_immutable": true,
+    "merge_other_task_branch": false,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "preserve_exact_ap_t1_cinnamon_substitution": true,
+    "require_sub_10_ul_working_stock": true,
+    "unknown_fraction_fails_closed": true,
+    "unlisted_tinctures_available": false,
+    "inventory_identity_grants_molecular_mechanism_authority": false,
+    "ownership_implies_exact_stock_ref": false
+  },
+  "sensory_substitutions": [
+    {
+      "substitution_id": "AP-T1-CINNAMON-BARK-EO",
+      "protocol_id": "AP-T1",
+      "source_material": "Cinnamaldehyde 1%",
+      "source_dose_ul": 10,
+      "replacement_material": "NYSUPPLY Cinnamon Bark EO 10%",
+      "replacement_dose_ul": 3,
+      "working_stock_fraction": 0.03,
+      "working_stock_dose_ul": 10,
+      "working_stock_recipe": "Prepare a nominal 3% working stock from 3 parts of the 10% bottle plus 7 parts verified matching carrier; dose 10 uL.",
+      "authority": {
+        "sensory_substitution_authority": true,
+        "chemical_equivalence_authority": false,
+        "oav_equivalence_authority": false,
+        "safety_authority": false,
+        "stability_authority": false,
+        "general_formula_authority": false
+      },
+      "note": "Exact AP-T1 sensory substitution only. The direct 3 uL replacement is below the 10 uL floor, so the nominal 3% working stock is mandatory."
+    }
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260828-001",
+      "canonical_name": "Ethylene Brassylate",
+      "aliases": ["EB"],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "BARE_INVENTORY_ROW_IMPLICIT_NEAT_CONVENTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Ownership is user-confirmed; the bare inventory row retains the repository implicit-neat convention."
+    },
+    {
+      "record_id": "INV-USER-20260828-002",
+      "canonical_name": "Amber Xtreme",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 23,
+          "disposition": "PREPARATION_REQUIRED",
+          "status": "HAVE DIFFERENT STOCK - 10% W/W IN DEP",
+          "actual_stock_text": "Amber Xtreme 10% w/w in DEP",
+          "can_prepare": "An exact preparation receipt is required for any lower working stock; do not silently rebase."
+        }
+      ],
+      "note": "The owned 10% stock does not silently satisfy the V5 0.1% requirement."
+    },
+    {
+      "record_id": "INV-USER-20260828-003",
+      "canonical_name": "Alpha Irone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "orris / violet",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 20
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 19,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DEP ONLY",
+          "actual_stock_text": "Alpha Irone 10% w/w in DEP",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 20,
+          "disposition": "GAP",
+          "status": "SUPERSEDED - 30% W/W IN IPM NOT OWNED",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This replaces the prior 30% w/w IPM stock; only 10% w/w DEP is owned."
+    },
+    {
+      "record_id": "INV-USER-20260828-004",
+      "canonical_name": "Opoponax Resinoid 50%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "resin / incense",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 189
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 189,
+          "disposition": "OWNED",
+          "status": "HAVE - 50% IN DEP; BASIS UNSPECIFIED",
+          "actual_stock_text": "Opoponax Resinoid 50% in DEP; basis unspecified",
+          "can_prepare": ""
+        }
+      ],
+      "note": "Carrier changes from the V5 DPG assertion to DEP; mass/volume basis remains unknown."
+    },
+    {
+      "record_id": "INV-USER-20260828-005",
+      "canonical_name": "Myrrh EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "resin / incense",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Myrrh EO is not Myrrh Resinoid and does not satisfy the V5 Myrrh Resinoid requirement."
+    },
+    {
+      "record_id": "INV-USER-20260828-006",
+      "canonical_name": "Osmanthus Absolute",
+      "aliases": ["Premium Osmanthus Absolute"],
+      "state": "OWNED",
+      "category": "floral / fruit / leather",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 196
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 196,
+          "disposition": "OWNED",
+          "status": "HAVE - PREMIUM ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Osmanthus Absolute 10% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This assertion narrows the premium absolute only; the separately named volume-grade osmanthus remains neat and is not relabeled."
+    },
+    {
+      "record_id": "INV-USER-20260828-007",
+      "canonical_name": "Osmanthus EO volume-grade product",
+      "aliases": ["Volume-grade Osmanthus", "Osmanthus volume-grade"],
+      "state": "OWNED",
+      "category": "floral / fruit / leather",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "This is the separate volume-grade osmanthus product from V5 row 196; it remains neat and is not the premium absolute."
+    },
+    {
+      "record_id": "INV-USER-20260828-008",
+      "canonical_name": "Rose de Mai Absolute",
+      "aliases": ["Rose de Mai", "Rose de Mai 10% in DPG"],
+      "state": "OWNED",
+      "category": "rose floral",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 212
+        },
+        {
+          "source_row": 213
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 212,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 213,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "note": "No neat Rose de Mai and no generic rose-absolute stock are created."
+    },
+    {
+      "record_id": "INV-USER-20260828-009",
+      "canonical_name": "Lemon FCF Oil Sicilian",
+      "aliases": ["Lemon FCF oil Sicilian", "Lemon FCF Sicilian"],
+      "state": "IDENTITY_ALIAS",
+      "category": "citrus top",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "The existing V5 row remains neat/1.0; this record only normalizes identity spelling."
+    },
+    {
+      "record_id": "INV-USER-20260828-010",
+      "canonical_name": "Clearwood",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 76,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT",
+          "actual_stock_text": "neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This supersedes the V5 out-of-stock state."
+    },
+    {
+      "record_id": "INV-USER-20260828-011",
+      "canonical_name": "Givaudan AIMI",
+      "aliases": ["AIMI", "Alpha-Isomethyl Ionone"],
+      "state": "OWNED",
+      "category": "violet / floral / woody",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Givaudan AIMI / Alpha-Isomethyl Ionone is owned neat. Inventory identity does not by itself promote physics or mechanism data."
+    },
+    {
+      "record_id": "INV-USER-20260828-012",
+      "canonical_name": "Cedarwood oil Virginia",
+      "aliases": ["Virginian cedarwood", "Cedarwood Virginia"],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "The existing inventory/V5 stock remains neat/1.0; no other cedar species is substituted."
+    },
+    {
+      "record_id": "INV-USER-20260828-013",
+      "canonical_name": "Red Mandarin EO",
+      "aliases": ["Red Mandarin Oil"],
+      "state": "OWNED",
+      "category": "citrus top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 210,
+          "disposition": "OWNED",
+          "status": "HAVE - IMPLICIT NEAT/1.0",
+          "actual_stock_text": "neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This supersedes the 2026-08-07 out-of-stock state without creating a different mandarin identity."
+    },
+    {
+      "record_id": "INV-USER-20260828-014",
+      "canonical_name": "Rose Essential Oil (Rosa Damascena, India)",
+      "aliases": ["Steam-distilled Rosa damascena", "Rose Otto Oil", "Rose Essential Oil"],
+      "state": "OWNED",
+      "category": "rose floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 214,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSA DAMASCENA STEAM-DISTILLED OIL ONLY",
+          "actual_stock_text": "Rose Essential Oil (Rosa Damascena, India), neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "note": "The alias is limited to steam-distilled Rosa damascena / Rose Otto Oil, not generic rose absolutes."
+    },
+    {
+      "record_id": "INV-USER-20260828-015",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": ["Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture"],
+      "state": "UNAVAILABLE",
+      "category": "sweet / balsamic",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 246
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 222,
+          "disposition": "OWNED",
+          "status": "HAVE - SIAM BENZOIN 50% ONLY; TINCTURE LOST",
+          "actual_stock_text": "Siam Benzoin 50%; carrier and fraction basis unspecified",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 246,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED LOST 2026-08-28",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "All tinctures are lost; the separate Siam Benzoin 50% stock remains owned and its carrier/basis stay open."
+    },
+    {
+      "record_id": "INV-USER-20260828-016",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": ["Turkish Storax Liquidambar Orientalis resin ethanol tincture"],
+      "state": "UNAVAILABLE",
+      "category": "resin / incense",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 236
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 236,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED LOST 2026-08-28",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "All tinctures are lost."
+    }
+  ]
+}
