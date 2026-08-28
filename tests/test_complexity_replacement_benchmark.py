@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from decimal import Decimal
 from pathlib import Path
 
@@ -231,6 +232,136 @@ def test_v4_corpus_is_new_hash_bound_and_objectively_scoreable() -> None:
         assert any(
             case.objective_expectation.required_calculations for case in selected
         )
+
+
+def test_v7_corpus_uses_entirely_new_ids_inputs_and_exact_candidate_bytes() -> None:
+    corpus_path = FIXTURES / "complexity_replacement_benchmark_cases_v7.json"
+    expected_hash = corpus_path.with_suffix(".sha256").read_text(
+        encoding="utf-8"
+    ).split()[0]
+    assert hashlib.sha256(corpus_path.read_bytes()).hexdigest() == expected_hash
+
+    raw = json.loads(corpus_path.read_text(encoding="utf-8"))
+    predecessor_path = FIXTURES / raw["predecessor_corpus"]
+    assert raw["schema_version"] == "complexity_replacement_benchmark_cases_v7"
+    assert predecessor_path.name == "complexity_replacement_benchmark_cases_v6.json"
+    assert hashlib.sha256(predecessor_path.read_bytes()).hexdigest() == raw[
+        "predecessor_corpus_sha256"
+    ]
+
+    cases = load_replacement_benchmark_cases(corpus_path)
+    predecessor = load_replacement_benchmark_cases(predecessor_path)
+    assert len(cases) == 18
+    assert {case.case_id for case in cases}.isdisjoint(
+        case.case_id for case in predecessor
+    )
+    assert all(case.case_id.startswith("V7-") for case in cases)
+
+    def common_hash(case: ReplacementBenchmarkCase) -> str:
+        return hashlib.sha256(
+            json.dumps(
+                case.common_payload(),
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
+
+    predecessor_common_hashes = {common_hash(case) for case in predecessor}
+    current_common_hashes = [common_hash(case) for case in cases]
+    assert len(current_common_hashes) == len(set(current_common_hashes))
+    assert predecessor_common_hashes.isdisjoint(current_common_hashes)
+
+    expected_source_refs = {
+        "architectural_delta": (
+            "engine/perception/architectural_delta.py@sha256:"
+            "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
+        ),
+        "temporal_sensory_ledger": (
+            "engine/sensory/ledger.py@sha256:"
+            "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
+        ),
+        "hedonic_preference_learner": (
+            "engine/preference.py@sha256:"
+            "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60"
+        ),
+    }
+    for module_id in REPLACEMENT_MODULE_IDS:
+        selected = tuple(case for case in cases if case.module_id == module_id)
+        assert [case.phase for case in selected].count("SCREEN") == 3
+        assert [case.phase for case in selected].count("CONFIRM") == 3
+        assert {case.role for case in selected} == set(ModuleRetestRole)
+        assert {case.objective_expectation.expected_state for case in selected}.issubset(
+            {
+                "PROPOSED",
+                "NO_CHANGE",
+                "HOLD",
+                "COMPLETE",
+                "INCOMPLETE",
+                "VALIDATED",
+                "WITHHELD",
+                "DIAGNOSTIC",
+            }
+        )
+        assert expected_source_refs[module_id] in selected[0].module_packet.evidence_refs
+
+
+def test_v7_freshness_and_source_bindings_fail_closed_on_mutation(
+    tmp_path: Path,
+) -> None:
+    source_v7 = FIXTURES / "complexity_replacement_benchmark_cases_v7.json"
+    source_v6 = FIXTURES / "complexity_replacement_benchmark_cases_v6.json"
+    predecessor_cases = load_replacement_benchmark_cases(source_v6)
+
+    def mutated_project(name: str) -> tuple[Path, dict]:
+        root = tmp_path / name
+        root.mkdir()
+        path = root / source_v7.name
+        shutil.copyfile(source_v7, path)
+        for predecessor_name in (
+            "complexity_replacement_benchmark_cases_v6.json",
+            "complexity_replacement_benchmark_cases_v5.json",
+            "complexity_replacement_benchmark_cases_v4.json",
+            "complexity_replacement_retest_cases_v3.json",
+            "complexity_replacement_retest_cases_v2.json",
+            "complexity_replacement_retest_cases_v1.json",
+        ):
+            shutil.copyfile(FIXTURES / predecessor_name, root / predecessor_name)
+        return path, json.loads(path.read_text(encoding="utf-8"))
+
+    path, payload = mutated_project("reused-id")
+    payload["cases"][0]["case_id"] = predecessor_cases[0].case_id
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="must not reuse predecessor IDs"):
+        load_replacement_benchmark_cases(path)
+
+    path, payload = mutated_project("reused-input")
+    predecessor_common = predecessor_cases[0].common_payload()
+    for field_name in (
+        "target_identity",
+        "facts",
+        "inventory_state",
+        "claim_ceiling",
+        "evidence_payload",
+    ):
+        payload["cases"][0][field_name] = predecessor_common.get(
+            field_name,
+            {} if field_name == "evidence_payload" else None,
+        )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="must not reuse predecessor inputs"):
+        load_replacement_benchmark_cases(path)
+
+    path, payload = mutated_project("stale-packet")
+    predecessor_packet = predecessor_cases[0].module_packet
+    payload["module_packets"]["architectural_delta"] = {
+        "operating_contract": list(predecessor_packet.operating_contract),
+        "authority_boundary": list(predecessor_packet.authority_boundary),
+        "evidence_refs": list(predecessor_packet.evidence_refs),
+    }
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="lacks the exact source binding"):
+        load_replacement_benchmark_cases(path)
 
 
 def test_objective_receipt_gives_full_credit_to_correct_abstention() -> None:

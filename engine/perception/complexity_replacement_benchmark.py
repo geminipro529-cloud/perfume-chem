@@ -35,6 +35,20 @@ _MODULE_DECISION_STATES = {
     "temporal_sensory_ledger": ("COMPLETE", "INCOMPLETE", "HOLD"),
     "hedonic_preference_learner": ("VALIDATED", "WITHHELD", "DIAGNOSTIC"),
 }
+_V7_EXACT_SOURCE_REFS = {
+    "architectural_delta": (
+        "engine/perception/architectural_delta.py@sha256:"
+        "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
+    ),
+    "temporal_sensory_ledger": (
+        "engine/sensory/ledger.py@sha256:"
+        "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
+    ),
+    "hedonic_preference_learner": (
+        "engine/preference.py@sha256:"
+        "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60"
+    ),
+}
 _ALL_OBJECTIVE_DECISION_STATES = frozenset(
     state
     for states in _MODULE_DECISION_STATES.values()
@@ -838,8 +852,18 @@ def _load_v4_cases(
     scoring_contract = payload.get("objective_scoring_contract")
     if not isinstance(scoring_contract, Mapping):
         raise TypeError("objective_scoring_contract must be an object")
-    if set(scoring_contract.get("decision_states", ())) != _OBJECTIVE_DECISION_STATES:
-        raise ValueError("v4 objective decision states are incomplete")
+    expected_decision_states = (
+        frozenset(
+            state
+            for states in _MODULE_DECISION_STATES.values()
+            for state in states
+        )
+        if payload.get("schema_version")
+        == "complexity_replacement_benchmark_cases_v7"
+        else _OBJECTIVE_DECISION_STATES
+    )
+    if set(scoring_contract.get("decision_states", ())) != expected_decision_states:
+        raise ValueError("objective decision states are incomplete")
     if scoring_contract.get("maximum_next_actions") != 1:
         raise ValueError("v4 objective scorer must permit at most one next action")
 
@@ -920,6 +944,54 @@ def _load_v4_cases(
             )
         )
     return tuple(cases)
+
+
+def _validate_v7_freshness(
+    path: Path,
+    payload: Mapping[str, Any],
+    cases: tuple[ReplacementBenchmarkCase, ...],
+) -> None:
+    """Reject recycled cases or stale candidate packets in a V7 benchmark."""
+
+    predecessor_name = _text(
+        payload.get("predecessor_corpus"), "predecessor_corpus"
+    )
+    if predecessor_name != "complexity_replacement_benchmark_cases_v6.json":
+        raise ValueError("v7 predecessor must be the exact V6 corpus")
+    predecessor = load_replacement_benchmark_cases(path.parent / predecessor_name)
+    predecessor_ids = {case.case_id for case in predecessor}
+    case_ids = tuple(case.case_id for case in cases)
+    if predecessor_ids.intersection(case_ids):
+        raise ValueError("v7 case IDs must not reuse predecessor IDs")
+    if any(not case_id.startswith("V7-") for case_id in case_ids):
+        raise ValueError("v7 case IDs must use the V7 prefix")
+
+    predecessor_common_hashes = {
+        hashlib.sha256(_canonical_bytes(case.common_payload())).hexdigest()
+        for case in predecessor
+    }
+    current_common_hashes = tuple(
+        hashlib.sha256(_canonical_bytes(case.common_payload())).hexdigest()
+        for case in cases
+    )
+    if len(current_common_hashes) != len(set(current_common_hashes)):
+        raise ValueError("v7 common inputs must be unique")
+    if predecessor_common_hashes.intersection(current_common_hashes):
+        raise ValueError("v7 common inputs must not reuse predecessor inputs")
+
+    for module_id, exact_ref in _V7_EXACT_SOURCE_REFS.items():
+        packet = next(
+            case.module_packet for case in cases if case.module_id == module_id
+        )
+        predecessor_packet = next(
+            case.module_packet
+            for case in predecessor
+            if case.module_id == module_id
+        )
+        if exact_ref not in packet.evidence_refs:
+            raise ValueError(f"v7 {module_id} packet lacks the exact source binding")
+        if packet.packet_sha256 == predecessor_packet.packet_sha256:
+            raise ValueError(f"v7 {module_id} packet must differ from V6")
 
 
 def _load_v5_cases(
@@ -1060,8 +1132,13 @@ def load_replacement_benchmark_cases(
         "complexity_replacement_benchmark_cases_v6",
     }:
         cases = list(_load_v5_cases(path, payload))
-    elif schema_version == "complexity_replacement_benchmark_cases_v4":
+    elif schema_version in {
+        "complexity_replacement_benchmark_cases_v4",
+        "complexity_replacement_benchmark_cases_v7",
+    }:
         cases = list(_load_v4_cases(path, payload))
+        if schema_version == "complexity_replacement_benchmark_cases_v7":
+            _validate_v7_freshness(path, payload, tuple(cases))
     elif schema_version == "complexity_replacement_retest_cases_v3":
         cases = list(_load_v3_cases(path, payload))
     elif schema_version in {
