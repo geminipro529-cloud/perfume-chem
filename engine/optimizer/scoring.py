@@ -3372,6 +3372,21 @@ class FormulaScorer:
                 "legacy_heuristic_available_for_replay": True,
             }
 
+        scores["_decision_authority"] = {
+            "state": (
+                "LEGACY_REPLAY_ONLY"
+                if include_legacy_hedonic
+                else "DIAGNOSTIC_ONLY"
+            ),
+            "ranking_authority": False,
+            "formula_mutation_authority": False,
+            "sensory_claim_authority": False,
+            "basis": (
+                "Composition-derived heuristic axes cannot establish target fidelity, "
+                "depth, richness, liking, or beauty."
+            ),
+        }
+
         # Primary total uses geometric mean
         scores["total"] = scores["geometric_total"]
         if unknown:

@@ -19,6 +19,19 @@ from .models import (
 )
 from .scoring import FormulaScorer
 
+
+class CompositionRankingProhibitedError(RuntimeError):
+    """Raised when heuristic composition scores are asked to choose a formula."""
+
+
+def _reject_composition_ranking() -> None:
+    raise CompositionRankingProhibitedError(
+        "Composition-derived luxury, texture, stacking, synergy, photorealism, "
+        "and perceptual indices have diagnostic authority only. Use the "
+        "Architectural Delta Engine to select one target-linked controlled "
+        "experiment, then use blinded exact-scope evidence for any ranking."
+    )
+
 _SPECIFICITY_BONUS_TOKENS = (
     "absolute", "base", "fcf", "ftec", "oil", "resinoid", "super",
     "ambrofix", "orchid", "musk", "ionone", "irone", "jasmine",
@@ -177,6 +190,8 @@ class FormulaOptimizer:
 
         Returns the top N formula candidates.
         """
+        _reject_composition_ranking()
+
         # Classify available materials by note
         tops, hearts, bases = [], [], []
         for name in self.inventory:
@@ -314,6 +329,8 @@ class FormulaOptimizer:
 
     def optimize(self, formula: FormulaVector) -> OptimizationResult:
         """Optimize an existing formula by iteratively trying improvements."""
+        _reject_composition_ranking()
+
         best_fv = FormulaVector(
             ingredients=dict(formula.ingredients),
             dilutions=dict(formula.dilutions),
