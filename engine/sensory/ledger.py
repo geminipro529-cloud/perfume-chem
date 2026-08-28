@@ -44,7 +44,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from math import isfinite
 from statistics import median
-from typing import Any, Mapping
+from typing import Any, ClassVar, Mapping
 
 from engine.domain_errors import LegacyWriteProhibitedError
 from engine.evidence.augmentation import (
@@ -1105,6 +1105,1069 @@ def audit_temporal_evidence(
     )
 
 
+# ── V3 paired trajectories and realized order ──────────────────────────────────
+
+
+TEMPORAL_V3_AUTHORITY_FLAGS = {
+    "compounding": False,
+    "formula": False,
+    "hedonic": False,
+    "physical_execution": False,
+    "purchase": False,
+    "release": False,
+    "safety": False,
+    "sensory": False,
+}
+
+
+class TemporalMeasurementMode(str, Enum):
+    """Declared observation semantics; modes cannot be silently interchanged."""
+
+    DISCRETE_RATING = "DISCRETE_RATING"
+    TDS_DOMINANCE = "TDS_DOMINANCE"
+    TCATA_ATTRIBUTE = "TCATA_ATTRIBUTE"
+
+
+class TemporalContrastDirection(str, Enum):
+    LEFT_GREATER = "LEFT_GREATER"
+    RIGHT_GREATER = "RIGHT_GREATER"
+    EITHER = "EITHER"
+
+
+class TemporalContrastOutcome(str, Enum):
+    SUPPORTED = "SUPPORTED"
+    NOT_SUPPORTED = "NOT_SUPPORTED"
+    INCOMPLETE = "INCOMPLETE"
+
+
+class RealizedOrderState(str, Enum):
+    NOT_REQUIRED = "NOT_REQUIRED"
+    PASS = "PASS"
+    HOLD = "HOLD"
+
+
+def _v3_bool(value: object, field_name: str) -> bool:
+    if not isinstance(value, bool):
+        raise TypeError(f"{field_name} must be boolean")
+    return value
+
+
+def _v3_positive_int(value: object, field_name: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise TypeError(f"{field_name} must be an integer")
+    if value < 1:
+        raise ValueError(f"{field_name} must be positive")
+    return value
+
+
+def _v3_nonnegative(value: object, field_name: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise TypeError(f"{field_name} must be numeric")
+    result = float(value)
+    if not isfinite(result) or result < 0:
+        raise ValueError(f"{field_name} must be finite and nonnegative")
+    return result
+
+
+def _v3_fraction(value: object, field_name: str) -> float:
+    result = _v3_nonnegative(value, field_name)
+    if result < 0.5 or result > 1:
+        raise ValueError(f"{field_name} must be from 0.5 through 1")
+    return result
+
+
+def _v3_text_tuple(
+    value: object,
+    field_name: str,
+    *,
+    minimum: int = 1,
+) -> tuple[str, ...]:
+    if not isinstance(value, (list, tuple)):
+        raise TypeError(f"{field_name} must be a sequence")
+    result = tuple(_required_text(item, field_name) for item in value)
+    if len(result) < minimum:
+        raise ValueError(f"{field_name} requires at least {minimum} values")
+    if len(result) != len(set(result)):
+        raise ValueError(f"{field_name} must not contain duplicates")
+    return result
+
+
+@dataclass(frozen=True, slots=True)
+class RealizedPresentationAssignment:
+    """Observed assessor/repeat sequence, distinct from a planned schedule."""
+
+    assessor_id: str
+    repeat_id: str
+    sequence_id: str
+    ordered_sample_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        for name in ("assessor_id", "repeat_id", "sequence_id"):
+            object.__setattr__(
+                self,
+                name,
+                _required_text(getattr(self, name), name),
+            )
+        object.__setattr__(
+            self,
+            "ordered_sample_ids",
+            _v3_text_tuple(
+                self.ordered_sample_ids,
+                "ordered_sample_ids",
+                minimum=2,
+            ),
+        )
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "assessor_id": self.assessor_id,
+            "repeat_id": self.repeat_id,
+            "sequence_id": self.sequence_id,
+            "ordered_sample_ids": list(self.ordered_sample_ids),
+        }
+
+    @classmethod
+    def from_dict(cls, value: Mapping[str, object]) -> RealizedPresentationAssignment:
+        if not isinstance(value, Mapping):
+            raise TypeError("realized assignment must be a mapping")
+        fields = {"assessor_id", "repeat_id", "sequence_id", "ordered_sample_ids"}
+        if set(value) != fields:
+            raise ValueError("realized assignment fields must match the closed schema")
+        ordered = value["ordered_sample_ids"]
+        if not isinstance(ordered, (list, tuple)):
+            raise TypeError("ordered_sample_ids must be a sequence")
+        return cls(
+            assessor_id=value["assessor_id"],
+            repeat_id=value["repeat_id"],
+            sequence_id=value["sequence_id"],
+            ordered_sample_ids=tuple(ordered),
+        )
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalContrastSpecV3:
+    """One predeclared paired difference-in-change decision."""
+
+    contrast_id: str
+    left_sample_id: str
+    right_sample_id: str
+    endpoint_id: str
+    from_time_seconds: float
+    to_time_seconds: float
+    direction: TemporalContrastDirection
+    minimum_absolute_median_difference_in_change: float
+    minimum_directional_agreement_fraction: float
+
+    def __post_init__(self) -> None:
+        for name in (
+            "contrast_id",
+            "left_sample_id",
+            "right_sample_id",
+            "endpoint_id",
+        ):
+            object.__setattr__(
+                self,
+                name,
+                _required_text(getattr(self, name), name),
+            )
+        if self.left_sample_id == self.right_sample_id:
+            raise ValueError("a temporal contrast requires two distinct samples")
+        for name in ("from_time_seconds", "to_time_seconds"):
+            value = _v3_nonnegative(getattr(self, name), name)
+            object.__setattr__(self, name, value)
+        if self.from_time_seconds >= self.to_time_seconds:
+            raise ValueError("from_time_seconds must precede to_time_seconds")
+        object.__setattr__(
+            self,
+            "direction",
+            TemporalContrastDirection(self.direction),
+        )
+        object.__setattr__(
+            self,
+            "minimum_absolute_median_difference_in_change",
+            _v3_nonnegative(
+                self.minimum_absolute_median_difference_in_change,
+                "minimum_absolute_median_difference_in_change",
+            ),
+        )
+        object.__setattr__(
+            self,
+            "minimum_directional_agreement_fraction",
+            _v3_fraction(
+                self.minimum_directional_agreement_fraction,
+                "minimum_directional_agreement_fraction",
+            ),
+        )
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "contrast_id": self.contrast_id,
+            "left_sample_id": self.left_sample_id,
+            "right_sample_id": self.right_sample_id,
+            "endpoint_id": self.endpoint_id,
+            "from_time_seconds": self.from_time_seconds,
+            "to_time_seconds": self.to_time_seconds,
+            "direction": self.direction.value,
+            "minimum_absolute_median_difference_in_change": (
+                self.minimum_absolute_median_difference_in_change
+            ),
+            "minimum_directional_agreement_fraction": (
+                self.minimum_directional_agreement_fraction
+            ),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalAnalysisPlanV3:
+    """Frozen temporal question; completeness alone cannot resolve it."""
+
+    analysis_id: str
+    criterion_id: str
+    measurement_mode: TemporalMeasurementMode
+    minimum_paired_trajectory_count: int
+    require_realized_order: bool
+    require_complete_grid: bool
+    contrasts: tuple[TemporalContrastSpecV3, ...]
+    evidence_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "analysis_id",
+            _required_text(self.analysis_id, "analysis_id"),
+        )
+        object.__setattr__(
+            self,
+            "criterion_id",
+            _required_text(self.criterion_id, "criterion_id").upper(),
+        )
+        object.__setattr__(
+            self,
+            "measurement_mode",
+            TemporalMeasurementMode(self.measurement_mode),
+        )
+        object.__setattr__(
+            self,
+            "minimum_paired_trajectory_count",
+            _v3_positive_int(
+                self.minimum_paired_trajectory_count,
+                "minimum_paired_trajectory_count",
+            ),
+        )
+        for name in ("require_realized_order", "require_complete_grid"):
+            object.__setattr__(self, name, _v3_bool(getattr(self, name), name))
+        contrasts = tuple(self.contrasts)
+        if not contrasts or any(
+            not isinstance(item, TemporalContrastSpecV3) for item in contrasts
+        ):
+            raise TypeError("contrasts must contain TemporalContrastSpecV3 records")
+        contrast_ids = tuple(item.contrast_id for item in contrasts)
+        if len(contrast_ids) != len(set(contrast_ids)):
+            raise ValueError("contrast_id values must be unique")
+        object.__setattr__(self, "contrasts", contrasts)
+        object.__setattr__(
+            self,
+            "evidence_refs",
+            _v3_text_tuple(self.evidence_refs, "evidence_refs"),
+        )
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": "temporal_analysis_plan_v3",
+            "analysis_id": self.analysis_id,
+            "criterion_id": self.criterion_id,
+            "measurement_mode": self.measurement_mode.value,
+            "minimum_paired_trajectory_count": self.minimum_paired_trajectory_count,
+            "require_realized_order": self.require_realized_order,
+            "require_complete_grid": self.require_complete_grid,
+            "contrasts": [item.as_dict() for item in self.contrasts],
+            "evidence_refs": list(self.evidence_refs),
+            "authority_flags": dict(TEMPORAL_V3_AUTHORITY_FLAGS),
+        }
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+def _temporal_request_v3_parent_payload(
+    parent: TemporalEvidenceRequest,
+) -> dict[str, object]:
+    return {
+        "scope": _scope_payload(parent.scope),
+        "schedule": parent.schedule.as_dict(),
+        "cells": [
+            cell.as_dict()
+            for cell in sorted(
+                parent.cells,
+                key=lambda item: (
+                    item.key,
+                    item.observation_id,
+                    item.presentation_sequence_id,
+                ),
+            )
+        ],
+        "safety_events": [
+            event.as_dict()
+            for event in sorted(parent.safety_events, key=lambda item: item.event_id)
+        ],
+    }
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEvidenceRequestV3:
+    parent: TemporalEvidenceRequest
+    analysis_plan: TemporalAnalysisPlanV3
+    realized_assignments: tuple[RealizedPresentationAssignment, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parent, TemporalEvidenceRequest):
+            raise TypeError("parent must be a TemporalEvidenceRequest")
+        if not isinstance(self.analysis_plan, TemporalAnalysisPlanV3):
+            raise TypeError("analysis_plan must be a TemporalAnalysisPlanV3")
+        assignments = tuple(self.realized_assignments)
+        if any(
+            not isinstance(item, RealizedPresentationAssignment)
+            for item in assignments
+        ):
+            raise TypeError(
+                "realized_assignments must contain RealizedPresentationAssignment records"
+            )
+        keys = tuple((item.assessor_id, item.repeat_id) for item in assignments)
+        if len(keys) != len(set(keys)):
+            raise ValueError("realized assignments must be unique by assessor and repeat")
+        object.__setattr__(self, "realized_assignments", assignments)
+        scope = self.parent.scope
+        if self.analysis_plan.measurement_mode in {
+            TemporalMeasurementMode.TDS_DOMINANCE,
+            TemporalMeasurementMode.TCATA_ATTRIBUTE,
+        } and len(scope.endpoint_ids) < 2:
+            raise ValueError("TDS and TCATA require at least two declared attributes")
+        for contrast in self.analysis_plan.contrasts:
+            if not {contrast.left_sample_id, contrast.right_sample_id}.issubset(
+                scope.sample_ids
+            ):
+                raise ValueError("temporal contrast sample is outside protocol scope")
+            if contrast.endpoint_id not in scope.endpoint_ids:
+                raise ValueError("temporal contrast endpoint is outside protocol scope")
+            if contrast.from_time_seconds not in scope.timepoints_seconds or (
+                contrast.to_time_seconds not in scope.timepoints_seconds
+            ):
+                raise ValueError("temporal contrast timepoint is outside protocol scope")
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": "temporal_evidence_request_v3",
+            "parent": _temporal_request_v3_parent_payload(self.parent),
+            "analysis_plan": self.analysis_plan.as_dict(),
+            "realized_assignments": [
+                item.as_dict()
+                for item in sorted(
+                    self.realized_assignments,
+                    key=lambda assignment: (
+                        assignment.assessor_id,
+                        assignment.repeat_id,
+                    ),
+                )
+            ],
+            "authority_flags": dict(TEMPORAL_V3_AUTHORITY_FLAGS),
+        }
+
+    def canonical_bytes(self) -> bytes:
+        return canonical_json_bytes(self.as_dict())
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(self.canonical_bytes())
+
+
+@dataclass(frozen=True, slots=True)
+class RealizedOrderDiagnosticV3:
+    state: RealizedOrderState
+    sequence_counts: tuple[tuple[str, int], ...]
+    first_position_counts: tuple[tuple[str, int], ...]
+    adjacent_pair_counts: tuple[tuple[str, int], ...]
+    blockers: tuple[str, ...]
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "state": self.state.value,
+            "sequence_counts": dict(self.sequence_counts),
+            "first_position_counts": dict(self.first_position_counts),
+            "adjacent_pair_counts": dict(self.adjacent_pair_counts),
+            "blockers": list(self.blockers),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class PairedTemporalTransitionV3:
+    sample_id: str
+    endpoint_id: str
+    from_time_seconds: float
+    to_time_seconds: float
+    paired_count: int
+    median_change: float
+    first_quartile: float
+    third_quartile: float
+    median_absolute_deviation: float
+    positive_count: int
+    negative_count: int
+    tie_count: int
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "sample_id": self.sample_id,
+            "endpoint_id": self.endpoint_id,
+            "from_time_seconds": self.from_time_seconds,
+            "to_time_seconds": self.to_time_seconds,
+            "paired_count": self.paired_count,
+            "median_change": self.median_change,
+            "first_quartile": self.first_quartile,
+            "third_quartile": self.third_quartile,
+            "median_absolute_deviation": self.median_absolute_deviation,
+            "positive_count": self.positive_count,
+            "negative_count": self.negative_count,
+            "tie_count": self.tie_count,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalContrastResultV3:
+    contrast_id: str
+    outcome: TemporalContrastOutcome
+    paired_count: int
+    median_difference_in_change: float | None
+    first_quartile: float | None
+    third_quartile: float | None
+    median_absolute_deviation: float | None
+    positive_count: int
+    negative_count: int
+    tie_count: int
+    directional_agreement_fraction: float | None
+    from_time_median_left_minus_right: float | None
+    to_time_median_left_minus_right: float | None
+    crossover_observed: bool | None
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "contrast_id": self.contrast_id,
+            "outcome": self.outcome.value,
+            "paired_count": self.paired_count,
+            "median_difference_in_change": self.median_difference_in_change,
+            "first_quartile": self.first_quartile,
+            "third_quartile": self.third_quartile,
+            "median_absolute_deviation": self.median_absolute_deviation,
+            "positive_count": self.positive_count,
+            "negative_count": self.negative_count,
+            "tie_count": self.tie_count,
+            "directional_agreement_fraction": self.directional_agreement_fraction,
+            "from_time_median_left_minus_right": (
+                self.from_time_median_left_minus_right
+            ),
+            "to_time_median_left_minus_right": self.to_time_median_left_minus_right,
+            "crossover_observed": self.crossover_observed,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalAttributeRateV3:
+    sample_id: str
+    endpoint_id: str
+    time_seconds: float
+    measurement_mode: TemporalMeasurementMode
+    observed_count: int
+    active_count: int
+    activation_rate: float
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "sample_id": self.sample_id,
+            "endpoint_id": self.endpoint_id,
+            "time_seconds": self.time_seconds,
+            "measurement_mode": self.measurement_mode.value,
+            "observed_count": self.observed_count,
+            "active_count": self.active_count,
+            "activation_rate": self.activation_rate,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalEvidenceResultV3:
+    SCHEMA_VERSION: ClassVar[str] = "temporal_evidence_result_v3"
+
+    state: TemporalEvidenceState
+    request_sha256: str
+    parent_v2: TemporalEvidenceAuditResultV2
+    realized_order: RealizedOrderDiagnosticV3
+    paired_transitions: tuple[PairedTemporalTransitionV3, ...]
+    contrasts: tuple[TemporalContrastResultV3, ...]
+    attribute_rates: tuple[TemporalAttributeRateV3, ...]
+    blockers: tuple[str, ...]
+    next_discriminator: str | None
+    receipt: EvidenceDeltaReceiptV1
+    interpolated_cell_count: int = field(default=0, init=False)
+
+    @property
+    def realized_order_state(self) -> RealizedOrderState:
+        return self.realized_order.state
+
+    @property
+    def authority_flags(self) -> dict[str, bool]:
+        return dict(TEMPORAL_V3_AUTHORITY_FLAGS)
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "state": self.state.value,
+            "request_sha256": self.request_sha256,
+            "parent_v2": {
+                "disposition": self.parent_v2.disposition.value,
+                "receipt_sha256": self.parent_v2.receipt.receipt_sha256,
+                "source_cell_count": self.parent_v2.source_cell_count,
+                "excluded_duplicate_row_count": (
+                    self.parent_v2.excluded_duplicate_row_count
+                ),
+                "missing_cells": [
+                    _cell_key_payload(item) for item in self.parent_v2.missing_cells
+                ],
+                "duplicate_cells": [
+                    _cell_key_payload(item) for item in self.parent_v2.duplicate_cells
+                ],
+            },
+            "realized_order": self.realized_order.as_dict(),
+            "paired_transitions": [
+                item.as_dict() for item in self.paired_transitions
+            ],
+            "contrasts": [item.as_dict() for item in self.contrasts],
+            "attribute_rates": [item.as_dict() for item in self.attribute_rates],
+            "blockers": list(self.blockers),
+            "next_discriminator": self.next_discriminator,
+            "receipt": self.receipt.as_dict(),
+            "interpolated_cell_count": self.interpolated_cell_count,
+            "authority_flags": self.authority_flags,
+        }
+
+    def canonical_bytes(self) -> bytes:
+        return canonical_json_bytes(self.as_dict())
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(self.canonical_bytes())
+
+
+def _v3_distribution(values: list[float]) -> tuple[float, float, float, float]:
+    ordered = sorted(values)
+    middle = float(median(ordered))
+    lower = (
+        float(median(ordered[: len(ordered) // 2]))
+        if len(ordered) > 1
+        else middle
+    )
+    upper_start = (len(ordered) + 1) // 2
+    upper = (
+        float(median(ordered[upper_start:]))
+        if len(ordered) > 1
+        else middle
+    )
+    mad = float(median([abs(value - middle) for value in ordered]))
+    return middle, lower, upper, mad
+
+
+def _v3_unique_cell_values(
+    request: TemporalEvidenceRequest,
+) -> dict[ObservationCellKey, float]:
+    counts = Counter(cell.key for cell in request.cells)
+    return {
+        cell.key: cell.value
+        for cell in request.cells
+        if counts[cell.key] == 1
+    }
+
+
+def _v3_realized_order(
+    request: TemporalEvidenceRequestV3,
+) -> RealizedOrderDiagnosticV3:
+    scope = request.parent.scope
+    schedule = request.parent.schedule
+    assignments = {
+        (item.assessor_id, item.repeat_id): item
+        for item in request.realized_assignments
+    }
+    expected_keys = {
+        (assessor_id, repeat_id)
+        for assessor_id in scope.assessor_ids
+        for repeat_id in scope.repeat_ids
+    }
+    blockers: list[str] = []
+    if request.analysis_plan.require_realized_order and set(assignments) != expected_keys:
+        blockers.append("REALIZED_ASSIGNMENT_SET_INCOMPLETE")
+
+    sequence_index = {
+        tuple(sequence): f"SCHEDULE_SEQUENCE_{index:03d}"
+        for index, sequence in enumerate(schedule.sequences, start=1)
+    }
+    sequence_counts = Counter({identifier: 0 for identifier in sequence_index.values()})
+    first_counts = Counter({sample_id: 0 for sample_id in scope.sample_ids})
+    adjacent_counts = Counter(
+        {
+            f"{left}->{right}": 0
+            for left in scope.sample_ids
+            for right in scope.sample_ids
+            if left != right
+        }
+    )
+    for assignment in request.realized_assignments:
+        ordered = assignment.ordered_sample_ids
+        if set(ordered) != set(scope.sample_ids) or len(ordered) != len(scope.sample_ids):
+            blockers.append("REALIZED_SEQUENCE_SAMPLE_SET_MISMATCH")
+            continue
+        identifier = sequence_index.get(ordered)
+        if identifier is None:
+            blockers.append("REALIZED_SEQUENCE_NOT_IN_FROZEN_SCHEDULE")
+            continue
+        sequence_counts[identifier] += 1
+        first_counts[ordered[0]] += 1
+        adjacent_counts.update(
+            f"{left}->{right}" for left, right in zip(ordered, ordered[1:])
+        )
+
+    if request.analysis_plan.require_realized_order and sequence_counts:
+        values = tuple(sequence_counts.values())
+        if max(values) - min(values) > 1:
+            blockers.append("REALIZED_SEQUENCE_COUNTS_UNBALANCED")
+
+    for cell in request.parent.cells:
+        assignment = assignments.get((cell.key.assessor_id, cell.key.repeat_id))
+        if assignment is None:
+            if request.analysis_plan.require_realized_order:
+                blockers.append("OBSERVATION_WITHOUT_REALIZED_ASSIGNMENT")
+            continue
+        if cell.presentation_sequence_id != assignment.sequence_id:
+            blockers.append("OBSERVATION_SEQUENCE_ID_MISMATCH")
+        try:
+            expected_position = assignment.ordered_sample_ids.index(cell.key.sample_id) + 1
+        except ValueError:
+            blockers.append("OBSERVATION_SAMPLE_NOT_IN_REALIZED_SEQUENCE")
+        else:
+            if cell.presentation_position != expected_position:
+                blockers.append("OBSERVATION_POSITION_MISMATCH")
+
+    unique_blockers = tuple(sorted(set(blockers)))
+    state = (
+        RealizedOrderState.HOLD
+        if unique_blockers
+        else RealizedOrderState.PASS
+        if request.analysis_plan.require_realized_order
+        else RealizedOrderState.NOT_REQUIRED
+    )
+    return RealizedOrderDiagnosticV3(
+        state=state,
+        sequence_counts=tuple(sorted(sequence_counts.items())),
+        first_position_counts=tuple(sorted(first_counts.items())),
+        adjacent_pair_counts=tuple(sorted(adjacent_counts.items())),
+        blockers=unique_blockers,
+    )
+
+
+def _v3_mode_audit(
+    request: TemporalEvidenceRequestV3,
+) -> tuple[tuple[TemporalAttributeRateV3, ...], tuple[str, ...]]:
+    mode = request.analysis_plan.measurement_mode
+    if mode is TemporalMeasurementMode.DISCRETE_RATING:
+        return (), ()
+    counts = Counter(cell.key for cell in request.parent.cells)
+    safe_cells = tuple(
+        cell for cell in request.parent.cells if counts[cell.key] == 1
+    )
+    blockers: list[str] = []
+    if any(cell.value not in {0.0, 1.0} for cell in safe_cells):
+        blockers.append("DYNAMIC_ATTRIBUTE_VALUES_MUST_BE_BINARY")
+    grouped: dict[tuple[str, str, float, str], list[float]] = defaultdict(list)
+    trajectory_groups: dict[tuple[str, str, str, float], dict[str, float]] = defaultdict(dict)
+    for cell in safe_cells:
+        grouped[
+            (
+                cell.key.sample_id,
+                cell.key.endpoint_id,
+                cell.key.time_seconds,
+                mode.value,
+            )
+        ].append(cell.value)
+        trajectory_groups[
+            (
+                cell.key.sample_id,
+                cell.key.assessor_id,
+                cell.key.repeat_id,
+                cell.key.time_seconds,
+            )
+        ][cell.key.endpoint_id] = cell.value
+    if mode is TemporalMeasurementMode.TDS_DOMINANCE:
+        endpoint_set = set(request.parent.scope.endpoint_ids)
+        for endpoint_values in trajectory_groups.values():
+            if set(endpoint_values) == endpoint_set and sum(endpoint_values.values()) != 1:
+                blockers.append("TDS_REQUIRES_EXACTLY_ONE_DOMINANT_ATTRIBUTE")
+                break
+    rates = tuple(
+        TemporalAttributeRateV3(
+            sample_id=key[0],
+            endpoint_id=key[1],
+            time_seconds=key[2],
+            measurement_mode=TemporalMeasurementMode(key[3]),
+            observed_count=len(values),
+            active_count=sum(int(value == 1.0) for value in values),
+            activation_rate=(
+                sum(int(value == 1.0) for value in values) / len(values)
+            ),
+        )
+        for key, values in sorted(grouped.items())
+    )
+    return rates, tuple(sorted(set(blockers)))
+
+
+def _v3_paired_transitions(
+    request: TemporalEvidenceRequestV3,
+) -> tuple[PairedTemporalTransitionV3, ...]:
+    scope = request.parent.scope
+    values = _v3_unique_cell_values(request.parent)
+    summaries: list[PairedTemporalTransitionV3] = []
+    for sample_id in scope.sample_ids:
+        for endpoint_id in scope.endpoint_ids:
+            for left_time, right_time in zip(
+                scope.timepoints_seconds,
+                scope.timepoints_seconds[1:],
+            ):
+                deltas: list[float] = []
+                for assessor_id in scope.assessor_ids:
+                    for repeat_id in scope.repeat_ids:
+                        left_key = ObservationCellKey(
+                            scope.protocol_id,
+                            sample_id,
+                            assessor_id,
+                            repeat_id,
+                            left_time,
+                            endpoint_id,
+                        )
+                        right_key = ObservationCellKey(
+                            scope.protocol_id,
+                            sample_id,
+                            assessor_id,
+                            repeat_id,
+                            right_time,
+                            endpoint_id,
+                        )
+                        if left_key in values and right_key in values:
+                            deltas.append(values[right_key] - values[left_key])
+                if deltas:
+                    middle, lower, upper, mad = _v3_distribution(deltas)
+                    summaries.append(
+                        PairedTemporalTransitionV3(
+                            sample_id=sample_id,
+                            endpoint_id=endpoint_id,
+                            from_time_seconds=left_time,
+                            to_time_seconds=right_time,
+                            paired_count=len(deltas),
+                            median_change=middle,
+                            first_quartile=lower,
+                            third_quartile=upper,
+                            median_absolute_deviation=mad,
+                            positive_count=sum(value > 0 for value in deltas),
+                            negative_count=sum(value < 0 for value in deltas),
+                            tie_count=sum(value == 0 for value in deltas),
+                        )
+                    )
+    return tuple(summaries)
+
+
+def _v3_contrast_result(
+    request: TemporalEvidenceRequestV3,
+    spec: TemporalContrastSpecV3,
+) -> TemporalContrastResultV3:
+    scope = request.parent.scope
+    values = _v3_unique_cell_values(request.parent)
+    differences_in_change: list[float] = []
+    from_differences: list[float] = []
+    to_differences: list[float] = []
+    for assessor_id in scope.assessor_ids:
+        for repeat_id in scope.repeat_ids:
+            keys = tuple(
+                ObservationCellKey(
+                    scope.protocol_id,
+                    sample_id,
+                    assessor_id,
+                    repeat_id,
+                    timepoint,
+                    spec.endpoint_id,
+                )
+                for sample_id, timepoint in (
+                    (spec.left_sample_id, spec.from_time_seconds),
+                    (spec.left_sample_id, spec.to_time_seconds),
+                    (spec.right_sample_id, spec.from_time_seconds),
+                    (spec.right_sample_id, spec.to_time_seconds),
+                )
+            )
+            if all(key in values for key in keys):
+                left_from, left_to, right_from, right_to = (
+                    values[key] for key in keys
+                )
+                from_difference = left_from - right_from
+                to_difference = left_to - right_to
+                from_differences.append(from_difference)
+                to_differences.append(to_difference)
+                differences_in_change.append(to_difference - from_difference)
+
+    paired_count = len(differences_in_change)
+    positive_count = sum(value > 0 for value in differences_in_change)
+    negative_count = sum(value < 0 for value in differences_in_change)
+    tie_count = sum(value == 0 for value in differences_in_change)
+    if not differences_in_change:
+        return TemporalContrastResultV3(
+            contrast_id=spec.contrast_id,
+            outcome=TemporalContrastOutcome.INCOMPLETE,
+            paired_count=0,
+            median_difference_in_change=None,
+            first_quartile=None,
+            third_quartile=None,
+            median_absolute_deviation=None,
+            positive_count=0,
+            negative_count=0,
+            tie_count=0,
+            directional_agreement_fraction=None,
+            from_time_median_left_minus_right=None,
+            to_time_median_left_minus_right=None,
+            crossover_observed=None,
+        )
+
+    middle, lower, upper, mad = _v3_distribution(differences_in_change)
+    from_middle = float(median(from_differences))
+    to_middle = float(median(to_differences))
+    crossover = (from_middle < 0 < to_middle) or (from_middle > 0 > to_middle)
+    if spec.direction is TemporalContrastDirection.LEFT_GREATER:
+        direction_supported = middle >= (
+            spec.minimum_absolute_median_difference_in_change
+        )
+        supporting_count = positive_count
+    elif spec.direction is TemporalContrastDirection.RIGHT_GREATER:
+        direction_supported = middle <= -(
+            spec.minimum_absolute_median_difference_in_change
+        )
+        supporting_count = negative_count
+    elif middle > 0:
+        direction_supported = middle >= (
+            spec.minimum_absolute_median_difference_in_change
+        )
+        supporting_count = positive_count
+    elif middle < 0:
+        direction_supported = middle <= -(
+            spec.minimum_absolute_median_difference_in_change
+        )
+        supporting_count = negative_count
+    else:
+        direction_supported = (
+            spec.minimum_absolute_median_difference_in_change == 0
+        )
+        supporting_count = tie_count
+    agreement = supporting_count / paired_count
+    if paired_count < request.analysis_plan.minimum_paired_trajectory_count:
+        outcome = TemporalContrastOutcome.INCOMPLETE
+    elif (
+        direction_supported
+        and agreement >= spec.minimum_directional_agreement_fraction
+    ):
+        outcome = TemporalContrastOutcome.SUPPORTED
+    else:
+        outcome = TemporalContrastOutcome.NOT_SUPPORTED
+    return TemporalContrastResultV3(
+        contrast_id=spec.contrast_id,
+        outcome=outcome,
+        paired_count=paired_count,
+        median_difference_in_change=middle,
+        first_quartile=lower,
+        third_quartile=upper,
+        median_absolute_deviation=mad,
+        positive_count=positive_count,
+        negative_count=negative_count,
+        tie_count=tie_count,
+        directional_agreement_fraction=agreement,
+        from_time_median_left_minus_right=from_middle,
+        to_time_median_left_minus_right=to_middle,
+        crossover_observed=crossover,
+    )
+
+
+_TEMPORAL_V3_POLICY_SHA256 = sha256_hex(
+    canonical_json_bytes(
+        {
+            "policy": "TEMPORAL_PAIRED_TRAJECTORY_REALIZED_ORDER_V3",
+            "change": "WITHIN_ASSESSOR_REPEAT_PAIRED",
+            "sample_contrast": "DIFFERENCE_IN_CHANGE",
+            "order": "REALIZED_NOT_DESIGN_INFERRED",
+            "dynamic_modes": ("TDS_DOMINANCE", "TCATA_ATTRIBUTE"),
+            "missing": "NO_INTERPOLATION",
+            "selection": "ZERO_OR_ONE_NEXT_ACTION",
+        }
+    )
+)
+
+
+def analyze_temporal_evidence_v3(
+    request: TemporalEvidenceRequestV3,
+) -> TemporalEvidenceResultV3:
+    """Analyze paired observed trajectories and realized order without interpolation."""
+
+    if not isinstance(request, TemporalEvidenceRequestV3):
+        raise TypeError("request must be a TemporalEvidenceRequestV3")
+    parent_v2 = audit_temporal_evidence(request.parent)
+    realized = _v3_realized_order(request)
+    attribute_rates, mode_blockers = _v3_mode_audit(request)
+    paired_transitions = _v3_paired_transitions(request)
+    contrasts = tuple(
+        _v3_contrast_result(request, item)
+        for item in request.analysis_plan.contrasts
+    )
+    blockers = tuple(sorted(set((*realized.blockers, *mode_blockers))))
+
+    parent_hold = parent_v2.disposition in {
+        TemporalEvidenceDisposition.CONFLICTED,
+        TemporalEvidenceDisposition.PROTOCOL_HOLD,
+    }
+    parent_incomplete = parent_v2.disposition in {
+        TemporalEvidenceDisposition.INCOMPLETE,
+        TemporalEvidenceDisposition.INSUFFICIENT_SCOPE,
+    }
+    contrast_incomplete = any(
+        item.outcome is TemporalContrastOutcome.INCOMPLETE for item in contrasts
+    )
+    if parent_hold or blockers:
+        state = TemporalEvidenceState.HOLD
+    elif parent_incomplete or (
+        request.analysis_plan.require_complete_grid and parent_v2.missing_cells
+    ) or contrast_incomplete:
+        state = TemporalEvidenceState.INCOMPLETE
+    else:
+        state = TemporalEvidenceState.COMPLETE
+
+    if state is TemporalEvidenceState.HOLD:
+        if realized.blockers:
+            next_discriminator = "REPAIR_REALIZED_PRESENTATION_ORDER"
+        elif mode_blockers:
+            next_discriminator = "CORRECT_TEMPORAL_MEASUREMENT_MODE"
+        else:
+            next_discriminator = parent_v2.next_discriminator
+    elif state is TemporalEvidenceState.INCOMPLETE:
+        if parent_v2.next_discriminator is not None:
+            next_discriminator = parent_v2.next_discriminator
+        else:
+            incomplete = next(
+                item
+                for item in contrasts
+                if item.outcome is TemporalContrastOutcome.INCOMPLETE
+            )
+            next_discriminator = (
+                f"EXPAND_PAIRED_TRAJECTORY_SCOPE:{incomplete.contrast_id}"
+            )
+    else:
+        next_discriminator = None
+
+    realized_sha256 = sha256_hex(canonical_json_bytes(realized.as_dict()))
+    source_bindings = tuple(
+        sorted(
+            {
+                parent_v2.receipt.receipt_sha256,
+                request.analysis_plan.record_sha256,
+                realized_sha256,
+                request.record_sha256,
+            }
+        )
+    )
+    reason_codes = {
+        TemporalEvidenceState.COMPLETE: ("PAIRED_TEMPORAL_DECISION_COMPLETE",),
+        TemporalEvidenceState.INCOMPLETE: ("PAIRED_TEMPORAL_EVIDENCE_INCOMPLETE",),
+        TemporalEvidenceState.HOLD: ("PAIRED_TEMPORAL_PROTOCOL_HOLD",),
+    }[state]
+    receipt_blockers = tuple(
+        dict.fromkeys(
+            (
+                *blockers,
+                *parent_v2.receipt.blockers,
+                *(
+                    ("PAIRED_TRAJECTORY_COUNT_INSUFFICIENT",)
+                    if contrast_incomplete
+                    else ()
+                ),
+            )
+        )
+    )
+    exact_scope = (
+        f"{request.parent.scope.protocol_id}/TEMPORAL/"
+        f"{request.analysis_plan.criterion_id}"
+    )
+    if state is TemporalEvidenceState.COMPLETE:
+        delta = DecisionDeltaV1(
+            delta_id=f"TEMPORAL-V3:{request.analysis_plan.analysis_id}",
+            decision_effect=(
+                "Use only the observed paired transition and contrast results at "
+                "this exact protocol and criterion scope."
+            ),
+            observed_facts=(
+                f"source_cells={len(request.parent.cells)}",
+                f"paired_transitions={len(paired_transitions)}",
+                f"declared_contrasts={len(contrasts)}",
+                f"realized_order={realized.state.value}",
+            ),
+            derived_calculations=tuple(
+                f"{item.contrast_id}={item.outcome.value};pairs={item.paired_count}"
+                for item in contrasts
+            ),
+            hypotheses=(),
+            forbidden_inferences=(
+                "Observed trajectories do not establish formula-derived perception or liking.",
+                "TDS and TCATA summaries remain method-specific and are not interchangeable.",
+                "No missing observation was interpolated.",
+            ),
+        )
+        receipt = EvidenceDeltaReceiptV1(
+            module_id="temporal_sensory_ledger_v3",
+            exact_scope=exact_scope,
+            state=EvidenceAugmentationState.AUGMENT,
+            input_sha256=request.record_sha256,
+            evidence_sha256=parent_v2.receipt.evidence_sha256,
+            policy_sha256=_TEMPORAL_V3_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reason_codes=reason_codes,
+            delta=delta,
+            blockers=(),
+            next_action=None,
+        )
+    else:
+        receipt = hold_receipt(
+            module_id="temporal_sensory_ledger_v3",
+            exact_scope=exact_scope,
+            input_sha256=request.record_sha256,
+            evidence_sha256=parent_v2.receipt.evidence_sha256,
+            policy_sha256=_TEMPORAL_V3_POLICY_SHA256,
+            source_binding_sha256=source_bindings,
+            reasons=reason_codes,
+            blockers=receipt_blockers,
+            next_action=next_discriminator,
+        )
+    return TemporalEvidenceResultV3(
+        state=state,
+        request_sha256=request.record_sha256,
+        parent_v2=parent_v2,
+        realized_order=realized,
+        paired_transitions=paired_transitions,
+        contrasts=contrasts,
+        attribute_rates=attribute_rates,
+        blockers=tuple(dict.fromkeys((*blockers, *parent_v2.receipt.blockers))),
+        next_discriminator=next_discriminator,
+        receipt=receipt,
+    )
+
+
 # ── Code generation ──────────────────────────────────────────────────────────────
 
 
@@ -1330,23 +2393,38 @@ class SensoryTrial:
 
 __all__ = [
     "TIME_POINTS",
+    "TEMPORAL_V3_AUTHORITY_FLAGS",
     "AssessorReliabilityState",
     "AssessorReliabilitySummary",
     "ObservationCellKey",
+    "PairedTemporalTransitionV3",
+    "RealizedOrderDiagnosticV3",
+    "RealizedOrderState",
+    "RealizedPresentationAssignment",
     "SensorySample",
     "SensoryObservation",
     "SensorySafetyEvent",
     "SensoryProtocolScope",
     "SensoryTrial",
+    "TemporalAnalysisPlanV3",
+    "TemporalAttributeRateV3",
+    "TemporalContrastDirection",
+    "TemporalContrastOutcome",
+    "TemporalContrastResultV3",
+    "TemporalContrastSpecV3",
     "TemporalEndpointSummary",
     "TemporalEvidenceAuditResultV2",
     "TemporalEvidenceDisposition",
     "TemporalEvidenceRequest",
+    "TemporalEvidenceRequestV3",
     "TemporalEvidenceResult",
+    "TemporalEvidenceResultV3",
     "TemporalEvidenceState",
+    "TemporalMeasurementMode",
     "TemporalObservationCell",
     "TemporalTransition",
     "analyze_temporal_evidence",
+    "analyze_temporal_evidence_v3",
     "audit_temporal_evidence",
     "generate_trial_codes",
 ]

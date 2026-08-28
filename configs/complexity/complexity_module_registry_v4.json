@@ -38,16 +38,18 @@
       "module_id": "temporal-sensory-ledger",
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71",
+      "sha256": "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
         "tests/test_temporal_sensory_evidence.py",
-        "tests/test_solforge_evidence_adapters.py"
+        "tests/test_solforge_evidence_adapters.py",
+        "docs/depth_architecture/18_evidence_value_and_model_tier_router.md"
       ],
       "notes": [
-        "V2 observed-only sufficiency audit; screening and runtime admission remain pending.",
-        "Missing observations stay missing and predicted volatility never becomes perceived behavior."
+        "V3 adds frozen temporal contrasts, within-assessor/repeat paired transitions, paired sample difference-in-change, realized-order auditing, and non-interchangeable discrete-rating, TDS, and TCATA modes; fresh screening and runtime admission remain pending for these exact bytes.",
+        "The previously screened V2 source SHA-256 was 7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71; its underperformance remains a provenance tombstone and cannot be erased by the rebuild.",
+        "Missing observations stay missing, duplicated canonical cells remain HOLD, planned order is not treated as realized order, and predicted volatility never becomes perceived behavior."
       ]
     },
     {
@@ -132,7 +134,7 @@
     },
     {
       "path": "engine/sensory/ledger.py",
-      "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71"
+      "sha256": "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
     },
     {
       "path": "engine/solforge/orchestrator.py",

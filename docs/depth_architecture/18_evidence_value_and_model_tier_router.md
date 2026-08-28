@@ -378,3 +378,159 @@ Before runtime promotion:
 - `configs/solforge/research_source_seeds_v1.json`: method-only source seeds for information-from-experiment, Bayesian design, and model discrimination.
 
 The JSON policy is executable authority. This document explains the policy but cannot override it. Any threshold, task-class, or authority change requires a new reviewed policy version, tests, exact hashes, and Ultra-level admission review.
+
+## 18. Temporal Sensory Ledger V3: observed trajectories, not volatility stories
+
+Temporal Ledger V3 repairs the specific weakness that caused the prior temporal candidate to tie plain xhigh in screening. The failed candidate could count cells, summarize endpoint medians, and inspect a planned Williams schedule, but it did not answer the central experimental question: **did the same assessor experience a different change over time for one sample than for the comparison sample, under the sequence actually presented?** A complete rectangular table was therefore capable of producing a superficially resolved report even when no temporal contrast, minimum paired scope, or realized-order receipt had been declared.
+
+V3 remains an extension of `engine/sensory/ledger.py`; it is not a second sensory truth system. V1 preserves the canonical-cell and descriptive-summary contract. V2 excludes every row belonging to a duplicated canonical cell, emits an evidence receipt, and selects one next action. V3 consumes that audited parent and adds only the information needed for paired temporal decisions:
+
+- a frozen analysis plan;
+- an explicit observation mode;
+- predeclared sample, endpoint, time-window, direction, effect-size, agreement, and minimum-pair requirements;
+- observed assessor/repeat presentation assignments;
+- within-assessor/repeat sample trajectories;
+- paired difference-in-change contrasts;
+- dispersion, ties, directional agreement, and crossover diagnostics; and
+- a complete, incomplete, or hold receipt with no physical or release authority.
+
+The methodological seeds are Labbé et al. for comparative TDS design, Pineau et al. for TDS curve construction, Meyners and Pineau for the distinction between descriptive curves and inferential randomization procedures, Castura et al. for TCATA, and Macfie et al. for presentation-order and first-order carry-over design. These sources constrain the method. They do not establish that any perfume has a particular trajectory, depth, richness, liking, or persistence. Most were developed in food and general sensory analysis; transfer to finished perfume remains a protocol-design hypothesis until tested at the exact product, apparatus, substrate, assessor, and time scope.
+
+### 18.1 The canonical observation cell remains immutable
+
+The canonical identity remains:
+
+`(protocol, sample, assessor, repeat, timepoint, endpoint)`
+
+Presentation sequence and position are bound context, but they do not create a second identity for the same sensory measurement. Two rows with the same canonical key are not independent repeats. They are an unresolved duplicate. V2 and V3 exclude every row at that key from calculations and return `HOLD`; they never average, select the first row, select the last row, or count both. A missing key remains missing. V3 reports `interpolated_cell_count = 0` by construction.
+
+This distinction matters because interpolation can make a perfume appear to possess smooth temporal continuity when the continuity is only a mathematical fill. Predicted volatility, evaporation class, boiling point, vapor pressure, OAV, molecular weight, or a language model's note pyramid cannot replace a perceived observation. Those quantities can motivate a test but cannot populate a sensory cell.
+
+### 18.2 A frozen temporal question precedes analysis
+
+Every V3 request includes `TemporalAnalysisPlanV3`. It freezes:
+
+- `analysis_id` and criterion;
+- one measurement mode;
+- minimum complete paired-trajectory count;
+- whether realized order is mandatory;
+- whether the complete protocol grid is mandatory;
+- one or more declared sample contrasts; and
+- source or protocol evidence references.
+
+Each contrast states the left sample, right sample, endpoint, earlier and later timepoints, expected direction, minimum absolute median difference-in-change, and minimum directional-agreement fraction. This prevents post hoc selection of the endpoint or time window that happens to look most favorable. It also prevents a data-complete grid from being called successful when the actual criterion was never defined.
+
+The plan does not collapse target fidelity, depth, richness, and liking. A temporal DEPTH contrast is not a LIKING contrast. If both matter, they require distinct endpoints or protocols and distinct evidence receipts.
+
+### 18.3 Three observation modes have non-interchangeable meanings
+
+`DISCRETE_RATING` records a numeric endpoint at declared timepoints. It can support paired change and difference-in-change when the scale, anchors, timing, and protocol are qualified.
+
+`TDS_DOMINANCE` records which one declared attribute is dominant at a trajectory time. V3 requires binary attribute values and exactly one active dominant attribute for a complete assessor/repeat/sample/time trajectory. A dominance rate is not an intensity rating. An attribute can dominate because alternatives are weaker even when its absolute intensity is modest.
+
+`TCATA_ATTRIBUTE` records which declared attributes apply at a trajectory time. It also requires binary values, but multiple attributes may be active concurrently. TCATA activation cannot be relabeled as dominance, and its activation rate cannot be treated as perceived intensity without a separately validated scale.
+
+For TDS and TCATA, V3 emits descriptive activation rates only. It does not claim statistical significance, construct significance bands, or run a randomization test. Meyners and Pineau are retained specifically to make that omission explicit: inferential TDS requires a valid declared procedure and adequate design; a sparse descriptive ledger must not manufacture inferential authority.
+
+Within-sniff timing remains inadmissible unless the apparatus and timing protocol are explicitly qualified. Ordinary blotter readings at nominal minutes cannot be redescribed as millisecond-scale within-sniff evidence.
+
+### 18.4 Planned balance and realized order are separate evidence layers
+
+A Williams or related schedule is a design object. It can show that the intended sequences balance positions and first-order carry-over. It cannot prove that assessors received those sequences.
+
+`RealizedPresentationAssignment` therefore records, for every assessor and repeat:
+
+- the assessor and repeat identities;
+- a realized sequence identifier; and
+- the ordered sample identities actually presented.
+
+V3 verifies that the assignment set matches the required assessor/repeat set, every realized sequence contains exactly the scoped samples, every sequence belongs to the frozen schedule, sequence counts are balanced to the declared schedule, and every observation's sequence identifier and presentation position agree with the realized assignment. It reports realized sequence counts, first-position counts, and directed adjacent-pair counts.
+
+If the design is balanced but everyone actually received A before B, V3 returns `HOLD`. If a row says sample A was in position two but the realized assignment puts A first, V3 returns `HOLD`. Planned balance cannot launder execution imbalance.
+
+This is a diagnostic of observed order compliance, not a fitted carry-over correction. V3 does not estimate a carry-over coefficient from two assessors or subtract a model-predicted order effect. When realized balance is inadequate, the correct action is a new balanced comparison or protocol reconciliation.
+
+### 18.5 Paired transitions preserve assessor and repeat identity
+
+For sample `s`, endpoint `e`, assessor `a`, repeat `r`, and two declared times `t0 < t1`, V3 computes a transition only when both cells exist uniquely:
+
+`change(s,e,a,r) = value(s,e,a,r,t1) - value(s,e,a,r,t0)`
+
+No assessor is paired with another assessor. No repeat is paired with another repeat. If either endpoint is missing or duplicated, that trajectory contributes no delta.
+
+For each sample transition, V3 reports:
+
+- paired count;
+- median change;
+- first and third quartiles;
+- median absolute deviation;
+- positive, negative, and tied changes.
+
+The median and MAD are robust descriptive summaries. They are not population estimates, confidence intervals, or proof of sensory significance. Ties remain evidence of no observed change at the scale resolution; they are never silently discarded.
+
+### 18.6 The sample decision uses paired difference-in-change
+
+Endpoint medians at the later time can confound baseline differences with temporal evolution. V3 instead computes, within each assessor and repeat:
+
+`DID(a,r) = [L(t1) - R(t1)] - [L(t0) - R(t0)]`
+
+This is algebraically the left sample's change minus the right sample's change for the same assessor/repeat. V3 reports the median DID, quartiles, MAD, sign counts, tie count, and directional-agreement fraction.
+
+For a `LEFT_GREATER` claim, support requires both:
+
+- median DID at least the predeclared positive effect threshold; and
+- the fraction of positive paired DIDs at least the predeclared agreement threshold.
+
+`RIGHT_GREATER` uses the corresponding negative threshold and negative agreement. `EITHER` permits either direction but still requires the frozen absolute threshold and agreement. If paired count is below the plan minimum, the result is `INCOMPLETE`, even when the available pairs all point in one direction. Small-sample unanimity does not create adequate scope.
+
+This version deliberately does not fit a mixed model, calculate a p-value, or claim generalization beyond the observed assessors. Such inference requires a protocol-specific statistical analysis plan, adequate sample size, validated assumptions, and preferably assessor-cluster-aware uncertainty. V3's role is to prevent unpaired or post hoc conclusions, not to overstate a small panel.
+
+### 18.7 Crossover is descriptive and criterion-bound
+
+For the same complete paired trajectories, V3 also reports the median left-minus-right difference at `t0` and at `t1`. `crossover_observed` is true only when those two medians have strict opposite signs. A zero at either endpoint is not called a crossover.
+
+A crossover can be architecturally informative: one sample may begin less radiant and later become more radiant, or one floral voice may recede while another becomes dominant. But crossover is not automatically good, deep, complex, target-faithful, or liked. Its meaning depends on the frozen architecture and criterion. Chiaroscuro may value a controlled shadow-to-radiance transition; Minimal Precision may regard the same transition as identity drift.
+
+### 18.8 State machine and one next discriminator
+
+V3 resolves state in this order:
+
+1. duplicated cells, protocol failures, realized-order defects, or mode-semantic defects produce `HOLD`;
+2. missing cells or too few complete paired trajectories produce `INCOMPLETE`;
+3. otherwise the analysis is `COMPLETE`, and every contrast is reported as `SUPPORTED` or `NOT_SUPPORTED` against its frozen thresholds.
+
+`COMPLETE` does not mean the preferred hypothesis won. A sufficiently observed `NOT_SUPPORTED` result is a complete negative result and should prevent an ineffective change from being promoted.
+
+The next discriminator is singular and deterministic. A realized-order failure requests order repair; a TDS/TCATA semantic failure requests measurement-mode correction; missing evidence follows the V2 missing-cell discriminator; insufficient paired scope requests more complete paired trajectories for the exact contrast. The module does not emit a shopping list of unrelated experiments.
+
+### 18.9 Hash lineage and authority ceiling
+
+The V3 request hash covers the full parent scope, schedule, every observation cell, every safety event, the analysis plan, realized assignments, and all-false authority flags. The result receipt binds:
+
+- the V2 evidence receipt hash;
+- the V3 analysis-plan hash;
+- the realized-order diagnostic hash;
+- the complete V3 request hash; and
+- the V3 policy hash.
+
+Any changed value, sequence, threshold, source binding, or plan creates a different lineage. The receipt can augment only the exact protocol/criterion scope when all gates pass. Otherwise it is a hold receipt with blockers and one next action.
+
+V3 grants no formula, sensory-success, hedonic, compounding, purchase, physical-execution, safety, stability, or release authority. Unit tests establish software behavior only. The fresh three-arm xhigh admission benchmark remains mandatory, and even a passing benchmark would establish runtime decision quality—not that an untested perfume smells deep, rich, complex, or beautiful.
+
+### 18.10 Why this replacement may outperform plain xhigh
+
+The expected advantage is not verbosity. It is the executable refusal of common reasoning errors:
+
+- treating planned counterbalance as observed counterbalance;
+- pooling assessors before computing change;
+- comparing late medians without controlling the earlier difference;
+- changing endpoint or time window after seeing results;
+- treating a complete table as a supported claim;
+- converting TDS dominance into intensity;
+- converting TCATA co-selection into dominance;
+- filling missing sensory cells with volatility predictions;
+- averaging duplicated canonical cells;
+- interpreting a tiny unanimous panel as adequate scope; and
+- letting a temporal result grant liking, formula, safety, or release authority.
+
+Whether this advantage is real remains `NOT VALIDATED` until V3 beats both plain Sol xhigh and the length-matched placebo on fresh unseen screening and confirmation cases with zero critical regressions. The failed V2 bytes remain a provenance tombstone; V3 does not erase or rewrite that failure.

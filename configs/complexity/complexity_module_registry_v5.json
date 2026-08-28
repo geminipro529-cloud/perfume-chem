@@ -2,12 +2,12 @@
   "schema_version": "complexity_module_registry_v5",
   "base_registry": {
     "path": "complexity_module_registry_v4.json",
-    "sha256": "61766cca1bd8bb2f5074c6ab73661f9ef6310d5014a3e12d61a68e06a7530583"
+    "sha256": "6c320da59e7a22308a6dd0c8f896d00b7d34e58a755bbdcc77b1578e1dc5838e"
   },
   "runtime_bindings": [
     {
       "path": "engine/perception/complexity_registry.py",
-      "sha256": "eaade4648d17303faec36207879b7965a716471dd1aefd4088ca3cc11d9405fc"
+      "sha256": "1f7f47d45a0117223e36a8aa6cf9504a0fa3acda077eb897a069c109a9ca1976"
     },
     {
       "path": "engine/solforge/runtime.py",
@@ -43,19 +43,22 @@
     },
     {
       "module_id": "temporal-sensory-ledger",
-      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "import_path": null,
-      "sha256": "7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71",
+      "sha256": "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f",
       "evidence_refs": [
         "configs/solforge/complexity_construct_registry_v1.json",
         "configs/solforge/complexity_evidence_sources_v2.json",
+        "configs/solforge/research_source_seeds_v1.json",
         "tests/test_temporal_sensory_evidence.py",
         "tests/test_solforge_evidence_adapters.py",
+        "docs/depth_architecture/18_evidence_value_and_model_tier_router.md",
         "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json"
       ],
       "notes": [
-        "Stopped after screening because it tied plain Sol 5.6 xhigh on all three screen cases and won only one case against placebo.",
-        "Source and tests remain as provenance and compatibility code; no complexity runtime import is exposed."
+        "The V2 predecessor at SHA-256 7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71 stopped after screening because it tied plain Sol 5.6 xhigh on all three screen cases and won only one case against placebo; that failure remains a provenance tombstone.",
+        "V3 adds predeclared paired difference-in-change, crossover diagnostics, realized-order auditing, and method-specific discrete-rating, TDS, and TCATA handling, but it is a fresh unvalidated candidate rather than a retroactive repair of the failed benchmark.",
+        "No complexity runtime import or formula, sensory, hedonic, safety, purchase, compounding, scientific, physical-execution, or release authority is exposed."
       ]
     },
     {

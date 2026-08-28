@@ -27,6 +27,38 @@
       "authority": "METHOD_OR_HYPOTHESIS_ONLY"
     },
     {
+      "seed_id": "PINEAU-2009",
+      "stable_identifier": "doi:10.1016/j.foodqual.2009.04.005",
+      "uri": "https://doi.org/10.1016/j.foodqual.2009.04.005",
+      "title": "Temporal Dominance of Sensations: Construction of the TDS curves and comparison with time-intensity",
+      "intended_methodological_use": "Constrain TDS data construction to predeclared dominance observations and method-specific temporal curves; do not reinterpret ordinary intensity ratings as dominance.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "MEYNERS-PINEAU-2010",
+      "stable_identifier": "doi:10.1016/j.foodqual.2010.04.004",
+      "uri": "https://doi.org/10.1016/j.foodqual.2010.04.004",
+      "title": "Statistical inference for Temporal Dominance of Sensations data using randomization tests",
+      "intended_methodological_use": "Constrain inferential TDS claims to a declared valid procedure; version three reports descriptive activation rates only and does not manufacture significance from sparse trajectories.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "CASTURA-2016",
+      "stable_identifier": "doi:10.1016/j.foodqual.2015.06.017",
+      "uri": "https://doi.org/10.1016/j.foodqual.2015.06.017",
+      "title": "Temporal Check-All-That-Apply (TCATA): A novel dynamic method for characterizing products",
+      "intended_methodological_use": "Keep TCATA concurrent attribute selection distinct from TDS single-dominance observations and from discrete intensity ratings.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "MACFIE-1989",
+      "stable_identifier": "doi:10.1111/j.1745-459X.1989.tb00463.x",
+      "uri": "https://doi.org/10.1111/j.1745-459X.1989.tb00463.x",
+      "title": "Designs to balance the effect of order of presentation and first-order carry-over effects in hall tests",
+      "intended_methodological_use": "Require order and carry-over control in the frozen presentation design while separately auditing what sequence each assessor actually received.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
       "seed_id": "ZHOU-2024",
       "stable_identifier": "doi:10.1038/s41562-024-01984-8",
       "uri": "https://doi.org/10.1038/s41562-024-01984-8",

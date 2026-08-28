@@ -33,7 +33,12 @@ def test_v5_withdraws_stale_admission_after_exact_source_rebuild() -> None:
     )
 
     temporal = registry.module_by_id("temporal-sensory-ledger")
-    assert temporal.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+    assert temporal.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+    assert hashlib.sha256((ROOT / temporal.path).read_bytes()).hexdigest() == (
+        temporal.sha256
+    )
+    assert any("tied plain Sol 5.6 xhigh" in note for note in temporal.notes)
+    assert any("V3" in note and "fresh unvalidated" in note for note in temporal.notes)
     hedonic = registry.module_by_id("hedonic-preference-learner")
     assert hedonic.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
     for module in (temporal, hedonic):

@@ -28,6 +28,9 @@ CURRENT_COMPLEXITY_REGISTRY_PATH = Path(
 _V5_CURRENT_ARCHITECTURAL_DELTA_SHA256 = (
     "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
 )
+_V5_CURRENT_TEMPORAL_LEDGER_SHA256 = (
+    "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
+)
 
 
 class ModuleState(str, Enum):
@@ -759,10 +762,11 @@ def _load_registry_v5(
         raise ValueError("V5 rebuilt architectural candidate binding is invalid")
     temporal = modules[index_by_id["temporal-sensory-ledger"]]
     if (
-        temporal.state is not ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        temporal.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
         or temporal.import_path is not None
+        or temporal.sha256 != _V5_CURRENT_TEMPORAL_LEDGER_SHA256
     ):
-        raise ValueError("V5 temporal underperformer must remain runtime-unreachable")
+        raise ValueError("V5 rebuilt temporal candidate binding is invalid")
     hedonic = modules[index_by_id["hedonic-preference-learner"]]
     if (
         hedonic.state is not ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
