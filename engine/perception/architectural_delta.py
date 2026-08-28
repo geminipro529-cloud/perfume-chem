@@ -28,7 +28,9 @@ from engine.evidence_contracts import canonical_json_bytes, sha256_hex
 from engine.perception import complexity_inventory as _complexity_inventory
 from engine.perception.complexity_inventory import (
     ComplexityInventoryCatalog,
+    InventoryAvailability,
     InventoryProjection,
+    StockReadiness,
 )
 from engine.scientific_validation.complexity_design_contracts import (
     NaryAssessmentState,
@@ -422,31 +424,63 @@ def evaluate_architectural_delta(
     *,
     inventory_catalog_path: str | None = None,
     inventory_workbook_path: str | None = None,
+    inventory_snapshot: Any | None = None,
 ) -> ArchitecturalDeltaResult:
     """Evaluate one target-defined delta against the supplied V5 authority."""
 
     if not isinstance(request, ArchitecturalDeltaRequest):
         raise TypeError("request must be an ArchitecturalDeltaRequest")
-    if inventory_workbook_path is None:
-        inventory_workbook_path = os.environ.get(
-            "PERFUME_COMPLEXITY_INVENTORY_WORKBOOK"
+    if inventory_snapshot is not None:
+        if inventory_catalog_path is not None or inventory_workbook_path is not None:
+            raise ValueError(
+                "inventory_snapshot cannot be combined with legacy inventory paths"
+            )
+        workbook_sha256 = _sha256(
+            getattr(inventory_snapshot, "workbook_sha256", None),
+            "inventory_snapshot.workbook_sha256",
         )
-    if not inventory_workbook_path or not inventory_workbook_path.strip():
-        raise ValueError(
-            "authoritative inventory workbook path is required for every "
-            "Architectural Delta execution"
+        overlay_sha256 = getattr(inventory_snapshot, "overlay_sha256", None)
+        if overlay_sha256 is not None:
+            _sha256(overlay_sha256, "inventory_snapshot.overlay_sha256")
+        source_row_count = getattr(
+            inventory_snapshot,
+            "workbook_record_count",
+            None,
         )
-    catalog = _load_execution_inventory_catalog(
-        inventory_catalog_path,
-        inventory_workbook_path,
-    )
+        if (
+            isinstance(source_row_count, bool)
+            or not isinstance(source_row_count, int)
+            or source_row_count < 0
+        ):
+            raise ValueError(
+                "inventory_snapshot.workbook_record_count must be a nonnegative integer"
+            )
+        def project_inventory(material: str) -> InventoryProjection:
+            return _joined_inventory_projection(inventory_snapshot.project(material))
+    else:
+        if inventory_workbook_path is None:
+            inventory_workbook_path = os.environ.get(
+                "PERFUME_COMPLEXITY_INVENTORY_WORKBOOK"
+            )
+        if not inventory_workbook_path or not inventory_workbook_path.strip():
+            raise ValueError(
+                "authoritative inventory workbook path is required for every "
+                "Architectural Delta execution"
+            )
+        catalog = _load_execution_inventory_catalog(
+            inventory_catalog_path,
+            inventory_workbook_path,
+        )
+        workbook_sha256 = catalog.workbook_sha256
+        source_row_count = len(catalog.current_records)
+        project_inventory = catalog.project
     common = {
         "target_identity": request.target_identity,
         "ideal_formula_ref": request.ideal_formula_ref,
         "current_build_ref": request.current_build_ref,
         "formula_lineage_sha256": request.formula_lineage_sha256,
-        "inventory_workbook_sha256": catalog.workbook_sha256,
-        "inventory_source_row_count": len(catalog.current_records),
+        "inventory_workbook_sha256": workbook_sha256,
+        "inventory_source_row_count": source_row_count,
     }
     if not request.candidates:
         return ArchitecturalDeltaResult(
@@ -495,7 +529,7 @@ def evaluate_architectural_delta(
         )
 
     selected = top_ranked[0]
-    projection = catalog.project(selected.material)
+    projection = project_inventory(selected.material)
     return ArchitecturalDeltaResult(
         state=ArchitecturalDeltaState.PROPOSED,
         selected_candidate=selected,
@@ -507,6 +541,76 @@ def evaluate_architectural_delta(
             f"{selected.controlled_arms[1]} for {selected.target_role}."
         ),
         **common,
+    )
+
+
+def _joined_inventory_projection(value: Any) -> InventoryProjection:
+    """Adapt the joined V5/overlay/exact-stock projection without widening it.
+
+    The compatibility ``InventoryProjection`` predates the joined authority model.
+    This adapter deliberately carries only fields that the Architectural Delta
+    contract can represent.  In particular, ownership without an ExactStockRef
+    remains ``STOCK_DETAIL_OPEN`` and never becomes physical authority.
+    """
+
+    from engine.inventory.authority import InventoryAvailabilityState
+
+    state = InventoryAvailabilityState(getattr(value, "state", None))
+    availability_map = {
+        InventoryAvailabilityState.OWNED: InventoryAvailability.OWNED,
+        InventoryAvailabilityState.UNAVAILABLE: InventoryAvailability.OUT_OF_STOCK,
+        InventoryAvailabilityState.PLANNED_ACQUISITION: (
+            InventoryAvailability.PLANNED_ACQUISITION
+        ),
+        InventoryAvailabilityState.PREPARABLE: (
+            InventoryAvailability.PREPARABLE_NOT_MIXED
+        ),
+        InventoryAvailabilityState.VERIFY: InventoryAvailability.VERIFY_FIRST,
+        InventoryAvailabilityState.FORBIDDEN: InventoryAvailability.FORBIDDEN,
+        InventoryAvailabilityState.UNLISTED: InventoryAvailability.UNLISTED,
+    }
+    availability = availability_map[state]
+    exact_stock_ref = getattr(value, "exact_stock_ref", None)
+    physical_execution_ready = bool(
+        getattr(value, "physical_execution_ready", False)
+    )
+    if (
+        availability is InventoryAvailability.OWNED
+        and exact_stock_ref
+        and physical_execution_ready
+    ):
+        stock_readiness = StockReadiness.EXACT_STOCK_IDENTIFIED
+    elif availability is InventoryAvailability.OWNED:
+        stock_readiness = StockReadiness.STOCK_DETAIL_OPEN
+    elif availability is InventoryAvailability.PREPARABLE_NOT_MIXED:
+        stock_readiness = StockReadiness.PREPARATION_REQUIRED
+    elif availability is InventoryAvailability.PLANNED_ACQUISITION:
+        stock_readiness = StockReadiness.PROCUREMENT_PENDING
+    elif availability is InventoryAvailability.VERIFY_FIRST:
+        stock_readiness = StockReadiness.STOCK_DETAIL_OPEN
+    else:
+        stock_readiness = StockReadiness.NOT_BUILDABLE
+
+    source_rows = tuple(getattr(value, "source_rows", ()))
+    return InventoryProjection(
+        requested_material=_text(
+            getattr(value, "requested_name", None),
+            "inventory_projection.requested_name",
+        ),
+        canonical_material=_text(
+            getattr(value, "canonical_name", None),
+            "inventory_projection.canonical_name",
+        ),
+        availability=availability,
+        stock_readiness=stock_readiness,
+        exact_stock_ref=exact_stock_ref,
+        source_kind="JOINED_V5_OVERLAY_EXACT_STOCK",
+        source_row=source_rows[0] if source_rows else None,
+        status=_text(
+            getattr(value, "status", None),
+            "inventory_projection.status",
+        ),
+        reason=getattr(value, "note", None),
     )
 
 

@@ -1,0 +1,587 @@
+{
+  "schema_version": "architecture_strategy_registry_v1",
+  "claim_ceiling": "ARCHITECTURAL_HYPOTHESIS_AND_EXPERIMENT_DESIGN_ONLY",
+  "selection_rule": "Select the strategy that best explains the locked target's required perceptual relations. Do not select from a global ranking, ingredient count, style prestige, formula frequency, or predicted hedonic score.",
+  "nonranking_rule": "The eight strategies are different causal grammars, not levels on one scale. No strategy receives a score. A simple target can legitimately use Minimal Precision; a dark target need not use Chiaroscuro; a spatial target need not contain dark-light opposition.",
+  "primary_strategy_count": 1,
+  "maximum_secondary_strategies": 2,
+  "strategies": [
+    {
+      "strategy_id": "CHIAROSCURO_DUAL_STATE",
+      "name": "Chiaroscuro / Dual-State Counterform",
+      "definition": "A target in which two simultaneously legible but mutually modifying states reveal one another: dark and radiant, dense and lucid, matte and luminous, warm and mineral, or another target-specific opposition. Depth comes from controlled counterform, hierarchy, and a credible bridge, not from simply adding a dark base to a bright top.",
+      "not_definition": "Not every perfume with top and base notes, not a generic contrast score, not mandatory for woods or iris, and not permission to imitate Dior Homme Parfum. The states must be target invariants and must remain perceptually related rather than becoming two disconnected perfumes.",
+      "when_to_use": [
+        "The target brief explicitly depends on two concurrent or repeatedly returning states whose contrast is identity-bearing.",
+        "Omission of either state makes the target monolithic, generic, or unrecognizable.",
+        "A declared bridge or controlled boundary is required so the states form one object.",
+        "The intended depth can be evaluated with endpoints for both state legibility, mutual revelation, and bridge coherence."
+      ],
+      "when_not_to_use": [
+        "The brief only asks for a conventional bright opening and dark drydown with no simultaneous relation.",
+        "One state is merely an intensity modifier or masking correction rather than a target recognizer.",
+        "The target is principally a near-far field, a temporal transformation, or an exact minimal object without a defining opposition.",
+        "The supposed contrast exists only in formula categories or predicted volatility and has not been defined as a perceptual endpoint."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Foreground-background organization in which each state gives the other a perceptual reference plane.",
+        "Simultaneous contrast that increases differentiation without requiring greater total intensity.",
+        "Partial occlusion or controlled masking that implies an interior behind a surface while preserving recognizers.",
+        "A tactile, floral, woody, mineral, or diffusive bridge that prevents hard collage and supports one integrated object.",
+        "Temporal rebalancing in which neither state simply disappears; their relative salience changes while target identity persists."
+      ],
+      "target_signatures": [
+        "Two named target states with separate success and failure observables.",
+        "An invariant hierarchy or tension between those states.",
+        "A required bridge, boundary, aperture, veil, grain, or counterform relation.",
+        "A forbidden failure in which one state masks, sweetens, launders, flattens, or spatially detaches the other."
+      ],
+      "required_relations": [
+        "Each state owns distinct target functions and neither is counted twice through a secondary strategy.",
+        "The states remain discriminable enough for separate endpoints while being integrated enough to read as one architecture.",
+        "The bridge has a target-linked role and is tested as a ratio or omission isolate rather than assumed beneficial.",
+        "Total dose, carrier, maturation, presentation, and order remain controlled when the bridge or state balance is varied."
+      ],
+      "failure_modes": [
+        "MONOLITHIC_SHADOW: the dark state becomes an amberwood, tar, leather, resin, or sweet wall with no revealed interior.",
+        "BLEACHED_COUNTERFORM: the radiant state launders, soaps, ozonizes, or cleans away the target's dark texture.",
+        "DISCONNECTED_COLLAGE: two recognizable accords coexist without a credible transition or shared object.",
+        "FALSE_DEPTH_BY_INTENSITY: greater loudness is misreported as greater depth.",
+        "BRIDGE_TAKEOVER: musk, floral diffusion, sweetness, or wood transparency becomes the subject instead of connecting the states.",
+        "REFERENCE_MIMICRY: a famous perfume's material clichés replace the target's own recognizers and invariants."
+      ],
+      "causal_probe_types": [
+        "Constant-total omission of one state while retaining the other and the bridge.",
+        "Constant-total bridge ratio comparison with both state endpoints held compositionally fixed.",
+        "Factorial state-by-bridge design when an interaction claim is essential and the complete isolated arms are available.",
+        "Blinded temporal ledger of state legibility, hierarchy, bridge coherence, target fidelity, and failure endpoints."
+      ],
+      "primary_endpoints": [
+        "legibility of state A",
+        "legibility of state B",
+        "mutual revelation or counterform",
+        "bridge coherence",
+        "target fidelity",
+        "experienced depth under the declared protocol"
+      ],
+      "failure_endpoints": [
+        "masking of either state",
+        "two-perfume collage",
+        "generic amberwood or musk wall",
+        "sweetness, cleanliness, or intensity drift",
+        "fatigue or aversion introduced by the contrast"
+      ],
+      "compatible_secondaries": [
+        "MATERIAL_TEXTURE",
+        "TEMPORAL_METAMORPHOSIS",
+        "SPATIAL_FIELD"
+      ],
+      "dhp_relation": "The carved, dark-radiant, tactile wood-and-orris reading associated with the user's Dior Homme Parfum 2025 structural study is one important instance of this grammar. It is an example to analyze, not a universal template, clone target, or proof that every rich perfume needs chiaroscuro.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "OBJECT_ANATOMY_TRANSFORMATION",
+      "name": "Object Anatomy / Inside-Surface Transformation",
+      "definition": "A target organized as one perceptual object with distinguishable anatomy: skin, rind, petal, flesh, sap, grain, smoke, crust, crumb, glaze, root, mineral fracture, or another target-specific interior-surface structure. Depth comes from coherent anatomy and transformations among parts, not from stacking note labels.",
+      "not_definition": "Not photorealism by ingredient enumeration, not a universal food or floral accord recipe, and not permission to call every formula layer an anatomical part. Each part must have a target-linked perceptual role, omission loss, and relation to the whole object.",
+      "when_to_use": [
+        "The target identity is an object whose surface and interior, or multiple anatomical regions, matter to recognition.",
+        "The target loses realism or symbolic identity when a specific anatomical relation is omitted.",
+        "The design needs controlled revelation, fracture, compression, bruising, cooking, drying, blooming, or another state change within the same object.",
+        "Assessors can be asked about object coherence and specific anatomy without being cued to ingredient names."
+      ],
+      "when_not_to_use": [
+        "The brief is primarily abstract, atmospheric, spatial, or minimal and does not require an object model.",
+        "The proposed anatomy is only a convenient accord taxonomy with no perceptual observables.",
+        "Realism language would overclaim because no blinded identity or anatomy evidence will be collected.",
+        "Multiple object subjects compete without a declared hierarchy; use Polyphonic Counterpoint only if their independence is target-required."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Surface-interior differentiation that implies volume and material thickness.",
+        "Coherent partial cues that assemble configurally into one object rather than a note list.",
+        "Controlled reveal or fracture that changes which anatomical region is salient over time.",
+        "Cross-modal texture expectations such as waxy, fibrous, juicy, dusty, crisp, porous, or resinous, measured as sensory reports rather than inferred from chemistry.",
+        "Target-specific imperfection or trace cues that prevent a generic idealized accord while avoiding defect takeover."
+      ],
+      "target_signatures": [
+        "One named perceptual object or material subject.",
+        "At least two target-required anatomical functions with separate omission losses.",
+        "A whole-object recognizer that must survive anatomical differentiation.",
+        "A forbidden failure such as candy, cleaner, candle, flavoring, generic floral, or disconnected collage."
+      ],
+      "required_relations": [
+        "Anatomical functions are nested within one target object and cannot be double-counted as independent perfume subjects.",
+        "The whole-object endpoint is primary; isolated part recognizability is diagnostic and may not compensate for a failed whole.",
+        "Each anatomical intervention changes one factor at constant total where feasible.",
+        "Temporal transformation claims require observed timepoint data rather than predicted evaporation order."
+      ],
+      "failure_modes": [
+        "NOTE_LIST_REALISM: assessors identify ingredients or notes but not the intended object.",
+        "FLAVOR_COLLAPSE: edible anatomy becomes flavoring, candy, syrup, or bakery fragrance rather than fine fragrance.",
+        "ANATOMICAL_COLLAGE: rind, flesh, wood, flower, or smoke cues remain disconnected.",
+        "OVERDETERMINATION: every anatomical detail is amplified until the object becomes literal, noisy, or exhausting.",
+        "STERILE_IDEALIZATION: removal of all trace variation produces a generic accord with weak identity.",
+        "MODELLED_TRANSFORMATION: chemistry or volatility is narrated as perceived change without observations."
+      ],
+      "causal_probe_types": [
+        "Constant-total omission of one anatomical function with whole-object identity as the primary endpoint.",
+        "Surface-to-interior ratio comparison with explicit candy, cleaner, flavor, and collage failure endpoints.",
+        "Blinded recognition plus free-description coding to separate cued note naming from configurational object recognition.",
+        "Temporal observation of anatomical reveal only at qualified protocol timepoints."
+      ],
+      "primary_endpoints": [
+        "whole-object identity",
+        "surface-interior coherence",
+        "anatomical differentiation",
+        "target fidelity",
+        "fine-fragrance integration"
+      ],
+      "failure_endpoints": [
+        "ingredient or note list without object",
+        "candy, flavoring, candle, or cleaner drift",
+        "literal overload",
+        "disconnected anatomy",
+        "identity loss over time"
+      ],
+      "compatible_secondaries": [
+        "MATERIAL_TEXTURE",
+        "TEMPORAL_METAMORPHOSIS",
+        "MINIMAL_PRECISION"
+      ],
+      "dhp_relation": "Dior Homme Parfum-style carved wood may use object anatomy when grain, polished surface, interior shadow, and fracture are explicit target functions. The strategy is not implied by the fragrance name or by the presence of woody materials.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "TEMPORAL_METAMORPHOSIS",
+      "name": "Temporal Metamorphosis / Identity-Preserving Change",
+      "definition": "A target whose identity depends on observed change across qualified timepoints: blooming, cooling, drying, darkening, returning, dissolving, revealing, reversing, or changing relational emphasis while recognizers persist. Depth comes from meaningful transitions and memory across time, not from a predicted top-heart-base sequence.",
+      "not_definition": "Not a volatility chart, not a boiling-point narrative, not automatic because all perfumes evaporate, and not interpolation between missing observations. The transformation must be target-required and empirically observable under a bound sensory protocol.",
+      "when_to_use": [
+        "A transformation or return is part of the target identity rather than incidental evaporation.",
+        "Different timepoints have distinct target-required endpoints and failure modes.",
+        "The same recognizer changes context, texture, hierarchy, or spatial relation without becoming an unrelated subject.",
+        "The apparatus, schedule, assessor repeats, presentation sequence, and observation cells can be qualified."
+      ],
+      "when_not_to_use": [
+        "The only evidence is predicted volatility, OAV, substantivity, or material lore.",
+        "Observations are missing, duplicated, unbound to timepoints, or drawn from an unqualified within-sniff timing procedure.",
+        "The target is intentionally static or its meaningful depth is simultaneous rather than temporal.",
+        "A changing identity is actually target drift or instability rather than intended metamorphosis."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Memory-based comparison among observed states creates continuity and differentiated temporal layers.",
+        "Delayed revelation or return changes interpretation of an earlier state without erasing target identity.",
+        "A controlled transition can create tension and relief, fascination, or wanting-to-resmell, each measured separately.",
+        "Persistence of a recognizer through contextual change supports identity-preserving depth.",
+        "Non-monotonic change, when observed and repeatable, can create richer temporal organization than simple fade."
+      ],
+      "target_signatures": [
+        "Named time windows with target-specific endpoints rather than generic top, heart, and base labels.",
+        "At least one identity invariant that must persist through change.",
+        "At least one intended transition and one forbidden drift or collapse.",
+        "A sensory protocol capable of canonical cell identity and missing-cell preservation."
+      ],
+      "required_relations": [
+        "Every observation is bound to protocol, sample, assessor, repeat, timepoint, endpoint, presentation sequence, and schedule hash.",
+        "Duplicate canonical cells cause HOLD and missing cells remain missing.",
+        "Observed transition endpoints remain separate from predicted chemical behavior.",
+        "Order balance is assessed from realized observations, not merely from the intended schedule."
+      ],
+      "failure_modes": [
+        "VOLATILITY_STORY: predicted evaporation is reported as observed metamorphosis.",
+        "IDENTITY_BREAK: later states become an unrelated perfume instead of a transformation.",
+        "MONOTONIC_FADE: intensity declines but no target-relevant relation changes.",
+        "MISSING_CELL_FICTION: absent observations are interpolated, averaged, or narrated.",
+        "ORDER_OR_ADAPTATION_CONFOUND: sequence, fatigue, carryover, or adaptation can explain the apparent transition.",
+        "UNQUALIFIED_WITHIN_SNIFF: apparatus timing cannot support the claimed temporal resolution."
+      ],
+      "causal_probe_types": [
+        "Temporal sensory ledger with complete canonical cell audit.",
+        "Constant-total ratio or omission comparison measured at prespecified timepoints.",
+        "Balanced presentation sequences with realized-order diagnostics and assessor repeats.",
+        "Transition-specific acceptance and failure rules declared before unblinding."
+      ],
+      "primary_endpoints": [
+        "observed transition",
+        "identity persistence",
+        "timepoint-specific target fidelity",
+        "return or reveal when target-required",
+        "temporal differentiation"
+      ],
+      "failure_endpoints": [
+        "mere intensity fade",
+        "identity drift",
+        "order or adaptation confounding",
+        "duplicate or missing canonical cells",
+        "unrepeatable transition"
+      ],
+      "compatible_secondaries": [
+        "CHIAROSCURO_DUAL_STATE",
+        "OBJECT_ANATOMY_TRANSFORMATION",
+        "SPATIAL_FIELD"
+      ],
+      "dhp_relation": "A DHP-style architecture may use temporal metamorphosis if the orris, leather, and carved wood relations demonstrably rebalance over time. Predicted drydown behavior alone does not qualify it.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "MINIMAL_PRECISION",
+      "name": "Minimal Precision / Exact Sparse Structure",
+      "definition": "A target achieved by the smallest structure that carries every required function with precise identity, proportion, and omission cost. Depth arises from exact selection, multipurpose relations, negative space, and high consequence per component rather than from material count.",
+      "not_definition": "Not cost-cutting, underbuilding, minimal ingredient count as a virtue, or a license to omit target functions. Sparse is valid only when each required recognizer, relation, transition, and failure control remains carried.",
+      "when_to_use": [
+        "The target is defined by clarity, restraint, exact proportion, or a small identity nucleus.",
+        "Additional candidate materials are redundant, muddying, identity-shifting, or unsupported by omission loss.",
+        "One material may carry several explicitly declared functions without double-counting evidence.",
+        "NO_CHANGE is a legitimate outcome because the current structure already carries the locked architecture."
+      ],
+      "when_not_to_use": [
+        "Sparse language is being used to avoid missing target functions or evidence collection.",
+        "The target requires independent counterpoint, saturated enclosure, or multiple anatomical regions that cannot be carried coherently by the minimal structure.",
+        "A missing material has a genuine nonredundant omission loss and the build is being constrained only by current inventory.",
+        "The design claims complexity because the formula is small rather than because perceptual relations are precise."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Negative space preserves boundaries, air, and relational contrast.",
+        "Exact proportion allows one component to reveal rather than mask another.",
+        "High functional consequence per component makes subtle ratio changes perceptually meaningful.",
+        "Multipurpose materials can bridge time, texture, or space while retaining one coherent identity.",
+        "Restraint reduces redundancy and permits target recognizers to remain legible."
+      ],
+      "target_signatures": [
+        "A compact identity nucleus with explicit recognizers and invariants.",
+        "Strong omission losses for retained components and weak or absent omission losses for rejected additions.",
+        "Negative space or restraint is part of the target, not merely an implementation convenience.",
+        "Failure modes focus on blur, overfill, generic diffusion, sweetness, or decorative additions."
+      ],
+      "required_relations": [
+        "Every retained material hypothesis owns a target-linked role or participates in a declared relation.",
+        "A candidate addition is rejected when it is redundant, count-based, or lacks a discriminating constant-total comparison.",
+        "One material carrying multiple functions does not create multiple independent evidence units.",
+        "NO_CHANGE records the reason and preserves the ideal/current distinction rather than silently freezing an inventory compromise."
+      ],
+      "failure_modes": [
+        "UNDERBUILT_TARGET: missing recognizers or transitions are relabeled as elegance.",
+        "MINIMALISM_AS_COUNT: low component count is treated as complexity or beauty evidence.",
+        "SINGLE_MATERIAL_TAKEOVER: a multifunctional material becomes a generic cloud and erases hierarchy.",
+        "DECORATIVE_ADDITION: an unsupported nuance weakens identity or creates blur.",
+        "INVENTORY_MINIMALISM: the available build is mistaken for the evidence-faithful ideal.",
+        "FALSE_NO_CHANGE: uncertainty or lack of testing is reported as proof that no improvement exists."
+      ],
+      "causal_probe_types": [
+        "Leave-one-function-carrier-out comparison at constant total.",
+        "Addition versus no-addition comparison with identity, clarity, and failure endpoints.",
+        "Fine ratio bracketing around the smallest target-faithful structure.",
+        "Explicit NO_CHANGE disposition when no target-linked nonredundant candidate survives screening."
+      ],
+      "primary_endpoints": [
+        "target recognizer clarity",
+        "functional completeness",
+        "relational precision",
+        "negative-space integrity",
+        "target fidelity"
+      ],
+      "failure_endpoints": [
+        "underbuilding",
+        "generic single-material takeover",
+        "blur or overfill",
+        "inventory-driven target drift",
+        "unsupported minimalism claim"
+      ],
+      "compatible_secondaries": [
+        "MATERIAL_TEXTURE",
+        "OBJECT_ANATOMY_TRANSFORMATION",
+        "SPATIAL_FIELD"
+      ],
+      "dhp_relation": "DHP-style richness can be pursued with Minimal Precision when a compact orris-leather-wood nucleus and one exact bridge carry the required relations. The strategy rejects the idea that reproducing depth requires a large material count.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "POLYPHONIC_COUNTERPOINT",
+      "name": "Polyphonic Counterpoint / Independent Coherence",
+      "definition": "A target with multiple independently legible subjects or voices that retain their identities while forming a higher-order whole through rhythm, contrast, response, interruption, or shared harmonic material. Richness comes from controlled independence, not from blending everything into one accord.",
+      "not_definition": "Not a large note pyramid, not any multifloral, not unrestricted layering, and not a synonym for complexity. Each voice must be target-required, separately observable, hierarchically governed, and protected against competitive masking.",
+      "when_to_use": [
+        "Two or more subjects must remain independently legible for the target to succeed.",
+        "The relation among voices—call and response, suspension, alternation, tension, or shared ground—is identity-bearing.",
+        "Collapsing the voices into one blended accord loses target richness.",
+        "The protocol can measure voice legibility, whole coherence, hierarchy, masking, and fatigue separately."
+      ],
+      "when_not_to_use": [
+        "The target is one integrated object whose supposed voices are actually anatomy.",
+        "Additional voices exist only because ingredients or accord families are present.",
+        "The design cannot state which voice may lead at each timepoint and what counts as masking or takeover.",
+        "A simple primary-secondary support relation is sufficient and independent voice identity is not required."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Independent streams provide multiple perceptual trajectories without requiring maximal intensity.",
+        "Counterpoint creates hierarchy, tension, response, and return across voices.",
+        "Shared bridge material or motif integrates voices while preserving their boundaries.",
+        "Temporal alternation can reveal voices that would mask one another if continuously co-dominant.",
+        "Differentiated texture or spatial placement separates voices within one coherent field."
+      ],
+      "target_signatures": [
+        "Multiple named subjects with distinct recognizers and omission losses.",
+        "A declared higher-order relation among voices.",
+        "A hierarchy or temporal rule governing leadership and support.",
+        "Explicit masking, cacophony, blend-collapse, and fatigue failures."
+      ],
+      "required_relations": [
+        "Each voice owns functions not owned by another strategy assignment or voice.",
+        "Whole coherence cannot be inferred from separate voice detectability.",
+        "Pairwise compatibility cannot establish three-way or higher polyphony; n-ary claims require isolated arms.",
+        "The number of voices is target-derived and never rewarded as complexity."
+      ],
+      "failure_modes": [
+        "CACOPHONY: independent voices compete without hierarchy or shared object.",
+        "BLEND_COLLAPSE: voices become one generic floral, amber, fruity, woody, or musky accord.",
+        "SOLO_TAKEOVER: one voice masks or trivializes the others.",
+        "COUNTED_POLYPHONY: ingredient or accord count substitutes for observed voice independence.",
+        "PAIRWISE_FALLACY: good pairs are assumed to form a good multi-voice system.",
+        "ATTENTIONAL_FATIGUE: constant competition reduces fascination or wear acceptance."
+      ],
+      "causal_probe_types": [
+        "Voice omission at constant total with separate voice and whole-coherence endpoints.",
+        "Pairwise isolates followed by a complete n-ary interaction design when a multi-voice synergy claim is necessary.",
+        "Hierarchy or alternation ratio comparisons with masking and fatigue endpoints.",
+        "Blinded free-description coding to distinguish true voice legibility from cue-induced note listing."
+      ],
+      "primary_endpoints": [
+        "individual voice legibility",
+        "whole coherence",
+        "hierarchical intelligibility",
+        "counterpoint or response relation",
+        "target fidelity"
+      ],
+      "failure_endpoints": [
+        "cacophony",
+        "blend collapse",
+        "voice takeover",
+        "masking",
+        "attentional fatigue"
+      ],
+      "compatible_secondaries": [
+        "TEMPORAL_METAMORPHOSIS",
+        "SPATIAL_FIELD",
+        "MATERIAL_TEXTURE"
+      ],
+      "dhp_relation": "DHP-style orris, leather, and wood should not be labeled Polyphonic Counterpoint unless they are intentionally independent voices. If they form one carved chiaroscuro object, Chiaroscuro or Object Anatomy is the more faithful primary grammar.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "SATURATED_ENCLOSURE",
+      "name": "Saturated Enclosure / Immersive Interior",
+      "definition": "A target that surrounds the perceiver with a coherent, dense, internally differentiated field. Richness comes from immersive continuity, pressure, warmth, shadow, or material abundance while preserving internal gradients and breathable structure.",
+      "not_definition": "Not maximal dose, loudness, sweetness, heaviness, material count, or an amberwood wall. Saturation is a spatial and relational experience that must retain internal differentiation and wearability endpoints.",
+      "when_to_use": [
+        "Immersion, enveloping pressure, interiority, or cocooning is a target invariant.",
+        "The target needs continuous field coverage rather than independent voices or a sparse object.",
+        "Internal gradients of warmth, shadow, texture, or radiance must remain perceptible within density.",
+        "Fatigue, anosmia-like flattening, aversion, and wear acceptance can be measured explicitly."
+      ],
+      "when_not_to_use": [
+        "The target requires transparent negative space, a distant horizon, or exact sparse articulation.",
+        "The design uses concentration, fixatives, sweetness, or amber materials as proxies for immersion.",
+        "Internal differentiation cannot be stated or tested.",
+        "The target's richness depends on independent counterpoint rather than a continuous field."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Continuous surround creates an experienced interior rather than a frontal note object.",
+        "Internal gradients and pockets preserve depth within density.",
+        "Controlled absorption and diffusion can create soft boundaries without eliminating recognizers.",
+        "Temporal breathing or aperture prevents total sensory closure and supports renewed attention.",
+        "Tactile coherence can integrate resinous, balsamic, floral, gourmand, woody, or musky functions without equating heaviness with richness."
+      ],
+      "target_signatures": [
+        "Immersion or enclosure is explicitly named in the brief.",
+        "At least one internal gradient or pocket is required.",
+        "The target defines acceptable density and unacceptable wall, fatigue, sweetness, or suffocation.",
+        "Wear context and exposure duration are part of the evaluation scope."
+      ],
+      "required_relations": [
+        "Enclosure and internal differentiation are separate endpoints.",
+        "Intensity is measured separately and cannot stand in for enclosure or richness.",
+        "Aperture, contrast pocket, or breathing mechanism has an explicit function and omission test.",
+        "Liking, comfort, fascination, fatigue, and wear acceptance remain separate hedonic criteria."
+      ],
+      "failure_modes": [
+        "AMBERWOOD_WALL: a single loud diffusive function replaces internal architecture.",
+        "SUGARY_BLANKET: sweetness rounds every distinction into one affective mass.",
+        "SUFFOCATION: density reduces comfort and wear acceptance without target benefit.",
+        "ADAPTIVE_FLATTENING: continuous pressure produces fatigue or loss of differentiation.",
+        "FALSE_LUXURY_BY_MASS: concentration, naturals, rarity, or material count is presented as richness.",
+        "LEAKY_FIELD: the intended enclosure has holes or abrupt unrelated protrusions."
+      ],
+      "causal_probe_types": [
+        "Aperture omission or ratio comparison at constant total.",
+        "Density bracket with separate intensity, enclosure, differentiation, fatigue, and wear-acceptance endpoints.",
+        "Internal-pocket omission with target identity and wall-collapse failure rules.",
+        "Repeated exposure under a qualified schedule to distinguish immediate impact from fatigue and adaptation."
+      ],
+      "primary_endpoints": [
+        "experienced enclosure",
+        "internal differentiation",
+        "coherent density",
+        "target fidelity",
+        "wear acceptance at the declared exposure"
+      ],
+      "failure_endpoints": [
+        "amberwood or sweetness wall",
+        "suffocation",
+        "fatigue",
+        "flattening",
+        "uncontrolled protrusion"
+      ],
+      "compatible_secondaries": [
+        "MATERIAL_TEXTURE",
+        "TEMPORAL_METAMORPHOSIS",
+        "CHIAROSCURO_DUAL_STATE"
+      ],
+      "dhp_relation": "A dense DHP-style parfum may create enclosure, but density alone does not make this the primary strategy. Use it only if immersive surrounding space is target-defining beyond the carved dark-radiant object.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "SPATIAL_FIELD",
+      "name": "Spatial Field / Near-Far and Negative-Space Architecture",
+      "definition": "A target organized by perceived location, distance, spread, aperture, horizon, center, halo, trail, void, or directional field. Depth comes from spatial differentiation and negative space, not necessarily from darkness, temporal change, or material density.",
+      "not_definition": "Not diffusion as a single supplier descriptor, not projection measured from formula alone, not an automatic ozonic or transparent style, and not forced chiaroscuro. Spatial claims require observer- and protocol-bound sensory endpoints.",
+      "when_to_use": [
+        "Near-far, center-halo, surface-horizon, trail, aperture, or void is an explicit target invariant.",
+        "The target loses identity when spatial separation collapses even if note identity remains.",
+        "Negative space is functional rather than simply low concentration.",
+        "The protocol can distinguish spatial reports from intensity and familiarity."
+      ],
+      "when_not_to_use": [
+        "The only basis is a material's marketed diffusion, radiance, lift, or substantivity.",
+        "The target is one compact object with no required spatial organization.",
+        "Near-far language merely redescribes top-heart-base timing.",
+        "The evaluation cannot control distance, application, environment, timing, and presentation."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Near-far separation creates multiple perceptual planes.",
+        "Aperture and negative space preserve boundaries and allow distant cues to remain legible.",
+        "Center-halo organization provides hierarchy without requiring sharp contrast.",
+        "Directional persistence or trail can extend the perceived object beyond the immediate source when observed under a qualified protocol.",
+        "Texture and intensity gradients can support spatial location but remain separate endpoints."
+      ],
+      "target_signatures": [
+        "Named spatial zones or relations with omission losses.",
+        "A spatial invariant that cannot be replaced by greater intensity.",
+        "Explicit collapse, blur, hole, wall, or detachment failures.",
+        "A qualified application and observation geometry."
+      ],
+      "required_relations": [
+        "Spatial position, intensity, detectability, and liking are measured separately.",
+        "Each spatial zone owns distinct functions and appears exactly once in the layer map.",
+        "A material's predicted diffusion does not establish the intended field.",
+        "Environmental and presentation conditions remain controlled for comparisons."
+      ],
+      "failure_modes": [
+        "FLAT_PLANE: all target functions occupy one undifferentiated apparent distance.",
+        "DIFFUSIVE_WALL: projection or radiance becomes a uniform cloud with no zones.",
+        "DETACHED_HORIZON: the far cue reads as a separate perfume rather than part of the field.",
+        "EMPTY_HOLE: negative space becomes missing structure rather than functional aperture.",
+        "INTENSITY_CONFUSION: louder is scored as nearer, broader, or deeper without separation.",
+        "MARKETING_INFERENCE: supplier diffusion claims replace sensory observations."
+      ],
+      "causal_probe_types": [
+        "Zone omission at constant total with spatial-collapse endpoints.",
+        "Center-to-halo or near-to-far ratio comparison under controlled geometry.",
+        "Distance- and time-bound sensory observations with intensity recorded separately.",
+        "Aperture comparison that tests negative space against missing-structure failure."
+      ],
+      "primary_endpoints": [
+        "spatial differentiation",
+        "zone coherence",
+        "functional negative space",
+        "center-halo or near-far relation",
+        "target fidelity"
+      ],
+      "failure_endpoints": [
+        "flat plane",
+        "diffusive wall",
+        "detached zone",
+        "empty hole",
+        "intensity confounding"
+      ],
+      "compatible_secondaries": [
+        "MATERIAL_TEXTURE",
+        "TEMPORAL_METAMORPHOSIS",
+        "MINIMAL_PRECISION"
+      ],
+      "dhp_relation": "DHP-style contrast may also have a near-field carved core and radiant surrounding field, but Spatial Field should be primary only when location and distance—not dark-light opposition—best explain the target identity.",
+      "strategy_score": null
+    },
+    {
+      "strategy_id": "MATERIAL_TEXTURE",
+      "name": "Material Texture / Tactile Surface and Grain",
+      "definition": "A target whose identity and depth depend on perceived tactile qualities such as grain, wax, powder, suede, root fiber, polished stone, porous resin, damp wood, silk, paper, mineral fracture, or another target-specific material sensation. Texture may be primary or may connect other architectural states.",
+      "not_definition": "Not a list of texture adjectives copied from supplier descriptions, not molecular mechanism proof, not heaviness or concentration, and not permission to use a fashionable wood, musk, or powder material without a target-linked role and isolated test.",
+      "when_to_use": [
+        "A tactile or material quality is a recognizer, invariant, bridge, or omission-critical dimension of the target.",
+        "The target distinguishes surface finish, grain, porosity, friction, softness, dryness, dampness, or fracture.",
+        "Texture helps organize another strategy without claiming the same function twice.",
+        "Success and failure can be described perceptually without naming the candidate material."
+      ],
+      "when_not_to_use": [
+        "Texture is decorative language with no omission loss or blinded endpoint.",
+        "The target's main depth is spatial, temporal, polyphonic, or anatomical and texture owns no distinct function.",
+        "A supplier description, chemical class, OAV, or modeled descriptor is the only support.",
+        "Adding several woods, musks, powders, or resins is justified only as more texture or more complexity."
+      ],
+      "perceptual_depth_mechanisms": [
+        "Surface grain and finish imply scale, material thickness, and interior structure.",
+        "Contrasting tactile qualities can reveal boundaries while preserving one object.",
+        "A continuous texture can bridge otherwise separated states or layers.",
+        "Microvariation can sustain attention and richness without increasing the number of subjects.",
+        "Cross-modal tactile expectation can support identity when measured as assessor response rather than inferred from formula."
+      ],
+      "target_signatures": [
+        "Named target texture with a precise success observable.",
+        "A texture-specific omission loss distinct from intensity, note identity, and liking.",
+        "Explicit failure modes such as pencil cedar, laundry musk, powder blanket, plastic smoothness, mud, scratch, or amberwood wall.",
+        "A material hypothesis tied to one texture function and an inventory projection."
+      ],
+      "required_relations": [
+        "Texture endpoints are separated from material-name recognition and target liking.",
+        "Candidate materials are compared at constant total by omission, addition, or ratio.",
+        "Zero or one precise musk is the default when musk is only a texture bridge; layering requires distinct functions and nonredundancy evidence.",
+        "Texture cannot double-own a function already assigned to the primary strategy; it must own a distinct bridge, grain, finish, or boundary function."
+      ],
+      "failure_modes": [
+        "ADJECTIVE_ONLY: rich text describes a texture that is not a testable target function.",
+        "MATERIAL_NAME_CUEING: assessor responses follow disclosed ingredient identity rather than blinded perception.",
+        "TEXTURE_BLANKET: powder, musk, sweetness, or smooth wood covers all internal differentiation.",
+        "SCRATCH_OR_MUD: texture becomes harsh, fuzzy, dirty, or incoherent without target benefit.",
+        "GENERIC_WOOD_OR_MUSK: a fashionable material signature replaces the target surface.",
+        "COUNTED_GRAIN: multiple woody or textural materials are assumed to create depth without isolated evidence."
+      ],
+      "causal_probe_types": [
+        "Constant-total texture-carrier omission.",
+        "Fine ratio comparison around a bridge or surface material.",
+        "Blinded endpoint coding that avoids material names and separates texture, target fidelity, intensity, and liking.",
+        "Exception-controlled musk or amberwood test with explicit takeover and wall endpoints."
+      ],
+      "primary_endpoints": [
+        "target texture",
+        "surface or grain differentiation",
+        "bridge continuity when assigned",
+        "material coherence",
+        "target fidelity"
+      ],
+      "failure_endpoints": [
+        "texture blanket",
+        "scratch or mud",
+        "generic material takeover",
+        "laundry, pencil, plastic, or amberwood drift",
+        "ingredient cueing"
+      ],
+      "compatible_secondaries": [
+        "CHIAROSCURO_DUAL_STATE",
+        "OBJECT_ANATOMY_TRANSFORMATION",
+        "MINIMAL_PRECISION"
+      ],
+      "dhp_relation": "The user's DHP 2025 wood study makes Material Texture especially relevant for carved grain, waxy orris, leather shadow, and tactile bridging. It remains a distinct function assignment and cannot be used to count the same dark-radiant relation twice.",
+      "strategy_score": null
+    }
+  ]
+}
