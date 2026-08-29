@@ -22315,25 +22315,30 @@
       ],
       "aliases": [
         "Ambrofix",
+        "Ambrofix (nominal 7.27% w/w in DEP + ethanol; WHOLE BOTTLE INCLUDING SOLID ONLY; HOLD - visible crystals, density unknown, liquid phase non-executable)",
         "Ambrofix (30% w/v, 3 g in 10 mL)"
       ],
       "ground_truth_identity": null,
       "category": "woods / amber / structure",
-      "current_status": "owned",
+      "current_status": "hold",
       "owned_now": true,
+      "executable_now": false,
       "was_owned": true,
       "on_buy_list": false,
       "status_flags": [
         "historical_owned",
-        "owned",
+        "hold",
         "ran_out"
       ],
       "observed_forms": [
+        "Ambrofix (nominal 7.27% w/w in DEP + ethanol; WHOLE BOTTLE INCLUDING SOLID ONLY; HOLD - visible crystals, density unknown, liquid phase non-executable)",
+        "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; density unknown; liquid phase non-executable",
         "Ambrofix (30% w/v, 3 g in 10 mL)",
         "10% in DPG",
         "30% in DPG"
       ],
       "notes": [
+        "Current authority 2026-08-29: owned bottle, but 7.27% w/w applies only to the whole bottle including visible solid; liquid phase is non-executable and volume/OAV/rebase authority is withheld.",
         "Clean amber, fixative",
         "Clean amber, fixative (higher conc.)"
       ],
@@ -22371,7 +22376,12 @@
         "arctander_character": "Rich amber, warm, musky, slightly woody, precious",
         "carles_position": "BASE — Structure (radiant foundation)",
         "typical_pct_range": "3-10% of concentrate (= 0.3-1% active)",
-        "stock_form": "10% dilution",
+        "stock_form": "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; liquid phase non-executable",
+        "stock_execution_ready": false,
+        "stock_fraction_scope": "whole_bottle_including_solid",
+        "stock_homogeneity_state": "hold_visible_crystals",
+        "stock_density_g_ml": null,
+        "stock_authority_source": "data/governance/inventory_user_authority_overlay_20260829.json#INV-USER-20260829-017",
         "handle_as": "Complement to Ambrox Super. Use together at reduced doses for"
       },
       "best_with": [
@@ -22416,7 +22426,7 @@
           "name": "Structural Backbone",
           "style": "common",
           "use": "Create the frame that keeps the formula standing from heart into drydown.",
-          "dose_guidance": "3-10% of concentrate (= 0.3-1% active)",
+          "dose_guidance": "HOLD — current liquid phase non-executable; no active-uL, ppm, OAV, or volume-dose math",
           "pair_with": [
             "Ambrox Super",
             "musks",
@@ -22428,7 +22438,7 @@
           "name": "Diffusive Woody Halo",
           "style": "common",
           "use": "Add transparent spread and modern woody aura without a dense traditional base.",
-          "dose_guidance": "3-10% of concentrate (= 0.3-1% active)",
+          "dose_guidance": "HOLD — current liquid phase non-executable; no active-uL, ppm, OAV, or volume-dose math",
           "pair_with": [
             "Ambrox Super",
             "musks",
@@ -22440,7 +22450,7 @@
           "name": "Mineral-Resonant Base",
           "style": "niche",
           "use": "Build incense, mineral amber, shadow woods, or abstract gallery-like space.",
-          "dose_guidance": "3-10% of concentrate (= 0.3-1% active)",
+          "dose_guidance": "HOLD — current liquid phase non-executable; no active-uL, ppm, OAV, or volume-dose math",
           "pair_with": [
             "Ambrox Super",
             "musks",
@@ -22467,6 +22477,8 @@
       ],
       "pairing_note": "Works especially well with Ambrox Super, musks, iris, woods. Recorded local synergies include Ambrox Super, musks, iris, woods. Watch out for Using at same dose as Ambrox Super — they stack. Halve both.. Local conflict rules flag __avoid__.",
       "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260829.json",
+        "data/materials/A.yaml",
         "inventory.txt",
         "knowledge/chemical_inventory.md"
       ]

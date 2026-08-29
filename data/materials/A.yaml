@@ -2999,7 +2999,7 @@
   trp_targets: null
   hedonic_valence: 0.6
   ifra_max_pct_edp: null
-  user_stock_dilution: 30% w/v, 3 g in 10 mL
+  user_stock_dilution: "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; density unknown; liquid phase non-executable"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 1UW16861
@@ -3010,7 +3010,11 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: >-
+    Current user authority effective 2026-08-29 supersedes the 30% liquid-stock
+    assumption for current use. The 7.27% w/w fraction applies only to the whole
+    bottle including visible solid. Pipetted liquid is non-executable; no
+    active-uL, ppm, OAV, volume-dose, formula-rebase, or substitution authority.
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -3019,7 +3023,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
-    user_stock_dilution: inventory.txt
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260829.json#INV-USER-20260829-017
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ambrox Super
   aliases:

@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from engine.data_spine.loader import load_materials, load_registry
+from engine.ingredient_catalog import load_ingredient_catalog
 from engine.ingredient_intelligence import get_profile
 from engine.inventory_parser import parse_inventory
 from engine.name_utils import names_match, normalize_name
@@ -167,6 +168,65 @@ def test_inventory_parser_accepts_approximate_percent_stock_notation(
     assert available["Ambrox Super"].dilution == pytest.approx(0.33)
     assert available["Ambrettolide"].dilution == pytest.approx(0.10)
     assert available["Zenolide"].dilution == pytest.approx(1.0)
+
+
+def test_inventory_parser_excludes_ambrofix_liquid_phase_on_homogeneity_hold(
+    tmp_path: Path,
+) -> None:
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        """--- WOODS / AMBER ---
+- Ambrox Super (~33% w/v in DEP:EtOH)
+- Ambrofix (nominal 7.27% w/w in DEP + ethanol; WHOLE BOTTLE INCLUDING SOLID ONLY; HOLD - visible crystals, density unknown, liquid phase non-executable)
+- Threshold Marker (neat; odor threshold documented)
+""",
+        encoding="utf-8",
+    )
+
+    all_records = {
+        item.name: item
+        for item in parse_inventory(inventory_path, include_unavailable=True)
+    }
+    available = {
+        item.name: item
+        for item in parse_inventory(inventory_path, include_unavailable=False)
+    }
+
+    assert all_records["Ambrofix"].dilution == pytest.approx(0.0727)
+    assert all_records["Ambrofix"].fraction_basis == "mass_fraction"
+    assert all_records["Ambrofix"].carrier == "dep + ethanol"
+    assert all_records["Ambrofix"].status == "hold"
+    assert "Ambrofix" not in available
+    assert available["Ambrox Super"].status == "owned"
+    assert available["Threshold Marker"].status == "owned"
+
+
+def test_ambrofix_derived_metadata_preserves_hold_and_distinct_solid_identity() -> None:
+    registry = load_registry()
+    ambrofix = registry.get("Ambrofix")
+    ambrox_super = registry.get("Ambrox Super")
+    ambrofix_solid = registry.get("Ambrofix Crystals")
+
+    assert ambrofix is not None
+    assert ambrox_super is not None
+    assert ambrofix_solid is not None
+    assert ambrofix is not ambrox_super
+    assert ambrofix is not ambrofix_solid
+    assert ambrofix.user_in_inventory is True
+    assert ambrofix.user_stock_dilution == (
+        "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; "
+        "density unknown; liquid phase non-executable"
+    )
+    assert ambrofix.density_25c_g_ml is None
+
+    catalog = {item["identity_key"]: item for item in load_ingredient_catalog()}
+    catalog_record = catalog["ambrofix"]
+    assert catalog_record["current_status"] == "hold"
+    assert catalog_record["owned_now"] is True
+    assert catalog_record["executable_now"] is False
+    assert catalog_record["observed_forms"][0].startswith(
+        "Ambrofix (nominal 7.27% w/w"
+    )
 
 
 def test_requested_materials_have_runtime_data() -> None:

@@ -558,6 +558,8 @@ def _infer_category(entry: dict[str, Any]) -> str:
 
 
 def _pick_status(flags: set[str]) -> str:
+    if "hold" in flags:
+        return "hold"
     if "owned" in flags:
         return "owned"
     if "out_of_stock" in flags:
@@ -880,8 +882,15 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                 "ground_truth_identity": ground_truth,
                 "category": category,
                 "current_status": _pick_status(set(entry["status_flags"])),
-                "owned_now": "owned" in entry["status_flags"],
-                "was_owned": bool({"owned", "out_of_stock", "ran_out", "historical_owned"} & set(entry["status_flags"])),
+                "owned_now": bool({"owned", "hold"} & set(entry["status_flags"])),
+                "executable_now": (
+                    "owned" in entry["status_flags"]
+                    and "hold" not in entry["status_flags"]
+                ),
+                "was_owned": bool(
+                    {"owned", "hold", "out_of_stock", "ran_out", "historical_owned"}
+                    & set(entry["status_flags"])
+                ),
                 "on_buy_list": "buy_list" in entry["status_flags"],
                 "status_flags": sorted(entry["status_flags"]),
                 "observed_forms": _dedupe_keep_order(entry["observed_forms"] + entry["historical_forms"]),

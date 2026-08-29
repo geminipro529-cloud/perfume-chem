@@ -143,6 +143,8 @@ def parse_stock_specification(
 
 def _parse_status(raw_name: str) -> str:
     upper = raw_name.upper()
+    if re.search(r"\bHOLD\b", upper):
+        return "hold"
     if "DEPLETED" in upper:
         return "depleted"
     if "OUT OF STOCK" in upper:

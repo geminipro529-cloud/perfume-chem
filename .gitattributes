@@ -9,6 +9,7 @@
 /configs/solforge/** text eol=lf
 /data/benchmarks/solforge/** text eol=lf
 /data/governance/complexity*.json text eol=lf
+/data/governance/inventory_user_authority_overlay_*.json text eol=lf
 /data/governance/solforge*.json text eol=lf
 /data/research/solforge/** text eol=lf
 /docs/superpowers/plans/*complexity*.md text eol=lf

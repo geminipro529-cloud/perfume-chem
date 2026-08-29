@@ -341,7 +341,7 @@ ORIENTAL_CLASSICAL_CORE = (
     "Olibanum Resinoid Absolute (10%)",
     "Patchouli EO",
     "Labdanum Absolute (10%)",
-    "Ambrofix (30% w/v, 3 g in 10 mL)",
+    "Ambrofix",
     "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
     "Iso E Super",
 )
@@ -384,7 +384,7 @@ MODERN_FRESH_FLOOD = (
 )
 MODERN_AMBERWOOD_FLOOD = (
     "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
-    "Ambrofix (30% w/v, 3 g in 10 mL)",
+    "Ambrofix",
     "Amberwood F",
     "Ambermax (50%)",
     "Timberol",
@@ -1958,7 +1958,6 @@ ARCHETYPES: dict[str, ArchetypeSpec] = {
             "Alpha Ionone": 1.5,
             "Hedione": 1.5,
             "Iso E Super": 1.5,
-            "Ambrofix (30% in DEP)": 1.2,
             "Coumarin": 1.0,
         },
         novelty_message="Iris-ambrox-amber DHI 2025 niche DNA: ambroxan-clean iris, transparent wood, muguet heart.",

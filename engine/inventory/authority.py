@@ -24,7 +24,6 @@ from typing import Any, Mapping
 
 from openpyxl import load_workbook
 
-
 CURRENT_MASTER_SHEET = "Current Inventory Master"
 ALIASES_SHEET = "Aliases and Non-Equivalents"
 CURRENT_MASTER_HEADER_ROW = 5
@@ -96,6 +95,22 @@ class StockFractionBasis(str, Enum):
     UNKNOWN = "unknown"
 
 
+class StockFractionScope(str, Enum):
+    """Physical scope to which a declared stock fraction applies."""
+
+    UNSPECIFIED = "unspecified"
+    HOMOGENEOUS_STOCK = "homogeneous_stock"
+    WHOLE_BOTTLE_INCLUDING_SOLID = "whole_bottle_including_solid"
+
+
+class StockHomogeneityState(str, Enum):
+    """Whether a liquid aliquot may represent the declared stock fraction."""
+
+    UNSPECIFIED = "unspecified"
+    VERIFIED_CLEAR_STABLE = "verified_clear_stable"
+    HOLD_VISIBLE_CRYSTALS = "hold_visible_crystals"
+
+
 def _clean_text(value: object, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise InventoryAuthorityError(f"{field} must be nonblank text")
@@ -153,12 +168,19 @@ class StockDefinition:
     carrier: str | None
     fraction_authority: str
     execution_ready: bool
+    fraction_scope: StockFractionScope = StockFractionScope.UNSPECIFIED
+    homogeneity_state: StockHomogeneityState = StockHomogeneityState.UNSPECIFIED
+    density_g_ml: Decimal | None = None
 
     def __post_init__(self) -> None:
         if self.fraction is not None and not (Decimal("0") < self.fraction <= Decimal("1")):
             raise InventoryAuthorityError("stock fraction must be in (0, 1]")
         if self.fraction_basis is StockFractionBasis.NEAT and self.fraction != Decimal("1"):
             raise InventoryAuthorityError("neat stock must have fraction 1")
+        if self.density_g_ml is not None and (
+            not self.density_g_ml.is_finite() or self.density_g_ml <= Decimal("0")
+        ):
+            raise InventoryAuthorityError("stock density_g_ml must be positive and finite")
         if self.carrier is not None:
             object.__setattr__(self, "carrier", _clean_text(self.carrier, "carrier").casefold())
         object.__setattr__(
@@ -173,7 +195,25 @@ class StockDefinition:
             self.fraction is not None
             and self.fraction_basis
             in {StockFractionBasis.NEAT, StockFractionBasis.MASS_FRACTION}
+            and self.fraction_scope
+            is not StockFractionScope.WHOLE_BOTTLE_INCLUDING_SOLID
+            and self.homogeneity_state
+            is not StockHomogeneityState.HOLD_VISIBLE_CRYSTALS
         )
+
+    @property
+    def liquid_phase_execution_ready(self) -> bool:
+        return (
+            self.execution_ready
+            and self.fraction_scope
+            is not StockFractionScope.WHOLE_BOTTLE_INCLUDING_SOLID
+            and self.homogeneity_state
+            is not StockHomogeneityState.HOLD_VISIBLE_CRYSTALS
+        )
+
+    @property
+    def volume_dose_math_ready(self) -> bool:
+        return self.liquid_phase_execution_ready and self.density_g_ml is not None
 
     @property
     def molecular_mechanism_authority(self) -> bool:
@@ -187,7 +227,28 @@ class StockDefinition:
             )
         except ValueError as error:
             raise InventoryAuthorityError("unsupported stock fraction_basis") from error
+        try:
+            fraction_scope = StockFractionScope(
+                str(value.get("fraction_scope", StockFractionScope.UNSPECIFIED.value))
+                .strip()
+                .casefold()
+            )
+        except ValueError as error:
+            raise InventoryAuthorityError("unsupported stock fraction_scope") from error
+        try:
+            homogeneity_state = StockHomogeneityState(
+                str(
+                    value.get(
+                        "homogeneity_state", StockHomogeneityState.UNSPECIFIED.value
+                    )
+                )
+                .strip()
+                .casefold()
+            )
+        except ValueError as error:
+            raise InventoryAuthorityError("unsupported stock homogeneity_state") from error
         fraction_value = value.get("fraction")
+        density_value = value.get("density_g_ml")
         return cls(
             fraction=(
                 _decimal(fraction_value, "stock fraction")
@@ -200,6 +261,13 @@ class StockDefinition:
                 value.get("fraction_authority"), "fraction_authority"
             ),
             execution_ready=bool(value.get("execution_ready", False)),
+            fraction_scope=fraction_scope,
+            homogeneity_state=homogeneity_state,
+            density_g_ml=(
+                _decimal(density_value, "stock density_g_ml")
+                if density_value is not None
+                else None
+            ),
         )
 
 
@@ -296,6 +364,8 @@ class OverlayInventoryRecord:
     stock: StockDefinition | None
     supersedes_parent_rows: tuple[int, ...]
     requirement_overrides: tuple[Mapping[str, Any], ...]
+    physical_evidence: Mapping[str, Any]
+    authority_boundaries: tuple[str, ...]
     note: str
 
 
@@ -426,6 +496,12 @@ class UserInventoryOverlay:
                 not isinstance(item, Mapping) for item in overrides
             ):
                 raise InventoryAuthorityError("requirement_overrides must be mappings")
+            physical_evidence = raw.get("physical_evidence", {})
+            if not isinstance(physical_evidence, Mapping):
+                raise InventoryAuthorityError("physical_evidence must be a mapping")
+            authority_boundaries = raw.get("authority_boundaries", [])
+            if not isinstance(authority_boundaries, list):
+                raise InventoryAuthorityError("authority_boundaries must be a list")
             record = OverlayInventoryRecord(
                 record_id=_clean_text(raw.get("record_id"), "record_id"),
                 canonical_name=_clean_text(raw.get("canonical_name"), "canonical_name"),
@@ -435,6 +511,11 @@ class UserInventoryOverlay:
                 stock=StockDefinition.from_mapping(raw_stock) if raw_stock else None,
                 supersedes_parent_rows=superseded_rows,
                 requirement_overrides=tuple(MappingProxyType(dict(item)) for item in overrides),
+                physical_evidence=MappingProxyType(dict(physical_evidence)),
+                authority_boundaries=tuple(
+                    _clean_text(item, "authority boundary")
+                    for item in authority_boundaries
+                ),
                 note=_clean_text(raw.get("note"), "note"),
             )
             canonical_key = _key(record.canonical_name)
@@ -879,7 +960,7 @@ def load_inventory_authority_snapshot(
             raise InventoryAuthorityError(
                 f"exact stock carrier conflicts with inventory authority for {requested_name}"
             )
-        physical_ready = record.stock.execution_ready
+        physical_ready = record.stock.liquid_phase_execution_ready
         mutable_by_key[canonical_key] = replace(
             record,
             exact_stock_ref=stock_ref,
@@ -898,4 +979,3 @@ def load_inventory_authority_snapshot(
         aliases=aliases,
         forbidden_pairs=frozenset(forbidden_pairs),
     )
-

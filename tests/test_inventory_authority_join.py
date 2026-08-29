@@ -16,10 +16,12 @@ from engine.inventory.authority import (
     load_user_inventory_overlay,
 )
 
-
 ROOT = Path(__file__).parents[1]
 USER_OVERLAY = (
     ROOT / "data" / "governance" / "inventory_user_authority_overlay_20260828.json"
+)
+AMBROFIX_SUCCESSOR_OVERLAY = (
+    ROOT / "data" / "governance" / "inventory_user_authority_overlay_20260829.json"
 )
 
 
@@ -332,6 +334,69 @@ def test_current_user_overlay_preserves_all_reconfirmed_inventory_facts() -> Non
         item["source_row"] == 222 and item["disposition"] == "OWNED"
         for item in vietnamese.requirement_overrides
     )
+
+
+def test_ambrofix_successor_withholds_liquid_phase_and_volume_authority() -> None:
+    overlay = load_user_inventory_overlay(AMBROFIX_SUCCESSOR_OVERLAY)
+    ambrofix = overlay.record("Ambrofix")
+
+    assert overlay.effective_date == "2026-08-29"
+    assert ambrofix.state == "OWNED"
+    assert ambrofix.stock is not None
+    assert ambrofix.stock.fraction == Decimal("0.0727")
+    assert ambrofix.stock.fraction_basis is StockFractionBasis.MASS_FRACTION
+    assert ambrofix.stock.carrier == "dep + ethanol"
+    assert ambrofix.stock.execution_ready is False
+    assert ambrofix.stock.fraction_scope.value == "whole_bottle_including_solid"
+    assert ambrofix.stock.homogeneity_state.value == "hold_visible_crystals"
+    assert ambrofix.stock.density_g_ml is None
+    assert ambrofix.stock.active_equivalence_authorized is False
+    assert ambrofix.stock.liquid_phase_execution_ready is False
+    assert ambrofix.stock.volume_dose_math_ready is False
+
+    evidence = ambrofix.physical_evidence
+    assert Decimal(str(evidence["empty_bottle_mass_g"])) == Decimal("11.45")
+    assert Decimal(str(evidence["final_bottle_mass_g"])) == Decimal("14.09")
+    assert Decimal(str(evidence["contents_mass_g"])) == Decimal("2.64")
+    assert Decimal(str(evidence["added_ethanol_mass_g"])) == Decimal("2.000")
+    assert Decimal(str(evidence["untouched_original_stock_mass_g"])) == Decimal(
+        "0.640"
+    )
+    assert Decimal(str(evidence["ambrofix_active_mass_g"])) == Decimal("0.192")
+    assert Decimal(str(evidence["dep_mass_g"])) == Decimal("0.448")
+    assert evidence["visible_crystals_remained"] is True
+    assert evidence["clear_and_stable_48h_verified"] is False
+    assert evidence["stock_density_g_ml"] is None
+    assert evidence["no_prior_withdrawal_user_confirmed"] is True
+
+    empty_mass = Decimal(str(evidence["empty_bottle_mass_g"]))
+    final_mass = Decimal(str(evidence["final_bottle_mass_g"]))
+    contents_mass = Decimal(str(evidence["contents_mass_g"]))
+    ethanol_mass = Decimal(str(evidence["added_ethanol_mass_g"]))
+    original_stock_mass = Decimal(str(evidence["untouched_original_stock_mass_g"]))
+    original_fraction = Decimal(str(evidence["original_stock_active_fraction_w_w"]))
+    active_mass = Decimal(str(evidence["ambrofix_active_mass_g"]))
+    dep_mass = Decimal(str(evidence["dep_mass_g"]))
+    assert final_mass - empty_mass == contents_mass
+    assert contents_mass - ethanol_mass == original_stock_mass
+    assert original_stock_mass * original_fraction == active_mass
+    assert original_stock_mass - active_mass == dep_mass
+    assert active_mass + dep_mass + ethanol_mass == contents_mass
+    assert (active_mass / contents_mass).quantize(Decimal("0.0001")) == Decimal(
+        "0.0727"
+    )
+
+    assert overlay.identity_for("Ambrofix") == "Ambrofix"
+    assert overlay.identity_for("Ambrox Super") == "Ambrox Super"
+    assert overlay.identity_for("Ambrofix Crystals") == "Ambrofix Crystals"
+    assert {
+        "ACTIVE_UL_MATH",
+        "PPM_MATH",
+        "OAV_MATH",
+        "VOLUME_DOSE_MATH",
+        "FORMULA_REBASE",
+        "SUBSTITUTION_EQUIVALENCE",
+    } <= set(ambrofix.authority_boundaries)
 
 
 def test_ap_t1_substitution_remains_exact_scope_sensory_only() -> None:

@@ -1,6 +1,8 @@
 from pathlib import Path
 
 from engine.families.registry import (
+    MODERN_AMBERWOOD_FLOOD,
+    ORIENTAL_CLASSICAL_CORE,
     WOODY_FLORAL_MUSK_IRIS,
     WOODY_FLORAL_MUSK_MUSKS,
     all_archetypes,
@@ -99,6 +101,21 @@ def test_woody_floral_musk_recognizes_dihydro_beta_ionone_as_iris_modifier():
 def test_woody_floral_musk_recognizes_available_macrocyclic_musks():
     assert {"Zenolide", "Exaltolide", "Ethylene Brassylate", "Ambrettolide"} <= set(
         WOODY_FLORAL_MUSK_MUSKS
+    )
+
+
+def test_active_family_rules_do_not_resurrect_ambrofix_30_percent_stock() -> None:
+    assert "Ambrofix" in ORIENTAL_CLASSICAL_CORE
+    assert "Ambrofix" in MODERN_AMBERWOOD_FLOOD
+    assert all(
+        "ambrofix" not in material.casefold()
+        for spec in all_archetypes()
+        for material in spec.repair_pool
+    )
+    assert all(
+        "30%" not in material
+        for material in (*ORIENTAL_CLASSICAL_CORE, *MODERN_AMBERWOOD_FLOOD)
+        if "ambrofix" in material.casefold()
     )
 
 
