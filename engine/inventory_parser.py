@@ -39,7 +39,7 @@ CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256 = (
 )
 CURRENT_INVENTORY_AUTHORITY = "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
 CURRENT_USER_INVENTORY_OVERLAY_SHA256 = (
-    "f738ffb9d0755f3509a57666f7a4a217942ddd8e644eab46aa6e3b746b856e19"
+    "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564"
 )
 CURRENT_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260828"
 
@@ -316,6 +316,16 @@ def _file_sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _normalized_text_bytes(path: Path) -> bytes:
+    """Return stable UTF-8 bytes independent of Git CRLF/LF checkout policy."""
+
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
+def _normalized_text_sha256(path: Path) -> str:
+    return hashlib.sha256(_normalized_text_bytes(path)).hexdigest()
 
 
 def load_current_inventory_snapshot(
@@ -792,8 +802,10 @@ def load_current_user_inventory_overlay(
         or source.get("source_thread_id")
         != "01a03ee5-7db4-7083-a396-fb1207225757"
         or source.get("inventory_text_path") != "inventory.txt"
-        or source.get("inventory_text_size_bytes") != INVENTORY_PATH.stat().st_size
-        or source.get("inventory_text_sha256") != _file_sha256(INVENTORY_PATH)
+        or source.get("inventory_text_size_bytes")
+        != len(_normalized_text_bytes(INVENTORY_PATH))
+        or source.get("inventory_text_sha256")
+        != _normalized_text_sha256(INVENTORY_PATH)
     ):
         raise InventoryAuthorityError(
             "current user inventory overlay is not bound to the live inventory text"

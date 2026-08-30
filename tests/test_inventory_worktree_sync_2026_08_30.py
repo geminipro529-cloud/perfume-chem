@@ -141,8 +141,16 @@ def test_sync_manifest_hashes_every_distributed_inventory_file():
     ):
         for record in payload[group]:
             path = PROJECT_ROOT / record["path"]
-            assert path.stat().st_size == record["size_bytes"]
-            assert hashlib.sha256(path.read_bytes()).hexdigest() == record["sha256"]
+            content = path.read_bytes()
+            if path.suffix.lower() == ".xlsx":
+                assert path.stat().st_size == record["size_bytes"]
+            else:
+                # Git may materialize text as CRLF or LF according to the
+                # target worktree's attributes. The committed blob content is
+                # authoritative; normalize checkout line endings only for the
+                # transport-integrity comparison.
+                content = content.replace(b"\r\n", b"\n")
+            assert hashlib.sha256(content).hexdigest() == record["sha256"]
 
 
 def test_authority_receipt_preserves_formula_and_claim_boundaries():
