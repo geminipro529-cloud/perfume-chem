@@ -1,0 +1,198 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_alias_crosswalk_v1",
+  "authority_class": "IDENTITY_CROSSWALK_ONLY",
+  "source": {
+    "package_path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip",
+    "package_sha256": "7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205",
+    "member_path": "COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811/outputs/EVIDENCE_BOUND_ALIAS_CONTRACTS_18_v1.json",
+    "member_byte_size": 5003,
+    "member_sha256": "edacba08056296321ae0f7987002ea18cd0c2690913ea9d79fef495a0c10913d",
+    "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+  },
+  "policy": {
+    "scope": "V5_CANDIDATE_LOOKUP_ONLY",
+    "fuzzy_matching": false,
+    "preserve_original_formula_label": true,
+    "preserve_native_stock_and_requirement_state": true,
+    "creates_stock": false,
+    "creates_preparation": false,
+    "creates_ownership": false,
+    "changes_stock_fraction": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "preparation": false,
+    "physical": false,
+    "scientific": false,
+    "safety": false,
+    "sensory": false,
+    "release": false
+  },
+  "contracts": [
+    {
+      "contract_id": "IDCL-001",
+      "source": "2-Acetyl Pyrazine 1%",
+      "destination": "2-Acetyl Pyrazine",
+      "current_master_row": 6,
+      "expected_route": "V5_LABEL_RECHECK_HOLD",
+      "required_witnesses": ["1% working stock", "carrier not stated"],
+      "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+    },
+    {
+      "contract_id": "IDCL-002",
+      "source": "AAG 10%",
+      "destination": "Allyl Amyl Glycolate (AAG)",
+      "current_master_row": 7,
+      "expected_route": "PREPARE_EXACT_STOCK_HOLD",
+      "required_witnesses": ["prepare 10% in dpg or tec", "stock-strength recalculation"],
+      "native_disposition": "GUARDED_ALIAS_PREPARATION_REQUIRED"
+    },
+    {
+      "contract_id": "IDCL-003",
+      "source": "Allyl Amyl Glycolate 10%",
+      "destination": "Allyl Amyl Glycolate (AAG)",
+      "current_master_row": 7,
+      "expected_route": "PREPARE_EXACT_STOCK_HOLD",
+      "required_witnesses": ["prepare 10% in dpg or tec", "cas 67634-00-8"],
+      "native_disposition": "GUARDED_ALIAS_PREPARATION_REQUIRED"
+    },
+    {
+      "contract_id": "IDCL-004",
+      "source": "Aurantiol",
+      "destination": "Aurantiol 10% in DPG",
+      "current_master_row": 254,
+      "expected_route": "V5_STOCK_REBASE_HOLD",
+      "required_witnesses": ["aurantiol 10% in dpg", "use exact 10% in dpg stock"],
+      "native_disposition": "NATIVE_NOOP"
+    },
+    {
+      "contract_id": "IDCL-005",
+      "source": "Bergamot FCF EO",
+      "destination": "Bergamot FCF Oil Sicilian",
+      "current_master_row": 42,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["bergamot fcf oil sicilian", "neat / as supplied"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-006",
+      "source": "Blood Orange EO",
+      "destination": "Blood Orange Oil Sicilian",
+      "current_master_row": 50,
+      "expected_route": "V5_LABEL_RECHECK_HOLD",
+      "required_witnesses": ["blood orange oil sicilian", "lot details not yet recorded"],
+      "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+    },
+    {
+      "contract_id": "IDCL-007",
+      "source": "Cedrat FCF EO",
+      "destination": "Cedrat FCF Oil Sicilian",
+      "current_master_row": 66,
+      "expected_route": "V5_OUT_OF_STOCK_HOLD",
+      "required_witnesses": ["cedrat fcf oil sicilian", "out of stock - confirmed"],
+      "native_disposition": "GUARDED_ALIAS_GAP"
+    },
+    {
+      "contract_id": "IDCL-008",
+      "source": "Cis Jasmone",
+      "destination": "cis-Jasmone",
+      "current_master_row": 71,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["cis-jasmone", "neat/as supplied"],
+      "native_disposition": "NATIVE_NOOP"
+    },
+    {
+      "contract_id": "IDCL-009",
+      "source": "Cocoa CO2 7.7%",
+      "destination": "Cocoa CO2 Extract 7.7%",
+      "current_master_row": 79,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["cocoa co2 extract 7.7%", "7.7% stock"],
+      "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+    },
+    {
+      "contract_id": "IDCL-010",
+      "source": "Coffee Absolute 10%",
+      "destination": "Coffee Absolute Grasse 10% in DPG",
+      "current_master_row": 80,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["coffee absolute grasse 10% in dpg", "not coffee co2"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-011",
+      "source": "Ethyl Maltol 10%",
+      "destination": "Ethyl Maltol 1% + 10%",
+      "current_master_row": 266,
+      "expected_route": "V5_LABEL_RECHECK_HOLD",
+      "required_witnesses": ["ethyl maltol 1% and 10% working stocks", "carriers not stated"],
+      "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+    },
+    {
+      "contract_id": "IDCL-012",
+      "source": "Grapefruit FCF EO",
+      "destination": "Grapefruit FCF Oil Sicilian",
+      "current_master_row": 123,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["grapefruit fcf oil sicilian", "neat / as supplied"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-013",
+      "source": "Himalayan Cedarwood EO",
+      "destination": "Cedarwood Himalayan EO",
+      "current_master_row": 63,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["cedarwood himalayan eo", "neat/as supplied"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-014",
+      "source": "Lemon FCF EO",
+      "destination": "Lemon FCF Oil Sicilian",
+      "current_master_row": 158,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["lemon fcf oil sicilian", "neat / as supplied"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-015",
+      "source": "Opoponax 50%",
+      "destination": "Opoponax Resinoid 50%",
+      "current_master_row": 189,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["opoponax resinoid 50%", "50% in dpg"],
+      "native_disposition": "GUARDED_ALIAS"
+    },
+    {
+      "contract_id": "IDCL-016",
+      "source": "Peru Balsam 50%",
+      "destination": "Peru Balsam 10%",
+      "current_master_row": 201,
+      "expected_route": "V5_LABEL_RECHECK_HOLD",
+      "required_witnesses": ["peru balsam resinoid 50% w/w", "carrier not stated"],
+      "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+    },
+    {
+      "contract_id": "IDCL-017",
+      "source": "Rose Essential Oil",
+      "destination": "Rose EO",
+      "current_master_row": 214,
+      "expected_route": "V5_GAP_OR_EXACT_MATERIAL_HOLD",
+      "required_witnesses": ["generic rose eo unconfirmed", "do not use"],
+      "native_disposition": "NATIVE_NOOP"
+    },
+    {
+      "contract_id": "IDCL-018",
+      "source": "Ylang Complete EO",
+      "destination": "Ylang-Ylang EO",
+      "current_master_row": 251,
+      "expected_route": "V5_CURRENT_EXACT_STOCK_RECHECK_HOLD",
+      "required_witnesses": ["comoros complete", "use comoros complete when a formula calls generically"],
+      "native_disposition": "GUARDED_ALIAS_ABSTAIN_UNTIL_EXACT_STOCK"
+    }
+  ]
+}

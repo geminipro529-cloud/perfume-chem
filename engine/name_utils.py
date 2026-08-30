@@ -34,6 +34,7 @@ _ALIASES: dict[str, str] = {
     "hex sal": "hexyl salicylate",
     "hexsal": "hexyl salicylate",
     "eb": "ethylene brassylate",
+    "bacnadol": "bacdanol",
     "pea": "phenethyl alcohol",
     "oranger crystals 10": "oranger crystals",  # 10% in DPG stock
     "polysantol neat": "polysantol",
@@ -58,6 +59,7 @@ _ALIASES: dict[str, str] = {
     "alpha isomethyl ionone": "alpha-isomethyl ionone",
     "alpha isomethyl ionone (methyl ionone pure)": "alpha-isomethyl ionone",
     "aimi": "alpha-isomethyl ionone",
+    "givaudan aimi": "alpha-isomethyl ionone",
     "alpha irone (30% in dep)": "alpha irone",
     "alpha irone (30% w/w in ipm)": "alpha irone",
     "orris liquid (30%)": "orris liquid",
@@ -144,7 +146,11 @@ _ALIASES: dict[str, str] = {
     "jasmine absolute 10% in dpg": "jasmine absolute",
     "coffee absolute grasse 10% in dpg": "coffee absolute grasse",
     "oakmoss absolute (10% in dpg)": "oakmoss absolute",
-    "evernyl (50% in dpg)": "evernyl",
+    "evernyl (50% in dpg)": "evernyl",  # historical formula spelling only
+    "evernyl (20% w/w in dpg)": "evernyl",
+    "evernyl (10% w/w in dep)": "evernyl",
+    "cinnamon bark eo - telvada usda organic (neat)": "cinnamon bark eo - telvada usda organic",
+    "cinnamon bark eo (telvada)": "cinnamon bark eo - telvada usda organic",
     # ── EO Aliases ──
     "lavender ha": "lavender eo high altitude",
     "lavender eo ha": "lavender eo high altitude",

@@ -1,0 +1,56 @@
+{
+  "schema_version": "perfume_chem_inventory_document_delegate_receipt_v1",
+  "date": "2026-08-30",
+  "route": "$delegate / openrouter_worker",
+  "model": "deepseek/deepseek-v3.2",
+  "reasoning_effort": "low",
+  "sandbox": "read-only",
+  "approval_policy": "never",
+  "web_search": "disabled",
+  "retry_count": 0,
+  "batch_count": 12,
+  "batch_ranges": [
+    [1, 23],
+    [24, 46],
+    [47, 69],
+    [70, 92],
+    [93, 115],
+    [116, 138],
+    [139, 161],
+    [162, 184],
+    [185, 207],
+    [208, 230],
+    [231, 253],
+    [254, 273]
+  ],
+  "source_packet": {
+    "census_path": "data/governance/inventory_supplier_document_census_20260830.json",
+    "census_sha256": "93cc4eb1c54d1e28c979677dc477592e3ac65f908946df5fd9ea3e21b848bde6",
+    "archive_manifest_path": "data/source_manifests/perfumersworld_inventory_documents_20260830.json",
+    "archive_manifest_sha256": "d5527b2692b907e3566eb94c3fc814291f3a8935d68e56d830aad2ecbc82534e",
+    "archived_file_count": 696
+  },
+  "result": {
+    "state": "NO_OUTPUT_YIELDED_TERMINATED_AFTER_EXTENDED_BOUNDED_WAIT",
+    "accepted_batch_count": 0,
+    "accepted_row_count": 0,
+    "claims_promoted": 0,
+    "files_written_by_workers": 0,
+    "retried": false,
+    "substitute_model_used": false
+  },
+  "disposition": "LOCAL_VERIFIED_ARCHIVE_REMAINS_AUTHORITATIVE; DELEGATE_EXTRACTION_NOT_ACCEPTED",
+  "authority": {
+    "inventory_mutation": false,
+    "supplier_identity_promotion": false,
+    "stock_fraction_or_carrier": false,
+    "formula": false,
+    "sensory": false,
+    "hedonic": false,
+    "safety": false,
+    "stability": false,
+    "purchase": false,
+    "compounding": false,
+    "release": false
+  }
+}

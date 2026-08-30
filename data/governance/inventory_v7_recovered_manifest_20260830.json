@@ -1,0 +1,238 @@
+{
+  "schema_version": "perfume_chem_inventory_v7_recovery_v1",
+  "manifest_id": "INVENTORY-V7-RECOVERY-20260830-001",
+  "effective_date": "2026-08-30",
+  "disposition": "CURRENT_USER_AUTHORITY_SUCCESSOR",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "purpose": "Recover three V7-era floral and bridge working stocks that were lost from the canonical inventory while preserving the distinction between the user's only current working concentrations, historical recipe preparations, supplier forms, and unverified historical labels.",
+  "historical_formula_rebase_authorized": false,
+  "direct_user_assertions": [
+    "Liffarome, Cis-3-Hexenyl Salicylate, and Caryophyllene Acetate are physically owned.",
+    "The working concentrations actually used in the floral recipes are the only current physical stock concentrations for these three materials.",
+    "None of the three current working stocks is neat, and no parallel neat or alternate-concentration current stock is authorized.",
+    "The current working-stock fractions are Liffarome 10%, Cis-3-Hexenyl Salicylate 20%, and Caryophyllene Acetate 20%.",
+    "All three percentages are w/w mass fractions.",
+    "These three stocks belong to the recovered V7 additions."
+  ],
+  "unresolved_user_stock_fields": [
+    "carrier identity for Liffarome 10% w/w",
+    "carrier identity for Cis-3-Hexenyl Salicylate 20% w/w",
+    "carrier identity for Caryophyllene Acetate 20% w/w",
+    "supplier, lot, density, preparation receipt, and homogeneity evidence for each stock"
+  ],
+  "version_lineage": {
+    "v5_parent_authority": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx remains the immutable external parent snapshot; this manifest is a versioned user-authority successor and does not rewrite that workbook.",
+    "v6_recipe_archive": "V6_High_Hedonic_Complex_Recipes.zip described recipe-specific DPG child working stocks prepared from a parent: Liffarome 1%, Cis-3-Hexenyl Salicylate 10%, and Caryophyllene Acetate 10%.",
+    "v6_recipe_stocks_are_current_authority": false,
+    "v6_reason": "The archive explicitly says 'working stock in DPG (prepare from parent)'; those older 1/10/10 preparations remain historical recipe provenance and do not create parallel current stocks. The user's current exclusive working concentrations are 10/20/20 w/w.",
+    "v7_creation_event": {
+      "conversation_id": "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+      "conversation_title": "Perfume Layering Research",
+      "event_time_utc": "2026-08-24T02:44:49Z",
+      "event_summary": "The V7 workbook was emitted after adding Kenyan Myrrh Tincture 20% and Oman Frankincense Tincture 20% to the then-current V6 inventory. A later message called V7 a derived working workbook and did not preserve the exact three stock carriers.",
+      "declared_workbook_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v7.xlsx",
+      "original_workbook_sha256": null,
+      "original_workbook_bytes_available": false,
+      "authority_use": "PROVENANCE_ONLY; NOT AN EXACT-BYTE INVENTORY SOURCE"
+    },
+    "v7_original_workbook_bytes_available": false,
+    "post_v5_floral_corpus": "The 2026-08-23 floral formula corpus consistently labels Liffarome 10%, Cis-3-Hexenyl Salicylate 20%, and Caryophyllene Acetate 20%, while retaining HOLD_EXACT_STOCK_BINDING_REQUIRED for identity, basis, and carrier.",
+    "current_resolution": "The user's 2026-08-30 correction makes the recipe-resolved 10/20/20 percentages, on a w/w basis, the only current physical working concentrations. Carrier remains unresolved and fails closed."
+  },
+  "recovered_stocks": [
+    {
+      "canonical_name": "Liffarome",
+      "aliases": [],
+      "functional_family": "green_fresh_marine",
+      "current_working_stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": null,
+        "only_current_concentration": true,
+        "neat_stock_owned": false,
+        "parallel_stock_authorized": false,
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "historical_child_stock": {
+        "fraction": 0.01,
+        "fraction_basis": "unspecified in archive text",
+        "carrier": "DPG",
+        "relationship": "PREPARE_FROM_PARENT",
+        "current_stock_authority": false
+      },
+      "later_floral_formula_label": "10% working stock; post-V5 user-confirmed",
+      "supplier_registry_conflict": "The material registry's PerfumersWorld supplier form is neat. Supplier catalog form is not the user's current bottle stock and must not override the 10% w/w user stock.",
+      "runtime_policy": "Selectable for target architecture. Quantitative active-dose, carrier displacement, ppm, OAV, stock preparation, compounding, and formula rebase remain HOLD until the carrier is bound."
+    },
+    {
+      "canonical_name": "Cis-3-Hexenyl Salicylate",
+      "aliases": [
+        "Cis-3 Hexenyl Salicylate",
+        "cis-3-hexenyl salicylate"
+      ],
+      "functional_family": "floral_green_bridge",
+      "current_working_stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": null,
+        "only_current_concentration": true,
+        "neat_stock_owned": false,
+        "parallel_stock_authorized": false,
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "historical_child_stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified in archive text",
+        "carrier": "DPG",
+        "relationship": "PREPARE_FROM_PARENT",
+        "current_stock_authority": false
+      },
+      "later_floral_formula_label": "20% working stock; user-corrected",
+      "supplier_registry_conflict": "One registry record lists a neat PerfumersWorld form and a separate 10% DPG catalog form. Neither catalog form proves the user's current 20% w/w carrier.",
+      "compatibility_surface": "Both existing hyphenated and space-separated material registry records remain present for compatibility and carry the same current user-stock declaration; destructive deduplication is outside this recovery.",
+      "runtime_policy": "Selectable for target architecture. Quantitative active-dose, carrier displacement, ppm, OAV, stock preparation, compounding, and formula rebase remain HOLD until the carrier is bound."
+    },
+    {
+      "canonical_name": "Caryophyllene Acetate",
+      "aliases": [],
+      "functional_family": "spice_aromatic_floral_wood_bridge",
+      "current_working_stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": null,
+        "only_current_concentration": true,
+        "neat_stock_owned": false,
+        "parallel_stock_authorized": false,
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "historical_child_stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified in archive text",
+        "carrier": "DPG",
+        "relationship": "PREPARE_FROM_PARENT",
+        "current_stock_authority": false
+      },
+      "later_floral_formula_label": "20% working stock",
+      "supplier_registry_conflict": "The material registry's PerfumersWorld supplier form is neat. Supplier catalog form is not the user's current bottle stock and must not override the 20% w/w user stock.",
+      "runtime_policy": "Selectable for target architecture. Quantitative active-dose, carrier displacement, ppm, OAV, stock preparation, compounding, and formula rebase remain HOLD until the carrier is bound."
+    }
+  ],
+  "evidence_sources": [
+    {
+      "source_id": "E1",
+      "kind": "DIRECT_USER_AUTHORITY",
+      "location": "current Complex Perfumery task messages on 2026-08-30",
+      "sha256": null,
+      "use": "Current ownership, V7 classification, 10/20/20 fractions, and w/w basis."
+    },
+    {
+      "source_id": "E2",
+      "kind": "UNTRUSTED_CHAT_PROVENANCE",
+      "location": "chatgpt-conversation://6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+      "sha256": null,
+      "use": "Locates the V7 creation event and establishes that V7 was derived from the then-current V6 state. It does not prove exact workbook bytes or carrier."
+    },
+    {
+      "source_id": "E3",
+      "kind": "LOCAL_ARCHIVE_PROVENANCE",
+      "location": "C:/Users/ASUS/Downloads/V6_High_Hedonic_Complex_Recipes.zip",
+      "size_bytes": 62229,
+      "sha256": "aaa2486fd75d47a9a9aa3834ec9ab7cf6baf1fc89ab8523f5f8563369b93c823",
+      "use": "Proves the V6 child working-stock instructions and their prepare-from-parent status."
+    },
+    {
+      "source_id": "E4",
+      "kind": "LOCAL_FORMULA_PROVENANCE",
+      "location": "C:/Users/ASUS/Downloads/FLORAL_MASTER_70_ALL_THREE_30ML_VARIANTS_2026-08-23/FORMULAS/CHA-04/CHA-04-10PCT.md",
+      "size_bytes": 4711,
+      "sha256": "4e4368230f791e59a1079335f2dd2c661e330807b6ec2202449b12236b6c860c",
+      "observed_labels": [
+        "cis-3-Hexenyl Salicylate 20% working stock; user-corrected",
+        "Liffarome 10% working stock; post-V5 user-confirmed",
+        "HOLD_EXACT_STOCK_BINDING_REQUIRED"
+      ],
+      "use": "Supports the recovered 20% and 10% stock labels while preserving the original exact-stock HOLD."
+    },
+    {
+      "source_id": "E5",
+      "kind": "LOCAL_FORMULA_PROVENANCE",
+      "location": "C:/Users/ASUS/Downloads/FLORAL_MASTER_70_MINIMUM_EFFECTIVE_CONCENTRATION_2026-08-23/FORMULAS/ROSE_OTTO_IMMORTELLE_10/R2_SPICED_ANATOLIAN_ROSE_30ML.md",
+      "size_bytes": 4621,
+      "sha256": "e2c1a3355ec490b01e7b4e25628571314a91385d232e141efe0480fb62c6b705",
+      "observed_labels": [
+        "cis-3-Hexenyl Salicylate 20%",
+        "Liffarome 10%",
+        "Caryophyllene Acetate 20%",
+        "HOLD_EXACT_STOCK_BINDING_REQUIRED"
+      ],
+      "use": "Single formula containing all three recovered strengths and the exact-stock-binding HOLD."
+    },
+    {
+      "source_id": "E6",
+      "kind": "HISTORICAL_GOVERNANCE_TOMBSTONE",
+      "location": "data/governance/working_stock_dep_claim_receipt_20260819.json",
+      "size_bytes": 10081,
+      "sha256": "180c4c24fcae9246c34e1fbea48f16696b755d4dcc10d9e6a2c8ceeb6f09f798",
+      "use": "Records an older DEP working-stock recommendation from assumed neat parents. It did not prove preparation or current stock and is not promoted as carrier authority."
+    }
+  ],
+  "conflict_adjudication": [
+    {
+      "conflict": "V6 archived preparation concentrations differ from the current V7 working-stock concentrations.",
+      "resolution": "No current-stock conflict: the archived 1/10/10 preparations are retained as historical recipe provenance; 10/20/20 w/w are the only current working-stock concentrations."
+    },
+    {
+      "conflict": "Supplier registry forms are neat while the user says the current stocks are diluted.",
+      "resolution": "Direct current-stock user authority wins for ownership and bottle fraction. Supplier forms remain catalog metadata only."
+    },
+    {
+      "conflict": "Historical recommendation receipts mention DEP, but the current user correction does not explicitly identify carrier.",
+      "resolution": "Carrier remains null/CARRIER_UNSPECIFIED. No DEP or DPG inference is permitted."
+    },
+    {
+      "conflict": "The original V7 workbook was declared in ChatGPT but exact bytes and hash are not present locally.",
+      "resolution": "The workbook event is provenance only. Current user assertions plus locally hashed formula evidence support the successor overlay without claiming exact-byte V7 recovery."
+    }
+  ],
+  "runtime_installation": {
+    "legacy_inventory_text": "inventory.txt",
+    "current_user_overlay": "data/governance/inventory_user_authority_overlay_20260828.json",
+    "material_registry_files": [
+      "data/materials/L.yaml",
+      "data/materials/C.yaml"
+    ],
+    "parser_contract": "engine/inventory_parser.py",
+    "tests": [
+      "tests/test_inventory_material_additions.py",
+      "tests/test_inventory_v7_recovered_manifest.py"
+    ]
+  },
+  "authority_limits": {
+    "formulation_selection_ready": true,
+    "only_current_working_concentrations_confirmed": true,
+    "parallel_current_stocks_authorized": false,
+    "quantitative_dosing_ready": false,
+    "active_ul_math_authorized": false,
+    "carrier_displacement_math_authorized": false,
+    "ppm_math_authorized": false,
+    "oav_construction_authorized": false,
+    "stock_preparation_authorized": false,
+    "compounding_authorized": false,
+    "procurement_authorized": false,
+    "historical_formula_rebase_authorized": false,
+    "sensory_tested": false,
+    "liking_tested": false,
+    "performance_tested": false,
+    "safety_tested": false,
+    "stability_tested": false,
+    "release_authorized": false
+  },
+  "next_required_evidence": {
+    "minimum_to_remove_carrier_hold": "A readable bottle label, preparation receipt, or direct user statement naming the carrier for each stock.",
+    "minimum_for_volume_dosing": "Carrier identity plus stock density or a validated mass-dosing workflow; w/w alone does not authorize exact uL conversion.",
+    "minimum_for_formula_integration": "ExactStockRef, mass-basis active-equivalent calculation, carrier-matched control, and the formula's existing safety and sensory gates."
+  }
+}

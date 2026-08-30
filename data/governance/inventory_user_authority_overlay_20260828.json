@@ -1,0 +1,1040 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_overlay_v1",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-08-28",
+  "parent": {
+    "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+  },
+  "source": {
+    "kind": "USER_AUTHORITATIVE_CROSS_TASK_HANDOFF",
+    "source_thread_id": "01a03ee5-7db4-7083-a396-fb1207225757",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20497,
+    "inventory_text_sha256": "ed0d41b8fc1c797fd3e828bac249cdd55d9421025f896c4ab0dea0eb0baa751b"
+  },
+  "policy": {
+    "parent_snapshot_immutable": true,
+    "merge_other_task_branch": false,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "preserve_exact_ap_t1_cinnamon_substitution": true,
+    "require_sub_10_ul_working_stock": true,
+    "unknown_fraction_fails_closed": true,
+    "unlisted_tinctures_available": false
+  },
+  "records": [
+    {
+      "record_id": "INV-USER-20260828-001",
+      "canonical_name": "Ethylene Brassylate",
+      "aliases": ["EB"],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "BARE_INVENTORY_ROW_IMPLICIT_NEAT_CONVENTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Ownership is user-confirmed; the bare inventory row retains the repository implicit-neat convention."
+    },
+    {
+      "record_id": "INV-USER-20260828-002",
+      "canonical_name": "Amber Xtreme",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 23,
+          "disposition": "PREPARATION_REQUIRED",
+          "status": "HAVE DIFFERENT STOCK - 10% W/W IN DEP",
+          "actual_stock_text": "Amber Xtreme 10% w/w in DEP",
+          "can_prepare": "An exact preparation receipt is required for any lower working stock; do not silently rebase."
+        }
+      ],
+      "note": "The owned 10% stock does not silently satisfy the V5 0.1% requirement."
+    },
+    {
+      "record_id": "INV-USER-20260828-003",
+      "canonical_name": "Alpha Irone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 20}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 19,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DEP ONLY",
+          "actual_stock_text": "Alpha Irone 10% w/w in DEP",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 20,
+          "disposition": "GAP",
+          "status": "SUPERSEDED - 30% W/W IN IPM NOT OWNED",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This replaces the prior 30% w/w IPM stock; only 10% w/w DEP is owned."
+    },
+    {
+      "record_id": "INV-USER-20260828-004",
+      "canonical_name": "Opoponax Resinoid 50%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "resin / incense",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 189}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 189,
+          "disposition": "OWNED",
+          "status": "HAVE - 50% IN DEP; BASIS UNSPECIFIED",
+          "actual_stock_text": "Opoponax Resinoid 50% in DEP; basis unspecified",
+          "can_prepare": ""
+        }
+      ],
+      "note": "Carrier changes from the V5 DPG assertion to DEP; mass/volume basis remains unknown."
+    },
+    {
+      "record_id": "INV-USER-20260828-005",
+      "canonical_name": "Myrrh EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "resin / incense",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Myrrh EO is not Myrrh Resinoid and does not satisfy the V5 Myrrh Resinoid requirement."
+    },
+    {
+      "record_id": "INV-USER-20260828-006",
+      "canonical_name": "Osmanthus Absolute",
+      "aliases": ["premium Osmanthus Absolute"],
+      "state": "OWNED",
+      "category": "air floral",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 196}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 196,
+          "disposition": "OWNED",
+          "status": "HAVE - PREMIUM ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Osmanthus Absolute 10% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This assertion narrows the premium absolute only; the separately named volume-grade inventory row is not relabeled."
+    },
+    {
+      "record_id": "INV-USER-20260828-007",
+      "canonical_name": "Rose de Mai Absolute",
+      "aliases": ["Rose de Mai", "Rose Absolute 10%"],
+      "state": "OWNED",
+      "category": "rose floral",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 212},
+        {"source_row": 213}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 212,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 213,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "note": "No neat Rose de Mai or generic rose-absolute stock is created."
+    },
+    {
+      "record_id": "INV-USER-20260828-008",
+      "canonical_name": "Lemon FCF oil Sicilian",
+      "aliases": ["Lemon FCF Sicilian"],
+      "state": "IDENTITY_ALIAS",
+      "category": "citrus_top",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "The existing V5 and inventory row remains neat/1.0."
+    },
+    {
+      "record_id": "INV-USER-20260828-009",
+      "canonical_name": "Clearwood",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 76,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT",
+          "actual_stock_text": "neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-08-29",
+      "source_thread_id": "01a041bd-477c-75e3-be6b-7e3136bf5990",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_required": false,
+        "quantitative_dosing_ready": true,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "This supersedes the V5 out-of-stock state. The 2026-08-29 broadcast reconfirmed owned, neat, and ready without adding supplier, purity, density, safety, stability, sensory-equivalence, or release authority."
+    },
+    {
+      "record_id": "INV-USER-20260828-010",
+      "canonical_name": "Givaudan AIMI",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "Ownership and neat stock are authoritative; exact product identity and physics data remain unresolved outside inventory authority."
+    },
+    {
+      "record_id": "INV-USER-20260828-011",
+      "canonical_name": "Cedarwood oil Virginia",
+      "aliases": ["Virginian cedarwood", "Cedarwood Virginia"],
+      "state": "IDENTITY_ALIAS",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "note": "The existing inventory/V5 stock remains neat/1.0; no other cedar species is substituted."
+    },
+    {
+      "record_id": "INV-USER-20260828-012",
+      "canonical_name": "Red Mandarin EO",
+      "aliases": ["Red Mandarin Oil"],
+      "state": "OWNED",
+      "category": "citrus top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 210,
+          "disposition": "OWNED",
+          "status": "HAVE - IMPLICIT NEAT/1.0",
+          "actual_stock_text": "neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "note": "This supersedes the 2026-08-07 out-of-stock state without creating a different mandarin identity."
+    },
+    {
+      "record_id": "INV-USER-20260828-013",
+      "canonical_name": "Rose Essential Oil (Rosa Damascena, India)",
+      "aliases": ["steam-distilled Rosa damascena", "Rose Otto Oil", "Rose Essential Oil"],
+      "state": "OWNED",
+      "category": "floral air",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_DIRECTED_IMPLICIT_NEAT_1_0",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 214,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSA DAMASCENA STEAM-DISTILLED OIL ONLY",
+          "actual_stock_text": "Rose Essential Oil (Rosa Damascena, India), neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "note": "The alias is limited to steam-distilled Rosa damascena / Rose Otto Oil, not generic rose absolutes."
+    },
+    {
+      "record_id": "INV-USER-20260828-014",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": ["Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture"],
+      "state": "UNAVAILABLE",
+      "category": "sweet_balsamic",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {"source_row": 222, "fraction": 0.2},
+        {"source_row": 246}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 246,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED LOST 2026-08-28",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "All tinctures are lost; the separate Siam Benzoin 50% stock is not removed."
+    },
+    {
+      "record_id": "INV-USER-20260828-015",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": ["Turkish Storax Liquidambar Orientalis resin ethanol tincture"],
+      "state": "UNAVAILABLE",
+      "category": "resin_incense",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {"source_row": 236}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 236,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED LOST 2026-08-28",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "All tinctures are lost."
+    },
+    {
+      "record_id": "INV-USER-20260829-001",
+      "canonical_name": "Ambrofix",
+      "aliases": ["Ambrofix liquid stock"],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.07272727272727272,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep + ethanol",
+        "fraction_authority": "USER_RECOVERED_WHOLE_BOTTLE_MASS_BALANCE_20260829",
+        "execution_ready": false,
+        "execution_hold_reason": "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 29, "fraction": 0.3}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 29,
+          "disposition": "UNRESOLVED",
+          "status": "SUPERSEDED - 30% CURRENT-STOCK ASSUMPTION IS STALE; HETEROGENEOUS LIQUID BOTTLE HOLD",
+          "actual_stock_text": "Whole bottle including solid: 0.192 g Ambrofix + 0.448 g DEP + 2.000 g ethanol = 2.640 g total, nominal 7.27% w/w Ambrofix",
+          "can_prepare": "No stock preparation or formula rebase is authorized."
+        }
+      ],
+      "effective_date": "2026-08-29",
+      "source_thread_id": "01a04493-752a-79e1-99ff-26f0a47fd079",
+      "mass_balance": {
+        "empty_bottle_g": 11.45,
+        "final_bottle_g": 14.09,
+        "contents_g": 2.64,
+        "added_ethanol_g": 2.0,
+        "original_30pct_stock_g": 0.64,
+        "ambrofix_g": 0.192,
+        "dep_g": 0.448,
+        "ethanol_g": 2.0,
+        "nominal_whole_bottle_mass_fraction": 0.07272727272727272,
+        "prior_withdrawal": false
+      },
+      "authority_limits": {
+        "whole_bottle_including_solid_only": true,
+        "liquid_phase_strength_known": false,
+        "active_ul_ppm_oav_math_authorized": false,
+        "volume_dose_math_authorized": false,
+        "formula_rebase_authorized": false,
+        "procurement_authorized": false,
+        "stock_preparation_authorized": false,
+        "compounding_authorized": false,
+        "sensory_tested": false,
+        "performance_tested": false,
+        "safety_tested": false,
+        "stability_tested": false,
+        "release_authorized": false
+      },
+      "note": "Visible crystals remained and no later clear-and-stable observation exists. The nominal fraction is whole-bottle mass balance only, not pipetted liquid-phase authority. Do not compute active-uL/ppm/OAV or volume doses and do not rebase 30% formula volumes by 30/7.27. Ambrofix, Ambrox Super, and a separate Ambrofix Crystals solid record remain distinct with no inferred substitution or equivalence. A complete-clarity observation followed by 48-hour stability could remove only the homogeneity HOLD; exact uL conversion would still require density, with mass dosing and carrier-matched controls preferred. The 10 uL liquid-stock floor remains in force. Sensory, performance, safety, stability, and release are NOT TESTED/HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260829-002",
+      "canonical_name": "Bacdanol",
+      "aliases": ["Bacnadol"],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": null,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "fraction_authority": "USER_OWNERSHIP_ONLY_STOCK_FRACTION_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_FRACTION_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-29",
+      "source_thread_id": "01a041bd-477c-75e3-be6b-7e3136bf5990",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": false,
+        "fraction_basis_known": false,
+        "carrier_known": false,
+        "quantitative_dosing_ready": false,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false
+      },
+      "note": "The user wrote Bacnadol and confirmed Bacdanol ownership and current-inventory formulation availability. No stock fraction, carrier, supplier, purity, density, safety, or sensory-equivalence authority was supplied. The material may be selected in a current-inventory design, but quantitative active-dose/ppm/OAV execution remains HOLD until the exact bottle stock is declared. Historical formulas are not rebased."
+    },
+    {
+      "record_id": "INV-USER-20260829-003",
+      "canonical_name": "Guaiacwood EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 125,
+          "disposition": "GAP",
+          "status": "HAVE DIFFERENT STOCK - 33%; CONCENTRATION BASIS AND CARRIER UNSPECIFIED",
+          "actual_stock_text": "Guaiacwood EO 33%; basis and carrier unspecified",
+          "can_prepare": "No preparation, carrier inference, or stock rebase is authorized."
+        }
+      ],
+      "effective_date": "2026-08-29",
+      "source_thread_id": "01a041bd-477c-75e3-be6b-7e3136bf5990",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": false,
+        "carrier_known": false,
+        "quantitative_dosing_ready": false,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "Ownership and the nominal 33% stock are user-authoritative. Do not infer w/w, w/v, DEP, DPG, ethanol, supplier, purity, density, safety, stability, sensory equivalence, or release success. The material may be selected in a current-inventory design, but quantitative active-dose/ppm/OAV execution remains HOLD until concentration basis and carrier are declared. Historical formulas are not rebased."
+    },
+    {
+      "record_id": "INV-USER-20260830-001",
+      "canonical_name": "Black Agarwood Artificial",
+      "aliases": [
+        "Black Agarwood Artificial 10%",
+        "Black Agarwood Artificial 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "leather_oud",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_RECONFIRMS_V5",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 47
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_stock_conversion_ready": true,
+        "neat_stock_owned": false,
+        "composition_disclosed": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "tombstone": {
+        "rejected_current_stock_claim": "Black Agarwood Artificial neat/as supplied",
+        "reason": "USER_CONFIRMED_NO_NEAT_STOCK_20260830",
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "Only the 10% w/w in DPG Black Agarwood Artificial stock is owned. The separate bare/neat current-inventory row was erroneous and is non-owned. Preserve historical formulas and receipts unchanged; never promote a neat dose through highest-concentration deduplication. Composition remains supplier-undisclosed, so blend MW, VP, ODT, hedonic, safety, stability, and equivalence claims remain bounded."
+    },
+    {
+      "record_id": "INV-USER-20260830-002",
+      "canonical_name": "Cypress EO",
+      "aliases": [
+        "Cypress Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 88
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Aroma&More",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "98481748",
+        "exact_product_listing_verified": false,
+        "supplier_lineage_authority": "EXPLICIT_USER_ASSERTION",
+        "quality_claim": "high quality",
+        "quality_claim_authority": "USER_REPORTED"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "quality_claim_is_empirical_panel_evidence": false,
+        "botanical_confirmed": false,
+        "chemotype_confirmed": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "Aroma&More via Shopee is the user-authoritative supplier and the physical stock is neat/as supplied. The exact Cypress listing was not independently located in indexed search, so no species, chemotype, lot, COA, density, safety, stability, similarity, liking, or release claim is created. 'High quality' is retained as the user's stock-quality observation, not a synthetic hedonic score."
+    },
+    {
+      "record_id": "INV-USER-20260830-003",
+      "canonical_name": "Patchouli EO",
+      "aliases": [
+        "Aroma&More Patchouli EO"
+      ],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 198
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Aroma&More",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "98481748",
+        "shopee_item_id": "5736619420",
+        "listing_url": "https://shopee.co.th/Aroma-More-Patchouli-Essential-Oil-100-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%8A%E0%B8%B9%E0%B8%A5%E0%B8%B5-100-Indonesia-100ML-i.98481748.5736619420",
+        "listing_claim": "Patchouli Essential Oil 100% Indonesia",
+        "quality_claim": "high quality",
+        "quality_claim_authority": "USER_REPORTED"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "quality_claim_is_empirical_panel_evidence": false,
+        "botanical_confirmed": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The current Aroma&More stock is neat/as supplied and user-described as high quality. This replaces the stale 'volume grade' current-stock label only; historical formulas and diagnostics are not rewritten or rebased."
+    },
+    {
+      "record_id": "INV-USER-20260830-004",
+      "canonical_name": "Nutmeg EO",
+      "aliases": [
+        "Aroma&More Nutmeg EO",
+        "Nutmeg Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 184,
+          "disposition": "OWNED",
+          "status": "HAVE - AROMA&MORE NEAT/AS SUPPLIED",
+          "actual_stock_text": "Aroma&More Nutmeg EO neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Aroma&More",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "98481748",
+        "shopee_item_id": "3636713145",
+        "listing_url": "https://shopee.co.th/Aroma-More-Nutmeg-Essential-oil-100-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A2-%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%A8-%28%E0%B8%99%E0%B8%B1%E0%B8%97%E0%B9%80%E0%B8%A1%E0%B8%84%29100-Indonesia-100ML-i.98481748.3636713145",
+        "listing_claim": "Nutmeg Essential Oil 100% Indonesia"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "botanical_confirmed": false,
+        "plant_part_confirmed": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "This user-authoritative ownership update closes the V5 Nutmeg EO inventory gap at the supplied-stock level. It does not create constituent, safety, stability, sensory, liking, or release authority."
+    },
+    {
+      "record_id": "INV-USER-20260830-005",
+      "canonical_name": "Lavender EO High Altitude",
+      "aliases": [
+        "Lavender HA EO",
+        "Aroma&More Lavender HA EO"
+      ],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 156
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Aroma&More",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "98481748",
+        "shopee_item_id": "2116495304",
+        "listing_url": "https://shopee.co.th/Aroma-More-Lavender-H.A.-Essential-oil-France-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A2%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C-HA-100-%E0%B8%9D%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%A8%E0%B8%AA-5-10-30ML-i.98481748.2116495304",
+        "listing_claim": "Lavender H.A. Essential Oil France 100%"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "country_claim_supported_by_listing": true,
+        "botanical_certificate_verified": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "Aroma&More is the current High Altitude stock supplier and the bottle is neat/as supplied. Legacy Bontoux naming remains a compatibility surface only and is not evidence that the supplier lots are identical."
+    },
+    {
+      "record_id": "INV-USER-20260830-006",
+      "canonical_name": "Petitgrain EO Paraguay",
+      "aliases": [
+        "Aroma&More Petitgrain EO",
+        "Petitgrain Essential Oil Paraguay"
+      ],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 203
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Aroma&More",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "98481748",
+        "shopee_item_id": "2203115259",
+        "listing_url": "https://shopee.co.th/Aroma-More-Petitgrain-Essential-Oil-100-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A2-%E0%B9%80%E0%B8%9E%E0%B8%95%E0%B8%95%E0%B8%B4%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%99100-%E0%B8%9B%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%A7%E0%B8%B1%E0%B8%A2-Paraguay-i.98481748.2203115259",
+        "listing_claim": "Petitgrain Essential Oil 100% Paraguay"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "country_claim_supported_by_listing": true,
+        "botanical_confirmed": false,
+        "plant_part_confirmed": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "This is the existing Paraguay petitgrain identity with corrected Aroma&More supplier lineage, not a new generic Petitgrain EO or a neroli substitute."
+    },
+    {
+      "record_id": "INV-USER-20260830-007",
+      "canonical_name": "Cinnamon Bark EO (Telvada)",
+      "aliases": [
+        "Telvada Cinnamon Bark EO",
+        "Cinnamon Bark Essential Oil (Telvada)"
+      ],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_AND_100_PERCENT_PRODUCT_CLAIM",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_SUPPLIER_AND_STOCK_ASSERTION",
+      "supplier": {
+        "name": "Telvada",
+        "channel": "Shopee Thailand",
+        "shopee_shop_id": "24405688",
+        "exact_shopee_item_id": null,
+        "official_information_url": "https://telvada.com/en-us/blogs/news/cinnamon-essential-oil",
+        "product_evidence_url": "https://www.lemon8-app.com/@telvada01/7423965215781306881?region=th",
+        "listing_claim": "Cinnamon Bark Essential Oil 100% pure; USDA Organic label user-reported",
+        "certificate_status": "exact bottle, lot, COA, and organic-certificate bytes not verified"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_confirmed": true,
+        "botanical_species_confirmed": false,
+        "chemotype_confirmed": false,
+        "organic_certificate_verified": false,
+        "lot_confirmed": false,
+        "coa_verified": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "general_substitution_authorized": false
+      },
+      "identity_separation": {
+        "nysupply_cinnamon_bark_10_percent_equivalent": false,
+        "cinnamon_cassia_equivalent": false,
+        "cinnamaldehyde_equivalent": false,
+        "v5_cinnamon_bark_eo_1_percent_requirement_satisfied": false,
+        "reason": "BOTANICAL_SPECIES_AND_CHEMOTYPE_UNRESOLVED"
+      },
+      "note": "The Telvada bottle is user-confirmed neat/as supplied and distinct from the NYSUPPLY 10% stock, Cassia EO, and Cinnamaldehyde. It is selectable under its exact supplier identity. It must not silently satisfy a Ceylon-cinnamon or other species-specific target until the bottle label or COA resolves botanical species and chemotype. No safety, stability, sensory-equivalence, liking, or release claim is created."
+    },
+    {
+      "record_id": "INV-USER-20260830-008",
+      "canonical_name": "Liffarome",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green_fresh_marine",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_V7_STOCK_CORRECTION_WITH_RECOVERED_FLORAL_FORMULA_LINEAGE",
+      "source_conversation_id": "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "only_current_working_concentration_confirmed": true,
+        "neat_current_stock_owned": false,
+        "parallel_current_stock_authorized": false,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": false,
+        "quantitative_dosing_ready": false,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "Recovered V7 current working stock: 10% w/w. This is the only current concentration; no neat or alternate-concentration parallel stock is owned or authorized. V6 recipe files describing 1% DPG preparations remain historical provenance only. Carrier remains unproven, so active-uL, carrier-displacement, ppm, and OAV construction remain on HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260830-009",
+      "canonical_name": "Cis-3-Hexenyl Salicylate",
+      "aliases": [
+        "Cis-3 Hexenyl Salicylate"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_V7_STOCK_CORRECTION_WITH_RECOVERED_FLORAL_FORMULA_LINEAGE",
+      "source_conversation_id": "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "only_current_working_concentration_confirmed": true,
+        "neat_current_stock_owned": false,
+        "parallel_current_stock_authorized": false,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": false,
+        "quantitative_dosing_ready": false,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "Recovered V7 current working stock: 20% w/w. This is the only current concentration; no neat or alternate-concentration parallel stock is owned or authorized. V6 10% DPG preparation text and supplier-neat catalog rows remain historical or supplier provenance only. Carrier remains unproven, so quantitative formula construction remains on HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260830-010",
+      "canonical_name": "Caryophyllene Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": false,
+        "execution_hold_reason": "CARRIER_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_V7_STOCK_CORRECTION_WITH_RECOVERED_FLORAL_FORMULA_LINEAGE",
+      "source_conversation_id": "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "only_current_working_concentration_confirmed": true,
+        "neat_current_stock_owned": false,
+        "parallel_current_stock_authorized": false,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": false,
+        "quantitative_dosing_ready": false,
+        "supplier_asserted": false,
+        "purity_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "Recovered V7 current working stock: 20% w/w. This is the only current concentration; no neat or alternate-concentration parallel stock is owned or authorized. V6 recipe files describing a 10% DPG preparation remain historical provenance only. Carrier remains unproven, so quantitative formula construction remains on HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260830-011",
+      "canonical_name": "Castoreum Synthetic",
+      "aliases": [
+        "PerfumersWorld Castoreum Synthetic",
+        "Castoreum Synthetic 6UP07515"
+      ],
+      "state": "OWNED",
+      "category": "leather_smoky_phenolic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-30",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_WITH_OFFICIAL_SUPPLIER_IDENTITY",
+      "supplier": {
+        "name": "PerfumersWorld",
+        "perfumersworld_sku": "6UP07515",
+        "product_url": "https://www.perfumersworld.com/view.php?pro_id=6UP07515",
+        "document_url": "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen&pro_id=6UP07515",
+        "supplier_material_form": "proprietary perfume compound; no alcohol declared in supplier CoA",
+        "user_stock_relation": "user-prepared or user-held 10% in DEP working stock; supplier material is not relabeled as a supplier 10% product"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": false,
+        "carrier_known": true,
+        "quantitative_dosing_ready": false,
+        "supplier_identity_confirmed": true,
+        "supplier_composition_disclosed": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "The user-authoritative current bottle is 10% in DEP. No w/w, w/v, or v/v basis was supplied, so selection is allowed but active amount, ppm, OAV, and carrier-displacement math remain HOLD. PerfumersWorld SKU 6UP07515 is the exact supplier identity and a proprietary non-animal castoreum compound; it is distinct from Castoreum F-TEC 6UP18499 and Castoreum Fleuressence 6UP11559. Supplier documentation does not create sensory, final-product safety, stability, liking, similarity, or release authority. Historical formulas are not rebased."
+    }
+  ]
+}
