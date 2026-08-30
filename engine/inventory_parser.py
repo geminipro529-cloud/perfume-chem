@@ -762,7 +762,7 @@ def load_current_user_inventory_overlay(
         raise InventoryAuthorityError(
             f"current user inventory overlay is missing: {overlay_path}"
         )
-    overlay_sha = _file_sha256(overlay_path)
+    overlay_sha = _normalized_text_sha256(overlay_path)
     if require_pinned_overlay and overlay_sha != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
         raise InventoryAuthorityError(
             "current user inventory overlay hash drift: "
