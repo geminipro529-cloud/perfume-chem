@@ -7,8 +7,8 @@
   "current_authority_files": [
     {
       "path": "inventory.txt",
-      "size_bytes": 20497,
-      "sha256": "ed0d41b8fc1c797fd3e828bac249cdd55d9421025f896c4ab0dea0eb0baa751b",
+      "size_bytes": 20256,
+      "sha256": "46b34ae73406ff3d71c60d77298a0c22f6aeafe74aa2a4c510f554e3840595bf",
       "role": "CURRENT_CONSOLIDATED_USER_STOCK_TEXT",
       "raw_stock_rows": 279
     },
@@ -33,7 +33,7 @@
     {
       "path": "data/governance/inventory_user_authority_overlay_20260828.json",
       "size_bytes": 42672,
-      "sha256": "f738ffb9d0755f3509a57666f7a4a217942ddd8e644eab46aa6e3b746b856e19",
+      "sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564",
       "role": "HASH_PINNED_USER_AUTHORITY_OVERLAY"
     },
     {
@@ -52,20 +52,20 @@
   "frozen_evidence_files": [
     {
       "path": "data/governance/inventory_supplier_document_census_20260830.json",
-      "size_bytes": 727254,
-      "sha256": "93cc4eb1c54d1e28c979677dc477592e3ac65f908946df5fd9ea3e21b848bde6",
+      "size_bytes": 709580,
+      "sha256": "d26e5e9ac4cdd096cb0d79e78bc108d1c5558985999c788e531edb6d79bdcaee",
       "role": "FROZEN_273_ROW_SUPPLIER_DOCUMENT_CENSUS"
     },
     {
       "path": "data/source_manifests/perfumersworld_inventory_documents_20260830.json",
-      "size_bytes": 364631,
-      "sha256": "d5527b2692b907e3566eb94c3fc814291f3a8935d68e56d830aad2ecbc82534e",
+      "size_bytes": 354855,
+      "sha256": "d164b9429e89932454f1063855780ac8d070895edd0f7263133f2d182b798950",
       "role": "FROZEN_SUPPLIER_DOCUMENT_ARCHIVE_MANIFEST"
     },
     {
       "path": "docs/research/INVENTORY_273_MATERIAL_DOCUMENT_REGISTER_20260830.md",
-      "size_bytes": 55214,
-      "sha256": "94e251b9896396dfe7d7720991345332db605f731e8c83bc428c00b5eecc1240",
+      "size_bytes": 54923,
+      "sha256": "c0a6def93e99175178854978558aec8f40d20218cd828b2d6d3eff085beacce7",
       "role": "FROZEN_PRE_SYNC_273_ROW_REGISTER"
     },
     {
@@ -78,20 +78,20 @@
   "compatibility_files": [
     {
       "path": "engine/inventory_parser.py",
-      "size_bytes": 59870,
-      "sha256": "3f1bee972cf0196434f5fc33e469563987cc7283b98818c50448c2eae51b10b5",
+      "size_bytes": 60092,
+      "sha256": "346db09cdbf9abffd10fa5d4a2245add8b35ade201b6b128c5a55f6f55a6ec6a",
       "role": "CURRENT_HASH_PIN_AND_PLANNED_PREPARATION_PARSER"
     },
     {
       "path": "engine/name_utils.py",
-      "size_bytes": 9712,
-      "sha256": "e591e6d3adf2f10b94848bc90c21214e4171c1c489768d8d5152a5edcf8bebd8",
+      "size_bytes": 9511,
+      "sha256": "028c560752753f3b84ca0389994dc6e813b5e1ec8811f6b7707be4d0a8325f37",
       "role": "EVERNYL_AND_TELVADA_IDENTITY_COMPATIBILITY"
     },
     {
       "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
-      "size_bytes": 5320,
-      "sha256": "47512963f07964aca5972c2d77fdde4cf38237357e06a344324067359b28b532",
+      "size_bytes": 5757,
+      "sha256": "bbcbdabfa10a2b7c0384ef4c6c9ddbc70eee4792f291fb9e6e59c64a4b02d7b8",
       "role": "CURRENT_STOCK_SYNC_REGRESSION_TEST"
     },
     {
@@ -102,7 +102,8 @@
     }
   ],
   "distribution_policy": {
-    "exact_file_bytes_required": true,
+    "exact_committed_blob_content_required": true,
+    "working_tree_line_endings_may_follow_checkout_attributes": true,
     "overwrite_formula_files": false,
     "merge_formulation_worktrees": false,
     "rewrite_historical_formulas": false,
